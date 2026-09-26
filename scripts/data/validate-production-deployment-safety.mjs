@@ -128,6 +128,11 @@ requireText(productionSurfaces, "['texas-before-us-source-panel', '/article/texa
 requireText(productionSurfaces, "['texas-before-us-statehood-source', '/article/texas-before-united-states-how-texas-began', 'Texas State Library and Archives Commission — Statehood']", 'Texas-before-U.S. live authority-source check');
 requireText(productionSurfaces, "['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story']", 'James Hogg related-reading renderer check');
 requireText(productionSurfaces, "['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history']", 'James Hogg reciprocal Foundation link check');
+requireText(productionSurfaces, "['sallie-hogg-authority', '/article/sallie-hogg-texas-legacy', 'The Texas First Lady Who Shaped the Hogg Family']", 'Sallie Hogg live authority check');
+requireText(productionSurfaces, "['quitman-hogg-heritage', '/destination/governor-jim-hogg-city-park-quitman', 'Governor Jim Hogg City Park']", 'Quitman Hogg heritage live destination check');
+requireText(productionSurfaces, "['texas-history-sallie-hogg-discovery', '/texas-history', 'Family · first lady · public service']", 'Sallie Hogg Texas History discovery check');
+requireText(productionSurfaces, "['james-hogg-sallie-link', '/texas-icons/james-hogg', '/article/sallie-hogg-texas-legacy']", 'James Hogg reciprocal Sallie link check');
+requireText(productionSurfaces, "['james-hogg-quitman-link', '/texas-icons/james-hogg', '/destination/governor-jim-hogg-city-park-quitman']", 'James Hogg reciprocal Quitman link check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
