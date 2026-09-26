@@ -1,0 +1,177 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+const image = (src: string, alt: string, width: number, height: number, credit: string, caption: string): ArticleBlock => ({
+  type: "image",
+  image: { src, alt, width, height, credit },
+  caption,
+});
+
+export const texasBeforeUnitedStatesArticle: Article = {
+  id: "evergreen-texas-before-united-states-how-texas-began",
+  brandId: "texasdefined",
+  slug: "texas-before-united-states-how-texas-began",
+  title: "Texas Before the United States: How Texas Began",
+  dek: "Texas did not begin as a U.S. state—or even with the Republic. This chronological guide follows Indigenous Texas, Spanish and French incursions, Mexican Texas, the Revolution, the independent Republic and the long road to U.S. statehood.",
+  category: "texas-history",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lee_Map_of_Texas_1836_UTA.jpg?width=1600",
+    alt: "Edmund Francis Lee's 1836 map of Texas showing grants, settlements, rivers and neighboring territory",
+    width: 1600,
+    height: 2396,
+    credit: "Edmund Francis Lee · 1836 · UTA Libraries Special Collections · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  updatedAt: "2026-09-26",
+  readingMinutes: 18,
+  tags: [
+    "Texas history",
+    "Texas before statehood",
+    "Indigenous Texas",
+    "Spanish Texas",
+    "French Texas",
+    "Mexican Texas",
+    "Coahuila y Tejas",
+    "Texas Revolution",
+    "Republic of Texas",
+    "Texas annexation",
+    "Texas statehood",
+  ],
+  featured: true,
+  sourceName: "Texas Historical Commission — Indigenous Texas and Exploration",
+  sourceUrl: "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
+  internalLinks: [
+    { href: "/texas-history", label: "Texas History", description: "Browse the statewide history collection, historic sites, museums and deeper narrative guides." },
+    { href: "/article/spanish-texas-military-battle-medina", label: "Spanish Texas before 1821", description: "Go deeper on presidios, imperial rivalry, the Gutiérrez-Magee Expedition and the Battle of Medina." },
+    { href: "/article/mexican-texas-military-history", label: "Mexican Texas, 1821–1835", description: "Follow Coahuila y Tejas, the Fredonian Rebellion, Anahuac and the road to Gonzales." },
+    { href: "/article/texas-revolution-historic-sites-road-trip", label: "Texas Revolution historic sites", description: "Follow the 1835–1836 sequence from Gonzales and San Felipe through the Alamo, Goliad and San Jacinto." },
+    { href: "/article/republic-of-texas-government-trail", label: "Republic of Texas government trail", description: "Trace the Republic through San Felipe, Washington-on-the-Brazos, Columbia, Houston and Austin." },
+    { href: "/article/republic-of-texas-navy-history", label: "The Republic of Texas Navy", description: "See how the independent republic defended Gulf supply lines and projected power at sea." },
+    { href: "/article/history-of-the-texas-flag", label: "History of the Texas flag", description: "Follow the flags of revolution, the Republic and statehood." },
+    { href: "/article/six-flags-over-texas-meaning", label: "What the Six Flags over Texas mean", description: "Put Spain, France, Mexico, the Republic, the Confederacy and the United States into one sovereignty timeline." },
+    { href: "/destination/washington-on-the-brazos", label: "Washington-on-the-Brazos", description: "Visit the place where delegates adopted the Texas Declaration of Independence in March 1836." },
+    { href: "/destination/san-jacinto-battleground", label: "San Jacinto Battleground", description: "Stand on the landscape where the decisive battle of the Texas Revolution was fought on April 21, 1836." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: [
+    "san-antonio-missions-national-historical-park",
+    "the-alamo",
+    "presidio-la-bahia",
+    "san-felipe-de-austin",
+    "washington-on-the-brazos",
+    "star-of-the-republic-museum",
+    "san-jacinto-battleground",
+    "first-capitol-of-texas",
+    "french-legation",
+    "barrington-living-history-farm",
+  ],
+  body: [
+    p("Texas did not begin in 1836, and it did not begin when it joined the United States. The land now called Texas already held diverse Indigenous societies long before Europeans attempted to map, claim or colonize it. Over the next three centuries, different governments asserted sovereignty over parts of the region, borders moved, communities formed and disappeared, and the political entity called Texas changed from a Spanish province to part of Mexico, then to an independent republic and finally to a U.S. state."),
+    p("That longer chronology matters because familiar Texas symbols—the Lone Star, the Alamo, the Republic, the state flag—sit near the end of the origin story, not the beginning. To understand how Texas became Texas, start before there was a Texas government at all."),
+
+    h("Before Texas had a name: Indigenous homelands"),
+    p("The territory that became Texas was home to Native peoples for many millennia before European contact. There was no single Indigenous Texas. Different nations and communities lived within distinct ecological regions, traded across long distances and adapted to landscapes ranging from the Piney Woods and Gulf Coast to the Southern Plains, Hill Country and desert borderlands."),
+    p("The Caddo built agricultural communities and regional trade networks in East Texas. Karankawa peoples lived along the Gulf Coast. Numerous Native groups in South Texas and northeastern Mexico are often grouped under the broad historical label Coahuiltecan, although that term can hide important linguistic and cultural differences. Tonkawa communities lived in central parts of the region, while Apache and later Comanche power reshaped the Plains and frontier zones. These peoples were political actors in their own right, not background figures waiting for European settlement."),
+    p("The word Texas itself reaches back to this Indigenous world. Spanish forms such as Tejas were derived from a Caddo word commonly translated as friends or allies. A name associated with Caddo diplomacy eventually became the name of a Spanish province, an independent republic and a U.S. state."),
+    p("European colonization brought warfare, disease, missions, forced cultural change, new trade systems, livestock and competition for land. Native nations responded in different ways: some traded or allied with European powers, some entered missions, some resisted, some migrated, and many did several of those things at different times. Any account of how Texas began is incomplete if it treats Indigenous history as merely a preface."),
+
+    h("1519–1684: Europeans map a coast they do not control"),
+    p("Spanish exploration brought the Texas Gulf Coast into European maps in the early sixteenth century. Alonso Álvarez de Pineda's 1519 voyage mapped much of the northern Gulf coastline. In 1528, survivors of the Narváez expedition, including Álvar Núñez Cabeza de Vaca, reached the Texas coast and lived for years among Native communities before traveling west and south toward New Spain."),
+    p("Later Spanish expeditions crossed or approached parts of what is now Texas, but mapping and claiming territory were not the same as controlling it. For much of the sixteenth and seventeenth centuries, Spain's strongest colonial centers remained far to the south and west. The region between New Spain, French Louisiana and Native-controlled country functioned more as a vast borderland than as a settled European province."),
+
+    h("1685: a French settlement changes Spain's priorities"),
+    p("France's most important direct foothold in Texas was brief but consequential. In 1685, René Robert Cavelier, Sieur de La Salle, established a settlement near Matagorda Bay after missing the mouth of the Mississippi River. The colony failed within a few years, but Spanish officials considered a French presence on the Gulf a strategic threat."),
+    p("Spain responded by searching for La Salle's settlement and expanding activity in East Texas. The French episode is why the familiar phrase Six Flags over Texas includes France even though French control was limited and short-lived compared with Spanish or Mexican rule. Its greater significance was geopolitical: the possibility of French expansion helped convince Spain that the region could no longer remain a lightly occupied buffer."),
+    image(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Young_%26_Mitchell_A_New_Map_of_Texas_1836_UTA.jpg?width=1600",
+      "An 1836 map of Texas and neighboring American and Mexican states showing settlements, rivers and colonial-era geography",
+      1600,
+      1108,
+      "H. S. Tanner / Young & Mitchell · 1836 · UTA Libraries Special Collections · Public domain · Wikimedia Commons",
+      "Maps published around the Revolution show a Texas whose political boundaries, settlements and transportation corridors looked very different from the modern state."
+    ),
+
+    h("1690–1821: Spanish Texas takes shape"),
+    p("Spanish Texas developed through missions, presidios, ranches, roads and towns rather than through dense settlement across the entire region. Missionaries and soldiers established missions in East Texas beginning in the 1690s, while San Antonio became the most durable Spanish urban center after the founding of Mission San Antonio de Valero and the presidio and civil settlement that followed in 1718."),
+    p("Other important centers included La Bahía near present-day Goliad, Los Adaes near the Louisiana border and the missions along the San Antonio River. The mission system aimed to extend Spanish religion and political authority, but missions also became places of cultural disruption, disease, labor demands and negotiation between Native peoples and colonial institutions."),
+    p("Ranching developed early under Spanish rule, especially around San Antonio and the Gulf Coast. Roads such as El Camino Real linked settlements to Louisiana and the interior of New Spain. Yet Spanish authority remained uneven. Large areas were dominated by Native nations whose military and economic power constrained where Spaniards could safely travel or settle."),
+    p("The eighteenth century also transformed the Plains. Horses, firearms and new trade networks helped Comanche power expand southward. Apache communities moved and adapted under pressure. Spanish officials alternated between warfare, diplomacy, trade and mission strategies. Texas was therefore never simply a block of land passed cleanly from one empire to another; it was a contested borderland whose effective control differed sharply from maps drawn in distant capitals."),
+    p("By the early nineteenth century, unrest in New Spain and along the Louisiana border produced filibustering expeditions and revolutionary movements. The Gutiérrez-Magee Expedition briefly captured San Antonio before a Spanish royalist army destroyed the republican force at the Battle of Medina in 1813. That battle came more than two decades before the Alamo and shows that armed struggles over sovereignty in Texas did not begin in 1835."),
+
+    h("1821: Texas becomes part of independent Mexico"),
+    p("Mexico won independence from Spain in 1821. Spanish Texas did not become an independent Texas; sovereignty passed to the new Mexican nation. Texas was eventually joined with Coahuila in the state of Coahuila y Tejas under the federal Constitution of 1824."),
+    p("The transition preserved many older communities while opening a new phase of colonization. Mexican authorities used empresario contracts to encourage settlement in sparsely populated areas. Stephen F. Austin continued a colonization project begun under Spanish authority, bringing the settlers remembered as the Old Three Hundred into the Brazos and Colorado river valleys. Other empresarios—Anglo, Tejano and European—established additional colonies."),
+    p("Mexican Texas was not simply a story of newcomers from the United States. Tejano families, including long-established communities around San Antonio, Goliad and the lower Rio Grande, participated in ranching, trade and politics. Figures such as José Antonio Navarro and Juan Seguín later played prominent roles in the Texas Revolution and Republic. At the same time, immigration from the United States rapidly changed the demographic and political balance in some eastern colonies."),
+
+    h("Why tensions with Mexico grew"),
+    p("Several disputes overlapped: immigration policy, customs enforcement, local self-government, federalism, military authority, land titles and slavery. Mexico moved toward restricting slavery while many immigrants from the United States came from slaveholding states and wanted to preserve enslaved labor. The Law of April 6, 1830 attempted to curb further immigration from the United States, strengthen customs collection and increase Mexican military presence in Texas."),
+    p("Conflict did not make independence inevitable. During the Fredonian Rebellion of 1826–1827, Stephen F. Austin and many colonists sided with Mexican authorities against a separatist revolt near Nacogdoches. Even in the early 1830s, many Texas political leaders framed their demands as support for the federal Constitution of 1824 rather than a call for a new nation."),
+    p("The Anahuac disturbances, Turtle Bayou Resolutions, conventions of 1832 and 1833, Austin's imprisonment in Mexico and President Antonio López de Santa Anna's shift toward centralized government deepened distrust. By 1835, political arguments were becoming military confrontations."),
+
+    h("1835–1836: revolution creates an independent Texas"),
+    p("The armed phase of the Texas Revolution began at Gonzales on October 2, 1835, after Mexican troops attempted to recover a small cannon previously provided to local settlers. Texian forces then moved against Mexican garrisons, including the campaign that drove General Martín Perfecto de Cos from San Antonio in December."),
+    p("The following spring produced the events that dominate popular memory. Mexican forces under Santa Anna besieged the Alamo from February 23 to March 6, 1836. On March 2, while the siege was still underway, delegates at Washington-on-the-Brazos adopted the Texas Declaration of Independence and began organizing a new republic. The Goliad campaign ended with the execution of hundreds of captured Texian soldiers later that month."),
+    p("As Mexican forces advanced eastward, civilians and government officials fled during the Runaway Scrape. Sam Houston's army retreated and trained until April 21, when it attacked Santa Anna's camp near the San Jacinto River. The Texian victory at San Jacinto and Santa Anna's capture ended the immediate campaign and gave the new Republic of Texas de facto independence."),
+    p("Mexico did not accept Texas independence through a ratified peace settlement, so the Republic's relationship with Mexico remained unsettled. That unresolved conflict—and disagreement over whether the boundary lay at the Nueces River or the Rio Grande—would become central after annexation."),
+
+    h("1836–1845: Texas exists as its own country"),
+    p("For almost a decade, Texas was an independent nation: the Republic of Texas. It elected presidents and a Congress, maintained diplomatic representatives, issued currency, operated an army and navy, established postal and customs systems, and sought recognition abroad."),
+    p("The government moved repeatedly. San Felipe had been the political center of the late Mexican period and provisional government. Washington-on-the-Brazos hosted the independence convention. Columbia hosted the Republic's first Congress and Sam Houston's first presidential inauguration. Houston became the capital in 1837, and the government moved to the new city of Austin in 1839. Washington again served as a temporary capital during the Archive War crisis before the government returned to Austin."),
+    p("The Republic faced enormous problems. Public debt mounted. Mexico continued to reject the loss of Texas and launched incursions in 1842. The Santa Fe Expedition failed. Relations with Comanche and other Native nations involved diplomacy, trade, violent conflict and competing policies under different administrations. The Republic also protected slavery in law, making the institution part of both its domestic economy and the international controversy surrounding annexation."),
+    image(
+      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Wpdms_republic_of_texas.svg?width=1200",
+      "Map of the Republic of Texas from 1836 to 1845 showing the broad territory claimed by the republic",
+      1200,
+      1478,
+      "Ch1902 · CC BY-SA 3.0 · Wikimedia Commons",
+      "The Republic claimed a much larger territory than modern Texas. Claimed boundaries on a map did not mean the government exercised effective control across every part of that territory."
+    ),
+    p("The Republic's claimed boundaries were much larger than the outline of modern Texas, extending into areas that are now parts of New Mexico, Colorado, Oklahoma, Kansas and Wyoming. Effective control was far more limited. The lower Rio Grande boundary remained disputed with Mexico, and Native nations retained control over large parts of the west and northwest. The modern state boundary took shape later, especially through the Compromise of 1850."),
+
+    h("Why Texas did not join the United States immediately"),
+    p("Annexation was popular among many Texans from the beginning. In September 1836, voters in the new Republic strongly favored seeking annexation. The United States nevertheless hesitated. Annexing Texas risked war with Mexico, raised constitutional and diplomatic questions and intensified the national dispute over the expansion of slavery."),
+    p("The United States recognized the Republic in 1837, but recognition was not annexation. France recognized Texas in 1839, and Britain and other powers developed diplomatic and commercial relations with the Republic. For Texas leaders, foreign recognition could strengthen the nation's bargaining position even as many continued to seek admission to the United States."),
+    p("An annexation treaty negotiated in 1844 was rejected by the U.S. Senate. The issue then became part of the 1844 U.S. presidential election. In 1845, Congress changed the route by passing a joint resolution offering annexation rather than relying on a treaty requiring a two-thirds Senate vote."),
+
+    h("1845–1846: Republic to U.S. state"),
+    p("President John Tyler signed the U.S. annexation resolution on March 1, 1845. Texas President Anson Jones called the Texas Congress into special session, and a convention meeting in Austin on July 4 accepted the U.S. offer and rejected a separate proposal under which Mexico would recognize Texas independence if the Republic remained separate from the United States."),
+    p("Texas voters approved annexation and a new state constitution in October 1845. The U.S. Congress approved Texas statehood, and President James K. Polk signed the admission resolution on December 29, 1845. That date is Texas's legal date of admission as the 28th state."),
+    p("The Republic's government did not disappear that same day. On February 19, 1846, state officials formally took office in Austin and President Anson Jones turned authority over to Governor J. Pinckney Henderson. The independent Republic of Texas was over."),
+    p("Annexation did not settle every question. The United States and Mexico still disputed the southern boundary, and U.S. troops moved into the contested area between the Nueces River and Rio Grande. Fighting in 1846 opened the U.S.–Mexican War. The Treaty of Guadalupe Hidalgo ended that war in 1848 and recognized the Rio Grande boundary. In 1850, Texas surrendered much of its far-western territorial claim to the United States in exchange for federal assumption of debt, helping create the familiar modern outline of the state."),
+
+    h("The shortest useful timeline"),
+    list(
+      "Before European contact — Diverse Indigenous nations and communities occupy and shape the region for millennia.",
+      "1519 — Alonso Álvarez de Pineda maps much of the northern Gulf Coast.",
+      "1528 — Cabeza de Vaca and other Narváez expedition survivors reach the Texas coast.",
+      "1685 — La Salle establishes a short-lived French settlement near Matagorda Bay.",
+      "1690s–1700s — Spain expands missions, presidios, ranching and settlements in Texas.",
+      "1718 — San Antonio is founded as a mission-presidio complex and becomes the enduring center of Spanish Texas.",
+      "1813 — The Battle of Medina crushes the Gutiérrez-Magee republican movement near San Antonio.",
+      "1821 — Mexico wins independence from Spain; Texas becomes part of independent Mexico.",
+      "1824 — Texas is joined with Coahuila in the Mexican state of Coahuila y Tejas.",
+      "1820s–1830s — Empresario colonies accelerate immigration and settlement.",
+      "1830 — Mexico's Law of April 6 restricts U.S. immigration and strengthens enforcement.",
+      "October 2, 1835 — Battle of Gonzales begins the armed phase of the Texas Revolution.",
+      "March 2, 1836 — Delegates at Washington-on-the-Brazos declare Texas independent.",
+      "March 6, 1836 — The Alamo falls.",
+      "March 27, 1836 — Captured Texian soldiers are executed at Goliad.",
+      "April 21, 1836 — Texian victory at San Jacinto secures de facto independence.",
+      "1836–1845 — The Republic of Texas operates as an independent nation.",
+      "December 29, 1845 — Texas is admitted to the United States as the 28th state.",
+      "February 19, 1846 — The Republic formally transfers authority to the new state government."
+    ),
+
+    h("Where the origin story survives on the ground"),
+    p("Texas history is unusually visitable. San Antonio Missions National Historical Park preserves the mission landscape of Spanish Texas. The Alamo connects Spanish mission history to the 1836 siege. Presidio La Bahía links Spanish, Mexican and revolutionary eras. San Felipe de Austin preserves the empresario capital. Washington-on-the-Brazos interprets independence and the Republic's founding government. San Jacinto preserves the battlefield that changed the war. West Columbia remembers the first Congress, while Austin's French Legation and Barrington Living History Farm connect diplomacy, government and the final years before annexation."),
+    p("Those places work best as pieces of one chronology. A mission is not only a Spanish colonial site; it is also part of Indigenous history. San Felipe is not only an Anglo settlement; it was a community operating under Mexican law. Washington-on-the-Brazos is not only a declaration site; it is where delegates tried to create institutions while an army approached. The Republic is not only a nine-year national myth; it is the bridge between Mexican Texas and American statehood."),
+
+    h("So when did Texas actually begin?"),
+    p("There is no single date that answers the question. The land's human history begins thousands of years before the word Texas. Spanish officials gradually turned Tejas into the name of a colonial province. Mexico inherited that province in 1821. The political break that created an independent Texas came in 1836. The Republic became a U.S. state in 1845, with the formal governmental transfer completed in 1846."),
+    p("The best answer is therefore a sequence rather than an anniversary: Indigenous homelands came first; European empires contested the borderlands; Spain built a province; Mexico inherited and reorganized it; migration and political conflict destabilized Mexican Texas; revolution created a republic; and annexation transformed that republic into the State of Texas."),
+    p("Source basis: Texas Historical Commission resources on Indigenous Texas and early exploration; Handbook of Texas entries on Spanish Texas, La Salle's settlement, Mexican Texas and the Republic of Texas; and Texas State Library and Archives Commission records and exhibits on the Republic, annexation and statehood. Dates and boundary notes are presented to distinguish legal claims from effective control and to avoid compressing a long borderlands history into the 1836 Revolution alone."),
+  ],
+};
