@@ -57,8 +57,12 @@ for (const [needle, label] of [
 
 for (const [needle, label] of [
   ["CLOUDFLARE_WORKERS_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke dedicated Workers credential fallback'],
+  ["CLOUDFLARE_ZONE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke zone-capable credential fallback'],
   ['workers_auth="Authorization: Bearer $CLOUDFLARE_WORKERS_API_TOKEN"', 'Cloudflare smoke Workers authorization header'],
+  ['zone_auth="Authorization: Bearer $CLOUDFLARE_ZONE_API_TOKEN"', 'Cloudflare smoke zone authorization header'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts"', 'Cloudflare smoke Workers Scripts credential routing'],
+  ['curl --fail-with-body --silent --show-error -H "$zone_auth" --get \\\n            --data-urlencode \'name=texasdefined.com\'', 'Cloudflare smoke zone lookup credential routing'],
+  ['curl --fail-with-body --silent --show-error -H "$zone_auth" --get \\\n            --data-urlencode \'per_page=100\'', 'Cloudflare smoke DNS credential routing'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" --get \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"', 'Cloudflare smoke Workers Domains credential routing'],
 ]) requireText(cloudflareSmoke, needle, label);
 
@@ -206,4 +210,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and zone/DNS probes through the proven zone-capable credential chain, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
