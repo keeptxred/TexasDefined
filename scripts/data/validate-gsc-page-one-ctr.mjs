@@ -8,6 +8,12 @@ const charro = fs.readFileSync('src/data/major-event-expanded-authority-tranche5
 const settlementStub = fs.readFileSync('src/data/fixtures/texas-explained-support-stubs.ts', 'utf8');
 const failures = [];
 
+const governedSeoPathMatches = [...seo.matchAll(/^\s{2}"(\/[^"\n]+)":\s*\{/gm)].map((match) => match[1]);
+const duplicateGovernedSeoPaths = [...new Set(governedSeoPathMatches.filter((path, index, all) => all.indexOf(path) !== index))];
+if (duplicateGovernedSeoPaths.length) {
+  failures.push('Duplicate governed SEO override paths: ' + duplicateGovernedSeoPaths.join(', '));
+}
+
 for (const required of [
   'const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {',
   '? TEXASDEFINED_GSC_SSR_OVERRIDES[page.canonicalPath] ?? TEXASDEFINED_TECHNICAL_SEO_OVERRIDES[page.canonicalPath]',
@@ -251,7 +257,6 @@ const seventhWave = [
   { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
   { path: "/article/texas-culture-social-customs-newcomers", title: "Texas Culture & Traditions: Newcomer Guide to Social Customs", description: "Understand Texas culture, traditions and everyday social customs" },
   { path: "/things-unique-to-texas", title: "What Is Texas Known For? Iconic Foods, Places & Traditions", description: "Explore things strongly associated with Texas" },
-  { path: "/article/texas-guadalupe-river-guide", title: "Guadalupe River Texas: Canyon Lake, Tubing, Basin & River Guide", description: "Follow the Guadalupe River through the Hill Country" },
   { path: "/destination/natural-bridge-wildlife-ranch", title: "Natural Bridge Wildlife Ranch: Tickets, Hours & Visitor Guide", description: "Plan a Natural Bridge Wildlife Ranch visit near San Antonio" },
   { path: "/event/lone-star-cowboy-poetry-gathering-bastrop", title: "Lone Star Cowboy Poetry Gathering 2027: Bastrop Dates & Guide", description: "returns to Bastrop Sept. 3-4, 2027" },
   { path: "/event/schulenburg-festival", title: "Schulenburg Festival 2027: Dates, Schedule & Visitor Guide", description: "Schulenburg Festival runs Aug. 5-8, 2027" },
