@@ -114,6 +114,10 @@ requireText(productionSurfaces, "['ima-hogg-authority', '/article/ima-hogg-texas
 requireText(productionSurfaces, "['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation']", 'Hogg family live authority check');
 requireText(productionSurfaces, "['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas']", 'Hogg family Texas History discovery check');
 requireText(productionSurfaces, "['texas-history-ima-hogg-discovery', '/texas-history', 'Follow the Houston patron who helped build the symphony, the Hogg Foundation, Bayou Bend and a statewide preservation legacy.']", 'Ima Hogg Texas History discovery check');
+requireText(productionSurfaces, "['will-hogg-authority', '/article/will-hogg-texas-legacy', 'Will Hogg: The Businessman, Civic Planner and Philanthropist Behind a Texas Family Legacy']", 'Will Hogg live authority check');
+requireText(productionSurfaces, "['bayou-bend-hogg-legacy', '/destination/bayou-bend-collection-gardens', 'Bayou Bend Collection and Gardens']", 'Bayou Bend live Hogg legacy destination check');
+requireText(productionSurfaces, "['winedale-hogg-legacy', '/destination/winedale-historical-center', 'The University of Texas historic site near Round Top preserves ten nineteenth-century wooden structures']", 'Winedale live Hogg legacy destination check');
+requireText(productionSurfaces, "['texas-history-will-hogg-discovery', '/texas-history', 'Trace the Hogg sibling who connected oil-era business, River Oaks, university advocacy, arts patronage and the estate that helped create the Hogg Foundation.']", 'Will Hogg Texas History discovery check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
