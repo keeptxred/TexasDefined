@@ -132,8 +132,8 @@ assert.ok(frameworkSource.includes('BreakdownChart'), 'shared framework must inc
 assert.ok(frameworkSource.includes('breakdownClasses'), 'visual breakdowns must distinguish categories instead of rendering one undifferentiated bar');
 
 const mortgageComponentSource = fs.readFileSync('src/components/calculators/OfficialMortgageCalculator.tsx', 'utf8');
-const mortgageFrameworkImport = mortgageComponentSource.match(/import\\s*\\{([\\s\\S]*?)\\}\\s*from '@\\/components\\/property\\/PropertyCalculatorFramework';/)?.[1] ?? '';
-assert.match(mortgageFrameworkImport, /\\bBreakdownChart\\b/, 'OfficialMortgageCalculator must import BreakdownChart before rendering it');
+const mortgageFrameworkImport = mortgageComponentSource.match(/import\s*\{([\s\S]*?)\}\s*from '@\/components\/property\/PropertyCalculatorFramework';/)?.[1] ?? '';
+assert.match(mortgageFrameworkImport, /\bBreakdownChart\b/, 'OfficialMortgageCalculator must import BreakdownChart before rendering it');
 assert.ok(mortgageComponentSource.includes('<BreakdownChart items={housingBreakdown}/>'), 'OfficialMortgageCalculator must render the shared mortgage breakdown chart');
 
 console.log('Calculator platform validation passed: golden math, edge cases, cross-calculator consistency, universal actions, and shared breakdown components.');
