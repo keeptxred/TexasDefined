@@ -27,6 +27,7 @@ export const hoggFamilyTexasLegacyArticle: Article = {
   sourceUrl: "https://hogg.utexas.edu/about/history",
   internalLinks: [
     { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow the sibling whose business, planning, university and philanthropic work helped shape the family's twentieth-century public legacy." },
+    { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "Trace the family endowment from Will's estate through Ima and Mike to its long-term home at The University of Texas." },
     { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Explore the River Oaks home shared by Will, Ima and Mike that became an MFAH house museum." },
     { href: "/destination/winedale-historical-center", label: "Winedale", description: "Visit the Fayette County historic complex Ima Hogg assembled and donated to The University of Texas." },
     { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Follow the arts, mental-health and preservation work that made Ima Hogg a major Texas civic figure in her own right." },
