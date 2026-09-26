@@ -29,6 +29,8 @@ export const brazoriaPlantationsSlaveryEmancipationHistoryArticle: Article = {
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide collection of historic homes, battlefields, forts, missions and museums." },
     { href: "/destination/levi-jordan-plantation", label: "Levi Jordan Plantation", description: "Visit the Brazoria County site where archaeology and interpretation center the people who lived and worked on the plantation before and after emancipation." },
     { href: "/destination/varner-hogg-plantation", label: "Varner-Hogg Plantation", description: "Compare a second Lower Brazos plantation landscape spanning slavery, convict leasing, sharecropping, ranching and the Hogg family's oil-era ownership." },
+    { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Continue from the property's oil-era Hogg chapter into the family's statewide political, philanthropic and preservation legacy." },
+    { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "See how Ima Hogg carried the family story into mental health, arts patronage, Bayou Bend and historic preservation." },
     { href: "/destination/first-capitol-of-texas", label: "First Capitol of Texas", description: "Add the nearby political history of the early Republic to a Brazoria County history route." },
     { href: "/destination/stephen-f-austin-memorial", label: "Stephen F. Austin Memorial", description: "Connect the plantation landscape with Austin's final chapter and the colonization system that shaped early Anglo Texas." },
   ],

@@ -1,0 +1,71 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const imaHoggTexasLegacyArticle: Article = {
+  id: "evergreen-ima-hogg-texas-legacy",
+  brandId: "texasdefined",
+  slug: "ima-hogg-texas-legacy",
+  title: "Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions",
+  dek: "Ima Hogg helped shape Houston music, Texas mental-health philanthropy, historic preservation and American decorative-arts collecting while turning Bayou Bend and Varner-Hogg into public legacies.",
+  category: "texas-history",
+  region: "gulf-coast",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ImaHogg.jpg?width=1200",
+    alt: "Portrait of Ima Hogg around 1900",
+    width: 1012,
+    height: 1419,
+    credit: "The Elliotts / Museum of Fine Arts, Houston Archives · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-25",
+  readingMinutes: 9,
+  tags: ["Ima Hogg", "Hogg family", "Bayou Bend", "Houston history", "Hogg Foundation", "historic preservation", "Texas philanthropy"],
+  featured: false,
+  sourceName: "Handbook of Texas — Ima Hogg",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-ima",
+  internalLinks: [
+    { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children Will, Ima, Mike and Tom connected politics, oil-era wealth, philanthropy and preservation." },
+    { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Ima Hogg's father, the first native-born Texan to serve as governor." },
+    { href: "/destination/varner-hogg-plantation", label: "Varner-Hogg Plantation", description: "Visit the Brazoria County property the Hogg heirs later preserved and Ima donated to the state." },
+    { href: "/destination/museum-of-fine-arts-houston", label: "Museum of Fine Arts, Houston", description: "Connect Ima Hogg's collecting and Bayou Bend gift to the museum she supported for decades." },
+    { href: "/texas-history", label: "Explore Texas history", description: "Continue through TexasDefined's statewide history collection." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [
+    p("Ima Hogg is one of the clearest examples of a private Texas fortune being redirected into long-lived public institutions. Born in Mineola in 1882 to James Stephen Hogg and Sarah Ann 'Sallie' Stinson Hogg, she grew up inside a family already tied to state politics. Her father became governor while she was a child, but her own public importance eventually rested less on being a governor's daughter than on what she built, funded, collected and preserved."),
+    p("Her legacy crosses fields that are often treated separately: orchestral music, children's mental health, historic preservation, public education, museum collecting and philanthropy. Looking at those strands together explains why her name appears across Houston cultural history, the University of Texas, Bayou Bend and Varner-Hogg Plantation."),
+    h("A governor's daughter who became a civic institution in her own right"),
+    p("The Handbook of Texas records that Ima was the only daughter of James and Sallie Hogg and had three brothers: William Clifford, usually called Will; Michael, usually called Mike; and Thomas Elisha, usually called Tom. The family moved through several Texas communities as James Hogg's legal and political career advanced. After Sallie died in 1895, Ima's bond with her father became especially close."),
+    p("Music was one of Ima's earliest serious interests. She studied piano in New York and later in Berlin and Vienna. After settling in Houston, she taught piano and helped organize the Houston Symphony, which performed its first concert in 1913. She served in leadership roles with the orchestra for decades, helping give Houston a permanent classical-music institution at a time when the city was growing rapidly."),
+    h("Mental health became a family philanthropic mission"),
+    p("Ima's mental-health work was not an isolated late-life project. The Hogg Foundation for Mental Health traces the family's interest to James Hogg's concern for people served by state institutions and to the children's sense that wealth carried public obligations. Ima also experienced a period of serious illness herself and spent time under specialist care before returning to Houston in the early 1920s."),
+    p("In 1929 she founded the Houston Child Guidance Center to expand counseling and therapeutic services for children and families. The larger family legacy followed after Will Hogg died in 1930. His estate directed substantial resources toward the public good, and Ima and Mike helped convert that inheritance into an endowment at the University of Texas. The Hogg Foundation for Mental Hygiene began in 1940 and later became the Hogg Foundation for Mental Health."),
+    p("The important point is that the foundation was a Hogg-family institution, not simply an individual gift carrying Ima's name. University of Texas and Handbook of Texas histories credit the children of Governor Hogg, with Will's estate providing the core endowment and Ima, Mike, Tom and family members helping establish and sustain the work. Ima became its most visible long-term advocate and pushed a broad concept of mental well-being rather than limiting the mission to institutional treatment."),
+    h("Bayou Bend turned collecting into a public museum"),
+    p("Ima, Will and Mike built Bayou Bend in Houston's River Oaks neighborhood in the 1920s. The house was designed by architect John F. Staub with Birdsall P. Briscoe and became both a family residence and the setting for Ima's growing collection of American decorative and fine arts."),
+    p("The Museum of Fine Arts, Houston describes Bayou Bend as the former home of Ima Hogg and today one of the country's significant collections of American furniture, silver, ceramics, paintings and related material. Ima gave the house, gardens and collection to the museum in the 1950s and spent years helping transform a private residence into a public museum. Bayou Bend opened to the public in 1966."),
+    p("That transfer is central to understanding her style of philanthropy. She did not simply donate money to an existing institution. She assembled collections, shaped physical places, recruited expertise and then built structures intended to survive her own lifetime."),
+    h("Historic preservation linked the Hogg story back to Texas places"),
+    p("Ima also helped preserve places directly tied to her family and to Texas history. At Varner-Hogg Plantation near West Columbia, the Hogg family inherited an oil-era property layered over a much older history of plantation slavery, convict leasing, sharecropping and ranching. Ima restored and furnished the house before donating the property to the State of Texas in 1958."),
+    p("The preservation story needs that full timeline. Varner-Hogg should not be reduced to a Hogg-family country estate. Texas Historical Commission interpretation emphasizes the enslaved people and later laborers who created wealth on the land long before the Hoggs arrived. Ima's donation helped preserve the place, while modern interpretation makes clear that preservation must include the people whose coerced and underpaid labor shaped the property."),
+    p("She also restored Winedale near Round Top and gave it to the University of Texas, supported preservation of family property in Quitman and served on the Texas State Historical Survey Committee, predecessor of the Texas Historical Commission. Those projects helped move historic preservation in Texas beyond monuments toward buildings, landscapes, furnishings and archival evidence."),
+    h("Public education and cultural access mattered as much as collecting"),
+    p("Ima's civic work extended into public schools. In the 1940s she served on the Houston school board, where the Handbook of Texas credits her with supporting equal pay for teachers regardless of sex or race, music programs for students and arts education. The combination is revealing: she treated access to culture, education and mental well-being as parts of public life rather than private luxuries."),
+    p("Her career also included leadership in the Houston Symphony Society, the Philosophical Society of Texas and national cultural and preservation efforts. She advised on historic furnishings for the White House and received major preservation honors, but the lasting measures of her work are institutions Texans can still use: a museum, a foundation, preserved historic sites and cultural organizations."),
+    h("Where to experience Ima Hogg's legacy today"),
+    list(
+      "Bayou Bend Collection and Gardens in Houston preserves her home, gardens and American decorative-arts collection under the Museum of Fine Arts, Houston.",
+      "Varner-Hogg Plantation State Historic Site near West Columbia preserves the layered plantation, labor, ranching, oil and Hogg-family history of the property.",
+      "The Hogg Foundation for Mental Health at the University of Texas continues the family's statewide mental-health philanthropy.",
+      "Winedale near Round Top preserves another major example of Ima Hogg's historic-preservation work.",
+      "The Houston Symphony remains connected to the civic music movement she helped establish in the early twentieth century."
+    ),
+    h("Why Ima Hogg belongs in the larger Texas story"),
+    p("Ima Hogg's importance is not that she was wealthy or that she collected beautiful objects. Her historical significance lies in converting family resources into institutions with public missions. Mental-health philanthropy, arts access and preservation all became ways of deciding what Texans should inherit from one generation to the next."),
+    p("That makes her story inseparable from the Hogg family's political and oil-era history, but it also makes her more than an appendix to James Hogg. She created a distinct civic legacy whose physical and institutional footprint remains visible across Texas."),
+  ],
+};
