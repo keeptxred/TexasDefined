@@ -47,6 +47,25 @@ assert(
   'Dickies Arena must resolve to its existing reusable documentary photo instead of an AI-generated curated override.',
 );
 
+const prosperStadiumMatch = overrideSource.match(/'childrens-health-stadium-prosper': \\{[\\s\\S]*?\\n  \\},/);
+const prosperStadiumSource = prosperStadiumMatch?.[0] ?? '';
+assert(prosperStadiumSource, "Children's Health Stadium must have a curated documentary hero override.");
+for (const marker of [
+  "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Prosper_ISD_Stadium_view_Gate_D_-_August_2026.jpg?width=1600'",
+  "sourcePage: 'https://commons.wikimedia.org/wiki/File:Prosper_ISD_Stadium_view_Gate_D_-_August_2026.jpg'",
+  "sourceName: 'Wikimedia Commons'",
+  "author: 'Ranch9613'",
+  "licenseName: 'CC0 1.0'",
+  "licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/'",
+  "alt: \"Children's Health Stadium, the Prosper ISD stadium in Prosper, Texas, viewed from Gate D\"",
+]) {
+  assert(prosperStadiumSource.includes(marker), `Children's Health Stadium documentary hero is missing required source marker: ${marker}`);
+}
+assert(
+  !/AI-generated|illustration|OpenAI|Copilot|Cloudflare Workers AI/i.test(prosperStadiumSource),
+  "Children's Health Stadium hero must be documentary venue media, not generated or illustrative imagery.",
+);
+
 const legacyMatch = overrideSource.match(/'legacy-stadium-katy': \{[\s\S]*?\n  \},/);
 const legacySource = legacyMatch?.[0] ?? '';
 assert(legacySource, 'Legacy Stadium Katy must have a curated documentary hero override.');
@@ -198,4 +217,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Curated sports venue image layer validated: precedence, HTTPS policy, explicit commercial-reuse licensing, documentary Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park and TPC San Antonio sources, safe site-owner Xtreme fallback, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
+console.log("Curated sports venue image layer validated: precedence, HTTPS policy, explicit commercial-reuse licensing, documentary Children's Health Stadium, Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park and TPC San Antonio sources, safe site-owner Xtreme fallback, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.");
