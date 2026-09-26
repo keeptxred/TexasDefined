@@ -28,6 +28,7 @@ export type TexasIconNarrativeProfile = {
   timeline: readonly { year: string; event: string }[];
   legacy: readonly string[];
   texasPlaces: readonly { name: string; context: string; href?: string }[];
+  relatedLinks?: readonly { href: string; label: string; description: string }[];
   sources: readonly { label: string; url: string }[];
   lastReviewedAt: string;
 };
