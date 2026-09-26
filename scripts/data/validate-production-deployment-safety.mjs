@@ -60,7 +60,7 @@ for (const [needle, label] of [
 
 for (const [needle, label] of [
   ["CLOUDFLARE_WORKERS_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke dedicated Workers credential fallback'],
-  ['Verify Cloudflare Workers, public DNS and AI access', 'Cloudflare smoke least-privilege capability label'],
+  ['Verify Cloudflare Workers, public DNS and production AI binding', 'Cloudflare smoke least-privilege capability label'],
   ['workers_auth="Authorization: Bearer $CLOUDFLARE_WORKERS_API_TOKEN"', 'Cloudflare smoke Workers authorization header'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts"', 'Cloudflare smoke Workers Scripts credential routing'],
   ["for hostname in ('texasdefined.com', 'www.texasdefined.com'):", 'Cloudflare smoke public DNS hostname coverage'],
@@ -68,12 +68,20 @@ for (const [needle, label] of [
   ["grep -qi '^cf-ray:'", 'Cloudflare smoke edge-routing header verification'],
   ["echo 'Public DNS resolution and Cloudflare edge routing verified.'", 'Cloudflare smoke public DNS success marker'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" --get \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"', 'Cloudflare smoke Workers Domains credential routing'],
+  ["-H 'Origin: https://texasdefined.com'", 'Cloudflare smoke production AI same-origin header'],
+  ["-H 'Sec-Fetch-Site: same-origin'", 'Cloudflare smoke production AI fetch-site header'],
+  ['https://texasdefined.com/api/texas-defined-ai?production_smoke=', 'Cloudflare smoke production AI binding endpoint'],
+  ["assert isinstance(answer, str) and len(answer.strip()) >= 20", 'Cloudflare smoke production AI usable-answer requirement'],
 ]) requireText(cloudflareSmoke, needle, label);
 
-for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records']) {
+for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
   if (cloudflareSmoke.includes(retired)) {
     failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);
   }
+}
+
+if (cloudflareSmoke.includes('      CLOUDFLARE_API_TOKEN:')) {
+  failures.push('Cloudflare production smoke must verify Workers AI through the deployed binding instead of requiring a broad direct REST API token.');
 }
 
 if (workflow.includes("CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN ||")) {
@@ -224,4 +232,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and verifies live public DNS/Cloudflare edge routing without requiring unnecessary zone/DNS API scope, targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential, verifies live public DNS/Cloudflare edge routing without privileged zone/DNS scope, and verifies Workers AI through the production binding instead of a broad REST token; targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
