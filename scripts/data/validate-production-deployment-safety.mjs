@@ -72,7 +72,13 @@ for (const [needle, label] of [
   ["-H 'Sec-Fetch-Site: same-origin'", 'Cloudflare smoke production AI fetch-site header'],
   ['https://texasdefined.com/api/texas-defined-ai?production_smoke=', 'Cloudflare smoke production AI binding endpoint'],
   ["assert isinstance(answer, str) and len(answer.strip()) >= 20", 'Cloudflare smoke production AI usable-answer requirement'],
+  ["assert re.search(r'<h1\\\\b', regions, re.I), 'Texas regions article missing H1'", 'Cloudflare smoke Texas regions structural H1 requirement'],
+  ["assert re.search(r'<h1\\\\b', html, re.I), f'Canonical financial target missing H1: {path}'", 'Cloudflare smoke canonical financial H1 requirement'],
 ]) requireText(cloudflareSmoke, needle, label);
+
+if (cloudflareSmoke.includes("assert 'Texas Regions Explained' in regions")) {
+  failures.push('Cloudflare production smoke must not pin Texas regions health to obsolete editorial title copy.');
+}
 
 for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
   if (cloudflareSmoke.includes(retired)) {
