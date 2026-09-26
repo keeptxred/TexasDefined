@@ -17,8 +17,8 @@ const forbidText = (source, needle, label) => {
 
 const generatedCount = wave7.match(/sourceName: "Texas Defined generated media"/g)?.length ?? 0;
 const commonsCount = wave7.match(/sourceName: "Wikimedia Commons"/g)?.length ?? 0;
-if (generatedCount !== 14) failures.push(`Expected 14 generated Wave 7 venue heroes; found ${generatedCount}.`);
-if (commonsCount !== 2) failures.push(`Expected 2 Wikimedia Commons Wave 7 venue heroes; found ${commonsCount}.`);
+if (generatedCount !== 13) failures.push(`Expected 13 generated Wave 7 venue heroes; found ${generatedCount}.`);
+if (commonsCount !== 3) failures.push(`Expected 3 Wikimedia Commons Wave 7 venue heroes; found ${commonsCount}.`);
 
 for (const marker of [
   "const GENERATED_SOURCE_NAME = 'Texas Defined generated media';",
