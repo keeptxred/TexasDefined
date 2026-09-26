@@ -232,7 +232,7 @@ const hoggFamilyHeritageTrailTexasStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 11,
   tags: ["Hogg family", "James Hogg", "Sallie Hogg", "Ima Hogg", "Will Hogg", "Texas history road trip", "Bayou Bend", "Varner-Hogg Plantation", "Winedale"], featured: false,
   sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
-  body: [], relatedCollections: [], relatedDestinations: ["jim-hogg-park-rusk", "governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin", "winedale-historical-center", "bayou-bend-collection-gardens", "varner-hogg-plantation"],
+  body: [], relatedCollections: [], relatedDestinations: ["jim-hogg-park-rusk", "governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin", "winedale-historical-center", "bayou-bend-collection-gardens", "hogg-building-houston", "varner-hogg-plantation"],
 };
 
 const riverOaksHoggBrothersPlanningHistoryStub: Article = {
