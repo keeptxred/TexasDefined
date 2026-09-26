@@ -55,9 +55,17 @@ const QUEUE_KEY = 'texasdefined:analytics-queue';
 const AI_REFERRAL_SESSION_KEY = 'texasdefined:ai-referral-recorded';
 const MAX_QUEUE = 100;
 const ANALYTICS_ENDPOINT = (import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined)?.trim() || '/api/analytics';
+const AUTOMATED_ANALYTICS_USER_AGENT = /(?:HeadlessChrome|Chrome-Lighthouse|Lighthouse|PageSpeed|Googlebot|bingbot|DuckDuckBot|Baiduspider|YandexBot|facebookexternalhit|Twitterbot|LinkedInBot|Slackbot|Discordbot|GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|PerplexityBot)/i;
+
+function isAutomatedAnalyticsClient() {
+  if (typeof navigator === 'undefined') return false;
+  return navigator.webdriver === true || AUTOMATED_ANALYTICS_USER_AGENT.test(navigator.userAgent || '');
+}
 
 function productionAnalyticsEnabled() {
-  return typeof window !== 'undefined' && isTexasDefinedAnalyticsHost(window.location.hostname);
+  return typeof window !== 'undefined'
+    && isTexasDefinedAnalyticsHost(window.location.hostname)
+    && !isAutomatedAnalyticsClient();
 }
 
 function safeStorage(): Storage | undefined {
