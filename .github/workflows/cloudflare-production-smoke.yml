@@ -207,7 +207,7 @@ jobs:
           print('Production Start Here homepage discovery, canonical and indexability verified.')
 
           regions=get('/article/texas-regions-explained')
-          assert 'Texas Regions Explained' in regions, 'Texas regions article content missing'
+          assert 'The 7 Texas Regions, Defined' in regions, 'Texas regions article canonical title missing'
           assert not any('noindex' in value for value in robots_values(regions)), 'Texas regions article unexpectedly noindex'
           assert canonical_values(regions)==[origin+'/article/texas-regions-explained'], f'Texas regions canonical mismatch: {canonical_values(regions)}'
           assert '/article/texas-regions-explained' in pages['/texas-explained'], 'Texas regions article missing Texas Explained inbound discovery'
