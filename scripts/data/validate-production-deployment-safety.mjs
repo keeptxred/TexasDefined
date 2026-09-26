@@ -94,6 +94,16 @@ if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
 
 requireText(workflow, 'https://texasdefined.com/explore/painted-churches', 'Painted Churches targeted cache purge URL');
 requireText(productionSurfaces, "['painted-churches-authority-round-2', '/explore/painted-churches', 'A second 15-source research pass adds community, architectural and preservation evidence.']", 'Painted Churches round-two live authority check');
+for (const marker of [
+  "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
+  "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
+  "['painted-churches-round2-serbin', '/explore/painted-churches/serbin-st-paul-lutheran-church', 'Colony land purchase']",
+  "['painted-churches-round2-amarillo', '/explore/painted-churches/amarillo-first-baptist-church', 'September 1889 with sixteen charter members']",
+  "['painted-churches-round2-high-hill', '/explore/painted-churches/high-hill-nativity-of-mary', 'High Hill developed from the late-1840s German settlements of Blum Hill and Oldenburg']",
+  "['painted-churches-round2-dubina', '/explore/painted-churches/dubina-saints-cyril-methodius', 'Carpenter Gothic basilican three-aisle plan']",
+  "['painted-churches-round2-lindsay', '/explore/painted-churches/lindsay-st-peters-catholic-church', 'City of Lindsay visitor information says St. Peter has undergone two major restorations']",
+  "['painted-churches-round2-bandera', '/explore/painted-churches/bandera-st-stanislaus-catholic-church', 'sixteen Polish families arriving in 1855 to work at the cypress mill']",
+]) requireText(productionSurfaces, marker, 'Painted Churches round-two church-profile live check');
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
 requireText(productionSurfaces, "['state-fair-planning-strip', '/texas-state-fair', 'Tickets, football and a place to stay']", 'State Fair production planning-strip check');
 requireText(productionSurfaces, "['state-fair-featured-gallery', '/texas-state-fair', 'State Fair photo carousel']", 'State Fair production featured-gallery check');
