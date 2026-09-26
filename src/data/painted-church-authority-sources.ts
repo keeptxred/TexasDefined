@@ -6,6 +6,7 @@ import type {
 } from "./painted-church-profiles";
 
 export const paintedChurchAuthorityExpansionDate = "2026-09-25";
+export const paintedChurchAuthorityExpansionDateLabel = "September 25, 2026";
 
 export type PaintedChurchAuthoritySource = {
   label: string;
