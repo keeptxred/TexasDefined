@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 
-const [overrideSource, aggregateSource, productionVerifier] = await Promise.all([
+const [overrideSource, baseSource, aggregateSource, productionVerifier] = await Promise.all([
   fs.readFile('src/data/sports-venue-images-curated-overrides.ts', 'utf8'),
+  fs.readFile('src/data/sports-venue-images.ts', 'utf8'),
   fs.readFile('src/data/sports-venue-images-all.ts', 'utf8'),
   fs.readFile('scripts/ci/verify-sports-venue-heroes-production.mjs', 'utf8'),
 ]);
@@ -28,6 +29,17 @@ assert(!overrideSource.includes('http://'), 'Curated sports venue image override
 
 for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com']) {
   assert(!overrideSource.toLowerCase().includes(forbidden), `Curated sports venue image overrides contain a disallowed source: ${forbidden}`);
+}
+
+assert(
+  !/all rights reserved/i.test(overrideSource),
+  'Curated sports venue image overrides must not use all-rights-reserved media without documented commercial reuse permission.',
+);
+for (const match of overrideSource.matchAll(/licenseName: '([^']+)'/g)) {
+  assert(
+    /^(?:CC|Public domain)\b/i.test(match[1]),
+    `Curated sports venue image override has no explicit commercial-reuse license: ${match[1]}`,
+  );
 }
 
 assert(
@@ -148,9 +160,22 @@ assert(
   'TPC San Antonio hero must be documentary venue media, not generated or illustrative imagery.',
 );
 
-const xtremeMatch = overrideSource.match(/'xtreme-raceway-park': \{[\s\S]*?\n  \},/);
-const xtremeSource = xtremeMatch?.[0] ?? '';
-assert(xtremeSource, 'Xtreme Raceway Park must have a curated documentary hero override.');
+assert(
+  !overrideSource.includes("'xtreme-raceway-park': {"),
+  'Xtreme Raceway Park must not use a curated documentary override unless the media has explicit commercial-reuse rights.',
+);
+const xtremeBaseMatch = baseSource.match(/'xtreme-raceway-park': \\{[\\s\\S]*?\\n  \\},/);
+const xtremeBaseSource = xtremeBaseMatch?.[0] ?? '';
+assert(xtremeBaseSource, 'Xtreme Raceway Park must retain its site-owner supplied fallback in the base registry.');
+for (const marker of [
+  "imageUrl: '/images/sports-venues/xtreme-raceway-park.jpg'",
+  "sourceName: 'site-owner supplied media'",
+  "author: 'Microsoft Copilot AI image'",
+  "licenseName: 'AI-generated image supplied for TexasDefined use'",
+]) {
+  assert(xtremeBaseSource.includes(marker), `Xtreme Raceway Park safe fallback is missing required marker: ${marker}`);
+}
+
 for (const marker of [
   "imageUrl: 'https://membertrack.nhradata.com/Images/Tracks/PRIMARY__153.jpg'",
   "sourcePage: 'https://www.nhradiv4.com/membertrackinfo?trackID=885'",
@@ -187,4 +212,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Curated sports venue image layer validated: precedence, HTTPS policy, documentary Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park, TPC San Antonio and Xtreme Raceway sources, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
+console.log('Curated sports venue image layer validated: precedence, HTTPS policy, explicit commercial-reuse licensing, documentary Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park and TPC San Antonio sources, safe site-owner Xtreme fallback, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.');
