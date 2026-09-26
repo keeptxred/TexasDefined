@@ -92,6 +92,7 @@ if (!ima.includes('/article/sallie-hogg-texas-legacy') || !ima.includes('/destin
 if (!will.includes('/article/sallie-hogg-texas-legacy') || !will.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Will Hogg authority page must retain reciprocal Sallie and Quitman links.");
 if (!foundation.includes('/article/sallie-hogg-texas-legacy')) failures.push("Hogg Foundation authority page must retain the reciprocal Sallie Hogg link.");
 if (!trail.includes("This is not a one-day route") || !trail.includes("Oakwood Cemetery") || !trail.includes("Varner-Hogg Plantation") || !trail.includes("Bayou Bend") || !trail.includes("Winedale")) failures.push("Hogg Heritage Trail must retain multi-day planning context and the core place sequence.");
+if (!trail.includes('/article/river-oaks-hogg-brothers-houston-planning-history') || !trail.includes('/destination/hogg-building-houston') || !trail.includes("documented racial, religious and economic exclusion")) failures.push("Hogg Heritage Trail must retain the River Oaks/Hogg Building Houston add-on and exclusionary-planning context.");
 for (const slug of ["jim-hogg-park-rusk", "governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin", "winedale-historical-center", "bayou-bend-collection-gardens", "varner-hogg-plantation"]) {
   if (!trail.includes(`"${slug}"`)) failures.push(`Hogg Heritage Trail is missing related destination: ${slug}`);
 }
