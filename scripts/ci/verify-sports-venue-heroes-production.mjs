@@ -103,16 +103,27 @@ const repairedWave7 = [
   };
 });
 
+const xtremeRacewayPhoto = governedPhotos.get('xtreme-raceway-park');
+if (!xtremeRacewayPhoto) throw new Error('Missing governed sports venue photo metadata for xtreme-raceway-park.');
+const xtremeRacewayAssetPath = xtremeRacewayPhoto.imageUrl.startsWith('/') ? xtremeRacewayPhoto.imageUrl : undefined;
+
 const venues = [
   {
     label: 'xtreme-raceway-park-hero',
     path: '/sports-venue/xtreme-raceway-park',
+    assetPath: xtremeRacewayAssetPath,
+    expectedImageUrl: xtremeRacewayPhoto.imageUrl,
+    heroEndpointPath: '/api/sports-venue-hero?slug=xtreme-raceway-park',
     required: [
       'Xtreme Raceway Park',
-      'https://membertrack.nhradata.com/Images/Tracks/PRIMARY__153.jpg',
-      'Xtreme Raceway Park drag strip in Ferris, Texas',
-      'NHRA South Central Division',
-      'NHRA Member Track Network',
+      ...(xtremeRacewayAssetPath ? [
+        xtremeRacewayPhoto.imageUrl,
+        `content="${origin}${xtremeRacewayPhoto.imageUrl}"`,
+      ] : []),
+      xtremeRacewayPhoto.alt,
+      xtremeRacewayPhoto.sourceName,
+      xtremeRacewayPhoto.author,
+      xtremeRacewayPhoto.licenseName,
     ],
   },
   {
