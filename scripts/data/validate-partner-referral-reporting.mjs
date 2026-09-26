@@ -5,6 +5,7 @@ const migration = read('supabase/migrations/20260916032000_create_partner_referr
 const impressionMigration = read('supabase/migrations/20260918133000_add_partner_referral_impressions.sql');
 const aggregateCommentMigration = read('supabase/migrations/20260918143500_update_partner_referral_aggregate_comment.sql');
 const sync = read('scripts/monetization/sync-partner-referral-analytics.mjs');
+const anomalyDetector = read('scripts/monetization/partner-referral-impression-anomaly.mjs');
 const workflow = read('.github/workflows/sync-partner-referral-analytics.yml');
 const server = read('src/data/partner-referral-analytics.server.ts');
 const types = read('src/data/partner-referral-analytics.types.ts');
@@ -15,6 +16,7 @@ const admin = read('src/routes/admin.tsx');
 const collector = read('src/lib/texas-defined-outcome-analytics.server.ts');
 const analytics = read('src/platform/analytics.ts');
 const errors = [];
+const { detectAffiliateImpressionAnomalies } = await import('../monetization/partner-referral-impression-anomaly.mjs');
 
 function expect(source, needle, label) {
   if (!source.includes(needle)) errors.push(`${label}: missing ${needle}`);
@@ -69,7 +71,42 @@ for (const [needle, label] of [
   ['click_count: 0', 'zero-click heartbeat'],
   ['impression_count: 0', 'zero-impression heartbeat'],
   ['await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat])', 'post-aggregate heartbeat write'],
+  ["import { detectAffiliateImpressionAnomalies } from './partner-referral-impression-anomaly.mjs'", 'measurement anomaly detector import'],
+  ['const anomalies = detectAffiliateImpressionAnomalies(rows)', 'post-normalization anomaly scan'],
+  ['::warning title=Affiliate measurement anomaly::', 'non-blocking workflow anomaly warning'],
+  ['anomalies.length} non-blocking measurement anomaly warning(s)', 'sync anomaly warning count'],
 ]) expect(sync, needle, label);
+for (const [needle, label] of [
+  ["ANOMALY_MONITORING_STARTED_AT = '2026-09-27'", 'post-remediation anomaly monitoring boundary'],
+  ['ANOMALY_MIN_PAGE_IMPRESSIONS = 100', 'page-day anomaly minimum'],
+  ['ANOMALY_MIN_PARTNER_IMPRESSIONS = 25', 'per-partner anomaly minimum'],
+  ['ANOMALY_MIN_PARTNERS = 3', 'multi-partner anomaly minimum'],
+  ["partner === '__pipeline__'", 'heartbeat anomaly exclusion'],
+  ["partner === 'expedia-search'", 'Expedia search-start anomaly exclusion'],
+  ['group.totalClicks === 0', 'zero-click anomaly requirement'],
+  ['group.totalImpressions >= ANOMALY_MIN_PAGE_IMPRESSIONS', 'high-volume anomaly requirement'],
+  ['group.partners.length >= ANOMALY_MIN_PARTNERS', 'multi-partner anomaly requirement'],
+]) expect(anomalyDetector, needle, label);
+
+const anomalyFixture = [
+  { metric_date: '2026-09-27', partner: 'hotels.com', page_path: '/destination/test', impression_count: 40, click_count: 0 },
+  { metric_date: '2026-09-27', partner: 'travelocity', page_path: '/destination/test', impression_count: 35, click_count: 0 },
+  { metric_date: '2026-09-27', partner: 'vrbo', page_path: '/destination/test', impression_count: 30, click_count: 0 },
+];
+const detected = detectAffiliateImpressionAnomalies(anomalyFixture);
+if (detected.length !== 1 || detected[0]?.totalImpressions !== 105 || detected[0]?.partners.length !== 3) {
+  errors.push('Anomaly detector must flag a 100+ impression, zero-click page-day with three 25+ impression partners.');
+}
+if (detectAffiliateImpressionAnomalies(anomalyFixture.map((row, index) => index === 0 ? { ...row, click_count: 1 } : row)).length !== 0) {
+  errors.push('Anomaly detector must not flag page-days that contain a measured referral click.');
+}
+if (detectAffiliateImpressionAnomalies(anomalyFixture.map((row) => ({ ...row, metric_date: '2026-09-26' }))).length !== 0) {
+  errors.push('Anomaly detector must not re-warn on the acknowledged pre-monitoring September 26 incident.');
+}
+if (detectAffiliateImpressionAnomalies(anomalyFixture.slice(0, 2)).length !== 0) {
+  errors.push('Anomaly detector must require at least three high-volume partners.');
+}
+
 if (/sessionId|session_id/.test(sync)) errors.push('Sync must not read or persist browser session identifiers.');
 const fallbackGuardIndex = sync.indexOf('if (fallbackStaleMinutes > 0)');
 const cloudflareCredentialIndex = sync.indexOf("const accountId = required('CLOUDFLARE_ACCOUNT_ID')");
@@ -91,6 +128,7 @@ for (const [needle, label] of [
   ['needs: authorize', 'sync dependency on protected authorization'],
   ['CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}', 'repository Cloudflare analytics secret'],
   ["SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}", 'private Supabase secret'],
+  ["scripts/monetization/partner-referral-impression-anomaly.mjs", 'anomaly detector workflow path trigger'],
 ]) expect(workflow, needle, label);
 
 const syncJobMatch = workflow.match(/\n  sync:\n([\s\S]*)$/);
@@ -233,4 +271,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 27+ post-filter measurement window, Orbitz-versus-Travelocity routing uses the same clean September 27+ post-filter window with a 100-impression-per-provider hold gate, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');
+console.log('Partner referral reporting validation passed: referral clicks, CTA impressions and separately classified Expedia search starts are aggregated from the private Cloudflare dataset with sampling accounted for and CI probes excluded, pre-rollout daily impression history remains explicitly unmeasured while the September 18 rollout day stays visible, CTR uses only the clean September 27+ post-filter measurement window, Orbitz-versus-Travelocity routing uses the same clean September 27+ post-filter window with a 100-impression-per-provider hold gate, synchronized 100+ impression zero-click page-days across at least three 25+ impression partners emit warning-only measurement anomalies after the September 27 monitoring boundary, exposure volume breaks click ties so zero-click surfaces remain visible, the private dashboard promotes clean-window placements and pages with at least three measured impressions and zero clicks into a conversion watchlist, private aggregates are pruned to a 90-day retention window that exceeds the 60-day dashboard query horizon, only service_role can access the Supabase aggregate table, browser session IDs are not synchronized, the dashboard is protected by the existing commercial admin key and noindexed, zero-click syncs are distinguished from aggregate writes in the UI, successful pipeline runs have a reserved zero-count heartbeat excluded from referral metrics, the primary hourly sync has staggered schedule and production-deploy recovery opportunities that skip Cloudflare while the heartbeat is fresh, the sync remains gated by texasdefined-publication, and the Analytics Engine query uses the repository credential scope rather than the shadowing environment credential.');

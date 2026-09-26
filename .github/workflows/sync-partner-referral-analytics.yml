@@ -16,6 +16,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/monetization/sync-partner-referral-analytics.mjs'
+      - 'scripts/monetization/partner-referral-impression-anomaly.mjs'
       - 'supabase/migrations/20260916032000_create_partner_referral_daily.sql'
       - '.github/workflows/sync-partner-referral-analytics.yml'
 
