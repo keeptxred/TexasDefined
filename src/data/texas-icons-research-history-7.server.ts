@@ -140,6 +140,8 @@ export const TEXAS_ICON_RESEARCH_HISTORY_BATCH_7: readonly TexasIconResearchProf
     ],
     relatedLinks: [
       { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Continue from James Hogg's public career into the oil, philanthropy and preservation work of Sallie, Will, Ima, Mike and Tom." },
+      { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Read the story of James Hogg's wife, first lady, adviser and the family influence behind the next generation's public-service ethic." },
+      { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where James and Sallie married and their preserved Honeymoon Cottage." },
       { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow James Hogg's oldest son into Houston business, planning, university advocacy and philanthropy." },
       { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "See how James Hogg's daughter became a major force in Texas music, mental-health philanthropy, museums and preservation." },
       { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "Trace how Will Hogg's estate and Ima and Mike Hogg's decisions became a statewide institution at The University of Texas." },

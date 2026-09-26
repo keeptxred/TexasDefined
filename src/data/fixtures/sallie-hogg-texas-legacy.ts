@@ -1,0 +1,70 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const sallieHoggTexasLegacyArticle: Article = {
+  id: "evergreen-sallie-hogg-texas-legacy",
+  brandId: "texasdefined",
+  slug: "sallie-hogg-texas-legacy",
+  title: "Sallie Hogg: The Texas First Lady Who Shaped the Hogg Family's Public-Service Legacy",
+  dek: "Sarah Ann 'Sallie' Stinson Hogg was more than the wife of Governor James Stephen Hogg: she helped shape the family's education, music, public-service ethic and social life before her death in 1895.",
+  category: "texas-history",
+  region: "piney-woods",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sarah_Ann_Stinson_Hogg_-_Texas_governors%27_wives_%28IA_texasgovernorswi00jack%29_%28page_116_crop%29.jpg?width=1456",
+    alt: "Historical portrait of Sarah Ann Sallie Stinson Hogg",
+    width: 1456,
+    height: 2349,
+    credit: "Pearl Cashell Jackson, Texas Governors' Wives (1915) · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  readingMinutes: 9,
+  tags: ["Sallie Hogg", "Sarah Ann Stinson Hogg", "James Hogg", "Hogg family", "Texas first ladies", "Quitman Texas", "Texas history"],
+  featured: false,
+  sourceName: "Handbook of Texas — Sarah Ann Stinson Hogg",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie",
+  internalLinks: [
+    { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how Sallie, James and their children became a multigenerational Texas story of politics, oil, philanthropy and preservation." },
+    { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Sallie's husband and the first native-born Texan to serve as governor." },
+    { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Follow the daughter whose music, philanthropy and preservation work carried forward values Sallie encouraged at home." },
+    { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Continue with Sallie's oldest child and his work in Houston business, city planning, education and philanthropy." },
+    { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where Sallie and James married and the Honeymoon Cottage associated with their early married life." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["governor-jim-hogg-city-park-quitman"],
+  body: [
+    p("Sarah Ann 'Sallie' Stinson Hogg is easy to lose behind two larger public names: her husband, Governor James Stephen Hogg, and her daughter, philanthropist Ima Hogg. The surviving record shows a more substantial role. Sallie helped hold together a household repeatedly moved by James Hogg's legal and political career, participated in the social world of the Governor's Mansion, advised her husband, encouraged music and education for their children and helped establish the public-service values that later became central to the Hogg family's identity."),
+    p("The Handbook of Texas gives Sallie her own biographical entry, and the Hogg Foundation's family history specifically credits her with teaching the children that they had obligations to the communities that supported them. That makes her important not simply as a governor's spouse, but as an early source of the values later expressed through Will Hogg's philanthropy, Ima Hogg's cultural work and the Hogg Foundation for Mental Health."),
+    h("From Georgia to Wood County"),
+    p("Sallie was born Sarah Ann Stinson in Troup County, Georgia, on August 9, 1854. Her mother died when she was young. Her father, James Alexander Stinson, later remarried and moved the family to Texas, settling near Quitman in Wood County by the late 1860s. There he became a farmer and lumberman and built the two-story Stinson House in 1869."),
+    p("Sallie attended a private school in Quitman beginning in 1869. James Hogg, then a teenager, attended the same school for a short period. The two met there, separated as their education and early lives moved in different directions, and reconnected several years later after Hogg had begun his local public career."),
+    h("The marriage began in the Stinson House"),
+    p("James Hogg began courting Sallie when he was serving as a young justice of the peace in Wood County. Her father initially preferred that she continue her education before marrying, but Sallie persisted. The couple married on April 22, 1874, in the parlor of the Stinson House."),
+    p("Their early married life in Quitman is still represented by two preserved buildings now located at Governor Jim Hogg City Park: the Stinson House and the Honeymoon Cottage. Ima Hogg later helped move and preserve both structures, turning places from her parents' early life into public historical resources."),
+    h("Four children grew up inside a changing Texas household"),
+    p("Sallie and James had four children: William Clifford 'Will' Hogg, born in Quitman in 1875; Ima Hogg, born in Mineola in 1882; Michael 'Mike' Hogg, born in Tyler in 1885; and Thomas Elisha 'Tom' Hogg, born in Austin in 1887. The sequence of birthplaces reflects how often the family moved as James Hogg's newspaper, legal and political career expanded."),
+    p("Sallie was a devout Methodist and emphasized education, culture and family responsibility. The Handbook of Texas describes her as skilled in needlework and household management and notes that she opened the Hogg home for social receptions. She also encouraged Ima's early piano study, an influence that later connected directly to Ima's lifelong support for music and the Houston Symphony."),
+    h("First lady of Texas, 1891–1895"),
+    p("When James Hogg became governor in 1891, Sallie became first lady of Texas. Her public role included managing the social life of the Governor's Mansion and redecorating the residence, but the historical record also describes her as a close adviser and confidante to her husband on matters of state."),
+    p("That advisory role should not be overstated into an independent political office, but it does matter. Nineteenth-century political households often blurred private and public responsibilities, and Sallie's contribution included the social, cultural and family work that made a governor's household function while James Hogg pursued a demanding reform agenda."),
+    h("The family's public-service ethic began at home"),
+    p("The Hogg Foundation's history places unusual emphasis on Sallie's influence on the children. It states that all four were raised with a strong sense of public responsibility and attributes to Sallie the idea that they should nurture the communities that had nurtured them."),
+    p("That family ethic later appeared in very different forms. Will directed most of his estate toward public benefit. Ima invested decades in music, museums, education, historic preservation and mental health. Mike worked with Ima in handling Will's bequest and establishing the foundation's endowment. Those later institutions were built after Sallie's death, but the family's own institutional history explicitly connects their civic outlook back to her teaching."),
+    h("Illness cut her life short"),
+    p("Sallie experienced years of delicate health and was diagnosed with tuberculosis in 1895, the same year James Hogg left the governorship. She spent part of that summer in Pueblo, Colorado, at the home of her sister-in-law Martha Frances Hogg Davis in hopes that rest and climate would improve her health."),
+    p("She died in Pueblo on September 21, 1895, at age forty-one. Her body was returned to Texas and buried in the Hogg family plot at Oakwood Cemetery in Austin. Her death came while all four children were still young, leaving James Hogg and the extended family to carry much of the household responsibility afterward."),
+    h("Where Sallie Hogg's story can still be visited"),
+    list(
+      "Governor Jim Hogg City Park in Quitman preserves the Stinson House, where Sallie and James married in 1874.",
+      "The Honeymoon Cottage at the same park preserves a building associated with their first days of married life.",
+      "The Texas Governor's Mansion in Austin represents the public household Sallie managed while serving as first lady.",
+      "Oakwood Cemetery in Austin contains the Hogg family plot where Sallie is buried."
+    ),
+    h("Why Sallie Hogg deserves her own Texas history page"),
+    p("Sallie Hogg did not build the institutions that later made Ima and Will nationally notable, and she did not hold elected office. Her importance is different. She was part of the foundation of a family culture that connected education, music, hospitality, public responsibility and civic duty."),
+    p("A full Hogg-family history therefore works better when Sallie is visible as an individual rather than only as a name in James Hogg's biography. Her surviving story helps explain how the private life of a nineteenth-century Texas political family influenced the public institutions the next generation would create."),
+  ],
+};

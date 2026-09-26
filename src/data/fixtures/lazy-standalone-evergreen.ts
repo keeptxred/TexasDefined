@@ -163,6 +163,18 @@ const brazoriaPlantationsSlaveryEmancipationHistoryStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["levi-jordan-plantation", "varner-hogg-plantation", "first-capitol-of-texas", "stephen-f-austin-memorial"],
 };
 
+const sallieHoggTexasLegacyStub: Article = {
+  id: "evergreen-sallie-hogg-texas-legacy", brandId: "texasdefined", slug: "sallie-hogg-texas-legacy",
+  title: "Sallie Hogg: The Texas First Lady Who Shaped the Hogg Family's Public-Service Legacy",
+  dek: "Sarah Ann 'Sallie' Stinson Hogg was more than the wife of Governor James Stephen Hogg: she helped shape the family's education, music, public-service ethic and social life before her death in 1895.",
+  category: "texas-history", region: "piney-woods",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sarah_Ann_Stinson_Hogg_-_Texas_governors%27_wives_%28IA_texasgovernorswi00jack%29_%28page_116_crop%29.jpg?width=1456", alt: "Historical portrait of Sarah Ann Sallie Stinson Hogg", width: 1456, height: 2349, credit: "Pearl Cashell Jackson, Texas Governors' Wives (1915) · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 9,
+  tags: ["Sallie Hogg", "Sarah Ann Stinson Hogg", "James Hogg", "Hogg family", "Texas first ladies", "Quitman Texas", "Texas history"], featured: false,
+  sourceName: "Handbook of Texas — Sarah Ann Stinson Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie",
+  body: [], relatedCollections: [], relatedDestinations: ["governor-jim-hogg-city-park-quitman"],
+};
+
 const imaHoggTexasLegacyStub: Article = {
   id: "evergreen-ima-hogg-texas-legacy", brandId: "texasdefined", slug: "ima-hogg-texas-legacy",
   title: "Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions",
@@ -334,6 +346,7 @@ export const standaloneEvergreenStubs: Article[] = [
   texasFrontierFortsRoadTripStub,
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
+  sallieHoggTexasLegacyStub,
   imaHoggTexasLegacyStub,
   hoggFamilyTexasLegacyStub,
   willHoggTexasLegacyStub,
@@ -365,6 +378,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
+  if (slug === sallieHoggTexasLegacyStub.slug) return import("./sallie-hogg-texas-legacy").then((module) => module.sallieHoggTexasLegacyArticle);
   if (slug === imaHoggTexasLegacyStub.slug) return import("./ima-hogg-texas-legacy").then((module) => module.imaHoggTexasLegacyArticle);
   if (slug === hoggFamilyTexasLegacyStub.slug) return import("./hogg-family-texas-legacy").then((module) => module.hoggFamilyTexasLegacyArticle);
   if (slug === willHoggTexasLegacyStub.slug) return import("./will-hogg-texas-legacy").then((module) => module.willHoggTexasLegacyArticle);

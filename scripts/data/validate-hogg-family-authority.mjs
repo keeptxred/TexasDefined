@@ -6,6 +6,7 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const lazy = read("src/data/fixtures/lazy-standalone-evergreen.ts");
 const history = read("src/routes/texas-history.lazy.tsx");
 const brazoria = read("src/data/fixtures/brazoria-plantations-slavery-emancipation-history.ts");
+const sallie = read("src/data/fixtures/sallie-hogg-texas-legacy.ts");
 const ima = read("src/data/fixtures/ima-hogg-texas-legacy.ts");
 const family = read("src/data/fixtures/hogg-family-texas-legacy.ts");
 const will = read("src/data/fixtures/will-hogg-texas-legacy.ts");
@@ -17,6 +18,7 @@ const destinations = read("src/data/hogg-legacy-destinations.ts");
 const destinationCatalog = read("src/data/destination-preserved-catalog.ts");
 
 for (const [slug, source, exportName] of [
+  ["sallie-hogg-texas-legacy", sallie, "sallieHoggTexasLegacyArticle"],
   ["ima-hogg-texas-legacy", ima, "imaHoggTexasLegacyArticle"],
   ["hogg-family-texas-legacy", family, "hoggFamilyTexasLegacyArticle"],
   ["will-hogg-texas-legacy", will, "willHoggTexasLegacyArticle"],
@@ -34,6 +36,8 @@ for (const token of [
   "/texas-icons/james-hogg",
   "/destination/varner-hogg-plantation",
   "/article/hogg-family-texas-legacy",
+  "/article/sallie-hogg-texas-legacy",
+  "/destination/governor-jim-hogg-city-park-quitman",
   "/article/ima-hogg-texas-legacy",
   "/article/will-hogg-texas-legacy",
   "/article/hogg-foundation-mental-health-texas-history",
@@ -49,9 +53,9 @@ if (!will.includes("William Clifford 'Will' Hogg") || !will.includes("River Oaks
 if (!will.includes("https://www.tshaonline.org/handbook/entries/hogg-william-clifford")) failures.push("Will Hogg authority page must retain its Handbook of Texas source.");
 if (!foundation.includes("https://hogg.utexas.edu/about/history") || !foundation.includes("established at The University of Texas at Austin in 1940") || !foundation.includes("Will Hogg endowment was transferred")) failures.push("Hogg Foundation authority page must retain official-source founding chronology.");
 if (!foundation.includes("administrative unit of The University of Texas at Austin") || !foundation.includes("community-level change")) failures.push("Hogg Foundation authority page must retain present-day institutional context.");
-if (!james.includes('relatedLinks: [') || !james.includes('/article/hogg-family-texas-legacy') || !james.includes('/article/hogg-foundation-mental-health-texas-history')) failures.push("James Hogg profile must retain reciprocal family-authority links.");
+if (!james.includes('relatedLinks: [') || !james.includes('/article/hogg-family-texas-legacy') || !james.includes('/article/sallie-hogg-texas-legacy') || !james.includes('/article/hogg-foundation-mental-health-texas-history') || !james.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("James Hogg profile must retain reciprocal family-authority links.");
 if (!iconTypes.includes("relatedLinks?: readonly") || !iconRoute.includes("Continue the story") || !iconRoute.includes("profile.relatedLinks")) failures.push("Texas Icons related-reading renderer must remain available for reciprocal authority links.");
-for (const slug of ["bayou-bend-collection-gardens", "winedale-historical-center"]) {
+for (const slug of ["bayou-bend-collection-gardens", "winedale-historical-center", "governor-jim-hogg-city-park-quitman"]) {
   if (!destinations.includes(`slug: "${slug}"`)) failures.push(`Missing Hogg legacy destination: ${slug}`);
   if (!destinationCatalog.includes("hoggLegacyDestinations")) failures.push("Hogg legacy destinations must remain registered in the preserved destination catalog.");
 }
@@ -60,8 +64,12 @@ for (const marker of [
   "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
   'officialUrl: "https://www.mfah.org/visit/bayou-bend"',
   'officialUrl: "https://briscoecenter.org/visit/winedale/"',
+  'officialUrl: "https://www.quitmantx.org/parks"',
+  "Texas State Library and Archives Commission / State Publishing Company (1905) · Public domain · Wikimedia Commons",
 ]) if (!destinations.includes(marker)) failures.push(`Hogg legacy destination governance marker missing: ${marker}`);
 
+if (!sallie.includes("https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie") || !sallie.includes("Governor Jim Hogg City Park") || !sallie.includes("public-service values")) failures.push("Sallie Hogg authority page must retain TSHA sourcing, Quitman place context and family public-service legacy.");
+if (!family.includes('/article/sallie-hogg-texas-legacy') || !family.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Hogg family authority page must retain Sallie and Quitman reciprocal links.");
 if (!ima.includes("Hogg Foundation for Mental Health") || !family.includes("Hogg Foundation for Mental Health")) failures.push("Hogg Foundation context must remain on both authority pages.");
 if (!ima.includes("Bayou Bend") || !family.includes("Bayou Bend")) failures.push("Bayou Bend context must remain on both authority pages.");
 if (!brazoria.includes("/article/hogg-family-texas-legacy") || !brazoria.includes("/article/ima-hogg-texas-legacy")) failures.push("Varner-Hogg supporting article must link to both Hogg authority pages.");
