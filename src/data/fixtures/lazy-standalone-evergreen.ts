@@ -163,6 +163,30 @@ const brazoriaPlantationsSlaveryEmancipationHistoryStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["levi-jordan-plantation", "varner-hogg-plantation", "first-capitol-of-texas", "stephen-f-austin-memorial"],
 };
 
+const imaHoggTexasLegacyStub: Article = {
+  id: "evergreen-ima-hogg-texas-legacy", brandId: "texasdefined", slug: "ima-hogg-texas-legacy",
+  title: "Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions",
+  dek: "Ima Hogg helped shape Houston music, Texas mental-health philanthropy, historic preservation and American decorative-arts collecting while turning Bayou Bend and Varner-Hogg into public legacies.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ImaHogg.jpg?width=1200", alt: "Portrait of Ima Hogg around 1900", width: 1012, height: 1419, credit: "The Elliotts / Museum of Fine Arts, Houston Archives · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 9,
+  tags: ["Ima Hogg", "Hogg family", "Bayou Bend", "Houston history", "Hogg Foundation", "historic preservation", "Texas philanthropy"], featured: false,
+  sourceName: "Handbook of Texas — Ima Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-ima",
+  body: [], relatedCollections: [], relatedDestinations: ["varner-hogg-plantation", "museum-of-fine-arts-houston"],
+};
+
+const hoggFamilyTexasLegacyStub: Article = {
+  id: "evergreen-hogg-family-texas-legacy", brandId: "texasdefined", slug: "hogg-family-texas-legacy",
+  title: "The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation",
+  dek: "James and Sallie Hogg and their children Will, Ima, Mike and Tom became one of Texas's most consequential civic families, linking reform-era politics, oil wealth, mental-health philanthropy, River Oaks, Bayou Bend and historic preservation.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Varner-Hogg_Plantation_-_West_Columbia%2C_Texas_16.jpg?width=1600", alt: "Varner-Hogg Plantation State Historic Site in West Columbia, Texas", width: 1600, height: 652, credit: "Robert Gray · CC BY 2.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 10,
+  tags: ["Hogg family", "James Hogg", "Ima Hogg", "Will Hogg", "Mike Hogg", "Varner-Hogg Plantation", "Bayou Bend", "Texas philanthropy"], featured: false,
+  sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
+  body: [], relatedCollections: [], relatedDestinations: ["varner-hogg-plantation", "museum-of-fine-arts-houston"],
+};
+
 const texasBorderlandsHistoricSitesGuideStub: Article = {
   id: "evergreen-texas-borderlands-historic-sites-guide", brandId: "texasdefined", slug: "texas-borderlands-historic-sites-guide",
   title: "Texas Borderlands Historic Sites: Missions, Tejano Politics and the Rio Grande World",
@@ -286,6 +310,8 @@ export const standaloneEvergreenStubs: Article[] = [
   texasFrontierFortsRoadTripStub,
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
+  imaHoggTexasLegacyStub,
+  hoggFamilyTexasLegacyStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
   battleshipTexasBB35HistoryRestorationStub,
@@ -313,6 +339,8 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
+  if (slug === imaHoggTexasLegacyStub.slug) return import("./ima-hogg-texas-legacy").then((module) => module.imaHoggTexasLegacyArticle);
+  if (slug === hoggFamilyTexasLegacyStub.slug) return import("./hogg-family-texas-legacy").then((module) => module.hoggFamilyTexasLegacyArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
