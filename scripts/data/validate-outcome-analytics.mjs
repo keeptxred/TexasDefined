@@ -41,6 +41,12 @@ if (collector.includes('Reflect.get(value, "sessionId")') || collector.includes(
 
 for (const [needle, label] of [
   ["const ANALYTICS_ENDPOINT = (import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined)?.trim() || '/api/analytics'", 'same-origin client endpoint default'],
+  ['AUTOMATED_ANALYTICS_USER_AGENT', 'automated/crawler user-agent filter'],
+  ["navigator.webdriver === true", 'webdriver automation exclusion'],
+  ["HeadlessChrome", 'headless Chromium exclusion'],
+  ["Googlebot", 'search crawler exclusion'],
+  ["OAI-SearchBot", 'AI search crawler exclusion'],
+  ["&& !isAutomatedAnalyticsClient()", 'production analytics automation gate'],
   ['navigator.sendBeacon(ANALYTICS_ENDPOINT', 'beacon delivery'],
   ['fetch(ANALYTICS_ENDPOINT', 'queued-event delivery'],
   ["trackTexasDefinedOutcome('partner_referral_shown'", 'partner referral impression tracking'],
@@ -99,4 +105,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('First-party outcome analytics validation passed: the browser has a same-origin default collector, partner placements are attributed, qualifying commercial CTA impressions are recorded once per element, early clicks imply a de-duplicated impression before the delayed analytics bootstrap, the Worker accepts only bounded same-origin allowlisted events, likely direct identifiers in free-text queries are redacted, browser session IDs are not persisted, Cloudflare Analytics Engine has a dedicated dataset binding, and production verification exercises live impression and click collector writes.');
+console.log('First-party outcome analytics validation passed: the browser has a same-origin default collector, automated/headless/crawler clients are excluded from browser outcome measurement, partner placements are attributed, qualifying commercial CTA impressions are recorded once per element, early clicks imply a de-duplicated impression before the delayed analytics bootstrap, the Worker accepts only bounded same-origin allowlisted events, likely direct identifiers in free-text queries are redacted, browser session IDs are not persisted, Cloudflare Analytics Engine has a dedicated dataset binding, and production verification exercises live impression and click collector writes.');
