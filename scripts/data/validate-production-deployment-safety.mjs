@@ -80,6 +80,11 @@ for (const [needle, label] of [
   ["assert isinstance(answer, str) and len(answer.strip()) >= 20", 'Cloudflare smoke production AI usable-answer requirement'],
 ]) requireText(cloudflareSmoke, needle, label);
 
+requireText(cloudflareSmoke, "assert 'The 7 Texas Regions, Defined' in regions", 'Cloudflare smoke canonical Texas regions article title');
+if (cloudflareSmoke.includes("assert 'Texas Regions Explained' in regions")) {
+  failures.push('Cloudflare production smoke must track the canonical Texas regions article title instead of the retired label.');
+}
+
 for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
   if (cloudflareSmoke.includes(retired)) {
     failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);
