@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { RELOCATION_PLACES, type RelocationPlace } from "@/data/relocation-authority";
 import { TEXAS_VS_STATES, texasVsStateSlug } from "@/data/texas-vs-states-index";
-import { RELOCATION_CHECKLIST_TOTAL, RELOCATION_WORKSPACE_STORAGE_KEY, RELOCATION_WORKSPACE_UPDATE_EVENT } from "@/lib/relocation-workspace";
+import { RELOCATION_CHECKLIST_TOTAL, RELOCATION_WORKSPACE_STORAGE_KEY, RELOCATION_WORKSPACE_UPDATE_EVENT, requestRelocationAddressResearch } from "@/lib/relocation-workspace";
 
 type Profile = {
   origin: string;
@@ -338,7 +338,7 @@ export function RelocationCommandCenter() {
               {profile.savedAddresses.length ? <div className="mt-6 border-t border-border pt-5">
                 <h4 className="font-display text-xl">Saved address research</h4>
                 <p className="mt-2 text-xs leading-5 text-muted-foreground">These addresses are stored only in this browser as part of My Texas Move.</p>
-                <ul className="mt-4 space-y-3 text-sm">{profile.savedAddresses.map((address) => <li key={address} className="flex items-start justify-between gap-4 border-b border-border pb-3"><span>{address}</span><button type="button" onClick={() => removeAddress(address)} className="shrink-0 text-xs font-semibold text-primary underline underline-offset-4">Remove</button></li>)}</ul>
+                <ul className="mt-4 space-y-3 text-sm">{profile.savedAddresses.map((address) => <li key={address} className="border-b border-border pb-3"><span className="block">{address}</span><div className="mt-2 flex flex-wrap gap-4"><button type="button" onClick={() => requestRelocationAddressResearch(address)} className="text-xs font-semibold text-primary underline underline-offset-4">Research again →</button><button type="button" onClick={() => removeAddress(address)} className="text-xs font-semibold underline underline-offset-4">Remove</button></div></li>)}</ul>
               </div> : null}
               <div className="mt-6 border-t border-border pt-5">
                 <h4 className="font-display text-xl">Moving checklist</h4>

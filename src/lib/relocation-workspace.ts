@@ -1,5 +1,6 @@
 export const RELOCATION_WORKSPACE_STORAGE_KEY = "texasdefined:my-texas-move:v1";
 export const RELOCATION_WORKSPACE_UPDATE_EVENT = "texasdefined:my-texas-move:update";
+export const RELOCATION_ADDRESS_RESEARCH_EVENT = "texasdefined:my-texas-move:research-address";
 export const RELOCATION_CHECKLIST_TOTAL = 16;
 
 export function saveRelocationAddressToWorkspace(address: string) {
@@ -30,6 +31,17 @@ export function saveRelocationAddressToWorkspace(address: string) {
   } catch {
     return false;
   }
+}
+
+
+export function requestRelocationAddressResearch(address: string) {
+  const normalized = address.trim().slice(0, 240);
+  if (!normalized || typeof window === "undefined") return false;
+
+  window.dispatchEvent(new CustomEvent(RELOCATION_ADDRESS_RESEARCH_EVENT, {
+    detail: { address: normalized },
+  }));
+  return true;
 }
 
 

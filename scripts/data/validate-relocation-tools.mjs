@@ -67,6 +67,8 @@ if(!fs.existsSync(commandCenter)){
     'RELOCATION_CHECKLIST_TOTAL',
     'Continue the checklist →',
     'Move progress',
+    'requestRelocationAddressResearch',
+    'Research again →',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
   }
@@ -124,6 +126,9 @@ if(!fs.existsSync(authorityLab)){
   const lab=fs.readFileSync(authorityLab,'utf8');
   for(const token of [
     'saveRelocationAddressToWorkspace',
+    'RELOCATION_ADDRESS_RESEARCH_EVENT',
+    'resumeSavedAddress',
+    'researchAddressValue(addressDraft)',
     'Save this address to My Texas Move →',
     'Saved to My Texas Move',
     'scrollIntoView',
@@ -143,6 +148,8 @@ if(!fs.existsSync(workspaceModule)){
   for(const token of [
     'texasdefined:my-texas-move:v1',
     'texasdefined:my-texas-move:update',
+    'texasdefined:my-texas-move:research-address',
+    'requestRelocationAddressResearch',
     'saveRelocationAddressToWorkspace',
     'readRelocationChecklistProgress',
     'setRelocationChecklistItemComplete',
@@ -154,6 +161,7 @@ if(!fs.existsSync(workspaceModule)){
     if(!workspace.includes(token))errors.push(`Relocation workspace privacy/persistence marker missing: ${token}`);
   }
   if(workspace.includes('?saveAddress=')) errors.push('Relocation workspace helper must not serialize exact addresses into URLs.');
+  if(workspace.includes('?researchAddress=')) errors.push('Saved-address resume must remain an in-page event and must not serialize exact addresses into URLs.');
 }
 
 if(!fs.existsSync(movingChecklist)){
