@@ -70,11 +70,22 @@ for (const marker of [
 ]) if (!topology.includes(marker)) errors.push(`Texas rivers reciprocal navigation missing: ${marker}`);
 
 const paragraphCount = (block) => (block.match(/p\("/g) || []).length;
+const articleBodyWordCount = (block) => {
+  const bodyStart = block.indexOf('body: [');
+  if (bodyStart < 0) return 0;
+  const body = block.slice(bodyStart);
+  const text = [...body.matchAll(/(?:p|h)\("([^"]*)"\)|list\(([\s\S]*?)\n\s*\)/g)]
+    .flatMap((match) => match[1] ? [match[1]] : [...(match[2] || '').matchAll(/"([^"]*)"/g)].map((item) => item[1]))
+    .join(' ');
+  return text.trim().split(/\s+/).filter(Boolean).length;
+};
 for (const [slug] of profiles) {
   const start = articles.indexOf(`slug: "${slug}"`);
   const next = start >= 0 ? articles.indexOf('\nexport const ', start + 1) : -1;
   const block = start >= 0 ? articles.slice(start, next > start ? next : articles.length) : '';
   if (paragraphCount(block) < 7) errors.push(`River profile is too shallow (${paragraphCount(block)} paragraphs): ${slug}`);
+  const bodyWords = articleBodyWordCount(block);
+  if (bodyWords < 600) errors.push(`River profile is below the 600-word article index floor (${bodyWords} words): ${slug}`);
   if (!block.includes('riversLink') || !block.includes('basinsLink') || !block.includes('collectionLink')) {
     errors.push(`River profile must use statewide rivers, basin and collection backlinks: ${slug}`);
   }
