@@ -89,10 +89,11 @@ export const paintedChurchCandidateCensus: PaintedChurchCensusEntry[] = [
     name: "San Fernando Cathedral",
     city: "San Antonio",
     status: "candidate",
-    reason: "Held pending surviving-program verification. The Buie Harwood archive contains a dedicated 16-slide San Fernando Cathedral decorative-painting research group from 1982, and the cathedral's official history confirms the exact historic church and continuous use. That establishes a legitimate research lead, but the current source trail does not yet identify which painted program survives, its authorship, or whether it fits the immigrant decorative-interior scope used for this verified collection.",
+    reason: "Held pending surviving-program verification. The Buie Harwood archive contains a dedicated 16-slide San Fernando Cathedral decorative-painting research group from 1982, and the cathedral's official history confirms the exact historic church and continuous use. SAH Archipedia adds that the eighteenth-century core received a 2003 interior restoration and is now characterized by plain mission-like whitewashed walls. That strengthens the need to localize any surviving decorative program to later fabric before inclusion rather than treating the cathedral as one continuous painted interior.",
     sourceUrls: [
       "https://txarchives.org/utaaa/finding_aids/00136.xml",
       "https://sfcathedral.org/our-history",
+      "https://sah-archipedia.org/buildings/TX-01-SA46",
     ],
   },
   {
