@@ -50,7 +50,7 @@ for (const [needle, label] of [
   ['id: verified_worker_version', 'post-verification Worker version capture'],
   ['id: verified_worker_ledger', 'verified Worker recovery ledger step'],
   ['node scripts/ci/verified-worker-ledger.mjs record', 'verified Worker recovery ledger command'],
-  ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}", 'cache-purge token presence env flag'],
+  ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' || secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' || secrets.CLOUDFLARE_API_TOKEN != '' }}", 'cache-purge token presence env flag'],
   ["env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true'", 'cache-purge step env-flag condition'],
 ]) requireText(workflow, needle, label);
 
@@ -58,6 +58,8 @@ if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
   failures.push('GitHub Actions if expressions must not reference secrets directly; expose secret presence through job env and test env.* instead.');
 }
 
+requireText(workflow, 'https://texasdefined.com/explore/painted-churches', 'Painted Churches targeted cache purge URL');
+requireText(productionSurfaces, "['painted-churches-authority-round-2', '/explore/painted-churches', '30-source authority trail']", 'Painted Churches round-two live authority check');
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
 requireText(productionSurfaces, "['state-fair-planning-strip', '/texas-state-fair', 'Tickets, football and a place to stay']", 'State Fair production planning-strip check');
 requireText(productionSurfaces, "['state-fair-featured-gallery', '/texas-state-fair', 'State Fair photo carousel']", 'State Fair production featured-gallery check');
