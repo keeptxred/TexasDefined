@@ -216,5 +216,5 @@ export const hoggLegacyDestinations: Destination[] = [
     managingAuthority: "The District at Hogg Palace, A Wyndham Hotel",
     address: "401 Louisiana St, Houston, TX 77002",
     sourceCheckedAt: SOURCE_CHECKED_AT,
-
+  },
 ];
