@@ -244,6 +244,11 @@ jobs:
           STAGE_OUTCOME: ${{ steps.cloudflare.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare "$STAGE_OUTCOME" "Cloudflare Worker deployment passed" "Cloudflare Worker deployment failed"
 
+      - name: Capture deployed Worker version
+        id: deployed_worker_version
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        run: node scripts/ci/capture-active-worker-version.mjs
+
       - name: Purge updated authority HTML from Cloudflare cache
         id: cache_purge
         if: ${{ always() && steps.cloudflare.outcome == 'success' && env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true' }}
@@ -472,12 +477,26 @@ jobs:
         if: success()
         run: node scripts/ci/capture-active-worker-version.mjs
 
+      - name: Confirm verified Worker is the version this run deployed
+        id: verified_worker_identity
+        if: success()
+        shell: bash
+        env:
+          DEPLOYED_WORKER_VERSION: ${{ steps.deployed_worker_version.outputs.version_id }}
+          VERIFIED_ACTIVE_WORKER_VERSION: ${{ steps.verified_worker_version.outputs.version_id }}
+        run: |
+          if [[ -z "${DEPLOYED_WORKER_VERSION:-}" || -z "${VERIFIED_ACTIVE_WORKER_VERSION:-}" || "${VERIFIED_ACTIVE_WORKER_VERSION}" != "${DEPLOYED_WORKER_VERSION}" ]]; then
+            echo "::error title=Verified Worker changed during production verification::deployed=${DEPLOYED_WORKER_VERSION:-missing}, active=${VERIFIED_ACTIVE_WORKER_VERSION:-missing}. Refusing to advance the verified recovery ledger."
+            exit 1
+          fi
+          echo "Verified Worker identity is stable: ${DEPLOYED_WORKER_VERSION}."
+
       - name: Record verified Worker recovery target
         id: verified_worker_ledger
         if: success()
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          VERIFIED_WORKER_VERSION: ${{ steps.verified_worker_version.outputs.version_id }}
+          VERIFIED_WORKER_VERSION: ${{ steps.deployed_worker_version.outputs.version_id }}
         run: node scripts/ci/verified-worker-ledger.mjs record "${VERIFIED_WORKER_VERSION}"
 
       - name: Summarize production pipeline
