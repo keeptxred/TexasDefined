@@ -113,9 +113,16 @@ await fetchLive(
 await fetchLive(
   '/texas-industries',
   'Texas industries relocation bridge',
-  (_candidateResponse, body) => body.includes('Corporate relocation & workforce planning')
-    ? null
-    : 'corporate relocation discovery is not live',
+  (_candidateResponse, body) => {
+    const expectedHref = '/moving-to-texas?companyMove=employer#corporate-relocation';
+    const hasLink = body.includes(`href="${expectedHref}"`)
+      || body.includes(`href='${expectedHref}'`)
+      || body.includes(`href="${origin}${expectedHref}"`)
+      || body.includes(`href='${origin}${expectedHref}'`);
+    const hasLabel = body.includes('Corporate relocation &amp; workforce planning')
+      || body.includes('Corporate relocation & workforce planning');
+    return hasLink && hasLabel ? null : 'corporate relocation discovery is not live';
+  },
 );
 
 await fetchLive(
