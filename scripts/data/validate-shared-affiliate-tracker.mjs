@@ -4,6 +4,7 @@ import path from 'node:path';
 const sourceRoot = 'src';
 const sharedTrackerPath = path.normalize('src/lib/affiliate-click.ts');
 const outcomeClientPath = path.normalize('src/platform/analytics.ts');
+const earlyOutcomeBootstrapPath = path.normalize('src/routes/__root.tsx');
 const publicRoot = 'public';
 const sourceExtensions = new Set(['.js', '.jsx', '.json', '.ts', '.tsx']);
 const failures = [];
@@ -130,6 +131,11 @@ for (const file of walk(sourceRoot)) {
     failures.push(`${file} dispatches texasdefined:affiliate-click locally; use src/lib/affiliate-click.ts instead.`);
   }
 
+  const directReferralOutcomeWrite = /trackTexasDefinedOutcome\s*\(\s*["'`]partner_referral_(?:shown|clicked)["'`]/.test(source);
+  if (directReferralOutcomeWrite && file !== outcomeClientPath && file !== earlyOutcomeBootstrapPath) {
+    failures.push(`${file} writes first-party partner referral outcomes directly; only src/platform/analytics.ts and the explicit pre-bootstrap click fallback in src/routes/__root.tsx may do so.`);
+  }
+
   validateDeactivatedAffiliateReferences(file, source);
   validateAffiliateAnchorMetadata(file, source);
   validateDomAffiliateMetadata(file, source);
@@ -158,4 +164,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral impression and click counting remain single-path through src/platform/analytics.ts, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata, rendered source/public links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting, and the deactivated Golf Direct Now CJ advertiser cannot re-enter source/public assets while advertiser 6323402 remains inactive.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral writes are limited to src/platform/analytics.ts plus the explicit pre-bootstrap click fallback in src/routes/__root.tsx, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata, rendered source/public links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting, and the deactivated Golf Direct Now CJ advertiser cannot re-enter source/public assets while advertiser 6323402 remains inactive.');
