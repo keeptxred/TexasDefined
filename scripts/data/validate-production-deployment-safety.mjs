@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
+const cloudflareSmoke = fs.readFileSync('.github/workflows/cloudflare-production-smoke.yml', 'utf8');
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
 const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
 const restore = fs.readFileSync('.github/workflows/restore-verified-worker.yml', 'utf8');
@@ -53,6 +54,13 @@ for (const [needle, label] of [
   ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' || secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' || secrets.CLOUDFLARE_API_TOKEN != '' }}", 'cache-purge token presence env flag'],
   ["env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true'", 'cache-purge step env-flag condition'],
 ]) requireText(workflow, needle, label);
+
+for (const [needle, label] of [
+  ["CLOUDFLARE_WORKERS_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke dedicated Workers credential fallback'],
+  ['workers_auth="Authorization: Bearer $CLOUDFLARE_WORKERS_API_TOKEN"', 'Cloudflare smoke Workers authorization header'],
+  ['curl --fail-with-body --silent --show-error -H "$workers_auth" \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts"', 'Cloudflare smoke Workers Scripts credential routing'],
+  ['curl --fail-with-body --silent --show-error -H "$workers_auth" --get \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"', 'Cloudflare smoke Workers Domains credential routing'],
+]) requireText(cloudflareSmoke, needle, label);
 
 if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
   failures.push('GitHub Actions if expressions must not reference secrets directly; expose secret presence through job env and test env.* instead.');
@@ -198,4 +206,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
