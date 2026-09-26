@@ -61,6 +61,13 @@ if(!fs.existsSync(commandCenter)){
     'params.get("companyMove")',
     'Saved address research',
     'Current industry context:',
+    'employeesMoving',
+    'Your corporate move brief',
+    'Employer / HR workspace',
+    'Employee transfer workspace',
+    'profile.companyMove !== "none"',
+    '/start-a-business-in-texas',
+    'Texas business setup →',
     'handleWorkspaceUpdate',
     'Corporate relocation →',
     'completedChecklistItems',
@@ -207,4 +214,4 @@ for(const token of [
 if(finder.includes('?address=') || finder.includes('?savedAddress=')) errors.push('Relocation finders must not serialize saved exact addresses into URLs.');
 
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research with cross-finder reuse, persistent 16-task checklist progress and corporate industry handoff, plus existing county, DMV and school tools.`);
+console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research with cross-finder reuse, persistent 16-task checklist progress, corporate industry handoff and live employee/employer move brief, plus existing county, DMV and school tools.`);
