@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { OfficialTaxRateAssist } from '@/components/property/OfficialTaxRateAssist';
 import {
+  BreakdownChart,
   BreakdownTable,
   CalculatorActions,
   CalculatorModeToggle,
