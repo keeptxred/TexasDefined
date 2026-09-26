@@ -68,7 +68,6 @@ if(!fs.existsSync(commandCenter)){
     'Continue the checklist →',
     'Move progress',
     'requestRelocationAddressResearch',
-    'readRelocationSavedAddresses',
     'Research again →',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
@@ -151,6 +150,7 @@ if(!fs.existsSync(workspaceModule)){
     'texasdefined:my-texas-move:update',
     'texasdefined:my-texas-move:research-address',
     'requestRelocationAddressResearch',
+    'readRelocationSavedAddresses',
     'saveRelocationAddressToWorkspace',
     'readRelocationChecklistProgress',
     'setRelocationChecklistItemComplete',
