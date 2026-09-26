@@ -35,9 +35,11 @@ Do not change travel routing on headline payout alone. Exact inventory, visitor 
 
 ## Measurement policy
 
-The intent-based Orbitz / Travelocity routing went live on 2026-09-23. The private partner-referral dashboard therefore uses 2026-09-23 as a separate clean routing-comparison baseline instead of mixing earlier configurations into the comparison.
+The intent-based Orbitz / Travelocity routing went live on 2026-09-23. On 2026-09-26 UTC, the private aggregate recorded an automation-like impression spike on `/destination/lady-bird-johnson-wildflower-center`: roughly 250 impressions each for Hotels.com, Travelocity and Vrbo with zero clicks on that page. The aggregate intentionally does not retain user agents or browser session IDs, so the specific renderer cannot be proven after the fact.
 
-Do not collapse the Orbitz / Travelocity split until each provider has at least 100 qualifying CTA impressions in the clean window and the active CJ advertiser terms have been rechecked. This is an operational minimum for a comparable sample, not a statistical-significance threshold. Review first-party CTR together with downstream advertiser bookings, completed stays, reversals and realized commission before rerouting traffic.
+TexasDefined now suppresses browser outcome analytics when `navigator.webdriver` is true or the user agent matches known headless, crawler, search-renderer or AI-crawler clients. Raw 30-day history remains visible for audit continuity, but decision-grade CTR and the Orbitz / Travelocity routing comparison restart on 2026-09-27 UTC so contaminated exposure cannot satisfy a routing threshold.
+
+Do not collapse the Orbitz / Travelocity split until each provider has at least 100 qualifying CTA impressions in the clean post-filter window and the active CJ advertiser terms have been rechecked. This is an operational minimum for a comparable sample, not a statistical-significance threshold. Review first-party CTR together with downstream advertiser bookings, completed stays, reversals and realized commission before rerouting traffic.
 
 RVshare entered the governed traveler surface on 2026-09-24. Evaluate it separately from hotel and vacation-rental partners because its 4% commission applies to RV reservations, not hotel bookings.
 
