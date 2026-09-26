@@ -237,6 +237,23 @@ function NarrativeProfile({
         </div>
       </section>
 
+      {profile.relatedLinks?.length ? (
+        <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Related reading</p>
+            <h2 className="mt-2 font-display text-3xl">Continue the story</h2>
+          </div>
+          <div className="grid gap-px bg-border sm:grid-cols-2">
+            {profile.relatedLinks.map((link) => (
+              <a key={link.href} href={link.href} className="bg-background p-5 hover:bg-muted/40">
+                <strong className="font-display text-2xl">{link.label}</strong>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{link.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Sources</p>
