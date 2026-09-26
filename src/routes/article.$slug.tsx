@@ -15,6 +15,7 @@ import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/da
 import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
+import { localArticleAuthoritySources } from "@/data/local-article-authority-sources";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
@@ -351,7 +352,7 @@ export const Route = createFileRoute("/article/$slug")({
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
   const primarySource = articlePrimarySource(article);
-  const authoritySources = remoteEvergreenAuthoritySources[article.slug] ?? [];
+  const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
   const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
