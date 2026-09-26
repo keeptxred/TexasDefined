@@ -3,13 +3,16 @@ import { paintedChurchExpansionResearchBySlug } from "./painted-church-research-
 import { latestPaintedChurchResearchBySlug } from "./painted-church-research-latest";
 import { paintedChurchResearchBySlug, type PaintedChurchResearchDossier } from "./painted-church-research";
 import { statewidePaintedChurchResearchBySlug } from "./painted-church-research-statewide";
+import { enrichPaintedChurchResearchWithTsha } from "./painted-church-research-tsha";
 
 export type { PaintedChurchResearchDossier } from "./painted-church-research";
 
 export function canonicalPaintedChurchResearchBySlug(slug: string): PaintedChurchResearchDossier | undefined {
-  return paintedChurchResearchBySlug(slug)
+  const dossier = paintedChurchResearchBySlug(slug)
     ?? statewidePaintedChurchResearchBySlug(slug)
     ?? paintedChurchAdditionResearchBySlug(slug)
     ?? paintedChurchExpansionResearchBySlug(slug)
     ?? latestPaintedChurchResearchBySlug(slug);
+
+  return enrichPaintedChurchResearchWithTsha(dossier);
 }
