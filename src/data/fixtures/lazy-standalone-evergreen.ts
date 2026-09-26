@@ -223,6 +223,18 @@ const hoggFoundationMentalHealthHistoryStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation"],
 };
 
+const riverOaksHoggBrothersPlanningHistoryStub: Article = {
+  id: "evergreen-river-oaks-hogg-brothers-planning-history", brandId: "texasdefined", slug: "river-oaks-hogg-brothers-houston-planning-history",
+  title: "River Oaks, the Hogg Brothers and the Making of Planned Houston",
+  dek: "Will and Mike Hogg helped turn a wooded edge of 1920s Houston into one of the city's most influential planned communities—a model of landscape design, private controls and civic ambition that also enforced exclusion.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/KrogerHoustonTX.JPG?width=1600", alt: "River Oaks Shopping Center along West Gray in Houston", width: 2272, height: 1704, credit: "WhisperToMe · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 11,
+  tags: ["River Oaks", "Will Hogg", "Mike Hogg", "Houston planning", "Houston history", "Hogg family", "garden suburbs", "deed restrictions"], featured: false,
+  sourceName: "Handbook of Texas — River Oaks, Houston", sourceUrl: "https://www.tshaonline.org/handbook/entries/river-oaks-houston",
+  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "hogg-building-houston", "museum-of-fine-arts-houston"],
+};
+
 const texasBorderlandsHistoricSitesGuideStub: Article = {
   id: "evergreen-texas-borderlands-historic-sites-guide", brandId: "texasdefined", slug: "texas-borderlands-historic-sites-guide",
   title: "Texas Borderlands Historic Sites: Missions, Tejano Politics and the Rio Grande World",
@@ -351,6 +363,7 @@ export const standaloneEvergreenStubs: Article[] = [
   hoggFamilyTexasLegacyStub,
   willHoggTexasLegacyStub,
   hoggFoundationMentalHealthHistoryStub,
+  riverOaksHoggBrothersPlanningHistoryStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
   battleshipTexasBB35HistoryRestorationStub,
@@ -383,6 +396,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === hoggFamilyTexasLegacyStub.slug) return import("./hogg-family-texas-legacy").then((module) => module.hoggFamilyTexasLegacyArticle);
   if (slug === willHoggTexasLegacyStub.slug) return import("./will-hogg-texas-legacy").then((module) => module.willHoggTexasLegacyArticle);
   if (slug === hoggFoundationMentalHealthHistoryStub.slug) return import("./hogg-foundation-mental-health-texas-history").then((module) => module.hoggFoundationMentalHealthHistoryArticle);
+  if (slug === riverOaksHoggBrothersPlanningHistoryStub.slug) return import("./river-oaks-hogg-brothers-houston-planning-history").then((module) => module.riverOaksHoggBrothersPlanningHistoryArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
