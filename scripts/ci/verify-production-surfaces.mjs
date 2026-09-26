@@ -36,7 +36,7 @@ const surfaces = [
   ['wildfire-homes-property-schema', '/article/texas-wildfire-home-protection-guide', 'https://texasdefined.com/authors/a-homes-land#desk'],
   ['homes-property-desk-profile', '/authors/a-homes-land', 'not a substitute for licensed legal, insurance, engineering or trade advice'],
   ['painted-churches', '/explore/painted-churches', 'Painted Churches of Texas'],
-  ['painted-churches-authority-round-2', '/explore/painted-churches', '30-source authority trail'],
+  ['painted-churches-authority-round-2', '/explore/painted-churches', 'A second 15-source research pass adds community, architectural and preservation evidence.'],
   ['painted-churches-map', '/explore/painted-churches/map', 'Painted Churches of Texas map and statewide locations.'],
   ['painted-churches-planner', '/explore/painted-churches-plan', 'Painted Churches of Texas: one-day Schulenburg route.'],
   ['painted-churches-count', '/explore/painted-churches/how-many', 'How many Painted Churches are there in Texas?'],
