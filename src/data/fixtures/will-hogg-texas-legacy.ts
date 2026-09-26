@@ -27,6 +27,7 @@ export const willHoggTexasLegacyArticle: Article = {
   sourceName: "Handbook of Texas — William Clifford Hogg",
   sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-william-clifford",
   internalLinks: [
+    { href: "/article/hogg-family-heritage-trail-texas", label: "Hogg Family Heritage Trail", description: "Connect Will's Quitman, Austin, Houston and family-institution chapters to the wider Hogg story." },
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Place Will Hogg inside the larger family story connecting James and Sallie Hogg, oil-era wealth, philanthropy and preservation." },
     { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Continue with Will's sister and her work in music, mental health, museums and historic preservation." },
     { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Go back to Will's mother and the family culture of education, music and public responsibility that preceded his Houston career." },
@@ -39,7 +40,7 @@ export const willHoggTexasLegacyArticle: Article = {
     { href: "/destination/varner-hogg-plantation", label: "Varner-Hogg Plantation", description: "Connect the family story to the Brazoria County property whose mineral rights became a major source of Hogg wealth." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["hogg-building-houston", "bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  relatedDestinations: ["oakwood-cemetery-austin", "hogg-building-houston", "bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
   body: [
     p("William Clifford 'Will' Hogg is the Hogg sibling whose career most clearly connects the family's nineteenth-century political prominence with twentieth-century Houston business, planning and philanthropy. Born in Quitman in 1875 to James Stephen Hogg and Sallie Stinson Hogg, he trained in law, worked in business and eventually became the principal manager of family interests after his father's death in 1906."),
     p("His historical importance is easy to miss because later public memory concentrated heavily on his father James and his sister Ima. Yet Will's business work, university advocacy, Houston civic projects and estate all became structural parts of the family's long-term influence."),
