@@ -8,8 +8,10 @@ const lazyPath = "src/data/fixtures/lazy-historic-supporting.ts";
 const historyHubPath = "src/routes/texas-history.lazy.tsx";
 const sitemapPath = "src/routes/sitemap[.]xml.ts";
 const productionSurfacesPath = "scripts/ci/verify-production-surfaces.mjs";
+const localAuthoritySourcesPath = "src/data/local-article-authority-sources.ts";
+const articleRoutePath = "src/routes/article.$slug.tsx";
 
-for (const path of [articlePath, lazyPath, historyHubPath, sitemapPath, productionSurfacesPath]) {
+for (const path of [articlePath, lazyPath, historyHubPath, sitemapPath, productionSurfacesPath, localAuthoritySourcesPath, articleRoutePath]) {
   if (!fs.existsSync(path)) failures.push(`Missing Texas-before-U.S. authority dependency: ${path}`);
 }
 
@@ -18,6 +20,8 @@ const lazy = fs.existsSync(lazyPath) ? read(lazyPath) : "";
 const historyHub = fs.existsSync(historyHubPath) ? read(historyHubPath) : "";
 const sitemap = fs.existsSync(sitemapPath) ? read(sitemapPath) : "";
 const productionSurfaces = fs.existsSync(productionSurfacesPath) ? read(productionSurfacesPath) : "";
+const localAuthoritySources = fs.existsSync(localAuthoritySourcesPath) ? read(localAuthoritySourcesPath) : "";
+const articleRoute = fs.existsSync(articleRoutePath) ? read(articleRoutePath) : "";
 
 const slug = "texas-before-united-states-how-texas-began";
 const canonicalPath = `/article/${slug}`;
@@ -92,6 +96,32 @@ for (const marker of [
   if (!lazy.includes(marker)) failures.push(`Texas-before-U.S. lazy registry contract missing: ${marker}`);
 }
 
+
+const requiredAuthoritySourceUrls = [
+  "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
+  "https://thc.texas.gov/learn/military-history/military-spanish-texas",
+  "https://thc.texas.gov/learn/military-history/military-mexican-texas",
+  "https://www.tsl.texas.gov/declaration-independence.html",
+  "https://thc.texas.gov/learn/military-history/texas-revolution-and-republic",
+  "https://www.tshaonline.org/handbook/entries/republic-of-texas",
+  "https://www.tsl.texas.gov/lobbyexhibits/homefortexashistory/statehood",
+  "https://www.tsl.texas.gov/ref/abouttx/annexation/4july1845.html",
+  "https://thc.texas.gov/learn/military-history/texas-mexican-war",
+];
+if (!localAuthoritySources.includes(`"${slug}": [`)) failures.push("Texas-before-U.S. local multi-source registry entry is missing.");
+for (const url of requiredAuthoritySourceUrls) {
+  if (!localAuthoritySources.includes(`url: "${url}"`)) failures.push(`Texas-before-U.S. authority source missing: ${url}`);
+}
+const localSourceCount = (localAuthoritySources.match(/url: "https:\/\//g) ?? []).length;
+if (localSourceCount < requiredAuthoritySourceUrls.length) failures.push(`Texas-before-U.S. authority source registry is too thin: ${localSourceCount} URLs.`);
+for (const marker of [
+  'import { localArticleAuthoritySources } from "@/data/local-article-authority-sources";',
+  "localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? []",
+  "Sources and further reading",
+]) {
+  if (!articleRoute.includes(marker)) failures.push(`Texas-before-U.S. source rendering contract missing: ${marker}`);
+}
+
 if (!historyHub.includes(`slug: "${slug}"`)) failures.push("Texas History hub is missing the Texas-before-U.S. start-here guide.");
 if (!historyHub.includes("Texas before the United States: how Texas began")) failures.push("Texas History hub is missing the Texas-before-U.S. visible discovery label.");
 
@@ -120,5 +150,5 @@ if (failures.length) {
 }
 
 console.log(
-  `Texas-before-U.S. history authority validation passed: ${paragraphCount} paragraphs, ${headingCount} chronological sections, source/hero provenance, reciprocal history links, related destinations, lazy loading, History hub discovery, quality-gated sitemap publication and live production smoke coverage are protected.`,
+  `Texas-before-U.S. history authority validation passed: ${paragraphCount} paragraphs, ${headingCount} chronological sections, source/hero provenance, nine visible authority sources, reciprocal history links, related destinations, lazy loading, History hub discovery, quality-gated sitemap publication and live production smoke coverage are protected.`,
 );
