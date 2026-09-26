@@ -85,6 +85,11 @@ if (cloudflareSmoke.includes("assert 'Texas Regions Explained' in regions")) {
   failures.push('Cloudflare production smoke must track the canonical Texas regions article title instead of the retired label.');
 }
 
+requireText(cloudflareSmoke, String.raw`assert re.search(r'<h1\b', html, re.I)`, 'Cloudflare smoke canonical financial H1 regex');
+if (cloudflareSmoke.includes(String.raw`assert re.search(r'<h1\\b', html, re.I)`)) {
+  failures.push('Cloudflare production smoke H1 detection must use a regex word boundary, not a literal escaped backslash.');
+}
+
 for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
   if (cloudflareSmoke.includes(retired)) {
     failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);
