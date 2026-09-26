@@ -172,7 +172,7 @@ const sallieHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 9,
   tags: ["Sallie Hogg", "Sarah Ann Stinson Hogg", "James Hogg", "Hogg family", "Texas first ladies", "Quitman Texas", "Texas history"], featured: false,
   sourceName: "Handbook of Texas — Sarah Ann Stinson Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie",
-  body: [], relatedCollections: [], relatedDestinations: ["governor-jim-hogg-city-park-quitman"],
+  body: [], relatedCollections: [], relatedDestinations: ["governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin"],
 };
 
 const imaHoggTexasLegacyStub: Article = {
@@ -184,7 +184,7 @@ const imaHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 9,
   tags: ["Ima Hogg", "Hogg family", "Bayou Bend", "Houston history", "Hogg Foundation", "historic preservation", "Texas philanthropy"], featured: false,
   sourceName: "Handbook of Texas — Ima Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-ima",
-  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["oakwood-cemetery-austin", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const hoggFamilyTexasLegacyStub: Article = {
@@ -196,7 +196,7 @@ const hoggFamilyTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 10,
   tags: ["Hogg family", "James Hogg", "Ima Hogg", "Will Hogg", "Mike Hogg", "Varner-Hogg Plantation", "Bayou Bend", "Texas philanthropy"], featured: false,
   sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
-  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["governor-jim-hogg-city-park-quitman", "jim-hogg-park-rusk", "oakwood-cemetery-austin", "hogg-building-houston", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const willHoggTexasLegacyStub: Article = {
@@ -208,7 +208,7 @@ const willHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 9,
   tags: ["Will Hogg", "William Clifford Hogg", "Hogg family", "River Oaks", "Bayou Bend", "Hogg Foundation", "Houston history", "University of Texas"], featured: false,
   sourceName: "Handbook of Texas — William Clifford Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-william-clifford",
-  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["oakwood-cemetery-austin", "hogg-building-houston", "bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const hoggFoundationMentalHealthHistoryStub: Article = {
@@ -221,6 +221,18 @@ const hoggFoundationMentalHealthHistoryStub: Article = {
   tags: ["Hogg Foundation for Mental Health", "Ima Hogg", "Will Hogg", "Mike Hogg", "University of Texas", "Texas mental health history", "Texas philanthropy"], featured: false,
   sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
   body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation"],
+};
+
+const hoggFamilyHeritageTrailTexasStub: Article = {
+  id: "evergreen-hogg-family-heritage-trail-texas", brandId: "texasdefined", slug: "hogg-family-heritage-trail-texas",
+  title: "Hogg Family Heritage Trail: Six Texas Places That Tell the Story",
+  dek: "Follow the Hogg family from James Hogg's East Texas birthplace and marriage through Austin, Houston, oil-era Brazoria County and Ima Hogg's preservation legacy at Winedale.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Oakwood_Cemetery_%28Austin%2C_Texas%29_03.jpg?width=1600", alt: "Oakwood Cemetery in Austin, Texas, where members of the Hogg family are buried", width: 3188, height: 4252, credit: "Oleg Yunakov · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 11,
+  tags: ["Hogg family", "James Hogg", "Sallie Hogg", "Ima Hogg", "Will Hogg", "Texas history road trip", "Bayou Bend", "Varner-Hogg Plantation", "Winedale"], featured: false,
+  sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
+  body: [], relatedCollections: [], relatedDestinations: ["jim-hogg-park-rusk", "governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin", "winedale-historical-center", "bayou-bend-collection-gardens", "hogg-building-houston", "varner-hogg-plantation"],
 };
 
 const riverOaksHoggBrothersPlanningHistoryStub: Article = {
@@ -363,6 +375,7 @@ export const standaloneEvergreenStubs: Article[] = [
   hoggFamilyTexasLegacyStub,
   willHoggTexasLegacyStub,
   hoggFoundationMentalHealthHistoryStub,
+  hoggFamilyHeritageTrailTexasStub,
   riverOaksHoggBrothersPlanningHistoryStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
@@ -396,6 +409,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === hoggFamilyTexasLegacyStub.slug) return import("./hogg-family-texas-legacy").then((module) => module.hoggFamilyTexasLegacyArticle);
   if (slug === willHoggTexasLegacyStub.slug) return import("./will-hogg-texas-legacy").then((module) => module.willHoggTexasLegacyArticle);
   if (slug === hoggFoundationMentalHealthHistoryStub.slug) return import("./hogg-foundation-mental-health-texas-history").then((module) => module.hoggFoundationMentalHealthHistoryArticle);
+  if (slug === hoggFamilyHeritageTrailTexasStub.slug) return import("./hogg-family-heritage-trail-texas").then((module) => module.hoggFamilyHeritageTrailTexasArticle);
   if (slug === riverOaksHoggBrothersPlanningHistoryStub.slug) return import("./river-oaks-hogg-brothers-houston-planning-history").then((module) => module.riverOaksHoggBrothersPlanningHistoryArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
