@@ -43,6 +43,7 @@ const checks = [
   ['historic-sites', 'CONTENT/AUTHORITY', 'Validate statewide historic sites', 'node', ['scripts/data/validate-historic-sites.mjs']],
   ['historic-site-evergreen', 'CONTENT/AUTHORITY', 'Validate historic-site evergreen guides', 'node', ['scripts/data/validate-historic-site-evergreen.mjs']],
   ['historic-supporting-guides', 'CONTENT/AUTHORITY', 'Validate historic supporting guides', 'node', ['scripts/data/validate-historic-supporting-guides.mjs']],
+  ['texas-before-us-history', 'CONTENT/AUTHORITY', 'Validate Texas before U.S. history authority', 'node', ['scripts/data/validate-texas-before-us-history.mjs']],
   ['military-history-expansion', 'CONTENT/AUTHORITY', 'Validate military history expansion', 'node', ['scripts/data/validate-military-history-expansion.mjs']],
   ['things-unique-to-texas', 'CONTENT/AUTHORITY', 'Validate Things That Define Texas authority', 'node', ['scripts/data/validate-things-unique-to-texas.mjs']],
   ['texas-icon-link-depth', 'INTERNAL-LINKING', 'Validate Things That Define Texas deep-link coverage', 'node', ['scripts/data/validate-texas-icon-link-depth.mjs']],
