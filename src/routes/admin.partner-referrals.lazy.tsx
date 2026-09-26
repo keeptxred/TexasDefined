@@ -79,6 +79,7 @@ function PartnerReferralAnalyticsAdmin() {
         <Metric label="Dashboard refreshed" value={new Date(dashboard.generatedAt).toLocaleString()} />
       </section>
       {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">{dashboard.totalImpressions30d > 0 ? `Affiliate CTAs recorded ${dashboard.totalImpressions30d.toLocaleString()} qualifying impressions in the 30-day window but no qualifying referral clicks. Use the partner and placement tables below to see where offers are being viewed before changing copy or placement.` : 'No qualifying affiliate CTA impressions or referral clicks are currently present in the 30-day aggregate. “Hourly sync” shows the most recent successful Cloudflare-to-Supabase pipeline run even when there are no referral rows.'}</p> : null}
+      <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">Raw 30-day counts remain visible for audit continuity. Decision-grade CTR and travel-routing comparison windows restart on {ctrStartLabel} UTC after automated/headless browser traffic was excluded from first-party measurement.</p>
 
       <section className="mt-12 border-t border-border pt-6">
         <p className="eyebrow text-primary">Hotel comparison routing</p>
