@@ -204,7 +204,7 @@ const hoggFoundationMentalHealthHistoryStub: Article = {
   title: "The Hogg Foundation for Mental Health: How a Texas Family Endowment Became a Statewide Institution",
   dek: "Will Hogg's estate, Ima and Mike Hogg's decisions and The University of Texas turned one family's fortune into a statewide mental-health institution that has operated since 1940.",
   category: "texas-history", region: "hill-country",
-  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ImaHogg.jpg?width=1200", alt: "Portrait of Ima Hogg around 1900", width: 1012, height: 1419, credit: "The Elliotts / Museum of Fine Arts, Houston Archives · Public domain · Wikimedia Commons" },
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hogg_Building_--_Also_Called_Hogg_Palace.jpg?width=1600", alt: "Hogg Building in downtown Houston, built by Will C. Hogg in 1921", width: 3063, height: 2419, credit: "i_am_jim · CC BY-SA 3.0 · Wikimedia Commons" },
   authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 10,
   tags: ["Hogg Foundation for Mental Health", "Ima Hogg", "Will Hogg", "Mike Hogg", "University of Texas", "Texas mental health history", "Texas philanthropy"], featured: false,
   sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
