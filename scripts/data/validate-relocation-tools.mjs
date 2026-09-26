@@ -68,6 +68,7 @@ if(!fs.existsSync(commandCenter)){
     'Continue the checklist →',
     'Move progress',
     'requestRelocationAddressResearch',
+    'readRelocationSavedAddresses',
     'Research again →',
   ]){
     if(!center.includes(token))errors.push(`Relocation command center missing protected marker: ${token}`);
@@ -193,6 +194,17 @@ if(!fs.existsSync(movingChecklist)){
 
 const finder=fs.readFileSync('src/components/relocation/RelocationServiceFinder.tsx','utf8');
 for(const token of ['tea.texas.gov','puc.texas.gov','sos.texas.gov','comptroller.texas.gov','211texas.org'])if(!finder.includes(token))errors.push(`Relocation finder missing official source: ${token}`);
+for(const token of [
+  'readRelocationSavedAddresses',
+  'Use a saved address',
+  'Use {locality} for local context →',
+  'Copy address',
+  'TexasDefined does not place the address in the link or URL',
+  'navigator.clipboard.writeText(address)',
+]){
+  if(!finder.includes(token))errors.push(`Relocation finder missing saved-address continuity marker: ${token}`);
+}
+if(finder.includes('?address=') || finder.includes('?savedAddress=')) errors.push('Relocation finders must not serialize saved exact addresses into URLs.');
 
 if(errors.length){console.error(errors.join('\n'));process.exit(1)}
-console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research, persistent 16-task checklist progress and corporate industry handoff, plus existing county, DMV and school tools.`);
+console.log(`Relocation tool contract passed: ${routes.length} routes, one canonical toolkit route with parent Outlet ownership, persistent move workspace, corporate-relocation path, verified city-to-workspace continuity, 49-state origin continuity, saved address research with cross-finder reuse, persistent 16-task checklist progress and corporate industry handoff, plus existing county, DMV and school tools.`);
