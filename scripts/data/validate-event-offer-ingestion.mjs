@@ -19,7 +19,7 @@ const runtime = read('src/lib/texas-defined-event-offers.server.ts');
 const serverEntry = read('src/server-entry.ts');
 const wrangler = read('wrangler.jsonc');
 const migration = read('supabase/migrations/20260925224500_create_texasdefined_event_offers.sql');
-const offersRoute = read('src/routes/offers.lazy.tsx');
+const offersRoute = read('src/routes/offers.tsx');
 
 for (const marker of [
   'CJ_PERSONAL_ACCESS_TOKEN',
