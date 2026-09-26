@@ -79,7 +79,7 @@ const surfaces = [
   ['ima-hogg-authority', '/article/ima-hogg-texas-legacy', 'Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions'],
   ['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation'],
   ['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas'],
-  ['texas-history-ima-hogg-discovery', '/texas-history', "Ima Hogg's Texas legacy"],
+  ['texas-history-ima-hogg-discovery', '/texas-history', 'Follow the Houston patron who helped build the symphony, the Hogg Foundation, Bayou Bend and a statewide preservation legacy.'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
