@@ -78,6 +78,7 @@ const checks = [
   ['sports-venue-coverage', 'SPORTS/AUTHORITY', 'Validate sports venue coverage', 'node', ['scripts/data/validate-sports-venue-coverage.mjs']],
   ['sports-venue-completeness', 'SPORTS/AUTHORITY', 'Validate sports venue deep completeness', 'node', ['scripts/data/validate-sports-venue-deep-completeness.mjs']],
   ['sports-venue-images', 'SPORTS/IMAGES', 'Validate sports venue images', 'node', ['scripts/data/validate-sports-venue-images.mjs']],
+  ['sports-venue-hero-workflow', 'SPORTS/IMAGES', 'Validate reviewed sports venue hero workflow', 'node', ['scripts/data/validate-sports-venue-hero-wave7-workflow.mjs']],
   ['sports-traffic-readiness', 'SPORTS/TRAFFIC', 'Validate sports traffic readiness', 'node', ['scripts/data/validate-sports-traffic-readiness.mjs']],
   ['event-sports-venue-links', 'SPORTS/LINKING', 'Validate event sports venue links', 'node', ['scripts/data/validate-event-sports-venue-links.mjs']],
   ['sports-editorial-authority', 'SPORTS/AUTHORITY', 'Validate sports editorial authority', 'node', ['scripts/data/validate-sports-editorial-authority.mjs']],
