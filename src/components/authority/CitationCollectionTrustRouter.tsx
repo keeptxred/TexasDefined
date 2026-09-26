@@ -2,6 +2,7 @@ import { useLocation } from '@tanstack/react-router';
 
 import { CitationTrustPanel, type CitationSource } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
+import { paintedChurchAuthorityExpansionDateLabel } from '@/data/painted-church-authority-sources';
 
 type TrustConfig = {
   title: string;
@@ -86,7 +87,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'TexasDefined citation policy', url: 'https://texasdefined.com/citation-guide' },
     ],
     methodology: 'The statewide collection separates formal National Register decorative-interior membership, the Schulenburg touring cluster and the broader Painted Churches tradition. Primary and official church-specific records lead for dates, designations and current access; public-history and scholarly sources deepen interpretation. Churches are not added from travel-list mentions alone.',
-    lastVerified: 'The verified statewide collection, inclusion labels and source hierarchy were reviewed August 25, 2026; the main collection controls the current church count.',
+    lastVerified: `The verified statewide collection, inclusion labels and source hierarchy were reviewed ${paintedChurchAuthorityExpansionDateLabel}; the main collection controls the current church count.`,
   },
   '/explore/painted-churches/methodology': {
     title: 'Painted Churches methodology sources',
