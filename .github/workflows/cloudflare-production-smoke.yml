@@ -213,7 +213,8 @@ jobs:
               html=get(path)
               assert not any('noindex' in value for value in robots_values(html)), f'Canonical financial target unexpectedly noindex: {path}'
               assert canonical_values(html)==[origin+path], f'Canonical financial target mismatch for {path}: {canonical_values(html)}'
-          print('Canonical financial tools indexability and canonicals verified.')
+              assert re.search(r'<h1\\b', html, re.I), f'Canonical financial target missing H1: {path}'
+          print('Canonical financial tools indexability, canonicals and H1s verified.')
 
           directory=pages['/property-tax/counties']
           lubbock=get('/property-tax/county/lubbock')
