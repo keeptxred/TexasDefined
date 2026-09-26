@@ -143,7 +143,7 @@ for (const marker of [
   "['painted-churches-round2-amarillo', '/explore/painted-churches/amarillo-first-baptist-church', 'September 1889 with sixteen charter members']",
   "['painted-churches-round2-high-hill', '/explore/painted-churches/high-hill-nativity-of-mary', 'High Hill developed from the late-1840s German settlements of Blum Hill and Oldenburg']",
   "['painted-churches-round2-dubina', '/explore/painted-churches/dubina-saints-cyril-methodius', 'Carpenter Gothic basilican three-aisle plan']",
-  "['painted-churches-round2-lindsay', '/explore/painted-churches/lindsay-st-peters-catholic-church', 'City of Lindsay visitor information says St. Peter has undergone two major restorations']",
+  "['painted-churches-round2-lindsay', '/explore/painted-churches/lindsay-st-peters-catholic-church', 'City of Lindsay visitor information says St. Peter has undergone two restorations']",
   "['painted-churches-round2-bandera', '/explore/painted-churches/bandera-st-stanislaus-catholic-church', 'sixteen Polish families arriving in 1855 to work at the cypress mill']",
 ]) requireText(productionSurfaces, marker, 'Painted Churches round-two church-profile live check');
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
