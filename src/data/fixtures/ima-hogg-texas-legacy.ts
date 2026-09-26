@@ -31,6 +31,7 @@ export const imaHoggTexasLegacyArticle: Article = {
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Ima Hogg's father, the first native-born Texan to serve as governor." },
     { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Read the story of Ima's mother, first lady of Texas and an early influence on the family's education, music and public-service ethic." },
     { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where Ima's parents married and the Honeymoon Cottage she later helped preserve." },
+    { href: "/destination/jim-hogg-park-rusk", label: "Jim Hogg Park in Rusk", description: "See the birthplace landscape of Ima's father that she, Mike and Tom gave to Rusk in 1941." },
     { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "See how Ima's older brother connected Houston business, River Oaks, university advocacy and the estate behind the Hogg Foundation." },
     { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "See how Will's estate and Ima and Mike Hogg's decisions became a statewide institution at The University of Texas." },
     { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Visit Ima Hogg's River Oaks home, gardens and American decorative-arts collection." },
@@ -40,7 +41,7 @@ export const imaHoggTexasLegacyArticle: Article = {
     { href: "/texas-history", label: "Explore Texas history", description: "Continue through TexasDefined's statewide history collection." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  relatedDestinations: ["jim-hogg-park-rusk", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
   body: [
     p("Ima Hogg is one of the clearest examples of a private Texas fortune being redirected into long-lived public institutions. Born in Mineola in 1882 to James Stephen Hogg and Sarah Ann 'Sallie' Stinson Hogg, she grew up inside a family already tied to state politics. Her father became governor while she was a child, but her own public importance eventually rested less on being a governor's daughter than on what she built, funded, collected and preserved."),
     p("Her legacy crosses fields that are often treated separately: orchestral music, children's mental health, historic preservation, public education, museum collecting and philanthropy. Looking at those strands together explains why her name appears across Houston cultural history, the University of Texas, Bayou Bend and Varner-Hogg Plantation."),

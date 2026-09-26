@@ -133,7 +133,7 @@ export const TEXAS_ICON_RESEARCH_HISTORY_BATCH_7: readonly TexasIconResearchProf
       "The Railroad Commission later evolved far beyond the rail sector, but its creation remains the most durable institution associated with Hogg. His administration also strengthened a broader Texas tradition of using state law to regulate infrastructure, public land and corporate finance.",
     ],
     texasPlaces: [
-      { name: "Rusk", context: "East Texas area where Hogg was born and first worked in newspaper offices." },
+      { name: "Rusk", context: "East Texas area where Hogg was born and first worked in newspaper offices.", href: "/destination/jim-hogg-park-rusk" },
       { name: "Wood County", context: "County where Hogg served as attorney and district prosecutor before statewide office." },
       { name: "Austin", context: "Capital where Hogg served as attorney general and governor and promoted the state library." },
       { name: "Houston", context: "City where Hogg practiced and invested after office and where he died in 1906." },
@@ -142,6 +142,7 @@ export const TEXAS_ICON_RESEARCH_HISTORY_BATCH_7: readonly TexasIconResearchProf
       { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Continue from James Hogg's public career into the oil, philanthropy and preservation work of Sallie, Will, Ima, Mike and Tom." },
       { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Read the story of James Hogg's wife, first lady, adviser and the family influence behind the next generation's public-service ethic." },
       { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where James and Sallie married and their preserved Honeymoon Cottage." },
+      { href: "/destination/jim-hogg-park-rusk", label: "Jim Hogg Park in Rusk", description: "Visit part of the Mountain Home Plantation birthplace landscape preserved after Ima, Mike and Tom donated the property in 1941." },
       { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow James Hogg's oldest son into Houston business, planning, university advocacy and philanthropy." },
       { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "See how James Hogg's daughter became a major force in Texas music, mental-health philanthropy, museums and preservation." },
       { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "Trace how Will Hogg's estate and Ima and Mike Hogg's decisions became a statewide institution at The University of Texas." },
