@@ -102,6 +102,10 @@ const surfaces = [
   ['hogg-rusk-birthplace', '/destination/jim-hogg-park-rusk', "Ima Hogg, Thomas E. 'Tom' Hogg and Michael 'Mike' Hogg presented the family property"],
   ['hogg-family-mike-tom', '/article/hogg-family-texas-legacy', 'Mike and Tom carried parts of the family legacy in quieter ways'],
   ['james-hogg-rusk-link', '/texas-icons/james-hogg', '/destination/jim-hogg-park-rusk'],
+  ['river-oaks-hogg-planning-authority', '/article/river-oaks-hogg-brothers-houston-planning-history', 'River Oaks, the Hogg Brothers and the Making of Planned Houston'],
+  ['texas-history-river-oaks-discovery', '/texas-history', 'Planning · architecture · exclusion'],
+  ['hogg-building-houston', '/destination/hogg-building-houston', 'National Register of Historic Places and Recorded Texas Historic Landmark'],
+  ['will-hogg-river-oaks-link', '/article/will-hogg-texas-legacy', '/article/river-oaks-hogg-brothers-houston-planning-history'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
