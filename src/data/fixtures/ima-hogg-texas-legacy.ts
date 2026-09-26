@@ -27,6 +27,7 @@ export const imaHoggTexasLegacyArticle: Article = {
   sourceName: "Handbook of Texas — Ima Hogg",
   sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-ima",
   internalLinks: [
+    { href: "/article/hogg-family-heritage-trail-texas", label: "Hogg Family Heritage Trail", description: "Follow Ima's preservation and philanthropy across the surviving Hogg places in East, Central and Gulf Coast Texas." },
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children Will, Ima, Mike and Tom connected politics, oil-era wealth, philanthropy and preservation." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Ima Hogg's father, the first native-born Texan to serve as governor." },
     { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Read the story of Ima's mother, first lady of Texas and an early influence on the family's education, music and public-service ethic." },
@@ -41,7 +42,7 @@ export const imaHoggTexasLegacyArticle: Article = {
     { href: "/texas-history", label: "Explore Texas history", description: "Continue through TexasDefined's statewide history collection." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["jim-hogg-park-rusk", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  relatedDestinations: ["jim-hogg-park-rusk", "oakwood-cemetery-austin", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
   body: [
     p("Ima Hogg is one of the clearest examples of a private Texas fortune being redirected into long-lived public institutions. Born in Mineola in 1882 to James Stephen Hogg and Sarah Ann 'Sallie' Stinson Hogg, she grew up inside a family already tied to state politics. Her father became governor while she was a child, but her own public importance eventually rested less on being a governor's daughter than on what she built, funded, collected and preserved."),
     p("Her legacy crosses fields that are often treated separately: orchestral music, children's mental health, historic preservation, public education, museum collecting and philanthropy. Looking at those strands together explains why her name appears across Houston cultural history, the University of Texas, Bayou Bend and Varner-Hogg Plantation."),
