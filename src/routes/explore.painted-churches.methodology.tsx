@@ -2,13 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
 import { paintedChurchImageSources } from "@/data/painted-church-image-sources";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/methodology";
 const description = "How Texas Defined verifies Painted Churches of Texas: inclusion rules, source hierarchy, image licensing, corrections, update dates and treatment of conflicting historical records.";
-const checkedAt = "2026-09-24";
+const checkedAt = paintedChurchAuthorityExpansionDate;
 
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
