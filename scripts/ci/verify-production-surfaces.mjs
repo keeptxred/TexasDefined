@@ -99,6 +99,9 @@ const surfaces = [
   ['texas-history-sallie-hogg-discovery', '/texas-history', 'Family · first lady · public service'],
   ['james-hogg-sallie-link', '/texas-icons/james-hogg', '/article/sallie-hogg-texas-legacy'],
   ['james-hogg-quitman-link', '/texas-icons/james-hogg', '/destination/governor-jim-hogg-city-park-quitman'],
+  ['hogg-rusk-birthplace', '/destination/jim-hogg-park-rusk', "Ima Hogg, Thomas E. 'Tom' Hogg and Michael 'Mike' Hogg presented the family property"],
+  ['hogg-family-mike-tom', '/article/hogg-family-texas-legacy', 'Mike and Tom carried parts of the family legacy in quieter ways'],
+  ['james-hogg-rusk-link', '/texas-icons/james-hogg', '/destination/jim-hogg-park-rusk'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
