@@ -119,6 +119,10 @@ requireText(productionSurfaces, "['will-hogg-authority', '/article/will-hogg-tex
 requireText(productionSurfaces, "['bayou-bend-hogg-legacy', '/destination/bayou-bend-collection-gardens', 'Bayou Bend Collection and Gardens']", 'Bayou Bend live Hogg legacy destination check');
 requireText(productionSurfaces, "['winedale-hogg-legacy', '/destination/winedale-historical-center', 'The University of Texas historic site near Round Top preserves ten nineteenth-century wooden structures']", 'Winedale live Hogg legacy destination check');
 requireText(productionSurfaces, "['texas-history-will-hogg-discovery', '/texas-history', 'Trace the Hogg sibling who connected oil-era business, River Oaks, university advocacy, arts patronage and the estate that helped create the Hogg Foundation.']", 'Will Hogg Texas History discovery check');
+requireText(productionSurfaces, "['hogg-foundation-authority', '/article/hogg-foundation-mental-health-texas-history', 'The Hogg Foundation for Mental Health: How a Texas Family Endowment Became a Statewide Institution']", 'Hogg Foundation live authority check');
+requireText(productionSurfaces, `['texas-history-hogg-foundation-discovery', '/texas-history', "Follow Will Hogg's estate, Ima and Mike Hogg's decisions and The University of Texas into a statewide mental-health institution operating since 1940."]`, 'Hogg Foundation Texas History discovery check');
+requireText(productionSurfaces, "['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story']", 'James Hogg related-reading renderer check');
+requireText(productionSurfaces, "['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history']", 'James Hogg reciprocal Foundation link check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
