@@ -100,6 +100,18 @@ function appendSummary(text) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+function decodeHtmlText(value) {
+  return value
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16)))
+    .replace(/&#([0-9]+);/g, (_, decimal) => String.fromCodePoint(Number.parseInt(decimal, 10)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#x27;/gi, "'")
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
 async function verifyRevisionBoundSurface(label, path, needle) {
   let lastStatus = 'network-error';
   let lastBody = '';
@@ -125,10 +137,11 @@ async function verifyRevisionBoundSurface(label, path, needle) {
       lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       lastBody = await response.text();
       lastError = '';
+      const decodedBody = decodeHtmlText(lastBody);
 
       if (lastChallenge) {
         console.log(`[${label}] Cloudflare returned cf-mitigated: challenge; waiting for the edge to become healthy.`);
-      } else if (response.ok && lastBody.includes(needle)) {
+      } else if (response.ok && (lastBody.includes(needle) || decodedBody.includes(needle))) {
         console.log(`[${label}] verified (${response.status}): ${needle}`);
         passed = true;
         break;
