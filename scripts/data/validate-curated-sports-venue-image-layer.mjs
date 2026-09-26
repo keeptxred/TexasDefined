@@ -37,7 +37,7 @@ assert(
 );
 for (const match of overrideSource.matchAll(/licenseName: '([^']+)'/g)) {
   assert(
-    /^(?:CC|Public domain)\b/i.test(match[1]),
+    /^(?:CC(?:0|\s)|Public domain\b)/i.test(match[1]),
     `Curated sports venue image override has no explicit commercial-reuse license: ${match[1]}`,
   );
 }
