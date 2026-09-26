@@ -110,6 +110,7 @@ if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
 
 requireText(workflow, 'https://texasdefined.com/explore/painted-churches', 'Painted Churches targeted cache purge URL');
 requireText(productionSurfaces, "['painted-churches-authority-round-2', '/explore/painted-churches', 'A second 15-source research pass adds community, architectural and preservation evidence.']", 'Painted Churches round-two live authority check');
+requireText(productionSurfaces, "['painted-churches-authority-review-date', '/explore/painted-churches', 'Core church census and authority research reviewed September 25, 2026.']", 'Painted Churches live authority-review freshness check');
 requireText(productionSurfaces, "['ima-hogg-authority', '/article/ima-hogg-texas-legacy', 'Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions']", 'Ima Hogg live authority check');
 requireText(productionSurfaces, "['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation']", 'Hogg family live authority check');
 requireText(productionSurfaces, "['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas']", 'Hogg family Texas History discovery check');
