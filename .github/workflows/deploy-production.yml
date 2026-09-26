@@ -41,7 +41,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
-      CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' || secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' || secrets.CLOUDFLARE_API_TOKEN != '' }}
+      CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
       PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
 
@@ -244,12 +244,22 @@ jobs:
           STAGE_OUTCOME: ${{ steps.cloudflare.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-cloudflare "$STAGE_OUTCOME" "Cloudflare Worker deployment passed" "Cloudflare Worker deployment failed"
 
+      - name: Report targeted cache-purge capability
+        if: ${{ always() && steps.cloudflare.outcome == 'success' }}
+        shell: bash
+        run: |
+          if [[ "$CLOUDFLARE_CACHE_TOKEN_PRESENT" == 'true' ]]; then
+            echo 'Dedicated CLOUDFLARE_CACHE_API_TOKEN is available; targeted authority cache purge will run.'
+          else
+            echo '::warning title=Dedicated Cloudflare cache-purge token unavailable::Targeted cache purge is skipped because deploy/general tokens are not assumed to have Cache Purge permission. Cache-busted live verification will still enforce production freshness.'
+          fi
+
       - name: Purge updated authority HTML from Cloudflare cache
         id: cache_purge
         if: ${{ always() && steps.cloudflare.outcome == 'success' && env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true' }}
         continue-on-error: true
         env:
-          CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN }}
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_URLS: |
             https://texasdefined.com/texas-state-fair
