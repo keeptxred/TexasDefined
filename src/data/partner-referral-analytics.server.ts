@@ -15,8 +15,10 @@ const HEARTBEAT_PARTNER = '__pipeline__';
 const HEARTBEAT_PLACEMENT = 'sync-heartbeat';
 const EXPEDIA_SEARCH_PARTNER = 'expedia-search';
 const IMPRESSION_TRACKING_STARTED_AT = '2026-09-18';
-const CTR_MEASUREMENT_STARTED_AT = '2026-09-19';
-const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-23';
+// Raw 30-day history remains visible, but decision-grade CTR/routing windows restart after
+// the 2026-09-26 UTC automation-like impression spike and automated-client filter deployment.
+const CTR_MEASUREMENT_STARTED_AT = '2026-09-27';
+const TRAVEL_ROUTING_MEASUREMENT_STARTED_AT = '2026-09-27';
 const TRAVEL_ROUTING_MIN_IMPRESSIONS_PER_PARTNER = 100;
 const TRAVEL_ROUTING_PARTNERS = ['orbitz', 'travelocity'] as const;
 
