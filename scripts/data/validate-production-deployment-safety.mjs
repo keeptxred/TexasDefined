@@ -94,6 +94,10 @@ if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
 
 requireText(workflow, 'https://texasdefined.com/explore/painted-churches', 'Painted Churches targeted cache purge URL');
 requireText(productionSurfaces, "['painted-churches-authority-round-2', '/explore/painted-churches', 'A second 15-source research pass adds community, architectural and preservation evidence.']", 'Painted Churches round-two live authority check');
+requireText(productionSurfaces, "['ima-hogg-authority', '/article/ima-hogg-texas-legacy', 'Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions']", 'Ima Hogg live authority check');
+requireText(productionSurfaces, "['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation']", 'Hogg family live authority check');
+requireText(productionSurfaces, "['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas']", 'Hogg family Texas History discovery check');
+requireText(productionSurfaces, `['texas-history-ima-hogg-discovery', '/texas-history', "Ima Hogg's Texas legacy"]`, 'Ima Hogg Texas History discovery check');
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
 requireText(productionSurfaces, "['state-fair-planning-strip', '/texas-state-fair', 'Tickets, football and a place to stay']", 'State Fair production planning-strip check');
 requireText(productionSurfaces, "['state-fair-featured-gallery', '/texas-state-fair', 'State Fair photo carousel']", 'State Fair production featured-gallery check');
