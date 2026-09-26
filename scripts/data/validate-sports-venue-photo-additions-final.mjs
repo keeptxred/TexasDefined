@@ -147,6 +147,28 @@ for (const source of sources) {
 }
 if (effective.size !== 84) failures.push(`Expected 84 effective base-first venue image records; found ${effective.size}.`);
 
+const approvedGeneratedFallbackSlugs = new Set([
+  'amarillo-national-center',
+  'colonial-country-club',
+  'cy-fair-fcu-stadium',
+  'expo-center-taylor-county',
+  'hodgetown',
+  'houston-motorsports-park',
+  'waco-surf',
+]);
+const effectiveGeneratedFallbackSlugs = [...effective.values()]
+  .filter((entry) => entry.sourceName === 'Texas Defined generated media')
+  .map((entry) => entry.slug)
+  .sort();
+const unexpectedGeneratedFallbackSlugs = effectiveGeneratedFallbackSlugs
+  .filter((slug) => !approvedGeneratedFallbackSlugs.has(slug));
+if (unexpectedGeneratedFallbackSlugs.length) {
+  failures.push(`Effective sports venue heroes added unapproved Texas Defined generated-media fallbacks: ${unexpectedGeneratedFallbackSlugs.join(', ')}.`);
+}
+if (effectiveGeneratedFallbackSlugs.length > approvedGeneratedFallbackSlugs.size) {
+  failures.push(`Effective Texas Defined generated-media fallback count grew from the approved ceiling of ${approvedGeneratedFallbackSlugs.size} to ${effectiveGeneratedFallbackSlugs.length}.`);
+}
+
 const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
 const disallowedSourceMarkers = ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent'];
 const exactLegacyDimensionExceptions = new Map([
@@ -232,4 +254,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, 84/84 effective non-placeholder heroes, complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks), and ${allowedBaseShadowDuplicates.size} intentional base-first shadows.`);
+console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, 84/84 effective non-placeholder heroes, complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, ${effectiveGeneratedFallbackSlugs.length} effective Texas Defined generated-media fallbacks (${effectiveGeneratedFallbackSlugs.join(', ') || 'none'}) within the approved seven-venue ceiling, and ${allowedBaseShadowDuplicates.size} intentional base-first shadows.`);
