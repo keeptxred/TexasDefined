@@ -492,10 +492,6 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "What Is Texas Known For? Iconic Foods, Places & Traditions",
     description: "Explore things strongly associated with Texas, including barbecue, rodeos, bluebonnets, football, ranch culture, music, iconic brands and distinctive landscapes.",
   },
-  "/article/texas-guadalupe-river-guide": {
-    title: "Guadalupe River Texas: Canyon Lake, Tubing, Basin & River Guide",
-    description: "Follow the Guadalupe River through the Hill Country, Canyon Lake and New Braunfels with tubing, basin, water, recreation and destination context.",
-  },
   "/destination/natural-bridge-wildlife-ranch": {
     title: "Natural Bridge Wildlife Ranch: Tickets, Hours & Visitor Guide",
     description: "Plan a Natural Bridge Wildlife Ranch visit near San Antonio with ticket, hours, drive-through safari, arrival and official-site planning information.",
