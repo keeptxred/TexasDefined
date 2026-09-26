@@ -94,6 +94,11 @@ const surfaces = [
   ['texas-before-us-statehood-source', '/article/texas-before-united-states-how-texas-began', 'Texas State Library and Archives Commission — Statehood'],
   ['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story'],
   ['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history'],
+  ['sallie-hogg-authority', '/article/sallie-hogg-texas-legacy', 'The Texas First Lady Who Shaped the Hogg Family'],
+  ['quitman-hogg-heritage', '/destination/governor-jim-hogg-city-park-quitman', 'Governor Jim Hogg City Park'],
+  ['texas-history-sallie-hogg-discovery', '/texas-history', 'Family · first lady · public service'],
+  ['james-hogg-sallie-link', '/texas-icons/james-hogg', '/article/sallie-hogg-texas-legacy'],
+  ['james-hogg-quitman-link', '/texas-icons/james-hogg', '/destination/governor-jim-hogg-city-park-quitman'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
