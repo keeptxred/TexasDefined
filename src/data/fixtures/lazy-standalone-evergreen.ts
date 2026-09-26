@@ -172,7 +172,7 @@ const sallieHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 9,
   tags: ["Sallie Hogg", "Sarah Ann Stinson Hogg", "James Hogg", "Hogg family", "Texas first ladies", "Quitman Texas", "Texas history"], featured: false,
   sourceName: "Handbook of Texas — Sarah Ann Stinson Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie",
-  body: [], relatedCollections: [], relatedDestinations: ["governor-jim-hogg-city-park-quitman"],
+  body: [], relatedCollections: [], relatedDestinations: ["governor-jim-hogg-city-park-quitman", "oakwood-cemetery-austin"],
 };
 
 const imaHoggTexasLegacyStub: Article = {
@@ -184,7 +184,7 @@ const imaHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 9,
   tags: ["Ima Hogg", "Hogg family", "Bayou Bend", "Houston history", "Hogg Foundation", "historic preservation", "Texas philanthropy"], featured: false,
   sourceName: "Handbook of Texas — Ima Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-ima",
-  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["oakwood-cemetery-austin", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const hoggFamilyTexasLegacyStub: Article = {
@@ -196,7 +196,7 @@ const hoggFamilyTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 10,
   tags: ["Hogg family", "James Hogg", "Ima Hogg", "Will Hogg", "Mike Hogg", "Varner-Hogg Plantation", "Bayou Bend", "Texas philanthropy"], featured: false,
   sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
-  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["oakwood-cemetery-austin", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const willHoggTexasLegacyStub: Article = {
@@ -208,7 +208,7 @@ const willHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 9,
   tags: ["Will Hogg", "William Clifford Hogg", "Hogg family", "River Oaks", "Bayou Bend", "Hogg Foundation", "Houston history", "University of Texas"], featured: false,
   sourceName: "Handbook of Texas — William Clifford Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-william-clifford",
-  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["oakwood-cemetery-austin", "bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const hoggFoundationMentalHealthHistoryStub: Article = {
