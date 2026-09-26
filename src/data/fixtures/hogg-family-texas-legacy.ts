@@ -26,6 +26,9 @@ export const hoggFamilyTexasLegacyArticle: Article = {
   sourceName: "Hogg Foundation for Mental Health — Hogg History",
   sourceUrl: "https://hogg.utexas.edu/about/history",
   internalLinks: [
+    { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow the sibling whose business, planning, university and philanthropic work helped shape the family's twentieth-century public legacy." },
+    { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Explore the River Oaks home shared by Will, Ima and Mike that became an MFAH house museum." },
+    { href: "/destination/winedale-historical-center", label: "Winedale", description: "Visit the Fayette County historic complex Ima Hogg assembled and donated to The University of Texas." },
     { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Follow the arts, mental-health and preservation work that made Ima Hogg a major Texas civic figure in her own right." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of the reform-era governor at the start of the family's statewide public story." },
     { href: "/destination/varner-hogg-plantation", label: "Varner-Hogg Plantation", description: "Visit the Brazoria County property whose Hogg-era oil rights helped reshape the family's finances and philanthropy." },
@@ -33,7 +36,7 @@ export const hoggFamilyTexasLegacyArticle: Article = {
     { href: "/destination/museum-of-fine-arts-houston", label: "Museum of Fine Arts, Houston", description: "Connect Will and Ima Hogg's arts patronage to the institution that now operates Bayou Bend." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
   body: [
     p("The Hogg family occupies an unusual place in Texas history because its influence crosses politics, oil, real estate, philanthropy, mental health, music, museums and historic preservation. The story begins with James Stephen Hogg and Sarah Ann 'Sallie' Stinson Hogg, but it becomes a family story through their four children: William Clifford 'Will' Hogg, Ima Hogg, Michael 'Mike' Hogg and Thomas Elisha 'Tom' Hogg."),
     p("Treating the Hoggs only as the family of a governor misses what happened after James Hogg left office. The family participated in Houston's oil-era growth, gained wealth from mineral rights associated with property near West Columbia and redirected substantial resources into public institutions. The result is a network of Texas places and organizations that still carry the family's imprint."),

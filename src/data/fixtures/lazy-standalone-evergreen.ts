@@ -172,7 +172,7 @@ const imaHoggTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 9,
   tags: ["Ima Hogg", "Hogg family", "Bayou Bend", "Houston history", "Hogg Foundation", "historic preservation", "Texas philanthropy"], featured: false,
   sourceName: "Handbook of Texas — Ima Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-ima",
-  body: [], relatedCollections: [], relatedDestinations: ["varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const hoggFamilyTexasLegacyStub: Article = {
@@ -184,7 +184,19 @@ const hoggFamilyTexasLegacyStub: Article = {
   authorId: "a-marisol", publishedAt: "2026-09-25", readingMinutes: 10,
   tags: ["Hogg family", "James Hogg", "Ima Hogg", "Will Hogg", "Mike Hogg", "Varner-Hogg Plantation", "Bayou Bend", "Texas philanthropy"], featured: false,
   sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
-  body: [], relatedCollections: [], relatedDestinations: ["varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+};
+
+const willHoggTexasLegacyStub: Article = {
+  id: "evergreen-will-hogg-texas-legacy", brandId: "texasdefined", slug: "will-hogg-texas-legacy",
+  title: "Will Hogg: The Businessman, Civic Planner and Philanthropist Behind a Texas Family Legacy",
+  dek: "William Clifford 'Will' Hogg carried the Hogg family from reform-era public life into Houston business, city planning, River Oaks, university advocacy, arts patronage and the estate that helped create the Hogg Foundation for Mental Health.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/BayouBendHome.JPG?width=1600", alt: "Bayou Bend estate in Houston, home of Will, Ima and Mike Hogg in the late 1920s", width: 1600, height: 1200, credit: "Postoak · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 9,
+  tags: ["Will Hogg", "William Clifford Hogg", "Hogg family", "River Oaks", "Bayou Bend", "Hogg Foundation", "Houston history", "University of Texas"], featured: false,
+  sourceName: "Handbook of Texas — William Clifford Hogg", sourceUrl: "https://www.tshaonline.org/handbook/entries/hogg-william-clifford",
+  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
 const texasBorderlandsHistoricSitesGuideStub: Article = {
@@ -312,6 +324,7 @@ export const standaloneEvergreenStubs: Article[] = [
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   imaHoggTexasLegacyStub,
   hoggFamilyTexasLegacyStub,
+  willHoggTexasLegacyStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
   battleshipTexasBB35HistoryRestorationStub,
@@ -341,6 +354,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === imaHoggTexasLegacyStub.slug) return import("./ima-hogg-texas-legacy").then((module) => module.imaHoggTexasLegacyArticle);
   if (slug === hoggFamilyTexasLegacyStub.slug) return import("./hogg-family-texas-legacy").then((module) => module.hoggFamilyTexasLegacyArticle);
+  if (slug === willHoggTexasLegacyStub.slug) return import("./will-hogg-texas-legacy").then((module) => module.willHoggTexasLegacyArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
