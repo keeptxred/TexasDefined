@@ -1,0 +1,72 @@
+import type { Article, ArticleBlock } from "../types";
+
+const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
+const h = (text: string): ArticleBlock => ({ type: "heading", text });
+const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
+
+export const riverOaksHoggBrothersPlanningHistoryArticle: Article = {
+  id: "evergreen-river-oaks-hogg-brothers-planning-history",
+  brandId: "texasdefined",
+  slug: "river-oaks-hogg-brothers-houston-planning-history",
+  title: "River Oaks, the Hogg Brothers and the Making of Planned Houston",
+  dek: "Will and Mike Hogg helped turn a wooded edge of 1920s Houston into one of the city's most influential planned communities—a model of landscape design, private controls and civic ambition that also enforced exclusion.",
+  category: "texas-history",
+  region: "gulf-coast",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/KrogerHoustonTX.JPG?width=1600",
+    alt: "River Oaks Shopping Center along West Gray in Houston",
+    width: 2272,
+    height: 1704,
+    credit: "WhisperToMe · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  readingMinutes: 11,
+  tags: ["River Oaks", "Will Hogg", "Mike Hogg", "Houston planning", "Houston history", "Hogg family", "garden suburbs", "deed restrictions"],
+  featured: false,
+  sourceName: "Handbook of Texas — River Oaks, Houston",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/river-oaks-houston",
+  internalLinks: [
+    { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow the Hogg sibling whose business, planning and philanthropy helped drive the River Oaks project." },
+    { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Place River Oaks inside the wider family story of politics, oil, philanthropy and preservation." },
+    { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Visit the River Oaks home shared by Will, Ima and Mike Hogg that later became an MFAH house museum." },
+    { href: "/destination/hogg-building-houston", label: "The Hogg Building", description: "See Will Hogg's 1921 downtown Houston commercial building, now adapted as the District at Hogg Palace hotel." },
+    { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "Continue from the family's Houston development work into the institution created from Will Hogg's estate." },
+  ],
+  relatedCollections: [],
+  relatedDestinations: ["bayou-bend-collection-gardens", "hogg-building-houston", "museum-of-fine-arts-houston"],
+  body: [
+    p("River Oaks is one of the most influential planned neighborhoods in Houston history, and the Hogg family sits near the center of its creation. In the 1920s, Michael 'Mike' Hogg and attorney Hugh Potter secured land near the newly established River Oaks Country Club. Will Hogg soon became deeply involved, expanding the scale and civic ambition of the project and helping turn it into a model that Houston planners, developers and architects studied for decades."),
+    p("The result was more than an expensive subdivision. River Oaks combined landscape architecture, private deed restrictions, architectural review, underground utilities, schools, shopping centers and green space into a coordinated plan. It also used those same private controls to enforce social and racial exclusion. Understanding both sides of that history is essential to understanding why River Oaks mattered."),
+    h("The project began on Houston's western edge"),
+    p("The Handbook of Texas traces the development to 1923, when Mike Hogg and Hugh Potter obtained an option on roughly 200 acres around the River Oaks Country Club. The following year, the developers organized Country Club Estates. Will Hogg pushed the project toward a much larger scale and became one of its strongest advocates as a civic demonstration rather than a conventional land sale."),
+    p("At the time, the site sat near Houston's western edge, beyond the compact ring of older neighborhoods around downtown. That location gave the developers room to shape streets, lots, utilities and open space before the city grew around them."),
+    h("Planning was the product"),
+    p("The developers hired the Kansas City landscape architecture firm Hare and Hare to prepare a master plan and brought in nationally known developer J. C. Nichols as a consultant. The plan used curving roads, landscaped esplanades and limited intersections rather than a rigid street grid. It also eliminated alleys in many areas and placed utility lines underground."),
+    p("The master plan reserved land for River Oaks Elementary School, shopping areas and other community functions. Architectural review and minimum construction standards were intended to preserve a consistent visual character, while a property owners' structure and private assessments supported long-term maintenance."),
+    p("City of Houston historic-preservation records repeatedly describe River Oaks as a national model of elite suburban planning. The neighborhood's street layout, landscape controls and centralized administration influenced how later Houston developments thought about private planning at a time when the city had limited zoning tools."),
+    h("Will and Mike Hogg played different roles"),
+    p("Mike Hogg and Hugh Potter were central to assembling the first land and organizing the development corporation. Will Hogg brought capital, civic-planning ambitions and a determination to make the project larger and more influential. Historical accounts credit Potter with long-term management while describing Will Hogg as a driving force behind the idea that River Oaks should demonstrate what coordinated planning could do for Houston."),
+    p("The Hogg brothers' role also connected River Oaks to the family's broader Houston presence. Will chaired the Houston City Planning Commission and advocated citywide planning and zoning. Will, Ima and Mike built Bayou Bend within River Oaks, placing the family's own home inside the development they were helping shape."),
+    h("The same private controls also enforced exclusion"),
+    p("River Oaks' planning system was not socially neutral. The Handbook of Texas and City of Houston historic records document restrictions and informal agreements that excluded Black residents, Jewish residents and other minorities. Minimum prices, design controls and centralized approval also helped maintain the neighborhood's economic exclusivity."),
+    p("Those restrictions belonged to a larger national pattern of racially restrictive covenants and exclusionary suburban development. In 1948, the U.S. Supreme Court held in Shelley v. Kraemer that courts could not enforce racially restrictive covenants, and the federal Fair Housing Act of 1968 prohibited housing discrimination on protected grounds. A recent National Register study prepared through the City of Houston notes that River Oaks property owners formally removed race-related restrictions from their deed documents in 1984."),
+    p("That history matters because the features often praised as 'controlled development' worked in two directions at once. They protected trees, setbacks, architecture and neighborhood investment, while also policing who could belong. River Oaks cannot be understood accurately by discussing one function and omitting the other."),
+    h("Bayou Bend became the family's most visible River Oaks landmark"),
+    p("Bayou Bend, designed by John F. Staub with Birdsall P. Briscoe, became the River Oaks residence of Will, Ima and Mike Hogg. Ima later transformed the house and gardens into a major collection of American decorative and fine arts and ultimately gave the property to the Museum of Fine Arts, Houston."),
+    p("That transition from private residence to public museum makes Bayou Bend a useful counterpoint to the neighborhood around it. A house created inside an exclusive private development became one of Houston's major public cultural sites."),
+    h("The commercial plan matured after Will Hogg's death"),
+    p("River Oaks' planned commercial component also became historically significant. The River Oaks Shopping Center began construction in the 1930s under Hugh Potter and later became a nationally recognized example of early automobile-oriented shopping-center design. City of Houston preservation records describe it as one of the important American retail-planning experiments of its era."),
+    p("The shopping center should not be credited solely to the Hogg brothers, because its major construction came after Will Hogg died in 1930 and Potter played a leading role. But it grew from the larger River Oaks planning system that the Hogg brothers and Potter had established in the previous decade."),
+    h("Why River Oaks belongs in the Hogg family story"),
+    list(
+      "Mike Hogg helped assemble the original land and organize the development.",
+      "Will Hogg supplied capital, planning ambition and a broader civic vision for the project.",
+      "Hugh Potter managed River Oaks over the long term and translated the plan into a durable development organization.",
+      "Hare and Hare and J. C. Nichols brought outside planning models into Houston.",
+      "Bayou Bend connected the Hogg family's private residence, collecting and later philanthropy to the neighborhood.",
+      "Private deed restrictions protected design and landscape standards while also enforcing racial, religious and economic exclusion."
+    ),
+    p("River Oaks therefore represents one of the most complicated parts of the Hogg legacy. It helped introduce a more coordinated form of neighborhood planning to Houston and produced architecture and landscapes that remain influential. It also demonstrates how planning tools can embed exclusion as effectively as they can protect beauty, infrastructure and open space."),
+  ],
+};
