@@ -151,6 +151,7 @@ import { Route as PartnerWithUsRouteImport } from './routes/partner-with-us'
 import { Route as PaintedChurchesDotjsonRouteImport } from './routes/painted-churches[.]json'
 import { Route as PaintedChurchesDotcsvRouteImport } from './routes/painted-churches[.]csv'
 import { Route as PaintedChurchesChecklistDottxtRouteImport } from './routes/painted-churches-checklist[.]txt'
+import { Route as OffersRouteImport } from './routes/offers'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as MovingToTexasChecklistRouteImport } from './routes/moving-to-texas-checklist'
 import { Route as MovingToTexasRouteImport } from './routes/moving-to-texas'
@@ -1452,6 +1453,11 @@ const PaintedChurchesChecklistDottxtRoute =
     path: '/painted-churches-checklist.txt',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OffersRoute = OffersRouteImport.update({
+  id: '/offers',
+  path: '/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
@@ -3573,6 +3579,7 @@ export interface FileRoutesByFullPath {
   '/moving-to-texas': typeof MovingToTexasRouteWithChildren
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/news': typeof NewsRouteWithChildren
+  '/offers': typeof OffersRoute
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
@@ -4057,6 +4064,7 @@ export interface FileRoutesByTo {
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/moving-to-texas': typeof MovingToTexasRouteWithChildren
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
+  '/offers': typeof OffersRoute
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
@@ -4543,6 +4551,7 @@ export interface FileRoutesById {
   '/moving-to-texas': typeof MovingToTexasRouteWithChildren
   '/moving-to-texas-checklist': typeof MovingToTexasChecklistRoute
   '/news': typeof NewsRouteWithChildren
+  '/offers': typeof OffersRoute
   '/painted-churches-checklist.txt': typeof PaintedChurchesChecklistDottxtRoute
   '/painted-churches.csv': typeof PaintedChurchesDotcsvRoute
   '/painted-churches.json': typeof PaintedChurchesDotjsonRoute
@@ -5031,6 +5040,7 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
     | '/news'
+    | '/offers'
     | '/painted-churches-checklist.txt'
     | '/painted-churches.csv'
     | '/painted-churches.json'
@@ -5515,6 +5525,7 @@ export interface FileRouteTypes {
     | '/mortgage-calculator'
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
+    | '/offers'
     | '/painted-churches-checklist.txt'
     | '/painted-churches.csv'
     | '/painted-churches.json'
@@ -6000,6 +6011,7 @@ export interface FileRouteTypes {
     | '/moving-to-texas'
     | '/moving-to-texas-checklist'
     | '/news'
+    | '/offers'
     | '/painted-churches-checklist.txt'
     | '/painted-churches.csv'
     | '/painted-churches.json'
@@ -6487,6 +6499,7 @@ export interface RootRouteChildren {
   MovingToTexasRoute: typeof MovingToTexasRouteWithChildren
   MovingToTexasChecklistRoute: typeof MovingToTexasChecklistRoute
   NewsRoute: typeof NewsRouteWithChildren
+  OffersRoute: typeof OffersRoute
   PaintedChurchesChecklistDottxtRoute: typeof PaintedChurchesChecklistDottxtRoute
   PaintedChurchesDotcsvRoute: typeof PaintedChurchesDotcsvRoute
   PaintedChurchesDotjsonRoute: typeof PaintedChurchesDotjsonRoute
@@ -7820,6 +7833,13 @@ declare module '@tanstack/react-router' {
       path: '/painted-churches-checklist.txt'
       fullPath: '/painted-churches-checklist.txt'
       preLoaderRoute: typeof PaintedChurchesChecklistDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offers': {
+      id: '/offers'
+      path: '/offers'
+      fullPath: '/offers'
+      preLoaderRoute: typeof OffersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/news': {
@@ -10810,6 +10830,7 @@ const rootRouteChildren: RootRouteChildren = {
   MovingToTexasRoute: MovingToTexasRouteWithChildren,
   MovingToTexasChecklistRoute: MovingToTexasChecklistRoute,
   NewsRoute: NewsRouteWithChildren,
+  OffersRoute: OffersRoute,
   PaintedChurchesChecklistDottxtRoute: PaintedChurchesChecklistDottxtRoute,
   PaintedChurchesDotcsvRoute: PaintedChurchesDotcsvRoute,
   PaintedChurchesDotjsonRoute: PaintedChurchesDotjsonRoute,
