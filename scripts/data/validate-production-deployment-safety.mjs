@@ -51,7 +51,10 @@ for (const [needle, label] of [
   ['id: verified_worker_version', 'post-verification Worker version capture'],
   ['id: verified_worker_ledger', 'verified Worker recovery ledger step'],
   ['node scripts/ci/verified-worker-ledger.mjs record', 'verified Worker recovery ledger command'],
-  ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' || secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' || secrets.CLOUDFLARE_API_TOKEN != '' }}", 'cache-purge token presence env flag'],
+  ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}", 'dedicated cache-purge token presence env flag'],
+  ["CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN }}", 'dedicated cache-purge credential routing'],
+  ['name: Report targeted cache-purge capability', 'cache-purge capability reporting'],
+  ['deploy/general tokens are not assumed to have Cache Purge permission', 'cache-purge least-privilege warning'],
   ["env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true'", 'cache-purge step env-flag condition'],
 ]) requireText(workflow, needle, label);
 
@@ -71,6 +74,10 @@ for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records'
   if (cloudflareSmoke.includes(retired)) {
     failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);
   }
+}
+
+if (workflow.includes("CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN ||")) {
+  failures.push('Targeted cache purge must not fall back to deploy/general Cloudflare tokens without explicit Cache Purge scope.');
 }
 
 if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
@@ -217,4 +224,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and verifies live public DNS/Cloudflare edge routing without requiring unnecessary zone/DNS API scope, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and verifies live public DNS/Cloudflare edge routing without requiring unnecessary zone/DNS API scope, targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
