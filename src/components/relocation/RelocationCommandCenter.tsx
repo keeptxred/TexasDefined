@@ -17,6 +17,7 @@ type Profile = {
   workLocation: string;
   industry: string;
   companyMove: "none" | "employee" | "employer";
+  employeesMoving: number;
   region: string;
   setting: string;
   commute: string;
@@ -39,6 +40,7 @@ const DEFAULT_PROFILE: Profile = {
   workLocation: "",
   industry: "",
   companyMove: "none",
+  employeesMoving: 0,
   region: "any",
   setting: "any",
   commute: "any",
@@ -265,6 +267,7 @@ export function RelocationCommandCenter() {
               <Field label="Work location / corridor"><input value={profile.workLocation} onChange={(e) => setProfile((p) => ({ ...p, workLocation: e.target.value }))} placeholder="Downtown, Energy Corridor, remote…" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
               <Field label="Industry"><input value={profile.industry} onChange={(e) => setProfile((p) => ({ ...p, industry: e.target.value }))} placeholder="Energy, healthcare, tech…" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field>
               <Field label="Corporate relocation?"><select value={profile.companyMove} onChange={(e) => setProfile((p) => ({ ...p, companyMove: e.target.value as Profile["companyMove"] }))} className="min-h-11 w-full border border-border bg-background px-3 text-sm"><option value="none">No / not sure</option><option value="employee">I am relocating for work</option><option value="employer">I am planning for employees</option></select></Field>
+              {profile.companyMove === "employer" ? <Field label="Employees moving"><input type="number" min="0" max="100000" value={profile.employeesMoving || ""} onChange={(e) => setProfile((p) => ({ ...p, employeesMoving: Math.max(0, Number(e.target.value) || 0) }))} placeholder="Optional headcount" className="min-h-11 w-full border border-border bg-background px-3 text-sm" /></Field> : null}
             </div>
             {originState ? <div className="mt-6 border border-border bg-background p-5">
               <p className="eyebrow text-primary">Moving from {originState}</p>
@@ -389,6 +392,30 @@ export function RelocationCommandCenter() {
         <h2 id="corporate-relocation-heading" className="mt-2 max-w-4xl font-display text-4xl sm:text-5xl">One path for transferees, HR teams and companies moving operations</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Corporate relocation is both a company decision and a household decision. TexasDefined connects workforce and market research to the city, county, school, housing, commute, tax, utility and address tools employees need after the announcement.</p>
         {profile.industry ? <p className="mt-3 max-w-4xl text-sm font-semibold text-foreground">Current industry context: {profile.industry}. Use the Texas Industries hub and local labor-market sources to test where that sector actually clusters before choosing a destination.</p> : null}
+        {profile.companyMove !== "none" ? <div className="mt-7 border border-border bg-surface p-6" aria-labelledby="corporate-move-brief">
+          <p className="eyebrow text-primary">{profile.companyMove === "employer" ? "Employer / HR workspace" : "Employee transfer workspace"}</p>
+          <h3 id="corporate-move-brief" className="mt-2 font-display text-3xl">Your corporate move brief</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{profile.companyMove === "employer"
+            ? "Use this brief to keep workforce geography and employee household needs in the same decision. It summarizes the context already saved in My Texas Move; verify labor-market, tax, incentive and legal questions with the responsible official source."
+            : "Use this brief to keep the job transfer and household move in the same decision. It summarizes the context already saved in My Texas Move; verify package terms with your employer and address-dependent Texas details with the responsible official source."}</p>
+          <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            <CorporateFact label="Relocation mode" value={profile.companyMove === "employer" ? "Employer / workforce move" : "Employee transfer"} />
+            <CorporateFact label="Texas destination" value={profile.destination || "Still evaluating"} />
+            <CorporateFact label="Industry" value={profile.industry || "Not entered"} />
+            <CorporateFact label="Work location" value={profile.workLocation || "Not entered"} />
+            <CorporateFact label="Move date" value={profile.moveDate || "Not entered"} />
+            {profile.companyMove === "employer" ? <CorporateFact label="Employees moving" value={profile.employeesMoving ? profile.employeesMoving.toLocaleString() : "Not entered"} /> : <CorporateFact label="Household" value={String(profile.householdSize) + " people" + (profile.schools ? " · schools matter" : "")} />}
+            <CorporateFact label="Texas shortlist" value={profile.savedPlaces.length ? profile.savedPlaces.join(", ") : "No places saved yet"} />
+            <CorporateFact label="Addresses researched" value={String(profile.savedAddresses.length)} />
+          </div>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href="/compare-texas-cities" className="text-primary underline underline-offset-4">Compare Texas cities →</a>
+            <a href="/texas-industries" className="underline underline-offset-4">Research Texas industries →</a>
+            <a href="/moving-to-texas/data" className="underline underline-offset-4">Open relocation data →</a>
+            <a href="/moving-to-texas-checklist" className="underline underline-offset-4">Open move checklist →</a>
+            {profile.companyMove === "employer" ? <a href="/start-a-business-in-texas" className="underline underline-offset-4">Texas business setup →</a> : <a href="/texas-moving-cost-calculator" className="underline underline-offset-4">Estimate moving costs →</a>}
+          </div>
+        </div> : null}
         <div className="grid gap-6 py-8 lg:grid-cols-2">
           <CorporatePanel eyebrow="For employees & families" title="Evaluate the offer and destination together" steps={EMPLOYEE_STEPS} />
           <CorporatePanel eyebrow="For employers, HR & site-selection teams" title="Build the workforce move around real Texas geography" steps={EMPLOYER_STEPS} />
@@ -413,6 +440,10 @@ function Select({ label, value, onChange, options }: { label: string; value: str
 
 function Summary({ label, value }: { label: string; value: string }) {
   return <div className="bg-background p-4"><p className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{label}</p><p className="mt-2 text-sm font-semibold">{value}</p></div>;
+}
+
+function CorporateFact({ label, value }: { label: string; value: string }) {
+  return <div className="bg-background p-4"><p className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">{label}</p><p className="mt-2 text-sm leading-6">{value}</p></div>;
 }
 
 function CorporatePanel({ eyebrow, title, steps }: { eyebrow: string; title: string; steps: readonly (readonly [string, string])[] }) {
