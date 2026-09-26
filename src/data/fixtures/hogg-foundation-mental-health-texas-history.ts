@@ -27,6 +27,7 @@ export const hoggFoundationMentalHealthHistoryArticle: Article = {
   sourceName: "Hogg Foundation for Mental Health — Hogg History",
   sourceUrl: "https://hogg.utexas.edu/about/history",
   internalLinks: [
+    { href: "/article/hogg-family-heritage-trail-texas", label: "Hogg Family Heritage Trail", description: "See the physical Texas places that connect the family history behind the Foundation's endowment and public-service mission." },
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children connected politics, oil-era wealth, philanthropy, preservation and public institutions." },
     { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Trace the family public-service ethic back to the mother the Hogg Foundation's own history credits with shaping her children's civic responsibility." },
     { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow the businessman and civic planner whose estate supplied the foundation's principal original endowment." },
