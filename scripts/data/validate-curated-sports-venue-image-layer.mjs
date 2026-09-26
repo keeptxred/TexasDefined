@@ -47,7 +47,7 @@ assert(
   'Dickies Arena must resolve to its existing reusable documentary photo instead of an AI-generated curated override.',
 );
 
-const prosperStadiumMatch = overrideSource.match(/'childrens-health-stadium-prosper': \\{[\\s\\S]*?\\n  \\},/);
+const prosperStadiumMatch = overrideSource.match(/'childrens-health-stadium-prosper': \{[\s\S]*?\n  \},/);
 const prosperStadiumSource = prosperStadiumMatch?.[0] ?? '';
 assert(prosperStadiumSource, "Children's Health Stadium must have a curated documentary hero override.");
 for (const marker of [
