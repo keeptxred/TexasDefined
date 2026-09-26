@@ -90,6 +90,8 @@ const surfaces = [
   ['texas-before-us-authority', '/article/texas-before-united-states-how-texas-began', 'Texas Before the United States: How Texas Began'],
   ['texas-history-origins-discovery', '/texas-history', 'Texas before the United States: how Texas began'],
   ['texas-before-us-sitemap', '/sitemap.xml', '/article/texas-before-united-states-how-texas-began'],
+  ['texas-before-us-source-panel', '/article/texas-before-united-states-how-texas-began', 'Sources and further reading'],
+  ['texas-before-us-statehood-source', '/article/texas-before-united-states-how-texas-began', 'Texas State Library and Archives Commission — Statehood'],
   ['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story'],
   ['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history'],
 ];
