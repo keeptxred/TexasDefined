@@ -36,6 +36,8 @@ for (const slug of candidateSlugs) {
   requireText(sourceLibrary, `slug: "${slug}"`, 'Public research queue accounting');
 }
 requireText(census, '16-slide San Fernando Cathedral decorative-painting research group', 'San Fernando hold evidence');
+requireText(census, 'https://sah-archipedia.org/buildings/TX-01-SA46', 'San Fernando SAH restoration evidence');
+requireText(census, 'plain mission-like whitewashed walls', 'San Fernando surviving-program scope caution');
 requireText(census, 'exact-building decorative evidence', 'Ellinger hold standard');
 requireText(census, 'qualifying decorative evidence', 'Rockne hold standard');
 
