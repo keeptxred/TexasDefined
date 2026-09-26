@@ -46,6 +46,8 @@ For the clean Orbitz-versus-Travelocity routing window beginning 2026-09-23, the
 
 These counts are a point-in-time operating snapshot, not permanent performance claims.
 
+A 2026-09-26 UTC automation-like impression spike later inflated raw Stay Nearby exposure on the Lady Bird Johnson Wildflower Center destination without clicks. TexasDefined retains those raw aggregates for audit continuity but excludes automated/headless/crawler clients going forward and resets decision-grade CTR plus the Orbitz/Travelocity comparison window to 2026-09-27 UTC. The snapshot above remains historical context and must not be mixed into the post-filter routing decision window.
+
 ## Replacement rules
 
 1. Replace a lower-paying link only when the higher-paying program satisfies the same visitor job.
