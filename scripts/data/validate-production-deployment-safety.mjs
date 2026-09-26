@@ -57,14 +57,21 @@ for (const [needle, label] of [
 
 for (const [needle, label] of [
   ["CLOUDFLARE_WORKERS_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke dedicated Workers credential fallback'],
-  ["CLOUDFLARE_ZONE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke zone-capable credential fallback'],
+  ['Verify Cloudflare Workers, public DNS and AI access', 'Cloudflare smoke least-privilege capability label'],
   ['workers_auth="Authorization: Bearer $CLOUDFLARE_WORKERS_API_TOKEN"', 'Cloudflare smoke Workers authorization header'],
-  ['zone_auth="Authorization: Bearer $CLOUDFLARE_ZONE_API_TOKEN"', 'Cloudflare smoke zone authorization header'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/scripts"', 'Cloudflare smoke Workers Scripts credential routing'],
-  ['curl --fail-with-body --silent --show-error -H "$zone_auth" --get \\\n            --data-urlencode \'name=texasdefined.com\'', 'Cloudflare smoke zone lookup credential routing'],
-  ['curl --fail-with-body --silent --show-error -H "$zone_auth" --get \\\n            --data-urlencode \'per_page=100\'', 'Cloudflare smoke DNS credential routing'],
+  ["for hostname in ('texasdefined.com', 'www.texasdefined.com'):", 'Cloudflare smoke public DNS hostname coverage'],
+  ['socket.getaddrinfo(hostname, 443, type=socket.SOCK_STREAM)', 'Cloudflare smoke public DNS resolver'],
+  ["grep -qi '^cf-ray:'", 'Cloudflare smoke edge-routing header verification'],
+  ["echo 'Public DNS resolution and Cloudflare edge routing verified.'", 'Cloudflare smoke public DNS success marker'],
   ['curl --fail-with-body --silent --show-error -H "$workers_auth" --get \\\n            "$api/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"', 'Cloudflare smoke Workers Domains credential routing'],
 ]) requireText(cloudflareSmoke, needle, label);
+
+for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records']) {
+  if (cloudflareSmoke.includes(retired)) {
+    failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);
+  }
+}
 
 if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
   failures.push('GitHub Actions if expressions must not reference secrets directly; expose secret presence through job env and test env.* instead.');
@@ -210,4 +217,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and zone/DNS probes through the proven zone-capable credential chain, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential and verifies live public DNS/Cloudflare edge routing without requiring unnecessary zone/DNS API scope, cache-purge conditions remain GitHub-expression-safe, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
