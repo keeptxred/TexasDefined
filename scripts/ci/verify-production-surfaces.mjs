@@ -76,6 +76,10 @@ const surfaces = [
   ['state-fair-coupons-section', '/texas-state-fair', 'How Food & Midway Coupons work'],
   ['state-fair-ticket-section', '/texas-state-fair', '2026 ticket prices and admission'],
   ['texas-history-military', '/texas-history', 'Military in Mexican Texas'],
+  ['ima-hogg-authority', '/article/ima-hogg-texas-legacy', 'Ima Hogg: The Texas Patron Who Turned Family Wealth Into Public Institutions'],
+  ['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation'],
+  ['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas'],
+  ['texas-history-ima-hogg-discovery', '/texas-history', "Ima Hogg's Texas legacy"],
 ];
 
 const canonicalHomepageRequiredNeedles = [
