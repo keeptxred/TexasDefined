@@ -150,10 +150,6 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     title: "Texas Lakes & Reservoirs: Why Most Are Man-Made",
     description: "See why most familiar inland Texas lakes are reservoirs built for water supply and flood control, including Lake Travis, Texoma and Canyon Lake.",
   },
-  "/article/texas-highway-designations-explained": {
-    title: "Texas Road Names: What FM, RM, SH, Loop & Spur Mean",
-    description: "Decode Texas road designations: FM and RM roads, State Highways, Loops and Spurs.",
-  },
   "/article/texas-school-districts-explained": {
     title: "What Does ISD Stand For in Texas? School District Guide",
     description: "ISD means Independent School District. Learn why city limits and ZIP codes do not determine school districts, campus zones or local school taxes.",
