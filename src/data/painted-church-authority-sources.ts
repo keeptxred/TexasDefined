@@ -143,7 +143,7 @@ export const paintedChurchAuthoritySources: PaintedChurchAuthoritySource[] = [
     url: "https://lindsay.texas.gov/visitor-info/things-to-do/",
     authority: "City of Lindsay",
     scope: "Lindsay restoration and visitor context",
-    contribution: "Adds a municipal cross-check that St. Peter has undergone two major restorations and records the city's public-access summary. Current parish rules still control Mass, Adoration, group tours and photography.",
+    contribution: "Adds a municipal cross-check that St. Peter has undergone two restorations and records the city's public-access summary. Current parish rules still control Mass, Adoration, group tours and photography.",
     churchSlugs: ["lindsay-st-peters-catholic-church"],
   },
   {
@@ -841,7 +841,7 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
 const roundTwoEnrichments: Record<string, AuthorityEnrichment> = {
   "lindsay-st-peters-catholic-church": {
     facts: [
-      { label: "Municipal restoration record", value: "City of Lindsay visitor information says St. Peter has undergone two major restorations; its latest-completion date differs slightly from parish rededication chronology, so both records remain visible rather than being silently collapsed" },
+      { label: "Municipal restoration record", value: "City of Lindsay visitor information says St. Peter has undergone two restorations; its latest-completion date differs slightly from parish rededication chronology, so both records remain visible rather than being silently collapsed" },
     ],
     visitorNotes: [
       "The City of Lindsay describes general daylight visitor access. For Mass, Adoration, group tours and photography, use the active parish's current rules as the controlling source.",
