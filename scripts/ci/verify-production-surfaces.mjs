@@ -37,6 +37,7 @@ const surfaces = [
   ['homes-property-desk-profile', '/authors/a-homes-land', 'not a substitute for licensed legal, insurance, engineering or trade advice'],
   ['painted-churches', '/explore/painted-churches', 'Painted Churches of Texas'],
   ['painted-churches-authority-round-2', '/explore/painted-churches', 'A second 15-source research pass adds community, architectural and preservation evidence.'],
+  ['painted-churches-authority-review-date', '/explore/painted-churches', 'Core church census and authority research reviewed September 25, 2026.'],
   ['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign'],
   ['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa'],
   ['painted-churches-round2-serbin', '/explore/painted-churches/serbin-st-paul-lutheran-church', 'Colony land purchase'],
