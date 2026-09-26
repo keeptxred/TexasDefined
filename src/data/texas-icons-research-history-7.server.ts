@@ -138,6 +138,13 @@ export const TEXAS_ICON_RESEARCH_HISTORY_BATCH_7: readonly TexasIconResearchProf
       { name: "Austin", context: "Capital where Hogg served as attorney general and governor and promoted the state library." },
       { name: "Houston", context: "City where Hogg practiced and invested after office and where he died in 1906." },
     ],
+    relatedLinks: [
+      { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Continue from James Hogg's public career into the oil, philanthropy and preservation work of Sallie, Will, Ima, Mike and Tom." },
+      { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow James Hogg's oldest son into Houston business, planning, university advocacy and philanthropy." },
+      { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "See how James Hogg's daughter became a major force in Texas music, mental-health philanthropy, museums and preservation." },
+      { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "Trace how Will Hogg's estate and Ima and Mike Hogg's decisions became a statewide institution at The University of Texas." },
+      { href: "/destination/varner-hogg-plantation", label: "Varner-Hogg Plantation", description: "Connect the family to the Brazoria County property whose later oil interests helped transform Hogg finances." },
+    ],
     sources: [
       { label: "Texas State Library — James Stephen Hogg", url: "https://www.tsl.texas.gov/governors/rising/index.html" },
       { label: "Handbook of Texas — James Stephen Hogg", url: "https://www.tshaonline.org/handbook/entries/hogg-james-stephen" },
