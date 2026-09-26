@@ -33,7 +33,7 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
     sourceName: 'Wikimedia Commons',
     author: 'Tartessos75',
     licenseName: 'Public domain',
-    licenseUrl: 'https://commons.wikimedia.org/wiki/File:MemorialParkHouston.JPG',
+    licenseUrl: 'https://commons.wikimedia.org/wiki/Commons:Public_domain',
     width: 2048,
     height: 1536,
   },
