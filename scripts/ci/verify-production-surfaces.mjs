@@ -80,6 +80,10 @@ const surfaces = [
   ['hogg-family-authority', '/article/hogg-family-texas-legacy', 'The Hogg Family in Texas: Politics, Oil, Philanthropy and Preservation'],
   ['texas-history-hogg-family-discovery', '/texas-history', 'The Hogg family in Texas'],
   ['texas-history-ima-hogg-discovery', '/texas-history', 'Follow the Houston patron who helped build the symphony, the Hogg Foundation, Bayou Bend and a statewide preservation legacy.'],
+  ['will-hogg-authority', '/article/will-hogg-texas-legacy', 'Will Hogg: The Businessman, Civic Planner and Philanthropist Behind a Texas Family Legacy'],
+  ['bayou-bend-hogg-legacy', '/destination/bayou-bend-collection-gardens', 'Bayou Bend Collection and Gardens'],
+  ['winedale-hogg-legacy', '/destination/winedale-historical-center', 'The University of Texas historic site near Round Top preserves ten nineteenth-century wooden structures'],
+  ['texas-history-will-hogg-discovery', '/texas-history', 'Trace the Hogg sibling who connected oil-era business, River Oaks, university advocacy, arts patronage and the estate that helped create the Hogg Foundation.'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
