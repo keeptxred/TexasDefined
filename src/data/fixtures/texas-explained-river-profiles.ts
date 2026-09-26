@@ -40,6 +40,8 @@ export const texasBrazosRiverGuideArticle: Article = {
       "Agriculture, towns and metropolitan growth create different kinds of demand in different reaches.",
       "The lower river eventually carries the basin's water toward the Gulf of Mexico."
     ),
+    h("How to read the Brazos as one water system"),
+    p("A useful way to read the Brazos is to follow connections rather than county lines. Start with the forks and tributaries that collect runoff, then trace where reservoirs interrupt and store that flow, and finally look at where farms, towns and cities draw on the same basin. TWDB's basin view puts those pieces on one map. It explains why an upper-basin supply problem, a reservoir operation or a downstream demand cannot be treated as an isolated local event. Each sits inside the same drainage network, and decisions in one reach can matter to people and ecosystems farther along the river."),
     h("Why the Brazos matters beyond the riverbank"),
     p("The Brazos helps explain why Texas water policy follows basins rather than political boundaries. It also shows why a river's identity is not one landscape. The same basin can include High Plains water concerns, Central Texas reservoirs and humid lower-river country."),
     p("If you want to understand Texas as a connected physical system, the Brazos is one of the best examples. It takes water from a vast interior watershed and gathers tributaries, reservoirs, cities and farms into one route to the Gulf. The river is not just a line across Texas; it is an organizing system beneath a large part of the state."),
@@ -70,6 +72,8 @@ export const texasColoradoRiverGuideArticle: Article = {
     p("Reservoirs store water, support recreation and help manage supply, but they also mean the Colorado is heavily managed. TWDB identifies balancing human water demands and environmental needs as an important issue in the basin."),
     h("Why Austin looks like a river-and-reservoir city"),
     p("In Austin, the Colorado is visible as a broad urban water corridor, but the water arriving there is the product of an enormous upstream basin. The lakes above the city are not isolated attractions; they are connected storage on the same river. Downstream, the Colorado continues through a very different landscape before reaching Matagorda Bay."),
+    h("How to read the Colorado basin on a map"),
+    p("The Colorado makes more sense when the named lakes are read as connected storage rather than separate destinations. Follow the main river from the drier western basin, add tributaries such as the Llano and Pedernales, then trace the Highland Lakes sequence through Central Texas before continuing downstream toward Matagorda Bay. That basin-scale view matches TWDB's description of a long river with comparatively modest average flow. It also shows why water-supply planning, reservoir releases, recreation and environmental needs belong to one connected system even when people encounter the Colorado as a lake, a Hill Country tributary or the river through Austin."),
     h("What this river teaches about Texas water"),
     list(
       "Long rivers can have relatively modest average flow when much of the watershed is dry.",
@@ -110,6 +114,8 @@ export const texasGuadalupeRiverGuideArticle: Article = {
     p("Upstream, limestone terrain and clear water dominate the popular image of the Guadalupe. Farther downstream, the river moves into lower, warmer country and becomes part of a larger coastal drainage system. The recreational Hill Country river and the lower-basin water-supply river are the same connected system."),
     h("Why public access matters"),
     p("TPWD notes that Texas rivers provide recreation to millions of people and maintains paddling trails and leased-access programs in multiple basins. Guadalupe River State Park adds a major public access point with river frontage for swimming, paddling, fishing and other uses. Access is not the same everywhere along a Texas river, so public parks and designated access sites matter."),
+    h("How to read a spring-influenced river"),
+    p("The Guadalupe is especially useful for reading the connection between groundwater and surface water. A map of the basin shows rivers and reservoirs, but the flow story also includes aquifers and springs that can sustain tributaries between storms. That is why TWDB's concern about groundwater pumping belongs in the same discussion as Canyon Lake and downstream river conditions. For a reader, the practical lesson is to avoid treating a spring, a tributary, a reservoir and the main river as separate water features. They are parts of one system whose visible surface flow can reflect both rainfall and what is happening underground."),
     h("What the Guadalupe teaches"),
     list(
       "A river can be strongly influenced by groundwater as well as direct runoff.",
@@ -149,6 +155,8 @@ export const texasTrinityRiverGuideArticle: Article = {
     p("That connection is easy to miss on a road map. Dallas-Fort Worth and Houston feel like separate urban systems, but statewide water infrastructure can link their needs through the same river basin."),
     h("Why the river can feel less obvious than the basin"),
     p("In many places, people interact with the Trinity system through reservoirs, tributaries, parks or flood-control corridors rather than the main stem. That does not make the river less important. It means the functional watershed is broader than the landscape most residents see day to day."),
+    h("How to read the Trinity beyond the river channel"),
+    p("A map of the Trinity is easiest to understand when the reservoirs and forks are treated as parts of the river rather than as separate local features. The upper basin gathers water through multiple forks around a large metropolitan area, and the reservoir network stores and redistributes that supply before the system continues southeast. TWDB's basin perspective also connects North Texas demand with lower-basin water use and transfers toward the Houston area. That makes the Trinity a strong example of why metropolitan water planning follows watersheds and infrastructure networks: the water system serving a city can extend far beyond the river segment visible inside that city."),
     h("What the Trinity teaches"),
     list(
       "A major river basin can be heavily urban even when the river itself is not the region's dominant visual landmark.",
@@ -188,6 +196,8 @@ export const texasRioGrandeGuideArticle: Article = {
     p("TWDB lists Amistad International Reservoir and Falcon International Reservoir among the major reservoirs of the basin, along with Red Bluff and others. Large reservoirs are especially important in a system where runoff is limited and water must be stored across highly variable conditions."),
     h("The river is not one landscape"),
     p("Near El Paso, the river belongs to a desert border landscape. Farther downstream it passes through the Big Bend region, receives tributaries such as the Pecos and Devils, and eventually reaches irrigated lower-valley country before the Gulf. Treating the Rio Grande as a single visual type hides how much Texas geography it connects."),
+    h("How to read an international river basin"),
+    p("The Rio Grande requires a wider map than most Texas rivers. Start upstream in Colorado and New Mexico, then include tributaries entering from Texas and Mexico, the major international reservoirs and the agreements that govern how water is divided. TWDB's basin overview makes clear that these pieces cannot be separated from one another. A dry reach in Texas may reflect climate, upstream supply, storage and allocation rules at the same time. Reading the river this way helps explain why local conditions along the border are tied to decisions and hydrology far beyond a single Texas county—or even beyond the state and national boundary."),
     h("What the Rio Grande teaches"),
     list(
       "The largest watershed area does not guarantee a high average water yield.",
