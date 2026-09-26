@@ -10,6 +10,7 @@ const MAP_PATH = path.join(ROOT, 'src/data/sports-venue-images-additions-wave7.t
 const REPORT_PATH = path.join(ROOT, 'scripts/data/sports-venue-hero-wave7-report.json');
 const USER_AGENT = 'TexasDefined/1.0 (reviewed sports venue image sync; https://texasdefined.com)';
 const MODEL = '@cf/black-forest-labs/flux-1-schnell';
+const SUPPORTED_COMMONS_MIME = new Set(['image/jpeg', 'image/png']);
 
 const venues = [
   ['amarillo-national-center', 'Amarillo National Center', 'Amarillo', 'indoor equestrian and event arena'],
@@ -30,7 +31,10 @@ const venues = [
   ['waco-surf', 'Waco Surf', 'Waco', 'surf lagoon and action sports facility'],
 ].map(([slug, name, city, type]) => ({ slug, name, city, type }));
 
+// Only add a title here after the file has been manually reviewed as an exact venue match.
+// The Commons API still verifies the reusable license at sync time before any generated output is replaced.
 const exactCommonsFiles = {
+  'legacy-stadium-katy': 'File:LegacyStadium2023.png',
   'round-rock-sports-center': 'File:Round Rock Sports Center, Texas (47603155501).jpg',
   'texas-motorplex': 'File:Ennis September 2017 30 (Texas Motorplex).jpg',
 };
@@ -41,6 +45,38 @@ function cleanHtml(value) {
 function ts(value) { return JSON.stringify(String(value ?? '')); }
 function aiAvailable() { return Boolean(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN); }
 
+async function fileExists(filePath) {
+  try {
+    const stat = await fs.stat(filePath);
+    return stat.isFile() && stat.size >= 20_000;
+  } catch {
+    return false;
+  }
+}
+
+async function readExistingReport() {
+  try {
+    return JSON.parse(await fs.readFile(REPORT_PATH, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+function aiRecord(venue) {
+  return {
+    slug: venue.slug,
+    alt: `AI-generated photorealistic editorial depiction of ${venue.name} in ${venue.city}, Texas`,
+    imageUrl: `/images/sports-venues/${venue.slug}.jpg`,
+    sourcePage: `https://texasdefined.com/sports-venue/${venue.slug}`,
+    sourceName: 'Texas Defined generated media',
+    author: 'Cloudflare Workers AI / FLUX.1 schnell',
+    licenseName: 'AI-generated image supplied for TexasDefined use',
+    licenseUrl: `https://texasdefined.com/sports-venue/${venue.slug}`,
+    width: 1600,
+    height: 900,
+  };
+}
+
 async function fetchExactCommons(title) {
   const params = new URLSearchParams({ action: 'query', titles: title, prop: 'imageinfo', iiprop: 'url|mime|size|extmetadata', iiurlwidth: '1600', format: 'json', origin: '*' });
   const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params}`, { headers: { 'User-Agent': USER_AGENT } });
@@ -48,35 +84,51 @@ async function fetchExactCommons(title) {
   const payload = await response.json();
   const page = Object.values(payload.query?.pages || {})[0];
   const info = page?.imageinfo?.[0];
-  if (!page || !info || info.mime !== 'image/jpeg') throw new Error(`Exact Commons image missing: ${title}`);
+  if (!page || !info || !SUPPORTED_COMMONS_MIME.has(info.mime)) throw new Error(`Exact Commons image missing or unsupported: ${title}`);
   const meta = info.extmetadata || {};
   const license = cleanHtml(meta.LicenseShortName?.value || meta.UsageTerms?.value).toLowerCase();
   if (!/(public domain|cc0|cc by|cc-by)/.test(license)) throw new Error(`Unsupported Commons license for ${title}: ${license}`);
   return { page, info, meta };
 }
 
-async function saveCommons(venue, title, destinationPath) {
+async function stageCommons(venue, title, destinationPath) {
   const { page, info, meta } = await fetchExactCommons(title);
-  const response = await fetch(info.thumburl || info.url, { headers: { 'User-Agent': USER_AGENT, Accept: 'image/jpeg,image/*;q=0.8' } });
+  const response = await fetch(info.thumburl || info.url, { headers: { 'User-Agent': USER_AGENT, Accept: 'image/jpeg,image/png,image/*;q=0.8' } });
   if (!response.ok) throw new Error(`Image download ${response.status}`);
   const bytes = Buffer.from(await response.arrayBuffer());
-  if (bytes.length < 20_000) throw new Error(`Commons JPEG too small for ${venue.slug}`);
-  await fs.writeFile(destinationPath, bytes);
+  if (bytes.length < 20_000) throw new Error(`Commons image too small for ${venue.slug}`);
+
+  const stagedPath = `${destinationPath}.next.jpg`;
+  if (info.mime === 'image/jpeg') {
+    await fs.writeFile(stagedPath, bytes);
+  } else {
+    const sourcePath = `${destinationPath}.source`;
+    await fs.writeFile(sourcePath, bytes);
+    try {
+      await execFileAsync('convert', [sourcePath, '-auto-orient', '-strip', '-resize', '1600x1600>', '-quality', '88', stagedPath]);
+    } finally {
+      await fs.rm(sourcePath, { force: true });
+    }
+  }
+
   return {
-    slug: venue.slug,
-    alt: `${venue.name} in ${venue.city}, Texas`,
-    imageUrl: `/images/sports-venues/${venue.slug}.jpg`,
-    sourcePage: info.descriptionurl || `https://commons.wikimedia.org/wiki/${encodeURIComponent(page.title)}`,
-    sourceName: 'Wikimedia Commons',
-    author: cleanHtml(meta.Artist?.value || meta.Credit?.value || 'Wikimedia Commons contributor'),
-    licenseName: cleanHtml(meta.LicenseShortName?.value || meta.UsageTerms?.value || 'free license'),
-    licenseUrl: cleanHtml(meta.LicenseUrl?.value || 'https://commons.wikimedia.org/'),
-    width: Number(info.thumbwidth || info.width || 1600),
-    height: Number(info.thumbheight || info.height || 900),
+    stagedPath,
+    row: {
+      slug: venue.slug,
+      alt: `${venue.name} in ${venue.city}, Texas`,
+      imageUrl: `/images/sports-venues/${venue.slug}.jpg`,
+      sourcePage: info.descriptionurl || `https://commons.wikimedia.org/wiki/${encodeURIComponent(page.title)}`,
+      sourceName: 'Wikimedia Commons',
+      author: cleanHtml(meta.Artist?.value || meta.Credit?.value || 'Wikimedia Commons contributor'),
+      licenseName: cleanHtml(meta.LicenseShortName?.value || meta.UsageTerms?.value || 'free license'),
+      licenseUrl: cleanHtml(meta.LicenseUrl?.value || 'https://commons.wikimedia.org/'),
+      width: Number(info.thumbwidth || info.width || 1600),
+      height: Number(info.thumbheight || info.height || 900),
+    },
   };
 }
 
-async function saveAi(venue, destinationPath) {
+async function stageAi(venue, destinationPath) {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
   const token = process.env.CLOUDFLARE_API_TOKEN;
   if (!accountId || !token) throw new Error('Cloudflare AI credentials unavailable');
@@ -100,44 +152,59 @@ async function saveAi(venue, destinationPath) {
     bytes = Buffer.from(await response.arrayBuffer());
   }
   if (bytes.length < 20_000) throw new Error(`AI image too small for ${venue.slug}`);
-  const temp = `${destinationPath}.generated`;
-  await fs.writeFile(temp, bytes);
+  const sourcePath = `${destinationPath}.generated`;
+  const stagedPath = `${destinationPath}.next.jpg`;
+  await fs.writeFile(sourcePath, bytes);
   try {
-    await execFileAsync('convert', [temp, '-auto-orient', '-strip', '-resize', '1600x1600>', '-quality', '88', destinationPath]);
+    await execFileAsync('convert', [sourcePath, '-auto-orient', '-strip', '-resize', '1600x1600>', '-quality', '88', stagedPath]);
   } finally {
-    await fs.rm(temp, { force: true });
+    await fs.rm(sourcePath, { force: true });
   }
-  return {
-    slug: venue.slug,
-    alt: `AI-generated photorealistic editorial depiction of ${venue.name} in ${venue.city}, Texas`,
-    imageUrl: `/images/sports-venues/${venue.slug}.jpg`,
-    sourcePage: `https://texasdefined.com/sports-venue/${venue.slug}`,
-    sourceName: 'Texas Defined generated media',
-    author: 'Cloudflare Workers AI / FLUX.1 schnell',
-    licenseName: 'AI-generated image supplied for TexasDefined use',
-    licenseUrl: `https://texasdefined.com/sports-venue/${venue.slug}`,
-    width: 1600,
-    height: 900,
-  };
+  return { stagedPath, row: aiRecord(venue) };
+}
+
+function reportWithoutTimestamp(report) {
+  if (!report || typeof report !== 'object') return null;
+  const { generatedAt: _generatedAt, ...rest } = report;
+  return rest;
 }
 
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
   const rows = [];
-  const report = { generatedAt: new Date().toISOString(), total: venues.length, exactFreePhotos: [], aiGenerated: [], unresolved: [], aiAvailable: aiAvailable() };
+  const stagedAssets = [];
+  const reportCore = { total: venues.length, exactFreePhotos: [], aiGenerated: [], unresolved: [], aiAvailable: aiAvailable() };
+
   for (const venue of venues) {
     const destinationPath = path.join(OUT_DIR, `${venue.slug}.jpg`);
+    const exactTitle = exactCommonsFiles[venue.slug];
     try {
-      const exactTitle = exactCommonsFiles[venue.slug];
-      const row = exactTitle ? await saveCommons(venue, exactTitle, destinationPath) : await saveAi(venue, destinationPath);
-      rows.push(row);
-      if (exactTitle) report.exactFreePhotos.push({ slug: venue.slug, sourceTitle: exactTitle });
-      else report.aiGenerated.push({ slug: venue.slug });
-      console.log(`${venue.slug}: ${exactTitle ? 'exact licensed Commons photo' : 'AI-generated venue fallback'}`);
+      if (exactTitle) {
+        const { stagedPath, row } = await stageCommons(venue, exactTitle, destinationPath);
+        stagedAssets.push({ stagedPath, destinationPath });
+        rows.push(row);
+        reportCore.exactFreePhotos.push({ slug: venue.slug, sourceTitle: exactTitle });
+        console.log(`${venue.slug}: exact licensed Commons photo staged`);
+      } else if (await fileExists(destinationPath)) {
+        rows.push(aiRecord(venue));
+        reportCore.aiGenerated.push({ slug: venue.slug });
+        console.log(`${venue.slug}: preserved existing AI-generated venue fallback`);
+      } else {
+        const { stagedPath, row } = await stageAi(venue, destinationPath);
+        stagedAssets.push({ stagedPath, destinationPath });
+        rows.push(row);
+        reportCore.aiGenerated.push({ slug: venue.slug });
+        console.log(`${venue.slug}: generated missing AI venue fallback`);
+      }
     } catch (error) {
       console.error(`${venue.slug}: ${error?.message || error}`);
-      report.unresolved.push({ slug: venue.slug, message: String(error?.message || error) });
+      reportCore.unresolved.push({ slug: venue.slug, message: String(error?.message || error) });
     }
+  }
+
+  if (rows.length !== venues.length || reportCore.unresolved.length) {
+    await Promise.all(stagedAssets.map(({ stagedPath }) => fs.rm(stagedPath, { force: true })));
+    throw new Error(`Reviewed sports venue hero sync aborted with ${reportCore.unresolved.length} unresolved venue(s); existing generated assets were left unchanged.`);
   }
 
   const lines = [
@@ -150,10 +217,25 @@ async function main() {
     ].join('\n')),
     '};', '', 'export function getSportsVenuePhotoAdditionWave7(slug: string) {', '  return sportsVenuePhotoAdditionsWave7[slug];', '}', ''
   ];
-  await fs.writeFile(MAP_PATH, lines.join('\n'), 'utf8');
-  await fs.writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+
+  const existingReport = await readExistingReport();
+  const stableReport = { ...reportCore };
+  const reportChanged = JSON.stringify(reportWithoutTimestamp(existingReport)) !== JSON.stringify(stableReport);
+  const report = {
+    generatedAt: reportChanged || !existingReport?.generatedAt ? new Date().toISOString() : existingReport.generatedAt,
+    ...stableReport,
+  };
+
+  const stagedMapPath = `${MAP_PATH}.next`;
+  const stagedReportPath = `${REPORT_PATH}.next`;
+  await fs.writeFile(stagedMapPath, lines.join('\n'), 'utf8');
+  await fs.writeFile(stagedReportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+
+  for (const { stagedPath, destinationPath } of stagedAssets) await fs.rename(stagedPath, destinationPath);
+  await fs.rename(stagedMapPath, MAP_PATH);
+  await fs.rename(stagedReportPath, REPORT_PATH);
+
   console.log(JSON.stringify(report, null, 2));
-  if (rows.length !== venues.length || report.unresolved.length) process.exitCode = 3;
 }
 
 await main();
