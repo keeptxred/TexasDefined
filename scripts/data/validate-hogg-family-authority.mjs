@@ -70,6 +70,9 @@ for (const marker of [
 
 if (!sallie.includes("https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie") || !sallie.includes("Governor Jim Hogg City Park") || !sallie.includes("public-service values")) failures.push("Sallie Hogg authority page must retain TSHA sourcing, Quitman place context and family public-service legacy.");
 if (!family.includes('/article/sallie-hogg-texas-legacy') || !family.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Hogg family authority page must retain Sallie and Quitman reciprocal links.");
+if (!ima.includes('/article/sallie-hogg-texas-legacy') || !ima.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Ima Hogg authority page must retain reciprocal Sallie and Quitman links.");
+if (!will.includes('/article/sallie-hogg-texas-legacy') || !will.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Will Hogg authority page must retain reciprocal Sallie and Quitman links.");
+if (!foundation.includes('/article/sallie-hogg-texas-legacy')) failures.push("Hogg Foundation authority page must retain the reciprocal Sallie Hogg link.");
 if (!ima.includes("Hogg Foundation for Mental Health") || !family.includes("Hogg Foundation for Mental Health")) failures.push("Hogg Foundation context must remain on both authority pages.");
 if (!ima.includes("Bayou Bend") || !family.includes("Bayou Bend")) failures.push("Bayou Bend context must remain on both authority pages.");
 if (!brazoria.includes("/article/hogg-family-texas-legacy") || !brazoria.includes("/article/ima-hogg-texas-legacy")) failures.push("Varner-Hogg supporting article must link to both Hogg authority pages.");
