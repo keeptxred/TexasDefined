@@ -46,6 +46,7 @@ for (const [needle, label] of [
   ["HeadlessChrome", 'headless Chromium exclusion'],
   ["Googlebot", 'search crawler exclusion'],
   ["OAI-SearchBot", 'AI search crawler exclusion'],
+  ["OAI-AdsBot", 'automated ad-validation crawler exclusion'],
   ["&& !isAutomatedAnalyticsClient()", 'production analytics automation gate'],
   ['navigator.sendBeacon(ANALYTICS_ENDPOINT', 'beacon delivery'],
   ['fetch(ANALYTICS_ENDPOINT', 'queued-event delivery'],
@@ -70,6 +71,10 @@ for (const [needle, label] of [
   ['document.removeEventListener("click", earlyCommercialClick, true)', 'early listener teardown'],
   ['}, 1500);', 'delayed background analytics fallback'],
 ]) requireText(root, needle, label);
+
+if (client.includes('ChatGPT-User')) {
+  errors.push('User-initiated ChatGPT-User traffic must not be classified as an automated analytics client.');
+}
 
 for (const [needle, label] of [
   ['import { texasDefinedOutcomeAnalyticsResponse } from "./lib/texas-defined-outcome-analytics.server";', 'Worker collector import'],
