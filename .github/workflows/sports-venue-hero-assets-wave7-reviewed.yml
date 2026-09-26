@@ -85,14 +85,6 @@ jobs:
             --head "$BRANCH" \
             --title 'Refresh reviewed sports venue hero images' \
             --body 
-
-      - name: Run official validation on reviewed branch
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          BRANCH: ${{ steps.branch.outputs.name }}
-        shell: bash
-        run: bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"
 Reviewed sports venue hero reconciliation. Exact venue-specific Wikimedia Commons files are used only when their titles are explicitly pinned after manual identity review and their reusable licenses are verified again through the Commons API at run time. Existing AI fallbacks are preserved rather than regenerated, so a targeted real-photo upgrade does not churn unrelated venue imagery. Ambiguous or unsupported sources remain rejected.'
 
       - name: Run official validation on reviewed branch
