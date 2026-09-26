@@ -26,6 +26,7 @@ export const hoggFamilyTexasLegacyArticle: Article = {
   sourceName: "Hogg Foundation for Mental Health — Hogg History",
   sourceUrl: "https://hogg.utexas.edu/about/history",
   internalLinks: [
+    { href: "/article/hogg-family-heritage-trail-texas", label: "Hogg Family Heritage Trail", description: "Follow the family story through Rusk, Quitman, Austin, Winedale, Bayou Bend and Varner-Hogg Plantation." },
     { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "See how the family's public-service ethic, musical education and Governor's Mansion household began with Sarah Ann Stinson Hogg." },
     { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where Sallie and James married and the Honeymoon Cottage associated with their early married life." },
     { href: "/destination/jim-hogg-park-rusk", label: "Jim Hogg Park in Rusk", description: "Visit part of the Mountain Home Plantation birthplace landscape that Ima, Mike and Tom gave to Rusk in 1941." },
@@ -40,7 +41,7 @@ export const hoggFamilyTexasLegacyArticle: Article = {
     { href: "/destination/museum-of-fine-arts-houston", label: "Museum of Fine Arts, Houston", description: "Connect Will and Ima Hogg's arts patronage to the institution that now operates Bayou Bend." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["governor-jim-hogg-city-park-quitman", "jim-hogg-park-rusk", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
+  relatedDestinations: ["governor-jim-hogg-city-park-quitman", "jim-hogg-park-rusk", "oakwood-cemetery-austin", "bayou-bend-collection-gardens", "winedale-historical-center", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
   body: [
     p("The Hogg family occupies an unusual place in Texas history because its influence crosses politics, oil, real estate, philanthropy, mental health, music, museums and historic preservation. The story begins with James Stephen Hogg and Sarah Ann 'Sallie' Stinson Hogg, but it becomes a family story through their four children: William Clifford 'Will' Hogg, Ima Hogg, Michael 'Mike' Hogg and Thomas Elisha 'Tom' Hogg."),
     p("Treating the Hoggs only as the family of a governor misses what happened after James Hogg left office. The family participated in Houston's oil-era growth, gained wealth from mineral rights associated with property near West Columbia and redirected substantial resources into public institutions. The result is a network of Texas places and organizations that still carry the family's imprint."),
