@@ -29,6 +29,8 @@ export const willHoggTexasLegacyArticle: Article = {
   internalLinks: [
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "Place Will Hogg inside the larger family story connecting James and Sallie Hogg, oil-era wealth, philanthropy and preservation." },
     { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Continue with Will's sister and her work in music, mental health, museums and historic preservation." },
+    { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Go back to Will's mother and the family culture of education, music and public responsibility that preceded his Houston career." },
+    { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Wood County site tied to Will's parents and the family's earliest preserved places." },
     { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "Follow Will's estate into the statewide institution Ima and Mike helped establish at The University of Texas." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Will Hogg's father and the reform-era political career that first made the family name statewide." },
     { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Visit the River Oaks home shared by Will, Ima and Mike that later became an MFAH house museum." },

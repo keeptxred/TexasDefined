@@ -28,6 +28,7 @@ export const hoggFoundationMentalHealthHistoryArticle: Article = {
   sourceUrl: "https://hogg.utexas.edu/about/history",
   internalLinks: [
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children connected politics, oil-era wealth, philanthropy, preservation and public institutions." },
+    { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Trace the family public-service ethic back to the mother the Hogg Foundation's own history credits with shaping her children's civic responsibility." },
     { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "Follow the businessman and civic planner whose estate supplied the foundation's principal original endowment." },
     { href: "/article/ima-hogg-texas-legacy", label: "Ima Hogg's Texas legacy", description: "Trace the sibling who shaped the foundation's early vision and remained one of its most important advocates." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of the former governor whose public-service ethic influenced the next generation of the family." },

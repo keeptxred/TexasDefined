@@ -29,6 +29,8 @@ export const imaHoggTexasLegacyArticle: Article = {
   internalLinks: [
     { href: "/article/hogg-family-texas-legacy", label: "The Hogg family in Texas", description: "See how James and Sallie Hogg and their children Will, Ima, Mike and Tom connected politics, oil-era wealth, philanthropy and preservation." },
     { href: "/texas-icons/james-hogg", label: "James Stephen Hogg", description: "Read the Texas Icons profile of Ima Hogg's father, the first native-born Texan to serve as governor." },
+    { href: "/article/sallie-hogg-texas-legacy", label: "Sallie Hogg's Texas legacy", description: "Read the story of Ima's mother, first lady of Texas and an early influence on the family's education, music and public-service ethic." },
+    { href: "/destination/governor-jim-hogg-city-park-quitman", label: "Governor Jim Hogg City Park in Quitman", description: "Visit the Stinson House where Ima's parents married and the Honeymoon Cottage she later helped preserve." },
     { href: "/article/will-hogg-texas-legacy", label: "Will Hogg's Texas legacy", description: "See how Ima's older brother connected Houston business, River Oaks, university advocacy and the estate behind the Hogg Foundation." },
     { href: "/article/hogg-foundation-mental-health-texas-history", label: "The Hogg Foundation for Mental Health", description: "See how Will's estate and Ima and Mike Hogg's decisions became a statewide institution at The University of Texas." },
     { href: "/destination/bayou-bend-collection-gardens", label: "Bayou Bend Collection and Gardens", description: "Visit Ima Hogg's River Oaks home, gardens and American decorative-arts collection." },
