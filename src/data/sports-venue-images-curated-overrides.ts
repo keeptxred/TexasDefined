@@ -1,6 +1,18 @@
 import type { SportsVenuePhoto } from './sports-venue-images';
 
 const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
+  'childrens-health-stadium-prosper': {
+    slug: 'childrens-health-stadium-prosper',
+    alt: "Children's Health Stadium, the Prosper ISD stadium in Prosper, Texas, viewed from Gate D",
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Prosper_ISD_Stadium_view_Gate_D_-_August_2026.jpg?width=1600',
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:Prosper_ISD_Stadium_view_Gate_D_-_August_2026.jpg',
+    sourceName: 'Wikimedia Commons',
+    author: 'Ranch9613',
+    licenseName: 'CC0 1.0',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    width: 8160,
+    height: 4592,
+  },
   'legacy-stadium-katy': {
     slug: 'legacy-stadium-katy',
     alt: 'Football game and crowd activity at Legacy Stadium in Katy, Texas',
