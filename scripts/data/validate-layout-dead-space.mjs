@@ -5,6 +5,17 @@ const root = process.cwd();
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const failures = [];
 
+function walkSourceFiles(directory) {
+  const files = [];
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === '.git') continue;
+    const absolute = path.join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...walkSourceFiles(absolute));
+    else if (/\.(?:tsx?|jsx?)$/.test(entry.name)) files.push(absolute);
+  }
+  return files;
+}
+
 const surfaceChecks = [
   {
     file: 'src/components/editorial/FeatureHero.tsx',
@@ -58,6 +69,29 @@ for (const check of surfaceChecks) {
   }
 }
 
+const sourceRoot = path.join(root, 'src');
+for (const absolute of walkSourceFiles(sourceRoot)) {
+  const file = path.relative(root, absolute).split(path.sep).join('/');
+  const source = fs.readFileSync(absolute, 'utf8');
+
+  // Optional affiliate/planning mounts must consume no layout space until
+  // client code injects substantive content. This turns the Bentsen fix into
+  // a sitewide invariant instead of relying on route-by-route policing.
+  const staySlotTags = source.match(/<[^>]*data-stay-nearby-slot[^>]*>/gs) ?? [];
+  for (const tag of staySlotTags) {
+    const isEmptyMount = /<[^>]*data-stay-nearby-slot[^>]*>\s*<\/[^>]+>$/s.test(tag);
+    if (isEmptyMount && /className\s*=|\bclass\s*=|\bstyle\s*=/.test(tag)) {
+      failures.push(`${file} styles an empty Stay Nearby slot; optional mounts must be zero-space until populated.`);
+    }
+  }
+
+  // Never allow a Suspense fallback to manufacture a large empty viewport.
+  // A compact visible loading state is preferable to blank reserved space.
+  if (/fallback\s*=\s*\{?<[^>]+className=["'][^"']*min-h-(?:screen|\[[^\]]+\])[^"']*["'][^>]*\/?>(?:<\/[^>]+>)?\}?/s.test(source)) {
+    failures.push(`${file} renders a large blank Suspense fallback; use a compact visible loading status.`);
+  }
+}
+
 const lazyRoutes = [
   'src/routes/fishing.tsx',
   'src/routes/fishing.lakes.tsx',
@@ -85,4 +119,5 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sitewide dead-space safeguards passed: bounded editorial heroes, zero-margin empty stay slots and compact visible lazy-route fallbacks are intact.');
+console.log('Sitewide dead-space safeguards passed: bounded editorial heroes, all empty Stay Nearby mounts are zero-space, and compact visible lazy-route fallbacks are intact.');
+
