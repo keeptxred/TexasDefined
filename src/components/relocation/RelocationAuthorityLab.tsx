@@ -1,8 +1,8 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { resolveRelocationAddress, type RelocationAddressResult } from "@/data/relocation-address";
-import { saveRelocationAddressToWorkspace } from "@/lib/relocation-workspace";
+import { RELOCATION_ADDRESS_RESEARCH_EVENT, saveRelocationAddressToWorkspace } from "@/lib/relocation-workspace";
 import {
   RELOCATION_METROS,
   RELOCATION_PLACES,
@@ -46,9 +46,10 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
       .slice(0, 8);
   }, [region, setting, planningBand, commuteStyle, climate]);
 
-  const researchSubmittedAddress = async () => {
-    const address = addressDraft.trim();
+  const researchAddressValue = useCallback(async (value: string) => {
+    const address = value.trim().slice(0, 240);
     if (!address) return;
+    setAddressDraft(address);
     setResearchAddress(address);
     setAddressResult(null);
     setSavedAddress("");
@@ -60,7 +61,18 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
     } catch {
       setAddressStatus("error");
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const resumeSavedAddress = (event: Event) => {
+      const requested = (event as CustomEvent<{ address?: string }>).detail?.address?.trim().slice(0, 240);
+      if (!requested) return;
+      document.getElementById("address-research-desk")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      void researchAddressValue(requested);
+    };
+    window.addEventListener(RELOCATION_ADDRESS_RESEARCH_EVENT, resumeSavedAddress);
+    return () => window.removeEventListener(RELOCATION_ADDRESS_RESEARCH_EVENT, resumeSavedAddress);
+  }, [researchAddressValue]);
 
   return (
     <>
@@ -133,7 +145,7 @@ export function RelocationAuthorityLab({ showPlaceExplorer = true }: { showPlace
               <p className="mt-4 text-sm leading-7 text-muted-foreground">Census geography is a research starting point—not authority for school attendance zones, utility territories, tax liability or flood status. Verify each boundary with the official sources below.</p>
             </div>
             <div>
-              <form onSubmit={(event) => { event.preventDefault(); void researchSubmittedAddress(); }} className="flex flex-col gap-3 sm:flex-row">
+              <form onSubmit={(event) => { event.preventDefault(); void researchAddressValue(addressDraft); }} className="flex flex-col gap-3 sm:flex-row">
                 <label htmlFor="relocation-address" className="sr-only">Texas address</label>
                 <input id="relocation-address" value={addressDraft} onChange={(event) => setAddressDraft(event.target.value)} placeholder="Street address, city, Texas ZIP" className="min-h-11 flex-1 border border-border bg-background px-4 text-sm outline-none focus:border-primary" />
                 <button type="submit" disabled={addressStatus === "loading"} className="min-h-11 bg-primary px-5 text-sm font-semibold text-primary-foreground disabled:opacity-60">{addressStatus === "loading" ? "Resolving address…" : "Build research packet"}</button>
