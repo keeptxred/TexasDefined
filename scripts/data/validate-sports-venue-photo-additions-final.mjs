@@ -96,8 +96,8 @@ for (const [, imageUrl] of wave7LocalImageMatches) {
 
 const wave7CommonsCount = wave7.match(/sourceName: "Wikimedia Commons"/g)?.length ?? 0;
 const wave7GeneratedCount = wave7.match(/sourceName: "Texas Defined generated media"/g)?.length ?? 0;
-if (wave7CommonsCount !== 2) failures.push(`Wave 7 must retain exactly 2 reviewed Wikimedia Commons venue photos; found ${wave7CommonsCount}.`);
-if (wave7GeneratedCount !== 14) failures.push(`Wave 7 must retain exactly 14 generated venue-specific fallbacks; found ${wave7GeneratedCount}.`);
+if (wave7CommonsCount !== 3) failures.push(`Wave 7 must retain exactly 3 reviewed Wikimedia Commons venue photos; found ${wave7CommonsCount}.`);
+if (wave7GeneratedCount !== 13) failures.push(`Wave 7 must retain exactly 13 generated venue-specific fallbacks; found ${wave7GeneratedCount}.`);
 for (const slug of wave7Slugs) {
   if (!dynamicRoute.includes(`'${slug}'`)) failures.push(`Wave 7 venue has no governed dynamic route: ${slug}.`);
 }
@@ -247,4 +247,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, ${effective.size}/84 effective curated-first non-placeholder heroes (${effectiveDocumentaryCount} documentary/reusable-source heroes + ${effectiveGeneratedSlugs.length} disclosed AI fallbacks), complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks before curated overrides), ${overrideSlugs.length} curated override records, and ${allowedBaseShadowDuplicates.size} intentional base-first shadows. Effective AI fallbacks: ${effectiveGeneratedSlugs.join(', ') || 'none'}.`);
+console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, ${effective.size}/84 effective curated-first non-placeholder heroes (${effectiveDocumentaryCount} documentary/reusable-source heroes + ${effectiveGeneratedSlugs.length} disclosed AI fallbacks), complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (3 reusable Commons photos + 13 generated venue-specific fallbacks before curated overrides), ${overrideSlugs.length} curated override records, and ${allowedBaseShadowDuplicates.size} intentional base-first shadows. Effective AI fallbacks: ${effectiveGeneratedSlugs.join(', ') || 'none'}.`);
