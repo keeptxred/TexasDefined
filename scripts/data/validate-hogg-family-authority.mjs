@@ -11,6 +11,7 @@ const ima = read("src/data/fixtures/ima-hogg-texas-legacy.ts");
 const family = read("src/data/fixtures/hogg-family-texas-legacy.ts");
 const will = read("src/data/fixtures/will-hogg-texas-legacy.ts");
 const foundation = read("src/data/fixtures/hogg-foundation-mental-health-texas-history.ts");
+const riverOaks = read("src/data/fixtures/river-oaks-hogg-brothers-houston-planning-history.ts");
 const james = read("src/data/texas-icons-research-history-7.server.ts");
 const iconTypes = read("src/data/texas-icons-types.ts");
 const iconRoute = read("src/routes/texas-icons_.$slug.tsx");
@@ -23,6 +24,7 @@ for (const [slug, source, exportName] of [
   ["hogg-family-texas-legacy", family, "hoggFamilyTexasLegacyArticle"],
   ["will-hogg-texas-legacy", will, "willHoggTexasLegacyArticle"],
   ["hogg-foundation-mental-health-texas-history", foundation, "hoggFoundationMentalHealthHistoryArticle"],
+  ["river-oaks-hogg-brothers-houston-planning-history", riverOaks, "riverOaksHoggBrothersPlanningHistoryArticle"],
 ]) {
   if (!source.includes(`slug: "${slug}"`)) failures.push(`Missing Hogg authority slug: ${slug}`);
   if (!source.includes(`export const ${exportName}`)) failures.push(`Missing Hogg authority export: ${exportName}`);
@@ -41,6 +43,8 @@ for (const token of [
   "/article/ima-hogg-texas-legacy",
   "/article/will-hogg-texas-legacy",
   "/article/hogg-foundation-mental-health-texas-history",
+  "/article/river-oaks-hogg-brothers-houston-planning-history",
+  "/destination/hogg-building-houston",
   "/destination/bayou-bend-collection-gardens",
   "/destination/winedale-historical-center",
 ]) {
@@ -55,7 +59,7 @@ if (!foundation.includes("https://hogg.utexas.edu/about/history") || !foundation
 if (!foundation.includes("administrative unit of The University of Texas at Austin") || !foundation.includes("community-level change")) failures.push("Hogg Foundation authority page must retain present-day institutional context.");
 if (!james.includes('relatedLinks: [') || !james.includes('/article/hogg-family-texas-legacy') || !james.includes('/article/sallie-hogg-texas-legacy') || !james.includes('/article/hogg-foundation-mental-health-texas-history') || !james.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("James Hogg profile must retain reciprocal family-authority links.");
 if (!iconTypes.includes("relatedLinks?: readonly") || !iconRoute.includes("Continue the story") || !iconRoute.includes("profile.relatedLinks")) failures.push("Texas Icons related-reading renderer must remain available for reciprocal authority links.");
-for (const slug of ["bayou-bend-collection-gardens", "winedale-historical-center", "governor-jim-hogg-city-park-quitman", "jim-hogg-park-rusk"]) {
+for (const slug of ["bayou-bend-collection-gardens", "winedale-historical-center", "governor-jim-hogg-city-park-quitman", "jim-hogg-park-rusk", "hogg-building-houston"]) {
   if (!destinations.includes(`slug: "${slug}"`)) failures.push(`Missing Hogg legacy destination: ${slug}`);
   if (!destinationCatalog.includes("hoggLegacyDestinations")) failures.push("Hogg legacy destinations must remain registered in the preserved destination catalog.");
 }
@@ -68,6 +72,8 @@ for (const marker of [
   "Texas State Library and Archives Commission / State Publishing Company (1905) · Public domain · Wikimedia Commons",
   'officialUrl: "https://redc.rusktx.org/recreation-and-entertainment/"',
   "The Book of Texas (1916) / Houston Public Library · Public domain · Wikimedia Commons",
+  "Ed Uthman · CC BY 3.0 · Wikimedia Commons",
+  'officialUrl: "https://www.wyndhamhotels.com/wyndham/houston-texas/the-district-at-hogg-palace-a-wyndham-hotel/overview"',
 ]) if (!destinations.includes(marker)) failures.push(`Hogg legacy destination governance marker missing: ${marker}`);
 
 if (!sallie.includes("https://www.tshaonline.org/handbook/entries/hogg-sarah-ann-stinson-sallie") || !sallie.includes("Governor Jim Hogg City Park") || !sallie.includes("public-service values")) failures.push("Sallie Hogg authority page must retain TSHA sourcing, Quitman place context and family public-service legacy.");
@@ -79,6 +85,11 @@ if (!destinations.includes("Ima Hogg, Thomas E. 'Tom' Hogg and Michael 'Mike' Ho
 if (!ima.includes('/article/sallie-hogg-texas-legacy') || !ima.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Ima Hogg authority page must retain reciprocal Sallie and Quitman links.");
 if (!will.includes('/article/sallie-hogg-texas-legacy') || !will.includes('/destination/governor-jim-hogg-city-park-quitman')) failures.push("Will Hogg authority page must retain reciprocal Sallie and Quitman links.");
 if (!foundation.includes('/article/sallie-hogg-texas-legacy')) failures.push("Hogg Foundation authority page must retain the reciprocal Sallie Hogg link.");
+if (!riverOaks.includes("https://www.tshaonline.org/handbook/entries/river-oaks-houston") || !riverOaks.includes("excluded Black residents, Jewish residents and other minorities") || !riverOaks.includes("Shelley v. Kraemer")) failures.push("River Oaks authority page must retain official sourcing and exclusionary-covenant context.");
+if (!riverOaks.includes('/destination/hogg-building-houston') || !riverOaks.includes('/destination/bayou-bend-collection-gardens')) failures.push("River Oaks authority page must retain reciprocal Hogg-place links.");
+if (!will.includes('/article/river-oaks-hogg-brothers-houston-planning-history') || !will.includes('/destination/hogg-building-houston')) failures.push("Will Hogg authority page must retain River Oaks and Hogg Building links.");
+if (!family.includes('/article/river-oaks-hogg-brothers-houston-planning-history') || !family.includes('/destination/hogg-building-houston')) failures.push("Hogg family authority page must retain River Oaks and Hogg Building links.");
+if (!destinations.includes("National Register of Historic Places and Recorded Texas Historic Landmark") || !destinations.includes("The District at Hogg Palace, A Wyndham Hotel")) failures.push("Hogg Building destination must retain landmark and current-use context.");
 if (!ima.includes("Hogg Foundation for Mental Health") || !family.includes("Hogg Foundation for Mental Health")) failures.push("Hogg Foundation context must remain on both authority pages.");
 if (!ima.includes("Bayou Bend") || !family.includes("Bayou Bend")) failures.push("Bayou Bend context must remain on both authority pages.");
 if (!brazoria.includes("/article/hogg-family-texas-legacy") || !brazoria.includes("/article/ima-hogg-texas-legacy")) failures.push("Varner-Hogg supporting article must link to both Hogg authority pages.");
