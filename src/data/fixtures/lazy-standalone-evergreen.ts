@@ -199,6 +199,18 @@ const willHoggTexasLegacyStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation", "museum-of-fine-arts-houston"],
 };
 
+const hoggFoundationMentalHealthHistoryStub: Article = {
+  id: "evergreen-hogg-foundation-mental-health-history", brandId: "texasdefined", slug: "hogg-foundation-mental-health-texas-history",
+  title: "The Hogg Foundation for Mental Health: How a Texas Family Endowment Became a Statewide Institution",
+  dek: "Will Hogg's estate, Ima and Mike Hogg's decisions and The University of Texas turned one family's fortune into a statewide mental-health institution that has operated since 1940.",
+  category: "texas-history", region: "hill-country",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ImaHogg.jpg?width=1200", alt: "Portrait of Ima Hogg around 1900", width: 1012, height: 1419, credit: "The Elliotts / Museum of Fine Arts, Houston Archives · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-26", readingMinutes: 10,
+  tags: ["Hogg Foundation for Mental Health", "Ima Hogg", "Will Hogg", "Mike Hogg", "University of Texas", "Texas mental health history", "Texas philanthropy"], featured: false,
+  sourceName: "Hogg Foundation for Mental Health — Hogg History", sourceUrl: "https://hogg.utexas.edu/about/history",
+  body: [], relatedCollections: [], relatedDestinations: ["bayou-bend-collection-gardens", "varner-hogg-plantation"],
+};
+
 const texasBorderlandsHistoricSitesGuideStub: Article = {
   id: "evergreen-texas-borderlands-historic-sites-guide", brandId: "texasdefined", slug: "texas-borderlands-historic-sites-guide",
   title: "Texas Borderlands Historic Sites: Missions, Tejano Politics and the Rio Grande World",
@@ -325,6 +337,7 @@ export const standaloneEvergreenStubs: Article[] = [
   imaHoggTexasLegacyStub,
   hoggFamilyTexasLegacyStub,
   willHoggTexasLegacyStub,
+  hoggFoundationMentalHealthHistoryStub,
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
   battleshipTexasBB35HistoryRestorationStub,
@@ -355,6 +368,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === imaHoggTexasLegacyStub.slug) return import("./ima-hogg-texas-legacy").then((module) => module.imaHoggTexasLegacyArticle);
   if (slug === hoggFamilyTexasLegacyStub.slug) return import("./hogg-family-texas-legacy").then((module) => module.hoggFamilyTexasLegacyArticle);
   if (slug === willHoggTexasLegacyStub.slug) return import("./will-hogg-texas-legacy").then((module) => module.willHoggTexasLegacyArticle);
+  if (slug === hoggFoundationMentalHealthHistoryStub.slug) return import("./hogg-foundation-mental-health-texas-history").then((module) => module.hoggFoundationMentalHealthHistoryArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
