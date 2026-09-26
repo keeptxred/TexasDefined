@@ -133,6 +133,11 @@ requireText(productionSurfaces, "['quitman-hogg-heritage', '/destination/governo
 requireText(productionSurfaces, "['texas-history-sallie-hogg-discovery', '/texas-history', 'Family · first lady · public service']", 'Sallie Hogg Texas History discovery check');
 requireText(productionSurfaces, "['james-hogg-sallie-link', '/texas-icons/james-hogg', '/article/sallie-hogg-texas-legacy']", 'James Hogg reciprocal Sallie link check');
 requireText(productionSurfaces, "['james-hogg-quitman-link', '/texas-icons/james-hogg', '/destination/governor-jim-hogg-city-park-quitman']", 'James Hogg reciprocal Quitman link check');
+requireText(productionSurfaces, "['ima-hogg-sallie-link', '/article/ima-hogg-texas-legacy', '/article/sallie-hogg-texas-legacy']", 'Ima Hogg reciprocal Sallie link check');
+requireText(productionSurfaces, "['ima-hogg-quitman-link', '/article/ima-hogg-texas-legacy', '/destination/governor-jim-hogg-city-park-quitman']", 'Ima Hogg reciprocal Quitman link check');
+requireText(productionSurfaces, "['will-hogg-sallie-link', '/article/will-hogg-texas-legacy', '/article/sallie-hogg-texas-legacy']", 'Will Hogg reciprocal Sallie link check');
+requireText(productionSurfaces, "['will-hogg-quitman-link', '/article/will-hogg-texas-legacy', '/destination/governor-jim-hogg-city-park-quitman']", 'Will Hogg reciprocal Quitman link check');
+requireText(productionSurfaces, "['hogg-foundation-sallie-link', '/article/hogg-foundation-mental-health-texas-history', '/article/sallie-hogg-texas-legacy']", 'Hogg Foundation reciprocal Sallie link check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
