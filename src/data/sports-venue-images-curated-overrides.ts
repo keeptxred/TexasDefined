@@ -73,18 +73,6 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
     width: 6016,
     height: 4016,
   },
-  'xtreme-raceway-park': {
-    slug: 'xtreme-raceway-park',
-    alt: 'Xtreme Raceway Park drag strip in Ferris, Texas',
-    imageUrl: 'https://membertrack.nhradata.com/Images/Tracks/PRIMARY__153.jpg',
-    sourcePage: 'https://www.nhradiv4.com/membertrackinfo?trackID=885',
-    sourceName: 'NHRA South Central Division',
-    author: 'NHRA Member Track Network',
-    licenseName: 'Official member-track media; all rights reserved',
-    licenseUrl: 'https://www.nhradiv4.com/membertrackinfo?trackID=885',
-    width: 400,
-    height: 250,
-  },
 };
 
 export function getCuratedSportsVenuePhotoOverride(slug: string) {
