@@ -1,0 +1,51 @@
+name: Regenerate route tree helper
+
+on:
+  push:
+    branches:
+      - feature/live-event-offer-ingestion
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate-route-tree:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/live-event-offer-ingestion
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build to regenerate TanStack route tree
+        run: |
+          set +e
+          npm run build
+          BUILD_STATUS=$?
+          set -e
+          echo "Build exited with status ${BUILD_STATUS}; checking routeTree diff."
+          git status --short src/routeTree.gen.ts
+
+      - name: Commit generated route tree only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- src/routeTree.gen.ts; then
+            git add src/routeTree.gen.ts
+            git commit -m "Regenerate route tree for offers route"
+            git push origin HEAD:feature/live-event-offer-ingestion
+          else
+            echo "src/routeTree.gen.ts already current."
+          fi
