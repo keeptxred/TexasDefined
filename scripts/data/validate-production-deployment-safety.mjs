@@ -59,7 +59,7 @@ if (/^\s*if:\s*.*secrets\./m.test(workflow)) {
 }
 
 requireText(workflow, 'https://texasdefined.com/explore/painted-churches', 'Painted Churches targeted cache purge URL');
-requireText(productionSurfaces, "['painted-churches-authority-round-2', '/explore/painted-churches', '30-source authority trail']", 'Painted Churches round-two live authority check');
+requireText(productionSurfaces, "['painted-churches-authority-round-2', '/explore/painted-churches', 'A second 15-source research pass adds community, architectural and preservation evidence.']", 'Painted Churches round-two live authority check');
 requireText(productionSurfaces, "['state-fair-current-date', '/texas-state-fair', 'September 25, 2026']", 'markup-agnostic State Fair live date check');
 requireText(productionSurfaces, "['state-fair-planning-strip', '/texas-state-fair', 'Tickets, football and a place to stay']", 'State Fair production planning-strip check');
 requireText(productionSurfaces, "['state-fair-featured-gallery', '/texas-state-fair', 'State Fair photo carousel']", 'State Fair production featured-gallery check');
