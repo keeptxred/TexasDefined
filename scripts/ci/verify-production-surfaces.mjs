@@ -87,6 +87,9 @@ const surfaces = [
   ['texas-history-will-hogg-discovery', '/texas-history', 'Trace the Hogg sibling who connected oil-era business, River Oaks, university advocacy, arts patronage and the estate that helped create the Hogg Foundation.'],
   ['hogg-foundation-authority', '/article/hogg-foundation-mental-health-texas-history', 'The Hogg Foundation for Mental Health: How a Texas Family Endowment Became a Statewide Institution'],
   ['texas-history-hogg-foundation-discovery', '/texas-history', "Follow Will Hogg's estate, Ima and Mike Hogg's decisions and The University of Texas into a statewide mental-health institution operating since 1940."],
+  ['texas-before-us-authority', '/article/texas-before-united-states-how-texas-began', 'Texas Before the United States: How Texas Began'],
+  ['texas-history-origins-discovery', '/texas-history', 'Texas before the United States: how Texas began'],
+  ['texas-before-us-sitemap', '/sitemap.xml', '/article/texas-before-united-states-how-texas-began'],
   ['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story'],
   ['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history'],
 ];

@@ -121,6 +121,9 @@ requireText(productionSurfaces, "['winedale-hogg-legacy', '/destination/winedale
 requireText(productionSurfaces, "['texas-history-will-hogg-discovery', '/texas-history', 'Trace the Hogg sibling who connected oil-era business, River Oaks, university advocacy, arts patronage and the estate that helped create the Hogg Foundation.']", 'Will Hogg Texas History discovery check');
 requireText(productionSurfaces, "['hogg-foundation-authority', '/article/hogg-foundation-mental-health-texas-history', 'The Hogg Foundation for Mental Health: How a Texas Family Endowment Became a Statewide Institution']", 'Hogg Foundation live authority check');
 requireText(productionSurfaces, `['texas-history-hogg-foundation-discovery', '/texas-history', "Follow Will Hogg's estate, Ima and Mike Hogg's decisions and The University of Texas into a statewide mental-health institution operating since 1940."]`, 'Hogg Foundation Texas History discovery check');
+requireText(productionSurfaces, "['texas-before-us-authority', '/article/texas-before-united-states-how-texas-began', 'Texas Before the United States: How Texas Began']", 'Texas-before-U.S. live authority check');
+requireText(productionSurfaces, "['texas-history-origins-discovery', '/texas-history', 'Texas before the United States: how Texas began']", 'Texas-before-U.S. Texas History discovery check');
+requireText(productionSurfaces, "['texas-before-us-sitemap', '/sitemap.xml', '/article/texas-before-united-states-how-texas-began']", 'Texas-before-U.S. sitemap live discovery check');
 requireText(productionSurfaces, "['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story']", 'James Hogg related-reading renderer check');
 requireText(productionSurfaces, "['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history']", 'James Hogg reciprocal Foundation link check');
 for (const marker of [
