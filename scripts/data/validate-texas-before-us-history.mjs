@@ -139,6 +139,8 @@ for (const marker of [
   `['texas-before-us-authority', '${canonicalPath}', 'Texas Before the United States: How Texas Began']`,
   `['texas-history-origins-discovery', '/texas-history', 'Texas before the United States: how Texas began']`,
   `['texas-before-us-sitemap', '/sitemap.xml', '${canonicalPath}']`,
+  `['texas-before-us-source-panel', '${canonicalPath}', 'Sources and further reading']`,
+  `['texas-before-us-statehood-source', '${canonicalPath}', 'Texas State Library and Archives Commission — Statehood']`,
 ]) {
   if (!productionSurfaces.includes(marker)) failures.push(`Texas-before-U.S. production smoke contract missing: ${marker}`);
 }
