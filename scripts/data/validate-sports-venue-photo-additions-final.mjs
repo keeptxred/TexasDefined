@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const read = (filePath) => fs.readFileSync(filePath, 'utf8');
+const overrides = read('src/data/sports-venue-images-curated-overrides.ts');
 const base = read('src/data/sports-venue-images.ts');
 const wave1 = read('src/data/sports-venue-images-additions.ts');
 const wave2 = read('src/data/sports-venue-images-additions-wave2.ts');
@@ -139,13 +140,27 @@ if (missingExpectedShadows.length) failures.push(`Expected base-first shadow dup
 if (duplicateSlugs.length !== allowedBaseShadowDuplicates.size) failures.push(`Expected exactly ${allowedBaseShadowDuplicates.size} safe base-first shadow duplicates; found ${duplicateSlugs.length}.`);
 if (unique.size !== 84) failures.push(`Expected governed hero coverage for all 84 seeded sports venues after wave 7; found ${unique.size}.`);
 
+const overrideSlugs = recordSlugs(overrides);
+const orphanOverrides = overrideSlugs.filter((slug) => !unique.has(slug));
+if (orphanOverrides.length) failures.push(`Curated venue image overrides must shadow an existing governed photo record; orphan overrides: ${orphanOverrides.join(', ')}.`);
+
+const runtimeSources = [overrides, ...sources];
 const effective = new Map();
-for (const source of sources) {
+for (const source of runtimeSources) {
   for (const entry of recordEntries(source)) {
     if (!effective.has(entry.slug)) effective.set(entry.slug, entry);
   }
 }
-if (effective.size !== 84) failures.push(`Expected 84 effective base-first venue image records; found ${effective.size}.`);
+if (effective.size !== 84) failures.push(`Expected 84 effective curated-first venue image records; found ${effective.size}.`);
+
+const effectiveGeneratedSlugs = [...effective.entries()]
+  .filter(([, entry]) => entry.sourceName === 'Texas Defined generated media' || /^AI-generated\\b/i.test(entry.licenseName))
+  .map(([slug]) => slug)
+  .sort();
+const effectiveDocumentaryCount = effective.size - effectiveGeneratedSlugs.length;
+if (effectiveGeneratedSlugs.length > 8) {
+  failures.push(`Effective curated-first venue hero inventory regressed above the current eight AI fallbacks: ${effectiveGeneratedSlugs.length} generated heroes (${effectiveGeneratedSlugs.join(', ')}).`);
+}
 
 const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
 const disallowedSourceMarkers = ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent'];
@@ -232,4 +247,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, 84/84 effective non-placeholder heroes, complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks), and ${allowedBaseShadowDuplicates.size} intentional base-first shadows.`);
+console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, ${effective.size}/84 effective curated-first non-placeholder heroes (${effectiveDocumentaryCount} documentary/reusable-source heroes + ${effectiveGeneratedSlugs.length} disclosed AI fallbacks), complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks before curated overrides), ${overrideSlugs.length} curated override records, and ${allowedBaseShadowDuplicates.size} intentional base-first shadows. Effective AI fallbacks: ${effectiveGeneratedSlugs.join(', ') || 'none'}.`);
