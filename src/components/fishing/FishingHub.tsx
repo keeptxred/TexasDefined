@@ -24,7 +24,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
     <section className="mt-5 border-b border-border bg-ink text-ink-foreground">
       <Container className="py-16 sm:py-24">
         <p className="eyebrow text-ink-foreground/70">Texas Defined Fishing</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fishing in Texas starts with finding the right water.</h1>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fishing in Texas</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Find lakes by where you want to go and what you want to catch, then move into lake guides, fish-species pages, seasonal patterns, access, regulations and current reports.</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <Link to="/fishing/plan" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open the full lake finder →</Link>
@@ -64,7 +64,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
 
       <section aria-labelledby="browse-species" className="py-14">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-3xl"><p className="eyebrow text-primary">Fish of Texas</p><h2 id="browse-species" className="mt-3 font-display text-4xl sm:text-5xl">Start with the fish.</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Every published fish record has its own Texas guide and connects back to lakes supported by verified lake-to-species data.</p></div>
+          <div className="max-w-3xl"><p className="eyebrow text-primary">Fish of Texas</p><h2 id="browse-species" className="mt-3 font-display text-4xl sm:text-5xl">Browse Texas Fish Species</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Every published fish record has its own Texas guide and connects back to lakes supported by verified lake-to-species data.</p></div>
           <Link to="/fishing/species" className="eyebrow border-b border-primary pb-1 text-primary">Browse every Texas fish guide →</Link>
         </div>
         <div className="mt-8 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
@@ -74,7 +74,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
 
       <section aria-labelledby="featured-lakes" className="border-t border-border py-14">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-3xl"><p className="eyebrow text-primary">Explore fishing lakes</p><h2 id="featured-lakes" className="mt-3 font-display text-4xl sm:text-5xl">A few places to start.</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Open a lake for its fish relationships and planning details, or use the finder when you already know the place or species you want.</p></div>
+          <div className="max-w-3xl"><p className="eyebrow text-primary">Explore fishing lakes</p><h2 id="featured-lakes" className="mt-3 font-display text-4xl sm:text-5xl">Featured Texas Fishing Lakes</h2><p className="mt-4 text-base leading-7 text-muted-foreground">Open a lake for its fish relationships and planning details, or use the finder when you already know the place or species you want.</p></div>
           <Link to="/fishing/lakes" className="eyebrow border-b border-primary pb-1 text-primary">Browse fishing lakes →</Link>
         </div>
         <div className="mt-8 grid gap-x-8 border-t border-border lg:grid-cols-2">
@@ -96,7 +96,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
 
       <section className="border-t border-border py-14" aria-labelledby="fishing-resources">
         <p className="eyebrow text-primary">Fishing resources</p>
-        <h2 id="fishing-resources" className="mt-3 font-display text-4xl">Go deeper when you need it.</h2>
+        <h2 id="fishing-resources" className="mt-3 font-display text-4xl">More Texas Fishing Resources</h2>
         <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Resource href="/fishing/compare" title="Compare fishing lakes" copy="Put up to three lake guides side by side." />
           <Resource href="/fishing/seasons" title="Fishing seasons" copy="Understand durable seasonal patterns without confusing them with today's bite." />
