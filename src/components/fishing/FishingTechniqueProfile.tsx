@@ -73,6 +73,8 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           </div> : null}
         </section> : null}
 
+        {technique.slug === "soft-plastics" ? <SoftPlasticsRiggingVisual /> : null}
+
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
@@ -174,6 +176,33 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       </section>
     </Container>
   </>;
+}
+
+
+function SoftPlasticsRiggingVisual() {
+  const rigs = [
+    { name: "Texas rig", pieces: ["line", "bullet weight", "offset hook", "soft plastic"] },
+    { name: "Carolina rig", pieces: ["line", "sliding weight", "swivel", "leader", "hook + bait"] },
+    { name: "Drop shot", pieces: ["main line", "hook + bait", "leader below hook", "weight"] },
+    { name: "Wacky rig", pieces: ["line", "center hook", "stick bait"] },
+  ];
+
+  return <section className="border-b border-border py-12" aria-labelledby="soft-plastics-rigging-visual">
+    <p className="eyebrow text-primary">Rigging at a glance</p>
+    <h2 id="soft-plastics-rigging-visual" className="mt-3 font-display text-4xl sm:text-5xl">Recognize the basic layout before you tie it.</h2>
+    <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are simplified orientation diagrams, not scale drawings. Hook style, leader length, sinker shape and exact placement should still match the cover, bait and water you are fishing.</p>
+    <div className="mt-8 grid gap-5 md:grid-cols-2">
+      {rigs.map((rig) => <figure key={rig.name} className="border border-border p-5">
+        <figcaption className="font-display text-2xl">{rig.name}</figcaption>
+        <div className="mt-5 flex min-h-24 flex-wrap items-center gap-2 rounded-sm bg-muted/35 p-4" aria-label={`${rig.name} simplified rig layout`}>
+          {rig.pieces.map((piece, index) => <div key={piece} className="contents">
+            <span className="rounded-full border border-foreground/25 bg-background px-3 py-2 text-xs font-semibold">{piece}</span>
+            {index < rig.pieces.length - 1 ? <span aria-hidden="true" className="h-px w-5 bg-foreground/35" /> : null}
+          </div>)}
+        </div>
+      </figure>)}
+    </div>
+  </section>;
 }
 
 function titleCase(value: string) {
