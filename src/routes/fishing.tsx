@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { fishingTechniqueCanonicalPath } from "@/data/fishing/technique-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingHub = lazy(() => import("@/components/fishing/FishingHub").then((module) => ({ default: module.FishingHub })));
@@ -17,7 +18,22 @@ const FishingHub = lazy(() => import("@/components/fishing/FishingHub").then((mo
  * to="/fishing/guides" · to="/fishing/access" · to="/fishing/services"
  */
 
+const DUPLICATED_TECHNIQUE_PREFIX = "/fishing/fishing/techniques/";
+
 export const Route = createFileRoute("/fishing")({
+  beforeLoad: ({ location }) => {
+    const pathname = location.pathname.replace(/\/+$/, "");
+    if (!pathname.startsWith(DUPLICATED_TECHNIQUE_PREFIX)) return;
+
+    const slug = pathname.slice(DUPLICATED_TECHNIQUE_PREFIX.length);
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return;
+
+    throw redirect({
+      href: `${fishingTechniqueCanonicalPath(slug)}${location.searchStr || ""}`,
+      replace: true,
+      statusCode: 301,
+    });
+  },
   loader: async ({ context }) => {
     const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const [lakes, species, lakeSpecies] = await Promise.all([
