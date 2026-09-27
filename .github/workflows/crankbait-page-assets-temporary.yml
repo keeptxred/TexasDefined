@@ -1,0 +1,130 @@
+name: Temporary crankbait page image assets
+
+on:
+  push:
+    branches:
+      - feat/crankbait-page-images-20260927
+    paths:
+      - .github/workflows/crankbait-page-assets-temporary.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.event.head_commit.message == 'Add temporary crankbait image generation workflow'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v7
+        with:
+          ref: feat/crankbait-page-images-20260927
+          fetch-depth: 0
+
+      - name: Generate and optimize crankbait visuals
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+            echo 'OPENAI_API_KEY is missing.' >&2
+            exit 1
+          fi
+
+          mkdir -p /tmp/crankbait-assets assets/generated/crankbait-page
+          rm -f assets/generated/crankbait-page/*
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          prompts = {
+            'hero': (
+              'Create a photorealistic editorial hero image for a Texas bass-fishing guide about crankbaits. '
+              'Underwater perspective in a clear Texas reservoir: a realistic hard-bodied crankbait with diving lip '
+              'moving naturally beside submerged timber and rock, subtle largemouth bass presence in the middle distance, '
+              'sunlight filtering through water, authentic lure proportions and hooks, cinematic but believable, '
+              'wide composition with breathing room, no people, no logos, no brand marks, no words or labels.'
+            ),
+            'depth-guide': (
+              'Create a clean realistic editorial cutaway illustration explaining crankbait running depth without any text. '
+              'Wide water-column scene from surface to deep water with four distinct crankbait styles traveling at progressively '
+              'deeper levels: very-shallow squarebill near shoreline cover, shallow/medium diver, deep-diving long-bill crankbait, '
+              'and lipless crankbait over deeper structure. Show subtle curved retrieve paths and depth separation visually, '
+              'natural freshwater colors, uncluttered educational composition, accurate lure proportions, no logos, no brand marks, '
+              'no numbers, no words, no labels.'
+            ),
+          }
+          for name, prompt in prompts.items():
+              Path(f'/tmp/crankbait-assets/{name}-request.json').write_text(
+                  json.dumps({'model':'gpt-image-2','prompt':prompt,'size':'1536x1024'}), encoding='utf-8'
+              )
+          PY
+
+          for name in hero depth-guide; do
+            status=$(curl -sS -o "/tmp/crankbait-assets/${name}-response.json" -w '%{http_code}' \
+              --max-time 900 \
+              -X POST 'https://api.openai.com/v1/images/generations' \
+              -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+              -H 'Content-Type: application/json' \
+              --data-binary "@/tmp/crankbait-assets/${name}-request.json" || echo 000)
+            if [[ "$status" != "200" ]]; then
+              echo "OpenAI image generation failed for ${name} with HTTP ${status}." >&2
+              jq -r '.error.message // "No OpenAI error detail returned"' "/tmp/crankbait-assets/${name}-response.json" 2>/dev/null >&2 || true
+              exit 1
+            fi
+            jq -r '.data[0].b64_json // empty' "/tmp/crankbait-assets/${name}-response.json" | base64 --decode > "/tmp/crankbait-assets/${name}.png"
+            test -s "/tmp/crankbait-assets/${name}.png"
+          done
+
+          if command -v magick >/dev/null 2>&1; then
+            image_convert=(magick)
+          elif command -v convert >/dev/null 2>&1; then
+            image_convert=(convert)
+          else
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq imagemagick
+            image_convert=(convert)
+          fi
+
+          for name in hero depth-guide; do
+            "${image_convert[@]}" "/tmp/crankbait-assets/${name}.png" \
+              -auto-orient -resize '1200x675^' -gravity center -extent 1200x675 \
+              -strip -quality 82 "/tmp/crankbait-assets/${name}.webp"
+          done
+
+          python3 - <<'PY'
+          import base64, hashlib, json
+          from pathlib import Path
+
+          out = Path('assets/generated/crankbait-page')
+          out.mkdir(parents=True, exist_ok=True)
+          manifest = {}
+          for name in ('hero', 'depth-guide'):
+              data = Path(f'/tmp/crankbait-assets/{name}.webp').read_bytes()
+              encoded = base64.b64encode(data).decode('ascii')
+              chunks = [encoded[i:i+16000] for i in range(0, len(encoded), 16000)]
+              for i, chunk in enumerate(chunks):
+                  (out / f'{name}.webp.b64.{i:02d}').write_text(chunk, encoding='utf-8')
+              manifest[name] = {
+                  'expectedParts': len(chunks),
+                  'sha256': hashlib.sha256(data).hexdigest(),
+                  'bytes': len(data),
+                  'width': 1200,
+                  'height': 675,
+              }
+          (out / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(manifest, indent=2))
+          PY
+
+      - name: Commit generated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/generated/crankbait-page
+          git commit -m 'Generate crankbait page image assets [crankbait-assets]'
+          git push origin HEAD:feat/crankbait-page-images-20260927
