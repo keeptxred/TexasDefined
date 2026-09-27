@@ -560,7 +560,7 @@ const fieldResearchEnrichments: Record<string, AuthorityEnrichment> = {
     ],
     preservation: [
       {
-        heading: "The 1980s restoration recovered patterns without pretending every detail survived",
+        heading: "The 1980s restoration recovered patterns despite incomplete evidence",
         paragraphs: [
           "After the historic decoration had been whitewashed, the early-1980s restoration used visible remnants and rediscovered stencil patterns to reconstruct the blue ceilings, stars and figurative ornament. Fayette County Judge Ed Janecka, who remembered portions of the earlier scheme from his youth, helped lead the effort with local volunteers including Butch Koenig.",
           "The field account notes that volunteers sometimes had to make restrained interpretive choices where the evidence was incomplete. The present interior should therefore be read as a careful community reconstruction based on surviving evidence, not as an untouched original paint layer.",
