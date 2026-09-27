@@ -8,7 +8,7 @@ export const Route = createLazyFileRoute("/fishing/techniques")({
 });
 
 function FishingTechniquesPage() {
-  const pathname = useRouterState({ select: (state) => state.location.pathname.replace(/\\/+$/, "") || "/" });
-  if (pathname !== FISHING_TECHNIQUES_DIRECTORY_PATH) return <Outlet />;
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== FISHING_TECHNIQUES_DIRECTORY_PATH && pathname !== `${FISHING_TECHNIQUES_DIRECTORY_PATH}/`) return <Outlet />;
   return <FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()} />;
 }
