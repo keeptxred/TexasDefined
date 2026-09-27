@@ -46,6 +46,7 @@ export const texasBeforeUnitedStatesArticle: Article = {
   internalLinks: [
     { href: "/texas-history", label: "Texas History", description: "Browse the statewide history collection, historic sites, museums and deeper narrative guides." },
     { href: "/article/indigenous-texas-history-native-nations", label: "Indigenous Texas history", description: "Go deeper on the Native nations, homelands, trade networks and living tribal communities that precede and continue beyond the colonial chronology." },
+    { href: "/article/tejano-texas-before-statehood-history", label: "Tejano Texas before statehood", description: "Follow Béxar civic life, ranching, Mexican federalism, Tejano participation in the Revolution and Republic-era citizenship before statehood." },
     { href: "/article/spanish-texas-military-battle-medina", label: "Spanish Texas before 1821", description: "Go deeper on presidios, imperial rivalry, the Gutiérrez-Magee Expedition and the Battle of Medina." },
     { href: "/article/mexican-texas-military-history", label: "Mexican Texas, 1821–1835", description: "Follow Coahuila y Tejas, the Fredonian Rebellion, Anahuac and the road to Gonzales." },
     { href: "/article/texas-revolution-historic-sites-road-trip", label: "Texas Revolution historic sites", description: "Follow the 1835–1836 sequence from Gonzales and San Felipe through the Alamo, Goliad and San Jacinto." },
