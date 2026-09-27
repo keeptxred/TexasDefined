@@ -11,6 +11,68 @@ export interface LocalArticleAuthoritySource {
  * "Sources and further reading" panel.
  */
 export const localArticleAuthoritySources: Readonly<Record<string, readonly LocalArticleAuthoritySource[]>> = {
+  "native-nations-texas-today": [
+    {
+      label: "Texas Historical Commission — Tribal Consultation Guidelines",
+      url: "https://thc.texas.gov/review/consultation-process/tribal-consultation-guidelines",
+      scope: "Current statewide framework identifying 29 federally recognized tribes with known Texas connections and the three located in Texas.",
+    },
+    {
+      label: "Texas Historical Commission — Conversations with Tribal Nations",
+      url: "https://thc.texas.gov/about/get-involved/texas-statewide-preservation-plan",
+      scope: "State preservation consultation with tribal nations and the distinction between the three Texas-based tribes and 26 other federally recognized tribes with connections.",
+    },
+    {
+      label: "Texas State Library and Archives Commission — American Indian Genealogy Research",
+      url: "https://www.tsl.texas.gov/ref/americanindiangenealogy",
+      scope: "Current state reference identifying the Alabama-Coushatta, Kickapoo Traditional Tribe and Ysleta del Sur Pueblo reservations in Texas.",
+    },
+    {
+      label: "U.S. Indian Affairs — Federally Recognized Tribes FAQ",
+      url: "https://www.bia.gov/frequently-asked-questions",
+      scope: "Federal recognition, tribal sovereignty and the government-to-government relationship between federally recognized tribes and the United States.",
+    },
+    {
+      label: "Alabama-Coushatta Tribe of Texas — Our History",
+      url: "https://www.alabama-coushatta.com/about-us/our-history/",
+      scope: "First-person tribal history, East Texas homeland, reservation continuity and restoration of federal recognition.",
+    },
+    {
+      label: "Alabama-Coushatta Tribe of Texas — Government",
+      url: "https://www.alabama-coushatta.com/government/",
+      scope: "Current tribal government structure and public governmental institutions.",
+    },
+    {
+      label: "Kickapoo Traditional Tribe of Texas",
+      url: "https://kickapootexas.org/",
+      scope: "First-person tribal information, reservation location near Eagle Pass and current government departments.",
+    },
+    {
+      label: "Ysleta del Sur Pueblo — About Us",
+      url: "https://www.ysletadelsurpueblo.org/about-us",
+      scope: "First-person Tigua history, 1682 community establishment, federal recognition and contemporary Pueblo identity.",
+    },
+    {
+      label: "Ysleta del Sur Pueblo — Tribal Council",
+      url: "https://www.ysletadelsurpueblo.org/news_detail.sstg?id=104",
+      scope: "Current Pueblo governmental structure, elected and traditional offices, tribal sovereignty, police and courts.",
+    },
+    {
+      label: "Caddo Nation",
+      url: "https://mycaddonation.com/",
+      scope: "Present-day Caddo Nation government and community information connected to the ancestral East Texas homeland.",
+    },
+    {
+      label: "Comanche Nation — History",
+      url: "https://www.comanchenation.com/about/page/history",
+      scope: "First-person Comanche history and the Nation's Southern Plains connections including Texas.",
+    },
+    {
+      label: "Tonkawa Tribe of Oklahoma — Tribal History",
+      url: "https://tonkawatribe.com/language-culture/history/",
+      scope: "First-person Tonkawa history, south-central Texas homeland and forced removal from Fort Griffin.",
+    },
+  ],
   "indigenous-texas-history-native-nations": [
     {
       label: "Texas Historical Commission — Indigenous Texas and Exploration",
