@@ -32,6 +32,17 @@ const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key
 const pkg = JSON.parse(files.package);
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 13 validation failed: ${label}`); };
 const techniqueSlugs = ["soft-plastics","crankbaits","spinnerbaits","topwater","trolling","vertical-jigging","jigs-and-minnows","live-bait","cut-bait"];
+const techniqueDisplayNames = [
+  ["soft-plastics", "Soft Plastics"],
+  ["crankbaits", "Crankbaits"],
+  ["spinnerbaits", "Spinnerbaits"],
+  ["topwater", "Topwater"],
+  ["trolling", "Trolling"],
+  ["vertical-jigging", "Vertical Jigging"],
+  ["jigs-and-minnows", "Jigs and Minnows"],
+  ["live-bait", "Live Bait"],
+  ["cut-bait", "Cut Bait"],
+];
 
 requireText(files.routing, 'FISHING_TECHNIQUES_DIRECTORY_PATH = "/fishing/techniques"', "canonical directory path missing");
 requireText(files.routing, "PUBLISHED_FISHING_TECHNIQUE_SLUGS", "published technique allowlist missing");
@@ -42,6 +53,9 @@ for (const slug of techniqueSlugs) {
   requireText(files.routing, `"/fishing/techniques/${slug}"`, `crawl-discovery path missing ${slug}`);
   requireText(files.fixtures, `technique("${slug}"`, `typed fixture missing ${slug}`);
   requireText(files.publicRoutes, `"/fishing/techniques/${slug}"`, `public-route governance missing ${slug}`);
+}
+for (const [slug, displayName] of techniqueDisplayNames) {
+  requireText(files.fixtures, `technique("${slug}", "${displayName}"`, `technique display name casing missing ${slug}: ${displayName}`);
 }
 
 requireText(files.server, "isCompleteFishingLakeSlug", "publication must be restricted to complete lake guides");
@@ -68,15 +82,15 @@ for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt
 const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
 for (const token of ["/fishing/techniques/crankbaits","How to Fish Crankbaits in Texas","/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif"]) requireText(files.productionSmoke, token, "crankbait live production verification missing " + token);
 const techniqueRouteSmokeExpectations = [
-  ["/fishing/techniques/soft-plastics", "How to Fish Soft plastics in Texas"],
+  ["/fishing/techniques/soft-plastics", "How to Fish Soft Plastics in Texas"],
   ["/fishing/techniques/crankbaits", "How to Fish Crankbaits in Texas"],
   ["/fishing/techniques/spinnerbaits", "How to Fish Spinnerbaits in Texas"],
   ["/fishing/techniques/topwater", "How to Fish Topwater in Texas"],
   ["/fishing/techniques/trolling", "How to Fish Trolling in Texas"],
-  ["/fishing/techniques/vertical-jigging", "How to Fish Vertical jigging in Texas"],
-  ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and minnows in Texas"],
-  ["/fishing/techniques/live-bait", "How to Fish Live bait in Texas"],
-  ["/fishing/techniques/cut-bait", "How to Fish Cut bait in Texas"],
+  ["/fishing/techniques/vertical-jigging", "How to Fish Vertical Jigging in Texas"],
+  ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and Minnows in Texas"],
+  ["/fishing/techniques/live-bait", "How to Fish Live Bait in Texas"],
+  ["/fishing/techniques/cut-bait", "How to Fish Cut Bait in Texas"],
 ];
 for (const [path, marker] of techniqueRouteSmokeExpectations) {
   requireText(workerSmoke, path, "built Worker technique detail smoke missing " + path);
