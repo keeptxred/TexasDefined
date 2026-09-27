@@ -170,6 +170,16 @@ requireText(productionSurfaces, "['texas-history-indigenous-discovery', '/texas-
 requireText(productionSurfaces, "['indigenous-texas-sitemap', '/sitemap.xml', '/article/indigenous-texas-history-native-nations']", 'Indigenous Texas sitemap discovery check');
 requireText(productionSurfaces, "['indigenous-texas-source-panel', '/article/indigenous-texas-history-native-nations', 'Sources and further reading']", 'Indigenous Texas live source-panel check');
 requireText(productionSurfaces, "['indigenous-texas-tribal-source', '/article/indigenous-texas-history-native-nations', 'Kickapoo Traditional Tribe of Texas']", 'Indigenous Texas tribal-government source check');
+requireText(productionSurfaces, "['indigenous-texas-reference-hub', '/article/indigenous-texas-history-native-nations', 'Start with land, time and living nations—not a modern state boundary']", 'Indigenous Texas reference-hub UI check');
+requireText(productionSurfaces, "['indigenous-texas-regions-ui', '/article/indigenous-texas-history-native-nations', 'Six geographic frames make the history easier to understand']", 'Indigenous Texas regional-navigation UI check');
+requireText(productionSurfaces, "['indigenous-texas-living-ui', '/article/indigenous-texas-history-native-nations', 'Native Texas is present tense']", 'Indigenous Texas living-nations UI check');
+requireText(productionSurfaces, "['texas-origins-series', '/article/indigenous-texas-history-native-nations', 'Texas origins · authority series']", 'Texas origins series UI check');
+requireText(productionSurfaces, "['caddo-texas-authority', '/article/caddo-texas-history-homelands-mounds-removal', 'Caddo in Texas: Homelands, Mounds, Trade Networks and Removal']", 'Caddo Texas live authority check');
+requireText(productionSurfaces, "['comanche-texas-authority', '/article/comanche-texas-history-comancheria-red-river-war', 'Comanche Texas: Comanchería, Horses, Trade and the Red River War']", 'Comanche Texas live authority check');
+requireText(productionSurfaces, "['tribal-nations-texas-authority', '/article/living-tribal-nations-texas-today', 'Tribal Nations in Texas Today: Sovereignty, Communities and Living Culture']", 'Living tribal nations Texas live authority check');
+requireText(productionSurfaces, "['caddo-texas-sitemap', '/sitemap.xml', '/article/caddo-texas-history-homelands-mounds-removal']", 'Caddo Texas sitemap check');
+requireText(productionSurfaces, "['comanche-texas-sitemap', '/sitemap.xml', '/article/comanche-texas-history-comancheria-red-river-war']", 'Comanche Texas sitemap check');
+requireText(productionSurfaces, "['tribal-nations-texas-sitemap', '/sitemap.xml', '/article/living-tribal-nations-texas-today']", 'Living tribal nations Texas sitemap check');
 requireText(productionSurfaces, "['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story']", 'James Hogg related-reading renderer check');
 requireText(productionSurfaces, "['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history']", 'James Hogg reciprocal Foundation link check');
 requireText(productionSurfaces, "['sallie-hogg-authority', '/article/sallie-hogg-texas-legacy', 'The Texas First Lady Who Shaped the Hogg Family']", 'Sallie Hogg live authority check');

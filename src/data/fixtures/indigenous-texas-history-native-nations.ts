@@ -25,8 +25,8 @@ export const indigenousTexasHistoryNativeNationsArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-26",
-  updatedAt: "2026-09-26",
-  readingMinutes: 17,
+  updatedAt: "2026-09-27",
+  readingMinutes: 20,
   tags: [
     "Indigenous Texas",
     "Native American history Texas",
@@ -46,6 +46,11 @@ export const indigenousTexasHistoryNativeNationsArticle: Article = {
   sourceUrl: "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
   internalLinks: [
     { href: "/article/texas-before-united-states-how-texas-began", label: "Texas before the United States", description: "Continue from Indigenous homelands through Spanish and Mexican Texas, the Revolution, Republic, annexation and statehood." },
+    { href: "/article/caddo-texas-history-homelands-mounds-removal", label: "Caddo in Texas", description: "Go deeper on mound centers, agriculture, trade networks, diplomacy and forced removal from East Texas." },
+    { href: "/article/comanche-texas-history-comancheria-red-river-war", label: "Comanche Texas", description: "Follow Comanchería, the horse and bison economy, diplomacy, settlement pressure and the Red River War." },
+    { href: "/article/living-tribal-nations-texas-today", label: "Tribal nations in Texas today", description: "Understand contemporary sovereignty through the Alabama-Coushatta Tribe of Texas, Ysleta del Sur Pueblo and the Kickapoo Traditional Tribe of Texas." },
+    { href: "/article/texas-red-river-war-guide", label: "The Red River War in Texas", description: "Follow the 1874–1875 campaign and its consequences across the Panhandle." },
+    { href: "/destination/seminole-canyon-state-park-and-historic-site", label: "Seminole Canyon State Park & Historic Site", description: "Explore Lower Pecos rock art and a cultural landscape with roughly 12,000 years of human history." },
     { href: "/destination/caddo-mounds-state-historic-site", label: "Caddo Mounds State Historic Site", description: "Visit one of the clearest surviving landscapes for understanding ancestral Caddo civic, ceremonial and trade networks." },
     { href: "/destination/hueco-tanks-state-park-and-historic-site", label: "Hueco Tanks State Park & Historic Site", description: "Explore a protected West Texas cultural landscape with rock imagery, water sources and evidence of repeated human use across thousands of years." },
     { href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso", label: "Ysleta del Sur Pueblo Cultural Center Museum", description: "Learn from a living Pueblo institution operated by the Tigua community in El Paso." },
@@ -59,6 +64,7 @@ export const indigenousTexasHistoryNativeNationsArticle: Article = {
   relatedCollections: [],
   relatedDestinations: [
     "caddo-mounds-state-historic-site",
+    "seminole-canyon-state-park-and-historic-site",
     "hueco-tanks-state-park-and-historic-site",
     "ysleta-del-sur-pueblo-cultural-center-museum-el-paso",
     "lipantitlan",
@@ -112,6 +118,7 @@ export const indigenousTexasHistoryNativeNationsArticle: Article = {
     h("West Texas and the Rio Grande: Pueblo, Jumano and desert networks"),
     p("Far West Texas connected the Southern Plains, northern Mexico and the Pueblo world of the Southwest. Archaeological sites around the Trans-Pecos preserve evidence of camps, villages, rock imagery, agriculture and long-distance exchange. Jumano communities and traders linked the plains, Rio Grande settlements and northern Mexico, although historians still debate important questions about Jumano identity and language."),
     p("Hueco Tanks is one of the state's most visible Indigenous cultural landscapes. Natural rock basins made reliable water available in the desert, and the site preserves pictographs and other evidence of repeated use by different peoples over long periods. Modern access rules are intentionally strict because recreation occurs inside a protected cultural landscape."),
+    p("Farther southeast, Seminole Canyon and the Lower Pecos preserve another deep archive. TPWD documents human presence in the canyon country about 12,000 years ago, while hundreds of rock-art sites preserve traditions developed by later hunter-gatherer communities. Those paintings are not a footnote to Spanish exploration; they are evidence of millennia of intellectual, ceremonial and artistic life before written colonial records."),
     p("The Tigua community at Ysleta del Sur Pueblo adds another essential chapter. After the Pueblo Revolt of 1680 and Spanish retreat from New Mexico, Tigua people were forced south with Spanish colonists and established Ysleta del Sur in the El Paso area in 1682. The Pueblo remains a living sovereign tribal nation, not merely a historic mission community."),
 
     h("European arrival did not mean European control"),

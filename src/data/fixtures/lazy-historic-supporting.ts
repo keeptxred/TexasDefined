@@ -1,6 +1,42 @@
 import { articleInternalLinks } from "../article-internal-links";
 import type { Article } from "../types";
 
+const caddoTexasHistoryStub: Article = {
+  id: "evergreen-caddo-texas-history-homelands-mounds-removal", brandId: "texasdefined", slug: "caddo-texas-history-homelands-mounds-removal",
+  title: "Caddo in Texas: Homelands, Mounds, Trade Networks and Removal",
+  dek: "Follow ancestral Caddo mound centers and farming towns through diplomacy, El Camino Real, epidemic loss, forced removal and the living Caddo Nation.",
+  category: "texas-history", region: "piney-woods",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/George_C._Davis_Site.jpg?width=1600", alt: "George C. Davis Site, now Caddo Mounds State Historic Site, in Cherokee County, Texas", width: 1824, height: 1368, credit: "Jon Roanhaus · CC BY-SA 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-27", updatedAt: "2026-09-27", readingMinutes: 14,
+  tags: ["Caddo history", "Caddo Mounds", "East Texas history", "El Camino Real", "Native Texas", "Caddo Nation"], featured: true,
+  sourceName: "Caddo Nation — History", sourceUrl: "https://mycaddonation.com/history-1",
+  body: [], relatedCollections: [], relatedDestinations: ["caddo-mounds-state-historic-site", "mission-dolores"],
+};
+
+const comancheTexasHistoryStub: Article = {
+  id: "evergreen-comanche-texas-history-comancheria-red-river-war", brandId: "texasdefined", slug: "comanche-texas-history-comancheria-red-river-war",
+  title: "Comanche Texas: Comanchería, Horses, Trade and the Red River War",
+  dek: "Follow the rise of Comanche power, horses and bison, diplomacy and trade, Texas settlement, the Red River War and the living Comanche Nation.",
+  category: "texas-history", region: "panhandle-plains",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Quanah_Parker%2C_a_Kwahadi_Comanche_chief%2C_full-length%2C_standing_in_front_of_tent_-_NARA_-_530911.jpg?width=1600", alt: "Quanah Parker, a Kwahadi Comanche leader, standing in front of a tipi", width: 1666, height: 3000, credit: "U.S. National Archives · NARA 530911 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-27", updatedAt: "2026-09-27", readingMinutes: 15,
+  tags: ["Comanche history", "Comancheria", "Red River War", "Quanah Parker", "Native Texas", "Comanche Nation"], featured: true,
+  sourceName: "Comanche Nation — History", sourceUrl: "https://www.comanchenation.com/about/page/history",
+  body: [], relatedCollections: [], relatedDestinations: ["fort-griffin", "palo-duro-canyon-state-park", "goodnight-ranch", "fort-davis-national-historic-site"],
+};
+
+const livingTribalNationsTexasStub: Article = {
+  id: "evergreen-living-tribal-nations-texas-today", brandId: "texasdefined", slug: "living-tribal-nations-texas-today",
+  title: "Tribal Nations in Texas Today: Sovereignty, Communities and Living Culture",
+  dek: "Meet the Alabama-Coushatta Tribe of Texas, Ysleta del Sur Pueblo and the Kickapoo Traditional Tribe of Texas through their own governments and institutions.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_dancers_at_the_Ysleta_Art_Market_June_29%2C_2022.jpg?width=1600", alt: "Tigua dancers at the Ysleta Art Market in El Paso in 2022", width: 4000, height: 3000, credit: "Susan Barnum · 2022 · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-09-27", updatedAt: "2026-09-27", readingMinutes: 13,
+  tags: ["tribal nations Texas", "Alabama-Coushatta", "Ysleta del Sur Pueblo", "Kickapoo Traditional Tribe of Texas", "Native Texas", "tribal sovereignty"], featured: true,
+  sourceName: "Ysleta del Sur Pueblo — About Us", sourceUrl: "https://www.ysletadelsurpueblo.org/about-us",
+  body: [], relatedCollections: [], relatedDestinations: ["ysleta-del-sur-pueblo-cultural-center-museum-el-paso"],
+};
+
 const indigenousTexasHistoryNativeNationsStub: Article = {
   id: "evergreen-indigenous-texas-history-native-nations",
   brandId: "texasdefined",
@@ -128,8 +164,49 @@ for (const slug of [
   }
 }
 
+const indigenousTexasAuthorityLink = {
+  href: "/article/indigenous-texas-history-native-nations",
+  label: "Indigenous Texas history: Native nations before European colonization",
+  description: "Start with the statewide Indigenous history framework before reading colonial, frontier and military chapters.",
+};
+const caddoTexasAuthorityLink = {
+  href: "/article/caddo-texas-history-homelands-mounds-removal",
+  label: "Caddo in Texas",
+  description: "Go deeper on East Texas homelands, mound centers, trade networks, colonial diplomacy and forced removal.",
+};
+const comancheTexasAuthorityLink = {
+  href: "/article/comanche-texas-history-comancheria-red-river-war",
+  label: "Comanche Texas and Comanchería",
+  description: "Place the frontier and Red River War inside the longer story of Comanche power, trade, horses, bison and sovereignty.",
+};
+const livingTribalNationsAuthorityLink = {
+  href: "/article/living-tribal-nations-texas-today",
+  label: "Tribal nations in Texas today",
+  description: "Meet the three federally recognized tribal nations based in Texas through their own governments and institutions.",
+};
+
+for (const slug of ["spanish-texas-military-battle-medina", "mexican-texas-military-history", "texas-borderlands-historic-sites-guide", "texas-red-river-war-guide", "texas-frontier-forts-road-trip"]) {
+  const existing = articleInternalLinks[slug] ?? [];
+  if (!existing.some((link) => link.href === indigenousTexasAuthorityLink.href)) articleInternalLinks[slug] = [indigenousTexasAuthorityLink, ...existing];
+}
+for (const slug of ["spanish-texas-military-battle-medina", "texas-borderlands-historic-sites-guide"]) {
+  const existing = articleInternalLinks[slug] ?? [];
+  if (!existing.some((link) => link.href === caddoTexasAuthorityLink.href)) articleInternalLinks[slug] = [caddoTexasAuthorityLink, ...existing];
+}
+for (const slug of ["texas-red-river-war-guide", "texas-frontier-forts-road-trip"]) {
+  const existing = articleInternalLinks[slug] ?? [];
+  if (!existing.some((link) => link.href === comancheTexasAuthorityLink.href)) articleInternalLinks[slug] = [comancheTexasAuthorityLink, ...existing];
+}
+for (const slug of ["texas-borderlands-historic-sites-guide"]) {
+  const existing = articleInternalLinks[slug] ?? [];
+  if (!existing.some((link) => link.href === livingTribalNationsAuthorityLink.href)) articleInternalLinks[slug] = [livingTribalNationsAuthorityLink, ...existing];
+}
+
 export const historicSupportingStubs: Article[] = [
   indigenousTexasHistoryNativeNationsStub,
+  caddoTexasHistoryStub,
+  comancheTexasHistoryStub,
+  livingTribalNationsTexasStub,
   texasBeforeUnitedStatesStub,
   texasCattleRanchingHistoryGuideStub,
   texasHistoricTravelTransportationGuideStub,
@@ -137,6 +214,9 @@ export const historicSupportingStubs: Article[] = [
 
 export async function loadHistoricSupportingArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (slug === caddoTexasHistoryStub.slug) return import("./caddo-texas-history-homelands-mounds-removal").then((module) => module.caddoTexasHistoryHomelandsMoundsRemovalArticle);
+  if (slug === comancheTexasHistoryStub.slug) return import("./comanche-texas-history-comancheria-red-river-war").then((module) => module.comancheTexasHistoryComancheriaRedRiverWarArticle);
+  if (slug === livingTribalNationsTexasStub.slug) return import("./living-tribal-nations-texas-today").then((module) => module.livingTribalNationsTexasTodayArticle);
   if (slug === indigenousTexasHistoryNativeNationsStub.slug) return import("./indigenous-texas-history-native-nations").then((module) => module.indigenousTexasHistoryNativeNationsArticle);
   if (slug === texasBeforeUnitedStatesStub.slug) return import("./texas-before-united-states-how-texas-began").then((module) => module.texasBeforeUnitedStatesArticle);
   if (slug === texasCattleRanchingHistoryGuideStub.slug) return import("./texas-cattle-ranching-history-guide").then((module) => module.texasCattleRanchingHistoryGuideArticle);

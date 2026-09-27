@@ -22,6 +22,8 @@ import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
+import { IndigenousTexasAuthorityHub } from "@/components/content/IndigenousTexasAuthorityHub";
+import { TexasOriginsAuthorityNav, texasOriginsAuthoritySlugs } from "@/components/content/TexasOriginsAuthorityNav";
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -363,6 +365,7 @@ function ArticlePage() {
   const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;
   const isTexasExplainedSupport = texasExplainedSupportSlugs.has(article.slug);
   const isTexasExplainedCollectionArticle = isTexasExplainedPillar || isTexasExplainedSupport;
+  const isTexasOriginsAuthorityArticle = texasOriginsAuthoritySlugs.has(article.slug);
   const texasExplainedQuickAnswer = isTexasExplainedPillar ? article.dek.trim() : null;
   const previousTexasExplainedSlug = texasExplainedPillarPosition > 0
     ? texasExplainedPillarOrder[texasExplainedPillarPosition - 1]
@@ -439,6 +442,7 @@ function ArticlePage() {
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
+      {isTexasOriginsAuthorityArticle ? <TexasOriginsAuthorityNav activeSlug={article.slug} /> : null}
       {isTexasExplainedPillar && (isTexasRiversArticle ? <aside className="mt-6 border-y border-border py-4" aria-label="Texas Explained series">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <p className="font-semibold text-foreground">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
@@ -467,6 +471,7 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
+      {article.slug === "indigenous-texas-history-native-nations" ? <IndigenousTexasAuthorityHub /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
         {isTexasRiversArticle ? <>
           <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
@@ -489,10 +494,14 @@ function ArticlePage() {
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
       {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
-        <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
-        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{authoritySources.map((source) => <li key={source.url}>
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
+          <span className="text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{authoritySources.length} authoritative sources</span>
+        </div>
+        <p className="mt-2 max-w-2xl text-xs leading-6 text-muted-foreground">Use these primary, official and specialist sources to verify the guide, follow differing interpretations and continue the research.</p>
+        <ul className={`mt-5 grid gap-4 ${authoritySources.length >= 8 ? "sm:grid-cols-2" : ""}`}>{authoritySources.map((source) => <li key={source.url} className="border-t border-border pt-3">
           <a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{source.label} ↗</a>
-          <span className="block">{source.scope}</span>
+          <span className="mt-1 block text-sm leading-6 text-muted-foreground">{source.scope}</span>
         </li>)}</ul>
       </section>}
       {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
