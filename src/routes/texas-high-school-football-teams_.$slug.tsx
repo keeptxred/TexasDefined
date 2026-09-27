@@ -23,13 +23,14 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
         : governingBodyHint
           ? `${governingBodyHint}${associationClassification ? ` ${associationClassification}` : ''}`
           : 'Texas high school football';
-    const description = `${displayName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
+    const seoName = program?.schoolName || displayName;
+    const description = `${seoName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
     const url = `${siteUrl}${canonicalPath}`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${displayName} Football: Class, District, Enrollment & School Guide`,
+        title: `${seoName} Football: Class, District, Enrollment & School Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -40,7 +41,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             '@type': 'WebPage',
             '@id': `${url}#page`,
             url,
-            name: `${displayName} Football School Profile`,
+            name: `${seoName} Football School Profile`,
             description,
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {

@@ -170,6 +170,12 @@ if (!errors.length) {
   const sitemap = read(legacyMetadataFiles[5]);
 
   for (const marker of [
+    "const seoName = program?.schoolName || displayName",
+    "title: `${seoName} Football: Class, District, Enrollment & School Guide`",
+    "const description = `${seoName} football profile:",
+  ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
+
+  for (const marker of [
     "name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663'",
     "name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168'",
     "name: 'Franklin', classification: '3A', enrollment: '435'",

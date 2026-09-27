@@ -7,7 +7,8 @@ const TIMEOUT_MS = Number(process.env.AUDIT_TIMEOUT_MS || 30000);
 const OUT_JSON = process.env.AUDIT_JSON || '/tmp/texasdefined-page-audit.json';
 const OUT_TSV = process.env.AUDIT_TSV || '/tmp/texasdefined-page-audit.tsv';
 
-const PLACEHOLDER_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide|Photo coming soon|Photo unavailable|destination-specific photograph not yet available/i;
+const PAGE_FALLBACK_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide/i;
+const LOCALIZED_IMAGE_FALLBACK_RE = /Photo coming soon|Photo unavailable|destination-specific photograph not yet available/i;
 const BAD_TITLE_RE = /^(Unavailable|Story unavailable|Page not found|404)(?:\s*\||$)/i;
 
 function normalizeSpace(value='') { return value.replace(/\s+/g, ' ').trim(); }
@@ -48,7 +49,7 @@ function thinThreshold(pathname){
  return 120;
 }
 async function auditPage(url){
- const issues=[]; let status=0,finalUrl=url,contentType='',title='',description='',canonical='',words=0,h1s=0;
+ const issues=[],warnings=[]; let status=0,finalUrl=url,contentType='',title='',description='',canonical='',words=0,h1s=0;
  try{
   const {response,body}=await fetchText(url); status=response.status; finalUrl=response.url; contentType=response.headers.get('content-type')||'';
   if(status!==200) issues.push({code:'http-status',detail:String(status)});
@@ -60,12 +61,14 @@ async function auditPage(url){
    else try{ const requested=new URL(url),canon=new URL(canonical,ORIGIN); if(canon.origin!==requested.origin||canon.pathname.replace(/\/$/,'')!==requested.pathname.replace(/\/$/,'')) issues.push({code:'canonical-mismatch',detail:canon.href}); }catch{issues.push({code:'invalid-canonical',detail:canonical});}
    if(h1s!==1) issues.push({code:'h1-count',detail:String(h1s)});
    const threshold=thinThreshold(new URL(url).pathname); if(words<threshold) issues.push({code:'thin-render',detail:words+' words < '+threshold});
-   if(PLACEHOLDER_RE.test(stripTags(body))) issues.push({code:'placeholder-or-fallback-copy',detail:''});
+   const renderedText=stripTags(body);
+   const pageFallbackMatch=renderedText.match(PAGE_FALLBACK_RE); if(pageFallbackMatch) issues.push({code:'page-level-fallback-copy',detail:pageFallbackMatch[0]});
+   const imageFallbackMatch=renderedText.match(LOCALIZED_IMAGE_FALLBACK_RE); if(imageFallbackMatch) warnings.push({code:'localized-image-fallback',detail:imageFallbackMatch[0]});
    const robots=metaContent(body,'robots').toLowerCase(); if(robots.includes('noindex')) issues.push({code:'sitemap-url-noindex',detail:robots});
    if(finalUrl!==url&&new URL(finalUrl).pathname!==new URL(url).pathname) issues.push({code:'unexpected-redirect',detail:finalUrl});
   }
  }catch(error){issues.push({code:'fetch-error',detail:error?.message||String(error)});}
- return {url,finalUrl,status,contentType,title,description,canonical,words,h1s,issues};
+ return {url,finalUrl,status,contentType,title,description,canonical,words,h1s,issues,warnings};
 }
 async function mapLimit(items,limit,fn){const results=new Array(items.length);let cursor=0;async function worker(){while(true){const i=cursor++;if(i>=items.length)return;results[i]=await fn(items[i],i);if((i+1)%100===0)console.log('Audited '+(i+1)+'/'+items.length);}}await Promise.all(Array.from({length:Math.max(1,Math.min(limit,items.length))},worker));return results;}
 function duplicateIssues(results,field,code){const groups=new Map();for(const result of results){const value=normalizeSpace(result[field]||'').toLowerCase();if(!value)continue;const list=groups.get(value)||[];list.push(result);groups.set(value,list);}for(const list of groups.values()){if(list.length<2)continue;const urls=list.map(x=>x.url).join(', ');for(const item of list)item.issues.push({code,detail:urls});}}
@@ -74,11 +77,11 @@ const {pageUrls,sitemaps,sitemapFailures}=await collectUrls();
 console.log('Discovered '+pageUrls.length+' unique indexable URLs from '+sitemaps.length+' sitemap(s); '+sitemapFailures.length+' sitemap failure(s).');
 const results=await mapLimit(pageUrls,CONCURRENCY,auditPage);
 duplicateIssues(results,'title','duplicate-title'); duplicateIssues(results,'description','duplicate-description');
-const failures=results.filter(r=>r.issues.length),byCode={};for(const result of failures)for(const issue of result.issues)byCode[issue.code]=(byCode[issue.code]||0)+1;
-await fs.writeFile(OUT_JSON,JSON.stringify({auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length},byCode,results},null,2)+'\n');
-const rows=[['url','status','words','h1s','title','canonical','issues'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
+const failures=results.filter(r=>r.issues.length),warningPages=results.filter(r=>r.warnings?.length),byCode={},warningsByCode={};for(const result of failures)for(const issue of result.issues)byCode[issue.code]=(byCode[issue.code]||0)+1;for(const result of warningPages)for(const warning of result.warnings)warningsByCode[warning.code]=(warningsByCode[warning.code]||0)+1;
+await fs.writeFile(OUT_JSON,JSON.stringify({auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,totals:{pages:results.length,failingPages:failures.length,passingPages:results.length-failures.length,warningPages:warningPages.length},byCode,warningsByCode,results},null,2)+'\n');
+const rows=[['url','status','words','h1s','title','canonical','issues','warnings'],...results.map(r=>[r.url,String(r.status),String(r.words),String(r.h1s),r.title,r.canonical,r.issues.map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | '),(r.warnings||[]).map(i=>i.code+(i.detail?':'+i.detail:'')).join(' | ')])];
 await fs.writeFile(OUT_TSV,rows.map(row=>row.map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t')).join('\n')+'\n');
-console.log(JSON.stringify({pages:results.length,failingPages:failures.length,byCode,sitemapFailures},null,2));
+console.log(JSON.stringify({pages:results.length,failingPages:failures.length,warningPages:warningPages.length,byCode,warningsByCode,sitemapFailures},null,2));
 for(const result of failures.slice(0,250))console.error('FAIL '+result.url+' :: '+result.issues.map(i=>i.code+(i.detail?'='+i.detail:'')).join(', '));
 if(sitemapFailures.length||failures.length)process.exit(1);
 console.log('PASS: every sitemap-listed TexasDefined page satisfied the whole-site production quality audit.');
