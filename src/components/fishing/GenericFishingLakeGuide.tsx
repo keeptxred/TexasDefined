@@ -1,12 +1,15 @@
 import { Container } from "@/components/layout/Container";
+import { OfficialFishingReport } from "@/components/fishing/OfficialFishingReport";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishSpecies, FishingAccessPoint, FishingBusiness, FishingGuide, FishingLake, FishingReport, LakeSpeciesProfile } from "@/data/fishing/types";
+import type { TpwdFishingReportSnapshot } from "@/data/fishing/tpwd-fishing-report.server";
 
 export function GenericFishingLakeGuide({
   lake,
   species,
   relationships,
   reports,
+  officialReport,
   guides,
   access,
   businesses,
@@ -15,6 +18,7 @@ export function GenericFishingLakeGuide({
   species: FishSpecies[];
   relationships: LakeSpeciesProfile[];
   reports: FishingReport[];
+  officialReport: TpwdFishingReportSnapshot | null;
   guides: FishingGuide[];
   access: FishingAccessPoint[];
   businesses: FishingBusiness[];
@@ -92,12 +96,13 @@ export function GenericFishingLakeGuide({
         </div>
       </section> : null}
 
-      {reports.length ? <section className="py-12">
-        <p className="eyebrow text-primary">Dated fishing reports</p>
-        <h2 className="mt-3 font-display text-4xl">Recent published context</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Reports are shown with publication dates because conditions change. Always verify current weather, levels, access and regulations before travel.</p>
-        <div className="mt-7 grid gap-x-8 md:grid-cols-2">{reports.slice(0, 4).map((report) => <article key={report.id} className="border-t border-border py-6"><p className="eyebrow text-primary">{formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-2xl">{report.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{report.summary}</p></article>)}</div>
-      </section> : null}
+      <section className="py-12">
+        <p className="eyebrow text-primary">Latest fishing conditions</p>
+        <h2 className="mt-3 font-display text-4xl">Newest dated report for {lake.name}</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The newest official TPWD report available is shown with its original date. Older reports remain useful as historical context, not as today's conditions.</p>
+        <OfficialFishingReport report={officialReport} fallbackUrl={lake.sources.find((source) => /tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\//i.test(source.url))?.url ?? "/fishing/reports"} lakeName={lake.name} />
+        {reports.length ? <div className="mt-10 grid gap-x-8 md:grid-cols-2">{reports.slice(0, 4).map((report) => <article key={report.id} className="border-t border-border py-6"><p className="eyebrow text-primary">{formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-2xl">{report.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{report.summary}</p></article>)}</div> : null}
+      </section>
 
       <section className="border-t border-border py-12">
         <p className="eyebrow text-primary">Sources</p>
