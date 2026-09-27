@@ -52,6 +52,21 @@ export const localArticleAuthoritySources: Readonly<Record<string, readonly Loca
       url: "https://kickapootexas.org/",
       scope: "First-person tribal information on the federally recognized Kickapoo community and reservation near Eagle Pass.",
     },
+    {
+      label: "Caddo Nation",
+      url: "https://mycaddonation.com/",
+      scope: "Present-day Caddo Nation government and community information from the Nation itself.",
+    },
+    {
+      label: "Comanche Nation",
+      url: "https://www.comanchenation.com/",
+      scope: "Present-day Comanche Nation government and community information from the Nation itself.",
+    },
+    {
+      label: "Tonkawa Tribe of Oklahoma",
+      url: "https://tonkawatribe.com/",
+      scope: "Present-day Tonkawa tribal government, reservation and community information from the Tribe itself.",
+    },
   ],
   "texas-before-united-states-how-texas-began": [
     {
