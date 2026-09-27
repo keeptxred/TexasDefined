@@ -1,3 +1,4 @@
+import { FishSpeciesVisual } from "@/components/fishing/FishSpeciesVisual";
 import { Container } from "@/components/layout/Container";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishSpecies, FishingAccessPoint, FishingBusiness, FishingGuide, FishingLake, FishingReport, LakeSpeciesProfile } from "@/data/fishing/types";
@@ -74,8 +75,8 @@ export function GenericFishingLakeGuide({
         </div>
         {targets.length ? <div className="mt-8 grid gap-x-8 border-t border-border md:grid-cols-2">
           {targets.map(({ relation, fish }) => <article key={relation.id} className="border-b border-border py-7">
-            <div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><span className="border border-border px-3 py-1.5 text-xs">{titleCase(relation.quality)}</span></div>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">{relation.notes || fish.summary}</p>
+            <div className="grid gap-5 sm:grid-cols-[9rem_1fr]"><FishSpeciesVisual speciesId={fish.slug} name={fish.commonName} className="aspect-[16/10] w-full max-w-[11rem] sm:max-w-none" /><div><div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><span className="border border-border px-3 py-1.5 text-xs">{titleCase(relation.quality)}</span></div>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{relation.notes || fish.summary}</p></div></div>
             {relation.seasonalPatterns.length ? <div className="mt-5 space-y-3">{relation.seasonalPatterns.slice(0, 2).map((pattern, index) => <p key={`${pattern.season}-${index}`} className="text-sm leading-6"><strong>{titleCase(pattern.season)}:</strong> <span className="text-muted-foreground">{pattern.summary}</span></p>)}</div> : null}
             <div className="mt-5 flex flex-wrap gap-4"><a href={fishingFoundationAnchor("species", fish.slug)} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{fish.commonName} guide →</a><a href={`/fishing/plan?species=${fish.slug}`} className="border-b border-border pb-1 text-sm text-muted-foreground">Find other lakes →</a></div>
           </article>)}
