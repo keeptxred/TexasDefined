@@ -1,0 +1,1153 @@
+{
+  "reviewedAt": "2026-09-27",
+  "scope": "All 140 canonical TexasDefined gateway concepts",
+  "policy": "Disposition is separate from indexability. Expand/rebuild work may remain staged indefinitely. Consolidate, retire, and specialized-verification concepts must not be promoted until their disposition is explicitly revised after the underlying issue is resolved.",
+  "summary": {
+    "total": 140,
+    "expand": 100,
+    "rebuild": 14,
+    "requires-specialized-verification": 7,
+    "consolidate": 19
+  },
+  "entries": [
+    {
+      "slug": "things-to-know-before-visiting-texas",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-nobody-tells-you-before-moving-to-texas",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-texas-does-differently-than-every-other-state",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-foods-you-need-to-try",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "places-everyone-should-visit-in-texas",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-camping-in-texas",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-state-fair-of-texas",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-that-define-texas",
+      "batch": 1,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-vs-california-differences",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "already-promoted-through-guarded-ledger"
+    },
+    {
+      "slug": "texas-vs-florida-differences",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "already-promoted-through-guarded-ledger"
+    },
+    {
+      "slug": "texas-traditions-you-should-experience",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "already-promoted-through-guarded-ledger"
+    },
+    {
+      "slug": "texas-road-trip-stops-worth-the-detour",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-facts-that-sound-made-up",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "mistakes-first-time-visitors-make-in-texas",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "already-promoted-through-guarded-ledger"
+    },
+    {
+      "slug": "texas-bucket-list-by-season",
+      "batch": 2,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "already-promoted-through-guarded-ledger"
+    },
+    {
+      "slug": "you-know-youre-a-texan-if",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "small-town-texas-experiences-everyone-should-have",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-snakes-what-to-do-if-you-see-one",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-wildlife-encounters-what-to-do",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-pests-homeowners-should-know",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-hurricane-home-prep-checklist",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "bluebonnet-photo-etiquette-and-best-practices",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-do-in-texas-summer-without-melting",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-fall-bucket-list",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-winter-bucket-list",
+      "batch": 3,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-sayings-outsiders-need-translated",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-foods-people-argue-about",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-you-see-on-a-texas-road-trip",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-texas-homeowners-learn-first-year",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "open-pool-for-texas-summer",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "prepare-texas-pool-for-winter",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-birds-you-will-actually-notice",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-wildflowers-beyond-bluebonnets",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "what-to-keep-in-car-for-texas-road-trip",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "only-in-texas-weekend-ideas",
+      "batch": 4,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "unwritten-rules-of-texas-etiquette",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-myths-outsiders-still-believe",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-weather-surprises-newcomers",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-day-trips-that-feel-like-a-vacation",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-festivals-worth-a-weekend",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-you-understand-after-a-texas-summer",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-is-better-as-a-road-trip",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-signs-newcomers-dont-understand",
+      "batch": 5,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-things-every-family-should-do",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "free-things-to-do-in-texas",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-date-ideas-better-than-dinner",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-homeowner-mistakes",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-gardening-mistakes",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-trivia-questions",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "you-know-youre-from-texas-when",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-regions-that-feel-like-different-states",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "cheap-texas-weekend-ideas",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-food-road-trip-bucket-list",
+      "batch": 6,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-visiting-houston",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-visiting-austin",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-visiting-san-antonio",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-visiting-dallas-fort-worth",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-people-get-wrong-about-west-texas",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-people-dont-expect-about-east-texas",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "hill-country-mistakes-first-time-visitors-make",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-to-know-before-texas-gulf-coast-trip",
+      "batch": 7,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-places-worth-driving-for",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-state-parks-for-first-time-visitors",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-small-towns-by-trip-type",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-family-road-trips",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-food-towns",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-swimming-holes-for-a-summer-trip",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-authority",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-weekend-trips-by-season",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-attractions-that-are-worth-the-hype",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-first-texas-road-trip",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-tourist-traps-how-to-make-them-worth-it",
+      "batch": 8,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-romantic-weekend-getaways-in-texas",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-history-weekend-trips",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-weekend-trips-for-outdoor-lovers",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-budget-friendly-texas-weekend-trips",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-spring-weekend-trips-in-texas",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-fall-weekend-trips-in-texas",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-winter-weekend-trips-in-texas",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-for-first-time-visitors",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-with-kids-by-age",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-weekend-trips-for-food-lovers",
+      "batch": 9,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-from-houston",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-from-dallas-fort-worth",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-from-austin",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-from-san-antonio",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-3-day-texas-road-trip-itineraries",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-7-day-texas-road-trip-itineraries",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-long-weekend-trips",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-vacations-without-flying",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-one-day-texas-road-trips",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-first-weekend-trip-in-texas",
+      "batch": 10,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-template",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-within-two-hours-of-houston",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-within-three-hours-of-dallas-fort-worth",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-within-two-hours-of-austin",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-weekend-trips-within-two-hours-of-san-antonio",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-if-you-dont-like-hiking",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-for-seniors",
+      "batch": 11,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-dog-friendly-texas-trip-ideas",
+      "batch": 11,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-things-to-do-in-texas-on-a-rainy-weekend",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-when-its-too-hot-outside",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-easy-texas-weekend-trips",
+      "batch": 11,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-accessible-texas-weekend-trips",
+      "batch": 12,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-solo-weekend-trips-in-texas",
+      "batch": 12,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-multigenerational-texas-trips",
+      "batch": 12,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-last-minute-texas-weekend-trips",
+      "batch": 12,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-trips-with-less-driving",
+      "batch": 12,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-for-a-cold-front-weekend",
+      "batch": 12,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-spring-break-trips-without-crowds",
+      "batch": 12,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "budget-texas-trips-with-kids",
+      "batch": 12,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-one-night-texas-getaways",
+      "batch": 13,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-weekend-trips-without-reservations",
+      "batch": 13,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-with-toddlers",
+      "batch": 13,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-with-teenagers",
+      "batch": 13,
+      "disposition": "requires-specialized-verification",
+      "editorialStatus": "remain-staged",
+      "rationale": "stage-audience",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-for-scenic-drives",
+      "batch": 13,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-stargazing-weekend-trips",
+      "batch": 13,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-shoulder-season-trips",
+      "batch": 13,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "easy-texas-reset-weekend-trips",
+      "batch": 13,
+      "disposition": "expand",
+      "editorialStatus": "needs-expansion",
+      "rationale": "expand-depth",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-birthday-weekend-trips",
+      "batch": 14,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "occasion-wrapper-needs-distinct-celebration-utility",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-anniversary-weekend-trips",
+      "batch": 14,
+      "disposition": "consolidate",
+      "targetSlug": "best-romantic-weekend-getaways-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "romantic-weekend-intent-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-friends-weekend-trips",
+      "batch": 14,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "group-planning-needs-distinct-logistics",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-trips-before-school-starts",
+      "batch": 14,
+      "disposition": "consolidate",
+      "targetSlug": "best-texas-family-road-trips",
+      "editorialStatus": "remain-staged",
+      "rationale": "family-summer-trip-intent-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-january-weekend-trips",
+      "batch": 14,
+      "disposition": "consolidate",
+      "targetSlug": "best-winter-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "winter-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-march-weekend-trips",
+      "batch": 14,
+      "disposition": "consolidate",
+      "targetSlug": "best-spring-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "spring-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-october-weekend-trips",
+      "batch": 14,
+      "disposition": "consolidate",
+      "targetSlug": "best-fall-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "fall-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-holiday-season-weekend-trips",
+      "batch": 14,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "holiday-page-needs-current-event-verification",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-february-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "best-winter-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "winter-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-april-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "best-spring-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "spring-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-may-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "best-spring-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "spring-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-june-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "things-to-do-in-texas-summer-without-melting",
+      "editorialStatus": "remain-staged",
+      "rationale": "summer-heat-trip-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-july-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "things-to-do-in-texas-summer-without-melting",
+      "editorialStatus": "remain-staged",
+      "rationale": "summer-heat-trip-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-august-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "things-to-do-in-texas-summer-without-melting",
+      "editorialStatus": "remain-staged",
+      "rationale": "summer-heat-trip-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-september-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "best-fall-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "fall-transition-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-november-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "best-fall-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "fall-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "best-texas-december-weekend-trips",
+      "batch": 15,
+      "disposition": "consolidate",
+      "targetSlug": "best-winter-weekend-trips-in-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "winter-month-wrapper",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-texans-take-very-seriously",
+      "batch": 16,
+      "disposition": "consolidate",
+      "targetSlug": "things-that-define-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "broad-identity-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "things-that-confuse-people-from-other-states-about-texas",
+      "batch": 16,
+      "disposition": "consolidate",
+      "targetSlug": "things-nobody-tells-you-before-moving-to-texas",
+      "editorialStatus": "remain-staged",
+      "rationale": "newcomer-intent-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "signs-youve-lived-in-texas-long-enough",
+      "batch": 16,
+      "disposition": "consolidate",
+      "targetSlug": "you-know-youre-a-texan-if",
+      "editorialStatus": "remain-staged",
+      "rationale": "resident-identity-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-summer-habits-locals-learn",
+      "batch": 16,
+      "disposition": "consolidate",
+      "targetSlug": "things-you-understand-after-a-texas-summer",
+      "editorialStatus": "remain-staged",
+      "rationale": "summer-lifestyle-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-road-trip-habits-locals-learn",
+      "batch": 16,
+      "disposition": "consolidate",
+      "targetSlug": "things-you-see-on-a-texas-road-trip",
+      "editorialStatus": "remain-staged",
+      "rationale": "road-trip-observation-overlap",
+      "promotionState": "staged"
+    },
+    {
+      "slug": "texas-things-people-love-to-argue-about",
+      "batch": 16,
+      "disposition": "rebuild",
+      "editorialStatus": "remain-staged",
+      "rationale": "identity-debate-page-needs-narrower-original-angle",
+      "promotionState": "staged"
+    }
+  ]
+}
