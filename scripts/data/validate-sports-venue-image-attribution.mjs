@@ -15,10 +15,10 @@ const forbidText = (source, needle, label) => {
   if (source.includes(needle)) failures.push(`${label}: forbidden ${needle}`);
 };
 
-const generatedCount = wave7.match(/sourceName: "Texas Defined generated media"/g)?.length ?? 0;
-const commonsCount = wave7.match(/sourceName: "Wikimedia Commons"/g)?.length ?? 0;
-if (generatedCount !== 14) failures.push(`Expected 14 generated Wave 7 venue heroes; found ${generatedCount}.`);
-if (commonsCount !== 2) failures.push(`Expected 2 Wikimedia Commons Wave 7 venue heroes; found ${commonsCount}.`);
+const generatedCount = (wave7.match(/Texas Defined generated media/g) ?? []).length;
+const commonsCount = (wave7.match(/sourceName: ['"]Wikimedia Commons['"]/g) ?? []).length;
+if (generatedCount !== 0) failures.push(`Wave 7 must not contain generated venue depictions; found ${generatedCount}.`);
+if (commonsCount !== 3) failures.push(`Expected 3 reviewed Wikimedia Commons Wave 7 venue heroes; found ${commonsCount}.`);
 
 for (const marker of [
   "const GENERATED_SOURCE_NAME = 'Texas Defined generated media';",
@@ -52,13 +52,11 @@ for (const marker of [
 forbidText(guidePage, 'AI-generated representative editorial image by {photo.author} for TexasDefined; not documentary photography.', 'generated guide disclosure should defer AI details to the sitewide policy');
 forbidText(guidePage, '>Media record</a>', 'generated guide disclosure must not render a self-referential media link');
 
-for (const marker of [
-  'const wave7GeneratedAttribution = [',
-  "'Editorial illustration by'",
-  "'Cloudflare Workers AI / FLUX.1 schnell'",
-  "'for TexasDefined; not documentary photography.'",
-]) requireText(productionVerifier, marker, 'live sports venue attribution verifier');
-forbidText(productionVerifier, "'AI-generated representative editorial image'", 'live verifier must follow the sitewide AI disclosure contract');
+requireText(
+  productionVerifier,
+  "await import('./verify-sports-venue-heroes-production-all.mjs');",
+  'live sports venue attribution verifier must use the dynamic exhaustive contract',
+);
 
 if (failures.length) {
   console.error('Sports venue image attribution validation failed:');
