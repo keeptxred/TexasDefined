@@ -50,7 +50,7 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
       "Using one retrieve speed all day even when water temperature, wind and fish activity change.",
       "Ignoring hook condition after repeated contact with rock, timber or shell."
     ],
-    selectionTitle: "Crankbaits by depth and cover",
+    selectionTitle: "Crankbait Types by Depth and Cover",
     selectionIntro: "Running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.",
     selectionGuide: [
       { label: "Squarebill", bestFor: "Shallow wood, rock, docks and deflection fishing", depth: "Shallow" },
