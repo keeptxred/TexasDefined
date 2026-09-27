@@ -8,7 +8,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingSeasonDirectory = lazy(() => import("@/components/fishing/FishingSeasonDirectory").then((module) => ({ default: module.FishingSeasonDirectory })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Plan Texas lake fishing month by month with source-backed seasonal patterns, grouped lake guides, species and region filters, plus fresh fishing reports for current conditions.";
+const description = "Plan Texas freshwater lake fishing month by month with source-backed seasonal patterns, grouped lake guides, species and region filters, plus fresh fishing reports.";
 type SeasonSearch = { season?: FishingSeasonFilter; species?: string; month?: string; region?: string };
 
 const faq = [
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/fishing/seasons")({
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "CollectionPage", url: `${siteUrl}${FISHING_SEASONS_PATH}`, name: "Texas Fishing Seasons", description, mainEntity: { "@id": `${siteUrl}${FISHING_SEASONS_PATH}#lakes` } },
+        { "@type": "CollectionPage", url: `${siteUrl}${FISHING_SEASONS_PATH}`, name: "Texas Lake Fishing Seasons", description, mainEntity: { "@id": `${siteUrl}${FISHING_SEASONS_PATH}#lakes` } },
         { "@type": "ItemList", "@id": `${siteUrl}${FISHING_SEASONS_PATH}#lakes`, numberOfItems: lakes.length, itemListElement: lakes.map((lake, index) => ({ "@type": "ListItem", position: index + 1, name: lake.name, url: `${siteUrl}/fishing/lakes/${lake.slug}` })) },
         { "@type": "FAQPage", mainEntity: faq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
         { "@type": "BreadcrumbList", itemListElement: [
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/fishing/seasons")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Seasons by Month — What to Catch & Where", description, canonicalPath: FISHING_SEASONS_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_SEASONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Lake Fishing Seasons by Month — What to Catch & Where", description, canonicalPath: FISHING_SEASONS_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_SEASONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingSeasonsPage,
 });
