@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave23Destinations: Destination[] = [
     body: [
       "The Heritage Museum of Montgomery County interprets a county transformed first by timber and later by oil. Its main 1924 Grogan-Cochran house connects directly to the families and sawmills that shaped the early local economy, while the Strake-Gray Oilfield House and roughneck material document the petroleum boom that changed Conroe in the twentieth century.",
       "Permanent galleries widen the story beyond industry. Exhibits trace Montgomery County communities, notable residents, civic milestones and everyday life, while children's spaces, temporary exhibits and local art make the museum useful to families and repeat visitors as well as researchers.",
-      "For TexasDefined, the museum becomes a county-history anchor that can cross-link Conroe, The Woodlands-area context, Lake Conroe, lumber history and oil heritage without reducing Montgomery County to modern suburban growth."
+      "The museum gives Montgomery County visitors a strong history stop connecting Conroe, The Woodlands area, Lake Conroe, lumber history and oil heritage without reducing the county to modern suburban growth."
     ],
     officialUrl: "https://www.heritagemuseum.us/",
     managingAuthority: "Heritage Museum of Montgomery County",
@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave23Destinations: Destination[] = [
     body: [
       "Frisco Heritage Museum gives one of North Texas's fastest-growing cities a place to explain what existed before modern subdivisions, sports venues and corporate campuses. Its exhibits trace Frisco and the surrounding region through objects, archives and stories tied to settlement, agriculture, railroads and community growth.",
       "The museum building is only part of the visit. The surrounding Heritage Village preserves historic homes and civic structures alongside a depot, church, schoolhouse, log cabin, steam locomotive and caboose, letting visitors move between indoor interpretation and a reconstructed historic landscape.",
-      "For TexasDefined, this page complements the separate Museum of the American Railroad authority already in Frisco. Cross-linking both destinations with Collin County and Frisco coverage creates a stronger local-history and transportation cluster without collapsing two distinct institutions into one listing."
+      "This museum complements the separate Museum of the American Railroad in Frisco. Visiting or researching both provides a fuller local-history and transportation picture while keeping the two distinct institutions separate."
     ],
     officialUrl: "https://www.friscotexas.gov/1355/Frisco-Heritage-Center",
     managingAuthority: "City of Frisco / Play Frisco Cultural Affairs",
