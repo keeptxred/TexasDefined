@@ -64,13 +64,13 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
               <span className="text-sm leading-6">{item.bestFor}</span>
             </div>)}
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-4" aria-label="Crankbait depth ladder">
+          {technique.slug === "crankbaits" ? <div className="mt-8 grid gap-3 sm:grid-cols-4" aria-label="Crankbait depth ladder">
             {["Surface / very shallow", "Shallow", "Mid-depth", "Deep"].map((depth, index) => <div key={depth} className="border border-border p-5">
               <p className="eyebrow text-muted-foreground">Zone {index + 1}</p>
               <p className="mt-2 font-display text-2xl">{depth}</p>
               <div className="mt-4 h-1 bg-border" style={{ width: `${35 + index * 20}%` }} />
             </div>)}
-          </div>
+          </div> : null}
         </section> : null}
 
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
