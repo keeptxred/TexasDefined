@@ -22,7 +22,8 @@ assert(
   'Aggregate sports venue image registry must import the curated override layer.',
 );
 assert(
-  aggregateSource.includes('return getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug)'),
+  aggregateSource.includes('const approvedPhoto = getCuratedSportsVenuePhotoOverride(slug)')
+    && aggregateSource.includes('?? getSportsVenuePhotoBase(slug)'),
   'Curated sports venue image overrides must resolve before the base photo registry.',
 );
 assert(!overrideSource.includes('http://'), 'Curated sports venue image overrides must use HTTPS only.');

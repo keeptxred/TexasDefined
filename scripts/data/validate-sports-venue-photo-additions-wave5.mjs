@@ -53,7 +53,12 @@ for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', '
 if (wave5.includes('http://')) failures.push('Wave 5 additions must use HTTPS only.');
 
 requireText(combined, "import { getSportsVenuePhotoAdditionWave5 } from './sports-venue-images-additions-wave5';", 'combined registry');
-requireText(combined, 'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug)', 'base-first photo precedence');
+requireText(combined, '?? getSportsVenuePhotoBase(slug)', 'base-first photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAddition(slug)', 'wave 1 photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAdditionWave2(slug)', 'wave 2 photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAdditionWave3(slug)', 'wave 3 photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAdditionWave4(slug)', 'wave 4 photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAdditionWave5(slug)', 'wave 5 photo precedence');
 
 const unique = new Set([
   ...recordSlugs(base),
