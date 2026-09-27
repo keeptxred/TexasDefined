@@ -287,7 +287,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Czech Heritage Museum & Genealogy Center gives Central Texas immigration history a dedicated home. Clothing, household objects, documents, folk traditions and changing exhibits explain how Czech immigrants carried language and culture into Texas and how those traditions adapted across generations.",
       "Genealogy is central rather than incidental. The museum's research function makes it useful to descendants tracing family connections, while ordinary visitors can use the same documentary emphasis to understand migration as a network of real families and communities rather than a broad demographic label.",
-      "Temple sits within a larger Czech-Texan corridor that includes communities across Bell, McLennan, Hill and surrounding counties. TexasDefined can use this destination to build stronger heritage cross-links among county pages, food traditions, festivals and immigrant-history authority content."
+      "Temple sits within a larger Czech-Texan corridor that includes communities across Bell, McLennan, Hill and surrounding counties. The museum pairs naturally with Czech food traditions, festivals and immigrant-history stops across Central Texas."
     ],
     officialUrl: "https://czechheritagemuseum.org/plan-your-visit",
     managingAuthority: "Czech Heritage Museum & Genealogy Center",
