@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave13Destinations: Destination[] = [
     body: [
       "The Kelsey Bass Museum gives Rio Grande City a dedicated local-history stop inside a historic property rather than separating artifacts from the architecture and streets that shaped the city. Collections and changing displays focus on residents, events and cultural traditions from Starr County and the wider border region.",
       "The museum also functions as a community-programming and event space. That flexible role allows it to host temporary exhibitions and heritage activities while remaining a practical starting point for travelers exploring Rio Grande City's historic downtown and nearby Fort Ringgold.",
-      "For TexasDefined, the destination fills the Starr County museum gap in the original audit and creates direct internal links among Rio Grande City, county history, border architecture and South Texas road-trip content. Its canonical page should remain distinct from broader Fort Ringgold and city pages while connecting users to both."
+      "The destination fills the Starr County museum gap in older coverage and creates direct internal links among Rio Grande City, county history, border architecture and South Texas road-trip content. Its canonical page should remain distinct from broader Fort Ringgold and city pages while connecting users to both."
     ],
     officialUrl: "https://www.rgcmainstreet.com/",
     managingAuthority: "Rio Grande City Main Street / City of Rio Grande City",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave13Destinations: Destination[] = [
     body: [
       "The Willacy County Historical Museum is the active institution behind older references to a Raymondville Historical Museum or Historical Center. Its home in the former Raymondville school gives the museum a large room-to-room format rather than a single-gallery layout.",
       "Collections are unusually eclectic. Ranching material connected to Mifflin Kenedy sits alongside local photographs, military uniforms, festival gowns, murals, wildlife displays and community artifacts, creating a broad portrait of life in and around Willacy County rather than a narrow chronological exhibit.",
-      "For TexasDefined, using the current Willacy County identity prevents a stale duplicate URL while strengthening the Raymondville and county pages. The museum also creates natural links to ranching, South Texas history and the broader Rio Grande Valley museum network."
+      "Using the current Willacy County identity prevents a stale duplicate URL while strengthening the Raymondville and county pages. The museum also creates natural links to ranching, South Texas history and the broader Rio Grande Valley museum network."
     ],
     officialUrl: "https://texastimetravel.com/directory/willacy-county-historical-museum/",
     managingAuthority: "Willacy County Historical Museum",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave13Destinations: Destination[] = [
     body: [
       "The museum preserves a chapter of Rio Grande Valley history that can be easy to miss in broader regional narratives. Black families lived in San Benito from the city's early decades, but segregation forced their children into separate and often inadequate school arrangements before the Joe Callandret School opened in the early 1950s.",
       "The preserved school now uses family photographs, school records, oral histories and a recreated classroom to document that community and the transition toward integration. The building itself is central evidence: it was created specifically for Black students and later served other school functions before preservation partners converted it into a museum.",
-      "For TexasDefined, Callandret adds a distinct Black-history authority page to a San Benito cluster already covering Freddy Fender and conjunto music. Cross-linking those destinations shows that the city's cultural story includes education, race, music, agriculture and border-community life rather than a single heritage theme."
+      "Callandret adds a distinct Black-history authority page to a San Benito cluster already covering Freddy Fender and conjunto music. Cross-linking those destinations shows that the city's cultural story includes education, race, music, agriculture and border-community life rather than a single heritage theme."
     ],
     officialUrl: "https://www.callandretmuseum.com/",
     managingAuthority: "San Benito Historical Society",
