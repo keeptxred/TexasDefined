@@ -83,7 +83,7 @@ for (const marker of [
   'setFailedUrl',
   'failedUrl === photo.imageUrl',
   'onError={() => setFailedUrl(photo.imageUrl)}',
-  'Venue details and planning information continue below.',
+  'A verified venue photograph is not available yet.',
 ]) requireMarker('sports venue photo', marker);
 if ((source.get('sports venue photo') ?? '').includes('min-h-[32rem]')) {
   errors.push('sports venue photo fallback must not reserve a 32rem blank block when imagery is unavailable.');
