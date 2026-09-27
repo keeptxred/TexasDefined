@@ -69,8 +69,8 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           </div>
           {(search.month || search.season || search.species || search.region) ? <a href={FISHING_SEASONS_PATH} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Clear filters</a> : null}
         </div>
-        <div className="mt-6 grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-12">
-          {MONTHS.map(([slug, label, season]) => <a key={slug} href={buildHref({ month: slug, species: search.species, region: search.region })} aria-current={search.month === slug ? "page" : undefined} className={`border px-2 py-3 text-center text-sm font-semibold ${search.month === slug ? "border-primary bg-primary/5 text-primary" : "border-border hover:border-primary/50"}`}><span className="block">{label}</span><span className="mt-1 block text-[0.62rem] font-normal uppercase tracking-wider text-muted-foreground">{season.slice(0, 3)}</span></a>)}
+        <div className="mt-6 grid grid-cols-4 gap-2 sm:grid-cols-6">
+          {MONTHS.map(([slug, label, season]) => <a key={slug} href={buildHref({ month: slug, species: search.species, region: search.region })} aria-current={search.month === slug ? "page" : undefined} className={`border px-2 py-3 text-center text-sm font-semibold ${search.month === slug ? "border-primary text-primary" : "border-border hover:border-primary/50"}`}><span className="block">{label}</span><span className="mt-1 block text-[0.62rem] font-normal uppercase tracking-wider text-muted-foreground">{season.slice(0, 3)}</span></a>)}
         </div>
       </section>
 
@@ -78,7 +78,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
         <p className="eyebrow text-primary">Or browse by season</p>
         <h2 id="choose-season" className="mt-2 font-display text-3xl">Spring, summer, fall or winter.</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {FISHING_SEASON_FILTERS.map((season) => <a key={season} href={buildHref({ season, species: search.species, region: search.region })} className={`border p-5 ${!search.month && search.season === season ? "border-primary bg-primary/5" : "border-border"}`}>
+          {FISHING_SEASON_FILTERS.map((season) => <a key={season} href={buildHref({ season, species: search.species, region: search.region })} className={`border p-5 ${!search.month && search.season === season ? "border-primary" : "border-border"}`}>
             <p className="eyebrow text-primary">{titleCase(season)}</p>
             <p className="mt-2 font-display text-3xl">{data.seasonCounts[season]}</p>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">verified lake-and-fish patterns that apply in {season}, including year-round opportunities</p>
@@ -198,6 +198,6 @@ const faq = [
 function matchesSeason(patterns: Array<{ season: string }>, season: FishingSeasonFilter) { return patterns.some((pattern) => pattern.season === season || pattern.season === "year-round"); }
 function titleCase(value: string) { return value.replaceAll("-", " ").replace(/\b\w/g, (character) => character.toUpperCase()); }
 function slugify(value: string) { return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
-function chip(active: boolean) { return `border px-3 py-2 text-xs font-semibold ${active ? "border-primary bg-primary/5 text-primary" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`; }
+function chip(active: boolean) { return `border px-3 py-2 text-xs font-semibold ${active ? "border-primary text-primary" : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"}`; }
 function buildHref(filters: { month?: string; season?: string; species?: string; region?: string }) { const params = new URLSearchParams(); if (filters.month) params.set("month", filters.month); if (filters.season) params.set("season", filters.season); if (filters.species) params.set("species", filters.species); if (filters.region) params.set("region", filters.region); const query = params.toString(); return query ? `${FISHING_SEASONS_PATH}?${query}` : FISHING_SEASONS_PATH; }
 function formatDate(value: string) { const date = new Date(value); return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(date); }
