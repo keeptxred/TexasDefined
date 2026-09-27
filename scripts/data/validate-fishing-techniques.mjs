@@ -3,6 +3,7 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   routing: "src/data/fishing/technique-routing.ts",
+  redirects: "src/data/fishing/technique-redirects.ts",
   server: "src/data/fishing/technique-data.server.ts",
   functions: "src/data/fishing/technique-data.functions.ts",
   directoryRoute: "src/routes/fishing.techniques.tsx",
@@ -79,7 +80,8 @@ for (const routeText of [files.directoryRoute, files.profileRoute]) {
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
 requireText(files.hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide hub UI split missing");
-for (const token of ['DUPLICATED_TECHNIQUE_PREFIX = "/fishing/fishing/techniques/"','beforeLoad: ({ location })','fishingTechniqueCanonicalPath(slug)','location.searchStr || ""','statusCode: 301']) requireText(files.hubRoute, token, `duplicate fishing technique path normalization missing ${token}`);
+for (const token of ['beforeLoad: ({ location })','getFishingTechniquePathNormalizationRedirect(location.pathname, location.searchStr)','throw redirect(redirectOptions)']) requireText(files.hubRoute, token, `duplicate fishing technique route hook missing ${token}`);
+for (const token of ['DUPLICATED_FISHING_TECHNIQUE_PREFIX = "/fishing/fishing/techniques/"','fishingTechniqueCanonicalPath(slug)','searchStr || ""','statusCode: 301 as const']) requireText(files.redirects, token, `duplicate fishing technique normalization policy missing ${token}`);
 if (`${files.routing}\n${files.sitemap}\n${files.publicRoutes}`.includes("/fishing/fishing/")) throw new Error("Fishing Batch 13 validation failed: malformed duplicated fishing prefix entered canonical discovery.");
 
 for (const token of ['<Resource href="/fishing/techniques" title="Fishing techniques"','<Resource href="/fishing/seasons" title="Fishing seasons"','Link to="/fishing/lakes"','<Resource href="/fishing/guides" title="Fishing guides"','<Resource href="/fishing/access" title="Fishing access"','<Resource href="/fishing/reports" title="Fishing reports"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", fish.slug)',"Featured Texas Fishing Lakes","Full fishing guide","Lake profile"]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
