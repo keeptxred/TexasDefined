@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The East Texas Oil Museum turns one of the state's biggest economic transformations into a walk-through experience. Rather than explaining the 1930 oil discovery only through text panels, the museum reconstructs the atmosphere of an early boomtown and surrounds visitors with the equipment, businesses, sounds and everyday details that followed the East Texas Oil Field's rapid development.",
       "Its value extends beyond petroleum technology. Oral histories, period artifacts and primary-source material document how sudden wealth, migration, drilling and infrastructure changed communities across East Texas. That makes the museum useful for understanding Kilgore, Gregg County and the wider Piney Woods economy rather than treating oil as an isolated industrial subject.",
-      "The museum is a natural cross-link for TexasDefined's Kilgore and East Texas coverage. It can anchor a regional history itinerary that connects energy, railroads, downtown architecture and the later cultural institutions built in towns reshaped by the oil boom."
+      "The museum is a natural stop on a Kilgore and East Texas history itinerary connecting energy, railroads, downtown architecture and the later cultural institutions built in towns reshaped by the oil boom."
     ],
     officialUrl: "https://easttexasoilmuseum.kilgore.edu/visit/",
     managingAuthority: "Kilgore College",
@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "Huntsville's identity is inseparable from the history of the Texas prison system, and the Texas Prison Museum gives visitors a dedicated place to understand that relationship. Exhibits trace the development of the system, prison operations and the experiences of people who lived and worked inside institutions that became a major part of the city's history.",
       "The museum's strongest material is tangible: uniforms, equipment, photographs, documents and reconstructed or preserved objects make institutional history easier to understand than a simple chronology would. The subject is serious, but the museum provides historical context that helps explain why Huntsville became the center of so much state corrections activity.",
-      "For TexasDefined, the destination strengthens Walker County authority by linking prison history with Sam Houston, the university and the broader Piney Woods region. Visitors can build a Huntsville history day that explains several very different forces that shaped the city rather than seeing only one famous landmark."
+      "The destination links prison history with Sam Houston, the university and the broader Piney Woods region. Visitors can build a Huntsville history day that explains several very different forces that shaped the city rather than seeing only one famous landmark."
     ],
     officialUrl: "https://www.txprisonmuseum.org/",
     managingAuthority: "Texas Prison Museum",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Texas Forestry Museum explains an industry that shaped East Texas towns, railroads, employment and landscapes for generations. Its exhibits connect logging and sawmill history with the science and stewardship of forests, allowing visitors to see both the economic and environmental sides of the timber story.",
       "Lufkin is an especially appropriate home for the institution because the city grew inside the Piney Woods economy. Historic equipment, industry artifacts and family-oriented exhibits connect abstract forestry concepts to the people and machines that harvested, moved and processed timber across the region.",
-      "The museum gives TexasDefined a strong Angelina County anchor and creates natural internal links to national forests, state forests, East Texas road trips and Lufkin-area history. It also broadens museum coverage beyond art and political history into the industries that physically shaped Texas communities."
+      "The museum gives Angelina County a strong heritage stop connected to national forests, state forests, East Texas road trips and Lufkin-area history. It also broadens the visitor story beyond art and political history into the industries that physically shaped Texas communities."
     ],
     officialUrl: "https://www.treetexas.com/",
     managingAuthority: "Texas Forestry Museum",

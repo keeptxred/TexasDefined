@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Fannin County Museum of History gives Bonham a broad local-history anchor inside a building that already tells part of the county's transportation story. The historic Texas & Pacific depot connects the museum directly to the railroad era that helped move North Texas people, crops and goods into larger markets.",
       "Exhibits range from pioneer life and local businesses to military service and twentieth-century change, allowing visitors to understand Fannin County as more than the home of one famous political figure. Community photographs and donated artifacts give the galleries a distinctly local texture.",
-      "For TexasDefined, the museum complements the Sam Rayburn Museum rather than competing with it. Cross-linking both destinations with the Fannin County and Bonham authority pages creates a stronger multi-stop heritage itinerary covering politics, railroads, settlement and community history."
+      "The museum complements the Sam Rayburn Museum rather than competing with it. Visiting both creates a stronger Bonham heritage itinerary covering politics, railroads, settlement and community history."
     ],
     officialUrl: "https://www.fannincountymuseum.org/",
     managingAuthority: "Fannin County Museum of History",
@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "Few Texas counties can connect local history to the state's beginnings as directly as Brazoria County. The museum uses artifacts, research files and exhibitions to explain settlement under Stephen F. Austin, later agricultural and industrial development, and the communities that grew along rivers, railroads and the Gulf Coast.",
       "The building adds another layer. The 1897 courthouse served the county during an important period of growth and now functions as a preserved setting for stories ranging from ranching and convict leasing to courthouse history, Juneteenth and demographic change.",
-      "TexasDefined can use this destination as a county-history hub linking Angleton with West Columbia, the Austin Colony story, coastal industry and nearby cultural sites. It gives the Brazoria County page a canonical institution whose mission is specifically to preserve and explain the county itself."
+      "This destination works as a county-history hub linking Angleton with West Columbia, the Austin Colony story, coastal industry and nearby cultural sites. Its mission is specifically to preserve and explain Brazoria County itself."
     ],
     officialUrl: "https://www.brazoriacountytx.gov/departments/museum",
     managingAuthority: "Brazoria County",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Matagorda County Museum links coastal Texas history to stories with statewide and international reach. Early exploration and La Salle's failed French venture sit beside ranching, farming and community exhibits that show how the county developed long after European powers first competed for the region.",
       "Its home in Bay City's former federal post office gives visitors another historic structure to experience. The building served the community for decades before becoming the museum, and its preservation helps tie civic architecture to the collections inside.",
-      "For TexasDefined, the destination anchors Matagorda County's cultural layer while cross-linking naturally to Matagorda Bay, coastal birding, ranching and La Belle-related Texas history. It makes Bay City more than a service stop on the way to the coast."
+      "The destination anchors Matagorda County's cultural story while connecting naturally to Matagorda Bay, coastal birding, ranching and La Belle-related Texas history. It makes Bay City more than a service stop on the way to the coast."
     ],
     officialUrl: "https://matagordacounty-museum.org/",
     managingAuthority: "Matagorda County Museum Association",
