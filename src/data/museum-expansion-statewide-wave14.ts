@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave14Destinations: Destination[] = [
     body: [
       "Hutchinson County's story is larger than Borger's famous oil boom, and the museum deliberately starts much earlier. Geology, fossils, archaeology and early Plains history establish the landscape before later galleries move into exploration, ranching and frontier conflict.",
       "The petroleum era remains a major strength. Borger's rapid 1920s growth, oil-field culture and the people who built the boomtown are interpreted alongside the county's longer agricultural and civic history, giving visitors context for why the city looks and functions as it does today.",
-      "For TexasDefined, this page anchors Hutchinson County history and naturally connects to Adobe Walls, Lake Meredith, Alibates Flint Quarries, Panhandle road trips and energy-history content while avoiding a thin standalone 'Borger history' duplicate."
+      "The museum anchors a Hutchinson County history itinerary and connects naturally with Adobe Walls, Lake Meredith, Alibates Flint Quarries, Panhandle road trips and the region's energy history."
     ],
     officialUrl: "https://hutchinsoncountymuseum.org/",
     managingAuthority: "Hutchinson County Historical Museum / Hutchinson County",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave14Destinations: Destination[] = [
     body: [
       "The Deaf Smith County Museum centers everyday life rather than only major events. Recreated domestic, school, church and commercial spaces make the collection useful for understanding how early residents built routines and institutions on the High Plains.",
       "Outdoor artifacts expand that story with transportation, farm equipment, jail cells and a caboose, while indoor displays include regional archaeology and material connected to the World War II prisoner-of-war camp near Hereford. The museum also manages the separate E.B. Black Historical House.",
-      "For TexasDefined, the museum provides a strong Hereford and Deaf Smith County authority node that can connect local agricultural history, railroad development, wartime history, county content and Panhandle travel planning from one canonical destination."
+      "The museum gives Hereford and Deaf Smith County visitors one strong place to connect local agricultural history, railroad development, wartime history and broader Panhandle travel planning."
     ],
     officialUrl: "https://www.deafsmithcountymuseum.org/",
     managingAuthority: "Deaf Smith County Historical Society",

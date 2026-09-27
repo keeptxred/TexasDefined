@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave7Destinations: Destination[] = [
     body: [
       "The 1919 jail served San Augustine County for more than eighty years before law-enforcement operations moved elsewhere in 2000. After a major restoration, the building reopened as a museum rather than disappearing from the courthouse landscape.",
       "Interpretation centers on the county's law-enforcement history while also preserving local records, photographs and timelines connected to San Augustine and Mission Dolores. The surviving cells and historic fabric make the building itself one of the most important artifacts.",
-      "For TexasDefined, this is a stronger current authority destination than the raw list's vague San Augustine county-museum label. It cross-links naturally with the county page, courthouse square and Mission Dolores while using the institution visitors can actually find today."
+      "This is a clearer current visitor destination than a vague county-museum label. It fits naturally with San Augustine's courthouse square, Mission Dolores and a broader county-history itinerary while directing visitors to the institution they can actually find today."
     ],
     officialUrl: "https://visitsanaugustinetx.org/local-attractions/",
     managingAuthority: "San Augustine community preservation partners",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave7Destinations: Destination[] = [
     body: [
       "The Ellen Noël Art Museum gives the Permian Basin a dedicated visual-arts institution whose programming extends well beyond an oil-and-ranching regional narrative. Exhibitions and educational programs bring both Texas and broader contemporary art into Odessa.",
       "The museum has recently reopened following a multi-year capital enhancement project, making current visitor information especially important. Its renewed galleries and sensory-garden experience are now part of an active institution rather than a construction-era listing.",
-      "For TexasDefined, the museum complements Odessa's existing history and presidential-era attractions and creates stronger cross-links between Ector County, Permian Basin culture and the growing West Texas museum network."
+      "The museum complements Odessa's history and presidential-era attractions while connecting Ector County, Permian Basin culture and a broader West Texas museum itinerary."
     ],
     officialUrl: "https://www.noelartmuseum.org/plan-your-visit",
     managingAuthority: "Ellen Noël Art Museum",
@@ -136,7 +136,7 @@ export const statewideMuseumExpansionWave7Destinations: Destination[] = [
     body: [
       "Fort Worth's aviation history is unusually deep because aircraft manufacturing, military flying and commercial aviation have all shaped the city. This museum interprets that heritage through a large outdoor aircraft collection and visitor-accessible exhibits rather than treating aviation as a side note to broader military history.",
       "Its collection includes recognizable Cold War and naval aircraft alongside educational material and a simulator. The museum emphasizes physical access and youth education, giving families a different experience from a traditional indoor history gallery.",
-      "For TexasDefined, the page creates a canonical Fort Worth aviation destination that can cross-link Meacham Airport, military history, family attractions and Tarrant County authority content without competing with the city's established art and science museums."
+      "The museum gives Fort Worth visitors a dedicated aviation-history stop that pairs naturally with Meacham Airport, military history and family attractions without duplicating the city's established art and science museums."
     ],
     officialUrl: "https://fortworthaviationmuseum.com/",
     managingAuthority: "OV-10 Bronco Association / Fort Worth Aviation Museum",

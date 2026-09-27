@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "The Museum of East Texas grew from a community effort to transform the fire-damaged shell of St. Cyprian's Episcopal Church into a cultural center. Since opening in 1976, it has become a regional arts institution rather than a narrowly local display space.",
       "Its collection and exhibitions balance East Texas artists with broader American, Latin American and European work, while classes, field trips and family programming make education a central part of the museum's role. The historic church architecture gives the galleries a setting that is itself part of the experience.",
-      "For TexasDefined, the museum adds a needed Lufkin cultural anchor that complements forestry, regional history and outdoor Piney Woods coverage. It can strengthen Angelina County cross-links without duplicating broader Lufkin or East Texas destination pages."
+      "The museum adds a useful Lufkin cultural stop that complements forestry, regional history and outdoor Piney Woods attractions without duplicating broader Lufkin or East Texas guides."
     ],
     officialUrl: "https://www.metlufkin.org/visit",
     managingAuthority: "Museum of East Texas",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "The Rusk County Depot Museum began with a railroad depot in 1978 and grew into a multi-building history campus. The Arnold Building now serves as the main visitor center while the former depot supports children's discovery programming.",
       "The grounds preserve structures and equipment tied to the county's rural and industrial past, including cabins, a caboose, cotton gin, country store, doctor's office, sawmill, syrup mill, oilfield display and other working-life artifacts. Inside, interpretation reaches from Caddo and Cherokee history through settlement, ranching, timber, mining and military service.",
-      "For TexasDefined, this becomes the canonical Rusk County museum anchor and gives Henderson a deeper heritage network than a single downtown page. It can cross-link East Texas industry, rail history, the Heritage Syrup Festival and county travel content."
+      "This gives Henderson and Rusk County a stronger heritage stop that connects naturally with East Texas industry, rail history, the Heritage Syrup Festival and a wider county itinerary."
     ],
     officialUrl: "https://www.ruskcountyhistory.org/",
     managingAuthority: "Rusk County Depot Museum & History Center / Rusk County Historical Commission partners",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "The Heritage Museum gives Falfurrias a locally focused institution whose collections reach beyond pioneer household objects. Ranching, cattle brands, early schools, military service and notable Brooks County residents all appear in displays tied to the development of South Texas.",
       "Its Texas Ranger Room is especially distinctive because Brooks County was named for Ranger captain James A. Brooks and Falfurrias served as a Ranger-area headquarters. The museum also holds the Carol Dryden Collection, roughly 99,000 photographic negatives documenting people and places across Falfurrias and neighboring communities.",
-      "For TexasDefined, the page replaces vague Brooks County museum wording with the current institution visitors can actually find. It creates useful links among Falfurrias, ranching, South Texas heritage, Texas Ranger history and county-level travel planning."
+      "The current institution gives visitors a clearer Brooks County museum stop and connects Falfurrias with ranching, South Texas heritage, Texas Ranger history and a broader county trip."
     ],
     officialUrl: "https://www.falfurrias.us/Directory.aspx?did=8",
     managingAuthority: "The Heritage Museum at Falfurrias / City of Falfurrias-supported museum board",
@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "Zapata County Museum of History tells a regional story that begins before settlement, using geology and natural history to establish the landscape before moving into human history. That broad structure makes the museum useful for understanding why communities developed where they did along the Rio Grande.",
       "A defining chapter is the loss and relocation of Old Zapata as Falcon Dam and reservoir reshaped the county. The museum preserves community memory around that displacement while also documenting Indigenous history, ranching, border culture and modern life through bilingual interpretation.",
-      "For TexasDefined, the destination provides a needed Zapata County anchor linking Falcon Lake, South Texas road trips, borderlands history and community heritage through one source-checked canonical page."
+      "The destination provides a useful Zapata County history stop that pairs well with Falcon Lake, South Texas road trips, borderlands history and local community heritage."
     ],
     officialUrl: "https://www.co.zapata.tx.us/page/zapata.county.museum",
     managingAuthority: "Zapata County Museum of History / Zapata County",
@@ -136,7 +136,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "The Whitehead Memorial Museum grew from the donation of the old Perry Mercantile Building in 1962 into a walkable historic campus. Rather than concentrating interpretation in one gallery, it spreads regional history across a collection of structures and exhibit sites.",
       "The museum's subject matter reflects Del Rio's borderlands setting and long economic history, with domestic, ranching, civic and cultural collections alongside the surviving San Felipe irrigation canal system. That variety makes the site more like a compact local-history village than a single-room county museum.",
-      "For TexasDefined, Whitehead is the stronger current authority destination behind generic Val Verde County museum wording. It can connect Del Rio, Seminole Canyon-area travel, border history, irrigation heritage and county pages without creating a duplicate local-history URL."
+      "Whitehead offers a clear current Val Verde County museum stop and connects Del Rio with Seminole Canyon-area travel, border history and irrigation heritage without repeating the same local-history material elsewhere."
     ],
     officialUrl: "https://whiteheadmuseum.org/",
     managingAuthority: "Whitehead Memorial Museum",
@@ -161,7 +161,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "The Briscoe-Garner Museum resolves older Uvalde county-museum wording to a current institution with statewide significance. John Nance Garner lived in the 1920 house for decades, and the home later became a museum dedicated to his political career and personal story.",
       "The University of Texas at Austin's Briscoe Center for American History now operates the site and expanded the interpretation to include Governor Dolph Briscoe, another major Uvalde political figure. The historic home, documents and artifacts turn twentieth-century Texas political history into a place-based visitor experience.",
-      "For TexasDefined, the museum creates a natural link between Uvalde County travel, Texas political history, historic homes and Hill Country heritage without forcing those stories into a generic local-history page."
+      "The museum creates a natural connection between Uvalde County travel, Texas political history, historic homes and Hill Country heritage."
     ],
     officialUrl: "https://briscoecenter.org/visit/briscoe-garner-museum/",
     managingAuthority: "Dolph Briscoe Center for American History, The University of Texas at Austin",
@@ -186,7 +186,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     body: [
       "The Old Frio County Jail served Pearsall for more than eighty years and remains one of the county's most intact nineteenth-century civic buildings. The museum uses the former sheriff's residence downstairs and the preserved cells upstairs to tell local history in the building where part of that history happened.",
       "Artifacts range from photographs and social ephemera to ranching and drought-era tools, while the jail itself preserves stories of law enforcement and Prohibition. The structure is listed on the National Register of Historic Places and carries Recorded Texas Historic Landmark status.",
-      "For TexasDefined, Frio Pioneer Jail Museum is the strongest current answer to older Frio County museum labels. It gives Pearsall a canonical heritage stop that can cross-link South Texas road trips, courthouse history and county pages while clearly warning visitors about limited access."
+      "Frio Pioneer Jail Museum gives Pearsall a clear heritage stop that pairs naturally with South Texas road trips, courthouse history and wider Frio County exploration. Its limited access makes checking current hours especially important."
     ],
     officialUrl: "https://friopioneerjailmuseum.com/",
     managingAuthority: "Frio Pioneer Jail Museum Association",
