@@ -95,38 +95,28 @@ forbidText(
 );
 
 for (const marker of [
-  '"amarillo-national-center": {',
-  'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas',
-]) requireText(wave7Photos, marker, 'Amarillo Wave 7 governed hero record');
+  "'cy-fair-fcu-stadium': {",
+  "sourcePage: 'https://commons.wikimedia.org/wiki/File:Berry_Center.jpg'",
+  "licenseName: 'Public domain'",
+]) requireText(wave7Photos, marker, 'Cy-Fair Wave 7 reusable hero record');
+for (const forbidden of [
+  'Texas Defined generated media',
+  'Cloudflare Workers AI / FLUX.1 schnell',
+  'AI-generated photorealistic editorial depiction of',
+]) forbidText(wave7Photos, forbidden, 'Wave 7 must not retain generated venue depictions');
 
-for (const marker of [
-  "['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas']",
-  'const wave7RealPhotoAttribution = {',
-  "'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0']",
-  "'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0']",
-  "'Editorial illustration by'",
-  "'Cloudflare Workers AI / FLUX.1 schnell'",
-  "'for TexasDefined; not documentary photography.'",
-  '...attributionMarkers',
-  'lastBody = await response.text();',
-  "headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' }",
-]) requireText(productionVerifier, marker, 'live raw-HTML hero and attribution production contract');
-forbidText(
+requireText(
   productionVerifier,
-  "'AI-generated representative editorial image'",
-  'live raw-HTML production contract must defer AI details to the sitewide disclosure',
+  "await import('./verify-sports-venue-heroes-production-all.mjs');",
+  'targeted production verification must delegate to the dynamic exhaustive contract',
 );
-
 for (const marker of [
-  "if (!decodedBody.includes(endpointPath) && !decodedBody.includes(`${origin}${endpointPath}`)) missing.push('same-origin governed hero endpoint');",
-  "if (!decodedBody.includes('Editorial illustration by')) missing.push('editorial-illustration disclosure');",
-  "if (!decodedBody.includes('for TexasDefined; not documentary photography.')) missing.push('not-documentary-photography disclosure');",
-]) requireText(exhaustiveProductionVerifier, marker, 'exhaustive live hero verifier must protect governed delivery and current attribution semantics');
-forbidText(
-  exhaustiveProductionVerifier,
-  "decodedBody.includes('AI-generated representative editorial image')",
-  'exhaustive live verifier must not require the retired repetitive AI label',
-);
+  'const governedSlugs = [...dynamicSlugs',
+  'const missingSlugs = governedSlugs.filter',
+  'Unapproved generated venue hero',
+  'inspectFallback',
+  'intentional fail-closed fallbacks',
+]) requireText(exhaustiveProductionVerifier, marker, 'dynamic live hero verifier must protect approved-photo and fallback delivery');
 
 if (failures.length) {
   console.error('Sports venue SSR hero validation failed:');
