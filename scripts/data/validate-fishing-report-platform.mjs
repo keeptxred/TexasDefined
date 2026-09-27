@@ -37,7 +37,7 @@ if (!failures.length) {
   for (const stale of ["Verified current-window report", "Verified stale report", "Verified historical report", "verified, contributor-approved guide"]) {
     if (profileUi.includes(stale)) failures.push(`Fishing report profile still exposes verification-heavy public copy: ${stale}`);
   }
-  for (const phrase of ["Fishing reports with dates and freshness labels.", "Submit a report for review →", "Reports are reviewed, not purchased.", "No fishing reports are published yet."]) {
+  for (const phrase of ["Texas Fishing Reports", "Submit a report for review →", "How Fishing Reports Are Reviewed", "No fishing reports are published yet."]) {
     if (!directoryUi.includes(phrase)) failures.push(`Fishing report directory is missing visitor-facing label: ${phrase}`);
   }
   for (const stale of ["Verified reports, dated and freshness-labeled.", "All verified lakes", "All verified species", "Reports are earned by verification, not purchased."]) {
