@@ -4,7 +4,7 @@ const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
-const fallbackText = 'A venue photograph is not available yet.';
+const fallbackText = 'Venue details and planning information continue below.';
 
 const wave7RealPhotoAttribution = {
   'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0'],
