@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave21Destinations: Destination[] = [
     body: [
       "The Crosby County Pioneer Memorial Museum began as a local effort to preserve the people and material culture of the Llano Estacado and has grown into one of the region's most substantial county collections. The museum's replica of the Hank Smith house recalls the first permanent home built in nearby Blanco Canyon and gives the institution a physical link to early settlement.",
       "Its collections reach much farther back and wider than pioneer domestic life. Native American artifacts and interpretation address Comanche history and the Battle of Blanco Canyon, while later galleries document ranching, agriculture, transportation and the families who built Crosby County communities.",
-      "The museum is currently closed for repairs, so TexasDefined preserves one stable canonical destination while putting the closure ahead of historical operating hours. When the museum reopens, the same page can immediately reconnect Crosbyton, Blanco Canyon, Quanah Parker history and South Plains road-trip content without creating a replacement URL."
+      "The museum is currently closed for repairs, so travelers should treat the closure as the controlling status rather than rely on older operating hours. When the museum reopens, it will again make a natural stop alongside Crosbyton, Blanco Canyon, Quanah Parker history and a broader South Plains road trip."
     ],
     officialUrl: "https://ccpmmuseum.com/",
     managingAuthority: "Crosby County Pioneer Memorial Museum",
