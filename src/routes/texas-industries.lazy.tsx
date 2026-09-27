@@ -63,8 +63,8 @@ function TexasIndustriesPage() {
 
       <section className="border-b border-border bg-surface py-14 sm:py-20">
         <Container>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">The cross-links matter</p>
-          <h2 className="mt-3 max-w-4xl font-display text-4xl">Industry is part of the TexasDefined place graph</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Follow the connections</p>
+          <h2 className="mt-3 max-w-4xl font-display text-4xl">See how Texas industries connect to real places</h2>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
             <Bridge title="Industry → county" body="Use county profiles to see how statewide sectors become local employers, land uses, ports, farms, plants, hospitals and growth corridors." href="/browse/counties" label="Browse counties" />
             <Bridge title="Industry → company" body="Use Made in Texas to distinguish actual Texas production from companies that were founded here, headquartered here or maintain major Texas operations." href="/made-in-texas" label="Open Made in Texas" />
