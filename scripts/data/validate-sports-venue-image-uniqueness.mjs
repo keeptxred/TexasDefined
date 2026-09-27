@@ -84,7 +84,7 @@ collisions('sourcePage', 'image source page');
 
 const dynamicRoute = fs.readFileSync('src/routes/sports-venue.$slug.tsx', 'utf8');
 const staticRoute = fs.readFileSync('src/routes/sports-venue.jones-att-stadium.tsx', 'utf8');
-const routeBlock = dynamicRoute.match(/const sportsVenueGuidePilotSlugs = new Set\\(\\[([\\s\\S]*?)\\]\\);/)?.[1] ?? '';
+const routeBlock = dynamicRoute.match(/const sportsVenueGuidePilotSlugs = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
 const dynamicSlugs = [...routeBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
 const staticSlug = staticRoute.match(/const stableSlug = '([^']+)'/)?.[1] ?? '';
 const governedSlugs = [...dynamicSlugs, ...(staticSlug ? [staticSlug] : [])];
