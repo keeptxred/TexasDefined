@@ -68,7 +68,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             {["Surface / very shallow", "Shallow", "Mid-depth", "Deep"].map((depth, index) => <div key={depth} className="border border-border p-5">
               <p className="eyebrow text-muted-foreground">Zone {index + 1}</p>
               <p className="mt-2 font-display text-2xl">{depth}</p>
-              <div className="mt-4 h-1 bg-foreground/20" style={{ width: `${35 + index * 20}%` }} />
+              <div className="mt-4 h-1 bg-border" style={{ width: `${35 + index * 20}%` }} />
             </div>)}
           </div>
         </section> : null}
