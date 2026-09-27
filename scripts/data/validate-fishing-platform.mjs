@@ -49,7 +49,7 @@ if (!failures.length) {
   if (!prototype.includes("does not invent one")) failures.push("Lake Conroe maximum-depth uncertainty disclosure missing.");
 
   for (const field of ["verifiedAt", "sections", "overview", "habitat", "boatingNotes", "reportSnapshot", "sources", "fish", "access", "regulations", "camping", "nearby", "copy"]) if (!server.includes(`${field}:`)) failures.push(`Lake Conroe server payload missing: ${field}`);
-  for (const copy of ["No TexasDefined current report is published", "No Lake Conroe guide has cleared the verified-listing gate yet", "Sponsorship policy", "must be labeled as sponsored"]) if (!server.includes(copy)) failures.push(`Protected Lake Conroe copy missing: ${copy}`);
+  for (const copy of ["Latest fishing conditions", "No Lake Conroe guide has cleared the verified-listing gate yet", "Sponsorship policy", "must be labeled as sponsored"]) if (!server.includes(copy)) failures.push(`Protected Lake Conroe copy missing: ${copy}`);
   if (!functions.includes("createServerFn") || !functions.includes("loadLakeConroePageDataServer")) failures.push("Lake Conroe server-function boundary missing.");
 
   if (ui.includes("lake-conroe-prototype")) failures.push("Lake Conroe client UI must not import the prototype catalog.");
