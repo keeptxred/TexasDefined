@@ -5,6 +5,7 @@ const SUPABASE_KEY = process.env.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY || '';
 const CF_ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID || '';
 const CF_TOKEN = process.env.CLOUDFLARE_API_TOKEN || '';
 const SITE_URL = String(process.env.TEXASDEFINED_SITE_URL || 'https://texasdefined.com').replace(/\/$/, '');
+const NEWSROOM_HYDRATION_URL = String(process.env.NEWSROOM_HYDRATION_URL || 'https://keeptxred.com/api/public/hooks/hydrate-newsroom-source-pages');
 const TEXT_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast';
 const IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell';
 const publishRequested = process.argv.includes('--publish');
@@ -77,6 +78,30 @@ function validateDraft(draft, allowedDestinationSlugs) {
   if (!Number.isInteger(draft.qualityScore) || draft.qualityScore < 85 || draft.qualityScore > 100) errors.push('qualityScore must be 85-100');
   if (String(draft.heroAlt || '').trim().length < 20) errors.push('heroAlt is too short');
   if (errors.length) throw new Error(`Generated draft rejected: ${errors.join('; ')}`);
+}
+
+async function hydrateExactFeed() {
+  if (!exactFeedId) return null;
+  const response = await fetch(NEWSROOM_HYDRATION_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'User-Agent': 'TexasDefined-Automation/1.0' },
+    body: JSON.stringify({ feedIds: [exactFeedId] }),
+  });
+  if (!response.ok) {
+    throw new Error(`Exact-feed hydration failed: ${response.status} ${await response.text()}`);
+  }
+  const payload = await response.json();
+  const result = Array.isArray(payload?.results)
+    ? payload.results.find((entry) => Number(entry?.feedItemId) === exactFeedId)
+    : null;
+  console.log(JSON.stringify({
+    hydration: true,
+    feedId: exactFeedId,
+    updated: Boolean(result?.updated),
+    chars: Number(result?.chars || 0),
+    reason: result?.reason || null,
+  }));
+  return payload;
 }
 
 async function readyQueue() {
@@ -186,6 +211,7 @@ if (publishRequested) {
   requireEnv('CLOUDFLARE_API_TOKEN', CF_TOKEN);
 }
 
+if (exactFeedId) await hydrateExactFeed();
 const queue = await readyQueue();
 if (exactFeedId && queue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
