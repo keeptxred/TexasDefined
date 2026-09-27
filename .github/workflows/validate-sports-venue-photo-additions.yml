@@ -28,6 +28,7 @@ on:
       - 'scripts/data/validate-sports-venue-photo-additions-wave2.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions-wave5.mjs'
       - 'scripts/data/validate-sports-venue-photo-additions-final.mjs'
+      - 'scripts/data/validate-sports-venue-governed-image-coverage.mjs'
       - '.github/workflows/validate-sports-venue-photo-additions.yml'
   workflow_dispatch:
 
@@ -52,6 +53,7 @@ jobs:
       - run: node scripts/data/validate-sports-venue-photo-additions-wave2.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions-wave5.mjs
       - run: node scripts/data/validate-sports-venue-photo-additions-final.mjs
+      - run: node scripts/data/validate-sports-venue-governed-image-coverage.mjs
       - run: node scripts/data/validate-sports-venue-phase3-galaxy.mjs
       - run: node scripts/data/validate-sports-venue-deep-completeness.mjs
       - run: npm run build
