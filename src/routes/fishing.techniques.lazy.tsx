@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { Outlet, createLazyFileRoute, useRouterState } from "@tanstack/react-router";
 
 import { FishingTechniqueDirectory } from "@/components/fishing/FishingTechniqueDirectory";
 
@@ -7,5 +7,10 @@ export const Route = createLazyFileRoute("/fishing/techniques")({
 });
 
 function FishingTechniquesPage() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+
+  if (normalizedPath !== "/fishing/techniques") return <Outlet />;
+
   return <FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()} />;
 }
