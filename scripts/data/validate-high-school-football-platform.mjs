@@ -936,8 +936,15 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: Class, District, Enrollment & School Guide',
+    'const seoSchoolName = program?.schoolName || displayName;',
+    'title: `${seoSchoolName} Football: Class, District, Enrollment & School Guide`',
+    'const description = `${seoSchoolName} football profile:',
+    'name: `${seoSchoolName} Football School Profile`',
+    "position: 4, name: seoSchoolName",
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
+  if (featuredProfileRoute.includes('title: `${displayName} Football:')) {
+    errors.push('Football school profile metadata must use the canonical UIL program name rather than generic TEA displayName labels that can duplicate across schools.');
+  }
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",

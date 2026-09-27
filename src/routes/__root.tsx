@@ -38,7 +38,7 @@ function GoogleTagManagerHead() {
 }
 
 function NotFoundComponent() {
-  return <Suspense fallback={null}><NotFoundScreen /></Suspense>;
+  return <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><NotFoundScreen /></Suspense>;
 }
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
