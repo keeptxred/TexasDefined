@@ -145,6 +145,9 @@ requireText(productionSurfaces, "['river-oaks-hogg-planning-authority', '/articl
 requireText(productionSurfaces, "['texas-history-river-oaks-discovery', '/texas-history', 'Planning · architecture · exclusion']", 'River Oaks Texas History discovery check');
 requireText(productionSurfaces, "['hogg-building-houston', '/destination/hogg-building-houston', 'National Register of Historic Places and Recorded Texas Historic Landmark']", 'Hogg Building Houston live destination check');
 requireText(productionSurfaces, "['will-hogg-river-oaks-link', '/article/will-hogg-texas-legacy', '/article/river-oaks-hogg-brothers-houston-planning-history']", 'Will Hogg reciprocal River Oaks link check');
+requireText(productionSurfaces, "['hogg-family-heritage-trail', '/article/hogg-family-heritage-trail-texas', 'Hogg Family Heritage Trail: Six Texas Places That Tell the Story']", 'Hogg Family Heritage Trail live authority check');
+requireText(productionSurfaces, `['oakwood-hogg-heritage', '/destination/oakwood-cemetery-austin', "Austin's oldest municipal burial ground contains the Hogg family plot"]`, 'Oakwood Cemetery Hogg heritage live destination check');
+requireText(productionSurfaces, "['texas-history-hogg-heritage-trail-discovery', '/texas-history', 'Connect six surviving places from James Hogg']", 'Hogg Heritage Trail Texas History discovery check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
