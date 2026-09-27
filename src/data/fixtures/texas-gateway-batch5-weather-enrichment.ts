@@ -5,6 +5,7 @@ interface GatewayWeatherEnrichment {
   sourceName: string;
   sourceUrl: string;
   internalLinks?: ArticleInternalLink[];
+  relatedDestinations?: string[];
 }
 
 const newcomerWeather: ArticleBlock[] = [
@@ -35,6 +36,7 @@ export const texasGatewayBatch5WeatherEnrichment: Record<string, GatewayWeatherE
     body: newcomerWeather,
     sourceName: "National Weather Service Fort Worth/Dallas — Preparedness & Safety",
     sourceUrl: "https://www.weather.gov/fwd/safety",
+    relatedDestinations: ["galveston-island", "palo-duro-canyon"],
     internalLinks: [
       { href: "/article/prepare-texas-house-freeze", label: "Prepare a Texas house for a freeze" },
       { href: "/article/texas-hurricane-home-prep-checklist", label: "Texas hurricane home-prep checklist" },
