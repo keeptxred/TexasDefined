@@ -52,11 +52,11 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
         {guide.selectionGuide?.length ? <section className="border-y border-border py-12" aria-labelledby="selection-guide">
           <p className="eyebrow text-primary">Choose the right version</p>
-          <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">{technique.name} by depth and cover</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">For crankbaits, running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.</p>
+          <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">{guide.selectionTitle ?? `${technique.name} by depth and cover`}</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{guide.selectionIntro ?? "Choose the version that best matches the depth, cover and presentation job before fine-tuning secondary details."}</p>
           <div className="mt-8 overflow-hidden border border-border">
             <div className="hidden grid-cols-3 bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
-              <span>Style</span><span>Depth</span><span>Best use</span>
+              <span>Style / rig</span><span>Depth / role</span><span>Best use</span>
             </div>
             {guide.selectionGuide.map((item) => <div key={item.label} className="grid gap-2 border-t border-border px-5 py-5 first:border-t-0 sm:grid-cols-3 sm:gap-0">
               <strong className="font-display text-xl">{item.label}</strong>
@@ -77,7 +77,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="eyebrow text-primary">Where to fish it</p>
-              <h2 className="mt-3 font-display text-4xl">Put the lure where the fish can use it.</h2>
+              <h2 className="mt-3 font-display text-4xl">Start with the right water and cover.</h2>
               <ol className="mt-7 space-y-4">
                 {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
                   <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
