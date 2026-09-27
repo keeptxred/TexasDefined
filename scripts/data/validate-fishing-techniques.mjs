@@ -12,7 +12,7 @@ const paths = {
   directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
   guideContent: "src/data/fishing/technique-guide-content.ts",
-  imageMaterializer: "scripts/assets/materialize-generated-images.mjs",
+  imageRegistry: "src/data/fishing/technique-images.ts",
   hubRoute: "src/routes/fishing.tsx",
   hubComponent: "src/components/fishing/FishingHub.tsx",
   fixtures: "src/data/fishing/fixtures.ts",
@@ -23,6 +23,9 @@ const paths = {
   package: "package.json",
 };
 for (const path of Object.values(paths)) if (!fs.existsSync(path)) throw new Error(`Fishing Batch 13 missing required file: ${path}`);
+for (const path of ["public/images/fishing/crankbaits-hero.avif", "public/images/fishing/crankbait-types-depth-cover.avif"]) {
+  if (!fs.existsSync(path)) throw new Error(`Fishing Batch 13 missing crankbait image asset: ${path}`);
+}
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const pkg = JSON.parse(files.package);
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 13 validation failed: ${label}`); };
@@ -55,10 +58,11 @@ for (const token of ["Texas Fishing Techniques","How We Verify Technique Guides"
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
-for (const token of ["How to Fish","When to Use","Crankbait Types by Depth and Cover","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","does not claim","/images/fishing/techniques/crankbaits-hero.webp","/images/fishing/techniques/crankbaits-depth-guide.webp",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
+for (const token of ["How to Fish","When to Use","Crankbait Types by Depth and Cover","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","does not claim","fishingTechniqueImages","images?.hero","images?.depthGuide",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
 for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
 for (const token of ["Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
-for (const token of ["assets/generated/crankbait-page","hero.webp.b64.","depth-guide.webp.b64.","crankbaits-hero.webp","crankbaits-depth-guide.webp"]) requireText(files.imageMaterializer, token, "crankbait generated-image materialization missing " + token);
+for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
+for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt: images.hero.alt","imageType: images.hero.imageType"]) requireText(files.server, token, "crankbait social image metadata missing " + token);
 
 for (const [routeName, routeText, componentPath] of [
   ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
