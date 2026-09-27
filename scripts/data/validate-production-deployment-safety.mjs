@@ -186,6 +186,7 @@ requireText(productionSurfaces, "['hogg-building-houston', '/destination/hogg-bu
 requireText(productionSurfaces, "['will-hogg-river-oaks-link', '/article/will-hogg-texas-legacy', '/article/river-oaks-hogg-brothers-houston-planning-history']", 'Will Hogg reciprocal River Oaks link check');
 requireText(productionSurfaces, "['hogg-family-heritage-trail', '/article/hogg-family-heritage-trail-texas', 'Hogg Family Heritage Trail: Six Texas Places That Tell the Story']", 'Hogg Family Heritage Trail live authority check');
 requireText(productionSurfaces, `['oakwood-hogg-heritage', '/destination/oakwood-cemetery-austin', "Austin's oldest municipal burial ground contains the Hogg family plot"]`, 'Oakwood Cemetery Hogg heritage live destination check');
+requireText(productionSurfaces, "['varner-hogg-heritage', '/destination/varner-hogg-plantation', 'Varner-Hogg Plantation State Historic Site']", 'Varner-Hogg Plantation live Hogg heritage destination check');
 requireText(productionSurfaces, "['texas-history-hogg-heritage-trail-discovery', '/texas-history', 'Connect six surviving places from James Hogg']", 'Hogg Heritage Trail Texas History discovery check');
 requireText(productionSurfaces, "['hogg-family-sitemap', '/sitemap.xml', '/article/hogg-family-texas-legacy']", 'Hogg family sitemap check');
 requireText(productionSurfaces, "['sallie-hogg-sitemap', '/sitemap.xml', '/article/sallie-hogg-texas-legacy']", 'Sallie Hogg sitemap check');
