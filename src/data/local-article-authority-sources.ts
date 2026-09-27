@@ -11,6 +11,48 @@ export interface LocalArticleAuthoritySource {
  * "Sources and further reading" panel.
  */
 export const localArticleAuthoritySources: Readonly<Record<string, readonly LocalArticleAuthoritySource[]>> = {
+  "indigenous-texas-history-native-nations": [
+    {
+      label: "Texas Historical Commission — Indigenous Texas and Exploration",
+      url: "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
+      scope: "Statewide Indigenous-history framework, early peoples, regional cultures and the context for European exploration.",
+    },
+    {
+      label: "Texas Historical Commission — Caddo Mounds History",
+      url: "https://thc.texas.gov/state-historic-sites/caddo-mounds/caddo-mounds-history",
+      scope: "Ancestral Caddo settlement, civic-ceremonial mounds, regional trade, forced removal and the continuing Caddo Nation.",
+    },
+    {
+      label: "Texas Parks & Wildlife — Hueco Tanks History",
+      url: "https://tpwd.texas.gov/state-parks/hueco-tanks/history",
+      scope: "Ten thousand years of human use, Jornada Mogollon agriculture, rock imagery and living tribal connections to Hueco Tanks.",
+    },
+    {
+      label: "National Park Service — Caddo Nation: The Sacred Landscape",
+      url: "https://www.nps.gov/elte/learn/historyculture/caddo-nation-introduction.htm",
+      scope: "Caddo mound centers, Indigenous trail networks and the Native routes later incorporated into El Camino Real de los Tejas.",
+    },
+    {
+      label: "Handbook of Texas — Karankawa Indians",
+      url: "https://www.tshaonline.org/handbook/entries/karankawa-indians",
+      scope: "Karankawa homelands, coastal lifeways, colonial violence and the persistence of Karankawa descendants into the present.",
+    },
+    {
+      label: "Alabama-Coushatta Tribe of Texas",
+      url: "https://www.alabama-coushatta.com/",
+      scope: "First-person tribal history and present-day government of the Alabama-Coushatta Tribe of Texas.",
+    },
+    {
+      label: "Ysleta del Sur Pueblo",
+      url: "https://www.ysletadelsurpueblo.org/",
+      scope: "First-person Tigua history, sovereign Pueblo government, cultural preservation and the Ysleta del Sur community established in 1682.",
+    },
+    {
+      label: "Kickapoo Traditional Tribe of Texas",
+      url: "https://kickapootexas.org/",
+      scope: "First-person tribal information on the federally recognized Kickapoo community and reservation near Eagle Pass.",
+    },
+  ],
   "texas-before-united-states-how-texas-began": [
     {
       label: "Texas Historical Commission — Indigenous Texas and Exploration",
