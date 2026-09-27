@@ -2,7 +2,7 @@ export type TpwdFishingReportSnapshot = {
   publishedAt: string;
   summary: string;
   sourceUrl: string;
-  reportingPaused: boolean;
+  sourceNotice: string | null;
   freshness: "current" | "stale" | "historical";
 };
 
@@ -78,7 +78,17 @@ export function parseTpwdFishingReport(sourceUrl: string, html: string): TpwdFis
   if (!reportUrl) return null;
 
   const text = htmlToText(html);
-  const reportingPaused = /weekly fishing reports are currently on hold/i.test(text);
+  const notice = text
+    .split("\n")
+    .map((line) => line.trim())
+    .find((line) =>
+      line.length >= 20 &&
+      line.length <= 700 &&
+      /\b(?:fishing reports?|reporting)\b/i.test(line) &&
+      !/^Fishing Report$/i.test(line) &&
+      !/^Weekly Fishing Reports$/i.test(line) &&
+      /[.!?]$/.test(line),
+    ) ?? null;
   const datePattern = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2}),\s+(20\d{2})\b/g;
   const matches = [...text.matchAll(datePattern)];
   if (!matches.length) return null;
@@ -100,7 +110,7 @@ export function parseTpwdFishingReport(sourceUrl: string, html: string): TpwdFis
     publishedAt,
     summary,
     sourceUrl: reportUrl,
-    reportingPaused,
+    sourceNotice: notice,
     freshness: classifyFreshness(publishedAt),
   };
 }
