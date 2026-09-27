@@ -243,7 +243,7 @@ for (const required of [
   '/article/texas-river-basins-guide',
   '/article/texas-lakes-reservoirs-explained',
   'Individual rivers, boundary rivers, regions and where the water flows.',
-  'Watersheds, drainage divides and the systems that connect tributaries to the Gulf.',
+  'The land that drains into each river, including the boundaries that separate one river system from another.',
   'Why most familiar inland Texas lakes are reservoirs and how managed water works.',
 ]) {
   if (!texasWaterResource.includes(required)) failures.push(`Texas water search-resource contract missing: ${required}`);
