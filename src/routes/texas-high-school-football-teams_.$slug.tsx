@@ -23,13 +23,17 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
         : governingBodyHint
           ? `${governingBodyHint}${associationClassification ? ` ${associationClassification}` : ''}`
           : 'Texas high school football';
-    const description = `${displayName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
+    // The TEA-facing officialSchoolName can collapse distinct UIL programs to generic
+    // labels such as "AUSTIN H S". The UIL alignment name is the canonical unique
+    // program identity that also owns the profile slug, so use it for page metadata.
+    const seoSchoolName = program?.schoolName || displayName;
+    const description = `${seoSchoolName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
     const url = `${siteUrl}${canonicalPath}`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${displayName} Football: Class, District, Enrollment & School Guide`,
+        title: `${seoSchoolName} Football: Class, District, Enrollment & School Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -40,7 +44,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             '@type': 'WebPage',
             '@id': `${url}#page`,
             url,
-            name: `${displayName} Football School Profile`,
+            name: `${seoSchoolName} Football School Profile`,
             description,
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {
@@ -61,7 +65,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
               { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
               { '@type': 'ListItem', position: 2, name: 'Texas Sports', item: `${siteUrl}/sports` },
               { '@type': 'ListItem', position: 3, name: 'High School Football Teams', item: `${siteUrl}/texas-high-school-football-teams` },
-              { '@type': 'ListItem', position: 4, name: displayName, item: url },
+              { '@type': 'ListItem', position: 4, name: seoSchoolName, item: url },
             ],
           },
         ],
