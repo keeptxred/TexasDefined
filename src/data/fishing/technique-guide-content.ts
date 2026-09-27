@@ -6,6 +6,8 @@ export type FishingTechniqueGuideContent = {
   setup: string[];
   seasonalGuide: Array<{ season: string; guidance: string }>;
   commonMistakes: string[];
+  selectionTitle?: string;
+  selectionIntro?: string;
   selectionGuide?: Array<{ label: string; bestFor: string; depth?: string }>;
 };
 
@@ -48,6 +50,8 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
       "Using one retrieve speed all day even when water temperature, wind and fish activity change.",
       "Ignoring hook condition after repeated contact with rock, timber or shell."
     ],
+    selectionTitle: "Crankbaits by depth and cover",
+    selectionIntro: "Running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.",
     selectionGuide: [
       { label: "Squarebill", bestFor: "Shallow wood, rock, docks and deflection fishing", depth: "Shallow" },
       { label: "Shallow diver", bestFor: "Banks, riprap and shallow points", depth: "Shallow" },
@@ -57,13 +61,55 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     ]
   },
   "soft-plastics": {
-    plainEnglish: "Soft plastics are adaptable presentations that can be rigged weedless, weighted, weightless, on a jig head or on specialized rigs to fish from the surface to deep structure.",
-    whenToUse: ["When fish are holding tightly to cover.", "When a slower presentation is needed.", "When you need one lure family that can work shallow or deep.", "When pressured fish are refusing faster moving baits."],
-    whereToFish: ["Vegetation edges and holes.", "Docks, brush and timber.", "Points, creek channels and offshore structure.", "Shallow spawning cover and transition banks."],
-    howToFish: ["Match the rig to the cover before choosing color.", "Keep enough bottom or cover contact to understand what the lure is doing.", "Use pauses and controlled falls rather than constant rod movement.", "Re-rig immediately when the bait tears or no longer runs straight."],
-    setup: ["Use line and hook strength appropriate to the cover.", "Choose weight by depth, wind and fall rate rather than habit.", "A medium to medium-heavy rod covers many common Texas bass applications.", "Keep hooks sharp and check knots after abrasive cover."],
-    seasonalGuide: [{season:"Spring",guidance:"Weightless and lightly weighted plastics excel around shallow spawning cover."},{season:"Summer",guidance:"Move toward deeper edges, docks, shade and offshore structure as fish reposition."},{season:"Fall",guidance:"Use faster-moving plastics when fish chase, then slow down around isolated cover."},{season:"Winter",guidance:"Subtle movement and slower presentations can keep the bait in the strike zone longer."}],
-    commonMistakes:["Using too much weight in shallow water.","Working the bait constantly instead of allowing natural pauses.","Failing to adjust hook style to the cover.","Fishing damaged plastics that twist or slide down the hook."]
+    plainEnglish: "Soft plastics are one of the most adaptable ways to fish Texas bass water because the same bait family can be rigged weedless, weightless, on a jig head or on specialized rigs from inches of water to deep offshore structure. The key is choosing the rig for the cover, depth and mood of the fish before worrying about color.",
+    whenToUse: [
+      "When bass are holding tightly to vegetation, timber, docks, brush or other cover.",
+      "When pressured or inactive fish are refusing faster-moving reaction baits.",
+      "When you need precise depth control from a shallow weightless fall to deep bottom contact.",
+      "When you want to keep one presentation in a small strike zone instead of covering water quickly."
+    ],
+    whereToFish: [
+      "Hydrilla edges, reeds, flooded grass and openings in submerged vegetation.",
+      "Dock shade, pilings, laydowns, brush piles and standing timber.",
+      "Rocky points, creek-channel bends, roadbeds, humps and other offshore structure.",
+      "Shallow spawning cover in spring and the first deeper transition water nearby."
+    ],
+    howToFish: [
+      "Cast past the target, let the bait fall on a controlled semi-slack line and watch for a twitch, sudden slack or sideways movement before it reaches bottom.",
+      "Once the bait settles, use a short hop, slow drag or subtle shake, then pause. Soft plastics often work because they stay in the strike zone longer.",
+      "Match sinker weight to depth, wind and the fall rate you want. Use the lightest weight that still gives reliable control and bottom or cover contact.",
+      "When a bite feels different, reel down to remove slack, confirm pressure and use a controlled hookset suited to the hook and tackle."
+    ],
+    setup: [
+      "A medium to medium-heavy spinning or casting rod covers many Texas bass applications; move heavier around dense vegetation, timber and thick brush.",
+      "Use hook style and size that match the bait body and rig. Offset or extra-wide-gap hooks are common for weedless rigs; exposed hooks fit many finesse presentations.",
+      "Choose line for the cover and water clarity. Abrasion resistance matters around rock and timber, while low-visibility leaders can help in clear water.",
+      "Check the bait after every fish or snag. A torn plastic that slides down the hook, spins or no longer sits straight should be re-rigged."
+    ],
+    seasonalGuide: [
+      { season: "Spring", guidance: "Work warming pockets, secondary points, protected spawning areas and nearby cover. Weightless stick baits, Texas-rigged creatures and finesse worms are versatile as bass move shallow." },
+      { season: "Summer", guidance: "Split the day between shade and depth. Fish docks, vegetation and low-light shallows early, then move toward deeper points, brush, creek-channel edges and offshore structure." },
+      { season: "Fall", guidance: "Follow forage into creek arms and transition zones. Faster soft jerkbaits and swimbaits can cover water, while Texas rigs and finesse baits stay useful around isolated cover." },
+      { season: "Winter", guidance: "Slow the presentation and stay near stable structure. Shaky heads, drop shots, compact bottom baits and slow Texas rigs keep the lure in the strike zone longer." }
+    ],
+    commonMistakes: [
+      "Fishing too fast and never allowing the bait to pause naturally.",
+      "Using more sinker weight than the depth, wind or cover actually requires.",
+      "Watching the rod instead of the line during the fall, when many soft-plastic bites occur.",
+      "Using the same rig everywhere instead of changing hook, weight and presentation for grass, wood, rock, docks or open water.",
+      "Setting the hook on slack line instead of reeling down first.",
+      "Continuing to fish a torn or twisted plastic that no longer tracks correctly."
+    ],
+    selectionTitle: "Choose the soft-plastic rig for the job",
+    selectionIntro: "Start with cover and depth. A weedless Texas rig is the broad all-purpose choice, while weightless, Carolina, drop-shot, shaky-head and Ned presentations solve more specific problems.",
+    selectionGuide: [
+      { label: "Texas rig", bestFor: "Vegetation, brush, timber, docks and other snag-prone cover", depth: "Shallow–deep" },
+      { label: "Weightless stick bait", bestFor: "Dock shade, shallow cover, calm pockets and pressured fish", depth: "Shallow" },
+      { label: "Carolina rig", bestFor: "Points, flats, roadbeds and broad bottom structure", depth: "Mid-depth–deep" },
+      { label: "Drop shot", bestFor: "Clear water, suspended fish, vertical targets and pressured fish", depth: "Mid-depth–deep" },
+      { label: "Shaky head", bestFor: "Rock, points, sparse cover and difficult bottom-oriented bites", depth: "Bottom" },
+      { label: "Ned rig", bestFor: "Rock, gravel, open bottom and highly pressured fish", depth: "Shallow–deep" }
+    ]
   },
   "spinnerbaits": {
     plainEnglish: "Spinnerbaits combine flash, vibration and a single-hook profile that can move efficiently through shallow cover, vegetation and stained water.",
