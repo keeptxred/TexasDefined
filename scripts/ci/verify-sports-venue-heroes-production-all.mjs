@@ -3,8 +3,7 @@ import fs from 'node:fs';
 const origin = new URL(process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com').origin;
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const contractOnly = process.argv.includes('--contract-only');
-const expectedVenueCount = 84;
-const fallbackText = 'Venue details and planning information continue below.';
+const fallbackText = 'A verified venue photograph is not available yet.';
 const registryPaths = [
   'src/data/sports-venue-images-curated-overrides.ts',
   'src/data/sports-venue-images.ts',
@@ -18,6 +17,13 @@ const registryPaths = [
 ];
 
 const read = (filePath) => fs.readFileSync(filePath, 'utf8');
+const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
+const galaxyRoute = read('src/routes/sports-venue.jones-att-stadium.tsx');
+const dynamicPilotBlock = dynamicRoute.match(/const sportsVenueGuidePilotSlugs = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
+const dynamicSlugs = [...dynamicPilotBlock.matchAll(/['"]([^'"]+)['"]/g)].map((match) => match[1]);
+const galaxySlug = galaxyRoute.match(/const stableSlug = ['"]([^'"]+)['"];/)?.[1] ?? '';
+const governed = new Set([...dynamicSlugs, galaxySlug].filter(Boolean));
+const expectedVenueCount = governed.size;
 const decodeTsString = (value) => value
   .replace(/\\'/g, "'")
   .replace(/\\"/g, '"')
@@ -53,9 +59,10 @@ for (const registryPath of registryPaths) {
 }
 
 const contractFailures = [];
-if (effective.size !== expectedVenueCount) {
-  contractFailures.push(`Expected ${expectedVenueCount} effective governed venue heroes; found ${effective.size}.`);
-}
+if (!dynamicSlugs.length || !galaxySlug) contractFailures.push('Could not derive the complete governed sports-venue inventory from current routes.');
+const orphanPhotoSlugs = [...effective.keys()].filter((slug) => !governed.has(slug)).sort();
+if (orphanPhotoSlugs.length) contractFailures.push(`Effective photo records exist for nongoverned venue slugs: ${orphanPhotoSlugs.join(', ')}.`);
+const missingGovernedSlugs = [...governed].filter((slug) => !effective.has(slug)).sort();
 for (const [slug, entry] of effective) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) contractFailures.push(`Invalid governed venue slug: ${slug}.`);
   if (!entry.alt.trim()) contractFailures.push(`Missing governed alt text: ${slug}.`);
@@ -63,6 +70,8 @@ for (const [slug, entry] of effective) {
   if (!entry.sourceName.trim()) contractFailures.push(`Missing governed source name: ${slug}.`);
   if (!entry.author.trim()) contractFailures.push(`Missing governed author: ${slug}.`);
   if (!entry.licenseName.trim()) contractFailures.push(`Missing governed license name: ${slug}.`);
+  const generated = entry.sourceName === 'Texas Defined generated media' || /^AI-generated\\b/i.test(entry.licenseName);
+  if (generated && slug !== 'xtreme-raceway-park') contractFailures.push(`Only Xtreme Raceway Park may use generated venue imagery; found ${slug}.`);
 }
 
 if (contractFailures.length) {
@@ -72,7 +81,7 @@ if (contractFailures.length) {
 }
 
 if (contractOnly) {
-  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} governed venue heroes from the curated-first production registry chain and safely parses escaped metadata strings.`);
+  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} approved venue heroes with ${missingGovernedSlugs.length} intentional fail-closed fallbacks (${missingGovernedSlugs.join(', ') || 'none'}) from the current route inventory and curated-first registry chain.`);
   process.exit(0);
 }
 
@@ -281,4 +290,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS: exhaustive sports venue hero production audit verified ${results.length}/${entries.length} governed venue pages, attribution semantics, exact hero redirects, and live image health.`);
+console.log(`PASS: exhaustive sports venue hero production audit verified ${results.length}/${entries.length} approved governed venue pages, attribution semantics, exact hero redirects, and live image health; ${missingGovernedSlugs.length} governed venues intentionally remain fail-closed.`);
