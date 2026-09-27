@@ -99,7 +99,7 @@ export function TexasRiversAuthorityHub() {
         <div>
           <p className="eyebrow text-primary">Texas rivers at a glance</p>
           <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Start with the statewide river map</h2>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">Texas Water Development Board data divides the state into 15 major river basins plus eight coastal basins. Use this overview to orient yourself, then jump directly to the river you want to understand.</p>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">Texas Water Development Board data divides the state into 15 major river basins—areas of land where rain and streams drain toward the same major river system—plus eight coastal basins that drain directly toward bays and the Gulf. Use this overview to see how those systems fit together, then jump directly to the river you want to understand.</p>
         </div>
         <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
           <div className="border-t border-border pt-3"><dt className="text-xs uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-3xl">15</dd></div>
