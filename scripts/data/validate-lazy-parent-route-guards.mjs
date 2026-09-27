@@ -49,6 +49,20 @@ for (const path of requiredRegressionFiles) {
   if (!checked.includes(path)) failures.push(`Expected lazy parent route is not covered by leaf-only guard validation: ${path}`);
 }
 
+
+const productionSmoke = fs.readFileSync("scripts/ci/verify-production-surfaces.mjs", "utf8");
+const productionChildContracts = [
+  ["/guides/citypass-texas", "CityPASS® is a bundle, not a magic discount."],
+  ["/explore/landscapes/hill-country", "The Hill Country is where the Edwards Plateau breaks into rounded hills"],
+  ["/sports/friday-night-lights", "Friday Night Lights, Defined"],
+  ["/texas-data/county-growth", "Texas county population growth, 2020–2025"],
+];
+for (const [path, marker] of productionChildContracts) {
+  if (!productionSmoke.includes(path) || !productionSmoke.includes(marker)) {
+    failures.push(`Live production child-route verification missing ${path} -> ${marker}`);
+  }
+}
+
 if (failures.length) {
   console.error("Lazy parent route guard validation failed:");
   for (const failure of failures) console.error(`- ${failure}`);
