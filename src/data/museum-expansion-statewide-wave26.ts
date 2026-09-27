@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave26Destinations: Destination[] = [
     body: [
       "The Doss Heritage & Culture Center gives Parker County a modern museum built specifically to collect and interpret local history. Its permanent galleries move from Indigenous life and early settlement into pioneer agriculture, cattle drives and the western heritage that still shapes Weatherford's identity.",
       "The museum also reaches into twentieth-century cultural history through its Mary Martin and Larry Hagman collection, while rotating exhibitions keep the galleries from becoming a fixed county chronology. Historic cabins on the grounds add a full-scale architectural layer to the indoor interpretation.",
-      "For TexasDefined, the Doss is the current canonical destination behind older Parker County museum shorthand. It can cross-link Weatherford, cattle trails, western heritage, Parker County and family attractions without creating a duplicate page for an obsolete museum name."
+      "The Doss gives Parker County visitors a current museum destination connected to Weatherford, cattle trails, western heritage and family attractions."
     ],
     officialUrl: "https://dosscenter.org/",
     managingAuthority: "James and Dorothy Doss Heritage and Culture Center",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave26Destinations: Destination[] = [
     body: [
       "The Johnson County Courthouse Museum makes county history part of the courthouse experience rather than placing it in a detached facility. The museum occupies the restored courthouse's first-floor north wing, tying its collections directly to the civic building that has anchored downtown Cleburne since 1913.",
       "Displays represent communities across Johnson County rather than focusing only on the county seat. Alvarado, Burleson, Godley, Grandview, Joshua, Keene, Venus and Cleburne all appear within the museum's countywide collecting mission, supported by photographs, documents and local artifacts.",
-      "For TexasDefined, this page resolves the inventory's generic Johnson County museum concept to the current courthouse museum. It strengthens Johnson County, Cleburne and courthouse-square authority while creating natural links to Chisholm Trail, railroad and North Texas history content."
+      "The current courthouse museum gives Johnson County and Cleburne visitors a clear history stop with natural connections to the Chisholm Trail, railroad history and broader North Texas heritage."
     ],
     officialUrl: "https://www.johnsoncountytx.org/departments/museum/historical-commission/projects",
     managingAuthority: "Johnson County Historical Commission",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave26Destinations: Destination[] = [
     body: [
       "The Stephenville Historical House Museum is best understood as a preserved campus rather than a single gallery. Historic houses, school and church structures, cabins and outbuildings create a physical landscape for interpreting Erath County and the Cross Timbers region.",
       "Buildings such as the John Tarleton Ranch House and Berry Cottage connect local biography to broader settlement and education history, while period furnishings and exhibits make the complex useful for understanding domestic and community life across multiple eras.",
-      "For TexasDefined, this is the current destination that should replace a vague 'Erath County Museum' label. It gives Stephenville and Erath County a canonical heritage anchor that can cross-link Tarleton State University, downtown history, Cross Timbers travel and nearby Dublin-area museum destinations."
+      "This museum gives Stephenville and Erath County visitors a clear heritage stop connected to Tarleton State University, downtown history, Cross Timbers travel and nearby Dublin-area museum destinations."
     ],
     officialUrl: "https://stephenvillemuseum.com/",
     managingAuthority: "Stephenville Historical House Museum",

@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
     body: [
       "The Lampasas County Museum provides the county-level context behind a Hill Country town better known to many travelers for mineral springs and historic downtown architecture. Local artifacts, photographs and documentary collections connect those landmarks to the people, businesses and rural communities that shaped the county.",
       "The museum is currently working through physical improvements, so accurate status guidance matters more than repeating a normal-hours listing. Roof and structural work has required exhibits to be moved or reconsidered, and TexasDefined's page treats current access as something travelers should confirm rather than assuming every gallery is operating normally.",
-      "For TexasDefined, the museum creates a stable county-history URL that can link Lampasas, Hancock Springs, ranching, Hill Country travel and county authority content. The same page can be updated as renovation work progresses without creating a temporary replacement destination."
+      "The museum gives Lampasas County visitors a useful history stop connecting Lampasas, Hancock Springs, ranching and Hill Country travel. Renovation progress should be checked before a dedicated visit."
     ],
     officialUrl: "https://www.lampasasmuseum.org/",
     managingAuthority: "Lampasas County Museum Foundation",
@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
     body: [
       "The Comanche County Historical Museum has enough space to tell local history community by community rather than compressing the county into a few display cases. Its collections cover settlement, ranching, agriculture, military service, schools, businesses and family life across a wide rural area.",
       "The museum's scale—roughly 50,000 square feet according to its current visitor information—allows specialized rooms and donated collections to remain tied to their local context. That is especially valuable in a county where many small communities have lost historic commercial buildings and institutions over time.",
-      "For TexasDefined, this destination strengthens Comanche County's authority layer and creates natural links to the Texas Forts Trail, nearby frontier sites, ranching history and county travel pages while avoiding a generic regional-history substitute."
+      "This destination adds depth to a Comanche County trip and pairs naturally with the Texas Forts Trail, nearby frontier sites, ranching history and other county attractions."
     ],
     officialUrl: "https://www.comanchecountytxmuseum.com/about-us",
     managingAuthority: "Comanche County Historical Museum",
