@@ -111,7 +111,7 @@ export const texasRiversExplainedArticle: Article = {
       "East Texas: Sabine and Neches systems run through the wetter Piney Woods toward Sabine Lake and the Gulf Coast."
     ),
     h("How a Texas River Is Born"),
-    p("A river makes more sense when you think about everything that drains toward it. That entire drainage area is its basin or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street eventually either soaks into the ground, evaporates or begins moving downhill through creeks and tributaries toward a larger river system."),
+    p("A river makes more sense when you think about all the land that sends water toward it. That area of land is called the river's basin, or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street can soak into the ground, evaporate or flow downhill into smaller creeks and streams that eventually feed the river."),
     p("The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. The coastal basins occupy the areas between the larger named river systems and drain directly toward bays and the Gulf. On a map, those basin boundaries create a set of broad natural districts that ignore county lines and city limits."),
     p("That is useful because water does the same thing. A fast-growing suburb can affect a creek that crosses several counties. A reservoir hundreds of miles upstream can influence flows downstream. Heavy rain in one part of a basin can produce flooding somewhere that never saw the storm."),
     quote("Texas rivers are not blue lines laid on top of the state. They are systems that help explain the state itself."),
