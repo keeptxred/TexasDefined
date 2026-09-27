@@ -211,9 +211,7 @@ function DestinationPage() {
     <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
-      <div aria-hidden className="absolute inset-0 bg-ink">
-        
-      </div>
+      <div data-image-fallback-label aria-hidden className="absolute inset-0 bg-ink" />
       <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-65" onLoad={(event) => hideImageFallbackLabel(event.currentTarget)} onError={(event) => recoverOrHideImage(event.currentTarget, heroFallback)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
       <Container className="relative flex flex-col justify-end" style={{ minHeight: "clamp(24rem, 52vw, 32rem)", paddingTop: "6rem", paddingBottom: "3rem" }}>
