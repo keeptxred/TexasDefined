@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Heritage House preserves a different side of Orange history than the city's grand Stark properties. The Sims home represents an upper-middle-class household and retains architectural details that help visitors understand everyday aspirations, technology and domestic life in a growing Gulf Coast community.",
       "The house's interpretation extends into the economic history surrounding it. Photographs and collections document shipping, lumber, farming, oil exploration, churches, schools and residents who shaped Orange as it moved from a river settlement into an industrial city.",
-      "TexasDefined can cross-link this destination with the Stark Museum of Art, W.H. Stark House, Shangri La and Orange County authority pages. That creates a dense cultural cluster while preserving the Heritage House as its own local-history perspective rather than folding every Orange institution into one page."
+      "Heritage House pairs naturally with the Stark Museum of Art, W.H. Stark House, Shangri La and other Orange County history stops. Together they create a strong cultural itinerary while preserving the Heritage House's distinct local-history perspective."
     ],
     officialUrl: "https://heritagehouseoforangecounty.com/visit/",
     managingAuthority: "Heritage House Association of Orange County",
@@ -137,7 +137,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Red River Valley Museum is unusually broad for a regional institution. Its galleries move from prehistoric and natural-science material into Wilbarger County history, ranching, wildlife and art, giving visitors multiple ways to understand the North Texas landscape and the people who used it.",
       "The Waggoner Gallery is especially important to regional authority because it interprets one of Texas's best-known ranching operations close to the territory where that history unfolded. Other collections extend the museum beyond ranching into community and scientific subjects.",
-      "A canonical TexasDefined page gives Vernon and Wilbarger County a substantial destination anchor on the US 287 corridor. It can connect ranching, cattle-trail, Panhandle-to-North-Texas road trips and county history through one verified institution."
+      "The museum gives Vernon and Wilbarger County a substantial heritage stop on the U.S. 287 corridor, connecting ranching, cattle-trail history, Panhandle-to-North-Texas road trips and county history through one verified institution."
     ],
     officialUrl: "https://www.rrvmuseum.org/visitor-information",
     managingAuthority: "Red River Valley Museum",
