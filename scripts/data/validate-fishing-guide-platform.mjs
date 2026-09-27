@@ -60,7 +60,7 @@ if (!failures.length) {
   if (!guideSitemap.includes("verifiedListing: true") || !search.includes("verifiedListing: true") || !internalLinks.includes("verifiedListing: true")) failures.push("Unverified guides could leak into sitemap, search or internal-link discovery.");
 
   if (!directoryUi.includes("does not create placeholder guide identities") || !directoryUi.includes("No fishing guide listings are published yet.")) failures.push("Honest zero-guide state or anti-fabrication disclosure missing.");
-  if (!profileUi.includes("Only source-backed listing details are shown.") || !profileUi.includes("Sources for this listing") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile visitor-facing source-backed optional-fact rendering is not protected.");
+  if (!profileUi.includes("Listing Details and Sources") || !profileUi.includes("Sources for this listing") || !profileUi.includes("guide.startingPriceCents !== undefined")) failures.push("Guide profile visitor-facing source-backed optional-fact rendering is not protected.");
   for (const phrase of ["Fishing guide directory", "Public results include only source-backed listings", "Waters served", "Target species", "View guide profile →"]) {
     if (!directoryUi.includes(phrase)) failures.push(`Fishing guide directory is missing visitor-facing label: ${phrase}`);
   }
@@ -94,7 +94,7 @@ if (!failures.length) {
   if (!directoryServer.includes("editorialOrder") || !directoryServer.includes("businessName.localeCompare") || !directoryServer.includes("sponsoredPlacements")) failures.push("Editorial ordering and sponsored placement separation missing.");
   if (!directoryServer.includes("Sponsorship never changes this order") || !directoryUi.includes("cannot buy a higher editorial rank or recommendation")) failures.push("Directory editorial independence disclosure missing.");
   for (const source of [directoryUi, profileUi]) if (!source.includes("Sponsored placement") || !source.includes('rel="noopener sponsored"')) failures.push("Sponsored guide placement disclosure/link attributes missing.");
-  if (!profileUi.includes("Sponsorship cannot change this profile’s editorial treatment")) failures.push("Guide profile editorial-independence disclosure missing.");
+  if (!profileUi.includes("Sponsored Placements and Editorial Independence")) failures.push("Guide profile editorial-independence disclosure missing.");
   if (!validation.includes('placement.disclosure !== "sponsored"')) failures.push("Runtime fishing placement disclosure validation missing.");
 
   for (const intent of ["new-listing", "claim-listing", "update-listing", "remove-listing"]) if (!onboardingContract.includes(`"${intent}"`)) failures.push(`Guide onboarding intent missing: ${intent}`);
