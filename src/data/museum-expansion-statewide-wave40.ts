@@ -41,7 +41,7 @@ export const statewideMuseumExpansionWave40Destinations: Destination[] = [
     body: [
       "Window on the Plains Museum serves as a principal local-history institution for Dumas and Moore County. Its permanent displays cover farming and ranching, industry and business, family life, wildlife and the everyday material culture of the northern Texas Panhandle, with reconstructed and period environments that help place collections into context.",
       "The institution began in 1976 as Moore County Historical Museum, originally housed in the ballroom of a local landmark hotel. In 2001 the museum moved to its permanent home at 1820 South Dumas Avenue and adopted the Window on the Plains Museum name, preserving continuity with the older museum while giving the current destination a distinct public identity.",
-      "The museum also maintains a research and archives center and works alongside The Art Center next door as a cultural hub for Moore County. That combination of collections, archival resources and community programming makes Window on the Plains a strong TexasDefined authority anchor for Dumas, Moore County and broader Panhandle discovery rather than a thin attraction listing.",
+      "The museum also maintains a research and archives center and works alongside The Art Center next door as a cultural hub for Moore County. That combination of collections, archival resources and community programming makes Window on the Plains a substantial Dumas and Moore County stop rather than a quick attraction listing.",
     ],
     officialUrl: "https://www.dumasmuseumandartcenter.org/museum.html",
     managingAuthority: "Window on the Plains Museum",
