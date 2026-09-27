@@ -22,7 +22,7 @@ export const Route = createFileRoute("/texas-vs/$state")({
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const faq = [
       { q: `Is Texas cheaper than ${loaderData.name}?`, a: `There is no reliable statewide yes-or-no answer for every household. Compare the actual Texas city or county with the actual ${loaderData.name} community, including housing, insurance, utilities, transportation and taxes.` },
-      { q: `What should I compare before moving from ${loaderData.name} to Texas?`, a: `Compare occupation-specific pay, housing, total taxes, insurance, utilities, commute, weather risks, schools or services you use, and the specific metro or county rather than statewide averages alone.` },
+      { q: `What should I compare before moving from ${loaderData.name} to Texas?`, a: `Compare occupation-specific pay, housing, total taxes, insurance, utilities, commute, weather risks, schools or services you use, and the specific metro or county instead of relying on statewide averages alone.` },
       { q: `Does Texas have an individual state income tax?`, a: `Texas does not impose an individual state income tax, but that fact alone does not determine total household cost. Sales taxes, property taxes, insurance, housing and local costs still matter.` },
     ];
     return {
@@ -52,7 +52,7 @@ function TexasVsStatePage() {
   const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
   const sections = [
     {
-      heading: "The comparison that actually matters",
+      heading: "Start with the places you would live",
       body: profile.comparisonFocus,
     },
     {
