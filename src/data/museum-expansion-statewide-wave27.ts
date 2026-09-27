@@ -40,7 +40,7 @@ export const statewideMuseumExpansionWave27Destinations: Destination[] = [
     body: [
       "Karnes County Museum occupies the former county courthouse at Old Helena, a community that once served as the Karnes County seat. The courthouse was built in 1873, and the surviving complex gives visitors an unusually tangible way to read the political and settlement history of this part of South Texas.",
       "Helena's fortunes changed after the San Antonio and Aransas Pass Railway bypassed the town. Karnes City grew along the railroad and became the county seat in the 1890s, while Helena steadily declined. The old courthouse, post office and other preserved structures now keep that nearly vanished community legible on the landscape.",
-      "The museum also connects the site to the cattle-driving era and other local stories preserved across Karnes County. For TexasDefined, it is the canonical destination for the audit's Karnes County museum reference and a natural cross-link among Karnes County, Karnes City, Old Helena, courthouse history, ghost towns and South Texas heritage travel.",
+      "The museum also connects the site to the cattle-driving era and other local stories preserved across Karnes County. It fits naturally into a Karnes County itinerary linking Karnes City, Old Helena, courthouse history, ghost towns and broader South Texas heritage travel.",
     ],
     officialUrl: "https://texastimetravel.com/directory/karnes-county-museum/",
     managingAuthority: "Karnes County Historical Society",
