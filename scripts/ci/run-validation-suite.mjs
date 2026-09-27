@@ -67,6 +67,7 @@ const checks = [
   ['sitemap-routes', 'SEO/ROUTING', 'Validate sitemap routes', 'node', ['scripts/data/validate-sitemap-routes.mjs']],
   ['internal-link-discovery', 'INTERNAL-LINKING', 'Validate internal-link discovery', 'node', ['scripts/data/validate-internal-link-discovery.mjs']],
   ['search-intent-ctr', 'SEO/CTR', 'Validate search-intent CTR', 'node', ['scripts/data/validate-search-intent-ctr.mjs']],
+  ['governed-seo-duplicates', 'SEO/TECHNICAL', 'Validate governed SEO override path uniqueness', 'node', ['scripts/data/validate-governed-seo-duplicate-paths.mjs']],
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],
   ['citation-magnets', 'SEO/CITATIONS', 'Validate citation magnets', 'node', ['scripts/data/validate-citation-magnets.mjs']],
   ['fishing-authority', 'SEO/AUTHORITY', 'Validate fishing citation and retrieval authority', 'node', ['scripts/data/validate-fishing-authority.mjs']],
@@ -104,7 +105,7 @@ const predeployIds = new Set([
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness',
-  'fishing-authority', 'citypass-affiliate',
+  'fishing-authority', 'citypass-affiliate', 'governed-seo-duplicates',
 ]);
 
 const fullExcludedIds = new Set(['texas-flag-authority', 'painted-churches-seo', 'painted-church-map', 'painted-church-completion']);
