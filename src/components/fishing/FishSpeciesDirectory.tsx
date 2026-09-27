@@ -24,7 +24,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
       <section className="mt-5 border-b border-border bg-ink text-ink-foreground">
         <Container className="py-16 sm:py-24">
           <p className="eyebrow text-ink-foreground/70">Texas fish species</p>
-          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Fish Texas by species.</h1>
+          <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Fish Species</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">Start with the fish, then move to Texas lakes where TexasDefined has a verified lake-to-species relationship. Every published fish record opens a standalone Texas guide.</p>
           <div className="mt-8 flex flex-wrap gap-5 text-sm">
             <Link to="/fishing/species/largemouth-bass" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Open largemouth bass guide →</Link>
@@ -88,8 +88,8 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
         </div>
 
         <section className="mt-16 border-t border-border pt-8">
-          <p className="eyebrow text-primary">How this grows</p>
-          <h2 className="mt-3 font-display text-3xl">Build the lake relationships around every fish guide.</h2>
+          <p className="eyebrow text-primary">Lake coverage</p>
+          <h2 className="mt-3 font-display text-3xl">How Lake Coverage Expands</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every published fish record has a sourced species page. Lake recommendations expand separately as verified lake-to-species relationships are added, so a fish page can exist without inventing places to catch it.</p>
           <p className="mt-6 text-xs leading-6 text-muted-foreground">Species catalog sources checked {formatDate(pageData.verifiedAt)}. Regulations, stockings and waterbody conditions can change; always confirm current TPWD information before fishing.</p>
         </section>
