@@ -2,11 +2,6 @@ name: Sync reviewed sports venue hero assets wave 7
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "scripts/data/sync-sports-venue-hero-assets-wave7-reviewed.mjs"
-      - ".github/workflows/sports-venue-hero-assets-wave7-reviewed.yml"
 
 permissions:
   contents: write
@@ -21,9 +16,6 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    env:
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Check out current main
         uses: actions/checkout@v4
@@ -43,11 +35,10 @@ jobs:
             sudo apt-get install -y -qq imagemagick
           fi
 
-      - name: Resolve reviewed sports venue JPEGs
+      - name: Resolve reviewed licensed sports venue JPEGs
         run: node scripts/data/sync-sports-venue-hero-assets-wave7-reviewed.mjs
 
-      - name: Detect generated sports venue changes
-        if: always()
+      - name: Detect reviewed sports venue changes
         id: changes
         shell: bash
         run: |
@@ -58,7 +49,7 @@ jobs:
           fi
 
       - name: Create reviewed sports venue hero branch
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         id: branch
         shell: bash
         run: |
@@ -68,12 +59,12 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git checkout -b "$branch"
           git add public/images/sports-venues src/data/sports-venue-images-additions-wave7.ts scripts/data/sports-venue-hero-wave7-report.json
-          git commit -m "chore: attach reviewed missing sports venue hero JPEGs"
+          git commit -m "chore: refresh reviewed licensed sports venue heroes"
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
 
       - name: Open reviewed sports venue hero pull request
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ steps.branch.outputs.name }}
@@ -83,11 +74,11 @@ jobs:
           gh pr create \
             --base main \
             --head "$BRANCH" \
-            --title 'Refresh reviewed sports venue hero images' \
-            --body "Reviewed sports venue hero reconciliation. Exact venue-specific Wikimedia Commons files are used only when their titles are explicitly pinned after manual identity review and their reusable licenses are verified again through the Commons API at run time. Existing AI fallbacks are preserved rather than regenerated, so a targeted real-photo upgrade does not churn unrelated venue imagery. Ambiguous or unsupported sources remain rejected."
+            --title 'Refresh reviewed licensed sports venue hero images' \
+            --body "Licensed sports venue hero reconciliation. Only manually pinned, exact venue-specific Wikimedia Commons files with commercially reusable licensing are eligible. AI-generated venue depictions are not produced or preserved; unresolved venues remain on the fail-closed no-photo state."
 
       - name: Run official validation on reviewed branch
-        if: ${{ always() && steps.changes.outputs.changed == 'true' }}
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: ${{ steps.branch.outputs.name }}
