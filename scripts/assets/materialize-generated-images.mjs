@@ -16,24 +16,6 @@ const assets = [
       path.join(root, "public/images/events/chappell-hill-bluebonnet-festival.webp"),
     ],
   },
-  {
-    sourceDir: path.join(root, "assets/generated/crankbait-page"),
-    prefix: "hero.webp.b64.",
-    expectedParts: 12,
-    expectedSha256: "2d119cc470803d2f761486b53de047447931af6581369e78f77bce1068573d8e",
-    outputPaths: [
-      path.join(root, "public/images/fishing/techniques/crankbaits-hero.webp"),
-    ],
-  },
-  {
-    sourceDir: path.join(root, "assets/generated/crankbait-page"),
-    prefix: "depth-guide.webp.b64.",
-    expectedParts: 6,
-    expectedSha256: "09890ac0a0d992aa7ee2cb86d634bd790a39089ac827066b127f3e39b814f00e",
-    outputPaths: [
-      path.join(root, "public/images/fishing/techniques/crankbaits-depth-guide.webp"),
-    ],
-  },
 ];
 
 for (const asset of assets) {

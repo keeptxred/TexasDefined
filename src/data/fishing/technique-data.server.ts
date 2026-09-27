@@ -3,6 +3,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
+import { fishingTechniqueImages } from "./technique-images";
 import {
   FISHING_TECHNIQUES_DIRECTORY_PATH,
   FISHING_TECHNIQUES_VERIFIED_AT,
@@ -20,7 +21,7 @@ const directoryFaq = [
 
 type DirectoryHeadEntry = { technique: { name: string }; canonicalPath: string };
 type ProfileHeadEntry = {
-  technique: { name: string; summary: string; verifiedAt: string };
+  technique: { name: string; slug: string; summary: string; verifiedAt: string };
   canonicalPath: string;
   lakes: Array<{ name: string; slug: string }>;
   species: Array<{ commonName: string }>;
@@ -52,10 +53,11 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
 function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const { technique, canonicalPath, lakes, species, sources } = entry;
   const description = `${technique.name} fishing in Texas: source-backed lake applications, target species and seasonal context drawn from TexasDefined's complete fishing-lake guides.`;
+  const images = fishingTechniqueImages[technique.slug];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified: technique.verifiedAt, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` } },
+      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified: technique.verifiedAt, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(images?.hero ? { image: `${origin}${images.hero.src}` } : {}) },
       { "@type": "ItemList", "@id": `${origin}${canonicalPath}#lake-applications`, numberOfItems: lakes.length, itemListElement: lakes.map((lake, index) => ({ "@type": "ListItem", position: index + 1, name: `${technique.name} — ${lake.name}`, url: `${origin}${fishingFoundationAnchor("lake", lake.slug)}` })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Front page", item: origin },
@@ -68,7 +70,18 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   };
 
   return {
-    meta: buildMeta(texasDefinedBrand, { title: `${technique.name} Fishing in Texas — Lakes, Species & Seasons`, description, canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, {
+      title: `${technique.name} Fishing in Texas — Lakes, Species & Seasons`,
+      description,
+      canonicalPath,
+      ...(images?.hero ? {
+        image: images.hero.src,
+        imageAlt: images.hero.alt,
+        imageWidth: images.hero.width,
+        imageHeight: images.hero.height,
+        imageType: images.hero.imageType,
+      } : {}),
+    }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
   };
