@@ -1,7 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { getFishingTechniquePathNormalizationRedirect } from "@/data/fishing/technique-redirects";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingHub = lazy(() => import("@/components/fishing/FishingHub").then((module) => ({ default: module.FishingHub })));
@@ -18,6 +19,10 @@ const FishingHub = lazy(() => import("@/components/fishing/FishingHub").then((mo
  */
 
 export const Route = createFileRoute("/fishing")({
+  beforeLoad: ({ location }) => {
+    const redirectOptions = getFishingTechniquePathNormalizationRedirect(location.pathname, location.searchStr);
+    if (redirectOptions) throw redirect(redirectOptions);
+  },
   loader: async ({ context }) => {
     const { fishSpeciesQuery, fishingLakesQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const [lakes, species, lakeSpecies] = await Promise.all([

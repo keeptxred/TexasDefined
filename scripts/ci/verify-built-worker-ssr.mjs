@@ -44,6 +44,16 @@ const smokeTargets = [
   { path: '/fishing/plan?species=largemouth-bass&q=Austin&sort=best', requiredText: 'Lake Travis', label: 'wave-2 Austin largemouth finder' },
 ];
 
+const redirectTargets = [
+  {
+    path: '/fishing/fishing/techniques/soft-plastics?source=smoke',
+    expectedStatus: 301,
+    expectedPath: '/fishing/techniques/soft-plastics',
+    expectedQuery: ['source', 'smoke'],
+    label: 'duplicated fishing technique path normalization',
+  },
+];
+
 mkdirSync(artifactDir, { recursive: true });
 writeFileSync(logPath, '');
 
@@ -115,7 +125,7 @@ async function stopChild() {
 
 let failure = '';
 let passed = false;
-const lastStatus = new Map(smokeTargets.map((target) => [target.path, 'not-run']));
+const lastStatus = new Map([...smokeTargets, ...redirectTargets].map((target) => [target.path, 'not-run']));
 
 try {
   const startedAt = Date.now();
@@ -164,10 +174,41 @@ try {
       }
     }
 
+    for (const target of redirectTargets) {
+      try {
+        const url = new URL(target.path, origin);
+        url.searchParams.set('built_worker_smoke', `${process.env.GITHUB_SHA || 'local'}-${attempt}`);
+        const response = await fetch(url, {
+          redirect: 'manual',
+          cache: 'no-store',
+          headers: {
+            'cache-control': 'no-cache, no-store, max-age=0',
+            pragma: 'no-cache',
+            'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
+          },
+          signal: AbortSignal.timeout(requestTimeoutMs),
+        });
+        lastStatus.set(target.path, String(response.status));
+        const location = response.headers.get('location');
+        const redirectedUrl = location ? new URL(location, url) : null;
+        const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
+          && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
+
+        if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) {
+          continue;
+        }
+        attemptFailures.push(`${target.label} (${target.path}) expected HTTP ${target.expectedStatus} -> ${target.expectedPath} with query preserved; got HTTP ${response.status} -> ${location || 'no location'}`);
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : String(error);
+        lastStatus.set(target.path, 'network-error');
+        attemptFailures.push(`${target.label} (${target.path}) failed: ${detail}`);
+      }
+    }
+
     if (!attemptFailures.length) {
       passed = true;
-      console.log(`Built Worker SSR smoke passed on attempt ${attempt}: ${smokeTargets.length} critical route(s) returned HTTP 200 with required markers.`);
-      if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${smokeTargets.length} routes | ${attempt} attempt(s) |\n`);
+      console.log(`Built Worker SSR smoke passed on attempt ${attempt}: ${smokeTargets.length} render target(s) and ${redirectTargets.length} redirect target(s) passed.`);
+      if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${smokeTargets.length} render + ${redirectTargets.length} redirect target(s) | ${attempt} attempt(s) |\n`);
       break;
     }
 
@@ -178,7 +219,7 @@ try {
 
   if (!passed) {
     if (!failure) failure = `Built Worker did not become healthy within ${startupTimeoutMs}ms.`;
-    const statuses = smokeTargets.map((target) => `${target.path}=${lastStatus.get(target.path)}`).join(', ');
+    const statuses = [...smokeTargets, ...redirectTargets].map((target) => `${target.path}=${lastStatus.get(target.path)}`).join(', ');
     if (summaryPath) appendFileSync(summaryPath, `| ❌ FAIL | Built Worker SSR smoke | ${statuses} | predeploy local runtime |\n`);
     console.error(`::error title=Built Worker SSR smoke failed::${failure}`);
     if (captured.trim()) {
