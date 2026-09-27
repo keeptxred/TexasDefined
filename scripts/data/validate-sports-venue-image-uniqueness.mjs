@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const files = [
+  'src/data/sports-venue-images-curated-overrides.ts',
   'src/data/sports-venue-images.ts',
   'src/data/sports-venue-images-additions.ts',
   'src/data/sports-venue-images-additions-wave2.ts',
@@ -62,6 +63,13 @@ for (const file of files) {
   }
 }
 
+const dynamicRoute = fs.readFileSync('src/routes/sports-venue.$slug.tsx', 'utf8');
+const galaxyRoute = fs.readFileSync('src/routes/sports-venue.jones-att-stadium.tsx', 'utf8');
+const block = dynamicRoute.match(/const sportsVenueGuidePilotSlugs = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
+const dynamicSlugs = [...block.matchAll(/['"]([^'"]+)['"]/g)].map((match) => match[1]);
+const galaxySlug = galaxyRoute.match(/const stableSlug = ['"]([^'"]+)['"];/)?.[1] ?? '';
+const governed = new Set([...dynamicSlugs, galaxySlug].filter(Boolean));
+
 const failures = [];
 const collisions = (field, label) => {
   const groups = new Map();
@@ -82,7 +90,22 @@ collisions('imageUrl', 'image asset');
 collisions('sourcePage', 'image source page');
 
 const uniqueSlugs = new Set(records.map((record) => record.slug));
-if (uniqueSlugs.size !== 84) failures.push(`Expected image records covering 84 seeded venues; found ${uniqueSlugs.size}.`);
+const orphanSlugs = [...uniqueSlugs].filter((slug) => !governed.has(slug)).sort();
+const missingSlugs = [...governed].filter((slug) => !uniqueSlugs.has(slug)).sort();
+const reviewedFallbacks = new Set([
+  'amarillo-national-center',
+  'colonial-country-club',
+  'cy-fair-fcu-stadium',
+  'expo-center-taylor-county',
+  'hodgetown',
+  'houston-motorsports-park',
+  'waco-surf',
+]);
+const unexpectedMissing = missingSlugs.filter((slug) => !reviewedFallbacks.has(slug));
+
+if (!governed.size) failures.push('Could not derive governed sports-venue inventory.');
+if (orphanSlugs.length) failures.push(`Image records exist for nongoverned venues: ${orphanSlugs.join(', ')}.`);
+if (unexpectedMissing.length) failures.push(`Unexpected sports-venue image coverage regression: ${unexpectedMissing.join(', ')}.`);
 
 if (failures.length) {
   console.error('Sports venue image uniqueness audit failed:');
@@ -90,4 +113,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS: ${uniqueSlugs.size}/84 sports venues have governed image records and no image asset/source is reused across different venue slugs.`);
+console.log(`PASS: ${uniqueSlugs.size}/${governed.size} governed sports venues have approved image records, ${missingSlugs.length} intentionally fail closed (${missingSlugs.join(', ') || 'none'}), and no image asset/source is reused across different venue slugs.`);
