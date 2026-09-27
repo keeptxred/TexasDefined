@@ -58,7 +58,7 @@ function TexasRiverOrientationMap() {
         </div>
         <figcaption className="border-t border-border p-5 text-sm leading-6 text-muted-foreground lg:border-l lg:border-t-0">
           <p className="font-semibold text-foreground">Orientation map</p>
-          <p className="mt-2">Approximate river paths are shown to help readers orient themselves. Basin boundaries and legal/geographic analysis should use the official Texas Water Development Board map.</p>
+          <p className="mt-2">This simplified map shows the general path of major rivers. For exact basin boundaries, use the official Texas Water Development Board map.</p>
           <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block font-semibold text-primary underline decoration-border underline-offset-4">Open the official TWDB basin map ↗</a>
         </figcaption>
       </div>
@@ -98,7 +98,7 @@ export function TexasRiversAuthorityHub() {
       <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
         <div>
           <p className="eyebrow text-primary">Texas rivers at a glance</p>
-          <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Start with the statewide river map</h2>
+          <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">See Texas's Major Rivers on the Map</h2>
           <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">Texas Water Development Board data divides the state into 15 major river basins—areas of land where rain and streams drain toward the same major river system—plus eight coastal basins that drain directly toward bays and the Gulf. Use this overview to see how those systems fit together, then jump directly to the river you want to understand.</p>
         </div>
         <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
@@ -127,7 +127,7 @@ export function TexasRiversAfterArticle() {
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
           <div>
             <p className="eyebrow text-primary">Explore individual rivers</p>
-            <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Dedicated Texas Defined river profiles</h2>
+            <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore Texas River Guides</h2>
           </div>
           <Link to="/texas-explained" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">Texas Explained collection →</Link>
         </div>
@@ -135,7 +135,7 @@ export function TexasRiversAfterArticle() {
       </section>
 
       <section className="grid gap-5 md:grid-cols-2" style={{ marginTop: "3rem" }} aria-label="Choose the Texas water guide you need">
-        <Link to="/article/texas-river-basins-guide" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need watershed boundaries?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the basin guide when the question is drainage, watershed boundaries, coastal basins or how upstream land connects to downstream water.</p></Link>
+        <Link to="/article/texas-river-basins-guide" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Want to know what drains into each river?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the basin guide to see the land that drains into each major river, where neighboring drainage areas meet, and why changes upstream can affect water downstream.</p></Link>
         <Link to="/article/texas-lakes-reservoirs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need dams and lakes?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Lakes & Reservoirs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the reservoir guide for stored water, dams, flood control and why so many familiar Texas lakes are managed river systems.</p></Link>
         <Link to="/article/texas-aquifers-springs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need groundwater?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Aquifers & Springs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the aquifer guide to understand spring flow, groundwater connections and why some Central Texas rivers stay clear between storms.</p></Link>
         <Link to="/explore/lakes-rivers" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Want somewhere to go?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from the statewide explanation to river parks, swimming water, reservoirs and destination guides.</p></Link>
