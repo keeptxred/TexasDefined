@@ -106,9 +106,7 @@ function EntityPage() {
 
         {incomplete ? <section className="grid gap-6 border-b border-border py-8 lg:grid-cols-[14rem_1fr]">
           <div>
-            {entity.kind === 'county'
-              ? <span className="inline-flex rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-primary">County Guide In Progress</span>
-              : <p className="eyebrow text-primary">Guide status</p>}
+            <p className="eyebrow text-primary">{entity.kind === 'county' ? 'County reference' : 'Verified information'}</p>
             <h2 className="mt-3 font-display text-3xl">{statusHeading(entity)}</h2>
           </div>
           <div className="max-w-2xl">
@@ -166,19 +164,19 @@ function pageDescription(entity: TexasEntityRecord) {
 }
 
 function statusHeading(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return `We're Building Out ${countyDisplayName(entity.name)}`;
-  if (entity.kind === 'appraisal-district') return 'Office details are being verified';
-  if (entity.kind === 'tax-office') return 'Service details are being verified';
-  if (localGovernmentKinds.has(entity.kind)) return 'Public-service details are being verified';
-  return 'This guide is being expanded';
+  if (entity.kind === 'county') return `About ${countyDisplayName(entity.name)}`;
+  if (entity.kind === 'appraisal-district') return 'Verified appraisal-district information';
+  if (entity.kind === 'tax-office') return 'Verified tax-office information';
+  if (localGovernmentKinds.has(entity.kind)) return 'Verified public-service information';
+  return 'What we can verify';
 }
 
 function statusMessage(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return `TexasDefined is creating a detailed guide for every county in Texas, and ${countyDisplayName(entity.name)} is on our list. We’re currently researching and adding local history, communities, landmarks, things to do, government resources, and other useful county information. In the meantime, the checked county information below is already available. Check back soon as we continue building out all 254 Texas counties.`;
-  if (entity.kind === 'appraisal-district') return `This guide for ${entity.name} is still being completed. We are checking the district's official contact and property-appraisal resources before adding them.`;
-  if (entity.kind === 'tax-office') return `This guide for ${entity.name} is still being completed. We are checking official taxpayer, registration and local service information before adding it.`;
-  if (localGovernmentKinds.has(entity.kind)) return `This public-service guide is intentionally limited while Texas Defined checks the official local information. Details that have not been confirmed are left out.`;
-  return `Texas Defined is still building this guide from checked sources. We would rather show a clearly incomplete guide than pad the page with generic information.`;
+  if (entity.kind === 'county') return `Use this ${countyDisplayName(entity.name)} reference for the verified county facts, communities, official resources and local links currently available on Texas Defined. Additional local history and destination coverage appears only after it has been checked against reliable sources.`;
+  if (entity.kind === 'appraisal-district') return `Use this ${entity.name} reference for the official contact and property-appraisal resources Texas Defined has verified. Details that cannot yet be confirmed are omitted.`;
+  if (entity.kind === 'tax-office') return `Use this ${entity.name} reference for taxpayer, registration and local-service information verified against official sources. Unconfirmed details are omitted.`;
+  if (localGovernmentKinds.has(entity.kind)) return `This public-service reference includes information verified against authoritative local sources. Details that have not been confirmed are intentionally left out.`;
+  return `This reference includes the details Texas Defined can currently verify from reliable sources. Unverified details are intentionally omitted rather than replaced with generic information.`;
 }
 
 function countyDisplayName(value: string) {
