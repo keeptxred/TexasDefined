@@ -1,4 +1,4 @@
-import { createLazyFileRoute, Link } from '@tanstack/react-router';
+import { createLazyFileRoute, Link, Outlet, useRouterState } from '@tanstack/react-router';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
@@ -7,7 +7,13 @@ import { description, nextStops, sportsComparisonCsvPath, sportsComparisonPath }
 
 const editorialLabel = (value: string) => value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 
-export const Route = createLazyFileRoute('/texas-data')({ component: Page });
+export const Route = createLazyFileRoute('/texas-data')({ component: TexasDataRoute });
+
+function TexasDataRoute() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== '/texas-data' && pathname !== '/texas-data/') return <Outlet />;
+  return <Page />;
+}
 
 function Page() {
   const { datasets } = Route.useLoaderData();

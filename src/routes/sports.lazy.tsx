@@ -1,4 +1,4 @@
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { createLazyFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
@@ -6,7 +6,13 @@ import { SportsVenueLandingIndex } from "@/components/sports/SportsVenueLandingI
 
 const description = "Friday night lights, dusty rodeo arenas, big-league Sundays and the small rituals that turn a game into a Texas tradition.";
 
-export const Route = createLazyFileRoute("/sports")({ component: SportsPage });
+export const Route = createLazyFileRoute("/sports")({ component: SportsRoute });
+
+function SportsRoute() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== "/sports" && pathname !== "/sports/") return <Outlet />;
+  return <SportsPage />;
+}
 
 function SportsPage() {
   return <>

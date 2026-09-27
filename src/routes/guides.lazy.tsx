@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { createLazyFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { DepartmentHero } from "@/components/editorial/DepartmentHero";
@@ -58,7 +58,13 @@ const TOPIC_LABELS: Record<string, { eyebrow: string; title: string }> = {
 };
 const editorialLabel = (value: string) => value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
-export const Route = createLazyFileRoute("/guides")({ component: GuidesPage });
+export const Route = createLazyFileRoute("/guides")({ component: GuidesRoute });
+
+function GuidesRoute() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== "/guides" && pathname !== "/guides/") return <Outlet />;
+  return <GuidesPage />;
+}
 
 function GuidesPage() {
   const { data: guides } = useSuspenseQuery(guidesQuery());
