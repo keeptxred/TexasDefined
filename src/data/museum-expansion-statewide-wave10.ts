@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave10Destinations: Destination[] = [
     body: [
       "The Republic of the Rio Grande existed only briefly in 1840, but its story captures the political uncertainty that shaped the lower Rio Grande before the modern U.S.-Mexico boundary hardened. The museum gives that episode a physical setting inside one of Laredo's most important historic districts.",
       "Period rooms interpret household and ranching life with furniture, textiles, utensils and archival material, while the front gallery explains the republic itself. That combination keeps the site from functioning only as a political-history marker; visitors see how borderland families lived during the same era.",
-      "For TexasDefined, the museum becomes a natural Webb County authority anchor linking Laredo, San Agustin Plaza, El Camino Real de los Tejas, borderlands history and the neighboring Villa Antigua Border Heritage Museum through a coherent walking cluster."
+      "The museum becomes a natural Webb County authority anchor linking Laredo, San Agustin Plaza, El Camino Real de los Tejas, borderlands history and the neighboring Villa Antigua Border Heritage Museum through a coherent walking cluster."
     ],
     officialUrl: "https://webbcountytx.gov/HistoricalCommission/Museum/",
     managingAuthority: "Webb County Heritage Foundation / Webb County",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave10Destinations: Destination[] = [
     body: [
       "Mifflin Kenedy became wealthy first through Rio Grande steamboat operations and later through vast South Texas landholdings, ranching and business development. The museum uses the family's own company headquarters to connect those enterprises to the landscape where they unfolded.",
       "Exhibits follow the Kenedy family across three generations and place vaquero culture, fencing, railroads, oil and town development inside the broader transformation of the Wild Horse Desert. The surviving building gives the story a stronger sense of place than a ranching exhibit removed from the ranch's headquarters community.",
-      "For TexasDefined, this destination gives tiny Kenedy County a major heritage anchor and creates useful cross-links to Sarita, Kingsville-area ranch history, South Texas road trips and regional conservation without duplicating generic ranch or county pages."
+      "This destination gives tiny Kenedy County a major heritage anchor and creates useful cross-links to Sarita, Kingsville-area ranch history, South Texas road trips and regional conservation without duplicating generic ranch or county pages."
     ],
     officialUrl: "https://kenedy.org/museum/museum-information/",
     managingAuthority: "John G. and Marie Stella Kenedy Memorial Foundation",
@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave10Destinations: Destination[] = [
     body: [
       "The South Texas Museum is housed in a building created for prominent ranchers Claude and Frank McGill, whose cattle operations and civic roles helped shape early Jim Wells County. That ranching-office setting makes the architecture part of the museum's regional story.",
       "Collections extend beyond cattle into railroad, political and household history. Longstanding exhibits have included material connected to the region's rail lines and the complicated political history that made Alice nationally known during the twentieth century.",
-      "For TexasDefined, the museum adds a source-backed Alice and Jim Wells County destination that complements Tejano music, ranching and South Texas cultural coverage while giving the county page a direct museum cross-link."
+      "The museum adds a source-backed Alice and Jim Wells County destination that complements Tejano music, ranching and South Texas cultural coverage while giving the county page a direct museum cross-link."
     ],
     officialUrl: "https://atlas.thc.texas.gov/Details/4200001232",
     managingAuthority: "South Texas Museum Corporation",
@@ -136,7 +136,7 @@ export const statewideMuseumExpansionWave10Destinations: Destination[] = [
     body: [
       "The Brush Country Museum grew from a one-room schoolhouse donated to the La Salle County Historical Commission and later expanded with another historic property. Its collections focus on photographs, rooms and objects that make the county's ranching and small-town history tangible.",
       "Education is one of the site's most important themes. Interpretation addresses the segregated Hispanic and Anglo school systems and connects the museum to nearby Welhausen School, where a young Lyndon B. Johnson taught and served as principal before his political career.",
-      "For TexasDefined, the museum is the current authority destination behind older La Salle County museum labels. It ties Cotulla, courthouse history, ranching, LBJ history and the Winter Garden/Brush Country region together while clearly warning travelers about volunteer-scale operating hours."
+      "The museum is the current authority destination behind older La Salle County museum labels. It ties Cotulla, courthouse history, ranching, LBJ history and the Winter Garden/Brush Country region together while clearly warning travelers about volunteer-scale operating hours."
     ],
     officialUrl: "https://atlas.thc.texas.gov/Details/4200000642",
     managingAuthority: "La Salle County Historical Commission",
