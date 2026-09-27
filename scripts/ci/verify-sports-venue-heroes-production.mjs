@@ -4,17 +4,7 @@ const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
-const fallbackText = 'Venue details and planning information continue below.';
-
-const wave7RealPhotoAttribution = {
-  'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0'],
-  'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0'],
-};
-const wave7GeneratedAttribution = [
-  'Editorial illustration by',
-  'Cloudflare Workers AI / FLUX.1 schnell',
-  'for TexasDefined; not documentary photography.',
-];
+const fallbackText = 'A verified venue photograph is not available yet.';
 
 const registryPaths = [
   'src/data/sports-venue-images-curated-overrides.ts',
@@ -59,33 +49,19 @@ for (const registryPath of registryPaths) {
   }
 }
 
-const repairedWave7 = [
-  ['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas'],
-  ['childrens-health-stadium-prosper', "AI-generated photorealistic editorial depiction of Children's Health Stadium in Prosper, Texas"],
-  ['colonial-country-club', 'AI-generated photorealistic editorial depiction of Colonial Country Club in Fort Worth, Texas'],
-  ['cy-fair-fcu-stadium', 'AI-generated photorealistic editorial depiction of Cy-Fair FCU Stadium in Cypress, Texas'],
-  ['expo-center-taylor-county', 'AI-generated photorealistic editorial depiction of Taylor County Expo Center in Abilene, Texas'],
-  ['hodgetown', 'AI-generated photorealistic editorial depiction of Hodgetown in Amarillo, Texas'],
-  ['houston-motorsports-park', 'AI-generated photorealistic editorial depiction of Houston Motorsports Park in Houston, Texas'],
-  ['legacy-stadium-katy', 'AI-generated photorealistic editorial depiction of Legacy Stadium in Katy, Texas'],
-  ['memorial-park-golf-course', 'AI-generated photorealistic editorial depiction of Memorial Park Golf Course in Houston, Texas'],
-  ['national-shooting-complex', 'AI-generated photorealistic editorial depiction of National Shooting Complex in San Antonio, Texas'],
-  ['pga-frisco-fields-ranch', 'AI-generated photorealistic editorial depiction of PGA Frisco / Fields Ranch in Frisco, Texas'],
-  ['retama-park', 'Quarter horse racing at Retama Park in Selma, Texas'],
-  ['round-rock-sports-center', 'Round Rock Sports Center in Round Rock, Texas'],
-  ['texas-motorplex', 'Texas Motorplex in Ennis, Texas'],
-  ['tpc-san-antonio', 'PGA Tour golfer Martin Trainer on the course at TPC San Antonio during the Valero Texas Open'],
-  ['waco-surf', 'AI-generated photorealistic editorial depiction of Waco Surf in Waco, Texas'],
-].map(([slug]) => {
+const representativePhotoSlugs = [
+  'round-rock-sports-center',
+  'texas-motorplex',
+  'legacy-stadium-katy',
+  'retama-park',
+  'pga-frisco-fields-ranch',
+];
+
+const representativePhotos = representativePhotoSlugs.map((slug) => {
   const governedPhoto = governedPhotos.get(slug);
-  if (!governedPhoto) throw new Error(`Missing governed sports venue photo metadata for ${slug}.`);
+  if (!governedPhoto) throw new Error(`Missing governed documentary sports venue photo metadata for ${slug}.`);
   const expectedImageUrl = governedPhoto.imageUrl;
   const assetPath = expectedImageUrl.startsWith('/') ? expectedImageUrl : undefined;
-  const generated = governedPhoto.sourceName === 'Texas Defined generated media'
-    || /^AI-generated\b/i.test(governedPhoto.licenseName);
-  const attributionMarkers = generated
-    ? wave7GeneratedAttribution
-    : [governedPhoto.sourceName, governedPhoto.author, governedPhoto.licenseName];
   return {
     label: `${slug}-hero`,
     path: `/sports-venue/${slug}`,
@@ -98,7 +74,9 @@ const repairedWave7 = [
         `content="${origin}${expectedImageUrl}"`,
       ] : []),
       governedPhoto.alt,
-      ...attributionMarkers,
+      governedPhoto.sourceName,
+      governedPhoto.author,
+      governedPhoto.licenseName,
     ],
   };
 });
@@ -156,7 +134,16 @@ const venues = [
       'HavanaHeat',
     ],
   },
-  ...repairedWave7,
+  ...representativePhotos,
+  {
+    label: 'amarillo-national-center-fallback',
+    path: '/sports-venue/amarillo-national-center',
+    expectFallback: true,
+    required: [
+      'Amarillo National Center',
+      fallbackText,
+    ],
+  },
 ];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -315,7 +302,7 @@ function decodeHtmlText(value) {
     .replace(/&gt;/g, '>');
 }
 
-async function verifyVenue({ label, path, required, assetPath, expectedImageUrl, heroEndpointPath }) {
+async function verifyVenue({ label, path, required, assetPath, expectedImageUrl, heroEndpointPath, expectFallback = false }) {
   let lastStatus = 'network-error';
   let lastBody = '';
   let lastError = '';
@@ -360,9 +347,12 @@ async function verifyVenue({ label, path, required, assetPath, expectedImageUrl,
       lastAsset = await inspectLocalAsset(assetPath, token);
       lastEndpoint = await inspectHeroEndpoint(heroEndpointPath, expectedImageUrl ?? assetPath, token);
 
-      if (!lastChallenge && response.ok && missing.length === 0 && !fallbackPresent && lastAsset.ok && lastEndpoint.ok) {
-        console.log(`[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, any governed local asset is healthy, and the same-origin hero endpoint redirects exactly to the governed image target with healthy image delivery.`);
-        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | no | ${lastAsset.status} | ${lastEndpoint.status} | ${lastEndpoint.finalTarget || 'n/a'} | 0 |\n`);
+      const fallbackStateOk = expectFallback ? fallbackPresent : !fallbackPresent;
+      if (!lastChallenge && response.ok && missing.length === 0 && fallbackStateOk && lastAsset.ok && lastEndpoint.ok) {
+        console.log(expectFallback
+          ? `[${label}] verified (${response.status}): no approved documentary hero is registered and the fail-closed fallback is present.`
+          : `[${label}] verified (${response.status}): registered hero and attribution are present, fallback is absent, any governed local asset is healthy, and the same-origin hero endpoint redirects exactly to the governed image target with healthy image delivery.`);
+        appendSummary(`| ✅ pass | ${label} | ${lastStatus} | ${attempts} | ${fallbackPresent ? 'yes' : 'no'} | ${lastAsset.status} | ${lastEndpoint.status} | ${lastEndpoint.finalTarget || 'n/a'} | 0 |\n`);
         return;
       }
 
@@ -372,7 +362,8 @@ async function verifyVenue({ label, path, required, assetPath, expectedImageUrl,
         console.log(`[${label}] HTTP ${response.status}; waiting for production to become healthy.`);
       } else {
         if (missing.length) console.log(`[${label}] registered hero/attribution markers missing: ${missing.join(' | ')}`);
-        if (fallbackPresent) console.log(`[${label}] fail-closed photo fallback is still being rendered.`);
+        if (expectFallback && !fallbackPresent) console.log(`[${label}] expected fail-closed photo fallback is missing.`);
+        if (!expectFallback && fallbackPresent) console.log(`[${label}] fail-closed photo fallback is unexpectedly rendered despite an approved hero.`);
         if (!lastAsset.ok) console.log(`[${label}] local hero asset unhealthy: status=${lastAsset.status} bytes=${lastAsset.bytes} type=${lastAsset.contentType || 'unknown'} error=${lastAsset.error || 'none'}`);
         if (!lastEndpoint.ok) console.log(`[${label}] same-origin hero endpoint mismatch: redirectStatus=${lastEndpoint.status} healthStatus=${lastEndpoint.healthStatus} actual=${lastEndpoint.actualLocation || 'unknown'} expected=${lastEndpoint.expectedLocation || 'n/a'} finalTarget=${lastEndpoint.finalTarget || 'unknown'} bytes=${lastEndpoint.bytes} type=${lastEndpoint.contentType || 'unknown'} error=${lastEndpoint.error || 'none'}`);
       }
@@ -392,7 +383,8 @@ async function verifyVenue({ label, path, required, assetPath, expectedImageUrl,
   const reason = lastError
     || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
     || (lastStatus !== '200' ? `HTTP ${lastStatus}` : '')
-    || (fallbackPresent ? 'photo fallback is still rendered despite a registered venue hero' : '')
+    || (expectFallback && !fallbackPresent ? 'expected fail-closed photo fallback is missing' : '')
+    || (!expectFallback && fallbackPresent ? 'photo fallback is rendered despite a registered venue hero' : '')
     || (!lastAsset.ok ? `local hero asset unhealthy: status=${lastAsset.status}, bytes=${lastAsset.bytes}, type=${lastAsset.contentType || 'unknown'}, error=${lastAsset.error || 'none'}` : '')
     || (!lastEndpoint.ok ? `same-origin hero endpoint failed governed redirect/image health: redirectStatus=${lastEndpoint.status}, healthStatus=${lastEndpoint.healthStatus}, actual=${lastEndpoint.actualLocation || 'unknown'}, expected=${lastEndpoint.expectedLocation || 'n/a'}, finalTarget=${lastEndpoint.finalTarget || 'unknown'}, bytes=${lastEndpoint.bytes}, type=${lastEndpoint.contentType || 'unknown'}, error=${lastEndpoint.error || 'none'}` : '')
     || `required hero/attribution markers missing: ${missing.join(' | ')}`;
@@ -408,4 +400,4 @@ for (const venue of venues) {
   await verifyVenue(venue);
 }
 
-console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; ${repairedWave7.length} repaired Wave 7 pages include governed local-or-remote image health, exact same-origin hero redirects and attribution checks).`);
+console.log(`TexasDefined sports venue hero production verification passed (${venues.length} protected venues; approved documentary/owner-authorized heroes render with attribution, Xtreme remains protected, and an intentionally unsupported venue retains the fail-closed fallback).`);
