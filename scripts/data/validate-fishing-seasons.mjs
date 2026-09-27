@@ -50,8 +50,11 @@ for (const token of [
 ]) requireText(route, token, `season route contract missing ${token}`);
 
 for (const token of [
-  "patterns, not promises",
-  "Seasonal guidance is not today's bite",
+  "When to fish Texas lakes.",
+  "Choose a lake and the fish you want to catch.",
+  "All seasons",
+  "All fish species",
+  "Check current conditions before you go.",
   "year-round",
   "fresh fishing reports",
   "current regulations",
