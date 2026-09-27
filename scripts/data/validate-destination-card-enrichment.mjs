@@ -27,7 +27,7 @@ if (!card.includes('Number.isNaN(date.getTime())')) errors.push('Destination car
 for (const feature of [
   'destinationCardImageFallbacks',
   '"caddo-lake-national-wildlife-refuge"',
-  'Photo unavailable',
+  'recoverOrHideImage',
   'onError={(event) =>',
   'image.dataset.fallback',
   'image.style.display = "none"',
