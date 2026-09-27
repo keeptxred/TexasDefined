@@ -9,6 +9,7 @@ const paths = {
   directoryLazy: "src/routes/fishing.techniques.lazy.tsx",
   profileRoute: "src/routes/fishing.techniques.$slug.tsx",
   profileLazy: "src/routes/fishing.techniques.$slug.lazy.tsx",
+  duplicatePrefixRedirect: "src/routes/fishing.fishing.techniques.$slug.tsx",
   directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
   hubRoute: "src/routes/fishing.tsx",
@@ -53,6 +54,7 @@ for (const token of ["No generic tackle encyclopedia",'method="get"','name="cate
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
+for (const token of ['createFileRoute("/fishing/fishing/techniques/$slug")','statusCode: 301','fishingTechniqueCanonicalPath(params.slug)','FISHING_TECHNIQUES_DIRECTORY_PATH']) requireText(files.duplicatePrefixRedirect, token, `duplicate-prefix recovery route missing ${token}`);
 for (const token of ["Verified lake applications, not a universal ranking","not today's answer","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, `profile UI contract missing ${token}`);
 
 for (const [routeName, routeText, componentPath] of [
@@ -79,6 +81,7 @@ requireText(files.links, 'kind: "technique"', "internal-link technique kind miss
 requireText(files.links, "fishing-reference:techniques", "internal-link directory entity missing");
 requireText(files.links, "fishing-technique:", "internal-link profile entities missing");
 requireText(files.publicRoutes, '"/fishing/techniques"', "public-route directory governance missing");
+if (files.publicRoutes.includes('"/fishing/fishing/')) throw new Error("Fishing Batch 13 validation failed: malformed duplicated fishing prefix entered public-route discovery.");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-techniques.mjs", "Batch 13 validator not wired into fishing:validate");
 
 console.log("Fishing Batch 13 techniques validation passed: nine verified source-backed profiles, native TanStack lazy file routes, server-side SEO head payloads, complete-lake gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
