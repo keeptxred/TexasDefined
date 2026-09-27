@@ -263,15 +263,15 @@ const technique = (id: string, name: string, summary: string, category: FishingT
 });
 
 export const fishingTechniques: FishingTechnique[] = [
-  technique("soft-plastics", "Soft plastics", "Worms, creature baits and other soft plastics worked through cover, docks, vegetation, points and deeper structure.", "casting"),
+  technique("soft-plastics", "Soft Plastics", "Worms, creature baits and other soft plastics worked through cover, docks, vegetation, points and deeper structure.", "casting"),
   technique("crankbaits", "Crankbaits", "Moving hard baits used to cover water around shoreline cover, points, vegetation edges and deeper structure.", "casting"),
   technique("spinnerbaits", "Spinnerbaits", "Reaction baits used around shallow cover, vegetation, timber and stained water.", "casting"),
   technique("topwater", "Topwater", "Surface presentations most often used in low light, schooling activity or seasonally shallow fish.", "casting"),
   technique("trolling", "Trolling", "Open-water presentation used for roaming striped and hybrid bass and other pelagic fish.", "trolling"),
-  technique("vertical-jigging", "Vertical jigging", "Spoons, slabs and jigs worked vertically over fish, structure or open-water schools.", "vertical"),
-  technique("jigs-and-minnows", "Jigs and minnows", "A core crappie approach around brush, timber, bridges, channels and seasonal spawning cover.", "bait"),
-  technique("live-bait", "Live bait", "Natural live presentations such as shad or minnows used for bass, striped bass, crappie and catfish depending on the water body.", "bait"),
-  technique("cut-bait", "Cut bait", "Fresh cut bait presented on bottom, channels, flats and other catfish water.", "bait"),
+  technique("vertical-jigging", "Vertical Jigging", "Spoons, slabs and jigs worked vertically over fish, structure or open-water schools.", "vertical"),
+  technique("jigs-and-minnows", "Jigs and Minnows", "A core crappie approach around brush, timber, bridges, channels and seasonal spawning cover.", "bait"),
+  technique("live-bait", "Live Bait", "Natural live presentations such as shad or minnows used for bass, striped bass, crappie and catfish depending on the water body.", "bait"),
+  technique("cut-bait", "Cut Bait", "Fresh cut bait presented on bottom, channels, flats and other catfish water.", "bait"),
 ];
 
 const relationSource = (source: FishingSource) => [source];
