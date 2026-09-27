@@ -11,6 +11,7 @@ const paths = {
   profileLazy: "src/routes/fishing.techniques.$slug.lazy.tsx",
   directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
+  guideContent: "src/data/fishing/technique-guide-content.ts",
   hubRoute: "src/routes/fishing.tsx",
   hubComponent: "src/components/fishing/FishingHub.tsx",
   fixtures: "src/data/fishing/fixtures.ts",
@@ -47,7 +48,7 @@ requireText(files.functions, "loadFishingTechniqueProfileServer", "profile serve
 
 for (const token of ["buildFishingTechniqueDirectoryHead",'"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.server, token, `directory server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques")','head: ({ loaderData }) => loaderData?.head ?? {}']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
-for (const token of ['createLazyFileRoute("/fishing/techniques")','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
+for (const token of ['createLazyFileRoute("/fishing/techniques")','useChildMatches','if (childMatches.length > 0) return <Outlet />','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
 for (const token of ["No generic tackle encyclopedia",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
 
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
