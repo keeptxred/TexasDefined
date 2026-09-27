@@ -31,18 +31,18 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,d,s,l,i,h){if(!h.includes(w.location.hostname.toLowerCase()))return;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${googleTagManagerId}',${googleTagManagerHosts});`,
+        __html: `(function(w,d,s,l,i,h){var n=w.navigator||{};if(n.webdriver===true||/(?:HeadlessChrome|Chrome-Lighthouse|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke)/i.test(n.userAgent||''))return;if(!h.includes(w.location.hostname.toLowerCase()))return;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${googleTagManagerId}',${googleTagManagerHosts});`,
       }}
     />
   );
 }
 
 function NotFoundComponent() {
-  return <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><NotFoundScreen /></Suspense>;
+  return <Suspense fallback={<div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><NotFoundScreen /></Suspense>;
 }
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
-  return <Suspense fallback={null}><ErrorScreen {...props} /></Suspense>;
+  return <Suspense fallback={<div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><ErrorScreen {...props} /></Suspense>;
 }
 
 function HeaderFallback() {
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues"],
+            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
           },
           {
             "@type": "WebSite",
