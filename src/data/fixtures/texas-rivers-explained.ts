@@ -110,7 +110,7 @@ export const texasRiversExplainedArticle: Article = {
       "North Texas: the Trinity drains the Dallas-Fort Worth region toward Trinity Bay, while the Red River forms much of the Texas-Oklahoma boundary.",
       "East Texas: Sabine and Neches systems run through the wetter Piney Woods toward Sabine Lake and the Gulf Coast."
     ),
-    h("Start with the basin, not just the river"),
+    h("How a Texas River Is Born"),
     p("A river makes more sense when you think about everything that drains toward it. That entire drainage area is its basin or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street eventually either soaks into the ground, evaporates or begins moving downhill through creeks and tributaries toward a larger river system."),
     p("The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. The coastal basins occupy the areas between the larger named river systems and drain directly toward bays and the Gulf. On a map, those basin boundaries create a set of broad natural districts that ignore county lines and city limits."),
     p("That is useful because water does the same thing. A fast-growing suburb can affect a creek that crosses several counties. A reservoir hundreds of miles upstream can influence flows downstream. Heavy rain in one part of a basin can produce flooding somewhere that never saw the storm."),
