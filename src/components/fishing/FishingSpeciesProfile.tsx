@@ -38,7 +38,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-range-habitat">
         <div>
           <p className="eyebrow text-primary">Texas range & habitat</p>
-          <h2 id="species-range-habitat" className="mt-3 font-display text-4xl">Where the verified Texas records put {species.commonName.toLowerCase()}.</h2>
+          <h2 id="species-range-habitat" className="mt-3 font-display text-4xl">Texas Range and Habitat for {species.commonName}</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">This is a fishing-planning view of the published TexasDefined lake relationships, not a biological range map. It shows only regions and habitat signals supported by the verified lake records behind this page.</p>
           {data.regions.length ? <div className="mt-6"><p className="eyebrow text-muted-foreground">Regions represented</p><div className="mt-3 flex flex-wrap gap-2">{data.regions.map((region) => <span key={region} className="border border-border px-3 py-1.5 text-xs">{formatRegion(region)}</span>)}</div></div> : null}
         </div>
@@ -50,7 +50,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
 
       <section className="border-b border-border py-12" aria-labelledby="species-seasonal">
         <p className="eyebrow text-primary">Seasonal behavior in the lake records</p>
-        <h2 id="species-seasonal" className="mt-3 font-display text-4xl">How the verified patterns change through the year</h2>
+        <h2 id="species-seasonal" className="mt-3 font-display text-4xl">Season-by-Season Patterns</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are durable seasonal observations attached to specific lakes. They are not a live bite forecast.</p>
         {data.seasonalPatterns.length ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">{data.seasonalPatterns.slice(0, 12).map((pattern, index) => <article key={`${pattern.lake.id}-${pattern.season}-${index}`} className="border-t border-border py-6"><div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl">{titleCase(pattern.season)}</h3><a href={pattern.href} className="text-xs text-primary hover:underline">{pattern.lake.name}</a></div><p className="mt-3 text-sm leading-7 text-muted-foreground">{pattern.summary}</p>{pattern.habitats?.length ? <p className="mt-3 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Habitat:</strong> {pattern.habitats.join(" · ")}</p> : null}{pattern.methods?.length ? <p className="mt-2 text-xs leading-5 text-muted-foreground"><strong className="text-foreground">Methods:</strong> {pattern.methods.join(" · ")}</p> : null}</article>)}</div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified seasonal pattern is attached to this species yet.</p>}
       </section>
@@ -79,7 +79,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
             <a href={row.href} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {row.lake.name} →</a>
           </article>)}
         </div> : <div className="mt-8 border-y border-border py-9">
-          <h3 className="font-display text-2xl">No verified lake relationship is published for this fish yet.</h3>
+          <h3 className="font-display text-2xl">No TexasDefined Lake Guide Is Linked Yet</h3>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The species guide remains useful for identification and statewide fishing context, but TexasDefined will not invent lake recommendations. The finder will gain results as verified lake relationships are added.</p>
           <a href={finderHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Check the lake finder →</a>
         </div>}
@@ -88,7 +88,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       <section className="border-y border-border py-12" aria-labelledby="species-techniques">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">How to fish for them</p>
-          <h2 id="species-techniques" className="mt-3 font-display text-4xl">Techniques supported by the lake data</h2>
+          <h2 id="species-techniques" className="mt-3 font-display text-4xl">Fishing Techniques for {species.commonName}</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Methods appear only when a verified lake-technique relationship explicitly includes {species.commonName.toLowerCase()}. This keeps generic tackle advice separate from sourced lake guidance.</p>
         </div>
         {data.techniqueApplications.length > 0 ? <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
@@ -105,7 +105,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
 
       <section className="border-b border-border py-12" aria-labelledby="species-methods">
         <p className="eyebrow text-primary">Tackle & approach</p>
-        <h2 id="species-methods" className="mt-3 font-display text-4xl">Methods actually represented in the source-backed lake data</h2>
+        <h2 id="species-methods" className="mt-3 font-display text-4xl">Fishing Methods in Our Lake Guides</h2>
         {data.methods.length ? <div className="mt-6 flex flex-wrap gap-2">{data.methods.map((method) => <span key={method} className="border border-border px-3 py-1.5 text-sm">{method}</span>)}</div> : <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">No method labels are published in the verified seasonal relationships yet. Use the technique applications above where available.</p>}
         <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not turn these method labels into universal rod, line or lure prescriptions. Cover, water clarity, depth, weather and the individual lake should drive tackle choices.</p>
       </section>
