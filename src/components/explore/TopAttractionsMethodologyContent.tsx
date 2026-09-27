@@ -68,7 +68,7 @@ export function TopAttractionsMethodologyContent() {
 
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="Shared comparison scale" title="How the editorial planning fields work" description="The same dimensions are used across all 25 so unlike attractions can be compared without pretending a national park and a museum deserve the same kind of star score." />
+        <SectionHeader eyebrow="Shared comparison scale" title="How the editorial planning fields work" description="The same dimensions are used across all 25 so unlike attractions can be compared consistently while still accounting for the differences between a national park, museum and other attraction types." />
         <dl className="mt-10 divide-y divide-border border-y border-border">
           {scales.map(([term, definition]) => <div key={term} className="grid gap-2 py-5 md:grid-cols-[220px_1fr]"><dt className="font-display text-2xl">{term}</dt><dd className="text-sm leading-7 text-muted-foreground">{definition}</dd></div>)}
         </dl>
