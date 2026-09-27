@@ -20,7 +20,7 @@ const profiles = [
 for (const marker of [
   'title: "Major Rivers of Texas: Basins, Regions & Waterways Explained"',
   'major rivers and river basins of Texas',
-  'Major Texas rivers by region and basin',
+  'Where Texas's Major Rivers Flow',
   'West Texas and the mountains',
   'Central Texas and the plains',
   'Hill Country and South-Central Texas',
