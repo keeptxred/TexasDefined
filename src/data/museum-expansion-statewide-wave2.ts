@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Amarillo Museum of Art provides a visual-arts counterpoint to the Panhandle's ranching, transportation and frontier museums. Its galleries rotate through exhibitions drawn from the permanent collection and visiting artists, giving travelers a cultural stop that changes significantly from one visit to the next.",
       "The museum's setting on the Amarillo College campus places it within the Amarillo Cultural District rather than on an isolated attraction corridor. That makes it easy to combine with architecture, performing arts and other city institutions while staying close to central Amarillo.",
-      "For TexasDefined, AMoA also strengthens an internal-link cluster that already includes Amarillo, Route 66, Cadillac Ranch and regional history. A visitor can move from the city's roadside iconography to a curated museum environment and see a broader picture of how the Panhandle presents itself through art."
+      "AMoA also fits naturally into an Amarillo itinerary that includes Route 66, Cadillac Ranch and regional history. A visitor can move from the city's roadside iconography to a curated museum environment and see a broader picture of how the Panhandle presents itself through art."
     ],
     officialUrl: "https://www.amoa.org/visit",
     managingAuthority: "Amarillo Museum of Art / Amarillo College",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "The Permian Basin Petroleum Museum is the strongest single museum introduction to the geology and industry behind modern Midland. Its interpretation begins long before drilling, using the region's deep geologic history to explain how petroleum deposits formed before moving into exploration, production and the people who built an energy economy around them.",
       "Interactive exhibits and historic material connect technical subjects with boomtown life and industry culture. The museum's Petroleum Hall of Fame adds a biographical layer, while art and archival collections show how the oil business shaped the identity of West Texas far beyond the wellhead.",
-      "The museum belongs in the same TexasDefined route cluster as the Bush Family Home, Odessa and other Permian Basin county guides. Those cross-links let travelers understand both sides of Midland's twentieth-century growth: the energy industry that created rapid wealth and population change, and the families and civic institutions that grew inside that economy."
+      "The museum pairs naturally with the Bush Family Home, Odessa and other Permian Basin history stops. Together they help travelers understand both sides of Midland's twentieth-century growth: the energy industry that created rapid wealth and population change, and the families and civic institutions that grew inside that economy."
     ],
     officialUrl: "https://petroleummuseum.org/visitors/",
     managingAuthority: "Permian Basin Petroleum Museum",

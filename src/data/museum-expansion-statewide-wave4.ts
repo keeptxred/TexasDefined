@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Chisholm Trail Heritage Museum uses cowboy culture as an entry point into a much wider history of ranching in Texas and the Americas. Its Horsemen of the Americas collection places North American cattle traditions beside related material from Mexico and South America, while saddlery, spurs and other working equipment emphasize craftsmanship as well as function.",
       "The museum campus is part of the experience. Historic buildings in central Cuero connect the collections to the architecture and commercial life of a South Texas cattle town rather than placing the story inside an anonymous exhibit hall. Native American material and changing exhibitions broaden the interpretation beyond the trail-drive era alone.",
-      "For TexasDefined, the museum gives DeWitt County a substantial destination anchor that can connect Cuero, ranching, cattle trails, South Texas heritage and nearby small-town itineraries. It turns a familiar Texas theme into a location-specific authority page instead of repeating generic cowboy history."
+      "The museum gives DeWitt County a substantial visitor destination connecting Cuero, ranching, cattle trails, South Texas heritage and nearby small-town itineraries. It turns a familiar Texas theme into a location-specific story instead of repeating generic cowboy history."
     ],
     officialUrl: "https://chisholmtrailmuseum.org/",
     managingAuthority: "Chisholm Trail Heritage Museum",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Museum of the Coastal Bend gives Victoria a museum whose timeline begins thousands of years before the city itself. Archaeology and material culture introduce the region's earliest inhabitants before the galleries move through French, Spanish and Mexican efforts to control and settle the Texas coast.",
       "Fort St. Louis and La Salle's failed French colony give the museum statewide significance, while ranching exhibits connect those colonial stories to an industry that became central to Texas identity. The public archaeology program also lets visitors see how knowledge about the region is recovered and interpreted rather than presenting history as a finished set of facts.",
-      "A canonical TexasDefined destination here strengthens Victoria County and the Gulf Coast heritage network at the same time. It naturally links Victoria city coverage with archaeology, ranching, colonial Texas and the broader Coastal Bend rather than leaving those subjects as disconnected articles."
+      "This Victoria destination strengthens a broader Gulf Coast heritage itinerary. It naturally connects archaeology, ranching, colonial Texas and the wider Coastal Bend rather than leaving those subjects isolated."
     ],
     officialUrl: "https://www.museumofthecoastalbend.org/",
     managingAuthority: "Victoria College",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Sam Houston Memorial Museum is unusually powerful because much of the interpretation happens on property Houston actually owned. The Woodland Home remains on its original site, while the Steamboat House and other historic structures create a landscape where political biography, domestic life and nineteenth-century Texas can be understood together.",
       "The institution's expanded name reflects its role as the Republic of Texas Presidential Library as well as a biographical museum. Collections document Houston as soldier, president of the Republic, U.S. senator and Texas governor, while public programs use the grounds to interpret everyday life during the period in which those political events unfolded.",
-      "This page complements rather than duplicates the Texas Prison Museum added elsewhere in Huntsville. Together they give Walker County two very different authority anchors—one for the Republic and Sam Houston, one for corrections history—while linking naturally to SHSU, Huntsville and broader Texas political history."
+      "This museum complements rather than duplicates the Texas Prison Museum elsewhere in Huntsville. Together they give Walker County two very different history stops—one centered on the Republic and Sam Houston, the other on corrections history—while connecting naturally to SHSU and the wider city story."
     ],
     officialUrl: "https://www.samhoustonmemorialmuseum.com/",
     managingAuthority: "Sam Houston State University",
