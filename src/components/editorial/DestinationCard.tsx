@@ -5,6 +5,7 @@ import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliatio
 import type { Destination } from "@/data/types";
 
 type DestinationCardDestination = Pick<Destination, "slug" | "name" | "summary" | "nearestTown" | "county" | "hero" | "bestSeason" | "highlights" | "sourceCheckedAt">;
+import { showImageFallbackLabel } from "@/lib/image-fallback";
 import { cn } from "@/lib/utils";
 
 function locationLabel(destination: DestinationCardDestination, regionLabel?: string) {
@@ -54,7 +55,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
   return <div className={cn(frameClass, "relative overflow-hidden bg-[linear-gradient(145deg,hsl(var(--muted)),hsl(var(--secondary))_52%,hsl(var(--primary)/0.18))]")}>
     <div aria-hidden className="absolute inset-0">
       <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_72%_24%,hsl(var(--primary))_0,transparent_28%),linear-gradient(160deg,transparent_42%,hsl(var(--ink)/0.28)_43%,hsl(var(--ink)/0.28)_58%,transparent_59%)]" />
-      <span className="eyebrow absolute left-5 top-5 text-foreground/65">Photo unavailable</span>
+      <span data-image-fallback-label="Photo unavailable" className="eyebrow absolute left-5 top-5 text-foreground/65" />
     </div>
     <img
       src={hero.src}
@@ -76,6 +77,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
           return;
         }
         image.style.display = "none";
+        showImageFallbackLabel(image);
       }}
     />
   </div>;
