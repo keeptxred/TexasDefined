@@ -32,7 +32,7 @@ export function TexasRiverBasinReference() {
     <div className="mt-8" aria-labelledby="major-basin-reference-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="eyebrow text-primary">Official basin reference</p>
+          <p className="eyebrow text-primary">Compare the river basins</p>
           <h3 id="major-basin-reference-heading" className="mt-2 font-display text-2xl">Texas's 15 major river basins</h3>
         </div>
         <a
@@ -52,9 +52,9 @@ export function TexasRiverBasinReference() {
           <caption className="sr-only">Texas Water Development Board statistics for the 15 major river basins</caption>
           <thead className="bg-surface text-xs uppercase text-muted-foreground" style={{ letterSpacing: "0.1em" }}>
             <tr>
-              <th scope="col" className="px-4 py-3 font-semibold">Major basin</th>
+              <th scope="col" className="px-4 py-3 font-semibold">River basin</th>
               <th scope="col" className="px-4 py-3 text-right font-semibold">Area in Texas (sq. mi.)</th>
-              <th scope="col" className="px-4 py-3 text-right font-semibold">River miles in Texas</th>
+              <th scope="col" className="px-4 py-3 text-right font-semibold">River length in Texas (miles)</th>
               <th scope="col" className="px-4 py-3 text-right font-semibold">Average annual flow (acre-feet/year)</th>
             </tr>
           </thead>
