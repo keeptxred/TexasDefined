@@ -26,7 +26,7 @@ const sayings: ArticleBlock[] = [
   { type: "paragraph", text: "Pay attention to what changes between regions. A weekend in East Texas, a work trip to Midland-Odessa, a family visit in the Rio Grande Valley and a night out in Houston can expose a traveler to very different vocabularies and rhythms. Bilingual communities may shift naturally between English and Spanish. Urban speech may mix regional expressions with language brought by newer residents. Treating those differences as normal produces a more accurate picture of Texas than forcing every speaker into one accent." },
   { type: "heading", text: "Use the sayings to understand people, not to imitate them" },
   { type: "paragraph", text: "The practical value of a sayings guide is comprehension. Knowing that ‘fixin’ to’ usually signals an intention, that ‘all hat, no cattle’ questions substance, or that a vague distance phrase depends on context can make conversations easier. It does not require copying pronunciation or performing a regional identity. Visitors generally learn more by asking a sincere follow-up question than by trying to prove they already know the local language." },
-  { type: "paragraph", text: "That approach also leaves room for language to change. Younger speakers may keep some expressions, drop others or use them jokingly. Families preserve sayings that never become statewide. New industries and communities add their own shorthand. A living Texas phrasebook should therefore explain meaning, setting and variation while avoiding claims that every Texan says the same thing." },
+  { type: "paragraph", text: "That approach also leaves room for language to change. Younger speakers may keep some expressions, drop others or use them jokingly. Families preserve sayings that never become statewide. New industries and communities add their own shorthand. A living Texas phrasebook should therefore explain meaning, setting and variation while avoiding claims that every Texan says the same thing. That context is more useful than a checklist of phrases presented as mandatory Texas vocabulary." },
 ];
 
 const foodArguments: ArticleBlock[] = [
@@ -78,6 +78,8 @@ const birds: ArticleBlock[] = [
   { type: "paragraph", text: "Keep distance from wildlife and use established viewing areas where available. A long lens or binoculars can create a better experience than walking closer. If a bird repeatedly changes position because of you, gives alarm calls or leaves a nest area, increase your distance. Responsible viewing matters especially during nesting and migration periods, when birds may be using limited habitat to rest, feed or raise young." },
   { type: "heading", text: "Keep a simple trip list that becomes more useful over time" },
   { type: "paragraph", text: "Note the date, location, habitat and a handful of confident sightings after each outing. Over several trips, patterns emerge: which species you reliably see near the coast, which arrive in winter, which favor open ranch country and which appear around neighborhood feeders. That personal record turns common birds into a practical map of Texas seasons and regions, and it gives beginners a realistic baseline before they start chasing uncommon sightings." },
+  { type: "heading", text: "Choose one region for a first birding weekend" },
+  { type: "paragraph", text: "A first birding trip is easier when the geography is narrow. Pick a coast, Valley, Hill Country, Piney Woods, prairie or Panhandle base and choose two or three official viewing sites within a comfortable drive. That makes it possible to compare habitats without spending the day racing across Texas. Check each site’s current access information before leaving, especially around storms, prescribed burns, hunting periods or seasonal management changes. Bring a short list of common species you are likely to encounter, but leave room for surprises. The goal of the first weekend is not a huge species total; it is learning how habitat, weather and time of day change what you notice." },
 ];
 
 const wildflowers: ArticleBlock[] = [
@@ -101,6 +103,8 @@ const wildflowers: ArticleBlock[] = [
   { type: "heading", text: "Look beyond spring to understand the full Texas wildflower calendar" },
   { type: "paragraph", text: "Spring is the easiest season to market, but it is not the only season worth watching. Different native species respond to late-spring warmth, summer rainfall and fall moisture, and desert blooms can follow weather patterns that do not match Central Texas bluebonnet timing at all. Learning a few locally common species makes repeat trips more rewarding because the question changes from ‘Are the bluebonnets out?’ to ‘What is blooming in this habitat now?’" },
   { type: "paragraph", text: "That broader view also makes a route more resilient. A traveler who expects only one iconic flower can be disappointed by a weak bluebonnet year, while someone looking for changing native plant communities can still find color, pollinators and landscape differences across several seasons. Use current agency information and local conditions for access, then let the variety of the state—not one annual peak date—shape the trip." },
+  { type: "heading", text: "A useful wildflower route needs a public-access plan" },
+  { type: "paragraph", text: "Before driving, identify where you can legally stop, walk and turn around. State parks, municipal trails, public gardens, wildlife areas and established scenic routes give a trip dependable anchors, while roadside blooms can remain bonuses seen safely from appropriate pull-offs. Save several options in the same region so a crowded parking area or poor bloom report does not force an unsafe stop. If photography is the priority, note sunrise and sunset direction, trail distance and whether the site allows tripods or commercial sessions. That small amount of planning separates a responsible wildflower outing from circling rural roads looking for somewhere—anywhere—to park." },
 ];
 
 const onlyInTexas: ArticleBlock[] = [
@@ -122,6 +126,8 @@ const onlyInTexas: ArticleBlock[] = [
   { type: "heading", text: "Give every weekend a backup that still fits the same region" },
   { type: "paragraph", text: "Texas weather can erase the headline activity without warning. A river can close after heavy rain, a trail can become uncomfortable in extreme heat, or an outdoor event can change plans. Pair the anchor with a museum, historic district, food stop, shopping street or other indoor option nearby. The backup should preserve the regional theme so the trip still feels intentional instead of becoming an emergency dash to an unrelated attraction." },
   { type: "paragraph", text: "This is especially useful for travelers driving several hours. The goal is not to guarantee perfect conditions; it is to avoid a weekend that succeeds only if one exact activity happens on schedule. A strong Texas trip has enough depth in one region that a closure or storm changes the order of the day rather than ruining the entire reason for going." },
+  { type: "heading", text: "End with a stop that makes the route feel local" },
+  { type: "paragraph", text: "Before heading home, leave room for one low-pressure local stop: a bakery, courthouse square, short historic walk, independent shop, neighborhood restaurant or small museum. It should be close to the return route and easy to skip if weather or traffic runs late. That final stop often adds more regional character than another major attraction because it connects the trip to the community around the headline experience. It also gives the weekend a natural taper instead of ending with a rushed detour followed by several hours of driving." },
 ];
 
 export const texasGatewayBatch4CulturalEnrichment: Record<string, GatewayCulturalEnrichment> = {
@@ -132,6 +138,7 @@ export const texasGatewayBatch4CulturalEnrichment: Record<string, GatewayCultura
       { href: "/texas-icons", label: "Texas icons and cultural figures" },
       { href: "/article/things-that-define-texas", label: "Things that define Texas" },
       { href: "/article/things-nobody-tells-you-before-moving-to-texas", label: "What newcomers learn about Texas" },
+      { href: "/texas-history", label: "Texas history and regional context" },
     ],
     relatedDestinations: ["fredericksburg", "san-antonio"],
   },
