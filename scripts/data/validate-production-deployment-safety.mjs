@@ -126,6 +126,11 @@ requireText(productionSurfaces, "['texas-history-origins-discovery', '/texas-his
 requireText(productionSurfaces, "['texas-before-us-sitemap', '/sitemap.xml', '/article/texas-before-united-states-how-texas-began']", 'Texas-before-U.S. sitemap live discovery check');
 requireText(productionSurfaces, "['texas-before-us-source-panel', '/article/texas-before-united-states-how-texas-began', 'Sources and further reading']", 'Texas-before-U.S. live source-panel check');
 requireText(productionSurfaces, "['texas-before-us-statehood-source', '/article/texas-before-united-states-how-texas-began', 'Texas State Library and Archives Commission — Statehood']", 'Texas-before-U.S. live authority-source check');
+requireText(productionSurfaces, "['indigenous-texas-authority', '/article/indigenous-texas-history-native-nations', 'Indigenous Texas History: Native Nations Before European Colonization']", 'Indigenous Texas live authority check');
+requireText(productionSurfaces, "['texas-history-indigenous-discovery', '/texas-history', 'Indigenous Texas: Native nations before European colonization']", 'Indigenous Texas History hub discovery check');
+requireText(productionSurfaces, "['indigenous-texas-sitemap', '/sitemap.xml', '/article/indigenous-texas-history-native-nations']", 'Indigenous Texas sitemap discovery check');
+requireText(productionSurfaces, "['indigenous-texas-source-panel', '/article/indigenous-texas-history-native-nations', 'Sources and further reading']", 'Indigenous Texas live source-panel check');
+requireText(productionSurfaces, "['indigenous-texas-tribal-source', '/article/indigenous-texas-history-native-nations', 'Kickapoo Traditional Tribe of Texas']", 'Indigenous Texas tribal-government source check');
 requireText(productionSurfaces, "['james-hogg-related-reading', '/texas-icons/james-hogg', 'Continue the story']", 'James Hogg related-reading renderer check');
 requireText(productionSurfaces, "['james-hogg-foundation-link', '/texas-icons/james-hogg', '/article/hogg-foundation-mental-health-texas-history']", 'James Hogg reciprocal Foundation link check');
 requireText(productionSurfaces, "['sallie-hogg-authority', '/article/sallie-hogg-texas-legacy', 'The Texas First Lady Who Shaped the Hogg Family']", 'Sallie Hogg live authority check');

@@ -1,6 +1,33 @@
 import { articleInternalLinks } from "../article-internal-links";
 import type { Article } from "../types";
 
+const indigenousTexasHistoryNativeNationsStub: Article = {
+  id: "evergreen-indigenous-texas-history-native-nations",
+  brandId: "texasdefined",
+  slug: "indigenous-texas-history-native-nations",
+  title: "Indigenous Texas History: Native Nations Before European Colonization",
+  dek: "Texas history begins thousands of years before Spanish maps or the Republic. Follow Native peoples, homelands, trade networks and living nations across the region before and after European colonization.",
+  category: "texas-history",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Grass_House_Caddo_Mounds_SHS_Texas_2026.jpg?width=1600",
+    alt: "Replica Caddo grass house at Caddo Mounds State Historic Site in Cherokee County, Texas",
+    width: 3001,
+    height: 2000,
+    credit: "Larry D. Moore · 2026 · CC BY 4.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  updatedAt: "2026-09-26",
+  readingMinutes: 17,
+  tags: ["Indigenous Texas", "Native American history Texas", "Caddo", "Karankawa", "Tonkawa", "Lipan Apache", "Comanche", "Tigua", "Alabama-Coushatta", "Kickapoo", "Texas archaeology"],
+  featured: true,
+  sourceName: "Texas Historical Commission — Indigenous Texas and Exploration",
+  sourceUrl: "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["caddo-mounds-state-historic-site", "hueco-tanks-state-park-and-historic-site", "ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "lipantitlan", "mission-dolores"],
+};
+
 const texasBeforeUnitedStatesStub: Article = {
   id: "evergreen-texas-before-united-states-how-texas-began",
   brandId: "texasdefined",
@@ -102,6 +129,7 @@ for (const slug of [
 }
 
 export const historicSupportingStubs: Article[] = [
+  indigenousTexasHistoryNativeNationsStub,
   texasBeforeUnitedStatesStub,
   texasCattleRanchingHistoryGuideStub,
   texasHistoricTravelTransportationGuideStub,
@@ -109,6 +137,7 @@ export const historicSupportingStubs: Article[] = [
 
 export async function loadHistoricSupportingArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (slug === indigenousTexasHistoryNativeNationsStub.slug) return import("./indigenous-texas-history-native-nations").then((module) => module.indigenousTexasHistoryNativeNationsArticle);
   if (slug === texasBeforeUnitedStatesStub.slug) return import("./texas-before-united-states-how-texas-began").then((module) => module.texasBeforeUnitedStatesArticle);
   if (slug === texasCattleRanchingHistoryGuideStub.slug) return import("./texas-cattle-ranching-history-guide").then((module) => module.texasCattleRanchingHistoryGuideArticle);
   if (slug === texasHistoricTravelTransportationGuideStub.slug) return import("./texas-historic-travel-transportation-guide").then((module) => module.texasHistoricTravelTransportationGuideArticle);
