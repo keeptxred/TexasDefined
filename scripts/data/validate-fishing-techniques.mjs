@@ -13,6 +13,7 @@ const paths = {
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
   guideContent: "src/data/fishing/technique-guide-content.ts",
   imageRegistry: "src/data/fishing/technique-images.ts",
+  productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   hubRoute: "src/routes/fishing.tsx",
   hubComponent: "src/components/fishing/FishingHub.tsx",
   fixtures: "src/data/fishing/fixtures.ts",
@@ -63,6 +64,7 @@ for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, 
 for (const token of ["Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
 for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
 for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt: images.hero.alt","imageType: images.hero.imageType"]) requireText(files.server, token, "crankbait social image metadata missing " + token);
+for (const token of ["/fishing/techniques/crankbaits","How to Fish Crankbaits in Texas","/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif"]) requireText(files.productionSmoke, token, "crankbait live production verification missing " + token);
 
 for (const [routeName, routeText, componentPath] of [
   ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
