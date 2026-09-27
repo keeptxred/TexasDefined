@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave12Destinations: Destination[] = [
     body: [
       "The monument at Harlingen is directly connected to one of the most reproduced images of World War II. Sculptor Felix de Weldon created the full-size working model that preceded the Marine Corps War Memorial in Arlington, preserving the pose of the six servicemen raising the flag on Mount Suribachi in February 1945.",
       "The site also has a South Texas connection through Corporal Harlon Block, a Rio Grande Valley native depicted in the flag raising. His remains were eventually reinterred near the monument at the Marine Military Academy, giving the memorial a personal regional link as well as national military significance.",
-      "TexasDefined should preserve the destination even during its current visitor-center closure because the historic site remains significant and has a stable state-authority identity. The page must, however, put the closure alert ahead of normal trip-planning language so users are not sent to a museum facility that may be inaccessible."
+      "The historic site remains significant during the current visitor-center closure, but the closure alert should come before normal trip-planning details so visitors are not sent to a museum facility that may be inaccessible."
     ],
     officialUrl: "https://thc.texas.gov/historic-sites/iwo-jima-museum-and-monument",
     managingAuthority: "Texas Historical Commission / Marine Military Academy partners",

@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave22Destinations: Destination[] = [
     body: [
       "The Courthouse-on-the-Square Museum lets visitors encounter county history inside one of Denton's most recognizable landmarks. Built in 1896 from Texas limestone, granite and sandstone, the courthouse is both the museum's setting and its largest artifact.",
       "Denton County's Office of History & Culture uses the building for changing exhibitions, lectures and community programs alongside permanent local-history interpretation. John B. Denton, the namesake of both city and county, is buried on the courthouse grounds, tying the square directly to the county's civic story.",
-      "A canonical TexasDefined page makes the museum a natural bridge among Denton city coverage, courthouse architecture, county history and the walkable downtown square. It also keeps the building's museum function distinct from a generic courthouse listing."
+      "The museum is a natural bridge among Denton history, courthouse architecture, county stories and the walkable downtown square. Its museum function is also distinct from a generic courthouse stop."
     ],
     officialUrl: "https://www.dentoncounty.gov/Facilities/Facility/Details/CourthouseontheSquare-Museum-11",
     managingAuthority: "Denton County Office of History & Culture",
