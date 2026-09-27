@@ -9,6 +9,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { articleInternalLinks } from "@/data/article-internal-links";
+import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
@@ -505,7 +506,15 @@ function ArticlePage() {
       </aside>}
       {article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
     </Container>
-    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : "Plan the trip"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}><DestinationCard destination={destination} /></li>)}</ul></Container></Section>}
+    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : "Plan the trip"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
+  ? <article className="border-t border-border pt-5">
+      <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
+      <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
+      {destination.bestSeason && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
+      <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
+    </article>
+  : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
     <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
   </article>;
 }
