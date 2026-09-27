@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "Huntsville's identity is inseparable from the history of the Texas prison system, and the Texas Prison Museum gives visitors a dedicated place to understand that relationship. Exhibits trace the development of the system, prison operations and the experiences of people who lived and worked inside institutions that became a major part of the city's history.",
       "The museum's strongest material is tangible: uniforms, equipment, photographs, documents and reconstructed or preserved objects make institutional history easier to understand than a simple chronology would. The subject is serious, but the museum provides historical context that helps explain why Huntsville became the center of so much state corrections activity.",
-      "For TexasDefined, the destination strengthens Walker County authority by linking prison history with Sam Houston, the university and the broader Piney Woods region. Visitors can build a Huntsville history day that explains several very different forces that shaped the city rather than seeing only one famous landmark."
+      "The museum links prison history with Sam Houston, the university and the broader Piney Woods region. Visitors can build a Huntsville history day that explains several very different forces that shaped the city rather than seeing only one famous landmark."
     ],
     officialUrl: "https://www.txprisonmuseum.org/",
     managingAuthority: "Texas Prison Museum",
