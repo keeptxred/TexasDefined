@@ -45,7 +45,7 @@ export function TexasRiverBasinReference() {
         </a>
       </div>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
-        Texas also has eight designated coastal basins. The table below uses TWDB's statewide basin-area, river-length and average-flow figures so you can compare the major systems at a glance.
+        Texas also has eight designated coastal basins. The table below uses TWDB's statewide basin-area, river-length and average-flow figures so you can compare the major systems at a glance. Average flow is shown in acre-feet per year; one acre-foot is about 325,851 gallons, enough water to cover one acre to a depth of one foot.
       </p>
       <div className="mt-5 overflow-x-auto border border-border">
         <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "42rem" }}>
@@ -55,7 +55,7 @@ export function TexasRiverBasinReference() {
               <th scope="col" className="px-4 py-3 font-semibold">Major basin</th>
               <th scope="col" className="px-4 py-3 text-right font-semibold">Area in Texas (sq. mi.)</th>
               <th scope="col" className="px-4 py-3 text-right font-semibold">River miles in Texas</th>
-              <th scope="col" className="px-4 py-3 text-right font-semibold">Avg. flow (acre-ft/yr)</th>
+              <th scope="col" className="px-4 py-3 text-right font-semibold">Average annual flow (acre-feet/year)</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
