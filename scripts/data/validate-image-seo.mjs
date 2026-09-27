@@ -146,7 +146,7 @@ if (!mergeGate.includes('node scripts/ci/run-premerge-validation.mjs')) errors.p
 if (!premergeRunner.includes("'scripts/data/audit-event-schema-enrichment.mjs'")) errors.push('Canonical pre-merge contract must run the event image coverage audit.');
 
 for (const marker of [
-  'Governed sports venue inventory',
+  'const governed = [...new Set',
   'Duplicate supplemental venue image slugs',
   'Generated venue imagery is not permitted',
   'Local hero asset is missing',
