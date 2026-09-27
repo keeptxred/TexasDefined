@@ -146,10 +146,13 @@ if (!mergeGate.includes('node scripts/ci/run-premerge-validation.mjs')) errors.p
 if (!premergeRunner.includes("'scripts/data/audit-event-schema-enrichment.mjs'")) errors.push('Canonical pre-merge contract must run the event image coverage audit.');
 
 for (const marker of [
-  'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
-  'AI-generated photorealistic editorial depiction of',
-  'Expected 84 effective curated-first venue image records',
-  'Effective venue hero still points to a placeholder',
+  'Unique governed venues with approved photos',
+  'Remaining fallback count',
+  'Missing slugs',
+  'Only Xtreme Raceway Park may use the existing owner-approved AI image exception.',
+  'Duplicate supplemental sports-venue photo slugs',
+  'Photo records attached to nonexistent/unapproved sports-venue routes',
+  'Disallowed sports-venue image source',
   'Multiple sports venues resolve to the same hero image URL',
   'Multiple sports venues resolve to the same hero source page',
 ]) {
