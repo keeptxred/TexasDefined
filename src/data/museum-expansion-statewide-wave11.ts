@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave11Destinations: Destination[] = [
     body: [
       "The Historic Brownsville Museum gives the city's origin story a transportation setting that is itself historically important. The Spanish Colonial Revival depot is a Recorded Texas Historic Landmark and National Register property, preserving the architecture of the passenger-rail era while the galleries explain Brownsville's establishment and later growth.",
       "Railroad history is one of the destination's strongest differentiators. Admission extends to the Simón Celaya Railroad Gallery, where an 1872 Baldwin narrow-gauge locomotive helps explain the Rio Grande Railroad connection between Brownsville and Point Isabel. The adjoining education center supports rotating cultural programs and exhibits.",
-      "For TexasDefined, this destination forms one leg of a Brownsville Historical Association cluster rather than a generic city-history page. It should cross-link the Stillman House and Brownsville Heritage Museum while retaining its own canonical URL because its depot, locomotive and transportation interpretation are distinct."
+      "This destination forms one leg of the Brownsville Historical Association museum cluster. It pairs naturally with the Stillman House and Brownsville Heritage Museum while remaining a distinct stop because its depot, locomotive and transportation interpretation are different."
     ],
     officialUrl: "https://www.brownsvillehistory.org/historic-brownsville-museum-brownsville-historical-association.html",
     managingAuthority: "Brownsville Historical Association",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave11Destinations: Destination[] = [
     body: [
       "The Brownsville Heritage Museum is the broad chronological counterpart to the association's more site-specific historic properties. Its collections use photographs, maps, clothing and everyday objects to show how streets, schools, transportation, ranching and public life changed as Brownsville developed.",
       "Interactive interpretation adds context for visitors who may know the city mainly through border geography or modern travel. The museum also serves as a program and event space, keeping local history connected to present-day community life rather than limiting the building to static displays.",
-      "For TexasDefined, this page should link directly to Stillman House because the two share admission and a Washington Street complex, while also linking the Historic Brownsville Museum depot. Keeping three canonical pages preserves distinct search intent without hiding the fact that visitors can efficiently experience them as one Brownsville museum cluster."
+      "This museum pairs directly with Stillman House because the two share admission and a Washington Street complex, while the Historic Brownsville Museum depot is another nearby companion stop. Visitors can efficiently experience all three as one Brownsville museum cluster while each retains a distinct subject and visitor experience."
     ],
     officialUrl: "https://www.brownsvillehistory.org/heritage-museum-brownsville-historical-association.html",
     managingAuthority: "Brownsville Historical Association",
@@ -112,7 +112,7 @@ export const statewideMuseumExpansionWave11Destinations: Destination[] = [
     body: [
       "The Weslaco Museum uses a broad local-history timeline to place the city inside the larger Rio Grande Valley story. Exhibits move from geology and Indigenous history through Spanish colonization, migration, agriculture, economic development, education and military service.",
       "One of the most distinctive local themes is the Weslaco Style Show, remembered for elaborate costumes created from or inspired by Valley produce. That tradition links agriculture, civic promotion and creative culture in a way that is unusually specific to Weslaco.",
-      "For TexasDefined, the museum gives Hidalgo County a second kind of cultural anchor alongside the Museum of South Texas History in Edinburg. It provides city-level Weslaco authority while creating regional links to agriculture, immigration, arts and Valley road-trip content."
+      "The museum gives Hidalgo County a different kind of cultural stop alongside the Museum of South Texas History in Edinburg. It adds a Weslaco-focused destination connected to agriculture, immigration, arts and Rio Grande Valley road trips."
     ],
     officialUrl: "https://weslacomuseum.org/visit",
     managingAuthority: "The Weslaco Museum",
@@ -137,7 +137,7 @@ export const statewideMuseumExpansionWave11Destinations: Destination[] = [
     body: [
       "The McAllen Heritage Center gives one of the Valley's largest modern cities a dedicated place to interpret how it grew. Photographs, memorabilia and local-history displays trace McAllen from ranching and early settlement through transportation, commerce, banking and twentieth-century urban development.",
       "The building strengthens the story. The Spanish Colonial Revival former post office is a Recorded Texas Historic Landmark and places the museum inside a civic structure that served McAllen during a major period of growth. Local-art and changing exhibits keep the center connected to present community culture.",
-      "For TexasDefined, the center fills a city-level Hidalgo County gap without duplicating the broader regional history mission of Edinburg's Museum of South Texas History. It can cross-link downtown McAllen, architecture, local landmarks and Valley cultural itineraries through one canonical page."
+      "The center gives McAllen a city-focused history stop without duplicating the broader regional mission of Edinburg's Museum of South Texas History. It fits naturally with downtown McAllen, architecture, local landmarks and Valley cultural itineraries."
     ],
     officialUrl: "https://www.mcallenheritagecenter.com/",
     managingAuthority: "McAllen Heritage Center, Inc.",
