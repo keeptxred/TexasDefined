@@ -48,7 +48,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-20">
         <p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas lake fishing seasons, month by month.</h1>
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Fishing Seasons by Month</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Choose a month, season, fish or Texas region to explore source-backed freshwater lake patterns—then check fresh fishing reports for current conditions before you go.</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <a href="#right-now" className="border-b border-ink-foreground pb-1 font-semibold">Fishing right now ↓</a>
@@ -76,7 +76,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
 
       <section className="mt-12" aria-labelledby="choose-season">
         <p className="eyebrow text-primary">Or browse by season</p>
-        <h2 id="choose-season" className="mt-2 font-display text-3xl">Spring, summer, fall or winter.</h2>
+        <h2 id="choose-season" className="mt-2 font-display text-3xl">Spring, Summer, Fall and Winter</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {FISHING_SEASON_FILTERS.map((season) => <a key={season} href={buildHref({ season, species: search.species, region: search.region })} className={`border p-5 ${!search.month && search.season === season ? "border-primary" : "border-border"}`}>
             <p className="eyebrow text-primary">{titleCase(season)}</p>
@@ -88,7 +88,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
 
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="season-at-a-glance">
         <p className="eyebrow text-primary">Season at a glance</p>
-        <h2 id="season-at-a-glance" className="mt-2 font-display text-3xl">What our verified lake guides cover in each season.</h2>
+        <h2 id="season-at-a-glance" className="mt-2 font-display text-3xl">Fishing Opportunities by Season</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">This is coverage, not a best-fish ranking. Species are shown when verified lake relationships include that season or a year-round pattern.</p>
         <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {FISHING_SEASON_FILTERS.map((season) => {
@@ -126,7 +126,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
 
       <section id="right-now" className="py-12" aria-labelledby="right-now-title">
         <p className="eyebrow text-primary">Fishing in Texas right now</p>
-        <h2 id="right-now-title" className="mt-2 font-display text-4xl">Fresh reports, separate from seasonal patterns.</h2>
+        <h2 id="right-now-title" className="mt-2 font-display text-4xl">Current Texas Fishing Reports</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These are only reports that still pass the fishing platform's current-report freshness gate. When a report expires, it drops out of this section automatically.</p>
         {data.currentReports.length ? <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{data.currentReports.map((entry) => <article key={entry.report.id} className="border-t-2 border-foreground pt-5">
           <p className="eyebrow text-primary">{entry.lake?.name ?? "Texas fishing report"}</p>
@@ -141,7 +141,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div>
             <p className="eyebrow text-primary">Plan your fishing trip</p>
-            <h2 id="season-results" className="mt-2 font-display text-4xl">{activeLabel}: lakes and fish to explore.</h2>
+            <h2 id="season-results" className="mt-2 font-display text-4xl">{activeLabel} Fishing: Lakes and Fish</h2>
             <p className="mt-3 text-sm text-muted-foreground">{grouped.length} lake{grouped.length === 1 ? "" : "s"} · {entries.length} verified fish pattern{entries.length === 1 ? "" : "s"}.</p>
           </div>
           <p className="max-w-xl text-xs leading-6 text-muted-foreground">Lakes are alphabetical. Within each lake, matching fish are grouped together so you do not have to scan duplicate lake cards.</p>
@@ -167,11 +167,11 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           <a href={group.href} className="mt-2 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {group.lake.name} fishing guide →</a>
         </article>)}</div>
 
-        {!grouped.length ? <div className="mt-7 border-y border-border py-12"><h3 className="font-display text-3xl">No verified lake guide matches all of those filters.</h3><p className="mt-3 text-sm text-muted-foreground">Try another month, season, fish or region. A missing match is not a claim that the fish cannot be caught then.</p></div> : null}
+        {!grouped.length ? <div className="mt-7 border-y border-border py-12"><h3 className="font-display text-3xl">No Lake Guides Match These Filters</h3><p className="mt-3 text-sm text-muted-foreground">Try another month, season, fish or region. A missing match is not a claim that the fish cannot be caught then.</p></div> : null}
       </section>
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
-        <div><p className="eyebrow text-primary">Before you head out</p><h2 className="mt-2 font-display text-3xl">Season tells you where to start. Conditions decide the trip.</h2></div>
+        <div><p className="eyebrow text-primary">Before you head out</p><h2 className="mt-2 font-display text-3xl">Check Current Conditions Before You Go</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
           <p>{data.policy.conditions}</p><p>{data.policy.yearRound}</p>
           <p>Before traveling, check <a href="/fishing/reports" className="border-b border-primary text-primary">fresh fishing reports</a>, <a href="/fishing/regulations" className="border-b border-primary text-primary">current regulations</a>, weather, lake levels, access and closures.</p>
