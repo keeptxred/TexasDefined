@@ -97,6 +97,7 @@ if (!rootRoute.includes('installTexasDefinedAnalytics')) errors.push('Privacy-sa
 for (const hostname of ['texasdefined.com','www.texasdefined.com']) if (!analyticsHost.includes(`'${hostname}'`)) errors.push(`Production analytics hostname missing: ${hostname}.`);
 if (!analytics.includes('isTexasDefinedAnalyticsHost(window.location.hostname)')) errors.push('Custom analytics is not guarded to production hostnames.');
 if (!rootRoute.includes('TEXASDEFINED_ANALYTICS_HOSTS') || !rootRoute.includes('w.location.hostname.toLowerCase()')) errors.push('Google Tag Manager is not guarded to production hostnames.');
+if (!rootRoute.includes('n.webdriver===true') || !rootRoute.includes('HeadlessChrome') || !rootRoute.includes('TexasDefined-[^ ]*Smoke')) errors.push('Google Tag Manager is not guarded against automated browser traffic.');
 if (rootRoute.includes('GoogleTagManagerNoScript')) errors.push('Unconditional GTM noscript iframe can leak preview-host traffic.');
 for (const eventName of [
   'shop_add_to_cart',
