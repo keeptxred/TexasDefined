@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave22Destinations: Destination[] = [
     body: [
       "Ellis County Museum gives Waxahachie's celebrated architecture a county-history anchor. The museum's building is itself part of the story: an 1889 structure on the historic square that later became home to collections documenting the people and industries that shaped Ellis County.",
       "Exhibits move from early settlement and agriculture through railroads, Victorian architecture, local sports, scientific achievements and community life. Archives and a research library extend the institution beyond a visitor attraction, while rotating displays keep the public galleries from becoming a fixed chronology.",
-      "For TexasDefined, this destination strengthens both Ellis County and Waxahachie authority. It can cross-link the historic courthouse, Gingerbread architecture, downtown itineraries and county history through a dedicated canonical page rather than leaving the museum as a passing attraction mention."
+      "This destination adds depth to both Ellis County and Waxahachie itineraries, pairing naturally with the historic courthouse, Gingerbread architecture, downtown walks and broader county history."
     ],
     officialUrl: "https://www.elliscountymuseum.org/planyourvisit",
     managingAuthority: "Ellis County Museum, Inc.",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave22Destinations: Destination[] = [
     body: [
       "Heritage Farmstead Museum preserves a rural landscape inside modern Plano, making it especially useful for understanding what Collin County looked like before suburban development transformed the region. The 1891 Wilson House anchors a complex of historic buildings, gardens and working-farm elements.",
       "The museum interprets Blackland Prairie agriculture through architecture, domestic life, animals, tools and a collection of more than 10,000 objects and archival materials. School programs and hands-on experiences make the farmstead an active educational site rather than a preserved house viewed only from a distance.",
-      "For TexasDefined, the destination adds historical depth to Collin County coverage that otherwise tends to emphasize modern growth. It cross-links Plano, Blackland Prairie history, family attractions and North Texas agriculture while remaining distinct from the county's art, railroad and natural-science museums."
+      "The destination adds historical depth to Collin County beyond its modern-growth story, connecting Plano, Blackland Prairie history, family attractions and North Texas agriculture while remaining distinct from the county's art, railroad and natural-science museums."
     ],
     officialUrl: "https://www.heritagefarmstead.org/visit/",
     managingAuthority: "Heritage Farmstead Association",
