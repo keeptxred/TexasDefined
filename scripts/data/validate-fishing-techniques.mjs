@@ -65,7 +65,25 @@ for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, 
 for (const token of ["Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
 for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
 for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt: images.hero.alt","imageType: images.hero.imageType"]) requireText(files.server, token, "crankbait social image metadata missing " + token);
+const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
 for (const token of ["/fishing/techniques/crankbaits","How to Fish Crankbaits in Texas","/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif"]) requireText(files.productionSmoke, token, "crankbait live production verification missing " + token);
+const techniqueRouteSmokeExpectations = [
+  ["/fishing/techniques/soft-plastics", "How to Fish Soft plastics in Texas"],
+  ["/fishing/techniques/crankbaits", "How to Fish Crankbaits in Texas"],
+  ["/fishing/techniques/spinnerbaits", "How to Fish Spinnerbaits in Texas"],
+  ["/fishing/techniques/topwater", "How to Fish Topwater in Texas"],
+  ["/fishing/techniques/trolling", "How to Fish Trolling in Texas"],
+  ["/fishing/techniques/vertical-jigging", "How to Fish Vertical jigging in Texas"],
+  ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and minnows in Texas"],
+  ["/fishing/techniques/live-bait", "How to Fish Live bait in Texas"],
+  ["/fishing/techniques/cut-bait", "How to Fish Cut bait in Texas"],
+];
+for (const [path, marker] of techniqueRouteSmokeExpectations) {
+  requireText(workerSmoke, path, "built Worker technique detail smoke missing " + path);
+  requireText(workerSmoke, marker, "built Worker technique detail marker missing " + marker);
+  requireText(files.productionSmoke, path, "live technique detail smoke missing " + path);
+  requireText(files.productionSmoke, marker, "live technique detail marker missing " + marker);
+}
 
 for (const [routeName, routeText, componentPath] of [
   ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
@@ -96,7 +114,7 @@ requireText(files.links, "fishing-reference:techniques", "internal-link director
 requireText(files.links, "fishing-technique:", "internal-link profile entities missing");
 requireText(files.publicRoutes, '"/fishing/techniques"', "public-route directory governance missing");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-techniques.mjs", "Batch 13 validator not wired into fishing:validate");
-const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
+
 for (const token of ["redirectTargets","/fishing/fishing/techniques/soft-plastics?source=smoke","expectedStatus: 301","expectedPath: '/fishing/techniques/soft-plastics'","redirect: 'manual'"]) requireText(workerSmoke, token, `duplicate fishing technique redirect smoke missing ${token}`);
 
 
