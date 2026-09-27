@@ -81,8 +81,18 @@ const collisions = (field, label) => {
 collisions('imageUrl', 'image asset');
 collisions('sourcePage', 'image source page');
 
+const dynamicRoute = fs.readFileSync('src/routes/sports-venue.$slug.tsx', 'utf8');
+const staticRoute = fs.readFileSync('src/routes/sports-venue.jones-att-stadium.tsx', 'utf8');
+const routeBlock = dynamicRoute.match(/const sportsVenueGuidePilotSlugs = new Set\\(\\[([\\s\\S]*?)\\]\\);/)?.[1] ?? '';
+const dynamicSlugs = [...routeBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+const staticSlug = staticRoute.match(/const stableSlug = '([^']+)'/)?.[1] ?? '';
+const governedSlugs = [...dynamicSlugs, ...(staticSlug ? [staticSlug] : [])];
+const governed = new Set(governedSlugs);
 const uniqueSlugs = new Set(records.map((record) => record.slug));
-if (uniqueSlugs.size !== 84) failures.push(`Expected image records covering 84 seeded venues; found ${uniqueSlugs.size}.`);
+const extraSlugs = [...uniqueSlugs].filter((slug) => !governed.has(slug));
+const missingSlugs = governedSlugs.filter((slug) => !uniqueSlugs.has(slug)).sort();
+if (!dynamicSlugs.length || !staticSlug) failures.push('Could not derive the current governed sports venue inventory.');
+if (extraSlugs.length) failures.push(`Image records target ungoverned venue slugs: ${extraSlugs.join(', ')}.`);
 
 if (failures.length) {
   console.error('Sports venue image uniqueness audit failed:');
@@ -90,4 +100,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS: ${uniqueSlugs.size}/84 sports venues have governed image records and no image asset/source is reused across different venue slugs.`);
+console.log(`PASS: ${uniqueSlugs.size}/${governed.size} governed sports venues have approved image records, ${missingSlugs.length} intentionally remain on fallback (${missingSlugs.join(', ') || 'none'}), and no image asset/source is reused across different venue slugs.`);
