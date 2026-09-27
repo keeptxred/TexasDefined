@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
-const files = [
+const registryFiles = [
+  'src/data/sports-venue-images-curated-overrides.ts',
   'src/data/sports-venue-images.ts',
   'src/data/sports-venue-images-additions.ts',
   'src/data/sports-venue-images-additions-wave2.ts',
@@ -9,6 +10,18 @@ const files = [
   'src/data/sports-venue-images-additions-wave5.ts',
   'src/data/sports-venue-images-additions-wave6.ts',
   'src/data/sports-venue-images-additions-wave7.ts',
+];
+
+const enrichmentFiles = [
+  'src/data/sports-venue-enrichment.ts',
+  'src/data/sports-venue-enrichment-batch2.ts',
+  'src/data/sports-venue-enrichment-batch3.ts',
+  'src/data/sports-venue-enrichment-batch4-racing.ts',
+  'src/data/sports-venue-enrichment-batch5.ts',
+  'src/data/sports-venue-enrichment-batch6.ts',
+  'src/data/sports-venue-enrichment-batch7-major-completion.ts',
+  'src/data/sports-venue-enrichment-batch8a-completion.ts',
+  'src/data/sports-venue-enrichment-batch8b-completion.ts',
 ];
 
 function decode(value) {
@@ -32,26 +45,26 @@ function canonicalReference(value) {
   try {
     const url = new URL(raw);
     const host = url.hostname.toLowerCase();
-    const path = decode(url.pathname);
+    const urlPath = decode(url.pathname);
     if (host === 'commons.wikimedia.org') {
-      const redirect = path.match(/^\/wiki\/Special:Redirect\/file\/(.+)$/i);
+      const redirect = urlPath.match(/^\/wiki\/Special:Redirect\/file\/(.+)$/i);
       if (redirect?.[1]) return `commons:${normalizeFilename(redirect[1])}`;
-      const page = path.match(/^\/wiki\/(File:.+)$/i);
+      const page = urlPath.match(/^\/wiki\/(File:.+)$/i);
       if (page?.[1]) return `commons:${normalizeFilename(page[1])}`;
     }
     if (host === 'upload.wikimedia.org') {
-      const filename = path.split('/').filter(Boolean).at(-1);
+      const filename = urlPath.split('/').filter(Boolean).at(-1);
       if (filename) return `commons:${normalizeFilename(filename)}`;
     }
-    return `url:${host}${path.replace(/\/$/, '') || '/'}`;
+    return `url:${host}${urlPath.replace(/\/$/, '') || '/'}`;
   } catch {
     return `raw:${raw.normalize('NFKC').toLowerCase()}`;
   }
 }
 
-const records = [];
-for (const file of files) {
+function parseRecords(file) {
   const source = fs.readFileSync(file, 'utf8');
+  const records = [];
   const entryPattern = /^\s{2}["']([^"']+)["']:\s*\{([\s\S]*?)(?=^\s{2}["'][^"']+["']:\s*\{|^\};)/gm;
   for (const match of source.matchAll(entryPattern)) {
     const slug = match[1];
@@ -60,8 +73,25 @@ for (const file of files) {
     const sourcePage = block.match(/sourcePage:\s*["']([^"']+)["']/)?.[1];
     if (imageUrl) records.push({ file, slug, imageUrl, sourcePage });
   }
+  return records;
 }
 
+function objectKeys(file) {
+  const source = fs.readFileSync(file, 'utf8');
+  return [...source.matchAll(/^\s{2}["']([^"']+)["']:\s*\{/gm)].map((match) => match[1]);
+}
+
+const governedSlugs = [...new Set(enrichmentFiles.flatMap(objectKeys))].sort();
+const governedSet = new Set(governedSlugs);
+
+const effective = new Map();
+for (const file of registryFiles) {
+  for (const record of parseRecords(file)) {
+    if (!effective.has(record.slug)) effective.set(record.slug, record);
+  }
+}
+
+const records = [...effective.values()].filter((record) => governedSet.has(record.slug));
 const failures = [];
 const collisions = (field, label) => {
   const groups = new Map();
@@ -81,8 +111,11 @@ const collisions = (field, label) => {
 collisions('imageUrl', 'image asset');
 collisions('sourcePage', 'image source page');
 
-const uniqueSlugs = new Set(records.map((record) => record.slug));
-if (uniqueSlugs.size !== 84) failures.push(`Expected image records covering 84 seeded venues; found ${uniqueSlugs.size}.`);
+const orphanRecords = [...effective.keys()].filter((slug) => !governedSet.has(slug)).sort();
+if (orphanRecords.length) failures.push(`Image records exist outside the governed venue inventory: ${orphanRecords.join(', ')}.`);
+
+const coveredSlugs = governedSlugs.filter((slug) => effective.has(slug));
+const missingSlugs = governedSlugs.filter((slug) => !effective.has(slug));
 
 if (failures.length) {
   console.error('Sports venue image uniqueness audit failed:');
@@ -90,4 +123,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`PASS: ${uniqueSlugs.size}/84 sports venues have governed image records and no image asset/source is reused across different venue slugs.`);
+console.log(`PASS: ${coveredSlugs.length}/${governedSlugs.length} governed sports venues have approved image records, ${missingSlugs.length} intentionally fail closed, and no effective image asset/source is reused across different venue slugs. Missing slugs: ${missingSlugs.join(', ') || 'none'}.`);

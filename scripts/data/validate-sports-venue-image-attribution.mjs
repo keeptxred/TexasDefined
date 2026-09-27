@@ -17,7 +17,7 @@ const forbidText = (source, needle, label) => {
 
 const generatedCount = wave7.match(/sourceName: "Texas Defined generated media"/g)?.length ?? 0;
 const commonsCount = wave7.match(/sourceName: "Wikimedia Commons"/g)?.length ?? 0;
-if (generatedCount !== 14) failures.push(`Expected 14 generated Wave 7 venue heroes; found ${generatedCount}.`);
+if (generatedCount !== 0) failures.push(`Wave 7 must not contain generated venue depictions; found ${generatedCount}.`);
 if (commonsCount !== 2) failures.push(`Expected 2 Wikimedia Commons Wave 7 venue heroes; found ${commonsCount}.`);
 
 for (const marker of [
@@ -53,11 +53,13 @@ forbidText(guidePage, 'AI-generated representative editorial image by {photo.aut
 forbidText(guidePage, '>Media record</a>', 'generated guide disclosure must not render a self-referential media link');
 
 for (const marker of [
-  'const wave7GeneratedAttribution = [',
-  "'Editorial illustration by'",
-  "'Cloudflare Workers AI / FLUX.1 schnell'",
-  "'for TexasDefined; not documentary photography.'",
-]) requireText(productionVerifier, marker, 'live sports venue attribution verifier');
+  'const representativePhotoSlugs = [',
+  "'round-rock-sports-center'",
+  "'texas-motorplex'",
+  "'amarillo-national-center-fallback'",
+  'expectFallback: true',
+  'fallbackText',
+]) requireText(productionVerifier, marker, 'live sports venue attribution/fallback verifier');
 forbidText(productionVerifier, "'AI-generated representative editorial image'", 'live verifier must follow the sitewide AI disclosure contract');
 
 if (failures.length) {
@@ -66,4 +68,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('PASS: sports venue imagery preserves generated-media provenance, uses concise non-documentary visible credits under the sitewide AI disclosure, keeps live verification aligned with that contract, avoids generated-media self-links, and preserves real-photo attribution.');
+console.log('PASS: sports venue imagery preserves the owner-approved Xtreme generated-media exception, Wave 7 contains no generated venue depictions, live verification covers documentary attribution plus an intentional fallback, and real-photo attribution remains intact.');

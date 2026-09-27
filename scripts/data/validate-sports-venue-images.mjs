@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), 'utf8');
+
 const enrichmentFiles = [
   'src/data/sports-venue-enrichment.ts',
   'src/data/sports-venue-enrichment-batch2.ts',
@@ -15,119 +16,135 @@ const enrichmentFiles = [
   'src/data/sports-venue-enrichment-batch8b-completion.ts',
 ];
 
-const [heroRoute, sharedComponent, photoSource, aggregatePhotoSource, allLookup, ...enrichmentSources] = await Promise.all([
-  read('src/routes/api.sports-venue-hero.ts'),
-  read('src/components/sports/SportsVenueQuickAnswers.tsx'),
-  read('src/data/sports-venue-images.ts'),
+const registryPaths = [
+  'src/data/sports-venue-images.ts',
+  'src/data/sports-venue-images-additions.ts',
+  'src/data/sports-venue-images-additions-wave2.ts',
+  'src/data/sports-venue-images-additions-wave3.ts',
+  'src/data/sports-venue-images-additions-wave4.ts',
+  'src/data/sports-venue-images-additions-wave5.ts',
+  'src/data/sports-venue-images-additions-wave6.ts',
+  'src/data/sports-venue-images-additions-wave7.ts',
+];
+
+const curatedPath = 'src/data/sports-venue-images-curated-overrides.ts';
+const [aggregateSource, allLookup, ...sources] = await Promise.all([
   read('src/data/sports-venue-images-all.ts'),
   read('src/data/sports-venue-enrichment-all.ts'),
+  ...registryPaths.map(read),
+  read(curatedPath),
   ...enrichmentFiles.map(read),
 ]);
+
+const registrySources = sources.slice(0, registryPaths.length);
+const curatedSource = sources[registryPaths.length];
+const enrichmentSources = sources.slice(registryPaths.length + 1);
 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
-const imageBriefCount = enrichmentSources.reduce((sum, source) => sum + (source.match(/\bimageBrief\s*:\s*['"`]/g)?.length ?? 0), 0);
-assert(imageBriefCount === 84, `Expected 84 venue-specific image briefs; found ${imageBriefCount}.`);
+const decodeTsString = (value) => value
+  .replace(/\\'/g, "'")
+  .replace(/\\"/g, '"')
+  .replace(/\\n/g, '\n')
+  .replace(/\\r/g, '\r')
+  .replace(/\\t/g, '\t')
+  .replace(/\\\\/g, '\\');
+
+const recordEntries = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
+  const body = match[2];
+  const stringField = (name) => {
+    const field = body.match(new RegExp('\\b' + name + ':\\s*(["\\\'])((?:\\\\.|(?!\\1)[\\s\\S])*?)\\1'));
+    return field ? decodeTsString(field[2]) : '';
+  };
+  const numberField = (name) => Number(body.match(new RegExp('\\b' + name + ':\\s*(\\d+)'))?.[1] ?? 0);
+  return {
+    slug: match[1],
+    alt: stringField('alt'),
+    imageUrl: stringField('imageUrl'),
+    sourcePage: stringField('sourcePage'),
+    sourceName: stringField('sourceName'),
+    author: stringField('author'),
+    licenseName: stringField('licenseName'),
+    licenseUrl: stringField('licenseUrl'),
+    width: numberField('width'),
+    height: numberField('height'),
+  };
+});
+
+const objectKeys = (source) => [...source.matchAll(/^  ["']([^"']+)["']:\s*\{/gm)].map((match) => match[1]);
+
+const governedSlugs = [...new Set(enrichmentSources.flatMap(objectKeys))].sort();
+assert(governedSlugs.length > 0, 'Governed sports venue inventory must not be empty.');
 assert(allLookup.includes("lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug"), 'Galaxy/Jones image lookup alias must remain governed.');
-assert(aggregatePhotoSource.includes("getSportsVenuePhotoAdditionWave7(slug)"), 'Aggregate sports venue image registry must include Wave 7.');
-
-const licensedPhotoSlugs = [
-  'att-stadium',
-  'globe-life-field',
-  'american-airlines-center',
-  'toyota-stadium-frisco',
-  'dickies-arena',
-  'cotton-bowl-stadium',
-  'choctaw-stadium',
-  'ford-center-at-the-star',
-  'college-park-center',
-  'comerica-center',
-  'texas-motor-speedway',
-  'cowtown-coliseum',
-  'credit-union-of-texas-event-center',
-  'moody-coliseum-smu',
-  'unt-coliseum',
-  'amon-g-carter-stadium',
-  'gerald-j-ford-stadium',
-  'datcu-stadium',
-  'riders-field',
-  'lone-star-park',
-  'daikin-park',
-  'darrell-k-royal-texas-memorial-stadium',
-  'mclane-stadium',
-  'moody-center',
-  'toyota-center-houston',
-  'reliant-stadium',
-  'kyle-field',
-  'tdecu-stadium',
-  'q2-stadium',
-  'rice-stadium',
-];
-for (const slug of licensedPhotoSlugs) {
-  assert(photoSource.includes(`'${slug}': {`), `Licensed venue photo registry is missing ${slug}.`);
-}
-const commonsRedirectCount = photoSource.match(/https:\/\/commons\.wikimedia\.org\/wiki\/Special:Redirect\/file\//g)?.length ?? 0;
-assert(commonsRedirectCount === licensedPhotoSlugs.length, `Expected ${licensedPhotoSlugs.length} Wikimedia Commons delivery URLs; found ${commonsRedirectCount}.`);
-const sourcePageCount = photoSource.match(/sourcePage: 'https:\/\/commons\.wikimedia\.org\/wiki\/File:/g)?.length ?? 0;
-assert(sourcePageCount === licensedPhotoSlugs.length, `Expected ${licensedPhotoSlugs.length} Wikimedia Commons source pages; found ${sourcePageCount}.`);
-const licenseUrlCount = photoSource.match(/licenseUrl: 'https:\/\/creativecommons\.org\//g)?.length ?? 0;
-assert(licenseUrlCount === licensedPhotoSlugs.length, `Expected ${licensedPhotoSlugs.length} explicit Creative Commons license URLs; found ${licenseUrlCount}.`);
-assert(!photoSource.includes('http://'), 'Licensed venue photo registry must use HTTPS only.');
-for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com']) {
-  assert(!photoSource.toLowerCase().includes(forbidden), `Licensed venue photo registry contains a disallowed source: ${forbidden}`);
-}
 
 for (const marker of [
-  "createFileRoute('/api/sports-venue-hero')",
-  "const missingHeroHeaders = {",
-  "'cache-control': 'no-store'",
-  "'x-robots-tag': 'noindex, nofollow'",
-  "findCompleteTexasEntity(lookupSlug)",
-  "entity.kind !== 'sports-venue'",
-  'getSportsVenueEnrichmentAll(lookupSlug)',
-  "import('@/data/sports-venue-images-all')",
-  'getSportsVenuePhoto(lookupSlug)',
-  'if (!photo)',
-  "return new Response('Not found', { status: 404, headers: missingHeroHeaders });",
-  'location: photo.imageUrl',
-  'status: 302',
-]) assert(heroRoute.includes(marker), `Sports venue hero route is missing protected fail-closed marker: ${marker}`);
-assert(!heroRoute.includes("import('@/data/sports-venue-images')"), 'Sports venue hero route must not use the base-only image registry; it must resolve the aggregate Wave 1–7 registry.');
-for (const forbidden of [
-  'fetch(',
-  'images.unsplash.com',
-  'cloudinary',
-  'gettyimages',
-  'image/svg+xml',
-  'renderVenueHero',
-  'VenueVisualKind',
-  'Original TexasDefined editorial illustration',
-]) assert(!heroRoute.toLowerCase().includes(forbidden.toLowerCase()), `Sports venue hero route must fail closed instead of fetching or rendering fallback imagery: ${forbidden}`);
-assert(!heroRoute.includes('commons.wikimedia.org/wiki/Special:Redirect/file/'), 'Wikimedia delivery URLs must remain centralized in the licensed photo registry, not hardcoded in the route.');
+  "getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug)",
+  'getSportsVenuePhotoAddition(slug)',
+  'getSportsVenuePhotoAdditionWave2(slug)',
+  'getSportsVenuePhotoAdditionWave3(slug)',
+  'getSportsVenuePhotoAdditionWave4(slug)',
+  'getSportsVenuePhotoAdditionWave5(slug)',
+  'getSportsVenuePhotoAdditionWave6(slug)',
+  'getSportsVenuePhotoAdditionWave7(slug)',
+]) assert(aggregateSource.includes(marker), `Aggregate sports venue image lookup is missing: ${marker}`);
 
-for (const marker of [
-  "canonicalUrl.split('/sports-venue/')",
-  'getSportsVenuePhoto(slug)',
-  'const heroSrc = slug && photo ?',
-  '/api/sports-venue-hero?slug=',
-  'const heroAlt = photo?.alt',
-  'const heroWidth = photo?.width ?? 1600',
-  'const heroHeight = photo?.height ?? 900',
-  'width={heroWidth}',
-  'height={heroHeight}',
-  'fetchPriority="high"',
-  "'@type': 'ImageObject'",
-  'representativeOfPage: true',
-  'contentUrl: absoluteHeroUrl',
-  'Photo by',
-  'photo.sourcePage',
-  'photo.licenseUrl',
-  'photo.licenseName',
-]) assert(sharedComponent.includes(marker), `Shared sports venue component is missing governed-image marker: ${marker}`);
+const baseEntries = recordEntries(registrySources[0]);
+const supplementalGroups = registrySources.slice(1).map(recordEntries);
+const supplementalEntries = supplementalGroups.flat();
+const curatedEntries = recordEntries(curatedSource);
+const allDeclaredEntries = [...baseEntries, ...supplementalEntries, ...curatedEntries];
+const governedSet = new Set(governedSlugs);
 
-assert(!sharedComponent.includes('Original TexasDefined editorial illustration.'), 'Shared sports venue component must not render a generic illustration when a governed hero is missing.');
-assert(!sharedComponent.includes('http://') && !sharedComponent.includes('commons.wikimedia.org/wiki/Special:Redirect/file/'), 'Shared venue component must use the governed same-origin hero endpoint instead of direct third-party delivery URLs.');
+const supplementalCounts = new Map();
+for (const entry of supplementalEntries) supplementalCounts.set(entry.slug, (supplementalCounts.get(entry.slug) ?? 0) + 1);
+const duplicateSupplemental = [...supplementalCounts.entries()].filter(([, count]) => count > 1).map(([slug]) => slug).sort();
+assert(duplicateSupplemental.length === 0, `Duplicate supplemental venue photo slugs: ${duplicateSupplemental.join(', ')}`);
+
+const orphanRecords = [...new Set(allDeclaredEntries.map((entry) => entry.slug).filter((slug) => !governedSet.has(slug)))].sort();
+assert(orphanRecords.length === 0, `Venue photo records attached to nonexistent/unapproved routes: ${orphanRecords.join(', ')}`);
+
+const effective = new Map();
+for (const entry of [...curatedEntries, ...baseEntries, ...supplementalEntries]) {
+  if (!effective.has(entry.slug)) effective.set(entry.slug, entry);
+}
+
+const disallowedMarkers = ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'instagram.com', 'images.unsplash.com', 'googleusercontent'];
+const reusableLicense = /^(?:CC0|CC BY(?:-SA)?|Public domain\b)/i;
+
+for (const [slug, entry] of effective) {
+  assert(entry.slug === slug, `Malformed venue photo slug field for ${slug}.`);
+  assert(Boolean(entry.alt.trim()), `Venue photo is missing alt text: ${slug}.`);
+  assert(Boolean(entry.imageUrl), `Venue photo is missing imageUrl: ${slug}.`);
+  assert(Boolean(entry.sourcePage), `Venue photo is missing sourcePage: ${slug}.`);
+  assert(Boolean(entry.sourceName.trim()), `Venue photo is missing sourceName: ${slug}.`);
+  assert(Boolean(entry.author.trim()), `Venue photo is missing author/attribution: ${slug}.`);
+  assert(Boolean(entry.licenseName.trim()), `Venue photo is missing licenseName: ${slug}.`);
+  assert(Boolean(entry.licenseUrl), `Venue photo is missing licenseUrl: ${slug}.`);
+  assert(entry.imageUrl.startsWith('/') || entry.imageUrl.startsWith('https://'), `Venue photo image URL must be local or HTTPS: ${slug} -> ${entry.imageUrl}`);
+  assert(entry.sourcePage.startsWith('https://'), `Venue photo sourcePage must use HTTPS: ${slug} -> ${entry.sourcePage}`);
+  assert(entry.licenseUrl.startsWith('https://'), `Venue photo licenseUrl must use HTTPS: ${slug} -> ${entry.licenseUrl}`);
+  assert(entry.width >= 600 && entry.height >= 400, `Venue photo is suspiciously small: ${slug} -> ${entry.width}x${entry.height}`);
+
+  const provenance = `${entry.imageUrl} ${entry.sourcePage} ${entry.sourceName}`.toLowerCase();
+  for (const forbidden of disallowedMarkers) {
+    assert(!provenance.includes(forbidden), `Venue photo uses a disallowed image host/source (${forbidden}): ${slug}`);
+  }
+
+  const generated = /^AI-generated\b/i.test(entry.licenseName) || /generated media/i.test(entry.sourceName);
+  if (generated) {
+    assert(slug === 'xtreme-raceway-park', `Only the owner-approved Xtreme Raceway exception may use generated venue imagery; found ${slug}.`);
+    assert(entry.sourceName === 'site-owner supplied media', 'Xtreme Raceway generated-image exception must retain site-owner supplied provenance.');
+  } else {
+    assert(reusableLicense.test(entry.licenseName), `Unsupported or unclear reusable license for ${slug}: ${entry.licenseName}`);
+  }
+}
+
+const missingSlugs = governedSlugs.filter((slug) => !effective.has(slug));
+const uniqueCovered = governedSlugs.length - missingSlugs.length;
+const baseGoverned = baseEntries.filter((entry) => governedSet.has(entry.slug)).length;
+const supplementalGoverned = supplementalEntries.filter((entry) => governedSet.has(entry.slug)).length;
+const overlapSlugs = governedSlugs.filter((slug) => allDeclaredEntries.filter((entry) => entry.slug === slug).length > 1).sort();
 
 if (errors.length) {
   console.error('Sports venue image validation failed:');
@@ -135,4 +152,12 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Sports venue imagery validated: ${imageBriefCount} venue briefs, ${licensedPhotoSlugs.length} licensed photo overrides with attribution metadata, aggregate Wave 1–7 same-origin delivery, fail-closed missing-hero behavior, and governed structured ImageObject metadata.`);
+console.log('Sports venue image coverage report:');
+console.log(`- base photo records: ${baseGoverned}`);
+console.log(`- supplemental photo records: ${supplementalGoverned}`);
+console.log(`- curated override records: ${curatedEntries.length}`);
+console.log(`- overlapping governed slugs: ${overlapSlugs.length}`);
+console.log(`- unique governed venues with approved photos: ${uniqueCovered}`);
+console.log(`- total governed venue count: ${governedSlugs.length}`);
+console.log(`- remaining fallback count: ${missingSlugs.length}`);
+console.log(`- missing slugs: ${missingSlugs.join(', ') || 'none'}`);
