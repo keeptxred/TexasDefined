@@ -87,6 +87,7 @@ if (!failures.length) {
   }
 
   if (!directoryLazy.includes('createLazyFileRoute("/fishing/guides")') || !directoryLazy.includes("FishingGuideDirectory pageData={Route.useLoaderData()}")) failures.push("Fishing guide directory native lazy route missing.");
+  for (const token of ["useRouterState", "state.location.pathname", "pathname !== FISHING_GUIDES_DIRECTORY_PATH", "return <Outlet />"]) if (!directoryLazy.includes(token)) failures.push(`Fishing guide directory child-route guard missing: ${token}`);
   if (!profileLazy.includes('createLazyFileRoute("/fishing/guides/$slug")') || !profileLazy.includes("FishingGuideProfile pageData={Route.useLoaderData()}")) failures.push("Fishing guide profile native lazy route missing.");
   if (directoryRoute.includes('from "@/components/fishing/FishingGuideDirectory"') || /\bcomponent\s*:/.test(directoryRoute)) failures.push("Fishing guide directory UI leaked into critical route.");
   if (profileRoute.includes('from "@/components/fishing/FishingGuideProfile"') || /\bcomponent\s*:/.test(profileRoute)) failures.push("Fishing guide profile UI leaked into critical route.");
