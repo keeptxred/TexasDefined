@@ -236,7 +236,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     highlights: ["Polk County local history", "East Texas timber industry", "Railroad and Trinity River history", "Native American and pioneer exhibits"],
     body: [
       "Polk County Memorial Museum covers the forces that shaped Livingston and the surrounding Piney Woods, from Indigenous history and pioneer settlement to timber, transportation and twentieth-century community life. Its collections help explain why the county developed around forests, rivers and transportation corridors.",
-      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so TexasDefined preserves the canonical destination while placing the closure ahead of trip-planning details rather than presenting historical operating hours as current access.",
+      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so travelers should treat the closure as the controlling status rather than rely on historical operating hours.",
       "Once reopened, the museum will be a natural county-level anchor linking Livingston, timber history, the Trinity River and nearby outdoor destinations. Maintaining the page during the closure also gives TexasDefined one stable URL to update when the museum announces its return."
     ],
     officialUrl: "https://www.polkcountymemorialmuseum.com/",
