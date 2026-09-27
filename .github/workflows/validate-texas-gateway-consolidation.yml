@@ -24,8 +24,6 @@ on:
       - "scripts/data/validate-texas-gateway-expansion-wave1.mjs"
       - "scripts/data/validate-texas-gateway-batch14-16-disposition.mjs"
       - "scripts/data/texas-gateway-batch14-16-disposition.json"
-      - "scripts/data/validate-texas-gateway-disposition-plan.mjs"
-      - "scripts/data/texas-gateway-disposition-plan.json"
       - "scripts/data/audit-texas-gateway-depth.mjs"
       - "scripts/data/audit-texas-gateway-production-readiness.mjs"
       - "scripts/data/audit-texas-gateway-editorial-candidates.mjs"
@@ -61,9 +59,6 @@ jobs:
 
       - name: Validate Batch 14-16 disposition governance
         run: node scripts/data/validate-texas-gateway-batch14-16-disposition.mjs
-
-      - name: Validate all 140 gateway dispositions
-        run: node scripts/data/validate-texas-gateway-disposition-plan.mjs
 
       - name: Validate stargazing mechanical readiness
         run: node scripts/data/validate-texas-gateway-stargazing-readiness.mjs

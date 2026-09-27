@@ -45,5 +45,5 @@ export const Route = createFileRoute("/explore/top-attractions/methodology")({
 });
 
 function TopAttractionsMethodologyPage() {
-  return <Suspense fallback={null}><TopAttractionsMethodologyContent /></Suspense>;
+  return <Suspense fallback={<div role="status" className="mx-auto max-w-6xl px-6 py-16 text-sm text-muted-foreground">Loading attraction methodology…</div>}><TopAttractionsMethodologyContent /></Suspense>;
 }

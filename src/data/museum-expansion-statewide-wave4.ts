@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Chisholm Trail Heritage Museum uses cowboy culture as an entry point into a much wider history of ranching in Texas and the Americas. Its Horsemen of the Americas collection places North American cattle traditions beside related material from Mexico and South America, while saddlery, spurs and other working equipment emphasize craftsmanship as well as function.",
       "The museum campus is part of the experience. Historic buildings in central Cuero connect the collections to the architecture and commercial life of a South Texas cattle town rather than placing the story inside an anonymous exhibit hall. Native American material and changing exhibitions broaden the interpretation beyond the trail-drive era alone.",
-      "For TexasDefined, the museum gives DeWitt County a substantial destination anchor that can connect Cuero, ranching, cattle trails, South Texas heritage and nearby small-town itineraries. It turns a familiar Texas theme into a location-specific authority page instead of repeating generic cowboy history."
+      "The museum gives DeWitt County a substantial destination anchor that can connect Cuero, ranching, cattle trails, South Texas heritage and nearby small-town itineraries. It turns a familiar Texas theme into a location-specific authority page instead of repeating generic cowboy history."
     ],
     officialUrl: "https://chisholmtrailmuseum.org/",
     managingAuthority: "Chisholm Trail Heritage Museum",
@@ -161,7 +161,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Tyler Museum of Art provides Smith County with a dedicated visual-arts institution whose scale makes it easy to pair with a wider Tyler itinerary. Permanent holdings and rotating exhibitions give visitors access to Texas and regional art without requiring a full-day commitment.",
       "The museum's education mission matters in a part of the state where major art institutions are more widely spaced than in Dallas or Houston. Programs, school engagement and exhibitions create a cultural hub for East Texas residents as well as travelers.",
-      "For TexasDefined, the page strengthens Tyler's destination mix beyond roses, gardens and outdoor attractions. It also creates logical regional links to Longview's art museum and other Piney Woods cultural stops, building an East Texas museum corridor rather than standalone pages."
+      "The page strengthens Tyler's destination mix beyond roses, gardens and outdoor attractions. It also creates logical regional links to Longview's art museum and other Piney Woods cultural stops, building an East Texas museum corridor rather than standalone pages."
     ],
     officialUrl: "https://tylermuseum.org/",
     managingAuthority: "Tyler Museum of Art",
@@ -236,7 +236,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "Port Isabel's historical museum gives context to a coastal town many visitors otherwise encounter only on the way to South Padre Island. The Champion Building is itself part of the interpretation, with its commercial history and famous fish mural making the exterior a recognizable historic artifact before visitors enter the galleries.",
       "Inside, exhibits connect the Laguna Madre, fishing, commerce, border history and community development. Those subjects help explain why Port Isabel became a durable settlement and port rather than simply a modern tourism gateway.",
-      "The museum naturally cross-links the Port Isabel Lighthouse, Laguna Madre nature destinations and South Padre-area travel content. For TexasDefined, that creates a much richer Cameron County coastal cluster than beaches alone can provide."
+      "The museum naturally cross-links the Port Isabel Lighthouse, Laguna Madre nature destinations and South Padre-area travel content. That creates a much richer Cameron County coastal cluster than beaches alone can provide."
     ],
     officialUrl: "https://portisabelhistory.com/",
     managingAuthority: "Museums of Port Isabel / City of Port Isabel",
@@ -311,7 +311,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Laredo Center for the Arts gives contemporary creative activity a home inside one of Texas's most historically layered downtowns. Exhibitions, artist gatherings, classes and events create a public-facing cultural institution that reflects the city's position on the U.S.-Mexico border.",
       "Its location near the San Agustín district matters. Visitors can place current art and community programs beside nineteenth-century architecture, border commerce and institutions such as the Republic of the Rio Grande Museum, making the arts center part of a walkable heritage cluster rather than an isolated gallery.",
-      "For TexasDefined, the destination strengthens Webb County with a cultural page that is not simply another history museum. It cross-links naturally with downtown Laredo, border culture, architecture, festivals and existing South Texas authority content."
+      "The destination strengthens Webb County with a cultural page that is not simply another history museum. It cross-links naturally with downtown Laredo, border culture, architecture, festivals and existing South Texas authority content."
     ],
     officialUrl: "https://laredocenterforthearts.org/",
     managingAuthority: "Laredo Center for the Arts",

@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Fannin County Museum of History gives Bonham a broad local-history anchor inside a building that already tells part of the county's transportation story. The historic Texas & Pacific depot connects the museum directly to the railroad era that helped move North Texas people, crops and goods into larger markets.",
       "Exhibits range from pioneer life and local businesses to military service and twentieth-century change, allowing visitors to understand Fannin County as more than the home of one famous political figure. Community photographs and donated artifacts give the galleries a distinctly local texture.",
-      "For TexasDefined, the museum complements the Sam Rayburn Museum rather than competing with it. Cross-linking both destinations with the Fannin County and Bonham authority pages creates a stronger multi-stop heritage itinerary covering politics, railroads, settlement and community history."
+      "The museum complements the Sam Rayburn Museum rather than competing with it. Cross-linking both destinations with the Fannin County and Bonham authority pages creates a stronger multi-stop heritage itinerary covering politics, railroads, settlement and community history."
     ],
     officialUrl: "https://www.fannincountymuseum.org/",
     managingAuthority: "Fannin County Museum of History",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Matagorda County Museum links coastal Texas history to stories with statewide and international reach. Early exploration and La Salle's failed French venture sit beside ranching, farming and community exhibits that show how the county developed long after European powers first competed for the region.",
       "Its home in Bay City's former federal post office gives visitors another historic structure to experience. The building served the community for decades before becoming the museum, and its preservation helps tie civic architecture to the collections inside.",
-      "For TexasDefined, the destination anchors Matagorda County's cultural layer while cross-linking naturally to Matagorda Bay, coastal birding, ranching and La Belle-related Texas history. It makes Bay City more than a service stop on the way to the coast."
+      "The destination anchors Matagorda County's cultural layer while cross-linking naturally to Matagorda Bay, coastal birding, ranching and La Belle-related Texas history. It makes Bay City more than a service stop on the way to the coast."
     ],
     officialUrl: "https://matagordacounty-museum.org/",
     managingAuthority: "Matagorda County Museum Association",

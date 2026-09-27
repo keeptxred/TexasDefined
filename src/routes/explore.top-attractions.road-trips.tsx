@@ -93,5 +93,5 @@ export const Route = createFileRoute("/explore/top-attractions/road-trips")({
 
 function TopAttractionRoadTripsPage() {
   const trips = Route.useLoaderData();
-  return <Suspense fallback={null}><TopAttractionRoadTripsContent trips={trips} /></Suspense>;
+  return <Suspense fallback={<div role="status" className="mx-auto max-w-6xl px-6 py-16 text-sm text-muted-foreground">Loading Texas road-trip guide…</div>}><TopAttractionRoadTripsContent trips={trips} /></Suspense>;
 }

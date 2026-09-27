@@ -79,6 +79,37 @@ for (const file of lazyRoutes) {
   }
 }
 
+const fullPageSuspenseRoutes = [
+  'src/routes/texas-toll-tags.tsx',
+  'src/routes/texas-by-texas-txt.tsx',
+  'src/routes/what-does-chud-mean.tsx',
+  'src/routes/start-a-business-in-texas.tsx',
+  'src/routes/everything-bigger-in-texas.tsx',
+  'src/routes/track-texas-drivers-license.tsx',
+  'src/routes/replace-texas-registration-receipt.tsx',
+  'src/routes/explore.top-attractions.methodology.tsx',
+  'src/routes/explore.top-attractions.road-trips.tsx',
+  'src/routes/texas-data.county-growth.tsx',
+  'src/routes/sports-venues.tsx',
+];
+
+for (const file of fullPageSuspenseRoutes) {
+  const source = read(file);
+  if (source.includes('fallback={null}')) {
+    failures.push(`${file} must not blank the primary page content while its lazy child loads.`);
+  }
+  if (!source.includes('role="status"')) {
+    failures.push(`${file} must expose a visible loading status for its primary lazy content.`);
+  }
+}
+
+{
+  const source = read('src/routes/search.lazy.tsx');
+  if (source.includes('min-h-[42vh]')) {
+    failures.push('src/routes/search.lazy.tsx must not force an empty 42vh results shell.');
+  }
+}
+
 if (failures.length) {
   console.error('Sitewide dead-space validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
