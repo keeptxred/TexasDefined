@@ -101,7 +101,7 @@ export const texasRiversExplainedArticle: Article = {
   body: [
     p("You can understand a surprising amount of Texas by following the water. Towns grew where rivers could be crossed. Farms spread across bottomlands where floods left deep soil. Railroads, highways and county seats followed older settlement patterns. Modern cities now depend on reservoirs built into the same river systems, while summer weekends still revolve around stretches of water Texans have floated, fished and swum for generations."),
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
-    h("Major Texas rivers by region and basin"),
+    h("Where Texas's Major Rivers Flow"),
     p("Texas's best-known rivers belong to several very different geographic systems. The Rio Grande and Pecos cross arid mountain and desert country in the west. The Brazos and Colorado drain broad sections of West and Central Texas before reaching the Gulf. The Guadalupe, Nueces and San Antonio systems are strongly shaped by the Edwards Plateau, limestone and springs. The Trinity links North Texas to the coast, while the Sabine and Neches carry the wetter, forested character of East Texas. The Red and Canadian connect parts of northern Texas to larger river systems beyond the state."),
     list(
       "West Texas and the mountains: Rio Grande, Pecos and Devils River systems move through high desert, basins and canyon country.",
@@ -111,7 +111,7 @@ export const texasRiversExplainedArticle: Article = {
       "East Texas: Sabine and Neches systems run through the wetter Piney Woods toward Sabine Lake and the Gulf Coast."
     ),
     h("How a Texas River Is Born"),
-    p("A river makes more sense when you think about everything that drains toward it. That entire drainage area is its basin or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street eventually either soaks into the ground, evaporates or begins moving downhill through creeks and tributaries toward a larger river system."),
+    p("A river makes more sense when you think about all the land that sends water toward it. That area of land is called the river's basin, or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street can soak into the ground, evaporate or flow downhill into smaller creeks and streams that eventually feed the river."),
     p("The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. The coastal basins occupy the areas between the larger named river systems and drain directly toward bays and the Gulf. On a map, those basin boundaries create a set of broad natural districts that ignore county lines and city limits."),
     p("That is useful because water does the same thing. A fast-growing suburb can affect a creek that crosses several counties. A reservoir hundreds of miles upstream can influence flows downstream. Heavy rain in one part of a basin can produce flooding somewhere that never saw the storm."),
     quote("Texas rivers are not blue lines laid on top of the state. They are systems that help explain the state itself."),

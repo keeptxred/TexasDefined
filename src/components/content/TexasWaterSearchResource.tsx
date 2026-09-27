@@ -20,7 +20,7 @@ const topicLinks: WaterGuide[] = [
     id: "basins",
     href: "/article/texas-river-basins-guide",
     title: "River basins",
-    description: "Watersheds, drainage divides and the systems that connect tributaries to the Gulf.",
+    description: "The land that drains into each river, including the boundaries that separate one river system from another.",
   },
   {
     id: "reservoirs",
@@ -38,7 +38,7 @@ export function TexasWaterSearchResource({ active }: { active: WaterTopic }) {
         Pick the water guide you actually need
       </h2>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
-        These pages intentionally cover different search intents so rivers, watersheds and reservoirs do not compete for the same job.
+        Each guide answers a different question: follow individual waterways here, use the basin guide to see what land drains into them, and use the reservoir guide to understand how dams store and manage water.
       </p>
       <nav aria-label="Texas river, basin and reservoir guides" className="mt-5 grid gap-3 sm:grid-cols-3">
         {topicLinks.map((topic) => {
