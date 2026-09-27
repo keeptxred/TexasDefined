@@ -193,10 +193,10 @@ function SoftPlasticsRiggingVisual() {
     <div className="mt-8 grid gap-5 md:grid-cols-2">
       {rigs.map((rig) => <figure key={rig.name} className="border border-border p-5">
         <figcaption className="font-display text-2xl">{rig.name}</figcaption>
-        <div className="mt-5 flex min-h-24 flex-wrap items-center gap-2 rounded-sm bg-muted/35 p-4" aria-label={`${rig.name} simplified rig layout`}>
+        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-4" aria-label={`${rig.name} simplified rig layout`}>
           {rig.pieces.map((piece, index) => <div key={piece} className="contents">
-            <span className="rounded-full border border-foreground/25 bg-background px-3 py-2 text-xs font-semibold">{piece}</span>
-            {index < rig.pieces.length - 1 ? <span aria-hidden="true" className="h-px w-5 bg-foreground/35" /> : null}
+            <span className="border border-border px-3 py-2 text-xs font-semibold">{piece}</span>
+            {index < rig.pieces.length - 1 ? <span aria-hidden="true" className="text-muted-foreground">→</span> : null}
           </div>)}
         </div>
       </figure>)}
