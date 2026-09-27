@@ -35,6 +35,8 @@ const smokeTargets = [
     label: 'fishing finder verified filters',
   },
   { path: '/fishing/techniques/crankbaits', requiredText: 'How to Fish Crankbaits in Texas', label: 'crankbaits technique detail route' },
+  { path: '/fishing/guides/submit', requiredText: 'Submit, claim or correct a Texas fishing-guide listing.', label: 'fishing guide submission child route' },
+  { path: '/fishing/reports/submit', requiredText: 'Submit a dated fishing report for verification.', label: 'fishing report submission child route' },
   { path: '/fishing/lakes/o-h-ivie-lake', requiredText: 'O.H. Ivie Lake', label: 'O.H. Ivie complete fishing guide' },
   { path: '/fishing/lakes/lake-travis', requiredText: 'Lake Travis', label: 'Lake Travis complete fishing guide' },
   { path: '/fishing/lakes/lake-whitney', requiredText: 'Lake Whitney', label: 'Lake Whitney complete fishing guide' },
