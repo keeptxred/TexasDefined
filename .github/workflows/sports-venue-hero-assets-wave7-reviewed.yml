@@ -21,9 +21,6 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    env:
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Check out current main
         uses: actions/checkout@v4
@@ -84,7 +81,7 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Refresh reviewed sports venue hero images' \
-            --body "Reviewed sports venue hero reconciliation. Exact venue-specific Wikimedia Commons files are used only when their titles are explicitly pinned after manual identity review and their reusable licenses are verified again through the Commons API at run time. Existing AI fallbacks are preserved rather than regenerated, so a targeted real-photo upgrade does not churn unrelated venue imagery. Ambiguous or unsupported sources remain rejected."
+            --body "Reviewed sports venue hero reconciliation. Exact venue-specific Wikimedia Commons files are used only when their titles are explicitly pinned after manual identity review and their reusable licenses are verified again through the Commons API at run time. Ambiguous or unsupported sources remain rejected, and venues without a defensible reusable photograph remain on the fail-closed fallback. No AI venue depiction is generated."
 
       - name: Run official validation on reviewed branch
         if: ${{ always() && steps.changes.outputs.changed == 'true' }}
