@@ -1,10 +1,12 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { OfficialFishingReport } from "@/components/fishing/OfficialFishingReport";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import { showcaseLakeCanonicalPath, type ShowcaseLakeSection, type ShowcaseLakeSlug } from "@/data/fishing/showcase-lake-routing";
 import type { ShowcaseLakePrototype } from "@/data/fishing/showcase-lakes-prototype";
 import type { FishingBusiness, FishingGuide, FishingPlacement, FishingReport } from "@/data/fishing/types";
+import type { TpwdFishingReportSnapshot } from "@/data/fishing/tpwd-fishing-report.server";
 
 type SectionMeta = { slug: ShowcaseLakeSection; label: string; title: string; description: string };
 type PageData = ShowcaseLakePrototype & { sections: SectionMeta[] };
@@ -19,6 +21,7 @@ const showcaseNames: Record<ShowcaseLakeSlug, string> = {
 export function ShowcaseLakeGuide({
   section,
   reports,
+  officialReport,
   guides,
   businesses,
   placements,
@@ -26,6 +29,7 @@ export function ShowcaseLakeGuide({
 }: {
   section?: ShowcaseLakeSection;
   reports: FishingReport[];
+  officialReport: TpwdFishingReportSnapshot | null;
   guides: FishingGuide[];
   businesses: FishingBusiness[];
   placements: FishingPlacement[];
@@ -65,7 +69,7 @@ export function ShowcaseLakeGuide({
       {section === "regulations" && <Regulations pageData={pageData} />}
       {section === "camping" && <Camping pageData={pageData} />}
       {section === "nearby" && <Nearby pageData={pageData} />}
-      {section === "reports" && <Reports reports={reports} pageData={pageData} />}
+      {section === "reports" && <Reports reports={reports} officialReport={officialReport} pageData={pageData} />}
       {section === "guides" && <Guides guides={verifiedGuides} placements={placements} pageData={pageData} />}
       <SourceFooter pageData={pageData} />
     </Container>
@@ -110,7 +114,7 @@ function Camping({ pageData }: { pageData: PageData }) { return <section><p clas
 
 function Nearby({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Build a bigger trip</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Connect the lake to the rest of TexasDefined.</h2><div className="mt-9 grid gap-x-8 border-t border-border md:grid-cols-2">{pageData.nearby.map((item) => <article key={item.label} className="border-b border-border py-7"><h3 className="font-display text-2xl">{item.label}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>{item.external ? <a href={item.href} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Official source →</a> : <a href={item.href} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">TexasDefined guide →</a>}</article>)}</div></section>; }
 
-function Reports({ reports, pageData }: { reports: FishingReport[]; pageData: PageData }) { return <section><p className="eyebrow text-primary">Freshness first</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Fishing reports need dates and attribution.</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{pageData.reportSnapshot.summary}</p>{reports.length > 0 ? <div className="mt-9 space-y-6">{reports.map((report) => <article key={report.id} className="border-t border-border pt-6"><p className="eyebrow text-primary">Published {formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-2xl">{report.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{report.summary}</p></article>)}</div> : <div className="mt-9 border-l-2 border-primary pl-5"><h3 className="font-display text-2xl">No TexasDefined current report is published.</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">We do not turn evergreen seasonal guidance into a fake current report. Use TPWD's current fisheries information until a dated TexasDefined report is available.</p></div>}<a href={pageData.sources.tpwdLake.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Open TPWD lake page →</a></section>; }
+function Reports({ reports, officialReport, pageData }: { reports: FishingReport[]; officialReport: TpwdFishingReportSnapshot | null; pageData: PageData }) { return <section><p className="eyebrow text-primary">Latest fishing conditions</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Newest dated reports for {pageData.overview.name}</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Fishing conditions change quickly, so every report stays tied to its publication date and source. The newest official TPWD report available is shown first.</p><OfficialFishingReport report={officialReport} fallbackUrl={pageData.sources.tpwdLake.url} lakeName={pageData.overview.name} />{reports.length > 0 ? <div className="mt-10 space-y-6"><p className="eyebrow text-muted-foreground">TexasDefined reports</p>{reports.map((report) => <article key={report.id} className="border-t border-border pt-6"><p className="eyebrow text-primary">Published {formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-2xl">{report.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{report.summary}</p></article>)}</div> : null}</section>; }
 
 function Guides({ guides, placements, pageData }: { guides: FishingGuide[]; placements: FishingPlacement[]; pageData: PageData }) { return <section><p className="eyebrow text-primary">Local expertise</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Only verified guide profiles belong here.</h2>{guides.length > 0 ? <div className="mt-9 grid gap-6 md:grid-cols-2">{guides.map((guide) => <article key={guide.id} className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Verified listing</p><h3 className="mt-2 font-display text-2xl">{guide.businessName}</h3>{guide.bio && <p className="mt-3 text-sm leading-7 text-muted-foreground">{guide.bio}</p>}{guide.website && <a href={guide.website} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary text-sm text-primary">Guide website →</a>}</article>)}</div> : <div className="mt-9 border-l-2 border-primary pl-5"><h3 className="font-display text-2xl">No {pageData.overview.name} guide has cleared the verified-listing gate yet.</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">We will not fill the directory with scraped names or implied endorsements. Guides can submit a profile for verification and future report/article contributor access.</p><Link to="/partner-with-us" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Partner with TexasDefined →</Link></div>}<Sponsored placements={placements} /><div className="mt-9 border-t border-border pt-6"><p className="eyebrow text-primary">Sponsorship policy</p><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Paid placement never changes the verified-listing requirement or editorial fishing advice. Sponsored positions are labeled and kept separate from organic guide listings.</p></div></section>; }
 
