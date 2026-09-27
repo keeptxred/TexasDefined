@@ -46,6 +46,7 @@ export const indigenousTexasHistoryNativeNationsArticle: Article = {
   sourceUrl: "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
   internalLinks: [
     { href: "/article/texas-before-united-states-how-texas-began", label: "Texas before the United States", description: "Continue from Indigenous homelands through Spanish and Mexican Texas, the Revolution, Republic, annexation and statehood." },
+    { href: "/article/native-nations-texas-today", label: "Native Nations in Texas today", description: "See the three federally recognized tribal nations located in Texas today and the wider network of federally recognized tribes with continuing Texas connections." },
     { href: "/destination/caddo-mounds-state-historic-site", label: "Caddo Mounds State Historic Site", description: "Visit one of the clearest surviving landscapes for understanding ancestral Caddo civic, ceremonial and trade networks." },
     { href: "/destination/hueco-tanks-state-park-and-historic-site", label: "Hueco Tanks State Park & Historic Site", description: "Explore a protected West Texas cultural landscape with rock imagery, water sources and evidence of repeated human use across thousands of years." },
     { href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso", label: "Ysleta del Sur Pueblo Cultural Center Museum", description: "Learn from a living Pueblo institution operated by the Tigua community in El Paso." },
