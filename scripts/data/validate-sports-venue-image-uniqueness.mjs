@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const files = [
+  'src/data/sports-venue-images-curated-overrides.ts',
   'src/data/sports-venue-images.ts',
   'src/data/sports-venue-images-additions.ts',
   'src/data/sports-venue-images-additions-wave2.ts',
