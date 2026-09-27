@@ -27,6 +27,7 @@ const etiquette: ArticleBlock[] = [
   { type: "paragraph", text: "If you are invited to a home, bringing a small contribution is usually appreciated when practical, but the host's instructions matter more than a generic rule. If they say not to bring anything, do not turn the visit into a contest over hospitality. Help with obvious cleanup, respect house rules and do not overstay simply because the conversation is friendly." },
   { type: "heading", text: "Good Texas etiquette adapts to the place" },
   { type: "paragraph", text: "Houston apartment life, a Hill Country ranch, a Valley family gathering and a Panhandle farm community can have very different expectations. Observe first. Ask when access, parking, dress or local custom is unclear. The strongest unwritten rule is not a phrase or gesture; it is recognizing that Texas is large enough for several versions of normal to exist at the same time." },
+  { type: "paragraph", text: "A useful visitor test is simple: before doing something that affects parking, property, a line, a trail, an event entrance or another person’s time, look for the local rule first. That habit prevents most of the mistakes that get mislabeled as breaking an unwritten Texas custom. Courtesy is less about memorizing regional folklore than noticing how a place actually works and leaving it no harder for the next person to use." },
 ];
 
 const myths: ArticleBlock[] = [
@@ -50,6 +51,7 @@ const myths: ArticleBlock[] = [
   { type: "paragraph", text: "Texas also did not move directly from frontier to modern state without outside influence. Indigenous nations, Mexican and Tejano communities, German and Czech immigrants, Black Texans, later domestic migration and global immigration all shaped language, food, music, politics and settlement. The state's identity is cumulative." },
   { type: "heading", text: "The most durable myth is that there is one correct way to be Texan" },
   { type: "paragraph", text: "A ranch family in the Panhandle, a Vietnamese American family on the Gulf Coast, a multigenerational Tejano family in South Texas and a newcomer in a Dallas suburb can all belong to Texas without sharing the same traditions. State symbols and common stories create a layer of shared identity, but regional and family cultures sit underneath it. Texas becomes more understandable when difference is treated as part of the definition instead of a contradiction." },
+  { type: "paragraph", text: "The practical way to test a Texas stereotype is to ask where it is true, why it developed there and what changes when you cross into another region. That turns a myth into a geography or history question instead of replacing one oversimplification with another. The state is easier to understand when claims are tied to a place, period or community rather than presented as universal Texas behavior." },
 ];
 
 const summer: ArticleBlock[] = [
@@ -74,11 +76,13 @@ const summer: ArticleBlock[] = [
   { type: "heading", text: "September does not guarantee fall" },
   { type: "paragraph", text: "Calendar expectations are one of the last habits to change. Stores may display fall merchandise while afternoons still behave like midsummer. Outdoor-event planning often remains heat-aware well into September, and warm spells can return after brief cool fronts. The first sustained period of lower humidity or genuinely cool mornings feels significant because daily routines finally expand back into the afternoon." },
   { type: "paragraph", text: "Living through a Texas summer is less about collecting complaints than learning systems: when to go outside, where shade matters, how the house holds heat, what the car needs, how much water to carry and when a storm changes the plan. Once those adjustments become routine, summer is still demanding, but it stops being surprising." },
+  { type: "paragraph", text: "The final lesson is to build margin into ordinary days. A delayed errand, an extra bottle of water, a shaded stop, a charged phone or an indoor backup can matter more than squeezing one additional activity into the hottest part of the afternoon. Summer planning becomes easier when heat is treated as a recurring operating condition rather than a temporary inconvenience that every schedule should ignore." },
 ];
 
 export const texasGatewayBatch5CulturalEnrichment: Record<string, GatewayCulturalEnrichment> = {
   "unwritten-rules-of-texas-etiquette": {
     body: etiquette,
+    relatedDestinations: ["gruene-historic-district", "san-antonio"],
     internalLinks: [
       { href: "/article/texas-sayings-outsiders-need-translated", label: "Texas sayings outsiders may hear" },
       { href: "/article/bluebonnet-photo-etiquette-and-best-practices", label: "Bluebonnet photo etiquette" },
@@ -89,6 +93,7 @@ export const texasGatewayBatch5CulturalEnrichment: Record<string, GatewayCultura
   },
   "texas-myths-outsiders-still-believe": {
     body: myths,
+    relatedDestinations: ["big-bend-national-park", "galveston-island"],
     internalLinks: [
       { href: "/texas-facts", label: "100 essential Texas facts" },
       { href: "/things-unique-to-texas", label: "Things unique to Texas" },
@@ -101,6 +106,7 @@ export const texasGatewayBatch5CulturalEnrichment: Record<string, GatewayCultura
     body: summer,
     sourceName: "National Weather Service Fort Worth/Dallas — Heat Safety",
     sourceUrl: "https://www.weather.gov/safety/heat",
+    relatedDestinations: ["galveston-island", "palo-duro-canyon"],
     internalLinks: [
       { href: "/article/texas-weather-surprises-newcomers", label: "Texas weather surprises newcomers" },
       { href: "/article/open-pool-for-texas-summer", label: "Open a Texas pool for summer" },
