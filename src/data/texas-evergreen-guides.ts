@@ -132,7 +132,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "9. Dallas and Austin legacy restaurants",
         body: [
           "El Fenix in Dallas and Matt's El Rancho in Austin show how long-running Mexican-American and Tex-Mex restaurants became part of city identity. Scholz Garten adds a different Austin lineage through German-Texan social culture, while Joe's Bakery keeps the East Austin breakfast tradition grounded in a neighborhood institution.",
-          "Use these profiles as entry points, not exhaustive city rankings. TexasDefined's goal is to document durable institutions and then connect them to the larger city, county and cultural story."
+          "Use these profiles as entry points, not exhaustive city rankings. The useful focus is on durable institutions and how they connect to the larger city, county and cultural story."
         ],
         links: [
           { href: "/food/el-fenix-downtown-dallas", label: "El Fenix" },
