@@ -29,6 +29,22 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       </Container>
     </header>
 
+    {technique.slug === "crankbaits" ? <Container className="pt-8 sm:pt-10">
+      <figure className="overflow-hidden border border-border bg-muted/20">
+        <img
+          src="/images/fishing/techniques/crankbaits-hero.webp"
+          alt="Crankbait diving beside submerged timber and rock in a Texas reservoir"
+          width={1200}
+          height={675}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="aspect-[16/9] w-full object-cover"
+        />
+        <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">Crankbaits are moving lures built to cover water at a chosen depth while deflecting off or passing close to fish-holding cover.</figcaption>
+      </figure>
+    </Container> : null}
+
     <Container className="py-12 sm:py-16">
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-3" aria-label="Technique coverage">
         <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakes.length}</p></div>
@@ -54,6 +70,18 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <p className="eyebrow text-primary">Crankbait selection</p>
           <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">Crankbait Types by Depth and Cover</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">For crankbaits, running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.</p>
+          <figure className="mt-8 overflow-hidden border border-border bg-muted/20">
+            <img
+              src="/images/fishing/techniques/crankbaits-depth-guide.webp"
+              alt="Crankbait styles shown at progressively deeper running zones from shallow cover to deep structure"
+              width={1200}
+              height={675}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[16/9] w-full object-cover"
+            />
+            <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">Use this as a visual guide, not an exact depth chart. Actual running depth changes with lure design, line diameter, cast length and retrieve speed; manufacturer depth ranges are the better reference for a specific lure.</figcaption>
+          </figure>
           <div className="mt-8 overflow-hidden border border-border">
             <div className="hidden grid-cols-3 bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
               <span>Style</span><span>Depth</span><span>Best use</span>
