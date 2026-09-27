@@ -146,6 +146,13 @@ if (!mergeGate.includes('node scripts/ci/run-premerge-validation.mjs')) errors.p
 if (!premergeRunner.includes("'scripts/data/audit-event-schema-enrichment.mjs'")) errors.push('Canonical pre-merge contract must run the event image coverage audit.');
 
 for (const marker of [
+  'const { getSportsVenuePhoto } = await import("@/data/sports-venue-images-all");',
+  '.filter((entity) => entity.kind !== "sports-venue" || Boolean(getSportsVenuePhoto(entity.slug)))',
+]) {
+  if (!sitemap.includes(marker)) errors.push(`Sports venue sitemap must honor the approved-photo indexability gate: ${marker}`);
+}
+
+for (const marker of [
   'Could not derive governed dynamic sports venue slugs from the route',
   'Duplicate supplemental sports venue slugs',
   'photo record targets nonexistent/unapproved venue',
