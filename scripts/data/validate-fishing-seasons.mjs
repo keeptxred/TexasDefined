@@ -52,20 +52,20 @@ for (const token of [
 ]) requireText(route, token, `season route contract missing ${token}`);
 
 for (const token of [
-  "Texas lake fishing seasons, month by month.",
+  "Texas Fishing Seasons by Month",
   "Season at a glance",
   "This is coverage, not a best-fish ranking.",
   "What month are you fishing?",
   "Fishing in Texas right now",
   "Choose a fish",
   "Choose a Texas region",
-  "lakes and fish to explore.",
+  "Fishing: Lakes and Fish",
   "grouped together",
   "Available year-round",
   "fresh fishing reports",
   "current regulations",
   "Last reviewed:",
-  "No verified lake guide matches all of those filters.",
+  "No Lake Guides Match These Filters",
 ]) requireText(component, token, `season UI contract missing ${token}`);
 requireText(route, "monthSlug(search.month)", "month filter validation missing");
 requireText(route, "region: slug(search.region)", "region filter validation missing");
