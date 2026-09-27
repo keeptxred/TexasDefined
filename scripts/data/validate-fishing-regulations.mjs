@@ -27,7 +27,7 @@ const requireText = (text, token, label) => { if (!text.includes(token)) throw n
 
 requireText(routing, 'FISHING_REGULATIONS_PATH = "/fishing/regulations"', "canonical regulations route missing");
 for (const token of ["TPWD_FISHING_REGULATIONS_URL","TPWD_FISHING_LICENSES_URL","TPWD_FISHING_LICENSE_PACKAGES_URL","TPWD_FRESHWATER_LIMITS_URL","TPWD_FRESHWATER_EXCEPTIONS_URL","TPWD_FISHING_METHODS_URL","TPWD_AQUATIC_INVASIVE_RULES_URL"]) requireText(routing, token, `official source registry missing ${token}`);
-for (const token of ['createFileRoute("/fishing/regulations")',"Texas fishing rules without stale rule tables.","do not replace the current Outdoor Annual","does not freeze the rule text","License eligibility, fees, endorsements, bag limits, length limits",'target="_blank"','rel="noopener noreferrer"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(route, token, `regulations page contract missing ${token}`);
+for (const token of ['createFileRoute("/fishing/regulations")',"Texas Fishing Regulations","do not replace the current Outdoor Annual","does not freeze the rule text","License eligibility, fees, endorsements, bag limits, length limits",'target="_blank"','rel="noopener noreferrer"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(route, token, `regulations page contract missing ${token}`);
 for (const forbidden of ["$30", "$58", "Daily Bag:", "Minimum Length:", "Valid Sep."]) if (route.includes(forbidden)) throw new Error(`Fishing Batch 11 validation failed: volatile rule detail leaked into evergreen route (${forbidden}).`);
 
 requireText(lakeRoute, 'lazy(() => import("@/components/fishing/FishingLakesDirectory")', "complete-lake directory lazy boundary missing");
