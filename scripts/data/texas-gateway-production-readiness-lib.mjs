@@ -127,7 +127,7 @@ function articleElements(source) {
   source.forEachChild((node) => {
     if (!ts.isVariableStatement(node)) return;
     for (const declaration of node.declarationList.declarations) {
-      if (!ts.isIdentifier(declaration.name) || !/texasGateway.*Articles/i.test(declaration.name.text)) continue;
+      if (!ts.isIdentifier(declaration.name) || !(/texasGateway.*Articles/i.test(declaration.name.text) || declaration.name.text === "texasGatewayLifestyleBatch3")) continue;
       if (!declaration.initializer || !ts.isArrayLiteralExpression(declaration.initializer)) continue;
       for (const element of declaration.initializer.elements) rows.push(element);
     }
