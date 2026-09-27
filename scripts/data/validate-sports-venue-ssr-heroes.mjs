@@ -95,22 +95,26 @@ forbidText(
 );
 
 for (const marker of [
-  '"amarillo-national-center": {',
-  'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas',
-]) requireText(wave7Photos, marker, 'Amarillo Wave 7 governed hero record');
+  "'round-rock-sports-center': {",
+  "'texas-motorplex': {",
+  "sourceName: 'Wikimedia Commons'",
+]) requireText(wave7Photos, marker, 'Wave 7 documentary/reusable hero records');
+for (const forbidden of [
+  'Texas Defined generated media',
+  'AI-generated photorealistic editorial depiction of',
+]) forbidText(wave7Photos, forbidden, 'Wave 7 must not contain generated depictions of real venues');
 
 for (const marker of [
-  "['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas']",
-  'const wave7RealPhotoAttribution = {',
+  "const fallbackText = 'A verified venue photograph is not available yet.';",
   "'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0']",
   "'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0']",
+  "const xtremeRacewayPhoto = governedPhotos.get('xtreme-raceway-park');",
   "'Editorial illustration by'",
-  "'Cloudflare Workers AI / FLUX.1 schnell'",
   "'for TexasDefined; not documentary photography.'",
-  '...attributionMarkers',
+  'fallbackVenues',
   'lastBody = await response.text();',
   "headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' }",
-]) requireText(productionVerifier, marker, 'live raw-HTML hero and attribution production contract');
+]) requireText(productionVerifier, marker, 'live raw-HTML hero, attribution, and fail-closed production contract');
 forbidText(
   productionVerifier,
   "'AI-generated representative editorial image'",
@@ -119,9 +123,9 @@ forbidText(
 
 for (const marker of [
   "if (!decodedBody.includes(endpointPath) && !decodedBody.includes(`${origin}${endpointPath}`)) missing.push('same-origin governed hero endpoint');",
-  "if (!decodedBody.includes('Editorial illustration by')) missing.push('editorial-illustration disclosure');",
-  "if (!decodedBody.includes('for TexasDefined; not documentary photography.')) missing.push('not-documentary-photography disclosure');",
-]) requireText(exhaustiveProductionVerifier, marker, 'exhaustive live hero verifier must protect governed delivery and current attribution semantics');
+  'const governed = new Set(',
+  'const missingGovernedSlugs =',
+]) requireText(exhaustiveProductionVerifier, marker, 'exhaustive live hero verifier must derive governed coverage and protect governed delivery');
 forbidText(
   exhaustiveProductionVerifier,
   "decodedBody.includes('AI-generated representative editorial image')",
