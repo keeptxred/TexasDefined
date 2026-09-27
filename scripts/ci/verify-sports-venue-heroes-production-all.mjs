@@ -3,7 +3,6 @@ import fs from 'node:fs';
 const origin = new URL(process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com').origin;
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const contractOnly = process.argv.includes('--contract-only');
-const expectedVenueCount = 84;
 const fallbackText = 'Venue details and planning information continue below.';
 const registryPaths = [
   'src/data/sports-venue-images-curated-overrides.ts',
@@ -18,6 +17,17 @@ const registryPaths = [
 ];
 
 const read = (filePath) => fs.readFileSync(filePath, 'utf8');
+const routeSource = read('src/routes/sports-venue.$slug.tsx');
+const galaxyRouteSource = read('src/routes/sports-venue.jones-att-stadium.tsx');
+const aggregateSource = read('src/data/sports-venue-images-all.ts');
+const routeBlock = routeSource.match(/const sportsVenueGuidePilotSlugs = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
+const governedSlugs = [...routeBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+if (galaxyRouteSource.includes("createFileRoute('/sports-venue/jones-att-stadium')")) governedSlugs.push('jones-att-stadium');
+const governedSet = new Set(governedSlugs);
+const fallbackBlock = aggregateSource.match(/intentionalSportsVenuePhotoFallbackSlugs = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
+const intentionalFallbackSlugs = [...fallbackBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+const intentionalFallbackSet = new Set(intentionalFallbackSlugs);
+const expectedVenueCount = governedSlugs.length;
 const decodeTsString = (value) => value
   .replace(/\\'/g, "'")
   .replace(/\\"/g, '"')
@@ -51,10 +61,15 @@ for (const registryPath of registryPaths) {
     if (!effective.has(entry.slug)) effective.set(entry.slug, entry);
   }
 }
+for (const slug of intentionalFallbackSet) effective.delete(slug);
 
 const contractFailures = [];
-if (effective.size !== expectedVenueCount) {
-  contractFailures.push(`Expected ${expectedVenueCount} effective governed venue heroes; found ${effective.size}.`);
+if (governedSlugs.length !== governedSet.size) contractFailures.push('Governed sports-venue inventory contains duplicate slugs.');
+for (const slug of intentionalFallbackSet) {
+  if (!governedSet.has(slug)) contractFailures.push(`Intentional fallback is not a governed venue: ${slug}.`);
+}
+if (effective.size + intentionalFallbackSet.size !== expectedVenueCount) {
+  contractFailures.push(`Expected ${expectedVenueCount} governed venues across approved heroes plus intentional fallbacks; found ${effective.size} approved heroes + ${intentionalFallbackSet.size} fallbacks.`);
 }
 for (const [slug, entry] of effective) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) contractFailures.push(`Invalid governed venue slug: ${slug}.`);
@@ -72,7 +87,7 @@ if (contractFailures.length) {
 }
 
 if (contractOnly) {
-  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size}/${expectedVenueCount} governed venue heroes from the curated-first production registry chain and safely parses escaped metadata strings.`);
+  console.log(`PASS: exhaustive sports venue production audit derives ${effective.size} approved heroes + ${intentionalFallbackSet.size} intentional fallbacks across ${expectedVenueCount} governed venues and safely parses escaped metadata strings.`);
   process.exit(0);
 }
 
@@ -234,6 +249,37 @@ async function verifyVenue(slug, entry) {
   throw new Error(lastError || `${slug} failed exhaustive live hero verification.`);
 }
 
+
+async function verifyFallbackVenue(slug) {
+  let lastError = '';
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    try {
+      const token = `${process.env.DEPLOY_SHA ?? process.env.GITHUB_SHA ?? 'local'}-${process.env.GITHUB_RUN_ID ?? Date.now()}-${slug}-fallback-${attempt}`;
+      const pageUrl = `${origin}/sports-venue/${slug}?verify=${encodeURIComponent(token)}`;
+      const endpointUrl = `${origin}/api/sports-venue-hero?slug=${encodeURIComponent(slug)}&verify=${encodeURIComponent(token)}`;
+      const pageResponse = await fetchWithTimeout(pageUrl, { redirect: 'follow' });
+      const pageChallenge = pageResponse.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const body = decodeHtmlText(await pageResponse.text());
+      const endpointResponse = await fetchWithTimeout(endpointUrl, { redirect: 'manual' });
+      const endpointChallenge = endpointResponse.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const endpointLocation = endpointResponse.headers.get('location') ?? '';
+      await endpointResponse.body?.cancel();
+      const ok = !pageChallenge
+        && pageResponse.ok
+        && body.includes(fallbackText)
+        && !endpointChallenge
+        && endpointResponse.status === 404
+        && !endpointLocation;
+      if (ok) return { slug, pageStatus: pageResponse.status, endpointStatus: endpointResponse.status };
+      lastError = `page=${pageResponse.status} fallback=${body.includes(fallbackText)} endpoint=${endpointResponse.status} location=${endpointLocation || '(none)'}`;
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+    }
+    if (attempt < 4) await sleep(4_000 * attempt);
+  }
+  throw new Error(lastError || `${slug} failed intentional fallback verification.`);
+}
+
 const entries = [...effective.entries()].sort(([a], [b]) => a.localeCompare(b));
 const results = [];
 const failures = [];
@@ -261,8 +307,22 @@ async function worker() {
 
 await Promise.all(Array.from({ length: workerCount }, () => worker()));
 
+const fallbackResults = [];
+const fallbackFailures = [];
+for (const slug of [...intentionalFallbackSlugs].sort()) {
+  try {
+    const result = await verifyFallbackVenue(slug);
+    fallbackResults.push(result);
+    console.log(`[sports-venue-all] PASS fallback ${slug} page=${result.pageStatus} endpoint=${result.endpointStatus}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    fallbackFailures.push({ slug, message });
+    console.error(`::error title=LIVE PRODUCTION sports venue fallback failure::${slug}: ${message}`);
+  }
+}
+
 appendSummary('\n## Exhaustive sports venue hero production audit\n\n');
-appendSummary(`Verified ${results.length}/${entries.length} governed venue heroes against ${origin}.\n\n`);
+appendSummary(`Verified ${results.length}/${entries.length} approved venue heroes and ${fallbackResults.length}/${intentionalFallbackSlugs.length} intentional fallbacks against ${origin}.\n\n`);
 appendSummary('| Result | Venue | Page | Hero redirect | Image health | Media kind |\n|---|---|---:|---:|---:|---|\n');
 const passedBySlug = new Map(results.map((result) => [result.slug, result]));
 const failedBySlug = new Map(failures.map((failure) => [failure.slug, failure]));
@@ -275,10 +335,23 @@ for (const [slug] of entries) {
   }
 }
 
-if (failures.length) {
-  console.error(`Exhaustive sports venue hero production audit failed: ${failures.length}/${entries.length} venues failed.`);
+if (fallbackResults.length || fallbackFailures.length) {
+  appendSummary('\n### Intentional fallback venues\n\n');
+  appendSummary('| Result | Venue | Page | Hero endpoint |\n|---|---|---:|---:|\n');
+  const passedFallbacks = new Map(fallbackResults.map((result) => [result.slug, result]));
+  const failedFallbacks = new Map(fallbackFailures.map((failure) => [failure.slug, failure]));
+  for (const slug of [...intentionalFallbackSlugs].sort()) {
+    const result = passedFallbacks.get(slug);
+    if (result) appendSummary(`| ✅ | ${slug} | ${result.pageStatus} | ${result.endpointStatus} |\n`);
+    else appendSummary(`| ❌ | ${slug} | — | ${failedFallbacks.get(slug)?.message ?? 'failed'} |\n`);
+  }
+}
+
+if (failures.length || fallbackFailures.length) {
+  console.error(`Exhaustive sports venue hero production audit failed: ${failures.length}/${entries.length} approved heroes failed; ${fallbackFailures.length}/${intentionalFallbackSlugs.length} fallbacks failed.`);
   for (const failure of failures) console.error(`- ${failure.slug}: ${failure.message}`);
+  for (const failure of fallbackFailures) console.error(`- fallback ${failure.slug}: ${failure.message}`);
   process.exit(1);
 }
 
-console.log(`PASS: exhaustive sports venue hero production audit verified ${results.length}/${entries.length} governed venue pages, attribution semantics, exact hero redirects, and live image health.`);
+console.log(`PASS: exhaustive sports venue production audit verified ${results.length}/${entries.length} approved heroes plus ${fallbackResults.length}/${intentionalFallbackSlugs.length} intentional fail-closed fallbacks across ${expectedVenueCount} governed venues.`);
