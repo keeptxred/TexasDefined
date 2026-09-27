@@ -1,10 +1,11 @@
 import fs from 'node:fs/promises';
 
-const [overrideSource, baseSource, aggregateSource, productionVerifier] = await Promise.all([
+const [overrideSource, baseSource, aggregateSource, productionVerifier, exhaustiveProductionVerifier] = await Promise.all([
   fs.readFile('src/data/sports-venue-images-curated-overrides.ts', 'utf8'),
   fs.readFile('src/data/sports-venue-images.ts', 'utf8'),
   fs.readFile('src/data/sports-venue-images-all.ts', 'utf8'),
   fs.readFile('scripts/ci/verify-sports-venue-heroes-production.mjs', 'utf8'),
+  fs.readFile('scripts/ci/verify-sports-venue-heroes-production-all.mjs', 'utf8'),
 ]);
 
 const errors = [];
@@ -195,19 +196,22 @@ for (const marker of [
   assert(xtremeBaseSource.includes(marker), `Xtreme Raceway Park safe fallback is missing required marker: ${marker}`);
 }
 
+assert(
+  productionVerifier.includes("await import('./verify-sports-venue-heroes-production-all.mjs');"),
+  'Targeted sports venue production verification must delegate to the dynamic exhaustive verifier.',
+);
 for (const marker of [
   "'src/data/sports-venue-images-curated-overrides.ts'",
-  'const governedPhotos = new Map();',
-  'const governedPhoto = governedPhotos.get(slug);',
-  'const expectedImageUrl = governedPhoto.imageUrl;',
-  "const assetPath = expectedImageUrl.startsWith('/') ? expectedImageUrl : undefined;",
+  'const effective = new Map();',
+  'if (!effective.has(entry.slug)) effective.set(entry.slug, entry);',
+  'const expectedLocation = new URL(expectedImageUrl, origin).toString();',
   "redirect: 'manual'",
   'actualLocation === expectedLocation',
-  'expectedImageUrl ?? assetPath',
+  'inspectFallback',
 ]) {
   assert(
-    productionVerifier.includes(marker),
-    `Wave 7 production hero verifier must derive curated-first governed targets and enforce local-or-remote resolution: ${marker}`,
+    exhaustiveProductionVerifier.includes(marker),
+    `Exhaustive production hero verifier must derive curated-first governed targets and enforce approved-photo/fallback resolution: ${marker}`,
   );
 }
 

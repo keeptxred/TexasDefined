@@ -2,243 +2,172 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const read = (filePath) => fs.readFileSync(filePath, 'utf8');
-const overrides = read('src/data/sports-venue-images-curated-overrides.ts');
-const base = read('src/data/sports-venue-images.ts');
-const wave1 = read('src/data/sports-venue-images-additions.ts');
-const wave2 = read('src/data/sports-venue-images-additions-wave2.ts');
-const wave3 = read('src/data/sports-venue-images-additions-wave3.ts');
-const wave4 = read('src/data/sports-venue-images-additions-wave4.ts');
-const wave5 = read('src/data/sports-venue-images-additions-wave5.ts');
-const wave6 = read('src/data/sports-venue-images-additions-wave6.ts');
-const wave7 = read('src/data/sports-venue-images-additions-wave7.ts');
-const combined = read('src/data/sports-venue-images-all.ts');
-const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
-
 const failures = [];
-const recordSlugs = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{/gm)].map((match) => match[1]);
-const recordEntries = (source) => [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
-  const body = match[2];
-  const stringField = (name) => body.match(new RegExp(`\\b${name}:\\s*(["'])(.*?)\\1`))?.[2] ?? '';
-  const numberField = (name) => Number(body.match(new RegExp(`\\b${name}:\\s*(\\d+)`))?.[1] ?? 0);
-  return {
-    slug: match[1],
-    alt: stringField('alt'),
-    imageUrl: stringField('imageUrl'),
-    sourcePage: stringField('sourcePage'),
-    sourceName: stringField('sourceName'),
-    author: stringField('author'),
-    licenseName: stringField('licenseName'),
-    licenseUrl: stringField('licenseUrl'),
-    width: numberField('width'),
-    height: numberField('height'),
-  };
-});
-const requireText = (source, needle, label) => {
-  if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
-};
-const validateSingleWave = (source, expectedSlug, label) => {
-  const slugs = recordSlugs(source);
-  if (slugs.length !== 1 || slugs[0] !== expectedSlug) failures.push(`${label}: expected only ${expectedSlug}; found ${slugs.join(', ')}.`);
-  for (const marker of [
-    `slug: '${expectedSlug}'`,
-    'alt:',
-    "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/",
-    "sourcePage: 'https://commons.wikimedia.org/wiki/File:",
-    "sourceName: 'Wikimedia Commons'",
-    'author:', 'licenseName:', 'licenseUrl:', 'width:', 'height:',
-  ]) requireText(source, marker, label);
-  const licenseUrl = source.match(/licenseUrl: '([^']+)'/)?.[1] ?? '';
-  if (!licenseUrl.startsWith('https://creativecommons.org/')
-      && licenseUrl !== 'https://commons.wikimedia.org/wiki/Commons:Public_domain') {
-    failures.push(`${label}: unsupported license URL ${licenseUrl || '(missing)'}.`);
-  }
-  if (!/licenseName: '(?:CC|Public domain)/.test(source)) failures.push(`${label}: license name is not explicitly reusable.`);
-  if (/author: '\s*'/.test(source)) failures.push(`${label}: author must not be empty.`);
-  const dimensions = [...source.matchAll(/(?:width|height): (\d+)/g)].map((match) => Number(match[1]));
-  if (dimensions.length !== 2 || dimensions.some((value) => value < 480)) failures.push(`${label}: dimensions are missing or too small.`);
-  if (!dynamicRoute.includes(`'${expectedSlug}'`)) failures.push(`${label}: no governed dynamic venue route found.`);
-};
+const registryPaths = [
+  'src/data/sports-venue-images-curated-overrides.ts',
+  'src/data/sports-venue-images.ts',
+  'src/data/sports-venue-images-additions.ts',
+  'src/data/sports-venue-images-additions-wave2.ts',
+  'src/data/sports-venue-images-additions-wave3.ts',
+  'src/data/sports-venue-images-additions-wave4.ts',
+  'src/data/sports-venue-images-additions-wave5.ts',
+  'src/data/sports-venue-images-additions-wave6.ts',
+  'src/data/sports-venue-images-additions-wave7.ts',
+];
 
-validateSingleWave(wave3, 'ufcu-stadium', 'wave 3 UFCU Stadium photo');
-validateSingleWave(wave4, 'round-rock-multipurpose-complex', 'wave 4 Round Rock Multipurpose Complex photo');
-validateSingleWave(wave5, 'msr-houston', 'wave 5 MSR Houston photo');
-validateSingleWave(wave6, 'baylor-ballpark', 'wave 6 Baylor Ballpark photo');
-for (const marker of [
-  "author: 'Michael Barera'",
-  "licenseName: 'CC BY-SA 4.0'",
-  "licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/'",
-  'width: 6000',
-  'height: 4000',
-  "sourcePage: 'https://commons.wikimedia.org/wiki/File:Baylor_University_June_2016_47_(Baylor_Ballpark).jpg'",
-]) requireText(wave6, marker, 'wave 6 Baylor Ballpark verified rights metadata');
+const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
+const staticRoute = read('src/routes/sports-venue.jones-att-stadium.tsx');
+const combined = read('src/data/sports-venue-images-all.ts');
 
-for (const source of [wave3, wave4, wave5, wave6, wave7]) {
-  for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent']) {
-    if (source.toLowerCase().includes(forbidden)) failures.push(`Final venue image additions contain disallowed source ${forbidden}.`);
-  }
-  if (source.includes('http://')) failures.push('Final venue image additions must use HTTPS only.');
+function decodeTsString(value) {
+  return value
+    .replace(/\\'/g, "'")
+    .replace(/\\"/g, '"')
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '\r')
+    .replace(/\\t/g, '\t')
+    .replace(/\\\\/g, '\\');
 }
 
-const wave7Slugs = recordSlugs(wave7);
-if (wave7Slugs.length !== 16) failures.push(`Wave 7 must contain 16 reviewed venue heroes; found ${wave7Slugs.length}.`);
+function recordEntries(source, file) {
+  return [...source.matchAll(/^  ["']([^"']+)["']: \{\n([\s\S]*?)^  \},$/gm)].map((match) => {
+    const body = match[2];
+    const stringField = (name) => {
+      const field = body.match(new RegExp(`\\b${name}:\\s*(["'])((?:\\\\.|(?!\\1)[\\s\\S])*?)\\1`));
+      return field ? decodeTsString(field[2]) : '';
+    };
+    const numberField = (name) => Number(body.match(new RegExp(`\\b${name}:\\s*(\\d+)`))?.[1] ?? 0);
+    return {
+      key: match[1],
+      slug: stringField('slug'),
+      alt: stringField('alt'),
+      imageUrl: stringField('imageUrl'),
+      sourcePage: stringField('sourcePage'),
+      sourceName: stringField('sourceName'),
+      author: stringField('author'),
+      licenseName: stringField('licenseName'),
+      licenseUrl: stringField('licenseUrl'),
+      width: numberField('width'),
+      height: numberField('height'),
+      file,
+    };
+  });
+}
 
-const wave7LocalImageMatches = [...wave7.matchAll(/imageUrl: "(\/images\/sports-venues\/[^"\n]+\.jpg)"/g)];
-if (wave7LocalImageMatches.length !== 16) failures.push(`Wave 7 must map all 16 venues to local JPEG assets; found ${wave7LocalImageMatches.length}.`);
-for (const [, imageUrl] of wave7LocalImageMatches) {
-  const assetPath = path.join('public', imageUrl.replace(/^\//, ''));
-  if (!fs.existsSync(assetPath)) {
-    failures.push(`Wave 7 asset is missing: ${assetPath}.`);
-    continue;
+const setBlock = dynamicRoute.match(/const sportsVenueGuidePilotSlugs = new Set\(\[([\s\S]*?)\]\);/)?.[1] ?? '';
+const dynamicSlugs = [...setBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+const staticSlug = staticRoute.match(/const stableSlug = '([^']+)'/)?.[1] ?? '';
+const governedSlugs = [...dynamicSlugs, ...(staticSlug ? [staticSlug] : [])];
+const governed = new Set(governedSlugs);
+
+if (!dynamicSlugs.length) failures.push('Could not derive governed dynamic sports venue slugs from the route.');
+if (!staticSlug) failures.push('Could not derive the protected static Galaxy/Jones sports venue slug.');
+if (governed.size !== governedSlugs.length) failures.push('Governed sports venue inventory contains duplicate slugs.');
+
+const entriesByFile = new Map();
+for (const file of registryPaths) entriesByFile.set(file, recordEntries(read(file), file));
+
+for (const [file, entries] of entriesByFile) {
+  const keys = entries.map((entry) => entry.key);
+  const duplicates = keys.filter((slug, index) => keys.indexOf(slug) !== index);
+  if (duplicates.length) failures.push(`${file}: duplicate slugs: ${[...new Set(duplicates)].join(', ')}.`);
+
+  for (const entry of entries) {
+    if (!governed.has(entry.key)) failures.push(`${file}: photo record targets nonexistent/unapproved venue ${entry.key}.`);
+    if (entry.slug !== entry.key) failures.push(`${file}: key/slug mismatch for ${entry.key}.`);
+    for (const field of ['alt', 'imageUrl', 'sourcePage', 'sourceName', 'author', 'licenseName', 'licenseUrl']) {
+      if (!entry[field]?.trim()) failures.push(`${file}: ${entry.key} missing ${field}.`);
+    }
+    if (!entry.imageUrl.startsWith('https://') && !entry.imageUrl.startsWith('/images/sports-venues/')) {
+      failures.push(`${file}: ${entry.key} imageUrl must be HTTPS or a governed local sports-venue asset.`);
+    }
+    if (!entry.sourcePage.startsWith('https://')) failures.push(`${file}: ${entry.key} sourcePage must use HTTPS.`);
+    if (!entry.licenseUrl.startsWith('https://')) failures.push(`${file}: ${entry.key} licenseUrl must use HTTPS.`);
+
+    const exactLegacy = entry.key === 'xtreme-raceway-park' && entry.width === 600 && entry.height === 400;
+    if (!exactLegacy && (entry.width < 480 || entry.height < 480)) {
+      failures.push(`${file}: ${entry.key} hero dimensions are too small (${entry.width}x${entry.height}).`);
+    }
+
+    const provenance = `${entry.imageUrl} ${entry.sourcePage}`.toLowerCase();
+    for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'instagram.com', 'images.unsplash.com', 'googleusercontent']) {
+      if (provenance.includes(forbidden)) failures.push(`${file}: ${entry.key} uses disallowed image/source host marker ${forbidden}.`);
+    }
+
+    const generated = entry.sourceName === 'Texas Defined generated media' || /^AI-generated\b/i.test(entry.licenseName);
+    if (generated && entry.key !== 'xtreme-raceway-park') {
+      failures.push(`${file}: ${entry.key} uses an AI-generated venue depiction; only the owner-approved Xtreme Raceway exception is permitted.`);
+    }
+    if (entry.key === 'xtreme-raceway-park') {
+      if (entry.sourceName !== 'site-owner supplied media') failures.push('Xtreme Raceway must retain site-owner supplied provenance.');
+      if (!/^AI-generated\b/i.test(entry.licenseName)) failures.push('Xtreme Raceway must retain its AI provenance disclosure.');
+    }
+
+    if (entry.sourceName === 'Wikimedia Commons') {
+      if (!entry.sourcePage.startsWith('https://commons.wikimedia.org/wiki/File:')) failures.push(`${file}: ${entry.key} Commons photo must link to its file page.`);
+      if (!/^(CC|Public domain)/.test(entry.licenseName)) failures.push(`${file}: ${entry.key} Commons license is not explicitly reusable.`);
+      if (!entry.licenseUrl.startsWith('https://creativecommons.org/')
+          && entry.licenseUrl !== 'https://commons.wikimedia.org/wiki/Commons:Public_domain') {
+        failures.push(`${file}: ${entry.key} Commons license URL is unsupported.`);
+      }
+    }
+
+    if (entry.imageUrl.startsWith('/')) {
+      const assetPath = path.join('public', entry.imageUrl.slice(1));
+      if (!fs.existsSync(assetPath)) failures.push(`${file}: ${entry.key} local asset missing: ${assetPath}.`);
+      else if (fs.statSync(assetPath).size < 10_000) failures.push(`${file}: ${entry.key} local asset is suspiciously small.`);
+    }
   }
-  const size = fs.statSync(assetPath).size;
-  if (size < 10_000) failures.push(`Wave 7 asset is suspiciously small (${size} bytes): ${assetPath}.`);
 }
 
-const wave7CommonsCount = wave7.match(/sourceName: "Wikimedia Commons"/g)?.length ?? 0;
-const wave7GeneratedCount = wave7.match(/sourceName: "Texas Defined generated media"/g)?.length ?? 0;
-if (wave7CommonsCount !== 2) failures.push(`Wave 7 must retain exactly 2 reviewed Wikimedia Commons venue photos; found ${wave7CommonsCount}.`);
-if (wave7GeneratedCount !== 14) failures.push(`Wave 7 must retain exactly 14 generated venue-specific fallbacks; found ${wave7GeneratedCount}.`);
-for (const slug of wave7Slugs) {
-  if (!dynamicRoute.includes(`'${slug}'`)) failures.push(`Wave 7 venue has no governed dynamic route: ${slug}.`);
+const supplementalPaths = registryPaths.slice(2);
+const supplementalCounts = new Map();
+for (const file of supplementalPaths) {
+  for (const entry of entriesByFile.get(file)) {
+    supplementalCounts.set(entry.key, (supplementalCounts.get(entry.key) ?? 0) + 1);
+  }
 }
-for (const marker of [
-  'AI-generated photorealistic editorial depiction of',
-  'author: "Cloudflare Workers AI / FLUX.1 schnell"',
-  'licenseName: "AI-generated image supplied for TexasDefined use"',
-  'sourcePage: "https://commons.wikimedia.org/wiki/File:Round_Rock_Sports_Center,_Texas_(47603155501).jpg"',
-  'licenseName: "CC BY 2.0"',
-  'sourcePage: "https://commons.wikimedia.org/wiki/File:Ennis_September_2017_30_(Texas_Motorplex).jpg"',
-  'licenseName: "CC BY-SA 4.0"',
-]) requireText(wave7, marker, 'wave 7 reviewed image provenance');
+const duplicateSupplemental = [...supplementalCounts.entries()].filter(([, count]) => count > 1).map(([slug]) => slug);
+if (duplicateSupplemental.length) failures.push(`Duplicate supplemental sports venue slugs: ${duplicateSupplemental.join(', ')}.`);
 
-for (const marker of [
-  "import { getSportsVenuePhotoAdditionWave3 } from './sports-venue-images-additions-wave3';",
-  "import { getSportsVenuePhotoAdditionWave4 } from './sports-venue-images-additions-wave4';",
-  "import { getSportsVenuePhotoAdditionWave5 } from './sports-venue-images-additions-wave5';",
-  "import { getSportsVenuePhotoAdditionWave6 } from './sports-venue-images-additions-wave6';",
-  "import { getSportsVenuePhotoAdditionWave7 } from './sports-venue-images-additions-wave7';",
-  'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug)',
-]) requireText(combined, marker, 'combined final venue image registry');
-
-const sources = [base, wave1, wave2, wave3, wave4, wave5, wave6, wave7];
-const allSlugs = sources.flatMap(recordSlugs);
-const unique = new Set(allSlugs);
-const allowedBaseShadowDuplicates = new Set([
-  'reliant-stadium',
-  'kyle-field',
-  'tdecu-stadium',
-  'q2-stadium',
-  'rice-stadium',
-]);
-const counts = new Map();
-for (const slug of allSlugs) counts.set(slug, (counts.get(slug) ?? 0) + 1);
-const duplicateSlugs = [...counts.entries()].filter(([, count]) => count > 1).map(([slug]) => slug);
-const unexpectedDuplicates = duplicateSlugs.filter((slug) => !allowedBaseShadowDuplicates.has(slug));
-const missingExpectedShadows = [...allowedBaseShadowDuplicates].filter((slug) => counts.get(slug) !== 2);
-if (unexpectedDuplicates.length) failures.push(`Venue image registries contain unexpected duplicate slugs: ${unexpectedDuplicates.join(', ')}.`);
-if (missingExpectedShadows.length) failures.push(`Expected base-first shadow duplicates changed: ${missingExpectedShadows.join(', ')}.`);
-if (duplicateSlugs.length !== allowedBaseShadowDuplicates.size) failures.push(`Expected exactly ${allowedBaseShadowDuplicates.size} safe base-first shadow duplicates; found ${duplicateSlugs.length}.`);
-if (unique.size !== 84) failures.push(`Expected governed hero coverage for all 84 seeded sports venues after wave 7; found ${unique.size}.`);
-
-const overrideSlugs = recordSlugs(overrides);
-const orphanOverrides = overrideSlugs.filter((slug) => !unique.has(slug));
-if (orphanOverrides.length) failures.push(`Curated venue image overrides must shadow an existing governed photo record; orphan overrides: ${orphanOverrides.join(', ')}.`);
-
-const runtimeSources = [overrides, ...sources];
 const effective = new Map();
-for (const source of runtimeSources) {
-  for (const entry of recordEntries(source)) {
-    if (!effective.has(entry.slug)) effective.set(entry.slug, entry);
+for (const file of registryPaths) {
+  for (const entry of entriesByFile.get(file)) {
+    if (!effective.has(entry.key)) effective.set(entry.key, entry);
   }
 }
-if (effective.size !== 84) failures.push(`Expected 84 effective curated-first venue image records; found ${effective.size}.`);
+const extraEffective = [...effective.keys()].filter((slug) => !governed.has(slug));
+if (extraEffective.length) failures.push(`Effective registry contains ungoverned venues: ${extraEffective.join(', ')}.`);
 
-const effectiveGeneratedSlugs = [...effective.entries()]
-  .filter(([, entry]) => entry.sourceName === 'Texas Defined generated media' || /^AI-generated\\b/i.test(entry.licenseName))
+const repeated = (field) => {
+  const values = new Map();
+  for (const [slug, entry] of effective) {
+    const list = values.get(entry[field]) ?? [];
+    list.push(slug);
+    values.set(entry[field], list);
+  }
+  return [...values.entries()].filter(([value, slugs]) => value && slugs.length > 1);
+};
+for (const [value, slugs] of repeated('imageUrl')) failures.push(`Multiple venues share hero image URL (${slugs.join(', ')}): ${value}.`);
+for (const [value, slugs] of repeated('sourcePage')) failures.push(`Multiple venues share hero source page (${slugs.join(', ')}): ${value}.`);
+
+for (const marker of [
+  "getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug)",
+  'getSportsVenuePhotoAdditionWave7(slug)',
+]) {
+  if (!combined.includes(marker)) failures.push(`Combined sports venue image registry is missing runtime lookup marker: ${marker}.`);
+}
+
+const baseSlugs = new Set(entriesByFile.get('src/data/sports-venue-images.ts').map((entry) => entry.key));
+const supplementalSlugs = new Set(supplementalPaths.flatMap((file) => entriesByFile.get(file).map((entry) => entry.key)));
+const overlapSlugs = [...baseSlugs].filter((slug) => supplementalSlugs.has(slug)).sort();
+const missingSlugs = governedSlugs.filter((slug) => !effective.has(slug)).sort();
+const effectiveGenerated = [...effective.entries()]
+  .filter(([, entry]) => entry.sourceName === 'Texas Defined generated media' || /^AI-generated\b/i.test(entry.licenseName))
   .map(([slug]) => slug)
   .sort();
-const effectiveDocumentaryCount = effective.size - effectiveGeneratedSlugs.length;
-if (effectiveGeneratedSlugs.length > 8) {
-  failures.push(`Effective curated-first venue hero inventory regressed above the current eight AI fallbacks: ${effectiveGeneratedSlugs.length} generated heroes (${effectiveGeneratedSlugs.join(', ')}).`);
-}
-
-const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
-const disallowedSourceMarkers = ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent'];
-const exactLegacyDimensionExceptions = new Map([
-  ['xtreme-raceway-park', { width: 600, height: 400 }],
-]);
-for (const [slug, entry] of effective) {
-  if (!entry.alt.trim()) failures.push(`Effective venue hero is missing alt text: ${slug}.`);
-  if (!entry.imageUrl) failures.push(`Effective venue hero is missing imageUrl: ${slug}.`);
-  const normalizedUrl = entry.imageUrl.toLowerCase();
-  if (placeholderMarkers.some((marker) => normalizedUrl.includes(marker))) {
-    failures.push(`Effective venue hero still points to a placeholder: ${slug} -> ${entry.imageUrl}.`);
-  }
-  if (entry.imageUrl.startsWith('/')) {
-    const assetPath = path.join('public', entry.imageUrl.replace(/^\//, ''));
-    if (!fs.existsSync(assetPath)) {
-      failures.push(`Effective venue hero local asset is missing: ${slug} -> ${assetPath}.`);
-    } else if (fs.statSync(assetPath).size < 10_000) {
-      failures.push(`Effective venue hero local asset is suspiciously small: ${slug} -> ${assetPath}.`);
-    }
-  } else if (!entry.imageUrl.startsWith('https://')) {
-    failures.push(`Effective venue hero image URL must be HTTPS or a local asset: ${slug} -> ${entry.imageUrl || '(missing)'}.`);
-  }
-
-  if (!entry.sourcePage.startsWith('https://')) failures.push(`Effective venue hero sourcePage must use HTTPS: ${slug} -> ${entry.sourcePage || '(missing)'}.`);
-  if (!entry.sourceName.trim()) failures.push(`Effective venue hero is missing sourceName: ${slug}.`);
-  if (!entry.author.trim()) failures.push(`Effective venue hero is missing author: ${slug}.`);
-  if (!entry.licenseName.trim()) failures.push(`Effective venue hero is missing licenseName: ${slug}.`);
-  if (!entry.licenseUrl.startsWith('https://')) failures.push(`Effective venue hero licenseUrl must use HTTPS: ${slug} -> ${entry.licenseUrl || '(missing)'}.`);
-
-  if (entry.width < 480 || entry.height < 480) {
-    const exception = exactLegacyDimensionExceptions.get(slug);
-    if (!exception || entry.width !== exception.width || entry.height !== exception.height) {
-      failures.push(`Effective venue hero dimensions are missing or too small: ${slug} -> ${entry.width}x${entry.height}.`);
-    }
-  }
-
-  const provenance = `${entry.imageUrl} ${entry.sourcePage}`.toLowerCase();
-  for (const forbidden of disallowedSourceMarkers) {
-    if (provenance.includes(forbidden)) failures.push(`Effective venue hero uses disallowed source ${forbidden}: ${slug}.`);
-  }
-
-  const generated = entry.sourceName === 'Texas Defined generated media' || /^AI-generated\b/i.test(entry.licenseName);
-  if (generated) {
-    if (!entry.author.toLowerCase().includes('ai')) failures.push(`Generated venue hero author must identify AI generation: ${slug}.`);
-    if (!/^AI-generated\b/i.test(entry.licenseName)) failures.push(`Generated venue hero licenseName must disclose AI generation: ${slug}.`);
-    if (!entry.imageUrl.startsWith('/images/sports-venues/')) failures.push(`Generated venue hero must resolve to a governed local venue asset: ${slug} -> ${entry.imageUrl}.`);
-    if (entry.sourceName === 'Texas Defined generated media' && !entry.alt.includes('AI-generated')) {
-      failures.push(`Texas Defined generated venue hero alt text must disclose AI generation: ${slug}.`);
-    }
-  }
-
-  if (entry.sourceName === 'Wikimedia Commons') {
-    if (!entry.sourcePage.startsWith('https://commons.wikimedia.org/wiki/File:')) failures.push(`Wikimedia venue hero must link to its Commons file page: ${slug} -> ${entry.sourcePage}.`);
-    if (!/^(CC|Public domain)/.test(entry.licenseName)) failures.push(`Wikimedia venue hero must carry an explicitly reusable license: ${slug} -> ${entry.licenseName}.`);
-    if (!entry.licenseUrl.startsWith('https://creativecommons.org/')
-        && entry.licenseUrl !== 'https://commons.wikimedia.org/wiki/Commons:Public_domain') {
-      failures.push(`Wikimedia venue hero has unsupported license URL: ${slug} -> ${entry.licenseUrl}.`);
-    }
-  }
-}
-
-const repeatedValues = (field) => {
-  const grouped = new Map();
-  for (const [slug, entry] of effective) {
-    const value = entry[field];
-    if (!value) continue;
-    const slugs = grouped.get(value) ?? [];
-    slugs.push(slug);
-    grouped.set(value, slugs);
-  }
-  return [...grouped.entries()].filter(([, slugs]) => slugs.length > 1);
-};
-for (const [imageUrl, slugs] of repeatedValues('imageUrl')) {
-  failures.push(`Multiple sports venues resolve to the same hero image URL (${slugs.join(', ')}): ${imageUrl}.`);
-}
-for (const [sourcePage, slugs] of repeatedValues('sourcePage')) {
-  failures.push(`Multiple sports venues resolve to the same hero source page (${slugs.join(', ')}): ${sourcePage}.`);
+if (effectiveGenerated.some((slug) => slug !== 'xtreme-raceway-park')) {
+  failures.push(`Unapproved effective AI venue heroes: ${effectiveGenerated.filter((slug) => slug !== 'xtreme-raceway-park').join(', ')}.`);
 }
 
 if (failures.length) {
@@ -247,4 +176,12 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Final sports venue image validation passed: ${unique.size}/84 governed venue heroes, ${effective.size}/84 effective curated-first non-placeholder heroes (${effectiveDocumentaryCount} documentary/reusable-source heroes + ${effectiveGeneratedSlugs.length} disclosed AI fallbacks), complete alt/provenance/license metadata, minimum 480px dimensions except the exact approved 600x400 Xtreme legacy asset, no cross-venue hero/source reuse, 16 reviewed Wave 7 assets (2 reusable Commons photos + 14 generated venue-specific fallbacks before curated overrides), ${overrideSlugs.length} curated override records, and ${allowedBaseShadowDuplicates.size} intentional base-first shadows. Effective AI fallbacks: ${effectiveGeneratedSlugs.join(', ') || 'none'}.`);
+console.log('Sports venue image coverage validation passed.');
+console.log(`Base photo count: ${baseSlugs.size}`);
+console.log(`Supplemental unique photo count: ${supplementalSlugs.size}`);
+console.log(`Base/supplemental overlap count: ${overlapSlugs.length}`);
+console.log(`Curated override count: ${entriesByFile.get('src/data/sports-venue-images-curated-overrides.ts').length}`);
+console.log(`Unique governed venues with approved photos: ${effective.size}/${governed.size}`);
+console.log(`Remaining fallback count: ${missingSlugs.length}`);
+console.log(`Missing slugs: ${missingSlugs.join(', ') || 'none'}`);
+console.log(`Approved AI exception(s): ${effectiveGenerated.join(', ') || 'none'}`);

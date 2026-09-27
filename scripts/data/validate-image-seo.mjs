@@ -146,12 +146,14 @@ if (!mergeGate.includes('node scripts/ci/run-premerge-validation.mjs')) errors.p
 if (!premergeRunner.includes("'scripts/data/audit-event-schema-enrichment.mjs'")) errors.push('Canonical pre-merge contract must run the event image coverage audit.');
 
 for (const marker of [
-  'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
-  'AI-generated photorealistic editorial depiction of',
-  'Expected 84 effective curated-first venue image records',
-  'Effective venue hero still points to a placeholder',
-  'Multiple sports venues resolve to the same hero image URL',
-  'Multiple sports venues resolve to the same hero source page',
+  'Could not derive governed dynamic sports venue slugs from the route',
+  'Duplicate supplemental sports venue slugs',
+  'photo record targets nonexistent/unapproved venue',
+  'only the owner-approved Xtreme Raceway exception is permitted',
+  'Multiple venues share hero image URL',
+  'Multiple venues share hero source page',
+  'Remaining fallback count:',
+  'Missing slugs:',
 ]) {
   if (!venueImageValidator.includes(marker)) errors.push(`Sports venue image coverage guard missing: ${marker}`);
 }
