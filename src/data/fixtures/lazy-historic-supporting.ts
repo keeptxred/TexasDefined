@@ -28,6 +28,34 @@ const indigenousTexasHistoryNativeNationsStub: Article = {
   relatedDestinations: ["caddo-mounds-state-historic-site", "hueco-tanks-state-park-and-historic-site", "ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "lipantitlan", "mission-dolores"],
 };
 
+const tejanoTexasBeforeStatehoodStub: Article = {
+  id: "evergreen-tejano-texas-before-statehood-history",
+  brandId: "texasdefined",
+  slug: "tejano-texas-before-statehood-history",
+  title: "Tejano Texas Before Statehood: Béxar, Mexican Texas, Revolution and Republic",
+  dek: "Tejano history did not begin at the Alamo. Follow Spanish-era Béxar, ranching and trade, Mexican federalism, colonization, the Texas Revolution, Republic politics and citizenship before statehood.",
+  category: "texas-history",
+  region: "south-texas",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Antonio_Navarro_House%2C_San_Antonio%2C_Texas.jpg?width=1600",
+    alt: "Historic American Buildings Survey photograph of the José Antonio Navarro house complex in San Antonio",
+    width: 1024,
+    height: 682,
+    credit: "Jack Boucher / Historic American Buildings Survey, National Park Service · Public domain · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  updatedAt: "2026-09-26",
+  readingMinutes: 18,
+  tags: ["Tejano history", "Spanish Texas", "Mexican Texas", "San Antonio de Bexar", "Coahuila y Tejas", "Jose Antonio Navarro", "Juan Seguin", "Texas Revolution", "Republic of Texas"],
+  featured: true,
+  sourceName: "Handbook of Texas — Tejano Politics",
+  sourceUrl: "https://www.tshaonline.org/handbook/entries/tejano-politics",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["casa-navarro", "spanish-governors-palace-san-antonio", "san-antonio-missions-national-historical-park", "the-alamo", "presidio-la-bahia", "san-felipe-de-austin"],
+};
+
 const texasBeforeUnitedStatesStub: Article = {
   id: "evergreen-texas-before-united-states-how-texas-began",
   brandId: "texasdefined",
@@ -113,6 +141,24 @@ const texasBeforeUnitedStatesLink = {
   description: "Start with the full chronology from Indigenous homelands and European empires through Mexican Texas, the Revolution, Republic and statehood.",
 };
 
+const tejanoTexasBeforeStatehoodLink = {
+  href: "/article/tejano-texas-before-statehood-history",
+  label: "Tejano Texas before statehood",
+  description: "Follow Béxar civic life, Mexican federalism, Tejano politics, the Revolution, Republic and citizenship before U.S. statehood.",
+};
+
+for (const slug of [
+  "spanish-texas-military-battle-medina",
+  "mexican-texas-military-history",
+  "texas-revolution-historic-sites-road-trip",
+  "republic-of-texas-government-trail",
+]) {
+  const existing = articleInternalLinks[slug] ?? [];
+  if (!existing.some((item) => item.href === tejanoTexasBeforeStatehoodLink.href)) {
+    articleInternalLinks[slug] = [tejanoTexasBeforeStatehoodLink, ...existing];
+  }
+}
+
 for (const slug of [
   "spanish-texas-military-battle-medina",
   "mexican-texas-military-history",
@@ -130,6 +176,7 @@ for (const slug of [
 
 export const historicSupportingStubs: Article[] = [
   indigenousTexasHistoryNativeNationsStub,
+  tejanoTexasBeforeStatehoodStub,
   texasBeforeUnitedStatesStub,
   texasCattleRanchingHistoryGuideStub,
   texasHistoricTravelTransportationGuideStub,
@@ -138,6 +185,7 @@ export const historicSupportingStubs: Article[] = [
 export async function loadHistoricSupportingArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
   if (slug === indigenousTexasHistoryNativeNationsStub.slug) return import("./indigenous-texas-history-native-nations").then((module) => module.indigenousTexasHistoryNativeNationsArticle);
+  if (slug === tejanoTexasBeforeStatehoodStub.slug) return import("./tejano-texas-before-statehood-history").then((module) => module.tejanoTexasBeforeStatehoodHistoryArticle);
   if (slug === texasBeforeUnitedStatesStub.slug) return import("./texas-before-united-states-how-texas-began").then((module) => module.texasBeforeUnitedStatesArticle);
   if (slug === texasCattleRanchingHistoryGuideStub.slug) return import("./texas-cattle-ranching-history-guide").then((module) => module.texasCattleRanchingHistoryGuideArticle);
   if (slug === texasHistoricTravelTransportationGuideStub.slug) return import("./texas-historic-travel-transportation-guide").then((module) => module.texasHistoricTravelTransportationGuideArticle);
