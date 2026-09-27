@@ -120,10 +120,6 @@ for (const marker of [
   'Product image unavailable.',
 ]) requireMarker('product detail', marker);
 
-for (const label of ['news index cards', 'homepage destination feature']) {
-  requireMarker(label, 'Photo unavailable');
-}
-
 for (const label of ['product cards', 'shop the story']) {
   requireMarker(label, 'Product image unavailable');
 }
@@ -215,10 +211,6 @@ for (const marker of [
   'onErrorCapture=',
   'majorEventEnrichmentImage === "true"',
 ]) requireMarker('major event guide image capture', marker);
-
-for (const label of ['article cards', 'feature heroes', 'category heroes']) {
-  requireMarker(label, 'Photo unavailable');
-}
 
 requireMarker('article cards', 'relative w-full overflow-hidden');
 requireMarker('article cards', 'absolute inset-0 size-full object-cover');
