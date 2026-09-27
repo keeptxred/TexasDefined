@@ -5,6 +5,7 @@ interface GatewayWeatherEnrichment {
   sourceName: string;
   sourceUrl: string;
   internalLinks?: ArticleInternalLink[];
+  relatedDestinations?: string[];
 }
 
 const newcomerWeather: ArticleBlock[] = [
@@ -42,5 +43,6 @@ export const texasGatewayBatch5WeatherEnrichment: Record<string, GatewayWeatherE
       { href: "/article/what-to-keep-in-car-for-texas-road-trip", label: "What to keep in the car on a Texas road trip" },
       { href: "/moving-to-texas", label: "Moving to Texas" },
     ],
+    relatedDestinations: ["galveston", "amarillo"],
   },
 };
