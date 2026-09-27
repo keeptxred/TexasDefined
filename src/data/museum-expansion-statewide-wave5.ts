@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Fannin County Museum of History gives Bonham a broad local-history anchor inside a building that already tells part of the county's transportation story. The historic Texas & Pacific depot connects the museum directly to the railroad era that helped move North Texas people, crops and goods into larger markets.",
       "Exhibits range from pioneer life and local businesses to military service and twentieth-century change, allowing visitors to understand Fannin County as more than the home of one famous political figure. Community photographs and donated artifacts give the galleries a distinctly local texture.",
-      "For TexasDefined, the museum complements the Sam Rayburn Museum rather than competing with it. Cross-linking both destinations with the Fannin County and Bonham authority pages creates a stronger multi-stop heritage itinerary covering politics, railroads, settlement and community history."
+      "The museum complements the Sam Rayburn Museum rather than competing with it. Together with other Bonham and Fannin County historic sites, the two museums can form a multi-stop heritage itinerary covering politics, railroads, settlement and community history."
     ],
     officialUrl: "https://www.fannincountymuseum.org/",
     managingAuthority: "Fannin County Museum of History",
