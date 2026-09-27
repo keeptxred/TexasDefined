@@ -163,7 +163,7 @@ for (const marker of [
   assert(guide.includes(marker), `Dedicated sports venue guide is missing required search-intent, visitor, partnership, attribution, or county-trip marker: ${marker}.`);
 }
 for (const marker of [
-  'Plan the trip',
+  'Plan Your Visit',
   'Make the venue part of the weekend',
   'Why people travel',
   'Best trip pattern',

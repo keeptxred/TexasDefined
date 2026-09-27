@@ -125,7 +125,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
       </section>
 
       <section className="grid gap-8 py-12 lg:grid-cols-[15rem_1fr]">
-        <div><p className="eyebrow text-primary">Plan the trip</p><h2 className="mt-2 font-display text-3xl">Use durable species guidance, then verify current conditions.</h2></div>
+        <div><p className="eyebrow text-primary">Plan Your Visit</p><h2 className="mt-2 font-display text-3xl">Use durable species guidance, then verify current conditions.</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
           <p>{data.policy.sourcing}</p>
           <p>{data.policy.conditions}</p>

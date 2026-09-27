@@ -46,7 +46,7 @@ requireFeatures(hub, [
   'Places that define ${region.name}',
   'Browse the region',
   'Choose your route through ${region.name}',
-  'Plan the trip',
+  'Plan Your Visit',
   'Useful next steps for ${region.name}',
   'The rest of Texas',
   'Explore another region',
