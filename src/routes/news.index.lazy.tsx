@@ -17,7 +17,7 @@ function TexasDefinedNews() {
     {data.length ? <ul className="mt-12 divide-y divide-border border-y border-border">{data.map((article) => <li key={article.slug} className="py-7">
       <Link to="/news/$slug" params={{ slug: article.slug }} className="group grid gap-5 sm:grid-cols-[12rem_1fr]">
         <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-          <span aria-hidden className="eyebrow absolute left-5 top-5 text-muted-foreground">Photo unavailable</span>
+          
           <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} loading="lazy" decoding="async" sizes="(min-width: 640px) 12rem, 100vw" className="absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
         </div>
         <div><p className="eyebrow text-muted-foreground">{article.category.replace(/-/g, " ")}</p><h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">{article.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">{article.dek}</p></div>
