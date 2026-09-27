@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Chisholm Trail Heritage Museum uses cowboy culture as an entry point into a much wider history of ranching in Texas and the Americas. Its Horsemen of the Americas collection places North American cattle traditions beside related material from Mexico and South America, while saddlery, spurs and other working equipment emphasize craftsmanship as well as function.",
       "The museum campus is part of the experience. Historic buildings in central Cuero connect the collections to the architecture and commercial life of a South Texas cattle town rather than placing the story inside an anonymous exhibit hall. Native American material and changing exhibitions broaden the interpretation beyond the trail-drive era alone.",
-      "For TexasDefined, the museum gives DeWitt County a substantial destination anchor that can connect Cuero, ranching, cattle trails, South Texas heritage and nearby small-town itineraries. It turns a familiar Texas theme into a location-specific authority page instead of repeating generic cowboy history."
+      "The museum gives DeWitt County a substantial heritage stop that connects Cuero, ranching, cattle trails, South Texas history and nearby small-town itineraries. Its local collections make those familiar Texas themes specific to Cuero and the surrounding county."
     ],
     officialUrl: "https://chisholmtrailmuseum.org/",
     managingAuthority: "Chisholm Trail Heritage Museum",
