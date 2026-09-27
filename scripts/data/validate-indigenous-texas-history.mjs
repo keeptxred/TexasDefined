@@ -108,16 +108,16 @@ if (!origins.includes(`href: "${canonicalPath}"`)) failures.push("Texas-before-U
 
 const requiredAuthoritySourceUrls = [
   "https://learning.thc.texas.gov/texas-history/indigenous-texas/",
-  "https://thc.texas.gov/state-historic-sites/caddo-mounds/caddo-mounds-history",
+  "https://thc.texas.gov/historic-sites/caddo-mounds",
   "https://tpwd.texas.gov/state-parks/hueco-tanks/history",
   "https://www.nps.gov/elte/learn/historyculture/caddo-nation-introduction.htm",
   "https://www.tshaonline.org/handbook/entries/karankawa-indians",
-  "https://www.alabama-coushatta.com/",
-  "https://www.ysletadelsurpueblo.org/",
+  "https://www.alabama-coushatta.com/about-us/our-history/",
+  "https://www.ysletadelsurpueblo.org/about-us",
   "https://kickapootexas.org/",
-  "https://mycaddonation.com/",
-  "https://www.comanchenation.com/",
-  "https://tonkawatribe.com/",
+  "https://mycaddonation.com/history-1",
+  "https://www.comanchenation.com/about/page/history",
+  "https://tonkawatribe.com/language-culture/history/",
 ];
 if (!sources.includes(`"${slug}": [`)) failures.push("Indigenous Texas multi-source registry entry is missing.");
 for (const url of requiredAuthoritySourceUrls) {
