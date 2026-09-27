@@ -385,7 +385,7 @@ function ArticlePage() {
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
-    ? article.body.findIndex((block) => block.type === "heading" && block.text === "Start with the basin, not just the river")
+    ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
     : -1;
   const riverBasinInsertIndex = riverBasinHeadingIndex >= 0
     ? article.body.findIndex((block, index) => index > riverBasinHeadingIndex && block.type === "heading")
