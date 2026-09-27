@@ -111,6 +111,9 @@ const surfaces = [
   ['texas-history-river-oaks-discovery', '/texas-history', 'Planning · architecture · exclusion'],
   ['hogg-building-houston', '/destination/hogg-building-houston', 'National Register of Historic Places and Recorded Texas Historic Landmark'],
   ['will-hogg-river-oaks-link', '/article/will-hogg-texas-legacy', '/article/river-oaks-hogg-brothers-houston-planning-history'],
+  ['hogg-family-heritage-trail', '/article/hogg-family-heritage-trail-texas', 'Hogg Family Heritage Trail: Six Texas Places That Tell the Story'],
+  ['oakwood-hogg-heritage', '/destination/oakwood-cemetery-austin', "Austin's oldest municipal burial ground contains the Hogg family plot"],
+  ['texas-history-hogg-heritage-trail-discovery', '/texas-history', 'Connect six surviving places from James Hogg'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
