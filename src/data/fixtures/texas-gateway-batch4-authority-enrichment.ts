@@ -5,6 +5,8 @@ interface GatewayAuthorityEnrichment {
   sourceName: string;
   sourceUrl: string;
   internalLinks?: ArticleInternalLink[];
+  relatedCollections?: string[];
+  relatedDestinations?: string[];
 }
 
 const firstYearHomeowner: ArticleBlock[] = [
@@ -22,6 +24,11 @@ const firstYearHomeowner: ArticleBlock[] = [
   { type: "paragraph", text: "Build separate plans for heat outages, severe thunderstorms and freezes. Heat planning should include drinking water, backup charging, alerts and a safe cooled location for vulnerable people. Storm planning should include a known interior shelter location and multiple warning methods. Freeze planning should cover exposed plumbing and manufacturer-specific procedures for outdoor equipment such as irrigation and pool systems. If automation includes freeze protection, learn what it can and cannot protect before the first hard freeze." },
   { type: "heading", text: "End the first year with better records than you started with" },
   { type: "paragraph", text: "Keep a simple log of HVAC service, roof work, plumbing repairs, pest treatment, irrigation changes, appliance replacements, insurance updates and major weather damage. Add permit or contractor information when relevant. At the end of the year, repeat the baseline photo walk-through. Comparing like-for-like photographs helps distinguish normal aging from a meaningful change and gives the second year a maintenance plan based on how the house actually behaved rather than on a generic checklist." },
+  { type: "heading", text: "Spend first-year attention by consequence, not by cosmetic visibility" },
+  { type: "paragraph", text: "A useful first-year priority list starts with conditions that can injure people, allow water into the structure or turn a small failure into a large repair. Active leaks, unsafe electrical symptoms, gas concerns, roof openings, failed drainage, nonworking smoke or carbon-monoxide alarms and equipment that is overheating or repeatedly tripping protection deserve attention before paint, trim or landscape appearance. That does not mean every stain or crack is an emergency. It means the homeowner documents what changed, stops an active source when it is safe to do so and uses the right licensed or qualified trade when diagnosis moves beyond routine maintenance." },
+  { type: "paragraph", text: "Budgeting works better the same way. Separate recurring maintenance from known near-term replacements and from a reserve for surprises, then update those buckets after the first summer, storm season and freeze. Get itemized scopes for expensive work so competing bids describe the same repair. Keep invoices, model numbers, warranty terms and before-and-after photographs with the maintenance record. Those records help the next contractor understand what was changed and can also help an insurer or future buyer distinguish documented repairs from guesswork." },
+  { type: "heading", text: "Use Texas seasons as inspection triggers instead of relying on one annual checklist" },
+  { type: "paragraph", text: "Before the hottest months, confirm cooling service needs, condensate drainage, attic or mechanical-area warning signs and the household heat-outage plan. Before a forecast freeze, review exposed plumbing and manufacturer instructions for irrigation, pool and other outdoor systems. Along the coast, hurricane planning and wind or flood insurance questions deserve an earlier calendar trigger; elsewhere, severe-thunderstorm, hail and wildfire conditions may drive different preparations. The point is not to predict which hazard will hit a specific address. It is to connect recurring maintenance to the local forecast, the home's construction and the equipment actually installed." },
 ];
 
 const summerPoolOpening: ArticleBlock[] = [
@@ -39,6 +46,11 @@ const summerPoolOpening: ArticleBlock[] = [
   { type: "paragraph", text: "There is no single statewide pump schedule that fits every Texas pool. Variable-speed equipment, plumbing design, sanitizer system, water volume, shade, debris and bather load all matter. Start from manufacturer guidance and measured water quality, then adjust based on performance. Longer run time cannot compensate for broken circulation, inadequate disinfectant or an overloaded filter." },
   { type: "heading", text: "Do not open the season until all safety gates pass" },
   { type: "paragraph", text: "A clean-looking pool can still be unsafe if a gate does not latch, a drain cover is compromised, disinfectant is inadequate or electrical equipment is damaged. Treat startup as five independent gates: controlled access, sound equipment, working circulation, acceptable water chemistry and a supervision plan. Children need continuous, close supervision around water, and adults should know where rescue equipment is and how to respond to a swimmer in distress." },
+  { type: "heading", text: "Commission the pool in stages instead of planning opening day around swimmers" },
+  { type: "paragraph", text: "Give the system time to prove that it is stable before a party or heavy-use weekend. On the first circulation cycle, watch the equipment pad for leaks and abnormal pressure or flow. Once the pump and filter are operating normally, establish measured chemistry, brush and remove debris, and retest after corrections have circulated for the time required by the product and equipment instructions. If the pool has automation, saltwater chlorination, UV, ozone, a heater or other supplemental equipment, verify each feature independently rather than assuming the controller screen proves the device is working." },
+  { type: "paragraph", text: "Keep a short startup log with free-chlorine and pH readings, major chemical additions, clean-filter pressure, unusual observations and the date baskets or filters were serviced. CDC's testing guidance makes repeated measurement more useful than a one-time 'opening' number because sunlight, swimmers and debris change disinfectant demand. A written baseline also makes later troubleshooting easier: a sudden pressure increase, chlorine-demand change or recurring water-loss pattern is easier to recognize when normal startup conditions were recorded instead of remembered." },
+  { type: "heading", text: "Match the first swimming day to verified conditions, not the calendar" },
+  { type: "paragraph", text: "Texas can produce swim weather long before a neglected pool is ready. Delay swimming when the water cannot be adequately disinfected, visibility is poor enough to interfere with seeing the bottom, circulation equipment is malfunctioning, a barrier or drain-cover concern is unresolved, or electrical equipment has a safety defect. For contamination events or conditions outside ordinary home maintenance, use current public-health guidance or a qualified pool professional rather than inventing a chemical dose. Opening the pool a day later is a better outcome than rushing multiple corrections without confirming what each one changed." },
 ];
 
 const winterPoolPrep: ArticleBlock[] = [
@@ -56,6 +68,11 @@ const winterPoolPrep: ArticleBlock[] = [
   { type: "heading", text: "Inspect after the thaw before returning to normal operation" },
   { type: "paragraph", text: "When temperatures recover, look for cracked housings, displaced unions, wet areas, abnormal pressure, loss of prime and new leaks. If ice may still be present, do not force valves or start equipment against an obstruction. Water expands as it freezes, so damage can become visible only after thawing. If a component is cracked or water is reaching electrical equipment, shut the system down safely and call for service." },
   { type: "paragraph", text: "Use the first freeze to improve the written plan for the next one. Record what temperature triggered automation, whether all features circulated, what happened during any outage, which components were difficult to access and what a technician recommended. Keep photographs of normal valve positions and labels for shutoffs or manufacturer-approved drain points. The goal is not to turn every owner into a pool technician; it is to remove uncertainty before the next hard freeze arrives." },
+  { type: "heading", text: "Separate routine cold-weather readiness from full winterization" },
+  { type: "paragraph", text: "Many Texas pools remain in service year-round, so a short freeze response is not automatically the same thing as closing a pool for an entire winter. The correct approach depends on the equipment, plumbing exposure, forecast duration, local climate and whether the property will be occupied. Do not partially drain equipment, lower water levels or change valve positions merely because another owner uses that method. A procedure that protects one layout can leave another with trapped water, loss of prime or an exposed component. Use the installed manuals and a qualified pool professional to decide which actions belong in the normal cold-weather plan and which belong only in a true winterization procedure." },
+  { type: "heading", text: "Write a freeze-day checklist that another adult can follow" },
+  { type: "paragraph", text: "Before the cold front arrives, put the essential checks in order: confirm the forecast and alert methods; verify the equipment area is accessible; confirm automation time, air-temperature sensing and freeze settings against the manual; check that expected pumps and water features actually run; identify the electrical disconnects without defeating protection; and place the pool professional's contact information with the equipment records. If the plan includes a manufacturer-approved outage drain procedure, document the exact components and sequence in normal weather rather than trying to identify them during a blackout." },
+  { type: "paragraph", text: "The checklist should also say when to stop. Evidence of a cracked housing, ice blocking a line, an electrical fault, gas odor, abnormal heater exhaust or water reaching energized equipment is a reason to shut down as safely as the manuals allow and get qualified help. Freeze protection is risk reduction, not permission to keep damaged equipment operating. After the event, inspect again during thaw and update the checklist while the details are fresh." },
 ];
 
 const roadTripCarKit: ArticleBlock[] = [
@@ -76,6 +93,10 @@ const roadTripCarKit: ArticleBlock[] = [
   { type: "paragraph", text: "If stranded, conserve phone battery and keep people together unless remaining with the vehicle creates a greater hazard. Use warning equipment according to its instructions and conditions; flares can create fire risk in dry vegetation, so reflective devices may be more appropriate. Do not walk a long distance along a high-speed roadway unless authorities direct it and there is no safer option." },
   { type: "heading", text: "Refresh the kit instead of letting it become trunk archaeology" },
   { type: "paragraph", text: "Twice a year and before major trips, pull the kit out. Charge or replace batteries, inspect the flashlight, replace expired food and medicine, rotate drinking water as needed, verify cables and tools are still present and update emergency contacts. Adjust clothing for the season. A kit built years ago for a different vehicle may no longer match the current jack points, tire equipment, charging needs or passengers." },
+  { type: "heading", text: "Set decision points before a remote segment turns into a rescue" },
+  { type: "paragraph", text: "A good road-trip plan includes conditions that trigger a change of route or an early stop. Decide before departure what you will do if the forecast deteriorates, a road closes, fuel or battery margin falls faster than expected, a tire warning appears, a passenger becomes ill or the next confirmed service point becomes unavailable. Turning around while the vehicle is still operating normally is usually easier than pressing on until every alternative disappears. In sparsely served areas, treat the last dependable fuel, charging, water and cellular-service opportunity as a planning point rather than as scenery you can always revisit later." },
+  { type: "heading", text: "Make the vehicle easy to identify when asking for help" },
+  { type: "paragraph", text: "Keep the vehicle year, make, model, color, license-plate information, roadside-assistance number and insurance contact where an adult passenger can find them without unlocking an online account. Before a remote drive, note the highway numbers and major junctions on the route. If assistance is needed, precise location information and a clear description of whether the vehicle is safely off the roadway, disabled in a travel lane or involved in a crash help the operator understand the response needed. Do not step into moving traffic to obtain a mile-marker number or photograph." },
 ];
 
 export const texasGatewayBatch4AuthorityEnrichment: Record<string, GatewayAuthorityEnrichment> = {
@@ -89,6 +110,7 @@ export const texasGatewayBatch4AuthorityEnrichment: Record<string, GatewayAuthor
       { href: "/article/texas-pests-homeowners-should-know", label: "Texas pests homeowners should know" },
       { href: "/article/texas-homeowner-mistakes", label: "Common Texas homeowner mistakes" },
     ],
+    relatedDestinations: ["galveston", "amarillo"],
   },
   "open-pool-for-texas-summer": {
     body: summerPoolOpening,
@@ -98,7 +120,10 @@ export const texasGatewayBatch4AuthorityEnrichment: Record<string, GatewayAuthor
       { href: "/article/prepare-texas-pool-for-winter", label: "Prepare a Texas pool for freezing weather" },
       { href: "/article/things-texas-homeowners-learn-first-year", label: "First-year lessons for Texas homeowners" },
       { href: "/article/texas-homeowner-mistakes", label: "Common Texas homeowner mistakes" },
+      { href: "/home-garden", label: "Texas home and garden guides" },
+      { href: "/article/things-to-do-in-texas-summer-without-melting", label: "Texas summer planning ideas" },
     ],
+    relatedDestinations: ["barton-springs-pool", "balmorhea-state-park"],
   },
   "prepare-texas-pool-for-winter": {
     body: winterPoolPrep,
@@ -109,7 +134,9 @@ export const texasGatewayBatch4AuthorityEnrichment: Record<string, GatewayAuthor
       { href: "/article/things-texas-homeowners-learn-first-year", label: "First-year lessons for Texas homeowners" },
       { href: "/article/texas-homeowner-mistakes", label: "Common Texas homeowner mistakes" },
       { href: "/article/texas-weather-surprises-newcomers", label: "Texas weather surprises newcomers" },
+      { href: "/home-garden", label: "Texas home and garden guides" },
     ],
+    relatedDestinations: ["barton-springs-pool", "balmorhea-state-park"],
   },
   "what-to-keep-in-car-for-texas-road-trip": {
     body: roadTripCarKit,
@@ -121,5 +148,6 @@ export const texasGatewayBatch4AuthorityEnrichment: Record<string, GatewayAuthor
       { href: "/article/best-first-texas-road-trip", label: "Plan a first Texas road trip" },
       { href: "/road-trips", label: "Texas road trips" },
     ],
+    relatedDestinations: ["big-bend-chisos-basin", "palo-duro-canyon"],
   },
 };
