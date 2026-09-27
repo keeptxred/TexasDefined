@@ -114,6 +114,12 @@ const surfaces = [
   ['hogg-family-heritage-trail', '/article/hogg-family-heritage-trail-texas', 'Hogg Family Heritage Trail: Six Texas Places That Tell the Story'],
   ['oakwood-hogg-heritage', '/destination/oakwood-cemetery-austin', "Austin's oldest municipal burial ground contains the Hogg family plot"],
   ['texas-history-hogg-heritage-trail-discovery', '/texas-history', 'Connect six surviving places from James Hogg'],
+  ['hogg-family-sitemap', '/sitemap.xml', '/article/hogg-family-texas-legacy'],
+  ['sallie-hogg-sitemap', '/sitemap.xml', '/article/sallie-hogg-texas-legacy'],
+  ['ima-hogg-sitemap', '/sitemap.xml', '/article/ima-hogg-texas-legacy'],
+  ['will-hogg-sitemap', '/sitemap.xml', '/article/will-hogg-texas-legacy'],
+  ['hogg-foundation-sitemap', '/sitemap.xml', '/article/hogg-foundation-mental-health-texas-history'],
+  ['hogg-heritage-trail-sitemap', '/sitemap.xml', '/article/hogg-family-heritage-trail-texas'],
 ];
 
 const canonicalHomepageRequiredNeedles = [
