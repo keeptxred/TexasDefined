@@ -71,10 +71,10 @@ const lakeConroePageCopy = {
     internalLabel: "TexasDefined guide →",
   },
   reportsSection: {
-    eyebrow: "Freshness first",
-    heading: "A fishing report is useful only when its date and source are obvious.",
-    emptyHeading: "No TexasDefined current report is published.",
-    tpwdLabel: "Check TPWD's report page →",
+    eyebrow: "Latest fishing conditions",
+    heading: "Newest dated reports for Lake Conroe",
+    emptyHeading: "Latest official fishing report",
+    tpwdLabel: "View latest report at TPWD →",
     requirementsHeading: "What a TexasDefined report must show",
     requirements: [
       "Publication and expiration dates.",
