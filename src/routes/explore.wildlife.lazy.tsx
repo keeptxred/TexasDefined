@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { nationalWildlifeRefugeDestinations } from "@/data/national-wildlife-refuge-destinations";
 
 export const Route = createLazyFileRoute("/explore/wildlife")({ component: WildlifeHubPage });
@@ -33,7 +34,15 @@ function WildlifeHubPage() {
       <Container>
         <SectionHeader eyebrow="Federal public lands" title={`${refuges.length} Texas national wildlife refuge guides`} description="The authority catalog includes current federal names, managing-agency links, county and region context, access notes and wildlife highlights. Individual destination pages remain subject to TexasDefined's normal indexing-readiness safeguards." />
         <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-          {refuges.map((destination, index) => <DestinationCard key={destination.slug} destination={destination} eager={index < 3} />)}
+          {refuges.map((destination, index) => isDestinationPhotoPlaceholder(destination.hero.src)
+            ? <article key={destination.slug} className="border-t border-border pt-5">
+                <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
+                <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
+                {destination.bestSeason && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
+                <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore refuge →</Link>
+              </article>
+            : <DestinationCard key={destination.slug} destination={destination} eager={index < 3} />)}
         </div>
       </Container>
     </Section>
