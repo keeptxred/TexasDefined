@@ -27,7 +27,7 @@ export const Route = createFileRoute("/texas-toll-tags")({
 
 function Page() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div role="status" className="mx-auto max-w-6xl px-6 py-16 text-sm text-muted-foreground">Loading Texas toll-tag guide…</div>}>
       <PrioritySearchPage data={Route.useLoaderData()} />
     </Suspense>
   );
