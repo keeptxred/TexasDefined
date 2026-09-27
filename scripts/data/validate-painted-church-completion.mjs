@@ -58,6 +58,36 @@ const authoritySourceCount = (authoritySourceBlock.match(/^    label: /gm) || []
 if (authoritySourceCount !== 30) failures.push(`Painted Churches authority trail must retain exactly 30 source pages; found ${authoritySourceCount}.`);
 requireText(sourceLibrary, 'A second 15-source research pass adds community, architectural and preservation evidence.', 'Second authority-source expansion copy');
 
+const roundTwoAuthorityUrls = [
+  'https://lindsay.texas.gov/visitor-info/things-to-do/',
+  'https://archsa.org/jubilee2025/pilgrimage-sites/',
+  'https://magazine.texasarchitects.org/issue/may-june-2014/',
+  'https://www.firstamarillo.org/our-history',
+  'https://texashighways.com/culture/bohemian-rhapsody-fayette-county-czech-culture/',
+  'https://www.tshaonline.org/handbook/entries/high-hill-tx',
+  'https://www.tshaonline.org/handbook/entries/serbin-tx',
+  'https://www.tshaonline.org/handbook/entries/panna-maria-tx',
+  'https://www.tshaonline.org/handbook/entries/wends',
+  'https://www.tshaonline.org/handbook/entries/kilian-john',
+  'https://www.tshaonline.org/handbook/entries/moczygemba-leopold',
+  'https://www.banderatx.gov/community',
+  'https://www.stpaulserbinschool.org/our-school-a-brief-history',
+  'https://wendishresearch.org/2017/09/29/spirit-of-the-wends/',
+  'https://sah-archipedia.org/buildings/TX-01-SA46',
+];
+for (const url of roundTwoAuthorityUrls) requireText(authoritySources, url, 'Second authority-source expansion');
+
+requireText(authoritySources, 'const roundTwoEnrichments: Record<string, AuthorityEnrichment>', 'Second authority enrichment layer');
+for (const token of [
+  'Documented decoration campaign',
+  'interior decoration in 1947',
+  'Ben Nevis losses',
+  '12,000-piece mosaic of the Virgin of Częstochowa',
+  'September 1889 with sixteen charter members',
+  'City of Bandera history records sixteen Polish families',
+]) requireText(authoritySources, token, 'Second authority enrichment facts');
+
+
 requireText(sourceLibrary, 'to="/explore/painted-churches/$slug"', 'Verified-addition internal links');
 
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka']) {
