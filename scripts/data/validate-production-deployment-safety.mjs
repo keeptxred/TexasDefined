@@ -11,6 +11,45 @@ const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const failures = [];
 
+const workflowDirectory = '.github/workflows';
+const canonicalProductionDeployWorkflow = 'deploy-production.yml';
+const verifiedRestoreWorkflow = 'restore-verified-worker.yml';
+const retiredProductionDeployWorkflows = [
+  'deploy-moving-pillar-once.yml',
+  'verify-houston-production-pr.yml',
+  'verify-painted-churches-production-once.yml',
+];
+
+for (const retired of retiredProductionDeployWorkflows) {
+  const retiredPath = `${workflowDirectory}/${retired}`;
+  if (fs.existsSync(retiredPath)) {
+    failures.push(`Legacy production-mutating workflow must remain retired: ${retiredPath}`);
+  }
+}
+
+const productionPublishPatterns = [
+  /\bnpx\s+wrangler\s+deploy\b/i,
+  /\bnpm\s+run\s+deploy\b/i,
+  /\bnpx\s+wrangler\s+versions\s+(?:upload|deploy)\b/i,
+];
+const rollbackPattern = /\bnpx\s+wrangler\s+rollback\b/i;
+
+for (const entry of fs.readdirSync(workflowDirectory, { withFileTypes: true })) {
+  if (!entry.isFile() || !/\.ya?ml$/i.test(entry.name)) continue;
+  const source = fs.readFileSync(`${workflowDirectory}/${entry.name}`, 'utf8');
+  if (entry.name !== canonicalProductionDeployWorkflow && productionPublishPatterns.some((pattern) => pattern.test(source))) {
+    failures.push(`Only ${canonicalProductionDeployWorkflow} may publish TexasDefined production code; found a deploy command in ${entry.name}.`);
+  }
+  if (
+    entry.name !== canonicalProductionDeployWorkflow &&
+    entry.name !== verifiedRestoreWorkflow &&
+    rollbackPattern.test(source)
+  ) {
+    failures.push(`Only ${canonicalProductionDeployWorkflow} and ${verifiedRestoreWorkflow} may mutate the active Worker via rollback; found rollback in ${entry.name}.`);
+  }
+}
+
+
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
