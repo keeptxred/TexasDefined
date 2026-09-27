@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Childress County Heritage Museum is built around objects with a direct connection to the county, giving visitors a local scale for understanding the southeastern Panhandle. Family collections, photographs and community artifacts document how residents built schools, businesses, ranches and civic institutions in a region shaped by distance and transportation.",
       "That local emphasis makes the museum useful beyond nostalgia. The collections help explain how cattle, agriculture, rail and highway travel influenced Childress and how residents adapted to environmental and economic changes on the Plains.",
-      "For TexasDefined, the museum gives Childress County a dedicated cultural anchor that can connect the county page, Panhandle road trips and small-town history through one canonical destination instead of scattered attraction mentions."
+      "The museum gives Childress County a dedicated cultural stop that fits naturally into Panhandle road trips and small-town history itineraries."
     ],
     officialUrl: "https://www.childresscountymusem.com/",
     managingAuthority: "Childress County Heritage Museum",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "The Northeast Texas Rural Heritage Museum is the active institution that best carries forward the old 'Camp County Museum' role in the source inventory. Its two-site format places regional history inside both a railroad depot and a farmstead, showing how transportation and rural life shaped one another.",
       "The Depot Museum reaches back to Caddo history and follows Pittsburg through rail, communications and community development. Its best-known object is the full-size replica of the Ezekiel Airship, tied to local claims of powered flight experiments before the Wright brothers. The Farmstead adds a furnished historic home and agricultural equipment from the late nineteenth and early twentieth centuries.",
-      "For TexasDefined, using the institution's current name avoids creating an obsolete Camp County Museum page while still giving the county a strong history anchor. It also creates natural links to Pittsburg, rail history, rural Texas and Northeast Texas road trips."
+      "Using the institution's current name avoids confusion with the obsolete Camp County Museum name while still giving the county a strong history anchor. It also connects naturally to Pittsburg, rail history, rural Texas and Northeast Texas road trips."
     ],
     officialUrl: "https://pittsburgtexasmuseum.org/",
     managingAuthority: "Northeast Texas Rural Heritage Museum",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "The Heritage Center of Cherokee County is the current institution behind the older Cherokee County museum naming found in statewide lists. Its exhibits move from pre-statehood Caddo material into settlement, timber, transportation, education and twentieth-century community life.",
       "Several subjects are uniquely tied to Rusk. The Texas State Railroad, the nineteenth-century penitentiary and the later state-hospital story give the museum a local historical identity that would be lost in a generic county overview. Nearby historic structures add further context to the downtown setting.",
-      "TexasDefined can use this destination as the county-history bridge between Rusk, Jacksonville, the Texas State Railroad and Piney Woods heritage coverage. The canonical page also keeps current institutional naming aligned with what visitors encounter today."
+      "This destination provides a county-history bridge between Rusk, Jacksonville, the Texas State Railroad and Piney Woods heritage. Its current institutional name also matches what visitors encounter today."
     ],
     officialUrl: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
     managingAuthority: "Heritage Center of Cherokee County",
@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Calhoun County Museum has unusual depth because so much Texas coastal history converges around Matagorda Bay. Indigenous history, French exploration, immigration, ports, storms and maritime transportation all appear in collections tied directly to the county.",
       "Its standout objects make those stories tangible. The large Fresnel lens from the Matagorda Island Lighthouse, material connected to La Salle's ship La Belle and the detailed Indianola interpretation explain how navigation, colonization and natural disasters shaped settlement along this stretch of coast.",
-      "For TexasDefined, the museum becomes a cultural hub for Calhoun County that can cross-link Port Lavaca, Indianola, Matagorda Bay, lighthouse history and coastal recreation rather than treating those topics as unrelated pages."
+      "The museum becomes a cultural hub for Calhoun County that connects Port Lavaca, Indianola, Matagorda Bay, lighthouse history and coastal recreation into a more coherent coastal itinerary."
     ],
     officialUrl: "https://calhouncountymuseum.org/",
     managingAuthority: "Calhoun County Museum / Calhoun County historical partners",
