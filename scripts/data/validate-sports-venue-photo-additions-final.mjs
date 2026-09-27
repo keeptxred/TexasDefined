@@ -158,8 +158,20 @@ const effectiveGeneratedSlugs = [...effective.entries()]
   .map(([slug]) => slug)
   .sort();
 const effectiveDocumentaryCount = effective.size - effectiveGeneratedSlugs.length;
-if (effectiveGeneratedSlugs.length > 8) {
-  failures.push(`Effective curated-first venue hero inventory regressed above the current eight AI fallbacks: ${effectiveGeneratedSlugs.length} generated heroes (${effectiveGeneratedSlugs.join(', ')}).`);
+const expectedEffectiveGeneratedSlugs = [
+  'amarillo-national-center',
+  'colonial-country-club',
+  'cy-fair-fcu-stadium',
+  'expo-center-taylor-county',
+  'hodgetown',
+  'houston-motorsports-park',
+  'waco-surf',
+];
+if (JSON.stringify(effectiveGeneratedSlugs) !== JSON.stringify(expectedEffectiveGeneratedSlugs)) {
+  failures.push(`Effective AI fallback set changed unexpectedly. Expected exactly: ${expectedEffectiveGeneratedSlugs.join(', ')}. Found: ${effectiveGeneratedSlugs.join(', ') || 'none'}.`);
+}
+if (effectiveDocumentaryCount !== 77) {
+  failures.push(`Expected exactly 77 documentary/reusable-source venue heroes while seven disclosed AI fallbacks remain; found ${effectiveDocumentaryCount} documentary heroes.`);
 }
 
 const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
