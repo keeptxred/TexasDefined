@@ -146,12 +146,13 @@ if (!mergeGate.includes('node scripts/ci/run-premerge-validation.mjs')) errors.p
 if (!premergeRunner.includes("'scripts/data/audit-event-schema-enrichment.mjs'")) errors.push('Canonical pre-merge contract must run the event image coverage audit.');
 
 for (const marker of [
-  'Expected governed hero coverage for all 84 seeded sports venues after wave 7',
-  'AI-generated photorealistic editorial depiction of',
-  'Expected 84 effective curated-first venue image records',
-  'Effective venue hero still points to a placeholder',
-  'Multiple sports venues resolve to the same hero image URL',
-  'Multiple sports venues resolve to the same hero source page',
+  'Governed sports venue inventory',
+  'Duplicate supplemental venue image slugs',
+  'Generated venue imagery is not permitted',
+  'Local hero asset is missing',
+  'Multiple effective venue heroes use the same image URL',
+  'Multiple effective venue heroes use the same source page',
+  'intentionally fail closed',
 ]) {
   if (!venueImageValidator.includes(marker)) errors.push(`Sports venue image coverage guard missing: ${marker}`);
 }
