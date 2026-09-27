@@ -94,23 +94,33 @@ forbidText(
   'sports venue hero endpoint must not cache redirects for a day after governed image changes',
 );
 
-for (const marker of [
+forbidText(
+  wave7Photos,
   '"amarillo-national-center": {',
-  'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas',
-]) requireText(wave7Photos, marker, 'Amarillo Wave 7 governed hero record');
+  'Amarillo National Center must remain on the documentary-photo fallback until reusable exact media is approved',
+);
+requireText(
+  wave7Photos,
+  '"round-rock-sports-center": {',
+  'Wave 7 must retain the reviewed Round Rock Sports Center documentary photo',
+);
+requireText(
+  wave7Photos,
+  '"texas-motorplex": {',
+  'Wave 7 must retain the reviewed Texas Motorplex documentary photo',
+);
 
 for (const marker of [
-  "['amarillo-national-center', 'AI-generated photorealistic editorial depiction of Amarillo National Center in Amarillo, Texas']",
-  'const wave7RealPhotoAttribution = {',
-  "'round-rock-sports-center': ['Wikimedia Commons', 'Tony Webster', 'CC BY 2.0']",
-  "'texas-motorplex': ['Wikimedia Commons', 'Michael Barera', 'CC BY-SA 4.0']",
-  "'Editorial illustration by'",
-  "'Cloudflare Workers AI / FLUX.1 schnell'",
-  "'for TexasDefined; not documentary photography.'",
-  '...attributionMarkers',
+  'const representativePhotoSlugs = [',
+  "'round-rock-sports-center'",
+  "'texas-motorplex'",
+  "'legacy-stadium-katy'",
+  "'amarillo-national-center-fallback'",
+  'expectFallback: true',
+  "const fallbackText = 'A verified venue photograph is not available yet.';",
   'lastBody = await response.text();',
   "headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' }",
-]) requireText(productionVerifier, marker, 'live raw-HTML hero and attribution production contract');
+]) requireText(productionVerifier, marker, 'live raw-HTML documentary hero and fallback production contract');
 forbidText(
   productionVerifier,
   "'AI-generated representative editorial image'",
@@ -134,4 +144,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated rendered heroes remain server-authoritative, redirect caching cannot revive stale image URLs, governed attribution and event-image identity remain intact, and both targeted and exhaustive live production verification protect current generated-vs-real attribution semantics under the sitewide AI disclosure.');
+console.log('Sports venue SSR hero validation passed: guide content is server-visible, hydrated approved heroes remain server-authoritative, redirect caching cannot revive stale image URLs, documentary attribution and event-image identity remain intact, and targeted production verification protects both approved-photo rendering and intentional fail-closed fallback behavior.');
