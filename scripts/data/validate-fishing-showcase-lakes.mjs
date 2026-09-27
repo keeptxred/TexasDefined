@@ -62,7 +62,7 @@ if (!failures.length) {
   if (!functions.includes("createServerFn") || !functions.includes("loadShowcaseLakesPageDataServer")) failures.push("Showcase-lake server-function boundary missing.");
   if (/^import\s+(?!type\b).*showcase-lakes-prototype/m.test(ui)) failures.push("Showcase lake client UI must not runtime-import the heavyweight prototype catalog.");
 
-  for (const signal of ["Verified local listing", "do not invent businesses", "No TexasDefined current report is published", "verified-listing gate", "scraped names", "Sponsored placement", "Sponsorship policy", "never changes", "noopener sponsored"]) {
+  for (const signal of ["Local fishing service", "do not invent businesses", "No TexasDefined current report is published", "verified-listing gate", "scraped names", "Sponsored placement", "Sponsorship policy", "never changes", "noopener sponsored"]) {
     if (!ui.includes(signal)) failures.push(`Showcase guide/report/business/sponsor integrity copy missing: ${signal}`);
   }
   if (!ui.includes('fishingFoundationAnchor("species", fish.id)')) failures.push("Showcase fish sections do not connect to canonical species destinations.");

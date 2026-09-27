@@ -105,7 +105,7 @@ requireText(hubComponent, "multi-select", "fishing hub must explain multi-select
 requireText(hubComponent, "ZIP code", "fishing hub must expose ZIP-aware lake discovery");
 requireText(hubComponent, "Browse every Texas fish guide", "fishing hub species discovery missing");
 for (const token of ['kind: "generic"', "GenericFishingLakeGuide", 'canonicalFishingPath("lake", lake.slug)', "lakeSpeciesProfilesQuery", "fishingAccessPointsQuery"]) requireText(lakeRoute, token, `generic lake route contract missing ${token}`);
-for (const token of ["Fish recorded for", 'fishingFoundationAnchor("species", fish.slug)', "/county/", "Verify before the trip"]) requireText(genericLake, token, `generic lake profile contract missing ${token}`);
+for (const token of ["Fish Species at", 'fishingFoundationAnchor("species", fish.slug)', "/county/", "Check Current Conditions Before You Go"]) requireText(genericLake, token, `generic lake profile contract missing ${token}`);
 for (const token of ['status: "published"', "Boolean(relationship.verifiedAt) && relationship.sources.length > 0", "fishing/lakes/"]) requireText(lakeSitemap, token, `generic lake sitemap gate missing ${token}`);
 
 requireText(compare, "Choose up to three", "comparison selection control missing");
@@ -113,7 +113,7 @@ requireText(compare, "Top verified targets", "comparison fishery-strength row mi
 requireText(compare, "Verified guides", "comparison guide coverage row missing");
 requireText(compare, "Verified access", "comparison access coverage row missing");
 requireText(compare, "Verified services", "comparison service coverage row missing");
-requireText(compare, "Coverage is not a quality score", "comparison anti-ranking safeguard missing");
+requireText(compare, "How to Read This Comparison", "comparison anti-ranking safeguard missing");
 requireText(compare, "does not create an editorial ranking", "comparison must explicitly reject selection-as-ranking");
 requireText(compare, "does not accept paid weighting", "comparison sponsorship independence missing");
 requireText(compare, "canonicalPath: FISHING_LAKE_COMPARE_PATH", "comparison canonical metadata missing");

@@ -34,7 +34,7 @@ export function GenericFishingLakeGuide({
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-20">
         <p className="eyebrow text-ink-foreground/65">Texas fishing lake profile · {formatRegion(lake.region)}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{lake.name} fishing</h1>
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{lake.name} Fishing Guide</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{lake.summary}</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <a href={`/fishing/plan?q=${encodeURIComponent(lake.name)}`} className="border-b border-ink-foreground pb-1 font-semibold">Find fish at {lake.name} →</a>
@@ -48,7 +48,7 @@ export function GenericFishingLakeGuide({
       <section className="grid gap-10 border-b border-border pb-12 lg:grid-cols-2">
         <div>
           <p className="eyebrow text-primary">At a glance</p>
-          <h2 className="mt-3 font-display text-4xl">Plan around the water first.</h2>
+          <h2 className="mt-3 font-display text-4xl">Lake Overview and Trip Planning</h2>
           <dl className="mt-7 grid gap-5 border-t border-border pt-6 sm:grid-cols-2">
             {lake.surfaceAcres ? <Fact label="Surface area" value={`${lake.surfaceAcres.toLocaleString("en-US")} acres`} /> : null}
             {lake.maxDepthFeet ? <Fact label="Maximum depth" value={`${lake.maxDepthFeet} ft`} /> : null}
@@ -69,7 +69,7 @@ export function GenericFishingLakeGuide({
 
       <section className="py-12" aria-labelledby="lake-fish-heading">
         <div className="flex flex-wrap items-end justify-between gap-5">
-          <div><p className="eyebrow text-primary">Fish this lake</p><h2 id="lake-fish-heading" className="mt-3 font-display text-4xl">Fish recorded for {lake.name}</h2></div>
+          <div><p className="eyebrow text-primary">Fish this lake</p><h2 id="lake-fish-heading" className="mt-3 font-display text-4xl">Fish Species at {lake.name}</h2></div>
           <a href="/fishing/species" className="border-b border-primary pb-1 text-sm font-semibold text-primary">Browse all Texas fish →</a>
         </div>
         {targets.length ? <div className="mt-8 grid gap-x-8 border-t border-border md:grid-cols-2">
@@ -84,7 +84,7 @@ export function GenericFishingLakeGuide({
 
       {(access.length || guides.length || businesses.length) ? <section className="border-y border-border py-12">
         <p className="eyebrow text-primary">Local planning</p>
-        <h2 className="mt-3 font-display text-4xl">Verified services attached to this lake</h2>
+        <h2 className="mt-3 font-display text-4xl">Fishing Services Near {lake.name}</h2>
         <div className="mt-7 grid gap-6 md:grid-cols-3">
           {access.length ? <Summary title="Access" value={access.length} copy="Verified ramps, marinas or shoreline access records." href="/fishing/access" /> : null}
           {guides.length ? <Summary title="Fishing guides" value={guides.length} copy="Verified guide profiles that list this lake." href="/fishing/guides" /> : null}
@@ -94,14 +94,14 @@ export function GenericFishingLakeGuide({
 
       {reports.length ? <section className="py-12">
         <p className="eyebrow text-primary">Dated fishing reports</p>
-        <h2 className="mt-3 font-display text-4xl">Recent published context</h2>
+        <h2 className="mt-3 font-display text-4xl">Recent Fishing Reports</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Reports are shown with publication dates because conditions change. Always verify current weather, levels, access and regulations before travel.</p>
         <div className="mt-7 grid gap-x-8 md:grid-cols-2">{reports.slice(0, 4).map((report) => <article key={report.id} className="border-t border-border py-6"><p className="eyebrow text-primary">{formatDate(report.publishedAt)}</p><h3 className="mt-2 font-display text-2xl">{report.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{report.summary}</p></article>)}</div>
       </section> : null}
 
       <section className="border-t border-border py-12">
         <p className="eyebrow text-primary">Sources</p>
-        <h2 className="mt-3 font-display text-3xl">Verify before the trip</h2>
+        <h2 className="mt-3 font-display text-3xl">Check Current Conditions Before You Go</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Lake levels, access, regulations, closures and fishing conditions can change after this profile is reviewed.</p>
         {lake.sources.length ? <div className="mt-6 flex flex-wrap gap-5">{lake.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.name} ↗</a>)}</div> : null}
       </section>
