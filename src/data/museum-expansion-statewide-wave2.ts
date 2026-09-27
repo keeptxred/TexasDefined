@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Amarillo Museum of Art provides a visual-arts counterpoint to the Panhandle's ranching, transportation and frontier museums. Its galleries rotate through exhibitions drawn from the permanent collection and visiting artists, giving travelers a cultural stop that changes significantly from one visit to the next.",
       "The museum's setting on the Amarillo College campus places it within the Amarillo Cultural District rather than on an isolated attraction corridor. That makes it easy to combine with architecture, performing arts and other city institutions while staying close to central Amarillo.",
-      "For TexasDefined, AMoA also strengthens an internal-link cluster that already includes Amarillo, Route 66, Cadillac Ranch and regional history. A visitor can move from the city's roadside iconography to a curated museum environment and see a broader picture of how the Panhandle presents itself through art."
+      "AMoA also strengthens an internal-link cluster that already includes Amarillo, Route 66, Cadillac Ranch and regional history. A visitor can move from the city's roadside iconography to a curated museum environment and see a broader picture of how the Panhandle presents itself through art."
     ],
     officialUrl: "https://www.amoa.org/visit",
     managingAuthority: "Amarillo Museum of Art / Amarillo College",
@@ -187,7 +187,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Corpus Christi Museum of Science and History is built around the intersection in its name. Visitors can move from natural science and coastal environments into archaeology, regional history and the long human story of South Texas, making it more useful than a narrowly defined children's science center or local-history museum.",
       "Its harbor-area setting strengthens the coastal interpretation. Exhibits about ecology, maritime connections and regional history can be paired with nearby bayfront attractions, while school and family programs use hands-on activities to make science and history accessible to younger visitors.",
-      "For TexasDefined, the museum also fills an important Nueces County cross-link. Corpus Christi already has aquarium, beach, Padre Island and coastal-culture authority content; adding a canonical museum page gives those outdoor and marine pages an indoor historical-science companion and improves all-weather itinerary depth."
+      "The museum also fills an important Nueces County cross-link. Corpus Christi already has aquarium, beach, Padre Island and coastal-culture authority content; adding a canonical museum page gives those outdoor and marine pages an indoor historical-science companion and improves all-weather itinerary depth."
     ],
     officialUrl: "https://www.ccmuseum.com/visit/",
     managingAuthority: "Corpus Christi Museum of Science and History",
@@ -262,7 +262,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Museum of South Texas History is one of the clearest places to understand the Rio Grande Valley as a borderlands region rather than as the edge of a state map. Its interpretation follows communities and cultures across periods when political boundaries changed but family, trade and environmental connections continued across the Rio Grande.",
       "Exhibits move through Indigenous history, Spanish colonization, Mexican Texas, ranching, conflict, migration and twentieth-century development. The historic 1910 Hidalgo County Jail adds a preserved local landmark to the larger museum complex, while archives and artifact collections support deeper regional research.",
-      "For TexasDefined, MOSTHistory gives Hidalgo County a major cultural anchor that can cross-link with wildlife refuges, missions, borderland history and Rio Grande Valley destination guides. That is especially important because South Texas authority improves when cultural history and nature content reinforce each other instead of living in separate silos."
+      "MOSTHistory gives Hidalgo County a major cultural anchor that can cross-link with wildlife refuges, missions, borderland history and Rio Grande Valley destination guides. That is especially important because South Texas authority improves when cultural history and nature content reinforce each other instead of living in separate silos."
     ],
     officialUrl: "https://mosthistory.org/",
     managingAuthority: "Museum of South Texas History",
