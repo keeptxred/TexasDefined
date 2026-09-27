@@ -187,6 +187,12 @@ requireText(productionSurfaces, "['will-hogg-river-oaks-link', '/article/will-ho
 requireText(productionSurfaces, "['hogg-family-heritage-trail', '/article/hogg-family-heritage-trail-texas', 'Hogg Family Heritage Trail: Six Texas Places That Tell the Story']", 'Hogg Family Heritage Trail live authority check');
 requireText(productionSurfaces, `['oakwood-hogg-heritage', '/destination/oakwood-cemetery-austin', "Austin's oldest municipal burial ground contains the Hogg family plot"]`, 'Oakwood Cemetery Hogg heritage live destination check');
 requireText(productionSurfaces, "['texas-history-hogg-heritage-trail-discovery', '/texas-history', 'Connect six surviving places from James Hogg']", 'Hogg Heritage Trail Texas History discovery check');
+requireText(productionSurfaces, "['hogg-family-sitemap', '/sitemap.xml', '/article/hogg-family-texas-legacy']", 'Hogg family sitemap check');
+requireText(productionSurfaces, "['sallie-hogg-sitemap', '/sitemap.xml', '/article/sallie-hogg-texas-legacy']", 'Sallie Hogg sitemap check');
+requireText(productionSurfaces, "['ima-hogg-sitemap', '/sitemap.xml', '/article/ima-hogg-texas-legacy']", 'Ima Hogg sitemap check');
+requireText(productionSurfaces, "['will-hogg-sitemap', '/sitemap.xml', '/article/will-hogg-texas-legacy']", 'Will Hogg sitemap check');
+requireText(productionSurfaces, "['hogg-foundation-sitemap', '/sitemap.xml', '/article/hogg-foundation-mental-health-texas-history']", 'Hogg Foundation sitemap check');
+requireText(productionSurfaces, "['hogg-heritage-trail-sitemap', '/sitemap.xml', '/article/hogg-family-heritage-trail-texas']", 'Hogg Heritage Trail sitemap check');
 for (const marker of [
   "['painted-churches-round2-lacoste', '/explore/painted-churches/lacoste-our-lady-of-grace', 'Documented decoration campaign']",
   "['painted-churches-round2-panna-maria', '/explore/painted-churches/panna-maria-immaculate-conception', '12,000-piece mosaic of the Virgin of Częstochowa']",
