@@ -33,7 +33,7 @@ export const statewideMuseumExpansionWave15Destinations: Destination[] = [
     entryNote: "The museum currently lists Monday-Saturday hours from 10 a.m. to 5 p.m. and free admission. It was founded as the Moore County Historical Museum and now operates under the Window on the Plains Museum name; verify current holiday hours before a special trip.",
     highlights: ["Moore County and Panhandle history", "Ranching and farming exhibits", "Family-life and business collections", "Adjacent Art Center"],
     body: [
-      "Window on the Plains Museum is the current institutional identity behind older references to the Moore County Historical Museum. Founded in 1976, the museum later moved to its present South Dumas Avenue home and adopted the name visitors see today, so TexasDefined uses one current canonical page rather than preserving a stale duplicate.",
+      "Window on the Plains Museum is the current institutional identity behind older references to the Moore County Historical Museum. Founded in 1976, the museum later moved to its present South Dumas Avenue home and adopted the name visitors see today. Older references may still use the former name, but travelers should look for Window on the Plains Museum.",
       "The collections tell Moore County's story through farming, ranching, business, industry, family life and the wider High Plains environment. That breadth makes the museum useful as both a local-history stop and a regional orientation point for travelers crossing the northern Panhandle.",
       "This destination strengthens a Dumas and Moore County itinerary while pairing naturally with Panhandle road trips, Route 287 travel, agricultural history and the neighboring Art Center."
     ],

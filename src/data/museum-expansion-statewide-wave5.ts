@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Fannin County Museum of History gives Bonham a broad local-history anchor inside a building that already tells part of the county's transportation story. The historic Texas & Pacific depot connects the museum directly to the railroad era that helped move North Texas people, crops and goods into larger markets.",
       "Exhibits range from pioneer life and local businesses to military service and twentieth-century change, allowing visitors to understand Fannin County as more than the home of one famous political figure. Community photographs and donated artifacts give the galleries a distinctly local texture.",
-      "For TexasDefined, the museum complements the Sam Rayburn Museum rather than competing with it. Cross-linking both destinations with the Fannin County and Bonham authority pages creates a stronger multi-stop heritage itinerary covering politics, railroads, settlement and community history."
+      "The museum complements the Sam Rayburn Museum rather than competing with it. Together with other Bonham and Fannin County historic sites, the two museums can form a multi-stop heritage itinerary covering politics, railroads, settlement and community history."
     ],
     officialUrl: "https://www.fannincountymuseum.org/",
     managingAuthority: "Fannin County Museum of History",
@@ -236,8 +236,8 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     highlights: ["Polk County local history", "East Texas timber industry", "Railroad and Trinity River history", "Native American and pioneer exhibits"],
     body: [
       "Polk County Memorial Museum covers the forces that shaped Livingston and the surrounding Piney Woods, from Indigenous history and pioneer settlement to timber, transportation and twentieth-century community life. Its collections help explain why the county developed around forests, rivers and transportation corridors.",
-      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so TexasDefined preserves the canonical destination while placing the closure ahead of trip-planning details rather than presenting historical operating hours as current access.",
-      "Once reopened, the museum will be a natural county-level anchor linking Livingston, timber history, the Trinity River and nearby outdoor destinations. Maintaining the page during the closure also gives TexasDefined one stable URL to update when the museum announces its return."
+      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so travelers should treat the closure as the controlling status rather than rely on historical operating hours.",
+      "Once reopened, the museum will again be a natural county-level stop linking Livingston, timber history, the Trinity River and nearby outdoor destinations. Until then, visitors should verify reopening information directly with the museum before planning around it."
     ],
     officialUrl: "https://www.polkcountymemorialmuseum.com/",
     managingAuthority: "Polk County Memorial Museum",
@@ -262,7 +262,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Nacogdoches Railroad Depot explains how rail transportation changed a city whose history began long before the railroad era. The present brick depot dates to 1911, replacing an earlier wooden building, and passenger service continued until the mid-twentieth century.",
       "Inside, the city's Historic Sites Department interprets the people who traveled and worked through the depot as well as the larger economic effect of rail connections on agriculture, business and urban growth. The preserved station keeps those stories tied to the place where they unfolded.",
-      "TexasDefined can cross-link the depot with Nacogdoches' other historic properties, downtown authority content and East Texas railroad destinations. That gives visitors a coherent historic-sites network rather than a stand-alone railroad page."
+      "The depot pairs naturally with Nacogdoches' other historic properties and East Texas railroad destinations, giving visitors a coherent historic-sites itinerary rather than an isolated railroad stop."
     ],
     officialUrl: "https://www.nactx.us/695/Nacogdoches-Railroad-Depot",
     managingAuthority: "City of Nacogdoches Historic Sites Department",

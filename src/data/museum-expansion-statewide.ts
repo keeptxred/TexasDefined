@@ -263,7 +263,7 @@ export const statewideMuseumExpansionDestinations: Destination[] = [
     body: [
       "Spindletop-Gladys City Boomtown Museum interprets one of the most consequential industrial events in Texas history through a physical landscape. The 1901 Lucas Gusher helped launch a petroleum boom that transformed Beaumont, attracted major investment and accelerated the growth of the modern oil industry.",
       "Rather than presenting that story only through artifacts, the museum recreates parts of the commercial boomtown that grew around the oil field. Furnished buildings, derricks and demonstrations help visitors picture the sudden influx of workers, businesses and technology that followed the discovery.",
-      "The site pairs naturally with the Texas Energy Museum downtown. Gladys City provides the place-based boomtown experience, while the Energy Museum explains the science, technology and larger industry that grew from Spindletop. Together they form one of TexasDefined's strongest industrial-history cross-link clusters."
+      "The site pairs naturally with the Texas Energy Museum downtown. Gladys City provides the place-based boomtown experience, while the Energy Museum explains the science, technology and larger industry that grew from Spindletop. Together they make one of Beaumont's strongest industrial-history itineraries."
     ],
     officialUrl: "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/index.html",
     managingAuthority: "Lamar University",

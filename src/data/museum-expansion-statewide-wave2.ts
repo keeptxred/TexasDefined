@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Amarillo Museum of Art provides a visual-arts counterpoint to the Panhandle's ranching, transportation and frontier museums. Its galleries rotate through exhibitions drawn from the permanent collection and visiting artists, giving travelers a cultural stop that changes significantly from one visit to the next.",
       "The museum's setting on the Amarillo College campus places it within the Amarillo Cultural District rather than on an isolated attraction corridor. That makes it easy to combine with architecture, performing arts and other city institutions while staying close to central Amarillo.",
-      "For TexasDefined, AMoA also strengthens an internal-link cluster that already includes Amarillo, Route 66, Cadillac Ranch and regional history. A visitor can move from the city's roadside iconography to a curated museum environment and see a broader picture of how the Panhandle presents itself through art."
+      "AMoA also fits naturally into an Amarillo itinerary that includes Route 66, Cadillac Ranch and regional history. A visitor can move from the city's roadside iconography to a curated museum environment and see a broader picture of how the Panhandle presents itself through art."
     ],
     officialUrl: "https://www.amoa.org/visit",
     managingAuthority: "Amarillo Museum of Art / Amarillo College",
@@ -187,7 +187,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Corpus Christi Museum of Science and History is built around the intersection in its name. Visitors can move from natural science and coastal environments into archaeology, regional history and the long human story of South Texas, making it more useful than a narrowly defined children's science center or local-history museum.",
       "Its harbor-area setting strengthens the coastal interpretation. Exhibits about ecology, maritime connections and regional history can be paired with nearby bayfront attractions, while school and family programs use hands-on activities to make science and history accessible to younger visitors.",
-      "For TexasDefined, the museum also fills an important Nueces County cross-link. Corpus Christi already has aquarium, beach, Padre Island and coastal-culture authority content; adding a canonical museum page gives those outdoor and marine pages an indoor historical-science companion and improves all-weather itinerary depth."
+      "The museum adds an important indoor counterpart to Corpus Christi's aquarium, beaches, Padre Island and coastal attractions, giving visitors a historical-science stop that works especially well when weather changes an outdoor itinerary."
     ],
     officialUrl: "https://www.ccmuseum.com/visit/",
     managingAuthority: "Corpus Christi Museum of Science and History",

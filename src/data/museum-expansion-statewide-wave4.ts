@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Chisholm Trail Heritage Museum uses cowboy culture as an entry point into a much wider history of ranching in Texas and the Americas. Its Horsemen of the Americas collection places North American cattle traditions beside related material from Mexico and South America, while saddlery, spurs and other working equipment emphasize craftsmanship as well as function.",
       "The museum campus is part of the experience. Historic buildings in central Cuero connect the collections to the architecture and commercial life of a South Texas cattle town rather than placing the story inside an anonymous exhibit hall. Native American material and changing exhibitions broaden the interpretation beyond the trail-drive era alone.",
-      "For TexasDefined, the museum gives DeWitt County a substantial destination anchor that can connect Cuero, ranching, cattle trails, South Texas heritage and nearby small-town itineraries. It turns a familiar Texas theme into a location-specific authority page instead of repeating generic cowboy history."
+      "The museum gives DeWitt County a substantial heritage stop that connects Cuero, ranching, cattle trails, South Texas history and nearby small-town itineraries. Its local collections make those familiar Texas themes specific to Cuero and the surrounding county."
     ],
     officialUrl: "https://chisholmtrailmuseum.org/",
     managingAuthority: "Chisholm Trail Heritage Museum",
@@ -211,7 +211,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Texas Heritage Museum functions as both a public museum and a research institution. Its galleries use artifacts and personal histories to follow Texans through major American conflicts, while archival holdings and the Historical Research Center support deeper study beyond the public displays.",
       "That dual role distinguishes it from a conventional military museum. Hill College's long-running history program, collections and publishing activity connect scholarship with visitor interpretation, making the institution useful to students, genealogists and travelers interested in military or political history.",
-      "Hillsboro sits on the I-35 corridor between Dallas-Fort Worth and Waco. A canonical TexasDefined page turns the museum into an easy heritage stop on that route and gives Hill County stronger links to military-history, college and statewide-history content."
+      "Hillsboro sits on the I-35 corridor between Dallas-Fort Worth and Waco, making the museum an easy heritage stop between the two metros and a useful place to connect Hill County with military, college and statewide history."
     ],
     officialUrl: "https://www.hillcollege.edu/museum/",
     managingAuthority: "Hill College",
@@ -311,7 +311,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Laredo Center for the Arts gives contemporary creative activity a home inside one of Texas's most historically layered downtowns. Exhibitions, artist gatherings, classes and events create a public-facing cultural institution that reflects the city's position on the U.S.-Mexico border.",
       "Its location near the San Agustín district matters. Visitors can place current art and community programs beside nineteenth-century architecture, border commerce and institutions such as the Republic of the Rio Grande Museum, making the arts center part of a walkable heritage cluster rather than an isolated gallery.",
-      "For TexasDefined, the destination strengthens Webb County with a cultural page that is not simply another history museum. It cross-links naturally with downtown Laredo, border culture, architecture, festivals and existing South Texas authority content."
+      "The arts center gives Webb County a cultural stop that is not simply another history museum. It pairs naturally with downtown Laredo, border culture, architecture, festivals and other South Texas attractions."
     ],
     officialUrl: "https://laredocenterforthearts.org/",
     managingAuthority: "Laredo Center for the Arts",

@@ -38,9 +38,7 @@ function TexasIconsHub() {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
             This registry connects influential Texans, cultural institutions, sports figures,
             landmarks, foods and symbols without duplicating profiles TexasDefined already has.
-            Existing authority pages stay canonical. Pure roster data can remain internal, but once
-            TexasDefined writes a substantive sourced profile, that content publishes instead of
-            sitting in a permanent unpublished queue.
+            Existing in-depth guides remain the best place to start when one already exists. When a sourced profile is available, the registry links readers to that fuller story rather than duplicating it here.
           </p>
 
           <dl className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
@@ -69,7 +67,7 @@ function TexasIconsHub() {
                 We do not write full articles merely to leave them permanently unpublished or noindex.
               </p>
               <p>
-                Existing authority pages and Texas Talent ownership still take precedence so one
+                Existing in-depth guides and Texas Talent profiles still take precedence so one
                 subject does not split into competing biographies. When a stronger canonical owner
                 exists, Texas Icons links or redirects to it rather than publishing a duplicate.
               </p>
