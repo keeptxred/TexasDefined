@@ -11,6 +11,7 @@ const paths = {
   profileLazy: "src/routes/fishing.techniques.$slug.lazy.tsx",
   directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
+  guideContent: "src/data/fishing/technique-guide-content.ts",
   hubRoute: "src/routes/fishing.tsx",
   hubComponent: "src/components/fishing/FishingHub.tsx",
   fixtures: "src/data/fishing/fixtures.ts",
@@ -47,13 +48,15 @@ requireText(files.functions, "loadFishingTechniqueProfileServer", "profile serve
 
 for (const token of ["buildFishingTechniqueDirectoryHead",'"@type": "CollectionPage"','"@type": "ItemList"','"@type": "FAQPage"','"@type": "BreadcrumbList"']) requireText(files.server, token, `directory server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques")','head: ({ loaderData }) => loaderData?.head ?? {}']) requireText(files.directoryRoute, token, `directory critical route contract missing ${token}`);
-for (const token of ['createLazyFileRoute("/fishing/techniques")','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
+for (const token of ['createLazyFileRoute("/fishing/techniques")','useChildMatches','if (childMatches.length > 0) return <Outlet />','FishingTechniqueDirectory data={Route.useLoaderData()} search={Route.useSearch()}']) requireText(files.directoryLazy, token, `directory native lazy route missing ${token}`);
 for (const token of ["No generic tackle encyclopedia",'method="get"','name="category"','name="species"','name="season"',"fresh fishing reports","current regulations"]) requireText(files.directoryComponent, token, `directory UI contract missing ${token}`);
 
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
-for (const token of ["Verified lake applications, not a universal ranking","not today's answer","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, `profile UI contract missing ${token}`);
+for (const token of ["How to Fish","When should you use","Rod, reel, line and rigging","How the approach changes through the year","Common mistakes","Verified Texas lake relationships","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
+for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
+for (const token of ["Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
 
 for (const [routeName, routeText, componentPath] of [
   ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
