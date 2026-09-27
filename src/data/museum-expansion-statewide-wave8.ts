@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Childress County Heritage Museum is built around objects with a direct connection to the county, giving visitors a local scale for understanding the southeastern Panhandle. Family collections, photographs and community artifacts document how residents built schools, businesses, ranches and civic institutions in a region shaped by distance and transportation.",
       "That local emphasis makes the museum useful beyond nostalgia. The collections help explain how cattle, agriculture, rail and highway travel influenced Childress and how residents adapted to environmental and economic changes on the Plains.",
-      "For TexasDefined, the museum gives Childress County a dedicated cultural anchor that can connect the county page, Panhandle road trips and small-town history through one canonical destination instead of scattered attraction mentions."
+      "The museum gives Childress County a strong cultural anchor for a Panhandle road trip, connecting local history with the county's cattle, agriculture, railroad and highway story in one visit."
     ],
     officialUrl: "https://www.childresscountymusem.com/",
     managingAuthority: "Childress County Heritage Museum",
