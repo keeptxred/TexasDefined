@@ -35,7 +35,7 @@ export const statewideMuseumExpansionWave18Destinations: Destination[] = [
     body: [
       "Floyd County Historical Museum is more than a county memorabilia room because one of its strongest stories reaches back four centuries before Floydada itself. Archaeological work in nearby Blanco Canyon produced evidence associated with Francisco Vázquez de Coronado's 1541 expedition, and the museum preserves and interprets material connected with that nationally significant chapter of Plains history.",
       "The museum also serves as a repository for the people and communities that shaped Floyd County after settlement. Pioneer artifacts, photographs and genealogy resources make it a practical research stop as well as a visitor attraction, while its courthouse-square location ties the collection directly to Floydada's civic center.",
-      "For TexasDefined, this page becomes the canonical Floyd County museum destination and can connect Coronado and Blanco Canyon, courthouse-square history, genealogy, farming communities and southern High Plains road trips without creating a generic duplicate under a broader county-history label."
+      "This museum gives Floyd County visitors a clear history stop connecting Coronado and Blanco Canyon, courthouse-square history, genealogy, farming communities and southern High Plains road trips."
     ],
     officialUrl: "https://www.humanitiestexas.org/exhibitions/list/by-title/vaquero-genesis-texas-cowboy",
     managingAuthority: "Floyd County Historical Museum",
@@ -60,7 +60,7 @@ export const statewideMuseumExpansionWave18Destinations: Destination[] = [
     body: [
       "Motley County Historical Museum occupies a building that is itself part of county history: the former Traweek Hospital, built in the late 1920s for Dr. A. E. Traweek. That setting allows medical and community history to sit beside the ranching story for which Matador is best known.",
       "Current Texas Time Travel material describes exhibits spanning veterans, schools, ranching, Native American history, saddle making and early Matador. Older Texas Historical Commission interpretation also documents the museum's collection of photographs connected to Quanah Parker's visits, making it a useful companion to the official Quanah Parker Trail and nearby historic jail.",
-      "For TexasDefined, the museum becomes Motley County's canonical local-history destination and can cross-link Matador Ranch history, Quanah Parker, rural medicine, the historic jail and eastern Panhandle road trips while making the museum's limited access expectations clear."
+      "The museum gives Motley County visitors a focused local-history stop connecting Matador Ranch history, Quanah Parker, rural medicine, the historic jail and eastern Panhandle road trips. Limited access makes checking current hours especially important."
     ],
     officialUrl: "https://texastimetravel.com/directory/motley-county-historical-museum/",
     managingAuthority: "Motley County Historical Museum",

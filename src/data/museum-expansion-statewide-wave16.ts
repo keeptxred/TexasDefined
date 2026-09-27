@@ -35,7 +35,7 @@ export const statewideMuseumExpansionWave16Destinations: Destination[] = [
     body: [
       "Roberts County Museum is housed in a railroad depot whose own history reaches back to the arrival of the Southern Kansas Railway in the late nineteenth century. That setting makes the museum part of Miami's transportation story rather than simply a container for artifacts.",
       "The collection reaches much farther back than the railroad era. Local historical sources and the Texas Historical Commission identify archaeological and paleontological material associated with Judge J. A. Mead's discoveries, alongside pioneer and Native American objects that help explain the county before and after permanent settlement.",
-      "For TexasDefined, the museum gives Miami and Roberts County a dedicated authority destination that can cross-link railroad history, archaeology, county content, Panhandle road trips and nearby courthouse or ranching coverage without requiring a generic county-history duplicate."
+      "The museum gives Miami and Roberts County a dedicated history stop that connects railroad history, archaeology, Panhandle road trips and nearby courthouse or ranching sites."
     ],
     officialUrl: "https://atlas.thc.texas.gov/Details/4200001365",
     managingAuthority: "Roberts County Museum",
@@ -60,7 +60,7 @@ export const statewideMuseumExpansionWave16Destinations: Destination[] = [
     body: [
       "Stationmaster's House Museum connects Spearman directly to the railroad that helped establish the town. The former stationmaster's cottage anchors a larger complex that includes railroad structures and outdoor exhibits, giving the museum a strong sense of place rather than a purely archival presentation.",
       "Recent community reporting shows the museum active after a substantial renovation period. Student tours in late 2025 and museum committee activity in 2026 document renewed access to the house, caboose and annex, including military uniforms, Rue Sanders' plane and a wider set of Hansford County collections.",
-      "For TexasDefined, the museum becomes the canonical Hansford County history destination and can connect railroad development, Spearman, aviation, military history and northern Panhandle road trips while accurately warning visitors that access may depend on current volunteer scheduling."
+      "The museum gives Hansford County visitors a strong history stop connecting railroad development, Spearman, aviation, military history and northern Panhandle road trips. Because access may depend on volunteer scheduling, visitors should confirm current hours before traveling."
     ],
     officialUrl: "https://texastimetravel.com/directory/stationmasters-house-museum/",
     managingAuthority: "Stationmaster's House Museum",
@@ -85,7 +85,7 @@ export const statewideMuseumExpansionWave16Destinations: Destination[] = [
     body: [
       "River Valley Pioneer Museum is the current Hemphill County history institution behind older generic county-museum references. Its interpretation starts before permanent Anglo settlement and follows the region through Indigenous history, frontier conflict and the changing Canadian River landscape.",
       "Railroad growth, ranching, farming, rodeo and energy development then explain how Canadian became an important eastern Panhandle community. Permanent collections are supplemented by rotating exhibitions, allowing the museum to serve both as a local archive and an active cultural venue.",
-      "For TexasDefined, this page gives Hemphill County one current canonical museum identity that can cross-link Canadian, the Canadian River, Red River War history, railroad travel, ranching and regional road trips instead of preserving a vague or obsolete 'Hemphill County Historical Museum' duplicate."
+      "This museum gives Hemphill County visitors a clear current destination connected to Canadian, the Canadian River, Red River War history, railroad travel, ranching and regional road trips."
     ],
     officialUrl: "https://rivervalleymuseum.com/",
     managingAuthority: "River Valley Pioneer Museum",

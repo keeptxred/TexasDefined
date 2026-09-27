@@ -35,7 +35,7 @@ export const statewideMuseumExpansionWave20Destinations: Destination[] = [
     body: [
       "Parmer County Museum grew from a community preservation effort centered on Friona's first church site. The original 1909 frame church burned in 1921, and the adobe chapel built later that year survives as the historic property now associated with the museum.",
       "The institution interprets more than Friona alone. Its current website builds a county-wide story around Friona, Farwell, Bovina, Lazbuddie and other communities, while the county's creation, XIT Ranch origins, rail development, schools and founding families supply a broader western Panhandle context.",
-      "For TexasDefined, this becomes the canonical Parmer County museum page and replaces the older 'Parmer County Pioneer Heritage Museum' shorthand with the institution's current public identity, while preserving the Pioneer Heritage Chapel history as part of the page rather than creating a duplicate destination."
+      "This page uses the institution's current public identity for Parmer County while preserving the Pioneer Heritage Chapel history as part of the same visitor story."
     ],
     officialUrl: "https://www.parmercountymuseum.com/",
     managingAuthority: "Friona Pioneer Heritage Chapel & Museum Inc. / Parmer County Museum",
@@ -60,7 +60,7 @@ export const statewideMuseumExpansionWave20Destinations: Destination[] = [
     body: [
       "Collingsworth County Museum & Art Center is built directly into Wellington's courthouse-square fabric. Its collections occupy three historic buildings east of the courthouse, turning a visit into both a museum stop and an introduction to the town's preserved commercial center.",
       "The local-history component preserves photographs, objects and stories tied to schools, businesses, agriculture, churches and families across Collingsworth County. The Pruden Building adds the Ellis Art Center, where local artists, special exhibitions and a permanent collection broaden the institution beyond a conventional county museum.",
-      "For TexasDefined, this page provides the canonical Wellington and Collingsworth County museum destination and links naturally to courthouse history, eastern Panhandle road trips and local arts coverage without splitting the museum and art center into competing pages."
+      "This museum gives Wellington and Collingsworth County visitors a natural stop alongside courthouse history, eastern Panhandle road trips and local arts attractions."
     ],
     officialUrl: "https://www.collingsworthchamber.com/plan-a-visit.html",
     managingAuthority: "Collingsworth County Museum & Art Center",
@@ -85,7 +85,7 @@ export const statewideMuseumExpansionWave20Destinations: Destination[] = [
     body: [
       "Sherman County Depot Museum uses Stratford's railroad history as both setting and subject. Local-history displays are housed in the former Santa Fe depot, preserving a building type that once anchored travel, freight and communication across the northern Panhandle.",
       "The museum's location near the courthouse and active rail corridor makes it especially useful as part of a compact Stratford heritage stop. Community collections add the county's settlement and everyday-life stories to the physical evidence of the railroad era.",
-      "For TexasDefined, this becomes Sherman County's canonical museum destination and preserves the current depot-museum identity from Texas Time Travel rather than creating a generic county museum duplicate. It also gives future Stratford, railroad and Quanah Parker Trail content a stable internal-link target."
+      "This museum preserves Sherman County's current depot-museum identity and gives Stratford visitors a natural connection to railroad history and the Quanah Parker Trail."
     ],
     officialUrl: "https://texastimetravel.com/directory/sherman-county-depot-museum/",
     managingAuthority: "Sherman County Depot Museum / Sherman County Historical Society",

@@ -35,7 +35,7 @@ export const statewideMuseumExpansionWave15Destinations: Destination[] = [
     body: [
       "Window on the Plains Museum is the current institutional identity behind older references to the Moore County Historical Museum. Founded in 1976, the museum later moved to its present South Dumas Avenue home and adopted the name visitors see today, so TexasDefined uses one current canonical page rather than preserving a stale duplicate.",
       "The collections tell Moore County's story through farming, ranching, business, industry, family life and the wider High Plains environment. That breadth makes the museum useful as both a local-history stop and a regional orientation point for travelers crossing the northern Panhandle.",
-      "For TexasDefined, this destination strengthens Dumas and Moore County coverage while linking naturally to Panhandle road trips, Route 287 travel, agricultural history and the neighboring Art Center without fragmenting the same institution across old and new names."
+      "This destination strengthens a Dumas and Moore County itinerary while pairing naturally with Panhandle road trips, Route 287 travel, agricultural history and the neighboring Art Center."
     ],
     officialUrl: "https://www.dumasmuseumandartcenter.org/",
     managingAuthority: "Window on the Plains Museum",
@@ -60,7 +60,7 @@ export const statewideMuseumExpansionWave15Destinations: Destination[] = [
     body: [
       "Museum of the Plains is the current Perryton institution that resolves older inventory shorthand such as 'Ochiltree County Museum.' The museum began in the Ochiltree County Courthouse in 1975, moved to its current property in 1978 and opened its main building in 1981.",
       "Today the campus combines a substantial indoor collection with historic structures, including an 1899 depot. Permanent and educational exhibits range from archaeology and Texas history to regional material culture, giving visitors a broader picture of life in the far northern Panhandle than a single-topic museum could provide.",
-      "For TexasDefined, the museum creates a canonical Ochiltree County history anchor that can cross-link Perryton, northern Panhandle road trips, railroad history, archaeology and county content while avoiding a second page under an obsolete county-museum label."
+      "The museum gives Ochiltree County visitors a clear history stop that connects Perryton, northern Panhandle road trips, railroad history and archaeology without relying on an obsolete county-museum name."
     ],
     officialUrl: "https://www.museumoftheplains.com/",
     managingAuthority: "Museum of the Plains",
@@ -85,7 +85,7 @@ export const statewideMuseumExpansionWave15Destinations: Destination[] = [
     body: [
       "Swisher County Museum gives Tulia a focused local-history collection that complements larger Panhandle institutions. Its archives and artifacts preserve the people, businesses and settlement patterns that shaped a county positioned between Amarillo and Lubbock on the High Plains.",
       "The museum grounds also connect visitors to physical history, including the JA Ranch cabin associated with a Recorded Texas Historic Landmark. Those structures help move the story beyond documents and display cases into buildings tied to regional ranching and settlement.",
-      "For TexasDefined, this page becomes the canonical Swisher County museum destination and a useful cross-link for Tulia, ranching history, High Plains road trips, county reference pages and nearby historic-site coverage."
+      "This museum gives Tulia and Swisher County visitors a useful stop for ranching history, High Plains road trips and nearby historic sites."
     ],
     officialUrl: "https://atlas.thc.texas.gov/Details/4200000423/print",
     managingAuthority: "Swisher County Archives and Museum Association",
@@ -110,7 +110,7 @@ export const statewideMuseumExpansionWave15Destinations: Destination[] = [
     body: [
       "Pioneer West Museum provides the local-history counterpart to Shamrock's better-known Route 66 landmarks. Its home in the former Reynolds Hotel ties the collection directly to the era when traveling salespeople and highway travelers passed through the growing Panhandle town.",
       "The wider museum complex adds the restored Magnolia Station, Zeigler House and Old Barn, allowing visitors to see transportation, domestic and community history together rather than treating Route 66 as the town's only historical layer.",
-      "For TexasDefined, the museum creates a dedicated Wheeler County authority page that can cross-link the U-Drop Inn, Route 66 itineraries, Shamrock city content and Panhandle history without duplicating the separate landmark pages used for the highway corridor."
+      "The museum gives Wheeler County visitors a dedicated history stop that pairs naturally with the U-Drop Inn, Route 66 itineraries, Shamrock and broader Panhandle history."
     ],
     officialUrl: "https://www.shamrocktexas.net/historic-route-66",
     managingAuthority: "Pioneer West Museum",
