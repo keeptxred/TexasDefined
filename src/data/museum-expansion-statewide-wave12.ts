@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave12Destinations: Destination[] = [
     body: [
       "Freddy Fender was born Baldemar Garza Huerta in San Benito and built a career that crossed musical categories more easily than most Texas performers. Songs such as Before the Next Teardrop Falls and Wasted Days and Wasted Nights carried his voice to national audiences, while later work with the Texas Tornados and Los Super Seven kept him closely connected to Tejano and border music.",
       "The museum translates that career into a hometown visitor experience through instruments, awards, photographs and family-held material. Its 2026 reopening followed renewed collaboration between the City of San Benito and the Freddy Fender Estate, giving the collection a current public home after earlier museum arrangements changed.",
-      "For TexasDefined, the museum should stand on its own while cross-linking the Texas Conjunto Music Hall of Fame, San Benito cultural sites and broader Texas music authority content. Fender's career is distinctive enough to support a dedicated destination rather than being reduced to one room inside a generic city-history page."
+      "The museum stands on its own while pairing naturally with the Texas Conjunto Music Hall of Fame, other San Benito cultural sites and broader Texas music history. Fender's career is distinctive enough to support a dedicated destination rather than a brief mention inside a general city-history page."
     ],
     officialUrl: "https://www.cityofsanbenito.com/m/FAQ",
     managingAuthority: "City of San Benito Cultural Arts Department / Freddy Fender Estate",
@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave12Destinations: Destination[] = [
     body: [
       "Conjunto is one of Texas's most distinctive regional music traditions, formed as Mexican and European musical practices met along the border. Accordion, bajo sexto and dance rhythms became the foundation of a sound associated with working-class communities across South Texas and northern Mexico.",
       "The San Benito museum preserves that story through hall-of-fame recognition, archival material, instruments, costumes and memorabilia connected to musicians, promoters and recording figures. San Benito is an especially fitting location because the city and surrounding Valley produced important conjunto artists and venues, including Narciso Martínez and the once-famous La Villita Dance Hall.",
-      "For TexasDefined, this destination belongs in both museum and Texas-music discovery paths. It can cross-link the Freddy Fender Museum, San Benito cultural authority, Tejano/conjunto history and regional festivals without collapsing separate musical legacies into one generic music page."
+      "This destination belongs on both museum and Texas-music itineraries. It pairs well with the Freddy Fender Museum, San Benito cultural sites, Tejano and conjunto history, and regional festivals while keeping separate musical legacies distinct."
     ],
     officialUrl: "https://www.cityofsanbenito.com/249/Cultural-Arts-Department",
     managingAuthority: "Texas Conjunto Music Hall of Fame & Museum",
