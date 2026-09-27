@@ -31,17 +31,17 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
     <Container className="py-12 sm:py-16">
       <section className="grid gap-6 border-y border-border py-8 sm:grid-cols-3" aria-label="Technique coverage">
-        <div><p className="eyebrow text-muted-foreground">Complete lakes</p><p className="mt-2 font-display text-4xl">{data.lakes.length}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Lake guides</p><p className="mt-2 font-display text-4xl">{data.lakes.length}</p></div>
         <div><p className="eyebrow text-muted-foreground">Verified species</p><p className="mt-2 font-display text-4xl">{data.species.length}</p></div>
-        <div><p className="eyebrow text-muted-foreground">Season labels</p><p className="mt-2 font-display text-4xl">{data.seasons.length}</p></div>
+        <div><p className="eyebrow text-muted-foreground">Documented seasons</p><p className="mt-2 font-display text-4xl">{data.seasons.length}</p></div>
       </section>
 
       {guide ? <>
         <section className="py-12" aria-labelledby="when-to-use">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
-              <p className="eyebrow text-primary">Start here</p>
-              <h2 id="when-to-use" className="mt-3 font-display text-4xl sm:text-5xl">When should you use {technique.name.toLowerCase()}?</h2>
+              <p className="eyebrow text-primary">When to use it</p>
+              <h2 id="when-to-use" className="mt-3 font-display text-4xl sm:text-5xl">When to Use {technique.name}</h2>
               <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">These are practical technique fundamentals. The Texas lake, species and season claims farther down remain tied to the verified source relationships in the fishing dataset.</p>
             </div>
             <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
@@ -51,8 +51,8 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         </section>
 
         {guide.selectionGuide?.length ? <section className="border-y border-border py-12" aria-labelledby="selection-guide">
-          <p className="eyebrow text-primary">Choose the right version</p>
-          <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">{technique.name} by depth and cover</h2>
+          <p className="eyebrow text-primary">Crankbait selection</p>
+          <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">Crankbait Types by Depth and Cover</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">For crankbaits, running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.</p>
           <div className="mt-8 overflow-hidden border border-border">
             <div className="hidden grid-cols-3 bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
@@ -77,7 +77,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="eyebrow text-primary">Where to fish it</p>
-              <h2 className="mt-3 font-display text-4xl">Put the lure where the fish can use it.</h2>
+              <h2 className="mt-3 font-display text-4xl">Where to Fish {technique.name}</h2>
               <ol className="mt-7 space-y-4">
                 {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
                   <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
@@ -86,7 +86,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
             </div>
             <div>
               <p className="eyebrow text-primary">How to fish it</p>
-              <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">Make the retrieve match the job.</h2>
+              <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">How to Fish {technique.name}</h2>
               <ol className="mt-7 space-y-4">
                 {guide.howToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
                   <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
@@ -97,7 +97,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         </section>
 
         <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">
-          <div><p className="eyebrow text-primary">Rod, reel, line and rigging</p><h2 className="mt-2 font-display text-3xl">Set up for control, not brand names.</h2></div>
+          <div><p className="eyebrow text-primary">Rod, reel, line and rigging</p><h2 className="mt-2 font-display text-3xl">Basic Tackle and Rigging Setup</h2></div>
           <div className="grid gap-px border border-border bg-border md:grid-cols-2">
             {guide.setup.map((item) => <div key={item} className="bg-background p-5 text-sm leading-7">{item}</div>)}
           </div>
@@ -105,7 +105,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
         <section id="seasonal-guide" className="py-12" aria-labelledby="seasonal-guide-heading">
           <p className="eyebrow text-primary">Texas season guide</p>
-          <h2 id="seasonal-guide-heading" className="mt-3 font-display text-4xl sm:text-5xl">How the approach changes through the year</h2>
+          <h2 id="seasonal-guide-heading" className="mt-3 font-display text-4xl sm:text-5xl">Season-by-Season Guide</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Seasonal notes below are broad technique guidance, not a live fishing report. Check current water temperature, weather, lake level, access and fresh reports before a trip.</p>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
             {guide.seasonalGuide.map((row) => <article key={row.season} className="bg-background p-6">
@@ -117,7 +117,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
         <section className="border-y border-border py-10" aria-labelledby="mistakes-heading">
           <p className="eyebrow text-primary">Common mistakes</p>
-          <h2 id="mistakes-heading" className="mt-2 font-display text-3xl">What usually makes this technique less effective</h2>
+          <h2 id="mistakes-heading" className="mt-2 font-display text-3xl">Common Mistakes to Avoid</h2>
           <ul className="mt-6 grid gap-4 md:grid-cols-2">
             {guide.commonMistakes.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
           </ul>
@@ -126,8 +126,8 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
       <section className="py-12" aria-labelledby="lake-applications">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Where TexasDefined has source-backed applications</p>
-          <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Verified Texas lake relationships</h2>
+          <p className="eyebrow text-primary">Verified lake coverage</p>
+          <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Each entry below comes from a lake-technique relationship already attached to a complete TexasDefined fishing guide. A lake missing from this page is simply not yet covered by this verified technique dataset.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
@@ -147,7 +147,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       </section>
 
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">
-        <div><p className="eyebrow text-primary">Before you fish</p><h2 className="mt-2 font-display text-3xl">Durable method context, not today's answer.</h2></div>
+        <div><p className="eyebrow text-primary">Current conditions</p><h2 className="mt-2 font-display text-3xl">Check Current Conditions Before You Fish</h2></div>
         <div className="max-w-3xl space-y-4 text-sm leading-7 text-muted-foreground">
           <p>This page does not claim that {technique.name.toLowerCase()} is productive today, that it is the best technique statewide, or that a particular product or brand should be purchased.</p>
           <p>For a trip happening now, pair this durable relationship data with <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather, water conditions, access information and <a href="/fishing/regulations" className="border-b border-primary text-primary">current regulations</a>.</p>
@@ -157,7 +157,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
       <section className="py-12" aria-labelledby="technique-sources">
         <p className="eyebrow text-primary">Sources</p>
-        <h2 id="technique-sources" className="mt-2 font-display text-4xl">Source relationships behind this page</h2>
+        <h2 id="technique-sources" className="mt-2 font-display text-4xl">Sources and Verification</h2>
         <div className="mt-7 grid gap-5 md:grid-cols-2">{data.sources.map((source) => <article key={source.url} className="border-t border-border pt-5">
           <h3 className="font-display text-xl">{source.name}</h3>
           <p className="mt-2 text-xs text-muted-foreground">Checked {source.checkedAt}</p>
