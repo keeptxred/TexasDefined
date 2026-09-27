@@ -38,11 +38,11 @@ function GoogleTagManagerHead() {
 }
 
 function NotFoundComponent() {
-  return <Suspense fallback={null}><NotFoundScreen /></Suspense>;
+  return <Suspense fallback={<div role="status" className="px-6 py-16 text-center text-sm text-muted-foreground">Loading page…</div>}><NotFoundScreen /></Suspense>;
 }
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
-  return <Suspense fallback={null}><ErrorScreen {...props} /></Suspense>;
+  return <Suspense fallback={<div role="status" className="px-6 py-16 text-center text-sm text-muted-foreground">Loading page…</div>}><ErrorScreen {...props} /></Suspense>;
 }
 
 function HeaderFallback() {

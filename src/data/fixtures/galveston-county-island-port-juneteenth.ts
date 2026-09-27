@@ -54,7 +54,7 @@ export const galvestonCountyIslandPortJuneteenthArticle: Article = {
     h("The mainland tells another county story"),
     p("Across the causeway, Texas City developed around deepwater industry and refining. La Marque, Dickinson, Santa Fe and Hitchcock grew with railroads, highways, agriculture and industry, while League City and the Clear Lake edge became closely tied to metropolitan Houston. The Census Bureau counted 350,682 residents in 2020 and estimated 372,207 in 2025, with much recent growth on the mainland and in the north."),
     p("Galveston is the historic anchor; Texas City is industrial; League City is a major growth center; Santa Fe remains more semi-rural; Kemah turns toward boating and Clear Lake; and Bolivar Peninsula adds beaches, fishing communities and a ferry connection. Tourism, maritime activity, heavy industry, logistics, health care and suburban growth all contribute to the economy."),
-    h("Why Galveston County belongs in the county series"),
+    h("Why Galveston County matters"),
     p("Few Texas counties place so many state and national stories together: the birthplace of Juneteenth, the memory of the 1900 storm, a historic Gulf port, the state's first medical school, a major industrial corridor, a barrier-island ecosystem and now the preservation of one of the world's most significant surviving battleships. Gulf and bay influence commerce, wildlife, storms, tourism, industry and memory at once."),
   ],
 };

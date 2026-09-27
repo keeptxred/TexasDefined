@@ -102,7 +102,7 @@ export const tomGreenCountySanAngeloConchoArticle: Article = {
       "The 2020 census counted 120,003 residents in Tom Green County; the Census Bureau estimated 120,602 in 2025.",
     ),
 
-    h("Why Tom Green County belongs in the county series"),
+    h("Why Tom Green County matters"),
     p("Tom Green County explains how a West Texas regional center is built. Water comes first: three forks of the Concho provide the geography. Then comes Fort Concho, which creates a market and settlement. Ranching, wool and livestock give the town an economy. Railroads enlarge the trade radius. A locally funded college adds education. Goodfellow restores a military mission in a new form. Reservoirs turn flood control into public landscape, and San Angelo State Park preserves both natural and cultural history on the city's edge."),
     p("The county also resists easy regional labels. It is not quite the Permian Basin, not quite the Hill Country, not quite the High Plains and not quite the Trans-Pecos. Its strength comes from sitting between them. San Angelo became the place where those landscapes and economies meet."),
     p("Follow the Concho through the county and the story becomes visible: ancient trackways, Indigenous travel routes, freshwater mussels and pearls, limestone barracks, livestock country, college lawns, military classrooms and a modern riverfront city. Tom Green County is a crossroads not because two highways happen to intersect there, but because West Texas has been converging on the Concho for centuries."),
