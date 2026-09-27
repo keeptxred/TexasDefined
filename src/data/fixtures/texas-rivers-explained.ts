@@ -22,7 +22,7 @@ export const texasRiversExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
-  updatedAt: "2026-09-21",
+  updatedAt: "2026-09-27",
   readingMinutes: 14,
   tags: [
     "major rivers in texas",
