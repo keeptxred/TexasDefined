@@ -35,7 +35,7 @@ export const statewideMuseumExpansionWave17Destinations: Destination[] = [
     body: [
       "Heritage Hall Museum gives Memphis and Hall County a dedicated place to preserve the everyday history that can disappear when a rural community lacks a permanent collecting institution. Its value is the local scale: family, civic, ranching, farming and town stories are interpreted together rather than separated into isolated themes.",
       "The museum remains an active visitor destination. The City of Memphis published 2026 summer access information, confirming current operation while also showing why travelers should treat its schedule as seasonal rather than assume big-city museum hours.",
-      "For TexasDefined, Heritage Hall becomes the canonical Hall County museum destination and a useful link between Memphis, county history, High Plains road trips and nearby Panhandle heritage sites without manufacturing a generic duplicate under an older county-museum label."
+      "Heritage Hall gives Hall County visitors a clear museum stop connecting Memphis, county history, High Plains road trips and nearby Panhandle heritage sites."
     ],
     officialUrl: "https://www.cityofmemphistx.com/",
     managingAuthority: "Heritage Hall Museum / City of Memphis",
@@ -60,7 +60,7 @@ export const statewideMuseumExpansionWave17Destinations: Destination[] = [
     body: [
       "Saints' Roost Museum is unusually well matched to its setting. The museum occupies the former Adair Hospital, tying the building itself to the ranching families and institutions that shaped Clarendon and Donley County in the early twentieth century.",
       "Inside, the story reaches across the wider Panhandle. Exhibits address Cornelia and John Adair, Charles Goodnight and the JA Ranch, while Red River War, military, domestic and country-store material place ranch history beside the broader experience of settlement and community building.",
-      "For TexasDefined, Saints' Roost provides a current canonical Donley County museum page that can connect Clarendon, the Goodnight-Adair ranching story, Red River War history and Panhandle road trips instead of preserving a vague legacy 'Donley County Museum' entry."
+      "Saints' Roost gives Donley County visitors a current museum stop connecting Clarendon, the Goodnight-Adair ranching story, Red River War history and Panhandle road trips."
     ],
     officialUrl: "https://www.saintsroostmuseum.com/",
     managingAuthority: "Saints' Roost Museum",
@@ -85,7 +85,7 @@ export const statewideMuseumExpansionWave17Destinations: Destination[] = [
     body: [
       "Hale County Farm and Ranch Museum tells the High Plains story through buildings and machines that belonged to the landscape it interprets. A restored Santa Fe depot anchors the railroad narrative, while an early farmhouse and agricultural equipment shift the focus to family farms and ranch operations.",
       "The collection's tractors, machinery and smaller artifacts make the museum a practical companion to the region's broader cotton, grain, cattle and transportation history. Instead of treating agriculture as an abstract industry, the site shows the tools and places through which Hale County developed.",
-      "For TexasDefined, this destination closes a clear Hale County museum gap and can cross-link Hale Center, Plainview-area travel, agricultural heritage, railroad history and High Plains road trips while retaining cautious visitor guidance for a volunteer-supported institution."
+      "This destination gives Hale County visitors a useful museum stop connecting Hale Center, Plainview-area travel, agricultural heritage, railroad history and High Plains road trips. Because the institution is volunteer-supported, current access should be confirmed before traveling."
     ],
     officialUrl: "https://texastimetravel.com/directory/hale-county-farm-and-ranch-museum/",
     managingAuthority: "Hale County Farm and Ranch Museum",
