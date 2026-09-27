@@ -57,6 +57,8 @@ for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','Fishing
 for (const token of ["How to Fish","When should you use","Rod, reel, line and rigging","How the approach changes through the year","Common mistakes","Verified Texas lake relationships","does not claim",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
 for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
 for (const token of ["Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
+for (const token of ["Texas rig","Weightless stick bait","Carolina rig","Drop shot","Shaky head","Ned rig","Choose the soft-plastic rig for the job"]) requireText(files.guideContent, token, "soft-plastics authority content missing " + token);
+if (files.profileComponent.includes("Put the lure where the fish can use it.")) throw new Error("Fishing Batch 13 validation failed: awkward generic technique heading returned.");
 
 for (const [routeName, routeText, componentPath] of [
   ["directory", files.directoryRoute, "@/components/fishing/FishingTechniqueDirectory"],
