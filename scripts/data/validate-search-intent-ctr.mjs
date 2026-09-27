@@ -254,7 +254,7 @@ for (const required of [
   'https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp',
   "Texas's 15 major river basins",
   'Area in Texas (sq. mi.)',
-  'River miles in Texas',
+  'River length in Texas (miles)',
   'Average annual flow (acre-feet/year)',
 ]) {
   if (!texasRiverBasinReference.includes(required)) failures.push(`Texas basin reference contract missing: ${required}`);
