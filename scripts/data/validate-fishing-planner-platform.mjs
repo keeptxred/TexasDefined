@@ -113,7 +113,7 @@ requireText(compare, "Top verified targets", "comparison fishery-strength row mi
 requireText(compare, "Verified guides", "comparison guide coverage row missing");
 requireText(compare, "Verified access", "comparison access coverage row missing");
 requireText(compare, "Verified services", "comparison service coverage row missing");
-requireText(compare, "Coverage is not a quality score", "comparison anti-ranking safeguard missing");
+requireText(compare, "How to Read This Comparison", "comparison anti-ranking safeguard missing");
 requireText(compare, "does not create an editorial ranking", "comparison must explicitly reject selection-as-ranking");
 requireText(compare, "does not accept paid weighting", "comparison sponsorship independence missing");
 requireText(compare, "canonicalPath: FISHING_LAKE_COMPARE_PATH", "comparison canonical metadata missing");
