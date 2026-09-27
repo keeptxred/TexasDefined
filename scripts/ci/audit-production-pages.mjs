@@ -7,7 +7,8 @@ const TIMEOUT_MS = Number(process.env.AUDIT_TIMEOUT_MS || 30000);
 const OUT_JSON = process.env.AUDIT_JSON || '/tmp/texasdefined-page-audit.json';
 const OUT_TSV = process.env.AUDIT_TSV || '/tmp/texasdefined-page-audit.tsv';
 
-const PAGE_FALLBACK_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide/i;\nconst LOCALIZED_IMAGE_FALLBACK_RE = /Photo coming soon|Photo unavailable|destination-specific photograph not yet available/i;
+const PAGE_FALLBACK_RE = /Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|This county guide is being expanded|We are adding verified details before expanding this page into a full guide|There is nothing in this section yet|We are still gathering and checking the details for this guide/i;
+const LOCALIZED_IMAGE_FALLBACK_RE = /Photo coming soon|Photo unavailable|destination-specific photograph not yet available/i;
 const BAD_TITLE_RE = /^(Unavailable|Story unavailable|Page not found|404)(?:\s*\||$)/i;
 
 function normalizeSpace(value='') { return value.replace(/\s+/g, ' ').trim(); }
@@ -60,7 +61,9 @@ async function auditPage(url){
    else try{ const requested=new URL(url),canon=new URL(canonical,ORIGIN); if(canon.origin!==requested.origin||canon.pathname.replace(/\/$/,'')!==requested.pathname.replace(/\/$/,'')) issues.push({code:'canonical-mismatch',detail:canon.href}); }catch{issues.push({code:'invalid-canonical',detail:canonical});}
    if(h1s!==1) issues.push({code:'h1-count',detail:String(h1s)});
    const threshold=thinThreshold(new URL(url).pathname); if(words<threshold) issues.push({code:'thin-render',detail:words+' words < '+threshold});
-   const renderedText=stripTags(body);\n   if(PAGE_FALLBACK_RE.test(renderedText)) issues.push({code:'page-level-fallback-copy',detail:''});\n   if(LOCALIZED_IMAGE_FALLBACK_RE.test(renderedText)) warnings.push({code:'localized-image-fallback',detail:''});
+   const renderedText=stripTags(body);
+   const pageFallbackMatch=renderedText.match(PAGE_FALLBACK_RE); if(pageFallbackMatch) issues.push({code:'page-level-fallback-copy',detail:pageFallbackMatch[0]});
+   const imageFallbackMatch=renderedText.match(LOCALIZED_IMAGE_FALLBACK_RE); if(imageFallbackMatch) warnings.push({code:'localized-image-fallback',detail:imageFallbackMatch[0]});
    const robots=metaContent(body,'robots').toLowerCase(); if(robots.includes('noindex')) issues.push({code:'sitemap-url-noindex',detail:robots});
    if(finalUrl!==url&&new URL(finalUrl).pathname!==new URL(url).pathname) issues.push({code:'unexpected-redirect',detail:finalUrl});
   }
