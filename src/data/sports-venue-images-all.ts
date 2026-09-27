@@ -10,6 +10,29 @@ import { getSportsVenuePhoto as getSportsVenuePhotoBase } from './sports-venue-i
 
 export type { SportsVenuePhoto } from './sports-venue-images';
 
+// These Wave 7 records are retained for provenance/audit history, but they are not
+// approved as documentary venue photographs. Until a rights-verified venue-specific
+// photo is available, production must fail closed to the existing fallback.
+export const intentionalSportsVenuePhotoFallbackSlugs = new Set([
+  'amarillo-national-center',
+  'colonial-country-club',
+  'cy-fair-fcu-stadium',
+  'expo-center-taylor-county',
+  'hodgetown',
+  'houston-motorsports-park',
+  'waco-surf',
+]);
+
 export function getSportsVenuePhoto(slug: string) {
-  return getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug);
+  const approvedPhoto = getCuratedSportsVenuePhotoOverride(slug)
+    ?? getSportsVenuePhotoBase(slug)
+    ?? getSportsVenuePhotoAddition(slug)
+    ?? getSportsVenuePhotoAdditionWave2(slug)
+    ?? getSportsVenuePhotoAdditionWave3(slug)
+    ?? getSportsVenuePhotoAdditionWave4(slug)
+    ?? getSportsVenuePhotoAdditionWave5(slug)
+    ?? getSportsVenuePhotoAdditionWave6(slug);
+  if (approvedPhoto) return approvedPhoto;
+  if (intentionalSportsVenuePhotoFallbackSlugs.has(slug)) return undefined;
+  return getSportsVenuePhotoAdditionWave7(slug);
 }
