@@ -11,6 +11,58 @@ export interface LocalArticleAuthoritySource {
  * "Sources and further reading" panel.
  */
 export const localArticleAuthoritySources: Readonly<Record<string, readonly LocalArticleAuthoritySource[]>> = {
+  "tejano-texas-before-statehood-history": [
+    {
+      label: "Handbook of Texas — Tejano Politics",
+      url: "https://www.tshaonline.org/handbook/entries/tejano-politics",
+      scope: "Tejano political participation across Spanish, Mexican, Republic and state eras, including representation, citizenship and political subordination.",
+    },
+    {
+      label: "Handbook of Texas — Tejano",
+      url: "https://www.tshaonline.org/handbook/entries/tejano",
+      scope: "Terminology, historical usage and the changing geographic meaning of Tejano identity.",
+    },
+    {
+      label: "Handbook of Texas — Spanish Texas",
+      url: "https://www.tshaonline.org/handbook/entries/spanish-texas",
+      scope: "Béxar settlement, colonial institutions, population, ranching and the transition from Spanish rule.",
+    },
+    {
+      label: "Handbook of Texas — Mexican Texas",
+      url: "https://www.tshaonline.org/handbook/entries/mexican-texas",
+      scope: "Coahuila y Tejas, federalism, colonization and Tejano political participation before the Revolution.",
+    },
+    {
+      label: "Texas Historical Commission — Casa Navarro History",
+      url: "https://thc.texas.gov/state-historic-sites/casa-navarro/casa-navarro-history",
+      scope: "José Antonio Navarro, Laredito, Tejano domestic life, commerce, architecture, slavery and statehood-era political service.",
+    },
+    {
+      label: "Handbook of Texas — José Antonio Navarro",
+      url: "https://www.tshaonline.org/handbook/entries/navarro-jose-antonio",
+      scope: "Navarro's Mexican, Republic and state political career, Revolution service and defense of Tejano rights.",
+    },
+    {
+      label: "Handbook of Texas — Juan Nepomuceno Seguín",
+      url: "https://www.tshaonline.org/handbook/entries/seguin-juan-nepomuceno",
+      scope: "Seguín's Béxar offices, Revolution military service, Republic Senate career, mayoralty and 1842 exile.",
+    },
+    {
+      label: "Handbook of Texas — José Francisco Ruiz",
+      url: "https://www.tshaonline.org/handbook/entries/ruiz-jose-francisco",
+      scope: "Ruiz's Béxar civic life, frontier diplomacy, independence role and Republic Senate service.",
+    },
+    {
+      label: "Handbook of Texas — Juan Martín de Veramendi",
+      url: "https://www.tshaonline.org/handbook/entries/veramendi-juan-martin-de",
+      scope: "A Béxar business and political career that reached the governorship of Coahuila y Texas.",
+    },
+    {
+      label: "Handbook of Texas — Republic of Texas",
+      url: "https://www.tshaonline.org/handbook/entries/republic-of-texas",
+      scope: "Republic population, institutions, citizenship and the demographic transition after independence.",
+    },
+  ],
   "indigenous-texas-history-native-nations": [
     {
       label: "Texas Historical Commission — Indigenous Texas and Exploration",
