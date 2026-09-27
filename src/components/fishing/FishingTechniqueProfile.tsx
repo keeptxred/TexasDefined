@@ -1,5 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
+import { fishingTechniqueImages } from "@/data/fishing/technique-images";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishingTechniqueProfileData } from "@/data/fishing/technique-data.server";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-routing";
@@ -7,6 +8,7 @@ import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-rout
 export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfileData }) {
   const { technique } = data;
   const guide = fishingTechniqueGuideContent[technique.slug];
+  const images = fishingTechniqueImages[technique.slug];
 
   return <>
     <Container className="pt-8 sm:pt-10">
@@ -26,6 +28,20 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <a href="#lake-applications" className="border-b border-ink-foreground/50 pb-1">Texas lake applications ↓</a>
           <a href="/fishing/reports" className="border-b border-ink-foreground/50 pb-1">Fresh reports →</a>
         </div>
+        {images?.hero ? <figure className="mt-10 overflow-hidden border border-ink-foreground/20 bg-background/5">
+          <img
+            src={images.hero.src}
+            alt={images.hero.alt}
+            width={images.hero.width}
+            height={images.hero.height}
+            sizes="(min-width: 1280px) 1200px, 100vw"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="aspect-[16/9] w-full object-cover"
+          />
+          <figcaption className="border-t border-ink-foreground/15 px-4 py-3 text-xs leading-5 text-ink-foreground/65">{images.hero.caption}</figcaption>
+        </figure> : null}
       </Container>
     </header>
 
@@ -54,6 +70,19 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <p className="eyebrow text-primary">Crankbait selection</p>
           <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">Crankbait Types by Depth and Cover</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">For crankbaits, running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.</p>
+          {images?.depthGuide ? <figure className="mt-8 overflow-hidden border border-border bg-muted/20">
+            <img
+              src={images.depthGuide.src}
+              alt={images.depthGuide.alt}
+              width={images.depthGuide.width}
+              height={images.depthGuide.height}
+              sizes="(min-width: 1280px) 1200px, 100vw"
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+            <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">{images.depthGuide.caption}</figcaption>
+          </figure> : null}
           <div className="mt-8 overflow-hidden border border-border">
             <div className="hidden grid-cols-3 bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
               <span>Style</span><span>Depth</span><span>Best use</span>
