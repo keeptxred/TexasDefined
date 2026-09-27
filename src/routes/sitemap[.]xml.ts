@@ -78,6 +78,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         } = await import("@/data/sitemap-dependencies.server");
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
+        const { getSportsVenuePhoto } = await import("@/data/sports-venue-images-all");
         const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
         const footballProfileEntries = footballProgramSitemapEntries();
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
@@ -168,7 +169,9 @@ export const Route = createFileRoute("/sitemap.xml")({
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
         const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
-        const entityPages = graph.filter(isIndexableEntityPage).filter(isTexasDefinedOwnedEntity);
+        const entityPages = graph.filter(isIndexableEntityPage)
+          .filter(isTexasDefinedOwnedEntity)
+          .filter((entity) => entity.kind !== "sports-venue" || Boolean(getSportsVenuePhoto(entity.slug)));
         // Major-event authority routes are permanent guides, even between annual editions.
         // Date freshness controls scheduled Event schema and live calendar surfaces, not
         // sitemap discovery. The existing image-compliance gate still protects indexability.
