@@ -11,7 +11,7 @@ import type { FishSpecies, FishingLake } from "@/data/fishing/types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Find a Texas fishing lake by place and target species. Select multiple fish, compare verified fishery fit, and open the lake guide or profile that matches your trip.";
+const description = "Find a Texas fishing lake by place and target species. Select multiple fish, compare verified lake-to-species matches, and open the lake guide or profile that matches your trip.";
 type PlannerSearch = {
   q?: string;
   species?: string[];
@@ -306,7 +306,7 @@ function FishingTripPlannerPage() {
         {!ranked.length ? <div className="border-y border-border py-12"><h3 className="font-display text-3xl">No lake matches those choices yet.</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Try widening the distance, removing an access filter, turning off “require every selected fish,” or selecting fewer species. A missing result means the published fishing dataset does not currently support that combination; it is not a claim that the fish or amenity cannot exist there.</p></div> : null}
       </section>
 
-      <section className="border-y border-border py-10"><p className="eyebrow text-primary">Before you go</p><h2 className="mt-2 font-display text-3xl">Fishery fit is not today's conditions.</h2><p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{data.policy.conditions} Before travel, verify regulations, lake levels, access, weather and closures with current official sources.</p></section>
+      <section className="border-y border-border py-10"><p className="eyebrow text-primary">Before you go</p><h2 className="mt-2 font-display text-3xl">Lake recommendations are not live fishing conditions.</h2><p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">Our recommendations are based on each lake's general fishing characteristics, not necessarily what is biting today. {data.policy.conditions} Before heading out, check the latest fishing regulations, lake levels, boat-ramp and access conditions, weather, closures, and current fishing reports from official sources.</p></section>
     </Container>
   </>;
 }

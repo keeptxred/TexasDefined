@@ -94,7 +94,7 @@ requireText(planner, "Why this matches", "planner match explanation missing");
 requireText(planner, "Full fishing guide", "planner full-guide distinction missing");
 requireText(planner, "Lake profile", "planner basic-profile distinction missing");
 requireText(planner, "Current report", "planner current-condition layer missing");
-requireText(planner, "Fishery fit is not today\'s conditions", "planner stale-condition safeguard missing");
+requireText(planner, "Lake recommendations are not live fishing conditions", "planner stale-condition safeguard missing");
 if (planner.includes("None published")) throw new Error("Fishing Batch 9 validation failed: zero-inventory clutter reintroduced into lake results.");
 requireText(planner, '"@type": "ItemList"', "planner ItemList schema missing");
 requireText(planner, '"@type": "BreadcrumbList"', "planner breadcrumb schema missing");
