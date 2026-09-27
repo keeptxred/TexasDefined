@@ -40,7 +40,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <section className="py-12" aria-labelledby="when-to-use">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
-              <p className="eyebrow text-primary">When to use it</p>
+              <p className="eyebrow text-primary">When to use</p>
               <h2 id="when-to-use" className="mt-3 font-display text-4xl sm:text-5xl">When to Use {technique.name}</h2>
               <p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">These are practical technique fundamentals. The Texas lake, species and season claims farther down remain tied to the verified source relationships in the fishing dataset.</p>
             </div>
@@ -76,7 +76,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
-              <p className="eyebrow text-primary">Where to fish it</p>
+              <p className="eyebrow text-primary">Where to fish</p>
               <h2 className="mt-3 font-display text-4xl">Where to Fish {technique.name}</h2>
               <ol className="mt-7 space-y-4">
                 {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
@@ -85,7 +85,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
               </ol>
             </div>
             <div>
-              <p className="eyebrow text-primary">How to fish it</p>
+              <p className="eyebrow text-primary">How to fish</p>
               <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">How to Fish {technique.name}</h2>
               <ol className="mt-7 space-y-4">
                 {guide.howToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
@@ -104,7 +104,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         </section>
 
         <section id="seasonal-guide" className="py-12" aria-labelledby="seasonal-guide-heading">
-          <p className="eyebrow text-primary">Texas season guide</p>
+          <p className="eyebrow text-primary">Seasonal guide</p>
           <h2 id="seasonal-guide-heading" className="mt-3 font-display text-4xl sm:text-5xl">Season-by-Season Guide</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Seasonal notes below are broad technique guidance, not a live fishing report. Check current water temperature, weather, lake level, access and fresh reports before a trip.</p>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
@@ -133,12 +133,12 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
           {data.profiles.map((row) => <article key={row.profile.id} className="border-t border-border py-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
-              <div><p className="eyebrow text-primary">Complete lake guide</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", row.lake.slug)} className="hover:text-primary">{row.lake.name}</a></h3></div>
+              <div><p className="eyebrow text-primary">Lake guide</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", row.lake.slug)} className="hover:text-primary">{row.lake.name}</a></h3></div>
               <span className="border border-border px-3 py-1.5 text-xs">{row.profile.seasons.map(titleCase).join(" · ")}</span>
             </div>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>
             <div className="mt-5">
-              <p className="eyebrow text-muted-foreground">Target species in this relationship</p>
+              <p className="eyebrow text-muted-foreground">Target species</p>
               <ul className="mt-3 flex flex-wrap gap-2">{row.species.map((fish) => <li key={fish.id}><a href={fishingFoundationAnchor("species", fish.slug)} className="inline-block border border-border px-3 py-1.5 text-xs hover:border-primary hover:text-primary">{fish.commonName}</a></li>)}</ul>
             </div>
             <a href={fishingFoundationAnchor("lake", row.lake.slug)} className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open {row.lake.name} fishing guide →</a>
