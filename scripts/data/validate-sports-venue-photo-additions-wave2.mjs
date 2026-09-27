@@ -46,7 +46,9 @@ for (const slug of wave2Slugs) {
 }
 
 requireText(combined, "import { getSportsVenuePhotoAdditionWave2 } from './sports-venue-images-additions-wave2';", 'combined registry');
-requireText(combined, 'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug)', 'base-first photo precedence');
+requireText(combined, '?? getSportsVenuePhotoBase(slug)', 'base-first photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAddition(slug)', 'wave 1 photo precedence');
+requireText(combined, '?? getSportsVenuePhotoAdditionWave2(slug)', 'wave 2 photo precedence');
 
 for (const forbidden of ['gettyimages', 'tripadvisor', 'yelp', 'facebook.com', 'images.unsplash.com', 'googleusercontent']) {
   if (wave2.toLowerCase().includes(forbidden)) failures.push(`Wave 2 additions contain disallowed source ${forbidden}.`);
