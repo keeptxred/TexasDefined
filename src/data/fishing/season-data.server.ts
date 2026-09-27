@@ -1,14 +1,16 @@
 import { fishingPlatform, fishingScope } from "./index";
 import { FISHING_SEASON_FILTERS, FISHING_SEASONS_VERIFIED_AT, type FishingSeasonFilter } from "./season-routing";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
+import { loadFishingReportDirectoryDataServer } from "./report-directory-data.server";
 
 export async function loadFishingSeasonDataServer() {
-  const [allLakes, species, techniques, lakeSpecies, lakeTechniques] = await Promise.all([
+  const [allLakes, species, techniques, lakeSpecies, lakeTechniques, reportDirectory] = await Promise.all([
     fishingPlatform.lakes.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.species.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.techniques.list({ ...fishingScope, status: "published", limit: 5000 }),
     fishingPlatform.lakeSpecies.list(fishingScope),
     fishingPlatform.lakeTechniques.list(fishingScope),
+    loadFishingReportDirectoryDataServer(),
   ]);
 
   const lakes = allLakes.filter((lake) => isCompleteFishingLakeSlug(lake.slug));
@@ -50,6 +52,7 @@ export async function loadFishingSeasonDataServer() {
     entries,
     species: relevantSpecies,
     seasonCounts,
+    currentReports: reportDirectory.reports.filter((entry) => entry.freshness === "current").slice(0, 6),
     policy: {
       conditions: "Seasonal patterns are durable planning context, not a live fishing report, forecast, or claim about today's bite.",
       yearRound: "Year-round means a verified fishery opportunity is not limited to one named season; it does not mean conditions or catch rates are equally good every day.",
