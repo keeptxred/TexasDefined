@@ -61,7 +61,10 @@ if (additions.includes('http://')) failures.push('Photo additions must use HTTPS
 for (const marker of [
   "import { getSportsVenuePhotoAddition } from './sports-venue-images-additions';",
   "import { getSportsVenuePhoto as getSportsVenuePhotoBase } from './sports-venue-images';",
-  'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug)',
+  'const approvedPhoto = getCuratedSportsVenuePhotoOverride(slug)',
+  '?? getSportsVenuePhotoBase(slug)',
+  '?? getSportsVenuePhotoAddition(slug)',
+  'if (intentionalSportsVenuePhotoFallbackSlugs.has(slug)) return undefined;',
 ]) requireText(combined, marker, 'combined photo registry');
 
 requireText(guideContent, 'getSportsVenuePhoto } from "@/data/sports-venue-images-all"', 'shared venue guide photo lookup');
