@@ -11,7 +11,16 @@ export type ImageFallback = {
  */
 export function hideImageFallbackLabel(image: HTMLImageElement) {
   const fallbackLabel = image.parentElement?.querySelector<HTMLElement>("[data-image-fallback-label]");
-  if (fallbackLabel) fallbackLabel.style.display = "none";
+  if (!fallbackLabel) return;
+  fallbackLabel.textContent = "";
+  fallbackLabel.style.display = "none";
+}
+
+export function showImageFallbackLabel(image: HTMLImageElement) {
+  const fallbackLabel = image.parentElement?.querySelector<HTMLElement>("[data-image-fallback-label]");
+  if (!fallbackLabel) return;
+  fallbackLabel.textContent = fallbackLabel.dataset.imageFallbackLabel || "Photo unavailable";
+  fallbackLabel.style.display = "";
 }
 
 export function recoverOrHideImage(image: HTMLImageElement, fallback?: ImageFallback) {
@@ -23,6 +32,7 @@ export function recoverOrHideImage(image: HTMLImageElement, fallback?: ImageFall
   }
 
   image.style.display = "none";
+  showImageFallbackLabel(image);
 }
 
 
