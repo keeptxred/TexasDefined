@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave25Destinations: Destination[] = [
     body: [
       "The Llano County Historical Museum connects local history to the physical landscape that makes this part of the Hill Country distinctive. Settlement, ranching and community collections share space with a Rock Room focused on Llanite and granite, materials that tie the county's human story directly to its geology.",
       "The museum's compact scale makes it a natural companion to a broader Llano itinerary rather than an isolated full-day campus. Visitors can move between the galleries, historic downtown, the courthouse and the river while keeping the county's frontier and twentieth-century history in view.",
-      "For TexasDefined, this page gives Llano County a canonical cultural anchor that can cross-link geology, Highland Lakes travel, ranching, downtown Llano and county history through one stable destination authority."
+      "This museum gives Llano County visitors a useful cultural stop connecting local geology, Highland Lakes travel, ranching, downtown Llano and county history."
     ],
     officialUrl: "https://www.llanomuseum.com/",
     managingAuthority: "Llano County Historical Society",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave25Destinations: Destination[] = [
     body: [
       "The Hamilton County Historical Museum turns a former county jail into a broad community-history institution. The 1938 building served as the county's correctional facility for decades, so preserved jail spaces give the museum an architectural story before visitors even reach the larger artifact collections.",
       "Military memorabilia, textiles, household objects, photographs and community records widen the interpretation beyond law enforcement. An adjacent fire-station collection and developing annex show the institution continuing to expand rather than remaining fixed inside the original jail footprint.",
-      "For TexasDefined, the museum creates a county-level history anchor for Hamilton that can link rural Central Texas travel, courthouse and civic history, military service and nearby small-town itineraries without substituting a generic regional museum."
+      "The museum gives Hamilton County visitors a focused local-history stop connecting rural Central Texas travel, courthouse and civic history, military service and nearby small-town itineraries."
     ],
     officialUrl: "https://www.hamiltontexas.com/183/Hamilton-County-Historical-Museum",
     managingAuthority: "Hamilton County Historical Museum",
@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave25Destinations: Destination[] = [
     body: [
       "The Eastland County Museum occupies a five-story former bank building whose restoration is part of the institution's story. Permanent exhibits on the first floor establish the county narrative, while second-floor community rooms allow smaller places such as Gorman, Cisco, Olden and other Eastland County communities to retain their own identities.",
       "The collection is unusually eclectic. Medical artifacts, a Linotype machine, motorcycles, oil-era material and stories such as Old Rip the horned toad reflect both serious economic history and the local folklore that gives the county its personality.",
-      "For TexasDefined, the museum provides a countywide authority destination that can connect Eastland, Cisco, oil-boom history, courthouse lore and nearby heritage sites while keeping those specialized stories discoverable from one canonical county-history page."
+      "The museum provides a countywide history stop connecting Eastland, Cisco, oil-boom history, courthouse lore and nearby heritage sites."
     ],
     officialUrl: "https://eastlandcountymuseum.com/",
     managingAuthority: "Eastland County Museum & Historical Society",
@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave25Destinations: Destination[] = [
     body: [
       "The Coryell Museum & Historical Center is one of the larger county museums in this part of Texas, giving it room to move beyond a single chronological gallery. Western material, community collections, historic room settings and research resources let visitors approach Coryell County from several different directions.",
       "Its best-known specialty is the Lloyd and Madge Mitchell Spur Collection, while the preserved 1854 double-walled log jail provides a tangible link to the county's earliest civic history. Together they give the museum both a nationally interesting specialty collection and a distinctly local architectural artifact.",
-      "For TexasDefined, the museum strengthens Gatesville and Coryell County authority while creating useful cross-links to western craftsmanship, Fort Hood-area history, courthouse and jail heritage, and Central Texas travel."
+      "The museum strengthens a Gatesville and Coryell County itinerary by connecting western craftsmanship, Fort Hood-area history, courthouse and jail heritage, and broader Central Texas travel."
     ],
     officialUrl: "https://coryellmuseum.com/plan-your-visit/",
     managingAuthority: "Coryell Museum & Historical Center",
@@ -136,7 +136,7 @@ export const statewideMuseumExpansionWave25Destinations: Destination[] = [
     body: [
       "The Mills County Historical Museum serves a straightforward but important role: preserving the objects, photographs and records that explain Goldthwaite and the surrounding rural county at a local scale. Its collection is built largely through community donations and volunteer stewardship.",
       "That county focus gives travelers context for a landscape shaped by ranching, farming, small towns and long-distance road connections. The museum is best treated as part of a Goldthwaite or Mills County itinerary rather than as a stand-alone full-day attraction.",
-      "For TexasDefined, the page gives Mills County a canonical cultural destination that can support county history, small-town travel and northern Hill Country discovery while linking visitors to the current local institution instead of a generic heritage mention."
+      "The museum gives Mills County visitors a clear cultural stop for county history, small-town travel and northern Hill Country exploration."
     ],
     officialUrl: "https://txmchm.genealogyvillage.com/",
     managingAuthority: "Mills County Historical Museum",
