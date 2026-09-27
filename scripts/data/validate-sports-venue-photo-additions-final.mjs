@@ -158,8 +158,22 @@ const effectiveGeneratedSlugs = [...effective.entries()]
   .map(([slug]) => slug)
   .sort();
 const effectiveDocumentaryCount = effective.size - effectiveGeneratedSlugs.length;
-if (effectiveGeneratedSlugs.length > 8) {
-  failures.push(`Effective curated-first venue hero inventory regressed above the current eight AI fallbacks: ${effectiveGeneratedSlugs.length} generated heroes (${effectiveGeneratedSlugs.join(', ')}).`);
+const expectedEffectiveGeneratedSlugs = [
+  'amarillo-national-center',
+  'colonial-country-club',
+  'cy-fair-fcu-stadium',
+  'expo-center-taylor-county',
+  'hodgetown',
+  'houston-motorsports-park',
+  'waco-surf',
+  'xtreme-raceway-park',
+].sort();
+const unexpectedEffectiveGeneratedSlugs = effectiveGeneratedSlugs.filter((slug) => !expectedEffectiveGeneratedSlugs.includes(slug));
+const missingExpectedGeneratedSlugs = expectedEffectiveGeneratedSlugs.filter((slug) => !effectiveGeneratedSlugs.includes(slug));
+if (unexpectedEffectiveGeneratedSlugs.length || missingExpectedGeneratedSlugs.length) {
+  failures.push(
+    `Effective AI venue hero allowlist changed unexpectedly. Unexpected generated heroes: ${unexpectedEffectiveGeneratedSlugs.join(', ') || 'none'}. Missing expected fallbacks: ${missingExpectedGeneratedSlugs.join(', ') || 'none'}. When a documentary replacement lands, remove only that verified venue from expectedEffectiveGeneratedSlugs in the same change.`,
+  );
 }
 
 const placeholderMarkers = ['placeholder', 'data:image/svg+xml', 'texasdefined-destination-placeholder', 'texasdefined-placeholder'];
