@@ -255,7 +255,7 @@ for (const required of [
   "Texas's 15 major river basins",
   'Area in Texas (sq. mi.)',
   'River miles in Texas',
-  'Avg. flow (acre-ft/yr)',
+  'Average annual flow (acre-feet/year)',
 ]) {
   if (!texasRiverBasinReference.includes(required)) failures.push(`Texas basin reference contract missing: ${required}`);
 }
