@@ -207,7 +207,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
         role="img"
         aria-label={`${venueName} image unavailable`}
       >
-        Venue details and planning information continue below.
+        A verified venue photograph is not available yet.
       </div>
     );
   }
