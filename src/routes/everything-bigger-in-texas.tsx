@@ -27,7 +27,7 @@ export const Route = createFileRoute("/everything-bigger-in-texas")({
 
 function Page() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas culture guide…</div>}>
       <PrioritySearchPage data={Route.useLoaderData()} />
     </Suspense>
   );
