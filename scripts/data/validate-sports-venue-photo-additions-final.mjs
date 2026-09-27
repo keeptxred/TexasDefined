@@ -117,7 +117,11 @@ for (const marker of [
   "import { getSportsVenuePhotoAdditionWave5 } from './sports-venue-images-additions-wave5';",
   "import { getSportsVenuePhotoAdditionWave6 } from './sports-venue-images-additions-wave6';",
   "import { getSportsVenuePhotoAdditionWave7 } from './sports-venue-images-additions-wave7';",
-  'getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug)',
+  'const approvedPhoto = getCuratedSportsVenuePhotoOverride(slug)',
+  '?? getSportsVenuePhotoBase(slug)',
+  '?? getSportsVenuePhotoAdditionWave6(slug)',
+  'if (intentionalSportsVenuePhotoFallbackSlugs.has(slug)) return undefined;',
+  'return getSportsVenuePhotoAdditionWave7(slug);',
 ]) requireText(combined, marker, 'combined final venue image registry');
 
 const sources = [base, wave1, wave2, wave3, wave4, wave5, wave6, wave7];
