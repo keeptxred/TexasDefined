@@ -21,7 +21,7 @@ export const texasGatewayArticles: Article[] = [
     brandId: "texasdefined",
     slug: "things-to-know-before-visiting-texas",
     title: "25 Things to Know Before Visiting Texas",
-    dek: "Texas is bigger, hotter, farther apart and more regionally varied than many first-time visitors expect. Start here, then use our deeper guides to plan the trip well.",
+    dek: "Texas is bigger, hotter, farther apart and more regionally varied than many first-time visitors expect. Start here, then use our deeper guides to plan your visit well.",
     category: "guides",
     hero: images.roadTrip,
     authorId: "a-dell",
