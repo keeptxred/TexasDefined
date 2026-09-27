@@ -18,7 +18,7 @@ function GamingHubPage() {
           <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">
             Texas gaming is bigger than a list of studios. Development, online gaming, collegiate and professional esports, live events,
             digital-media careers and internet infrastructure overlap across Austin, Dallas–Fort Worth and other Texas markets.
-            This section keeps those pieces connected without pretending they are the same industry.
+            This section keeps those pieces connected while clearly separating their different roles.
           </p>
           <p className="mt-6 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Source review · {GAMING_REVIEWED_AT}</p>
         </Container>
@@ -33,7 +33,7 @@ function GamingHubPage() {
               <p className="mt-5 text-base leading-8 text-muted-foreground">
                 Game development is the production business. Esports is competitive play, teams, broadcasts and live events.
                 Online-gaming performance depends on access networks, routing, interconnection and server placement. Careers and education
-                cut across all three. Follow the path that matches what you are actually researching.
+                cut across all three. Follow the path that matches your research.
               </p>
               <div className="mt-7 space-y-3 text-sm font-semibold">
                 <a href="/gaming/video-game-industry" className="block text-primary">Texas video game industry →</a>
@@ -93,7 +93,7 @@ function GamingHubPage() {
         <Container>
           <div className="max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Editorial standard</p>
-            <h2 className="mt-3 font-display text-4xl">What this section will not claim</h2>
+            <h2 className="mt-3 font-display text-4xl">How we verify gaming coverage</h2>
             <p className="mt-5 text-base leading-8 text-muted-foreground">
               TexasDefined does not treat a routing product as a Texas employer, data-center owner or game-server operator without direct evidence.
               Commercial network tools appear only where they are relevant to routing or latency, with disclosure and tracked sponsored links.
