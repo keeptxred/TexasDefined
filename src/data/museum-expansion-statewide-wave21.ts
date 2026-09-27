@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave21Destinations: Destination[] = [
     body: [
       "The Garza County Historical Museum is unusually well matched to the town it interprets. Its home in the former Post Sanitarium ties the collection directly to C. W. Post's planned-community experiment, while surviving hospital spaces and medical history add another layer to the building itself.",
       "More than twenty rooms broaden the story beyond the town founder. Collections document early settlers, ranching and agriculture, Native American history, military service and changing community life across Garza County, with personal Post material helping explain how the cereal magnate's ideas shaped the city that still bears his name.",
-      "For TexasDefined, this destination gives Post and Garza County a dedicated county-history authority page that can cross-link the courthouse square, C. W. Post sites, Caprock travel, Quanah Parker Trail material and regional road trips without duplicating the city's separate art and heritage attractions."
+      "This destination gives Post and Garza County a dedicated history stop that pairs naturally with the courthouse square, C. W. Post sites, Caprock travel, Quanah Parker Trail stops and regional road trips without duplicating the city's separate art and heritage attractions."
     ],
     officialUrl: "https://www.texasmuseums.org/member-directory/garza-county-historical-museum",
     managingAuthority: "Garza County Historical Museum",
