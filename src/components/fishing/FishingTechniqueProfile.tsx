@@ -38,7 +38,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
       {guide ? <>
         <section className="py-12" aria-labelledby="when-to-use">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <p className="eyebrow text-primary">Start here</p>
               <h2 id="when-to-use" className="mt-3 font-display text-4xl sm:text-5xl">When should you use {technique.name.toLowerCase()}?</h2>
@@ -55,10 +55,10 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">{technique.name} by depth and cover</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">For crankbaits, running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.</p>
           <div className="mt-8 overflow-hidden border border-border">
-            <div className="hidden grid-cols-[11rem_9rem_1fr] bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
+            <div className="hidden grid-cols-3 bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
               <span>Style</span><span>Depth</span><span>Best use</span>
             </div>
-            {guide.selectionGuide.map((item) => <div key={item.label} className="grid gap-2 border-t border-border px-5 py-5 first:border-t-0 sm:grid-cols-[11rem_9rem_1fr] sm:gap-0">
+            {guide.selectionGuide.map((item) => <div key={item.label} className="grid gap-2 border-t border-border px-5 py-5 first:border-t-0 sm:grid-cols-3 sm:gap-0">
               <strong className="font-display text-xl">{item.label}</strong>
               <span className="text-sm text-muted-foreground">{item.depth}</span>
               <span className="text-sm leading-6">{item.bestFor}</span>
@@ -79,7 +79,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
               <p className="eyebrow text-primary">Where to fish it</p>
               <h2 className="mt-3 font-display text-4xl">Put the lure where the fish can use it.</h2>
               <ol className="mt-7 space-y-4">
-                {guide.whereToFish.map((item, index) => <li key={item} className="grid grid-cols-[2rem_1fr] gap-3 border-t border-border pt-4">
+                {guide.whereToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
                   <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
                 </li>)}
               </ol>
@@ -88,7 +88,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
               <p className="eyebrow text-primary">How to fish it</p>
               <h2 id="how-to-fish-heading" className="mt-3 font-display text-4xl">Make the retrieve match the job.</h2>
               <ol className="mt-7 space-y-4">
-                {guide.howToFish.map((item, index) => <li key={item} className="grid grid-cols-[2rem_1fr] gap-3 border-t border-border pt-4">
+                {guide.howToFish.map((item, index) => <li key={item} className="flex gap-3 border-t border-border pt-4">
                   <span className="font-display text-2xl text-primary">{index + 1}</span><span className="text-sm leading-7">{item}</span>
                 </li>)}
               </ol>
