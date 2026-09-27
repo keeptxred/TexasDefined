@@ -101,7 +101,7 @@ export const texasRiversExplainedArticle: Article = {
   body: [
     p("You can understand a surprising amount of Texas by following the water. Towns grew where rivers could be crossed. Farms spread across bottomlands where floods left deep soil. Railroads, highways and county seats followed older settlement patterns. Modern cities now depend on reservoirs built into the same river systems, while summer weekends still revolve around stretches of water Texans have floated, fished and swum for generations."),
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
-    h("Major Texas rivers by region and basin"),
+    h("Where Texas's Major Rivers Flow"),
     p("Texas's best-known rivers belong to several very different geographic systems. The Rio Grande and Pecos cross arid mountain and desert country in the west. The Brazos and Colorado drain broad sections of West and Central Texas before reaching the Gulf. The Guadalupe, Nueces and San Antonio systems are strongly shaped by the Edwards Plateau, limestone and springs. The Trinity links North Texas to the coast, while the Sabine and Neches carry the wetter, forested character of East Texas. The Red and Canadian connect parts of northern Texas to larger river systems beyond the state."),
     list(
       "West Texas and the mountains: Rio Grande, Pecos and Devils River systems move through high desert, basins and canyon country.",
