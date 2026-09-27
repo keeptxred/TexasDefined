@@ -9,6 +9,7 @@ const files = new Map([
   ['article cards', 'src/components/editorial/ArticleCard.tsx'],
   ['feature heroes', 'src/components/editorial/FeatureHero.tsx'],
   ['category heroes', 'src/components/editorial/CategoryPage.tsx'],
+  ['destination cards', 'src/components/editorial/DestinationCard.tsx'],
   ['destination heroes', 'src/routes/destination.$slug.tsx'],
   ['event carousel', 'src/components/editorial/TexasEventCarousel.tsx'],
   ['article body images', 'src/components/editorial/ArticleBody.tsx'],
@@ -120,10 +121,6 @@ for (const marker of [
   'Product image unavailable.',
 ]) requireMarker('product detail', marker);
 
-for (const label of ['news index cards', 'homepage destination feature']) {
-  requireMarker(label, 'Photo unavailable');
-}
-
 for (const label of ['product cards', 'shop the story']) {
   requireMarker(label, 'Product image unavailable');
 }
@@ -216,8 +213,9 @@ for (const marker of [
   'majorEventEnrichmentImage === "true"',
 ]) requireMarker('major event guide image capture', marker);
 
-for (const label of ['article cards', 'feature heroes', 'category heroes']) {
-  requireMarker(label, 'Photo unavailable');
+for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination cards', 'news index cards', 'homepage destination feature']) {
+  const content = source.get(label) ?? '';
+  if (content.includes('Photo unavailable')) errors.push(`${label} must not render generic image-fallback copy into the page HTML.`);
 }
 
 requireMarker('article cards', 'relative w-full overflow-hidden');
