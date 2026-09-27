@@ -8,19 +8,22 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingSeasonDirectory = lazy(() => import("@/components/fishing/FishingSeasonDirectory").then((module) => ({ default: module.FishingSeasonDirectory })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Explore source-backed spring, summer, fall and winter fishing patterns across TexasDefined's complete fishing-lake guides, with matching species and techniques kept separate from live fishing reports.";
-type SeasonSearch = { season?: FishingSeasonFilter; species?: string };
+const description = "Plan Texas lake fishing month by month with source-backed seasonal patterns, grouped lake guides, species and region filters, plus fresh fishing reports for current conditions.";
+type SeasonSearch = { season?: FishingSeasonFilter; species?: string; month?: string; region?: string };
 
 const faq = [
-  { question: "Is this a live Texas fishing forecast?", answer: "No. This guide organizes durable, source-backed seasonal patterns from complete TexasDefined lake guides. Live fishing reports and current conditions remain separate." },
-  { question: "What does year-round mean here?", answer: "Year-round means the verified fishery opportunity is not limited to one named season. It does not mean conditions or catch rates are equally good every day." },
-  { question: "Does TexasDefined rank the best fishing season?", answer: "No. Results are alphabetical by lake and species. Seasonal patterns explain when a source identifies a useful pattern; sponsorship never changes the order or guidance." },
+  { question: "What should I fish for in Texas this month?", answer: "Choose a month to see the matching source-backed seasonal lake and species patterns, then check fresh reports for current conditions." },
+  { question: "How do I find winter fishing opportunities in Texas?", answer: "Choose Winter or December, January or February to see verified winter patterns plus year-round opportunities." },
+  { question: "What does year-round mean?", answer: "It means the verified fishery opportunity is not limited to one named season. It does not mean catch rates, water conditions or access are equally good every day." },
+  { question: "Where do I check what is happening right now?", answer: "Use the fresh-report section or the fishing reports directory. Expired reports are not presented as current conditions." },
 ];
 
 export const Route = createFileRoute("/fishing/seasons")({
   validateSearch: (search: Record<string, unknown>): SeasonSearch => ({
     season: isFishingSeasonFilter(search.season) ? search.season : undefined,
     species: slug(search.species),
+    month: monthSlug(search.month),
+    region: slug(search.region),
   }),
   loader: () => getFishingSeasonData(),
   head: ({ loaderData }) => {
@@ -38,7 +41,7 @@ export const Route = createFileRoute("/fishing/seasons")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Seasons — Spring, Summer, Fall & Winter Patterns", description, canonicalPath: FISHING_SEASONS_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_SEASONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Seasons by Month — What to Catch & Where", description, canonicalPath: FISHING_SEASONS_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_SEASONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingSeasonsPage,
 });
@@ -52,3 +55,4 @@ function FishingSeasonsPage() {
 }
 
 function slug(value: unknown) { return typeof value === "string" && /^[a-z0-9-]+$/.test(value) ? value : undefined; }
+function monthSlug(value: unknown) { return typeof value === "string" && /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)$/.test(value) ? value : undefined; }
