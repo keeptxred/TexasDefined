@@ -51,12 +51,12 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
         </section>
 
         {guide.selectionGuide?.length ? <section className="border-y border-border py-12" aria-labelledby="selection-guide">
-          <p className="eyebrow text-primary">Crankbait selection</p>
-          <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">Crankbait Types by Depth and Cover</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">For crankbaits, running depth is the first decision. Pick the lure that can actually reach the zone you are trying to fish; color and finish come after depth, cover and retrieve speed.</p>
+          <p className="eyebrow text-primary">Choose the right version</p>
+          <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">{guide.selectionTitle ?? `${technique.name} by Depth and Cover`}</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{guide.selectionIntro ?? "Choose the version that best matches the depth, cover and presentation job before fine-tuning secondary details."}</p>
           <div className="mt-8 overflow-hidden border border-border">
             <div className="hidden grid-cols-3 bg-muted/40 px-5 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground sm:grid">
-              <span>Style</span><span>Depth</span><span>Best use</span>
+              <span>{technique.slug === "soft-plastics" ? "Rig" : "Style"}</span><span>{technique.slug === "soft-plastics" ? "Depth / role" : "Depth"}</span><span>Best use</span>
             </div>
             {guide.selectionGuide.map((item) => <div key={item.label} className="grid gap-2 border-t border-border px-5 py-5 first:border-t-0 sm:grid-cols-3 sm:gap-0">
               <strong className="font-display text-xl">{item.label}</strong>
@@ -64,14 +64,16 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
               <span className="text-sm leading-6">{item.bestFor}</span>
             </div>)}
           </div>
-          <div className="mt-8 grid gap-3 sm:grid-cols-4" aria-label="Crankbait depth ladder">
+          {technique.slug === "crankbaits" ? <div className="mt-8 grid gap-3 sm:grid-cols-4" aria-label="Crankbait depth ladder">
             {["Surface / very shallow", "Shallow", "Mid-depth", "Deep"].map((depth, index) => <div key={depth} className="border border-border p-5">
               <p className="eyebrow text-muted-foreground">Zone {index + 1}</p>
               <p className="mt-2 font-display text-2xl">{depth}</p>
               <div className="mt-4 h-1 bg-border" style={{ width: `${35 + index * 20}%` }} />
             </div>)}
-          </div>
+          </div> : null}
         </section> : null}
+
+        {technique.slug === "soft-plastics" ? <SoftPlasticsRiggingVisual /> : null}
 
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
           <div className="grid gap-10 lg:grid-cols-2">
@@ -174,6 +176,32 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
       </section>
     </Container>
   </>;
+}
+
+function SoftPlasticsRiggingVisual() {
+  const rigs = [
+    { name: "Texas rig", pieces: ["line", "bullet weight", "offset hook", "soft plastic"] },
+    { name: "Carolina rig", pieces: ["line", "sliding weight", "swivel", "leader", "hook + bait"] },
+    { name: "Drop shot", pieces: ["main line", "hook + bait", "leader below hook", "weight"] },
+    { name: "Wacky rig", pieces: ["line", "center hook", "stick bait"] },
+  ];
+
+  return <section className="border-b border-border py-12" aria-labelledby="soft-plastics-rigging-visual">
+    <p className="eyebrow text-primary">Rigging at a glance</p>
+    <h2 id="soft-plastics-rigging-visual" className="mt-3 font-display text-4xl sm:text-5xl">Recognize the Basic Layout Before You Tie It</h2>
+    <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are simplified orientation diagrams, not scale drawings. Hook style, leader length, sinker shape and exact placement should still match the cover, bait and water you are fishing.</p>
+    <div className="mt-8 grid gap-5 md:grid-cols-2">
+      {rigs.map((rig) => <figure key={rig.name} className="border border-border p-5">
+        <figcaption className="font-display text-2xl">{rig.name}</figcaption>
+        <div className="mt-5 flex min-h-24 flex-wrap items-center gap-2 rounded-sm bg-muted/35 p-4" aria-label={`${rig.name} simplified rig layout`}>
+          {rig.pieces.map((piece, index) => <div key={piece} className="contents">
+            <span className="rounded-full border border-foreground/25 bg-background px-3 py-2 text-xs font-semibold">{piece}</span>
+            {index < rig.pieces.length - 1 ? <span aria-hidden="true" className="h-px w-5 bg-foreground/35" /> : null}
+          </div>)}
+        </div>
+      </figure>)}
+    </div>
+  </section>;
 }
 
 function titleCase(value: string) {
