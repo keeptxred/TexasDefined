@@ -48,8 +48,8 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-20">
         <p className="eyebrow text-ink-foreground/65">Texas Defined Fishing</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas fishing seasons, month by month.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Choose a month, season, fish or Texas region to find source-backed lake patterns—then check fresh fishing reports for current conditions before you go.</p>
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas lake fishing seasons, month by month.</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">Choose a month, season, fish or Texas region to explore source-backed freshwater lake patterns—then check fresh fishing reports for current conditions before you go.</p>
         <div className="mt-8 flex flex-wrap gap-5 text-sm">
           <a href="#right-now" className="border-b border-ink-foreground pb-1 font-semibold">Fishing right now ↓</a>
           <a href="/fishing/reports" className="border-b border-ink-foreground/50 pb-1">All fishing reports →</a>
@@ -83,6 +83,27 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
             <p className="mt-2 font-display text-3xl">{data.seasonCounts[season]}</p>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">verified lake-and-fish patterns that apply in {season}, including year-round opportunities</p>
           </a>)}
+        </div>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-10" aria-labelledby="season-at-a-glance">
+        <p className="eyebrow text-primary">Season at a glance</p>
+        <h2 id="season-at-a-glance" className="mt-2 font-display text-3xl">What our verified lake guides cover in each season.</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">This is coverage, not a best-fish ranking. Species are shown when verified lake relationships include that season or a year-round pattern.</p>
+        <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {FISHING_SEASON_FILTERS.map((season) => {
+            const seasonalEntries = data.entries.filter((entry) => matchesSeason(entry.relation.seasonalPatterns, season));
+            const lakeCount = new Set(seasonalEntries.map((entry) => entry.lake.id)).size;
+            const speciesCounts = [...new Map(data.species.map((fish) => [fish.id, {
+              fish,
+              count: seasonalEntries.filter((entry) => entry.species.id === fish.id).length,
+            }])).values()].filter((row) => row.count > 0).sort((a, b) => b.count - a.count || a.fish.commonName.localeCompare(b.fish.commonName)).slice(0, 4);
+            return <article key={season} className="border-t-2 border-foreground pt-5">
+              <h3 className="font-display text-2xl">{titleCase(season)}</h3>
+              <p className="mt-2 text-xs text-muted-foreground">{lakeCount} lake{lakeCount === 1 ? "" : "s"} with verified {season} or year-round patterns</p>
+              <ul className="mt-4 space-y-2 text-sm">{speciesCounts.map(({ fish, count }) => <li key={fish.id} className="flex items-baseline justify-between gap-3"><span>{fish.commonName}</span><span className="text-xs text-muted-foreground">{count} lake{count === 1 ? "" : "s"}</span></li>)}</ul>
+            </article>;
+          })}
         </div>
       </section>
 
