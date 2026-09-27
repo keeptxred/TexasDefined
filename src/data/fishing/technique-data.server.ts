@@ -51,7 +51,7 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
 
 function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const { technique, canonicalPath, lakes, species, sources } = entry;
-  const description = `${technique.name} fishing in Texas: source-backed lake applications, target species and seasonal context drawn from TexasDefined's complete fishing-lake guides.`;
+  const description = `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -68,7 +68,7 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   };
 
   return {
-    meta: buildMeta(texasDefinedBrand, { title: `${technique.name} Fishing in Texas — Lakes, Species & Seasons`, description, canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, { title: `${technique.name} Fishing in Texas — Guide, Lakes & Seasons`, description, canonicalPath }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
   };
