@@ -17,7 +17,7 @@ const forbidText = (source, needle, label) => {
 
 const generatedCount = wave7.match(/sourceName: "Texas Defined generated media"/g)?.length ?? 0;
 const commonsCount = wave7.match(/sourceName: "Wikimedia Commons"/g)?.length ?? 0;
-if (generatedCount !== 14) failures.push(`Expected 14 generated Wave 7 venue heroes; found ${generatedCount}.`);
+if (generatedCount !== 0) failures.push(`Wave 7 must not contain generated depictions of real venues; found ${generatedCount}.`);
 if (commonsCount !== 2) failures.push(`Expected 2 Wikimedia Commons Wave 7 venue heroes; found ${commonsCount}.`);
 
 for (const marker of [
@@ -53,9 +53,9 @@ forbidText(guidePage, 'AI-generated representative editorial image by {photo.aut
 forbidText(guidePage, '>Media record</a>', 'generated guide disclosure must not render a self-referential media link');
 
 for (const marker of [
-  'const wave7GeneratedAttribution = [',
+  "const fallbackText = 'A verified venue photograph is not available yet.';",
+  "const xtremeRacewayPhoto = governedPhotos.get('xtreme-raceway-park');",
   "'Editorial illustration by'",
-  "'Cloudflare Workers AI / FLUX.1 schnell'",
   "'for TexasDefined; not documentary photography.'",
 ]) requireText(productionVerifier, marker, 'live sports venue attribution verifier');
 forbidText(productionVerifier, "'AI-generated representative editorial image'", 'live verifier must follow the sitewide AI disclosure contract');
