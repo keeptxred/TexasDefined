@@ -11,6 +11,7 @@ import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-c
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
+import { loadLatestTpwdFishingReport } from "@/data/fishing/tpwd-fishing-report.server";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -22,32 +23,36 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
       const pageData = await getLakeConroePageData();
-      const [reports, guides] = await Promise.all([
+      const [reports, guides, officialReport] = await Promise.all([
         context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
+        loadLatestTpwdFishingReport(pageData.sources.tpwdReport.url),
       ]);
-      return { kind: "conroe" as const, lake, reports, guides, pageData, liveLakeLevel: pageData.liveLakeLevel };
+      return { kind: "conroe" as const, lake, reports, guides, officialReport, pageData, liveLakeLevel: pageData.liveLakeLevel };
     }
     if (!isShowcaseLakeSlug(params.slug)) {
-      const [species, relationships, reports, guides, access, businesses] = await Promise.all([
+      const tpwdLakeSource = lake.sources.find((source) => /tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\//i.test(source.url));
+      const [species, relationships, reports, guides, access, businesses, officialReport] = await Promise.all([
         context.queryClient.ensureQueryData(fishSpeciesQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(lakeSpeciesProfilesQuery({ lakeId: lake.id })),
         context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 10 })),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingAccessPointsQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
+        tpwdLakeSource ? loadLatestTpwdFishingReport(tpwdLakeSource.url) : Promise.resolve(null),
       ]);
-      return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses };
+      return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses, officialReport };
     }
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
-    const [reports, guides, businesses, placements] = await Promise.all([
+    const [reports, guides, businesses, placements, officialReport] = await Promise.all([
       context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
       context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })),
+      loadLatestTpwdFishingReport(pageData.sources.tpwdLake.url),
     ]);
-    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData, liveLakeLevel: pageData.liveLakeLevel };
+    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, officialReport, pageData, liveLakeLevel: pageData.liveLakeLevel };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing lake unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
@@ -85,13 +90,13 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
 
 function FishingLakeOverviewRoute() {
   const data = Route.useLoaderData();
-  if (data.kind === "generic") return <GenericFishingLakeGuide lake={data.lake} species={data.species} relationships={data.relationships} reports={data.reports} guides={data.guides} access={data.access} businesses={data.businesses} />;
+  if (data.kind === "generic") return <GenericFishingLakeGuide lake={data.lake} species={data.species} relationships={data.relationships} reports={data.reports} officialReport={data.officialReport} guides={data.guides} access={data.access} businesses={data.businesses} />;
   if (data.kind === "conroe") return <>
     <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
-    <LakeConroeGuide reports={data.reports} guides={data.guides} pageData={data.pageData} />
+    <LakeConroeGuide reports={data.reports} officialReport={data.officialReport} guides={data.guides} pageData={data.pageData} />
   </>;
   return <>
     <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
-    <ShowcaseLakeGuide reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
+    <ShowcaseLakeGuide reports={data.reports} officialReport={data.officialReport} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
   </>;
 }
