@@ -79,6 +79,9 @@ for (const routeText of [files.directoryRoute, files.profileRoute]) {
 for (const forbidden of ["guaranteed catch","today's best technique","affiliate pick","sponsored ranking","buy this lure"]) if (`${files.directoryRoute}\n${files.profileRoute}\n${files.directoryComponent}\n${files.profileComponent}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 13 validation failed: unsupported technique claim leaked (${forbidden}).`);
 
 requireText(files.hubRoute, 'lazy(() => import("@/components/fishing/FishingHub")', "statewide hub UI split missing");
+for (const token of ['DUPLICATED_TECHNIQUE_PREFIX = "/fishing/fishing/techniques/"','beforeLoad: ({ location })','fishingTechniqueCanonicalPath(slug)','location.searchStr || ""','statusCode: 301']) requireText(files.hubRoute, token, `duplicate fishing technique path normalization missing ${token}`);
+if (`${files.routing}\n${files.sitemap}\n${files.publicRoutes}`.includes("/fishing/fishing/")) throw new Error("Fishing Batch 13 validation failed: malformed duplicated fishing prefix entered canonical discovery.");
+
 for (const token of ['<Resource href="/fishing/techniques" title="Fishing techniques"','<Resource href="/fishing/seasons" title="Fishing seasons"','Link to="/fishing/lakes"','<Resource href="/fishing/guides" title="Fishing guides"','<Resource href="/fishing/access" title="Fishing access"','<Resource href="/fishing/reports" title="Fishing reports"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", fish.slug)',"Featured Texas Fishing Lakes","Full fishing guide","Lake profile"]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
 requireText(files.sitemap, "FISHING_TECHNIQUES_DIRECTORY_PATH", "technique sitemap directory entry missing");
 requireText(files.sitemap, "PUBLISHED_FISHING_TECHNIQUE_SLUGS", "technique sitemap profile expansion missing");
@@ -89,5 +92,8 @@ requireText(files.links, "fishing-reference:techniques", "internal-link director
 requireText(files.links, "fishing-technique:", "internal-link profile entities missing");
 requireText(files.publicRoutes, '"/fishing/techniques"', "public-route directory governance missing");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-techniques.mjs", "Batch 13 validator not wired into fishing:validate");
+const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
+for (const token of ["redirectTargets","/fishing/fishing/techniques/soft-plastics?source=smoke","expectedStatus: 301","expectedPath: '/fishing/techniques/soft-plastics'","redirect: 'manual'"]) requireText(workerSmoke, token, `duplicate fishing technique redirect smoke missing ${token}`);
+
 
 console.log("Fishing Batch 13 techniques validation passed: nine verified source-backed profiles, native TanStack lazy file routes, server-side SEO head payloads, complete-lake gates, live-condition separation, commercial neutrality, schemas and discovery governance are protected.");
