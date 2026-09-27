@@ -236,7 +236,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "Port Isabel's historical museum gives context to a coastal town many visitors otherwise encounter only on the way to South Padre Island. The Champion Building is itself part of the interpretation, with its commercial history and famous fish mural making the exterior a recognizable historic artifact before visitors enter the galleries.",
       "Inside, exhibits connect the Laguna Madre, fishing, commerce, border history and community development. Those subjects help explain why Port Isabel became a durable settlement and port rather than simply a modern tourism gateway.",
-      "The museum naturally cross-links the Port Isabel Lighthouse, Laguna Madre nature destinations and South Padre-area travel content. For TexasDefined, that creates a much richer Cameron County coastal cluster than beaches alone can provide."
+      "The museum pairs naturally with the Port Isabel Lighthouse, Laguna Madre nature destinations and South Padre-area travel stops, creating a fuller Cameron County coastal itinerary than beaches alone can provide."
     ],
     officialUrl: "https://portisabelhistory.com/",
     managingAuthority: "Museums of Port Isabel / City of Port Isabel",

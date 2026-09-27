@@ -45,6 +45,6 @@ function Page() {
   const data = Route.useLoaderData();
   return <>
     <DepartmentHero current="County Growth" eyebrow="Texas Data" title="Texas county population growth, 2020–2025" description={description} tone="surface" />
-    <Suspense fallback={null}><CountyGrowthContent data={data} /></Suspense>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-10 text-sm text-muted-foreground" role="status">Loading county growth data…</div>}><CountyGrowthContent data={data} /></Suspense>
   </>;
 }
