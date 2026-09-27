@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Wichita Falls Museum of Art works simultaneously as an academic museum and a public cultural institution. Its permanent collection and changing exhibitions support university teaching while giving residents and travelers a dedicated visual-arts destination in North Texas.",
       "The museum's south-campus setting adds an outdoor dimension uncommon for an art museum. Sikes Lake and its walking trail sit immediately nearby, making it easy to combine gallery time with a short nature or recreation stop.",
-      "For TexasDefined, the museum fills an important Wichita County cultural gap and balances regional coverage that can otherwise lean toward ranching, military and frontier history. It provides a canonical arts destination for Wichita Falls, county and North Texas itinerary pages."
+      "The museum adds an important arts stop to Wichita County, balancing a regional story that often leans toward ranching, military and frontier history. It also gives Wichita Falls visitors a cultural stop that fits naturally into broader North Texas itineraries."
     ],
     officialUrl: "https://wfma.msutexas.edu/",
     managingAuthority: "Midwestern State University",
@@ -112,7 +112,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Sherman Museum serves as a general local-history institution for a city whose story includes frontier settlement, railroads, education, commerce and repeated periods of rebuilding. Its collections give those broad themes a local scale through objects and records tied to residents and organizations.",
       "Rotating exhibitions allow the museum to surface specialized material that would not fit permanently on display, while research and educational work make it useful to residents as well as travelers. The institution has operated under several historical-museum names, but the current identity is The Sherman Museum.",
-      "For TexasDefined, the destination gives Grayson County a city-history anchor that can cross-link Sherman, Denison, Lake Texoma and existing regional historic sites. It adds depth without duplicating the Eisenhower-focused authority already associated with nearby Denison."
+      "The destination gives Grayson County a strong city-history stop that pairs well with Sherman, Denison, Lake Texoma and nearby historic sites. It adds local depth without duplicating the Eisenhower-focused history associated with nearby Denison."
     ],
     officialUrl: "https://theshermanmuseum.org/visit-us/",
     managingAuthority: "The Sherman Museum",
@@ -162,7 +162,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "Beeville Art Museum demonstrates how a small South Texas city can sustain a serious visual-arts program without becoming a metropolitan-scale institution. Rotating exhibitions bring work from Texas artists, museums, galleries and private collections into five galleries inside the restored house.",
       "Education is central to the museum's mission. Programs serve thousands of students, while family activities and the adjacent sculpture park make the destination accessible even to visitors who do not usually plan trips around art museums.",
-      "For TexasDefined, the museum adds a cultural anchor to Bee County and broadens South Texas coverage beyond ranching and history. It can cross-link Beeville, regional small towns and arts itineraries while preserving a distinct destination page for the institution."
+      "The museum adds a cultural anchor to Bee County and broadens a South Texas itinerary beyond ranching and historic sites. It pairs naturally with Beeville, nearby small towns and regional arts stops."
     ],
     officialUrl: "https://www.bamtexas.org/visit",
     managingAuthority: "Joe Barnhart Foundation / Beeville Art Museum",
