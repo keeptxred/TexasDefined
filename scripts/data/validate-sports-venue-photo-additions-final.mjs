@@ -154,7 +154,7 @@ for (const source of runtimeSources) {
 if (effective.size !== 84) failures.push(`Expected 84 effective curated-first venue image records; found ${effective.size}.`);
 
 const effectiveGeneratedSlugs = [...effective.entries()]
-  .filter(([, entry]) => entry.sourceName === 'Texas Defined generated media' || /^AI-generated\\b/i.test(entry.licenseName))
+  .filter(([, entry]) => entry.sourceName === 'Texas Defined generated media' || /^AI-generated\b/i.test(entry.licenseName))
   .map(([slug]) => slug)
   .sort();
 const effectiveDocumentaryCount = effective.size - effectiveGeneratedSlugs.length;
