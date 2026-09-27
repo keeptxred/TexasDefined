@@ -99,11 +99,22 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <nav aria-label="Camping guide sections" className="border-b border-border bg-background">
+      <Container className="flex gap-2 overflow-x-auto py-4 text-sm font-semibold">
+        <a href="#camping-trip-types" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Trip types</a>
+        <a href="#campground-finder" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Campground finder</a>
+        <a href="#camping-seasons" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">When to camp</a>
+        <a href="#camping-methodology" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">How it is verified</a>
+        <a href="#camping-questions" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Questions</a>
+        <a href="#camping-next-steps" className="shrink-0 border border-border px-3 py-2 hover:border-primary/50">Keep planning</a>
+      </Container>
+    </nav>
+
+    <section id="camping-trip-types" className="scroll-mt-24 py-12 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Start here</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the kind of Texas camping trip you want</h2>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Visit a State Park</h2>
           <p className="mt-4 leading-8 text-muted-foreground">Texas camping changes dramatically from Gulf beaches to Hill Country rivers, East Texas forests and West Texas desert. These are useful starting points, not a one-size-fits-all ranking.</p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -124,8 +135,8 @@ function CampingGuidePage() {
       <Container>
         <div className="max-w-4xl">
           <p className="eyebrow text-primary">Campground finder</p>
-          <h2 className="mt-2 font-display text-4xl md:text-5xl">Search verified public camping across Texas</h2>
-          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county or managing agency. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
+          <h2 className="mt-2 font-display text-4xl md:text-5xl">Choose the camping trip you want</h2>
+          <p className="mt-4 leading-8 text-muted-foreground">Search by park, campground, county, managing agency or nearby city. Combine region, camping style and verified facilities to narrow the list. An amenity that is not shown means TexasDefined has not verified it from an official source yet; it does not automatically mean the amenity is unavailable.</p>
         </div>
         <CampingDiscovery entries={entries} />
       </Container>
@@ -156,7 +167,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <section id="camping-seasons" className="scroll-mt-24 py-12 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">When to camp</p>
@@ -176,7 +187,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+    <section id="camping-methodology" className="scroll-mt-24 border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <p className="eyebrow text-primary">How the guide is built</p>
         <h2 className="mt-2 font-display text-4xl">Useful first, verified underneath</h2>
@@ -188,7 +199,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+    <section id="camping-questions" className="scroll-mt-24 border-y border-border bg-muted/30 py-12 md:py-16">
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Camping questions</p>
@@ -203,7 +214,7 @@ function CampingGuidePage() {
       </Container>
     </section>
 
-    <section className="py-12 md:py-16">
+    <section id="camping-next-steps" className="scroll-mt-24 py-12 md:py-16">
       <Container className="grid gap-10 lg:grid-cols-[1.1fr_.9fr]">
         <div>
           <p className="eyebrow text-primary">Keep planning</p>
