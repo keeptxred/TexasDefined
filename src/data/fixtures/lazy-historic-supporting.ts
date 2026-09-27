@@ -1,6 +1,33 @@
 import { articleInternalLinks } from "../article-internal-links";
 import type { Article } from "../types";
 
+const nativeNationsTexasTodayStub: Article = {
+  id: "evergreen-native-nations-texas-today",
+  brandId: "texasdefined",
+  slug: "native-nations-texas-today",
+  title: "Native Nations in Texas Today: Tribal Governments, Reservations and Living Communities",
+  dek: "Texas has three federally recognized tribal nations located in the state, while dozens of other federally recognized tribes maintain historical and cultural connections to Texas.",
+  category: "texas-history",
+  hero: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Alabama_Coushatta_Tribe_-_panoramio.jpg?width=1600",
+    alt: "Welcome sign at the Alabama-Coushatta Tribe of Texas reservation in Polk County",
+    width: 3328,
+    height: 2168,
+    credit: "Lance L Lowry · CC BY 3.0 · Wikimedia Commons",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-09-26",
+  updatedAt: "2026-09-26",
+  readingMinutes: 13,
+  tags: ["Native nations Texas", "tribes in Texas", "Alabama-Coushatta Tribe of Texas", "Kickapoo Traditional Tribe of Texas", "Ysleta del Sur Pueblo", "tribal sovereignty", "Texas reservations", "Indigenous Texas"],
+  featured: true,
+  sourceName: "Texas Historical Commission — Tribal Consultation Guidelines",
+  sourceUrl: "https://thc.texas.gov/review/consultation-process/tribal-consultation-guidelines",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: ["ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "caddo-mounds-state-historic-site", "hueco-tanks-state-park-and-historic-site", "mission-dolores", "lipantitlan"],
+};
+
 const indigenousTexasHistoryNativeNationsStub: Article = {
   id: "evergreen-indigenous-texas-history-native-nations",
   brandId: "texasdefined",
@@ -129,6 +156,7 @@ for (const slug of [
 }
 
 export const historicSupportingStubs: Article[] = [
+  nativeNationsTexasTodayStub,
   indigenousTexasHistoryNativeNationsStub,
   texasBeforeUnitedStatesStub,
   texasCattleRanchingHistoryGuideStub,
@@ -137,6 +165,7 @@ export const historicSupportingStubs: Article[] = [
 
 export async function loadHistoricSupportingArticle(brandId: string, slug: string): Promise<Article | null> {
   if (brandId !== "texasdefined") return null;
+  if (slug === nativeNationsTexasTodayStub.slug) return import("./native-nations-texas-today").then((module) => module.nativeNationsTexasTodayArticle);
   if (slug === indigenousTexasHistoryNativeNationsStub.slug) return import("./indigenous-texas-history-native-nations").then((module) => module.indigenousTexasHistoryNativeNationsArticle);
   if (slug === texasBeforeUnitedStatesStub.slug) return import("./texas-before-united-states-how-texas-began").then((module) => module.texasBeforeUnitedStatesArticle);
   if (slug === texasCattleRanchingHistoryGuideStub.slug) return import("./texas-cattle-ranching-history-guide").then((module) => module.texasCattleRanchingHistoryGuideArticle);
