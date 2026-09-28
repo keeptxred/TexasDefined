@@ -187,7 +187,6 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
       <section className="py-12" aria-labelledby="lake-applications">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Verified lake coverage</p>
           <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Each entry below comes from a lake-technique relationship already attached to a complete TexasDefined fishing guide. A lake missing from this page is simply not yet covered by this verified technique dataset.</p>
         </div>
