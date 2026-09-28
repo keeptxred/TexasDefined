@@ -124,7 +124,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "food",
     startDate: "2026-09-30",
     endDate: "2026-10-03",
-    dateNote: "The main festival runs September 30-October 3, 2026. Separate affiliated events begin earlier, including the September 18 golf classic and September 25-26 BBQ cookoff; this authority page uses the organizer's main-festival window.",
+    dateNote: "The main festival runs September 30-October 3, 2026. Separate affiliated events begin earlier, including the September 18 golf classic and September 25-26 BBQ cookoff; this guide uses the organizer's main-festival window.",
     venue: "Winnie-Stowell Park",
     officialUrl: "https://texasricefestival.com/",
     sourceCheckedAt: "2026-08-29",

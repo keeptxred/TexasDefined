@@ -76,7 +76,7 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       { title: "Plan for three consecutive race days", body: "Texas Motor Speedway confirms a race every day from Friday, April 30 through Sunday, May 2, 2027. The Truck Series opens Friday, the O'Reilly Auto Parts Series races Saturday and the Cup Series WÜRTH 400 headlines Sunday." },
       { title: "Use the speedway's current fan guidance", body: "The track publishes policies, ticket packages, camping options and mobile-app information for race weekends. Recheck those first-party resources before arrival because start times and detailed on-track schedules are still to be announced." },
-      { title: "Remember the speedway is in Denton County", body: "Although the venue uses a Fort Worth postal address, Texas Motor Speedway is in Denton County. Texas Defined links this authority page to the correct county context rather than assuming the city name determines the county." },
+      { title: "Remember the speedway is in Denton County", body: "Although the venue uses a Fort Worth postal address, Texas Motor Speedway is in Denton County. The guide uses Denton County for local context rather than assuming the Fort Worth postal name determines the county." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-denton", label: "Explore Denton County", description: "Connect the speedway to the county it actually occupies." },

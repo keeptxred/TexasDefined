@@ -11,7 +11,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-11-12",
     endDate: "2026-11-15",
-    dateNote: "The public show runs November 12-15, 2026. The organizer lists classes and related educational events beginning November 10; this authority page uses the public-show window for Event markup.",
+    dateNote: "The public show runs November 12-15, 2026. The organizer lists classes and related educational events beginning November 10; this guide uses the public-show window.",
     venue: "George R. Brown Convention Center",
     officialUrl: "https://www.quilts.com/quilt-festival/quilt-festival-houston/",
     sourceCheckedAt: "2026-08-29",
