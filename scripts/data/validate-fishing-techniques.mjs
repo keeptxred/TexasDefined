@@ -72,6 +72,19 @@ for (const slug of techniqueSlugs) {
   requireText(files.authorityContent, `"${slug}"`, "authority content missing " + slug);
 }
 for (const token of ["Choose the setup","Target differences","Practical questions","TechniqueDiagram","Texas rules"]) requireText(files.profileComponent, token, "shared technique authority UI missing " + token);
+const techniqueVisualContracts = [
+  ["soft-plastics", files.profileComponent, "Recognize the Basic Layout Before You Tie It"],
+  ["crankbaits", files.imageRegistry, "crankbait-types-depth-cover.avif"],
+  ["spinnerbaits", files.authorityContent, "Spinnerbait Control at a Glance"],
+  ["topwater", files.authorityContent, "Topwater Cadence at a Glance"],
+  ["trolling", files.authorityContent, "Build a Repeatable Trolling Pass"],
+  ["vertical-jigging", files.authorityContent, "Vertical Jigging Positioning"],
+  ["jigs-and-minnows", files.authorityContent, "Keep the Bait Above the Fish"],
+  ["live-bait", files.authorityContent, "Live-Bait Rigging at a Glance"],
+  ["cut-bait", files.authorityContent, "Three Useful Cut-Bait Rig Layouts"],
+];
+for (const [slug, sourceText, marker] of techniqueVisualContracts) requireText(sourceText, marker, `visual instruction missing for ${slug}`);
+requireText(files.profileComponent, 'diagram.eyebrow ?? "Presentation at a glance"', "generic technique visual label fallback missing");
 for (const token of ["fishingTechniqueAuthorityContent","faq.map","newestDate","source.checkedAt"]) requireText(files.server, token, "profile FAQ/freshness contract missing " + token);
 for (const token of ["What Cut Bait Is Legal in Texas?","Three Useful Cut-Bait Rig Layouts","Blue, Channel and Flathead Catfish Are Different","Do not use a Texas game fish","Can I cut up a game fish and use it as bait in Texas?"]) requireText(files.authorityContent, token, "cut-bait authority content missing " + token);
 for (const token of ["game fish or any part of a game fish","slip-sinker, three-way/current or suspended/drift","washed-out bait","Treating blue, channel and flathead catfish"]) requireText(files.guideContent, token, "cut-bait practical/legal guide missing " + token);
