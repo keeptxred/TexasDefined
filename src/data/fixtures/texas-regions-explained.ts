@@ -166,10 +166,10 @@ export const texasRegionsExplainedArticle: Article = {
       "Known for: border culture, ranch history, birding, wildlife, tacos and the Rio Grande Valley.",
     ),
 
-    h("How TexasDefined uses the seven regions"),
-    p("The seven-region model is an editorial and discovery system. TexasDefined uses the same region IDs across destination records, Explore navigation and regional landing pages so a park, lake, town, historic site, event or travel guide can participate in one consistent geographic structure."),
-    p("The boundaries are deliberately practical rather than administrative. Counties do not always line up neatly with physical geography or cultural identity, and metropolitan areas can straddle regional transitions. When a place sits near an edge, TexasDefined assigns the primary region that best matches its landscape, travel patterns and surrounding destinations while acknowledging meaningful overlaps in the editorial copy."),
-    p("The stable region names are Big Bend Country, Gulf Coast, Hill Country, Panhandle Plains, Piney Woods, Prairies & Lakes and South Texas Plains. Those names are the common vocabulary TexasDefined will use across statewide discovery going forward."),
+    h("How the seven-region model works"),
+    p("The seven-region model gives travelers one consistent way to group parks, lakes, towns, historic sites, events and road-trip guides across a very large state."),
+    p("The boundaries are practical rather than administrative. Counties do not always line up neatly with physical geography or cultural identity, and metropolitan areas can straddle regional transitions. Places near an edge are grouped with the region that best matches their landscape, travel patterns and surrounding destinations while meaningful overlaps are explained in the guide."),
+    p("The seven region names are Big Bend Country, Gulf Coast, Hill Country, Panhandle Plains, Piney Woods, Prairies & Lakes and South Texas Plains. They provide a common vocabulary for planning statewide travel without pretending every regional boundary is absolute."),
 
     h("What about West Texas, Central Texas and the Rio Grande Valley?"),
     p("They still matter. A seven-region taxonomy does not erase the regional names Texans actually use. 'West Texas' is a powerful cultural term that can include the Permian Basin, Trans-Pecos and other areas depending on who is speaking. 'Central Texas' can describe Austin, Waco, the Hill Country edge and surrounding counties. The Rio Grande Valley is a distinct subregion with an identity far stronger than a simple compass direction."),
