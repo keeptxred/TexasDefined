@@ -71,7 +71,7 @@ export const horsesOnTheBeachCorpusChristiArticle: Article = {
     p("Visitors should distinguish North Padre Island from Padre Island National Seashore farther south. They are part of the same long barrier-island system, but access, facilities, management and driving conditions differ. The horseback-riding business is a Corpus Christi-area private operator, not an activity run by the National Park Service."),
     h("The Library of Congress documented the operation"),
     p("Horses on the Beach also has an unusual documentary record. Photographer Carol M. Highsmith photographed the operation on Padre Island in 2014 for the collection now held by the Library of Congress. The images show riders moving along the surf and identify the horseback-riding operation by name, giving the business a place in a larger visual archive of Texas people and places."),
-    p("That does not make the business historic in the same way as a century-old landmark, but it does add context. TexasDefined can pair a current first-party visitor guide with a national archival source showing that the beach-riding operation has been part of the Corpus Christi landscape for years."),
+    p("That does not make the business historic in the same way as a century-old landmark, but it does add context. A current first-party visitor source and the national archival record together show that the beach-riding operation has been part of the Corpus Christi landscape for years."),
     h("What to verify before booking"),
     list([
       "Current ride schedule and check-in time.",
