@@ -10,7 +10,7 @@ const reportPath = process.env.STATEWIDE_FINANCIAL_DISCOVERY_REPORT ?? '.artifac
 const surfaces = [
   { path: '/texas-moving-cost-calculator', marker: 'Connect the one-time move to the monthly Texas budget', statusContext: 'td-fin-debug-moving' },
   { path: '/texas-cost-of-living-calculator', marker: 'Verify the categories that matter most to the move', statusContext: 'td-fin-debug-cost' },
-  { path: '/texas-salary-comparison-by-city', marker: 'Compare income with the costs you will actually carry', statusContext: 'td-fin-debug-compare' },
+  { path: '/texas-salary-comparison-by-city', marker: 'Compare income with expected household costs', statusContext: 'td-fin-debug-compare' },
   { path: '/texas-salary-calculator', marker: 'Compare pay with Texas living costs', statusContext: 'td-fin-debug-salary' },
   { path: '/texas-budget-planner', marker: 'Use the other Texas tools to improve the budget inputs', statusContext: 'td-fin-debug-budget' },
 ];
