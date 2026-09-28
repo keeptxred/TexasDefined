@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave7Destinations: Destination[] = [
     body: [
       "Midland Army Air Field was one of the country's major bombardier-training centers during World War II, and the museum keeps that local military history tied to the airport where it happened. Gallery exhibits explain training, equipment and wartime life rather than presenting aircraft without context.",
       "The High Sky Wing's operating aircraft collection adds a living-history dimension. Visitors may encounter aircraft being maintained, flown or repositioned, so the experience can vary in ways a static collection does not.",
-      "This destination complements the Petroleum Museum and other Midland authority pages by adding aviation and wartime history to the Permian Basin story, strengthening Midland County cross-linking without duplicating the former national CAF museum that moved away."
+      "This destination complements the Petroleum Museum by adding aviation and wartime history to the Permian Basin story, giving Midland County visitors a distinct experience without duplicating the former national CAF museum that moved away."
     ],
     officialUrl: "https://highskywing.org/?page_id=3699",
     managingAuthority: "Commemorative Air Force High Sky Wing",
