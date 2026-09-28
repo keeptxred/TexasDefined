@@ -43,7 +43,7 @@ const records: MajorEventAuthorityRecord[] = [
     venue: "Bastrop venues",
     officialUrl: "https://lonestarcowboypoetry.com/2027/bastrop/index.html",
     sourceCheckedAt: "2026-08-29",
-    whyItMatters: "The Bastrop edition extends the Lone Star Cowboy Poetry Gathering into Central Texas with a separate two-day 2027 program of cowboy poets, musicians, open-mic sessions and related western-cultural programming rather than pretending the Alpine and Bastrop gatherings are one continuous event.",
+    whyItMatters: "The Bastrop edition extends the Lone Star Cowboy Poetry Gathering into Central Texas with a separate two-day 2027 program of cowboy poets, musicians, open-mic sessions and related western-cultural programming while keeping the Alpine and Bastrop gatherings distinct.",
     planningSections: [
       { title: "Treat Bastrop as its own September gathering", body: "The organizer confirms September 3-4, 2027 for Bastrop. Texas Defined keeps this as a separate event page from the February Alpine Gathering because the cities are hundreds of miles apart and the organizer publishes separate location schedules." },
       { title: "Wait for the venue map before locking the day plan", body: "The 2027 page says a map of Bastrop event venues and more program details are forthcoming. Use the confirmed dates for lodging now, then build the walking and driving plan after the organizer posts the final locations." },
