@@ -250,7 +250,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
 function TechniqueDiagram({ diagram }: { diagram: NonNullable<FishingTechniqueAuthorityContent["diagram"]> }) {
   return <section className="border-b border-border py-12" aria-labelledby="technique-diagram">
-    <p className="eyebrow text-primary">Rigging at a glance</p>
+    <p className="eyebrow text-primary">{diagram.eyebrow ?? "Presentation at a glance"}</p>
     <h2 id="technique-diagram" className="mt-3 font-display text-4xl sm:text-5xl">{diagram.title}</h2>
     <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{diagram.intro}</p>
     <div className="mt-8 grid gap-5 md:grid-cols-2">
