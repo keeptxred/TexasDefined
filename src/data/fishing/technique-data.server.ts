@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
 import { fishingTechniqueImages } from "./technique-images";
 import {
@@ -25,8 +26,12 @@ type ProfileHeadEntry = {
   canonicalPath: string;
   lakes: Array<{ name: string; slug: string }>;
   species: Array<{ commonName: string }>;
-  sources: Array<{ url: string }>;
+  sources: Array<{ url: string; checkedAt?: string }>;
 };
+
+function newestDate(values: Array<string | undefined>) {
+  return values.filter((value): value is string => Boolean(value)).sort().at(-1);
+}
 
 function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
   const jsonLd = {
@@ -54,10 +59,13 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const { technique, canonicalPath, lakes, species, sources } = entry;
   const description = `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
   const images = fishingTechniqueImages[technique.slug];
+  const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
+  const faq = authority?.faq ?? [];
+  const dateModified = newestDate([technique.verifiedAt, ...sources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified: technique.verifiedAt, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(images?.hero ? { image: `${origin}${images.hero.src}` } : {}) },
+      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(images?.hero ? { image: `${origin}${images.hero.src}` } : {}) },
       { "@type": "ItemList", "@id": `${origin}${canonicalPath}#lake-applications`, numberOfItems: lakes.length, itemListElement: lakes.map((lake, index) => ({ "@type": "ListItem", position: index + 1, name: `${technique.name} — ${lake.name}`, url: `${origin}${fishingFoundationAnchor("lake", lake.slug)}` })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Front page", item: origin },
@@ -66,6 +74,7 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
         { "@type": "ListItem", position: 4, name: technique.name, item: `${origin}${canonicalPath}` },
       ] },
       { "@type": "Thing", name: technique.name, description: technique.summary, subjectOf: `${origin}${canonicalPath}`, keywords: species.map((fish) => fish.commonName).join(", ") },
+      ...(faq.length ? [{ "@type": "FAQPage", mainEntity: faq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []),
     ],
   };
 
@@ -139,8 +148,13 @@ export async function loadFishingTechniqueDirectoryServer() {
     .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry))
     .sort((a, b) => a.technique.name.localeCompare(b.technique.name));
 
+  const verifiedAt = newestDate([
+    FISHING_TECHNIQUES_VERIFIED_AT,
+    ...entries.flatMap((entry) => entry.sources.map((source) => source.checkedAt)),
+  ]) ?? FISHING_TECHNIQUES_VERIFIED_AT;
+
   return {
-    verifiedAt: FISHING_TECHNIQUES_VERIFIED_AT,
+    verifiedAt,
     entries,
     species: [...new Map(entries.flatMap((entry) => entry.species).map((fish) => [fish.id, fish])).values()]
       .sort((a, b) => a.commonName.localeCompare(b.commonName)),
