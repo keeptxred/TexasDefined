@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave10Destinations: Destination[] = [
     body: [
       "The Villa Antigua is an adaptive-reuse success story as much as a museum. The once-endangered Gonzalez-Montemayor home survived abandonment and demolition pressure before Webb County and the Heritage Foundation restored it as a public history site.",
       "Its exhibitions change more often than those at a traditional historic house, allowing the museum to explore archaeology, architecture, migration, industry and community memory across Laredo and the surrounding borderlands. Educational seminars and tours keep preservation itself visible as part of the story.",
-      "The museum sits only a short walk from the Republic of the Rio Grande Museum, San Agustin Cathedral and plaza. TexasDefined can therefore use the two museum pages together as a strong internal-link cluster rather than flattening distinct buildings and collections into one generic Laredo history page."
+      "The museum sits only a short walk from the Republic of the Rio Grande Museum, San Agustin Cathedral and plaza. Together, the stops form a strong Laredo history walk while keeping each building and collection distinct."
     ],
     officialUrl: "https://www.webbheritage.org/Border-Heritage-Museum",
     managingAuthority: "Webb County Heritage Foundation",
