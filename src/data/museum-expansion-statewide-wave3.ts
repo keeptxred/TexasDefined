@@ -37,7 +37,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The East Texas Oil Museum turns one of the state's biggest economic transformations into a walk-through experience. Rather than explaining the 1930 oil discovery only through text panels, the museum reconstructs the atmosphere of an early boomtown and surrounds visitors with the equipment, businesses, sounds and everyday details that followed the East Texas Oil Field's rapid development.",
       "Its value extends beyond petroleum technology. Oral histories, period artifacts and primary-source material document how sudden wealth, migration, drilling and infrastructure changed communities across East Texas. That makes the museum useful for understanding Kilgore, Gregg County and the wider Piney Woods economy rather than treating oil as an isolated industrial subject.",
-      "The museum is a natural cross-link for TexasDefined's Kilgore and East Texas coverage. It can anchor a regional history itinerary that connects energy, railroads, downtown architecture and the later cultural institutions built in towns reshaped by the oil boom."
+      "The museum can anchor a regional history itinerary connecting energy, railroads, downtown architecture and the later cultural institutions built in towns reshaped by the oil boom."
     ],
     officialUrl: "https://easttexasoilmuseum.kilgore.edu/visit/",
     managingAuthority: "Kilgore College",
@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Texas Forestry Museum explains an industry that shaped East Texas towns, railroads, employment and landscapes for generations. Its exhibits connect logging and sawmill history with the science and stewardship of forests, allowing visitors to see both the economic and environmental sides of the timber story.",
       "Lufkin is an especially appropriate home for the institution because the city grew inside the Piney Woods economy. Historic equipment, industry artifacts and family-oriented exhibits connect abstract forestry concepts to the people and machines that harvested, moved and processed timber across the region.",
-      "The museum gives TexasDefined a strong Angelina County anchor and creates natural internal links to national forests, state forests, East Texas road trips and Lufkin-area history. It also broadens museum coverage beyond art and political history into the industries that physically shaped Texas communities."
+      "The museum gives Angelina County visitors a strong history anchor near national forests, state forests, East Texas road trips and Lufkin-area sites. It also broadens the story beyond art and political history into the industries that physically shaped Texas communities."
     ],
     officialUrl: "https://www.treetexas.com/",
     managingAuthority: "Texas Forestry Museum",
@@ -112,7 +112,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Texas Cotton Gin Museum is valuable because the central artifact is not a machine removed from its setting: it is the historic Burton Farmers Gin itself. Visitors can see the buildings and equipment where cotton was processed and learn how ginning connected farmers to markets, transportation networks and the wider economy.",
       "The site's operating machinery makes technology understandable at full scale. The restored Bessemer engine, gin equipment and annual demonstrations show how raw cotton moved through an industrial process that affected nearly every cotton-growing community in Texas. Nearby historic structures add domestic and commercial context to the machinery.",
-      "Burton sits between Houston and Austin in a region rich with German-Texan heritage and agricultural history. Cross-linking the museum with Washington County, Brenham-area destinations and Texas farming content lets TexasDefined turn a specialized mechanical site into part of a larger story about settlement, crops and rural communities."
+      "Burton sits between Houston and Austin in a region rich with German-Texan heritage and agricultural history. Pairing the museum with Washington County, Brenham-area destinations and farming sites turns a specialized mechanical stop into part of a larger story about settlement, crops and rural communities."
     ],
     officialUrl: "https://www.cottonginmuseum.org/",
     managingAuthority: "Texas Cotton Gin Museum / Burton Farmers Gin Association",
@@ -162,7 +162,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "Pearce Museum joins two collections that could easily stand alone. Its Civil War holdings emphasize letters, documents, photographs and artifacts that allow visitors to encounter the conflict through individual voices, while the Western Art collection interprets landscapes, people and traditions associated with the American West.",
       "The museum's location on the Navarro College campus gives it an educational and research dimension beyond a conventional tourist attraction. Visitors interested in documentary history can spend time with the Civil War material, while art-focused travelers have a separate route through works that explore western identity and imagery.",
-      "Corsicana is already associated with oil, railroads, architecture and regional food traditions. Adding Pearce as a canonical destination gives TexasDefined a stronger Navarro County cultural anchor and lets museum visitors move naturally into broader city and county exploration."
+      "Corsicana is already associated with oil, railroads, architecture and regional food traditions. Pearce adds a stronger Navarro County cultural stop and lets museum visitors move naturally into broader city and county exploration."
     ],
     officialUrl: "https://www.pearcemuseum.com/visit/",
     managingAuthority: "Navarro College",
@@ -212,7 +212,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Museum of the American Railroad works at two scales. Full-size locomotives and passenger equipment show the enormous physical systems that moved people and freight, while TrainTopia uses model railroading to explain landscapes, operations and the visual culture of rail travel in a format that is accessible to younger visitors.",
       "Because part of the collection is outdoors, the best visit depends on both the ticket schedule and the weather. Guided access gives visitors context for equipment that can otherwise look like a row of large machines, explaining how different locomotives and cars fit into changing eras of American transportation.",
-      "Frisco's explosive modern growth makes railroad history especially useful context. The museum gives TexasDefined a way to connect present-day Collin County development with the transportation networks and depot towns that preceded suburban expansion."
+      "Frisco's explosive modern growth makes railroad history especially useful context. The museum connects present-day Collin County development with the transportation networks and depot towns that preceded suburban expansion."
     ],
     officialUrl: "https://www.historictrains.org/visit",
     managingAuthority: "Museum of the American Railroad",
@@ -237,7 +237,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Texas Transportation Museum treats transportation as a connected technological story. Rail equipment, automobiles, fire trucks, horse-drawn vehicles, tractors and engines show how different forms of mobility overlapped rather than replacing one another overnight.",
       "Operating train rides distinguish the museum from a static vehicle collection. Families can experience rail movement while also seeing full-size equipment and model layouts, making the site especially useful for children who respond better to machines in motion than to display cases.",
-      "The museum expands TexasDefined's San Antonio museum coverage beyond downtown art and Spanish Colonial history. It provides a specialized North Bexar County attraction that can cross-link family itineraries, railroad history and the broader story of how transportation shaped Texas cities."
+      "The museum expands a San Antonio itinerary beyond downtown art and Spanish Colonial history. It provides a specialized North Bexar County stop for families, railroad history and the broader story of how transportation shaped Texas cities."
     ],
     officialUrl: "https://www.txtransportationmuseum.org/",
     managingAuthority: "Texas Transportation Museum",
@@ -262,7 +262,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Bosque Museum reaches much farther back than the settlement history suggested by many county museums. Archaeological interpretation, including material connected to the Horn Shelter, places Bosque County inside a human story thousands of years old before the galleries move into immigration, settlement and community history.",
       "Norwegian heritage is another major strength. Clifton is widely associated with Norwegian-Texan culture, and the museum preserves artifacts and stories that explain how immigrant families built communities in Central Texas rather than reducing that identity to festivals or decorative motifs.",
-      "This makes the museum an ideal county-authority destination for TexasDefined. It can connect Clifton, Bosque County, archaeology, immigrant heritage and nearby outdoor destinations while giving the county page a substantial cultural institution to point visitors toward."
+      "This makes the museum an ideal Bosque County history stop. It connects Clifton, archaeology, immigrant heritage and nearby outdoor destinations while giving visitors a substantial cultural institution to build around."
     ],
     officialUrl: "https://www.bosquemuseum.org/",
     managingAuthority: "Bosque Museum",
@@ -287,7 +287,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Czech Heritage Museum & Genealogy Center gives Central Texas immigration history a dedicated home. Clothing, household objects, documents, folk traditions and changing exhibits explain how Czech immigrants carried language and culture into Texas and how those traditions adapted across generations.",
       "Genealogy is central rather than incidental. The museum's research function makes it useful to descendants tracing family connections, while ordinary visitors can use the same documentary emphasis to understand migration as a network of real families and communities rather than a broad demographic label.",
-      "Temple sits within a larger Czech-Texan corridor that includes communities across Bell, McLennan, Hill and surrounding counties. TexasDefined can use this destination to build stronger heritage cross-links among county pages, food traditions, festivals and immigrant-history authority content."
+      "Temple sits within a larger Czech-Texan corridor that includes communities across Bell, McLennan, Hill and surrounding counties. The museum fits naturally with regional food traditions, festivals and immigrant-history stops."
     ],
     officialUrl: "https://czechheritagemuseum.org/plan-your-visit",
     managingAuthority: "Czech Heritage Museum & Genealogy Center",
@@ -312,7 +312,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Old Jail Art Center is one of the strongest examples in Texas of a small town supporting a museum collection with reach far beyond local history. The original Shackelford County jail remains part of the experience, but later galleries expanded the institution into a serious art center with collections spanning multiple cultures and periods.",
       "That contrast is what makes the museum memorable. Rough nineteenth-century stone, preserved jail spaces and local history sit beside modern and contemporary art, Asian material and Pre-Columbian objects. Visitors encounter both an architectural artifact and a curated fine-art institution in the same stop.",
-      "Albany already has unusual depth for a small Texas town through historic architecture, the Fort Griffin Fandangle tradition and nearby Fort Griffin State Historic Site. Adding the Old Jail as a canonical TexasDefined destination strengthens Shackelford County as a genuine heritage itinerary rather than a single-attraction detour."
+      "Albany already has unusual depth for a small Texas town through historic architecture, the Fort Griffin Fandangle tradition and nearby Fort Griffin State Historic Site. The Old Jail strengthens Shackelford County as a genuine heritage itinerary rather than a single-attraction detour."
     ],
     officialUrl: "https://theojac.org/",
     managingAuthority: "Old Jail Art Center",
@@ -337,7 +337,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The New Braunfels Railroad Museum preserves the depot setting where transportation history actually happened. The restored International & Great Northern building provides context for photographs, artifacts and equipment tied to the railroads that helped connect New Braunfels with regional and national markets.",
       "The active tracks beside the museum make the visit unusually immediate. Historic interpretation sits next to a modern Union Pacific corridor where visitors can still watch freight trains pass, making it easy to compare past railroad operations with the continuing importance of rail transportation through Central Texas.",
-      "New Braunfels is usually introduced through German-Texan heritage and the Comal and Guadalupe rivers. The railroad museum adds another layer to the city's development and gives TexasDefined's Comal County and New Braunfels pages a transportation-history destination to cross-link alongside Gruene and river recreation."
+      "New Braunfels is usually introduced through German-Texan heritage and the Comal and Guadalupe rivers. The railroad museum adds another layer to the city's development and pairs naturally with Gruene, downtown history and river recreation."
     ],
     officialUrl: "https://www.visitnbtx.com/directory/new-braunfels-railroad-museum",
     managingAuthority: "New Braunfels Railroad Museum",
@@ -362,7 +362,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "Rosenberg exists where it does largely because of railroads. The museum turns that origin story into a destination, explaining how rail junctions, freight and passenger movement shaped a community that later became part of the rapidly growing Houston metropolitan region.",
       "Historic equipment and rail artifacts make the subject physical, while local interpretation keeps the museum focused on Rosenberg rather than presenting generic railroad history. That local emphasis helps visitors understand why rail infrastructure mattered to farming, commerce and settlement across Fort Bend County.",
-      "The museum is a strong cross-link for TexasDefined because modern Fort Bend coverage can otherwise lean heavily toward suburban growth. Rosenberg's rail heritage adds historical depth and gives visitors a reason to explore the county's older city centers as well as newer communities."
+      "The museum adds historical depth to a Fort Bend trip that might otherwise focus mostly on suburban growth. Rosenberg's rail heritage gives visitors a reason to explore the county's older city centers as well as newer communities."
     ],
     officialUrl: "https://www.rosenbergrrmuseum.org/",
     managingAuthority: "Rosenberg Railroad Museum",
@@ -387,7 +387,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Square House Museum is much larger in scope than its name suggests. The historic square house is the centerpiece of a campus with additional buildings, galleries and outdoor artifacts that let the institution move from early inhabitants and ranching into railroads, oil development and twentieth-century life on the High Plains.",
       "The preserved buildings make the museum especially valuable for local history because visitors can move through real structures rather than seeing every subject inside a single modern gallery. Art and natural-history material broaden the experience beyond settlement artifacts alone.",
-      "Panhandle sits near major east-west travel corridors and Route 66 country, but Carson County can easily be bypassed between Amarillo and farther stops. A canonical museum page gives TexasDefined a strong reason to route travelers into the county and connect regional history with the larger Panhandle destination network."
+      "Panhandle sits near major east-west travel corridors and Route 66 country, but Carson County can easily be bypassed between Amarillo and farther stops. The museum gives travelers a strong reason to stop in the county and connect local history with a larger Panhandle itinerary."
     ],
     officialUrl: "https://atlas.thc.texas.gov/Details/4200000323",
     managingAuthority: "Carson County Square House Museum",

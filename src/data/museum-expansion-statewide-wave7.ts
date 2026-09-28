@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave7Destinations: Destination[] = [
     body: [
       "The Rockwall County Historical Foundation operates more than a conventional single-building museum. Its grounds in Harry Myers Park preserve historic houses and small structures that let visitors encounter domestic and agricultural life at full scale.",
       "The site also addresses the geological feature behind Rockwall's name. A relocated section of the rock wall is preserved on museum property, while interpretation distinguishes that accessible segment from buried formations on private land.",
-      "The destination gives TexasDefined a county-level heritage anchor in the state's smallest county and connects downtown Rockwall, Blackland Prairie ecology and local settlement history through one canonical visitor page."
+      "The museum gives visitors a county-level heritage anchor in the state's smallest county and connects downtown Rockwall, Blackland Prairie ecology and local settlement history in one stop."
     ],
     officialUrl: "https://rockwallcountymuseum.com/visit/",
     managingAuthority: "Rockwall County Historical Foundation",
@@ -161,7 +161,7 @@ export const statewideMuseumExpansionWave7Destinations: Destination[] = [
     body: [
       "Stinson Field is one of the most historically significant aviation sites in Texas, and the museum uses that setting to explain the people who helped make San Antonio an early center of American flight. The Stinson family receives particular attention alongside military aviation and technical development.",
       "The collection stretches beyond World War II into the earlier golden age of aviation, which distinguishes it from many military-aircraft museums. Aircraft and artifacts provide physical context for stories that began at the airfield itself.",
-      "TexasDefined already has separate San Antonio transportation and military-history destinations. This page adds a focused aviation authority while using county and related-destination links to keep those complementary institutions connected rather than merged into a generic transportation page."
+      "San Antonio already offers separate transportation and military-history attractions. This museum adds a focused aviation stop that fits naturally with those complementary institutions without collapsing them into one generic transportation experience."
     ],
     officialUrl: "https://www.texasairmuseum.org/contact",
     managingAuthority: "Texas Air Museum — Stinson Chapter",

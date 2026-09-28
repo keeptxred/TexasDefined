@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "Few Texas counties can connect local history to the state's beginnings as directly as Brazoria County. The museum uses artifacts, research files and exhibitions to explain settlement under Stephen F. Austin, later agricultural and industrial development, and the communities that grew along rivers, railroads and the Gulf Coast.",
       "The building adds another layer. The 1897 courthouse served the county during an important period of growth and now functions as a preserved setting for stories ranging from ranching and convict leasing to courthouse history, Juneteenth and demographic change.",
-      "TexasDefined can use this destination as a county-history hub linking Angleton with West Columbia, the Austin Colony story, coastal industry and nearby cultural sites. It gives the Brazoria County page a canonical institution whose mission is specifically to preserve and explain the county itself."
+      "The museum works as a county-history hub linking Angleton with West Columbia, the Austin Colony story, coastal industry and nearby cultural sites. Its mission is specifically to preserve and explain Brazoria County itself."
     ],
     officialUrl: "https://www.brazoriacountytx.gov/departments/museum",
     managingAuthority: "Brazoria County",
@@ -112,7 +112,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Harrison County Historical Museum occupies one of Marshall's defining civic landmarks, allowing county history to be interpreted inside the restored courthouse that once represented local government at the center of the square. The setting reinforces the city's unusually rich collection of nineteenth- and early-twentieth-century architecture.",
       "Exhibits range from Caddo culture and settlement through education, politics, community life and African American history. The museum's wider organization also maintains military interpretation and research collections, giving visitors and genealogists multiple ways to engage with Harrison County's past.",
-      "This destination strengthens TexasDefined's Marshall cluster by connecting the courthouse square, Starr Family Home, Wiley College history and East Texas heritage. It provides a county-level authority page that can support both visitor planning and deeper historical internal links."
+      "This destination connects Marshall's courthouse square, Starr Family Home, Wiley College history and broader East Texas heritage, giving visitors a stronger county-level starting point for both trip planning and local history."
     ],
     officialUrl: "https://harrisoncountymuseum.org/",
     managingAuthority: "Harrison County Historical Museum",
@@ -137,7 +137,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "Gregg County Historical Museum tells the local story from inside one of downtown Longview's most important surviving early commercial buildings. The Everett Building's original architectural details make the structure itself one of the collection's strongest artifacts.",
       "Permanent and temporary exhibits explain the forces that shaped Gregg County: railroads, timber, agriculture, oil, business, military service and everyday community life. That breadth is especially useful in Longview, where the oil boom and transportation networks changed the city rapidly during the twentieth century.",
-      "TexasDefined now has separate Longview authority destinations for county history and fine art, plus nearby Kilgore pages for oil and broadcasting. Cross-linking them creates a dense Gregg County cultural network rather than treating each institution as an isolated listing."
+      "Longview offers distinct stops for county history and fine art, while nearby Kilgore adds oil and broadcasting museums. Together they create a fuller Gregg County cultural itinerary rather than a set of isolated listings."
     ],
     officialUrl: "https://gregghistorical.org/",
     managingAuthority: "Gregg County Historical Museum",
@@ -162,7 +162,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Smith County Historical Society Museum gives Tyler a county-history institution inside a building with its own civic significance. The former Carnegie Library provides a historic setting for exhibits that trace the county's transition from agriculture into roses, oil, transportation and modern urban growth.",
       "A flexible gallery system allows temporary exhibitions to supplement the permanent county story, while archives and research services provide a deeper layer for genealogists and local-history researchers. The organization also interprets Camp Ford separately, expanding its reach beyond the museum walls.",
-      "The page complements the Tyler Museum of Art by giving TexasDefined both a visual-arts destination and a county-history destination in the same city. Together they make Smith County's cultural coverage more useful to travelers and strengthen internal links from Tyler and county authority pages."
+      "The museum complements the Tyler Museum of Art by giving visitors both a visual-arts stop and a county-history stop in the same city. Together they make a more useful Smith County cultural itinerary."
     ],
     officialUrl: "https://smithcountyhistoricalsociety.org/museum/",
     managingAuthority: "Smith County Historical Society",
@@ -187,7 +187,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "Freestone County Historical Museum functions more like a small historic village than a single gallery. Preserved and relocated buildings allow visitors to encounter domestic, commercial and community spaces at full scale while artifacts explain the people who used them.",
       "The genealogical research library adds practical depth for families tracing roots in the county. That combination of buildings, collections and research makes the institution a stronger county authority destination than a generic historical marker or short local-history stop.",
-      "Fairfield's position along I-45 makes the museum useful for travelers moving between Dallas and Houston as well as dedicated heritage visitors. TexasDefined can connect it to Freestone County, nearby state historic sites and east-central Texas road trips without creating a separate itinerary silo."
+      "Fairfield's position along I-45 makes the museum useful for travelers moving between Dallas and Houston as well as dedicated heritage visitors. It fits naturally with Freestone County, nearby state historic sites and east-central Texas road trips."
     ],
     officialUrl: "https://freestonecomuseum.com/",
     managingAuthority: "Freestone County Historical Museum",
@@ -236,8 +236,8 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     highlights: ["Polk County local history", "East Texas timber industry", "Railroad and Trinity River history", "Native American and pioneer exhibits"],
     body: [
       "Polk County Memorial Museum covers the forces that shaped Livingston and the surrounding Piney Woods, from Indigenous history and pioneer settlement to timber, transportation and twentieth-century community life. Its collections help explain why the county developed around forests, rivers and transportation corridors.",
-      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so TexasDefined preserves the canonical destination while placing the closure ahead of trip-planning details rather than presenting historical operating hours as current access.",
-      "Once reopened, the museum will be a natural county-level anchor linking Livingston, timber history, the Trinity River and nearby outdoor destinations. Maintaining the page during the closure also gives TexasDefined one stable URL to update when the museum announces its return."
+      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so the guide puts the closure ahead of trip-planning details rather than presenting historical operating hours as current access.",
+      "Once reopened, the museum will be a natural county-level anchor linking Livingston, timber history, the Trinity River and nearby outdoor destinations. Until then, the page remains a useful place to check the museum's status before planning a visit."
     ],
     officialUrl: "https://www.polkcountymemorialmuseum.com/",
     managingAuthority: "Polk County Memorial Museum",
@@ -262,7 +262,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Nacogdoches Railroad Depot explains how rail transportation changed a city whose history began long before the railroad era. The present brick depot dates to 1911, replacing an earlier wooden building, and passenger service continued until the mid-twentieth century.",
       "Inside, the city's Historic Sites Department interprets the people who traveled and worked through the depot as well as the larger economic effect of rail connections on agriculture, business and urban growth. The preserved station keeps those stories tied to the place where they unfolded.",
-      "TexasDefined can cross-link the depot with Nacogdoches' other historic properties, downtown authority content and East Texas railroad destinations. That gives visitors a coherent historic-sites network rather than a stand-alone railroad page."
+      "The depot fits naturally with Nacogdoches' other historic properties, downtown sites and East Texas railroad destinations, giving visitors a coherent heritage itinerary rather than a stand-alone railroad stop."
     ],
     officialUrl: "https://www.nactx.us/695/Nacogdoches-Railroad-Depot",
     managingAuthority: "City of Nacogdoches Historic Sites Department",

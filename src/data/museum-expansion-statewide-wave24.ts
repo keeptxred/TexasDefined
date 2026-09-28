@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave24Destinations: Destination[] = [
     highlights: ["Lampasas County history", "Local photographs and archives", "Rotating community exhibits", "Downtown Lampasas heritage"],
     body: [
       "The Lampasas County Museum provides the county-level context behind a Hill Country town better known to many travelers for mineral springs and historic downtown architecture. Local artifacts, photographs and documentary collections connect those landmarks to the people, businesses and rural communities that shaped the county.",
-      "The museum is currently working through physical improvements, so accurate status guidance matters more than repeating a normal-hours listing. Roof and structural work has required exhibits to be moved or reconsidered, and TexasDefined's page treats current access as something travelers should confirm rather than assuming every gallery is operating normally.",
+      "The museum is currently working through physical improvements, so accurate status guidance matters more than repeating a normal-hours listing. Roof and structural work has required exhibits to be moved or reconsidered, and travelers should confirm current access rather than assume every gallery is operating normally.",
       "The museum gives Lampasas County visitors a useful history stop connecting Lampasas, Hancock Springs, ranching and Hill Country travel. Renovation progress should be checked before a dedicated visit."
     ],
     officialUrl: "https://www.lampasasmuseum.org/",
