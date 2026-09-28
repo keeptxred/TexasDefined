@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-labelledby="title desc">
+<title id="title">Carolina rig diagram</title><desc id="desc">Fishing line passes through a sliding weight and bead to a swivel, then a leader runs to a hook and soft plastic bait.</desc>
+<rect width="640" height="220" fill="#fbf7f0"/>
+<path d="M28 102H157" stroke="#30231b" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="185" cy="102" rx="29" ry="18" fill="#8b6a55" stroke="#30231b" stroke-width="3"/>
+<circle cx="227" cy="102" r="8" fill="#c65a34"/>
+<path d="M235 102H279" stroke="#30231b" stroke-width="4"/>
+<circle cx="293" cy="102" r="12" fill="none" stroke="#30231b" stroke-width="4"/>
+<path d="M305 102H461" stroke="#30231b" stroke-width="3" stroke-dasharray="10 7"/>
+<path d="M461 102c18 0 25 13 25 27 0 16-13 28-30 28-15 0-26-9-26-21 0-9 7-15 17-15h66" fill="none" stroke="#30231b" stroke-width="4" stroke-linecap="round"/>
+<path d="M486 121c34-10 78-8 117 6 14 5 16 17 4 24-31 17-75 18-120 4-17-5-17-28-1-34z" fill="#c65a34" opacity=".92"/>
+<text x="28" y="62" font-family="system-ui,sans-serif" font-size="16" fill="#6b5749">line</text>
+<text x="145" y="62" font-family="system-ui,sans-serif" font-size="16" fill="#6b5749">sliding weight</text>
+<text x="270" y="62" font-family="system-ui,sans-serif" font-size="16" fill="#6b5749">swivel</text>
+<text x="360" y="82" font-family="system-ui,sans-serif" font-size="16" fill="#6b5749">leader</text>
+<text x="500" y="188" font-family="system-ui,sans-serif" font-size="16" fill="#6b5749">hook + bait</text>
+</svg>
