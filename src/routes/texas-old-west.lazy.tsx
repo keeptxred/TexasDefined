@@ -9,7 +9,7 @@ const storyLayers = [
   ["Ranching & cattle", "Longhorns, trail drives and large ranches transformed Texas landscapes and economies. The story includes Mexican and Tejano ranching traditions, working families and the commercial systems behind the cowboy image.", "/destination/goodnight-ranch", "Visit the Goodnight Ranch guide"],
   ["Native homelands & conflict", "The western story cannot be separated from Comanche, Kiowa and other Native homelands, bison destruction, military campaigns and forced removal. The Red River War guide keeps those consequences inside the travel narrative.", "/article/texas-red-river-war-guide", "Read the Red River War guide"],
   ["Buffalo Soldiers", "Black Regular Army soldiers served at Texas frontier posts after the Civil War while facing discrimination within the nation they served. Their history belongs beside, not outside, the standard frontier story.", "/article/buffalo-soldiers-texas-frontier-guide", "Follow the Buffalo Soldiers guide"],
-  ["Living western culture", "Rodeo arenas, dance halls, honky-tonks, the two-step and the Official State Longhorn Herd carry western identity into the present without pretending modern traditions are unchanged nineteenth-century artifacts.", "/sports-venues/rodeo-western", "Explore rodeo & western venues"],
+  ["Living western culture", "Rodeo arenas, dance halls, honky-tonks, the two-step and the Official State Longhorn Herd carry western identity into the present while reflecting how those traditions have evolved since the nineteenth century.", "/sports-venues/rodeo-western", "Explore rodeo & western venues"],
 ] as const;
 
 const routes = [
