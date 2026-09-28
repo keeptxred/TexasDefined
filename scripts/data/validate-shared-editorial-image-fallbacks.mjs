@@ -10,6 +10,7 @@ const files = new Map([
   ['feature heroes', 'src/components/editorial/FeatureHero.tsx'],
   ['category heroes', 'src/components/editorial/CategoryPage.tsx'],
   ['destination heroes', 'src/routes/destination.$slug.tsx'],
+  ['destination cards', 'src/components/editorial/DestinationCard.tsx'],
   ['event carousel', 'src/components/editorial/TexasEventCarousel.tsx'],
   ['article body images', 'src/components/editorial/ArticleBody.tsx'],
   ['evergreen guide hero', 'src/components/editorial/TexasEvergreenGuide.tsx'],
@@ -67,10 +68,15 @@ for (const marker of [
   'image.closest<HTMLElement>(selector)',
   'container.style.display = "none"',
 ]) requireMarker('image fallback helper', marker);
+for (const marker of ['readerSafeImageAlt', 'GENERIC_IMAGE_FAILURE_ALT_RE']) requireMarker('image fallback helper', marker);
 
 for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination heroes', 'event carousel']) {
   requireMarker(label, 'recoverOrHideImage');
   requireMarker(label, 'onError=');
+}
+
+for (const label of ['article cards', 'feature heroes', 'category heroes', 'destination cards']) {
+  requireMarker(label, 'readerSafeImageAlt');
 }
 
 for (const label of ['article body images', 'evergreen guide hero', 'camping discovery cards', 'county feature image']) {
