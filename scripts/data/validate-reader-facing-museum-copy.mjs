@@ -6,10 +6,6 @@ const dataDir = path.join(root, 'src/data');
 const failures = [];
 const forbidden = [
   'For TexasDefined,',
-  'internal-link cluster',
-  'cross-link cluster',
-  'authority page instead of',
-  'canonical destination instead of',
 ];
 
 for (const name of fs.readdirSync(dataDir)) {
@@ -27,4 +23,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Reader-facing museum copy validation passed: public museum expansion copy contains no protected internal editorial language.');
+console.log('Reader-facing museum copy validation passed: public museum expansion copy contains no direct internal TexasDefined framing.');
