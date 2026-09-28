@@ -36,7 +36,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Childress County Heritage Museum is built around objects with a direct connection to the county, giving visitors a local scale for understanding the southeastern Panhandle. Family collections, photographs and community artifacts document how residents built schools, businesses, ranches and civic institutions in a region shaped by distance and transportation.",
       "That local emphasis makes the museum useful beyond nostalgia. The collections help explain how cattle, agriculture, rail and highway travel influenced Childress and how residents adapted to environmental and economic changes on the Plains.",
-      "For TexasDefined, the museum gives Childress County a dedicated cultural anchor that can connect the county page, Panhandle road trips and small-town history through one canonical destination instead of scattered attraction mentions."
+      "The museum gives Childress County a dedicated cultural stop that connects naturally with Panhandle road trips and the area's small-town history."
     ],
     officialUrl: "https://www.childresscountymusem.com/",
     managingAuthority: "Childress County Heritage Museum",
@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "The Northeast Texas Rural Heritage Museum is the active institution that best carries forward the old 'Camp County Museum' role in the source inventory. Its two-site format places regional history inside both a railroad depot and a farmstead, showing how transportation and rural life shaped one another.",
       "The Depot Museum reaches back to Caddo history and follows Pittsburg through rail, communications and community development. Its best-known object is the full-size replica of the Ezekiel Airship, tied to local claims of powered flight experiments before the Wright brothers. The Farmstead adds a furnished historic home and agricultural equipment from the late nineteenth and early twentieth centuries.",
-      "For TexasDefined, using the institution's current name avoids creating an obsolete Camp County Museum page while still giving the county a strong history anchor. It also creates natural links to Pittsburg, rail history, rural Texas and Northeast Texas road trips."
+      "Using the institution's current name helps visitors find the active museum while connecting Pittsburg, rail history, rural Texas and Northeast Texas road trips."
     ],
     officialUrl: "https://pittsburgtexasmuseum.org/",
     managingAuthority: "Northeast Texas Rural Heritage Museum",
@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Calhoun County Museum has unusual depth because so much Texas coastal history converges around Matagorda Bay. Indigenous history, French exploration, immigration, ports, storms and maritime transportation all appear in collections tied directly to the county.",
       "Its standout objects make those stories tangible. The large Fresnel lens from the Matagorda Island Lighthouse, material connected to La Salle's ship La Belle and the detailed Indianola interpretation explain how navigation, colonization and natural disasters shaped settlement along this stretch of coast.",
-      "For TexasDefined, the museum becomes a cultural hub for Calhoun County that can cross-link Port Lavaca, Indianola, Matagorda Bay, lighthouse history and coastal recreation rather than treating those topics as unrelated pages."
+      "The museum is a useful cultural hub for Calhoun County and pairs naturally with Port Lavaca, Indianola, Matagorda Bay, lighthouse history and coastal recreation."
     ],
     officialUrl: "https://calhouncountymuseum.org/",
     managingAuthority: "Calhoun County Museum / Calhoun County historical partners",
@@ -136,7 +136,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "The Burleson County Historical Museum is a compact county institution whose strength is local specificity. Displays and research material focus on early settlement and everyday life, preserving objects and records that might otherwise disappear into private family collections.",
       "Its courthouse location reinforces the relationship between county government and historical preservation. The museum is operated through the Burleson County Historical Commission, which also supports markers, cemetery records and archival work across the county.",
-      "For TexasDefined, this page gives Caldwell and Burleson County a canonical heritage anchor while clearly communicating the museum's limited public schedule. It can link county history, genealogy and Central Texas small-town travel without overstating the site as an all-day attraction."
+      "This museum gives Caldwell and Burleson County a practical heritage stop for local history, genealogy and Central Texas small-town travel, with a limited public schedule that visitors should confirm before going."
     ],
     officialUrl: "https://www.burlesoncountytx.gov/page/gov.bchc",
     managingAuthority: "Burleson County Historical Commission",
@@ -161,7 +161,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Fort Croghan is the strongest current heritage institution corresponding to older Burnet museum naming in the statewide inventory. The property preserves a frontier-military story where it occurred, with museum collections and historic buildings extending the interpretation into settlement and county life.",
       "Two structures are original to the fort era, while other relocated buildings help visitors understand later ranching, domestic and community history. Exhibits on early settlers, military heritage and the Civilian Conservation Corps widen the site's timeline beyond the brief active life of the Army post.",
-      "For TexasDefined, the destination strengthens Burnet County and Hill Country authority while linking naturally to Burnet, Highland Lakes, frontier forts and scenic-road-trip content. Using the current Fort Croghan identity also avoids creating a redundant or outdated Burnet heritage-museum page."
+      "Fort Croghan fits naturally into a Burnet County or Highland Lakes itinerary, especially for travelers interested in frontier forts, local history and scenic Hill Country drives."
     ],
     officialUrl: "https://www.fortcroghan.com/about",
     managingAuthority: "Burnet County Heritage Society",
@@ -186,7 +186,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Bell County Museum uses the historic Carnegie Library as a gateway to a much longer county timeline. Archaeology and the Gault Site place Central Texas human history thousands of years before modern settlement, while later galleries document the communities that grew around Belton, Temple and nearby military development.",
       "Changing exhibits keep the museum from functioning only as a static local archive. Collections and educational programs connect material culture, archaeology and community history in a scale that is approachable for families and travelers making a shorter downtown stop.",
-      "For TexasDefined, this destination strengthens Bell County alongside the already separate Czech Heritage Museum in Temple. Cross-linking the two creates broader county coverage without collapsing archaeology, general history and Czech-Texan heritage into one catch-all page."
+      "This museum pairs well with the separate Czech Heritage Museum in Temple, giving Bell County visitors distinct stops for archaeology, general history and Czech-Texan heritage."
     ],
     officialUrl: "https://www.bellcountymuseum.org/",
     managingAuthority: "Bell County Museum / Bell County",
