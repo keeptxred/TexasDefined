@@ -35,6 +35,13 @@ function uniqueSources(sources: FishingSource[]) {
   return [...new Map(sources.map((source) => [source.url, source])).values()];
 }
 
+function normalizeSeasons(seasons: Iterable<FishingSeason>) {
+  const unique = [...new Set(seasons)];
+  if (unique.includes("year-round")) return ["year-round"] satisfies FishingSeason[];
+  const order: FishingSeason[] = ["spring", "summer", "fall", "winter"];
+  return order.filter((season) => unique.includes(season));
+}
+
 function newestDate(values: Array<string | undefined>) {
   return values.filter((value): value is string => Boolean(value)).sort().at(-1);
 }
@@ -97,7 +104,7 @@ export function derivePrototypeTechniqueProfiles(
     techniqueLabel: string;
     speciesIds: Set<string>;
     seasons: Set<FishingSeason>;
-    summaries: string[];
+    fishNames: Set<string>;
     verifiedAt: string;
     source: FishingSource;
     lakeName: string;
@@ -117,7 +124,7 @@ export function derivePrototypeTechniqueProfiles(
           techniqueLabel,
           speciesIds: new Set<string>(),
           seasons: new Set<FishingSeason>(),
-          summaries: [],
+          fishNames: new Set<string>(),
           verifiedAt: prototype.verifiedAt,
           source,
           lakeName: prototype.overview.name,
@@ -130,7 +137,7 @@ export function derivePrototypeTechniqueProfiles(
           fish.seasons.map((season) => season.label),
           lakeSpecies,
         )) current.seasons.add(season);
-        current.summaries.push(`${fish.name}: ${fish.summary}`);
+        current.fishNames.add(fish.name);
         current.verifiedAt = newestDate([current.verifiedAt, prototype.verifiedAt]) ?? prototype.verifiedAt;
         grouped.set(key, current);
       }
@@ -142,8 +149,8 @@ export function derivePrototypeTechniqueProfiles(
     lakeId: row.lakeId,
     techniqueId: row.techniqueId,
     speciesIds: [...row.speciesIds],
-    seasons: [...row.seasons],
-    summary: `${row.techniqueLabel} is documented in the verified ${row.lakeName} fishery profile. ${row.summaries.join(" ")}`,
+    seasons: normalizeSeasons(row.seasons),
+    summary: `${row.techniqueLabel} is documented in the verified ${row.lakeName} fishery profile for ${[...row.fishNames].join(", ")}. Open the lake guide for source-backed habitat and seasonal context.`,
     verifiedAt: row.verifiedAt,
     sources: [row.source],
   }));
@@ -175,7 +182,7 @@ export function reconcileLakeTechniqueProfiles(
     reconciled.set(key, {
       ...existing,
       speciesIds: [...new Set([...existing.speciesIds, ...prototypeProfile.speciesIds])],
-      seasons: [...new Set([...existing.seasons, ...prototypeProfile.seasons])],
+      seasons: normalizeSeasons([...existing.seasons, ...prototypeProfile.seasons]),
       verifiedAt: newestDate([existing.verifiedAt, prototypeProfile.verifiedAt]),
       sources: uniqueSources([...existing.sources, ...prototypeProfile.sources]),
     });
