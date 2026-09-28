@@ -23,7 +23,7 @@ const historyLinks: Record<string, ArticleInternalLink[]> = {
   "davy-crockett-texas-alamo-legend": [
     { href: "/article/william-barret-travis-alamo-commander", label: "William Barret Travis at the Alamo", description: "Read the documented story of the Alamo commander and his famous appeal for reinforcements." },
     { href: "/article/james-bowie-texas-alamo-life-legend", label: "James Bowie: life, legend and controversy", description: "Separate the historical Bowie from the frontier mythology that grew around him." },
-    { href: "/destination/the-alamo", label: "Visit the Alamo authority guide", description: "Connect the biography to TexasDefined's canonical guide to the historic site in San Antonio." },
+    { href: "/destination/the-alamo", label: "Visit the Alamo guide", description: "Connect the biography to the historic site in San Antonio and plan a visit." },
     historyHub,
     iconsHub,
   ],
