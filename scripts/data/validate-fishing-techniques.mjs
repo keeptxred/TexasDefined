@@ -108,7 +108,11 @@ for (const token of ['FISHING_STRUCTURE_PATH = "/fishing/structure"','FISHING_VE
 for (const token of ["Quick answer","Turn Lake Features Into Fishing Targets","What to Fish Once You Find It","Related Fishing Guides","Source Trail"]) requireText(files.habitatComponent, token, "fishing habitat UI missing " + token);
 for (const [routeText, routePath] of [[files.structureRoute, "/fishing/structure"], [files.vegetationRoute, "/fishing/vegetation"]]) {
   requireText(routeText, `createFileRoute("${routePath}")`, "fishing habitat route missing " + routePath);
-  requireText(routeText, "buildFishingHabitatHead", "fishing habitat SEO head missing " + routePath);
+  requireText(routeText, "buildMeta", "fishing habitat metadata builder missing " + routePath);
+  requireText(routeText, "canonicalLink", "fishing habitat canonical link missing " + routePath);
+  requireText(routeText, "canonicalPath:", "fishing habitat canonical path missing " + routePath);
+  requireText(routeText, "title:", "fishing habitat search title missing " + routePath);
+  requireText(routeText, "description:", "fishing habitat description missing " + routePath);
   requireText(routeText, "FishingHabitatGuidePage", "fishing habitat component missing " + routePath);
 }
 for (const slug of techniqueSlugs) {
