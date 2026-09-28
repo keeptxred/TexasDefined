@@ -196,7 +196,7 @@ const dubina: PaintedChurchResearchDossier = {
       heading: "Original, hidden and reconstructed layers",
       paragraphs: [
         "Austin PBS reports that no record survives naming the original interior painter. The decorative scheme of vines, oak leaves and angels was later whitewashed in the 1950s, leaving the historic program concealed rather than simply preserved in plain view.",
-        "In the 1980s, local restoration leaders uncovered traces of the earlier decoration and found some original stencils. Where evidence was incomplete, they made interpretive choices. TexasDefined should therefore describe today's interior as a historically grounded restoration, not imply that every visible brushstroke is untouched original work.",
+        "In the 1980s, local restoration leaders uncovered traces of the earlier decoration and found some original stencils. Where evidence was incomplete, they made interpretive choices. Today's interior is therefore best understood as a historically grounded restoration, not as a surface where every visible brushstroke is untouched original work.",
       ],
     },
     {
