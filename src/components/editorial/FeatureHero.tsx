@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useBrand } from "@/brand/context";
 import type { Article, ImageRef } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
-import { recoverOrHideImage } from "@/lib/image-fallback";
+import { readerSafeImageAlt, recoverOrHideImage } from "@/lib/image-fallback";
 
 interface FeatureHeroProps {
   eyebrow: string;
@@ -60,7 +60,7 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
             <div aria-hidden className="absolute inset-0">
               
             </div>
-            <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+            <img src={image.src} alt={readerSafeImageAlt(image.alt)} width={image.width} height={image.height} sizes="(min-width: 1024px) 58vw, 100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 hidden w-24 bg-gradient-to-r from-background/65 to-transparent lg:block" />
           </div>
         </div>
@@ -73,7 +73,7 @@ export function FeatureHero({ eyebrow, title, dek, image, to, params, meta, vari
       <div aria-hidden className="absolute inset-0 bg-ink">
         
       </div>
-      <img src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover opacity-70" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+      <img src={image.src} alt={readerSafeImageAlt(image.alt)} width={image.width} height={image.height} sizes="100vw" loading="eager" fetchPriority="high" decoding="async" className="animate-slow-zoom absolute inset-0 size-full object-cover opacity-70" onError={(event) => recoverOrHideImage(event.currentTarget)} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/20" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col justify-end px-5 pb-14 pt-24 sm:px-8 sm:pb-16" style={{ minHeight: "clamp(28rem, 58vw, 36rem)" }}>
         <p className="eyebrow animate-rise text-ink-foreground/80">{editorialLabel(eyebrow)}</p>

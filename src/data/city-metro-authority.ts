@@ -64,7 +64,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'https://www.elpasotexas.gov/', 'west-texas', 'metro-area:el-paso-metro', ['major-city', 'border', 'international-trade', 'airport', 'military', 'desert'],
   ),
   arlington: city(
-    'Arlington is TexasDefined’s Tarrant County city authority node between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The page gives Arlington its own local-reference identity while connecting readers to Tarrant County and broader North Texas resources instead of treating the Metroplex as one jurisdiction.',
+    'Arlington sits between Dallas and Fort Worth in Tarrant County, with its own city services, relocation resources, transportation network, schools, health systems, neighborhoods, parks, sports and entertainment destinations. Use the city guide alongside Tarrant County and broader North Texas resources rather than treating the Metroplex as one jurisdiction.',
     'https://www.arlingtontx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'sports', 'entertainment', 'metroplex', 'tourism'],
   ),
   hurst: {
@@ -79,7 +79,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'https://www.corpuschristitx.gov/', 'gulf-coast', 'metro-area:corpus-christi-metro', ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
   ),
   plano: city(
-    'Plano is TexasDefined’s Collin County city authority node for one of North Texas’s largest suburban employment and residential centers, connecting relocation, property and tax resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food, events and nearby DFW communities. The guide distinguishes Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
+    'Plano is one of North Texas’s largest suburban employment and residential centers, with distinct city services, relocation resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food and events. The guide separates Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
     'https://www.plano.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metroplex', 'corporate-employment', 'technology', 'suburban'],
   ),
   lubbock: city(

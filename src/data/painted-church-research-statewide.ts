@@ -63,7 +63,7 @@ const wesley: PaintedChurchResearchDossier = {
     {
       heading: "Why the building date needs careful handling",
       paragraphs: [
-        "The THC marker states that the first church was built in 1866, while the National Register record spans both 1850-1874 and 1875-1899 periods. Because published accounts differ on how later work is characterized, TexasDefined should distinguish the original congregation/building chronology from the later decorative campaign rather than collapse them into one date.",
+        "The THC marker states that the first church was built in 1866, while the National Register record spans both 1850-1874 and 1875-1899 periods. Because published accounts differ on how later work is characterized, the original congregation and building chronology should be distinguished from the later decorative campaign rather than collapsed into one date.",
       ],
     },
   ],

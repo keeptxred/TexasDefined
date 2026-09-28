@@ -195,7 +195,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (governmentKinds.has(entity.kind)) {
     return [
-      `${entity.name} is included in TexasDefined as a practical public-service reference. The goal is to help readers understand what the office or agency handles, identify the official source, and move to the correct government website when they need to complete a transaction or verify a rule.`,
+      `Use this ${entity.name} reference to understand what the office or agency handles, identify the official source, and move to the correct government website when you need to complete a transaction or verify a rule.`,
       entity.kind === 'appraisal-district'
         ? `Appraisal districts determine property values, maintain appraisal records, administer exemptions and operate the appraisal-review process. They do not generally serve the same role as the office that sends or collects a property-tax bill.`
         : entity.kind === 'tax-office'
@@ -209,7 +209,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (sportsKinds.has(entity.kind) || entity.kind === 'sports-venue') {
     return [
-      `${entity.name} is part of TexasDefined's sports-travel reference collection. The page is meant to help readers place the venue geographically, understand the kind of trip it supports, and find the official source before buying tickets or traveling.`,
+      `${entity.name} is a sports-travel reference for placing the venue geographically, understanding the kind of trip it supports, and finding the official source before buying tickets or traveling.`,
       placeContext ? `The venue is associated with ${placeContext}. For game-day planning, the surrounding city and county can matter as much as the building itself because parking, transit, lodging and event traffic extend beyond the venue footprint.` : `For game-day planning, check the surrounding area as well as the venue itself because parking, lodging and event traffic can extend beyond the property.`,
       `Schedules, ticket rules, parking procedures, bag policies and gate times can change by event. Treat those as live operational details and confirm them with the venue, team, school or event organizer before departure.`,
     ];

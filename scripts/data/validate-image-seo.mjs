@@ -42,7 +42,7 @@ for (const [name, source] of [['ArticleCard', articleCard], ['DestinationCard', 
   }
 }
 
-for (const feature of ['loading="eager"', 'fetchPriority="high"', 'sizes="100vw"', 'sizes="(min-width: 1024px) 58vw, 100vw"', 'width={image.width}', 'height={image.height}', 'alt={image.alt}']) {
+for (const feature of ['loading="eager"', 'fetchPriority="high"', 'sizes="100vw"', 'sizes="(min-width: 1024px) 58vw, 100vw"', 'width={image.width}', 'height={image.height}', 'alt={readerSafeImageAlt(image.alt)}']) {
   if (!featureHero.includes(feature)) errors.push(`FeatureHero image contract missing: ${feature}`);
 }
 

@@ -79,6 +79,9 @@ const fullPageLazyRoutes = [
   'src/routes/replace-texas-registration-receipt.tsx',
   'src/routes/explore.top-attractions.methodology.tsx',
   'src/routes/explore.top-attractions.road-trips.tsx',
+  'src/routes/texas-data.county-growth.tsx',
+  'src/routes/sports-venues.tsx',
+  'src/routes/__root.tsx',
 ];
 
 for (const file of fullPageLazyRoutes) {

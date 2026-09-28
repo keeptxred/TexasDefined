@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { useBrand } from "@/brand/context";
 import type { Article } from "@/data/types";
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
-import { recoverOrHideImage } from "@/lib/image-fallback";
+import { readerSafeImageAlt, recoverOrHideImage } from "@/lib/image-fallback";
 import { cn } from "@/lib/utils";
 
 const SECTION_LABELS: Record<string, string> = {
@@ -45,7 +45,7 @@ export function ArticleCard({ article, size = "default", eager = false, classNam
           <div aria-hidden className="absolute inset-0">
             
           </div>
-          <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} sizes={cardSizes(size)} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+          <img src={article.hero.src} alt={readerSafeImageAlt(article.hero.alt)} width={article.hero.width} height={article.hero.height} sizes={cardSizes(size)} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" onError={(event) => recoverOrHideImage(event.currentTarget)} />
         </div>
       </Link>
       <div className={cn("flex flex-1 flex-col", size === "compact" ? "pt-4" : "pt-5")}>
