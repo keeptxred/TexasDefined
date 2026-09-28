@@ -27,7 +27,7 @@ export const TEXAS_EVERGREEN_GUIDES: Record<string, TexasEvergreenGuide> = {
         heading: "1. Lockhart and the Central Texas barbecue corridor",
         body: [
           "Central Texas barbecue is best understood as a network of meat-market traditions rather than a single restaurant ranking. Lockhart alone preserves several branches of the same long history: Kreuz Market, The Original Black's Barbecue and Smitty's Market each connect smoke, sausage and beef to the town's butcher-shop past.",
-          "Build the route outward instead of crisscrossing the state. Taylor adds Louie Mueller Barbecue, Lexington adds Snow's BBQ and Elgin adds Southside Market & Barbeque. Together they make a practical corridor for comparing smokehouses, sausage traditions and town identities without pretending one tray represents every Texas barbecue style."
+          "Build the route outward instead of crisscrossing the state. Taylor adds Louie Mueller Barbecue, Lexington adds Snow's BBQ and Elgin adds Southside Market & Barbeque. Together they make a practical corridor for comparing smokehouses, sausage traditions and town identities while recognizing that no single tray represents every Texas barbecue style."
         ],
         links: [
           { href: "/food/kreuz-market-lockhart", label: "Kreuz Market" },
