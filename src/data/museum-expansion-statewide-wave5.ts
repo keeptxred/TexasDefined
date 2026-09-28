@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "Few Texas counties can connect local history to the state's beginnings as directly as Brazoria County. The museum uses artifacts, research files and exhibitions to explain settlement under Stephen F. Austin, later agricultural and industrial development, and the communities that grew along rivers, railroads and the Gulf Coast.",
       "The building adds another layer. The 1897 courthouse served the county during an important period of growth and now functions as a preserved setting for stories ranging from ranching and convict leasing to courthouse history, Juneteenth and demographic change.",
-      "TexasDefined can use this destination as a county-history hub linking Angleton with West Columbia, the Austin Colony story, coastal industry and nearby cultural sites. It gives the Brazoria County page a canonical institution whose mission is specifically to preserve and explain the county itself."
+      "The museum is a natural county-history hub linking Angleton with West Columbia, the Austin Colony story, coastal industry and nearby cultural sites."
     ],
     officialUrl: "https://www.brazoriacountytx.gov/departments/museum",
     managingAuthority: "Brazoria County",
@@ -187,7 +187,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "Freestone County Historical Museum functions more like a small historic village than a single gallery. Preserved and relocated buildings allow visitors to encounter domestic, commercial and community spaces at full scale while artifacts explain the people who used them.",
       "The genealogical research library adds practical depth for families tracing roots in the county. That combination of buildings, collections and research makes the institution a stronger county authority destination than a generic historical marker or short local-history stop.",
-      "Fairfield's position along I-45 makes the museum useful for travelers moving between Dallas and Houston as well as dedicated heritage visitors. TexasDefined can connect it to Freestone County, nearby state historic sites and east-central Texas road trips without creating a separate itinerary silo."
+      "Fairfield's position along I-45 makes the museum useful for travelers moving between Dallas and Houston as well as dedicated heritage visitors, and it pairs naturally with Freestone County sites and east-central Texas road trips."
     ],
     officialUrl: "https://freestonecomuseum.com/",
     managingAuthority: "Freestone County Historical Museum",
@@ -236,7 +236,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     highlights: ["Polk County local history", "East Texas timber industry", "Railroad and Trinity River history", "Native American and pioneer exhibits"],
     body: [
       "Polk County Memorial Museum covers the forces that shaped Livingston and the surrounding Piney Woods, from Indigenous history and pioneer settlement to timber, transportation and twentieth-century community life. Its collections help explain why the county developed around forests, rivers and transportation corridors.",
-      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so TexasDefined preserves the canonical destination while placing the closure ahead of trip-planning details rather than presenting historical operating hours as current access.",
+      "The institution is currently in a transition period. A renovation project has temporarily closed the museum to visitors, so the closure takes priority over historical operating hours until current access is restored.",
       "Once reopened, the museum will be a natural county-level anchor linking Livingston, timber history, the Trinity River and nearby outdoor destinations. Maintaining the page during the closure also gives TexasDefined one stable URL to update when the museum announces its return."
     ],
     officialUrl: "https://www.polkcountymemorialmuseum.com/",
@@ -262,7 +262,7 @@ export const statewideMuseumExpansionWave5Destinations: Destination[] = [
     body: [
       "The Nacogdoches Railroad Depot explains how rail transportation changed a city whose history began long before the railroad era. The present brick depot dates to 1911, replacing an earlier wooden building, and passenger service continued until the mid-twentieth century.",
       "Inside, the city's Historic Sites Department interprets the people who traveled and worked through the depot as well as the larger economic effect of rail connections on agriculture, business and urban growth. The preserved station keeps those stories tied to the place where they unfolded.",
-      "TexasDefined can cross-link the depot with Nacogdoches' other historic properties, downtown authority content and East Texas railroad destinations. That gives visitors a coherent historic-sites network rather than a stand-alone railroad page."
+      "The depot pairs naturally with Nacogdoches' other historic properties, downtown attractions and East Texas railroad destinations, giving visitors a coherent historic-sites itinerary rather than a stand-alone stop."
     ],
     officialUrl: "https://www.nactx.us/695/Nacogdoches-Railroad-Depot",
     managingAuthority: "City of Nacogdoches Historic Sites Department",

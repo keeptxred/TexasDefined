@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "The Heritage Center of Cherokee County is the current institution behind the older Cherokee County museum naming found in statewide lists. Its exhibits move from pre-statehood Caddo material into settlement, timber, transportation, education and twentieth-century community life.",
       "Several subjects are uniquely tied to Rusk. The Texas State Railroad, the nineteenth-century penitentiary and the later state-hospital story give the museum a local historical identity that would be lost in a generic county overview. Nearby historic structures add further context to the downtown setting.",
-      "TexasDefined can use this destination as the county-history bridge between Rusk, Jacksonville, the Texas State Railroad and Piney Woods heritage coverage. The canonical page also keeps current institutional naming aligned with what visitors encounter today."
+      "The museum helps connect Rusk, Jacksonville, the Texas State Railroad and Piney Woods heritage into one county-history itinerary while using the institution's current public name."
     ],
     officialUrl: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
     managingAuthority: "Heritage Center of Cherokee County",
@@ -211,7 +211,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Brown County Museum of History presents the county as a meeting place of Indigenous history, frontier settlement, ranching, military mobilization and modern community life. That broad timeline is especially valuable in Brownwood, where World War II Camp Bowie transformed the city but did not begin its story.",
       "The Old Jail gives the museum an architectural landmark as well as gallery space. Visitors can pair objects and interpretive displays with a preserved civic building whose fortress-like appearance makes local government and justice history tangible.",
-      "TexasDefined can use the museum as Brown County's cultural anchor, connecting Brownwood, Camp Bowie history, regional ranching and West-Central Texas road trips through one visitor-focused authority page."
+      "The museum is a useful Brown County cultural stop that connects Brownwood, Camp Bowie history, regional ranching and West-Central Texas road trips."
     ],
     officialUrl: "https://www.browncountymuseum.org/",
     managingAuthority: "Brown County Museum of History, Inc.",
