@@ -137,7 +137,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Red River Valley Museum is unusually broad for a regional institution. Its galleries move from prehistoric and natural-science material into Wilbarger County history, ranching, wildlife and art, giving visitors multiple ways to understand the North Texas landscape and the people who used it.",
       "The Waggoner Gallery is especially important to regional authority because it interprets one of Texas's best-known ranching operations close to the territory where that history unfolded. Other collections extend the museum beyond ranching into community and scientific subjects.",
-      "A canonical TexasDefined page gives Vernon and Wilbarger County a substantial destination anchor on the US 287 corridor. It can connect ranching, cattle-trail, Panhandle-to-North-Texas road trips and county history through one verified institution."
+      "The museum gives Vernon and Wilbarger County a substantial history stop on the US 287 corridor, connecting ranching, cattle-trail, Panhandle-to-North-Texas road trips and county history through one verified institution."
     ],
     officialUrl: "https://www.rrvmuseum.org/visitor-information",
     managingAuthority: "Red River Valley Museum",
