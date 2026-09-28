@@ -36,8 +36,11 @@ const forbidden = [
 
 for (const file of files) {
   const source = fs.readFileSync(path.join(root, file), 'utf8');
+  const publicSource = source
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/^\s*\/\/.*$/gm, '');
   for (const pattern of forbidden) {
-    const match = source.match(pattern);
+    const match = publicSource.match(pattern);
     if (match) failures.push(`${file}: reader-facing copy still exposes internal/process wording: "${match[0]}"`);
   }
 }
