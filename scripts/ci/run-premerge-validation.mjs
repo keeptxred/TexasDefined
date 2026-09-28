@@ -66,6 +66,7 @@ const prebuildChecks = [
   ['EVENT/SCHEMA', 'Syntax-check production Event structured-data verifier', 'node', ['--check', 'scripts/ci/verify-event-structured-data-production.mjs']],
   ['IMAGE/PROVENANCE', 'Validate RV image provenance', 'node', ['scripts/data/validate-rv-image-provenance.mjs']],
   ['IMAGE/READINESS', 'Validate destination final image readiness', 'node', ['scripts/data/validate-destination-image-final-readiness.mjs']],
+  ['MONETIZATION/CONVERSION', 'Validate high-intent booking surfaces', 'node', ['scripts/data/validate-monetization-conversion-sprint.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate shared React affiliate click telemetry', 'node', ['scripts/data/validate-shared-affiliate-tracker.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate private partner referral reporting', 'node', ['scripts/data/validate-partner-referral-reporting.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate unusual business experiment attribution', 'node', ['scripts/data/validate-unusual-business-analytics.mjs']],
