@@ -8,6 +8,7 @@ export type FishingTechniqueAuthorityContent = {
   speciesIntro?: string;
   speciesGuide: Array<{ label: string; guidance: string }>;
   diagram?: {
+    eyebrow?: string;
     title: string;
     intro: string;
     rigs: Array<{ name: string; pieces: string[]; note: string }>;
@@ -84,6 +85,7 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Guadalupe bass", guidance: "Compact spinnerbaits can be easier to control in current and around river cover where larger profiles become cumbersome." },
     ],
     diagram: {
+      eyebrow: "Retrieve at a glance",
       title: "Spinnerbait Control at a Glance",
       intro: "The same lure can occupy different parts of the water column by changing weight, blade lift and retrieve speed.",
       rigs: [
@@ -112,6 +114,17 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "White, striped and hybrid bass", guidance: "Surface-feeding schools can make topwater effective in open water, but move deeper when the fish stop feeding upward." },
       { label: "Smallmouth bass", guidance: "Rocky points and clear-water structure can produce surface opportunities when fish are active and willing to rise." },
     ],
+    diagram: {
+      eyebrow: "Cadence at a glance",
+      title: "Topwater Cadence at a Glance",
+      intro: "Topwater is not one retrieve. Use the lure style to decide whether the bait should travel continuously or spend more time beside one target.",
+      rigs: [
+        { name: "Walking bait", pieces: ["cast beyond target", "slack-line taps", "side-to-side walk", "brief pause"], note: "Use a repeatable rhythm, then change speed or pause length before changing lures." },
+        { name: "Popper", pieces: ["cast to target", "pop", "pause", "repeat"], note: "Longer pauses keep the lure beside isolated cover instead of racing it away." },
+        { name: "Buzzbait / plopper", pieces: ["cast", "start retrieve", "keep on surface", "deflect past cover"], note: "A steadier retrieve is useful for covering water and finding active fish." },
+        { name: "Frog", pieces: ["land on / beside cover", "walk or pull", "pause in openings", "feel weight before hookset"], note: "Pause in high-value openings and avoid reacting only to the splash." },
+      ],
+    },
     faq: [
       { question: "Why do I miss topwater strikes?", answer: "Setting the hook at the splash is a common cause. Wait until you feel the fish's weight before making a controlled hookset." },
       { question: "Is topwater only for early morning?", answer: "No. Low light is a common window, but cloud cover, wind, schooling activity and warm-water feeding can extend surface opportunities beyond dawn." },
@@ -134,6 +147,7 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Black bass", guidance: "Where source-backed for a lake, contour trolling can cover points, creek channels and offshore structure efficiently." },
     ],
     diagram: {
+      eyebrow: "Trolling at a glance",
       title: "Build a Repeatable Trolling Pass",
       intro: "A productive pass is a measured combination of boat path, speed and lure depth—not simply driving while a lure trails behind.",
       rigs: [
@@ -174,6 +188,7 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Black bass", guidance: "Vertical presentations can work on deep structure or suspended fish when casting would spend too much time outside the target zone." },
     ],
     diagram: {
+      eyebrow: "Depth control at a glance",
       title: "Vertical Jigging Positioning",
       intro: "The lure should stay close to the fish's actual depth while remaining nearly under the boat.",
       rigs: [
@@ -203,6 +218,7 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Other panfish", guidance: "Small jigs or minnows can catch other species, but TexasDefined only lists a lake application when the source-backed relationship is present in the fishing dataset." },
     ],
     diagram: {
+      eyebrow: "Crappie depth at a glance",
       title: "Keep the Bait Above the Fish",
       intro: "Crappie commonly feed upward. Exact depth control is often more important than aggressive lure movement.",
       rigs: [
@@ -245,6 +261,7 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Blue and channel catfish", guidance: "Live bait can work, but cut or other natural baits may be more practical depending on species, forage and the source-backed lake pattern." },
     ],
     diagram: {
+      eyebrow: "Rigging at a glance",
       title: "Live-Bait Rigging at a Glance",
       intro: "The rig should control depth while allowing the bait to move naturally and remain healthy.",
       rigs: [
@@ -287,6 +304,7 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       { label: "Flathead catfish", guidance: "Flatheads are commonly associated with live-bait presentations and structure. Cut bait can catch them, but do not treat the blue-catfish playbook as interchangeable with flathead fishing." },
     ],
     diagram: {
+      eyebrow: "Rigging at a glance",
       title: "Three Useful Cut-Bait Rig Layouts",
       intro: "These simplified layouts show component order, not exact leader lengths or sinker sizes. Adjust weight and tackle to depth, current, cover and target fish.",
       rigs: [
