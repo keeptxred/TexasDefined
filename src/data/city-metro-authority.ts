@@ -69,7 +69,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
   ),
   hurst: {
     ...city(
-      'Hurst is a practical Mid-Cities reference in Tarrant County, connecting municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide keeps Hurst's local information distinct from Fort Worth and Arlington while linking readers to Tarrant County, the broader DFW Metroplex and nearby destinations such as WhirlyBall Hurst.',
+      'Hurst is a practical Mid-Cities reference in Tarrant County, connecting municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide keeps Hurst’s local information distinct from Fort Worth and Arlington while linking readers to Tarrant County, the broader DFW Metroplex and nearby destinations such as WhirlyBall Hurst.',
       'https://www.hursttx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['mid-cities', 'metroplex', 'family-recreation', 'regional-rail', 'suburban'],
     ),
     sourceCheckedAt: wave3CheckedAt,
