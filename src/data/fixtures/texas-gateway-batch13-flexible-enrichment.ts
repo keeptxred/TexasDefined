@@ -47,7 +47,7 @@ const noReservations: ArticleBlock[] = [
   { type: "paragraph", text: "Conversely, a free public event can become the anchor of a spontaneous weekend when lodging and access are still reasonable. The point is to know what is happening rather than discovering it from a road closure after arrival." },
   { type: "heading", text: "Weather should control the outdoor portion" },
   { type: "paragraph", text: "A reservation-light plan is useful because weather can force quick changes. Keep one indoor anchor for rain or dangerous heat and one outdoor option for good conditions. Do not substitute flooded low-water roads, exposed trails or unsafe beach conditions simply because the original attraction is unavailable. Check current alerts and road conditions before taking a scenic detour." },
-  { type: "paragraph", text: "A flexible weekend succeeds when the traveler can lose one component without losing the trip. Choose a base with enough food, history, scenery and indoor alternatives that the itinerary remains complete after a cancellation. That is a better standard than pretending every worthwhile Texas destination can be visited without advance planning." },
+  { type: "paragraph", text: "A flexible weekend succeeds when the traveler can lose one component without losing the trip. Choose a base with enough food, history, scenery and indoor alternatives that the itinerary remains complete after a cancellation. That is a better standard than assuming every worthwhile Texas destination can be visited without advance planning." },
 ];
 
 const resetWeekend: ArticleBlock[] = [

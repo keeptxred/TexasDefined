@@ -37,7 +37,7 @@ export const texasNativePlantsYardArticle: Article = {
   relatedDestinations: [],
   body: [
     p("A lot of Texas landscaping begins with the wrong question: What can survive here? A better question is: What already belongs here?"),
-    p("Native plants evolved with Texas soils, rainfall patterns, heat, wind and wildlife. That does not mean every native plant can thrive in every Texas yard—the state stretches across deserts, pine forests, prairies, coastal marshes and limestone hills—but it does mean homeowners have a deep bench of plants that can look good without pretending August is April in another state."),
+    p("Native plants evolved with Texas soils, rainfall patterns, heat, wind and wildlife. That does not mean every native plant can thrive in every Texas yard—the state stretches across deserts, pine forests, prairies, coastal marshes and limestone hills—but it does mean homeowners have a deep bench of plants that can look good through a Texas summer without requiring spring-like conditions."),
     p("The Native Plant Society of Texas recommends choosing plants native to your local ecoregion rather than treating Texas as one giant planting zone. That distinction matters. A plant that is perfectly at home in the Hill Country may hate the heavy clay of North Texas or the humidity of the Gulf Coast. Start local, then build from there."),
 
     h("Why native plants make sense in a Texas yard"),

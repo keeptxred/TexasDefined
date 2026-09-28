@@ -11,7 +11,7 @@ type TexasIconContentEnrichment = {
 export const TEXAS_ICON_CONTENT_ENRICHMENT: Readonly<Record<string, TexasIconContentEnrichment>> = {
   "chace-crawford": {
     legacyAppend: [
-      "Crawford's Texas connection is more than a birthplace footnote: his Lubbock birth and North Texas upbringing place the beginning of his story in the state even though his best-known screen work was made elsewhere. That distinction helps explain why he belongs in a Texas media roster without pretending his career was primarily Texas-based.",
+      "Crawford's Texas connection is more than a birthplace footnote: his Lubbock birth and North Texas upbringing place the beginning of his story in the state even though his best-known screen work was made elsewhere. That distinction helps explain why he belongs in a Texas media roster while recognizing that his career was not primarily Texas-based.",
     ],
   },
   "bob-lilly": {

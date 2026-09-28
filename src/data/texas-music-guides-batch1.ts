@@ -42,7 +42,7 @@ export const TEXAS_MUSIC_GUIDES_BATCH1: Record<string, TexasEvergreenGuide> = {
         heading: "From Freddie King and Albert Collins to Stevie Ray Vaughan",
         body: [
           "Later Texas guitarists carried blues into louder clubs and increasingly rock-oriented audiences. Freddie King, who became closely associated with Dallas, developed an aggressive lead-guitar vocabulary that influenced blues and rock players. Houston-born Albert Collins built a sharp, percussive electric sound of his own. Their careers show why 'Texas guitar' became an idea larger than any one technique.",
-          "Stevie Ray Vaughan then brought blues-centered guitar back into the mainstream rock conversation in the 1980s. Austin was central to his rise, but his sound also reflected a much longer Texas lineage. Listening backward from Vaughan to Collins, King, Hopkins, Walker and Jefferson makes the continuity easier to hear without pretending those musicians were stylistically identical."
+          "Stevie Ray Vaughan then brought blues-centered guitar back into the mainstream rock conversation in the 1980s. Austin was central to his rise, but his sound also reflected a much longer Texas lineage. Listening backward from Vaughan to Collins, King, Hopkins, Walker and Jefferson makes the continuity easier to hear while recognizing how stylistically distinct those musicians were."
         ]
       },
       {

@@ -58,7 +58,7 @@ export const TEXAS_BRAND_ORIGINS_GUIDE: TexasEvergreenGuide = {
       heading: "What actually makes a brand 'Texas'?",
       body: [
         "TexasDefined separates three ideas that often get blurred together: a company founded in Texas, a company currently headquartered or produced in Texas, and a product that Texans have culturally adopted. Those are not interchangeable claims.",
-        "That distinction matters because brand identity changes through acquisitions, relocations, national expansion and ownership changes. A useful cultural guide should preserve the verified origin story without pretending that a company's present structure is frozen in the year it started."
+        "That distinction matters because brand identity changes through acquisitions, relocations, national expansion and ownership changes. A useful cultural guide should preserve the verified origin story while accounting for how a company's structure can change after its founding."
       ],
       links: [{ href: "/things-unique-to-texas/methodology", label: "Things That Define Texas methodology" }]
     }

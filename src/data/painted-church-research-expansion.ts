@@ -56,7 +56,7 @@ const dossiers: PaintedChurchResearchDossier[] = [
       { label: "Historic altars and glass", detail: "The parish documents original carved altars and European-made stained-glass windows, helping distinguish painted decoration from the church's other historic interior arts." },
     ],
     interpretation: [
-      { heading: "Why Anderson now clears the inclusion threshold", paragraphs: ["Earlier research treated Anderson as a candidate because the surviving decorative layers had not been classified precisely enough. The parish's own historical account resolves that problem by naming both the restored original ceiling painting and the later altar mural, allowing Texas Defined to classify the church without pretending all visible decoration belongs to one date."] },
+      { heading: "Why Anderson now clears the inclusion threshold", paragraphs: ["Earlier research treated Anderson as a candidate because the surviving decorative layers had not been classified precisely enough. The parish's own historical account resolves that problem by naming both the restored original ceiling painting and the later altar mural, allowing Texas Defined to classify the church while distinguishing decoration from different periods."] },
       { heading: "Historic and modern layers can coexist", paragraphs: ["Anderson is useful precisely because it is not a frozen one-period interior. Its documentary record shows original painted fabric, later renovation, restoration of historic features and a twenty-first-century mural. The page therefore separates preservation from new devotional art instead of flattening them together."] },
     ],
     communityContext: [

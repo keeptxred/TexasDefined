@@ -69,7 +69,7 @@ const winter: ArticleBlock[] = [
   { type: "paragraph", text: "Keep the geography controlled. Houston in particular punishes itineraries that bounce across the metro for individual restaurant names. Choose a museum district, neighborhood or event anchor and cluster meals nearby. Winter may reduce heat, but it does not reduce distance." },
   { type: "heading", text: "Palo Duro and El Paso require a forecast-first approach" },
   { type: "paragraph", text: "The Panhandle and far West Texas can deliver beautiful clear winter days, but cold, wind, ice or snow are possible. Check road and park conditions close to departure. Do not assume a scenic drive or trail is open because the metro forecast looks mild. If conditions are favorable, cooler temperatures can make canyon and mountain exploration excellent. If not, the safer choice may be a museum, historic site or a delayed outdoor block." },
-  { type: "paragraph", text: "The best winter Texas weekend is flexible by design. Choose destinations with at least one strong indoor option, respect shorter daylight and use the season to enjoy places that are difficult in peak heat. Winter is not a lesser Texas travel season; it simply rewards travelers who plan for variability instead of pretending the forecast is guaranteed." },
+  { type: "paragraph", text: "The best winter Texas weekend is flexible by design. Choose destinations with at least one strong indoor option, respect shorter daylight and use the season to enjoy places that are difficult in peak heat. Winter is not a lesser Texas travel season; it simply rewards travelers who plan for variability rather than assuming the forecast is guaranteed." },
 ];
 
 const kids: ArticleBlock[] = [
