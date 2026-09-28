@@ -263,7 +263,7 @@ const technique = (id: string, name: string, summary: string, category: FishingT
 });
 
 export const fishingTechniques: FishingTechnique[] = [
-  technique("soft-plastics", "Soft plastics", "Worms, creature baits and other soft plastics worked through cover, docks, vegetation, points and deeper structure.", "casting"),
+  technique("soft-plastics", "Soft Plastics", "Worms, creature baits and other soft plastics worked through cover, docks, vegetation, points and deeper structure.", "casting"),
   technique("crankbaits", "Crankbaits", "Moving hard baits used to cover water around shoreline cover, points, vegetation edges and deeper structure.", "casting"),
   technique("spinnerbaits", "Spinnerbaits", "Reaction baits used around shallow cover, vegetation, timber and stained water.", "casting"),
   technique("topwater", "Topwater", "Surface presentations most often used in low light, schooling activity or seasonally shallow fish.", "casting"),

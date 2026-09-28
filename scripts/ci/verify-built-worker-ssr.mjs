@@ -34,7 +34,7 @@ const smokeTargets = [
     requiredText: 'More filters',
     label: 'fishing finder verified filters',
   },
-  { path: '/fishing/techniques/soft-plastics', requiredText: 'How to Fish Soft plastics in Texas', label: 'soft-plastics technique detail route' },
+  { path: '/fishing/techniques/soft-plastics', requiredText: 'How to Fish Soft Plastics in Texas', label: 'soft-plastics technique detail route' },
   { path: '/fishing/techniques/crankbaits', requiredText: 'How to Fish Crankbaits in Texas', label: 'crankbaits technique detail route' },
   { path: '/fishing/techniques/spinnerbaits', requiredText: 'How to Fish Spinnerbaits in Texas', label: 'spinnerbaits technique detail route' },
   { path: '/fishing/techniques/topwater', requiredText: 'How to Fish Topwater in Texas', label: 'topwater technique detail route' },

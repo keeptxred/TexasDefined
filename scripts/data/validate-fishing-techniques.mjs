@@ -60,15 +60,16 @@ for (const token of ["Texas Fishing Techniques","How We Verify Technique Guides"
 for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@type": "ItemList"','"@type": "BreadcrumbList"',"citation:"]) requireText(files.server, token, `profile server-side head contract missing ${token}`);
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
-for (const token of ["How to Fish","When to Use","Crankbait Types by Depth and Cover","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","does not claim","fishingTechniqueImages","images?.hero","images?.depthGuide",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
+for (const token of ["How to Fish","When to Use","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","does not claim","fishingTechniqueImages","images?.hero","images?.depthGuide",'technique.slug === "crankbaits"','technique.slug === "soft-plastics"',"Rigging at a glance","Recognize the Basic Layout Before You Tie It",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
 for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
-for (const token of ["Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
+for (const token of ["Crankbait Types by Depth and Cover","Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
+for (const token of ["Texas rig","Weightless stick bait","Carolina rig","Drop shot","Shaky head","Ned rig","Choose the Soft-Plastic Rig for the Job"]) requireText(files.guideContent, token, "soft-plastics authority content missing " + token);
 for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
 for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt: images.hero.alt","imageType: images.hero.imageType"]) requireText(files.server, token, "crankbait social image metadata missing " + token);
 const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
 for (const token of ["/fishing/techniques/crankbaits","How to Fish Crankbaits in Texas","/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif"]) requireText(files.productionSmoke, token, "crankbait live production verification missing " + token);
 const techniqueRouteSmokeExpectations = [
-  ["/fishing/techniques/soft-plastics", "How to Fish Soft plastics in Texas"],
+  ["/fishing/techniques/soft-plastics", "How to Fish Soft Plastics in Texas"],
   ["/fishing/techniques/crankbaits", "How to Fish Crankbaits in Texas"],
   ["/fishing/techniques/spinnerbaits", "How to Fish Spinnerbaits in Texas"],
   ["/fishing/techniques/topwater", "How to Fish Topwater in Texas"],
