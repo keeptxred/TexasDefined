@@ -166,12 +166,50 @@ export const fishingTechniqueGuideContent: Record<string, FishingTechniqueGuideC
     commonMistakes:["Using weak or stressed bait.","Ignoring legal bait restrictions.","Fishing at the wrong depth.","Using hooks or weights that overpower the bait."]
   },
   "cut-bait": {
-    plainEnglish: "Cut bait uses pieces of fresh fish to release scent and oils, making it a common catfish presentation in reservoirs, rivers, channels and flats.",
-    whenToUse:["For blue and channel catfish where fresh natural forage is part of the food base.","When scent dispersion can help fish locate the bait.","When fishing channel edges, flats or current seams.","When targeting fish that are roaming rather than locked to one piece of cover."],
-    whereToFish:["River and creek channels.","Channel bends and drop-offs.","Wind-blown flats and points.","Current seams, tributary mouths and other travel routes."],
-    howToFish:["Use fresh bait when possible and cut pieces to match target size.","Place baits where scent can move through fish travel lanes.","Reposition when a spot produces no activity instead of soaking one location indefinitely.","Keep the hook point exposed and free of scales."],
-    setup:["Use tackle heavy enough for the fish and cover present.","Match sinker style and weight to current and depth.","Use circle hooks correctly when required or preferred, avoiding aggressive hooksets.","Carry a landing plan for large catfish before the bite occurs."],
-    seasonalGuide:[{season:"Spring",guidance:"Tributary influence, warming flats and moving water can become important."},{season:"Summer",guidance:"Night fishing and deeper channel structure can be productive."},{season:"Fall",guidance:"Cooling water and bait movement can concentrate feeding fish."},{season:"Winter",guidance:"Deep channels and large blue catfish become important on many Texas reservoirs."}],
-    commonMistakes:["Using old or washed-out bait.","Burying the hook point in scales or tough skin.","Fishing one dead area too long.","Using insufficient tackle around heavy fish or strong current."]
+    plainEnglish: "Cut bait uses pieces of a legally obtained bait fish to release scent and oils for catfish. In Texas, the source fish matters as much as the rig: game fish or any part of a game fish may not be used as bait, and water-specific bait rules can be more restrictive.",
+    whenToUse:[
+      "For blue catfish where fresh cut forage is an established reservoir or river presentation.",
+      "For channel catfish when a compact natural bait can be placed along channels, flats, points or current.",
+      "When current or wind can carry scent through a travel lane instead of leaving the bait in stagnant water.",
+      "When fish are roaming along channel edges, tributary mouths, wind-blown flats or other forage routes.",
+      "When a fresh legal bait source is available and can be kept cold, firm and usable."
+    ],
+    whereToFish:[
+      "Outside river and creek-channel bends where depth and current create travel lanes.",
+      "Channel edges, drop-offs and adjacent flats that let catfish move between deep and feeding water.",
+      "Wind-blown flats and points where forage can collect.",
+      "Current seams, tributary mouths and inflow areas when flow is present.",
+      "Edges of timber, rock or other structure that can hold fish without burying the rig in the cover."
+    ],
+    howToFish:[
+      "Confirm the source fish is legal to use as bait on that water before cutting it.",
+      "Keep bait cold and fresh, then cut a chunk, steak, head section or strip that matches the hook and target fish.",
+      "Pass the hook through firm skin or tissue and clear scales away from the hook point so the point and gap stay exposed.",
+      "Choose a slip-sinker, three-way/current or suspended/drift layout based on bottom, current and whether the bait should stay pinned or move.",
+      "Place the bait on a defined travel route or forage area, then watch line angle and sinker hold so the rig remains where intended.",
+      "Reposition when a high-percentage area shows no activity rather than leaving washed-out bait in one place indefinitely."
+    ],
+    setup:[
+      "Use rod, reel and line strength appropriate to the size of fish, current and cover—not simply the heaviest gear available.",
+      "Match sinker style and weight to depth and current; use enough weight to control the bait without making the rig unnecessarily cumbersome.",
+      "Match circle-hook size to the bait piece so the hook gap remains open. With a circle hook, reel into steady pressure instead of making an aggressive sweeping hookset.",
+      "Use an abrasion-resistant leader where rock, timber, shell or large fish justify it.",
+      "Carry a landing net or other safe landing plan before fishing for large catfish.",
+      "Keep unused bait chilled and replace pieces that become soft, washed out, torn or unable to stay securely on the hook."
+    ],
+    seasonalGuide:[
+      {season:"Spring",guidance:"Rising temperature, tributary influence and seasonal movement can pull catfish toward inflows, channel edges and adjacent flats. Follow current forage and water movement rather than assuming every shallow area is productive."},
+      {season:"Summer",guidance:"Low-light and nighttime periods can improve shallow opportunities, while daylight fish may use deeper channels, ledges or current. Heat also makes bait handling and keeping cut bait cold more important."},
+      {season:"Fall",guidance:"Cooling water and forage movement can concentrate feeding fish along creek channels, flats and transition routes. Cover water until bait and fish location become repeatable."},
+      {season:"Winter",guidance:"Large blue catfish can become an important target on many reservoirs. Deep channels, channel edges and forage concentrations are more useful starting points than a generic 'deep water' rule."}
+    ],
+    commonMistakes:[
+      "Using a game fish, part of a game fish or another bait source that is not legal for the water being fished.",
+      "Using old, warm, mushy or badly washed-out bait when a fresher legal option is available.",
+      "Burying the hook point in scales, skin or an oversized bait piece.",
+      "Choosing sinker weight without considering current, bottom composition and line angle.",
+      "Treating blue, channel and flathead catfish as if they require identical bait and location decisions.",
+      "Fishing one unproductive area too long instead of testing another defined travel route or forage zone."
+    ]
   }
 };

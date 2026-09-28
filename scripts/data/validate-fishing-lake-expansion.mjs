@@ -86,10 +86,14 @@ for (const token of [
   "wave2FishingLakes",
   "wave2LakeSpeciesProfiles",
   "wave2LakeTechniqueProfiles",
-  "lakes: [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes]",
-  "lakeSpecies: [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles]",
-  "lakeTechniques: [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles]",
-]) requireText(files.index, token, `validated repository expansion boundary missing ${token}`);
+  "const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes]",
+  "const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles]",
+  "const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles]",
+  "derivePrototypeTechniqueProfiles",
+  "reconcileLakeTechniqueProfiles",
+  "prototypeTechniqueProfiles",
+  "lakeTechniques,",
+]) requireText(files.index, token, `validated repository expansion/reconciliation boundary missing ${token}`);
 
 for (const token of ["tpwdLake", "tpwdAccess", "tpwdRegulations", "liveLevel"]) { requireText(files.expansionPrototypes, `${token}:`, `official/live-check source key missing ${token}`); requireText(files.wave2Prototypes, `${token}:`, `wave-2 official/live-check source key missing ${token}`); }
 for (const url of [...`${files.expansionFixtures}\n${files.expansionPrototypes}\n${files.wave2Fixtures}\n${files.wave2Prototypes}`.matchAll(/url:\s*"([^"]+)"/g)].map((match) => match[1])) {

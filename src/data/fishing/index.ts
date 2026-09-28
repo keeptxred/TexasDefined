@@ -1,9 +1,13 @@
 import { fixtureFishingCatalog } from "./fixtures";
 import { expandedFishingLakes, expandedLakeSpeciesProfiles, expandedLakeTechniqueProfiles } from "./lake-expansion-fixtures";
 import { wave2FishingLakes, wave2LakeSpeciesProfiles, wave2LakeTechniqueProfiles } from "./lake-expansion-wave2-fixtures";
+import { expandedShowcaseLakePrototypes } from "./expanded-showcase-lakes-prototype";
+import { derivePrototypeTechniqueProfiles, reconcileLakeTechniqueProfiles } from "./prototype-technique-profiles";
 import { createFixtureFishingRepositories } from "./repositories";
+import { showcaseLakePrototypes } from "./showcase-lakes-prototype";
 import { texasFreshwaterFishSpecies } from "./species-catalog";
 import { assertValidFishingCatalog } from "./validation";
+import { wave2ShowcaseLakePrototypes } from "./wave2-showcase-lakes-prototype";
 
 /**
  * Single binding point for the fishing vertical. The public app currently uses
@@ -13,12 +17,23 @@ import { assertValidFishingCatalog } from "./validation";
  * The catalog combines the statewide freshwater species registry with verified
  * complete-lake expansions while preserving the same repository boundary.
  */
+const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes];
+const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles];
+const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles];
+const verifiedLakePrototypes = [
+  ...Object.values(showcaseLakePrototypes),
+  ...Object.values(expandedShowcaseLakePrototypes),
+  ...Object.values(wave2ShowcaseLakePrototypes),
+];
+const prototypeTechniqueProfiles = derivePrototypeTechniqueProfiles(verifiedLakePrototypes, lakeSpecies);
+const lakeTechniques = reconcileLakeTechniqueProfiles(explicitLakeTechniques, prototypeTechniqueProfiles);
+
 const fishingCatalog = assertValidFishingCatalog({
   ...fixtureFishingCatalog,
-  lakes: [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes],
+  lakes: fishingLakes,
   species: texasFreshwaterFishSpecies,
-  lakeSpecies: [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles],
-  lakeTechniques: [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles],
+  lakeSpecies,
+  lakeTechniques,
 });
 
 export const fishingPlatform = createFixtureFishingRepositories(fishingCatalog);
