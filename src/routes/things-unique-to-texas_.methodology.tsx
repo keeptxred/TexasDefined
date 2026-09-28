@@ -88,7 +88,7 @@ function ThingsThatDefineTexasMethodology() {
 
             <MethodSection title="Cross-link policy">
               <p>The 250-entry collection is designed as an internal reference map. When TexasDefined already maintains a strong destination guide, Texas Explained article, state-symbol page, sports reference, food guide or other canonical resource, the magazine entry links into that deeper page instead of creating duplicate thin content.</p>
-              <p>Automatic canonical links are limited to direct, high-confidence matches. We do not force a link simply because two places are nearby or broadly related. A more general guide may still appear in a chapter's related-reading section when it adds context without pretending to be the exact entity.</p>
+              <p>Automatic canonical links are limited to direct, high-confidence matches. We do not force a link simply because two places are nearby or broadly related. A more general guide may still appear in a chapter's related-reading section when it adds context without presenting itself as the exact entity.</p>
             </MethodSection>
 
             <MethodSection title="Changing information">
