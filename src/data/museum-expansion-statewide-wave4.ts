@@ -61,7 +61,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Museum of the Coastal Bend gives Victoria a museum whose timeline begins thousands of years before the city itself. Archaeology and material culture introduce the region's earliest inhabitants before the galleries move through French, Spanish and Mexican efforts to control and settle the Texas coast.",
       "Fort St. Louis and La Salle's failed French colony give the museum statewide significance, while ranching exhibits connect those colonial stories to an industry that became central to Texas identity. The public archaeology program also lets visitors see how knowledge about the region is recovered and interpreted rather than presenting history as a finished set of facts.",
-      "A canonical TexasDefined destination here strengthens Victoria County and the Gulf Coast heritage network at the same time. It naturally links Victoria city coverage with archaeology, ranching, colonial Texas and the broader Coastal Bend rather than leaving those subjects as disconnected articles."
+      "This museum strengthens a Victoria County and Gulf Coast heritage itinerary at the same time. It naturally connects Victoria with archaeology, ranching, colonial Texas and the broader Coastal Bend."
     ],
     officialUrl: "https://www.museumofthecoastalbend.org/",
     managingAuthority: "Victoria College",
@@ -111,7 +111,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Museum of Western Art approaches the West through fine art rather than through a conventional pioneer museum. Paintings and sculpture examine ranching, landscapes, working cowboys, Native peoples and Western mythology while the building itself uses materials and forms intended to evoke the region.",
       "Its origins are tied to the Cowboy Artists of America, but the museum's mission has broadened to preserving and presenting Western heritage through a wider roster of artists and educational programs. That makes it useful both for art travelers and visitors interested in how Texas and the West have been represented visually.",
-      "Kerrville already functions as a Hill Country base for the Guadalupe River, music, ranching country and scenic drives. The museum gives TexasDefined a serious cultural counterpoint to those outdoor attractions and strengthens Kerr County's internal-link network beyond generic Hill Country tourism."
+      "Kerrville already functions as a Hill Country base for the Guadalupe River, music, ranching country and scenic drives. The museum adds a serious cultural counterpoint to those outdoor attractions and gives Kerr County visitors another reason to build a fuller itinerary."
     ],
     officialUrl: "https://www.museumofwesternart.com/",
     managingAuthority: "Museum of Western Art",
@@ -135,7 +135,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     highlights: ["Texas regional art", "Nearly 1,000 works", "Downtown Longview", "Changing exhibitions and education"],
     body: [
       "Longview Museum of Fine Arts gives East Texas an art collection that is rooted in the region rather than simply replicating a metropolitan encyclopedic museum. Its holdings emphasize Texas artists and regional work while temporary exhibitions bring additional contemporary and national perspectives into downtown Longview.",
-      "The institution is in a period of growth and physical transition, so accurate visitor guidance matters. TexasDefined's page points to the currently operating East Tyler Street location and notes the temporary closure of the separate Fredonia property instead of sending travelers to an outdated entrance.",
+      "The institution is in a period of growth and physical transition, so accurate visitor guidance matters. The guide points to the currently operating East Tyler Street location and notes the temporary closure of the separate Fredonia property instead of sending travelers to an outdated entrance.",
       "This destination also complements the oil and broadcast museums already added in nearby Kilgore. Together those pages let Gregg County tell a richer story—energy, media, visual art and East Texas urban development—through connected destinations rather than isolated listings."
     ],
     officialUrl: "https://www.lmfa.org/",
@@ -186,7 +186,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Texas Broadcast Museum preserves the machines behind voices and images that once seemed ephemeral. Rows of television cameras, radios, microphones, recording devices and control equipment show how quickly broadcasting technology changed across the twentieth century.",
       "Working and reconstructed studio spaces make the collection more understandable than a display of disconnected electronics. Visitors can see the physical environment of radio and television production and encounter unusual artifacts tied to major moments in American media history.",
-      "Paired with the East Texas Oil Museum, this page gives Kilgore two very different specialized attractions. TexasDefined can link them through the city's oil-boom growth, downtown history and East Texas road-trip content while preserving each institution as its own canonical authority destination."
+      "Paired with the East Texas Oil Museum, this museum gives Kilgore two very different specialized attractions. They fit naturally into a day built around the city's oil-boom growth, downtown history and an East Texas road trip."
     ],
     officialUrl: "https://texasbroadcastmuseum.com/",
     managingAuthority: "Texas Museum of Broadcasting & Communications / Chalk Hill Educational Media",
@@ -211,7 +211,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "The Texas Heritage Museum functions as both a public museum and a research institution. Its galleries use artifacts and personal histories to follow Texans through major American conflicts, while archival holdings and the Historical Research Center support deeper study beyond the public displays.",
       "That dual role distinguishes it from a conventional military museum. Hill College's long-running history program, collections and publishing activity connect scholarship with visitor interpretation, making the institution useful to students, genealogists and travelers interested in military or political history.",
-      "Hillsboro sits on the I-35 corridor between Dallas-Fort Worth and Waco. A canonical TexasDefined page turns the museum into an easy heritage stop on that route and gives Hill County stronger links to military-history, college and statewide-history content."
+      "Hillsboro sits on the I-35 corridor between Dallas-Fort Worth and Waco. The museum can serve as an easy heritage stop on that route while connecting Hill County with military, college and statewide history."
     ],
     officialUrl: "https://www.hillcollege.edu/museum/",
     managingAuthority: "Hill College",
@@ -261,7 +261,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "Rockport's identity as an art colony predates the current building, and the Center for the Arts carries that tradition into a modern coastal institution. Exhibitions feature regional and visiting artists while classes, public art and multidisciplinary programs make the center more than a conventional gallery.",
       "The current campus also represents Rockport's recovery from Hurricane Harvey. Rebuilding gave the organization a new architectural home and reinforced the arts as part of downtown revitalization and cultural tourism rather than an activity separated from the city's economic life.",
-      "TexasDefined already has strong reasons to send travelers to Rockport for wildlife, fishing and maritime history. Adding the Center for the Arts creates a balanced Aransas County cluster where nature, maritime heritage and visual culture all cross-link to the same coastal itinerary."
+      "Rockport already gives travelers strong reasons to visit for wildlife, fishing and maritime history. The Center for the Arts adds visual culture to the same Aransas County coastal itinerary."
     ],
     officialUrl: "https://www.rockportartcenter.com/",
     managingAuthority: "Rockport Art Association, Inc. / Rockport Center for the Arts",
@@ -286,7 +286,7 @@ export const statewideMuseumExpansionWave4Destinations: Destination[] = [
     body: [
       "Harlingen Arts & Heritage Museum combines several kinds of cultural institution on one campus. Local-history material, historic structures and changing art exhibitions allow visitors to move between the city's built heritage and contemporary creative life rather than choosing one or the other.",
       "The preserved buildings make the site especially useful for understanding Harlingen's development. Restoration projects are part of the museum's ongoing work, and current visitor guidance matters because access to individual structures may change while preservation is underway.",
-      "Alongside Port Isabel and the Museum of South Texas History, this page deepens TexasDefined's Lower Rio Grande Valley museum network. Cameron County can now connect coast, border culture, community history and visual arts through multiple real destinations."
+      "Alongside Port Isabel and the Museum of South Texas History, this museum adds another reason to build a broader Lower Rio Grande Valley cultural itinerary. Cameron County visitors can connect the coast, border culture, community history and visual arts across multiple destinations."
     ],
     officialUrl: "https://www.myhahm.org/",
     managingAuthority: "Harlingen Arts & Heritage Museum",
