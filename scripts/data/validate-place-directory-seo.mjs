@@ -138,6 +138,13 @@ for (const [label, source] of [['city directory route', cityEager], ['city-count
   }
 }
 
+
+for (const forbidden of ['city authority hub', 'city authority node', 'Mid-Cities authority node', 'local-reference node', 'The city node']) {
+  if (cityMetroAuthority.includes(forbidden)) {
+    failures.push(`City/metro public descriptions must remain reader-facing and must not expose internal editorial phrase: ${forbidden}`);
+  }
+}
+
 if (hurstWhirlyballProductionVerifier.includes("sitemap.includes('https://texasdefined.com/destination/whirlyball-hurst')")) {
   failures.push('WhirlyBall is Explore-owned and its production smoke must not require the destination URL in the primary sitemap.');
 }
