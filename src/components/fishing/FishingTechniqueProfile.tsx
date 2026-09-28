@@ -2,6 +2,8 @@ import { Container } from "@/components/layout/Container";
 import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent } from "@/data/fishing/technique-authority-content";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
+import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
+import { relatedFishingTechniques } from "@/data/fishing/related-techniques";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishingTechniqueProfileData } from "@/data/fishing/technique-data.server";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-routing";
@@ -11,6 +13,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
   const guide = fishingTechniqueGuideContent[technique.slug];
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const images = fishingTechniqueImages[technique.slug];
+  const relatedTechniques = technique.slug in relatedFishingTechniques ? relatedFishingTechniques[technique.slug as keyof typeof relatedFishingTechniques] : [];
   const selectionGuide = guide?.selectionGuide ?? authority?.selectionGuide ?? [];
   const selectionTitle = guide?.selectionTitle ?? authority?.selectionTitle ?? `${technique.name} by Depth and Cover`;
   const selectionIntro = guide?.selectionIntro ?? authority?.selectionIntro ?? "Choose the version that best matches the depth, cover and presentation job before fine-tuning secondary details.";
@@ -213,6 +216,34 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <p>This page does not claim that {technique.name.toLowerCase()} is productive today, that it is the best technique statewide, or that a particular product or brand should be purchased.</p>
           <p>For a trip happening now, pair this durable relationship data with <a href="/fishing/reports" className="border-b border-primary text-primary">fresh reports</a>, weather, water conditions, access information and <a href="/fishing/regulations" className="border-b border-primary text-primary">current regulations</a>.</p>
           <p>Season labels on the verified lake cards describe the seasons explicitly attached to the source-backed lake-technique relationship. The broader seasonal guide above explains technique mechanics and does not override current conditions.</p>
+        </div>
+      </section>
+
+      <section className="border-b border-border py-12" aria-labelledby="related-techniques">
+        <p className="eyebrow text-primary">Keep exploring</p>
+        <h2 id="related-techniques" className="mt-3 font-display text-4xl sm:text-5xl">Related Fishing Techniques</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Compare presentations that solve a nearby problem instead of treating one technique as the answer for every depth, cover type or fish position.</p>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          {relatedTechniques.map((item) => <article key={item.slug} className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl"><a href={`/fishing/techniques/${item.slug}`} className="hover:text-primary">{item.label}</a></h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.reason}</p>
+            <a href={`/fishing/techniques/${item.slug}`} className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open technique guide →</a>
+          </article>)}
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <article className="border-t border-border pt-5">
+            <p className="eyebrow text-muted-foreground">Read the lake</p>
+            <h3 className="mt-2 font-display text-2xl"><a href={FISHING_STRUCTURE_PATH} className="hover:text-primary">Structure and Cover</a></h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Learn how points, humps, creek channels, ledges, roadbeds, brush, timber and docks fit together as fishing targets.</p>
+            <a href={FISHING_STRUCTURE_PATH} className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Read the structure guide →</a>
+          </article>
+          <article className="border-t border-border pt-5">
+            <p className="eyebrow text-muted-foreground">Read the habitat</p>
+            <h3 className="mt-2 font-display text-2xl"><a href={FISHING_VEGETATION_PATH} className="hover:text-primary">Aquatic Vegetation</a></h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Understand submerged grass, emergent plants, floating cover, flooded terrestrial vegetation and the edges fish use.</p>
+            <a href={FISHING_VEGETATION_PATH} className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Read the vegetation guide →</a>
+          </article>
         </div>
       </section>
 
