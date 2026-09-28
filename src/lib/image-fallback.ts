@@ -3,6 +3,13 @@ export type ImageFallback = {
   alt?: string;
 };
 
+const GENERIC_IMAGE_FAILURE_ALT_RE = /^(?:photo unavailable|photo coming soon|photograph unavailable|current photograph unavailable|destination-specific photograph not yet available|image unavailable)\.?$/i;
+
+export function readerSafeImageAlt(value?: string) {
+  const alt = value?.trim() ?? "";
+  return GENERIC_IMAGE_FAILURE_ALT_RE.test(alt) ? "" : alt;
+}
+
 /**
  * Retry a failed image with one known subject-matched fallback, then hide the
  * image if that fallback also fails. The containing surface remains responsible
