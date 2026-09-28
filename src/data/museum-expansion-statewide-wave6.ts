@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Heritage House preserves a different side of Orange history than the city's grand Stark properties. The Sims home represents an upper-middle-class household and retains architectural details that help visitors understand everyday aspirations, technology and domestic life in a growing Gulf Coast community.",
       "The house's interpretation extends into the economic history surrounding it. Photographs and collections document shipping, lumber, farming, oil exploration, churches, schools and residents who shaped Orange as it moved from a river settlement into an industrial city.",
-      "TexasDefined can cross-link this destination with the Stark Museum of Art, W.H. Stark House, Shangri La and Orange County authority pages. That creates a dense cultural cluster while preserving the Heritage House as its own local-history perspective rather than folding every Orange institution into one page."
+      "The Heritage House pairs naturally with the Stark Museum of Art, W.H. Stark House and Shangri La, creating a dense Orange cultural itinerary while preserving the house's distinct local-history perspective."
     ],
     officialUrl: "https://heritagehouseoforangecounty.com/visit/",
     managingAuthority: "Heritage House Association of Orange County",
@@ -187,7 +187,7 @@ export const statewideMuseumExpansionWave6Destinations: Destination[] = [
     body: [
       "The Frontier Times Museum grew from J. Marvin Hunter's belief that objects valued by local people deserved preservation. The result is deliberately eclectic: frontier artifacts, cowboy gear, ranching material, local rodeo history and unusual curiosities sit together in a museum whose personality is part of its appeal.",
       "The institution also preserves the legacy of Bandera as a ranching and cowboy center through specialized collections and the Texas Heroes Hall of Honor. Its original 1930s building and long community history make the museum itself part of the county's heritage.",
-      "TexasDefined can use this page as a strong Bandera County anchor linking the Cowboy Capital, ranching, rodeos, Hill Country drives and nearby natural attractions. It gives visitors historical context for the cowboy identity they encounter throughout Bandera rather than leaving that identity as branding alone."
+      "The museum is a strong Bandera County stop linking the Cowboy Capital, ranching, rodeos, Hill Country drives and nearby natural attractions. It gives visitors historical context for the cowboy identity they encounter throughout Bandera rather than leaving that identity as branding alone."
     ],
     officialUrl: "https://www.frontiertimesmuseum.org/",
     managingAuthority: "Frontier Times Museum",
