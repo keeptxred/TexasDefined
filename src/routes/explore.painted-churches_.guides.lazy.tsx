@@ -55,7 +55,7 @@ function PaintedChurchSearchGuideHub() {
 
       <section className="mt-16 border-t border-border pt-8">
         <p className="eyebrow text-primary">Keep exploring</p>
-        <h2 className="mt-3 font-display text-4xl">Use the collection, not just the keywords.</h2>
+        <h2 className="mt-3 font-display text-4xl">Explore the full Painted Churches collection</h2>
         <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm">
           <Link to="/explore/painted-churches" className="border-b border-primary text-primary">Main Painted Churches guide</Link>
           <Link to="/explore/painted-churches/map" className="border-b border-primary text-primary">Statewide map</Link>
