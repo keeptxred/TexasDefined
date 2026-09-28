@@ -173,7 +173,7 @@ export const TEXAS_TALENT_LAUNCH_DEPTH_WAVE3: Readonly<Record<string, TexasTalen
     legacy: [
       "Gibbons helped make a specifically Texas strain of blues-rock internationally recognizable by combining Houston blues vocabulary with heavy guitar tone, concise riffs and a sense of humor that never treated regional identity as solemn heritage.",
       "ZZ Top's ability to modernize its production without abandoning its underlying musical character made the band unusually durable. The transition from 1970s boogie to 1980s electronic production expanded the audience while keeping Gibbons's guitar sound central.",
-      "Houston gives the profile its essential Texas anchor. The city's blues and rock scenes explain the musical foundation beneath the beards, cars and visual mythology, allowing Texas Defined to connect one of rock's most famous images to a real local history.",
+      "Houston gives the profile its essential Texas anchor. The city's blues and rock scenes explain the musical foundation beneath the beards, cars and visual mythology, connecting one of rock's most famous images to a real local history.",
     ],
     texasPlaces: [
       { name: "Houston", context: "Gibbons's birthplace, early band scene and the city where ZZ Top formed, connecting his guitar style to Houston's overlapping blues, rhythm-and-blues and rock traditions." },
