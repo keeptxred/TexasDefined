@@ -90,43 +90,43 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
 
 const METRO_OVERRIDES: Record<string, AuthorityOverride> = {
   'greater-houston': {
-    description: 'Greater Houston is TexasDefined’s metro-level discovery node for the Houston region, connecting the core city with Harris County, Gulf Coast communities, regional transportation and practical relocation and travel coverage. It provides a layer above individual city guides so nearby destinations, county resources and metro-scale planning can be discovered without collapsing distinct local jurisdictions into one city page.',
+    description: 'Greater Houston connects the core city with Harris County, Gulf Coast communities, regional transportation and practical relocation and travel planning. Use the metro view to understand nearby destinations and county resources without treating distinct local jurisdictions as one city.',
     officialUrl: 'https://www.h-gac.com/', sourceConfidence: 'official', sourceCheckedAt: checkedAt, status: 'active', region: 'gulf-coast',
     relationships: [{ type: 'has-core-city', targetId: 'city:houston' }, { type: 'regional-county', targetId: 'county:harris' }, { type: 'located-in-region', targetId: 'region:gulf-coast' }],
     tags: ['metro', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'dallas-fort-worth': {
-    description: 'Dallas–Fort Worth is TexasDefined’s North Texas metro discovery node, connecting Dallas, Fort Worth and major Metroplex communities while preserving their separate city and county identities. The metro page gives readers a regional layer for relocation, travel, transportation and nearby-place discovery without treating Dallas County, Tarrant County or surrounding communities as a single local jurisdiction.',
+    description: 'Dallas–Fort Worth connects Dallas, Fort Worth and major Metroplex communities while preserving their separate city and county identities. The metro view helps with relocation, travel, transportation and nearby-place planning without treating Dallas County, Tarrant County or surrounding communities as a single local jurisdiction.',
     officialUrl: 'https://www.nctcog.org/', sourceConfidence: 'official', sourceCheckedAt: checkedAt, status: 'active', region: 'north-texas',
     relationships: [{ type: 'has-core-city', targetId: 'city:dallas' }, { type: 'has-core-city', targetId: 'city:fort-worth' }, { type: 'regional-county', targetId: 'county:dallas' }, { type: 'regional-county', targetId: 'county:tarrant' }, { type: 'located-in-region', targetId: 'region:north-texas' }],
     tags: ['metro', 'metroplex', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'greater-austin': {
-    description: 'Greater Austin is TexasDefined’s Central Texas metro discovery node, connecting Austin with Travis County and surrounding communities for relocation, commuting, transportation, travel and nearby-destination discovery. It creates a metro-scale authority layer while keeping city services, county services and fast-growing neighboring communities attached to their own canonical local pages.',
+    description: 'Greater Austin connects Austin with Travis County and surrounding communities for relocation, commuting, transportation, travel and nearby-destination planning. The metro view provides regional context while keeping city services, county services and fast-growing neighboring communities distinct.',
     officialUrl: 'https://www.campotexas.org/', sourceConfidence: 'official', sourceCheckedAt: checkedAt, status: 'active', region: 'central-texas',
     relationships: [{ type: 'has-core-city', targetId: 'city:austin' }, { type: 'regional-county', targetId: 'county:travis' }, { type: 'located-in-region', targetId: 'region:central-texas' }],
     tags: ['metro', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'greater-san-antonio': {
-    description: 'Greater San Antonio is TexasDefined’s metro-level discovery node for San Antonio and the surrounding South Texas region, linking the core city with Bexar County, regional transportation, relocation context and nearby destinations. The metro layer supports broader trip and moving decisions without confusing municipal services with county, regional or state responsibilities.',
+    description: 'Greater San Antonio links the core city with Bexar County, regional transportation, relocation context and nearby destinations. The metro view supports broader trip and moving decisions without confusing municipal services with county, regional or state responsibilities.',
     officialUrl: 'https://www.alamoareampo.org/', sourceConfidence: 'official', sourceCheckedAt: checkedAt, status: 'active', region: 'south-texas',
     relationships: [{ type: 'has-core-city', targetId: 'city:san-antonio' }, { type: 'regional-county', targetId: 'county:bexar' }, { type: 'located-in-region', targetId: 'region:south-texas' }],
     tags: ['metro', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'el-paso-metro': {
-    description: 'The El Paso Metropolitan Area is TexasDefined’s regional discovery node for El Paso and the surrounding Far West Texas transportation-planning area. It connects the core city with El Paso County, border-region mobility, relocation research, travel planning and nearby-place discovery while keeping Texas municipal and county services separate from the broader cross-jurisdictional planning role of the El Paso Metropolitan Planning Organization.',
+    description: 'The El Paso Metropolitan Area connects the core city with El Paso County, border-region mobility, relocation research, travel planning and nearby places across Far West Texas. It also keeps municipal and county services distinct from the broader cross-jurisdictional planning role of the El Paso Metropolitan Planning Organization.',
     officialUrl: 'https://www.elpasompo.org/', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'west-texas',
     relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'regional-county', targetId: 'county:el-paso' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
     tags: ['metro', 'border-region', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'corpus-christi-metro': {
-    description: 'The Corpus Christi Metropolitan Area is TexasDefined’s metro-scale discovery node for Corpus Christi and the surrounding Coastal Bend transportation-planning area. It links the core city with Nueces County, Gulf Coast mobility, relocation context, travel planning and nearby coastal destinations while preserving the distinction between city government, county government and the federally designated regional transportation-planning role of the Corpus Christi MPO.',
+    description: 'The Corpus Christi Metropolitan Area links the core city with Nueces County, Gulf Coast mobility, relocation context, travel planning and nearby coastal destinations. It preserves the distinction between city government, county government and the federally designated regional transportation-planning role of the Corpus Christi MPO.',
     officialUrl: 'https://www.corpuschristi-mpo.org/', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'gulf-coast',
     relationships: [{ type: 'has-core-city', targetId: 'city:corpus-christi' }, { type: 'regional-county', targetId: 'county:nueces' }, { type: 'located-in-region', targetId: 'region:gulf-coast' }],
     tags: ['metro', 'coastal-bend', 'relocation', 'travel', 'regional-discovery', 'transportation', 'coast'],
   },
   'lubbock-metro': {
-    description: 'The Lubbock Metropolitan Area is TexasDefined’s South Plains metro discovery node for Lubbock and the surrounding regional transportation system. It connects the core city with Lubbock County, commuting and mobility context, relocation research, regional travel and nearby-place discovery while keeping municipal and county responsibilities distinct from the Lubbock Metropolitan Planning Organization’s regional planning and transportation-funding role.',
+    description: 'The Lubbock Metropolitan Area connects the core city with Lubbock County, commuting and mobility context, relocation research, regional travel and nearby places across the South Plains. It keeps municipal and county responsibilities distinct from the Lubbock Metropolitan Planning Organization’s regional planning and transportation-funding role.',
     officialUrl: 'https://www.mylubbock.us/503/Lubbock-Metropolitan-Planning-Organizati', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'south-plains',
     relationships: [{ type: 'has-core-city', targetId: 'city:lubbock' }, { type: 'regional-county', targetId: 'county:lubbock' }, { type: 'located-in-region', targetId: 'region:south-plains' }],
     tags: ['metro', 'south-plains', 'relocation', 'travel', 'regional-discovery', 'transportation'],
