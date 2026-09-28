@@ -86,7 +86,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "The Heritage Center of Cherokee County is the current institution behind the older Cherokee County museum naming found in statewide lists. Its exhibits move from pre-statehood Caddo material into settlement, timber, transportation, education and twentieth-century community life.",
       "Several subjects are uniquely tied to Rusk. The Texas State Railroad, the nineteenth-century penitentiary and the later state-hospital story give the museum a local historical identity that would be lost in a generic county overview. Nearby historic structures add further context to the downtown setting.",
-      "TexasDefined can use this destination as the county-history bridge between Rusk, Jacksonville, the Texas State Railroad and Piney Woods heritage coverage. The canonical page also keeps current institutional naming aligned with what visitors encounter today."
+      "The museum works as a county-history bridge between Rusk, Jacksonville, the Texas State Railroad and the wider Piney Woods. Current institutional naming is used so visitors see the same identity here that they encounter on site."
     ],
     officialUrl: "https://texastimetravel.com/directory/heritage-center-cherokee-county/",
     managingAuthority: "Heritage Center of Cherokee County",
@@ -211,7 +211,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Brown County Museum of History presents the county as a meeting place of Indigenous history, frontier settlement, ranching, military mobilization and modern community life. That broad timeline is especially valuable in Brownwood, where World War II Camp Bowie transformed the city but did not begin its story.",
       "The Old Jail gives the museum an architectural landmark as well as gallery space. Visitors can pair objects and interpretive displays with a preserved civic building whose fortress-like appearance makes local government and justice history tangible.",
-      "TexasDefined can use the museum as Brown County's cultural anchor, connecting Brownwood, Camp Bowie history, regional ranching and West-Central Texas road trips through one visitor-focused authority page."
+      "The museum works as a Brown County cultural anchor, connecting Brownwood, Camp Bowie history, regional ranching and West-Central Texas road trips in one visitor-focused stop."
     ],
     officialUrl: "https://www.browncountymuseum.org/",
     managingAuthority: "Brown County Museum of History, Inc.",
@@ -236,7 +236,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     body: [
       "Bastrop County Museum & Visitor Center works especially well as a first stop because it combines local-history interpretation with trip-planning resources. The galleries introduce the Indigenous, Spanish colonial, revolutionary and later economic stories that visitors encounter in buildings and landscapes throughout the county.",
       "Permanent exhibits cover subjects that distinguish Bastrop from other Central Texas communities, including El Camino Real de los Tejas, local coal mining, Governor Joseph D. Sayers and the devastating Bastrop wildfire. A substantial archive and photograph collection supports deeper research behind the public galleries.",
-      "The museum's downtown location and National Park Service partnership with El Camino Real make it a natural TexasDefined hub. It can cross-link Bastrop, the historic district, Bastrop State Park, county history and road-trip content while helping visitors understand how those places fit together."
+      "The museum's downtown location and National Park Service partnership with El Camino Real make it a natural starting point for a Bastrop history day. It connects the historic district, Bastrop State Park, county history and a broader road trip while helping visitors understand how those places fit together."
     ],
     officialUrl: "https://bastropcountyhistorical.org/museum/bastrop-county-historical-society-museum-visitor-center/",
     managingAuthority: "Bastrop County Historical Society",
