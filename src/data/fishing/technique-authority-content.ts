@@ -11,7 +11,7 @@ export type FishingTechniqueAuthorityContent = {
     eyebrow?: string;
     title: string;
     intro: string;
-    rigs: Array<{ name: string; pieces: string[]; note: string }>;
+    rigs: Array<{ name: string; image: string; imageAlt: string; pieces: string[]; note: string }>;
   };
   regulationNotes?: {
     title: string;
@@ -89,8 +89,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Spinnerbait Control at a Glance",
       intro: "The same lure can occupy different parts of the water column by changing weight, blade lift and retrieve speed.",
       rigs: [
-        { name: "Shallow cover", pieces: ["cast past target", "start blades", "deflect near cover"], note: "Keep the bait close enough to wood, grass or docks to create a reaction opportunity." },
-        { name: "Slow roll", pieces: ["heavier bait", "controlled sink", "slow retrieve near bottom"], note: "Use enough weight to maintain depth without letting the lure simply drag or foul." },
+        { name: "Shallow cover", image: "/images/fishing/rigs/spinnerbait-shallow-cover.svg", imageAlt: "Spinnerbait traveling just under the surface and deflecting beside shallow cover", pieces: ["cast past target", "start blades", "deflect near cover"], note: "Keep the bait close enough to wood, grass or docks to create a reaction opportunity." },
+        { name: "Slow roll", image: "/images/fishing/rigs/spinnerbait-slow-roll.svg", imageAlt: "Heavier spinnerbait sinking and moving slowly near the bottom", pieces: ["heavier bait", "controlled sink", "slow retrieve near bottom"], note: "Use enough weight to maintain depth without letting the lure simply drag or foul." },
       ],
     },
     faq: [
@@ -119,10 +119,10 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Topwater Cadence at a Glance",
       intro: "Topwater is not one retrieve. Use the lure style to decide whether the bait should travel continuously or spend more time beside one target.",
       rigs: [
-        { name: "Walking bait", pieces: ["cast beyond target", "slack-line taps", "side-to-side walk", "brief pause"], note: "Use a repeatable rhythm, then change speed or pause length before changing lures." },
-        { name: "Popper", pieces: ["cast to target", "pop", "pause", "repeat"], note: "Longer pauses keep the lure beside isolated cover instead of racing it away." },
-        { name: "Buzzbait / plopper", pieces: ["cast", "start retrieve", "keep on surface", "deflect past cover"], note: "A steadier retrieve is useful for covering water and finding active fish." },
-        { name: "Frog", pieces: ["land on / beside cover", "walk or pull", "pause in openings", "feel weight before hookset"], note: "Pause in high-value openings and avoid reacting only to the splash." },
+        { name: "Walking bait", image: "/images/fishing/rigs/topwater-walking-bait.svg", imageAlt: "Walking topwater lure zig-zagging across the surface with a brief pause", pieces: ["cast beyond target", "slack-line taps", "side-to-side walk", "brief pause"], note: "Use a repeatable rhythm, then change speed or pause length before changing lures." },
+        { name: "Popper", image: "/images/fishing/rigs/topwater-popper.svg", imageAlt: "Popper moving in short surface bursts separated by pauses beside cover", pieces: ["cast to target", "pop", "pause", "repeat"], note: "Longer pauses keep the lure beside isolated cover instead of racing it away." },
+        { name: "Buzzbait / plopper", image: "/images/fishing/rigs/topwater-buzzbait.svg", imageAlt: "Buzzbait or plopper moving steadily across the surface and past cover", pieces: ["cast", "start retrieve", "keep on surface", "deflect past cover"], note: "A steadier retrieve is useful for covering water and finding active fish." },
+        { name: "Frog", image: "/images/fishing/rigs/topwater-frog.svg", imageAlt: "Topwater frog crossing vegetation and pausing in an opening", pieces: ["land on / beside cover", "walk or pull", "pause in openings", "feel weight before hookset"], note: "Pause in high-value openings and avoid reacting only to the splash." },
       ],
     },
     faq: [
@@ -151,8 +151,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Build a Repeatable Trolling Pass",
       intro: "A productive pass is a measured combination of boat path, speed and lure depth—not simply driving while a lure trails behind.",
       rigs: [
-        { name: "Contour pass", pieces: ["mark target depth", "set speed", "set line length", "follow contour", "repeat productive line"], note: "Repeatability lets you test one variable at a time." },
-        { name: "Suspended-fish pass", pieces: ["find bait/fish", "set lure depth", "cross school", "turn deliberately"], note: "Inside and outside lines change speed and depth during turns." },
+        { name: "Contour pass", image: "/images/fishing/rigs/trolling-contour-pass.svg", imageAlt: "Boat following a contour while a diving lure runs at a controlled depth", pieces: ["mark target depth", "set speed", "set line length", "follow contour", "repeat productive line"], note: "Repeatability lets you test one variable at a time." },
+        { name: "Suspended-fish pass", image: "/images/fishing/rigs/trolling-suspended-fish.svg", imageAlt: "Trolled lure crossing a school of suspended fish at the target depth", pieces: ["find bait/fish", "set lure depth", "cross school", "turn deliberately"], note: "Inside and outside lines change speed and depth during turns." },
       ],
     },
     regulationNotes: {
@@ -192,8 +192,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Vertical Jigging Positioning",
       intro: "The lure should stay close to the fish's actual depth while remaining nearly under the boat.",
       rigs: [
-        { name: "Suspended school", pieces: ["locate fish", "drop to fish depth", "short lift", "controlled fall"], note: "Do not automatically drop to bottom when fish are suspended." },
-        { name: "Bottom structure", pieces: ["find structure", "stop just above bottom", "lift", "follow fall"], note: "Maintain enough line control to detect bites on the drop." },
+        { name: "Suspended school", image: "/images/fishing/rigs/vertical-jigging-suspended-school.svg", imageAlt: "Vertical jig held at the depth of a suspended fish school below the boat", pieces: ["locate fish", "drop to fish depth", "short lift", "controlled fall"], note: "Do not automatically drop to bottom when fish are suspended." },
+        { name: "Bottom structure", image: "/images/fishing/rigs/vertical-jigging-bottom-structure.svg", imageAlt: "Vertical jig stopping just above bottom structure before a controlled fall", pieces: ["find structure", "stop just above bottom", "lift", "follow fall"], note: "Maintain enough line control to detect bites on the drop." },
       ],
     },
     faq: [
@@ -222,8 +222,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Keep the Bait Above the Fish",
       intro: "Crappie commonly feed upward. Exact depth control is often more important than aggressive lure movement.",
       rigs: [
-        { name: "Vertical jig", pieces: ["line", "jig", "hold above fish", "small lift / pause"], note: "Use depth references or electronics to repeat the productive level." },
-        { name: "Slip float", pieces: ["main line", "slip float", "stop", "weight if needed", "jig or minnow"], note: "Set the stop so the bait suspends over rather than inside snag-prone cover." },
+        { name: "Vertical jig", image: "/images/fishing/rigs/crappie-vertical-jig.svg", imageAlt: "Small vertical jig held just above crappie with a short lift and pause", pieces: ["line", "jig", "hold above fish", "small lift / pause"], note: "Use depth references or electronics to repeat the productive level." },
+        { name: "Slip float", image: "/images/fishing/rigs/crappie-slip-float.svg", imageAlt: "Slip float and stop suspending a jig or minnow above cover", pieces: ["main line", "slip float", "stop", "weight if needed", "jig or minnow"], note: "Set the stop so the bait suspends over rather than inside snag-prone cover." },
       ],
     },
     regulationNotes: {
@@ -265,8 +265,8 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Live-Bait Rigging at a Glance",
       intro: "The rig should control depth while allowing the bait to move naturally and remain healthy.",
       rigs: [
-        { name: "Suspended", pieces: ["main line", "weight as needed", "leader", "hook + live bait"], note: "Place the bait at the fish's depth rather than simply on bottom." },
-        { name: "Bottom", pieces: ["main line", "sliding sinker", "swivel", "leader", "hook + live bait"], note: "Use enough weight to hold position without unnecessarily restricting the bait." },
+        { name: "Suspended", image: "/images/fishing/rigs/live-bait-suspended.svg", imageAlt: "Suspended live-bait rig holding bait at the depth of open-water fish", pieces: ["main line", "weight as needed", "leader", "hook + live bait"], note: "Place the bait at the fish's depth rather than simply on bottom." },
+        { name: "Bottom", image: "/images/fishing/rigs/live-bait-bottom.svg", imageAlt: "Bottom live-bait rig with sliding sinker, swivel, leader and hooked bait", pieces: ["main line", "sliding sinker", "swivel", "leader", "hook + live bait"], note: "Use enough weight to hold position without unnecessarily restricting the bait." },
       ],
     },
     regulationNotes: {
@@ -308,9 +308,9 @@ export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueS
       title: "Three Useful Cut-Bait Rig Layouts",
       intro: "These simplified layouts show component order, not exact leader lengths or sinker sizes. Adjust weight and tackle to depth, current, cover and target fish.",
       rigs: [
-        { name: "Slip-sinker bottom rig", pieces: ["main line", "sliding sinker", "swivel", "leader", "circle hook + cut bait"], note: "A strong general-purpose layout for bottom-oriented catfish." },
-        { name: "Three-way current rig", pieces: ["main line", "three-way swivel", "sinker dropper", "leader", "hook + cut bait"], note: "Separates the sinker and bait when current control matters." },
-        { name: "Suspended / drift rig", pieces: ["main line", "weight", "leader", "optional lift", "hook + cut bait"], note: "Keeps the bait moving or slightly off bottom when drifting or fishing over soft debris." },
+        { name: "Slip-sinker bottom rig", image: "/images/fishing/rigs/cut-bait-slip-sinker.svg", imageAlt: "Cut-bait slip-sinker bottom rig with sliding sinker, swivel, leader and circle hook", pieces: ["main line", "sliding sinker", "swivel", "leader", "circle hook + cut bait"], note: "A strong general-purpose layout for bottom-oriented catfish." },
+        { name: "Three-way current rig", image: "/images/fishing/rigs/cut-bait-three-way.svg", imageAlt: "Three-way current rig separating the sinker dropper from the cut-bait leader", pieces: ["main line", "three-way swivel", "sinker dropper", "leader", "hook + cut bait"], note: "Separates the sinker and bait when current control matters." },
+        { name: "Suspended / drift rig", image: "/images/fishing/rigs/cut-bait-suspended-drift.svg", imageAlt: "Suspended cut-bait drift rig moving slightly above the bottom", pieces: ["main line", "weight", "leader", "optional lift", "hook + cut bait"], note: "Keeps the bait moving or slightly off bottom when drifting or fishing over soft debris." },
       ],
     },
     regulationNotes: {
