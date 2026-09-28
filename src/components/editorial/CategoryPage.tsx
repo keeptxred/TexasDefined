@@ -9,7 +9,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { CategorySlug, ImageRef } from "@/data/types";
-import { recoverOrHideImage } from "@/lib/image-fallback";
+import { readerSafeImageAlt, recoverOrHideImage } from "@/lib/image-fallback";
 
 const LivingAuthorityPaths = lazy(() =>
   import("@/components/editorial/LivingAuthorityPaths").then((module) => ({ default: module.LivingAuthorityPaths })),
@@ -96,7 +96,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
           <div aria-hidden className="absolute inset-0 bg-ink">
             
           </div>
-          <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+          <img src={image.src} alt={readerSafeImageAlt(image.alt)} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" onError={(event) => recoverOrHideImage(event.currentTarget)} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
           <Container className="relative flex min-h-[480px] flex-col justify-end py-14 sm:min-h-[540px] sm:py-20">
             <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} inverse />
