@@ -173,9 +173,9 @@ export const texasRegionsExplainedArticle: Article = {
 
     h("What about West Texas, Central Texas and the Rio Grande Valley?"),
     p("They still matter. A seven-region taxonomy does not erase the regional names Texans actually use. 'West Texas' is a powerful cultural term that can include the Permian Basin, Trans-Pecos and other areas depending on who is speaking. 'Central Texas' can describe Austin, Waco, the Hill Country edge and surrounding counties. The Rio Grande Valley is a distinct subregion with an identity far stronger than a simple compass direction."),
-    p("TexasDefined treats those names as subregions, cultural regions or useful aliases rather than forcing every familiar term to become a top-level navigation region. That keeps the statewide structure understandable without pretending Texas has only seven meaningful geographic identities."),
+    p("TexasDefined treats those names as subregions, cultural regions or useful aliases rather than forcing every familiar term to become a top-level navigation region. That keeps the statewide structure understandable while recognizing that Texas has more than seven meaningful geographic identities."),
 
-    h("Why the boundaries should stay a little fuzzy"),
+    h("Why regional boundaries overlap"),
     p("Rainfall, geology, vegetation and elevation change gradually. So do food traditions, accents, architecture and settlement patterns. The Edwards Plateau does not stop because a county line appears. The coastal plain reaches inland. East Texas forest thins into prairie. South Texas brush country blends toward the coast."),
     p("A useful regional map should explain those patterns, not create false precision. TexasDefined's seven regions are best read as broad organizing areas with transition zones between them."),
 

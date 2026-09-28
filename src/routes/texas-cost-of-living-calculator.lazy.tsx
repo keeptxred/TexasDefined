@@ -20,7 +20,7 @@ function TexasCostOfLivingCalculatorPage() {
     <CostOfLivingCalculator />
     <section className="mt-14 border-t border-border pt-10" aria-labelledby="local-cost-living-heading">
       <p className="eyebrow text-primary">Local household planning</p>
-      <h2 id="local-cost-living-heading" className="mt-3 font-display text-3xl">Build a city budget without pretending one average fits everyone</h2>
+      <h2 id="local-cost-living-heading" className="mt-3 font-display text-3xl">Build a city budget around your household costs</h2>
       <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">These local planners use your own current and target monthly costs. They add city-specific checks and direct links to the local property-tax, affordability, homeownership, insurance, mortgage and relocation tools already maintained for each market.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{LOCAL_COST_OF_LIVING_PROFILES.map((profile) => <Link key={profile.slug} to={profile.path} className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">{profile.name} cost of living</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Compare your current household budget with an address-specific {profile.name} scenario.</span></Link>)}</div>
     </section>

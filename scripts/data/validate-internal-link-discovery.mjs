@@ -76,7 +76,7 @@ for (const marker of [
 
 for (const [label, source, markers] of [
   ['Texas closing-cost calculator', closingCostPage, ['Texas Closing Cost Calculator | Buyer & Seller Estimate', 'Separate the purchase price from the cash that changes hands at closing', 'Build the full transaction budget', 'Texas closing-cost calculator FAQ', "slug: 'texas-closing-costs-guide'", 'to="/texas-down-payment-calculator"', 'to="/texas-mortgage-calculator"', 'to="/texas-home-affordability-calculator"']],
-  ['Texas home-affordability calculator', affordabilityPage, ['Texas Home Affordability Calculator | Estimate a Home-Price Range', 'Estimate the housing payment your budget would actually carry', 'Pressure-test the result', 'Texas home affordability calculator FAQ', "slug: 'salary-needed-to-buy-a-house-in-texas'", 'to="/texas-mortgage-calculator"', 'to="/texas-down-payment-calculator"', 'to="/texas-closing-cost-calculator"']],
+  ['Texas home-affordability calculator', affordabilityPage, ['Texas Home Affordability Calculator | Estimate a Home-Price Range', 'Estimate the housing payment your budget can carry', 'Pressure-test the result', 'Texas home affordability calculator FAQ', "slug: 'salary-needed-to-buy-a-house-in-texas'", 'to="/texas-mortgage-calculator"', 'to="/texas-down-payment-calculator"', 'to="/texas-closing-cost-calculator"']],
   ['Texas utility-cost calculator', utilityCostPage, ['Texas Utility Cost Calculator | Estimate Electric, Gas & Water Bills', 'Estimate the bills beyond the mortgage', "slug: 'texas-utility-costs-guide'", "slug: 'how-to-choose-electricity-plan-texas'", 'to="/texas-homeownership-cost-calculator"']],
 ]) for (const marker of markers) if (!source.includes(marker)) failures.push(`${label} indexing-depth contract is missing ${marker}.`);
 

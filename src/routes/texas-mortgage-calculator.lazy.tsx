@@ -76,7 +76,7 @@ function TexasMortgageCalculatorPage() {
 
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="mortgage-scenarios-heading">
       <p className="eyebrow text-primary">Run more than one scenario</p>
-      <h2 id="mortgage-scenarios-heading" className="mt-3 font-display text-3xl">Compare the address, not just the purchase price</h2>
+      <h2 id="mortgage-scenarios-heading" className="mt-3 font-display text-3xl">Compare total monthly cost by address</h2>
       <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground"><p>Two $400,000 homes can produce different monthly costs because the addresses can fall into different school districts, cities, MUDs, PIDs or other taxing units. Insurance exposure, HOA dues and utility providers may differ too.</p><p>For each serious property, save or note the exact assumptions you used: purchase price, down payment, interest rate, tax-rate stack, insurance estimate and recurring neighborhood costs. That makes the comparison reproducible instead of relying on a single mortgage number from a listing site.</p><p>If you are deciding how much to put down, compare the effect on both principal-and-interest and your remaining cash reserves. A lower monthly payment is not automatically better if it leaves too little cash for closing costs, repairs or emergencies.</p></div>
     </section>
 

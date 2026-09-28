@@ -88,9 +88,9 @@ function TexasMusicTimelinePage() {
 
           <section className="border-b border-border py-8" aria-labelledby="timeline-method">
             <p className="eyebrow text-primary">How to read it</p>
-            <h2 id="timeline-method" className="mt-2 font-display text-3xl">A timeline of systems, not just celebrity dates</h2>
+            <h2 id="timeline-method" className="mt-2 font-display text-3xl">Texas music milestones and the systems behind them</h2>
             <p className="mt-4 max-w-4xl text-base leading-8">
-              These milestones emphasize places and systems that changed what Texas musicians could do: dance floors, recording networks, Black entertainment districts, clubs, labels and regional distribution. The list is intentionally selective rather than pretending every important artist or recording can fit into one chronology.
+              These milestones emphasize places and systems that changed what Texas musicians could do: dance floors, recording networks, Black entertainment districts, clubs, labels and regional distribution. The list is intentionally selective because no single chronology can include every important Texas artist or recording.
             </p>
           </section>
 
