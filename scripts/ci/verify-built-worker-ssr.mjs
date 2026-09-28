@@ -43,6 +43,8 @@ const smokeTargets = [
   { path: '/fishing/techniques/jigs-and-minnows', requiredText: 'How to Fish Jigs and Minnows in Texas', label: 'jigs-and-minnows technique detail route' },
   { path: '/fishing/techniques/live-bait', requiredText: 'How to Fish Live Bait in Texas', label: 'live-bait technique detail route' },
   { path: '/fishing/techniques/cut-bait', requiredText: 'How to Fish Cut Bait in Texas', label: 'cut-bait technique detail route' },
+  { path: '/fishing/techniques/cut-bait', requiredText: 'What Cut Bait Is Legal in Texas?', label: 'cut-bait legal-bait authority content' },
+  { path: '/fishing/techniques/cut-bait', requiredText: 'Three Useful Cut-Bait Rig Layouts', label: 'cut-bait rigging authority content' },
   { path: '/fishing/guides/submit', requiredText: 'Submit, claim or correct a Texas fishing-guide listing.', label: 'fishing guide submission child route' },
   { path: '/fishing/reports/submit', requiredText: 'Submit a dated fishing report for verification.', label: 'fishing report submission child route' },
   { path: '/fishing/lakes/o-h-ivie-lake', requiredText: 'O.H. Ivie Lake', label: 'O.H. Ivie complete fishing guide' },
