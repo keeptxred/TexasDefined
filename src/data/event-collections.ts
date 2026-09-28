@@ -96,7 +96,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     title: "Texas Seasonal & Holiday Events",
     eyebrow: "Seasonal calendar",
     description: "Plan Texas holiday parades, wildflower festivals, fall traditions and other seasonal events using verified occurrence dates and official organizer sources.",
-    lead: "Seasonal events are especially vulnerable to stale search results because the tradition may be annual while the exact operating dates, parade route or weather-dependent details change. This collection emphasizes verified occurrence information and permanent planning pages, giving readers a dependable place to start without pretending that every year's schedule is interchangeable.",
+    lead: "Seasonal events are especially vulnerable to stale search results because the tradition may be annual while the exact operating dates, parade route or weather-dependent details change. This collection emphasizes verified occurrence information and permanent planning pages, giving readers a dependable place to start without assuming that every year's schedule is interchangeable.",
     planningTitle: "Separate the annual tradition from this year's verified schedule",
     planningIntro: "A recurring event can be reliable without its next date being known. Texas Defined records the latest organizer-backed occurrence and labels recurrence-derived dates when a stable rule is the only defensible way to project forward.",
     planningPoints: [
