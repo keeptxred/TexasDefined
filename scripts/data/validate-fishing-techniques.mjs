@@ -13,6 +13,12 @@ const paths = {
   directoryComponent: "src/components/fishing/FishingTechniqueDirectory.tsx",
   profileComponent: "src/components/fishing/FishingTechniqueProfile.tsx",
   guideContent: "src/data/fishing/technique-guide-content.ts",
+  authorityContent: "src/data/fishing/technique-authority-content.ts",
+  prototypeTechniques: "src/data/fishing/prototype-technique-profiles.ts",
+  fishingIndex: "src/data/fishing/index.ts",
+  showcasePrototypes: "src/data/fishing/showcase-lakes-prototype.ts",
+  expandedPrototypes: "src/data/fishing/expanded-showcase-lakes-prototype.ts",
+  wave2Prototypes: "src/data/fishing/wave2-showcase-lakes-prototype.ts",
   imageRegistry: "src/data/fishing/technique-images.ts",
   productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   hubRoute: "src/routes/fishing.tsx",
@@ -61,7 +67,20 @@ for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
 for (const token of ["How to Fish","When to Use","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","does not claim","fishingTechniqueImages","images?.hero","images?.depthGuide",'technique.slug === "crankbaits"','technique.slug === "soft-plastics"',"Rigging at a glance","Recognize the Basic Layout Before You Tie It",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
-for (const slug of techniqueSlugs) requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
+for (const slug of techniqueSlugs) {
+  requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
+  requireText(files.authorityContent, `"${slug}"`, "authority content missing " + slug);
+}
+for (const token of ["Choose the setup","Target differences","Practical questions","TechniqueDiagram","Texas rules"]) requireText(files.profileComponent, token, "shared technique authority UI missing " + token);
+for (const token of ["fishingTechniqueAuthorityContent","faq.map","newestDate","source.checkedAt"]) requireText(files.server, token, "profile FAQ/freshness contract missing " + token);
+for (const token of ["What Cut Bait Is Legal in Texas?","Three Useful Cut-Bait Rig Layouts","Blue, Channel and Flathead Catfish Are Different","Do not use a Texas game fish","Can I cut up a game fish and use it as bait in Texas?"]) requireText(files.authorityContent, token, "cut-bait authority content missing " + token);
+for (const token of ["game fish or any part of a game fish","slip-sinker, three-way/current or suspended/drift","washed-out bait","Treating blue, channel and flathead catfish"]) requireText(files.guideContent, token, "cut-bait practical/legal guide missing " + token);
+for (const token of ["Texas Live-Bait Rules Come First","live-bait transport","Use only bait species and collection methods"]) requireText(files.authorityContent, token, "live-bait legal guidance missing " + token);
+for (const token of ["derivePrototypeTechniqueProfiles","reconcileLakeTechniqueProfiles","publishedTechniqueAliases","cut bait","live shad","jigs-and-minnows"]) requireText(files.prototypeTechniques, token, "prototype technique reconciliation missing " + token);
+for (const token of ["derivePrototypeTechniqueProfiles","reconcileLakeTechniqueProfiles","showcaseLakePrototypes","expandedShowcaseLakePrototypes","wave2ShowcaseLakePrototypes","prototypeTechniqueProfiles"]) requireText(files.fishingIndex, token, "fishing catalog reconciliation boundary missing " + token);
+for (const [sourceKey, sourceText] of [["core", files.showcasePrototypes], ["expanded", files.expandedPrototypes], ["wave2", files.wave2Prototypes]]) {
+  requireText(sourceText, 'techniques: ["Cut bait"', `${sourceKey} lake prototypes no longer expose cut-bait authority data`);
+}
 for (const token of ["Crankbait Types by Depth and Cover","Squarebill","Deep diver","Lipless crankbait","running depth","contact or narrowly clear"]) requireText(files.guideContent, token, "crankbait authority content missing " + token);
 for (const token of ["Texas rig","Weightless stick bait","Carolina rig","Drop shot","Shaky head","Ned rig","Choose the Soft-Plastic Rig for the Job"]) requireText(files.guideContent, token, "soft-plastics authority content missing " + token);
 for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
