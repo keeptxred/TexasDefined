@@ -5,6 +5,7 @@ import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliatio
 import type { Destination } from "@/data/types";
 
 type DestinationCardDestination = Pick<Destination, "slug" | "name" | "summary" | "nearestTown" | "county" | "hero" | "bestSeason" | "highlights" | "sourceCheckedAt">;
+import { readerSafeImageAlt } from "@/lib/image-fallback";
 import { cn } from "@/lib/utils";
 
 function countyLabel(value?: string) {
@@ -62,7 +63,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
     </div>
     <img
       src={hero.src}
-      alt={hero.alt || `${destination.name}, Texas`}
+      alt={readerSafeImageAlt(hero.alt)}
       width={hero.width || 1600}
       height={hero.height || 1067}
       sizes={overlay ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"}
