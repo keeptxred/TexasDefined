@@ -40,50 +40,50 @@ const city = (
 
 const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
   houston: city(
-    'Houston is TexasDefined’s Gulf Coast city authority hub for Houston and Harris County, connecting relocation, property and tax resources, utilities, transportation, airports, major employment sectors, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. The guide keeps city, county and state responsibilities distinct so readers can move from a broad Houston reference into the correct local or statewide resource.',
+    'Houston connects relocation, property and tax resources, utilities, transportation, airports, major employment sectors, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby Gulf Coast destinations. The guide keeps city, county and state responsibilities distinct so readers can move from a broad Houston reference into the correct local or statewide resource.',
     'https://www.houstontx.gov/', 'gulf-coast', 'metro-area:greater-houston', ['major-city', 'metro-core', 'airports', 'energy', 'port-logistics', 'aerospace'],
   ),
   dallas: city(
-    'Dallas is TexasDefined’s North Texas city authority hub for Dallas and Dallas County, connecting relocation, property and tax resources, utilities, transportation, airports, employment, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. The page is a durable local-reference node rather than a generic moving article, with clear paths into county, metro and statewide service coverage.',
+    'Dallas connects relocation, property and tax resources, utilities, transportation, airports, employment, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby North Texas destinations. The guide provides clear paths into Dallas County, the wider Metroplex and statewide service resources.',
     'https://dallascityhall.com/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metro-core', 'airports', 'finance', 'professional-services', 'technology'],
   ),
   'fort-worth': city(
-    'Fort Worth is TexasDefined’s western Dallas–Fort Worth city authority hub for Fort Worth and Tarrant County, connecting relocation, property and tax resources, utilities, transportation, airports, employment, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. It preserves Fort Worth’s distinct local identity while linking readers into the larger DFW metro and the correct county and state service systems.',
+    'Fort Worth connects relocation, property and tax resources, utilities, transportation, airports, employment, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations across western Dallas–Fort Worth. The guide preserves Fort Worth’s distinct local identity while linking readers to the wider DFW region and the correct county and state service systems.',
     'https://www.fortworthtexas.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metro-core', 'airports', 'aviation', 'aerospace', 'manufacturing', 'logistics'],
   ),
   austin: city(
-    'Austin is TexasDefined’s Central Texas city authority hub for Austin and Travis County, connecting relocation, property and tax resources, utilities, transportation, the airport, major employment sectors, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby destinations. The city node separates broad Austin reference intent from relocation-only coverage and connects readers to county, metro and statewide public-service resources.',
+    'Austin connects relocation, property and tax resources, utilities, transportation, the airport, major employment sectors, health systems, schools, neighborhoods, parks, museums, food, annual events and nearby Central Texas destinations. The guide combines everyday Austin reference information with clear paths to Travis County, regional and statewide public-service resources.',
     'https://www.austintexas.gov/', 'central-texas', 'metro-area:greater-austin', ['major-city', 'state-capital', 'metro-core', 'airport', 'technology', 'semiconductors', 'government', 'higher-education'],
   ),
   'san-antonio': city(
-    'San Antonio is TexasDefined’s South Texas city authority hub for San Antonio and Bexar County, connecting relocation, property and tax resources, utilities, transportation, the airport, employment, health systems, schools, neighborhoods, parks, museums, food, annual events, history and nearby destinations. The city node connects practical local-reference needs with San Antonio’s major travel and heritage coverage while keeping county and state services clearly separated.',
+    'San Antonio connects relocation, property and tax resources, utilities, transportation, the airport, employment, health systems, schools, neighborhoods, parks, museums, food, annual events, history and nearby South Texas destinations. The guide combines practical local information with San Antonio’s travel and heritage coverage while keeping city, county and state services clearly separated.',
     'https://www.sa.gov/', 'south-texas', 'metro-area:greater-san-antonio', ['major-city', 'metro-core', 'airport', 'texas-history', 'military', 'cybersecurity', 'tourism'],
   ),
   'el-paso': city(
-    'El Paso is TexasDefined’s Far West Texas city authority hub for El Paso and El Paso County, connecting relocation, property and tax resources, utilities, transportation, El Paso International Airport, schools, health systems, neighborhoods, parks, museums, food, events and border-region travel context. City services, county responsibilities and state resources remain separated so residents and visitors can verify the jurisdiction that controls a service or record.',
+    'El Paso connects relocation, property and tax resources, utilities, transportation, El Paso International Airport, schools, health systems, neighborhoods, parks, museums, food, events and border-region travel across Far West Texas. City services, county responsibilities and state resources remain separated so residents and visitors can verify the jurisdiction that controls a service or record.',
     'https://www.elpasotexas.gov/', 'west-texas', 'metro-area:el-paso-metro', ['major-city', 'border', 'international-trade', 'airport', 'military', 'desert'],
   ),
   arlington: city(
-    'Arlington is TexasDefined’s Tarrant County city authority node between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The page gives Arlington its own local-reference identity while connecting readers to Tarrant County and broader North Texas resources instead of treating the Metroplex as one jurisdiction.',
+    'Arlington sits between Dallas and Fort Worth in Tarrant County and connects relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The guide keeps Arlington’s local information distinct while connecting readers to Tarrant County and broader North Texas resources instead of treating the Metroplex as one jurisdiction.',
     'https://www.arlingtontx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'sports', 'entertainment', 'metroplex', 'tourism'],
   ),
   hurst: {
     ...city(
-      'Hurst is TexasDefined’s Mid-Cities authority node in Tarrant County, connecting municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide gives Hurst its own verified local reference instead of folding it into Fort Worth or Arlington, while linking readers to Tarrant County, the broader DFW Metroplex and practical destination coverage such as WhirlyBall Hurst.',
+      'Hurst is a Mid-Cities community in Tarrant County with municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide keeps Hurst distinct from Fort Worth and Arlington while linking readers to Tarrant County, the broader DFW Metroplex and destinations such as WhirlyBall Hurst.',
       'https://www.hursttx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['mid-cities', 'metroplex', 'family-recreation', 'regional-rail', 'suburban'],
     ),
     sourceCheckedAt: wave3CheckedAt,
   },
   'corpus-christi': city(
-    'Corpus Christi is TexasDefined’s Coastal Bend city authority hub for Corpus Christi and Nueces County, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, beaches, parks, museums, food, events, port activity and nearby Gulf Coast destinations. The page links practical city information with coastal travel and outdoor discovery while keeping municipal, county and state responsibilities distinct.',
+    'Corpus Christi connects relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, beaches, parks, museums, food, events, port activity and nearby Coastal Bend destinations. The guide links practical city information with coastal travel and outdoor discovery while keeping municipal, county and state responsibilities distinct.',
     'https://www.corpuschristitx.gov/', 'gulf-coast', 'metro-area:corpus-christi-metro', ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
   ),
   plano: city(
-    'Plano is TexasDefined’s Collin County city authority node for one of North Texas’s largest suburban employment and residential centers, connecting relocation, property and tax resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food, events and nearby DFW communities. The guide distinguishes Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
+    'Plano is one of North Texas’s largest suburban employment and residential centers, connecting relocation, property and tax resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food, events and nearby DFW communities. The guide distinguishes Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
     'https://www.plano.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metroplex', 'corporate-employment', 'technology', 'suburban'],
   ),
   lubbock: city(
-    'Lubbock is TexasDefined’s South Plains city authority hub for Lubbock and Lubbock County, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, museums, food, events, higher education and the regional economy. The page serves both residents and travelers while connecting city-level information to county and statewide resources without padding the guide with unsourced statistics.',
+    'Lubbock connects relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, museums, food, events, higher education and the South Plains economy. The guide serves both residents and travelers while connecting city-level information to Lubbock County and statewide resources without padding the page with unsourced statistics.',
     'https://www.mylubbock.us/', 'south-plains', 'metro-area:lubbock-metro', ['major-city', 'south-plains', 'higher-education', 'agriculture', 'health-care', 'regional-hub'],
   ),
 };
