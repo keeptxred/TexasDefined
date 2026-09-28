@@ -64,12 +64,12 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'https://www.elpasotexas.gov/', 'west-texas', 'metro-area:el-paso-metro', ['major-city', 'border', 'international-trade', 'airport', 'military', 'desert'],
   ),
   arlington: city(
-    'Arlington is TexasDefined’s Tarrant County city authority node between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The page gives Arlington its own local-reference identity while connecting readers to Tarrant County and broader North Texas resources instead of treating the Metroplex as one jurisdiction.',
+    'Arlington is a practical Tarrant County city reference between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The guide connects Arlington readers to Tarrant County and broader North Texas resources while keeping the Metroplex's separate local jurisdictions clear.',
     'https://www.arlingtontx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'sports', 'entertainment', 'metroplex', 'tourism'],
   ),
   hurst: {
     ...city(
-      'Hurst is TexasDefined’s Mid-Cities authority node in Tarrant County, connecting municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide gives Hurst its own verified local reference instead of folding it into Fort Worth or Arlington, while linking readers to Tarrant County, the broader DFW Metroplex and practical destination coverage such as WhirlyBall Hurst.',
+      'Hurst is a practical Mid-Cities reference in Tarrant County, connecting municipal services, property and tax context, regional rail, schools, parks, recreation and nearby Dallas-Fort Worth attractions. The guide keeps Hurst's local information distinct from Fort Worth and Arlington while linking readers to Tarrant County, the broader DFW Metroplex and nearby destinations such as WhirlyBall Hurst.',
       'https://www.hursttx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['mid-cities', 'metroplex', 'family-recreation', 'regional-rail', 'suburban'],
     ),
     sourceCheckedAt: wave3CheckedAt,
