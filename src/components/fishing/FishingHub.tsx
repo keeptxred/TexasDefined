@@ -101,6 +101,8 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           <Resource href="/fishing/compare" title="Compare fishing lakes" copy="Put up to three lake guides side by side." />
           <Resource href="/fishing/seasons" title="Fishing seasons" copy="Understand durable seasonal patterns without confusing them with today's bite." />
           <Resource href="/fishing/techniques" title="Fishing techniques" copy="Browse source-backed methods connected to Texas lakes and species." />
+          <Resource href="/fishing/structure" title="Structure & cover" copy="Learn how points, ledges, channels, brush, timber and docks create fishing targets." />
+          <Resource href="/fishing/vegetation" title="Aquatic vegetation" copy="Read grass lines, hydrilla, reeds, flooded plants and vegetation edges." />
           <Resource href="/fishing/reports" title="Fishing reports" copy="Use dated reports when you need current-condition context." />
           <Resource href="/fishing/access" title="Fishing access" copy="Find verified ramps, marinas, shoreline access and launches." />
           <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." />
