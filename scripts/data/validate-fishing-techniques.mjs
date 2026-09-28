@@ -74,10 +74,10 @@ const techniqueRouteSmokeExpectations = [
   ["/fishing/techniques/spinnerbaits", "How to Fish Spinnerbaits in Texas"],
   ["/fishing/techniques/topwater", "How to Fish Topwater in Texas"],
   ["/fishing/techniques/trolling", "How to Fish Trolling in Texas"],
-  ["/fishing/techniques/vertical-jigging", "How to Fish Vertical jigging in Texas"],
-  ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and minnows in Texas"],
-  ["/fishing/techniques/live-bait", "How to Fish Live bait in Texas"],
-  ["/fishing/techniques/cut-bait", "How to Fish Cut bait in Texas"],
+  ["/fishing/techniques/vertical-jigging", "How to Fish Vertical Jigging in Texas"],
+  ["/fishing/techniques/jigs-and-minnows", "How to Fish Jigs and Minnows in Texas"],
+  ["/fishing/techniques/live-bait", "How to Fish Live Bait in Texas"],
+  ["/fishing/techniques/cut-bait", "How to Fish Cut Bait in Texas"],
 ];
 for (const [path, marker] of techniqueRouteSmokeExpectations) {
   requireText(workerSmoke, path, "built Worker technique detail smoke missing " + path);
