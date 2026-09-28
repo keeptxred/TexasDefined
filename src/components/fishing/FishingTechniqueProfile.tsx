@@ -74,6 +74,16 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           </div>
         </section>
 
+        {authority?.regulationNotes ? <section className="border-b border-border py-12" aria-labelledby="technique-rules">
+          <p className="eyebrow text-primary">Texas rules</p>
+          <h2 id="technique-rules" className="mt-3 font-display text-4xl sm:text-5xl">{authority.regulationNotes.title}</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{authority.regulationNotes.intro}</p>
+          <ul className="mt-7 grid gap-4 md:grid-cols-2">
+            {authority.regulationNotes.bullets.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
+          </ul>
+          <a href={authority.regulationNotes.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{authority.regulationNotes.sourceLabel} ↗</a>
+        </section> : null}
+
         {selectionGuide.length ? <section className="border-y border-border py-12" aria-labelledby="selection-guide">
           <p className="eyebrow text-primary">Choose the setup</p>
           <h2 id="selection-guide" className="mt-3 font-display text-4xl sm:text-5xl">{selectionTitle}</h2>
@@ -111,16 +121,6 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
         {technique.slug === "soft-plastics" ? <SoftPlasticsRiggingVisual /> : null}
         {authority?.diagram ? <TechniqueDiagram diagram={authority.diagram} /> : null}
-
-        {authority?.regulationNotes ? <section className="border-b border-border py-12" aria-labelledby="technique-rules">
-          <p className="eyebrow text-primary">Texas rules</p>
-          <h2 id="technique-rules" className="mt-3 font-display text-4xl sm:text-5xl">{authority.regulationNotes.title}</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{authority.regulationNotes.intro}</p>
-          <ul className="mt-7 grid gap-4 md:grid-cols-2">
-            {authority.regulationNotes.bullets.map((item) => <li key={item} className="border-t border-border pt-4 text-sm leading-7">{item}</li>)}
-          </ul>
-          <a href={authority.regulationNotes.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-7 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{authority.regulationNotes.sourceLabel} ↗</a>
-        </section> : null}
 
         <section id="how-to-fish-it" className="py-12" aria-labelledby="how-to-fish-heading">
           <div className="grid gap-10 lg:grid-cols-2">
