@@ -93,7 +93,7 @@ function Page() {
         </aside>
         <aside className="mt-8 border-y border-border py-6" aria-labelledby="checklist-budget-heading">
           <p className="eyebrow text-primary">Before move day</p>
-          <h2 id="checklist-budget-heading" className="mt-2 font-display text-3xl">Price the whole move, not just the truck</h2>
+          <h2 id="checklist-budget-heading" className="mt-2 font-display text-3xl">Price the full cost of your move</h2>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Transportation, packing, travel, storage, deposits and setup costs can land in the same few weeks. Build the one-time budget first, then keep it separate from the new recurring household costs.</p>
           <Link to="/texas-moving-cost-calculator" className="mt-4 inline-block font-semibold text-primary underline underline-offset-4">Open the Texas moving cost calculator →</Link>
         </aside>
