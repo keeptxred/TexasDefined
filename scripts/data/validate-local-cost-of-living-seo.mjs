@@ -81,7 +81,7 @@ for (const marker of [
   "import { LOCAL_COST_OF_LIVING_PROFILES } from '@/data/local-cost-of-living'",
   'LOCAL_COST_OF_LIVING_PROFILES.map((profile)',
   'to={profile.path}',
-  'Build a city budget without pretending one average fits everyone',
+  'Build a city budget around your household costs',
 ]) {
   if (!hub.includes(marker)) failures.push(`Statewide cost-of-living hub missing registry-driven discovery contract ${marker}.`);
 }
