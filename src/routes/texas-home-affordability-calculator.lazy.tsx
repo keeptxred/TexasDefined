@@ -56,7 +56,7 @@ function TexasHomeAffordabilityCalculatorPage() {
       <AffordabilityCalculator />
       <section className="mt-14 border-t border-border pt-10" aria-labelledby="affordability-cost-heading">
         <p className="eyebrow text-primary">Look beyond the purchase price</p>
-        <h2 id="affordability-cost-heading" className="mt-3 font-display text-3xl">Estimate the housing payment your budget would actually carry</h2>
+        <h2 id="affordability-cost-heading" className="mt-3 font-display text-3xl">Estimate the housing payment your budget can carry</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           <p>A useful affordability estimate starts with income and monthly debt, but it should not stop at principal and interest. Property taxes, homeowners insurance and the size of the down payment can change the monthly cost and the amount of cash needed before move-in.</p>
           <p>Run several scenarios rather than treating one result as a target. A lower purchase price, a different down payment or a change in interest rate can alter both the monthly payment and the cash you keep available after closing.</p>
