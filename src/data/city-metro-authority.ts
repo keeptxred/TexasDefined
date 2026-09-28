@@ -79,7 +79,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'https://www.corpuschristitx.gov/', 'gulf-coast', 'metro-area:corpus-christi-metro', ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
   ),
   plano: city(
-    'Plano is TexasDefined’s Collin County city authority node for one of North Texas’s largest suburban employment and residential centers, connecting relocation, property and tax resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food, events and nearby DFW communities. The guide distinguishes Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
+    'Plano is a practical Collin County city reference for one of North Texas’s largest suburban employment and residential centers, connecting relocation, property and tax resources, municipal utilities, transportation, schools, health systems, neighborhoods, parks, food, events and nearby DFW communities. The guide distinguishes Plano city services from Collin County, regional and state systems so readers can reach the correct source for each task.',
     'https://www.plano.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metroplex', 'corporate-employment', 'technology', 'suburban'],
   ),
   lubbock: city(
