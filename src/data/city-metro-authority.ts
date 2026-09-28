@@ -64,7 +64,7 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'https://www.elpasotexas.gov/', 'west-texas', 'metro-area:el-paso-metro', ['major-city', 'border', 'international-trade', 'airport', 'military', 'desert'],
   ),
   arlington: city(
-    'Arlington is a practical Tarrant County city reference between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The guide connects Arlington readers to Tarrant County and broader North Texas resources while keeping the Metroplex's separate local jurisdictions clear.',
+    'Arlington is a practical Tarrant County city reference between Dallas and Fort Worth, connecting relocation, property and tax resources, utilities, transportation, schools, health systems, neighborhoods, parks, major sports and entertainment destinations, events and nearby DFW communities. The guide connects Arlington readers to Tarrant County and broader North Texas resources while keeping the Metroplex’s separate local jurisdictions clear.',
     'https://www.arlingtontx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'sports', 'entertainment', 'metroplex', 'tourism'],
   ),
   hurst: {
