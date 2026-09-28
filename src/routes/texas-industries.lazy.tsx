@@ -78,8 +78,8 @@ function TexasIndustriesPage() {
         <Container>
           <div className="max-w-4xl">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Method</p>
-            <h2 className="mt-3 font-display text-4xl">What counts as an industry authority page here?</h2>
-            <p className="mt-5 text-base leading-8 text-muted-foreground">These pages are designed as durable explainers, not investment recommendations or employer rankings. TexasDefined uses official state and federal data, agency sources, and first-party institutional sources for factual claims. Promotional rankings from economic-development sources are attributed to the source rather than presented as independent TexasDefined judgments.</p>
+            <h2 className="mt-3 font-display text-4xl">How these Texas industry guides are researched</h2>
+            <p className="mt-5 text-base leading-8 text-muted-foreground">These guides are designed as durable explainers, not investment recommendations or employer rankings. Factual claims rely on official state and federal data, agency sources and first-party institutional sources. Promotional rankings from economic-development organizations are attributed to their source rather than presented as independent judgments.</p>
             <p className="mt-4 text-base leading-8 text-muted-foreground">The collection also separates current statistics from structural explanations. A refinery, semiconductor fab, hospital district or port can be a durable part of a regional economy even when annual output, staffing or investment figures change.</p>
           </div>
         </Container>

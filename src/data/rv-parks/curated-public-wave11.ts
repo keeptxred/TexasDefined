@@ -49,7 +49,7 @@ const WAVE11: Record<(typeof RV_PARK_CURATED_PUBLIC_WAVE11_SLUGS)[number], Curat
     body: [
       "Pleasure Island RV Park is part of the City of Port Arthur's Pleasure Island recreation system on Sabine Lake. The city's current Pleasure Island page describes approximately 50 RV spaces with 30-amp and 50-amp electrical connections, plus laundry and restroom facilities for campground guests. Because utility and stay details can change, the exact booked site's services should be confirmed directly rather than inferred from the island-wide description.",
       "The campground connects to a larger waterfront recreation area. Port Arthur highlights nearby fishing access, a playground, Lakefront Park, Logan Music Park, disc golf and roughly a mile of public piers with Sabine Lake views. That makes the RV park useful for travelers who want fishing and shoreline time on the same island instead of using the site only as an overnight stop.",
-      "The RV park is on South Spoil Levee Road on Pleasure Island in Port Arthur. The city publishes current Pleasure Island contact information and RV pricing, but travelers should recheck availability, utility details and arrival instructions before towing in. This profile already has governed park-property imagery in the Texas Defined registry, so once the destination content and source gates pass it can qualify for normal indexing.",
+      "The RV park is on South Spoil Levee Road on Pleasure Island in Port Arthur. The city publishes current Pleasure Island contact information and RV pricing, but travelers should recheck availability, utility details and arrival instructions before towing in.",
     ],
     officialUrl: "https://portarthurtx.gov/565/Pleasure-Island",
     sourceCheckedAt: "2026-09-14",
