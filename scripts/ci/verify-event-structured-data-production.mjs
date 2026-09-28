@@ -3,6 +3,19 @@ const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const minimumIndexableEvergreenCollectionItems = 3;
+const eventTimeZone = 'America/Chicago';
+
+function currentEventDateKey(date = new Date()) {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: eventTimeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }).formatToParts(date).map(({ type, value }) => [type, value]),
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
 
 function decodeHtmlEntities(value) {
   return value
@@ -289,23 +302,40 @@ async function verifyExpiredConfirmedLeaf() {
 
 async function verifyFreeOfferLeaf() {
   const path = '/event/mckinney-oktoberfest';
+  const startDate = '2026-09-25';
+  const endDate = '2026-09-27';
   const html = await fetchProduction(path, 'mckinney-oktoberfest');
   assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
   assert(html.includes('Tickets and admission'), 'McKinney Oktoberfest visible page must expose verified free admission');
 
-  const events = eventNodes(html);
-  assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming');
-  const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
-  assert(event.startDate === '2026-09-25', 'McKinney Oktoberfest Event schema startDate must be 2026-09-25');
-  assert(event.endDate === '2026-09-27', 'McKinney Oktoberfest Event schema endDate must be 2026-09-27');
-  assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose its verified organizer');
-  const offers = asArray(event.offers);
-  assert(offers.length >= 1, 'McKinney Oktoberfest must expose a verified free Offer');
-  const freeOffer = offers.find((offer) => Number(offer?.price) === 0);
-  assert(freeOffer, 'McKinney Oktoberfest must include a zero-price Offer');
-  verifyOfferShape(freeOffer, 'McKinney Oktoberfest free admission', true);
-  console.log('[mckinney-oktoberfest] upcoming organizer and free Offer verified');
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'McKinney Oktoberfest leaf must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+  const today = currentEventDateKey();
+
+  if (today <= endDate) {
+    const events = nodes.filter((node) => hasType(node, 'Event'));
+    assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming or active');
+    const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
+    assert(event.startDate === startDate, `McKinney Oktoberfest Event schema startDate must be ${startDate}`);
+    assert(event.endDate === endDate, `McKinney Oktoberfest Event schema endDate must be ${endDate}`);
+    assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose its verified organizer');
+    const offers = asArray(event.offers);
+    assert(offers.length >= 1, 'McKinney Oktoberfest must expose a verified free Offer');
+    const freeOffer = offers.find((offer) => Number(offer?.price) === 0);
+    assert(freeOffer, 'McKinney Oktoberfest must include a zero-price Offer');
+    verifyOfferShape(freeOffer, 'McKinney Oktoberfest free admission', true);
+    console.log('[mckinney-oktoberfest] upcoming/active organizer and free Offer verified');
+    return;
+  }
+
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'McKinney Oktoberfest expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'McKinney Oktoberfest expired leaf must remain described as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney Oktoberfest expired leaf must suppress stale scheduled Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'McKinney Oktoberfest expired leaf must suppress EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'McKinney Oktoberfest expired JSON-LD must not publish stale occurrence dates');
+  console.log(`[mckinney-oktoberfest] expired confirmed occurrence schema suppression verified for ${today}`);
 }
 
 async function verifyPaidOfferAndPerformersLeaf() {
