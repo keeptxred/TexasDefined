@@ -254,15 +254,28 @@ function TechniqueDiagram({ diagram }: { diagram: NonNullable<FishingTechniqueAu
     <h2 id="technique-diagram" className="mt-3 font-display text-4xl sm:text-5xl">{diagram.title}</h2>
     <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{diagram.intro}</p>
     <div className="mt-8 grid gap-5 md:grid-cols-2">
-      {diagram.rigs.map((rig) => <figure key={rig.name} className="border border-border p-5">
-        <figcaption className="font-display text-2xl">{rig.name}</figcaption>
-        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-4" aria-label={`${rig.name} simplified layout`}>
+      {diagram.rigs.map((rig) => <figure key={rig.name} className="overflow-hidden border border-border bg-background">
+        <div className="p-5">
+          <figcaption className="font-display text-2xl">{rig.name}</figcaption>
+        </div>
+        <div className="border-y border-border bg-muted/20">
+          <img
+            src={rig.image}
+            alt={rig.imageAlt}
+            width={640}
+            height={220}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[32/11] w-full object-contain"
+          />
+        </div>
+        <div className="flex flex-wrap items-center gap-2 p-5" aria-label={`${rig.name} simplified layout`}>
           {rig.pieces.map((piece, index) => <div key={`${rig.name}-${piece}`} className="contents">
             <span className="border border-border px-3 py-2 text-xs font-semibold">{piece}</span>
             {index < rig.pieces.length - 1 ? <span aria-hidden="true" className="text-muted-foreground">→</span> : null}
           </div>)}
         </div>
-        <p className="mt-5 text-xs leading-6 text-muted-foreground">{rig.note}</p>
+        <p className="border-t border-border px-5 py-4 text-xs leading-6 text-muted-foreground">{rig.note}</p>
       </figure>)}
     </div>
   </section>;
