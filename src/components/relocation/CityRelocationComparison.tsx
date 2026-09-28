@@ -157,7 +157,7 @@ export function CityRelocationComparison() {
               <h3 id="address-changes-answer-heading" className="mt-2 font-display text-3xl leading-tight">The city name is only the first layer</h3>
             </div>
             <div>
-              <p className="max-w-4xl text-sm leading-7 text-muted-foreground">Before signing a lease or contract, verify the school district, appraisal district and taxing units, utility territory, flood map, homeowners coverage structure and repeated commute for the exact address. Texas Defined routes these questions to the responsible public sources instead of pretending a citywide score can answer them.</p>
+              <p className="max-w-4xl text-sm leading-7 text-muted-foreground">Before signing a lease or contract, verify the school district, appraisal district and taxing units, utility territory, flood map, homeowners coverage structure and repeated commute for the exact address. Texas Defined routes these questions to the responsible public sources because a citywide score cannot answer exact-address questions.</p>
               <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
                 {sourceCards.map((source) => (
                   <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="bg-background p-4">
