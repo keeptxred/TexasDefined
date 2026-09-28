@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave11Destinations: Destination[] = [
     body: [
       "The Stillman House survives from the formative decades of Brownsville, when the Rio Grande border was politically unsettled and commercial families were building a new city. Charles Stillman, widely associated with Brownsville's founding, lived in the house with his wife after it was built by hotelier Henry Miller.",
       "Later ownership by the Treviño family ties the property to Mexican diplomatic and political history as well as Brownsville domestic life. Original windows, shutters, doors and breezy courtyards remain central to the experience, making the house useful for architectural history as well as biography.",
-      "TexasDefined should keep the Stillman House separate from the neighboring Heritage Museum even though one admission covers both. The house is a place-based historic resource with its own story, while the Heritage Museum provides a broader chronological interpretation of Brownsville and the surrounding region."
+      "Stillman House and the neighboring Heritage Museum are best understood as separate visitor experiences even though one admission covers both. The house is a place-based historic resource with its own story, while the Heritage Museum provides a broader chronological interpretation of Brownsville and the surrounding region."
     ],
     officialUrl: "https://www.brownsvillehistory.org/stillman-house-museum-brownsville-historical-association.html",
     managingAuthority: "Brownsville Historical Association",
