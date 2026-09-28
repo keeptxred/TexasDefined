@@ -11,7 +11,7 @@ const PLAN_VISIT_HEADING = /(<h2[^>]*>\s*Planning your visit\s*<\/h2>)/i;
 const LEGACY_PLAN_VISIT_HEADING = /(<h2[^>]*>\s*)Plan the visit(\s*<\/h2>)/gi;
 const FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
 const EVENT_DISCOVERY_TAIL = /(<section data-event-discovery-tail="true"[^>]*>)/i;
-const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot aria-label="Places to stay near this event"></div>';
+const STAY_NEARBY_SLOT = '<section data-event-booking-funnel="true" class="my-8 border-y border-border py-7"><p class="eyebrow text-primary">Make a weekend of it</p><h2 class="mt-3 font-display text-3xl">Plan the whole weekend</h2><p class="mt-3 max-w-2xl text-sm leading-7 text-muted-foreground">Once the event fits your calendar, compare places to stay nearby and use the guide for tickets, parking and other trip details. Partner availability and prices can change.</p><div class="mt-6" data-stay-nearby-slot aria-label="Places to stay near this event"></div><p class="mt-5 text-xs leading-5 text-muted-foreground">Own or operate a relevant Texas travel business? <a href="/partner-with-us" class="font-semibold text-foreground underline decoration-border underline-offset-4">See TexasDefined partnership options</a>.</p></section>';
 
 function stabilizeEventHtml(slug: string, html: string) {
   if (slug !== "chappell-hill-bluebonnet-festival") return html;

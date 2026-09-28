@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
+import { RvshareRentalCard } from "@/components/monetization/RvshareRentalCard";
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import type { Destination } from "@/data/types";
 
@@ -8,6 +9,8 @@ type Props = { destination: Destination };
 const activityPattern = /hiking|trail|camping|fishing|swimming|boating|paddling|kayak|canoe|bird|wildlife|cycling|climbing|horse|picnic|photograph|stargaz/i;
 const facilityPattern = /restroom|visitor center|playground|parking|campground|campsite|shower|electric|water|accessible|accessibility|boat ramp|dock|store|rental/i;
 const drivingIntentPattern = /\b(?:drive|driving|car|road trip|highway|airport|remote|vehicle)\b/i;
+const rvIntentPattern = /\b(?:camp|camping|campground|campsite|rv|recreational vehicle)\b/i;
+const rvIntentCategories = new Set(["state-parks", "national-parks", "lakes-rivers", "outdoors", "road-trips"]);
 
 function unique(values: string[]) {
   return values.filter((value, index, all) => Boolean(value) && all.indexOf(value) === index);
@@ -26,6 +29,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
     ...destination.highlights,
   ].filter(Boolean).join(" ");
   const showRentalCarOption = drivingIntentPattern.test(drivingIntentText);
+  const showRvshareOption = rvIntentCategories.has(destination.category) && rvIntentPattern.test(drivingIntentText);
 
   const groups = [
     { title: "Highlights", items: unique([...activities, ...otherHighlights]) },
@@ -34,15 +38,33 @@ export function DestinationVisitPlanner({ destination }: Props) {
 
   return (
     <>
-      <div
-        data-stay-nearby-slot
-        aria-label={`Places to stay near ${destination.name}`}
-      />
+      <section className="border-y border-border py-8" aria-labelledby={`book-${destination.slug}`}>
+        <p className="eyebrow text-primary">Book the trip</p>
+        <h2 id={`book-${destination.slug}`} className="mt-3 font-display text-3xl">Where to stay near {destination.name}</h2>
+        <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
+          Once the destination makes sense, compare practical lodging and transportation options without leaving the planning flow. Availability and prices can change.
+        </p>
+        <div
+          className="mt-6"
+          data-stay-nearby-slot
+          aria-label={`Places to stay near ${destination.name}`}
+        />
+        <p className="mt-5 text-xs leading-5 text-muted-foreground">
+          Own or operate a relevant Texas travel business? <a href="/partner-with-us" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">See TexasDefined partnership options</a>.
+        </p>
+      </section>
       {showRentalCarOption ? (
         <BookingCarRentalCard
           className="my-10"
-          placement="destination-visit-planner"
+          placement="destination-visit-planner-car"
           title={`Need a rental car for ${destination.name}?`}
+        />
+      ) : null}
+      {showRvshareOption ? (
+        <RvshareRentalCard
+          className="mb-10"
+          placement="destination-visit-planner-rvshare"
+          title={`Camping near ${destination.name}? Compare an RV option.`}
         />
       ) : null}
       {(groups.length > 0 || editorialLinks.length > 0) && <section aria-labelledby="things-to-do-there" className="border-t border-border pt-8">

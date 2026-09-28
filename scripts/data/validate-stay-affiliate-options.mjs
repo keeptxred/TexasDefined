@@ -82,7 +82,7 @@ try {
     if (api.comparisonHotelDestination('both') !== 'https://www.travelocity.com/') errors.push('Broader destination/leisure intent must route its comparison hotel option to Travelocity.');
     if (!api.ownerEligible('/real-estate')) errors.push('Vrbo owner referral must remain eligible on /real-estate.');
     if (api.ownerEligible('/city/austin')) errors.push('Vrbo owner referral must not appear merely because a page is a city travel guide.');
-    for (const pathname of ['/best-places-to-go-camping-in-texas', '/explore/rv-parks', '/explore/state-parks', '/explore/road-trips', '/explore/outdoors']) {
+    for (const pathname of ['/best-places-to-go-camping-in-texas', '/explore/rv-parks', '/explore/state-parks', '/explore/road-trips', '/explore/outdoors', '/fishing/lakes/lake-conroe', '/fishing/lake/lake-conroe', '/fishing/plan']) {
       if (!api.rvshareEligible(pathname)) errors.push(`RVshare must be eligible on high-intent outdoor route ${pathname}.`);
     }
     for (const pathname of ['/event/chappell-hill-bluebonnet-festival', '/destination/fredericksburg', '/city/austin', '/county/travis']) {
@@ -305,6 +305,8 @@ for (const [needle, label] of [
   ['normalizeVisitorHeadings', 'legacy event heading normalizer'],
   ['Planning your visit', 'event planning placement anchor'],
   ['Places to stay near this event', 'event stay-slot accessibility label'],
+  ['data-event-booking-funnel', 'event whole-weekend booking funnel'],
+  ['Plan the whole weekend', 'event whole-weekend heading'],
   ['EVENT_DISCOVERY_TAIL', 'event parking placement boundary'],
   ['data-event-discovery-tail', 'stable event discovery-tail marker'],
   ['splitEventHtmlForParking', 'event parking placement helper'],
@@ -324,6 +326,8 @@ for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
   ['Places to stay near ${destination.name}', 'destination stay-slot accessibility label'],
   ['Things to do and see', 'destination planning adjacency'],
+  ['Book the trip', 'destination commercial-intent heading'],
+  ['destination-visit-planner-rvshare', 'destination contextual RVshare attribution'],
 ]) requireText(destinationPlanner, needle, label);
 
 for (const [needle, label] of [
