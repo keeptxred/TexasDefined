@@ -107,7 +107,7 @@ export const TEXAS_ICON_RESEARCH_MEDIA_BATCH_1: readonly TexasIconResearchProfil
     dek: "Dallas-born Luke Wilson entered film through the Texas-made Bottle Rocket collaboration with brothers Owen and Andrew Wilson and filmmaker Wes Anderson, then built a long career across comedy, drama and television.",
     overview: [
       "Luke Cunningham Wilson was born in Dallas in 1971, the youngest of three sons of photographer Laura Wilson and advertising executive Robert Wilson. He attended St. Mark's School of Texas before college in California. His first major screen opportunity came through the same Texas creative circle that launched his brother Owen and Wes Anderson: Luke acted in the short and feature versions of Bottle Rocket.",
-      "Wilson later appeared in Rushmore and The Royal Tenenbaums, then broadened into films such as Legally Blonde, Old School, My Dog Skip and Idiocracy. He also co-wrote and co-directed The Wendell Baker Story. His Texas profile should center Dallas family and filmmaking origins without pretending that his entire career remained Texas-based.",
+      "Wilson later appeared in Rushmore and The Royal Tenenbaums, then broadened into films such as Legally Blonde, Old School, My Dog Skip and Idiocracy. He also co-wrote and co-directed The Wendell Baker Story. His Texas profile should center Dallas family and filmmaking origins while recognizing that his career extended far beyond Texas.",
     ],
     definingWorks: ["Bottle Rocket", "The Royal Tenenbaums", "Legally Blonde", "Old School", "The Wendell Baker Story"],
     timeline: [
