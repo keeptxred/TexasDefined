@@ -33,7 +33,7 @@ export const statewideMuseumExpansionDestinations: Destination[] = [
     coordinates: { lat: 34.980327, lng: -101.917257 },
     hero: museumPlaceholder("Panhandle-Plains Historical Museum"),
     bestSeason: "The museum building is temporarily closed as of August 2026; follow the official closure-update page for reopening information and off-site programs.",
-    entryNote: "The museum's physical galleries are temporarily closed while building improvements are pursued. TexasDefined keeps this authority page live because the institution and collections remain active, but visitors should not plan an indoor museum visit until the official site announces reopening.",
+    entryNote: "The museum's physical galleries are temporarily closed while building improvements are pursued. The institution and collections remain active, but visitors should not plan an indoor museum visit until the official site announces reopening.",
     highlights: ["Texas Panhandle history", "Archaeology and paleontology", "Petroleum and ranching collections", "West Texas A&M University"],
     body: [
       "Panhandle-Plains Historical Museum is one of the deepest regional-history institutions in Texas. Its collections range across archaeology, paleontology, Indigenous history, ranching, transportation, petroleum, textiles and fine art, allowing visitors to understand the Panhandle as a cultural and environmental region rather than through a single episode.",
@@ -88,7 +88,7 @@ export const statewideMuseumExpansionDestinations: Destination[] = [
     body: [
       "Texas Energy Museum uses the Spindletop gusher as the turning point for a larger story about petroleum. The 1901 discovery near Beaumont accelerated industrial growth, refining and investment on a scale that reshaped Southeast Texas and helped establish the modern oil economy.",
       "The museum goes beyond a chronology of famous wells. Exhibits explain how oil and gas are found, produced, refined and turned into everyday products, connecting regional history with geology, engineering, chemistry and the people who built the industry.",
-      "Its downtown location makes the museum especially easy to cross-link with the Art Museum of Southeast Texas, Fire Museum of Texas and other Beaumont stops. Travelers interested in oil history can then continue to Spindletop-Gladys City Boomtown Museum for a recreated physical setting tied to the same story."
+      "Its downtown location makes the museum easy to combine with the Art Museum of Southeast Texas, Fire Museum of Texas and other Beaumont stops. Travelers interested in oil history can then continue to Spindletop-Gladys City Boomtown Museum for a recreated physical setting tied to the same story."
     ],
     officialUrl: "https://www.texasenergymuseum.org/visit1.html",
     managingAuthority: "Texas Energy Museum",
@@ -263,7 +263,7 @@ export const statewideMuseumExpansionDestinations: Destination[] = [
     body: [
       "Spindletop-Gladys City Boomtown Museum interprets one of the most consequential industrial events in Texas history through a physical landscape. The 1901 Lucas Gusher helped launch a petroleum boom that transformed Beaumont, attracted major investment and accelerated the growth of the modern oil industry.",
       "Rather than presenting that story only through artifacts, the museum recreates parts of the commercial boomtown that grew around the oil field. Furnished buildings, derricks and demonstrations help visitors picture the sudden influx of workers, businesses and technology that followed the discovery.",
-      "The site pairs naturally with the Texas Energy Museum downtown. Gladys City provides the place-based boomtown experience, while the Energy Museum explains the science, technology and larger industry that grew from Spindletop. Together they form one of TexasDefined's strongest industrial-history cross-link clusters."
+      "The site pairs naturally with the Texas Energy Museum downtown. Gladys City provides the place-based boomtown experience, while the Energy Museum explains the science, technology and larger industry that grew from Spindletop. Together they make one of Beaumont's strongest industrial-history itineraries."
     ],
     officialUrl: "https://www.lamar.edu/spindletop-boomtown-museum/plan-your-visit/index.html",
     managingAuthority: "Lamar University",
