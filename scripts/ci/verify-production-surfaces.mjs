@@ -16,7 +16,7 @@ const surfaces = [
   ['crankbaits-detail-route', '/fishing/techniques/crankbaits', 'How to Fish Crankbaits in Texas'],
   ['crankbaits-hero-image', '/fishing/techniques/crankbaits', '/images/fishing/crankbaits-hero.avif'],
   ['crankbaits-depth-image', '/fishing/techniques/crankbaits', '/images/fishing/crankbait-types-depth-cover.avif'],
-  ['soft-plastics-detail-route', '/fishing/techniques/soft-plastics', 'How to Fish Soft plastics in Texas'],
+  ['soft-plastics-detail-route', '/fishing/techniques/soft-plastics', 'How to Fish Soft Plastics in Texas'],
   ['spinnerbaits-detail-route', '/fishing/techniques/spinnerbaits', 'How to Fish Spinnerbaits in Texas'],
   ['topwater-detail-route', '/fishing/techniques/topwater', 'How to Fish Topwater in Texas'],
   ['trolling-detail-route', '/fishing/techniques/trolling', 'How to Fish Trolling in Texas'],
