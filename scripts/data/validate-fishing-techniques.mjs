@@ -20,6 +20,11 @@ const paths = {
   expandedPrototypes: "src/data/fishing/expanded-showcase-lakes-prototype.ts",
   wave2Prototypes: "src/data/fishing/wave2-showcase-lakes-prototype.ts",
   imageRegistry: "src/data/fishing/technique-images.ts",
+  relatedTechniques: "src/data/fishing/related-techniques.ts",
+  habitatData: "src/data/fishing/habitat-guides.ts",
+  habitatComponent: "src/components/fishing/FishingHabitatGuidePage.tsx",
+  structureRoute: "src/routes/fishing.structure.tsx",
+  vegetationRoute: "src/routes/fishing.vegetation.tsx",
   productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   hubRoute: "src/routes/fishing.tsx",
   hubComponent: "src/components/fishing/FishingHub.tsx",
@@ -97,6 +102,19 @@ for (const token of ["buildFishingTechniqueProfileHead",'"@type": "WebPage"','"@
 for (const token of ['createFileRoute("/fishing/techniques/$slug")',"throw notFound()",'content: "noindex, nofollow"','head: ({ loaderData }) => loaderData?.head']) requireText(files.profileRoute, token, `profile critical route contract missing ${token}`);
 for (const token of ['createLazyFileRoute("/fishing/techniques/$slug")','FishingTechniqueProfile data={Route.useLoaderData()}']) requireText(files.profileLazy, token, `profile native lazy route missing ${token}`);
 for (const token of ["How to Fish","When to Use","Where to Fish","Basic Tackle and Rigging Setup","Season-by-Season Guide","Common Mistakes to Avoid","Texas Lakes Covered in This Guide","Check Current Conditions Before You Fish","Sources and Verification","does not claim","fishingTechniqueImages","images?.hero","images?.depthGuide",'technique.slug === "crankbaits"','technique.slug === "soft-plastics"',"Rigging at a glance","Recognize the Basic Layout Before You Tie It","/images/fishing/rigs/texas-rig.svg","/images/fishing/rigs/carolina-rig.svg","/images/fishing/rigs/drop-shot.svg","/images/fishing/rigs/wacky-rig.svg",'target="_blank"','rel="noopener noreferrer"']) requireText(files.profileComponent, token, "profile UI contract missing " + token);
+for (const token of ["relatedFishingTechniques","Related Fishing Techniques","FISHING_STRUCTURE_PATH","FISHING_VEGETATION_PATH","Read the structure guide","Read the vegetation guide"]) requireText(files.profileComponent, token, "technique cross-link contract missing " + token);
+for (const slug of techniqueSlugs) requireText(files.relatedTechniques, `"${slug}":`, "related technique map missing " + slug);
+for (const token of ['FISHING_STRUCTURE_PATH = "/fishing/structure"','FISHING_VEGETATION_PATH = "/fishing/vegetation"',"structure is the shape or contour","Aquatic vegetation is cover and habitat","TPWD — Locations of Fish Habitat Structures","TPWD — Native Aquatic Vegetation"]) requireText(files.habitatData, token, "fishing habitat authority data missing " + token);
+for (const token of ["Quick answer","Turn Lake Features Into Fishing Targets","What to Fish Once You Find It","Related Fishing Guides","Source Trail"]) requireText(files.habitatComponent, token, "fishing habitat UI missing " + token);
+for (const [routeText, routePath] of [[files.structureRoute, "/fishing/structure"], [files.vegetationRoute, "/fishing/vegetation"]]) {
+  requireText(routeText, `createFileRoute("${routePath}")`, "fishing habitat route missing " + routePath);
+  requireText(routeText, "buildMeta", "fishing habitat metadata builder missing " + routePath);
+  requireText(routeText, "canonicalLink", "fishing habitat canonical link missing " + routePath);
+  requireText(routeText, "canonicalPath:", "fishing habitat canonical path missing " + routePath);
+  requireText(routeText, "title:", "fishing habitat search title missing " + routePath);
+  requireText(routeText, "description:", "fishing habitat description missing " + routePath);
+  requireText(routeText, "FishingHabitatGuidePage", "fishing habitat component missing " + routePath);
+}
 for (const slug of techniqueSlugs) {
   requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
   requireText(files.authorityContent, `"${slug}"`, "authority content missing " + slug);
@@ -133,6 +151,12 @@ for (const token of ["Texas rig","Weightless stick bait","Carolina rig","Drop sh
 for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
 for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt: images.hero.alt","imageType: images.hero.imageType"]) requireText(files.server, token, "crankbait social image metadata missing " + token);
 const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
+for (const [path, marker] of [["/fishing/structure","Fishing Structure and Cover in Texas Lakes"],["/fishing/vegetation","Fishing Aquatic Vegetation in Texas"],["/fishing/techniques/soft-plastics","Related Fishing Techniques"]]) {
+  requireText(workerSmoke, path, "built Worker habitat/cross-link smoke missing " + path);
+  requireText(workerSmoke, marker, "built Worker habitat/cross-link marker missing " + marker);
+  requireText(files.productionSmoke, path, "live habitat/cross-link smoke missing " + path);
+  requireText(files.productionSmoke, marker, "live habitat/cross-link marker missing " + marker);
+}
 for (const token of ["/fishing/techniques/crankbaits","How to Fish Crankbaits in Texas","/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif"]) requireText(files.productionSmoke, token, "crankbait live production verification missing " + token);
 const techniqueRouteSmokeExpectations = [
   ["/fishing/techniques/soft-plastics", "How to Fish Soft Plastics in Texas"],
@@ -172,6 +196,9 @@ for (const token of ['DUPLICATED_FISHING_TECHNIQUE_PREFIX = "/fishing/fishing/te
 if (`${files.routing}\n${files.sitemap}\n${files.publicRoutes}`.includes("/fishing/fishing/")) throw new Error("Fishing Batch 13 validation failed: malformed duplicated fishing prefix entered canonical discovery.");
 
 for (const token of ['<Resource href="/fishing/techniques" title="Fishing techniques"','<Resource href="/fishing/seasons" title="Fishing seasons"','Link to="/fishing/lakes"','<Resource href="/fishing/guides" title="Fishing guides"','<Resource href="/fishing/access" title="Fishing access"','<Resource href="/fishing/reports" title="Fishing reports"','fishingFoundationAnchor("lake", lake.slug)','fishingFoundationAnchor("species", fish.slug)',"Featured Texas Fishing Lakes","Full fishing guide","Lake profile"]) requireText(files.hubComponent, token, `live fishing hub discovery contract missing ${token}`);
+for (const token of ["FISHING_STRUCTURE_PATH","FISHING_VEGETATION_PATH"]) requireText(files.sitemap, token, "fishing habitat sitemap entry missing " + token);
+for (const token of ['"/fishing/structure"','"/fishing/vegetation"']) requireText(files.publicRoutes, token, "fishing habitat public-route governance missing " + token);
+for (const token of ['<Resource href="/fishing/structure"','<Resource href="/fishing/vegetation"']) requireText(files.hubComponent, token, "fishing habitat hub discovery missing " + token);
 requireText(files.sitemap, "FISHING_TECHNIQUES_DIRECTORY_PATH", "technique sitemap directory entry missing");
 requireText(files.sitemap, "PUBLISHED_FISHING_TECHNIQUE_SLUGS", "technique sitemap profile expansion missing");
 requireText(files.search, "fishing-directory:texas-fishing-techniques", "global-search directory document missing");
