@@ -81,7 +81,7 @@ async function verifyPage(path, label, needles, schemaTypes = []) {
 await verifyPage(
   '/texas-industries',
   'industry hub',
-  ['The industries that power Texas', 'Industry is part of the TexasDefined place graph'],
+  ['The industries that power Texas', 'href="/browse/counties"', 'href="/made-in-texas"', 'href="/moving-to-texas?companyMove=employer#corporate-relocation"'],
   ['CollectionPage', 'ItemList', 'BreadcrumbList'],
 );
 
