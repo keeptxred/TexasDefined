@@ -42,6 +42,28 @@ for (const path of [
 ]) {
   if (!fs.existsSync(path)) throw new Error(`Fishing Batch 13 missing soft-plastics rig image asset: ${path}`);
 }
+const techniqueDiagramImageAssets = [
+  "public/images/fishing/rigs/spinnerbait-shallow-cover.svg",
+  "public/images/fishing/rigs/spinnerbait-slow-roll.svg",
+  "public/images/fishing/rigs/topwater-walking-bait.svg",
+  "public/images/fishing/rigs/topwater-popper.svg",
+  "public/images/fishing/rigs/topwater-buzzbait.svg",
+  "public/images/fishing/rigs/topwater-frog.svg",
+  "public/images/fishing/rigs/trolling-contour-pass.svg",
+  "public/images/fishing/rigs/trolling-suspended-fish.svg",
+  "public/images/fishing/rigs/vertical-jigging-suspended-school.svg",
+  "public/images/fishing/rigs/vertical-jigging-bottom-structure.svg",
+  "public/images/fishing/rigs/crappie-vertical-jig.svg",
+  "public/images/fishing/rigs/crappie-slip-float.svg",
+  "public/images/fishing/rigs/live-bait-suspended.svg",
+  "public/images/fishing/rigs/live-bait-bottom.svg",
+  "public/images/fishing/rigs/cut-bait-slip-sinker.svg",
+  "public/images/fishing/rigs/cut-bait-three-way.svg",
+  "public/images/fishing/rigs/cut-bait-suspended-drift.svg",
+];
+for (const path of techniqueDiagramImageAssets) {
+  if (!fs.existsSync(path)) throw new Error(`Fishing Batch 13 missing technique diagram image asset: ${path}`);
+}
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const pkg = JSON.parse(files.package);
 const requireText = (text, token, label) => { if (!text.includes(token)) throw new Error(`Fishing Batch 13 validation failed: ${label}`); };
@@ -79,7 +101,7 @@ for (const slug of techniqueSlugs) {
   requireText(files.guideContent, `"${slug}"`, "practical guide content missing " + slug);
   requireText(files.authorityContent, `"${slug}"`, "authority content missing " + slug);
 }
-for (const token of ["Choose the setup","Target differences","Practical questions","TechniqueDiagram","Texas rules"]) requireText(files.profileComponent, token, "shared technique authority UI missing " + token);
+for (const token of ["Choose the setup","Target differences","Practical questions","TechniqueDiagram","Texas rules","src={rig.image}","alt={rig.imageAlt}"]) requireText(files.profileComponent, token, "shared technique authority UI missing " + token);
 const techniqueVisualContracts = [
   ["soft-plastics", files.profileComponent, "Recognize the Basic Layout Before You Tie It"],
   ["crankbaits", files.imageRegistry, "crankbait-types-depth-cover.avif"],
@@ -92,6 +114,10 @@ const techniqueVisualContracts = [
   ["cut-bait", files.authorityContent, "Three Useful Cut-Bait Rig Layouts"],
 ];
 for (const [slug, sourceText, marker] of techniqueVisualContracts) requireText(sourceText, marker, `visual instruction missing for ${slug}`);
+for (const path of techniqueDiagramImageAssets) {
+  requireText(files.authorityContent, path.replace("public", ""), `technique diagram image registry missing ${path}`);
+}
+requireText(files.authorityContent, "imageAlt:", "technique diagram alt text contract missing");
 requireText(files.profileComponent, 'diagram.eyebrow ?? "Presentation at a glance"', "generic technique visual label fallback missing");
 for (const token of ["fishingTechniqueAuthorityContent","faq.map","newestDate","source.checkedAt"]) requireText(files.server, token, "profile FAQ/freshness contract missing " + token);
 for (const token of ["What Cut Bait Is Legal in Texas?","Three Useful Cut-Bait Rig Layouts","Blue, Channel and Flathead Catfish Are Different","Do not use a Texas game fish","Can I cut up a game fish and use it as bait in Texas?"]) requireText(files.authorityContent, token, "cut-bait authority content missing " + token);
