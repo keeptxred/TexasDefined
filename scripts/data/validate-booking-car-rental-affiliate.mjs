@@ -44,7 +44,7 @@ if (component.includes('type AffiliateAnalyticsWindow') || component.includes('t
 for (const [needle, label] of [
   ['drivingIntentPattern', 'driving-intent gate'],
   ['showRentalCarOption', 'destination rental-car eligibility'],
-  ['placement="destination-visit-planner"', 'destination placement attribution'],
+  ['placement="destination-visit-planner-car"', 'destination placement attribution'],
 ]) requireText(destinationPlanner, needle, label);
 
 if (/drivingIntentPattern\s*=.*parking/.test(destinationPlanner)) {
@@ -74,8 +74,8 @@ for (const [needle, label] of [
 for (const [needle, label] of [
   ['BookingCarRentalCard', 'Trip Planner affiliate card'],
   ['const hasGeneratedDrivingRoute = Boolean(trip?.days.some((day) => day.stops.length))', 'Trip Planner generated-route gate'],
-  ['hasGeneratedDrivingRoute && <BookingCarRentalCard', 'Trip Planner post-generation placement gate'],
-  ['placement="trip-planner-generated-itinerary"', 'Trip Planner placement attribution'],
+  ['hasGeneratedDrivingRoute && <section', 'Trip Planner post-generation booking-funnel gate'],
+  ['placement="trip-planner-generated-itinerary-car"', 'Trip Planner placement attribution'],
   ['title="Need a rental car for this Texas itinerary?"', 'Trip Planner contextual rental-car title'],
 ]) requireText(tripPlanner, needle, label);
 

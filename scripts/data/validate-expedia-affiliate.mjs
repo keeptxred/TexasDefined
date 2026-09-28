@@ -80,6 +80,7 @@ for (const [needle, label] of [
   ['sports-venues\\/(?!compare(?:\\.csv)?(?:\\/|$))', 'sports comparison exclusion'],
   ['texas-college-towns(?:\\/|$)', 'college-town trip route'],
   ['texas-tailgating-guide(?:\\/|$)', 'tailgating trip route'],
+  ['fishing\\/(?:lakes(?:\\/|$)|lake(?:\\/|$)|plan(?:\\/|$))', 'high-intent fishing trip routes'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings', 'affiliate disclosure'],
   ['TexasDefinedStayNearby', 'reusable Stay Nearby interface'],
   ['aria-roledescription', 'accessible carousel semantics'],
@@ -105,7 +106,7 @@ for (const [needle, label] of [
   ['curatedDisclosure(selection)', 'provider-aware curated disclosure'],
 ]) requireText(bootstrap, needle, label);
 
-for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
+for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'fishing', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
   requireText(bootstrap, family, `${family} route family`);
 }
 
