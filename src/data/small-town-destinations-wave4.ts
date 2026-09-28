@@ -288,7 +288,7 @@ export const smallTownWave4Destinations: Destination[] = [
         { name: "Painted Churches", description: "Visually memorable for older children when paired with clear expectations about quiet behavior in active worship spaces.", href: "/explore/painted-churches" },
       ],
       sideTrips: [
-        { name: "Painted Churches planning hub", description: "Use TexasDefined's church authority system to understand the sites before choosing a route.", href: "/explore/painted-churches" },
+        { name: "Painted Churches planning hub", description: "Use the Painted Churches planning guide to understand the sites before choosing a route.", href: "/explore/painted-churches" },
         { name: "Food & Barbecue discovery", description: "Connect the area's Czech, German and Texas food traditions to the statewide food system.", href: "/explore/food-bbq" },
       ],
     },
