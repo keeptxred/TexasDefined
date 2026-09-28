@@ -240,7 +240,7 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
     title: "Texas Panhandle Events & Festivals",
     eyebrow: "Panhandle calendar",
     description: "Browse verified Texas Panhandle events and festival guides with practical travel planning for Amarillo-area and High Plains destinations.",
-    lead: "The Panhandle has fewer major-event authority pages than the state's largest metros, which makes quality control more important than filling a page with weak listings. This collection is intentionally sourced from the permanent guides that meet the site's event-authority standard. As more organizer-verified Panhandle events qualify, they can join this page without creating a thin archive or inventing dates.",
+    lead: "The Panhandle has fewer large recurring events than the state's biggest metros, so this collection favors organizer-verified events with enough practical detail to plan around. New events are added when current dates and first-party information are strong enough to support a useful guide.",
     planningTitle: "Use a smaller verified inventory rather than a padded calendar",
     planningIntro: "A regional page is useful only when every linked event has a defensible source trail. Texas Defined keeps this collection narrower when the evidence is narrower.",
     planningPoints: [

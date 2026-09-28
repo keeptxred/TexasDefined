@@ -40,7 +40,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2026-06-19",
     endDate: "2026-08-01",
-    dateNote: "The official Viva! El Paso schedule lists its 48th production for Friday and Saturday performances from June 19 through August 1, 2026 at McKelligon Canyon. The supplied discovery inventory projected a July-August 2027 run, but the organizer has not yet published a 2027 schedule, so this authority page uses the latest confirmed season window.",
+    dateNote: "The official Viva! El Paso schedule lists its 48th production for Friday and Saturday performances from June 19 through August 1, 2026 at McKelligon Canyon. The supplied discovery inventory projected a July-August 2027 run, but the organizer has not yet published a 2027 schedule, so this guide uses the latest confirmed season window.",
     venue: "McKelligon Canyon Amphitheatre",
     officialUrl: "https://vivaelpaso.org/",
     sourceCheckedAt: "2026-08-27",
