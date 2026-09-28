@@ -270,10 +270,30 @@ function TechniqueDiagram({ diagram }: { diagram: NonNullable<FishingTechniqueAu
 
 function SoftPlasticsRiggingVisual() {
   const rigs = [
-    { name: "Texas rig", pieces: ["line", "bullet weight", "offset hook", "soft plastic"] },
-    { name: "Carolina rig", pieces: ["line", "sliding weight", "swivel", "leader", "hook + bait"] },
-    { name: "Drop shot", pieces: ["main line", "hook + bait", "leader below hook", "weight"] },
-    { name: "Wacky rig", pieces: ["line", "center hook", "stick bait"] },
+    {
+      name: "Texas rig",
+      image: "/images/fishing/rigs/texas-rig.svg",
+      imageAlt: "Texas rig with line, bullet weight, offset hook and soft plastic worm",
+      pieces: ["line", "bullet weight", "offset hook", "soft plastic"],
+    },
+    {
+      name: "Carolina rig",
+      image: "/images/fishing/rigs/carolina-rig.svg",
+      imageAlt: "Carolina rig with sliding weight, swivel, leader, hook and soft plastic bait",
+      pieces: ["line", "sliding weight", "swivel", "leader", "hook + bait"],
+    },
+    {
+      name: "Drop shot",
+      image: "/images/fishing/rigs/drop-shot.svg",
+      imageAlt: "Drop shot rig with hook and bait suspended above a weight",
+      pieces: ["main line", "hook + bait", "leader below hook", "weight"],
+    },
+    {
+      name: "Wacky rig",
+      image: "/images/fishing/rigs/wacky-rig.svg",
+      imageAlt: "Wacky rig with a center hook through a stick bait",
+      pieces: ["line", "center hook", "stick bait"],
+    },
   ];
 
   return <section className="border-b border-border py-12" aria-labelledby="soft-plastics-rigging-visual">
@@ -281,9 +301,22 @@ function SoftPlasticsRiggingVisual() {
     <h2 id="soft-plastics-rigging-visual" className="mt-3 font-display text-4xl sm:text-5xl">Recognize the Basic Layout Before You Tie It</h2>
     <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are simplified orientation diagrams, not scale drawings. Hook style, leader length, sinker shape and exact placement should still match the cover, bait and water you are fishing.</p>
     <div className="mt-8 grid gap-5 md:grid-cols-2">
-      {rigs.map((rig) => <figure key={rig.name} className="border border-border p-5">
-        <figcaption className="font-display text-2xl">{rig.name}</figcaption>
-        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-border pt-4" aria-label={`${rig.name} simplified rig layout`}>
+      {rigs.map((rig) => <figure key={rig.name} className="overflow-hidden border border-border bg-background">
+        <div className="p-5">
+          <figcaption className="font-display text-2xl">{rig.name}</figcaption>
+        </div>
+        <div className="border-y border-border bg-muted/20">
+          <img
+            src={rig.image}
+            alt={rig.imageAlt}
+            width={640}
+            height={220}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[32/11] w-full object-contain"
+          />
+        </div>
+        <div className="flex flex-wrap items-center gap-2 p-5" aria-label={`${rig.name} simplified rig layout`}>
           {rig.pieces.map((piece, index) => <div key={piece} className="contents">
             <span className="border border-border px-3 py-2 text-xs font-semibold">{piece}</span>
             {index < rig.pieces.length - 1 ? <span aria-hidden="true" className="text-muted-foreground">→</span> : null}
