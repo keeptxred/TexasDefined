@@ -22,7 +22,7 @@ export type FishingTechniqueAuthorityContent = {
   faq: Array<{ question: string; answer: string }>;
 };
 
-const texasFishingRulesUrl = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/";
+const texasFishingRulesUrl = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/general-rules-regulations/general-fishing-regulations";
 
 export const fishingTechniqueAuthorityContent: Record<PublishedFishingTechniqueSlug, FishingTechniqueAuthorityContent> = {
   "soft-plastics": {
