@@ -62,7 +62,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "Huntsville's identity is inseparable from the history of the Texas prison system, and the Texas Prison Museum gives visitors a dedicated place to understand that relationship. Exhibits trace the development of the system, prison operations and the experiences of people who lived and worked inside institutions that became a major part of the city's history.",
       "The museum's strongest material is tangible: uniforms, equipment, photographs, documents and reconstructed or preserved objects make institutional history easier to understand than a simple chronology would. The subject is serious, but the museum provides historical context that helps explain why Huntsville became the center of so much state corrections activity.",
-      "For TexasDefined, the destination strengthens Walker County authority by linking prison history with Sam Houston, the university and the broader Piney Woods region. Visitors can build a Huntsville history day that explains several very different forces that shaped the city rather than seeing only one famous landmark."
+      "The destination helps connect Huntsville's prison history with Sam Houston, the university and the broader Piney Woods region. Visitors can build a Huntsville history day that explains several very different forces that shaped the city rather than seeing only one famous landmark."
     ],
     officialUrl: "https://www.txprisonmuseum.org/",
     managingAuthority: "Texas Prison Museum",
@@ -137,7 +137,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Southwest Dairy Museum interprets a part of rural Texas history that is easy to overlook once milk reaches a grocery-store cooler. Exhibits show how dairy families worked before widespread rural electrification and explain the tools, routines and processing steps behind milk production.",
       "Sulphur Springs and Hopkins County have a long association with dairying, so the museum works as local history as well as agricultural education. The institution's educational mission also links historical practice with modern dairy production rather than freezing the story in one nostalgic period.",
-      "For TexasDefined, this destination expands Northeast Texas coverage and creates useful links among county history, agriculture, food systems and family attractions. It is exactly the kind of specialized regional museum that adds depth to a statewide destination authority without duplicating a major-city collection."
+      "This specialized regional museum connects county history, agriculture, food systems and family attractions in Northeast Texas without trying to imitate a major-city collection."
     ],
     officialUrl: "https://southwestdairyfarmers.com/pages/museum",
     managingAuthority: "Southwest Dairy Farmers",
@@ -187,7 +187,7 @@ export const statewideMuseumExpansionWave3Destinations: Destination[] = [
     body: [
       "The Heard is not simply a museum building with a nature theme. Its 289-acre sanctuary is part of the institution, allowing visitors to move from exhibits into prairie, wetland, forest and escarpment habitats where conservation becomes something visible rather than abstract.",
       "Indoor and outdoor programming makes the destination especially strong for families. Natural-history exhibits, seasonal displays, native wildlife, trails and educational activities can support anything from a short museum visit to a longer half-day outdoors, depending on weather and interest.",
-      "For TexasDefined, the Heard creates a bridge between museum authority and outdoors authority in fast-growing Collin County. It can cross-link McKinney, Blackland Prairie ecology, family attractions and North Texas nature destinations instead of forcing those topics into separate silos."
+      "The Heard bridges museum and outdoor experiences in Collin County, pairing naturally with McKinney, Blackland Prairie ecology, family attractions and North Texas nature destinations."
     ],
     officialUrl: "https://www.heardmuseum.org/",
     managingAuthority: "Heard Natural Science Museum & Wildlife Sanctuary",
