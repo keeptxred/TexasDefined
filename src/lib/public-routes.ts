@@ -50,6 +50,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/fishing/techniques/jigs-and-minnows",
   "/fishing/techniques/live-bait",
   "/fishing/techniques/cut-bait",
+  "/fishing/structure",
+  "/fishing/vegetation",
   "/fishing/regulations",
   "/fishing/species",
   "/fishing/species/largemouth-bass",
