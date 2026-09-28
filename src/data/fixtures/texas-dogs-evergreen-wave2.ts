@@ -68,7 +68,7 @@ export const smallDogsBigTexasAttitudeArticle: Article = {
 
     h("Small is a measurement, not a management philosophy"),
     p("The funniest small-dog stories usually begin when a human assumes compact size means compact personality. The dog immediately corrects the record. A Chihuahua may patrol the room like security. A Yorkie may carry itself like it has a standing salon appointment and three assistants. A Dachshund can stretch across a doorway and somehow make twelve inches of height feel jurisdictional. A Corgi can turn short legs into middle-management energy."),
-    p("None of that requires pretending every member of a breed behaves exactly the same way. The point of good dog humor is recognition, not a scientific claim. Owners laugh because the scene resembles something they have watched at home: a tiny dog enforcing a rule nobody else knew existed."),
+    p("None of that means every member of a breed behaves exactly the same way. The point of good dog humor is recognition, not a scientific claim. Owners laugh because the scene resembles something they have watched at home: a tiny dog enforcing a rule nobody else knew existed."),
 
     h("The front-window intelligence division"),
     p("Every small dog does not work the front window, but the ones who do can be remarkably committed. Their office may be the back of a couch, a chair near the blinds or one strategically chosen patch of floor with a view of the sidewalk. From there, ordinary neighborhood events become actionable intelligence."),

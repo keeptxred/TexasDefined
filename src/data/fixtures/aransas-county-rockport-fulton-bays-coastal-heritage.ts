@@ -122,7 +122,7 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
 
     h("Harvey changed the built landscape but not the county's identity"),
     p("Reconstruction after Harvey replaced roofs, rebuilt commercial corridors and modernized public facilities, but recovery also raised difficult questions about affordability and resilience. Insurance costs, stronger building standards, construction prices and repeated storm risk affect both longtime residents and newcomers. Some properties returned quickly; others remained vacant or changed use."),
-    p("The county's recovery demonstrates the tension shared by many Gulf Coast communities. Waterfront access and bay views create enormous cultural and economic value, yet the same geography exposes buildings to wind, surge and flooding. Aransas County's future depends on balancing those realities rather than pretending one can be separated from the other."),
+    p("The county's recovery demonstrates the tension shared by many Gulf Coast communities. Waterfront access and bay views create enormous cultural and economic value, yet the same geography exposes buildings to wind, surge and flooding. Aransas County's future depends on balancing those realities because one cannot be separated from the other."),
 
     h("Rockport remains the civic and commercial center"),
     p("Rockport is the county seat and largest community, containing county offices, schools, medical services, shopping, museums, galleries, marinas and much of the area's visitor infrastructure. Its waterfront and historic core carry evidence of several economic eras: cattle shipping, rail transportation, fishing, tourism and the modern service economy."),

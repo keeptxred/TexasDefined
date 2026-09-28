@@ -190,7 +190,7 @@ export const texasCourthouseArchitectureGuideArticle: Article = {
     p("The Texas Historic Courthouse Preservation Program was established by the Legislature in 1999. The program now combines grants, review, compliance and stewardship work aimed at preserving historic county courthouses and keeping them useful as modern public buildings."),
     h("Restoration is not the same as freezing a building in time"),
     p("A working courthouse still has to serve a twenty-first-century county. Preservation therefore has to balance historic character with accessibility, building systems, safety, court operations and the practical needs of public employees and visitors."),
-    p("The strongest restorations make the old building legible again without pretending modern government can operate exactly as it did a century ago."),
+    p("The strongest restorations make the old building legible again while accommodating how modern government operates today."),
     h("What to look for when you visit a Texas courthouse"),
     list(
       "The building's position on or near the town square.",

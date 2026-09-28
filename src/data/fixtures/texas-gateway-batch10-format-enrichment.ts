@@ -35,7 +35,7 @@ const longWeekend: ArticleBlock[] = [
 
 const noFlying: ArticleBlock[] = [
   { type: "heading", text: "Driving instead of flying only works when the road is part of the value" },
-  { type: "paragraph", text: "Texas is large enough to deliver desert, mountains, beaches, forests, major cities and historic towns without boarding a plane, but a drive-first vacation should not pretend that every destination is equally convenient. A seven-hour road transfer can be worthwhile when it leads to Big Bend or the Panhandle because the landscape changes dramatically. The same mileage is harder to justify for a generic hotel weekend that could be found much closer to home." },
+  { type: "paragraph", text: "Texas is large enough to deliver desert, mountains, beaches, forests, major cities and historic towns without boarding a plane, but a drive-first vacation should recognize that every destination is not equally convenient. A seven-hour road transfer can be worthwhile when it leads to Big Bend or the Panhandle because the landscape changes dramatically. The same mileage is harder to justify for a generic hotel weekend that could be found much closer to home." },
   { type: "paragraph", text: "Start by identifying the maximum driving day your group actually tolerates. Families with young children, older travelers, pets or one driver may want shorter segments than a pair of adults who enjoy long road days. Build fuel, charging, meals and rest stops into the schedule before deciding that driving is automatically easier than flying." },
   { type: "heading", text: "Big Bend and far West Texas are the strongest case for a road vacation" },
   { type: "paragraph", text: "Big Bend, Fort Davis, Alpine and Marfa reward driving because the transition from central or eastern Texas into open West Texas is part of the experience. A road trip also gives travelers flexibility with hiking gear, food, water and scenic stops. The tradeoff is distance: most Texans should give the region several nights rather than treating it as a quick weekend." },
@@ -99,7 +99,7 @@ const firstWeekend: ArticleBlock[] = [
   { type: "heading", text: "Big Bend should be a first trip only when the traveler has enough time" },
   { type: "paragraph", text: "Big Bend is unforgettable, but it is not the best first weekend for someone who only has two nights and lives hundreds of miles east. Make it the first major Texas vacation if desert landscape is the priority, but give the region enough time. Remote-road planning, fuel, weather and park distances make it a poor candidate for a rushed initiation." },
   { type: "heading", text: "The first-weekend rule is contrast without overload" },
-  { type: "paragraph", text: "Choose one place that feels different from home, one local food tradition, one history or culture stop and one outdoor or walking block. That is enough to make the first trip distinctly Texan without pretending the state can be summarized in 48 hours. The goal is to leave with a reason to plan the second trip." },
+  { type: "paragraph", text: "Choose one place that feels different from home, one local food tradition, one history or culture stop and one outdoor or walking block. That is enough to make the first trip distinctly Texan while recognizing that the state cannot be summarized in 48 hours. The goal is to leave with a reason to plan the second trip." },
 ];
 
 export const texasGatewayBatch10FormatEnrichment: Record<string, GatewayBatch10FormatEnrichment> = {

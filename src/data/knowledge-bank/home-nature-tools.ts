@@ -200,7 +200,7 @@ export const STAGED_HOME_NATURE_TOOLS: StagedHomeNatureTool[] = [
     domain: 'pools',
     publicationState: 'staged',
     plannedPath: '/texas-pool-water-loss-calculator',
-    description: 'Convert a measured water-level drop into estimated gallons lost without pretending to diagnose evaporation or leaks.',
+    description: 'Convert a measured water-level drop into estimated gallons lost without claiming to diagnose evaporation or leaks.',
     sourceIds: [],
   },
   {

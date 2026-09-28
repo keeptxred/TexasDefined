@@ -70,7 +70,7 @@ export const texasLoopsSpursArticle: Article = {
     h("Loops often become urban main roads"),
     p("A bypass built outside a town can attract development because it offers access and traffic. Over time, commercial strips, subdivisions and new intersections can surround it. The designation remains a record of the route's place in the highway system even when the road no longer feels like an edge-of-town bypass."),
     h("Spurs preserve short state connections"),
-    p("A short connector may be too important to disappear from the state system but too limited to function as a through highway. The Spur category gives TxDOT a way to keep that branch formally designated and maintained without pretending it is a longer corridor."),
+    p("A short connector may be too important to disappear from the state system but too limited to function as a through highway. The Spur category gives TxDOT a way to keep that branch formally designated and maintained without treating it as a longer corridor."),
     h("How to read Loop and Spur on a Texas map"),
     list(
       "Treat Loop as a highway-system designation, not proof of a circular road.",

@@ -41,7 +41,7 @@ const lakeConroePageCopy = {
   accessSection: {
     eyebrow: "Verified launch points",
     heading: "Choose the ramp before you leave home.",
-    intro: "TPWD's access inventory mixes federal, state and private facilities. Fees and operating status can change, so each listing keeps the managing source visible instead of pretending the directory is real-time.",
+    intro: "TPWD's access inventory mixes federal, state and private facilities. Fees and operating status can change, so each listing keeps the managing source visible rather than presenting the directory as real-time.",
     verifyLabel: "Verify with source →",
   },
   boatingSection: {
