@@ -31,6 +31,7 @@ const forbidden = [
   /TexasDefined(?:'s|’s) larger military-history story/i,
   /editorial and discovery system/i,
   /local-reference node/i,
+  /local-reference identity/i,
 ];
 
 for (const file of files) {
