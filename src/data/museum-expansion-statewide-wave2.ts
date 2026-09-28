@@ -87,7 +87,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "The Permian Basin Petroleum Museum is the strongest single museum introduction to the geology and industry behind modern Midland. Its interpretation begins long before drilling, using the region's deep geologic history to explain how petroleum deposits formed before moving into exploration, production and the people who built an energy economy around them.",
       "Interactive exhibits and historic material connect technical subjects with boomtown life and industry culture. The museum's Petroleum Hall of Fame adds a biographical layer, while art and archival collections show how the oil business shaped the identity of West Texas far beyond the wellhead.",
-      "The museum belongs in the same TexasDefined route cluster as the Bush Family Home, Odessa and other Permian Basin county guides. Those cross-links let travelers understand both sides of Midland's twentieth-century growth: the energy industry that created rapid wealth and population change, and the families and civic institutions that grew inside that economy."
+      "The museum fits naturally with the Bush Family Home, Odessa and other Permian Basin history stops. Together they help travelers understand both sides of Midland's twentieth-century growth: the energy industry that created rapid wealth and population change, and the families and civic institutions that grew inside that economy."
     ],
     officialUrl: "https://petroleummuseum.org/visitors/",
     managingAuthority: "Permian Basin Petroleum Museum",
@@ -112,7 +112,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "The Museum of Texas Tech University is broad by design. Rather than specializing in one subject, it brings together art, anthropology, history, paleontology, natural science, clothing and textile collections within one university institution. That range makes it useful for families and for travelers trying to understand the South Plains from several angles at once.",
       "Its research collections give the museum an authority role beyond public exhibitions. Natural-history and cultural materials support university scholarship, while rotating galleries make some of that work accessible to general visitors. The Moody Planetarium extends the visit into astronomy and space science.",
-      "The museum also sits inside one of Lubbock's strongest museum clusters. The National Ranching Heritage Center is nearby, and Lubbock Lake Landmark extends the story much farther back through archaeology and environmental history. Cross-linking all three helps TexasDefined turn separate attractions into a coherent Lubbock learning itinerary."
+      "The museum also sits inside one of Lubbock's strongest museum clusters. The National Ranching Heritage Center is nearby, and Lubbock Lake Landmark extends the story much farther back through archaeology and environmental history. Visiting all three creates a coherent Lubbock learning itinerary."
     ],
     officialUrl: "https://www.depts.ttu.edu/museumttu/visit/index.php",
     managingAuthority: "Texas Tech University",
@@ -137,7 +137,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "The Grace Museum preserves two kinds of Abilene history at once. Its home is the 1909 Hotel Grace, a building tied to the city's railroad-era growth, while the galleries interpret regional history and present art exhibitions that connect Abilene with a much wider Texas cultural story.",
       "The combination of art, history and family learning makes The Grace more flexible than a single-subject museum. Visitors may encounter local-history exhibitions, contemporary or historic art and hands-on programming during the same trip, while the separate Spark Science Center expands the institution's educational reach.",
-      "Downtown location matters. The museum can anchor a walk through central Abilene rather than requiring a stand-alone drive, and its railroad-era building connects naturally with TexasDefined's Taylor County and West-Central Texas history coverage. That makes the destination page useful both for museum discovery and for county-level internal linking."
+      "Downtown location matters. The museum can anchor a walk through central Abilene rather than requiring a stand-alone drive, and its railroad-era building connects naturally with Taylor County and West-Central Texas history. That makes it useful both as a museum stop and as context for the surrounding city."
     ],
     officialUrl: "https://thegracemuseum.org/",
     managingAuthority: "The Grace Museum",
@@ -162,7 +162,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "The San Angelo Museum of Fine Arts gives the Concho Valley a museum focused on visual art rather than frontier history alone. Rotating exhibitions and collection displays bring regional, Texas and broader artistic traditions into a city more often introduced to visitors through Fort Concho, ranching and military history.",
       "The museum is also an active arts-education institution. Guided tours, studio programs and ceramics activities make it part of San Angelo's contemporary cultural life, not simply a repository for objects. Free general admission lowers the barrier for travelers adding it to a larger downtown itinerary.",
-      "Its location near the Concho River and Fort Concho creates a strong cross-link opportunity. A visitor can move from nineteenth-century military architecture to a modern art museum and riverfront public space in a compact area, reinforcing TexasDefined's Tom Green County authority page rather than forcing each attraction to stand alone."
+      "Its location near the Concho River and Fort Concho creates an easy multi-stop itinerary. A visitor can move from nineteenth-century military architecture to a modern art museum and riverfront public space in a compact area."
     ],
     officialUrl: "https://www.samfa.org/visit",
     managingAuthority: "San Angelo Museum of Fine Arts",
@@ -212,7 +212,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "The Art Museum of South Texas is as notable for its setting as for its collection. Its white waterfront complex stands at the edge of Corpus Christi Bay, giving visitors a museum experience tied directly to the city's coastal landscape rather than an enclosed cultural stop disconnected from place.",
       "The collection and exhibitions emphasize art from Texas and the Americas, with painting, sculpture, photography, ceramics, glass and works on paper represented across the institution. Family spaces and recurring community programs make the museum accessible beyond traditional gallery audiences.",
-      "The museum belongs in the same TexasDefined bayfront cluster as the Corpus Christi Museum of Science and History and Texas State Aquarium. Cross-linking those destinations turns the S.E.A. District into a multi-stop cultural itinerary and gives county pages a stronger mix of art, science, marine life and regional history."
+      "The museum belongs in the same bayfront itinerary as the Corpus Christi Museum of Science and History and Texas State Aquarium. Together those destinations turn the S.E.A. District into a multi-stop cultural outing mixing art, science, marine life and regional history."
     ],
     officialUrl: "https://www.artmuseumofsouthtexas.org/",
     managingAuthority: "Art Museum of South Texas / Texas A&M University-Corpus Christi",
@@ -237,7 +237,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     body: [
       "Texas Maritime Museum broadens the idea of Texas history beyond cattle trails and battlefields by focusing on the Gulf. Shipbuilding, fishing, offshore industry, navigation and maritime trade all shaped coastal communities long before modern beach tourism became the dominant visitor image.",
       "The museum's exhibits also connect human history with the water itself. Shipwrecks, Indigenous coastal lifeways and working-waterfront industries show how bays and the Gulf functioned as transportation routes, food sources, workplaces and hazards across different periods.",
-      "Rockport is already rich in TexasDefined coastal material, including Fulton Mansion and wildlife destinations. A canonical maritime-museum page lets those attractions cross-link into a more complete Aransas County itinerary that combines architecture, ecology, art and the working history of the coast."
+      "Rockport already offers strong coastal stops, including Fulton Mansion and wildlife destinations. Adding the maritime museum creates a more complete Aransas County itinerary combining architecture, ecology, art and the working history of the coast."
     ],
     officialUrl: "https://texasmaritimemuseum.org/",
     managingAuthority: "Texas Maritime Museum",
