@@ -20,7 +20,7 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH5: Record<string, TexasEvergreenGuide> 
         heading: "West Texas owns much of the folklore",
         body: [
           "Ranch Water is frequently described as a West Texas ranch-country drink: something cold, tart and uncomplicated enough to make sense after a hot day outside. That regional association is real even when a specific first bartender or rancher cannot be proved.",
-          "The most colorful origin tales should be read as folklore unless they can be tied to contemporary records. A good Texas story does not become better by pretending certainty that the evidence cannot support."
+          "The most colorful origin tales should be read as folklore unless they can be tied to contemporary records. A good Texas story does not become better by claiming certainty that the evidence cannot support."
         ]
       },
       {
