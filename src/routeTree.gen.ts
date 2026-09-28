@@ -323,7 +323,9 @@ import { Route as HistoricSiteSlugRouteImport } from './routes/historic-site.$sl
 import { Route as GuidesCitypassTexasRouteImport } from './routes/guides.citypass-texas'
 import { Route as GamingSlugRouteImport } from './routes/gaming_.$slug'
 import { Route as FoodSlugRouteImport } from './routes/food.$slug'
+import { Route as FishingVegetationRouteImport } from './routes/fishing.vegetation'
 import { Route as FishingTechniquesRouteImport } from './routes/fishing.techniques'
+import { Route as FishingStructureRouteImport } from './routes/fishing.structure'
 import { Route as FishingSpeciesRouteImport } from './routes/fishing.species'
 import { Route as FishingServicesRouteImport } from './routes/fishing.services'
 import { Route as FishingSeasonsRouteImport } from './routes/fishing.seasons'
@@ -2514,6 +2516,11 @@ const FoodSlugRoute = FoodSlugRouteImport.update({
   path: '/food/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/food.$slug.lazy').then((d) => d.Route))
+const FishingVegetationRoute = FishingVegetationRouteImport.update({
+  id: '/vegetation',
+  path: '/vegetation',
+  getParentRoute: () => FishingRoute,
+} as any)
 const FishingTechniquesRoute = FishingTechniquesRouteImport.update({
   id: '/techniques',
   path: '/techniques',
@@ -2521,6 +2528,11 @@ const FishingTechniquesRoute = FishingTechniquesRouteImport.update({
 } as any).lazy(() =>
   import('./routes/fishing.techniques.lazy').then((d) => d.Route),
 )
+const FishingStructureRoute = FishingStructureRouteImport.update({
+  id: '/structure',
+  path: '/structure',
+  getParentRoute: () => FishingRoute,
+} as any)
 const FishingSpeciesRoute = FishingSpeciesRouteImport.update({
   id: '/species',
   path: '/species',
@@ -3821,7 +3833,9 @@ export interface FileRoutesByFullPath {
   '/fishing/seasons': typeof FishingSeasonsRoute
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
+  '/fishing/structure': typeof FishingStructureRoute
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/fishing/vegetation': typeof FishingVegetationRoute
   '/food/$slug': typeof FoodSlugRoute
   '/gaming/$slug': typeof GamingSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
@@ -4304,7 +4318,9 @@ export interface FileRoutesByTo {
   '/fishing/seasons': typeof FishingSeasonsRoute
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
+  '/fishing/structure': typeof FishingStructureRoute
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/fishing/vegetation': typeof FishingVegetationRoute
   '/food/$slug': typeof FoodSlugRoute
   '/gaming/$slug': typeof GamingSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
@@ -4791,7 +4807,9 @@ export interface FileRoutesById {
   '/fishing/seasons': typeof FishingSeasonsRoute
   '/fishing/services': typeof FishingServicesRouteWithChildren
   '/fishing/species': typeof FishingSpeciesRouteWithChildren
+  '/fishing/structure': typeof FishingStructureRoute
   '/fishing/techniques': typeof FishingTechniquesRouteWithChildren
+  '/fishing/vegetation': typeof FishingVegetationRoute
   '/food/$slug': typeof FoodSlugRoute
   '/gaming_/$slug': typeof GamingSlugRoute
   '/guides/citypass-texas': typeof GuidesCitypassTexasRoute
@@ -5279,7 +5297,9 @@ export interface FileRouteTypes {
     | '/fishing/seasons'
     | '/fishing/services'
     | '/fishing/species'
+    | '/fishing/structure'
     | '/fishing/techniques'
+    | '/fishing/vegetation'
     | '/food/$slug'
     | '/gaming/$slug'
     | '/guides/citypass-texas'
@@ -5762,7 +5782,9 @@ export interface FileRouteTypes {
     | '/fishing/seasons'
     | '/fishing/services'
     | '/fishing/species'
+    | '/fishing/structure'
     | '/fishing/techniques'
+    | '/fishing/vegetation'
     | '/food/$slug'
     | '/gaming/$slug'
     | '/guides/citypass-texas'
@@ -6248,7 +6270,9 @@ export interface FileRouteTypes {
     | '/fishing/seasons'
     | '/fishing/services'
     | '/fishing/species'
+    | '/fishing/structure'
     | '/fishing/techniques'
+    | '/fishing/vegetation'
     | '/food/$slug'
     | '/gaming_/$slug'
     | '/guides/citypass-texas'
@@ -9026,11 +9050,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FoodSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fishing/vegetation': {
+      id: '/fishing/vegetation'
+      path: '/vegetation'
+      fullPath: '/fishing/vegetation'
+      preLoaderRoute: typeof FishingVegetationRouteImport
+      parentRoute: typeof FishingRoute
+    }
     '/fishing/techniques': {
       id: '/fishing/techniques'
       path: '/techniques'
       fullPath: '/fishing/techniques'
       preLoaderRoute: typeof FishingTechniquesRouteImport
+      parentRoute: typeof FishingRoute
+    }
+    '/fishing/structure': {
+      id: '/fishing/structure'
+      path: '/structure'
+      fullPath: '/fishing/structure'
+      preLoaderRoute: typeof FishingStructureRouteImport
       parentRoute: typeof FishingRoute
     }
     '/fishing/species': {
@@ -10396,7 +10434,9 @@ interface FishingRouteChildren {
   FishingSeasonsRoute: typeof FishingSeasonsRoute
   FishingServicesRoute: typeof FishingServicesRouteWithChildren
   FishingSpeciesRoute: typeof FishingSpeciesRouteWithChildren
+  FishingStructureRoute: typeof FishingStructureRoute
   FishingTechniquesRoute: typeof FishingTechniquesRouteWithChildren
+  FishingVegetationRoute: typeof FishingVegetationRoute
   FishingLakeLakeConroeRoute: typeof FishingLakeLakeConroeRoute
 }
 
@@ -10411,7 +10451,9 @@ const FishingRouteChildren: FishingRouteChildren = {
   FishingSeasonsRoute: FishingSeasonsRoute,
   FishingServicesRoute: FishingServicesRouteWithChildren,
   FishingSpeciesRoute: FishingSpeciesRouteWithChildren,
+  FishingStructureRoute: FishingStructureRoute,
   FishingTechniquesRoute: FishingTechniquesRouteWithChildren,
+  FishingVegetationRoute: FishingVegetationRoute,
   FishingLakeLakeConroeRoute: FishingLakeLakeConroeRoute,
 }
 
