@@ -16,6 +16,8 @@ const collectionRoute = fs.readFileSync(path.join(root, 'src/routes/events.$coll
 const authorityBridge = fs.readFileSync(path.join(root, 'src/data/major-event-authority.ts'), 'utf8');
 const dateConfidence = fs.readFileSync(path.join(root, 'src/data/major-event-date-confidence.ts'), 'utf8');
 const enrichmentRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
+const normalizedEventRecord = fs.readFileSync(path.join(root, 'src/data/events/texas-event-record.ts'), 'utf8');
+const normalizedEventRecordsServer = fs.readFileSync(path.join(root, 'src/data/events/texas-event-records.server.ts'), 'utf8');
 const enrichmentBatchFiles = fs.readdirSync(path.join(root, 'src/data'))
   .filter((name) => /^major-event-schema-enrichment-batch\d+\.server\.ts$/.test(name))
   .sort();
@@ -162,7 +164,8 @@ for (const feature of [
 
 for (const feature of [
   '"@type": "Event"',
-  'eventStatus: "https://schema.org/EventScheduled"',
+  'eventStatus: eventSchemaStatusUrl(occurrenceEnrichment?.lifecycle?.status)',
+  'previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate',
   'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
   'description: event.whyItMatters',
   'startDate: window.startDate',
@@ -185,6 +188,15 @@ for (const feature of [
 
 for (const feature of [
   'export interface MajorEventSchemaEnrichment',
+  'export type EventSchemaLifecycleStatus = "scheduled" | "cancelled" | "postponed" | "rescheduled"',
+  'export interface EventSchemaLifecycle',
+  'sourceUrl: string',
+  'previousStartDate?: string | string[]',
+  'export function eventSchemaStatusUrl',
+  'https://schema.org/EventCancelled',
+  'https://schema.org/EventPostponed',
+  'https://schema.org/EventRescheduled',
+  'export function isValidEventSchemaLifecycle',
   'export function getMajorEventSchemaEnrichmentServer',
   'export function getMajorEventSchemaOccurrenceEnrichmentServer',
   'verifiedAt:',
@@ -193,6 +205,20 @@ for (const feature of [
   'performers:',
 ]) {
   if (!enrichment.includes(feature)) errors.push(`Verified Event enrichment registry feature missing: ${feature}.`);
+}
+
+for (const feature of [
+  'TexasEventLifecycleStatus = "scheduled" | "cancelled" | "postponed" | "rescheduled"',
+]) {
+  if (!normalizedEventRecord.includes(feature)) errors.push(`Normalized event lifecycle contract missing: ${feature}.`);
+}
+
+for (const feature of [
+  'status: lifecycle?.status ?? "scheduled"',
+  'statuses: query.statuses ?? ["scheduled", "postponed", "rescheduled"]',
+  'getMajorEventSchemaOccurrenceEnrichmentServer(authoritySlug, occurrenceLabel)?.lifecycle',
+]) {
+  if (!normalizedEventRecordsServer.includes(feature)) errors.push(`Normalized event lifecycle propagation missing: ${feature}.`);
 }
 
 for (const batchFile of enrichmentBatchFiles) {
