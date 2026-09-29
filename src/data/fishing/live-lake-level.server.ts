@@ -1,7 +1,9 @@
+import { getLcraHydrometSiteNumber, isWaterDataForTexasLiveLevelSource } from "./live-lake-level-source";
+
 export type LiveLakeLevelSnapshot = {
   sourceUrl: string;
   measuredAt: string;
-  percentFull: number;
+  percentFull?: number | null;
   elevationFeet?: number | null;
 };
 
@@ -145,8 +147,100 @@ export function parseWaterDataForTexasReservoirPage(sourceUrl: string, html: str
   return { sourceUrl, measuredAt, percentFull, elevationFeet: parseNumber(elevationMatch?.[1]) };
 }
 
+
+function normalizeLcraKey(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+function lcraRecordValue(record: Record<string, unknown>, keys: string[]) {
+  const wanted = new Set(keys.map(normalizeLcraKey));
+  for (const [key, value] of Object.entries(record)) {
+    if (wanted.has(normalizeLcraKey(key))) return value;
+  }
+  return undefined;
+}
+
+function parseLcraNumber(value: unknown) {
+  if (typeof value === "number") return Number.isFinite(value) ? value : null;
+  if (typeof value !== "string") return null;
+  const match = value.replace(/,/g, "").match(/-?\d+(?:\.\d+)?/);
+  if (!match) return null;
+  const parsed = Number(match[0]);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function parseLcraMeasuredDate(value: unknown) {
+  if (typeof value !== "string" && typeof value !== "number") return null;
+  const raw = String(value).trim();
+  const direct = raw.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+  if (direct) return direct;
+  const timestamp = Date.parse(raw);
+  if (!Number.isFinite(timestamp)) return null;
+  return new Date(timestamp).toISOString().slice(0, 10);
+}
+
+function collectLcraRecords(payload: unknown, depth = 0): Record<string, unknown>[] {
+  if (depth > 5 || payload == null) return [];
+  if (Array.isArray(payload)) return payload.flatMap((value) => collectLcraRecords(value, depth + 1));
+  if (typeof payload !== "object") return [];
+  const record = payload as Record<string, unknown>;
+  const nested = Object.values(record).flatMap((value) => collectLcraRecords(value, depth + 1));
+  return [record, ...nested];
+}
+
+export function parseLcraHydrometLakeLevel(sourceUrl: string, payload: unknown): LiveLakeLevelSnapshot | null {
+  const siteNumber = getLcraHydrometSiteNumber(sourceUrl);
+  if (!siteNumber) return null;
+
+  let best: { timestamp: number; snapshot: LiveLakeLevelSnapshot } | null = null;
+  for (const record of collectLcraRecords(payload)) {
+    const recordSite = lcraRecordValue(record, ["siteNumber", "site", "siteNo", "stationNumber", "station"]);
+    if (recordSite != null && String(recordSite).replace(/\D/g, "") !== siteNumber) continue;
+
+    const measuredAt = parseLcraMeasuredDate(lcraRecordValue(record, [
+      "dateTime", "timestamp", "date", "measurementTime", "lastDataUpdate", "lastUpdate", "recordedAt", "time",
+    ]));
+    const elevationFeet = parseLcraNumber(lcraRecordValue(record, [
+      "headElevation", "lakeLevel", "waterLevel", "elevation", "stage", "head", "reading", "value",
+    ]));
+    if (!measuredAt || elevationFeet == null || elevationFeet < 0 || elevationFeet > 10_000) continue;
+
+    const timestamp = Date.parse(`${measuredAt}T12:00:00Z`);
+    if (!Number.isFinite(timestamp)) continue;
+    const snapshot: LiveLakeLevelSnapshot = {
+      sourceUrl,
+      measuredAt,
+      percentFull: null,
+      elevationFeet,
+    };
+    if (!best || timestamp > best.timestamp) best = { timestamp, snapshot };
+  }
+
+  return best?.snapshot ?? null;
+}
+
 export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLevelSnapshot | null> {
-  if (!/^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+\/?$/i.test(sourceUrl)) return null;
+  const lcraSiteNumber = getLcraHydrometSiteNumber(sourceUrl);
+  if (lcraSiteNumber) {
+    try {
+      const response = await fetch(`https://hydromet.lcra.org/api/GetDataBySite/${lcraSiteNumber}/lakelevel`, {
+        cache: "no-store",
+        headers: {
+          accept: "application/json,text/plain;q=0.9,*/*;q=0.1",
+          "user-agent": "TexasDefined-Live-Lake-Level/1.4",
+          referer: sourceUrl,
+        },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      if (!response.ok) return null;
+      const snapshot = parseLcraHydrometLakeLevel(sourceUrl, await response.json());
+      return snapshot && snapshotIsFresh(snapshot) ? snapshot : null;
+    } catch {
+      return null;
+    }
+  }
+
+  if (!isWaterDataForTexasLiveLevelSource(sourceUrl)) return null;
 
   const canonicalSourceUrl = sourceUrl.replace(/\/$/, "");
   const csvUrl = `${canonicalSourceUrl}-30day.csv`;
@@ -155,7 +249,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
       cache: "no-store",
       headers: {
         accept: "application/json",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.3",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.4",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -168,7 +262,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
       cache: "no-store",
       headers: {
         accept: "text/csv,text/plain;q=0.9,*/*;q=0.1",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.3",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.4",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
@@ -181,7 +275,7 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
       cache: "no-store",
       headers: {
         accept: "text/html,application/xhtml+xml",
-        "user-agent": "TexasDefined-Live-Lake-Level/1.3",
+        "user-agent": "TexasDefined-Live-Lake-Level/1.4",
       },
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });

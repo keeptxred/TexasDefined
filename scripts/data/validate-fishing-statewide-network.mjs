@@ -13,6 +13,9 @@ const paths = {
   overviewRoute: "src/routes/fishing.lakes.$slug.tsx",
   sectionRoute: "src/routes/fishing.lakes.$slug.$section.tsx",
   liveWorkflow: ".github/workflows/verify-live-lake-levels.yml",
+  liveSource: "src/data/fishing/live-lake-level-source.ts",
+  liveParser: "src/data/fishing/live-lake-level.server.ts",
+  liveFetcher: "src/data/fishing/live-lake-level-fetch.server.ts",
 };
 for (const path of Object.values(paths)) if (!fs.existsSync(path)) throw new Error(`Statewide fishing network missing required file: ${path}`);
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
@@ -64,8 +67,10 @@ const complete = [...base, ...wave2, ...statewide];
 if (new Set(complete).size !== 41) fail(`expected 41 unique complete lakes, found ${new Set(complete).size}`);
 
 const expectedSlugs = expected.map(([slug]) => slug);
-const officialFallbackSlugs = new Set(["fayette-county-reservoir", "calaveras-lake"]);
-const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
+const lcraLiveExpectedSlugs = new Set(["fayette-county-reservoir"]);
+const officialFallbackSlugs = new Set(["calaveras-lake"]);
+const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !lcraLiveExpectedSlugs.has(slug) && !officialFallbackSlugs.has(slug));
+const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
 if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 26-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
@@ -85,9 +90,14 @@ for (let i = 0; i < topLevel.length; i += 1) {
     if (!segment.includes(token)) fail(`${row.slug} missing required content field ${token}`);
   }
   const expectsTwdbLive = twdbLiveExpectedSlugs.includes(row.slug);
+  const expectsLcraLive = lcraLiveExpectedSlugs.has(row.slug);
   const hasTwdbLive = segment.includes("waterDataSlug:");
+  const hasLcraLive = segment.includes("lcraHydrometSiteNumber:");
   if (expectsTwdbLive && !hasTwdbLive) fail(`${row.slug} must have a Water Data for Texas mapping`);
-  if (!expectsTwdbLive && hasTwdbLive) fail(`${row.slug} must remain on an official-agency fallback until a monitored TWDB reservoir source exists`);
+  if (expectsLcraLive && !hasLcraLive) fail(`${row.slug} must have an LCRA Hydromet mapping`);
+  if (officialFallbackSlugs.has(row.slug) && (hasTwdbLive || hasLcraLive)) fail(`${row.slug} must remain on an official-agency fallback until a monitored live source exists`);
+  if (!expectsTwdbLive && hasTwdbLive) fail(`${row.slug} has an unexpected Water Data for Texas mapping`);
+  if (!expectsLcraLive && hasLcraLive) fail(`${row.slug} has an unexpected LCRA Hydromet mapping`);
   const fishCount = [...segment.matchAll(/fish\("/g)].length;
   if (fishCount < 3) fail(`${row.slug} is too thin: only ${fishCount} source-backed fish targets`);
   const relatedCount = [...segment.matchAll(/\{slug:"[^"]+",name:"[^"]+"\}/g)].length;
@@ -104,19 +114,45 @@ for (const token of [
   "liveLevelSource",
   "Water Data for Texas —",
 ]) requireText(files.network, token, `TWDB live-water source contract missing ${token}`);
+for (const token of [
+  "LCRA_HYDROMET_CHART_BASE",
+  'lcraHydrometSiteNumber: "5634"',
+  "LCRA Hydromet —",
+]) requireText(files.network, token, `LCRA Fayette live-water source contract missing ${token}`);
+
+for (const token of [
+  "isWaterDataForTexasLiveLevelSource",
+  "getLcraHydrometSiteNumber",
+  "isLcraHydrometLiveLevelSource",
+  "isLiveLakeLevelSource",
+  "liveLakeLevelProvider",
+]) requireText(files.liveSource, token, `live source helper contract missing ${token}`);
+for (const token of [
+  "parseLcraHydrometLakeLevel",
+  "percentFull?: number | null",
+  "headElevation",
+  "lakeLevel",
+]) requireText(files.liveParser, token, `LCRA live parser contract missing ${token}`);
+for (const token of [
+  "GetDataBySite",
+  "fetchLcraSnapshot",
+  "parseLcraHydrometLakeLevel",
+  "getLcraHydrometSiteNumber",
+]) requireText(files.liveFetcher, token, `LCRA resilient fetch contract missing ${token}`);
 
 if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 24) fail("expected 24 statewide-network TWDB live-water mappings");
+if ((files.network.match(/lcraHydrometSiteNumber: "/g) ?? []).length !== 1) fail("expected exactly one statewide-network LCRA Hydromet mapping");
 if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
 
-for (const slug of twdbLiveExpectedSlugs) {
+for (const slug of liveExpectedSlugs) {
   requireText(files.liveWorkflow, slug, `production live-water workflow missing ${slug}`);
 }
 for (const slug of officialFallbackSlugs) {
   if (files.liveWorkflow.includes(slug)) fail(`unmonitored fallback lake must not be a release-blocking live-water check: ${slug}`);
 }
 for (const token of [
-  "All 39 monitored lake page-data snapshots and server paths are current",
-  "All 39 monitored lake snapshots and live UI surfaces passed",
+  "All 40 monitored lake page-data snapshots and server paths are current",
+  "All 40 monitored lake snapshots and live UI surfaces passed",
 ]) requireText(files.liveWorkflow, token, `production live-water workflow coverage contract missing ${token}`);
 
 for (const token of [
@@ -151,7 +187,7 @@ for (const token of ["STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS", "STATEWIDE_NETWORK
 for (const route of [files.overviewRoute, files.sectionRoute]) {
   requireText(route, "isShowcaseLakeSlug", "dynamic lake route must enforce the showcase allowlist");
   requireText(route, "showcaseLakeCanonicalPath", "dynamic lake route must use canonical fishing lake paths");
-  requireText(route, "isDirectLiveLevelSource", "dynamic lake route must distinguish direct live-level sources from ordinary official condition links");
+  requireText(route, "isLiveLakeLevelSource", "dynamic lake route must distinguish supported live-level sources from ordinary official condition links");
   if (route.includes("/fishing/fishing/")) fail("duplicated /fishing/fishing/ route leaked into dynamic lake routing");
 }
 
@@ -187,4 +223,4 @@ if (newEntryUrls !== 234) fail(`expected 234 statewide-network overview/intent U
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, two explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, one LCRA Hydromet live mapping, one explicit official-agency fallback, current-condition honesty and duplicate-route safeguards are protected.`);
