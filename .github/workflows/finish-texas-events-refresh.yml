@@ -185,15 +185,36 @@ jobs:
               continue
             fi
 
-            gh pr merge "$PR_URL"               --repo "$REPOSITORY"               --merge               --match-head-commit "$validated_sha"
+            gh pr merge "$PR_URL"               --repo "$REPOSITORY"               --merge               --auto               --match-head-commit "$validated_sha"
+
+            merged="false"
+            for merge_wait in $(seq 1 24); do
+              merged="$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq '.merged')"
+              if [[ "$merged" == "true" ]]; then
+                break
+              fi
+
+              current_api_head="$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq '.head.sha')"
+              if [[ "$current_api_head" != "$validated_sha" ]]; then
+                echo "::error title=Auto-merge head changed::Expected validated head $validated_sha, found $current_api_head."
+                exit 1
+              fi
+              echo "Protected auto-merge is waiting for branch policy ($merge_wait/24)."
+              sleep 5
+            done
+
+            if [[ "$merged" != "true" ]]; then
+              echo "::notice title=Protected auto-merge still waiting::Rechecking current main before another finisher attempt."
+              continue
+            fi
 
             git fetch --no-tags origin main
             if ! git merge-base --is-ancestor "$validated_sha" origin/main; then
-              echo "::error title=Merge verification failed::$validated_sha is not an ancestor of current main after gh pr merge."
+              echo "::error title=Merge verification failed::$validated_sha is not an ancestor of current main after protected auto-merge."
               exit 1
             fi
 
-            echo "Event refresh merged through the protected PR path at validated head $validated_sha."
+            echo "Event refresh merged through the protected auto-merge path at validated head $validated_sha."
             exit 0
           done
 
