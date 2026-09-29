@@ -12,7 +12,7 @@ type FairPhoto = {
 const commonsSource = (file: string) =>
   `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ", "_"))}`;
 
-const commonsImage = (file: string, width = 1800) =>
+const commonsImage = (file: string, width = 900) =>
   editorialImageSrc(
     `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=${width}`,
   );
