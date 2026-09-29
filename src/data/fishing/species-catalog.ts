@@ -139,7 +139,7 @@ const supplementalFishSpecies: FishSpecies[] = [
     commonName: "Red drum",
     scientificName: "Sciaenops ocellatus",
     taxonKind: "species",
-    waterClass: "both",
+    waterClass: "saltwater",
     summary: "A coastal game fish also maintained by stocking in a small number of Texas freshwater reservoirs, notably Calaveras and Braunig.",
     aliases: ["redfish"],
   },
