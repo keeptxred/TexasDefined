@@ -3,6 +3,8 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
+  pageData: "src/data/metro-proximity-page-data.server.ts",
+  functions: "src/data/metro-proximity-page-data.functions.ts",
   hubRoute: "src/routes/explore.near.$metro.tsx",
   hubUi: "src/routes/explore.near.$metro.lazy.tsx",
   collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
@@ -10,6 +12,7 @@ const paths = {
   exploreRoute: "src/routes/explore.index.tsx",
   exploreUi: "src/routes/explore.index.lazy.tsx",
   sitemap: "src/routes/sitemap-explore[.]xml.ts",
+  routeTree: "src/routeTree.gen.ts",
   package: "package.json",
 };
 for (const path of Object.values(paths)) {
@@ -28,30 +31,48 @@ const expectedCollections = ["things-to-do", "day-trips", "state-parks", "small-
 if (JSON.stringify(collectionSlugs) !== JSON.stringify(expectedCollections)) fail(`collection allowlist drifted: ${collectionSlugs.join(", ")}`);
 
 for (const token of [
-  "radiusMiles:",
-  "minimumMiles:",
-  "minResults:",
-  "maxResults:",
-  "distanceFromPointMiles",
-  "selectMetroProximityDestinations",
-  "isMetroProximityCollectionIndexReady",
-  "metroProximityHubReady",
-  "metroProximityCanonicalPath",
-  "metroProximitySitemapEntries",
+  "radiusMiles:", "minimumMiles:", "minResults:", "maxResults:",
+  "distanceFromPointMiles", "selectMetroProximityDestinations",
+  "isMetroProximityCollectionIndexReady", "metroProximityHubReady",
+  "metroProximityCanonicalPath", "metroProximitySitemapEntries",
 ]) requireText(files.data, token, `data model missing ${token}`);
 
 for (const token of [
-  'createFileRoute("/explore/near/$metro")',
-  'await import("@/data/metro-proximity")',
-  "isPrimaryTripPlannerDestination",
-  "auditDestination(destination).readyForIndexing",
+  "listResolvedDestinations",
+  "loadMetroProximityHubPageDataServer",
+  "loadMetroProximityCollectionPageDataServer",
+  "isMetroProximityCollectionIndexReady",
   "metroProximityHubReady",
+  "selectMetroProximityDestinations",
   '"@type": "CollectionPage"',
   '"@type": "ItemList"',
   '"@type": "BreadcrumbList"',
   '"index, follow, max-image-preview:large"',
   '"noindex, follow"',
-]) requireText(files.hubRoute, token, `metro hub route missing ${token}`);
+  "buildMeta",
+  "canonicalLink",
+]) requireText(files.pageData, token, `server page-data layer missing ${token}`);
+
+for (const token of [
+  "createServerFn",
+  "getMetroProximityHubPageData",
+  "getMetroProximityCollectionPageData",
+  "loadMetroProximityHubPageDataServer",
+  "loadMetroProximityCollectionPageDataServer",
+]) requireText(files.functions, token, `server-function bridge missing ${token}`);
+
+for (const [label, route, fn] of [
+  ["hub", files.hubRoute, "getMetroProximityHubPageData"],
+  ["collection", files.collectionRoute, "getMetroProximityCollectionPageData"],
+]) {
+  requireText(route, "createFileRoute(", `${label} critical route missing createFileRoute`);
+  requireText(route, fn, `${label} critical route missing server-function handoff`);
+  requireText(route, "loaderData?.head", `${label} critical route missing server-built head handoff`);
+  requireText(route, "throw notFound()", `${label} critical route must reject invalid params`);
+  for (const forbidden of ["DestinationCard", "Container", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
+    if (route.includes(forbidden)) fail(`${label} eager route leaked UI/SEO/catalog payload: ${forbidden}`);
+  }
+}
 
 for (const token of [
   'createLazyFileRoute("/explore/near/$metro")',
@@ -62,19 +83,6 @@ for (const token of [
 ]) requireText(files.hubUi, token, `metro hub lazy UI missing ${token}`);
 
 for (const token of [
-  'createFileRoute("/explore/near/$metro/$collection")',
-  'await import("@/data/metro-proximity")',
-  "getMetroProximityCollection",
-  "selectMetroProximityDestinations",
-  "isMetroProximityCollectionIndexReady",
-  '"@type": "CollectionPage"',
-  '"@type": "ItemList"',
-  '"@type": "BreadcrumbList"',
-  '"index, follow, max-image-preview:large"',
-  '"noindex, follow"',
-]) requireText(files.collectionRoute, token, `metro collection route missing ${token}`);
-
-for (const token of [
   'createLazyFileRoute("/explore/near/$metro/$collection")',
   "METRO_PROXIMITY_COLLECTIONS",
   "straight-line estimates",
@@ -83,13 +91,7 @@ for (const token of [
   'to="/explore/near/$metro"',
 ]) requireText(files.collectionUi, token, `metro collection lazy UI missing ${token}`);
 
-for (const [label, source] of [["hub", files.hubRoute], ["collection", files.collectionRoute]]) {
-  for (const eagerUiImport of ["@/components/editorial/DestinationCard", "@/components/layout/Container"]) {
-    if (source.includes(eagerUiImport)) fail(`${label} eager route reintroduced UI import ${eagerUiImport}`);
-  }
-}
 if (files.exploreRoute.includes("@/data/metro-proximity")) fail("Explore head route must not eagerly import metro proximity catalog");
-
 for (const token of [
   "METRO_PROXIMITY_METROS",
   "Explore from a Texas metro",
@@ -103,6 +105,15 @@ for (const token of [
   "const proximityEntries",
   "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+
+for (const token of [
+  "ExploreNearMetroRouteImport",
+  "ExploreNearMetroCollectionRouteImport",
+  "ExploreNearMetroRouteWithChildren",
+  "explore.near.$metro.lazy",
+  "explore.near.$metro.$collection.lazy",
+  "'/explore/near/$metro/$collection'",
+]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
 
 const pkg = JSON.parse(files.package);
 if (pkg.scripts?.["metro-proximity:validate"] !== "node scripts/data/validate-metro-proximity.mjs") fail("package script metro-proximity:validate is missing or changed");
@@ -118,4 +129,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: five metro hubs and thirty intent landings are allowlisted, distance-ranked, quality-gated, fail-closed for indexing, sitemap-owned, internally discoverable and protected behind lazy UI boundaries.");
+console.log("Metro proximity validation passed: five metro hubs and thirty intent landings are distance-ranked, source-backed, quality-gated, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO plus lazy UI boundaries.");
