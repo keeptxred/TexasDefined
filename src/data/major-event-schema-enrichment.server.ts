@@ -214,11 +214,12 @@ export function getMajorEventSchemaOccurrenceEnrichmentServer(slug: string, labe
   const record = getMajorEventSchemaEnrichmentServer(slug);
   if (!record) return null;
   const occurrence = label ? record.occurrences?.[label] : undefined;
+  const lifecycle = occurrence?.lifecycle ?? record.lifecycle;
   return {
     organizer: record.organizer,
     image: record.image,
     offers: occurrence?.offers ?? record.offers,
     performers: occurrence?.performers ?? record.performers,
-    lifecycle: occurrence?.lifecycle ?? record.lifecycle,
+    lifecycle: isValidEventSchemaLifecycle(lifecycle) ? lifecycle : undefined,
   };
 }
