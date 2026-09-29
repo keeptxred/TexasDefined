@@ -351,8 +351,8 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   {
     slug: "caddo-lake", name: "Caddo Lake", tpwdSlug: "caddo", region: "piney-woods",
     summary: "A natural East Texas–Louisiana border lake defined by cypress habitat, trophy-capable largemouth bass, crappie, white bass and chain pickerel.",
-    surfaceAcres: 26810, maxDepthFeet: 20, impoundedYear: 1914, counties: ["Harrison", "Marion"], nearestCities: ["Karnack", "Marshall", "Jefferson"],
-    waterway: "Big Cypress Bayou", riverBasin: "Cypress River Basin", authority: "Caddo Lake Institute and public agencies", conservationPool: "Verify current lake level with managing agencies", fluctuation: "Shallow natural-lake system with managed water levels", clarity: "Variable, often stained in vegetated backwaters",
+    surfaceAcres: 26800, maxDepthFeet: 20, impoundedYear: 1914, counties: ["Harrison", "Marion"], nearestCities: ["Karnack", "Marshall", "Jefferson"],
+    waterway: "Big Cypress Bayou", riverBasin: "Cypress River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "168.5 ft msl", fluctuation: "About 4–8 feet", clarity: "Moderately clear to stained",
     identity: "Caddo Lake is unlike almost every other major Texas fishing destination: a shallow cypress-and-bayou natural lake on the Louisiana line with strong bass, crappie, white-bass and chain-pickerel identity.",
     habitat: ["Bald cypress, aquatic vegetation, bayous and backwater channels create a complex shallow-water fishery.", "Navigation routes and marked channels matter because of timber and shallow habitat.", "Texas and Louisiana rules both matter on this border water."],
     fish: [
@@ -403,7 +403,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     slug: "lake-nacogdoches", name: "Lake Nacogdoches", tpwdSlug: "nacogdoches", region: "piney-woods",
     summary: "A compact East Texas trophy-bass reservoir with hydrilla, lotus, docks and an excellent largemouth population.",
     surfaceAcres: 2212, maxDepthFeet: 40, impoundedYear: 1976, counties: ["Nacogdoches"], nearestCities: ["Nacogdoches"],
-    waterway: "Lanana Creek", riverBasin: "Angelina-Neches River Basin", authority: "City of Nacogdoches", conservationPool: "Verify current city operating level", fluctuation: "Generally limited but drought-sensitive", clarity: "Variable with vegetation and runoff",
+    waterway: "Loco Bayou", riverBasin: "Angelina-Neches River Basin", authority: "City of Nacogdoches", conservationPool: "279 ft msl", fluctuation: "About 1–3 feet", clarity: "Moderately clear",
     identity: "Lake Nacogdoches earns statewide search value far beyond its size because TPWD describes an excellent largemouth population and the reservoir has a long trophy-bass identity.",
     habitat: ["Hydrilla and American lotus provide the dominant natural cover.", "Boat docks add year-round structure.", "Vegetation edges, points and creek channels define the main bass framework.", "Artificial habitat sites supplement natural cover."],
     fish: [
@@ -641,6 +641,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       tpwdLake: { label: lakeSource.name, url: lakeSource.url },
       tpwdAccess: { label: publicAccess.name, url: publicAccess.url },
       tpwdRegulations: { label: "TPWD — current freshwater fishing regulations", url: TPWD_REGULATIONS },
+      liveLevel: { label: "TPWD — current lake conditions entry point", url: lakeSource.url },
     },
   };
 }
