@@ -123,7 +123,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                     </p>
                     <h4 className="mt-2 font-display text-xl leading-tight group-hover:text-primary">{program.schoolName}</h4>
                     <p className="mt-2 text-xs text-muted-foreground">UIL enrollment {program.uilEnrollment.toLocaleString('en-US')} · {program.footballType}</p>
-                    <p className="mt-1 text-xs font-semibold text-primary">Open school football profile →</p>
+                    <p className="mt-1 text-xs font-semibold text-primary">Open team football guide →</p>
                   </a>)}
                 </div>
                 {hiddenCount > 0 && <button
