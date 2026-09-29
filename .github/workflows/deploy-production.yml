@@ -270,6 +270,14 @@ jobs:
           CLOUDFLARE_PURGE_URLS: |
             https://texasdefined.com/texas-state-fair
             https://texasdefined.com/explore/painted-churches
+            https://texasdefined.com/moving-to-texas
+            https://texasdefined.com/moving-to-texas-checklist
+            https://texasdefined.com/article/best-houston-suburbs-for-commuters
+            https://texasdefined.com/article/best-dallas-suburbs-for-commuters
+            https://texasdefined.com/article/texas-property-taxes-for-new-residents
+            https://texasdefined.com/article/corporate-relocation-to-texas
+            https://texasdefined.com/article/employee-relocation-guide-to-texas
+            https://texasdefined.com/sitemap.xml
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Publish live verification pending
