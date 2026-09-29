@@ -11,6 +11,7 @@ const types = read('src/data/partner-referral-analytics.types.ts');
 const functions = read('src/data/partner-referral-analytics.functions.ts');
 const route = read('src/routes/admin.partner-referrals.tsx');
 const lazyRoute = read('src/routes/admin.partner-referrals.lazy.tsx');
+const portfolio = read('docs/affiliate-portfolio-economics.md');
 const admin = read('src/routes/admin.tsx');
 const collector = read('src/lib/texas-defined-outcome-analytics.server.ts');
 const analytics = read('src/platform/analytics.ts');
@@ -203,6 +204,16 @@ for (const [needle, label] of [
 ]) expect(lazyRoute, needle, label);
 
 if (lazyRoute.includes('Current approved hotel commission economics are treated as parity')) errors.push('Partner referral dashboard must not assume Orbitz and Travelocity commission parity when advertiser schedules differ and the active CJ term controls payout.');
+
+for (const [needle, label] of [
+  ['Decision-grade routing and CTR measurement restart on **2026-09-27 UTC**', 'portfolio clean-measurement boundary'],
+  ['clean Orbitz-versus-Travelocity comparison window beginning **2026-09-27 UTC**', 'portfolio routing baseline'],
+  ['100-impression-per-provider HOLD gate', 'portfolio routing hold threshold'],
+  ['2026-09-29 measurement refresh', 'portfolio measurement refresh date'],
+]) expect(portfolio, needle, label);
+if (portfolio.includes('clean Orbitz-versus-Travelocity routing window beginning 2026-09-23')) {
+  errors.push('Affiliate portfolio economics must not use the superseded 2026-09-23 routing baseline; clean routing begins 2026-09-27.');
+}
 
 expect(types, 'lastPipelineSyncAt: string | null', 'pipeline heartbeat dashboard type');
 expect(types, 'ctrMeasurementStartedAt: string', 'clean CTR boundary dashboard type');
