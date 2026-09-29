@@ -361,7 +361,7 @@ export function selectMetroProximityDestinations(
     .filter((destination) => categoryMatches(destination, collection))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
-    .filter((row) => row.distanceMiles >= collection.minimumMiles && row.distanceMiles <= collection.radiusMiles)
+    .filter((row) => (collection.minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > collection.minimumMiles) && row.distanceMiles <= collection.radiusMiles)
     .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
     .slice(0, collection.maxResults);
 

@@ -64,7 +64,7 @@ for (const token of [
   '"road-trips"',
   '"lakes"',
   '"swimming-holes"',
-  "not road miles or drive-time promises",
+  "Actual road mileage and drive time vary.",
 ]) requireText(files.data, token, `requested intent expansion missing ${token}`);
 
 for (const token of [
