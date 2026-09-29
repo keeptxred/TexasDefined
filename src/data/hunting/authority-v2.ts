@@ -106,6 +106,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     geography: "TPWD's 2026–27 framework distinguishes East Texas from other open counties and separately lists an East Texas youth-only opportunity.",
     access: "Suitable hardwood habitat does not mean a WMA or other public tract is open to squirrel hunting on the day you plan to visit. Confirm legal game, dates, boundaries and access instructions.",
     extraSources: [OFFICIAL.youthOnly],
+    related: [internal("Texas rabbit & hare hunting guide", "/hunting/rabbit-hare-hunting"), internal("Texas youth hunting", "/hunting/youth-hunting"), SEASONS, PUBLIC, OUTDOORS, COUNTIES],
   }),
 
   "rabbit-hare-hunting": speciesTopic({
@@ -119,6 +120,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     geography: "The current statewide rabbit-and-hare rule is broad on private property, but that private-property framework should not be carried over to WMAs, parks or other public lands.",
     access: "For a public-land rabbit hunt, start with TPWD's public-hunting system and the individual property's legal-game listing rather than assuming the private-property rule applies.",
     extraSources: [OFFICIAL.meansMethods],
+    related: [internal("Texas squirrel hunting guide", "/hunting/squirrel-hunting"), SEASONS, PUBLIC, OUTDOORS, COUNTIES],
   }),
 
   "pheasant-hunting": speciesTopic({
@@ -131,6 +133,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     source: OFFICIAL.pheasant,
     geography: "TPWD's current pheasant page identifies the Panhandle season and county-specific coverage, making county selection part of the legal check.",
     access: "Agricultural habitat can be productive but is often private. Confirm landowner permission or a verified public-hunt opportunity before travel.",
+    related: [internal("Texas quail hunting guide", "/hunting/quail-hunting"), internal("Texas chachalaca hunting guide", "/hunting/chachalaca-hunting"), SEASONS, PUBLIC, OUTDOORS, COUNTIES],
   }),
 
   "chachalaca-hunting": speciesTopic({
@@ -143,6 +146,7 @@ export const HUNTING_AUTHORITY_TOPICS_V2: Record<string, HuntingAuthorityTopic> 
     source: OFFICIAL.chachalaca,
     geography: "TPWD's current chachalaca page shows an open season in four Texas counties, so broad statewide hunting assumptions do not apply.",
     access: "Brush and riparian habitat can overlap chachalaca range, but legal hunting access still depends on the property and current rules.",
+    related: [internal("Texas quail hunting guide", "/hunting/quail-hunting"), internal("Texas pheasant hunting guide", "/hunting/pheasant-hunting"), SEASONS, PUBLIC, OUTDOORS, COUNTIES],
   }),
 
   "pronghorn-hunting": topic({
