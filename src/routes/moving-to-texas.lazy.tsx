@@ -7,6 +7,7 @@ import { TexasCountyComparisonTable } from "@/components/counties/TexasCountyCom
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
 import { CITY_AUTHORITY_INDEX, cityAuthorityPath } from "@/data/city-authority-index";
+import { RELOCATION_CITY_PAIRS, relocationCityPairPath } from "@/data/relocation-city-pairs";
 
 const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
 const RelocationCommandCenter = lazy(() => import("@/components/relocation/RelocationCommandCenter").then((module) => ({ default: module.RelocationCommandCenter })));
@@ -59,6 +60,13 @@ const industryResearchLinks = [
   ["Made in Texas", "/made-in-texas", "See companies, products and operating relationships tied to Texas communities without treating a headquarters as proof of local manufacturing."],
   ["Salary comparison by city", "/texas-salary-comparison-by-city", "Compare salary-planning tools after you identify the cities where your industry is strongest."],
 ] as const;
+const priorityOriginStates = [
+  ["California", "/texas-vs/california"],
+  ["New York", "/texas-vs/new-york"],
+  ["Illinois", "/texas-vs/illinois"],
+  ["Florida", "/texas-vs/florida"],
+  ["Colorado", "/texas-vs/colorado"],
+] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
@@ -80,6 +88,17 @@ function MovingToTexasPage() {
     <Suspense fallback={null}><RelocationCommandCenter /></Suspense>
     <Suspense fallback={null}><RelocationAuthorityLab showPlaceExplorer={false} /></Suspense>
     <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-origin-state">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Moving from another state</p><h2 id="moving-texas-origin-state" className="mt-2 font-display text-3xl">Start with the state you are leaving</h2></div><Link to="/texas-vs-every-state" className="text-sm font-semibold text-primary">Compare Texas with all 49 states →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These priority guides use the existing Texas-versus-state evidence system to answer moving-to-Texas questions without creating duplicate doorway pages. Use the state comparison first, then narrow the move to a Texas metro, county and exact address.</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">{priorityOriginStates.map(([state, href]) => <a key={href} href={href} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Moving from {state} →</a>)}</div>
+      </section>
+
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-city-pairs">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Major metro matchups</p><h2 id="moving-texas-city-pairs" className="mt-2 font-display text-3xl">Compare Houston, Dallas, Austin and San Antonio directly</h2></div><Link to="/compare-texas-cities" className="text-sm font-semibold text-primary">Interactive city comparer →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The six permanent comparison pages focus on household budget, commute, county and taxing-unit context, insurance, utilities, schools and official-source verification. They do not assign a subjective winner.</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{RELOCATION_CITY_PAIRS.map((pair) => <a key={pair.slug} href={relocationCityPairPath(pair.slug)} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">{pair.cityA} vs {pair.cityB} →</a>)}</div>
+      </section>
       <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
           <div><p className="eyebrow text-primary">After you arrive</p><h2 id="moving-texas-paperwork" className="mt-2 font-display text-3xl leading-tight">Texas paperwork without the agency confusion</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Texas splits driver licensing and vehicle services between different systems. These practical guides route you to the right transaction and official source before you make an appointment or start paperwork.</p></div>
