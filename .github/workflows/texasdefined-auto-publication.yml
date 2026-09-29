@@ -78,11 +78,14 @@ jobs:
             .map((line) => JSON.parse(line));
           const queue = rows.find((row) => row.mode === 'dry-run');
           if (!queue) throw new Error('Dry-run queue summary was not emitted.');
-          for (const field of ['rawEligible', 'eligible', 'held', 'selected', 'deferred', 'published', 'skipped', 'failed']) {
+          for (const field of ['rawEligible', 'eligible', 'held', 'ownershipHeld', 'staleHeld', 'selected', 'deferred', 'published', 'skipped', 'failed']) {
             if (!Number.isInteger(queue[field]) || queue[field] < 0) throw new Error(`Dry-run summary has invalid ${field}: ${queue[field]}`);
           }
-          if (queue.rawEligible !== queue.eligible + queue.held) {
-            throw new Error(`Dry-run ownership mismatch: rawEligible=${queue.rawEligible}, eligible=${queue.eligible}, held=${queue.held}`);
+          if (queue.held !== queue.ownershipHeld + queue.staleHeld) {
+            throw new Error(`Dry-run hold mismatch: held=${queue.held}, ownershipHeld=${queue.ownershipHeld}, staleHeld=${queue.staleHeld}`);
+          }
+          if (queue.rawEligible !== queue.eligible + queue.ownershipHeld + queue.staleHeld) {
+            throw new Error(`Dry-run ownership/freshness mismatch: rawEligible=${queue.rawEligible}, eligible=${queue.eligible}, ownershipHeld=${queue.ownershipHeld}, staleHeld=${queue.staleHeld}`);
           }
           if (queue.eligible !== queue.selected + queue.deferred) {
             throw new Error(`Dry-run count mismatch: eligible=${queue.eligible}, selected=${queue.selected}, deferred=${queue.deferred}`);
@@ -95,6 +98,8 @@ jobs:
             rawEligible: queue.rawEligible,
             eligible: queue.eligible,
             held: queue.held,
+            ownershipHeld: queue.ownershipHeld,
+            staleHeld: queue.staleHeld,
             selected: queue.selected,
             deferred: queue.deferred,
             published: queue.published,
