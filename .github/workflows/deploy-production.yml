@@ -267,6 +267,7 @@ jobs:
         env:
           CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN }}
           CLOUDFLARE_ZONE_NAME: texasdefined.com
+          CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
             https://texasdefined.com/texas-state-fair
             https://texasdefined.com/explore/painted-churches
