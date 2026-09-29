@@ -3,7 +3,7 @@ export type InternalLinkSurfaceStatus = 'active' | 'partial' | 'not-applicable' 
 export type InternalLinkSurface = {
   id: string;
   routePattern: string;
-  family: 'articles' | 'destinations' | 'guides' | 'entities' | 'directories' | 'events' | 'commerce' | 'admin';
+  family: 'articles' | 'destinations' | 'guides' | 'entities' | 'directories' | 'events' | 'fishing' | 'relocation' | 'commerce' | 'admin';
   status: InternalLinkSurfaceStatus;
   implementation?: string;
   pageBudget?: number;
@@ -30,6 +30,13 @@ export const INTERNAL_LINK_SURFACES: InternalLinkSurface[] = [
   { id:'event-guides', routePattern:'/event/$slug', family:'events', status:'active', implementation:'Major event authority related links', notes:'Major event guides expose sourced related-guide pathways and county context alongside official event sources and verified planning details.' },
   { id:'events-hub', routePattern:'/events', family:'events', status:'active', implementation:'EventsPage', notes:'The statewide events hub links major event guides, county discovery, event-type authority pages and adjacent Texas planning surfaces.' },
   { id:'guide-index', routePattern:'/guides', family:'guides', status:'active', implementation:'Guidebook index', notes:'Guide cards and contextual pathways intentionally route readers into canonical guide, destination, service and explanation clusters.' },
+  { id:'fishing-hub', routePattern:'/fishing', family:'fishing', status:'active', implementation:'FishingHub', notes:'The fishing hub links lake guides, species, techniques, seasons, reports, access, regulations, guides and planning tools through crawlable contextual links.' },
+  { id:'fishing-lake-guides', routePattern:'/fishing/lakes/$slug and section routes', family:'fishing', status:'active', implementation:'ShowcaseLakeGuide', notes:'Complete lake guides cross-link species, techniques, reports, guide sections, nearby lakes, access, regulations and verified services without paid ranking.' },
+  { id:'fishing-species-guides', routePattern:'/fishing/species/$slug', family:'fishing', status:'active', implementation:'FishingSpeciesProfile', notes:'Species guides link verified lake relationships, technique applications, related species, reports, regulations and the lake finder.' },
+  { id:'fishing-technique-guides', routePattern:'/fishing/techniques/$slug', family:'fishing', status:'active', implementation:'FishingTechniqueProfile', notes:'Technique guides link verified lake applications, target species, related techniques, habitat guides, reports and regulations.' },
+  { id:'relocation-hub', routePattern:'/moving-to-texas', family:'relocation', status:'active', implementation:'MovingToTexasPage', notes:'The relocation hub links origin-state comparisons, city-pair comparisons, city guides, counties, jobs, calculators, data and first-month tools.' },
+  { id:'relocation-state-comparisons', routePattern:'/texas-vs/$state', family:'relocation', status:'active', implementation:'TexasVsStatePage', notes:'State comparisons link official sources, related state comparisons, Texas city/county discovery and relocation calculators/checklists.' },
+  { id:'relocation-city-comparisons', routePattern:'/compare-texas-cities/$pair', family:'relocation', status:'active', implementation:'CityPairPage', notes:'Major Texas city-pair pages link both metro guides, household-budget tools, related city matchups, counties, city discovery and the relocation hub.' },
   { id:'shop', routePattern:'/shop/*', family:'commerce', status:'not-applicable', notes:'Product descriptions are excluded from automatic editorial entity linking; commerce navigation is governed separately.' },
   { id:'admin', routePattern:'/admin/*', family:'admin', status:'not-applicable', notes:'Administrative pages are noindex and excluded from public editorial authority coverage.' },
 ];
