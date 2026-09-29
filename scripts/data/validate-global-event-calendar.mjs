@@ -28,7 +28,7 @@ const sportsVenueGuide = read("src/components/sports/SportsVenueGuidePage.tsx");
 
 for (const field of ["id: string", "title: string", "startDate: string", "startTime?: string", "endDate?: string", "endTime?: string", "venueId?: string", "city: string", "countySlug?: string", "region: TexasRegion", "category: TexasEvent[\"category\"]", "officialEventUrl: string", "ticketing?: TexasEventTicketingMetadata", "image?: TexasEventImageMetadata", "licenseUrl?: string", "status: TexasEventLifecycleStatus", "lastVerifiedAt: string", "lastUpdatedAt: string"]) requireText(contract, field, "event contract");
 for (const selector of ["eventsForVenue", "eventsForCity", "eventsForCounty", "eventsForRegion", "eventsForCategory"]) requireText(contract, `export function ${selector}`, "context selector contract");
-for (const lifecycle of ["scheduled", "cancelled", "postponed"]) requireText(contract, `\"${lifecycle}\"`, "lifecycle contract");
+for (const lifecycle of ["scheduled", "cancelled", "postponed", "rescheduled"]) requireText(contract, `\"${lifecycle}\"`, "lifecycle contract");
 for (const rights of ["verified-reusable", "official-source-only", "unknown"]) requireText(contract, `\"${rights}\"`, "image-rights contract");
 
 for (const token of ["getGeneratedTexasEvents(500)", "loadMajorEventGuideDirectoryServer", "getMajorEventRecordServer", "getMajorEventSchemaEnrichmentServer", "resolveSportsVenueEventLink", "getSportsVenuePhoto", 'rightsStatus: "unknown"', "displayAllowed: false", "buildDisplayImage", 'rightsStatus: "verified-reusable"', "photo.licenseName", "photo.licenseUrl", "photo.author", "displayAllowed: true", "loadUpcomingTexasEventRecordsServer"]) requireText(adapter, token, "event adapter");
