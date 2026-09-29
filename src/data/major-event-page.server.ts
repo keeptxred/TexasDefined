@@ -51,6 +51,7 @@ import { getExpandedMajorEventAuthorityTranche46Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche47Server } from "./major-event-expanded-authority-tranche47.server";
 import { getExpandedMajorEventAuthorityTranche48Server } from "./major-event-expanded-authority-tranche48.server";
 import {
+  eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
 } from "./major-event-schema-enrichment.server";
@@ -262,8 +263,25 @@ export function loadMajorEventPageServer(slug: string) {
   const imageMarkup = schemaEnrichment?.image
     ? `<figure><img data-major-event-enrichment-image="true" class="w-full rounded-xl" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="lazy" decoding="async" /><figcaption class="mt-2 text-sm text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
     : "";
+  const lifecycleRows = occurrenceWindows.flatMap((window) => {
+    const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label)?.lifecycle;
+    if (!lifecycle || lifecycle.status === "scheduled") return [];
+    const statusLabel = lifecycle.status === "cancelled"
+      ? "Cancelled"
+      : lifecycle.status === "postponed"
+        ? "Postponed"
+        : "Rescheduled";
+    const occurrenceLabel = window.label ? `${window.label}: ` : "";
+    const previous = lifecycle.previousStartDate
+      ? ` Previous date: ${esc(Array.isArray(lifecycle.previousStartDate) ? lifecycle.previousStartDate.join(", ") : lifecycle.previousStartDate)}.`
+      : "";
+    return [`<li><strong>${esc(occurrenceLabel)}${statusLabel}.</strong>${previous} <a class="font-semibold text-primary underline" href="${esc(lifecycle.sourceUrl)}" target="_blank" rel="noreferrer noopener">Verify status ↗</a> <span class="text-muted-foreground">(checked ${esc(lifecycle.verifiedAt)})</span></li>`];
+  });
+  const lifecycleMarkup = lifecycleRows.length
+    ? `<div data-event-lifecycle-status="true"><h3 class="font-display text-xl">Schedule status</h3><ul class="mt-2 space-y-2">${lifecycleRows.join("")}</ul></div>`
+    : "";
   const enrichmentMarkup = schemaEnrichment
-    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${imageMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
+    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${imageMarkup}${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
     : "";
   const mergedSources = [...event.sources, ...(schemaEnrichment?.sources ?? [])]
     .filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index);
@@ -311,7 +329,10 @@ export function loadMajorEventPageServer(slug: string) {
       url: canonicalUrl,
       startDate: window.startDate,
       endDate: window.endDate,
-      eventStatus: "https://schema.org/EventScheduled",
+      eventStatus: eventSchemaStatusUrl(occurrenceEnrichment?.lifecycle?.status),
+      ...(occurrenceEnrichment?.lifecycle?.status === "rescheduled" && occurrenceEnrichment.lifecycle.previousStartDate
+        ? { previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate }
+        : {}),
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       sameAs: event.officialUrl,
       location,
