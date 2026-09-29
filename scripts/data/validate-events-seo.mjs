@@ -216,7 +216,7 @@ for (const feature of [
 for (const feature of [
   'status: lifecycle?.status ?? "scheduled"',
   'statuses: query.statuses ?? ["scheduled", "postponed", "rescheduled"]',
-  'enrichment?.occurrences?.[occurrenceLabel]?.lifecycle',
+  'getMajorEventSchemaOccurrenceEnrichmentServer(authoritySlug, occurrenceLabel)?.lifecycle',
 ]) {
   if (!normalizedEventRecordsServer.includes(feature)) errors.push(`Normalized event lifecycle propagation missing: ${feature}.`);
 }
