@@ -385,6 +385,7 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
+  const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
     : -1;
@@ -515,6 +516,6 @@ function ArticlePage() {
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
-    <Section tone="surface"><Container><SectionHeader eyebrow="From the magazine" title="More stories to read next" /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
+    <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
   </article>;
 }
