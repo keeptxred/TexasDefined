@@ -4,7 +4,9 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
   hubRoute: "src/routes/explore.near.$metro.tsx",
+  hubUi: "src/routes/explore.near.$metro.lazy.tsx",
   collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
+  collectionUi: "src/routes/explore.near.$metro.$collection.lazy.tsx",
   exploreRoute: "src/routes/explore.index.tsx",
   exploreUi: "src/routes/explore.index.lazy.tsx",
   sitemap: "src/routes/sitemap-explore[.]xml.ts",
@@ -40,6 +42,7 @@ for (const token of [
 
 for (const token of [
   'createFileRoute("/explore/near/$metro")',
+  'await import("@/data/metro-proximity")',
   "isPrimaryTripPlannerDestination",
   "auditDestination(destination).readyForIndexing",
   "metroProximityHubReady",
@@ -48,13 +51,19 @@ for (const token of [
   '"@type": "BreadcrumbList"',
   '"index, follow, max-image-preview:large"',
   '"noindex, follow"',
-  "straight-line geographic estimates",
-  'to="/explore/near/$metro/$collection"',
-  'to="/explore/trip-planner"',
 ]) requireText(files.hubRoute, token, `metro hub route missing ${token}`);
 
 for (const token of [
+  'createLazyFileRoute("/explore/near/$metro")',
+  "DestinationCard",
+  "straight-line geographic estimates",
+  'to="/explore/near/$metro/$collection"',
+  'to="/explore/trip-planner"',
+]) requireText(files.hubUi, token, `metro hub lazy UI missing ${token}`);
+
+for (const token of [
   'createFileRoute("/explore/near/$metro/$collection")',
+  'await import("@/data/metro-proximity")',
   "getMetroProximityCollection",
   "selectMetroProximityDestinations",
   "isMetroProximityCollectionIndexReady",
@@ -63,17 +72,23 @@ for (const token of [
   '"@type": "BreadcrumbList"',
   '"index, follow, max-image-preview:large"',
   '"noindex, follow"',
+]) requireText(files.collectionRoute, token, `metro collection route missing ${token}`);
+
+for (const token of [
+  'createLazyFileRoute("/explore/near/$metro/$collection")',
+  "METRO_PROXIMITY_COLLECTIONS",
   "straight-line estimates",
   "not road miles or drive-time promises",
   "DestinationCard destination={row.destination}",
   'to="/explore/near/$metro"',
-]) requireText(files.collectionRoute, token, `metro collection route missing ${token}`);
+]) requireText(files.collectionUi, token, `metro collection lazy UI missing ${token}`);
 
-for (const token of [
-  "METRO_PROXIMITY_METROS",
-  "metroProximityCanonicalPath",
-  "Day Trips & Things to Do Near",
-]) requireText(files.exploreRoute, token, `Explore structured discovery missing ${token}`);
+for (const [label, source] of [["hub", files.hubRoute], ["collection", files.collectionRoute]]) {
+  for (const eagerUiImport of ["@/components/editorial/DestinationCard", "@/components/layout/Container"]) {
+    if (source.includes(eagerUiImport)) fail(`${label} eager route reintroduced UI import ${eagerUiImport}`);
+  }
+}
+if (files.exploreRoute.includes("@/data/metro-proximity")) fail("Explore head route must not eagerly import metro proximity catalog");
 
 for (const token of [
   "METRO_PROXIMITY_METROS",
@@ -83,7 +98,7 @@ for (const token of [
 ]) requireText(files.exploreUi, token, `Explore internal discovery missing ${token}`);
 
 for (const token of [
-  "metroProximitySitemapEntries",
+  'await import("@/data/metro-proximity")',
   "metroProximitySitemapEntries(indexableDestinations)",
   "const proximityEntries",
   "...proximityEntries",
@@ -103,4 +118,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: five metro hubs and thirty intent landings are allowlisted, distance-ranked, quality-gated, fail-closed for indexing, sitemap-owned and internally discoverable.");
+console.log("Metro proximity validation passed: five metro hubs and thirty intent landings are allowlisted, distance-ranked, quality-gated, fail-closed for indexing, sitemap-owned, internally discoverable and protected behind lazy UI boundaries.");
