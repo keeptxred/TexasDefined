@@ -12,7 +12,7 @@ type FairPhoto = {
 const commonsSource = (file: string) =>
   `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ", "_"))}`;
 
-const commonsImage = (file: string, width = 1800) =>
+const commonsImage = (file: string, width = 1280) =>
   editorialImageSrc(
     `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=${width}`,
   );
@@ -135,13 +135,13 @@ export function StateFairPlanningStrip() {
                 to="/event/state-fair-classic"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                State Fair Classic tickets
+                State Fair Classic guide
               </Link>
               <Link
                 to="/event/red-river-rivalry"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                Red River Rivalry tickets
+                Red River Rivalry guide
               </Link>
             </div>
           </div>

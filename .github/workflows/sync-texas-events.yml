@@ -114,3 +114,13 @@ jobs:
           fi
 
           echo "Generated event refresh is prevalidated and ready for the protected owner-side finisher: $PR_URL"
+
+      - name: Dispatch protected event refresh finisher
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh workflow run finish-texas-events-refresh.yml --ref main -f sync_run_id="$GITHUB_RUN_ID"
+          echo "Dispatched protected event-refresh finisher for sync run $GITHUB_RUN_ID."

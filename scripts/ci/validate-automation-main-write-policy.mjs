@@ -57,6 +57,8 @@ for (const contract of [
 forbidPattern(eventsPath, events, /git\s+push\s+origin\s+HEAD:main/, 'push generated event data directly to main');
 forbidPattern(eventsPath, events, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push generated event data directly to main');
 forbidPattern(eventsPath, events, /gh\s+pr\s+merge/, 'self-merge a GITHUB_TOKEN-created event refresh PR; protected completion belongs to the owner-side finisher');
+requireText(eventsPath, events, 'gh workflow run finish-texas-events-refresh.yml --ref main');
+requireText(eventsPath, events, '-f sync_run_id="$GITHUB_RUN_ID"');
 
 const eventFinisherPath = '.github/workflows/finish-texas-events-refresh.yml';
 const eventFinisher = read(eventFinisherPath);
