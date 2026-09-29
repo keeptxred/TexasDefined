@@ -21,6 +21,7 @@ export interface FishingVisualAsset {
 
 const VERIFIED_AT = "2026-09-29";
 const COMMONS_PD = "https://commons.wikimedia.org/wiki/Commons:Public_domain";
+const CC0_1 = "https://creativecommons.org/publicdomain/zero/1.0/";
 const CC_BY_2 = "https://creativecommons.org/licenses/by/2.0/";
 const CC_BY_4 = "https://creativecommons.org/licenses/by/4.0/";
 const CC_BY_SA_4 = "https://creativecommons.org/licenses/by-sa/4.0/";
@@ -57,12 +58,52 @@ const fish = (
   credit: `${creator} · U.S. Fish & Wildlife Service · Public domain`,
 });
 
+const cc0Fish = (
+  id: string,
+  filename: string,
+  alt: string,
+  creator: string,
+): FishingVisualAsset => ({
+  id,
+  kind: "fish",
+  src: commonsImage(filename),
+  alt,
+  width: 960,
+  height: 720,
+  sourceName: "Wikimedia Commons / iNaturalist",
+  sourceUrl: commonsFile(filename),
+  creator,
+  licenseName: "CC0 1.0 public-domain dedication",
+  licenseUrl: CC0_1,
+  rightsStatus: "public-domain",
+  verifiedAt: VERIFIED_AT,
+  credit: `${creator} · CC0 1.0 · Wikimedia Commons`,
+});
+
 export const fishingFishImages: Record<string, FishingVisualAsset> = {
   "largemouth-bass": fish(
     "fish-largemouth-bass",
     "Largemouth Bass (Micropterus salmoides) (53118577249).jpg",
     "Largemouth bass in side view",
     "USFWS Mountain-Prairie / Sam Stukel",
+  ),
+  "smallmouth-bass": fish(
+    "fish-smallmouth-bass",
+    "Smallmouth bass.jpg",
+    "Smallmouth bass",
+    "Duane Raver, U.S. Fish and Wildlife Service",
+  ),
+  "spotted-bass": fish(
+    "fish-spotted-bass",
+    "Micropterus punctulatus 1.jpg",
+    "Spotted bass",
+    "Dick Biggins, U.S. Fish and Wildlife Service",
+  ),
+  "guadalupe-bass": cc0Fish(
+    "fish-guadalupe-bass",
+    "Micropterus treculii 423449040.jpg",
+    "Guadalupe bass",
+    "Nick Loveland",
   ),
   crappie: fish(
     "fish-crappie",
@@ -77,6 +118,12 @@ export const fishingFishImages: Record<string, FishingVisualAsset> = {
     "Black crappie",
     "United States Fish and Wildlife Service",
   ),
+  "white-crappie": fish(
+    "fish-white-crappie",
+    "White crappie pomoxis annularis.jpg",
+    "White crappie",
+    "Duane Raver, U.S. Fish and Wildlife Service",
+  ),
   catfish: fish(
     "fish-catfish",
     "Channel catfish (Ictalurus punctatus) (51591896207).jpg",
@@ -84,10 +131,22 @@ export const fishingFishImages: Record<string, FishingVisualAsset> = {
     "USFWS Mountain-Prairie / Sam Stukel",
     { representativeOfGroup: "catfish" },
   ),
+  "blue-catfish": fish(
+    "fish-blue-catfish",
+    "Blue Catfish (Ictalurus furcatus) (53678866030).jpg",
+    "Blue catfish",
+    "USFWS Mountain-Prairie",
+  ),
   "channel-catfish": fish(
     "fish-channel-catfish",
     "Channel catfish (Ictalurus punctatus) (51591896207).jpg",
     "Channel catfish",
+    "USFWS Mountain-Prairie / Sam Stukel",
+  ),
+  "flathead-catfish": fish(
+    "fish-flathead-catfish",
+    "Flathead Catfish (Pylodictis olivaris).jpg",
+    "Flathead catfish",
     "USFWS Mountain-Prairie / Sam Stukel",
   ),
   "white-bass": fish(
@@ -114,6 +173,12 @@ export const fishingFishImages: Record<string, FishingVisualAsset> = {
     "Alligator gar",
     "Duane Raver, U.S. Fish and Wildlife Service",
   ),
+  "freshwater-drum": fish(
+    "fish-freshwater-drum",
+    "Freshwater Drum (Aplodinotus grunniens) (50642305682).jpg",
+    "Freshwater drum",
+    "USFWS Mountain-Prairie / Sam Stukel",
+  ),
   walleye: fish(
     "fish-walleye",
     "Walleye (51300340382).jpg",
@@ -138,6 +203,12 @@ export const fishingFishImages: Record<string, FishingVisualAsset> = {
     "Bluegill (Lepomis macrochirus) (53678765399).jpg",
     "Bluegill",
     "USFWS Mountain-Prairie",
+  ),
+  "rainbow-trout": fish(
+    "fish-rainbow-trout",
+    "Rainbow trout Ryan Hagerty USFWS.png",
+    "Rainbow trout",
+    "Ryan Hagerty, U.S. Fish and Wildlife Service",
   ),
 };
 
