@@ -27,8 +27,8 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - name: Validate inactive publication controls
@@ -60,8 +60,8 @@ jobs:
       TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
       TEXASDEFINED_PUBLISH_CONFIRMATION: ${{ inputs.confirmation }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - name: Inspect eligible queue without publishing
@@ -81,9 +81,10 @@ jobs:
           console.log(JSON.stringify({
             mode: 'dry-run-summary',
             eligible: queue.eligible,
-            published: 0,
-            skipped: 0,
-            failed: 0,
+            inspected: queue.inspected,
+            published: queue.published,
+            skipped: queue.skipped,
+            failed: queue.failed,
             ids: queue.ids,
           }));
           NODE
