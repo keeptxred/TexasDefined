@@ -171,8 +171,8 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: `${seoName} Football: Class, District, Enrollment & School Guide`",
-    "const description = `${seoName} football profile:",
+    "title: `${teamName} Football: 2026 District, Enrollment & Team Guide`",
+    "const description = `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
   for (const marker of [
@@ -290,7 +290,7 @@ if (!errors.length) {
     'Three-program comparison limit reached',
     'it does not rank academics, roster opportunity, coaching quality or overall student fit',
     'profilePath',
-    'School profile, enrollment & mascot →',
+    'Open team football guide →',
     "limit: '500'",
     'showAllMatches',
     'showAllByDefault',
@@ -777,6 +777,16 @@ if (!errors.length) {
     'uilSubmittedConference',
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(directory, marker, 'Football directory exact enrollment integration');
+  for (const marker of [
+    'normalizeUilProgramName',
+    'contextualMatchScore',
+    'programTokens.every((token) => contextTokens.has(token))',
+    'programTokens.length === 1 && !schoolTokens.has(programTokens[0])',
+    'ranked[0].score === ranked[1].score',
+  ]) requireText(directory, marker, 'Fail-closed TEA football school matching');
+  if (directory.includes('function fuzzyMatchScore')) {
+    errors.push('Football directory must not use the retired permissive fuzzy school matcher.');
+  }
 
   for (const marker of [
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28',
@@ -942,7 +952,7 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: Class, District, Enrollment & School Guide',
+    'Football: 2026 District, Enrollment & Team Guide',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
 
   for (const marker of [
@@ -950,9 +960,7 @@ if (!errors.length) {
     'How to enroll at',
     'Official district enrollment',
     'District enrollment source last reviewed',
-    'Official district enrollment link not yet available',
-    'Every UIL school profile uses the same enrollment-source field.',
-    'Official school admissions',
+     'Official school admissions',
     'Start with {admissions.sourceLabel} ↗',
     'Start with {enrollmentLink.sourceLabel} ↗',
     'Mascot & identity',
@@ -964,12 +972,10 @@ if (!errors.length) {
     'Current district',
     'Every opponent links to the same school-profile system.',
     'Football game venues',
-    'Football venue details',
-    'Venue details not yet available',
-    'Every UIL school profile has the same game-venue field.',
+    'venueLinks.length > 0',
     'Venue details last reviewed',
     'Identity last reviewed',
-    'Mascot source not yet available',
+    'identity &&',
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
     'Official venue source ↗',
@@ -991,6 +997,16 @@ if (!errors.length) {
     'program.uilEnrollment',
     'Official UIL alphabetical enrollment listing ↗',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
+  for (const forbidden of [
+    'All ${program.districtName} football programs →',
+    'TEA directory match pending',
+    'Exact UIL enrollment pending',
+    'Venue details not yet available',
+    'Mascot source not yet available',
+  ]) {
+    if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
+  }
+
   for (const stale of [
     'Venue verification pending',
     'Mascot verification pending',
@@ -1008,7 +1024,7 @@ if (!errors.length) {
   requireText(finder, 'uilEnrollment', 'Football finder exact enrollment');
   requireText(finder, 'UIL enrollment', 'Football finder exact enrollment');
 
-  requireText(finder, 'School profile, enrollment & mascot →', 'Football finder profile handoff');
+  requireText(finder, 'Open team football guide →', 'Football finder profile handoff');
   requireText(page, 'UilFootballProgramDirectory', 'Football finder all-UIL directory integration');
   requireText(page, 'all 1,268 current UIL football programs as the authoritative school universe', 'Football finder all-UIL scope');
   requireText(page, '/article/texas-high-school-football-2026-season-calendar', 'Football finder calendar discovery');
