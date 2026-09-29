@@ -110,6 +110,13 @@ const requiredLakes = [
   "calaveras-lake",
   "alan-henry-reservoir",
   "lake-palestine",
+  "lake-conroe",
+  "choke-canyon-reservoir",
+  "falcon-international-reservoir",
+  "cedar-creek-reservoir",
+  "lake-ray-hubbard",
+  "lake-bridgeport",
+  "lake-o-the-pines",
 ];
 for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
@@ -122,7 +129,7 @@ const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|s
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
-if (commonsLakeBlocks.length < 19) fail(`expected at least 19 exact Commons lake images, found ${commonsLakeBlocks.length}`);
+if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
 for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
   const end = files.library.indexOf("\n  ),", start);
