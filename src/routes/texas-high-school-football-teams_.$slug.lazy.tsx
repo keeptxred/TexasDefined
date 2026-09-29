@@ -28,7 +28,7 @@ function Page() {
     associationClassification,
     associationSourceUrl,
   } = Route.useLoaderData();
-  const schoolName = program?.officialSchoolName || displayName;
+  const schoolName = displayName;
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
   const countyPath = program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
