@@ -11,6 +11,7 @@ const routes = [
   ['/find-my-emergency-services', 'Find Texas emergency and community services'],
   ['/texas-zip-code-explorer', 'Texas ZIP Code Explorer'],
   ['/compare-texas-cities', 'Compare Texas cities'],
+  ['/moving-to-texas-checklist', 'What to do during your first 30 days in Texas'],
   ['/article/best-houston-suburbs-for-commuters', 'Best Houston Suburbs for Commuters'],
   ['/article/best-dallas-suburbs-for-commuters', 'Best Dallas Suburbs for Commuters'],
   ['/article/texas-property-taxes-for-new-residents', 'Texas Property Taxes for New Residents'],
@@ -19,7 +20,7 @@ const routes = [
 ];
 const toolkitLinks = routes
   .map(([path]) => path)
-  .filter((path) => !['/moving-to-texas', '/moving-to-texas/tools'].includes(path));
+  .filter((path) => !['/moving-to-texas', '/moving-to-texas/tools', '/moving-to-texas-checklist'].includes(path));
 const RETRY_ATTEMPTS = 6;
 const RETRY_DELAY_MS = 5000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -146,7 +147,7 @@ await fetchLive(
   '/moving-to-texas-checklist',
   'persistent moving checklist',
   (candidateResponse, body) => {
-    const pageError = validatePage('/moving-to-texas-checklist', 'My Texas Move progress', candidateResponse, body);
+    const pageError = validatePage('/moving-to-texas-checklist', 'What to do during your first 30 days in Texas', candidateResponse, body);
     if (pageError) return pageError;
     if (!body.includes('tasks complete')) return 'persistent checklist completion marker is not live';
     if (!body.includes('Progress stays in this browser with My Texas Move')) return 'persistent checklist storage marker is not live';
