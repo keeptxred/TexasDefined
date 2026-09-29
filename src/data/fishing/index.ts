@@ -6,6 +6,7 @@ import { derivePrototypeTechniqueProfiles, reconcileLakeTechniqueProfiles } from
 import { createFixtureFishingRepositories } from "./repositories";
 import { showcaseLakePrototypes } from "./showcase-lakes-prototype";
 import { texasFreshwaterFishSpecies } from "./species-catalog";
+import { statewideNetworkFishingLakes, statewideNetworkLakeSpeciesProfiles, statewideNetworkLakeTechniqueProfiles, statewideNetworkShowcaseLakePrototypes } from "./statewide-lake-network";
 import { assertValidFishingCatalog } from "./validation";
 import { wave2ShowcaseLakePrototypes } from "./wave2-showcase-lakes-prototype";
 
@@ -17,13 +18,14 @@ import { wave2ShowcaseLakePrototypes } from "./wave2-showcase-lakes-prototype";
  * The catalog combines the statewide freshwater species registry with verified
  * complete-lake expansions while preserving the same repository boundary.
  */
-const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes];
-const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles];
-const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles];
+const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes, ...statewideNetworkFishingLakes];
+const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles, ...statewideNetworkLakeSpeciesProfiles];
+const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles, ...statewideNetworkLakeTechniqueProfiles];
 const verifiedLakePrototypes = [
   ...Object.values(showcaseLakePrototypes),
   ...Object.values(expandedShowcaseLakePrototypes),
   ...Object.values(wave2ShowcaseLakePrototypes),
+  ...Object.values(statewideNetworkShowcaseLakePrototypes),
 ];
 const prototypeTechniqueProfiles = derivePrototypeTechniqueProfiles(verifiedLakePrototypes, lakeSpecies);
 const lakeTechniques = reconcileLakeTechniqueProfiles(explicitLakeTechniques, prototypeTechniqueProfiles);
