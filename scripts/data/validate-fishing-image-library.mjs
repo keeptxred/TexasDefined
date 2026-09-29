@@ -149,7 +149,10 @@ for (const slug of allowedExactLakeImageGaps) {
 for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
   const commonsToken = `"${slug}": commonsLake(`;
-  if (!files.library.includes(localToken) && !files.library.includes(commonsToken)) fail(`governed lake image inventory missing ${slug}`);
+  const remoteToken = `"${slug}": licensedRemoteLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken)) {
+    fail(`governed lake image inventory missing ${slug}`);
+  }
 }
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
@@ -157,6 +160,16 @@ const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|s
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
+const remoteLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": licensedRemoteLake\(/gm)].map((match) => match[1]);
+if (remoteLakeBlocks.length < 2) fail(`expected at least two exact licensed remote lake images, found ${remoteLakeBlocks.length}`);
+for (const slug of remoteLakeBlocks) {
+  const start = files.library.indexOf(`  "${slug}": licensedRemoteLake(`);
+  const end = files.library.indexOf("\n  ),", start);
+  const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
+  if (!block.includes("https://www.flickr.com/")) fail(`licensed remote lake image missing source page: ${slug}`);
+  if (!block.includes("CC BY")) fail(`licensed remote lake image missing reusable CC license: ${slug}`);
+}
+
 if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
 for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
