@@ -138,7 +138,10 @@ if (new Set(completeLakeSlugs).size !== 41) fail(`expected 41 complete lake guid
 for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
   const commonsToken = `"${slug}": commonsLake(`;
-  if (!files.library.includes(localToken) && !files.library.includes(commonsToken)) fail(`governed lake image inventory missing ${slug}`);
+  const remoteToken = `"${slug}": remoteLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken)) {
+    fail(`governed lake image inventory missing ${slug}`);
+  }
 }
 
 const governedLakeImageSlugs = new Set([
