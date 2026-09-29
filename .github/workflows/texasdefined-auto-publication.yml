@@ -78,12 +78,23 @@ jobs:
             .map((line) => JSON.parse(line));
           const queue = rows.find((row) => row.mode === 'dry-run');
           if (!queue) throw new Error('Dry-run queue summary was not emitted.');
+          for (const field of ['eligible', 'selected', 'deferred', 'published', 'skipped', 'failed']) {
+            if (!Number.isInteger(queue[field]) || queue[field] < 0) throw new Error(`Dry-run summary has invalid ${field}: ${queue[field]}`);
+          }
+          if (queue.eligible !== queue.selected + queue.deferred) {
+            throw new Error(`Dry-run count mismatch: eligible=${queue.eligible}, selected=${queue.selected}, deferred=${queue.deferred}`);
+          }
+          if (queue.published !== 0 || queue.skipped !== 0 || queue.failed !== 0) {
+            throw new Error('Dry-run must not publish, skip, or fail queue items.');
+          }
           console.log(JSON.stringify({
             mode: 'dry-run-summary',
             eligible: queue.eligible,
-            published: 0,
-            skipped: 0,
-            failed: 0,
+            selected: queue.selected,
+            deferred: queue.deferred,
+            published: queue.published,
+            skipped: queue.skipped,
+            failed: queue.failed,
             ids: queue.ids,
           }));
           NODE
