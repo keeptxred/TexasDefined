@@ -72,7 +72,9 @@ for (const contract of [
   'git push origin "HEAD:$BRANCH"',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml',
+  '--auto',
   '--match-head-commit "$validated_sha"',
+  'Protected auto-merge is waiting for branch policy',
   'git merge-base --is-ancestor "$validated_sha" origin/main',
 ]) {
   requireText(eventFinisherPath, eventFinisher, contract);
@@ -128,4 +130,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, and merges only the exact validated PR head; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
