@@ -28,7 +28,8 @@ function Page() {
     associationClassification,
     associationSourceUrl,
   } = Route.useLoaderData();
-  const schoolName = program?.officialSchoolName || displayName;
+  const schoolName = displayName;
+  const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
   const countyPath = program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
@@ -51,10 +52,10 @@ function Page() {
 
       <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
         <div>
-          <p className="eyebrow text-primary">Texas high school football school profile</p>
-          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{displayName}</h1>
+          <p className="eyebrow text-primary">2026 Texas high school football</p>
+          <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">
-            A school-and-football research page connecting current competition placement with school and county context, enrollment steps, school identity and sourced championship history where available.
+            Current football placement, UIL realignment enrollment, district opponents, verified school identity and game-venue information where sourced, plus official score and schedule resources.
           </p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
@@ -62,6 +63,7 @@ function Page() {
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
           {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
           {program && <Fact label="Football district" value={String(program.district)} />}
+          {program?.uilEnrollment && <Fact label="UIL enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
           {!program && privateAlignment?.districtLabel && <Fact label="Football district" value={privateAlignment.districtLabel} />}
           <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
         </dl>
@@ -76,11 +78,11 @@ function Page() {
           {program ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="School" value={schoolName} />
-              <Snapshot label="ISD / district" value={program.districtName || 'TEA directory match pending'} />
-              <Snapshot label="Location" value={[program.city, program.countyName].filter(Boolean).join(' · ') || 'Texas'} />
+              {program.districtName && <Snapshot label="ISD / district" value={program.districtName} />}
+              {(program.city || program.countyName) && <Snapshot label="Location" value={[program.city, program.countyName].filter(Boolean).join(' · ')} />}
               <Snapshot label="UIL classification" value={program.classification} />
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
-              <Snapshot label="UIL reported enrollment" value={program.uilEnrollment ? program.uilEnrollment.toLocaleString('en-US') : 'Exact UIL enrollment pending'} />
+              {program.uilEnrollment && <Snapshot label="UIL reported enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
               <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
@@ -96,7 +98,7 @@ function Page() {
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school research</p>
               <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">Use Texas Education Agency and school-system sources for the current campus profile, district context and official contact information. AskTED is the source used to match this football program to the school and district records below.</p>
               <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-                {program.isdProfilePath && program.districtName && <a href={program.isdProfilePath} className="text-primary underline underline-offset-4">All ${program.districtName} football programs →</a>}
+                {program.isdProfilePath && program.districtName && <a href={program.isdProfilePath} className="text-primary underline underline-offset-4">All {program.districtName} football programs →</a>}
                 {program.teaSchoolProfileUrl && <a href={program.teaSchoolProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA school profile ↗</a>}
                 {program.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
                 {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school website ↗</a>}
@@ -150,13 +152,13 @@ function Page() {
         </div>
       </section>}
 
-      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {program && venueLinks.length > 0 && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game venue</p>
-          <h2 className="mt-2 font-display text-3xl">{venueLinks.length > 0 ? 'Football game venues' : 'Football venue details'}</h2>
+          <h2 className="mt-2 font-display text-3xl">Football game venues</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Texas high schools often share district stadiums. A venue listed here is a sourced school or district football relationship, not a promise that every home game is played there. Confirm the current schedule before travel.</p>
         </div>
-        {venueLinks.length > 0 ? <div className="space-y-5">
+        <div className="space-y-5">
           {venueLinks.map((venue) => <article key={venue.venueSlug} className="border-t-2 border-foreground pt-5">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{venue.relationshipLabel}</p>
             <h3 className="mt-2 font-display text-3xl"><a href={venue.venuePath} className="hover:text-primary">{venue.venueName}</a></h3>
@@ -173,16 +175,12 @@ function Page() {
             </div>
             {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue details last reviewed {venue.verifiedAt}.</p>}
           </article>)}
-        </div> : <div className="border-y border-border py-5">
-          <p className="font-display text-2xl">Venue details not yet available</p>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same game-venue field. TexasDefined does not assign a stadium from proximity or a school name alone; this section stays blank until a school, district or official venue source confirms the football relationship.</p>
-          <a href="/sports-venues/high-school-football" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Browse verified Texas high-school football stadiums →</a>
-        </div>}
+        </div>
       </section>}
 
-      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">How to enroll</p>
+          <p className="eyebrow text-primary">School enrollment</p>
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
         </div>
         <div>
@@ -195,25 +193,22 @@ function Page() {
             </div>}
           </div>
         </div>
-      </section>
+      </section>}
 
-      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {identity && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Mascot & identity</p>
           <h2 className="mt-2 font-display text-3xl">School identity</h2>
         </div>
-        {identity ? <div>
+        <div>
           <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
             <Snapshot label="Mascot" value={identity.mascot} />
-            <Snapshot label="School colors" value={identity.colors || 'Not yet sourced'} />
+            <Snapshot label="School colors" value={identity.colors || 'Not listed by the verified source'} />
           </dl>
           <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed {identity.verifiedAt}. Mascot and colors are published only from a school or district source.</p>
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
-        </div> : <div className="border-y border-border py-5">
-          <p className="font-display text-2xl">Mascot source not yet available</p>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Every UIL school profile has the same mascot field, but it stays blank until the school or district identity can be tied to a source. We do not fill school identity fields from an unsourced guess.</p>
-        </div>}
-      </section>
+        </div>
+      </section>}
 
       {program?.allTimeHistory && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
@@ -257,12 +252,13 @@ function Page() {
       {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
-          <h2 className="mt-2 font-display text-3xl">Scores & weekly schedules</h2>
+          <h2 className="mt-2 font-display text-3xl">2026 scores & schedule sources</h2>
         </div>
         <div>
-          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">UIL’s Texas Scoreboard is powered by information submitted through MaxPreps and is the statewide starting point for current football scores and weekly schedules. UIL says completeness depends on school and coach submissions, and the current scoreboard is not an official district-standings table.</p>
+          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">For {footballName}, use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; UIL says completeness depends on school and coach submissions, and it is not an official district-standings table.</p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
+            {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school athletics / website ↗</a>}
             <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
             <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
           </div>
@@ -327,8 +323,9 @@ function PublicEnrollmentSteps({
     ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
     ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
   ];
+  if (!enrollmentLink) return null;
   return <>
-    {enrollmentLink ? <div className="mb-6 border border-border p-5">
+    <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
         District enrollment source last reviewed {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
@@ -336,12 +333,7 @@ function PublicEnrollmentSteps({
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
       </a>
-    </div> : <div className="mb-6 border border-border p-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment link not yet available</p>
-      <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        Every UIL school profile uses the same enrollment-source field. A district-specific enrollment URL is not yet available here for {district}, so use the TEA school/district links above and confirm the current new-student process directly with the district before relying on enrollment requirements or deadlines.
-      </p>
-    </div>}
+    </div>
     <StepList steps={steps} />
   </>;
 }

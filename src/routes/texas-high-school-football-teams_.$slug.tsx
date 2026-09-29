@@ -24,13 +24,15 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
           ? `${governingBodyHint}${associationClassification ? ` ${associationClassification}` : ''}`
           : 'Texas high school football';
     const seoName = program?.schoolName || displayName;
-    const description = `${seoName} football profile: ${classification}, school and county context, enrollment research steps${identity ? `, ${identity.mascot} mascot` : ''}, and links for families researching a Texas high school.`;
+    const teamName = identity?.mascot ? `${seoName} ${identity.mascot}` : seoName;
+    const enrollment = program?.uilEnrollment ? `, UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}` : '';
+    const description = `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`;
     const url = `${siteUrl}${canonicalPath}`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${seoName} Football: Class, District, Enrollment & School Guide`,
+        title: `${teamName} Football: 2026 District, Enrollment & Team Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -41,7 +43,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             '@type': 'WebPage',
             '@id': `${url}#page`,
             url,
-            name: `${seoName} Football School Profile`,
+            name: `${teamName} Football Profile`,
             description,
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {
