@@ -78,7 +78,7 @@ export function GenericFishingLakeGuide({
         </div>
         {targets.length ? <div className="mt-8 grid gap-x-8 border-t border-border md:grid-cols-2">
           {targets.map(({ relation, fish }) => { const image = getFishingFishImage(fish.slug); return <article key={relation.id} className="border-b border-border py-7">
-            {image ? <FishingPhoto image={image} showCredit={false} className="mb-5 max-w-sm" imageClassName="aspect-[3/2] w-full object-contain bg-muted/20 p-3" /> : null}
+            {image ? <FishingPhoto image={image} showCredit={false} className="mb-5 max-w-sm" imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : null}
             <div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><span className="border border-border px-3 py-1.5 text-xs">{titleCase(relation.quality)}</span></div>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{relation.notes || fish.summary}</p>
             {relation.seasonalPatterns.length ? <div className="mt-5 space-y-3">{relation.seasonalPatterns.slice(0, 2).map((pattern, index) => <p key={`${pattern.season}-${index}`} className="text-sm leading-6"><strong>{titleCase(pattern.season)}:</strong> <span className="text-muted-foreground">{pattern.summary}</span></p>)}</div> : null}
