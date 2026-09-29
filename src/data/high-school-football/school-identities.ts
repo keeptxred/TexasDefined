@@ -14,8 +14,8 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'wills-point',
     mascot: 'Tigers',
-    sourceUrl: 'https://wphs.wpisd.com/event_view?calIDref=c_3b54d34e83cb427111fcdb60b06e54c5a1127951cbdda5158d1639608bebf46a%40group.calendar.google.com&eventDate=2026-09-21&event_id=54bcriua4vj8md06c2r0p03uda&feed_type=google',
-    sourceLabel: 'Wills Point High School — Home of the Tigers',
+    sourceUrl: 'https://wpisd.com/',
+    sourceLabel: 'Wills Point ISD — Home of the Tigers',
     verifiedAt: '2026-09-29',
   },
   {
