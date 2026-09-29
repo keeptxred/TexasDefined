@@ -8,8 +8,8 @@ const paths = {
   functions: "src/data/metro-proximity-page-data.functions.ts",
   hubRoute: "src/routes/explore.near.$metro.tsx",
   hubUi: "src/routes/explore.near.$metro.lazy.tsx",
-  collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
-  collectionUi: "src/routes/explore.near.$metro.$collection.lazy.tsx",
+  collectionRoute: "src/routes/explore.near.$metro_.$collection.tsx",
+  collectionUi: "src/routes/explore.near.$metro_.$collection.lazy.tsx",
   exploreRoute: "src/routes/explore.index.tsx",
   exploreUi: "src/routes/explore.index.lazy.tsx",
   sitemap: "src/routes/sitemap-explore[.]xml.ts",
@@ -186,11 +186,28 @@ for (const token of [
 for (const token of [
   "ExploreNearMetroRouteImport",
   "ExploreNearMetroCollectionRouteImport",
-  "ExploreNearMetroRouteWithChildren",
   "explore.near.$metro.lazy",
+  "explore.near.$metro_.$collection.lazy",
+  "id: '/explore/near/$metro_/$collection'",
+  "path: '/explore/near/$metro/$collection'",
+  "parentRoute: typeof rootRouteImport",
+]) requireText(files.routeTree, token, `generated flattened route tree missing ${token}`);
+
+for (const forbidden of [
+  "ExploreNearMetroRouteWithChildren",
+  "interface ExploreNearMetroRouteChildren",
   "explore.near.$metro.$collection.lazy",
-  "'/explore/near/$metro/$collection'",
-]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
+  "parentRoute: typeof ExploreNearMetroRoute",
+]) {
+  if (files.routeTree.includes(forbidden)) fail(`proximity collection route must not inherit metro hub head metadata: ${forbidden}`);
+}
+
+for (const oldNestedPath of [
+  "src/routes/explore.near.$metro.$collection.tsx",
+  "src/routes/explore.near.$metro.$collection.lazy.tsx",
+]) {
+  if (fs.existsSync(oldNestedPath)) fail(`nested proximity route must remain removed: ${oldNestedPath}`);
+}
 
 const pkg = JSON.parse(files.package);
 const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs";
