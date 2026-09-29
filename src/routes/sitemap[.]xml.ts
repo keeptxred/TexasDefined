@@ -78,6 +78,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         } = await import("@/data/sitemap-dependencies.server");
         const { platform, scope } = await import("@/data");
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
+        const { relocationCityPairSitemapEntries } = await import("@/data/relocation-city-pairs");
         const { getSportsVenuePhoto } = await import("@/data/sports-venue-images-all");
         const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
         const footballProfileEntries = footballProgramSitemapEntries();
@@ -222,6 +223,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...evergreenEventSitemapEntries,
           ...temporalEventSitemapEntries,
           ...TEXAS_VS_STATES.filter((state) => isTexasVsStateSitemapReady(texasVsStateSlug(state))).map((state) => ({ path: `/texas-vs/${texasVsStateSlug(state)}`, lastmod: PRIORITY_SEO_LASTMOD })),
+          ...relocationCityPairSitemapEntries(),
           ...FISHING_SITEMAP_ENTRIES,
           ...fishingGuideSitemapEntries,
           ...fishingReportSitemapEntries,

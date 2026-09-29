@@ -383,6 +383,7 @@ import { Route as DestinationSlugRouteImport } from './routes/destination.$slug'
 import { Route as DecidePropertyTaxesRouteImport } from './routes/decide.property-taxes'
 import { Route as DecideFinancialToolsRouteImport } from './routes/decide.financial-tools'
 import { Route as CountyClerkSlugRouteImport } from './routes/county-clerk.$slug'
+import { Route as CompareTexasCitiesPairRouteImport } from './routes/compare-texas-cities_.$pair'
 import { Route as CalculatorsTexasPropertyTaxRouteImport } from './routes/calculators.texas-property-tax'
 import { Route as CalculatorsTexasHomeAffordabilityRouteImport } from './routes/calculators.texas-home-affordability'
 import { Route as BrowseCountiesRouteImport } from './routes/browse.counties'
@@ -2864,6 +2865,13 @@ const CountyClerkSlugRoute = CountyClerkSlugRouteImport.update({
   path: '/county-clerk/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompareTexasCitiesPairRoute = CompareTexasCitiesPairRouteImport.update({
+  id: '/compare-texas-cities_/$pair',
+  path: '/compare-texas-cities/$pair',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/compare-texas-cities_.$pair.lazy').then((d) => d.Route),
+)
 const CalculatorsTexasPropertyTaxRoute =
   CalculatorsTexasPropertyTaxRouteImport.update({
     id: '/calculators/texas-property-tax',
@@ -3795,6 +3803,7 @@ export interface FileRoutesByFullPath {
   '/browse/counties': typeof BrowseCountiesRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
+  '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
   '/county-clerk/$slug': typeof CountyClerkSlugRoute
   '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
@@ -4282,6 +4291,7 @@ export interface FileRoutesByTo {
   '/browse/counties': typeof BrowseCountiesRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
+  '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
   '/county-clerk/$slug': typeof CountyClerkSlugRoute
   '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
@@ -4773,6 +4783,7 @@ export interface FileRoutesById {
   '/browse/counties': typeof BrowseCountiesRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
+  '/compare-texas-cities_/$pair': typeof CompareTexasCitiesPairRoute
   '/county-clerk/$slug': typeof CountyClerkSlugRoute
   '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
@@ -5265,6 +5276,7 @@ export interface FileRouteTypes {
     | '/browse/counties'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
+    | '/compare-texas-cities/$pair'
     | '/county-clerk/$slug'
     | '/decide/financial-tools'
     | '/decide/property-taxes'
@@ -5752,6 +5764,7 @@ export interface FileRouteTypes {
     | '/browse/counties'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
+    | '/compare-texas-cities/$pair'
     | '/county-clerk/$slug'
     | '/decide/financial-tools'
     | '/decide/property-taxes'
@@ -6242,6 +6255,7 @@ export interface FileRouteTypes {
     | '/browse/counties'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
+    | '/compare-texas-cities_/$pair'
     | '/county-clerk/$slug'
     | '/decide/financial-tools'
     | '/decide/property-taxes'
@@ -6718,6 +6732,7 @@ export interface RootRouteChildren {
   BrowseCountiesRoute: typeof BrowseCountiesRoute
   CalculatorsTexasHomeAffordabilityRoute: typeof CalculatorsTexasHomeAffordabilityRoute
   CalculatorsTexasPropertyTaxRoute: typeof CalculatorsTexasPropertyTaxRoute
+  CompareTexasCitiesPairRoute: typeof CompareTexasCitiesPairRoute
   CountyClerkSlugRoute: typeof CountyClerkSlugRoute
   DecideFinancialToolsRoute: typeof DecideFinancialToolsRoute
   DecidePropertyTaxesRoute: typeof DecidePropertyTaxesRoute
@@ -9502,6 +9517,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CountyClerkSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compare-texas-cities_/$pair': {
+      id: '/compare-texas-cities_/$pair'
+      path: '/compare-texas-cities/$pair'
+      fullPath: '/compare-texas-cities/$pair'
+      preLoaderRoute: typeof CompareTexasCitiesPairRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calculators/texas-property-tax': {
       id: '/calculators/texas-property-tax'
       path: '/calculators/texas-property-tax'
@@ -11100,6 +11122,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatorsTexasHomeAffordabilityRoute:
     CalculatorsTexasHomeAffordabilityRoute,
   CalculatorsTexasPropertyTaxRoute: CalculatorsTexasPropertyTaxRoute,
+  CompareTexasCitiesPairRoute: CompareTexasCitiesPairRoute,
   CountyClerkSlugRoute: CountyClerkSlugRoute,
   DecideFinancialToolsRoute: DecideFinancialToolsRoute,
   DecidePropertyTaxesRoute: DecidePropertyTaxesRoute,

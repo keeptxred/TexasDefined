@@ -6,6 +6,8 @@ import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
+const PRIORITY_MOVE_STATES = new Set(["California", "New York", "Illinois", "Florida", "Colorado"]);
+
 export const Route = createFileRoute("/texas-vs/$state")({
   loader: async ({ params }) => {
     const name = texasVsStateName(params.state);
@@ -17,8 +19,13 @@ export const Route = createFileRoute("/texas-vs/$state")({
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = `/texas-vs/${loaderData.slug}`;
-    const title = `Texas vs ${loaderData.name}: Cost, Taxes, Jobs, Climate & Living`;
-    const description = `Compare Texas with ${loaderData.name} across taxes, housing, jobs, cost of living, climate, transportation and everyday life, with state-specific context and links to current official data.`;
+    const priorityMoveIntent = PRIORITY_MOVE_STATES.has(loaderData.name);
+    const title = priorityMoveIntent
+      ? `Moving from ${loaderData.name} to Texas: Cost, Taxes, Jobs & Life`
+      : `Texas vs ${loaderData.name}: Cost, Taxes, Jobs, Climate & Living`;
+    const description = priorityMoveIntent
+      ? `Planning a move from ${loaderData.name} to Texas? Compare housing, taxes, jobs, climate, transportation and everyday costs with state-specific official-source context and Texas planning tools.`
+      : `Compare Texas with ${loaderData.name} across taxes, housing, jobs, cost of living, climate, transportation and everyday life, with state-specific context and links to current official data.`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const faq = [
       { q: `Is Texas cheaper than ${loaderData.name}?`, a: `There is no reliable statewide yes-or-no answer for every household. Compare the actual Texas city or county with the actual ${loaderData.name} community, including housing, insurance, utilities, transportation and taxes.` },
@@ -154,6 +161,9 @@ function TexasVsStatePage() {
               <Link to="/compare-texas-cities" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Compare Texas cities</Link>
               <Link to="/texas-moving-cost-calculator" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Estimate moving costs</Link>
               <Link to="/moving-to-texas/tools" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Open relocation tools</Link>
+              <Link to="/moving-to-texas-checklist" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">First-month checklist</Link>
+              <Link to="/texas-drivers-license" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Driver license guide</Link>
+              <Link to="/texas-vehicle-registration" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Vehicle registration guide</Link>
             </div>
           </div>
         </div>
