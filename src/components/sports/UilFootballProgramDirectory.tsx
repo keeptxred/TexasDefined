@@ -19,6 +19,33 @@ type Program = {
 const CLASSIFICATIONS = ['6A', '5A', '4A', '3A', '2A', '1A'] as const;
 const INITIAL_PROGRAMS_PER_CLASS = 24;
 
+const ADDITIONAL_VERIFIED_FOOTBALL_PROFILES = [
+  ['Liberty Christian (Argyle)', '/texas-high-school-football-teams/liberty-christian-argyle'],
+  ['Fort Bend Christian', '/texas-high-school-football-teams/fort-bend-christian'],
+  ['Oakridge (Arlington)', '/texas-high-school-football-teams/oakridge-arlington'],
+  ['Kinkaid', '/texas-high-school-football-teams/kinkaid'],
+  ['Texas Wind (Waco)', '/texas-high-school-football-teams/texas-wind-waco'],
+  ['Harvest Christian (Bartonville)', '/texas-high-school-football-teams/harvest-christian-bartonville'],
+  ['Grace Academy (Georgetown)', '/texas-high-school-football-teams/grace-academy-georgetown'],
+  ['Parish Episcopal', '/texas-high-school-football-teams/parish-episcopal'],
+  ['All Saints (Fort Worth)', '/texas-high-school-football-teams/all-saints-fort-worth'],
+  ['Lubbock Christian', '/texas-high-school-football-teams/lubbock-christian'],
+  ['First Baptist (Dallas)', '/texas-high-school-football-teams/first-baptist-dallas'],
+  ['St. Joseph (Victoria)', '/texas-high-school-football-teams/st-joseph-victoria'],
+  ['Utopia', '/texas-high-school-football-teams/utopia'],
+  ['Central Catholic (San Antonio)', '/texas-high-school-football-teams/san-antonio-central-catholic'],
+  ['Antonian (San Antonio)', '/texas-high-school-football-teams/san-antonio-antonian'],
+  ['Holy Cross (San Antonio)', '/texas-high-school-football-teams/san-antonio-holy-cross'],
+  ['TMI Episcopal', '/texas-high-school-football-teams/tmi-episcopal'],
+  ['San Antonio Christian', '/texas-high-school-football-teams/san-antonio-christian'],
+  ['Cornerstone Christian', '/texas-high-school-football-teams/cornerstone-christian'],
+  ['Geneva (Boerne)', '/texas-high-school-football-teams/geneva-boerne'],
+  ['Schertz John Paul II', '/texas-high-school-football-teams/schertz-john-paul-ii'],
+  ['New Braunfels Christian', '/texas-high-school-football-teams/new-braunfels-christian'],
+  ['Castle Hills', '/texas-high-school-football-teams/castle-hills'],
+  ['San Antonio Legacy', '/texas-high-school-football-teams/san-antonio-legacy'],
+] as const;
+
 function normalize(value: string) {
   return value
     .toLowerCase()
@@ -138,6 +165,20 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
         </div>
 
         {!visible.length && <p className="border-b border-border py-6 text-sm text-muted-foreground">No current UIL program matched that search and classification filter.</p>}
+
+        <section className="mt-8 border-t border-border pt-6" aria-labelledby="additional-football-profiles">
+          <p className="eyebrow text-primary">Additional verified school profiles</p>
+          <h3 id="additional-football-profiles" className="mt-1 font-display text-3xl">Private and independent football research</h3>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+            These school profiles sit outside the 1,268-program UIL public-school directory or have separate association research. They are listed here as a distinct research collection rather than being mixed into UIL classification order.
+          </p>
+          <div className="mt-4 grid gap-px bg-border sm:grid-cols-2 xl:grid-cols-3">
+            {ADDITIONAL_VERIFIED_FOOTBALL_PROFILES.map(([schoolName, href]) => <a key={href} href={href} className="group bg-background p-4 hover:bg-surface">
+              <h4 className="font-display text-xl leading-tight group-hover:text-primary">{schoolName}</h4>
+              <p className="mt-2 text-xs font-semibold text-primary">Open school football profile →</p>
+            </a>)}
+          </div>
+        </section>
 
         <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">
           UIL classifications are based on enrollment. A 6A school is listed above a 5A school because it is in the larger-enrollment classification, not because TexasDefined has rated its football program as better.
