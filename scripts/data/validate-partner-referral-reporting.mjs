@@ -209,7 +209,7 @@ for (const [needle, label] of [
   ['Decision-grade routing and CTR measurement restart on **2026-09-27 UTC**', 'portfolio clean-measurement boundary'],
   ['clean Orbitz-versus-Travelocity comparison window beginning **2026-09-27 UTC**', 'portfolio routing baseline'],
   ['100-impression-per-provider HOLD gate', 'portfolio routing hold threshold'],
-  ['2026-09-29 measurement refresh', 'portfolio measurement refresh date'],
+  ['measurement below was refreshed on 2026-09-29', 'portfolio measurement refresh date'],
 ]) expect(portfolio, needle, label);
 if (portfolio.includes('clean Orbitz-versus-Travelocity routing window beginning 2026-09-23')) {
   errors.push('Affiliate portfolio economics must not use the superseded 2026-09-23 routing baseline; clean routing begins 2026-09-27.');
