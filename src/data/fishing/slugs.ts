@@ -56,6 +56,7 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "lake-corpus-christi",
   "alan-henry-reservoir",
   "lake-meredith",
+  "lake-houston",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
