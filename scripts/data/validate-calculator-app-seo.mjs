@@ -161,7 +161,7 @@ const deepCalculatorContracts = [
     'to="/texas-salary-calculator"', 'to="/texas-budget-planner"', 'to="/moving-to-texas"',
   ]],
   ['Cost of living', 'src/routes/texas-cost-of-living-calculator.tsx', [
-    'Texas Cost of Living Calculator | Compare Household Budgets', 'Build the comparison around the household you actually have', 'Texas cost of living calculator FAQ',
+    'Texas Cost of Living Calculator | Compare Household Budgets', 'Build the comparison around your household', 'Texas cost of living calculator FAQ',
     'to="/texas-salary-comparison-by-city"', 'to="/texas-budget-planner"', 'to="/moving-to-texas"',
   ]],
   ['Down payment assistance', 'src/routes/texas-down-payment-assistance-calculator.tsx', [

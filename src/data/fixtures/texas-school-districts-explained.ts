@@ -81,7 +81,7 @@ export const texasSchoolDistrictsExplainedArticle: Article = {
     h("Do not confuse reputation with fit"),
     p("Texas school conversations often reduce entire districts to a ranking or reputation. Large districts can contain campuses with very different programs, demographics, facilities and academic results. Smaller districts can change quickly as communities grow."),
     p("The better question is not simply 'Is this a good district?' It is 'Does this address connect my family to the schools, programs, commute and costs that fit what we need?'"),
-    h("The address is the truth"),
+    h("Start with the address"),
     p("If there is one rule worth remembering, it is this: in Texas, school geography starts with the address. City names, ZIP codes, subdivisions and real-estate descriptions are clues. The district boundary and campus assignment are what count."),
   ],
 };

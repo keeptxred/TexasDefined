@@ -183,7 +183,7 @@ function TexasLighthousesHub() {
 
       <section className="mt-20 border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">Visitability at a glance</p>
-        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose the lighthouse for the trip you actually want.</h2>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose a lighthouse that fits your trip.</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas lighthouse travel ranges from a true public tower climb to roadside history, paddling views and remote barrier-island logistics. The distinction matters more than the distance between pins.</p>
         <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
           {lighthouseVisitorPlans.map((plan) => {

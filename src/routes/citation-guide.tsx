@@ -171,7 +171,7 @@ function CitationGuidePage() {
 
       <section className="mt-12 border-y border-border py-8" aria-labelledby="painted-source-heading">
         <p className="eyebrow text-primary">Painted Churches source hierarchy</p>
-        <h2 id="painted-source-heading" className="mt-2 font-display text-3xl">Cite the definition and entity you are actually using.</h2>
+        <h2 id="painted-source-heading" className="mt-2 font-display text-3xl">Cite the definition and entity you are using.</h2>
         <div className="mt-6 grid gap-6 md:grid-cols-4">
           <Rule title="Formal designation" body="Use the linked Texas Historical Commission or National Register record when a claim depends on formal historic designation, reference number, architect, listed date or property identity." />
           <Rule title="Current church access" body="Use the responsible parish, congregation, diocese or official local tour source for current access, services, closures and visitor rules. Historic designation does not guarantee a church is open for sightseeing." />
