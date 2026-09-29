@@ -51,7 +51,6 @@ requireAll("dynamic Explore integration", route, [
   "destinationsQuery({ limit: 5000 })",
   "resolveMetroProximityPageBySlug",
   '"metroProximity" in loaderData',
-  '"metroProximity" in loaderData',
   'page.indexReady ? undefined : "noindex, follow, max-image-preview:large"',
   "canonicalLink(texasDefinedBrand, page.canonicalPath)",
   '"@type": "CollectionPage"',
@@ -68,7 +67,7 @@ requireAll("landing-page UX", page, [
   "Collection still growing",
   "verify the live driving route",
   "md:grid-cols-2",
-  "xl:grid-cols-3",
+  "lg:grid-cols-3",
 ]);
 
 requireAll("category discovery", lazyRoute, [
