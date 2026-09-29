@@ -17,7 +17,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
     </Container>
 
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground">
-      <Container className={speciesImage ? "grid gap-10 py-14 sm:py-20 lg:grid-cols-[1fr_24rem] lg:items-center" : "py-14 sm:py-20"}>
+      <Container className={speciesImage ? "grid gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:items-center" : "py-14 sm:py-20"}>
         <div>
           <p className="eyebrow text-ink-foreground/65">{species.taxonKind === "group" ? "Texas fishing group" : "Texas fish species"}</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{species.commonName} fishing in Texas</h1>
@@ -29,7 +29,7 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
             <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Current regulations →</a>
           </div>
         </div>
-        {speciesImage ? <FishingPhoto image={speciesImage} eager className="max-w-sm lg:justify-self-end" imageClassName="aspect-[8/5] w-full object-contain bg-white/95 p-3" /> : null}
+        {speciesImage ? <FishingPhoto image={speciesImage} eager className="max-w-sm lg:justify-self-end" imageClassName="aspect-[4/3] w-full object-contain bg-background p-3" /> : null}
       </Container>
     </header>
 
