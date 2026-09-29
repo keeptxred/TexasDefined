@@ -1,6 +1,11 @@
 name: Verify relocation production
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-relocation-production.yml'
+      - 'scripts/ci/verify-relocation-production.mjs'
   pull_request:
     paths:
       - 'scripts/ci/verify-relocation-production.mjs'
@@ -10,6 +15,8 @@ on:
       - 'src/routes/compare-texas-cities.tsx'
       - 'src/routes/texas-zip-code-explorer.tsx'
       - 'src/components/relocation/**'
+      - 'src/data/fixtures/*relocation*.ts'
+      - 'src/data/fixtures/lazy-relocation*.ts'
       - 'src/lib/relocation-public-routes.ts'
       - 'src/lib/public-routes.ts'
   workflow_run:
@@ -19,6 +26,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
   group: relocation-production-${{ github.event.workflow_run.head_sha || github.sha }}
@@ -37,7 +45,7 @@ jobs:
         run: node --check scripts/ci/verify-relocation-production.mjs
 
   verify:
-    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +54,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Publish relocation live verification pending
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live pending "Verifying TexasDefined relocation production surfaces"
       - name: Verify relocation toolkit in production
+        id: relocation_live
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-relocation-production.mjs
+      - name: Publish relocation live verification result
+        if: always()
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          STAGE_OUTCOME: ${{ steps.relocation_live.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live "$STAGE_OUTCOME" "Relocation production verification passed" "Relocation production verification failed"
