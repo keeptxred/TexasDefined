@@ -105,6 +105,8 @@ async function hydrateExactFeed() {
 }
 
 const READY_QUEUE_PAGE_SIZE = 250;
+const AUTO_PUBLISH_MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
+const AUTO_PUBLISH_FUTURE_TOLERANCE_MS = 5 * 60 * 1000;
 const DISALLOWED_AUTOMATION_PILLARS = new Set(['texas-border-immigration', 'texas-elections']);
 
 function automationQueueKey(item) {
@@ -128,6 +130,13 @@ function isAutomationSafeQueueItem(item) {
   if (/\bborder wall\b/i.test(title) || /\bassassination attempt\b/i.test(title)) return false;
 
   return true;
+}
+
+function isFreshAutomationQueueItem(item, now = Date.now()) {
+  const publishedAt = Date.parse(String(item?.pub_date || ''));
+  if (!Number.isFinite(publishedAt)) return false;
+  if (publishedAt > now + AUTO_PUBLISH_FUTURE_TOLERANCE_MS) return false;
+  return now - publishedAt <= AUTO_PUBLISH_MAX_AGE_MS;
 }
 
 function dedupeAutomationQueue(items) {
@@ -159,7 +168,7 @@ async function readyQueueCount() {
 async function readyQueuePage(offset, pageSize) {
   const params = new URLSearchParams({
     select: 'id,title,source,link,description,pub_date,extracted_body,target_section,classification_confidence,texas_relevance_score,source_reputation_score,viral_signals,pillar_slug',
-    order: 'pub_date.asc',
+    order: 'pub_date.desc,id.asc',
     limit: String(pageSize),
     offset: String(offset),
   });
@@ -280,7 +289,10 @@ if (publishRequested) {
 if (exactFeedId) await hydrateExactFeed();
 const rawEligible = await readyQueueCount();
 const rawQueue = await readyQueueAll(rawEligible);
-const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter(isAutomationSafeQueueItem));
+const ownershipSafeQueue = dedupeAutomationQueue(rawQueue.filter(isAutomationSafeQueueItem));
+const automationEligibleQueue = exactFeedId
+  ? ownershipSafeQueue
+  : ownershipSafeQueue.filter(isFreshAutomationQueueItem);
 const queue = exactFeedId ? automationEligibleQueue : automationEligibleQueue.slice(0, limit);
 if (exactFeedId && rawQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
@@ -288,12 +300,16 @@ if (exactFeedId && rawQueue.length === 0) {
 if (exactFeedId && automationEligibleQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not safe for TexasDefined automatic publication.`);
 }
+const ownershipHeld = Math.max(rawEligible - ownershipSafeQueue.length, 0);
+const staleHeld = exactFeedId ? 0 : Math.max(ownershipSafeQueue.length - automationEligibleQueue.length, 0);
 const queueSummary = {
   mode: publishRequested ? 'publish' : 'dry-run',
   requestedFeedId: exactFeedId,
   rawEligible,
   eligible: automationEligibleQueue.length,
-  held: Math.max(rawEligible - automationEligibleQueue.length, 0),
+  held: ownershipHeld + staleHeld,
+  ownershipHeld,
+  staleHeld,
   selected: queue.length,
   deferred: Math.max(automationEligibleQueue.length - queue.length, 0),
   ids: queue.map((item) => item.id),
