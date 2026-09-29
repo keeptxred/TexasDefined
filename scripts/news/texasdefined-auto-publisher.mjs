@@ -104,14 +104,42 @@ async function hydrateExactFeed() {
   return payload;
 }
 
-async function readyQueue() {
-  const params = new URLSearchParams({
-    select: 'id,title,source,link,description,pub_date,extracted_body,target_section,classification_confidence,texas_relevance_score,source_reputation_score',
-    order: 'pub_date.asc',
-    limit: String(limit),
-  });
-  if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
-  return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
+const READY_QUEUE_PAGE_SIZE = 250;
+const DISALLOWED_AUTOMATION_PILLARS = new Set(['texas-border-immigration', 'texas-elections']);
+
+function automationQueueKey(item) {
+  return `${String(item?.title || '').trim().toLowerCase()}\u0000${String(item?.source || '').trim().toLowerCase()}`;
+}
+
+function isAutomationSafeQueueItem(item) {
+  const signals = item?.viral_signals && typeof item.viral_signals === 'object' && !Array.isArray(item.viral_signals)
+    ? item.viral_signals
+    : {};
+  if (signals.auto_publish_eligible !== true) return false;
+  if (String(signals.editorial_lane || '').toUpperCase() !== 'AUTO_PUBLISH') return false;
+
+  const pillar = String(item?.pillar_slug || '').trim().toLowerCase();
+  if (DISALLOWED_AUTOMATION_PILLARS.has(pillar)) return false;
+
+  const source = String(item?.source || '');
+  if (/\bpolitics\b/i.test(source) || /(?:^|\s)[—-]\s*border\b/i.test(source)) return false;
+
+  const title = String(item?.title || '');
+  if (/\bborder wall\b/i.test(title) || /\bassassination attempt\b/i.test(title)) return false;
+
+  return true;
+}
+
+function dedupeAutomationQueue(items) {
+  const seen = new Set();
+  const deduped = [];
+  for (const item of items) {
+    const key = automationQueueKey(item);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(item);
+  }
+  return deduped;
 }
 
 async function readyQueueCount() {
@@ -126,6 +154,30 @@ async function readyQueueCount() {
     throw new Error(`TexasDefined ready queue did not return an exact count (content-range: ${contentRange || 'missing'}).`);
   }
   return total;
+}
+
+async function readyQueuePage(offset, pageSize) {
+  const params = new URLSearchParams({
+    select: 'id,title,source,link,description,pub_date,extracted_body,target_section,classification_confidence,texas_relevance_score,source_reputation_score,viral_signals,pillar_slug',
+    order: 'pub_date.asc',
+    limit: String(pageSize),
+    offset: String(offset),
+  });
+  if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
+  return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
+}
+
+async function readyQueueAll(total) {
+  const rows = [];
+  for (let offset = 0; offset < total; offset += READY_QUEUE_PAGE_SIZE) {
+    const batch = await readyQueuePage(offset, Math.min(READY_QUEUE_PAGE_SIZE, total - offset));
+    rows.push(...batch);
+    if (batch.length === 0) break;
+  }
+  if (rows.length !== total) {
+    throw new Error(`TexasDefined ready queue count changed during dry-run (expected ${total}, fetched ${rows.length}). Retry the verification.`);
+  }
+  return rows;
 }
 
 async function destinations() {
@@ -226,17 +278,24 @@ if (publishRequested) {
 }
 
 if (exactFeedId) await hydrateExactFeed();
-const eligibleTotal = await readyQueueCount();
-const queue = await readyQueue();
-if (exactFeedId && queue.length === 0) {
+const rawEligible = await readyQueueCount();
+const rawQueue = await readyQueueAll(rawEligible);
+const automationEligibleQueue = dedupeAutomationQueue(rawQueue.filter(isAutomationSafeQueueItem));
+const queue = exactFeedId ? automationEligibleQueue : automationEligibleQueue.slice(0, limit);
+if (exactFeedId && rawQueue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
+}
+if (exactFeedId && automationEligibleQueue.length === 0) {
+  throw new Error(`Exact feed id ${exactFeedId} is not safe for TexasDefined automatic publication.`);
 }
 const queueSummary = {
   mode: publishRequested ? 'publish' : 'dry-run',
   requestedFeedId: exactFeedId,
-  eligible: eligibleTotal,
+  rawEligible,
+  eligible: automationEligibleQueue.length,
+  held: Math.max(rawEligible - automationEligibleQueue.length, 0),
   selected: queue.length,
-  deferred: Math.max(eligibleTotal - queue.length, 0),
+  deferred: Math.max(automationEligibleQueue.length - queue.length, 0),
   ids: queue.map((item) => item.id),
 };
 if (!publishRequested) Object.assign(queueSummary, { published: 0, skipped: 0, failed: 0 });
