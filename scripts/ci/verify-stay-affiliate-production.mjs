@@ -36,6 +36,7 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(typeof api.featuredGolfStay === 'function', 'Live stay affiliate bootstrap does not expose featuredGolfStay.');
 
   requireCondition(api.bookingIntent('/event/chappell-hill-bluebonnet-festival') === 'hotel-first', 'Live event intent no longer resolves to hotel-first.');
+  requireCondition(api.bookingIntent('/texas-state-fair') === 'hotel-first', 'Live State Fair intent no longer resolves to hotel-first.');
   requireCondition(api.bookingIntent('/destination/fredericksburg') === 'both', 'Live destination intent no longer resolves to broader lodging intent.');
   requireCondition(api.comparisonHotelDestination('hotel-first') === 'https://www.orbitz.com/', 'Live hotel-first comparison provider must resolve to Orbitz.');
   requireCondition(api.comparisonHotelDestination('both') === 'https://www.travelocity.com/', 'Live destination/leisure comparison provider must resolve to Travelocity.');
