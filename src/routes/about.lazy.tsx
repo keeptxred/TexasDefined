@@ -10,7 +10,7 @@ const PRINCIPLES = [
   { title: "Start with a real question", body: "Where is the drive worth taking? What should you know before you go? What does it really cost to live here? Our best stories begin with questions readers actually need answered." },
   { title: "Keep Texas life at the center", body: "We cover the everyday experience of Texas — its landscapes, food, homes, history, communities and traditions — without forcing every subject into the same frame." },
   { title: "Name the people and places", body: "Specific details make a story useful. We tell you the town, the route, the season, the local business or the original source behind the information whenever we can." },
-  { title: "Be useful without being dull", body: "A practical guide can still be a good read. We aim for clear answers, warm writing and enough detail to help readers make a plan with confidence." },
+  { title: "Keep practical guidance clear and readable", body: "A practical guide can still be a good read. We aim for clear answers, warm writing and enough detail to help readers make a plan with confidence." },
 ];
 
 const ACCOUNTABILITY = [
