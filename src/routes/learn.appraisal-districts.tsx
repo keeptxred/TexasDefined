@@ -96,7 +96,7 @@ function AppraisalDistrictPage() {
       canonicalPath={canonicalPath}
       stepPrefix="appraisal-step-"
       sections={[
-        { title: 'What this office actually does', paragraphs: ['Your county appraisal district identifies taxable property, keeps ownership and property details, sets appraised values, handles exemptions and supports the protest process. It does not set local tax rates or collect every tax bill.'] },
+        { title: 'What the appraisal district does', paragraphs: ['Your county appraisal district identifies taxable property, keeps ownership and property details, sets appraised values, handles exemptions and supports the protest process. It does not set local tax rates or collect every tax bill.'] },
         { title: 'Give the property account a careful look', paragraphs: ['Check the owner name, mailing address, legal description, property details, exemptions, taxing units and value history. Even a small factual error can affect the value or the notices you receive.'], steps },
         { title: 'Do not set the notice aside', paragraphs: ["Read an appraisal notice as soon as it arrives. Protest deadlines are tied to the notice and Texas law, and waiting for the tax bill is usually too late to challenge that year's appraisal."] },
         { title: 'What to gather when the value looks wrong', paragraphs: ['Useful records can include comparable sales, photographs, repair estimates, surveys, income and expense information, closing documents and examples of similar properties valued differently.'] },
