@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { METRO_PROXIMITY_METROS, metroProximityCanonicalPath } from "@/data/metro-proximity";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Category, Destination, Region } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -26,7 +25,6 @@ export const Route = createFileRoute("/explore/")({
       { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Texas tours, tickets and activities.", url: `${siteUrl}/explore#tours-experiences` },
       { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Texas Painted Churches guides and routes.", url: `${siteUrl}/explore/painted-churches` },
       ...regions.map((region) => ({ "@type": "WebPage" as const, name: `${region.name} Guide`, description: region.blurb, url: `${siteUrl}/explore/region/${region.id}` })),
-      ...METRO_PROXIMITY_METROS.map((metro) => ({ "@type": "CollectionPage" as const, name: `Day Trips & Things to Do Near ${metro.name}`, description: metro.context, url: `${siteUrl}${metroProximityCanonicalPath(metro.slug)}` })),
       ...destinations.map(destinationSchema),
       ...articles.map((article) => ({ "@type": "Article" as const, name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}`, image: absoluteUrl(texasDefinedBrand, article.hero.src) })),
     ];
