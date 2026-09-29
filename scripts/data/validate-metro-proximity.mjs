@@ -3,6 +3,7 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
+  test: "src/data/__tests__/metro-proximity.test.ts",
   pageData: "src/data/metro-proximity-page-data.server.ts",
   functions: "src/data/metro-proximity-page-data.functions.ts",
   hubRoute: "src/routes/explore.near.$metro.tsx",
@@ -27,15 +28,53 @@ if (metroSlugs.length !== 5 || new Set(metroSlugs).size !== 5) fail(`expected ex
 
 const collectionMatch = files.data.match(/METRO_PROXIMITY_COLLECTIONS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const collectionSlugs = collectionMatch ? [...collectionMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
-const expectedCollections = ["things-to-do", "day-trips", "state-parks", "small-towns", "lakes-rivers", "historic-sites"];
+const expectedCollections = [
+  "things-to-do",
+  "day-trips",
+  "weekend-trips",
+  "road-trips",
+  "state-parks",
+  "small-towns",
+  "small-towns-1-hour",
+  "small-towns-2-hours",
+  "small-towns-3-hours",
+  "lakes-rivers",
+  "lakes",
+  "swimming-holes",
+  "historic-sites",
+];
 if (JSON.stringify(collectionSlugs) !== JSON.stringify(expectedCollections)) fail(`collection allowlist drifted: ${collectionSlugs.join(", ")}`);
 
 for (const token of [
   "radiusMiles:", "minimumMiles:", "minResults:", "maxResults:",
+  "minTowns:", "minCounties:", "minCategories:", "matchTerms:",
   "distanceFromPointMiles", "selectMetroProximityDestinations",
   "isMetroProximityCollectionIndexReady", "metroProximityHubReady",
   "metroProximityCanonicalPath", "metroProximitySitemapEntries",
+  "const seen = new Set<string>()",
+  "summary.trim().length >= 80",
+  "collection.matchTerms.some",
 ]) requireText(files.data, token, `data model missing ${token}`);
+
+for (const token of [
+  '"small-towns-1-hour"',
+  '"small-towns-2-hours"',
+  '"small-towns-3-hours"',
+  '"weekend-trips"',
+  '"road-trips"',
+  '"lakes"',
+  '"swimming-holes"',
+  "not road miles or drive-time promises",
+]) requireText(files.data, token, `requested intent expansion missing ${token}`);
+
+for (const token of [
+  "unknown metro and collection slugs fail closed",
+  "small-town hour-intent rings are non-overlapping",
+  "duplicate destination slugs cannot inflate collection inventory",
+  "swimming-hole intent requires water-use language",
+  "thin or geographically narrow collections remain noindex",
+  "substantive, diverse inventory can clear the index gate",
+]) requireText(files.test, token, `metro proximity regression test missing ${token}`);
 
 for (const token of [
   "listResolvedDestinations",
@@ -88,6 +127,9 @@ for (const token of [
   "straight-line estimates",
   "not road miles or drive-time promises",
   "DestinationCard destination={row.destination}",
+  "MapPreview",
+  "Distance window",
+  'to="/county/$slug"',
   'to="/explore/near/$metro"',
 ]) requireText(files.collectionUi, token, `metro collection lazy UI missing ${token}`);
 
@@ -116,7 +158,8 @@ for (const token of [
 ]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
 
 const pkg = JSON.parse(files.package);
-if (pkg.scripts?.["metro-proximity:validate"] !== "node scripts/data/validate-metro-proximity.mjs") fail("package script metro-proximity:validate is missing or changed");
+const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs";
+if (pkg.scripts?.["metro-proximity:validate"] !== expectedScript) fail("package script metro-proximity:validate is missing or changed");
 if (!pkg.scripts?.["data:validate"]?.includes("npm run metro-proximity:validate")) fail("metro proximity validation is not wired into data:validate");
 
 for (const forbidden of [
@@ -129,4 +172,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: five metro hubs and thirty intent landings are distance-ranked, source-backed, quality-gated, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO plus lazy UI boundaries.");
+console.log("Metro proximity validation passed: five metro hubs and sixty-five governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO plus lazy UI boundaries.");
