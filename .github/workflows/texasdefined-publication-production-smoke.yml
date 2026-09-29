@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/texasdefined-auto-publication.yml'
       - '.github/workflows/texasdefined-publication-production-smoke.yml'
+      - '.github/workflows/flyover-scheduled-publish-bridge.yml'
       - 'scripts/news/texasdefined-auto-publisher.mjs'
       - 'scripts/data/validate-texasdefined-auto-publication.mjs'
       - 'scripts/ci/verify-texasdefined-publication-production.mjs'
@@ -19,6 +20,7 @@ on:
     paths:
       - '.github/workflows/texasdefined-auto-publication.yml'
       - '.github/workflows/texasdefined-publication-production-smoke.yml'
+      - '.github/workflows/flyover-scheduled-publish-bridge.yml'
       - 'scripts/news/texasdefined-auto-publisher.mjs'
       - 'scripts/data/validate-texasdefined-auto-publication.mjs'
       - 'scripts/ci/verify-texasdefined-publication-production.mjs'
@@ -39,9 +41,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
+      - name: Report publication activation state safely
+        shell: bash
+        env:
+          TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+        run: |
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
+          fi
+          if [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false"
+          fi
       - name: Verify live news, Canyon Lake article and sitemap membership
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
