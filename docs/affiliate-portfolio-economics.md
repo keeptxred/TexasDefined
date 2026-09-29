@@ -33,20 +33,35 @@ Never activate an ordinary advertiser URL merely because the program is approved
 
 ## First-party measurement snapshot
 
-The private partner-referral aggregate is the routing authority for live CTA exposure and click behavior. As of the 2026-09-25 review, the travel cohorts are still too small for a broad hotel-provider winner:
+The private partner-referral aggregate is the routing authority for live CTA exposure and click behavior. The economics above were last reviewed from advertiser/account materials on 2026-09-25; the first-party measurement below was refreshed on 2026-09-29.
 
-- Hotels.com: 134 impressions / 1 click since the shared measurement window began.
-- Vrbo: 43 / 1.
-- Orbitz: 19 / 0.
-- Travelocity: 16 / 0.
+The raw rolling sync horizon still includes pre-filter traffic retained for audit continuity. Current raw counts across the last 31 days are:
+
+- Hotels.com: 452 impressions / 1 click.
+- Vrbo: 315 / 1.
+- Travelocity: 292 / 0.
+- Orbitz: 26 / 0.
+- Booking.com: 12 / 0.
 - Ticketmaster: 8 / 0.
-- Booking.com: 6 / 0.
+- Viator: 5 / 0.
 
-For the clean Orbitz-versus-Travelocity routing window beginning 2026-09-23, the site has only 10 Orbitz and 14 Travelocity impressions. Keep the existing 100-impression-per-provider hold gate before collapsing that split.
+Those raw counts must not be used to reroute hotel comparison traffic because they include the 2026-09-26 automation-like impression spike.
 
-These counts are a point-in-time operating snapshot, not permanent performance claims.
+Decision-grade routing and CTR measurement restart on **2026-09-27 UTC**, after automated/headless/crawler traffic was excluded from first-party outcome analytics. Current post-filter counts are:
 
-A 2026-09-26 UTC automation-like impression spike later inflated raw Stay Nearby exposure on the Lady Bird Johnson Wildflower Center destination without clicks. TexasDefined retains those raw aggregates for audit continuity but excludes automated/headless/crawler clients going forward and resets decision-grade CTR plus the Orbitz/Travelocity comparison window to 2026-09-27 UTC. The snapshot above remains historical context and must not be mixed into the post-filter routing decision window.
+- Hotels.com: 38 impressions / 0 clicks.
+- Travelocity: 16 / 0.
+- Vrbo: 16 / 0.
+- Orbitz: 4 / 0.
+- Booking.com: 3 / 0.
+- GearUP: 1 / 0.
+- Viator: 1 / 0.
+
+For the clean Orbitz-versus-Travelocity comparison window beginning **2026-09-27 UTC**, Orbitz has 4 qualifying impressions and Travelocity has 16; neither has a measured click. Keep the existing **100-impression-per-provider HOLD gate** before collapsing that split. This threshold is an operational minimum for a comparable sample, not a statistical-significance claim.
+
+These counts are a point-in-time operating snapshot, not permanent performance claims. Review first-party CTR together with downstream advertiser bookings, completed stays, reversals and realized commission before changing provider routing.
+
+A 2026-09-26 UTC automation-like impression spike inflated raw Stay Nearby exposure on the Lady Bird Johnson Wildflower Center destination without clicks. TexasDefined retains those raw aggregates for audit continuity, excludes automated/headless/crawler clients going forward, and keeps the decision-grade CTR plus Orbitz/Travelocity comparison window anchored to 2026-09-27 UTC.
 
 ## Replacement rules
 
