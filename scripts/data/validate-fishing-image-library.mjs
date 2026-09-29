@@ -13,6 +13,7 @@ const paths = {
   showcase: "src/components/fishing/ShowcaseLakeGuide.tsx",
   genericLake: "src/components/fishing/GenericFishingLakeGuide.tsx",
   lakeDirectory: "src/components/fishing/FishingLakesDirectory.tsx",
+  slugs: "src/data/fishing/slugs.ts",
 };
 for (const path of Object.values(paths)) if (!fs.existsSync(path)) fail(`required file missing: ${path}`);
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
@@ -32,6 +33,7 @@ for (const token of [
   "fishingLakeImages",
   "getFishingFishImage",
   "getFishingLakeImage",
+  "licensedRemoteLake",
 ]) requireText(files.library, token, `registry contract missing ${token}`);
 
 const requiredFish = [
@@ -81,6 +83,10 @@ for (const token of [
 ]) requireText(files.library, token, `fish provenance contract missing ${token}`);
 
 const requiredLakes = [
+  "lake-fork",
+  "o-h-ivie-lake",
+  "fayette-county-reservoir",
+  "lake-nacogdoches",
   "amistad-reservoir",
   "lake-meredith",
   "ray-roberts-lake",
@@ -118,10 +124,35 @@ const requiredLakes = [
   "lake-bridgeport",
   "lake-o-the-pines",
 ];
+const parseTuple = (source, name) => {
+  const match = source.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
+  return match ? [...match[1].matchAll(/"([a-z0-9-]+)"/g)].map((entry) => entry[1]) : [];
+};
+const completeLakeSlugs = [
+  ...parseTuple(files.slugs, "BASE_COMPLETE_FISHING_LAKE_SLUGS"),
+  ...parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
+  ...parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
+];
+const allowedExactLakeImageGaps = new Set(["richland-chambers-reservoir"]);
+if (new Set(completeLakeSlugs).size !== 41) fail(`expected 41 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
+if (requiredLakes.length !== 40) fail(`expected 40 governed exact lake-photo mappings, found ${requiredLakes.length}`);
+for (const slug of completeLakeSlugs) {
+  const hasMapping = requiredLakes.includes(slug);
+  if (!hasMapping && !allowedExactLakeImageGaps.has(slug)) fail(`complete lake lacks governed image mapping or explicit exception: ${slug}`);
+  if (hasMapping && allowedExactLakeImageGaps.has(slug)) fail(`lake cannot be both mapped and an exact-photo exception: ${slug}`);
+}
+for (const slug of allowedExactLakeImageGaps) {
+  if (!completeLakeSlugs.includes(slug)) fail(`stale lake-image exception: ${slug}`);
+  if (files.library.includes(`"${slug}":`)) fail(`exact lake image now exists; remove obsolete exception for ${slug}`);
+}
+
 for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
   const commonsToken = `"${slug}": commonsLake(`;
-  if (!files.library.includes(localToken) && !files.library.includes(commonsToken)) fail(`governed lake image inventory missing ${slug}`);
+  const remoteToken = `"${slug}": licensedRemoteLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken)) {
+    fail(`governed lake image inventory missing ${slug}`);
+  }
 }
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
@@ -129,6 +160,16 @@ const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|s
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
+const remoteLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": licensedRemoteLake\(/gm)].map((match) => match[1]);
+if (remoteLakeBlocks.length < 2) fail(`expected at least two exact licensed remote lake images, found ${remoteLakeBlocks.length}`);
+for (const slug of remoteLakeBlocks) {
+  const start = files.library.indexOf(`  "${slug}": licensedRemoteLake(`);
+  const end = files.library.indexOf("\n  ),", start);
+  const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
+  if (!block.includes("https://www.flickr.com/")) fail(`licensed remote lake image missing source page: ${slug}`);
+  if (!block.includes("CC BY")) fail(`licensed remote lake image missing reusable CC license: ${slug}`);
+}
+
 if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
 for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
@@ -187,4 +228,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and ${requiredLakes.length} exact lake-photo mappings are protected with provenance, license metadata, reusable rendering and attribution rules.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and ${requiredLakes.length}/41 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules; Richland-Chambers remains the single explicit exact-photo rights gap.`);
