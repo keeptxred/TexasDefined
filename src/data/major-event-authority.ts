@@ -72,7 +72,7 @@ function applyEventSchemaConfidencePolicy<T extends {
 const loadMajorEventPage = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
-    const [{ loadMajorEventPageServer, getMajorEventRecordServer }, { hasCompliantMajorEventImageServer }] = await Promise.all([
+    const [{ loadMajorEventPageServer, getMajorEventRecordServer }, { getMajorEventSchemaEnrichmentServer, hasCompliantMajorEventImageServer }] = await Promise.all([
       import("./major-event-page.server"),
       import("./major-event-schema-enrichment.server"),
     ]);
@@ -83,9 +83,12 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
     const governedPage = page ? applyEventSchemaConfidencePolicy(page, occurrence) : page;
     if (!governedPage) return governedPage;
     const renderedPage = stabilizeChappellHillWildflowerMap(governedPage);
+    const eventImage = hasCompliantMajorEventImageServer(data.slug) ? getMajorEventSchemaEnrichmentServer(data.slug)?.image : undefined;
     return {
       ...renderedPage,
       imageCompliant: hasCompliantMajorEventImageServer(data.slug),
+      image: eventImage?.url,
+      imageAlt: eventImage?.alt,
     };
   });
 

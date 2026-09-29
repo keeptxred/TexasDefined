@@ -9,6 +9,10 @@ const lazyRoute = fs.readFileSync(path.join(root, 'src/routes/events.index.lazy.
 const visibleRoute = `${route}\n${lazyRoute}`;
 const serverHead = fs.readFileSync(path.join(root, 'src/data/major-event-directory.server.ts'), 'utf8');
 const eventLeaf = fs.readFileSync(path.join(root, 'src/data/major-event-page.server.ts'), 'utf8');
+const eventLeafRoute = fs.readFileSync(path.join(root, 'src/routes/event.$slug.tsx'), 'utf8');
+const temporalCollections = fs.readFileSync(path.join(root, 'src/data/event-temporal-collections.server.ts'), 'utf8');
+const weekendDigest = fs.readFileSync(path.join(root, 'src/data/texas-this-weekend.server.ts'), 'utf8');
+const collectionRoute = fs.readFileSync(path.join(root, 'src/routes/events.$collection.tsx'), 'utf8');
 const authorityBridge = fs.readFileSync(path.join(root, 'src/data/major-event-authority.ts'), 'utf8');
 const dateConfidence = fs.readFileSync(path.join(root, 'src/data/major-event-date-confidence.ts'), 'utf8');
 const enrichmentRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-schema-enrichment.server.ts'), 'utf8');
@@ -30,6 +34,71 @@ if (!layoutLazyRoute.includes('createLazyFileRoute("/events")') || !layoutLazyRo
 if (layoutLazyRoute.includes('useRouterState') || layoutLazyRoute.includes('What’s happening across Texas')) errors.push('Events layout must not choose landing vs child content from pathname state.');
 if (!route.includes('createFileRoute("/events/")')) errors.push('Events statewide landing must remain an explicit /events/ index child.');
 if (!lazyRoute.includes('createLazyFileRoute("/events/")')) errors.push('Events statewide UI must remain on the explicit /events/ index child.');
+
+
+const scalableEventLandingSlugs = [
+  'this-weekend',
+  'october-events',
+  'november-events',
+  'december-events',
+  'houston-area-events',
+  'dallas-fort-worth-events',
+  'austin-area-events',
+  'san-antonio-area-events',
+  'houston-this-weekend',
+  'dallas-this-weekend',
+  'austin-this-weekend',
+  'san-antonio-this-weekend',
+];
+for (const slug of scalableEventLandingSlugs) {
+  if (!temporalCollections.includes(`slug: "${slug}"`)) errors.push(`Scalable event landing missing: ${slug}.`);
+}
+for (const marker of [
+  'minimumIndexableItems: 4',
+  'indexPolicy: "qualified"',
+  'definition.filterKind.endsWith("-weekend")',
+  'case "austin-area"',
+  'case "san-antonio-area"',
+  'case "houston-weekend"',
+  'case "dfw-weekend"',
+  'case "austin-weekend"',
+  'case "san-antonio-weekend"',
+]) {
+  if (!temporalCollections.includes(marker)) errors.push(`Event landing thin-page/rolling guard missing: ${marker}.`);
+}
+for (const marker of [
+  'loadTexasThisWeekendDigestServer',
+  'pickDistinct',
+  'Best Things to Do in Texas This Weekend',
+  'metroEditionPaths',
+  '/events/houston-this-weekend',
+  '/events/dallas-this-weekend',
+  '/events/austin-this-weekend',
+  '/events/san-antonio-this-weekend',
+]) {
+  if (!weekendDigest.includes(marker)) errors.push(`Texas This Weekend reusable selection contract missing: ${marker}.`);
+}
+for (const marker of [
+  'page.weekendDigest',
+  'A useful shortlist, not a feed dump',
+  'Metro sections only appear when enough events qualify',
+]) {
+  if (!collectionRoute.includes(marker)) errors.push(`Texas This Weekend collection UX missing: ${marker}.`);
+}
+for (const marker of [
+  'getMajorEventSchemaEnrichmentServer',
+  'image: eventImage?.url',
+  'imageAlt: eventImage?.alt',
+]) {
+  if (!authorityBridge.includes(marker)) errors.push(`Major-event governed social-image bridge missing: ${marker}.`);
+}
+for (const marker of [
+  'image: page.image',
+  'imageAlt: page.imageAlt',
+  'type: "article"',
+]) {
+  if (!eventLeafRoute.includes(marker)) errors.push(`Major-event Open Graph/Twitter metadata wiring missing: ${marker}.`);
+}
 
 const recurrenceDerivedDateSlugs = [
   'dallas-holiday-parade',

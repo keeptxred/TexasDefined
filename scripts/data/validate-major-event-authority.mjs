@@ -116,14 +116,23 @@ const requiredTemporalPaths = [
   "/events/this-weekend",
   "/events/this-month",
   "/events/september-events",
+  "/events/october-events",
+  "/events/november-events",
+  "/events/december-events",
   "/events/fall-festivals",
   "/events/christmas-events",
   "/events/county-fairs",
   "/events/houston-area-events",
   "/events/dallas-fort-worth-events",
+  "/events/austin-area-events",
+  "/events/san-antonio-area-events",
+  "/events/houston-this-weekend",
+  "/events/dallas-this-weekend",
+  "/events/austin-this-weekend",
+  "/events/san-antonio-this-weekend",
 ];
-const rollingTemporalPaths = ["/events/this-weekend", "/events/this-month"];
-const qualifiedTemporalPaths = requiredTemporalPaths.filter((routePath) => !rollingTemporalPaths.includes(routePath));
+const alwaysNoindexTemporalPaths = ["/events/this-month"];
+const qualifiedTemporalPaths = requiredTemporalPaths.filter((routePath) => !alwaysNoindexTemporalPaths.includes(routePath));
 const collectionPaths = [...collections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 const temporalPaths = [...temporalCollections.matchAll(/\bpath:\s*"(\/events\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 if (collectionPaths.length !== requiredCollectionPaths.length) {
@@ -164,12 +173,12 @@ for (const marker of [
 ]) {
   if (!temporalSitemap.includes(marker)) fail(`temporal event sitemap resolver is missing protected marker: ${marker}`);
 }
-for (const routePath of rollingTemporalPaths) {
+for (const routePath of alwaysNoindexTemporalPaths) {
   if (sitemap.includes(`path: "${routePath}"`) || sitemap.includes(`{ path: "${routePath}"`)) {
-    fail(`rolling noindex temporal route must never be hard-coded into the sitemap: ${routePath}`);
+    fail(`always-noindex temporal route must never be hard-coded into the sitemap: ${routePath}`);
   }
 }
-if (qualifiedTemporalPaths.length !== 6) fail("expected exactly six durable qualified temporal event collections");
+if (qualifiedTemporalPaths.length !== 16) fail("expected exactly sixteen threshold-qualified temporal event collections");
 for (const marker of [
   'loadTemporalEventSitemapEntriesServer',
   'const temporalEventSitemapEntries = loadTemporalEventSitemapEntriesServer()',

@@ -49,6 +49,29 @@ function EventCollectionPage() {
         </section>
       </div>
 
+      {page.weekendDigest && <section className="pt-12" aria-labelledby="texas-this-weekend-picks">
+        <div className="border-b border-border pb-6">
+          <p className="eyebrow text-primary">Texas This Weekend</p>
+          <h2 id="texas-this-weekend-picks" className="mt-2 font-display text-4xl">A useful shortlist, not a feed dump</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These sections are selected from the same source-verified Friday-through-Sunday inventory, with statewide picks diversified across cities and event types. Metro sections only appear when enough events qualify.</p>
+        </div>
+        <div className="grid gap-8 pt-8 lg:grid-cols-2">
+          {page.weekendDigest.sections.map((section) => <section key={section.id} className="border border-border p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div><p className="eyebrow text-muted-foreground">{page.weekendDigest?.dateContext}</p><h3 className="mt-2 font-display text-2xl">{section.title}</h3></div>
+              {section.href ? <a href={section.href} className="shrink-0 text-sm font-semibold text-primary">Edition →</a> : null}
+            </div>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{section.description}</p>
+            <ol className="mt-5 divide-y divide-border border-y border-border">
+              {section.items.map((event, index) => <li key={event.slug} className="py-4">
+                <p className="eyebrow text-muted-foreground">0{index + 1} · {event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
+                <EventGuideLink event={event} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink>
+              </li>)}
+            </ol>
+          </section>)}
+        </div>
+      </section>}
+
       <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">{page.itemsEyebrow}</p><h2 className="mt-2 font-display text-4xl">{page.itemsTitle}</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
         {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}

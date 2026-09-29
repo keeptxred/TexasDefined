@@ -27,7 +27,7 @@ export interface TemporalEventCollectionDefinition {
   relatedPaths: string[];
   minimumIndexableItems: number;
   indexPolicy: "always-noindex" | "qualified";
-  filterKind: "this-weekend" | "this-month" | "month" | "fall" | "christmas" | "county-fairs" | "houston-area" | "dfw-area";
+  filterKind: "this-weekend" | "this-month" | "month" | "fall" | "christmas" | "county-fairs" | "houston-area" | "dfw-area" | "austin-area" | "san-antonio-area" | "houston-weekend" | "dfw-weekend" | "austin-weekend" | "san-antonio-weekend";
   month?: number;
 }
 
@@ -45,20 +45,20 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
   {
     slug: "this-weekend",
     path: "/events/this-weekend",
-    title: "Texas Events This Weekend",
-    eyebrow: "Current weekend",
-    description: "Find verified Texas events happening this weekend, with permanent event guides, official sources and practical trip-planning links.",
-    lead: "This live weekend view is intentionally built from Texas Defined's source-checked recurring-event authority catalog rather than from one-line scraped listings. Every result links to a permanent guide with the organizer source and the occurrence currently considered valid.",
+    title: "Things to Do in Texas This Weekend",
+    eyebrow: "Texas This Weekend",
+    description: "Find source-verified things to do in Texas this weekend, with permanent event guides, official sources and practical trip-planning links.",
+    lead: "Texas This Weekend is a rolling Friday-through-Sunday guide built from Texas Defined's source-checked event authority catalog rather than a dump of one-line listings. Every recommendation links to a permanent guide with the organizer source, date context and nearby trip-planning paths.",
     planningTitle: "Pick one anchor event, then build the weekend around it",
     planningIntro: "A statewide weekend list can make destinations look closer together than they are. Choose the event first, then use its city, county and regional links to keep the rest of the trip geographically realistic.",
     planningPoints: [
       "Open the permanent event guide and recheck the official organizer before leaving; operating hours, tickets, road closures and weather procedures can still change.",
       "Use the host city and county as the planning radius instead of stacking unrelated events from opposite sides of Texas into one itinerary.",
-      "This rolling weekend view stays noindex even when it is useful to readers; Texas Defined reserves indexable URLs for durable discovery pages rather than continuously mutating date snapshots.",
+      "This permanent weekend URL rolls forward automatically. It is indexable only when at least four source-verified event guides qualify for the current Friday-through-Sunday window.",
     ],
-    relatedPaths: ["/events/this-month", "/events/fall-festivals", "/events/food-festivals"],
+    relatedPaths: ["/events/houston-this-weekend", "/events/dallas-this-weekend", "/events/austin-this-weekend", "/events/san-antonio-this-weekend", "/events/this-month", "/events/fall-festivals"],
     minimumIndexableItems: 4,
-    indexPolicy: "always-noindex",
+    indexPolicy: "qualified",
     filterKind: "this-weekend",
   },
   {
@@ -99,6 +99,66 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     indexPolicy: "qualified",
     filterKind: "month",
     month: 9,
+  },
+  {
+    slug: "october-events",
+    path: "/events/october-events",
+    title: "October Events in Texas",
+    eyebrow: "October calendar",
+    description: "Plan October events in Texas with verified dates for fairs, festivals, Oktoberfests, music, food, heritage and fall traditions.",
+    lead: "October is one of the strongest Texas event months, spanning the State Fair season, Oktoberfests, heritage weekends, food festivals and cooler-weather outdoor traditions. This stable page advances to the next October after the month passes and only opens to indexing when enough source-verified event guides qualify.",
+    planningTitle: "Build an October weekend around one region",
+    planningIntro: "Texas event density is high in October, but the state is too large to treat the month as one compact itinerary. Start with one anchor event, then use city, county and nearby-destination links to keep the weekend realistic.",
+    planningPoints: [
+      "Use the verified date window on each permanent guide and recheck the organizer before travel; annual traditions do not always repeat on the same weekend.",
+      "Expect popular fair, Hill Country and metro weekends to tighten lodging and parking earlier than an ordinary October weekend.",
+      "If the next October inventory is not yet source-rich enough, this stable URL remains useful to readers but is automatically withheld from indexing.",
+    ],
+    relatedPaths: ["/events/fall-festivals", "/events/food-festivals", "/events/county-fairs"],
+    minimumIndexableItems: 6,
+    indexPolicy: "qualified",
+    filterKind: "month",
+    month: 10,
+  },
+  {
+    slug: "november-events",
+    path: "/events/november-events",
+    title: "November Events in Texas",
+    eyebrow: "November calendar",
+    description: "Plan November events in Texas with verified dates for festivals, food weekends, heritage events, races, fairs and early holiday traditions.",
+    lead: "November bridges Texas fall-festival season and the first major holiday events. This stable discovery page rolls to the next November automatically and stays indexable only while the verified event inventory is deep enough to satisfy the search intent.",
+    planningTitle: "Use November weather and geography to your advantage",
+    planningIntro: "Cooler temperatures make longer outdoor days easier, but holiday openings and major event weekends can still create sharp demand in individual towns and metro districts.",
+    planningPoints: [
+      "Confirm event-day operating hours and weather procedures directly with the organizer close to departure.",
+      "Pair a festival or race with nearby food, museum, park or small-town coverage instead of crossing the state for a second unrelated event.",
+      "The page automatically noindexes when the next November has too few verified guides, preventing a thin seasonal page from lingering in search.",
+    ],
+    relatedPaths: ["/events/fall-festivals", "/events/christmas-events", "/events/arts-culture"],
+    minimumIndexableItems: 6,
+    indexPolicy: "qualified",
+    filterKind: "month",
+    month: 11,
+  },
+  {
+    slug: "december-events",
+    path: "/events/december-events",
+    title: "December Events in Texas",
+    eyebrow: "December calendar",
+    description: "Plan December events in Texas with verified dates for holiday lights, parades, markets, performances, festivals and winter traditions.",
+    lead: "December event planning in Texas is dominated by holiday traditions, downtown parades, light displays, markets and limited-run performances. This stable page advances annually and only surfaces occurrences backed by the event authority catalog.",
+    planningTitle: "Separate the holiday tradition from the operating schedule",
+    planningIntro: "Many December events run on selected nights rather than every day. Open the permanent guide, then use the organizer schedule as the final authority for the exact night you plan to attend.",
+    planningPoints: [
+      "Check whether the attraction is a single-night parade, a weekend market or a multi-week display before choosing travel dates.",
+      "Build an indoor backup option into outdoor holiday trips because rain, wind or cold fronts can alter programs.",
+      "The page remains crawl-safe by automatically withholding itself from indexing whenever the next December inventory falls below the verified-guide threshold.",
+    ],
+    relatedPaths: ["/events/christmas-events", "/events/seasonal-events", "/events/arts-culture"],
+    minimumIndexableItems: 6,
+    indexPolicy: "qualified",
+    filterKind: "month",
+    month: 12,
   },
   {
     slug: "fall-festivals",
@@ -194,6 +254,120 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     minimumIndexableItems: 4,
     indexPolicy: "qualified",
     filterKind: "dfw-area",
+  },
+  {
+    slug: "austin-area-events",
+    path: "/events/austin-area-events",
+    title: "Austin-Area Events & Festivals",
+    eyebrow: "Greater Austin calendar",
+    description: "Find verified Austin-area events, festivals, races, music weekends and cultural events across Travis, Williamson, Hays and Bastrop counties.",
+    lead: "Austin event planning is easiest when the actual venue and corridor come first. This collection groups source-verified events across the central metro without pretending that downtown Austin, Round Rock, Dripping Springs and Bastrop are the same trip.",
+    planningTitle: "Plan Austin by venue and corridor",
+    planningIntro: "Choose the event first, then keep lodging, food and other stops close to the actual venue rather than using a generic downtown starting point.",
+    planningPoints: [
+      "Use the event guide's city, county and venue before choosing lodging or parking.",
+      "For large downtown, campus and circuit weekends, recheck the organizer or venue for closures, shuttles and entry rules.",
+      "Use nearby county, food, park and destination links to turn the event into a geographically compact trip.",
+    ],
+    relatedPaths: ["/events/austin-this-weekend", "/events/hill-country-events", "/events/music-festivals"],
+    minimumIndexableItems: 4,
+    indexPolicy: "qualified",
+    filterKind: "austin-area",
+  },
+  {
+    slug: "san-antonio-area-events",
+    path: "/events/san-antonio-area-events",
+    title: "San Antonio-Area Events & Festivals",
+    eyebrow: "San Antonio calendar",
+    description: "Find verified San Antonio-area festivals, rodeos, cultural events and weekend traditions across Bexar, Comal, Guadalupe and Kendall counties.",
+    lead: "San Antonio-area event travel spans downtown, the fairgrounds, New Braunfels, Boerne and other nearby communities with very different parking and lodging patterns. This collection keeps the discovery broad while preserving the host city and county on every permanent guide.",
+    planningTitle: "Use the host community as the trip anchor",
+    planningIntro: "A regional label is useful for discovery, but event-day logistics should narrow immediately to the actual venue and host community.",
+    planningPoints: [
+      "Confirm the exact venue and event-day transportation plan before booking around a generic central San Antonio location.",
+      "Use county and nearby-town links to add missions, food, parks and heritage stops that fit the same corridor.",
+      "Recheck outdoor event weather and operating details close to departure, especially during spring festival and rodeo seasons.",
+    ],
+    relatedPaths: ["/events/san-antonio-this-weekend", "/events/south-texas-events", "/events/hill-country-events"],
+    minimumIndexableItems: 4,
+    indexPolicy: "qualified",
+    filterKind: "san-antonio-area",
+  },
+  {
+    slug: "houston-this-weekend",
+    path: "/events/houston-this-weekend",
+    title: "Things to Do in Houston This Weekend",
+    eyebrow: "Houston this weekend",
+    description: "Find source-verified Houston events this weekend across Harris, Fort Bend, Montgomery and Brazoria counties, with permanent guides and official sources.",
+    lead: "This rolling Houston weekend guide only includes events with a verified occurrence and a permanent Texas Defined planning page. It is designed for a real Friday-through-Sunday decision: choose the event, confirm the venue, then keep the rest of the itinerary on the same side of the metro when possible.",
+    planningTitle: "Choose the event before crossing Houston",
+    planningIntro: "Greater Houston distances are large enough that two events with the same metro label can belong to completely different day plans.",
+    planningPoints: [
+      "Start with the actual venue and county, then choose lodging, food and attractions nearby.",
+      "Recheck parking, transit, gate hours and weather procedures directly with the organizer before leaving.",
+      "This URL rolls forward every week and is only indexable when at least four verified Houston-area guides qualify for the current weekend.",
+    ],
+    relatedPaths: ["/events/houston-area-events", "/events/this-weekend", "/events/gulf-coast-events"],
+    minimumIndexableItems: 4,
+    indexPolicy: "qualified",
+    filterKind: "houston-weekend",
+  },
+  {
+    slug: "dallas-this-weekend",
+    path: "/events/dallas-this-weekend",
+    title: "Things to Do in Dallas-Fort Worth This Weekend",
+    eyebrow: "DFW this weekend",
+    description: "Find source-verified Dallas-Fort Worth events this weekend across the core North Texas counties, with permanent guides and official sources.",
+    lead: "This rolling DFW weekend guide compares verified events across Dallas, Fort Worth, Arlington and surrounding core counties while keeping the host city visible. It avoids treating the Metroplex as one interchangeable location.",
+    planningTitle: "Narrow the Metroplex before building the day",
+    planningIntro: "Choose the event and host city first; then use nearby venue, food and attraction links instead of stacking unrelated stops across the entire region.",
+    planningPoints: [
+      "Check the host city, venue and parking or rail plan before deciding where to stay.",
+      "Use permanent event guides for current date context and official organizer links rather than relying on an old search snippet.",
+      "The page rolls to each new weekend automatically and only enters the sitemap when at least four verified DFW event guides qualify.",
+    ],
+    relatedPaths: ["/events/dallas-fort-worth-events", "/events/this-weekend", "/events/north-texas-events"],
+    minimumIndexableItems: 4,
+    indexPolicy: "qualified",
+    filterKind: "dfw-weekend",
+  },
+  {
+    slug: "austin-this-weekend",
+    path: "/events/austin-this-weekend",
+    title: "Things to Do in Austin This Weekend",
+    eyebrow: "Austin this weekend",
+    description: "Find source-verified Austin-area events this weekend across Travis, Williamson, Hays and Bastrop counties, with official sources and permanent guides.",
+    lead: "This rolling Austin weekend guide filters the authority catalog to events whose verified occurrence overlaps Friday through Sunday. Each result keeps the actual city and county visible so readers can plan around downtown, suburban and Hill Country corridors realistically.",
+    planningTitle: "Keep the weekend on one Austin corridor",
+    planningIntro: "An Austin-area event can be downtown, at a circuit, in a suburban venue or in a nearby Hill Country community. The host place matters more than the metro label.",
+    planningPoints: [
+      "Anchor the day to the event's actual venue and use nearby destination links for the rest of the itinerary.",
+      "Recheck parking, street closures, transit and entry rules for large downtown, campus and circuit events.",
+      "The page rolls forward weekly and is automatically noindex when fewer than four verified events qualify.",
+    ],
+    relatedPaths: ["/events/austin-area-events", "/events/this-weekend", "/events/hill-country-events"],
+    minimumIndexableItems: 4,
+    indexPolicy: "qualified",
+    filterKind: "austin-weekend",
+  },
+  {
+    slug: "san-antonio-this-weekend",
+    path: "/events/san-antonio-this-weekend",
+    title: "Things to Do in San Antonio This Weekend",
+    eyebrow: "San Antonio this weekend",
+    description: "Find source-verified San Antonio-area events this weekend across Bexar, Comal, Guadalupe and Kendall counties, with official sources and permanent guides.",
+    lead: "This rolling San Antonio weekend guide only includes source-qualified event occurrences that overlap Friday through Sunday. It keeps downtown, fairground, New Braunfels, Boerne and nearby-community trips distinct enough to plan well.",
+    planningTitle: "Use the host city and venue as the planning radius",
+    planningIntro: "The San Antonio corridor is large enough that a regional weekend list is useful for discovery but not as a single compact itinerary.",
+    planningPoints: [
+      "Open the permanent event guide for the exact venue, date context and organizer source before travel.",
+      "Pair the event with nearby missions, food, museums, parks or small towns in the same corridor.",
+      "The page rolls forward automatically and stays out of the sitemap whenever fewer than four verified guides qualify.",
+    ],
+    relatedPaths: ["/events/san-antonio-area-events", "/events/this-weekend", "/events/south-texas-events"],
+    minimumIndexableItems: 4,
+    indexPolicy: "qualified",
+    filterKind: "san-antonio-weekend",
   },
 ];
 
@@ -325,6 +499,35 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
       filtered = events.filter((event) => counties.has(event.countyName ?? "") && (event.endDate ?? event.startDate) >= today);
       break;
     }
+    case "austin-area": {
+      start = today;
+      end = addDays(today, 550);
+      const counties = new Set(["Travis County", "Williamson County", "Hays County", "Bastrop County"]);
+      filtered = events.filter((event) => counties.has(event.countyName ?? "") && (event.endDate ?? event.startDate) >= today);
+      break;
+    }
+    case "san-antonio-area": {
+      start = today;
+      end = addDays(today, 550);
+      const counties = new Set(["Bexar County", "Comal County", "Guadalupe County", "Kendall County"]);
+      filtered = events.filter((event) => counties.has(event.countyName ?? "") && (event.endDate ?? event.startDate) >= today);
+      break;
+    }
+    case "houston-weekend":
+    case "dfw-weekend":
+    case "austin-weekend":
+    case "san-antonio-weekend": {
+      ({ start, end } = resolveWeekend(today));
+      const countyGroups: Record<"houston-weekend" | "dfw-weekend" | "austin-weekend" | "san-antonio-weekend", Set<string>> = {
+        "houston-weekend": new Set(["Harris County", "Fort Bend County", "Montgomery County", "Brazoria County"]),
+        "dfw-weekend": new Set(["Dallas County", "Tarrant County", "Collin County", "Denton County", "Ellis County", "Rockwall County"]),
+        "austin-weekend": new Set(["Travis County", "Williamson County", "Hays County", "Bastrop County"]),
+        "san-antonio-weekend": new Set(["Bexar County", "Comal County", "Guadalupe County", "Kendall County"]),
+      };
+      const counties = countyGroups[definition.filterKind];
+      filtered = events.filter((event) => counties.has(event.countyName ?? "") && overlaps(event, start, end));
+      break;
+    }
   }
 
   return {
@@ -339,9 +542,10 @@ export function resolveTemporalEventCollectionServer(slug: string, events: Tempo
   if (!definition) return null;
   const { start, end, items } = resolveFilter(definition, events, now);
   const dateContext = dateLabel(start, end);
-  const dynamicTitle = definition.filterKind === "this-weekend" || definition.filterKind === "this-month"
-    ? `${definition.title}: ${dateContext}`
-    : definition.title;
+  const rollingTitle = definition.filterKind === "this-weekend"
+    || definition.filterKind === "this-month"
+    || definition.filterKind.endsWith("-weekend");
+  const dynamicTitle = rollingTitle ? `${definition.title}: ${dateContext}` : definition.title;
   const shouldIndex = definition.indexPolicy === "qualified" && items.length >= definition.minimumIndexableItems;
   const indexabilityNote = definition.indexPolicy === "always-noindex"
     ? "This rolling date view is intentionally noindex,follow so search engines prioritize durable event guides and stable seasonal or regional landing pages."
