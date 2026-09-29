@@ -1,20 +1,10 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
-import { auditDestination } from "@/data/destination-audit";
-import { destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-
-function indexableDestinations(destinations: Destination[]) {
-  return destinations.filter((destination) =>
-    isPrimaryTripPlannerDestination(destination)
-    && auditDestination(destination).readyForIndexing
-  );
-}
 
 function destinationSchema(row: { destination: Destination; distanceMiles: number }) {
   const destination = row.destination;
@@ -35,19 +25,31 @@ function destinationSchema(row: { destination: Destination; distanceMiles: numbe
 
 export const Route = createFileRoute("/explore/near/$metro/$collection")({
   loader: async ({ context, params }) => {
-    const {
-      getMetroProximityCollection,
+    const [
+      { isPrimaryTripPlannerDestination },
+      { auditDestination },
+      { destinationsQuery },
+      {
+        getMetroProximityCollection,
       getMetroProximityMetro,
       isMetroProximityCollectionIndexReady,
       metroProximityCanonicalPath,
       metroProximityDescription,
       metroProximityTitle,
-      selectMetroProximityDestinations,
-    } = await import("@/data/metro-proximity");
+        selectMetroProximityDestinations,
+      },
+    ] = await Promise.all([
+      import("@/data/destination-availability"),
+      import("@/data/destination-audit"),
+      import("@/data/queries"),
+      import("@/data/metro-proximity"),
+    ]);
     const metro = getMetroProximityMetro(params.metro);
     const collection = getMetroProximityCollection(params.collection);
     if (!metro || !collection) throw notFound();
-    const destinations = indexableDestinations(await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })));
+    const destinations = (await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }))).filter((destination) =>
+      isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing
+    );
     const results = selectMetroProximityDestinations(destinations, metro, collection);
     const indexReady = isMetroProximityCollectionIndexReady(destinations, metro, collection);
     const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
