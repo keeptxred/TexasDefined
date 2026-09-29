@@ -432,6 +432,7 @@ import { Route as AdminFishingSponsorsRouteImport } from './routes/admin.fishing
 import { Route as AdminFishingReviewRouteImport } from './routes/admin.fishing-review'
 import { Route as AdminEntityMaintenanceRouteImport } from './routes/admin.entity-maintenance'
 import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.entity-import-review'
+import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
@@ -3155,6 +3156,13 @@ const AdminEntityImportReviewRoute = AdminEntityImportReviewRouteImport.update({
 } as any).lazy(() =>
   import('./routes/admin.entity-import-review.lazy').then((d) => d.Route),
 )
+const AdminEditorialOutreachRoute = AdminEditorialOutreachRouteImport.update({
+  id: '/editorial-outreach',
+  path: '/editorial-outreach',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin.editorial-outreach.lazy').then((d) => d.Route),
+)
 const KindSlugRoute = KindSlugRouteImport.update({
   id: '/$kind/$slug',
   path: '/$kind/$slug',
@@ -3755,6 +3763,7 @@ export interface FileRoutesByFullPath {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
+  '/admin/editorial-outreach': typeof AdminEditorialOutreachRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
   '/admin/fishing-review': typeof AdminFishingReviewRoute
@@ -4243,6 +4252,7 @@ export interface FileRoutesByTo {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
+  '/admin/editorial-outreach': typeof AdminEditorialOutreachRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
   '/admin/fishing-review': typeof AdminFishingReviewRoute
@@ -4735,6 +4745,7 @@ export interface FileRoutesById {
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
+  '/admin/editorial-outreach': typeof AdminEditorialOutreachRoute
   '/admin/entity-import-review': typeof AdminEntityImportReviewRoute
   '/admin/entity-maintenance': typeof AdminEntityMaintenanceRoute
   '/admin/fishing-review': typeof AdminFishingReviewRoute
@@ -5228,6 +5239,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
+    | '/admin/editorial-outreach'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
     | '/admin/fishing-review'
@@ -5716,6 +5728,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
+    | '/admin/editorial-outreach'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
     | '/admin/fishing-review'
@@ -6207,6 +6220,7 @@ export interface FileRouteTypes {
     | '/track-texas-drivers-license'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
+    | '/admin/editorial-outreach'
     | '/admin/entity-import-review'
     | '/admin/entity-maintenance'
     | '/admin/fishing-review'
@@ -9860,6 +9874,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminEntityImportReviewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/editorial-outreach': {
+      id: '/admin/editorial-outreach'
+      path: '/editorial-outreach'
+      fullPath: '/admin/editorial-outreach'
+      preLoaderRoute: typeof AdminEditorialOutreachRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/$kind/$slug': {
       id: '/$kind/$slug'
       path: '/$kind/$slug'
@@ -10341,6 +10362,7 @@ const AdminTexasTalentRouteWithChildren =
   AdminTexasTalentRoute._addFileChildren(AdminTexasTalentRouteChildren)
 
 interface AdminRouteChildren {
+  AdminEditorialOutreachRoute: typeof AdminEditorialOutreachRoute
   AdminEntityImportReviewRoute: typeof AdminEntityImportReviewRoute
   AdminEntityMaintenanceRoute: typeof AdminEntityMaintenanceRoute
   AdminFishingReviewRoute: typeof AdminFishingReviewRoute
@@ -10359,6 +10381,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminEditorialOutreachRoute: AdminEditorialOutreachRoute,
   AdminEntityImportReviewRoute: AdminEntityImportReviewRoute,
   AdminEntityMaintenanceRoute: AdminEntityMaintenanceRoute,
   AdminFishingReviewRoute: AdminFishingReviewRoute,
