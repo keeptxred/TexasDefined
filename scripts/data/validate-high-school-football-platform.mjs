@@ -814,7 +814,7 @@ if (!errors.length) {
     'All 1,268',
     '6A → 1A · enrollment classification',
     'A 6A school is listed above a 5A school because it is in the larger-enrollment classification',
-    'Open school football profile →',
+    'Open team football guide →',
     'not because TexasDefined has rated its football program as better',
     'UIL enrollment band:',
     'Official UIL 2026–28 enrollment cutoffs ↗',
