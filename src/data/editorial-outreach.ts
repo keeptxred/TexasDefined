@@ -23,7 +23,7 @@ export interface EditorialOutreachTarget {
 }
 
 export const EDITORIAL_OUTREACH_POLICY = {
-  purpose: "Improve factual accuracy, official-source access, photography rights and recurring update relationships before any optional reference request.",
+  purpose: "Improve factual accuracy, official-source access, approved imagery and recurring update relationships before any optional reference request.",
   noPaidLinks: true,
   noReciprocalLinkScheme: true,
   noGuaranteedCoverage: true,
