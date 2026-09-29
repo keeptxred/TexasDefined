@@ -11,10 +11,32 @@ const routes = [
   ['/find-my-emergency-services', 'Find Texas emergency and community services'],
   ['/texas-zip-code-explorer', 'Texas ZIP Code Explorer'],
   ['/compare-texas-cities', 'Compare Texas cities'],
+  ['/compare-texas-cities/houston-vs-dallas', 'Houston vs Dallas'],
+  ['/compare-texas-cities/houston-vs-austin', 'Houston vs Austin'],
+  ['/compare-texas-cities/houston-vs-san-antonio', 'Houston vs San Antonio'],
+  ['/compare-texas-cities/dallas-vs-austin', 'Dallas vs Austin'],
+  ['/compare-texas-cities/dallas-vs-san-antonio', 'Dallas vs San Antonio'],
+  ['/compare-texas-cities/austin-vs-san-antonio', 'Austin vs San Antonio'],
+  ['/texas-vs/california', 'Moving from California to Texas'],
+  ['/texas-vs/new-york', 'Moving from New York to Texas'],
+  ['/texas-vs/illinois', 'Moving from Illinois to Texas'],
+  ['/texas-vs/florida', 'Moving from Florida to Texas'],
+  ['/texas-vs/colorado', 'Moving from Colorado to Texas'],
+  ['/moving-to-texas-checklist', 'What to do during your first 30 days in Texas'],
+  ['/article/best-houston-suburbs-for-commuters', 'Best Houston Suburbs for Commuters'],
+  ['/article/best-dallas-suburbs-for-commuters', 'Best Dallas Suburbs for Commuters'],
+  ['/article/texas-property-taxes-for-new-residents', 'Texas Property Taxes for New Residents'],
+  ['/article/corporate-relocation-to-texas', 'Corporate Relocation to Texas'],
+  ['/article/employee-relocation-guide-to-texas', 'Employee Relocation Guide to Texas'],
 ];
 const toolkitLinks = routes
   .map(([path]) => path)
-  .filter((path) => !['/moving-to-texas', '/moving-to-texas/tools'].includes(path));
+  .filter((path) =>
+    !['/moving-to-texas', '/moving-to-texas/tools', '/moving-to-texas-checklist'].includes(path)
+    && !path.startsWith('/article/')
+    && !path.startsWith('/compare-texas-cities/')
+    && !path.startsWith('/texas-vs/')
+  );
 const RETRY_ATTEMPTS = 6;
 const RETRY_DELAY_MS = 5000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -98,6 +120,10 @@ for (const [path, needle] of routes) {
 
 const relocationHubNeedles = [
   'Corporate Relocation to Texas',
+  'Employee Relocation Guide to Texas',
+  'Best Houston Suburbs for Commuters',
+  'Best Dallas Suburbs for Commuters',
+  'Texas Property Taxes for New Residents',
   'Build an address-level research packet',
   'The submitted address is used for the Census lookup and is not saved unless you explicitly add a matched address to My Texas Move.',
 ];
@@ -137,7 +163,7 @@ await fetchLive(
   '/moving-to-texas-checklist',
   'persistent moving checklist',
   (candidateResponse, body) => {
-    const pageError = validatePage('/moving-to-texas-checklist', 'My Texas Move progress', candidateResponse, body);
+    const pageError = validatePage('/moving-to-texas-checklist', 'What to do during your first 30 days in Texas', candidateResponse, body);
     if (pageError) return pageError;
     if (!body.includes('tasks complete')) return 'persistent checklist completion marker is not live';
     if (!body.includes('Progress stays in this browser with My Texas Move')) return 'persistent checklist storage marker is not live';

@@ -1,6 +1,11 @@
 name: Verify relocation production
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-relocation-production.yml'
+      - 'scripts/ci/verify-relocation-production.mjs'
   pull_request:
     paths:
       - 'scripts/ci/verify-relocation-production.mjs'
@@ -8,8 +13,16 @@ on:
       - 'src/routes/find-my-*.tsx'
       - 'src/routes/moving-to-texas*.tsx'
       - 'src/routes/compare-texas-cities.tsx'
+      - 'src/routes/compare-texas-cities_.$pair.tsx'
+      - 'src/routes/compare-texas-cities_.$pair.lazy.tsx'
+      - 'src/routes/texas-vs.$state.tsx'
+      - 'src/data/relocation-city-pairs.ts'
+      - 'src/data/relocation-city-pair-page.server.ts'
+      - 'src/data/relocation-city-pair-page.functions.ts'
       - 'src/routes/texas-zip-code-explorer.tsx'
       - 'src/components/relocation/**'
+      - 'src/data/fixtures/*relocation*.ts'
+      - 'src/data/fixtures/lazy-relocation*.ts'
       - 'src/lib/relocation-public-routes.ts'
       - 'src/lib/public-routes.ts'
   workflow_run:
@@ -19,6 +32,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
   group: relocation-production-${{ github.event.workflow_run.head_sha || github.sha }}
@@ -37,8 +51,10 @@ jobs:
         run: node --check scripts/ci/verify-relocation-production.mjs
 
   verify:
-    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
+    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -46,7 +62,54 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Probe relocation expansion routes
+        id: expansion_probes
+        shell: bash
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: |
+          set +e
+          failed=0
+          probe() {
+            context="$1"
+            path="$2"
+            needle="$3"
+            url="${PRODUCTION_ORIGIN}${path}"
+            separator='?'
+            if [[ "$path" == *'?'* ]]; then separator='&'; fi
+            probe_url="${url}${separator}relocation_probe=${GITHUB_SHA}-${RANDOM}"
+            body="$(curl -fsSL --max-time 30 -H 'cache-control: no-cache' -H 'pragma: no-cache' -A 'TexasDefined-Relocation-Route-Probe/1.0' "$probe_url" 2>/dev/null)"
+            curl_status=$?
+            if [[ $curl_status -eq 0 ]] && grep -Fq "$needle" <<<"$body"; then
+              node scripts/ci/publish-github-status.mjs "$context" success "$path is live"
+              echo "PASS $path"
+            else
+              node scripts/ci/publish-github-status.mjs "$context" failure "$path is missing expected deployed content"
+              echo "::error title=Relocation live probe failed::$path missing expected content: $needle"
+              failed=1
+            fi
+          }
+          probe td-reloc-hub /moving-to-texas 'Best Houston Suburbs for Commuters'
+          probe td-reloc-checklist /moving-to-texas-checklist 'What to do during your first 30 days in Texas'
+          probe td-reloc-houston-suburbs /article/best-houston-suburbs-for-commuters 'Best Houston Suburbs for Commuters'
+          probe td-reloc-dallas-suburbs /article/best-dallas-suburbs-for-commuters 'Best Dallas Suburbs for Commuters'
+          probe td-reloc-property-tax /article/texas-property-taxes-for-new-residents 'Texas Property Taxes for New Residents'
+          probe td-reloc-corporate /article/corporate-relocation-to-texas 'Corporate Relocation to Texas'
+          probe td-reloc-employee /article/employee-relocation-guide-to-texas 'Employee Relocation Guide to Texas'
+          probe td-reloc-sitemap /sitemap.xml '/article/employee-relocation-guide-to-texas'
+          exit "$failed"
+      - name: Publish relocation live verification pending
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live pending "Verifying TexasDefined relocation production surfaces"
       - name: Verify relocation toolkit in production
+        id: relocation_live
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-relocation-production.mjs
+      - name: Publish relocation live verification result
+        if: always()
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          STAGE_OUTCOME: ${{ steps.relocation_live.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live "$STAGE_OUTCOME" "Relocation production verification passed" "Relocation production verification failed"

@@ -12,6 +12,10 @@ const paths = {
   sitemap: "src/routes/sitemap[.]xml.ts",
   package: "package.json",
   routeTree: "src/routeTree.gen.ts",
+  expansion: "src/data/fixtures/relocation-authority-expansion.ts",
+  expansionLazy: "src/data/fixtures/lazy-relocation-authority-expansion.ts",
+  repositories: "src/data/fixtures/repositories.ts",
+  checklist: "src/routes/moving-to-texas-checklist.tsx",
 };
 
 for (const path of Object.values(paths)) {
@@ -102,6 +106,53 @@ for (const token of [
   "texas-vs-every-state",
 ]) requireText(files.hub, token, `relocation hub discovery missing ${token}`);
 
+const expansionSlugs = [
+  "best-houston-suburbs-for-commuters",
+  "best-dallas-suburbs-for-commuters",
+  "texas-property-taxes-for-new-residents",
+  "corporate-relocation-to-texas",
+  "employee-relocation-guide-to-texas",
+];
+for (const slug of expansionSlugs) {
+  requireText(files.expansion, `slug: "${slug}"`, `relocation authority body missing ${slug}`);
+  requireText(files.expansionLazy, `slug: "${slug}"`, `relocation authority catalog stub missing ${slug}`);
+  requireText(files.hub, `/article/${slug}`, `relocation hub missing authority link to ${slug}`);
+}
+for (const token of [
+  "METRO Park & Ride",
+  "TxDOT traffic count maps",
+  "Dallas Area Rapid Transit",
+  "Texas Comptroller Property Tax Assistance",
+  "Texas Economic Development & Tourism",
+  "Texas Workforce Commission labor-market information",
+  "IRS Publication 15-B",
+  "Texas Department of Motor Vehicles",
+  "Texas Department of Public Safety",
+  "general information, not tax advice",
+]) requireText(files.expansion, token, `relocation authority source or safeguard missing ${token}`);
+
+for (const token of [
+  "relocationAuthorityExpansionStubs",
+  "loadRelocationAuthorityExpansionArticle",
+  'await import("./relocation-authority-expansion")',
+]) requireText(files.expansionLazy, token, `relocation authority lazy registry missing ${token}`);
+
+for (const token of [
+  'from "./lazy-relocation-authority-expansion"',
+  "...relocationAuthorityExpansionStubs",
+  "loadRelocationAuthorityExpansionArticle(scope.brandId, slug)",
+]) requireText(files.repositories, token, `relocation repository wiring missing ${token}`);
+
+for (const token of [
+  "First 30 Days in Texas: Moving Checklist for New Residents",
+  "What to do during your first 30 days in Texas",
+  "My Texas Move progress",
+]) requireText(files.checklist, token, `first-30-days checklist intent missing ${token}`);
+
+if (files.expansion.includes("guaranteed commute") || files.expansion.includes("universally best suburb")) {
+  fail("commuter guides must not promise a commute or declare a universally best suburb");
+}
+
 for (const token of [
   'await import("@/data/relocation-city-pairs")',
   "relocationCityPairSitemapEntries()",
@@ -128,4 +179,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`duplicate or overclaim pattern leaked: ${forbidden}`);
 }
 
-console.log("Relocation search validation passed: five priority state-move intents reuse canonical state comparisons, six major Texas city-pair spokes are source-backed and sitemap-owned, and the eager route remains server-backed with lazy UI.");
+console.log("Relocation search validation passed: five priority state-move intents reuse canonical state comparisons, six major Texas city-pair spokes remain source-backed and sitemap-owned, five new high-intent relocation authority articles are lazily repository-backed and hub-linked, and the first-30-days checklist owns its newcomer intent without duplicate routing.");
