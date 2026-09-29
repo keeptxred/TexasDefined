@@ -43,5 +43,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Verify auto-publication activation remains unset
+        env:
+          TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
+            echo "::error::TexasDefined automatic publication must remain unset until explicit activation is approved."
+            exit 1
+          fi
+          echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, Canyon Lake article and sitemap membership
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
