@@ -63,7 +63,7 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
       <div className="absolute inset-0 bg-ink" style={{ opacity: 0.55 }} />
       <Container className="relative flex flex-col justify-end py-12 sm:py-16">
         <p className="eyebrow text-ink-foreground">{page.eyebrow}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-none sm:text-7xl">{page.title}</h1>
+        <h1 className="mt-4 max-w-3xl font-display text-5xl leading-tight sm:text-5xl">{page.title}</h1>
         <p className="mt-6 max-w-3xl text-base leading-8 text-ink-foreground sm:text-lg">{page.intro}</p>
         <div className="eyebrow mt-7 flex flex-wrap gap-x-6 gap-y-2 text-ink-foreground">
           <span>{page.totalMatches} curated place{page.totalMatches === 1 ? "" : "s"}</span>
@@ -118,7 +118,7 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
             <p className="mt-5 text-xs leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Best season:</strong> {destination.bestSeason}</p>
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
               <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow border-b border-primary pb-1 text-primary">Plan this stop →</Link>
-              <a href={maps.directionsUrl(destination.coordinates, destination.name)} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1.5 text-xs font-semibold underline underline-offset-4 hover:text-primary"><RouteIcon className="size-4" aria-hidden />Check route</a>
+              <a href={maps.directionsUrl(destination.coordinates, destination.name)} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-2 text-xs font-semibold underline underline-offset-4 hover:text-primary"><RouteIcon className="size-4" aria-hidden />Check route</a>
             </div>
           </article>;
         })}
