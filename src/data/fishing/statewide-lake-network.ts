@@ -1,6 +1,7 @@
 import type { ShowcaseLakePrototype } from "./showcase-lakes-prototype";
 import type { StatewideNetworkLakeSlug } from "./showcase-lake-routing";
-import type { TexasRegion } from "@/data/types";\nimport type { FishingLake, FishingQuality, FishingSource, LakeSpeciesProfile, LakeTechniqueProfile } from "./types";
+import type { TexasRegion } from "@/data/types";
+import type { FishingLake, FishingQuality, FishingSource, LakeSpeciesProfile, LakeTechniqueProfile } from "./types";
 
 const VERIFIED_AT = "2026-09-28";
 const BRAND = "texasdefined" as const;
