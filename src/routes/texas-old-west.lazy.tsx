@@ -32,7 +32,7 @@ function TexasOldWestPage() {
     <section className="border-b border-border bg-background">
       <Container className="py-12 sm:py-16">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-14">
-          <div><p className="eyebrow text-primary">Start here</p><h2 className="mt-3 font-display text-4xl">Five layers make the story useful</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Treating the Old West as one costume-drama era hides the people and systems that actually shaped Texas. These layers overlap geographically, so a good road trip should cross several of them.</p></div>
+          <div><p className="eyebrow text-primary">Start here</p><h2 className="mt-3 font-display text-4xl">Five parts of the Texas Old West story</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Treating the Old West as one costume-drama era hides the people and systems that actually shaped Texas. These layers overlap geographically, so a good road trip should cross several of them.</p></div>
           <div className="grid gap-px border border-border bg-border">
             {storyLayers.map(([title, body, href, label]) => <article key={title} className="bg-background p-6"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p><Link to={href} className="mt-4 inline-block text-sm font-semibold text-primary">{label} →</Link></article>)}
           </div>
