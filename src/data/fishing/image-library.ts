@@ -308,7 +308,7 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
     "Marshy inlet of Lake Fork in Rains County, northeast Texas",
     7360, 4912,
     "Carol M. Highsmith",
-    "No known restrictions on publication",
+    "Public domain — no known restrictions on publication",
     COMMONS_PD,
     "public-domain",
     "Wikimedia Commons / Library of Congress",
