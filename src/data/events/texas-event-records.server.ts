@@ -217,6 +217,6 @@ export function loadUpcomingTexasEventRecordsServer(query: TexasEventQuery = {})
   return queryTexasEventRecordsServer({
     ...query,
     startsOnOrAfter: query.startsOnOrAfter ?? texasTodayIso(),
-    statuses: query.statuses ?? ["scheduled", "postponed"],
+    statuses: query.statuses ?? ["scheduled", "postponed", "rescheduled"],
   });
 }
