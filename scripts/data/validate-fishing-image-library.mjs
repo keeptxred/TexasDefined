@@ -87,6 +87,7 @@ const requiredLakes = [
   "o-h-ivie-lake",
   "fayette-county-reservoir",
   "lake-nacogdoches",
+  "richland-chambers-reservoir",
   "amistad-reservoir",
   "lake-meredith",
   "ray-roberts-lake",
@@ -133,9 +134,9 @@ const completeLakeSlugs = [
   ...parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
   ...parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
-const allowedExactLakeImageGaps = new Set(["richland-chambers-reservoir"]);
+const allowedExactLakeImageGaps = new Set();
 if (new Set(completeLakeSlugs).size !== 41) fail(`expected 41 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
-if (requiredLakes.length !== 40) fail(`expected 40 governed exact lake-photo mappings, found ${requiredLakes.length}`);
+if (requiredLakes.length !== 41) fail(`expected 41 governed exact lake-photo mappings, found ${requiredLakes.length}`);
 for (const slug of completeLakeSlugs) {
   const hasMapping = requiredLakes.includes(slug);
   if (!hasMapping && !allowedExactLakeImageGaps.has(slug)) fail(`complete lake lacks governed image mapping or explicit exception: ${slug}`);
@@ -161,13 +162,18 @@ for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`register
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
 const remoteLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": licensedRemoteLake\(/gm)].map((match) => match[1]);
-if (remoteLakeBlocks.length < 2) fail(`expected at least two exact licensed remote lake images, found ${remoteLakeBlocks.length}`);
+if (remoteLakeBlocks.length < 3) fail(`expected at least three exact licensed remote lake images, found ${remoteLakeBlocks.length}`);
 for (const slug of remoteLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": licensedRemoteLake(`);
   const end = files.library.indexOf("\n  ),", start);
-  const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
-  if (!block.includes("https://www.flickr.com/")) fail(`licensed remote lake image missing source page: ${slug}`);
-  if (!block.includes("CC BY")) fail(`licensed remote lake image missing reusable CC license: ${slug}`);
+  const block = files.library.slice(start, end > start ? end + 5 : start + 1800);
+  const isFlickr = block.includes("https://www.flickr.com/") && block.includes("CC BY");
+  const isNasa =
+    block.includes("https://eol.jsc.nasa.gov/Collections/EarthFromSpace/") &&
+    block.includes("NASA_MEDIA_GUIDELINES") &&
+    block.includes('"government-usage-guidelines"') &&
+    block.includes("NASA Gateway to Astronaut Photography of Earth");
+  if (!isFlickr && !isNasa) fail(`licensed remote lake image missing approved provenance/reuse basis: ${slug}`);
 }
 
 if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
