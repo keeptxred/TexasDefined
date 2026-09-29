@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
+import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
 import type { FishSpecies, FishingLake, LakeSpeciesProfile } from "@/data/fishing/types";
 
@@ -68,7 +70,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           <Link to="/fishing/species" className="eyebrow border-b border-primary pb-1 text-primary">Browse every Texas fish guide →</Link>
         </div>
         <div className="mt-8 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
-          {featuredSpecies.map((fish) => <article key={fish.id} className="border-b border-border py-6 sm:px-5 sm:first:pl-0"><p className="eyebrow text-primary">{fish.taxonKind === "group" ? "Fishing group" : "Fish species"}</p><h3 className="mt-2 font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{fish.summary}</p><a href={`/fishing/plan?species=${fish.slug}`} className="mt-4 inline-block border-b border-primary pb-1 text-xs font-semibold text-primary">Find lakes for {fish.commonName} →</a></article>)}
+          {featuredSpecies.map((fish) => { const image = getFishingFishImage(fish.slug); return <article key={fish.id} className="border-b border-border py-6 sm:px-5 sm:first:pl-0">{image ? <FishingPhoto image={image} showCredit={false} className="mb-4" imageClassName="aspect-[3/2] w-full object-contain bg-muted/20 p-3" /> : null}<p className="eyebrow text-primary">{fish.taxonKind === "group" ? "Fishing group" : "Fish species"}</p><h3 className="mt-2 font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{fish.summary}</p><a href={`/fishing/plan?species=${fish.slug}`} className="mt-4 inline-block border-b border-primary pb-1 text-xs font-semibold text-primary">Find lakes for {fish.commonName} →</a></article>; })}
         </div>
       </section>
 
@@ -84,7 +86,9 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
               .map((relation) => ({ relation, fish: speciesById.get(relation.speciesId) }))
               .filter((row) => Boolean(row.fish))
               .slice(0, 4);
+            const image = getFishingLakeImage(lake.slug);
             return <article key={lake.id} className="border-b border-border py-7">
+              {image ? <FishingPhoto image={image} className="mb-6" imageClassName="aspect-[16/9] w-full object-cover" /> : null}
               <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="eyebrow text-primary">{formatRegion(lake.region)}</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", lake.slug)} className="hover:text-primary">{lake.name}</a></h3></div><span className="text-xs text-muted-foreground">{isCompleteFishingLakeSlug(lake.slug) ? "Full fishing guide" : "Lake profile"}</span></div>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{lake.summary}</p>
               {targets.length ? <div className="mt-5 flex flex-wrap gap-2">{targets.map(({ relation, fish }) => <span key={relation.id} className="border border-border px-3 py-1.5 text-xs">{fish?.commonName} · {titleCase(relation.quality)}</span>)}</div> : null}
