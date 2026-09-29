@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
+import { fishingTechniqueCanonicalPath, isPublishedFishingTechniqueSlug } from "@/data/fishing/technique-routing";
 import { showcaseLakeCanonicalPath, type ShowcaseLakeSection } from "@/data/fishing/showcase-lake-routing";
 import type { ShowcaseLakePrototype } from "@/data/fishing/showcase-lakes-prototype";
 import type { FishingBusiness, FishingGuide, FishingPlacement, FishingReport } from "@/data/fishing/types";
@@ -92,7 +93,7 @@ function Overview({ pageData, businesses, placements }: { pageData: PageData; bu
   </div>;
 }
 
-function Fish({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Species, seasons & techniques</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Fish Species, Seasons and Techniques</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">These are durable patterns drawn from official fisheries guidance, not a claim about today's bite.</p><div className="mt-10 space-y-9">{pageData.fish.map((fish) => <article key={fish.id} id={fish.id} className="scroll-mt-28 border-t border-border pt-7"><div className="grid gap-5 lg:grid-cols-[0.35fr_0.65fr]"><div><p className="eyebrow text-primary">{fish.prominence} · {fish.quality}</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("species", fish.id)} className="hover:text-primary">{fish.name}</a></h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{fish.summary}</p><div className="mt-4 flex flex-wrap gap-2">{fish.techniques.map((technique) => <span key={technique} className="border border-border px-2.5 py-1 text-xs text-muted-foreground">{technique}</span>)}</div></div><div className="grid gap-4 sm:grid-cols-2">{fish.seasons.map((pattern) => <div key={pattern.label} className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">{pattern.label}</p><p className="mt-2 text-sm leading-6">{pattern.text}</p></div>)}</div></div></article>)}</div></section>; }
+function Fish({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Species, seasons & techniques</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Fish Species, Seasons and Techniques</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">These are durable patterns drawn from official fisheries guidance, not a claim about today's bite.</p><div className="mt-10 space-y-9">{pageData.fish.map((fish) => <article key={fish.id} id={fish.id} className="scroll-mt-28 border-t border-border pt-7"><div className="grid gap-5 lg:grid-cols-[0.35fr_0.65fr]"><div><p className="eyebrow text-primary">{fish.prominence} · {fish.quality}</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("species", fish.id)} className="hover:text-primary">{fish.name}</a></h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{fish.summary}</p><div className="mt-4 flex flex-wrap gap-2">{fish.techniques.map((technique) => <TechniquePill key={technique} label={technique} />)}</div></div><div className="grid gap-4 sm:grid-cols-2">{fish.seasons.map((pattern) => <div key={pattern.label} className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">{pattern.label}</p><p className="mt-2 text-sm leading-6">{pattern.text}</p></div>)}</div></div></article>)}</div></section>; }
 
 function Access({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Fishing access</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Boat Ramps and Fishing Access</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Facilities are drawn from official access inventories. Private fees, closures and water-level usability can change, so verify the operating source before travel.</p><div className="mt-9 grid gap-x-8 border-t border-border md:grid-cols-2">{pageData.access.map((item) => <article key={item.name} className="border-b border-border py-7"><p className="eyebrow text-primary">{item.operator}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><dl className="mt-4 space-y-2 text-sm leading-6"><div><dt className="inline text-muted-foreground">Launch: </dt><dd className="inline">{item.launch}</dd></div><div><dt className="inline text-muted-foreground">Fee: </dt><dd className="inline">{item.fee}</dd></div><div><dt className="inline text-muted-foreground">Availability: </dt><dd className="inline">{item.availability}</dd></div></dl></article>)}</div><a href={pageData.sources.tpwdAccess.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Verify all access with TPWD →</a></section>; }
 
@@ -116,3 +117,21 @@ function QuickAnswer({ question, answer }: { question: string; answer: string })
 function formatDate(value: string) { const date = new Date(value.length === 10 ? `${value}T00:00:00Z` : value); return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }); }
 
 function isDirectLiveLevelSource(url: string) { return /^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\//i.test(url); }
+
+const TECHNIQUE_SLUG_BY_LABEL: Record<string, string> = {
+  "soft plastics": "soft-plastics",
+  crankbaits: "crankbaits",
+  spinnerbaits: "spinnerbaits",
+  topwater: "topwater",
+  trolling: "trolling",
+  "vertical jigging": "vertical-jigging",
+  "jigs and minnows": "jigs-and-minnows",
+  "live bait": "live-bait",
+  "cut bait": "cut-bait",
+};
+
+function TechniquePill({ label }: { label: string }) {
+  const slug = TECHNIQUE_SLUG_BY_LABEL[label.trim().toLowerCase()];
+  if (!slug || !isPublishedFishingTechniqueSlug(slug)) return <span className="border border-border px-2.5 py-1 text-xs text-muted-foreground">{label}</span>;
+  return <a href={fishingTechniqueCanonicalPath(slug)} className="border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary">{label}</a>;
+}
