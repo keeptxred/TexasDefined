@@ -32,7 +32,9 @@ type FishId =
   | "striped-bass"
   | "hybrid-striped-bass"
   | "alligator-gar"
-  | "sunfish";
+  | "sunfish"
+  | "walleye"
+  | "red-drum";
 
 interface FishDefinition {
   id: FishId;
@@ -424,6 +426,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     fish: [
       fish("catfish","Catfish","excellent","spring","Channel catfish are the most sought-after species and peak strongly in spring.",["cut-bait","live-bait"]),
       fish("hybrid-striped-bass","Hybrid striped bass","excellent","spring","A long winter-through-summer window centers on baitfish and open-water structure.",["vertical-jigging","trolling","live-bait"]),
+      fish("red-drum","Red drum","excellent","spring","Stocked red drum create one of Texas freshwater fishing's most unusual opportunities, with TPWD highlighting a strong March-through-summer window.",["live-bait","crankbaits"]),
       fish("largemouth-bass","Largemouth bass","fair","spring","Spring fish concentrate in bulrush and riprap around the dam and intake.",["soft-plastics","crankbaits","spinnerbaits"],"secondary"),
     ],
     access: "Calaveras Park provides the principal public boat ramps, shoreline access, camping and picnic facilities; entry and use fees apply.", specialRules: true, nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"}],
@@ -470,6 +473,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     identity: "Lake Meredith is the Texas Panhandle's most distinctive large-reservoir fishery. TPWD identifies walleye as the primary sport fish, while rocky habitat supports an emerging smallmouth population and broad warmwater opportunity.",
     habitat: ["Steep rocky banks, rock ledges, piles and dropoffs dominate the reservoir.", "The upper reservoir is much more turbid than the clear lower lake.", "Flooded timber and limited milfoil/cattail beds provide localized cover."],
     fish: [
+      fish("walleye","Walleye","excellent","spring","Walleye are Lake Meredith's primary sport fish, with TPWD identifying April through June as the peak period.",["jigs-and-minnows","crankbaits"]),
       fish("smallmouth-bass","Smallmouth bass","fair","spring","Rocky shorelines, large structure and dropoffs fit the lake's growing smallmouth population.",["crankbaits","soft-plastics"]),
       fish("largemouth-bass","Largemouth bass","good","spring","Largemouth bass are less dominant than walleye but use localized cover and structure.",["crankbaits","soft-plastics"]),
       fish("crappie","Crappie","good","spring","Crappie fishing is generally good and can become excellent in strong year classes.",["jigs-and-minnows"]),
