@@ -4044,7 +4044,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
-  '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
+  '/explore/near/$metro_/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -5517,7 +5517,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
-    | '/explore/near/$metro/$collection'
+    | '/explore/near/$metro_/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -6886,7 +6886,6 @@ export interface RootRouteChildren {
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
   ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
   ExploreNearMetroRoute: typeof ExploreNearMetroRoute
-  ExploreNearMetroCollectionRoute: typeof ExploreNearMetroCollectionRoute
   ExplorePaintedChurchesGuidesRoute: typeof ExplorePaintedChurchesGuidesRoute
   ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
   ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
@@ -6895,6 +6894,7 @@ export interface RootRouteChildren {
   ExploreTripTokenRoute: typeof ExploreTripTokenRoute
   PropertyTaxCountyCountyRoute: typeof PropertyTaxCountyCountyRoute
   PropertyTaxTaxingUnitUnitRoute: typeof PropertyTaxTaxingUnitUnitRoute
+  ExploreNearMetroCollectionRoute: typeof ExploreNearMetroCollectionRoute
   ExplorePaintedChurchesGuidesSlugRoute: typeof ExplorePaintedChurchesGuidesSlugRoute
 }
 
