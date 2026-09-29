@@ -6,6 +6,9 @@ const paths = {
   expansionPrototypes: "src/data/fishing/expanded-showcase-lakes-prototype.ts",
   wave2Fixtures: "src/data/fishing/lake-expansion-wave2-fixtures.ts",
   wave2Prototypes: "src/data/fishing/wave2-showcase-lakes-prototype.ts",
+  wave3Fixtures: "src/data/fishing/lake-expansion-wave3-fixtures.ts",
+  wave3Prototypes: "src/data/fishing/wave3-showcase-lakes-prototype.ts",
+  expansionPriority: "src/data/fishing/lake-expansion-priority.ts",
   showcasePrototypes: "src/data/fishing/showcase-lakes-prototype.ts",
   conroePrototype: "src/data/fishing/lake-conroe-prototype.ts",
   liveLevelServer: "src/data/fishing/live-lake-level.server.ts",
@@ -45,7 +48,19 @@ const wave2Lakes = [
   ["lake-tawakoni", "Lake Tawakoni"],
   ["falcon-international-reservoir", "Falcon International Reservoir"],
 ];
-const allComplete = ["lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma", ...newLakes.map(([slug]) => slug), ...wave2Lakes.map(([slug]) => slug)];
+const wave3Lakes = [
+  ["lake-buchanan", "Lake Buchanan"],
+  ["lake-lbj", "Lake LBJ"],
+  ["richland-chambers-reservoir", "Richland-Chambers Reservoir"],
+  ["lake-palestine", "Lake Palestine"],
+  ["ray-roberts-lake", "Ray Roberts Lake"],
+  ["lewisville-lake", "Lewisville Lake"],
+  ["cedar-creek-reservoir", "Cedar Creek Reservoir"],
+  ["belton-lake", "Belton Lake"],
+  ["stillhouse-hollow-reservoir", "Stillhouse Hollow Reservoir"],
+  ["lake-houston", "Lake Houston"],
+];
+const allComplete = ["lake-conroe", "lake-fork", "sam-rayburn-reservoir", "lake-livingston", "lake-texoma", ...newLakes.map(([slug]) => slug), ...wave2Lakes.map(([slug]) => slug), ...wave3Lakes.map(([slug]) => slug)];
 
 for (const [slug, name] of newLakes) {
   requireText(files.expansionFixtures, `slug: "${slug}"`, `typed fishing-lake record missing ${slug}`);
@@ -64,20 +79,32 @@ for (const [slug, name] of wave2Lakes) {
   requireText(files.slugs, `"${slug}"`, `complete-lake allowlist missing ${slug}`);
 }
 
+for (const [slug, name] of wave3Lakes) {
+  requireText(files.wave3Fixtures, `slug: "${slug}"`, `typed wave-3 fishing-lake record missing ${slug}`);
+  requireText(files.wave3Fixtures, `name: "${name}"`, `wave-3 fishing-lake identity missing ${name}`);
+  requireText(files.wave3Fixtures, `lakeId: "${slug}"`, `verified wave-3 relationship coverage missing ${slug}`);
+  requireText(files.wave3Prototypes, `"${slug}"`, `complete wave-3 guide prototype missing ${slug}`);
+  requireText(files.slugs, `"${slug}"`, `complete-lake allowlist missing ${slug}`);
+}
+
 const parseSlugArray = (source, name) => {
   const match = source.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
   return match ? [...match[1].matchAll(/"([a-z0-9-]+)"/g)].map((entry) => entry[1]) : [];
 };
 const baseCompleteSlugs = parseSlugArray(files.slugs, "BASE_COMPLETE_FISHING_LAKE_SLUGS");
 const wave2CompleteSlugs = parseSlugArray(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS");
+const wave3CompleteSlugs = parseSlugArray(files.slugs, "WAVE3_COMPLETE_FISHING_LAKE_SLUGS");
 requireText(files.slugs, "...BASE_COMPLETE_FISHING_LAKE_SLUGS", "complete-lake registry must compose the validated base collection");
 requireText(files.slugs, "...WAVE2_COMPLETE_FISHING_LAKE_SLUGS", "complete-lake registry must compose the authoritative wave-2 collection");
-const completeSlugs = [...baseCompleteSlugs, ...wave2CompleteSlugs];
+requireText(files.slugs, "...WAVE3_COMPLETE_FISHING_LAKE_SLUGS", "complete-lake registry must compose the authoritative wave-3 collection");
+const completeSlugs = [...baseCompleteSlugs, ...wave2CompleteSlugs, ...wave3CompleteSlugs];
 if (baseCompleteSlugs.length !== 10) throw new Error(`Fishing Batch 15 validation failed: expected exactly 10 previously validated complete lakes, found ${baseCompleteSlugs.length}.`);
-if (wave2CompleteSlugs.length !== 5) throw new Error(`Fishing Batch 15 validation failed: expected exactly 5 wave-2 complete lakes, found ${wave2CompleteSlugs.length}.`);
-if (new Set(completeSlugs).size !== 15) throw new Error(`Fishing Batch 15 validation failed: expected exactly 15 unique complete lakes, found ${new Set(completeSlugs).size}.`);
+if (wave2CompleteSlugs.length !== 5) throw new Error(`Fishing lake expansion validation failed: expected exactly 5 wave-2 complete lakes, found ${wave2CompleteSlugs.length}.`);
+if (wave3CompleteSlugs.length !== 10) throw new Error(`Fishing lake expansion validation failed: expected exactly 10 wave-3 complete lakes, found ${wave3CompleteSlugs.length}.`);
+if (new Set(completeSlugs).size !== 25) throw new Error(`Fishing lake expansion validation failed: expected exactly 25 unique complete lakes, found ${new Set(completeSlugs).size}.`);
 for (const slug of allComplete) if (!completeSlugs.includes(slug)) throw new Error(`Fishing Batch 15 validation failed: complete-lake registry missing ${slug}.`);
 requireText(files.routing, "WAVE2_SHOWCASE_LAKE_SLUGS = WAVE2_COMPLETE_FISHING_LAKE_SLUGS", "wave-2 routing must reuse the authoritative complete-lake slug tuple");
+requireText(files.routing, "WAVE3_SHOWCASE_LAKE_SLUGS = WAVE3_COMPLETE_FISHING_LAKE_SLUGS", "wave-3 routing must reuse the authoritative complete-lake slug tuple");
 
 for (const token of [
   "expandedFishingLakes",
@@ -86,17 +113,24 @@ for (const token of [
   "wave2FishingLakes",
   "wave2LakeSpeciesProfiles",
   "wave2LakeTechniqueProfiles",
-  "const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes]",
-  "const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles]",
-  "const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles]",
+  "wave3FishingLakes",
+  "wave3LakeSpeciesProfiles",
+  "wave3LakeTechniqueProfiles",
+  "const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes, ...wave3FishingLakes]",
+  "const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles, ...wave3LakeSpeciesProfiles]",
+  "const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles, ...wave3LakeTechniqueProfiles]",
   "derivePrototypeTechniqueProfiles",
   "reconcileLakeTechniqueProfiles",
   "prototypeTechniqueProfiles",
   "lakeTechniques,",
 ]) requireText(files.index, token, `validated repository expansion/reconciliation boundary missing ${token}`);
 
-for (const token of ["tpwdLake", "tpwdAccess", "tpwdRegulations", "liveLevel"]) { requireText(files.expansionPrototypes, `${token}:`, `official/live-check source key missing ${token}`); requireText(files.wave2Prototypes, `${token}:`, `wave-2 official/live-check source key missing ${token}`); }
-for (const url of [...`${files.expansionFixtures}\n${files.expansionPrototypes}\n${files.wave2Fixtures}\n${files.wave2Prototypes}`.matchAll(/url:\s*"([^"]+)"/g)].map((match) => match[1])) {
+for (const token of ["tpwdLake", "tpwdAccess", "tpwdRegulations", "liveLevel"]) {
+  requireText(files.expansionPrototypes, `${token}:`, `official/live-check source key missing ${token}`);
+  requireText(files.wave2Prototypes, `${token}:`, `wave-2 official/live-check source key missing ${token}`);
+  requireText(files.wave3Prototypes, `${token}:`, `wave-3 official/live-check source key missing ${token}`);
+}
+for (const url of [...`${files.expansionFixtures}\n${files.expansionPrototypes}\n${files.wave2Fixtures}\n${files.wave2Prototypes}\n${files.wave3Fixtures}\n${files.wave3Prototypes}`.matchAll(/url:\s*"([^"]+)"/g)].map((match) => match[1])) {
   if (!url.startsWith("https://")) throw new Error(`Fishing Batch 15 validation failed: source must use https: ${url}`);
 }
 for (const [slug] of newLakes) {
@@ -107,17 +141,28 @@ for (const [slug] of wave2Lakes) {
   const relationCount = [...files.wave2Fixtures.matchAll(new RegExp(`lakeId: "${slug}"`, "g"))].length;
   if (relationCount < 3) throw new Error(`Fishing Batch 15 validation failed: ${slug} has insufficient verified wave-2 relationship depth (${relationCount}).`);
 }
+
+for (const [slug] of wave3Lakes) {
+  const relationCount = [...files.wave3Fixtures.matchAll(new RegExp(`lakeId: "${slug}"`, "g"))].length;
+  if (relationCount < 6) throw new Error(`Fishing lake expansion validation failed: ${slug} has insufficient verified wave-3 relationship/technique depth (${relationCount}).`);
+}
 const wave2TechniqueCorpus = files.wave2Fixtures.split("export const wave2LakeTechniqueProfiles")[1] ?? "";
 for (const [slug] of wave2Lakes) {
   const techniqueCount = [...wave2TechniqueCorpus.matchAll(new RegExp(`lakeId: "${slug}"`, "g"))].length;
   if (techniqueCount < 3) throw new Error(`Fishing Batch 15 validation failed: ${slug} has insufficient verified technique coverage (${techniqueCount}).`);
 }
+
+const wave3TechniqueCorpus = files.wave3Fixtures.split("export const wave3LakeTechniqueProfiles")[1] ?? "";
+for (const [slug] of wave3Lakes) {
+  const techniqueCount = [...wave3TechniqueCorpus.matchAll(new RegExp(`lakeId: "${slug}"`, "g"))].length;
+  if (techniqueCount < 3) throw new Error(`Fishing lake expansion validation failed: ${slug} has insufficient verified wave-3 technique coverage (${techniqueCount}).`);
+}
 for (const token of ["USGS-08136600", "USGS-302329097542100", "USGS-08092500", "USGS-08017400", "USGS-263318099090800"]) requireText(files.wave2Fixtures, token, `wave-2 coordinate provenance missing ${token}`);
 
-const liveSourceCorpus = `${files.conroePrototype}\n${files.showcasePrototypes}\n${files.expansionPrototypes}\n${files.wave2Prototypes}`;
+const liveSourceCorpus = `${files.conroePrototype}\n${files.showcasePrototypes}\n${files.expansionPrototypes}\n${files.wave2Prototypes}\n${files.wave3Prototypes}`;
 const liveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevel:\s*\{[^}]*url:\s*"(https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
 const uniqueLiveSources = new Set(liveSourceUrls);
-if (uniqueLiveSources.size !== 15) throw new Error(`Fishing Batch 15 validation failed: expected 15 unique Water Data for Texas live-level sources, found ${uniqueLiveSources.size}.`);
+if (uniqueLiveSources.size !== 25) throw new Error(`Fishing lake expansion validation failed: expected 25 unique Water Data for Texas live-level sources, found ${uniqueLiveSources.size}.`);
 
 for (const token of [
   "parseWaterDataForTexasReservoirCsv",
@@ -189,15 +234,17 @@ for (const token of [
 for (const token of [
   "expandedShowcaseLakePrototypes",
   "wave2ShowcaseLakePrototypes",
-  "const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes }",
+  "wave3ShowcaseLakePrototypes",
+  "const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes, ...wave3ShowcaseLakePrototypes }",
   "SHOWCASE_LAKE_SECTION_SLUGS",
 ]) requireText(files.server, token, `expanded server page-data integration missing ${token}`);
-for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "PublishedShowcaseLakeSlug"]) requireText(files.routing, token, `expanded routing contract missing ${token}`);
+for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "WAVE3_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "PublishedShowcaseLakeSlug"]) requireText(files.routing, token, `expanded routing contract missing ${token}`);
 requireText(files.showcasePrototypes, "slug: PublishedShowcaseLakeSlug;", "showcase prototype slug type must accept the published showcase-lake union");
 requireText(files.expansionPrototypes, 'import type { ExpandedShowcaseLakeSlug } from "./showcase-lake-routing";', "expanded prototypes must consume the authoritative routing slug type");
 requireText(files.wave2Prototypes, 'import type { Wave2ShowcaseLakeSlug } from "./showcase-lake-routing";', "wave-2 prototypes must consume the authoritative routing slug type");
+requireText(files.wave3Prototypes, 'import type { Wave3ShowcaseLakeSlug } from "./showcase-lake-routing";', "wave-3 prototypes must consume the authoritative routing slug type");
 if (files.expansionPrototypes.includes("export const EXPANDED_SHOWCASE_LAKE_SLUGS")) throw new Error("Fishing Batch 15 validation failed: expanded prototypes must not maintain a duplicate showcase-lake slug registry.");
-for (const [label, source] of [["expanded", files.expansionPrototypes], ["wave-2", files.wave2Prototypes]]) {
+for (const [label, source] of [["expanded", files.expansionPrototypes], ["wave-2", files.wave2Prototypes], ["wave-3", files.wave3Prototypes]]) {
   if (source.includes("asLegacySlug") || source.includes("as unknown as ShowcaseLakeSlug")) throw new Error(`Fishing Batch 15 validation failed: ${label} prototypes must not bypass the published showcase-lake slug type with a legacy cast.`);
 }
 for (const route of [files.overviewRoute, files.sectionRoute]) {
@@ -219,7 +266,7 @@ for (const token of [
 ]) requireText(files.directoryRoute, token, `fifteen-lake directory SEO/data contract missing ${token}`);
 for (const token of ["rows.length} complete Texas fishing lake guides are published", "Check Current Lake Conditions Before You Go", "unfinished lake records are not exposed here as thin pages"]) requireText(files.directoryUi, token, `fifteen-lake directory UI integrity contract missing ${token}`);
 for (const token of ["const featuredLakes = lakes.slice(0, 6)", "Featured Texas Fishing Lakes", "Browse fishing lakes →", 'fishingFoundationAnchor("lake", lake.slug)', 'isCompleteFishingLakeSlug(lake.slug) ? "Full fishing guide" : "Lake profile"']) requireText(files.hub, token, `statewide hub expansion/discovery missing ${token}`);
-for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "ALL_SHOWCASE_LAKE_SLUGS", "showcaseLakeCanonicalPath(slug, section)"]) requireText(files.sitemap, token, `expanded lake sitemap publication missing ${token}`);
+for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "WAVE3_SHOWCASE_LAKE_SLUGS", "ALL_SHOWCASE_LAKE_SLUGS", "showcaseLakeCanonicalPath(slug, section)"]) requireText(files.sitemap, token, `expanded lake sitemap publication missing ${token}`);
 
 const volatilePatterns = [
   /\bcurrent(?:ly)?\s+\d+(?:\.\d+)?%\s+full\b/i,
@@ -228,10 +275,17 @@ const volatilePatterns = [
   /daily bag limit\s*[:=]\s*\d+/i,
   /\b\d+-inch minimum\b/i,
 ];
-const evergreenPrototypeCorpus = `${files.expansionPrototypes}\n${files.wave2Prototypes}`;
+const evergreenPrototypeCorpus = `${files.expansionPrototypes}\n${files.wave2Prototypes}\n${files.wave3Prototypes}`;
 for (const pattern of volatilePatterns) if (pattern.test(evergreenPrototypeCorpus)) throw new Error(`Fishing Batch 15 validation failed: volatile condition/fee/harvest claim frozen into evergreen prototype (${pattern}).`);
-for (const phrase of ["guaranteed catch", "today's best lake", "sponsored ranking", "affiliate pick"]) if (`${files.expansionFixtures}\n${files.expansionPrototypes}\n${files.wave2Fixtures}\n${files.wave2Prototypes}\n${files.directoryUi}`.toLowerCase().includes(phrase)) throw new Error(`Fishing Batch 15 validation failed: unsupported editorial/commercial claim leaked (${phrase}).`);
+for (const phrase of ["guaranteed catch", "today's best lake", "sponsored ranking", "affiliate pick"]) if (`${files.expansionFixtures}\n${files.expansionPrototypes}\n${files.wave2Fixtures}\n${files.wave2Prototypes}\n${files.wave3Fixtures}\n${files.wave3Prototypes}\n${files.directoryUi}`.toLowerCase().includes(phrase)) throw new Error(`Fishing Batch 15 validation failed: unsupported editorial/commercial claim leaked (${phrase}).`);
 
-requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
+requireText(files.expansionPriority, "FISHING_LAKE_EXPANSION_PRIORITY_COUNT", "future lake expansion queue count export missing");
+const prioritySlugs = [...files.expansionPriority.matchAll(/\{ slug: "([a-z0-9-]+)"/g)].map((match) => match[1]);
+if (prioritySlugs.length !== 50) throw new Error(`Fishing lake expansion validation failed: expected exactly 50 guarded future lake candidates, found ${prioritySlugs.length}.`);
+if (new Set(prioritySlugs).size !== prioritySlugs.length) throw new Error("Fishing lake expansion validation failed: future lake queue contains duplicate slugs.");
+for (const slug of completeSlugs) if (prioritySlugs.includes(slug)) throw new Error(`Fishing lake expansion validation failed: completed lake remains in future queue: ${slug}.`);
+for (const token of ["MUST NOT become public", "until their own TPWD/source", "fish-relationship", "access", "live-level"]) requireText(files.expansionPriority, token, `future lake anti-thin publication guard missing ${token}`);
 
-console.log("Fishing Batch 15 lake-expansion validation passed: fifteen complete lake guides, fifteen Water Data for Texas live-level sources, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, single-lake SSR snapshots bounded to 1.5 seconds while protected all-lake verification retains the full resilient fetcher, page-open client refresh through the safe server function, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, fifteen-lake directory discovery and sitemap publication are protected.");
+requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "lake expansion validator not wired into fishing:validate");
+
+console.log("Fishing lake-expansion validation passed: twenty-five complete lake guides, twenty-five Water Data for Texas live-level sources, a guarded fifty-lake future expansion queue, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, single-lake SSR snapshots bounded to 1.5 seconds while protected all-lake verification retains the full resilient fetcher, page-open client refresh through the safe server function, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, fifteen-lake directory discovery and sitemap publication are protected.");
