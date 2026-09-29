@@ -162,7 +162,13 @@ for (const feature of [
 
 for (const feature of [
   '"@type": "Event"',
-  'eventStatus: "https://schema.org/EventScheduled"',
+  'function eventStatusSchemaUrl',
+  'https://schema.org/EventScheduled',
+  'https://schema.org/EventCancelled',
+  'https://schema.org/EventPostponed',
+  'https://schema.org/EventRescheduled',
+  'previousStartDate',
+  'data-event-status',
   'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
   'description: event.whyItMatters',
   'startDate: window.startDate',
@@ -191,6 +197,9 @@ for (const feature of [
   'organizer:',
   'offers:',
   'performers:',
+  'export type EventSchemaLifecycleStatus',
+  'export interface EventSchemaLifecycle',
+  'lifecycle?: EventSchemaLifecycle',
 ]) {
   if (!enrichment.includes(feature)) errors.push(`Verified Event enrichment registry feature missing: ${feature}.`);
 }
@@ -204,6 +213,23 @@ for (const batchFile of enrichmentBatchFiles) {
   }
   if (!enrichmentRegistry.includes(`...${exportName},`)) {
     errors.push(`Event enrichment registry does not register ${batchFile}.`);
+  }
+}
+
+
+const lifecycleBlocks = [...enrichment.matchAll(/lifecycle:\s*\{([\s\S]*?)\}/g)].map((match) => match[1]);
+for (const block of lifecycleBlocks) {
+  const status = block.match(/status:\s*"([^"]+)"/)?.[1];
+  if (!status || !["scheduled", "cancelled", "postponed", "rescheduled"].includes(status)) {
+    errors.push(`Event lifecycle enrichment has unsupported status: ${status ?? "missing"}.`);
+    continue;
+  }
+  const hasPreviousStartDate = /previousStartDate:\s*"\d{4}-\d{2}-\d{2}(?:T[^"]+)?"\s*/.test(block);
+  if (status === "rescheduled" && !hasPreviousStartDate) {
+    errors.push("Rescheduled Event lifecycle enrichment must include previousStartDate.");
+  }
+  if (status !== "rescheduled" && hasPreviousStartDate) {
+    errors.push(`Event lifecycle ${status} must not include previousStartDate; Google reserves it for EventRescheduled.`);
   }
 }
 
