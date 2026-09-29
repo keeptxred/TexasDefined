@@ -128,7 +128,7 @@ function PaintedChurchDetail() {
 
               <section aria-labelledby="paintings" className="mt-14 border-t border-border pt-8">
                 <p className="eyebrow text-primary">Inside the painted church</p>
-                <h2 id="paintings" className="mt-3 font-display text-4xl">What the paintings are actually showing</h2>
+                <h2 id="paintings" className="mt-3 font-display text-4xl">What the Paintings Show</h2>
                 <div className="mt-8 space-y-10">
                   {profile.paintings.map((section) => <section key={section.heading}><h3 className="font-display text-3xl">{section.heading}</h3><div className="mt-4 space-y-4">{section.paragraphs.map((paragraph) => <p key={paragraph} className="max-w-3xl text-base leading-8 text-muted-foreground">{paragraph}</p>)}</div></section>)}
                 </div>
