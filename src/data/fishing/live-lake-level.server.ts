@@ -188,6 +188,39 @@ function collectLcraRecords(payload: unknown, depth = 0): Record<string, unknown
   return [record, ...nested];
 }
 
+export function parseLcraHydrometLakeLevelCsv(sourceUrl: string, csv: string): LiveLakeLevelSnapshot | null {
+  const siteNumber = getLcraHydrometSiteNumber(sourceUrl);
+  if (!siteNumber) return null;
+
+  const lines = csv.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
+  if (lines.length < 2) return null;
+
+  const headers = parseCsvLine(lines[0]).map(normalizeCsvHeader);
+  const siteIndex = ["site_number", "site", "site_no", "station_number", "station"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 0;
+  const nameIndex = ["lake", "lake_name", "name", "location", "site_name"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 1;
+  const dateIndex = ["read_date", "date_time", "datetime", "date", "timestamp", "last_update"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 2;
+  const levelIndex = ["current_level", "lake_level", "water_level", "elevation", "head", "level"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 3;
+
+  let best: { timestamp: number; snapshot: LiveLakeLevelSnapshot } | null = null;
+  for (const line of lines.slice(1)) {
+    const values = parseCsvLine(line);
+    const rowSite = String(values[siteIndex] ?? "").replace(/\D/g, "");
+    const rowName = String(values[nameIndex] ?? "").trim().toLowerCase();
+    if (rowSite !== siteNumber && !(siteNumber === "5634" && rowName.includes("fayette"))) continue;
+
+    const measuredAt = parseLcraMeasuredDate(values[dateIndex]);
+    const elevationFeet = parseLcraNumber(values[levelIndex]);
+    if (!measuredAt || elevationFeet == null || elevationFeet < 0 || elevationFeet > 10_000) continue;
+
+    const timestamp = Date.parse(`${measuredAt}T12:00:00Z`);
+    if (!Number.isFinite(timestamp)) continue;
+    const snapshot: LiveLakeLevelSnapshot = { sourceUrl, measuredAt, percentFull: null, elevationFeet };
+    if (!best || timestamp > best.timestamp) best = { timestamp, snapshot };
+  }
+
+  return best?.snapshot ?? null;
+}
+
 export function parseLcraHydrometLakeLevel(sourceUrl: string, payload: unknown): LiveLakeLevelSnapshot | null {
   const siteNumber = getLcraHydrometSiteNumber(sourceUrl);
   if (!siteNumber) return null;
@@ -223,11 +256,39 @@ export async function loadLiveLakeLevel(sourceUrl: string): Promise<LiveLakeLeve
   const lcraSiteNumber = getLcraHydrometSiteNumber(sourceUrl);
   if (lcraSiteNumber) {
     try {
+      const csvResponse = await fetch("https://hydromet.lcra.org/media/LakeLevel.csv", {
+        cache: "no-store",
+        headers: {
+          accept: "text/csv,text/plain;q=0.9,*/*;q=0.1",
+          "user-agent": "TexasDefined-Live-Lake-Level/1.5",
+          referer: sourceUrl,
+        },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      if (csvResponse.ok) {
+        const csvSnapshot = parseLcraHydrometLakeLevelCsv(sourceUrl, await csvResponse.text());
+        if (csvSnapshot && snapshotIsFresh(csvSnapshot)) return csvSnapshot;
+      }
+
+      const allSitesResponse = await fetch("https://hydromet.lcra.org/api/GetLakeLevelsForAllSites/", {
+        cache: "no-store",
+        headers: {
+          accept: "application/json,text/plain;q=0.9,*/*;q=0.1",
+          "user-agent": "TexasDefined-Live-Lake-Level/1.5",
+          referer: sourceUrl,
+        },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+      if (allSitesResponse.ok) {
+        const allSitesSnapshot = parseLcraHydrometLakeLevel(sourceUrl, await allSitesResponse.json());
+        if (allSitesSnapshot && snapshotIsFresh(allSitesSnapshot)) return allSitesSnapshot;
+      }
+
       const response = await fetch(`https://hydromet.lcra.org/api/GetDataBySite/${lcraSiteNumber}/lakelevel`, {
         cache: "no-store",
         headers: {
           accept: "application/json,text/plain;q=0.9,*/*;q=0.1",
-          "user-agent": "TexasDefined-Live-Lake-Level/1.4",
+          "user-agent": "TexasDefined-Live-Lake-Level/1.5",
           referer: sourceUrl,
         },
         signal: AbortSignal.timeout(TIMEOUT_MS),
