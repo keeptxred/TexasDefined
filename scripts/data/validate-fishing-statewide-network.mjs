@@ -107,6 +107,17 @@ for (const token of [
 if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 24) fail("expected 24 statewide-network TWDB live-water mappings");
 if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
 
+for (const slug of twdbLiveExpectedSlugs) {
+  requireText(files.liveWorkflow, slug, `production live-water workflow missing ${slug}`);
+}
+for (const slug of officialFallbackSlugs) {
+  if (files.liveWorkflow.includes(slug)) fail(`unmonitored fallback lake must not be a release-blocking live-water check: ${slug}`);
+}
+for (const token of [
+  "All 39 monitored lake page-data snapshots and server paths are current",
+  "All 39 monitored lake snapshots and live UI surfaces passed",
+]) requireText(files.liveWorkflow, token, `production live-water workflow coverage contract missing ${token}`);
+
 for (const token of [
   "statewideNetworkFishingLakes",
   "statewideNetworkLakeSpeciesProfiles",
