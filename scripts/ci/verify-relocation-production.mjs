@@ -20,7 +20,10 @@ const routes = [
 ];
 const toolkitLinks = routes
   .map(([path]) => path)
-  .filter((path) => !['/moving-to-texas', '/moving-to-texas/tools', '/moving-to-texas-checklist'].includes(path));
+  .filter((path) =>
+    !['/moving-to-texas', '/moving-to-texas/tools', '/moving-to-texas-checklist'].includes(path)
+    && !path.startsWith('/article/')
+  );
 const RETRY_ATTEMPTS = 6;
 const RETRY_DELAY_MS = 5000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
