@@ -117,11 +117,17 @@ const requiredLakes = [
   "lake-ray-hubbard",
   "lake-bridgeport",
   "lake-o-the-pines",
+  "lake-fork",
+  "o-h-ivie-lake",
+  "richland-chambers-reservoir",
+  "fayette-county-reservoir",
+  "lake-nacogdoches",
 ];
 for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
   const commonsToken = `"${slug}": commonsLake(`;
-  if (!files.library.includes(localToken) && !files.library.includes(commonsToken)) fail(`governed lake image inventory missing ${slug}`);
+  const remoteToken = `"${slug}": remoteLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken)) fail(`governed lake image inventory missing ${slug}`);
 }
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
@@ -129,7 +135,7 @@ const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|s
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
-if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
+if (commonsLakeBlocks.length < 28) fail(`expected at least 28 exact Commons lake images, found ${commonsLakeBlocks.length}`);
 for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
   const end = files.library.indexOf("\n  ),", start);
@@ -137,8 +143,21 @@ for (const slug of commonsLakeBlocks) {
   for (const token of ["Wikimedia Commons", "sourceUrl", "actualLocation"]) {
     if (token === "sourceUrl" || token === "actualLocation") continue;
   }
-  if (!block.includes("CC BY") && !block.includes("Public domain")) fail(`Commons lake image missing explicit reusable license: ${slug}`);
+  if (!block.includes("CC BY") && !block.includes("Public domain") && !block.includes("No known restrictions")) fail(`Commons lake image missing explicit reusable rights basis: ${slug}`);
 }
+
+
+const remoteLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": remoteLake\(/gm)].map((match) => match[1]);
+if (remoteLakeBlocks.length < 3) fail(`expected at least 3 governed external exact-lake images, found ${remoteLakeBlocks.length}`);
+for (const slug of remoteLakeBlocks) {
+  const start = files.library.indexOf(`  "${slug}": remoteLake(`);
+  const end = files.library.indexOf("\n  ),", start);
+  const block = files.library.slice(start, end > start ? end + 5 : start + 1800);
+  if (!block.includes("https://")) fail(`remote lake image missing HTTPS provenance: ${slug}`);
+  if (!block.includes("CC BY") && !block.includes("NASA media usage guidelines")) fail(`remote lake image missing explicit commercial/editorial reuse basis: ${slug}`);
+}
+if (requiredLakes.length !== 41) fail(`expected 41 complete lake-photo mappings, found ${requiredLakes.length}`);
+
 
 
 for (const token of [
