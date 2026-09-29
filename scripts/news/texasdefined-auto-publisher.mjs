@@ -114,6 +114,20 @@ async function readyQueue() {
   return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
 }
 
+async function countReadyQueue() {
+  const params = new URLSearchParams({ select: 'id' });
+  if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
+  const response = await supabase(`/rest/v1/texasdefined_ready_queue?${params}`, {
+    headers: { Prefer: 'count=exact', Range: '0-0' },
+  });
+  const contentRange = response.headers.get('content-range') || '';
+  const match = /\/(\d+)$/.exec(contentRange);
+  if (!match) {
+    throw new Error(`TexasDefined ready queue did not return an exact count (Content-Range: ${contentRange || 'missing'}).`);
+  }
+  return Number(match[1]);
+}
+
 async function destinations() {
   const params = new URLSearchParams({
     select: 'slug,name,summary,region',
@@ -212,14 +226,18 @@ if (publishRequested) {
 }
 
 if (exactFeedId) await hydrateExactFeed();
-const queue = await readyQueue();
+const [totalEligible, queue] = await Promise.all([countReadyQueue(), readyQueue()]);
 if (exactFeedId && queue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
 }
 console.log(JSON.stringify({
   mode: publishRequested ? 'publish' : 'dry-run',
   requestedFeedId: exactFeedId,
-  eligible: queue.length,
+  eligible: totalEligible,
+  inspected: queue.length,
+  published: 0,
+  skipped: 0,
+  failed: 0,
   ids: queue.map((item) => item.id),
 }));
 if (publishRequested && queue.length > 0) {
