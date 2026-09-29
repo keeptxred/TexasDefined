@@ -1,9 +1,11 @@
 import type { LiveLakeLevelSnapshot } from "./live-lake-level.server";
 import {
+  parseLcraHydrometLakeLevel,
   parseWaterDataForTexasRecentConditions,
   parseWaterDataForTexasReservoirCsv,
   parseWaterDataForTexasReservoirPage,
 } from "./live-lake-level.server";
+import { getLcraHydrometSiteNumber, isWaterDataForTexasLiveLevelSource } from "./live-lake-level-source";
 
 const RECENT_CONDITIONS_URL = "https://waterdatafortexas.org/reservoirs/recent-conditions.json";
 const MAX_DISPLAY_AGE_DAYS = 7;
@@ -23,13 +25,13 @@ function snapshotIsFresh(snapshot: LiveLakeLevelSnapshot, now = new Date()) {
   return ageDays >= -1 && ageDays <= MAX_DISPLAY_AGE_DAYS;
 }
 
-function headers(accept: string) {
+function headers(accept: string, referer = "https://waterdatafortexas.org/reservoirs/statewide") {
   return {
     accept,
     "accept-language": "en-US,en;q=0.9",
     "cache-control": "no-cache",
     pragma: "no-cache",
-    referer: "https://waterdatafortexas.org/reservoirs/statewide",
+    referer,
     "user-agent": BROWSER_USER_AGENT,
   };
 }
@@ -100,8 +102,26 @@ async function fetchHtmlSnapshot(canonicalSourceUrl: string) {
   }
 }
 
+async function fetchLcraSnapshot(sourceUrl: string, siteNumber: string) {
+  try {
+    const response = await fetch(`https://hydromet.lcra.org/api/GetDataBySite/${siteNumber}/lakelevel`, {
+      cache: "no-store",
+      redirect: "follow",
+      headers: headers("application/json,text/plain;q=0.9,*/*;q=0.1", sourceUrl),
+      signal: AbortSignal.timeout(PRIMARY_TIMEOUT_MS),
+    });
+    if (!response.ok) return null;
+    const snapshot = parseLcraHydrometLakeLevel(sourceUrl, await response.json());
+    return snapshot && snapshotIsFresh(snapshot) ? snapshot : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function loadLiveLakeLevelResilient(sourceUrl: string): Promise<LiveLakeLevelSnapshot | null> {
-  if (!/^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+\/?$/i.test(sourceUrl)) return null;
+  const lcraSiteNumber = getLcraHydrometSiteNumber(sourceUrl);
+  if (lcraSiteNumber) return fetchLcraSnapshot(sourceUrl, lcraSiteNumber);
+  if (!isWaterDataForTexasLiveLevelSource(sourceUrl)) return null;
 
   const canonicalSourceUrl = sourceUrl.replace(/\/$/, "");
   const recent = await fetchRecentSnapshot(canonicalSourceUrl);
