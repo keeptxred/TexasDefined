@@ -51,7 +51,7 @@ function comparePrograms(left: FootballIsdProgram, right: FootballIsdProgram) {
   const leftDivision = left.division ?? 0;
   const rightDivision = right.division ?? 0;
   if (leftDivision !== rightDivision) return leftDivision - rightDivision;
-  return (left.officialSchoolName || left.schoolName).localeCompare(right.officialSchoolName || right.schoolName);
+  return left.schoolName.localeCompare(right.schoolName);
 }
 
 function uniqueSorted(values: Array<string | undefined>) {
