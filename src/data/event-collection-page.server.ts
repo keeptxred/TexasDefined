@@ -18,6 +18,7 @@ import {
   type TournamentCollectionDefinition,
 } from "./texas-tournament-collections";
 import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server";
+import { loadTexasThisWeekendDigestServer } from "./texas-this-weekend.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -168,8 +169,11 @@ export function loadEventCollectionPageServer(slug: string) {
     .filter((item): item is CollectionDefinition => Boolean(item))
     .map(({ path, title, description }) => ({ path, title, description }));
 
+  const weekendDigest = temporal?.slug === "this-weekend" ? loadTexasThisWeekendDigestServer() : null;
+
   return {
     ...collection,
+    weekendDigest,
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
