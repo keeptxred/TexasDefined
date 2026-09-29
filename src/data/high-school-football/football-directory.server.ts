@@ -375,6 +375,32 @@ function includesQuery(value: string, query: string) {
   return normalizedValue.includes(query) || cleanName(expandSearchName(value)).includes(query);
 }
 
+function suppressDuplicateTeaAssignments(programs: FootballProgramDirectoryResult[]) {
+  const counts = new Map<string, number>();
+  for (const program of programs) {
+    if (program.teaSchoolNumber) counts.set(program.teaSchoolNumber, (counts.get(program.teaSchoolNumber) ?? 0) + 1);
+  }
+
+  return programs.map((program) => {
+    if (!program.teaSchoolNumber || (counts.get(program.teaSchoolNumber) ?? 0) === 1) return program;
+    const {
+      officialSchoolName: _officialSchoolName,
+      districtName: _districtName,
+      isdProfilePath: _isdProfilePath,
+      countyName: _countyName,
+      city: _city,
+      teaSchoolNumber: _teaSchoolNumber,
+      teaDistrictNumber: _teaDistrictNumber,
+      teaSchoolProfileUrl: _teaSchoolProfileUrl,
+      teaDistrictProfileUrl: _teaDistrictProfileUrl,
+      schoolWebsite: _schoolWebsite,
+      districtWebsite: _districtWebsite,
+      ...uilOnly
+    } = program;
+    return uilOnly;
+  });
+}
+
 export async function loadAllFootballProgramsWithDirectory() {
   if (allProgramDirectoryCache && Date.now() - allProgramDirectoryCache.loadedAt < CACHE_TTL_MS) {
     return allProgramDirectoryCache.programs;
@@ -382,9 +408,9 @@ export async function loadAllFootballProgramsWithDirectory() {
 
   const directory = await loadTeaSchoolDirectory();
   const directoryMatcher = buildDirectoryMatcher(directory);
-  const programs = UIL_FOOTBALL_PROGRAMS_2026
-    .map((program) => withDirectory(program, directoryMatcher))
-    .sort((a, b) => {
+  const programs = suppressDuplicateTeaAssignments(
+    UIL_FOOTBALL_PROGRAMS_2026.map((program) => withDirectory(program, directoryMatcher)),
+  ).sort((a, b) => {
       const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
       if (classDiff) return classDiff;
       if ((a.division ?? 0) !== (b.division ?? 0)) return (a.division ?? 0) - (b.division ?? 0);
@@ -464,8 +490,8 @@ export async function searchFootballPrograms(options: {
   }
 
   const directoryMatcher = buildDirectoryMatcher(directoryAvailable ? directory : []);
-  const enriched = candidates
-    .map((program) => {
+  const enriched = suppressDuplicateTeaAssignments(
+    candidates.map((program) => {
       const base = withDirectory(program, directoryMatcher);
       const history = recentHistory
         ? recentFootballHistoryFromLoaded(recentHistory, base.schoolName, base.officialSchoolName)
@@ -478,8 +504,8 @@ export async function searchFootballPrograms(options: {
         ...(history ? { recentHistory: history } : {}),
         ...(allTime ? { allTimeHistory: allTime } : {}),
       };
-    })
-    .sort((a, b) => {
+    }),
+  ).sort((a, b) => {
       const classDiff = Number(b.classification[0]) - Number(a.classification[0]);
       if (classDiff) return classDiff;
       if ((a.division ?? 0) !== (b.division ?? 0)) return (a.division ?? 0) - (b.division ?? 0);
