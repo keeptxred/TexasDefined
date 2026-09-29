@@ -73,7 +73,7 @@ function FishingLakeSectionRoute() {
     <LakeConroeGuide section={data.section} reports={data.reports} guides={data.guides} pageData={data.pageData} />
   </>;
   return <>
-    <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
+    {isDirectLiveLevelSource(data.pageData.sources.liveLevel.url) && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
     <ShowcaseLakeGuide section={data.section} reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
   </>;
 }
@@ -94,3 +94,5 @@ function showcaseSectionCitations(section: ShowcaseLakeSection, sources: Record<
   if (section === "boating") return [sources.liveLevel.url, sources.tpwdLake.url];
   return [sources.tpwdLake.url];
 }
+
+function isDirectLiveLevelSource(url: string) { return /^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\//i.test(url); }
