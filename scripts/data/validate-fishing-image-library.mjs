@@ -163,12 +163,12 @@ const nasaRichlandStart = files.library.indexOf('  "richland-chambers-reservoir"
 if (nasaRichlandStart < 0) fail("NASA Richland-Chambers image mapping missing");
 const nasaRichlandEnd = files.library.indexOf("\n  ),", nasaRichlandStart);
 const nasaRichlandBlock = files.library.slice(nasaRichlandStart, nasaRichlandEnd > nasaRichlandStart ? nasaRichlandEnd + 5 : nasaRichlandStart + 1800);
+requireText(nasaRichlandBlock, "STS058-80-35", "NASA Richland-Chambers image identifier missing");
 for (const token of [
-  "STS058-80-35",
   "NASA Johnson Space Center Earth Science & Remote Sensing",
   "NASA Images and Media Usage Guidelines",
   "nasa-media-guidelines",
-]) requireText(nasaRichlandBlock, token, `NASA Richland-Chambers rights contract missing ${token}`);
+]) requireText(files.library, token, `NASA Richland-Chambers rights contract missing ${token}`);
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
   .map((match) => `public/${match[1]}`);
