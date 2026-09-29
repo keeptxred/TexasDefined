@@ -192,7 +192,7 @@ function SportsVenueComparisonPage() {
         </section>
 
         <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
-          <div><p className="eyebrow text-primary">Source policy</p><h2 className="mt-2 font-display text-3xl">What this table does—and does not—claim</h2></div>
+          <div><p className="eyebrow text-primary">Source policy</p><h2 className="mt-2 font-display text-3xl">How to read this comparison</h2></div>
           <div className="max-w-4xl space-y-4 text-sm leading-7 text-muted-foreground">
             <p>This comparison and its CSV download use the same verified TexasDefined venue profiles that power the individual visitor guides. They are intended for durable comparison, not live event operations.</p>
             <p>Capacity, naming, event configuration, parking, entry, ticketing and operating details can change. Open the venue guide and follow its official source links before relying on a current event-day detail.</p>
