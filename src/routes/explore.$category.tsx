@@ -3,13 +3,14 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
-import { metroProximityRoute, resolveMetroProximityPageBySlug } from "@/data/metro-proximity";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const SWIMMING_HOLES_RIVER_TUBING_SLUG = "swimming-holes-river-tubing";
+const METRO_PROXIMITY_SLUG_PATTERN = /^(?:small-towns-within-(?:1-hour|2-hours|3-hours)-of|weekend-trips-from|state-parks-near|lakes-near|swimming-holes-near|road-trips-from)-(?:houston|dallas-fort-worth|austin|san-antonio)$/;
+const isMetroProximitySlug = (slug: string) => METRO_PROXIMITY_SLUG_PATTERN.test(slug);
 const COASTAL_AUTHORITY_ITEM_COUNT = 52;
 const COASTAL_AUTHORITY_PATH = "/content/explore-category-authority/beaches-coast-directory.html";
 const FOOD_AUTHORITY_WAVE_PATH = "/content/explore-category-authority/food-bbq-destinations-wave-20260918.html";
@@ -109,16 +110,19 @@ export const Route = createFileRoute("/explore/$category")({
     }
   },
   loader: async ({ context, params }) => {
-    if (metroProximityRoute(params.category)) {
-      const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
+    if (isMetroProximitySlug(params.category)) {
+      const [{ resolveMetroProximityPageBySlug }, destinations] = await Promise.all([
+        import("@/data/metro-proximity"),
+        context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 })),
+      ]);
       const metroProximity = resolveMetroProximityPageBySlug(params.category, destinations);
       if (!metroProximity) throw notFound();
-      return { kind: "metro-proximity" as const, metroProximity, articles: [], destinations, authorityHtml: null };
+      return { metroProximity, articles: [], destinations, authorityHtml: null };
     }
 
     if (params.category === "water-towers") {
       const { waterTowersCategory } = await import("@/data/water-towers");
-      return { kind: "category" as const, category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
+      return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
     }
 
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
@@ -144,11 +148,11 @@ export const Route = createFileRoute("/explore/$category")({
           : Promise.resolve(null),
       ]).then((parts) => parts.filter(Boolean).join("\n")) : null,
     ]);
-    return { kind: "category" as const, category, articles, destinations, authorityHtml };
+    return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
-    if (loaderData.kind === "metro-proximity") {
+    if ("metroProximity" in loaderData && loaderData.metroProximity) {
       const page = loaderData.metroProximity;
       const pageUrl = `${siteUrl}${page.canonicalPath}`;
       const hero = page.items[0]?.destination.hero;

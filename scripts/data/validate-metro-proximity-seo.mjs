@@ -46,10 +46,11 @@ requireAll("distance honesty", data, [
 forbidAll("distance honesty", data, ["driveMinutes", "durationMinutes", "exactDriveTime"]);
 
 requireAll("dynamic Explore integration", route, [
-  "metroProximityRoute(params.category)",
+  "isMetroProximitySlug(params.category)",
+  'import("@/data/metro-proximity")',
   "destinationsQuery({ limit: 5000 })",
   "resolveMetroProximityPageBySlug",
-  'kind: "metro-proximity" as const',
+  '"metroProximity" in loaderData',
   'loaderData.kind === "metro-proximity"',
   'page.indexReady ? undefined : "noindex, follow, max-image-preview:large"',
   "canonicalLink(texasDefinedBrand, page.canonicalPath)",
@@ -73,7 +74,7 @@ requireAll("landing-page UX", page, [
 requireAll("category discovery", lazyRoute, [
   "MetroProximityLandingPage",
   "MetroProximityLinks",
-  'data.kind === "metro-proximity"',
+  '"metroProximity" in data',
   "<MetroProximityLinks category={match.slug}",
 ]);
 requireAll("category link registry", links, [

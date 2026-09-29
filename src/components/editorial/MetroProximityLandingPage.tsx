@@ -97,7 +97,7 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
           <p className="eyebrow text-primary">Choose a stop</p>
           <h2 className="mt-2 font-display text-4xl sm:text-5xl">Places that fit this trip</h2>
         </div>
-        <p className="max-w-xl text-sm leading-6 text-muted-foreground">Distance labels are rounded straight-line context from the metro reference point, not road mileage. Start with the reason to go, then verify the actual route.</p>
+        <p className="max-w-xl text-sm leading-6 text-muted-foreground">Distance labels are rounded straight-line context from the metro reference point, not road mileage. Start with the reason to go, then verify the live driving route.</p>
       </div>
 
       <div className="grid gap-x-7 gap-y-10 md:grid-cols-2 xl:grid-cols-3">

@@ -19,8 +19,9 @@ export const Route = createLazyFileRoute("/explore/$category")({ component: Expl
 
 function ExploreCategoryPage() {
   const data = Route.useLoaderData();
-  if (data.kind === "metro-proximity") return <MetroProximityLandingPage page={data.metroProximity} />;
-  const { destinations, authorityHtml, category: match } = data;
+  if ("metroProximity" in data && data.metroProximity) return <MetroProximityLandingPage page={data.metroProximity} />;
+  const { destinations, authorityHtml } = Route.useLoaderData() as typeof data;
+  const { category: match } = data;
   if (match.slug === "water-towers") {
     return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading roadside guide…</p></Container>}><WaterTowersPage /></Suspense>;
   }
