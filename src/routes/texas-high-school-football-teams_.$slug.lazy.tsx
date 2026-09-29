@@ -78,11 +78,11 @@ function Page() {
           {program ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="School" value={schoolName} />
-              <Snapshot label="ISD / district" value={program.districtName || 'TEA directory match pending'} />
-              <Snapshot label="Location" value={[program.city, program.countyName].filter(Boolean).join(' · ') || 'Texas'} />
+              {program.districtName && <Snapshot label="ISD / district" value={program.districtName} />}
+              {(program.city || program.countyName) && <Snapshot label="Location" value={[program.city, program.countyName].filter(Boolean).join(' · ')} />}
               <Snapshot label="UIL classification" value={program.classification} />
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
-              <Snapshot label="UIL reported enrollment" value={program.uilEnrollment ? program.uilEnrollment.toLocaleString('en-US') : 'Exact UIL enrollment pending'} />
+              {program.uilEnrollment && <Snapshot label="UIL reported enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
               <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
