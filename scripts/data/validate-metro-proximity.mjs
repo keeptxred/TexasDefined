@@ -65,7 +65,7 @@ for (const token of [
   '"noindex, follow"',
   "straight-line estimates",
   "not road miles or drive-time promises",
-  'to="/destination/$slug"',
+  "DestinationCard destination={row.destination}",
   'to="/explore/near/$metro"',
 ]) requireText(files.collectionRoute, token, `metro collection route missing ${token}`);
 
