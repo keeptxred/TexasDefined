@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { getMetroProximityHubPageData } from "@/data/metro-proximity-page-data.functions";
 
@@ -19,7 +19,10 @@ export const Route = createFileRoute("/explore/near/$metro")({
 
 function MetroProximityHubPage() {
   const pageData = Route.useLoaderData();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const { metro, collections } = pageData;
+  const hubPath = `/explore/near/${metro.slug}`;
+  if (pathname !== hubPath && pathname !== `${hubPath}/`) return <Outlet />;
 
   return <>
     <main>
