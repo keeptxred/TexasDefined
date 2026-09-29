@@ -90,6 +90,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   "texas-farm-to-market-roads-explained": [
     texasExplainedLink,
     {
+      href: "/article/why-austin-i35-traffic-keeps-getting-worse",
+      label: "Why Austin I-35 traffic keeps getting worse",
+      description: "Contrast Texas's rural road network with the capacity and construction pressures shaping the state's most consequential urban corridor.",
+    },
+    {
       href: "/article/texas-courthouses-town-square",
       label: "Why Texas towns grew around courthouse squares",
       description: "Follow the rural road network into the county seats and town centers that organized local government and commerce.",
