@@ -92,12 +92,12 @@ function cleanName(value: string) {
     .replace(/\bhigh\s+school\b/g, ' ')
     .replace(/\bh\s*s\b/g, ' ')
     .replace(/\bindependent\s+school\s+district\b/g, ' ')
+    .replace(/\bconsolidated\s+independent\s+school\s+district\b/g, ' ')
     .replace(/\bschool\s+district\b/g, ' ')
     .replace(/\bisd\b/g, ' ')
-    .replace(/\bconsolidated\s+independent\s+school\s+district\b/g, ' ')
     .replace(/\bcisd\b/g, ' ')
+    .replace(/[^a-z0-9 ]/g, ' ')
     .replace(/\s+/g, ' ')
-    .replace(/[^a-z0-9 ]/g, '')
     .trim();
 }
 
@@ -110,6 +110,31 @@ function expandSearchName(value: string) {
     .replace(/^wichita falls\s+/i, 'wf ')
     .replace(/^league city\s+/i, 'lc ')
     .replace(/^round rock\s+/i, 'rr ');
+}
+
+function normalizeUilProgramName(value: string) {
+  return cleanName(
+    value
+      .replace(/^ft\s+worth\b/i, 'Fort Worth')
+      .replace(/^fw\s+/i, 'Fort Worth ')
+      .replace(/^wf\s+/i, 'Wichita Falls ')
+      .replace(/^cc\s+/i, 'Corpus Christi ')
+      .replace(/^sa\s+/i, 'San Antonio ')
+      .replace(/^lc\s+/i, 'League City ')
+      .replace(/^rr\s+/i, 'Round Rock ')
+      .replace(/^h\s+/i, 'Houston ')
+      .replace(/^cyp\.?\s+/i, 'Cypress ')
+      .replace(/^mt\.?\s+/i, 'Mount ')
+      .replace(/^n\s+richland\s+hills\b/i, 'North Richland Hills'),
+  );
+}
+
+const SCHOOL_TOKEN_NOISE = new Set(['senior', 'sr', 'junior', 'jr', 'campus']);
+
+function meaningfulTokens(value: string) {
+  return cleanName(value)
+    .split(' ')
+    .filter((token) => token && !SCHOOL_TOKEN_NOISE.has(token));
 }
 
 function parseCsv(text: string) {
@@ -270,41 +295,50 @@ function buildDirectoryMatcher(rows: TeaSchoolDirectoryRecord[]): TeaDirectoryMa
   return { rows: prepared, byDistrictSchool, byCitySchool, bySchool };
 }
 
-function fuzzyMatchScore(
-  programKey: string,
-  programTokens: Set<string>,
-  row: PreparedTeaDirectoryRecord,
-) {
-  const { schoolKey, districtSchool, citySchool, schoolTokens } = row;
-  if (!programKey || !schoolKey) return 0;
-  if (schoolKey.length >= 6 && (programKey.endsWith(` ${schoolKey}`) || programKey.startsWith(`${schoolKey} `))) return 96;
-  if (districtSchool.length >= 7 && (programKey.includes(districtSchool) || districtSchool.includes(programKey))) return 94;
-  if (citySchool.length >= 7 && (programKey.includes(citySchool) || citySchool.includes(programKey))) return 92;
-  if (schoolTokens.length >= 2 && schoolTokens.every((token) => programTokens.has(token))) return 88;
-  return 0;
+function contextualMatchScore(program: UilFootballProgram, row: PreparedTeaDirectoryRecord) {
+  const programKey = normalizeUilProgramName(program.schoolName);
+  const programTokens = programKey.split(' ').filter(Boolean);
+  if (!programTokens.length) return 0;
+
+  const schoolTokens = new Set(meaningfulTokens(row.record.schoolName));
+  const cityTokens = new Set(meaningfulTokens(row.record.city));
+  const districtTokens = new Set(meaningfulTokens(row.record.districtName));
+  const contextTokens = new Set([...schoolTokens, ...cityTokens, ...districtTokens]);
+
+  const schoolOverlap = programTokens.filter((token) => schoolTokens.has(token));
+  if (!schoolOverlap.length) return 0;
+  if (!programTokens.every((token) => contextTokens.has(token))) return 0;
+
+  // A single-token UIL name must be present in the actual campus name, not merely
+  // the city or ISD name. This prevents matches such as Bryan -> O'Bryant Primary.
+  if (programTokens.length === 1 && !schoolTokens.has(programTokens[0])) return 0;
+
+  // Prefer rows where more of the UIL name is carried by the campus itself.
+  return 90 + Math.min(schoolOverlap.length, 6);
 }
 
 function bestDirectoryMatch(program: UilFootballProgram, matcher: TeaDirectoryMatcher) {
-  const programKey = cleanName(program.schoolName);
+  const programKey = normalizeUilProgramName(program.schoolName);
   if (!programKey) return null;
 
   const districtExact = matcher.byDistrictSchool.get(programKey);
-  if (districtExact?.length) return districtExact[0].record;
+  if (districtExact?.length === 1) return districtExact[0].record;
 
   const cityExact = matcher.byCitySchool.get(programKey);
-  if (cityExact?.length) return cityExact[0].record;
+  if (cityExact?.length === 1) return cityExact[0].record;
 
   const schoolExact = matcher.bySchool.get(programKey);
   if (schoolExact?.length === 1) return schoolExact[0].record;
   if ((schoolExact?.length ?? 0) > 1) return null;
 
-  const programTokens = new Set(programKey.split(' ').filter(Boolean));
-  let best: { record: TeaSchoolDirectoryRecord; score: number } | null = null;
-  for (const row of matcher.rows) {
-    const score = fuzzyMatchScore(programKey, programTokens, row);
-    if (score > (best?.score ?? 0)) best = { record: row.record, score };
-  }
-  return best && best.score >= 88 ? best.record : null;
+  const ranked = matcher.rows
+    .map((row) => ({ row, score: contextualMatchScore(program, row) }))
+    .filter((candidate) => candidate.score >= 90)
+    .sort((left, right) => right.score - left.score);
+
+  if (!ranked.length) return null;
+  if (ranked.length > 1 && ranked[0].score === ranked[1].score) return null;
+  return ranked[0].row.record;
 }
 
 function withDirectory(program: UilFootballProgram, matcher: TeaDirectoryMatcher): FootballProgramDirectoryResult {
