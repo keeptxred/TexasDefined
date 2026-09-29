@@ -105,7 +105,7 @@ for (const [needle, label] of [
   ['curatedDisclosure(selection)', 'provider-aware curated disclosure'],
 ]) requireText(bootstrap, needle, label);
 
-for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
+for (const family of ['explore', 'destination', 'city', 'county', 'sports-venue', 'sports-venues', 'event', 'texas-state-fair', 'best-places-to-go-camping-in-texas', 'texas-college-towns', 'texas-tailgating-guide']) {
   requireText(bootstrap, family, `${family} route family`);
 }
 
