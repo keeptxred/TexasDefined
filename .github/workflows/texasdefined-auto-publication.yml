@@ -103,6 +103,11 @@ jobs:
             ids: queue.ids,
           }));
           NODE
+      - name: Refuse publication on workflow reruns
+        if: inputs.mode == 'publish' && github.run_attempt != 1
+        run: |
+          echo "::error::TexasDefined publication requires a fresh manual workflow dispatch; reruns cannot publish."
+          exit 1
       - name: Publish one approved eligible article
-        if: inputs.mode == 'publish'
+        if: inputs.mode == 'publish' && github.run_attempt == 1
         run: node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1
