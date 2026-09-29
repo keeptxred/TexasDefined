@@ -3,9 +3,21 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Container } from "@/components/layout/Container";
-import { METRO_PROXIMITY_COLLECTIONS, metroProximityTitle } from "@/data/metro-proximity";
+import {
+  METRO_PROXIMITY_COLLECTIONS,
+  type MetroProximityCollection,
+  type MetroProximityMetro,
+  type MetroProximityResult,
+} from "@/data/metro-proximity";
 
-export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({ component: MetroProximityCollectionPage });
+export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
+
+type CollectionPageData = {
+  metro: MetroProximityMetro;
+  collection: MetroProximityCollection;
+  results: MetroProximityResult[];
+  indexReady: boolean;
+};
 
 function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip") {
   if (band === "close-in") return "Close to the metro";
@@ -17,8 +29,8 @@ function countySlug(value: string) {
   return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-function MetroProximityCollectionPage() {
-  const { metro, collection, results, indexReady } = Route.useLoaderData();
+export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
+  const { metro, collection, results } = pageData;
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
@@ -32,40 +44,8 @@ function MetroProximityCollectionPage() {
     .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
     .filter((value): value is string => Boolean(value)))]
     .slice(0, 10);
-  const distanceWindow = collection.minimumMiles > 0
-    ? `${collection.minimumMiles}–${collection.radiusMiles} straight-line miles`
-    : `Up to ${collection.radiusMiles} straight-line miles`;
 
   return <>
-    <Container className="pt-10 sm:pt-14">
-      <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
-        <ol className="flex flex-wrap items-center gap-2">
-          <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
-          <li aria-hidden>·</li>
-          <li><Link to="/explore" className="hover:text-foreground">Explore</Link></li>
-          <li aria-hidden>·</li>
-          <li><Link to="/explore/near/$metro" params={{ metro: metro.slug }} className="hover:text-foreground">Near {metro.name}</Link></li>
-          <li aria-hidden>·</li>
-          <li aria-current="page" className="text-foreground">{collection.label}</li>
-        </ol>
-      </nav>
-    </Container>
-
-    <section className="mt-5 border-y border-border bg-surface">
-      <Container className="py-16 sm:py-24">
-        <p className="eyebrow text-primary">{metro.regionLabel} · {collection.label}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{metroProximityTitle(metro, collection)}</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{collection.summary}</p>
-        <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm">
-          <p><span className="eyebrow mr-2 text-muted-foreground">Published options</span>{results.length}</p>
-          <p><span className="eyebrow mr-2 text-muted-foreground">Distance window</span>{distanceWindow}</p>
-          <p><span className="eyebrow mr-2 text-muted-foreground">Ordering</span>Approximate distance</p>
-        </div>
-        <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Distances are straight-line estimates from central {metro.name} used to screen and rank the statewide destination catalog. They are not road miles or drive-time promises; actual routes can be substantially longer or shorter depending on your starting point, traffic and road network.</p>
-        {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until the source-backed catalog reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
-      </Container>
-    </section>
-
     <Container className="py-14 sm:py-18">
       <div className="flex flex-wrap gap-x-6 gap-y-3 border-b border-border pb-6">
         <Link to="/explore/near/$metro" params={{ metro: metro.slug }} className="eyebrow border-b border-primary pb-1 text-primary">All near {metro.name}</Link>

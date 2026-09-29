@@ -6,13 +6,14 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
-  ['metro-houston-hub', '/explore/near/houston', 'Day Trips & Things to Do Near Houston'],
+  ['metro-houston-hub', '/explore/near/houston', 'Explore by trip type'],
   ['metro-houston-weekend-trips', '/explore/near/houston/weekend-trips', 'Weekend Trips From Houston, Texas'],
   ['metro-dallas-small-towns-2-hours', '/explore/near/dallas/small-towns-2-hours', 'Small Towns About 2 Hours From Dallas, Texas'],
   ['metro-austin-swimming-holes', '/explore/near/austin/swimming-holes', 'Swimming Holes Near Austin, Texas'],
   ['metro-san-antonio-road-trips', '/explore/near/san-antonio/road-trips', 'Road Trips From San Antonio, Texas'],
   ['metro-fort-worth-lakes', '/explore/near/fort-worth/lakes', 'Lakes Near Fort Worth, Texas'],
   ['metro-distance-window-copy', '/explore/near/houston/weekend-trips', 'Distance window'],
+  ['metro-quick-shortlist', '/explore/near/houston/weekend-trips', 'Quick shortlist'],
   ['metro-drive-time-disclaimer', '/explore/near/houston/weekend-trips', 'not road miles or drive-time promises'],
   ['metro-explore-sitemap', '/sitemap-explore.xml', '/explore/near/'],
   ['homepage', '/', 'Texas Defined'],

@@ -108,30 +108,46 @@ for (const [label, route, fn] of [
   requireText(route, fn, `${label} critical route missing server-function handoff`);
   requireText(route, "loaderData?.head", `${label} critical route missing server-built head handoff`);
   requireText(route, "throw notFound()", `${label} critical route must reject invalid params`);
-  for (const forbidden of ["DestinationCard", "Container", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
-    if (route.includes(forbidden)) fail(`${label} eager route leaked UI/SEO/catalog payload: ${forbidden}`);
+  requireText(route, "component:", `${label} critical route missing SSR component`);
+  requireText(route, "lazy(() =>", `${label} critical route missing lazy rich-UI boundary`);
+  for (const forbidden of ["DestinationCard", "Container", "MapPreview", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
+    if (route.includes(forbidden)) fail(`${label} eager route leaked heavy UI/SEO/catalog payload: ${forbidden}`);
   }
 }
 
 for (const token of [
-  'createLazyFileRoute("/explore/near/$metro")',
-  "DestinationCard",
+  "component: MetroProximityHubPage",
+  "Explore by trip type",
   "straight-line geographic estimates",
-  'to="/explore/near/$metro/$collection"',
+  "MetroProximityHubRich",
+]) requireText(files.hubRoute, token, `metro hub SSR shell missing ${token}`);
+
+for (const token of [
+  'createLazyFileRoute("/explore/near/$metro")',
+  "MetroProximityHubRich",
+  "DestinationCard",
+  "Nearby places worth opening first",
   'to="/explore/trip-planner"',
-]) requireText(files.hubUi, token, `metro hub lazy UI missing ${token}`);
+]) requireText(files.hubUi, token, `metro hub lazy rich UI missing ${token}`);
+
+for (const token of [
+  "component: MetroProximityCollectionPage",
+  "Distance window",
+  "not road miles or drive-time promises",
+  "Quick shortlist",
+  "Best season:",
+  "MetroProximityCollectionRich",
+]) requireText(files.collectionRoute, token, `metro collection SSR shell missing ${token}`);
 
 for (const token of [
   'createLazyFileRoute("/explore/near/$metro/$collection")',
   "METRO_PROXIMITY_COLLECTIONS",
-  "straight-line estimates",
-  "not road miles or drive-time promises",
+  "MetroProximityCollectionRich",
   "DestinationCard destination={row.destination}",
   "MapPreview",
-  "Distance window",
   'to="/county/$slug"',
   'to="/explore/near/$metro"',
-]) requireText(files.collectionUi, token, `metro collection lazy UI missing ${token}`);
+]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
 if (files.exploreRoute.includes("@/data/metro-proximity")) fail("Explore head route must not eagerly import metro proximity catalog");
 for (const token of [
@@ -172,4 +188,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: five metro hubs and sixty-five governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO plus lazy UI boundaries.");
+console.log("Metro proximity validation passed: five metro hubs and sixty-five governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
