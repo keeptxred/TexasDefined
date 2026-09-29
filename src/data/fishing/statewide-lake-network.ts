@@ -483,6 +483,22 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "National Park Service access includes multiple ramps when water levels allow, camping/picnic areas and an ADA-accessible fishing pier.", nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
     camping: {name:"Lake Meredith National Recreation Area",summary:"The National Park Service manages developed and primitive camping around the reservoir; ramp availability depends on water level."},
   },
+  {
+    slug: "lake-houston", name: "Lake Houston", tpwdSlug: "houston", region: "gulf-coast",
+    summary: "An 11,854-acre San Jacinto River reservoir on Houston's northeast side where blue catfish and spring white-bass runs anchor a metro-accessible multi-species fishery.",
+    surfaceAcres: 11854, maxDepthFeet: 45, impoundedYear: 1954, counties: ["Harris"], nearestCities: ["Houston", "Humble", "Kingwood"],
+    waterway: "West Fork San Jacinto River", riverBasin: "San Jacinto River Basin", authority: "Coastal Water Authority", conservationPool: "44.1 ft msl", fluctuation: "Low", clarity: "Moderately turbid",
+    identity: "Lake Houston is the Houston metro's river-channel fishing lake: TPWD identifies blue catfish as the dominant sportfish, with good spring white-bass runs and additional largemouth, crappie and bluegill opportunity where cover exists.",
+    habitat: ["Very little structural cover exists across much of the main reservoir.", "Upper areas of the east and west forks hold more flooded terrestrial and native emergent vegetation.", "Water hyacinth, alligatorweed and water lettuce can add shallow cover, while river channels remain central to catfish and white-bass patterns."],
+    fish: [
+      fish("blue-catfish","Blue catfish","good","year-round","Blue catfish are the dominant sportfish and are especially important along channels in the east and west forks of the San Jacinto River.",["cut-bait","live-bait"]),
+      fish("white-bass","White bass","good","spring","Spring spawning runs concentrate white bass in the east and west forks.",["vertical-jigging","jigs-and-minnows"]),
+      fish("largemouth-bass","Largemouth bass","fair","year-round","Bass opportunity is best where anglers find the reservoir's limited cover and upper-river vegetation.",["soft-plastics","spinnerbaits"],"secondary"),
+      fish("crappie","Crappie","fair","year-round","Crappie provide a secondary fishery around the reservoir's limited structural and vegetated cover.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "TPWD lists commercial access in the upper reservoir, Deussen Park near the dam for boat and bank fishing, and bank access beneath the FM 1960 bridge; verify current facility status before travel.",
+    nearbyLakes: [{slug:"lake-conroe",name:"Lake Conroe"},{slug:"lake-livingston",name:"Lake Livingston"}],
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
