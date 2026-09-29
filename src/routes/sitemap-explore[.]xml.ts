@@ -5,6 +5,7 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { metroProximitySitemapEntries } from "@/data/metro-proximity";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -278,6 +279,9 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinationEntries = sitemapIndexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
+        const proximityEntries = metroProximitySitemapEntries(indexableDestinations)
+          .map((item) => entry(item.path, item.lastmod))
+          .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
           .map((church) => entry(`/explore/painted-churches/${church.slug}`, church.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
@@ -293,6 +297,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const entries = [
           ...staticEntries,
           ...destinationEntries,
+          ...proximityEntries,
           ...paintedChurchEntries,
           ...techniqueEntries,
           ...symbolEntries,
