@@ -178,8 +178,8 @@ for (const token of [
   "'cache-control': 'no-cache'",
   "pragma: 'no-cache'",
   "cf-cache-status",
-  "metro-distance-window-copy",
-  "metro-quick-shortlist",
+  "metro-distance-methodology",
+  "metro-distance-schema",
   "metro-drive-time-disclaimer",
 ]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
