@@ -4,6 +4,7 @@ import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem }
 import { getMajorEventRecordServer } from "../major-event-page.server";
 import {
   getMajorEventSchemaEnrichmentServer,
+  getMajorEventSchemaOccurrenceEnrichmentServer,
   type EventSchemaOffer,
   type MajorEventSchemaEnrichment,
 } from "../major-event-schema-enrichment.server";
@@ -109,7 +110,7 @@ function normalizeEvent(event: TexasEvent, guide?: MajorEventGuideDirectoryItem)
   const occurrenceLabel = authority?.occurrenceWindows?.find((window) =>
     window.startDate === startDate && (window.endDate ?? window.startDate) === (endDate ?? startDate)
   )?.label;
-  const lifecycle = (occurrenceLabel ? enrichment?.occurrences?.[occurrenceLabel]?.lifecycle : undefined) ?? enrichment?.lifecycle;
+  const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(authoritySlug, occurrenceLabel)?.lifecycle;
 
   return {
     id: event.id || `event:${authoritySlug}:${startDate}`,
