@@ -31,7 +31,7 @@ function TexasCollegeTownsPage() {
     </Container></section>
 
     <section className="border-b border-border bg-background"><Container className="py-12 sm:py-16">
-      <div className="grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-14"><div><p className="eyebrow text-primary">Six campus-city pairings</p><h2 className="mt-3 font-display text-4xl">Start with the town, not a ranking</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">This is not a “best colleges” list. It is a visitor-planning guide to places where the campus meaningfully shapes the travel experience. Use the linked sports collections for venue-specific game-day detail, then layer in city attractions and events.</p></div>
+      <div className="grid gap-8 lg:grid-cols-[0.68fr_1.32fr] lg:gap-14"><div><p className="eyebrow text-primary">Six campus-city pairings</p><h2 className="mt-3 font-display text-4xl">Explore six Texas college towns</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">This visitor-planning guide focuses on places where the campus meaningfully shapes the travel experience. Use the linked sports collections for venue-specific game-day detail, then layer in city attractions and events.</p></div>
       <div className="grid gap-px border border-border bg-border md:grid-cols-2">{towns.map(([title, body, href, label]) => <article key={title} className="bg-background p-6"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p><Link to={href} className="mt-4 inline-block text-sm font-semibold text-primary">{label} →</Link></article>)}</div></div>
     </Container></section>
 
