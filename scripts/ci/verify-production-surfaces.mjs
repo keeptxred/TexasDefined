@@ -191,10 +191,18 @@ async function verifyRevisionBoundSurface(label, path, needle) {
         redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
+        headers: {
+          'user-agent': 'TexasDefined-CI-Production-Smoke/1.0',
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+        },
       });
       lastStatus = String(response.status);
       lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const cacheStatus = response.headers.get('cf-cache-status') || 'missing';
+      const age = response.headers.get('age') || 'missing';
+      const cacheControl = response.headers.get('cache-control') || 'missing';
+      console.log(`[${label}] edge cache: cf-cache-status=${cacheStatus}; age=${age}; cache-control=${cacheControl}`);
       lastBody = await response.text();
       lastError = '';
 

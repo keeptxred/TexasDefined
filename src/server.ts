@@ -127,8 +127,8 @@ async function fetchAllowedRemoteImage(initialUrl: URL) {
 
 function cachedHeadResponse(response: Response) {
   return new Response(null, {
-    status: response.status,
-    statusText: response.statusText,
+    status: cacheSafeResponse.status,
+    statusText: cacheSafeResponse.statusText,
     headers: response.headers,
   });
 }
@@ -337,19 +337,38 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
   return response;
 }
 
-async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
+function applyMetroProximityEdgeCachePolicy(request: Request, response: Response): Response {
   const url = new URL(request.url);
-  if (request.method !== "GET" || url.pathname !== "/") return response;
-  const contentType = response.headers.get("content-type") ?? "";
-  if (!contentType.includes("text/html")) return response;
+  if (request.method !== "GET" && request.method !== "HEAD") return response;
+  if (!url.pathname.startsWith("/explore/near/")) return response;
 
-  const body = await response.text();
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("CDN-Cache-Control", "no-store");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.delete("age");
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
+  const cacheSafeResponse = applyMetroProximityEdgeCachePolicy(request, response);
+  const url = new URL(request.url);
+  if (request.method !== "GET" || url.pathname !== "/") return cacheSafeResponse;
+  const contentType = cacheSafeResponse.headers.get("content-type") ?? "";
+  if (!contentType.includes("text/html")) return cacheSafeResponse;
+
+  const body = await cacheSafeResponse.text();
   if (body.includes('name="msvalidate.01"')) {
-    return new Response(body, response);
+    return new Response(body, cacheSafeResponse);
   }
 
   const html = body.replace("</head>", `${BING_VERIFICATION_META}</head>`);
-  const headers = new Headers(response.headers);
+  const headers = new Headers(cacheSafeResponse.headers);
   headers.delete("content-length");
   return new Response(html, {
     status: response.status,
