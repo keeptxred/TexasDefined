@@ -12,6 +12,7 @@ const paths = {
   component: "src/components/fishing/ShowcaseLakeGuide.tsx",
   overviewRoute: "src/routes/fishing.lakes.$slug.tsx",
   sectionRoute: "src/routes/fishing.lakes.$slug.$section.tsx",
+  liveWorkflow: ".github/workflows/verify-live-lake-levels.yml",
 };
 for (const path of Object.values(paths)) if (!fs.existsSync(path)) throw new Error(`Statewide fishing network missing required file: ${path}`);
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
