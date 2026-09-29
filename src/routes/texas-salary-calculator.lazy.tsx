@@ -55,7 +55,7 @@ function TexasSalaryCalculatorPage() {
       </section>
       <section className="mt-12 border-t border-border pt-10" aria-labelledby="salary-frequency-heading">
         <p className="eyebrow text-primary">Budget with the result</p>
-        <h2 id="salary-frequency-heading" className="mt-3 font-display text-3xl">Translate annual take-home into the way you actually get paid</h2>
+        <h2 id="salary-frequency-heading" className="mt-3 font-display text-3xl">Translate annual take-home into your pay schedule</h2>
         <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           <p>An annual take-home estimate becomes more useful when you convert it into monthly cash flow and compare it with your employer's pay schedule. Twelve monthly deposits, 24 semimonthly checks and 26 biweekly checks do not produce the same amount per paycheck even when annual pay is identical.</p>
           <p>For a biweekly employee, two months each year normally include a third paycheck. For a semimonthly employee, the check amount is usually more consistent because there are 24 scheduled pay periods. Use the annual result for comparison, but build your household budget around the timing of the deposits you actually receive.</p>
