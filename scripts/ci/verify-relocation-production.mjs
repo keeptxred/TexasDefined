@@ -11,6 +11,11 @@ const routes = [
   ['/find-my-emergency-services', 'Find Texas emergency and community services'],
   ['/texas-zip-code-explorer', 'Texas ZIP Code Explorer'],
   ['/compare-texas-cities', 'Compare Texas cities'],
+  ['/article/best-houston-suburbs-for-commuters', 'Best Houston Suburbs for Commuters'],
+  ['/article/best-dallas-suburbs-for-commuters', 'Best Dallas Suburbs for Commuters'],
+  ['/article/texas-property-taxes-for-new-residents', 'Texas Property Taxes for New Residents'],
+  ['/article/corporate-relocation-to-texas', 'Corporate Relocation to Texas'],
+  ['/article/employee-relocation-guide-to-texas', 'Employee Relocation Guide to Texas'],
 ];
 const toolkitLinks = routes
   .map(([path]) => path)
@@ -98,6 +103,10 @@ for (const [path, needle] of routes) {
 
 const relocationHubNeedles = [
   'Corporate Relocation to Texas',
+  'Employee Relocation Guide to Texas',
+  'Best Houston Suburbs for Commuters',
+  'Best Dallas Suburbs for Commuters',
+  'Texas Property Taxes for New Residents',
   'Build an address-level research packet',
   'The submitted address is used for the Census lookup and is not saved unless you explicitly add a matched address to My Texas Move.',
 ];
