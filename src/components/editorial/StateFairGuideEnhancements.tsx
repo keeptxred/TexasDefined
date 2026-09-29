@@ -7,6 +7,7 @@ type FairPhoto = {
   file: string;
   alt: string;
   caption: string;
+  imageUrl?: string;
 };
 
 const commonsSource = (file: string) =>
@@ -61,7 +62,14 @@ const additionalPhotos: FairPhoto[] = [
   { file: "State Fair of Texas September 2019 21 (vendors).jpg", alt: "State Fair of Texas vendors", caption: "Fair vendors" },
   { file: "State Fair of Texas September 2019 22 (State Fair Wine Garden).jpg", alt: "State Fair Wine Garden at Fair Park", caption: "State Fair Wine Garden" },
   { file: "State Fair of Texas September 2019 23 (vendors).jpg", alt: "Vendor booths at the State Fair of Texas", caption: "Fair vendors" },
-  { file: "State Fair of Texas September 2019 24 (Esplanade).jpg", alt: "Esplanade at Fair Park during the State Fair of Texas", caption: "Esplanade" },
+  {
+    file: "State Fair of Texas September 2019 24 (Esplanade).jpg",
+    alt: "Esplanade at Fair Park during the State Fair of Texas",
+    caption: "Esplanade",
+    // The 1,800px Special:Redirect derivative intermittently times out because this original is 9.5 MB.
+    // Use Commons' already-generated 960px derivative for this archival grid tile while keeping the canonical source/license link below.
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/State_Fair_of_Texas_September_2019_24_%28Esplanade%29.jpg/960px-State_Fair_of_Texas_September_2019_24_%28Esplanade%29.jpg",
+  },
   { file: "State Fair of Texas September 2019 26 (Hall of State).jpg", alt: "Hall of State at Fair Park during the State Fair of Texas", caption: "Hall of State" },
   { file: "State Fair of Texas September 2019 27 (Esplanade).jpg", alt: "Fair Park Esplanade during the State Fair of Texas", caption: "Esplanade" },
   { file: "State Fair of Texas September 2019 28 (Midway).jpg", alt: "State Fair of Texas Midway illuminated at night", caption: "Midway at night" },
@@ -74,7 +82,7 @@ function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean
   return (
     <figure className="overflow-hidden border border-border bg-background">
       <img
-        src={commonsImage(photo.file)}
+        src={photo.imageUrl ? editorialImageSrc(photo.imageUrl) : commonsImage(photo.file)}
         alt={photo.alt}
         className="w-full object-cover"
         style={{ aspectRatio: "4 / 3" }}
@@ -135,7 +143,7 @@ export function StateFairPlanningStrip() {
                 to="/event/state-fair-classic"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                State Fair Classic tickets
+                State Fair Classic guide
               </Link>
               <Link
                 to="/event/red-river-rivalry"
