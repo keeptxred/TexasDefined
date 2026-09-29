@@ -37,7 +37,7 @@ export const Route = createFileRoute('/texas-high-school-football-isds/$slug')({
                 itemListElement: loaderData.programs.map((program, index) => ({
                   '@type': 'ListItem',
                   position: index + 1,
-                  name: program.officialSchoolName || program.schoolName,
+                  name: program.schoolName,
                   url: `${siteUrl}${program.profilePath}`,
                 })),
               },
