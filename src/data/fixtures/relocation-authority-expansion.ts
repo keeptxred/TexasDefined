@@ -276,7 +276,7 @@ const employeeRelocation = base({
     { href: "/article/texas-property-taxes-for-new-residents", label: "Texas property taxes for new residents", description: "Understand appraisal districts, taxing units and residence homestead research." },
     { href: "/article/corporate-relocation-to-texas", label: "Corporate relocation to Texas", description: "Employer-side site, workforce and program planning." },
     { href: "https://www.txdmv.gov/motorists/new-to-texas", label: "TxDMV New to Texas", description: "Official new-resident vehicle registration steps and deadlines." },
-    { href: "https://www.dps.texas.gov/section/driver-license/moving-texas-guide-driver-licenses-and-ids", label: "Texas DPS moving guide", description: "Official driver-license and ID guidance for new Texas residents." },
+    { href: "https://www.dps.texas.gov/section/driver-license/moving-texas-guide-driver-licenses-and-ids", label: "Texas Department of Public Safety moving guide", description: "Official driver-license and ID guidance for new Texas residents." },
     { href: "https://www.irs.gov/publications/p15b", label: "IRS Publication 15-B", description: "Current federal employer fringe-benefit rules, including moving-expense reimbursement treatment." },
   ],
   body: [
