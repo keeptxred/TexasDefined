@@ -1,10 +1,13 @@
 import { Container } from "@/components/layout/Container";
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { getFishingFishImage } from "@/data/fishing/image-library";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
 import type { FishingSpeciesProfileData } from "@/data/fishing/species-guide-data.server";
 
 export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileData }) {
   const { species } = data;
   const finderHref = `/fishing/plan?species=${species.slug}`;
+  const speciesImage = getFishingFishImage(species.slug);
 
   return <>
     <Container className="pt-8 sm:pt-10">
@@ -14,16 +17,19 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
     </Container>
 
     <header className="mt-5 border-y border-border bg-ink text-ink-foreground">
-      <Container className="py-14 sm:py-20">
-        <p className="eyebrow text-ink-foreground/65">{species.taxonKind === "group" ? "Texas fishing group" : "Texas fish species"}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{species.commonName} fishing in Texas</h1>
-        {species.scientificName && <p className="mt-4 text-sm italic text-ink-foreground/60">{species.scientificName}</p>}
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{species.summary}</p>
-        <div className="mt-8 flex flex-wrap gap-5 text-sm">
-          <a href={finderHref} className="border-b border-ink-foreground pb-1 font-semibold">Find lakes for {species.commonName} →</a>
-          <a href="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1">Browse fishing lakes →</a>
-          <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Current regulations →</a>
+      <Container className={speciesImage ? "grid gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:items-center" : "py-14 sm:py-20"}>
+        <div>
+          <p className="eyebrow text-ink-foreground/65">{species.taxonKind === "group" ? "Texas fishing group" : "Texas fish species"}</p>
+          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{species.commonName} fishing in Texas</h1>
+          {species.scientificName && <p className="mt-4 text-sm italic text-ink-foreground/60">{species.scientificName}</p>}
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{species.summary}</p>
+          <div className="mt-8 flex flex-wrap gap-5 text-sm">
+            <a href={finderHref} className="border-b border-ink-foreground pb-1 font-semibold">Find lakes for {species.commonName} →</a>
+            <a href="/fishing/lakes" className="border-b border-ink-foreground/50 pb-1">Browse fishing lakes →</a>
+            <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Current regulations →</a>
+          </div>
         </div>
+        {speciesImage ? <FishingPhoto image={speciesImage} eager className="max-w-sm" imageClassName="aspect-[4/3] w-full object-contain bg-background p-3" /> : null}
       </Container>
     </header>
 

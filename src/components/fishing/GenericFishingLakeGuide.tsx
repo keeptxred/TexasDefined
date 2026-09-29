@@ -1,4 +1,6 @@
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
+import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishSpecies, FishingAccessPoint, FishingBusiness, FishingGuide, FishingLake, FishingReport, LakeSpeciesProfile } from "@/data/fishing/types";
 
@@ -20,6 +22,7 @@ export function GenericFishingLakeGuide({
   businesses: FishingBusiness[];
 }) {
   const speciesById = new Map(species.map((fish) => [fish.id, fish]));
+  const lakeImage = getFishingLakeImage(lake.slug);
   const targets = relationships
     .filter((row) => Boolean(row.verifiedAt) && row.sources.length > 0)
     .map((relation) => ({ relation, fish: speciesById.get(relation.speciesId) }))
@@ -62,6 +65,7 @@ export function GenericFishingLakeGuide({
         </div>
         <aside className="border-t-2 border-foreground pt-5">
           <p className="eyebrow text-primary">Explore the area</p>
+          {lakeImage ? <FishingPhoto image={lakeImage} className="mt-5" imageClassName="aspect-[4/3] w-full object-cover" /> : null}
           {lake.counties.length ? <div className="mt-5"><p className="text-sm text-muted-foreground">County guides</p><div className="mt-3 flex flex-wrap gap-3">{lake.counties.map((county) => <a key={county} href={`/county/${slugify(county)}`} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{county} County →</a>)}</div></div> : null}
           {lake.coordinates ? <a href={`https://www.google.com/maps/search/?api=1&query=${lake.coordinates.lat},${lake.coordinates.lng}`} target="_blank" rel="noreferrer noopener" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open map →</a> : null}
         </aside>
@@ -73,12 +77,13 @@ export function GenericFishingLakeGuide({
           <a href="/fishing/species" className="border-b border-primary pb-1 text-sm font-semibold text-primary">Browse all Texas fish →</a>
         </div>
         {targets.length ? <div className="mt-8 grid gap-x-8 border-t border-border md:grid-cols-2">
-          {targets.map(({ relation, fish }) => <article key={relation.id} className="border-b border-border py-7">
+          {targets.map(({ relation, fish }) => { const image = getFishingFishImage(fish.slug); return <article key={relation.id} className="border-b border-border py-7">
+            {image ? <FishingPhoto image={image} showCredit={false} className="mb-5 max-w-sm" imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : null}
             <div className="flex flex-wrap items-start justify-between gap-4"><h3 className="font-display text-2xl"><a href={fishingFoundationAnchor("species", fish.slug)} className="hover:text-primary">{fish.commonName}</a></h3><span className="border border-border px-3 py-1.5 text-xs">{titleCase(relation.quality)}</span></div>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{relation.notes || fish.summary}</p>
             {relation.seasonalPatterns.length ? <div className="mt-5 space-y-3">{relation.seasonalPatterns.slice(0, 2).map((pattern, index) => <p key={`${pattern.season}-${index}`} className="text-sm leading-6"><strong>{titleCase(pattern.season)}:</strong> <span className="text-muted-foreground">{pattern.summary}</span></p>)}</div> : null}
             <div className="mt-5 flex flex-wrap gap-4"><a href={fishingFoundationAnchor("species", fish.slug)} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{fish.commonName} guide →</a><a href={`/fishing/plan?species=${fish.slug}`} className="border-b border-border pb-1 text-sm text-muted-foreground">Find other lakes →</a></div>
-          </article>)}
+          </article>; })}
         </div> : <p className="mt-7 max-w-3xl text-sm leading-7 text-muted-foreground">No verified lake-to-species relationship is published for this water yet. TexasDefined does not infer fish presence from nearby lakes.</p>}
       </section>
 
