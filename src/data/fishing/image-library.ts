@@ -1,4 +1,4 @@
-export type FishingImageRightsStatus = "public-domain" | "cc-by" | "cc-by-sa";
+export type FishingImageRightsStatus = "public-domain" | "cc-by" | "cc-by-sa" | "nasa-media-guidelines";
 
 export interface FishingVisualAsset {
   id: string;
@@ -28,6 +28,7 @@ const CC_BY_4 = "https://creativecommons.org/licenses/by/4.0/";
 const CC_BY_SA_2 = "https://creativecommons.org/licenses/by-sa/2.0/";
 const CC_BY_SA_3 = "https://creativecommons.org/licenses/by-sa/3.0/";
 const CC_BY_SA_4 = "https://creativecommons.org/licenses/by-sa/4.0/";
+const NASA_MEDIA_GUIDELINES = "https://www.nasa.gov/nasa-brand-center/images-and-media/";
 
 function commonsFile(filename: string) {
   return `https://commons.wikimedia.org/wiki/File:${filename.replaceAll(" ", "_")}`;
@@ -301,7 +302,39 @@ const commonsLake = (
   credit: `${creator} · ${licenseName} · Wikimedia Commons`,
 });
 
+const nasaLake = (
+  id: string,
+  src: string,
+  sourceUrl: string,
+  alt: string,
+  width: number,
+  height: number,
+): FishingVisualAsset => ({
+  id,
+  kind: "lake",
+  src,
+  alt,
+  width,
+  height,
+  sourceName: "NASA Johnson Space Center Earth Science & Remote Sensing",
+  sourceUrl,
+  creator: "NASA Johnson Space Center Earth Science & Remote Sensing Unit",
+  licenseName: "NASA Images and Media Usage Guidelines",
+  licenseUrl: NASA_MEDIA_GUIDELINES,
+  rightsStatus: "nasa-media-guidelines",
+  verifiedAt: VERIFIED_AT,
+  actualLocation: true,
+  credit: "NASA Johnson Space Center Earth Science & Remote Sensing Unit · NASA media usage guidelines",
+});
+
 export const fishingLakeImages: Record<string, FishingVisualAsset> = {
+  "richland-chambers-reservoir": nasaLake(
+    "lake-richland-chambers",
+    "https://eol.jsc.nasa.gov/DatabaseImages/EFS/lowres/STS058/STS058-80-35.jpg",
+    "https://eol.jsc.nasa.gov/Collections/EarthFromSpace/printinfo.pl?PHOTO=STS058-80-35",
+    "Richland-Chambers Reservoir and surrounding Trinity River basin seen from Space Shuttle Columbia in October 1993",
+    633, 639,
+  ),
   "lake-conroe": commonsLake(
     "lake-conroe",
     "USA - Texas - Sam Houston National Forest - Lake Conroe - 51632123698.jpg",
