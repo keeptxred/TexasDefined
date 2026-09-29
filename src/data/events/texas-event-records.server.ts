@@ -106,6 +106,10 @@ function normalizeEvent(event: TexasEvent, guide?: MajorEventGuideDirectoryItem)
   const startDate = guide?.startDate ?? event.startDate;
   const endDate = guide?.endDate ?? event.endDate;
   const calendarPath = `/events?start=${startDate}&end=${endDate ?? startDate}`;
+  const occurrenceLabel = authority?.occurrenceWindows?.find((window) =>
+    window.startDate === startDate && (window.endDate ?? window.startDate) === (endDate ?? startDate)
+  )?.label;
+  const lifecycle = (occurrenceLabel ? enrichment?.occurrences?.[occurrenceLabel]?.lifecycle : undefined) ?? enrichment?.lifecycle;
 
   return {
     id: event.id || `event:${authoritySlug}:${startDate}`,
@@ -126,9 +130,9 @@ function normalizeEvent(event: TexasEvent, guide?: MajorEventGuideDirectoryItem)
     officialEventUrl,
     ticketing: buildTicketing(enrichment?.offers, enrichment?.verifiedAt ?? lastVerifiedAt, event.sourceName ?? authority?.sources[0]?.label),
     image: buildDisplayImage(enrichment, venueSlug),
-    status: "scheduled",
+    status: lifecycle?.status ?? "scheduled",
     lastVerifiedAt,
-    lastUpdatedAt: enrichment?.verifiedAt ?? lastVerifiedAt,
+    lastUpdatedAt: [enrichment?.verifiedAt, lifecycle?.verifiedAt, lastVerifiedAt].filter((value): value is string => Boolean(value)).sort().at(-1) ?? lastVerifiedAt,
     sourceName: event.sourceName ?? authority?.sources[0]?.label,
   };
 }
@@ -217,6 +221,6 @@ export function loadUpcomingTexasEventRecordsServer(query: TexasEventQuery = {})
   return queryTexasEventRecordsServer({
     ...query,
     startsOnOrAfter: query.startsOnOrAfter ?? texasTodayIso(),
-    statuses: query.statuses ?? ["scheduled", "postponed"],
+    statuses: query.statuses ?? ["scheduled", "postponed", "rescheduled"],
   });
 }
