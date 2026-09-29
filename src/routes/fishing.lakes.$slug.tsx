@@ -11,6 +11,7 @@ import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-c
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
+import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -91,9 +92,7 @@ function FishingLakeOverviewRoute() {
     <LakeConroeGuide reports={data.reports} guides={data.guides} pageData={data.pageData} />
   </>;
   return <>
-    {isDirectLiveLevelSource(data.pageData.sources.liveLevel.url) && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
+    {isLiveLakeLevelSource(data.pageData.sources.liveLevel.url) && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
     <ShowcaseLakeGuide reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
   </>;
 }
-
-function isDirectLiveLevelSource(url: string) { return /^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\//i.test(url); }
