@@ -13,6 +13,7 @@ const paths = {
   showcase: "src/components/fishing/ShowcaseLakeGuide.tsx",
   genericLake: "src/components/fishing/GenericFishingLakeGuide.tsx",
   lakeDirectory: "src/components/fishing/FishingLakesDirectory.tsx",
+  slugs: "src/data/fishing/slugs.ts",
 };
 for (const path of Object.values(paths)) if (!fs.existsSync(path)) fail(`required file missing: ${path}`);
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
@@ -81,6 +82,10 @@ for (const token of [
 ]) requireText(files.library, token, `fish provenance contract missing ${token}`);
 
 const requiredLakes = [
+  "lake-nacogdoches",
+  "fayette-county-reservoir",
+  "o-h-ivie-lake",
+  "lake-fork",
   "amistad-reservoir",
   "lake-meredith",
   "ray-roberts-lake",
@@ -118,18 +123,55 @@ const requiredLakes = [
   "lake-bridgeport",
   "lake-o-the-pines",
 ];
+const allowedMissingLakePhotoSlugs = new Set(["richland-chambers-reservoir"]);
+const parseSlugArray = (name) => {
+  const match = files.slugs.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
+  return match ? [...match[1].matchAll(/"([a-z0-9-]+)"/g)].map((entry) => entry[1]) : [];
+};
+const completeLakeSlugs = [
+  ...parseSlugArray("BASE_COMPLETE_FISHING_LAKE_SLUGS"),
+  ...parseSlugArray("WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
+  ...parseSlugArray("STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
+];
+if (new Set(completeLakeSlugs).size !== 41) fail(`expected 41 complete lake guides, found ${new Set(completeLakeSlugs).size}`);
+
 for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
   const commonsToken = `"${slug}": commonsLake(`;
-  if (!files.library.includes(localToken) && !files.library.includes(commonsToken)) fail(`governed lake image inventory missing ${slug}`);
+  const remoteToken = `"${slug}": remoteLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken)) {
+    fail(`governed lake image inventory missing ${slug}`);
+  }
 }
+
+const governedLakeImageSlugs = new Set([
+  ...[...files.library.matchAll(/^\s{2}"([^"]+)":\s+(?:lake|commonsLake|remoteLake)\(/gm)].map((match) => match[1]),
+]);
+for (const slug of completeLakeSlugs) {
+  if (!governedLakeImageSlugs.has(slug) && !allowedMissingLakePhotoSlugs.has(slug)) fail(`exact-photo coverage missing for complete lake guide: ${slug}`);
+}
+for (const slug of allowedMissingLakePhotoSlugs) {
+  if (governedLakeImageSlugs.has(slug)) fail(`${slug} is still marked as an intentional image gap after receiving a governed image`);
+}
+if (governedLakeImageSlugs.size !== 40) fail(`expected 40 governed exact-lake images, found ${governedLakeImageSlugs.size}`);
+
+for (const token of [
+  "remoteLake",
+  "live.staticflickr.com",
+  "https://www.flickr.com/photos/kenlund/27527896883/",
+  "https://www.flickr.com/photos/attawayjl/3318770254/",
+  "CC BY-SA 2.0",
+  "CC BY 2.0",
+  "Wikimedia Commons / Library of Congress",
+  "Osprey @ Fayette County Reservoir (12715870).jpg",
+]) requireText(files.library, token, `expanded lake-photo provenance contract missing ${token}`);
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
   .map((match) => `public/${match[1]}`);
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
-if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
+if (commonsLakeBlocks.length < 28) fail(`expected at least 28 exact Commons lake images, found ${commonsLakeBlocks.length}`);
 for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
   const end = files.library.indexOf("\n  ),", start);
@@ -187,4 +229,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and ${requiredLakes.length} exact lake-photo mappings are protected with provenance, license metadata, reusable rendering and attribution rules.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and 40 of 41 complete lake guides have governed exact-location imagery; Richland-Chambers remains the sole intentional rights-cleared-photo gap.`);
