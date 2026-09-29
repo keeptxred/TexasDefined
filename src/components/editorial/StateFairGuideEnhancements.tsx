@@ -70,16 +70,17 @@ const additionalPhotos: FairPhoto[] = [
   { file: "State Fair of Texas September 2019 31 (Centennial Hall).jpg", alt: "Centennial Hall illuminated at night during the State Fair of Texas", caption: "Centennial Hall at night" },
 ];
 
-function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean }) {
+function PhotoCard({ photo, eager = false, imageWidth = 900 }: { photo: FairPhoto; eager?: boolean; imageWidth?: number }) {
   return (
     <figure className="overflow-hidden border border-border bg-background">
       <img
-        src={commonsImage(photo.file)}
+        src={commonsImage(photo.file, imageWidth)}
         alt={photo.alt}
         className="w-full object-cover"
         style={{ aspectRatio: "4 / 3" }}
         loading={eager ? "eager" : "lazy"}
         decoding="async"
+        sizes="(max-width: 640px) 82vw, 18rem"
       />
       <figcaption className="space-y-1 px-4 py-3 text-sm">
         <p className="font-semibold text-foreground">{photo.caption}</p>
@@ -102,7 +103,7 @@ function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean
           >
             Wikimedia Commons
           </a>
-          {" "}· cropped for layout
+          {" "}· display-cropped for layout; source file unchanged
         </p>
       </figcaption>
     </figure>
@@ -135,13 +136,13 @@ export function StateFairPlanningStrip() {
                 to="/event/state-fair-classic"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                State Fair Classic tickets
+                State Fair Classic guide
               </Link>
               <Link
                 to="/event/red-river-rivalry"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                Red River Rivalry tickets
+                Red River Rivalry ticket guide
               </Link>
             </div>
           </div>
@@ -170,11 +171,13 @@ export function StateFairPlanningStrip() {
           </div>
           <div
             className="mt-6 flex gap-4 overflow-x-auto pb-4"
+            style={{ scrollSnapType: "x proximity" }}
             aria-label="State Fair of Texas featured photos"
+            aria-roledescription="carousel"
           >
             {featuredPhotos.map((photo, index) => (
-              <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}>
-                <PhotoCard photo={photo} eager={index === 0} />
+              <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)", scrollSnapAlign: "start" }}>
+                <PhotoCard photo={photo} eager={index === 0} imageWidth={1200} />
               </div>
             ))}
           </div>
