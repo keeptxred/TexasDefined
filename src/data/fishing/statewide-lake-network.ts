@@ -7,6 +7,7 @@ const VERIFIED_AT = "2026-09-29";
 const BRAND = "texasdefined" as const;
 const TPWD_REGULATIONS = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/freshwater-fishing/bag-length-limits";
 const WATER_DATA_FOR_TEXAS_RESERVOIR_BASE = "https://waterdatafortexas.org/reservoirs/individual";
+const LCRA_HYDROMET_CHART_BASE = "https://hydromet.lcra.org/Charts/";
 
 type TechniqueId =
   | "soft-plastics"
@@ -52,6 +53,7 @@ interface StatewideLakeDefinition {
   name: string;
   tpwdSlug: string;
   waterDataSlug?: string;
+  lcraHydrometSiteNumber?: string;
   region: TexasRegion;
   summary: string;
   surfaceAcres: number;
@@ -291,7 +293,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "Public bank access is limited, but TPWD identifies Walsh Boat Landing, Loop 360, Emma Long Park and Mary Quinlan Park among the principal access points.", nearbyLakes: [{slug:"lake-travis",name:"Lake Travis"},{slug:"lake-lbj",name:"Lake LBJ"}],
   },
   {
-    slug: "fayette-county-reservoir", name: "Fayette County Reservoir", tpwdSlug: "fayette", region: "prairies-lakes",
+    slug: "fayette-county-reservoir", name: "Fayette County Reservoir", tpwdSlug: "fayette", lcraHydrometSiteNumber: "5634", region: "prairies-lakes",
     summary: "A compact LCRA power-plant reservoir east of La Grange built around an excellent largemouth bass fishery and year-round warm-water structure.",
     surfaceAcres: 2400, maxDepthFeet: 70, impoundedYear: 1978, counties: ["Fayette"], nearestCities: ["La Grange", "Fayetteville"],
     waterway: "Power-plant cooling reservoir", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "390 ft msl", fluctuation: "Stable", clarity: "Slightly to moderately stained",
@@ -601,7 +603,9 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
   const publicAccess = accessSource(def);
   const liveLevelSource = def.waterDataSlug
     ? { label: `Water Data for Texas — ${def.name}`, url: `${WATER_DATA_FOR_TEXAS_RESERVOIR_BASE}/${def.waterDataSlug}` }
-    : { label: `TPWD — official ${def.name} lake information`, url: lakeSource.url };
+    : def.lcraHydrometSiteNumber
+      ? { label: `LCRA Hydromet — ${def.name}`, url: `${LCRA_HYDROMET_CHART_BASE}?agency=LCRA&siteNumber=${def.lcraHydrometSiteNumber}&siteType=lakelevel` }
+      : { label: `TPWD — official ${def.name} lake information`, url: lakeSource.url };
   return {
     slug: def.slug,
     verifiedAt: VERIFIED_AT,
