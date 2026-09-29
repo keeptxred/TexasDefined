@@ -7,6 +7,7 @@ const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const articleRoute = read('src/routes/article.$slug.tsx');
+const indexReadiness = read('src/data/fixtures/texas-gateway-index-readiness.ts');
 const errors = [];
 
 const profiles = [
@@ -49,11 +50,27 @@ for (const marker of [
 ]) if (!hub.includes(marker)) errors.push(`Road-system hub contract missing: ${marker}`);
 
 const paragraphCount = (block) => (block.match(/p\("/g) || []).length;
+const indexFloorMatch = indexReadiness.match(/ARTICLE_INDEX_MIN_BODY_WORDS\s*=\s*(\d+)/);
+const indexFloor = Number(indexFloorMatch?.[1] ?? 0);
+if (!Number.isInteger(indexFloor) || indexFloor < 1) errors.push('Could not resolve the sitewide article index body-word floor.');
+
+const articleBodyWordCount = (block) => {
+  const bodyStart = block.indexOf('body: [');
+  if (bodyStart < 0) return 0;
+  const body = block.slice(bodyStart);
+  const text = [...body.matchAll(/(?:p|h)\("([^"]*)"\)|list\(([\s\S]*?)\n\s*\)/g)]
+    .flatMap((match) => match[1] ? [match[1]] : [...(match[2] || '').matchAll(/"([^"]*)"/g)].map((item) => item[1]))
+    .join(' ');
+  return text.trim().split(/\s+/).filter(Boolean).length;
+};
+
 for (const [slug] of profiles) {
   const start = articles.indexOf(`slug: "${slug}"`);
   const next = start >= 0 ? articles.indexOf('\nexport const ', start + 1) : -1;
   const block = start >= 0 ? articles.slice(start, next > start ? next : articles.length) : '';
   if (paragraphCount(block) < 7) errors.push(`Road-system article too shallow (${paragraphCount(block)} paragraphs): ${slug}`);
+  const bodyWords = articleBodyWordCount(block);
+  if (bodyWords < indexFloor) errors.push(`Road-system article is below the sitewide ${indexFloor}-word index floor (${bodyWords} words): ${slug}`);
   if (!block.includes('designationsLink') || !block.includes('collectionLink')) errors.push(`Road-system article must use designation and collection backlinks: ${slug}`);
 }
 
@@ -70,4 +87,4 @@ if (errors.length) {
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
-console.log('Texas Explained road-system batch passed: five current-TxDOT-backed explainers are lazy-loaded, hub-visible, reciprocal with the FM-road pillar, collection-aware and substantive.');
+console.log(`Texas Explained road-system batch passed: five current-TxDOT-backed explainers are lazy-loaded, hub-visible, reciprocal with the FM-road pillar, collection-aware and each clears the sitewide ${indexFloor}-word article index floor.`);
