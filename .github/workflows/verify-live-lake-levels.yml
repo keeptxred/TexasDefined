@@ -94,7 +94,7 @@ jobs:
               'lake-buchanan', 'lake-lbj', 'richland-chambers-reservoir', 'lake-palestine',
               'cedar-creek-reservoir', 'lewisville-lake', 'ray-roberts-lake', 'lake-ray-hubbard',
               'lake-lavon', 'grapevine-lake', 'eagle-mountain-lake', 'lake-bridgeport',
-              'lake-austin', 'lake-somerville', 'belton-lake', 'stillhouse-hollow-reservoir',
+              'lake-austin', 'fayette-county-reservoir', 'lake-somerville', 'belton-lake', 'stillhouse-hollow-reservoir',
               'caddo-lake', 'lake-o-the-pines', 'lake-bob-sandlin', 'lake-nacogdoches',
               'lake-corpus-christi', 'alan-henry-reservoir', 'lake-meredith', 'lake-houston',
           ]
@@ -106,9 +106,19 @@ jobs:
               out.write(f"diagnostic|serverfn|{'success' if payload.get('conroeServerFnSnapshot') else 'failure'}|{'createServerFn returned current Lake Conroe snapshot' if payload.get('conroeServerFnSnapshot') else 'createServerFn returned no Lake Conroe snapshot'}\n")
               for slug in expected:
                   snapshot = lakes.get(slug)
-                  valid = isinstance(snapshot, dict) and isinstance(snapshot.get('percentFull'), (int, float)) and snapshot.get('measuredAt')
+                  percent = snapshot.get('percentFull') if isinstance(snapshot, dict) else None
+                  elevation = snapshot.get('elevationFeet') if isinstance(snapshot, dict) else None
+                  measured = snapshot.get('measuredAt') if isinstance(snapshot, dict) else None
+                  valid = bool(measured) and (
+                      isinstance(percent, (int, float)) or isinstance(elevation, (int, float))
+                  )
                   if valid:
-                      out.write(f"lake|{slug}|success|{snapshot['percentFull']:.1f}% full; measured {snapshot['measuredAt']}\n")
+                      parts = []
+                      if isinstance(percent, (int, float)):
+                          parts.append(f"{percent:.1f}% full")
+                      if isinstance(elevation, (int, float)):
+                          parts.append(f"{elevation:.2f} ft MSL")
+                      out.write(f"lake|{slug}|success|{' · '.join(parts)}; measured {measured}\n")
                   else:
                       out.write(f"lake|{slug}|failure|Current numeric page-data snapshot missing\n")
           PY
@@ -146,7 +156,7 @@ jobs:
             publish_status failure texasdefined-waterdata-diagnostic "Current lake data failed one or more protected checks"
             exit 1
           fi
-          publish_status success texasdefined-waterdata-diagnostic "All 39 monitored lake page-data snapshots and server paths are current"
+          publish_status success texasdefined-waterdata-diagnostic "All 40 monitored lake page-data snapshots and server paths are current"
 
       - name: Verify every published lake exposes the live-level UI
         shell: bash
@@ -161,7 +171,7 @@ jobs:
             lake-buchanan lake-lbj richland-chambers-reservoir lake-palestine
             cedar-creek-reservoir lewisville-lake ray-roberts-lake lake-ray-hubbard
             lake-lavon grapevine-lake eagle-mountain-lake lake-bridgeport
-            lake-austin lake-somerville belton-lake stillhouse-hollow-reservoir
+            lake-austin fayette-county-reservoir lake-somerville belton-lake stillhouse-hollow-reservoir
             caddo-lake lake-o-the-pines lake-bob-sandlin lake-nacogdoches
             lake-corpus-christi alan-henry-reservoir lake-meredith lake-houston
           )
@@ -187,6 +197,10 @@ jobs:
           trap 'rm -rf "$workdir"' EXIT
           for slug in "${lakes[@]}"; do
             ok=0
+            provider_marker='Water Data for Texas'
+            if [[ "$slug" == "fayette-county-reservoir" ]]; then
+              provider_marker='LCRA Hydromet'
+            fi
             for attempt in 1 2 3; do
               body="$workdir/${slug}.html"
               headers="$workdir/${slug}.headers"
@@ -195,7 +209,7 @@ jobs:
                 --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
                 --dump-header "$headers" --output "$body" --write-out '%{http_code}' \
                 "https://texasdefined.com/fishing/lakes/${slug}?verify-live-lake=${GITHUB_RUN_ID}-${attempt}" || true)"
-              if ! grep -iq '^cf-mitigated: *challenge' "$headers" && [[ "$code" == "200" ]] && grep -Fq 'Live lake level:' "$body" && grep -Fq 'Water Data for Texas' "$body"; then
+              if ! grep -iq '^cf-mitigated: *challenge' "$headers" && [[ "$code" == "200" ]] && grep -Fq 'Live lake level:' "$body" && grep -Fq "$provider_marker" "$body"; then
                 ok=1
                 break
               fi
@@ -290,7 +304,7 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
-            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All 39 monitored lake snapshots and live UI surfaces passed"}' >/dev/null
+            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All 40 monitored lake snapshots and live UI surfaces passed"}' >/dev/null
 
       - name: Publish live-lake verification failure
         if: failure()
