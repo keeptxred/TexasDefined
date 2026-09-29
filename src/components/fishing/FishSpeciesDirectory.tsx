@@ -64,7 +64,7 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
                 {group.species.map((row) => {
                   const image = getFishingFishImage(row.slug);
                   return <article id={`species-${row.slug}`} key={row.id} className="scroll-mt-28 border-b border-border py-6 sm:px-5 sm:first:pl-0">
-                    {image ? <FishingPhoto image={image} showCredit={false} className="mb-5" imageClassName="aspect-[3/2] w-full object-contain bg-muted/20 p-3" /> : null}
+                    {image ? <FishingPhoto image={image} showCredit={false} className="mb-5" imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : null}
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="eyebrow text-primary">{row.taxonKind === "group" ? "Fishing group" : "Fish species"}</p>
                       <span className="border border-primary px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] text-primary">Species guide</span>
