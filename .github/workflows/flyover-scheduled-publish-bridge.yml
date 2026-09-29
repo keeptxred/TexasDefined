@@ -26,11 +26,9 @@ jobs:
       KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      # This is a per-request activation, not a repository-wide activation.
-      # The workflow only reaches this job for an OWNER-created, validated
-      # Flyover request. The normal TexasDefined auto-publisher stays disabled
-      # unless its repository variable is separately activated.
-      TEXASDEFINED_AUTO_PUBLISH_ENABLED: "true"
+      # OWNER/exact-feed validation is necessary but not sufficient:
+      # repository-wide TexasDefined publication activation must also be explicitly enabled.
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
       TEXASDEFINED_PUBLISH_CONFIRMATION: PUBLISH_TEXASDEFINED
     steps:
       - name: Validate owner-authorized trigger envelope
@@ -54,9 +52,9 @@ jobs:
           echo "RUN_ID=${run_line#run_id=}" >> "$GITHUB_ENV"
           echo "FEED_ID=${feed_line#feed_id=}" >> "$GITHUB_ENV"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
 
