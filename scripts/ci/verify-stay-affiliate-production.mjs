@@ -287,6 +287,11 @@ const pages = [
     requireSlot: false,
   },
   {
+    route: '/texas-state-fair',
+    marker: 'Tickets, football and a place to stay',
+    requireSlot: true,
+  },
+  {
     route: '/event/chappell-hill-bluebonnet-festival',
     marker: 'Official State of Texas Bluebonnet Festival',
     requireSlot: true,
