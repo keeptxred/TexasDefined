@@ -86,9 +86,9 @@ for (const token of [
   "wave2FishingLakes",
   "wave2LakeSpeciesProfiles",
   "wave2LakeTechniqueProfiles",
-  "const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes]",
-  "const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles]",
-  "const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles]",
+  "const fishingLakes = [...fixtureFishingCatalog.lakes, ...expandedFishingLakes, ...wave2FishingLakes,",
+  "const lakeSpecies = [...fixtureFishingCatalog.lakeSpecies, ...expandedLakeSpeciesProfiles, ...wave2LakeSpeciesProfiles,",
+  "const explicitLakeTechniques = [...fixtureFishingCatalog.lakeTechniques, ...expandedLakeTechniqueProfiles, ...wave2LakeTechniqueProfiles,",
   "derivePrototypeTechniqueProfiles",
   "reconcileLakeTechniqueProfiles",
   "prototypeTechniqueProfiles",
@@ -189,7 +189,7 @@ for (const token of [
 for (const token of [
   "expandedShowcaseLakePrototypes",
   "wave2ShowcaseLakePrototypes",
-  "const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes }",
+  "const prototypes = { ...showcaseLakePrototypes, ...expandedShowcaseLakePrototypes, ...wave2ShowcaseLakePrototypes,",
   "SHOWCASE_LAKE_SECTION_SLUGS",
 ]) requireText(files.server, token, `expanded server page-data integration missing ${token}`);
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "isShowcaseLakeSlug", "PublishedShowcaseLakeSlug"]) requireText(files.routing, token, `expanded routing contract missing ${token}`);

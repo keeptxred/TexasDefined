@@ -66,7 +66,7 @@ if (!failures.length) {
     if (!ui.includes(signal)) failures.push(`Showcase guide/report/business/sponsor integrity copy missing: ${signal}`);
   }
   if (!ui.includes('fishingFoundationAnchor("species", fish.id)')) failures.push("Showcase fish sections do not connect to canonical species destinations.");
-  if (!ui.includes("Compare the showcase lakes") || !ui.includes("showcaseLakeCanonicalPath")) failures.push("Showcase lakes do not cross-link to each other.");
+  if (!ui.includes("pageData.nearby.filter") || !ui.includes('href.startsWith("/fishing/lakes/")') || !ui.includes("showcaseLakeCanonicalPath")) failures.push("Showcase lakes do not expose scalable canonical related-lake cross-links.");
 
   for (const routeSource of [overviewRoute, sectionRoute]) {
     if (!routeSource.includes('await import("@/data/fishing/queries")')) failures.push("Showcase route must lazy-load fishing repository queries.");

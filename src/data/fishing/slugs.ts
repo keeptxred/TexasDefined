@@ -30,9 +30,38 @@ export const WAVE2_COMPLETE_FISHING_LAKE_SLUGS = [
   "falcon-international-reservoir",
 ] as const;
 
+export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
+  "lake-buchanan",
+  "lake-lbj",
+  "richland-chambers-reservoir",
+  "lake-palestine",
+  "cedar-creek-reservoir",
+  "lewisville-lake",
+  "ray-roberts-lake",
+  "lake-ray-hubbard",
+  "lake-lavon",
+  "grapevine-lake",
+  "eagle-mountain-lake",
+  "lake-bridgeport",
+  "lake-austin",
+  "fayette-county-reservoir",
+  "lake-somerville",
+  "belton-lake",
+  "stillhouse-hollow-reservoir",
+  "caddo-lake",
+  "lake-o-the-pines",
+  "lake-bob-sandlin",
+  "lake-nacogdoches",
+  "calaveras-lake",
+  "lake-corpus-christi",
+  "alan-henry-reservoir",
+  "lake-meredith",
+] as const;
+
 export const COMPLETE_FISHING_LAKE_SLUGS = [
   ...BASE_COMPLETE_FISHING_LAKE_SLUGS,
   ...WAVE2_COMPLETE_FISHING_LAKE_SLUGS,
+  ...STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS,
 ] as const;
 export type CompleteFishingLakeSlug = (typeof COMPLETE_FISHING_LAKE_SLUGS)[number];
 

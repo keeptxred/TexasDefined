@@ -115,6 +115,35 @@ const supplementalFishSpecies: FishSpecies[] = [
     summary: "A cool-water fish that supports Texas' seasonal winter put-and-take fisheries through annual stockings, with limited year-round survival in suitable cold-water habitat.",
     featured: true,
   },
+  {
+    id: "walleye",
+    brandId: BRAND,
+    slug: "walleye",
+    status: "published",
+    verifiedAt: "2026-09-28",
+    sources: [speciesSource("tpwd-walleye", "Texas Parks & Wildlife Department — Walleye", "https://tpwd.texas.gov/huntwild/wild/species/walleye/")],
+    commonName: "Walleye",
+    scientificName: "Sander vitreus",
+    taxonKind: "species",
+    waterClass: "freshwater",
+    summary: "A cool-water predator with a limited Texas distribution; Lake Meredith is the state's defining walleye reservoir.",
+    featured: true,
+  },
+  {
+    id: "red-drum",
+    brandId: BRAND,
+    slug: "red-drum",
+    status: "published",
+    verifiedAt: "2026-09-28",
+    sources: [speciesSource("tpwd-red-drum", "Texas Parks & Wildlife Department — Red Drum", "https://tpwd.texas.gov/huntwild/wild/species/reddrum/")],
+    commonName: "Red drum",
+    scientificName: "Sciaenops ocellatus",
+    taxonKind: "species",
+    waterClass: "saltwater",
+    summary: "A coastal game fish also maintained by stocking in a small number of Texas freshwater reservoirs, notably Calaveras and Braunig.",
+    aliases: ["redfish"],
+  },
+
 ];
 
 export const texasFreshwaterFishSpecies: FishSpecies[] = [
