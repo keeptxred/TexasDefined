@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { getFishingFishImage } from "./image-library";
 import {
   fishingFoundationAnchor,
   isCompleteFishingLakeSlug,
@@ -34,6 +35,7 @@ function titleCase(value: string) {
 function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEntry>) {
   const { species, canonicalPath, lakes, sources } = entry;
   const url = `${origin}${canonicalPath}`;
+  const speciesImage = getFishingFishImage(species.slug);
   const isBlueCatfish = canonicalPath === "/fishing/species/blue-catfish";
   const title = isBlueCatfish
     ? "Blue Catfish in Texas: Fishing Guide"
@@ -54,6 +56,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         isPartOf: { "@id": `${origin}/#website` },
         mainEntity: { "@id": `${url}#species` },
         citation: sources.map((source) => source.url),
+        ...(speciesImage ? { image: speciesImage.src } : {}),
       },
       {
         "@type": "Thing",
@@ -62,6 +65,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
         alternateName: species.aliases,
         description: species.summary,
         sameAs: species.sources[0]?.url,
+        ...(speciesImage ? { image: speciesImage.src } : {}),
       },
       {
         "@type": "ItemList",

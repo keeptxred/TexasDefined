@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
+import { getFishingFishImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { loadFishSpeciesDirectoryDataServer } from "@/data/fishing/species-directory-data.server";
 
@@ -59,8 +61,10 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">{group.description}</p>
               </div>
               <div className="mt-7 grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">
-                {group.species.map((row) => (
-                  <article id={`species-${row.slug}`} key={row.id} className="scroll-mt-28 border-b border-border py-6 sm:px-5 sm:first:pl-0">
+                {group.species.map((row) => {
+                  const image = getFishingFishImage(row.slug);
+                  return <article id={`species-${row.slug}`} key={row.id} className="scroll-mt-28 border-b border-border py-6 sm:px-5 sm:first:pl-0">
+                    {image ? <FishingPhoto image={image} showCredit={false} className="mb-5" imageClassName="aspect-[4/3] w-full object-contain bg-muted/30 p-3" /> : null}
                     <div className="flex flex-wrap items-center gap-2">
                       <p className="eyebrow text-primary">{row.taxonKind === "group" ? "Fishing group" : "Fish species"}</p>
                       <span className="border border-primary px-2 py-0.5 text-[0.62rem] uppercase tracking-[0.12em] text-primary">Species guide</span>
@@ -80,8 +84,8 @@ export function FishSpeciesDirectory({ pageData }: { pageData: DirectoryData }) 
                       <a href={fishingFoundationAnchor("species", row.slug)} className="eyebrow border-b border-primary pb-1 text-primary">Species guide →</a>
                       {row.sources[0] && <a href={row.sources[0].url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-border pb-1 text-muted-foreground hover:text-foreground">Official source →</a>}
                     </div>
-                  </article>
-                ))}
+                  </article>;
+                })}
               </div>
             </section>
           ))}
