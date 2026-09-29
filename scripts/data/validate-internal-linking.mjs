@@ -147,8 +147,9 @@ requireSymbols(fishingHub, [
 requireSymbols(fishingLake, [
   'fishingFoundationAnchor("species"',
   'fishingTechniqueCanonicalPath',
-  'showcaseLakeCanonicalPath(pageData.slug, "reports")',
-  'showcaseLakeCanonicalPath(pageData.slug, "guides")',
+  'pageData.sections.map',
+  'section === "reports"',
+  'section === "guides"',
   'Explore More Texas Fishing Lakes',
   'to="/fishing/lakes"',
 ], 'fishing lake guide linking');
