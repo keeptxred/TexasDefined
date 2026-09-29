@@ -8,6 +8,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { ExploreIntentPaths } from "@/components/editorial/ExploreIntentPaths";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { METRO_PROXIMITY_METROS } from "@/data/metro-proximity";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 
@@ -74,6 +75,20 @@ function ExplorePage() {
     <Suspense fallback={<div id="tours-experiences" aria-hidden="true" />}>
       <TexasExperienceMarkets />
     </Suspense>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Explore from a Texas metro" title="Find day trips without scanning the whole state" description="Start with Houston, Dallas, Fort Worth, Austin or San Antonio, then narrow to state parks, small towns, lakes and rivers, historic sites or a broader things-to-do guide." />
+        <div className="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-5">
+          {METRO_PROXIMITY_METROS.map((metro) => <Link key={metro.slug} to="/explore/near/$metro" params={{ metro: metro.slug }} className="group border-t-2 border-foreground pt-5">
+            <p className="eyebrow text-primary">{metro.regionLabel}</p>
+            <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Near {metro.name}</h3>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Day trips, parks, towns, water and history ordered by approximate distance.</p>
+            <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Browse nearby →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </Section>
 
     <Section tone="surface"><Container><SectionHeader eyebrow="Texas by region" title="Seven distinct sides of the state" description="From Gulf Coast marshes to High Plains horizons, each region has its own rhythm, landscape and reasons to linger." /><ul className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">{regions.map((region) => <li key={region.id} className="border-t border-border pt-5"><Link to="/explore/region/$region" params={{ region: region.id }} className="group block"><h3 className="font-display text-[1.7rem] leading-tight transition-colors group-hover:text-primary">{region.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{region.blurb}</p><span className="eyebrow mt-4 inline-block text-primary">Explore the region →</span></Link></li>)}</ul></Container></Section>
 
