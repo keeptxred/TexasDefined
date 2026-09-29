@@ -1,4 +1,4 @@
-export type FishingImageRightsStatus = "public-domain" | "cc-by" | "cc-by-sa";
+export type FishingImageRightsStatus = "public-domain" | "cc-by" | "cc-by-sa" | "government-usage-guidelines";
 
 export interface FishingVisualAsset {
   id: string;
@@ -28,6 +28,7 @@ const CC_BY_4 = "https://creativecommons.org/licenses/by/4.0/";
 const CC_BY_SA_2 = "https://creativecommons.org/licenses/by-sa/2.0/";
 const CC_BY_SA_3 = "https://creativecommons.org/licenses/by-sa/3.0/";
 const CC_BY_SA_4 = "https://creativecommons.org/licenses/by-sa/4.0/";
+const NASA_MEDIA_GUIDELINES = "https://www.nasa.gov/nasa-brand-center/images-and-media/";
 
 function commonsFile(filename: string) {
   return `https://commons.wikimedia.org/wiki/File:${filename.replaceAll(" ", "_")}`;
@@ -399,6 +400,18 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
     CC_BY_SA_2,
     "cc-by-sa",
     "Flickr",
+  ),
+  "richland-chambers-reservoir": licensedRemoteLake(
+    "lake-richland-chambers",
+    "https://eol.jsc.nasa.gov/DatabaseImages/ESC/large/STS058/STS058-80-35.JPG",
+    "https://eol.jsc.nasa.gov/Collections/EarthFromSpace/printinfo.pl?PHOTO=STS058-80-35",
+    "Richland-Chambers Reservoir and Cedar Creek Reservoir photographed from orbit",
+    3863, 3904,
+    "NASA Johnson Space Center Earth Science and Remote Sensing Unit",
+    "NASA media usage guidelines — informational/editorial use",
+    NASA_MEDIA_GUIDELINES,
+    "government-usage-guidelines",
+    "NASA Gateway to Astronaut Photography of Earth",
   ),
   "fayette-county-reservoir": commonsLake(
     "lake-fayette-county",
