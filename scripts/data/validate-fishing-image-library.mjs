@@ -34,6 +34,8 @@ for (const token of [
   "getFishingFishImage",
   "getFishingLakeImage",
   "licensedRemoteLake",
+  "nasaLake",
+  "NASA_MEDIA_GUIDELINES",
 ]) requireText(files.library, token, `registry contract missing ${token}`);
 
 const requiredFish = [
@@ -116,6 +118,7 @@ const requiredLakes = [
   "calaveras-lake",
   "alan-henry-reservoir",
   "lake-palestine",
+  "richland-chambers-reservoir",
   "lake-conroe",
   "choke-canyon-reservoir",
   "falcon-international-reservoir",
@@ -133,9 +136,9 @@ const completeLakeSlugs = [
   ...parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
   ...parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
-const allowedExactLakeImageGaps = new Set(["richland-chambers-reservoir"]);
+const allowedExactLakeImageGaps = new Set();
 if (new Set(completeLakeSlugs).size !== 41) fail(`expected 41 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
-if (requiredLakes.length !== 40) fail(`expected 40 governed exact lake-photo mappings, found ${requiredLakes.length}`);
+if (requiredLakes.length !== 41) fail(`expected 41 governed exact lake-photo mappings, found ${requiredLakes.length}`);
 for (const slug of completeLakeSlugs) {
   const hasMapping = requiredLakes.includes(slug);
   if (!hasMapping && !allowedExactLakeImageGaps.has(slug)) fail(`complete lake lacks governed image mapping or explicit exception: ${slug}`);
@@ -150,10 +153,22 @@ for (const slug of requiredLakes) {
   const localToken = `"${slug}": lake(`;
   const commonsToken = `"${slug}": commonsLake(`;
   const remoteToken = `"${slug}": licensedRemoteLake(`;
-  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken)) {
+  const nasaToken = `"${slug}": nasaLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken) && !files.library.includes(remoteToken) && !files.library.includes(nasaToken)) {
     fail(`governed lake image inventory missing ${slug}`);
   }
 }
+
+const nasaRichlandStart = files.library.indexOf('  "richland-chambers-reservoir": nasaLake(');
+if (nasaRichlandStart < 0) fail("NASA Richland-Chambers image mapping missing");
+const nasaRichlandEnd = files.library.indexOf("\n  ),", nasaRichlandStart);
+const nasaRichlandBlock = files.library.slice(nasaRichlandStart, nasaRichlandEnd > nasaRichlandStart ? nasaRichlandEnd + 5 : nasaRichlandStart + 1800);
+for (const token of [
+  "STS058-80-35",
+  "NASA Johnson Space Center Earth Science & Remote Sensing",
+  "NASA Images and Media Usage Guidelines",
+  "nasa-media-guidelines",
+]) requireText(nasaRichlandBlock, token, `NASA Richland-Chambers rights contract missing ${token}`);
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
   .map((match) => `public/${match[1]}`);
@@ -228,4 +243,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and ${requiredLakes.length}/41 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules; Richland-Chambers remains the single explicit exact-photo rights gap.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/41 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);
