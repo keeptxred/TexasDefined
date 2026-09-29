@@ -111,7 +111,17 @@ async function readyQueue() {
     limit: String(limit),
   });
   if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
-  return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
+  const response = await supabase(`/rest/v1/texasdefined_ready_queue?${params}`, {
+    headers: { Prefer: 'count=exact' },
+  });
+  const items = await response.json();
+  const contentRange = response.headers.get('content-range') || '';
+  const totalPart = contentRange.split('/').at(-1);
+  const totalEligible = Number(totalPart);
+  if (!Number.isSafeInteger(totalEligible) || totalEligible < items.length) {
+    throw new Error(`TexasDefined ready queue did not return a valid exact count (${contentRange || 'missing Content-Range'}).`);
+  }
+  return { items, totalEligible };
 }
 
 async function destinations() {
@@ -212,23 +222,49 @@ if (publishRequested) {
 }
 
 if (exactFeedId) await hydrateExactFeed();
-const queue = await readyQueue();
+const queueResult = await readyQueue();
+const queue = queueResult.items;
 if (exactFeedId && queue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
 }
+const queueSummary = {
+  requestedFeedId: exactFeedId,
+  eligible: queueResult.totalEligible,
+  selected: queue.length,
+  deferred: Math.max(0, queueResult.totalEligible - queue.length),
+  ids: queue.map((item) => item.id),
+};
 console.log(JSON.stringify({
   mode: publishRequested ? 'publish' : 'dry-run',
-  requestedFeedId: exactFeedId,
-  eligible: queue.length,
-  ids: queue.map((item) => item.id),
+  ...queueSummary,
 }));
-if (publishRequested && queue.length > 0) {
-  const destinationRows = await destinations();
-  if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
-  for (const item of queue) {
-    const draft = await generateDraft(item, destinationRows);
-    const heroUrl = await generateAndStoreImage(draft);
-    const liveUrl = await publish(item, draft, heroUrl);
-    console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl }));
+if (publishRequested) {
+  let publishedCount = 0;
+  let failedCount = 0;
+  try {
+    if (queue.length > 0) {
+      const destinationRows = await destinations();
+      if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
+      for (const item of queue) {
+        try {
+          const draft = await generateDraft(item, destinationRows);
+          const heroUrl = await generateAndStoreImage(draft);
+          const liveUrl = await publish(item, draft, heroUrl);
+          publishedCount += 1;
+          console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl }));
+        } catch (error) {
+          failedCount += 1;
+          throw error;
+        }
+      }
+    }
+  } finally {
+    console.log(JSON.stringify({
+      mode: 'publish-summary',
+      ...queueSummary,
+      published: publishedCount,
+      skipped: Math.max(0, queue.length - publishedCount - failedCount),
+      failed: failedCount,
+    }));
   }
 }
