@@ -83,11 +83,10 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
     const governedPage = page ? applyEventSchemaConfidencePolicy(page, occurrence) : page;
     if (!governedPage) return governedPage;
     const renderedPage = stabilizeChappellHillWildflowerMap(governedPage);
-    const imageCompliant = hasCompliantMajorEventImageServer(data.slug);
-    const eventImage = imageCompliant ? getMajorEventSchemaEnrichmentServer(data.slug)?.image : undefined;
+    const eventImage = hasCompliantMajorEventImageServer(data.slug) ? getMajorEventSchemaEnrichmentServer(data.slug)?.image : undefined;
     return {
       ...renderedPage,
-      imageCompliant,
+      imageCompliant: hasCompliantMajorEventImageServer(data.slug),
       image: eventImage?.url,
       imageAlt: eventImage?.alt,
     };
