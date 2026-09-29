@@ -229,7 +229,7 @@ export function HighSchoolFootballLookup({
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{alignmentLabel(program)}</p>
               </div>
-              <h4 className="mt-2 font-display text-2xl leading-tight">{program.officialSchoolName || program.schoolName}</h4>
+              <h4 className="mt-2 font-display text-2xl leading-tight">{program.schoolName}</h4>
               {program.districtName && (program.isdProfilePath
                 ? <a href={program.isdProfilePath} className="mt-2 inline-block text-sm font-medium text-primary underline underline-offset-4">{program.districtName} football programs →</a>
                 : <p className="mt-2 text-sm font-medium">{program.districtName}</p>)}
@@ -315,7 +315,7 @@ function ProgramComparison({ programs, onClear }: { programs: FootballProgram[];
         <thead>
           <tr className="border-b border-border">
             <th className="p-3 text-xs uppercase tracking-[0.1em] text-muted-foreground">Measure</th>
-            {programs.map((program) => <th key={programKey(program)} className="p-3 font-display text-lg">{program.officialSchoolName || program.schoolName}</th>)}
+            {programs.map((program) => <th key={programKey(program)} className="p-3 font-display text-lg">{program.schoolName}</th>)}
           </tr>
         </thead>
         <tbody>
