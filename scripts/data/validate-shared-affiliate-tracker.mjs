@@ -52,6 +52,21 @@ function validateAffiliateAnchorMetadata(file, source) {
         failures.push(`${file} affiliate anchor with ${marker} is missing ${required}; first-party referral reporting would be incomplete.`);
       }
     }
+
+    const relMatch = anchor.match(/\brel\s*=\s*(?:"([^"]*)"|'([^']*)'|\{([^}]*)\})/s);
+    if (!relMatch) {
+      failures.push(`${file} affiliate anchor with ${marker} is missing rel; affiliate relationships must be disclosed and protected.`);
+    } else {
+      const literalRel = relMatch[1] ?? relMatch[2];
+      if (literalRel !== undefined) {
+        const relTokens = new Set(literalRel.toLowerCase().split(/\s+/).filter(Boolean));
+        for (const token of ['sponsored', 'nofollow', 'noopener', 'noreferrer']) {
+          if (!relTokens.has(token)) {
+            failures.push(`${file} affiliate anchor with ${marker} has literal rel but is missing ${token}.`);
+          }
+        }
+      }
+    }
     offset = index + marker.length;
   }
 }
@@ -66,6 +81,12 @@ function validateDomAffiliateMetadata(file, source) {
     if (!source.includes(required)) {
       failures.push(`${file} builds affiliate links with .dataset.affiliatePartner but is missing ${required}; first-party referral reporting would be incomplete.`);
     }
+  }
+
+  const assignsRel = /\.rel\s*=/.test(source) || /\.setAttribute\(\s*["']rel["']/.test(source);
+  const hasRelationshipTokens = ['sponsored', 'nofollow', 'noopener', 'noreferrer'].every((token) => source.includes(token));
+  if (!assignsRel || !hasRelationshipTokens) {
+    failures.push(`${file} builds DOM affiliate links but does not visibly assign sponsored nofollow noopener noreferrer relationship protection.`);
   }
 }
 
@@ -164,4 +185,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral writes are limited to src/platform/analytics.ts plus the explicit pre-bootstrap click fallback in src/routes/__root.tsx, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata, rendered source/public links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting, and the deactivated Golf Direct Now CJ advertiser cannot re-enter source/public assets while advertiser 6323402 remains inactive.');
+console.log('Shared affiliate tracker governance passed: affiliate marketing emitters are centralized, first-party partner referral writes are limited to src/platform/analytics.ts plus the explicit pre-bootstrap click fallback in src/routes/__root.tsx, public bootstraps cannot write either outcome directly, every affiliate-tagged source/public link retains commercial partner and placement metadata plus relationship protection, DOM affiliate builders visibly assign sponsored nofollow noopener noreferrer, rendered source/public links using known CJ/CityPASS/Viator affiliate-network identifiers cannot silently bypass private reporting, and the deactivated Golf Direct Now CJ advertiser cannot re-enter source/public assets while advertiser 6323402 remains inactive.');
