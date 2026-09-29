@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/texasdefined-auto-publication.yml'
       - '.github/workflows/texasdefined-publication-production-smoke.yml'
+      - '.github/workflows/flyover-scheduled-publish-bridge.yml'
       - 'scripts/news/texasdefined-auto-publisher.mjs'
       - 'scripts/data/validate-texasdefined-auto-publication.mjs'
       - 'scripts/ci/verify-texasdefined-publication-production.mjs'
@@ -19,6 +20,7 @@ on:
     paths:
       - '.github/workflows/texasdefined-auto-publication.yml'
       - '.github/workflows/texasdefined-publication-production-smoke.yml'
+      - '.github/workflows/flyover-scheduled-publish-bridge.yml'
       - 'scripts/news/texasdefined-auto-publisher.mjs'
       - 'scripts/data/validate-texasdefined-auto-publication.mjs'
       - 'scripts/ci/verify-texasdefined-publication-production.mjs'
@@ -39,8 +41,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - name: Verify auto-publication activation remains unset
