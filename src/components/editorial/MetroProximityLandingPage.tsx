@@ -47,7 +47,7 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
 
   return <>
     <Container className="pt-8 sm:pt-12">
-      <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
+      <nav aria-label="Breadcrumb" className="eyebrow text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-2">
           <li><Link to="/" className="hover:text-foreground">Front page</Link></li>
           <li aria-hidden>·</li>
@@ -59,13 +59,13 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
     </Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
-      {hero ? <img src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} className="absolute inset-0 size-full object-cover opacity-55" onError={(event) => recoverOrHideImage(event.currentTarget)} /> : null}
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/75 to-ink/20" />
-      <Container className="relative flex min-h-[28rem] flex-col justify-end pb-12 pt-24 sm:min-h-[34rem] sm:pb-14">
+      {hero ? <img src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} className="absolute inset-0 size-full object-cover opacity-50" onError={(event) => recoverOrHideImage(event.currentTarget)} /> : null}
+      <div className="absolute inset-0 bg-ink opacity-50" />
+      <Container className="relative flex min-h-96 flex-col justify-end py-12 sm:py-16">
         <p className="eyebrow text-ink-foreground/75">{page.eyebrow}</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{page.title}</h1>
-        <p className="mt-6 max-w-3xl text-base leading-8 text-ink-foreground/88 sm:text-lg">{page.intro}</p>
-        <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[0.72rem] uppercase tracking-[0.14em] text-ink-foreground/65">
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-none sm:text-7xl">{page.title}</h1>
+        <p className="mt-6 max-w-3xl text-base leading-8 text-ink-foreground sm:text-lg">{page.intro}</p>
+        <div className="eyebrow mt-7 flex flex-wrap gap-x-6 gap-y-2 text-ink-foreground">
           <span>{page.totalMatches} curated place{page.totalMatches === 1 ? "" : "s"}</span>
           <span>{page.uniqueTowns} town{page.uniqueTowns === 1 ? "" : "s"}</span>
           <span>{page.uniqueCounties} count{page.uniqueCounties === 1 ? "y" : "ies"}</span>
@@ -74,7 +74,7 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
     </section>
 
     <Container className="py-10 sm:py-14">
-      <section className="grid gap-6 border-y border-border py-7 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.6fr)] lg:gap-12">
+      <section className="grid gap-6 border-y border-border py-7 lg:grid-cols-2 lg:gap-12">
         <div>
           <p className="eyebrow text-primary">How the distance band works</p>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{page.methodology}</p>
@@ -105,9 +105,9 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
           const destination = item.destination;
           return <article key={destination.slug} className="group flex min-w-0 flex-col border-b border-border pb-8">
             <Link to="/destination/$slug" params={{ slug: destination.slug }} className="block overflow-hidden bg-muted">
-              <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} loading="lazy" className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+              <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} loading="lazy" className="aspect-video w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
             </Link>
-            <div className="mt-5 flex flex-wrap gap-2 text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">
+            <div className="eyebrow mt-5 flex flex-wrap gap-2 text-muted-foreground">
               <span>{categoryLabel(destination.category)}</span>
               {destination.county ? <><span aria-hidden>·</span><span>{destination.county.replace(/\s+County$/i, "")} County</span></> : null}
             </div>
@@ -125,9 +125,9 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
       </div>
     </Container>
 
-    {displayed.length ? <section className="border-y border-border bg-surface/45">
+    {displayed.length ? <section className="border-y border-border bg-surface">
       <Container className="py-12 sm:py-16">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
+        <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">Map the shortlist</p>
             <h2 className="mt-3 font-display text-4xl">See how the stops spread around {page.metro.shortName}</h2>
@@ -156,7 +156,7 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
           <h2 className="mt-2 font-display text-4xl">Counties, towns and statewide guides</h2>
           {counties.length ? <div className="mt-6">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Counties represented</p>
-            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">{counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="underline decoration-primary/35 underline-offset-4 hover:text-primary">{county} County</Link>)}</div>
+            <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">{counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="underline underline-offset-4 hover:text-primary">{county} County</Link>)}</div>
           </div> : null}
           {towns.length ? <div className="mt-7">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Towns and gateways in this set</p>
@@ -165,8 +165,8 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
           <div className="mt-7">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Related statewide guides</p>
             <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
-              {categoryGuides.map((guide) => <Link key={guide.href} to={guide.href} className="underline decoration-primary/35 underline-offset-4 hover:text-primary">{guide.label}</Link>)}
-              <Link to="/explore/trip-planner" className="underline decoration-primary/35 underline-offset-4 hover:text-primary">Texas Trip Planner</Link>
+              {categoryGuides.map((guide) => <Link key={guide.href} to={guide.href} className="underline underline-offset-4 hover:text-primary">{guide.label}</Link>)}
+              <Link to="/explore/trip-planner" className="underline underline-offset-4 hover:text-primary">Texas Trip Planner</Link>
             </div>
           </div>
         </section>
@@ -174,11 +174,11 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
     </Container>
 
     <section className="border-t border-border bg-ink text-ink-foreground">
-      <Container className="py-14 sm:py-18">
+      <Container className="py-14 sm:py-16">
         <p className="eyebrow text-ink-foreground/65"><Sparkles className="mr-2 inline size-4" aria-hidden />More trips from Texas metros</p>
         <h2 className="mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Keep building the radius</h2>
         <div className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((link) => <Link key={link.href} to={link.href} className="border-b border-ink-foreground/20 pb-3 text-sm font-semibold leading-6 hover:border-ink-foreground/60">{link.label} →</Link>)}
+          {related.map((link) => <Link key={link.href} to={link.href} className="border-b border-ink-foreground pb-3 text-sm font-semibold leading-6">{link.label} →</Link>)}
         </div>
       </Container>
     </section>

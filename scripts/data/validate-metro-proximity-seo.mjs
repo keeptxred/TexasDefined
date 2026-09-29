@@ -51,7 +51,7 @@ requireAll("dynamic Explore integration", route, [
   "destinationsQuery({ limit: 5000 })",
   "resolveMetroProximityPageBySlug",
   '"metroProximity" in loaderData',
-  'loaderData.kind === "metro-proximity"',
+  '"metroProximity" in loaderData',
   'page.indexReady ? undefined : "noindex, follow, max-image-preview:large"',
   "canonicalLink(texasDefinedBrand, page.canonicalPath)",
   '"@type": "CollectionPage"',
