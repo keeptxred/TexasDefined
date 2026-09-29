@@ -52,6 +52,14 @@ for (const marker of [
   '"contact-research"',
   "needsImprovementFirst",
   "automaticIntake.slice(0, 60)",
+  "loadUpcomingTexasEventRecordsServer",
+  "eventIntake.slice(0, 40)",
+  'contentKind: "event"',
+  "platform.articles.list(scope)",
+  "isArticleIndexReady(article)",
+  "authoritySourceIntake.slice(0, 40)",
+  'contentKind: "article-source"',
+  'status: "source-research"',
 ]) requireText(files.server, marker, `Automatic outreach intake missing: ${marker}`);
 
 for (const marker of [
@@ -71,6 +79,9 @@ for (const marker of [
   "No email is sent from this dashboard.",
   "New authority pages needing contact research",
   "Pages that should be improved first",
+  "Upcoming event guides needing organizer contact research",
+  "Published articles with named source relationships to evaluate",
+  "A citation does not mean",
   "We are not asking for paid placement or a reciprocal-link arrangement.",
 ]) requireText(files.lazy, marker, `Editorial outreach admin UX missing: ${marker}`);
 
@@ -101,4 +112,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, automatic quality-gated destination intake, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
+console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, quality-gated destination intake, verified event-organizer intake, conservative authority-source research, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
