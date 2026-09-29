@@ -22,7 +22,7 @@ const errors = [];
 for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {
   if (!workflow.includes(token)) errors.push(`Workflow is missing ${token}`);
 }
-for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false', "mode: 'dry-run-summary'", 'published: 0', 'skipped: 0', 'failed: 0']) {
+for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false', "mode: 'dry-run-summary'", 'selected: queue.selected', 'deferred: queue.deferred', 'published: 0', 'skipped: 0', 'failed: 0', 'Refuse publication on workflow reruns', "inputs.mode == 'publish' && github.run_attempt != 1", "inputs.mode == 'publish' && github.run_attempt == 1"]) {
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
@@ -35,7 +35,7 @@ for (const token of ['/news', '/news/2026-08-10-canyon-lake-full-capacity-recove
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
   if (!migration.includes(token)) errors.push(`Migration is missing ${token}`);
 }
-for (const token of ['--publish', '--feed-id=', 'exactFeedId', "params.set('id', `eq.${exactFeedId}`)", 'NEWSROOM_HYDRATION_URL', 'hydrate-newsroom-source-pages', 'async function hydrateExactFeed()', "method: 'POST'", 'feedIds: [exactFeedId]', 'if (exactFeedId) await hydrateExactFeed()', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'readyQueue()', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
+for (const token of ['--publish', '--feed-id=', 'exactFeedId', "params.set('id', `eq.${exactFeedId}`)", "Prefer: 'count=exact'", "response.headers.get('content-range')", 'totalEligible', 'selected: queue.length', "mode: 'publish-summary'", 'publishedCount', 'failedCount', 'NEWSROOM_HYDRATION_URL', 'hydrate-newsroom-source-pages', 'async function hydrateExactFeed()', "method: 'POST'", 'feedIds: [exactFeedId]', 'if (exactFeedId) await hydrateExactFeed()', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'readyQueue()', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
   if (!publisher.includes(token)) errors.push(`Publisher is missing ${token}`);
 }
 for (const token of ['flyover_publish_request_v2', 'site=texasdefined', 'feed_id=', 'FEED_ID=', '--feed-id="$FEED_ID"', 'Exact Flyover feed']) {
@@ -77,4 +77,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, exact-feed hydration-aware, source-gated, image-gated, disabled by default, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, isolated to feed-backed /news routes, complete across paginated sitemap discovery, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');
+console.log('TexasDefined auto-publication is guarded, exact-feed hydration-aware, source-gated, image-gated, disabled by default, auditable for activation/exact queue and outcome counts, production-smoked for /news and Canyon Lake sitemap health, isolated to feed-backed /news routes, complete across paginated sitemap discovery, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');
