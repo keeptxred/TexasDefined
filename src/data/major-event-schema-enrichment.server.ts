@@ -26,6 +26,7 @@ import { majorEventSchemaEnrichmentBatch25 } from "./major-event-schema-enrichme
 import { majorEventSchemaEnrichmentOverrides } from "./major-event-schema-enrichment-overrides.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
+export type EventSchemaLifecycleStatus = "scheduled" | "cancelled" | "postponed" | "rescheduled";
 export type EventImageSourceType = "licensed-real" | "owner-provided" | "government-open" | "wikimedia" | "flickr-cc" | "ai-generated";
 
 export interface EventSchemaEntity {
@@ -54,9 +55,15 @@ export interface EventSchemaImage {
   aiGenerated?: boolean;
 }
 
+export interface EventSchemaLifecycle {
+  status: EventSchemaLifecycleStatus;
+  previousStartDate?: string;
+}
+
 export interface EventSchemaOccurrenceEnrichment {
   offers?: EventSchemaOffer[];
   performers?: EventSchemaEntity[];
+  lifecycle?: EventSchemaLifecycle;
 }
 
 export interface MajorEventSchemaEnrichment {
@@ -65,6 +72,7 @@ export interface MajorEventSchemaEnrichment {
   offers?: EventSchemaOffer[];
   performers?: EventSchemaEntity[];
   image?: EventSchemaImage;
+  lifecycle?: EventSchemaLifecycle;
   occurrences?: Record<string, EventSchemaOccurrenceEnrichment>;
   sources: Array<{ label: string; url: string }>;
   verifiedAt: string;
@@ -185,5 +193,6 @@ export function getMajorEventSchemaOccurrenceEnrichmentServer(slug: string, labe
     image: record.image,
     offers: occurrence?.offers ?? record.offers,
     performers: occurrence?.performers ?? record.performers,
+    lifecycle: occurrence?.lifecycle ?? record.lifecycle,
   };
 }
