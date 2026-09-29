@@ -64,7 +64,7 @@ for (const marker of ['EventTicketCta', 'ArrowLeft', 'ArrowRight', 'Home', 'End'
 for (const marker of ['const calendarHref = viewAllHref.includes("#calendar")', '`${viewAllHref.replace(/#.*$/, "")}#calendar`', '<a href={calendarHref} className="ec-l">View Calendar</a>']) requireText(carousel, marker, 'event carousel calendar contract');
 for (const marker of ['overflow-x: auto', 'scroll-snap-type: x mandatory', 'min-width: 84%', '@media (min-width: 640px)', '@media (min-width: 1024px)', 'calc(33.333% - .7rem)']) requireText(carouselCss, marker, 'event carousel responsive behavior');
 for (const marker of ['`sports-venue:${data.slug}`', 'encodeURIComponent(venueId)', '#calendar', 'limit: 9']) requireText(eventFn, marker, 'venue event query');
-for (const marker of ['timeZone: "America/Chicago"', 'startsOnOrAfter', '["scheduled", "postponed"]']) requireText(eventRecords, marker, 'event expiration');
+for (const marker of ['timeZone: "America/Chicago"', 'startsOnOrAfter', '["scheduled", "postponed", "rescheduled"]']) requireText(eventRecords, marker, 'event expiration');
 for (const marker of [
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Expedia bookings',
   'rel = "sponsored nofollow noopener noreferrer"',
