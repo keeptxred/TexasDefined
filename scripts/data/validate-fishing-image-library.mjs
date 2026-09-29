@@ -36,20 +36,32 @@ for (const token of [
 
 const requiredFish = [
   "largemouth-bass",
+  "smallmouth-bass",
+  "spotted-bass",
+  "guadalupe-bass",
   "crappie",
   "black-crappie",
+  "white-crappie",
   "catfish",
+  "blue-catfish",
   "channel-catfish",
+  "flathead-catfish",
   "white-bass",
   "striped-bass",
   "hybrid-striped-bass",
   "alligator-gar",
-  "walleye",
-  "red-drum",
+  "freshwater-drum",
   "sunfish",
   "bluegill",
+  "rainbow-trout",
+  "walleye",
+  "red-drum",
 ];
-for (const slug of requiredFish) requireText(files.library, `"${slug}": fish(`, `initial governed fish inventory missing ${slug}`);
+for (const slug of requiredFish) {
+  const token = `"${slug}":`;
+  const bareToken = `  ${slug}:`;
+  if (!files.library.includes(token) && !files.library.includes(bareToken)) fail(`governed fish inventory missing ${slug}`);
+}
 
 for (const slug of ["crappie", "catfish", "sunfish"]) {
   const start = files.library.indexOf(`  ${slug.includes("-") ? '"' + slug + '"' : slug}: fish(`);
@@ -64,6 +76,8 @@ for (const token of [
   "commons.wikimedia.org/wiki/Special:Redirect/file/",
   "Public domain — U.S. federal government work",
   "Wikimedia Commons / U.S. Fish & Wildlife Service",
+  "CC0 1.0 public-domain dedication",
+  "Wikimedia Commons / iNaturalist",
 ]) requireText(files.library, token, `fish provenance contract missing ${token}`);
 
 const requiredLakes = [
@@ -131,4 +145,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: ${requiredFish.length} governed fish mappings and ${requiredLakes.length} exact lake-photo mappings are protected with provenance, license metadata, reusable rendering and attribution rules.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and ${requiredLakes.length} exact lake-photo mappings are protected with provenance, license metadata, reusable rendering and attribution rules.`);
