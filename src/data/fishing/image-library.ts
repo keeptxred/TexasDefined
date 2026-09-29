@@ -1,4 +1,4 @@
-export type FishingImageRightsStatus = "public-domain" | "cc-by" | "cc-by-sa";
+export type FishingImageRightsStatus = "public-domain" | "cc-by" | "cc-by-sa" | "no-known-restrictions" | "government-usage-guidelines";
 
 export interface FishingVisualAsset {
   id: string;
@@ -28,6 +28,8 @@ const CC_BY_4 = "https://creativecommons.org/licenses/by/4.0/";
 const CC_BY_SA_2 = "https://creativecommons.org/licenses/by-sa/2.0/";
 const CC_BY_SA_3 = "https://creativecommons.org/licenses/by-sa/3.0/";
 const CC_BY_SA_4 = "https://creativecommons.org/licenses/by-sa/4.0/";
+const LOC_HIGHSMITH_RIGHTS = "https://www.loc.gov/pictures/collection/highsm/rights.html";
+const NASA_MEDIA_GUIDELINES = "https://www.nasa.gov/nasa-brand-center/images-and-media/";
 
 function commonsFile(filename: string) {
   return `https://commons.wikimedia.org/wiki/File:${filename.replaceAll(" ", "_")}`;
@@ -271,7 +273,94 @@ const commonsLake = (
   credit: `${creator} · ${licenseName} · Wikimedia Commons`,
 });
 
+const remoteLake = (
+  id: string,
+  src: string,
+  sourceUrl: string,
+  alt: string,
+  width: number,
+  height: number,
+  creator: string,
+  sourceName: string,
+  licenseName: string,
+  licenseUrl: string,
+  rightsStatus: FishingImageRightsStatus,
+): FishingVisualAsset => ({
+  id,
+  kind: "lake",
+  src,
+  alt,
+  width,
+  height,
+  sourceName,
+  sourceUrl,
+  creator,
+  licenseName,
+  licenseUrl,
+  rightsStatus,
+  verifiedAt: VERIFIED_AT,
+  actualLocation: true,
+  credit: `${creator} · ${licenseName} · ${sourceName}`,
+});
+
 export const fishingLakeImages: Record<string, FishingVisualAsset> = {
+  "lake-fork": commonsLake(
+    "lake-fork",
+    "A mashy inlet of Lake Fork in Rains County, east of Dallas in northeast Texas LCCN2015630125.tif",
+    "A marshy inlet of Lake Fork in Rains County, northeast Texas",
+    7360, 4912,
+    "Carol M. Highsmith",
+    "No known restrictions on publication",
+    LOC_HIGHSMITH_RIGHTS,
+    "no-known-restrictions",
+    "Wikimedia Commons / Library of Congress / Carol M. Highsmith Archive",
+  ),
+  "o-h-ivie-lake": remoteLake(
+    "lake-o-h-ivie",
+    "https://live.staticflickr.com/7722/27527896213_4a4991376b.jpg",
+    "https://www.flickr.com/photos/kenlund/27527896213/",
+    "O.H. Ivie Lake in West-Central Texas",
+    500, 375,
+    "Ken Lund",
+    "Flickr",
+    "CC BY-SA 2.0",
+    CC_BY_SA_2,
+    "cc-by-sa",
+  ),
+  "richland-chambers-reservoir": remoteLake(
+    "lake-richland-chambers",
+    "https://eol.jsc.nasa.gov/DatabaseImages/ESC/large/STS058/STS058-80-35.JPG",
+    "https://esrs.jsc.nasa.gov/SearchPhotos/photo.pl?frame=35&mission=STS058&roll=80",
+    "Richland-Chambers Reservoir and Cedar Creek Reservoir photographed from orbit",
+    3863, 3904,
+    "NASA Johnson Space Center Earth Science and Remote Sensing Unit",
+    "NASA Gateway to Astronaut Photography of Earth",
+    "NASA media usage guidelines — generally not subject to U.S. copyright",
+    NASA_MEDIA_GUIDELINES,
+    "government-usage-guidelines",
+  ),
+  "fayette-county-reservoir": commonsLake(
+    "lake-fayette-county",
+    "Osprey @ Fayette County Reservoir (12715870).jpg",
+    "Osprey above Fayette County Reservoir in Texas",
+    2292, 1436,
+    "Clinton & Charles Robertson",
+    "CC BY-SA 2.0",
+    CC_BY_SA_2,
+    "cc-by-sa",
+  ),
+  "lake-nacogdoches": remoteLake(
+    "lake-nacogdoches",
+    "https://live.staticflickr.com/3475/3318770254_5e309e4ae2.jpg",
+    "https://www.flickr.com/photos/attawayjl/3318770254/",
+    "Lake Nacogdoches in East Texas",
+    500, 375,
+    "Jeff Attaway",
+    "Flickr",
+    "CC BY 2.0",
+    CC_BY_2,
+    "cc-by",
+  ),
   "lake-conroe": commonsLake(
     "lake-conroe",
     "USA - Texas - Sam Houston National Forest - Lake Conroe - 51632123698.jpg",
