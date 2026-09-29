@@ -26,7 +26,7 @@ function TexasCostOfLivingCalculatorPage() {
     </section>
     <section className="mt-14 border-t border-border pt-10" aria-labelledby="cost-living-heading">
       <p className="eyebrow text-primary">Averages are a starting point</p>
-      <h2 id="cost-living-heading" className="mt-3 font-display text-3xl">Build the comparison around the household you actually have</h2>
+      <h2 id="cost-living-heading" className="mt-3 font-display text-3xl">Build the comparison around your household</h2>
       <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
         <p>Metro averages are useful for orientation, but the household still has to choose a home, commute, utility setup and spending pattern. Adjust the categories that will actually change instead of assuming every cost moves by the same percentage.</p>
         <p>Housing and transportation often deserve the most attention because they can move together: a lower housing cost farther from work can create a higher vehicle, fuel, toll or time cost. Compare the combined effect rather than optimizing one line in isolation.</p>
