@@ -49,7 +49,7 @@ function TexasCostOfLivingCalculatorPage() {
     </section>
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="cost-living-move-heading">
       <p className="eyebrow text-primary">Moving within Texas</p>
-      <h2 id="cost-living-move-heading" className="mt-3 font-display text-3xl">Compare neighborhoods and counties, not just metro headlines</h2>
+      <h2 id="cost-living-move-heading" className="mt-3 font-display text-3xl">Compare neighborhoods, counties, and metro areas</h2>
       <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
         <p>Dallas-Fort Worth, Houston, Austin and San Antonio each contain many cities, counties and taxing jurisdictions. A household can stay inside the same metro and still experience a meaningful change in property taxes, commute, utilities, insurance and neighborhood fees.</p>
         <p>If you are buying, identify the exact school district, city, county and special districts for the property. If you are renting, verify which utilities are included, how much parking or amenity fees add, and whether the commute creates recurring toll or fuel costs.</p>
