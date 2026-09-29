@@ -1,6 +1,7 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { MapPreview } from "@/components/editorial/MapPreview";
 import { Container } from "@/components/layout/Container";
 import { METRO_PROXIMITY_COLLECTIONS, metroProximityTitle } from "@/data/metro-proximity";
 
@@ -12,11 +13,28 @@ function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip") {
   return "Longer day trip";
 }
 
+function countySlug(value: string) {
+  return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 function MetroProximityCollectionPage() {
   const { metro, collection, results, indexReady } = Route.useLoaderData();
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
+  const mapMarkers = results.slice(0, 10).map((row) => ({
+    id: row.destination.slug,
+    label: row.destination.name,
+    point: row.destination.coordinates,
+    href: `/destination/${row.destination.slug}`,
+  }));
+  const counties = [...new Set(results
+    .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
+    .filter((value): value is string => Boolean(value)))]
+    .slice(0, 10);
+  const distanceWindow = collection.minimumMiles > 0
+    ? `${collection.minimumMiles}–${collection.radiusMiles} straight-line miles`
+    : `Up to ${collection.radiusMiles} straight-line miles`;
 
   return <>
     <Container className="pt-10 sm:pt-14">
@@ -40,11 +58,11 @@ function MetroProximityCollectionPage() {
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{collection.summary}</p>
         <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm">
           <p><span className="eyebrow mr-2 text-muted-foreground">Published options</span>{results.length}</p>
-          <p><span className="eyebrow mr-2 text-muted-foreground">Search radius</span>{collection.radiusMiles} miles</p>
+          <p><span className="eyebrow mr-2 text-muted-foreground">Distance window</span>{distanceWindow}</p>
           <p><span className="eyebrow mr-2 text-muted-foreground">Ordering</span>Approximate distance</p>
         </div>
-        <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Distances are straight-line estimates from central {metro.name} used to rank the statewide destination catalog. They are not road miles or drive-time promises; actual routes can be substantially longer.</p>
-        {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until the source-backed catalog reaches the minimum depth for this intent.</p>}
+        <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Distances are straight-line estimates from central {metro.name} used to screen and rank the statewide destination catalog. They are not road miles or drive-time promises; actual routes can be substantially longer or shorter depending on your starting point, traffic and road network.</p>
+        {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until the source-backed catalog reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
       </Container>
     </section>
 
@@ -59,6 +77,10 @@ function MetroProximityCollectionPage() {
         >{item.navLabel}</Link>)}
       </div>
     </Container>
+
+    {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
+      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${collection.label} near ${metro.name}`} />
+    </Container>}
 
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
@@ -84,6 +106,9 @@ function MetroProximityCollectionPage() {
           <p className="eyebrow text-primary">Before you go</p>
           <h2 className="mt-3 font-display text-3xl">Use proximity as a shortlist, not a schedule.</h2>
           <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined uses location data to make the statewide catalog easier to search. For the final trip, open each destination guide and verify driving routes, opening hours, reservations, park alerts, water conditions and weather with the current official source.</p>
+          {counties.length > 0 && <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+            {counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{county} County</Link>)}
+          </div>}
         </div>
         <div className="flex flex-col items-start gap-4">
           <Link to="/explore/trip-planner" className="eyebrow border-b border-primary pb-1 text-primary">Build a multi-stop itinerary →</Link>

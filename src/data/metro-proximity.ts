@@ -1,6 +1,6 @@
 import type { CategorySlug, Destination, GeoPoint } from "./types";
 
-export const METRO_PROXIMITY_VERIFIED_AT = "2026-09-28";
+export const METRO_PROXIMITY_VERIFIED_AT = "2026-09-29";
 
 export const METRO_PROXIMITY_METROS = [
   {
@@ -71,7 +71,11 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minimumMiles: 0,
     minResults: 12,
     maxResults: 30,
+    minTowns: 8,
+    minCounties: 4,
+    minCategories: 4,
     categories: CORE_TRAVEL_CATEGORIES,
+    matchTerms: [] as const,
     summary: "A broad nearby guide spanning parks, water, towns, history, food and outdoor destinations.",
     searchIntent: "nearby attractions and things to do",
   },
@@ -84,9 +88,47 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minimumMiles: 18,
     minResults: 10,
     maxResults: 30,
+    minTowns: 7,
+    minCounties: 4,
+    minCategories: 3,
     categories: CORE_TRAVEL_CATEGORIES,
+    matchTerms: [] as const,
     summary: "Destinations far enough from the city core to feel like a real outing, but close enough to consider for a single-day trip.",
     searchIntent: "day trips and weekend drives",
+  },
+  {
+    slug: "weekend-trips",
+    label: "Weekend trips",
+    navLabel: "Weekend trips",
+    titlePrefix: "Weekend Trips From",
+    radiusMiles: 230,
+    minimumMiles: 45,
+    minResults: 10,
+    maxResults: 30,
+    minTowns: 7,
+    minCounties: 4,
+    minCategories: 3,
+    categories: ["small-towns", "state-parks", "national-parks", "lakes-rivers", "major-springs", "caverns", "beaches-coast", "historic-sites", "food-bbq", "outdoors"] as const,
+    matchTerms: [] as const,
+    summary: "Overnight-worthy towns, parks, water, caves, coast and history that can anchor a one- or two-night escape from the metro.",
+    searchIntent: "weekend trips and overnight getaways",
+  },
+  {
+    slug: "road-trips",
+    label: "Road trips",
+    navLabel: "Road trips",
+    titlePrefix: "Road Trips From",
+    radiusMiles: 220,
+    minimumMiles: 25,
+    minResults: 8,
+    maxResults: 30,
+    minTowns: 6,
+    minCounties: 4,
+    minCategories: 3,
+    categories: ["road-trips", "small-towns", "state-parks", "historic-sites", "lakes-rivers", "major-springs", "caverns"] as const,
+    matchTerms: [] as const,
+    summary: "Route anchors for scenic drives and multi-stop Texas trips, emphasizing towns, parks, water, history and dedicated road-trip destinations.",
+    searchIntent: "road trips and scenic drives",
   },
   {
     slug: "state-parks",
@@ -97,7 +139,11 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minimumMiles: 0,
     minResults: 4,
     maxResults: 24,
+    minTowns: 3,
+    minCounties: 3,
+    minCategories: 1,
     categories: ["state-parks"] as const,
+    matchTerms: [] as const,
     summary: "Texas state parks ordered by geographic proximity, with each park linked to its full TexasDefined visitor guide.",
     searchIntent: "state parks nearby",
   },
@@ -110,9 +156,64 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minimumMiles: 12,
     minResults: 6,
     maxResults: 28,
+    minTowns: 6,
+    minCounties: 3,
+    minCategories: 1,
     categories: ["small-towns"] as const,
+    matchTerms: [] as const,
     summary: "Small-town destinations that can work as lunch stops, history trips, scenic drives or full-day escapes.",
     searchIntent: "small towns nearby",
+  },
+  {
+    slug: "small-towns-1-hour",
+    label: "Small towns · about 1 hour",
+    navLabel: "Small towns about 1 hour away",
+    titlePrefix: "Small Towns About 1 Hour From",
+    radiusMiles: 35,
+    minimumMiles: 12,
+    minResults: 4,
+    maxResults: 18,
+    minTowns: 4,
+    minCounties: 2,
+    minCategories: 1,
+    categories: ["small-towns"] as const,
+    matchTerms: [] as const,
+    summary: "The closest small-town ring for an easy day trip. The one-hour wording is planning shorthand; actual drive times vary by starting point, traffic and route.",
+    searchIntent: "small towns within about one hour",
+  },
+  {
+    slug: "small-towns-2-hours",
+    label: "Small towns · about 2 hours",
+    navLabel: "Small towns about 2 hours away",
+    titlePrefix: "Small Towns About 2 Hours From",
+    radiusMiles: 80,
+    minimumMiles: 35,
+    minResults: 6,
+    maxResults: 22,
+    minTowns: 6,
+    minCounties: 3,
+    minCategories: 1,
+    categories: ["small-towns"] as const,
+    matchTerms: [] as const,
+    summary: "A distinct middle-distance small-town ring for fuller day trips, screened by geography rather than invented minute-by-minute drive estimates.",
+    searchIntent: "small towns within about two hours",
+  },
+  {
+    slug: "small-towns-3-hours",
+    label: "Small towns · about 3 hours",
+    navLabel: "Small towns about 3 hours away",
+    titlePrefix: "Small Towns About 3 Hours From",
+    radiusMiles: 135,
+    minimumMiles: 80,
+    minResults: 6,
+    maxResults: 24,
+    minTowns: 6,
+    minCounties: 3,
+    minCategories: 1,
+    categories: ["small-towns"] as const,
+    matchTerms: [] as const,
+    summary: "The farther small-town ring for long day trips and overnights, kept separate from the closer pages to avoid duplicate doorway content.",
+    searchIntent: "small towns within about three hours",
   },
   {
     slug: "lakes-rivers",
@@ -123,9 +224,47 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minimumMiles: 0,
     minResults: 5,
     maxResults: 28,
+    minTowns: 4,
+    minCounties: 2,
+    minCategories: 1,
     categories: ["lakes-rivers", "major-springs"] as const,
+    matchTerms: [] as const,
     summary: "Lakes, rivers and major spring destinations with source-backed visitor pages and practical trip-planning context.",
     searchIntent: "lakes, rivers and swimming water nearby",
+  },
+  {
+    slug: "lakes",
+    label: "Lakes",
+    navLabel: "Lakes nearby",
+    titlePrefix: "Lakes Near",
+    radiusMiles: 140,
+    minimumMiles: 0,
+    minResults: 4,
+    maxResults: 24,
+    minTowns: 3,
+    minCounties: 2,
+    minCategories: 1,
+    categories: ["lakes-rivers"] as const,
+    matchTerms: ["lake", "reservoir"] as const,
+    summary: "Lake and reservoir destinations close enough to compare for fishing, paddling, swimming, camping and general water-day planning.",
+    searchIntent: "lakes and reservoirs nearby",
+  },
+  {
+    slug: "swimming-holes",
+    label: "Swimming holes",
+    navLabel: "Swimming holes nearby",
+    titlePrefix: "Swimming Holes Near",
+    radiusMiles: 150,
+    minimumMiles: 0,
+    minResults: 5,
+    maxResults: 24,
+    minTowns: 4,
+    minCounties: 3,
+    minCategories: 2,
+    categories: ["lakes-rivers", "major-springs", "state-parks", "outdoors"] as const,
+    matchTerms: ["swim", "swimming", "spring", "spring-fed", "tubing", "tube", "float", "blue hole", "pool"] as const,
+    summary: "Source-backed spring, river, pool and swimming destinations, with current access, flow, water-quality and reservation checks left to the destination guide and official source.",
+    searchIntent: "swimming holes and spring-fed water nearby",
   },
   {
     slug: "historic-sites",
@@ -136,7 +275,11 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minimumMiles: 0,
     minResults: 5,
     maxResults: 28,
+    minTowns: 4,
+    minCounties: 3,
+    minCategories: 1,
     categories: ["historic-sites"] as const,
+    matchTerms: [] as const,
     summary: "Historic destinations close enough to build into a city-based day trip, ordered by approximate geographic distance.",
     searchIntent: "historic places nearby",
   },
@@ -189,8 +332,22 @@ function distanceBand(miles: number): MetroProximityResult["distanceBand"] {
   return "longer-day-trip";
 }
 
+function destinationSearchText(destination: Destination) {
+  return [
+    destination.name,
+    destination.summary,
+    destination.nearestTown,
+    destination.entryNote,
+    ...destination.highlights,
+    ...destination.body,
+  ].filter(Boolean).join(" ").toLowerCase();
+}
+
 function categoryMatches(destination: Destination, collection: MetroProximityCollection) {
-  return (collection.categories as readonly CategorySlug[]).includes(destination.category);
+  if (!(collection.categories as readonly CategorySlug[]).includes(destination.category)) return false;
+  if (collection.matchTerms.length === 0) return true;
+  const haystack = destinationSearchText(destination);
+  return collection.matchTerms.some((term) => haystack.includes(term.toLowerCase()));
 }
 
 export function selectMetroProximityDestinations(
@@ -198,11 +355,13 @@ export function selectMetroProximityDestinations(
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
 ): MetroProximityResult[] {
+  const seen = new Set<string>();
   const rows = destinations
-    .filter((destination) => destination.slug && categoryMatches(destination, collection))
+    .filter((destination) => destination.slug && !seen.has(destination.slug) && (seen.add(destination.slug), true))
+    .filter((destination) => categoryMatches(destination, collection))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
-    .filter((row) => row.distanceMiles >= collection.minimumMiles && row.distanceMiles <= collection.radiusMiles)
+    .filter((row) => (collection.minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > collection.minimumMiles) && row.distanceMiles <= collection.radiusMiles)
     .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
     .slice(0, collection.maxResults);
 
@@ -212,12 +371,22 @@ export function selectMetroProximityDestinations(
   }));
 }
 
+function normalizedCounty(destination: Destination) {
+  return destination.county?.replace(/\s+County$/i, "").trim().toLowerCase() ?? "";
+}
+
 export function isMetroProximityCollectionIndexReady(
   destinations: Destination[],
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
 ) {
-  return selectMetroProximityDestinations(destinations, metro, collection).length >= collection.minResults;
+  const rows = selectMetroProximityDestinations(destinations, metro, collection);
+  if (rows.length < collection.minResults) return false;
+  if (new Set(rows.map((row) => row.destination.slug)).size !== rows.length) return false;
+  if (new Set(rows.map((row) => row.destination.nearestTown.trim().toLowerCase()).filter(Boolean)).size < collection.minTowns) return false;
+  if (new Set(rows.map((row) => normalizedCounty(row.destination)).filter(Boolean)).size < collection.minCounties) return false;
+  if (new Set(rows.map((row) => row.destination.category)).size < collection.minCategories) return false;
+  return rows.every((row) => row.destination.summary.trim().length >= 80 && Boolean(row.destination.hero?.src));
 }
 
 export function metroProximityCanonicalPath(metroSlug: MetroProximityMetroSlug, collectionSlug?: MetroProximityCollectionSlug) {
@@ -231,7 +400,7 @@ export function metroProximityTitle(metro: MetroProximityMetro, collection: Metr
 }
 
 export function metroProximityDescription(metro: MetroProximityMetro, collection: MetroProximityCollection, count: number) {
-  return `Compare ${count} ${collection.searchIntent} around ${metro.name}, ordered by approximate distance, with TexasDefined destination guides, planning notes and official-source links.`;
+  return `Compare ${count} ${collection.searchIntent} around ${metro.name}, ordered by approximate straight-line distance, with TexasDefined destination guides, seasonal planning notes and official-source links. Actual road mileage and drive time vary.`;
 }
 
 export function metroProximityHubReady(destinations: Destination[], metro: MetroProximityMetro) {
