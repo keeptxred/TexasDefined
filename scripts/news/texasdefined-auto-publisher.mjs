@@ -114,6 +114,20 @@ async function readyQueue() {
   return supabase(`/rest/v1/texasdefined_ready_queue?${params}`).then((response) => response.json());
 }
 
+async function readyQueueCount() {
+  const params = new URLSearchParams({ select: 'id' });
+  if (exactFeedId) params.set('id', `eq.${exactFeedId}`);
+  const response = await supabase(`/rest/v1/texasdefined_ready_queue?${params}`, {
+    headers: { Prefer: 'count=exact', Range: '0-0' },
+  });
+  const contentRange = response.headers.get('content-range') || '';
+  const total = Number(contentRange.split('/')[1]);
+  if (!Number.isInteger(total) || total < 0) {
+    throw new Error(`TexasDefined ready queue did not return an exact count (content-range: ${contentRange || 'missing'}).`);
+  }
+  return total;
+}
+
 async function destinations() {
   const params = new URLSearchParams({
     select: 'slug,name,summary,region',
@@ -212,16 +226,21 @@ if (publishRequested) {
 }
 
 if (exactFeedId) await hydrateExactFeed();
+const eligibleTotal = await readyQueueCount();
 const queue = await readyQueue();
 if (exactFeedId && queue.length === 0) {
   throw new Error(`Exact feed id ${exactFeedId} is not currently eligible in texasdefined_ready_queue.`);
 }
-console.log(JSON.stringify({
+const queueSummary = {
   mode: publishRequested ? 'publish' : 'dry-run',
   requestedFeedId: exactFeedId,
-  eligible: queue.length,
+  eligible: eligibleTotal,
+  selected: queue.length,
+  deferred: Math.max(eligibleTotal - queue.length, 0),
   ids: queue.map((item) => item.id),
-}));
+};
+if (!publishRequested) Object.assign(queueSummary, { published: 0, skipped: 0, failed: 0 });
+console.log(JSON.stringify(queueSummary));
 if (publishRequested && queue.length > 0) {
   const destinationRows = await destinations();
   if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
