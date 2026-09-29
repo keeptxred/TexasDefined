@@ -63,7 +63,9 @@ const complete = [...base, ...wave2, ...statewide];
 if (new Set(complete).size !== 41) fail(`expected 41 unique complete lakes, found ${new Set(complete).size}`);
 
 const expectedSlugs = expected.map(([slug]) => slug);
-if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 25-lake release order");
+const officialFallbackSlugs = new Set(["fayette-county-reservoir", "calaveras-lake"]);
+const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
+if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 26-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
 if (topLevel.length !== 26) fail(`expected 26 top-level lake definitions, found ${topLevel.length}`);
@@ -81,6 +83,10 @@ for (let i = 0; i < topLevel.length; i += 1) {
   for (const token of ["tpwdSlug:", "summary:", "surfaceAcres:", "maxDepthFeet:", "counties:", "nearestCities:", "waterway:", "riverBasin:", "authority:", "habitat:", "fish:", "access:", "nearbyLakes:"]) {
     if (!segment.includes(token)) fail(`${row.slug} missing required content field ${token}`);
   }
+  const expectsTwdbLive = twdbLiveExpectedSlugs.includes(row.slug);
+  const hasTwdbLive = segment.includes("waterDataSlug:");
+  if (expectsTwdbLive && !hasTwdbLive) fail(`${row.slug} must have a Water Data for Texas mapping`);
+  if (!expectsTwdbLive && hasTwdbLive) fail(`${row.slug} must remain on an official-agency fallback until a monitored TWDB reservoir source exists`);
   const fishCount = [...segment.matchAll(/fish\("/g)].length;
   if (fishCount < 3) fail(`${row.slug} is too thin: only ${fishCount} source-backed fish targets`);
   const relatedCount = [...segment.matchAll(/\{slug:"[^"]+",name:"[^"]+"\}/g)].length;
@@ -91,6 +97,16 @@ for (const slug of expectedSlugs) {
   requireText(files.network, `id: def.slug`, "generated lake records must preserve the canonical slug");
   if (!statewide.includes(slug)) fail(`complete-lake registry missing ${slug}`);
 }
+for (const token of [
+  "WATER_DATA_FOR_TEXAS_RESERVOIR_BASE",
+  "waterDataSlug",
+  "liveLevelSource",
+  "Water Data for Texas —",
+]) requireText(files.network, token, `TWDB live-water source contract missing ${token}`);
+
+if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 24) fail("expected 24 statewide-network TWDB live-water mappings");
+if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
+
 for (const token of [
   "statewideNetworkFishingLakes",
   "statewideNetworkLakeSpeciesProfiles",
@@ -159,4 +175,4 @@ if (newEntryUrls !== 234) fail(`expected 234 statewide-network overview/intent U
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, two explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
