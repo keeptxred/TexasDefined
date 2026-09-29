@@ -120,7 +120,10 @@ for (const token of [
   "Explore by trip type",
   "straight-line geographic estimates",
   "MetroProximityHubRich",
-]) requireText(files.hubRoute, token, `metro hub SSR shell missing ${token}`);
+  "useRouterState",
+  "return <Outlet />",
+  "const hubPath =",
+]) requireText(files.hubRoute, token, `metro hub SSR shell/child outlet missing ${token}`);
 
 for (const token of [
   'createLazyFileRoute("/explore/near/$metro")',
