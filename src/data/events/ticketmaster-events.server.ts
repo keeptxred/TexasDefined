@@ -18,6 +18,8 @@ const ticketmasterAuthorityMatchers = [
   { city: "El Paso", slug: "el-paso-film-festival", prefix: "el paso film festival" },
   { city: "El Paso", slug: "way-out-west-festival-el-paso", prefix: "way out west festival" },
   { city: "Dallas", slug: "state-fair-classic", prefix: "state fair classic" },
+  { city: "Dallas", slug: "red-river-rivalry", prefix: "oklahoma sooners football vs. texas longhorns football" },
+  { city: "Dallas", slug: "red-river-rivalry", prefix: "texas longhorns football vs. oklahoma sooners football" },
   { city: "Beaumont", slug: "beaumont-comic-con", prefix: "beaumont comic con" },
   { city: "The Woodlands", slug: "eagle-fest-the-woodlands", prefix: "eagle fest" },
   { city: "Austin", slug: "austin-city-limits-music-festival", prefix: "austin city limits festival" },
