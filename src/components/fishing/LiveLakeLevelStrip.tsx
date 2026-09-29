@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { getLiveLakeLevel } from "@/data/fishing/live-lake-level.functions";
 import type { LiveLakeLevelSnapshot } from "@/data/fishing/live-lake-level.server";
+import { liveLakeLevelProvider } from "@/data/fishing/live-lake-level-source";
 
 export function LiveLakeLevelStrip({
   lakeName,
@@ -15,6 +16,7 @@ export function LiveLakeLevelStrip({
 }) {
   const [liveSnapshot, setLiveSnapshot] = useState(snapshot);
   const [checking, setChecking] = useState(snapshot == null);
+  const provider = liveLakeLevelProvider(sourceUrl) ?? "Water Data for Texas";
 
   useEffect(() => {
     let active = true;
@@ -45,8 +47,10 @@ export function LiveLakeLevelStrip({
             <span className="font-semibold">Live lake level:</span>{" "}
             {liveSnapshot ? (
               <>
-                <span>{liveSnapshot.percentFull.toFixed(1)}% full</span>
-                {liveSnapshot.elevationFeet != null ? <span> · {liveSnapshot.elevationFeet.toFixed(2)} ft</span> : null}
+                {liveSnapshot.percentFull != null ? <span>{liveSnapshot.percentFull.toFixed(1)}% full</span> : null}
+                {liveSnapshot.elevationFeet != null ? (
+                  <span>{liveSnapshot.percentFull != null ? " · " : ""}{liveSnapshot.elevationFeet.toFixed(2)} ft MSL</span>
+                ) : null}
                 <span className="text-muted-foreground"> · measured {formatLakeLevelDate(liveSnapshot.measuredAt)}</span>
                 {checking ? <span className="text-muted-foreground"> · refreshing…</span> : null}
               </>
@@ -62,11 +66,11 @@ export function LiveLakeLevelStrip({
             rel="noreferrer noopener"
             className="eyebrow border-b border-primary pb-1 text-primary"
           >
-            Water Data for Texas →
+            {provider} →
           </a>
         </div>
         <p className="mt-1 text-xs text-muted-foreground">
-          TexasDefined checks {lakeName}'s official Water Data for Texas page when this page opens; the reading is not stored as evergreen copy.
+          TexasDefined checks {lakeName}'s official {provider} live source when this page opens; the reading is not stored as evergreen copy.
         </p>
       </Container>
     </div>
