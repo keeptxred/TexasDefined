@@ -91,7 +91,9 @@ function FishingLakeOverviewRoute() {
     <LakeConroeGuide reports={data.reports} guides={data.guides} pageData={data.pageData} />
   </>;
   return <>
-    <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />
+    {isDirectLiveLevelSource(data.pageData.sources.liveLevel.url) && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
     <ShowcaseLakeGuide reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
   </>;
 }
+
+function isDirectLiveLevelSource(url: string) { return /^https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\//i.test(url); }
