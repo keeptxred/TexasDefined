@@ -1,0 +1,132 @@
+import fs from "node:fs";
+
+const read = (path) => fs.readFileSync(path, "utf8");
+const paths = {
+  data: "src/data/metro-proximity.ts",
+  pageData: "src/data/metro-proximity-page-data.server.ts",
+  functions: "src/data/metro-proximity-page-data.functions.ts",
+  hubRoute: "src/routes/explore.near.$metro.tsx",
+  hubUi: "src/routes/explore.near.$metro.lazy.tsx",
+  collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
+  collectionUi: "src/routes/explore.near.$metro.$collection.lazy.tsx",
+  exploreRoute: "src/routes/explore.index.tsx",
+  exploreUi: "src/routes/explore.index.lazy.tsx",
+  sitemap: "src/routes/sitemap-explore[.]xml.ts",
+  routeTree: "src/routeTree.gen.ts",
+  package: "package.json",
+};
+for (const path of Object.values(paths)) {
+  if (!fs.existsSync(path)) throw new Error(`Metro proximity validation failed: missing required file ${path}`);
+}
+const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
+const fail = (message) => { throw new Error(`Metro proximity validation failed: ${message}`); };
+const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
+
+const metroSlugs = [...files.data.matchAll(/slug: "(houston|dallas|fort-worth|austin|san-antonio)"/g)].map((match) => match[1]);
+if (metroSlugs.length !== 5 || new Set(metroSlugs).size !== 5) fail(`expected exactly five unique metro definitions, found ${new Set(metroSlugs).size}`);
+
+const collectionMatch = files.data.match(/METRO_PROXIMITY_COLLECTIONS\s*=\s*\[([\s\S]*?)\n\] as const;/);
+const collectionSlugs = collectionMatch ? [...collectionMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
+const expectedCollections = ["things-to-do", "day-trips", "state-parks", "small-towns", "lakes-rivers", "historic-sites"];
+if (JSON.stringify(collectionSlugs) !== JSON.stringify(expectedCollections)) fail(`collection allowlist drifted: ${collectionSlugs.join(", ")}`);
+
+for (const token of [
+  "radiusMiles:", "minimumMiles:", "minResults:", "maxResults:",
+  "distanceFromPointMiles", "selectMetroProximityDestinations",
+  "isMetroProximityCollectionIndexReady", "metroProximityHubReady",
+  "metroProximityCanonicalPath", "metroProximitySitemapEntries",
+]) requireText(files.data, token, `data model missing ${token}`);
+
+for (const token of [
+  "listResolvedDestinations",
+  "loadMetroProximityHubPageDataServer",
+  "loadMetroProximityCollectionPageDataServer",
+  "isMetroProximityCollectionIndexReady",
+  "metroProximityHubReady",
+  "selectMetroProximityDestinations",
+  '"@type": "CollectionPage"',
+  '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"',
+  '"index, follow, max-image-preview:large"',
+  '"noindex, follow"',
+  "buildMeta",
+  "canonicalLink",
+]) requireText(files.pageData, token, `server page-data layer missing ${token}`);
+
+for (const token of [
+  "createServerFn",
+  "getMetroProximityHubPageData",
+  "getMetroProximityCollectionPageData",
+  "loadMetroProximityHubPageDataServer",
+  "loadMetroProximityCollectionPageDataServer",
+]) requireText(files.functions, token, `server-function bridge missing ${token}`);
+
+for (const [label, route, fn] of [
+  ["hub", files.hubRoute, "getMetroProximityHubPageData"],
+  ["collection", files.collectionRoute, "getMetroProximityCollectionPageData"],
+]) {
+  requireText(route, "createFileRoute(", `${label} critical route missing createFileRoute`);
+  requireText(route, fn, `${label} critical route missing server-function handoff`);
+  requireText(route, "loaderData?.head", `${label} critical route missing server-built head handoff`);
+  requireText(route, "throw notFound()", `${label} critical route must reject invalid params`);
+  for (const forbidden of ["DestinationCard", "Container", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
+    if (route.includes(forbidden)) fail(`${label} eager route leaked UI/SEO/catalog payload: ${forbidden}`);
+  }
+}
+
+for (const token of [
+  'createLazyFileRoute("/explore/near/$metro")',
+  "DestinationCard",
+  "straight-line geographic estimates",
+  'to="/explore/near/$metro/$collection"',
+  'to="/explore/trip-planner"',
+]) requireText(files.hubUi, token, `metro hub lazy UI missing ${token}`);
+
+for (const token of [
+  'createLazyFileRoute("/explore/near/$metro/$collection")',
+  "METRO_PROXIMITY_COLLECTIONS",
+  "straight-line estimates",
+  "not road miles or drive-time promises",
+  "DestinationCard destination={row.destination}",
+  'to="/explore/near/$metro"',
+]) requireText(files.collectionUi, token, `metro collection lazy UI missing ${token}`);
+
+if (files.exploreRoute.includes("@/data/metro-proximity")) fail("Explore head route must not eagerly import metro proximity catalog");
+for (const token of [
+  "METRO_PROXIMITY_METROS",
+  "Explore from a Texas metro",
+  'to="/explore/near/$metro"',
+  "Find day trips without scanning the whole state",
+]) requireText(files.exploreUi, token, `Explore internal discovery missing ${token}`);
+
+for (const token of [
+  'await import("@/data/metro-proximity")',
+  "metroProximitySitemapEntries(indexableDestinations)",
+  "const proximityEntries",
+  "...proximityEntries",
+]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+
+for (const token of [
+  "ExploreNearMetroRouteImport",
+  "ExploreNearMetroCollectionRouteImport",
+  "ExploreNearMetroRouteWithChildren",
+  "explore.near.$metro.lazy",
+  "explore.near.$metro.$collection.lazy",
+  "'/explore/near/$metro/$collection'",
+]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
+
+const pkg = JSON.parse(files.package);
+if (pkg.scripts?.["metro-proximity:validate"] !== "node scripts/data/validate-metro-proximity.mjs") fail("package script metro-proximity:validate is missing or changed");
+if (!pkg.scripts?.["data:validate"]?.includes("npm run metro-proximity:validate")) fail("metro proximity validation is not wired into data:validate");
+
+for (const forbidden of [
+  "/explore/near/near/",
+  "guaranteed drive time",
+  "exact drive time",
+  "best attraction near",
+  "sponsored ranking",
+]) {
+  if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
+}
+
+console.log("Metro proximity validation passed: five metro hubs and thirty intent landings are distance-ranked, source-backed, quality-gated, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO plus lazy UI boundaries.");

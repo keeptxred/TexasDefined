@@ -475,6 +475,7 @@ import { Route as ExplorePaintedChurchesCompareRouteImport } from './routes/expl
 import { Route as ExplorePaintedChurchesCiteRouteImport } from './routes/explore.painted-churches.cite'
 import { Route as ExplorePaintedChurchesCensusRouteImport } from './routes/explore.painted-churches.census'
 import { Route as ExplorePaintedChurchesSlugRouteImport } from './routes/explore.painted-churches.$slug'
+import { Route as ExploreNearMetroRouteImport } from './routes/explore.near.$metro'
 import { Route as ExploreLandscapesSlugRouteImport } from './routes/explore.landscapes.$slug'
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
@@ -495,6 +496,7 @@ import { Route as ExplorePaintedChurchesPreservationSlugRouteImport } from './ro
 import { Route as ExplorePaintedChurchesPeopleSlugRouteImport } from './routes/explore.painted-churches.people.$slug'
 import { Route as ExplorePaintedChurchesHeritageSlugRouteImport } from './routes/explore.painted-churches.heritage.$slug'
 import { Route as ExplorePaintedChurchesGlossarySlugRouteImport } from './routes/explore.painted-churches.glossary.$slug'
+import { Route as ExploreNearMetroCollectionRouteImport } from './routes/explore.near.$metro.$collection'
 
 const WhatDoesChudMeanRoute = WhatDoesChudMeanRouteImport.update({
   id: '/what-does-chud-mean',
@@ -3413,6 +3415,13 @@ const ExplorePaintedChurchesSlugRoute =
   } as any).lazy(() =>
     import('./routes/explore.painted-churches.$slug.lazy').then((d) => d.Route),
   )
+const ExploreNearMetroRoute = ExploreNearMetroRouteImport.update({
+  id: '/explore/near/$metro',
+  path: '/explore/near/$metro',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/explore.near.$metro.lazy').then((d) => d.Route),
+)
 const ExploreLandscapesSlugRoute = ExploreLandscapesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -3536,6 +3545,16 @@ const ExplorePaintedChurchesGlossarySlugRoute =
     path: '/$slug',
     getParentRoute: () => ExplorePaintedChurchesGlossaryRoute,
   } as any)
+const ExploreNearMetroCollectionRoute =
+  ExploreNearMetroCollectionRouteImport.update({
+    id: '/$collection',
+    path: '/$collection',
+    getParentRoute: () => ExploreNearMetroRoute,
+  } as any).lazy(() =>
+    import('./routes/explore.near.$metro.$collection.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -3972,6 +3991,7 @@ export interface FileRoutesByFullPath {
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
+  '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
   '/explore/painted-churches/$slug': typeof ExplorePaintedChurchesSlugRoute
   '/explore/painted-churches/census': typeof ExplorePaintedChurchesCensusRoute
   '/explore/painted-churches/cite': typeof ExplorePaintedChurchesCiteRoute
@@ -4015,6 +4035,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4457,6 +4478,7 @@ export interface FileRoutesByTo {
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
+  '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
   '/explore/painted-churches/$slug': typeof ExplorePaintedChurchesSlugRoute
   '/explore/painted-churches/census': typeof ExplorePaintedChurchesCensusRoute
   '/explore/painted-churches/cite': typeof ExplorePaintedChurchesCiteRoute
@@ -4500,6 +4522,7 @@ export interface FileRoutesByTo {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -4946,6 +4969,7 @@ export interface FileRoutesById {
   '/explore/county/$county': typeof ExploreCountyCountyRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
+  '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
   '/explore/painted-churches/$slug': typeof ExplorePaintedChurchesSlugRoute
   '/explore/painted-churches/census': typeof ExplorePaintedChurchesCensusRoute
   '/explore/painted-churches/cite': typeof ExplorePaintedChurchesCiteRoute
@@ -4989,6 +5013,7 @@ export interface FileRoutesById {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
   '/explore/painted-churches/people/$slug': typeof ExplorePaintedChurchesPeopleSlugRoute
@@ -5436,6 +5461,7 @@ export interface FileRouteTypes {
     | '/explore/county/$county'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
+    | '/explore/near/$metro'
     | '/explore/painted-churches/$slug'
     | '/explore/painted-churches/census'
     | '/explore/painted-churches/cite'
@@ -5479,6 +5505,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -5921,6 +5948,7 @@ export interface FileRouteTypes {
     | '/explore/county/$county'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
+    | '/explore/near/$metro'
     | '/explore/painted-churches/$slug'
     | '/explore/painted-churches/census'
     | '/explore/painted-churches/cite'
@@ -5964,6 +5992,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -6409,6 +6438,7 @@ export interface FileRouteTypes {
     | '/explore/county/$county'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
+    | '/explore/near/$metro'
     | '/explore/painted-churches/$slug'
     | '/explore/painted-churches/census'
     | '/explore/painted-churches/cite'
@@ -6452,6 +6482,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
     | '/explore/painted-churches/people/$slug'
@@ -6839,6 +6870,7 @@ export interface RootRouteChildren {
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
   ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
+  ExploreNearMetroRoute: typeof ExploreNearMetroRouteWithChildren
   ExplorePaintedChurchesGuidesRoute: typeof ExplorePaintedChurchesGuidesRoute
   ExploreRegionRegionRoute: typeof ExploreRegionRegionRoute
   ExploreRiverSlugRoute: typeof ExploreRiverSlugRoute
@@ -10114,6 +10146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExplorePaintedChurchesSlugRouteImport
       parentRoute: typeof ExplorePaintedChurchesRoute
     }
+    '/explore/near/$metro': {
+      id: '/explore/near/$metro'
+      path: '/explore/near/$metro'
+      fullPath: '/explore/near/$metro'
+      preLoaderRoute: typeof ExploreNearMetroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/landscapes/$slug': {
       id: '/explore/landscapes/$slug'
       path: '/$slug'
@@ -10253,6 +10292,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/painted-churches/glossary/$slug'
       preLoaderRoute: typeof ExplorePaintedChurchesGlossarySlugRouteImport
       parentRoute: typeof ExplorePaintedChurchesGlossaryRoute
+    }
+    '/explore/near/$metro/$collection': {
+      id: '/explore/near/$metro/$collection'
+      path: '/$collection'
+      fullPath: '/explore/near/$metro/$collection'
+      preLoaderRoute: typeof ExploreNearMetroCollectionRouteImport
+      parentRoute: typeof ExploreNearMetroRoute
     }
   }
 }
@@ -10804,6 +10850,17 @@ const ExploreTopAttractionsRouteWithChildren =
     ExploreTopAttractionsRouteChildren,
   )
 
+interface ExploreNearMetroRouteChildren {
+  ExploreNearMetroCollectionRoute: typeof ExploreNearMetroCollectionRoute
+}
+
+const ExploreNearMetroRouteChildren: ExploreNearMetroRouteChildren = {
+  ExploreNearMetroCollectionRoute: ExploreNearMetroCollectionRoute,
+}
+
+const ExploreNearMetroRouteWithChildren =
+  ExploreNearMetroRoute._addFileChildren(ExploreNearMetroRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -11250,6 +11307,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
   ExploreLakeSlugRoute: ExploreLakeSlugRoute,
+  ExploreNearMetroRoute: ExploreNearMetroRouteWithChildren,
   ExplorePaintedChurchesGuidesRoute: ExplorePaintedChurchesGuidesRoute,
   ExploreRegionRegionRoute: ExploreRegionRegionRoute,
   ExploreRiverSlugRoute: ExploreRiverSlugRoute,
