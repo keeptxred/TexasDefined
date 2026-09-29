@@ -3,9 +3,10 @@ import type { StatewideNetworkLakeSlug } from "./showcase-lake-routing";
 import type { TexasRegion } from "@/data/types";
 import type { FishingLake, FishingQuality, FishingSource, LakeSpeciesProfile, LakeTechniqueProfile } from "./types";
 
-const VERIFIED_AT = "2026-09-28";
+const VERIFIED_AT = "2026-09-29";
 const BRAND = "texasdefined" as const;
 const TPWD_REGULATIONS = "https://tpwd.texas.gov/regulations/outdoor-annual/fishing/freshwater-fishing/bag-length-limits";
+const WATER_DATA_FOR_TEXAS_RESERVOIR_BASE = "https://waterdatafortexas.org/reservoirs/individual";
 
 type TechniqueId =
   | "soft-plastics"
@@ -50,6 +51,7 @@ interface StatewideLakeDefinition {
   slug: StatewideNetworkLakeSlug;
   name: string;
   tpwdSlug: string;
+  waterDataSlug?: string;
   region: TexasRegion;
   summary: string;
   surfaceAcres: number;
@@ -84,7 +86,7 @@ const fish = (
 
 export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
   {
-    slug: "lake-buchanan", name: "Lake Buchanan", tpwdSlug: "buchanan", region: "hill-country",
+    slug: "lake-buchanan", name: "Lake Buchanan", tpwdSlug: "buchanan", waterDataSlug: "buchanan", region: "hill-country",
     summary: "A large Highland Lakes reservoir on the Colorado River with nationally useful striped- and white-bass patterns plus largemouth bass and catfish.",
     surfaceAcres: 22211, maxDepthFeet: 132, impoundedYear: 1937, counties: ["Burnet", "Llano"], nearestCities: ["Burnet", "Kingsland", "Buchanan Dam"],
     waterway: "Colorado River", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "Verify current LCRA operating level", fluctuation: "Considerable", clarity: "Clear near the dam; increasingly turbid upstream",
@@ -100,7 +102,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: { name: "Lake Buchanan and Colorado Bend corridor", summary: "TPWD points anglers to multiple camping options around the lake and upper Colorado River, including nearby public recreation areas." },
   },
   {
-    slug: "lake-lbj", name: "Lake LBJ", tpwdSlug: "lbj", region: "hill-country",
+    slug: "lake-lbj", name: "Lake LBJ", tpwdSlug: "lbj", waterDataSlug: "lyndon-b-johnson", region: "hill-country",
     summary: "A constant-level Highland Lakes reservoir known for docks, shoreline development, white crappie, white bass and year-round black-bass cover.",
     surfaceAcres: 6449, maxDepthFeet: 90, impoundedYear: 1951, counties: ["Burnet", "Llano"], nearestCities: ["Kingsland", "Granite Shoals", "Marble Falls"],
     waterway: "Colorado River", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "825 ft msl", fluctuation: "Constant level", clarity: "Clear to slightly stained",
@@ -115,7 +117,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD identifies two main public ramps plus smaller public ramps in Granite Shoals; verify fees and conditions before travel.", nearbyLakes: [{slug:"lake-buchanan",name:"Lake Buchanan"},{slug:"lake-travis",name:"Lake Travis"}],
   },
   {
-    slug: "richland-chambers-reservoir", name: "Richland-Chambers Reservoir", tpwdSlug: "richland_chambers", region: "prairies-lakes",
+    slug: "richland-chambers-reservoir", name: "Richland-Chambers Reservoir", tpwdSlug: "richland_chambers", waterDataSlug: "richland-chambers", region: "prairies-lakes",
     summary: "A 41,356-acre North Central Texas reservoir with excellent catfish, crappie, white bass and hybrid striped bass fisheries.",
     surfaceAcres: 41356, maxDepthFeet: 75, impoundedYear: 1987, counties: ["Navarro", "Freestone"], nearestCities: ["Corsicana", "Kerens", "Streetman"],
     waterway: "Richland and Chambers creeks", riverBasin: "Trinity River Basin", authority: "Tarrant Regional Water District", conservationPool: "315 ft msl", fluctuation: "About 3 feet", clarity: "Cloudy to moderately clear",
@@ -131,7 +133,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists county ramps, marinas and other launch sites around the reservoir; facility fees and conditions vary.", specialRules: true, nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
   },
   {
-    slug: "lake-palestine", name: "Lake Palestine", tpwdSlug: "palestine", region: "piney-woods",
+    slug: "lake-palestine", name: "Lake Palestine", tpwdSlug: "palestine", waterDataSlug: "palestine", region: "piney-woods",
     summary: "A 25,560-acre Neches River reservoir southwest of Tyler with tournament bass, spring white-bass runs, hybrids, crappie and abundant catfish.",
     surfaceAcres: 25560, maxDepthFeet: 58, impoundedYear: 1962, counties: ["Anderson", "Cherokee", "Henderson", "Smith"], nearestCities: ["Tyler", "Chandler", "Palestine"],
     waterway: "Neches River", riverBasin: "Neches River Basin", authority: "Upper Neches River Authority", conservationPool: "345 ft msl", fluctuation: "About 2.2 feet", clarity: "Moderately clear",
@@ -147,7 +149,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists five public boat launches plus numerous private marinas, motels and campgrounds with additional ramps and services.", specialRules: true, nearbyLakes: [{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"},{slug:"lake-bob-sandlin",name:"Lake Bob Sandlin"}],
   },
   {
-    slug: "cedar-creek-reservoir", name: "Cedar Creek Reservoir", tpwdSlug: "cedar_creek", region: "prairies-lakes",
+    slug: "cedar-creek-reservoir", name: "Cedar Creek Reservoir", tpwdSlug: "cedar_creek", waterDataSlug: "cedar-creek", region: "prairies-lakes",
     summary: "A large reservoir west of Athens with excellent catfish and white/hybrid striped bass fishing plus good largemouth bass and crappie.",
     surfaceAcres: 32623, maxDepthFeet: 53, impoundedYear: 1965, counties: ["Henderson", "Kaufman"], nearestCities: ["Athens", "Mabank", "Gun Barrel City"],
     waterway: "Cedar Creek", riverBasin: "Trinity River Basin", authority: "Tarrant Regional Water District", conservationPool: "322 ft msl", fluctuation: "About 4 feet", clarity: "Moderately clear lower lake to muddy upper lake",
@@ -163,7 +165,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists public ramps and private marinas; low water can affect some private launch sites.", nearbyLakes: [{slug:"richland-chambers-reservoir",name:"Richland-Chambers Reservoir"},{slug:"lake-palestine",name:"Lake Palestine"}],
   },
   {
-    slug: "lewisville-lake", name: "Lewisville Lake", tpwdSlug: "lewisville", region: "prairies-lakes",
+    slug: "lewisville-lake", name: "Lewisville Lake", tpwdSlug: "lewisville", waterDataSlug: "lewisville", region: "prairies-lakes",
     summary: "A major Denton County reservoir with excellent crappie, white bass and catfish plus hybrid striped bass and largemouth fishing inside the DFW metro.",
     surfaceAcres: 29592, maxDepthFeet: 67, impoundedYear: 1954, counties: ["Denton"], nearestCities: ["Lewisville", "Denton", "Little Elm"],
     waterway: "Elm Fork Trinity River", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "522 ft msl", fluctuation: "About 4–8 feet annually", clarity: "Stained",
@@ -179,7 +181,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "USACE and surrounding communities operate major parks and ramps; most charge access or launch fees and closures can change.", specialRules: true, nearbyLakes: [{slug:"ray-roberts-lake",name:"Ray Roberts Lake"},{slug:"grapevine-lake",name:"Grapevine Lake"}],
   },
   {
-    slug: "ray-roberts-lake", name: "Ray Roberts Lake", tpwdSlug: "ray_roberts", region: "prairies-lakes",
+    slug: "ray-roberts-lake", name: "Ray Roberts Lake", tpwdSlug: "ray_roberts", waterDataSlug: "ray-roberts", region: "prairies-lakes",
     summary: "A 25,600-acre reservoir north of Denton with excellent largemouth bass, crappie and white bass plus extensive standing timber.",
     surfaceAcres: 25600, maxDepthFeet: 106, impoundedYear: 1987, counties: ["Denton", "Cooke", "Grayson"], nearestCities: ["Denton", "Sanger", "Pilot Point"],
     waterway: "Elm Fork Trinity River", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "632.5 ft msl", fluctuation: "About 3–5 feet", clarity: "Clear",
@@ -195,7 +197,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Ray Roberts Lake State Park",summary:"State-park units provide established camping and lake access; verify reservations, closures and ramp conditions before travel."},
   },
   {
-    slug: "lake-ray-hubbard", name: "Lake Ray Hubbard", tpwdSlug: "ray_hubbard", region: "prairies-lakes",
+    slug: "lake-ray-hubbard", name: "Lake Ray Hubbard", tpwdSlug: "ray_hubbard", waterDataSlug: "ray-hubbard", region: "prairies-lakes",
     summary: "A Dallas-area reservoir with excellent hybrid striped bass and catfish plus good white bass, crappie and largemouth fishing.",
     surfaceAcres: 21671, maxDepthFeet: 40, impoundedYear: 1968, counties: ["Collin", "Dallas", "Rockwall", "Kaufman"], nearestCities: ["Rockwall", "Garland", "Rowlett"],
     waterway: "East Fork Trinity River", riverBasin: "Trinity River Basin", authority: "City of Dallas", conservationPool: "435.5 ft msl", fluctuation: "About 1–3 feet", clarity: "Stained",
@@ -211,7 +213,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "City parks and private marinas provide boat ramps; Robertson Park is a major day-use and bank-fishing access area.", nearbyLakes: [{slug:"lake-lavon",name:"Lake Lavon"},{slug:"lewisville-lake",name:"Lewisville Lake"}],
   },
   {
-    slug: "lake-lavon", name: "Lake Lavon", tpwdSlug: "lavon", region: "prairies-lakes",
+    slug: "lake-lavon", name: "Lake Lavon", tpwdSlug: "lavon", waterDataSlug: "lavon", region: "prairies-lakes",
     summary: "A Collin County reservoir northeast of Dallas with excellent blue catfish and crappie plus good largemouth, channel catfish and white bass.",
     surfaceAcres: 21400, maxDepthFeet: 59, impoundedYear: 1953, counties: ["Collin"], nearestCities: ["Wylie", "Princeton", "McKinney"],
     waterway: "East Fork Trinity River", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "492 ft msl", fluctuation: "Moderate", clarity: "Moderate with a greenish tint",
@@ -227,7 +229,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "USACE parks and local facilities provide multiple boat ramps and bank-fishing areas; verify closures and fee policies.", specialRules: true, nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"ray-roberts-lake",name:"Ray Roberts Lake"}],
   },
   {
-    slug: "grapevine-lake", name: "Grapevine Lake", tpwdSlug: "grapevine", region: "prairies-lakes",
+    slug: "grapevine-lake", name: "Grapevine Lake", tpwdSlug: "grapevine", waterDataSlug: "grapevine", region: "prairies-lakes",
     summary: "A compact DFW reservoir with excellent largemouth bass, blue catfish and white bass plus smallmouth, spotted bass and crappie.",
     surfaceAcres: 6684, maxDepthFeet: 65, impoundedYear: 1952, counties: ["Tarrant", "Denton"], nearestCities: ["Grapevine", "Flower Mound", "Southlake"],
     waterway: "Denton Creek", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "535 ft msl", fluctuation: "About 5–10 feet", clarity: "Stained",
@@ -243,7 +245,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "USACE and municipal parks provide ramps; access areas can close after flooding or repairs, so verify current status.", specialRules: true, nearbyLakes: [{slug:"lewisville-lake",name:"Lewisville Lake"},{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"}],
   },
   {
-    slug: "eagle-mountain-lake", name: "Eagle Mountain Lake", tpwdSlug: "eagle_mountain", region: "prairies-lakes",
+    slug: "eagle-mountain-lake", name: "Eagle Mountain Lake", tpwdSlug: "eagle_mountain", waterDataSlug: "eagle-mountain", region: "prairies-lakes",
     summary: "A Fort Worth-area reservoir with excellent crappie and white bass plus good largemouth, spotted bass and channel catfish.",
     surfaceAcres: 8738, maxDepthFeet: 47, impoundedYear: 1932, counties: ["Tarrant"], nearestCities: ["Fort Worth", "Azle", "Saginaw"],
     waterway: "West Fork Trinity River", riverBasin: "Trinity River Basin", authority: "Tarrant Regional Water District", conservationPool: "649 ft msl", fluctuation: "About 2–9 feet", clarity: "Clear lower lake; stained upper lake",
@@ -259,7 +261,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists three public ramps and several commercial facilities, many with docks, camping or other amenities.", nearbyLakes: [{slug:"grapevine-lake",name:"Grapevine Lake"},{slug:"lake-bridgeport",name:"Lake Bridgeport"}],
   },
   {
-    slug: "lake-bridgeport", name: "Lake Bridgeport", tpwdSlug: "bridgeport", region: "prairies-lakes",
+    slug: "lake-bridgeport", name: "Lake Bridgeport", tpwdSlug: "bridgeport", waterDataSlug: "bridgeport", region: "prairies-lakes",
     summary: "A deep North Texas reservoir with excellent crappie and white/hybrid striped bass plus good largemouth and smallmouth bass.",
     surfaceAcres: 11954, maxDepthFeet: 85, impoundedYear: 1932, counties: ["Jack", "Wise"], nearestCities: ["Bridgeport", "Runaway Bay", "Decatur"],
     waterway: "West Fork Trinity River", riverBasin: "Trinity River Basin", authority: "Tarrant Regional Water District", conservationPool: "836 ft msl", fluctuation: "About 12 feet annually", clarity: "Moderately clear",
@@ -275,7 +277,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "Public and private launch sites are distributed around the reservoir; lake-level swings make current ramp verification important.", nearbyLakes: [{slug:"eagle-mountain-lake",name:"Eagle Mountain Lake"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
   },
   {
-    slug: "lake-austin", name: "Lake Austin", tpwdSlug: "austin", region: "hill-country",
+    slug: "lake-austin", name: "Lake Austin", tpwdSlug: "austin", waterDataSlug: "austin", region: "hill-country",
     summary: "A narrow Colorado River reservoir inside Austin with an excellent largemouth bass fishery, clear water and heavily developed shoreline.",
     surfaceAcres: 1599, maxDepthFeet: 75, impoundedYear: 1939, counties: ["Travis"], nearestCities: ["Austin", "West Lake Hills"],
     waterway: "Colorado River", riverBasin: "Colorado River Basin", authority: "Lower Colorado River Authority", conservationPool: "491.95 ft msl", fluctuation: "Normally constant level with release-driven variation", clarity: "Clear to slightly stained",
@@ -304,7 +306,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Park Prairie and Oak Thicket parks",summary:"LCRA parks provide camping and fishing access; current reservations, fees and operating conditions should be verified before travel."},
   },
   {
-    slug: "lake-somerville", name: "Lake Somerville", tpwdSlug: "somerville", region: "prairies-lakes",
+    slug: "lake-somerville", name: "Lake Somerville", tpwdSlug: "somerville", waterDataSlug: "somerville", region: "prairies-lakes",
     summary: "A Bryan–College Station-area reservoir with excellent largemouth, catfish and white/hybrid striped bass plus state-park access.",
     surfaceAcres: 11456, maxDepthFeet: 38, impoundedYear: 1967, counties: ["Washington", "Burleson", "Lee"], nearestCities: ["Somerville", "Brenham", "Bryan"],
     waterway: "Yegua Creek", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "238 ft msl", fluctuation: "Low to moderate, roughly 1–6 feet", clarity: "Slightly stained",
@@ -321,7 +323,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Lake Somerville State Park",summary:"Nails Creek and Birch Creek units provide established camping and lake access; verify park alerts and reservations before travel."},
   },
   {
-    slug: "belton-lake", name: "Belton Lake", tpwdSlug: "belton", region: "prairies-lakes",
+    slug: "belton-lake", name: "Belton Lake", tpwdSlug: "belton", waterDataSlug: "belton", region: "prairies-lakes",
     summary: "A deep Central Texas reservoir with excellent smallmouth and hybrid striped bass plus good largemouth, white bass and catfish.",
     surfaceAcres: 12385, maxDepthFeet: 124, impoundedYear: 1954, counties: ["Bell", "Coryell"], nearestCities: ["Belton", "Temple", "Killeen"],
     waterway: "Leon River", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "594 ft msl", fluctuation: "About 3–5 feet", clarity: "Moderate",
@@ -337,7 +339,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "USACE parks provide boat ramps, bank-fishing access, camping and courtesy docks; marinas provide additional supplies and fuel.", nearbyLakes: [{slug:"stillhouse-hollow-reservoir",name:"Stillhouse Hollow Reservoir"},{slug:"lake-whitney",name:"Lake Whitney"}],
   },
   {
-    slug: "stillhouse-hollow-reservoir", name: "Stillhouse Hollow Reservoir", tpwdSlug: "stillhouse_hollow", region: "prairies-lakes",
+    slug: "stillhouse-hollow-reservoir", name: "Stillhouse Hollow Reservoir", tpwdSlug: "stillhouse_hollow", waterDataSlug: "stillhouse-hollow", region: "prairies-lakes",
     summary: "A very clear, deep Central Texas reservoir with good largemouth and smallmouth bass, hydrilla and rocky structure.",
     surfaceAcres: 6429, maxDepthFeet: 107, impoundedYear: 1968, counties: ["Bell"], nearestCities: ["Belton", "Temple", "Killeen"],
     waterway: "Lampasas River", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "622 ft msl", fluctuation: "About 3–4 feet", clarity: "Very clear",
@@ -352,7 +354,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "USACE recreation areas provide ramps and shoreline access; verify current lake level and closures before towing.", nearbyLakes: [{slug:"belton-lake",name:"Belton Lake"},{slug:"lake-whitney",name:"Lake Whitney"}],
   },
   {
-    slug: "caddo-lake", name: "Caddo Lake", tpwdSlug: "caddo", region: "piney-woods",
+    slug: "caddo-lake", name: "Caddo Lake", tpwdSlug: "caddo", waterDataSlug: "caddo", region: "piney-woods",
     summary: "A natural East Texas–Louisiana border lake defined by cypress habitat, trophy-capable largemouth bass, crappie, white bass and chain pickerel.",
     surfaceAcres: 26800, maxDepthFeet: 20, impoundedYear: 1914, counties: ["Harrison", "Marion"], nearestCities: ["Karnack", "Marshall", "Jefferson"],
     waterway: "Big Cypress Bayou", riverBasin: "Cypress River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "168.5 ft msl", fluctuation: "About 4–8 feet", clarity: "Moderately clear to stained",
@@ -369,7 +371,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Caddo Lake State Park",summary:"The state park provides an improved ramp, fishing pier, cabins, shelters and campsites; verify park alerts and reservations."},
   },
   {
-    slug: "lake-o-the-pines", name: "Lake O' the Pines", tpwdSlug: "lop", region: "piney-woods",
+    slug: "lake-o-the-pines", name: "Lake O' the Pines", tpwdSlug: "lop", waterDataSlug: "lake-o-the-pines", region: "piney-woods",
     summary: "A heavily vegetated East Texas reservoir with excellent largemouth bass, crappie and channel catfish plus strong white bass.",
     surfaceAcres: 19780, maxDepthFeet: 49.5, impoundedYear: 1958, counties: ["Marion", "Morris", "Upshur", "Camp"], nearestCities: ["Jefferson", "Ore City", "Longview"],
     waterway: "Big Cypress Creek", riverBasin: "Cypress River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "Seasonal pool around 228.5–230 ft msl", fluctuation: "About 4–5 feet annually", clarity: "Moderately clear",
@@ -386,7 +388,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Lake O' the Pines recreation areas",summary:"Developed and primitive USACE camping areas surround the reservoir; verify current ramp and campground conditions."},
   },
   {
-    slug: "lake-bob-sandlin", name: "Lake Bob Sandlin", tpwdSlug: "bob_sandlin", region: "piney-woods",
+    slug: "lake-bob-sandlin", name: "Lake Bob Sandlin", tpwdSlug: "bob_sandlin", waterDataSlug: "bob-sandlin", region: "piney-woods",
     summary: "A 9,004-acre East Texas reservoir near Mount Pleasant with good bass, crappie, white bass, catfish and state-park access.",
     surfaceAcres: 9004, maxDepthFeet: 65.6, impoundedYear: 1977, counties: ["Titus", "Camp", "Franklin"], nearestCities: ["Mount Pleasant", "Pittsburg"],
     waterway: "Big Cypress Creek", riverBasin: "Cypress River Basin", authority: "Titus County Freshwater Supply District", conservationPool: "337.5 ft msl", fluctuation: "About 2–3 feet annually", clarity: "Moderate, roughly 2–4 feet visibility",
@@ -403,7 +405,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Lake Bob Sandlin State Park",summary:"The state park provides camping and direct lake access; verify reservations, alerts and ramp conditions before travel."},
   },
   {
-    slug: "lake-nacogdoches", name: "Lake Nacogdoches", tpwdSlug: "nacogdoches", region: "piney-woods",
+    slug: "lake-nacogdoches", name: "Lake Nacogdoches", tpwdSlug: "nacogdoches", waterDataSlug: "nacogdoches", region: "piney-woods",
     summary: "A compact East Texas trophy-bass reservoir with hydrilla, lotus, docks and an excellent largemouth population.",
     surfaceAcres: 2212, maxDepthFeet: 40, impoundedYear: 1976, counties: ["Nacogdoches"], nearestCities: ["Nacogdoches"],
     waterway: "Loco Bayou", riverBasin: "Angelina-Neches River Basin", authority: "City of Nacogdoches", conservationPool: "279 ft msl", fluctuation: "About 1–3 feet", clarity: "Moderately clear",
@@ -433,7 +435,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Calaveras Park",summary:"The lake's public access park provides camping and shoreline facilities; verify current rules, reservations and operating hours."},
   },
   {
-    slug: "lake-corpus-christi", name: "Lake Corpus Christi", tpwdSlug: "corpus_christi", region: "gulf-coast",
+    slug: "lake-corpus-christi", name: "Lake Corpus Christi", tpwdSlug: "corpus_christi", waterDataSlug: "corpus-christi", region: "gulf-coast",
     summary: "A South Texas reservoir northwest of Corpus Christi with excellent catfish and alligator gar plus good largemouth, white bass and crappie.",
     surfaceAcres: 18256, maxDepthFeet: 60, impoundedYear: 1958, counties: ["San Patricio", "Live Oak", "Jim Wells"], nearestCities: ["Mathis", "Corpus Christi", "George West"],
     waterway: "Nueces River", riverBasin: "Nueces River Basin", authority: "City of Corpus Christi", conservationPool: "94 ft msl", fluctuation: "High and frequent, roughly 5–10 feet", clarity: "Stained to partly clear",
@@ -450,7 +452,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Lake Corpus Christi State Park",summary:"The state park provides campgrounds, overnight facilities, shoreline fishing and boat access; verify park alerts and reservations."},
   },
   {
-    slug: "alan-henry-reservoir", name: "Alan Henry Reservoir", tpwdSlug: "alan_henry", region: "panhandle",
+    slug: "alan-henry-reservoir", name: "Alan Henry Reservoir", tpwdSlug: "alan_henry", waterDataSlug: "alan-henry", region: "panhandle",
     summary: "A deep reservoir south of Lubbock with trophy-capable largemouth bass, spotted bass, crappie and catfish.",
     surfaceAcres: 2880, maxDepthFeet: 100, impoundedYear: 1993, counties: ["Garza", "Kent"], nearestCities: ["Lubbock", "Justiceburg", "Post"],
     waterway: "Double Mountain Fork Brazos River", riverBasin: "Brazos River Basin", authority: "City of Lubbock", conservationPool: "2,220 ft msl", fluctuation: "Moderate, roughly 2–4 feet per year", clarity: "Murky to clear, roughly 1–4 feet visibility",
@@ -466,7 +468,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Sam Wahl Recreation Area",summary:"Primitive camping and self-contained RV parking are available near the main lake access; verify current city rules and fees."},
   },
   {
-    slug: "lake-meredith", name: "Lake Meredith", tpwdSlug: "meredith", region: "panhandle",
+    slug: "lake-meredith", name: "Lake Meredith", tpwdSlug: "meredith", waterDataSlug: "meredith", region: "panhandle",
     summary: "A dramatic Canadian River reservoir near Amarillo with Texas' standout walleye fishery plus smallmouth, largemouth, crappie, white bass and catfish.",
     surfaceAcres: 16411, maxDepthFeet: 127, impoundedYear: 1965, counties: ["Hutchinson", "Moore", "Potter"], nearestCities: ["Fritch", "Borger", "Amarillo"],
     waterway: "Canadian River", riverBasin: "Canadian River Basin", authority: "National Park Service", conservationPool: "2,941 ft msl", fluctuation: "Moderate to severe, roughly 4–10 feet per year", clarity: "Turbid upper reservoir; clear lower reservoir",
@@ -484,7 +486,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     camping: {name:"Lake Meredith National Recreation Area",summary:"The National Park Service manages developed and primitive camping around the reservoir; ramp availability depends on water level."},
   },
   {
-    slug: "lake-houston", name: "Lake Houston", tpwdSlug: "houston", region: "gulf-coast",
+    slug: "lake-houston", name: "Lake Houston", tpwdSlug: "houston", waterDataSlug: "houston", region: "gulf-coast",
     summary: "An 11,854-acre San Jacinto River reservoir on Houston's northeast side where blue catfish and spring white-bass runs anchor a metro-accessible multi-species fishery.",
     surfaceAcres: 11854, maxDepthFeet: 45, impoundedYear: 1954, counties: ["Harris"], nearestCities: ["Houston", "Humble", "Kingwood"],
     waterway: "West Fork San Jacinto River", riverBasin: "San Jacinto River Basin", authority: "Coastal Water Authority", conservationPool: "44.1 ft msl", fluctuation: "Low", clarity: "Moderately turbid",
@@ -597,6 +599,9 @@ const countySlug = (county: string) => county.toLowerCase().replace(/[^a-z0-9]+/
 function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
   const lakeSource = tpwdSource(def);
   const publicAccess = accessSource(def);
+  const liveLevelSource = def.waterDataSlug
+    ? { label: `Water Data for Texas — ${def.name}`, url: `${WATER_DATA_FOR_TEXAS_RESERVOIR_BASE}/${def.waterDataSlug}` }
+    : { label: `TPWD — official ${def.name} lake information`, url: lakeSource.url };
   return {
     slug: def.slug,
     verifiedAt: VERIFIED_AT,
@@ -662,7 +667,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       tpwdLake: { label: lakeSource.name, url: lakeSource.url },
       tpwdAccess: { label: publicAccess.name, url: publicAccess.url },
       tpwdRegulations: { label: "TPWD — current freshwater fishing regulations", url: TPWD_REGULATIONS },
-      liveLevel: { label: "TPWD — current lake conditions entry point", url: lakeSource.url },
+      liveLevel: liveLevelSource,
     },
   };
 }
