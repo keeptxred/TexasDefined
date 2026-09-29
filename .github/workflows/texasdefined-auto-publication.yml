@@ -66,27 +66,7 @@ jobs:
           node-version: 24
       - name: Inspect eligible queue without publishing
         if: inputs.mode == 'dry-run'
-        shell: bash
-        run: |
-          set -euo pipefail
-          node scripts/news/texasdefined-auto-publisher.mjs --limit=3 | tee /tmp/texasdefined-dry-run.jsonl
-          node - <<'NODE'
-          const fs = require('node:fs');
-          const rows = fs.readFileSync('/tmp/texasdefined-dry-run.jsonl', 'utf8')
-            .split(/\r?\n/)
-            .filter(Boolean)
-            .map((line) => JSON.parse(line));
-          const queue = rows.find((row) => row.mode === 'dry-run');
-          if (!queue) throw new Error('Dry-run queue summary was not emitted.');
-          console.log(JSON.stringify({
-            mode: 'dry-run-summary',
-            eligible: queue.eligible,
-            published: 0,
-            skipped: 0,
-            failed: 0,
-            ids: queue.ids,
-          }));
-          NODE
+        run: node scripts/news/texasdefined-auto-publisher.mjs --limit=3
       - name: Publish one approved eligible article
         if: inputs.mode == 'publish'
         run: node scripts/news/texasdefined-auto-publisher.mjs --publish --limit=1
