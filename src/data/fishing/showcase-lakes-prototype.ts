@@ -49,6 +49,7 @@ export interface ShowcaseLakePrototype {
   nearby: { label: string; description: string; href: string; external: boolean }[];
   businessCategories: string[];
   reportSnapshot: { checkedAt: string; summary: string };
+  liveDataNote?: string;
   sources: Record<string, ShowcaseLakeSource>;
 }
 
