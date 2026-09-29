@@ -58,8 +58,10 @@ function validateAffiliateAnchorMetadata(file, source) {
       failures.push(`${file} affiliate anchor with ${marker} is missing rel; affiliate relationships must be disclosed and protected.`);
     } else {
       const literalRel = relMatch[1] ?? relMatch[2];
-      const isInterpolatedRel = typeof literalRel === 'string' && literalRel.includes('${');
-      if (literalRel !== undefined && !isInterpolatedRel) {
+      const isDynamicRel = relMatch[3] !== undefined
+        || anchor.includes('rel="${')
+        || anchor.includes("rel='${");
+      if (literalRel !== undefined && !isDynamicRel) {
         const relTokens = new Set(literalRel.toLowerCase().split(/\s+/).filter(Boolean));
         for (const token of ['sponsored', 'nofollow', 'noopener', 'noreferrer']) {
           if (!relTokens.has(token)) {
