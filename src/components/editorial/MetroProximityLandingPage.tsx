@@ -58,11 +58,11 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
       </nav>
     </Container>
 
-    <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
-      {hero ? <img src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} className="absolute inset-0 size-full object-cover opacity-50" onError={(event) => recoverOrHideImage(event.currentTarget)} /> : null}
-      <div className="absolute inset-0 bg-ink opacity-50" />
-      <Container className="relative flex min-h-96 flex-col justify-end py-12 sm:py-16">
-        <p className="eyebrow text-ink-foreground/75">{page.eyebrow}</p>
+    <section className="relative mt-5 overflow-hidden bg-ink text-ink-foreground">
+      {hero ? <img src={hero.src} alt={hero.alt} width={hero.width} height={hero.height} className="absolute inset-0 size-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} /> : null}
+      <div className="absolute inset-0 bg-ink" style={{ opacity: 0.55 }} />
+      <Container className="relative flex flex-col justify-end py-12 sm:py-16">
+        <p className="eyebrow text-ink-foreground">{page.eyebrow}</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-none sm:text-7xl">{page.title}</h1>
         <p className="mt-6 max-w-3xl text-base leading-8 text-ink-foreground sm:text-lg">{page.intro}</p>
         <div className="eyebrow mt-7 flex flex-wrap gap-x-6 gap-y-2 text-ink-foreground">
@@ -100,10 +100,10 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
         <p className="max-w-xl text-sm leading-6 text-muted-foreground">Distance labels are rounded straight-line context from the metro reference point, not road mileage. Start with the reason to go, then verify the live driving route.</p>
       </div>
 
-      <div className="grid gap-x-7 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
         {displayed.map((item) => {
           const destination = item.destination;
-          return <article key={destination.slug} className="group flex min-w-0 flex-col border-b border-border pb-8">
+          return <article key={destination.slug} className="flex flex-col border-b border-border pb-8">
             <Link to="/destination/$slug" params={{ slug: destination.slug }} className="block overflow-hidden bg-muted">
               <img src={destination.hero.src} alt={destination.hero.alt} width={destination.hero.width} height={destination.hero.height} loading="lazy" className="aspect-video w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
             </Link>
@@ -113,12 +113,12 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
             </div>
             <h3 className="mt-2 font-display text-3xl leading-tight"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
             <p className="mt-3 flex items-start gap-2 text-sm font-medium leading-6"><MapPin className="mt-1 size-4 shrink-0 text-primary" aria-hidden />{item.distanceLabel}</p>
-            <p className="mt-3 line-clamp-4 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
-            <div className="mt-4 flex flex-wrap gap-2">{item.bestFor.slice(0, 3).map((label) => <span key={label} className="border border-border px-2.5 py-1 text-xs text-muted-foreground">{label}</span>)}</div>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
+            <div className="mt-4 flex flex-wrap gap-2">{item.bestFor.slice(0, 3).map((label) => <span key={label} className="border border-border px-2 py-1 text-xs text-muted-foreground">{label}</span>)}</div>
             <p className="mt-5 text-xs leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Best season:</strong> {destination.bestSeason}</p>
             <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
               <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow border-b border-primary pb-1 text-primary">Plan this stop →</Link>
-              <a href={maps.directionsUrl(destination.coordinates, destination.name)} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1.5 text-xs font-semibold underline decoration-primary/35 underline-offset-4 hover:text-primary"><RouteIcon className="size-3.5" aria-hidden />Check route</a>
+              <a href={maps.directionsUrl(destination.coordinates, destination.name)} target="_blank" rel="noreferrer noopener" className="inline-flex items-center gap-1.5 text-xs font-semibold underline underline-offset-4 hover:text-primary"><RouteIcon className="size-4" aria-hidden />Check route</a>
             </div>
           </article>;
         })}
@@ -155,15 +155,15 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
           <p className="eyebrow text-primary">Build the route outward</p>
           <h2 className="mt-2 font-display text-4xl">Counties, towns and statewide guides</h2>
           {counties.length ? <div className="mt-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Counties represented</p>
+            <p className="text-xs font-semibold uppercase text-muted-foreground">Counties represented</p>
             <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">{counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="underline underline-offset-4 hover:text-primary">{county} County</Link>)}</div>
           </div> : null}
           {towns.length ? <div className="mt-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Towns and gateways in this set</p>
+            <p className="text-xs font-semibold uppercase text-muted-foreground">Towns and gateways in this set</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{towns.join(" · ")}</p>
           </div> : null}
           <div className="mt-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Related statewide guides</p>
+            <p className="text-xs font-semibold uppercase text-muted-foreground">Related statewide guides</p>
             <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
               {categoryGuides.map((guide) => <Link key={guide.href} to={guide.href} className="underline underline-offset-4 hover:text-primary">{guide.label}</Link>)}
               <Link to="/explore/trip-planner" className="underline underline-offset-4 hover:text-primary">Texas Trip Planner</Link>
@@ -175,10 +175,10 @@ export function MetroProximityLandingPage({ page }: { page: MetroProximityPage }
 
     <section className="border-t border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-16">
-        <p className="eyebrow text-ink-foreground/65"><Sparkles className="mr-2 inline size-4" aria-hidden />More trips from Texas metros</p>
+        <p className="eyebrow text-ink-foreground"><Sparkles className="mr-2 inline size-4" aria-hidden />More trips from Texas metros</p>
         <h2 className="mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Keep building the radius</h2>
         <div className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-          {related.map((link) => <Link key={link.href} to={link.href} className="border-b border-ink-foreground pb-3 text-sm font-semibold leading-6">{link.label} →</Link>)}
+          {related.map((link) => <Link key={link.href} to={link.href} className="border-b pb-3 text-sm font-semibold leading-6">{link.label} →</Link>)}
         </div>
       </Container>
     </section>
