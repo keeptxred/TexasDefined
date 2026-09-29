@@ -55,9 +55,16 @@ const eventTimingLinks: EventDiscoveryLink[] = [
   { href: "/events/this-weekend", title: "Events this weekend", description: "A live Friday-through-Sunday view built only from source-verified permanent event guides." },
   { href: "/events/this-month", title: "Events this month", description: "The current Texas event month, with thin periods automatically withheld from indexing." },
   { href: "/events/september-events", title: "September events", description: "Fairs, rodeos, Oktoberfests, music and fall-opening traditions across Texas." },
+  { href: "/events/october-events", title: "October events", description: "Fairs, festivals, Oktoberfests, food, music and fall traditions with verified occurrences." },
+  { href: "/events/november-events", title: "November events", description: "Fall festivals, food weekends, races, heritage events and early holiday traditions." },
+  { href: "/events/december-events", title: "December events", description: "Holiday lights, parades, markets, performances and winter traditions with source-checked dates." },
   { href: "/events/fall-festivals", title: "Fall festivals", description: "Verified September-through-November food, music, heritage, fair and seasonal events." },
   { href: "/events/christmas-events", title: "Christmas & holiday events", description: "Source-checked holiday parades, markets, lights and recurring seasonal traditions." },
   { href: "/events/county-fairs", title: "County fairs", description: "Texas county fairs and fairground traditions with current dates and county context." },
+  { href: "/events/houston-this-weekend", title: "Houston this weekend", description: "A rolling source-verified weekend edition for the Greater Houston counties." },
+  { href: "/events/dallas-this-weekend", title: "Dallas-Fort Worth this weekend", description: "A rolling source-verified weekend edition for the core DFW counties." },
+  { href: "/events/austin-this-weekend", title: "Austin this weekend", description: "A rolling source-verified weekend edition for Austin and nearby Central Texas counties." },
+  { href: "/events/san-antonio-this-weekend", title: "San Antonio this weekend", description: "A rolling source-verified weekend edition for San Antonio and nearby counties." },
 ];
 
 const eventTopicLinks: EventDiscoveryLink[] = [
@@ -75,6 +82,8 @@ const eventRegionLinks: EventDiscoveryLink[] = [
   { href: "/events/gulf-coast-events", title: "Gulf Coast", description: "Houston, Galveston, the Coastal Bend and island event weekends." },
   { href: "/events/houston-area-events", title: "Houston area", description: "Harris, Fort Bend, Montgomery and Brazoria County events grouped by actual venue and county." },
   { href: "/events/dallas-fort-worth-events", title: "Dallas-Fort Worth", description: "Dallas, Fort Worth and core DFW county events with city-level planning context." },
+  { href: "/events/austin-area-events", title: "Austin area", description: "Austin, Round Rock, San Marcos and nearby Central Texas event corridors with host-place context." },
+  { href: "/events/san-antonio-area-events", title: "San Antonio area", description: "San Antonio, New Braunfels, Boerne and nearby event corridors grouped by actual host place." },
   { href: "/events/north-texas-events", title: "North Texas", description: "Dallas-Fort Worth, Prairies & Lakes cities and nearby fair and festival towns." },
   { href: "/events/south-texas-events", title: "South Texas", description: "San Antonio, border traditions, Valley festivals and regional rodeos." },
   { href: "/events/piney-woods-events", title: "East Texas & Piney Woods", description: "Rose, forest, music and small-town traditions across East Texas." },
