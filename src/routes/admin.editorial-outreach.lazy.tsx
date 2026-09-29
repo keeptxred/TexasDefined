@@ -106,7 +106,7 @@ function EditorialOutreachAdmin() {
           <Metric label="Verified targets" value={dashboard.summary.verifiedTargets} />
           <Metric label="Existing relationships" value={dashboard.summary.existingRelationships} />
           <Metric label="Ready to contact" value={dashboard.summary.readyToContact} />
-          <Metric label="Auto research queue" value={dashboard.summary.automaticResearchCandidates} />
+          <Metric label="Auto research queue" value={dashboard.summary.automaticResearchCandidates + dashboard.summary.eventResearchCandidates + dashboard.summary.authoritySourceCandidates} />
           <Metric label="Improve first" value={dashboard.summary.pagesNeedingImprovementFirst} />
         </section>
 
@@ -153,9 +153,33 @@ function EditorialOutreachAdmin() {
           <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Automatic intake</p><h2 className="mt-2 font-display text-4xl">New authority pages needing contact research</h2><p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These pages entered automatically because they are index-ready, identify a managing authority and include a current official source. Research the right communications/media contact before sending anything.</p></div>
           <div className="grid gap-4 pt-6 lg:grid-cols-2">
             {dashboard.automaticIntake.map((item) => <article key={item.id} className="border border-border p-5">
-              <div className="flex items-start justify-between gap-4"><div><h3 className="font-display text-2xl">{item.organization}</h3><p className="mt-1 text-xs text-muted-foreground">{item.category} · {item.nearestTown}</p></div><span className="text-xs font-semibold">score {item.score}</span></div>
+              <div className="flex items-start justify-between gap-4"><div><h3 className="font-display text-2xl">{item.organization}</h3><p className="mt-1 text-xs text-muted-foreground">{item.category} · {item.locationLabel}</p></div><span className="text-xs font-semibold">score {item.score}</span></div>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.reason}</p>
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><a href={item.pagePath} className="font-semibold text-primary underline underline-offset-4">TexasDefined page</a><a href={item.officialUrl} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">Official source ↗</a></div>
+            </article>)}
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Event organizer intake</p><h2 className="mt-2 font-display text-4xl">Upcoming event guides needing organizer contact research</h2><p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These permanent event guides have a current official organizer URL and verified occurrence. Research the organizer's communications or media contact before outreach; event listings alone do not justify a backlink request.</p></div>
+          <div className="grid gap-4 pt-6 lg:grid-cols-2">
+            {dashboard.eventIntake.map((item) => <article key={item.id} className="border border-border p-5">
+              <div className="flex items-start justify-between gap-4"><div><h3 className="font-display text-2xl">{item.organization}</h3><p className="mt-1 text-xs text-muted-foreground">{item.category} · {item.locationLabel}</p></div><span className="text-xs font-semibold">score {item.score}</span></div>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.reason}</p>
+              <ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{item.suggestedAsks.map((ask) => <li key={ask}>• {ask}</li>)}</ul>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><a href={item.pagePath} className="font-semibold text-primary underline underline-offset-4">TexasDefined event guide</a><a href={item.officialUrl} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">Official organizer ↗</a></div>
+            </article>)}
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Authority source research</p><h2 className="mt-2 font-display text-4xl">Published articles with named source relationships to evaluate</h2><p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These are research candidates only. A citation does not mean the source organization should receive outreach. Confirm that the organization is relevant to the article subject and that a long-term fact-check, data or media relationship would be useful before contacting anyone.</p></div>
+          <div className="grid gap-4 pt-6 lg:grid-cols-2">
+            {dashboard.authoritySourceIntake.map((item) => <article key={item.id} className="border border-border p-5">
+              <div className="flex items-start justify-between gap-4"><div><h3 className="font-display text-2xl">{item.organization}</h3><p className="mt-1 text-xs text-muted-foreground">{item.category} · {item.locationLabel}</p></div><span className="text-xs font-semibold">research only</span></div>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.reason}</p>
+              <ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{item.suggestedAsks.slice(0, 3).map((ask) => <li key={ask}>• {ask}</li>)}</ul>
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><a href={item.pagePath} className="font-semibold text-primary underline underline-offset-4">TexasDefined article</a><a href={item.officialUrl} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">Cited source ↗</a></div>
             </article>)}
           </div>
         </section>
