@@ -41,6 +41,9 @@ export const texasRanchToMarketRoadsArticle: Article = {
       "RM is different from RR, which is essentially the one-off Ranch Road 1 designation.",
       "A route number is a transportation-system identity, not a promise about scenery or traffic."
     ),
+    h("Why the designation still matters to map readers"),
+    p("The useful way to read an RM number is as a clue to administrative history. It tells you that the corridor belongs to a particular branch of the state highway system and that the Transportation Commission placed it there through formal designation. That can help explain why the road has a numbered shield, why it connects with other on-system routes and why the label may remain even after development changes what drivers see outside the windshield."),
+    p("It also prevents a common map-reading mistake: treating the words on the shield as a literal description of current land use. A suburbanized RM road and a remote ranch-country RM road can carry the same kind of designation because the system records transportation identity over time. For planning a trip, the number is therefore more reliable as a network label than as a promise that the route will still look rural."),
     h("A small label with a large Texas history"),
     p("RM roads make the most sense when viewed as part of the same statewide project that produced the famous FM network. Together they show how Texas turned rural access into a formal state transportation system—and how highway designations can persist long after the countryside around them changes."),
   ],
@@ -79,6 +82,9 @@ export const texasLoopsSpursArticle: Article = {
       "Check the shield or route class because several highway systems can use spur designations.",
       "Remember that urban growth can make an old bypass or connector look very different from its original purpose."
     ),
+    h("How growth can hide the original network logic"),
+    p("The oldest reason for a Loop or Spur can become hard to recognize once development fills the land around it. A Loop that once carried traffic around the edge of town may now have frontage development, traffic signals and neighborhoods on both sides. A Spur that once looked like a short branch to one destination may become an important urban street. The designation can survive because it still describes the route's place in the state system even when the visual setting has changed."),
+    p("For that reason, the best way to interpret these roads is to compare the route with the larger highway it serves. Ask what traffic the Loop was meant to redirect, what connection the Spur was meant to preserve and where the state-system route begins or ends. That relationship is often more informative than the modern shape of the road itself."),
     h("The designation records what the road was built to do"),
     p("Loops and Spurs are useful because they reveal the architecture of the highway network. Through routes carry the long corridor; loops redirect or bypass; spurs extend outward to a destination or local connection. Texas growth can blur those roles on the ground, but the designations preserve the logic underneath the map."),
   ],
@@ -117,6 +123,9 @@ export const texasBusinessRoutesArticle: Article = {
       "Its alignment may preserve the highway path that served the town before a bypass or relocation.",
       "Business routes can reveal where highway-oriented commerce used to concentrate."
     ),
+    h("What a bypass changes—and what it leaves behind"),
+    p("Moving the through highway can change traffic patterns without erasing the older corridor's public role. The former main route may still connect neighborhoods, schools, civic buildings and commercial blocks, and its business designation keeps that local path tied to the larger highway network. The result is often two parallel stories on the same map: a newer route optimized for through travel and an older route that continues to serve the town itself."),
+    p("That distinction is useful when reading Texas communities because road names can preserve an earlier geography of travel. A motel row, service station cluster or older commercial strip may make more sense once you realize it faced the highway before the bypass opened. The business route is therefore not just a navigation aid; it can be evidence of where traffic, commerce and development were concentrated before the transportation network shifted outward."),
     h("The highway history still running through town"),
     p("Business routes are useful Texas geography because they show where the transportation network moved. The bypass marks a newer era of through travel; the business route often preserves the older relationship between highway traffic and downtown commerce. Read together, the two routes tell the growth story of the town."),
   ],
@@ -156,6 +165,9 @@ export const texasParkRecreationalRoadsArticle: Article = {
       "RP identifies a Recreational Road Spur.",
       "These are destination-access systems, not miniature versions of Interstate or U.S. highways."
     ),
+    h("Why PR and RE labels are useful when planning a trip"),
+    p("These designations can help a traveler understand where ordinary through travel gives way to destination access. A Park Road or Recreational Road may be short, but its presence signals that the state has formally recognized the connection as part of its highway system. That is different from assuming every road inside a park or recreation area carries the same designation, because TxDOT's maintenance responsibilities and its route-designation system are not identical."),
+    p("The distinction also matters when reading maps and directions. A PR or RE number identifies a specific state-system route, while the destination beyond it may contain local drives, park roads or internal circulation that use different names and rules. Treating the shield as a network label rather than a generic description makes it easier to understand where the formal route ends and the destination's own road system begins."),
     h("Small highway systems with a clear purpose"),
     p("Park and Recreational Roads show how detailed the Texas highway system really is. TxDOT does not use one generic label for every state-maintained road. It preserves separate systems for roads whose main job is connecting Texans with parks and recreation—making the shield itself a clue to the destination ahead."),
   ],
@@ -197,6 +209,9 @@ export const texasHistoricMemorialRoutesArticle: Article = {
       "Remember that OSR and NASA Road 1 are unusual because TxDOT recognizes them as named highway designations.",
       "Do not assume a local or memorial name changes who maintains the road or what route number it carries."
     ),
+    h("How to read several road identities at once"),
+    p("When a corridor carries multiple labels, start with function and then add interpretation. The numbered shield identifies the operational highway system. A memorial name adds a commemorative layer, while a historic-route sign adds a heritage layer authorized through its own process. Because those layers answer different questions, they can coexist without contradicting one another."),
+    p("This is especially useful when comparing maps, roadside signs and local directions. One source may emphasize the route number, another the memorial name and another the historic corridor. The labels can all refer to the same pavement while describing different aspects of it. Separating those roles keeps a commemorative or historical name from being mistaken for a change in the road's underlying state designation."),
     h("A road can carry transportation and memory at once"),
     p("Texas highway names make more sense once the layers are separated. The route number tells you how the road fits into the transportation network. Memorial names tell you whom a community or legislature chose to honor. Historic-route signs tell you that the corridor has recognized heritage significance. One pavement surface can legitimately carry all three stories."),
   ],
