@@ -56,7 +56,7 @@ function PaintedChurchTechniquesHub() {
     <section className="border-b border-border bg-surface"><Container className="py-16 sm:py-24">
       <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches">Painted Churches</Link></li><li aria-hidden>·</li><li aria-current="page">Techniques</li></ol></nav>
       <p className="eyebrow mt-8 text-primary">Decorative arts encyclopedia</p>
-      <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">How Texas Painted Churches were actually painted.</h1>
+      <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">How Texas Painted Churches Were Painted</h1>
       <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">The interiors were not produced with one method. Decorative painters combined repeating stencil systems, hand-filled transfers, faux marble and wood, one-of-a-kind murals, metallic accents and painted architectural illusion. Each technique below has its own authoritative page and links back to churches where the evidence supports that relationship.</p>
     </Container></section>
 
