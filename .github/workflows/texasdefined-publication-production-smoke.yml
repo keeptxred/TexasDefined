@@ -43,5 +43,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Verify auto-publish activation remains off
+        env:
+          TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+        shell: bash
+        run: |
+          if [ -z "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+          else
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=true"
+          fi
+          if [ "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" = "true" ]; then
+            echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=true"
+            echo "::error::TexasDefined auto-publishing must remain disabled until explicit activation approval."
+            exit 1
+          fi
+          echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_TRUE=false"
       - name: Verify live news, Canyon Lake article and sitemap membership
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
