@@ -3579,7 +3579,6 @@ export interface FileRoutesByFullPath {
   '/buying-a-home-in-texas': typeof BuyingAHomeInTexasRoute
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
-  '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
@@ -3804,6 +3803,7 @@ export interface FileRoutesByFullPath {
   '/browse/counties': typeof BrowseCountiesRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
+  '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
   '/county-clerk/$slug': typeof CountyClerkSlugRoute
   '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
@@ -4070,7 +4070,6 @@ export interface FileRoutesByTo {
   '/buying-a-home-in-texas': typeof BuyingAHomeInTexasRoute
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
-  '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
@@ -4292,6 +4291,7 @@ export interface FileRoutesByTo {
   '/browse/counties': typeof BrowseCountiesRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
+  '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
   '/county-clerk/$slug': typeof CountyClerkSlugRoute
   '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
@@ -4559,7 +4559,6 @@ export interface FileRoutesById {
   '/buying-a-home-in-texas': typeof BuyingAHomeInTexasRoute
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
-  '/compare-texas-cities_/$pair': typeof CompareTexasCitiesPairRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
@@ -4784,6 +4783,7 @@ export interface FileRoutesById {
   '/browse/counties': typeof BrowseCountiesRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
+  '/compare-texas-cities_/$pair': typeof CompareTexasCitiesPairRoute
   '/county-clerk/$slug': typeof CountyClerkSlugRoute
   '/decide/financial-tools': typeof DecideFinancialToolsRoute
   '/decide/property-taxes': typeof DecidePropertyTaxesRoute
@@ -5052,7 +5052,6 @@ export interface FileRouteTypes {
     | '/buying-a-home-in-texas'
     | '/citation-guide'
     | '/compare-texas-cities'
-    | '/compare-texas-cities/$pair'
     | '/continental-club-austin-history'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
@@ -5277,6 +5276,7 @@ export interface FileRouteTypes {
     | '/browse/counties'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
+    | '/compare-texas-cities/$pair'
     | '/county-clerk/$slug'
     | '/decide/financial-tools'
     | '/decide/property-taxes'
@@ -5543,7 +5543,6 @@ export interface FileRouteTypes {
     | '/buying-a-home-in-texas'
     | '/citation-guide'
     | '/compare-texas-cities'
-    | '/compare-texas-cities/$pair'
     | '/continental-club-austin-history'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
@@ -5765,6 +5764,7 @@ export interface FileRouteTypes {
     | '/browse/counties'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
+    | '/compare-texas-cities/$pair'
     | '/county-clerk/$slug'
     | '/decide/financial-tools'
     | '/decide/property-taxes'
@@ -6031,7 +6031,6 @@ export interface FileRouteTypes {
     | '/buying-a-home-in-texas'
     | '/citation-guide'
     | '/compare-texas-cities'
-    | '/compare-texas-cities_/$pair'
     | '/continental-club-austin-history'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
@@ -6256,6 +6255,7 @@ export interface FileRouteTypes {
     | '/browse/counties'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
+    | '/compare-texas-cities_/$pair'
     | '/county-clerk/$slug'
     | '/decide/financial-tools'
     | '/decide/property-taxes'
