@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { CategoryPage } from "@/components/editorial/CategoryPage";
+import { MetroProximityLandingPage } from "@/components/editorial/MetroProximityLandingPage";
+import { MetroProximityLinks } from "@/components/editorial/MetroProximityLinks";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { ExploreDestinationComparison, type ExploreComparisonKind } from "@/components/explore/ExploreDestinationComparison";
 import { Container } from "@/components/layout/Container";
@@ -16,8 +18,9 @@ const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-tr
 export const Route = createLazyFileRoute("/explore/$category")({ component: ExploreCategoryPage, notFoundComponent: CategoryNotFound });
 
 function ExploreCategoryPage() {
-  const { destinations, authorityHtml } = Route.useLoaderData();
-  const { category: match } = Route.useLoaderData();
+  const data = Route.useLoaderData();
+  if (data.kind === "metro-proximity") return <MetroProximityLandingPage page={data.metroProximity} />;
+  const { destinations, authorityHtml, category: match } = data;
   if (match.slug === "water-towers") {
     return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading roadside guide…</p></Container>}><WaterTowersPage /></Suspense>;
   }
@@ -48,6 +51,7 @@ function ExploreCategoryPage() {
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
+    <MetroProximityLinks category={match.slug} />
     {unusualBusinessSpotlight ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">{unusualBusinessSpotlight.eyebrow}</p><h2 className="mt-2 font-display text-3xl">{unusualBusinessSpotlight.title}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{unusualBusinessSpotlight.text}</p><Link to="/article/unusual-texas-businesses-services" {...unusualBusinessAnalyticsAttributes("/article/unusual-texas-businesses-services", `explore-${match.slug}:hub`)} className="mt-4 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">More unusual Texas businesses →</Link></div><Link to={unusualBusinessSpotlight.href} {...unusualBusinessAnalyticsAttributes(unusualBusinessSpotlight.href, `explore-${match.slug}:spotlight`)} className="eyebrow inline-block border-b border-primary pb-1 text-primary">{unusualBusinessSpotlight.cta}</Link></section></Container> : null}
     {showRoadTripRentalCar ? <Container className="pb-10 sm:pb-14"><BookingCarRentalCard placement="road-trips-category" title="Need a rental car for your Texas road trip?" /></Container> : null}
     {showMuseumCollection ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">Dedicated statewide collection</p><h2 className="mt-2 font-display text-3xl">Museums across Texas</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Browse the source-checked museum collection separately from battlefields, monuments and other historic sites, including art, science, history, military, presidential, children’s and specialty museums.</p></div><Link to="/explore/museums" className="eyebrow inline-block border-b border-primary pb-1 text-primary">Browse Texas museums →</Link></section></Container> : null}

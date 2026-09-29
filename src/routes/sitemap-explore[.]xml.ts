@@ -5,6 +5,7 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { listIndexableMetroProximityPaths } from "@/data/metro-proximity";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -225,6 +226,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinations = await resolveDestinationCatalog(rawDestinations);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+        const metroProximityPaths = listIndexableMetroProximityPaths(indexableDestinations);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);
@@ -273,6 +275,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           ...landscapePaths,
           ...(swimmingHoleAndTubingIndexReady ? [`/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`] : []),
           ...categorySlugs.map((slug) => `/explore/${slug}`),
+          ...metroProximityPaths,
           ...regionSlugs.map((regionSlug) => `/explore/region/${regionSlug}`),
         ];
         const destinationEntries = sitemapIndexableDestinations

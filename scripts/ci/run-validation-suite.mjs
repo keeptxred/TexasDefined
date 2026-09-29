@@ -35,6 +35,8 @@ const checks = [
   ['texas-explained-roads', 'CONTENT/AUTHORITY', 'Validate Texas Explained road systems', 'node', ['scripts/data/validate-texas-explained-road-systems.mjs']],
   ['explore-category-seo', 'SEO/AUTHORITY', 'Validate Explore category SEO', 'node', ['scripts/data/validate-explore-category-seo.mjs']],
   ['explore-region-seo', 'SEO/AUTHORITY', 'Validate Explore region SEO', 'node', ['scripts/data/validate-explore-region-seo.mjs']],
+  ['metro-proximity-unit', 'SEO/AUTHORITY', 'Validate metro proximity generation gates', 'node', ['--experimental-strip-types', '--test', 'src/data/__tests__/metro-proximity.test.ts']],
+  ['metro-proximity-seo', 'SEO/AUTHORITY', 'Validate metro proximity SEO architecture', 'node', ['scripts/data/validate-metro-proximity-seo.mjs']],
   ['explore-topical-authority', 'CONTENT/AUTHORITY', 'Validate Explore topical authority', 'node', ['scripts/data/validate-explore-topical-authority.mjs']],
   ['camping-guide-decision-ux', 'CONTENT/AUTHORITY', 'Validate camping guide decision UX', 'node', ['scripts/data/validate-camping-guide-decision-ux.mjs']],
   ['camping-public-authority-wave6', 'CONTENT/AUTHORITY', 'Validate camping public authority Wave 6', 'node', ['scripts/data/validate-camping-public-authority-wave6.mjs']],

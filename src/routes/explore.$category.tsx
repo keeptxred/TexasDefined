@@ -3,6 +3,7 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { metroProximityRoute, resolveMetroProximityPageBySlug } from "@/data/metro-proximity";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -108,9 +109,16 @@ export const Route = createFileRoute("/explore/$category")({
     }
   },
   loader: async ({ context, params }) => {
+    if (metroProximityRoute(params.category)) {
+      const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ limit: 5000 }));
+      const metroProximity = resolveMetroProximityPageBySlug(params.category, destinations);
+      if (!metroProximity) throw notFound();
+      return { kind: "metro-proximity" as const, metroProximity, articles: [], destinations, authorityHtml: null };
+    }
+
     if (params.category === "water-towers") {
       const { waterTowersCategory } = await import("@/data/water-towers");
-      return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
+      return { kind: "category" as const, category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
     }
 
     const categories = await context.queryClient.ensureQueryData(categoriesQuery());
@@ -136,10 +144,42 @@ export const Route = createFileRoute("/explore/$category")({
           : Promise.resolve(null),
       ]).then((parts) => parts.filter(Boolean).join("\n")) : null,
     ]);
-    return { category, articles, destinations, authorityHtml };
+    return { kind: "category" as const, category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
+    if (loaderData.kind === "metro-proximity") {
+      const page = loaderData.metroProximity;
+      const pageUrl = `${siteUrl}${page.canonicalPath}`;
+      const hero = page.items[0]?.destination.hero;
+      const itemListElement = page.items.map((entry, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: destinationSchema(entry.destination),
+      }));
+      const collectionSchema = {
+        "@type": "CollectionPage",
+        "@id": `${pageUrl}#collection`,
+        url: pageUrl,
+        name: page.metaTitle,
+        headline: page.title,
+        description: page.description,
+        image: hero ? { "@type": "ImageObject", url: absoluteUrl(texasDefinedBrand, hero.src), caption: hero.alt, width: hero.width, height: hero.height } : undefined,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        about: { "@type": "Thing", name: page.searchIntent },
+        mainEntity: { "@type": "ItemList", "@id": `${pageUrl}#items`, numberOfItems: itemListElement.length, itemListElement },
+      };
+      const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${pageUrl}#breadcrumbs`, itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
+        { "@type": "ListItem", position: 3, name: page.title, item: pageUrl },
+      ] };
+      return {
+        meta: buildMeta(texasDefinedBrand, { canonicalPath: page.canonicalPath, title: page.metaTitle, description: page.description, image: hero?.src, imageAlt: hero?.alt, robots: page.indexReady ? undefined : "noindex, follow, max-image-preview:large" }),
+        links: [canonicalLink(texasDefinedBrand, page.canonicalPath)],
+        scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [collectionSchema, breadcrumbSchema] }) }],
+      };
+    }
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
     const hasWildlifeGuide = loaderData.articles.some((article) => article.slug === "texas-wildlife-guide");
