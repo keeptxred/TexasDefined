@@ -91,13 +91,55 @@ const requiredLakes = [
   "lake-livingston",
   "lake-tawakoni",
   "lake-whitney",
+  "sam-rayburn-reservoir",
+  "lake-texoma",
+  "toledo-bend-reservoir",
+  "possum-kingdom-reservoir",
+  "canyon-lake",
+  "lake-travis",
+  "lake-buchanan",
+  "lake-lbj",
+  "lewisville-lake",
+  "lake-lavon",
+  "lake-austin",
+  "lake-houston",
+  "grapevine-lake",
+  "eagle-mountain-lake",
+  "belton-lake",
+  "stillhouse-hollow-reservoir",
+  "calaveras-lake",
+  "alan-henry-reservoir",
+  "lake-palestine",
+  "lake-conroe",
+  "choke-canyon-reservoir",
+  "falcon-international-reservoir",
+  "cedar-creek-reservoir",
+  "lake-ray-hubbard",
+  "lake-bridgeport",
+  "lake-o-the-pines",
 ];
-for (const slug of requiredLakes) requireText(files.library, `"${slug}": lake(`, `governed lake image inventory missing ${slug}`);
+for (const slug of requiredLakes) {
+  const localToken = `"${slug}": lake(`;
+  const commonsToken = `"${slug}": commonsLake(`;
+  if (!files.library.includes(localToken) && !files.library.includes(commonsToken)) fail(`governed lake image inventory missing ${slug}`);
+}
 
 const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|state-parks)\/[^"]+\.(?:jpg|jpeg|png|webp|avif))"/g)]
   .map((match) => `public/${match[1]}`);
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
+const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
+if (commonsLakeBlocks.length < 26) fail(`expected at least 26 exact Commons lake images, found ${commonsLakeBlocks.length}`);
+for (const slug of commonsLakeBlocks) {
+  const start = files.library.indexOf(`  "${slug}": commonsLake(`);
+  const end = files.library.indexOf("\n  ),", start);
+  const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
+  for (const token of ["Wikimedia Commons", "sourceUrl", "actualLocation"]) {
+    if (token === "sourceUrl" || token === "actualLocation") continue;
+  }
+  if (!block.includes("CC BY") && !block.includes("Public domain")) fail(`Commons lake image missing explicit reusable license: ${slug}`);
+}
+
 
 for (const token of [
   "image.credit",

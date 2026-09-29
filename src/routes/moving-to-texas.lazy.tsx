@@ -67,6 +67,13 @@ const priorityOriginStates = [
   ["Florida", "/texas-vs/florida"],
   ["Colorado", "/texas-vs/colorado"],
 ] as const;
+const priorityRelocationGuides = [
+  ["Best Houston Suburbs for Commuters", "/article/best-houston-suburbs-for-commuters", "Choose a Houston-area search zone from the actual job corridor, Park & Ride options and address-level costs instead of a generic suburb ranking."],
+  ["Best Dallas Suburbs for Commuters", "/article/best-dallas-suburbs-for-commuters", "Match Dallas-area suburbs to downtown, Las Colinas, Plano and other work centers with road, rail and total household cost in the same comparison."],
+  ["Texas Property Taxes for New Residents", "/article/texas-property-taxes-for-new-residents", "Understand appraisal districts, taxing units, homestead research and why the previous owner's bill should not be copied into a new household budget."],
+  ["Corporate Relocation to Texas", "/article/corporate-relocation-to-texas", "Connect site selection, workforce, registration, taxes and employee transition with current Texas and federal source links."],
+  ["Employee Relocation Guide to Texas", "/article/employee-relocation-guide-to-texas", "Turn an employer transfer into a household plan for benefits, housing, commuting, utilities, vehicles and first-month tasks."],
+] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
 
@@ -99,6 +106,12 @@ function MovingToTexasPage() {
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The six permanent comparison pages focus on household budget, commute, county and taxing-unit context, insurance, utilities, schools and official-source verification. They do not assign a subjective winner.</p>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{RELOCATION_CITY_PAIRS.map((pair) => <a key={pair.slug} href={relocationCityPairPath(pair.slug)} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">{pair.cityA} vs {pair.cityB} →</a>)}</div>
       </section>
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-priority-guides">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">High-intent relocation guides</p><h2 id="moving-texas-priority-guides" className="mt-2 font-display text-3xl">Go from statewide research to the decision you need to make next</h2></div><Link to="/moving-to-texas/tools" className="text-sm font-semibold text-primary">Open all relocation tools →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These guides fill the practical gaps between choosing Texas and signing for a specific address: commute-led suburb research, new-resident property taxes, employer planning and employee transfer logistics. Each one links back into the city, county, cost, utility and checklist system rather than ending as a standalone article.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-5">{priorityRelocationGuides.map(([title, href, copy]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{copy}</span><span className="eyebrow mt-5 inline-block text-primary">Open guide →</span></a>)}</div>
+      </section>
+
       <section className="mb-12 border-y border-border py-8" aria-labelledby="moving-texas-paperwork">
         <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
           <div><p className="eyebrow text-primary">After you arrive</p><h2 id="moving-texas-paperwork" className="mt-2 font-display text-3xl leading-tight">Texas paperwork without the agency confusion</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Texas splits driver licensing and vehicle services between different systems. These practical guides route you to the right transaction and official source before you make an appointment or start paperwork.</p></div>

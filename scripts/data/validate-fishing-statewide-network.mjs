@@ -184,6 +184,14 @@ for (const token of [
 requireText(files.server, "statewideNetworkShowcaseLakePrototypes", "page-data server is not loading statewide prototypes");
 for (const token of ["STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS", "STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT", "STATEWIDE_SET"]) requireText(files.sitemap, token, `sitemap publication missing ${token}`);
 
+
+for (const token of [
+  "parseLcraHydrometLakeLevelCsv",
+  "https://hydromet.lcra.org/media/LakeLevel.csv",
+  "https://hydromet.lcra.org/api/GetLakeLevelsForAllSites/",
+  "https://hydromet.lcra.org/api/GetDataBySite/",
+]) requireText(files.liveParser + files.liveFetcher, token, `Fayette LCRA resilient live-water contract missing ${token}`);
+
 for (const route of [files.overviewRoute, files.sectionRoute]) {
   requireText(route, "isShowcaseLakeSlug", "dynamic lake route must enforce the showcase allowlist");
   requireText(route, "showcaseLakeCanonicalPath", "dynamic lake route must use canonical fishing lake paths");
@@ -223,4 +231,4 @@ if (newEntryUrls !== 234) fail(`expected 234 statewide-network overview/intent U
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, one LCRA Hydromet live mapping, one explicit official-agency fallback, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, one explicit official-agency fallback, current-condition honesty and duplicate-route safeguards are protected.`);

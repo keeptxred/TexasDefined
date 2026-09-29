@@ -1,6 +1,7 @@
 import type { LiveLakeLevelSnapshot } from "./live-lake-level.server";
 import {
   parseLcraHydrometLakeLevel,
+  parseLcraHydrometLakeLevelCsv,
   parseWaterDataForTexasRecentConditions,
   parseWaterDataForTexasReservoirCsv,
   parseWaterDataForTexasReservoirPage,
@@ -104,6 +105,28 @@ async function fetchHtmlSnapshot(canonicalSourceUrl: string) {
 
 async function fetchLcraSnapshot(sourceUrl: string, siteNumber: string) {
   try {
+    const csvResponse = await fetch("https://hydromet.lcra.org/media/LakeLevel.csv", {
+      cache: "no-store",
+      redirect: "follow",
+      headers: headers("text/csv,text/plain;q=0.9,*/*;q=0.1", sourceUrl),
+      signal: AbortSignal.timeout(PRIMARY_TIMEOUT_MS),
+    });
+    if (csvResponse.ok) {
+      const csvSnapshot = parseLcraHydrometLakeLevelCsv(sourceUrl, await csvResponse.text());
+      if (csvSnapshot && snapshotIsFresh(csvSnapshot)) return csvSnapshot;
+    }
+
+    const allSitesResponse = await fetch("https://hydromet.lcra.org/api/GetLakeLevelsForAllSites/", {
+      cache: "no-store",
+      redirect: "follow",
+      headers: headers("application/json,text/plain;q=0.9,*/*;q=0.1", sourceUrl),
+      signal: AbortSignal.timeout(PRIMARY_TIMEOUT_MS),
+    });
+    if (allSitesResponse.ok) {
+      const allSitesSnapshot = parseLcraHydrometLakeLevel(sourceUrl, await allSitesResponse.json());
+      if (allSitesSnapshot && snapshotIsFresh(allSitesSnapshot)) return allSitesSnapshot;
+    }
+
     const response = await fetch(`https://hydromet.lcra.org/api/GetDataBySite/${siteNumber}/lakelevel`, {
       cache: "no-store",
       redirect: "follow",

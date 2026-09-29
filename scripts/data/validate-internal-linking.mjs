@@ -11,6 +11,7 @@ const required = [
   'src/platform/internal-linking.ts','src/platform/internal-link-coverage.ts','src/platform/internal-link-memory.ts','src/platform/internal-link-quality.ts','src/platform/internal-link-policies.ts','src/platform/internal-link-policy-history.ts','src/platform/internal-link-policy-diff.ts','src/platform/analytics.ts',
   'src/components/content/AutoEntityLinks.tsx','src/components/editorial/ArticleBody.tsx','src/components/guides/PropertyTaxGuidePage.tsx','src/components/directories/TexasPlaceDirectory.tsx','src/components/admin/InternalLinkMemoryCard.tsx','src/components/admin/InternalLinkPolicyHistory.tsx','src/components/admin/InternalLinkRollbackPreview.tsx','src/components/events/EventsLandingPage.tsx',
   'src/routes/api.internal-links.ts','src/routes/api.internal-link-coverage.ts','src/routes/api.internal-link-quality.ts','src/routes/api.internal-link-policies.ts','src/routes/api.internal-link-policy-rollback.ts','src/routes/article.$slug.tsx','src/routes/destination.$slug.tsx','src/routes/$kind.$slug.tsx','src/routes/county.tsx','src/routes/county.lazy.tsx','src/routes/events.tsx','src/routes/events.lazy.tsx','src/routes/guides.tsx','src/routes/admin.platform-health.tsx','src/routes/admin.platform-health.lazy.tsx','src/routes/admin.internal-link-rollback.tsx','src/routes/admin.internal-link-rollback.lazy.tsx',
+  'src/components/fishing/FishingHub.tsx','src/components/fishing/ShowcaseLakeGuide.tsx','src/components/fishing/FishingSpeciesProfile.tsx','src/components/fishing/FishingTechniqueProfile.tsx','src/routes/moving-to-texas.lazy.tsx','src/routes/texas-vs.$state.tsx','src/routes/compare-texas-cities_.$pair.lazy.tsx',
 ];
 for (const file of required) if (!fs.existsSync(file)) errors.push(`Missing Phase 2 file: ${file}`);
 if (errors.length) fail();
@@ -44,6 +45,13 @@ const eventsHub = `${readRouteSurface('src/routes/events.index.tsx')}\n${files['
 const guidesIndex = readRouteSurface('src/routes/guides.tsx');
 const health = `${files['src/routes/admin.platform-health.tsx']}\n${files['src/routes/admin.platform-health.lazy.tsx']}`;
 const rollbackPage = `${files['src/routes/admin.internal-link-rollback.tsx']}\n${files['src/routes/admin.internal-link-rollback.lazy.tsx']}`;
+const fishingHub = files['src/components/fishing/FishingHub.tsx'];
+const fishingLake = files['src/components/fishing/ShowcaseLakeGuide.tsx'];
+const fishingSpecies = files['src/components/fishing/FishingSpeciesProfile.tsx'];
+const fishingTechnique = files['src/components/fishing/FishingTechniqueProfile.tsx'];
+const relocationHub = files['src/routes/moving-to-texas.lazy.tsx'];
+const relocationState = files['src/routes/texas-vs.$state.tsx'];
+const relocationPair = files['src/routes/compare-texas-cities_.$pair.lazy.tsx'];
 
 requireSymbols(resolver, ['resolveInternalEntityLinks','InternalLinkPolicy','minimumScore','ambiguityMargin','contextWindow','scoreCandidate','countyLabelHasExplicitContext','rejectedAmbiguous','rejectedLowQuality','entityExposureWeights','maximumExposurePenalty','exposureBalanced'], 'resolver');
 requireSymbols(coverage, ['INTERNAL_LINK_SURFACES','internalLinkCoverageSummary','coveragePercent','eligibleSurfaces','activeSurfaces'], 'coverage');
@@ -83,6 +91,13 @@ const expectedActiveSurfaces = [
   'event-guides',
   'events-hub',
   'guide-index',
+  'fishing-hub',
+  'fishing-lake-guides',
+  'fishing-species-guides',
+  'fishing-technique-guides',
+  'relocation-hub',
+  'relocation-state-comparisons',
+  'relocation-city-comparisons',
 ];
 const activeSurfaceIds = [...coverage.matchAll(/id:'([^']+)'[^\n]+status:'active'/g)].map((match) => match[1]);
 for (const id of expectedActiveSurfaces) {
@@ -120,6 +135,64 @@ requireSymbols(eventsHub, [
 requireSymbols(guidesIndex, [
   'createFileRoute("/guides")',
 ], 'guide index');
+
+requireSymbols(fishingHub, [
+  'to="/fishing/species"',
+  'to="/fishing/lakes"',
+  'href="/fishing/techniques"',
+  'href="/fishing/reports"',
+  'href="/fishing/access"',
+  'href="/fishing/guides"',
+], 'fishing hub linking');
+requireSymbols(fishingLake, [
+  'fishingFoundationAnchor("species"',
+  'fishingTechniqueCanonicalPath',
+  'pageData.sections.map',
+  'section === "reports"',
+  'section === "guides"',
+  'Explore More Texas Fishing Lakes',
+  'to="/fishing/lakes"',
+], 'fishing lake guide linking');
+requireSymbols(fishingSpecies, [
+  'Find lakes for',
+  'data.lakes.map',
+  '/fishing/techniques/',
+  'data.relatedSpecies.map',
+  'href="/fishing/reports"',
+  'href="/fishing/regulations"',
+], 'fishing species linking');
+requireSymbols(fishingTechnique, [
+  'Texas Lakes Covered in This Guide',
+  'fishingFoundationAnchor("lake"',
+  'fishingFoundationAnchor("species"',
+  'relatedTechniques.map',
+  'href="/fishing/reports"',
+  'href="/fishing/seasons"',
+], 'fishing technique linking');
+requireSymbols(relocationHub, [
+  'priorityOriginStates',
+  'RELOCATION_CITY_PAIRS.map',
+  'to="/browse/cities"',
+  'href="/browse/counties"',
+  'to="/texas-moving-cost-calculator"',
+  'to="/texas-home-affordability-calculator"',
+], 'relocation hub linking');
+requireSymbols(relocationState, [
+  'relatedStates.map',
+  'to="/texas-vs/$state"',
+  'to="/moving-to-texas-checklist"',
+  'to="/compare-texas-cities"',
+  'to="/browse/cities"',
+  'to="/browse/counties"',
+], 'relocation state comparison linking');
+requireSymbols(relocationPair, [
+  'RELOCATION_CITY_PAIRS.filter',
+  'relocationCityPairPath',
+  'to="/compare-texas-cities"',
+  'to="/moving-to-texas"',
+  'to="/browse/cities"',
+  'to="/browse/counties"',
+], 'relocation city comparison linking');
 
 if (errors.length) fail();
 console.log('Phase 2 internal linking, honest sitewide semantic-surface coverage, city-to-county authority edges, county and events hubs, immutable policy releases, discoverable read-only rollback previews, intelligent scoring, explicit county context, exposure balancing, analytics, and quality governance are protected.');
