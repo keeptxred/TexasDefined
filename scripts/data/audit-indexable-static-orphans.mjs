@@ -52,8 +52,9 @@ if (weak.length) {
   if (weak.length > 100) console.log(`- … ${weak.length - 100} more`);
 }
 
-if (process.argv.includes('--strict') && orphans.length) {
-  console.error(`\nStrict orphan audit failed: ${orphans.length} indexable static routes have no resolved inbound discovery edge outside their own route surface.`);
+if (process.argv.includes('--strict') && (orphans.length || weak.length)) {
+  if (orphans.length) console.error(`\nStrict orphan audit failed: ${orphans.length} indexable static routes have no resolved inbound discovery edge outside their own route surface.`);
+  if (weak.length) console.error(`\nStrict orphan audit failed: ${weak.length} indexable static routes are discoverable only through unresolved literal references and need a direct or resolved-dynamic inbound link.`);
   process.exit(1);
 }
 
