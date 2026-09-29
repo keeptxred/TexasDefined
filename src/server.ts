@@ -337,6 +337,24 @@ async function remoteImageResponse(request: Request, ctx: unknown): Promise<Resp
   return response;
 }
 
+function applyMetroProximityEdgeCachePolicy(request: Request, response: Response): Response {
+  const url = new URL(request.url);
+  if (request.method !== "GET" && request.method !== "HEAD") return response;
+  if (!url.pathname.startsWith("/explore/near/")) return response;
+
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("CDN-Cache-Control", "no-store");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.delete("age");
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
   const url = new URL(request.url);
   if (request.method !== "GET" || url.pathname !== "/") return response;
@@ -402,7 +420,8 @@ export default {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalizedResponse = await normalizeCatastrophicSsrResponse(response);
-      return await addBingVerificationMeta(request, normalizedResponse);
+      const cacheSafeResponse = applyMetroProximityEdgeCachePolicy(request, normalizedResponse);
+      return await addBingVerificationMeta(request, cacheSafeResponse);
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
