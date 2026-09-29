@@ -33,6 +33,8 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('San Antonio Stock Show & Rodeo Haunted Hayrides', 'San Antonio'), '/event/san-antonio-stock-show-rodeo');
   assert.equal(ticketmasterAuthorityGuidePath('Beer Around The World 2026 - Fiesta De Palmas McAllen TX', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('Bill Pickett Invitational Rodeo', 'Fort Worth'), '/event/bill-pickett-rodeo-fort-worth');
+  assert.equal(ticketmasterAuthorityGuidePath('Oklahoma Sooners Football vs. Texas Longhorns Football', 'Dallas'), '/event/red-river-rivalry');
+  assert.equal(ticketmasterAuthorityGuidePath('Texas Longhorns Football vs. Oklahoma Sooners Football', 'Dallas'), '/event/red-river-rivalry');
   assert.equal(ticketmasterAuthorityGuidePath('Hollydays Market Corpus Christi Fri. 11-6 through Sun. 11-8, 2026', 'Corpus Christi'), '/event/hollydays-market-corpus-christi');
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
   for (const slug of [
