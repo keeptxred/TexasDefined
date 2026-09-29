@@ -160,8 +160,9 @@ for (const [slug] of wave3Lakes) {
 for (const token of ["USGS-08136600", "USGS-302329097542100", "USGS-08092500", "USGS-08017400", "USGS-263318099090800"]) requireText(files.wave2Fixtures, token, `wave-2 coordinate provenance missing ${token}`);
 
 const liveSourceCorpus = `${files.conroePrototype}\n${files.showcasePrototypes}\n${files.expansionPrototypes}\n${files.wave2Prototypes}\n${files.wave3Prototypes}`;
-const liveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevel:\s*\{[^}]*url:\s*"(https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
-const uniqueLiveSources = new Set(liveSourceUrls);
+const inlineLiveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevel:\s*\{[^}]*url:\s*"(https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
+const seededLiveSourceUrls = [...liveSourceCorpus.matchAll(/liveLevelUrl:\s*"(https:\/\/(?:www\.)?waterdatafortexas\.org\/reservoirs\/individual\/[a-z0-9-]+)"/g)].map((match) => match[1]);
+const uniqueLiveSources = new Set([...inlineLiveSourceUrls, ...seededLiveSourceUrls]);
 if (uniqueLiveSources.size !== 25) throw new Error(`Fishing lake expansion validation failed: expected 25 unique Water Data for Texas live-level sources, found ${uniqueLiveSources.size}.`);
 
 for (const token of [
