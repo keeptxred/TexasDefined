@@ -135,13 +135,13 @@ export function StateFairPlanningStrip() {
                 to="/event/state-fair-classic"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                State Fair Classic tickets
+                State Fair Classic guide
               </Link>
               <Link
                 to="/event/red-river-rivalry"
                 className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
               >
-                Red River Rivalry tickets
+                Red River Rivalry guide
               </Link>
             </div>
           </div>
