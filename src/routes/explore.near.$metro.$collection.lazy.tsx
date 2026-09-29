@@ -66,7 +66,7 @@ function MetroProximityCollectionPage() {
           <p className="eyebrow text-primary">{bandLabel(group.band)}</p>
           <h2 className="mt-3 font-display text-4xl">{group.rows.length} place{group.rows.length === 1 ? "" : "s"} in this distance band</h2>
         </div>
-        <div className="mt-9 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>
             <div className="mb-3 flex items-baseline justify-between gap-4">
               <p className="eyebrow text-primary">About {Math.round(row.distanceMiles)} miles away</p>
