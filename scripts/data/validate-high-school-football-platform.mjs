@@ -501,6 +501,9 @@ if (!errors.length) {
       errors.push(`Football school identity data must use the canonical UIL slug instead of legacy alias: ${slug}.`);
     }
   }
+  requireText(schoolIdentities, "slug: 'wills-point'", 'Wills Point verified football identity');
+  requireText(schoolIdentities, "mascot: 'Tigers'", 'Wills Point verified football identity');
+
   if (programProfileServer.includes('matchFeaturedFootballProgram')) {
     errors.push('Current UIL football profiles must resolve identity directly by canonical UIL slug, not through the former seed-list matcher.');
   }
@@ -783,6 +786,8 @@ if (!errors.length) {
     'programTokens.every((token) => contextTokens.has(token))',
     'programTokens.length === 1 && !schoolTokens.has(programTokens[0])',
     'ranked[0].score === ranked[1].score',
+    'suppressDuplicateTeaAssignments',
+    'program.teaSchoolNumber',
   ]) requireText(directory, marker, 'Fail-closed TEA football school matching');
   if (directory.includes('function fuzzyMatchScore')) {
     errors.push('Football directory must not use the retired permissive fuzzy school matcher.');
@@ -989,7 +994,7 @@ if (!errors.length) {
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
     'UIL Texas Scoreboard gateway ↗',
-    'the current scoreboard is not an official district-standings table',
+    'it is not an official district-standings table',
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
