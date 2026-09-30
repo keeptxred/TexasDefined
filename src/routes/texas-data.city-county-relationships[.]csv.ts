@@ -13,7 +13,8 @@ export const Route = createFileRoute('/texas-data/city-county-relationships.csv'
           .slice()
           .sort((a, b) => a.city.name.localeCompare(b.city.name))
           .map(({ city, counties }) => {
-            const allMatched = counties.every(({ county }) => Boolean(county));
+            const countyRegistryMatches = counties.map(({ county }) => county ? 'matched' : 'pending');
+            const allMatched = countyRegistryMatches.every((status) => status === 'matched');
             return [
               city.name,
               city.slug,
