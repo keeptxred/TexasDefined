@@ -12,6 +12,7 @@ const LEGACY_PLAN_VISIT_HEADING = /(<h2[^>]*>\s*)Plan the visit(\s*<\/h2>)/gi;
 const FIRST_SECTION_HEADING = /(<h2[^>]*>)/i;
 const EVENT_DISCOVERY_TAIL = /(<section data-event-discovery-tail="true"[^>]*>)/i;
 const STAY_NEARBY_SLOT = '<div data-stay-nearby-slot aria-label="Places to stay near this event"></div>';
+const SITE_URL = "https://texasdefined.com";
 
 function stabilizeEventHtml(slug: string, html: string) {
   if (slug !== "chappell-hill-bluebonnet-festival") return html;
@@ -41,13 +42,28 @@ function splitEventHtmlForParking(html: string) {
   };
 }
 
+function eventBreadcrumbJsonLd(slug: string, title: string) {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}/event/${slug}#breadcrumbs`,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Texas Defined", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Texas Events", item: `${SITE_URL}/events` },
+      { "@type": "ListItem", position: 3, name: title, item: `${SITE_URL}/event/${slug}` },
+    ],
+  }).replace(/</g, "\\u003c");
+}
+
 function MajorEventGuidePage() {
   const { page, parkingMap } = Route.useLoaderData();
   const eventHtml = injectStayNearbySlot(normalizeVisitorHeadings(stabilizeEventHtml(page.slug, page.html)));
   const { beforeParking, afterParking } = splitEventHtmlForParking(eventHtml);
+  const breadcrumbs = eventBreadcrumbJsonLd(page.slug, page.title);
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.jsonLd }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbs }} />
       <main className="mx-auto max-w-4xl px-5 pb-20 pt-12 sm:px-8" onErrorCapture={(event) => {
         const image = event.target;
         if (image instanceof HTMLImageElement && image.dataset.majorEventEnrichmentImage === "true") hideFailedImageContainer(image);
