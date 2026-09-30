@@ -1,4 +1,4 @@
-export type EditorialOutreachStatus = "existing-relationship" | "ready" | "contact-research";
+export type EditorialOutreachStatus = "existing-relationship" | "contacted" | "ready" | "contact-research";
 export type EditorialOutreachPriority = 1 | 2 | 3;
 
 export interface EditorialOutreachTarget {
@@ -59,7 +59,7 @@ export const VERIFIED_EDITORIAL_OUTREACH_TARGETS: EditorialOutreachTarget[] = [
   {
     id:"space-center-houston", organization:"Space Center Houston", organizationType:"nonprofit museum / visitor center",
     pagePath:"/destination/space-center-houston", officialUrl:"https://spacecenter.org/", contactUrl:"https://spacecenter.org/news-center/media-inquiries/", contactEmail:"communications@spacecenter.org", contactLabel:"Communications Department",
-    priority:1, status:"ready", score:94,
+    priority:1, status:"contacted", score:94,
     pageStrength:"Top-25 Texas attraction guide with Houston internal links, CityPASS integration and authority-source depth.",
     relationshipOpportunity:"Establish a direct communications channel for exhibits, tram-access changes, NASA visitor operations and approved editorial media.",
     asks:["Verify visitor-planning details and terminology.","Add TexasDefined to media/news release distribution.","Provide approved high-resolution images or point to reusable media assets.","Notify TexasDefined of major exhibits, access changes and time-sensitive NASA visitor updates."],
@@ -71,7 +71,7 @@ export const VERIFIED_EDITORIAL_OUTREACH_TARGETS: EditorialOutreachTarget[] = [
   {
     id:"fort-worth-stockyards", organization:"Fort Worth Stockyards / Stockyards Heritage Development Co.", organizationType:"historic visitor district",
     pagePath:"/destination/fort-worth-stockyards", officialUrl:"https://fortworthstockyards.com/", contactUrl:"https://fortworthstockyards.com/contact-us/", contactEmail:"dnewell@stockyardsheritage.com", contactLabel:"Media & Filming Inquiries",
-    priority:1, status:"ready", score:92,
+    priority:1, status:"contacted", score:92,
     pageStrength:"Top-25 attraction guide plus a dedicated cattle-culture history article and North Texas road-trip links.",
     relationshipOpportunity:"Build a reliable update/photo channel for cattle drives, events, historic interpretation and visitor logistics.",
     asks:["Verify current cattle-drive and visitor-planning details.","Provide approved media imagery or filming/photo guidance.","Share major event, preservation and interpretation updates.","Identify the best historical or visitor-services contact for future fact checks."],
@@ -83,7 +83,7 @@ export const VERIFIED_EDITORIAL_OUTREACH_TARGETS: EditorialOutreachTarget[] = [
   {
     id:"painted-churches-schulenburg", organization:"Schulenburg Chamber of Commerce", organizationType:"chamber / tour operator",
     pagePath:"/explore/painted-churches", officialUrl:"https://schulenburgchamber.org/", contactUrl:"https://schulenburgchamber.org/painted-churches/", contactLabel:"Painted Churches Tour Office",
-    priority:1, status:"ready", score:91,
+    priority:1, status:"contacted", score:91,
     pageStrength:"Deep statewide Painted Churches authority hub with church profiles, routes, preservation, sources, media and methodology.",
     relationshipOpportunity:"Create an ongoing access-and-corrections relationship with the organization coordinating guided Painted Churches visits.",
     asks:["Verify current tour/access procedures and church-visit etiquette.","Notify TexasDefined when hours, closures or tour policies change.","Discuss approved editorial photography or photography-tour access.","Identify parish or preservation contacts for church-specific corrections."],
@@ -131,7 +131,7 @@ export const VERIFIED_EDITORIAL_OUTREACH_TARGETS: EditorialOutreachTarget[] = [
   {
     id:"texas-state-capitol", organization:"Texas State Preservation Board", organizationType:"state agency",
     pagePath:"/destination/texas-state-capitol", officialUrl:"https://tspb.texas.gov/", contactUrl:"https://tspb.texas.gov/plan/hours/hours.html", contactEmail:"Contact.SPB@tspb.texas.gov", contactLabel:"State Preservation Board General Inquiries",
-    priority:2, status:"ready", score:86,
+    priority:2, status:"contacted", score:86,
     pageStrength:"Top-25 attraction guide with historical authority content and Austin trip-planning links.",
     relationshipOpportunity:"Create an official correction/update path for Capitol tours, visitor access, preservation projects and public-use changes.",
     asks:["Verify visitor-services and tour details.","Point TexasDefined to approved Capitol/State Preservation Board imagery.","Notify TexasDefined of major restoration, access or tour-policy changes.","Identify the best visitor-services or communications contact for future fact checks."],
