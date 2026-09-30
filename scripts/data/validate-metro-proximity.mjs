@@ -37,6 +37,11 @@ const expectedMetroSlugs = [
   "amarillo",
   "el-paso",
   "lubbock",
+  "mcallen",
+  "midland-odessa",
+  "tyler",
+  "college-station",
+  "abilene",
 ];
 const metroMatch = files.data.match(/METRO_PROXIMITY_METROS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const metroSlugs = metroMatch ? [...metroMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
@@ -201,6 +206,11 @@ for (const token of [
   "metro-amarillo-road-trips",
   "metro-el-paso-weekend-trips",
   "metro-lubbock-hub",
+  "metro-mcallen-hub",
+  "metro-midland-odessa-road-trips",
+  "metro-tyler-lakes",
+  "metro-college-station-day-trips",
+  "metro-abilene-hub",
 ]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
 for (const token of [
@@ -227,4 +237,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: eleven metro hubs and 143 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
+console.log("Metro proximity validation passed: sixteen metro hubs and 208 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
