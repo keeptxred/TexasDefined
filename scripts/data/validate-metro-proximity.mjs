@@ -25,8 +25,22 @@ const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key
 const fail = (message) => { throw new Error(`Metro proximity validation failed: ${message}`); };
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
 
-const metroSlugs = [...files.data.matchAll(/slug: "(houston|dallas|fort-worth|austin|san-antonio)"/g)].map((match) => match[1]);
-if (metroSlugs.length !== 5 || new Set(metroSlugs).size !== 5) fail(`expected exactly five unique metro definitions, found ${new Set(metroSlugs).size}`);
+const expectedMetroSlugs = [
+  "houston",
+  "dallas",
+  "fort-worth",
+  "austin",
+  "san-antonio",
+  "corpus-christi",
+  "waco",
+  "beaumont-port-arthur",
+  "amarillo",
+  "el-paso",
+  "lubbock",
+];
+const metroMatch = files.data.match(/METRO_PROXIMITY_METROS\s*=\s*\[([\s\S]*?)\n\] as const;/);
+const metroSlugs = metroMatch ? [...metroMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
+if (JSON.stringify(metroSlugs) !== JSON.stringify(expectedMetroSlugs)) fail(`metro allowlist drifted: ${metroSlugs.join(", ")}`);
 
 const collectionMatch = files.data.match(/METRO_PROXIMITY_COLLECTIONS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const collectionSlugs = collectionMatch ? [...collectionMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
@@ -181,6 +195,12 @@ for (const token of [
   "metro-distance-methodology",
   "metro-distance-schema",
   "metro-drive-time-disclaimer",
+  "metro-corpus-christi-hub",
+  "metro-waco-day-trips",
+  "metro-beaumont-port-arthur-hub",
+  "metro-amarillo-road-trips",
+  "metro-el-paso-weekend-trips",
+  "metro-lubbock-hub",
 ]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
 for (const token of [
@@ -207,4 +227,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: five metro hubs and sixty-five governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
+console.log("Metro proximity validation passed: eleven metro hubs and 143 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
