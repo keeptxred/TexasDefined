@@ -2,6 +2,7 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { type FormEvent, useEffect, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
+import { BacklinkCommandCenterPanel } from "@/components/admin/BacklinkCommandCenterPanel";
 import { getEditorialOutreachDashboard } from "@/data/editorial-outreach.functions";
 import type { EditorialOutreachDashboard } from "@/data/editorial-outreach.server";
 import type { EditorialOutreachTarget } from "@/data/editorial-outreach";
@@ -115,6 +116,8 @@ function EditorialOutreachAdmin() {
           <p className="mt-3 max-w-5xl text-sm leading-7 text-muted-foreground">{dashboard.policy.purpose}</p>
           <p className="mt-2 max-w-5xl text-sm leading-7 text-muted-foreground">{dashboard.policy.referenceLanguage}</p>
         </section>
+
+        <BacklinkCommandCenterPanel accessKey={accessKey} />
 
         <section className="mt-12">
           <div className="border-b border-border pb-5"><p className="eyebrow text-primary">First-wave relationships</p><h2 className="mt-2 font-display text-4xl">Verified targets ready for editorial outreach</h2></div>
