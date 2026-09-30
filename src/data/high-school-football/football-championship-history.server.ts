@@ -26,17 +26,42 @@ export type FootballChampionshipHistoryPage = {
   publishedThroughYear: number;
   sourceUrl: string;
   recentArchiveSourceUrl: string;
+  historyAvailable: boolean;
+  recentArchiveAvailable: boolean;
   rows: FootballChampionshipHistoryRow[];
 };
 
 export async function loadFootballChampionshipHistory(): Promise<FootballChampionshipHistoryPage> {
-  const [allTime, recent] = await Promise.all([
+  const [allTimeResult, recentResult] = await Promise.allSettled([
     loadUilAllTimeFootballHistory(),
     loadUilRecentFootballHistory(),
   ]);
 
+  const sourceUrl = 'https://www.uiltexas.org/football/all-time-appearances';
+  const recentArchiveSourceUrl = 'https://www.uiltexas.org/football/archives';
+  const recentArchiveAvailable = recentResult.status === 'fulfilled';
+
+  if (allTimeResult.status !== 'fulfilled') {
+    return {
+      alignmentCycle: '2026-28',
+      currentProgramCount: UIL_FOOTBALL_PROGRAMS_2026.length,
+      matchedPrograms: 0,
+      titleWinningPrograms: 0,
+      finalAppearingPrograms: 0,
+      publishedThroughYear: 0,
+      sourceUrl,
+      recentArchiveSourceUrl,
+      historyAvailable: false,
+      recentArchiveAvailable,
+      rows: [],
+    };
+  }
+
+  const allTime = allTimeResult.value;
+  const recent = recentArchiveAvailable ? recentResult.value : null;
+
   const rows = UIL_FOOTBALL_PROGRAMS_2026.flatMap((program) => {
-    const recentHistory = recentFootballHistoryFromLoaded(recent, program.schoolName);
+    const recentHistory = recent ? recentFootballHistoryFromLoaded(recent, program.schoolName) : null;
     const history = allTimeFootballHistoryFromLoaded(allTime, recentHistory, program.schoolName);
     if (!history || history.stateFinalAppearances < 1) return [];
 
@@ -69,8 +94,10 @@ export async function loadFootballChampionshipHistory(): Promise<FootballChampio
     titleWinningPrograms: rows.filter((row) => row.stateTitles > 0).length,
     finalAppearingPrograms: rows.length,
     publishedThroughYear,
-    sourceUrl: 'https://www.uiltexas.org/football/all-time-appearances',
-    recentArchiveSourceUrl: 'https://www.uiltexas.org/football/archives',
+    sourceUrl,
+    recentArchiveSourceUrl,
+    historyAvailable: true,
+    recentArchiveAvailable,
     rows,
   };
 }
