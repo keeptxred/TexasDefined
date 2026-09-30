@@ -9,6 +9,7 @@ const statePath = `${stateDirectory}/worker-version-capture-state.json`;
 const maxAttempts = 12;
 const retryDelayMs = 5_000;
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const rollbackTargetFailure = 'Refusing to deploy without a deterministic rollback target.';
 
 const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
@@ -144,7 +145,10 @@ if (!capturedVersion) {
     : phase === 'post-deploy'
       ? 'Deployed Worker did not become active'
       : 'Verified Worker changed during production verification';
-  console.error(`::error title=${title}::${String(lastDetail || 'Cloudflare did not report the expected active Worker before the bounded retry window expired.').trim()}`);
+  const fallbackDetail = phase === 'baseline'
+    ? rollbackTargetFailure
+    : 'Cloudflare did not report the expected active Worker before the bounded retry window expired.';
+  console.error(`::error title=${title}::${String(lastDetail || fallbackDetail).trim()}`);
   process.exit(1);
 }
 
