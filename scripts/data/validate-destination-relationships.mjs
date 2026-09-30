@@ -49,7 +49,6 @@ requireFeatures(engine, [
   'new Map(items.map((item) => [item.slug, item]))',
 ], 'Destination relationship engine');
 
-
 requireFeatures(serverBoundary, [
   'createServerFn({ method: "GET" })',
   'listResolvedDestinations({ limit: 5000 })',
@@ -79,6 +78,11 @@ requireFeatures(component, [
   'const roundedMiles = miles === null ? null : Math.max(1, Math.round(miles))',
   'roundedMiles === 1 ? "mile" : "miles"',
   'away',
+  'function countySlug(value: string)',
+  'function countyLabel(value: string)',
+  'destination.county && <Link to="/$kind/$slug"',
+  'params={{ kind: "county", slug: countySlug(destination.county) }}',
+  'Explore {countyLabel(destination.county)}',
   'to="/explore/trip-planner"',
   'search={{ destination: destination.slug }}',
   'Build the weekend',
@@ -113,4 +117,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity and trip-intent relationships remain crawlable and structured while the area guide uses non-empty compact disclosure groups and continuation links stay in a compact strip.');
+console.log('Destination proximity and trip-intent relationships remain crawlable and structured; county geography is now a guaranteed crawlable continuation path when known, the area guide uses non-empty compact disclosure groups, and continuation links stay in a compact strip.');
