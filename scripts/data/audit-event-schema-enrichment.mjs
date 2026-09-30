@@ -108,6 +108,25 @@ const overrideOnlyRecords = overrideRecords.length - overrideReplacements;
 const missingResearchMetadata = records
   .filter((record) => !/\bverifiedAt\s*:\s*["']\d{4}-\d{2}-\d{2}["']/.test(record.source) || !/\bsources\s*:/.test(record.source))
   .map((record) => record.slug);
+const lifecycleMetadataInvalid = [];
+const lifecycleRecords = records.filter((record) => /\blifecycle\s*:\s*\{/.test(record.source));
+for (const record of lifecycleRecords) {
+  const lifecycleBlocks = [...record.source.matchAll(/\blifecycle\s*:\s*\{([\s\S]*?)\}/g)].map((match) => match[1]);
+  for (const block of lifecycleBlocks) {
+    const status = block.match(/\bstatus\s*:\s*["'](scheduled|cancelled|postponed|rescheduled)["']/)?.[1];
+    const sourceUrl = block.match(/\bsourceUrl\s*:\s*["'](https:\/\/[^"']+)["']/)?.[1];
+    const verifiedAt = block.match(/\bverifiedAt\s*:\s*["'](\d{4}-\d{2}-\d{2})["']/)?.[1];
+    const previousStartDate = /\bpreviousStartDate\s*:/.test(block);
+    const issues = [];
+    if (!status) issues.push("valid status");
+    if (!sourceUrl) issues.push("https sourceUrl");
+    if (!verifiedAt) issues.push("verifiedAt");
+    if (status === "rescheduled" && !previousStartDate) issues.push("previousStartDate for rescheduled event");
+    if (status === "scheduled" && previousStartDate) issues.push("no previousStartDate for scheduled event");
+    if (issues.length) lifecycleMetadataInvalid.push(`${record.slug} (${issues.join(", ")})`);
+  }
+}
+
 const genericFallbackImages = records
   .filter((record) => /\bimage\s*:\s*\{/.test(record.source) && /palo[-_ ]?duro|generic|fallback/i.test(record.source))
   .map((record) => record.slug);
@@ -146,12 +165,13 @@ for (const record of imageRecords) {
   if (missing.length) imageMetadataIncomplete.push(`${record.slug} (${missing.join(', ')})`);
 }
 
-if (batchDuplicates.length || overrideDuplicates.length || missingResearchMetadata.length || genericFallbackImages.length || imageMetadataIncomplete.length || records.length === 0) {
+if (batchDuplicates.length || overrideDuplicates.length || missingResearchMetadata.length || lifecycleMetadataInvalid.length || genericFallbackImages.length || imageMetadataIncomplete.length || records.length === 0) {
   console.error('Event schema enrichment audit failed:');
   if (records.length === 0) console.error('- no enrichment records were discovered');
   if (batchDuplicates.length) console.error(`- duplicate batch enrichment slugs: ${batchDuplicates.join(', ')}`);
   if (overrideDuplicates.length) console.error(`- duplicate override enrichment slugs: ${overrideDuplicates.join(', ')}`);
   if (missingResearchMetadata.length) console.error(`- missing verifiedAt/sources metadata: ${missingResearchMetadata.sort().join(', ')}`);
+  if (lifecycleMetadataInvalid.length) console.error(`- invalid lifecycle metadata: ${lifecycleMetadataInvalid.sort().join('; ')}`);
   if (genericFallbackImages.length) console.error(`- generic/fallback Event imagery detected: ${genericFallbackImages.sort().join(', ')}`);
   if (imageMetadataIncomplete.length) console.error(`- image provenance metadata incomplete: ${imageMetadataIncomplete.sort().join('; ')}`);
   process.exit(1);
@@ -165,6 +185,7 @@ const organizer = countWith(/\borganizer\s*:/);
 const offers = countWith(/\boffers\s*:/);
 const performers = countWith(/\bperformers\s*:/);
 const images = imageRecords.length;
+const changedLifecycle = lifecycleRecords.filter((record) => /\bstatus\s*:\s*["'](?:cancelled|postponed|rescheduled)["']/.test(record.source)).length;
 const total = records.length;
 const imageRemediationPending = total - images;
 
@@ -179,6 +200,7 @@ const summary = {
   organizer,
   offers,
   performers,
+  changedLifecycle,
   images,
   provenanceCompleteImages: images,
   intentionallyWithoutOrganizer: total - organizer,
@@ -190,7 +212,7 @@ const summary = {
 
 console.log(`Event schema enrichment metrics audit passed across ${summary.batches} batch files, ${summary.overrideFiles} override registry, and ${summary.reviewedLeaves} effective reviewed leaves.`);
 console.log(`Override reconciliation: records=${summary.overrides}, replacements=${summary.overrideReplacements}, overrideOnly=${summary.overrideOnlyRecords}`);
-console.log(`Optional enrichment coverage: organizer=${summary.organizer}, offers=${summary.offers}, performers=${summary.performers}`);
+console.log(`Optional enrichment coverage: organizer=${summary.organizer}, offers=${summary.offers}, performers=${summary.performers}, changedLifecycle=${summary.changedLifecycle}`);
 console.log(`Required image coverage: images=${summary.images}, provenanceComplete=${summary.provenanceCompleteImages}, remediationPending=${summary.imageRemediationPending}, complete=${summary.imageCoverageComplete}`);
 console.log(`Intentional non-image omissions: organizer=${summary.intentionallyWithoutOrganizer}, offers=${summary.intentionallyWithoutOffers}, performers=${summary.intentionallyWithoutPerformers}`);
 if (summary.imageRemediationPending > 0) {
