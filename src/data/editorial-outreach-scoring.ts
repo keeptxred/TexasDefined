@@ -34,7 +34,13 @@ function organizationAuthority(type: string) {
 export function scoreEditorialOutreachTarget(target: EditorialOutreachTarget): EditorialOutreachScorecard {
   const pageStrength = clamp(target.score);
   const authority = organizationAuthority(target.organizationType);
-  const relationshipLikelihood = target.status === "existing-relationship" ? 100 : target.status === "ready" ? 92 : 70;
+  const relationshipLikelihood = target.status === "existing-relationship"
+    ? 100
+    : target.status === "contacted"
+      ? 96
+      : target.status === "ready"
+        ? 92
+        : 70;
   const officialAssetsOpportunity = textBand(target.photoOpportunity, /very high/i, /high/i, /medium/i.test(target.photoOpportunity) ? 70 : 55);
   const recurringUpdateOpportunity = textBand(target.updateOpportunity, /very high/i, /high/i, /medium/i.test(target.updateOpportunity) ? 70 : 55);
   const legitimateReferenceOpportunity = /optional|if .*useful|useful/i.test(target.referenceAsk) ? 88 : 68;
