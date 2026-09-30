@@ -1,11 +1,11 @@
 import type { LiveLakeLevelSnapshot } from "./live-lake-level.server";
 import {
   parseLcraHydrometLakeLevel,
-  parseLcraHydrometLakeLevelCsv,
   parseWaterDataForTexasRecentConditions,
   parseWaterDataForTexasReservoirCsv,
   parseWaterDataForTexasReservoirPage,
 } from "./live-lake-level.server";
+import { parseLcraLakeLevelCsv } from "./lcra-lake-level-csv";
 import { getLcraHydrometSiteNumber, isWaterDataForTexasLiveLevelSource } from "./live-lake-level-source";
 
 const RECENT_CONDITIONS_URL = "https://waterdatafortexas.org/reservoirs/recent-conditions.json";
@@ -112,7 +112,7 @@ async function fetchLcraSnapshot(sourceUrl: string, siteNumber: string) {
       signal: AbortSignal.timeout(PRIMARY_TIMEOUT_MS),
     });
     if (csvResponse.ok) {
-      const csvSnapshot = parseLcraHydrometLakeLevelCsv(sourceUrl, await csvResponse.text());
+      const csvSnapshot = parseLcraLakeLevelCsv(sourceUrl, siteNumber, await csvResponse.text());
       if (csvSnapshot && snapshotIsFresh(csvSnapshot)) return csvSnapshot;
     }
 
