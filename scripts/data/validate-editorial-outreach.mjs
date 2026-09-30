@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 
 const read = (path) => fs.readFileSync(path, "utf8");
@@ -86,6 +87,7 @@ for (const marker of [
 ]) requireText(files.lazy, marker, `Editorial outreach admin UX missing: ${marker}`);
 
 requireText(files.admin, 'to="/admin/editorial-outreach"', "Admin navigation does not link editorial outreach.");
+requireText(files.admin, 'to="/admin/backlinks"', "Admin navigation does not link backlink command center.");
 
 for (const marker of [
   "AdminEditorialOutreachRouteImport",
@@ -112,4 +114,6 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, quality-gated destination intake, verified event-organizer intake, conservative authority-source research, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
+
+execFileSync(process.execPath, ["--experimental-strip-types", "scripts/data/validate-backlink-command-center.ts"], { stdio: "inherit" });
+console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, quality-gated destination intake, verified event-organizer intake, conservative authority-source research, improve-before-outreach separation, optional-reference framing and backlink-command-center governance with no paid/reciprocal link scheme.");
