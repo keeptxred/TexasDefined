@@ -53,7 +53,7 @@ function EventCollectionPage() {
         <div className="border-b border-border pb-6">
           <p className="eyebrow text-primary">Texas This Weekend</p>
           <h2 id="texas-this-weekend-picks" className="mt-2 font-display text-4xl">A useful shortlist, not a feed dump</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These sections are selected from the same source-verified Friday-through-Sunday inventory, with statewide picks diversified across cities and event types. Metro sections only appear when enough events qualify.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These sections are selected from the same source-verified Friday-through-Sunday inventory, with statewide picks diversified across cities and event types. Metro, regional and interest sections only appear when enough events qualify, and price-based sections never infer free admission from missing ticket data.</p>
         </div>
         <div className="grid gap-8 pt-8 lg:grid-cols-2">
           {page.weekendDigest.sections.map((section) => <section key={section.id} className="border border-border p-6">
