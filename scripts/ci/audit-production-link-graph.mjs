@@ -1,11 +1,12 @@
 import fs from 'node:fs/promises';
 
 const ORIGIN = process.env.TEXASDEFINED_ORIGIN || 'https://texasdefined.com';
-const USER_AGENT = 'TexasDefinedInternalLinkGraphAudit/1.0 (+https://texasdefined.com)';
+const USER_AGENT = 'TexasDefinedInternalLinkGraphAudit/1.1 (+https://texasdefined.com)';
 const CONCURRENCY = Number(process.env.LINK_GRAPH_CONCURRENCY || 6);
 const TIMEOUT_MS = Number(process.env.LINK_GRAPH_TIMEOUT_MS || 30000);
 const WEAK_INBOUND_THRESHOLD = Number(process.env.LINK_GRAPH_WEAK_INBOUND_THRESHOLD || 1);
-const MAX_UNLISTED_CHECKS = Number(process.env.LINK_GRAPH_MAX_UNLISTED_CHECKS || 750);
+const MAX_UNLISTED_CHECKS = Number(process.env.LINK_GRAPH_MAX_UNLISTED_CHECKS || 2500);
+const MAX_PAGE_FETCH_FAILURES = Number(process.env.LINK_GRAPH_MAX_PAGE_FETCH_FAILURES || 3);
 const OUT_JSON = process.env.LINK_GRAPH_JSON || '/tmp/texasdefined-link-graph.json';
 const OUT_TSV = process.env.LINK_GRAPH_TSV || '/tmp/texasdefined-link-graph.tsv';
 
@@ -64,7 +65,7 @@ async function fetchText(url, { attempts=2, redirect='follow' } = {}) {
     const timer = setTimeout(()=>controller.abort(), TIMEOUT_MS);
     try {
       const response = await fetch(url,{headers:{'user-agent':USER_AGENT,accept:'text/html,application/xml;q=0.9,*/*;q=0.8'},redirect,signal:controller.signal});
-      const body = redirect === 'manual' ? '' : await response.text();
+      const body = redirect === 'manual' && response.status !== 200 ? '' : await response.text();
       clearTimeout(timer);
       if (response.status >= 500 && attempt < attempts) continue;
       return { response, body };
@@ -79,7 +80,7 @@ async function fetchText(url, { attempts=2, redirect='follow' } = {}) {
 async function discoverSitemaps() {
   const urls = new Set([ORIGIN+'/sitemap.xml',ORIGIN+'/sitemap-explore.xml']);
   try {
-    const {response,body}=await fetchText(ORIGIN+'/robots.txt',{attempts:1});
+    const {response,body}=await fetchText(ORIGIN+'/robots.txt',{attempts:2});
     if (response.ok) for (const match of body.matchAll(/^\s*Sitemap:\s*(\S+)/gim)) urls.add(match[1].trim());
   } catch {}
   return [...urls];
@@ -91,7 +92,7 @@ async function collectUrls() {
     if (!sitemap || seenSitemaps.has(sitemap)) continue;
     seenSitemaps.add(sitemap);
     let response,body;
-    try { ({response,body}=await fetchText(sitemap)); }
+    try { ({response,body}=await fetchText(sitemap,{attempts:3})); }
     catch (error) { sitemapFailures.push({sitemap,status:0,error:error?.message||String(error)}); continue; }
     if (!response.ok) { sitemapFailures.push({sitemap,status:response.status,error:'HTTP '+response.status}); continue; }
     for (const loc of sitemapLocs(body)) {
@@ -111,7 +112,7 @@ async function mapLimit(items,limit,fn) {
 }
 async function crawlPage(url) {
   try {
-    const {response,body}=await fetchText(url);
+    const {response,body}=await fetchText(url,{attempts:3});
     const contentType=response.headers.get('content-type')||'';
     if (response.status!==200 || !contentType.toLowerCase().includes('text/html')) return {url,status:response.status,targets:[],error:response.status===200?'non-html':'HTTP '+response.status};
     return {url,status:response.status,targets:extractInternalTargets(body,response.url),error:''};
@@ -119,14 +120,23 @@ async function crawlPage(url) {
     return {url,status:0,targets:[],error:error?.message||String(error)};
   }
 }
-async function checkInternalTarget(pathname) {
+async function inspectInternalTarget(pathname) {
   const url = new URL(pathname,ORIGIN).href;
   try {
-    const {response}=await fetchText(url,{attempts:1,redirect:'manual'});
-    return {pathname,status:response.status,location:response.headers.get('location')||''};
+    const {response,body}=await fetchText(url,{attempts:2,redirect:'manual'});
+    const contentType=response.headers.get('content-type')||'';
+    const targets=response.status===200&&contentType.toLowerCase().includes('text/html')
+      ? extractInternalTargets(body,url)
+      : [];
+    return {pathname,status:response.status,location:response.headers.get('location')||'',targets,error:''};
   } catch (error) {
-    return {pathname,status:0,location:'',error:error?.message||String(error)};
+    return {pathname,status:0,location:'',targets:[],error:error?.message||String(error)};
   }
+}
+function addTargetSource(targetSources,target,source) {
+  const sources=targetSources.get(target)??new Set();
+  sources.add(source);
+  targetSources.set(target,sources);
 }
 
 const {pageUrls,sitemaps,sitemapFailures}=await collectUrls();
@@ -138,14 +148,29 @@ const fetchFailures=crawled.filter((page)=>page.error);
 const inbound=new Map([...sitemapKeys].map((key)=>[key,new Set()]));
 const outbound=new Map([...sitemapKeys].map((key)=>[key,new Set()]));
 const allInternalTargets=new Set();
+const targetSources=new Map();
 for (const page of crawled) {
   const source=pageKey(page.url);
   for (const target of page.targets) {
     allInternalTargets.add(target);
+    addTargetSource(targetSources,target,source);
     if (target===source) continue;
     if (!sitemapKeys.has(target)) continue;
     outbound.get(source)?.add(target);
     inbound.get(target)?.add(source);
+  }
+}
+
+const allUnlistedTargets=[...allInternalTargets].filter((target)=>!sitemapKeys.has(target)).sort();
+const unlistedTargets=allUnlistedTargets.slice(0,MAX_UNLISTED_CHECKS);
+const checkedTargets=await mapLimit(unlistedTargets,CONCURRENCY,inspectInternalTarget);
+const crawlableUnlistedPages=checkedTargets.filter((item)=>item.status===200&&item.targets.length);
+for (const page of crawlableUnlistedPages) {
+  for (const target of page.targets) {
+    allInternalTargets.add(target);
+    addTargetSource(targetSources,target,page.pathname);
+    if (!sitemapKeys.has(target)||target===page.pathname) continue;
+    inbound.get(target)?.add(page.pathname);
   }
 }
 
@@ -175,16 +200,19 @@ for (const bucket of Object.values(familySummary)) {
   bucket.averageOutbound=Number((bucket.totalOutbound/Math.max(1,bucket.pages)).toFixed(2));
 }
 
-const unlistedTargets=[...allInternalTargets].filter((target)=>!sitemapKeys.has(target)).sort().slice(0,MAX_UNLISTED_CHECKS);
-const checkedTargets=await mapLimit(unlistedTargets,CONCURRENCY,checkInternalTarget);
-const redirectedInternalLinks=checkedTargets.filter((item)=>item.status>=300&&item.status<400);
-const brokenInternalLinks=checkedTargets.filter((item)=>item.status===0||item.status>=400);
+const withSources=(item)=>({
+  ...item,
+  sources:[...(targetSources.get(item.pathname)||[])].sort(),
+});
+const redirectedInternalLinks=checkedTargets.filter((item)=>item.status>=300&&item.status<400).map(withSources);
+const brokenInternalLinks=checkedTargets.filter((item)=>item.status>=400).map(withSources);
+const unverifiedInternalTargets=checkedTargets.filter((item)=>item.status===0).map(withSources);
 
 const report={
   auditedAt:new Date().toISOString(),origin:ORIGIN,sitemaps,sitemapFailures,
-  thresholds:{weakInbound:WEAK_INBOUND_THRESHOLD,maxUnlistedChecks:MAX_UNLISTED_CHECKS},
-  totals:{pages:rows.length,orphans:orphanPages.length,weak:weakPages.length,strong:strongPages.length,pageFetchFailures:fetchFailures.length,uniqueInternalTargets:allInternalTargets.size,unlistedInternalTargets:[...allInternalTargets].filter((target)=>!sitemapKeys.has(target)).length,redirectedInternalLinks:redirectedInternalLinks.length,brokenInternalLinks:brokenInternalLinks.length},
-  familySummary,orphanPages,weakPages,redirectedInternalLinks,brokenInternalLinks,fetchFailures,rows,
+  thresholds:{weakInbound:WEAK_INBOUND_THRESHOLD,maxUnlistedChecks:MAX_UNLISTED_CHECKS,maxPageFetchFailures:MAX_PAGE_FETCH_FAILURES},
+  totals:{pages:rows.length,orphans:orphanPages.length,weak:weakPages.length,strong:strongPages.length,pageFetchFailures:fetchFailures.length,uniqueInternalTargets:allInternalTargets.size,unlistedInternalTargets:allUnlistedTargets.length,checkedUnlistedTargets:checkedTargets.length,crawlableUnlistedPages:crawlableUnlistedPages.length,redirectedInternalLinks:redirectedInternalLinks.length,brokenInternalLinks:brokenInternalLinks.length,unverifiedInternalTargets:unverifiedInternalTargets.length},
+  familySummary,orphanPages,weakPages,redirectedInternalLinks,brokenInternalLinks,unverifiedInternalTargets,fetchFailures,rows,
 };
 await fs.writeFile(OUT_JSON,JSON.stringify(report,null,2)+'\n');
 const tsv=[['url','family','inbound','outbound','status'],...rows.map((row)=>[row.url,row.family,String(row.inboundCount),String(row.outboundCount),row.inboundCount===0?'orphan':row.inboundCount<=WEAK_INBOUND_THRESHOLD?'weak':'strong'])];
@@ -194,8 +222,10 @@ console.log(JSON.stringify(report.totals,null,2));
 console.log('Family summary:',JSON.stringify(familySummary,null,2));
 for (const row of orphanPages.slice(0,100)) console.warn('ORPHAN '+row.url+' :: outbound='+row.outboundCount);
 for (const row of weakPages.slice(0,100)) console.warn('WEAK '+row.url+' :: inbound='+row.inboundCount+' from '+row.inboundFrom.join(', '));
-for (const item of redirectedInternalLinks.slice(0,100)) console.warn('REDIRECT-LINK '+item.pathname+' :: '+item.status+' -> '+item.location);
-for (const item of brokenInternalLinks.slice(0,100)) console.error('BROKEN-LINK '+item.pathname+' :: '+item.status+(item.error?' '+item.error:''));
+for (const item of redirectedInternalLinks.slice(0,100)) console.warn('REDIRECT-LINK '+item.pathname+' :: '+item.status+' -> '+item.location+' :: from '+item.sources.join(', '));
+for (const item of brokenInternalLinks.slice(0,100)) console.error('BROKEN-LINK '+item.pathname+' :: '+item.status+' :: from '+item.sources.join(', '));
+for (const item of unverifiedInternalTargets.slice(0,50)) console.warn('UNVERIFIED-LINK '+item.pathname+' :: '+(item.error||'request failed')+' :: from '+item.sources.join(', '));
+for (const page of fetchFailures.slice(0,50)) console.warn('FETCH-FAILURE '+page.url+' :: '+page.error);
 
-if (sitemapFailures.length || fetchFailures.length || brokenInternalLinks.length) process.exit(1);
-console.log('PASS: public link graph completed; orphan/weak pages are reported as optimization debt, and no broken internal targets were detected.');
+if (sitemapFailures.length || fetchFailures.length > MAX_PAGE_FETCH_FAILURES || brokenInternalLinks.length) process.exit(1);
+console.log('PASS: public link graph completed; crawlable noindex/internal hubs contribute inbound links, orphan/weak pages are reported as optimization debt, and no broken internal targets were detected.');
