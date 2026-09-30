@@ -25,8 +25,15 @@ function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip") {
   return "Longer day trip";
 }
 
+function singleCountyName(value?: string) {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (/\bcounties\b|[,;&]|\band\b/i.test(trimmed)) return null;
+  return trimmed.replace(/\s+County$/i, "").trim() || null;
+}
+
 function countySlug(value: string) {
-  return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
@@ -41,7 +48,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     href: `/destination/${row.destination.slug}`,
   }));
   const counties = [...new Set(results
-    .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
+    .map((row) => singleCountyName(row.destination.county))
     .filter((value): value is string => Boolean(value)))]
     .slice(0, 10);
 
