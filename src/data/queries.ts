@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { prepareArticleForDelivery, prepareDestinationForDelivery } from "@/lib/editorial-image-delivery";
 import { fetchPublishedTexasDefinedEvergreenArticle } from "./articles-remote";
+import { texasEventDateKey } from "./event-occurrence-lifecycle";
 import { fetchPublishedTexasEvents } from "./events-remote";
 import { supplementalExploreCategories } from "./explore-categories";
 import { isArticleDiscoveryReady } from "./fixtures/texas-gateway-index-readiness";
@@ -137,7 +138,9 @@ export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({
     } catch (error) {
       console.error("Live Texas events catalog unavailable; using curated fixture fallback", error);
     }
-    return (await loadPlatform()).events.list({ ...scope, ...params });
+    const today = texasEventDateKey();
+    return (await (await loadPlatform()).events.list({ ...scope, ...params }))
+      .filter((event) => (event.endDate || event.startDate) >= today);
   },
 });
 export const categoriesQuery = () => queryOptions({
