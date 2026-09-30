@@ -14,6 +14,8 @@ const paths = {
   routeTree: "src/routeTree.gen.ts",
   expansion: "src/data/fixtures/relocation-authority-expansion.ts",
   expansionLazy: "src/data/fixtures/lazy-relocation-authority-expansion.ts",
+  wave5: "src/data/fixtures/relocation-authority-wave5.ts",
+  wave5Lazy: "src/data/fixtures/lazy-relocation-authority-wave5.ts",
   repositories: "src/data/fixtures/repositories.ts",
   checklist: "src/routes/moving-to-texas-checklist.tsx",
 };
@@ -131,6 +133,37 @@ for (const token of [
   "general information, not tax advice",
 ]) requireText(files.expansion, token, `relocation authority source or safeguard missing ${token}`);
 
+const wave5Slugs = [
+  "moving-to-texas-renter-guide",
+  "how-to-verify-texas-moving-company",
+  "health-insurance-when-moving-to-texas",
+  "military-family-moving-to-texas",
+];
+for (const slug of wave5Slugs) {
+  requireText(files.wave5, `slug: "${slug}"`, `relocation authority wave 5 body missing ${slug}`);
+  requireText(files.wave5Lazy, `slug: "${slug}"`, `relocation authority wave 5 stub missing ${slug}`);
+  requireText(files.hub, `/article/${slug}`, `relocation hub missing wave 5 link to ${slug}`);
+}
+for (const token of [
+  "Texas Attorney General Renter’s Rights",
+  "Texas Property Code Chapter 92",
+  "TxDMV: Don’t Make a Move Without Us",
+  "FMCSA registered mover search",
+  "HealthCare.gov Special Enrollment Periods",
+  "Texas Department of Insurance",
+  "Military OneSource",
+  "Plan My Move",
+  "TRICARE moving guidance",
+  "Texas Education Agency Military Compact",
+  "general planning information, not insurance, legal or medical advice",
+]) requireText(files.wave5, token, `relocation authority wave 5 source or safeguard missing ${token}`);
+
+for (const token of [
+  "relocationAuthorityWave5Stubs",
+  "loadRelocationAuthorityWave5Article",
+  'await import("./relocation-authority-wave5")',
+]) requireText(files.wave5Lazy, token, `relocation authority wave 5 lazy registry missing ${token}`);
+
 for (const token of [
   "relocationAuthorityExpansionStubs",
   "loadRelocationAuthorityExpansionArticle",
@@ -141,6 +174,9 @@ for (const token of [
   'from "./lazy-relocation-authority-expansion"',
   "...relocationAuthorityExpansionStubs",
   "loadRelocationAuthorityExpansionArticle(scope.brandId, slug)",
+  'from "./lazy-relocation-authority-wave5"',
+  "...relocationAuthorityWave5Stubs",
+  "loadRelocationAuthorityWave5Article(scope.brandId, slug)",
 ]) requireText(files.repositories, token, `relocation repository wiring missing ${token}`);
 
 for (const token of [
@@ -179,4 +215,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`duplicate or overclaim pattern leaked: ${forbidden}`);
 }
 
-console.log("Relocation search validation passed: five priority state-move intents reuse canonical state comparisons, six major Texas city-pair spokes remain source-backed and sitemap-owned, five new high-intent relocation authority articles are lazily repository-backed and hub-linked, and the first-30-days checklist owns its newcomer intent without duplicate routing.");
+console.log("Relocation search validation passed: five priority state-move intents reuse canonical state comparisons, six major Texas city-pair spokes remain source-backed and sitemap-owned, nine high-intent relocation authority articles are lazily repository-backed and hub-linked, including renter, mover-verification, health-coverage and military-PCS guides, and the first-30-days checklist owns its newcomer intent without duplicate routing.");
