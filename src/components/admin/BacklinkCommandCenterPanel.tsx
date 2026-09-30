@@ -178,11 +178,11 @@ export function BacklinkCommandCenterPanel({ accessKey }: { accessKey: string })
     <div className="mt-10">
       <p className="eyebrow text-primary">Pipeline</p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {BACKLINK_STAGES.map((stage) => <div key={stage} className="border-t border-border pt-3"><strong className="font-display text-2xl">{dashboard.stageCounts[stage]}</strong><span className="ml-2 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{BACKLINK_STAGE_LABELS[stage]}</span></div>)}
+        {BACKLINK_STAGES.map((stage) => <div key={stage} className="border-t border-border pt-3"><strong className="font-display text-2xl">{dashboard.stageCounts[stage]}</strong><span className="ml-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{BACKLINK_STAGE_LABELS[stage]}</span></div>)}
       </div>
     </div>
 
-    <div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+    <div className="mt-10 grid gap-8 lg:grid-cols-2">
       <div>
         <div className="flex items-end justify-between gap-4 border-b border-border pb-4">
           <div><p className="eyebrow text-primary">Prospect queue</p><h3 className="mt-2 font-display text-3xl">Relationships and earned links</h3></div>
@@ -191,7 +191,7 @@ export function BacklinkCommandCenterPanel({ accessKey }: { accessKey: string })
         {dashboard.records.length ? dashboard.records.map((record) => <article key={record.id} className="border-b border-border py-6">
           <div className="grid gap-4 md:grid-cols-[1fr_auto]">
             <div>
-              <div className="flex flex-wrap items-center gap-2"><h4 className="font-display text-2xl">{record.contactOrganization}</h4><span className="border border-border px-2 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.1em]">{BACKLINK_STAGE_LABELS[record.stage]}</span></div>
+              <div className="flex flex-wrap items-center gap-2"><h4 className="font-display text-2xl">{record.contactOrganization}</h4><span className="border border-border px-2 py-1 text-[0.68rem] font-semibold uppercase tracking-wider">{BACKLINK_STAGE_LABELS[record.stage]}</span></div>
               <p className="mt-1 text-sm text-muted-foreground">{record.referringDomain} · {record.topicCluster} · {record.campaign}</p>
               <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
                 <a href={record.destinationUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">TexasDefined destination ↗</a>
@@ -208,7 +208,7 @@ export function BacklinkCommandCenterPanel({ accessKey }: { accessKey: string })
               {record.nextAction ? <p className="mt-3 text-sm"><strong>Next:</strong> {record.nextAction}</p> : null}
             </div>
             <div className="grid content-start gap-3">
-              <label className="grid gap-1 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">Stage
+              <label className="grid gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Stage
                 <select value={record.stage} disabled={saving} onChange={(event) => void advanceStage(record, event.target.value as BacklinkStage)} className="min-h-10 border border-border bg-background px-3 py-2 text-sm font-normal normal-case tracking-normal text-foreground">
                   {BACKLINK_STAGES.map((stage) => <option key={stage} value={stage} disabled={stage === "link-won" && (record.backlinkStatus !== "won" || !record.linkingUrl)}>{BACKLINK_STAGE_LABELS[stage]}</option>)}
                 </select>
@@ -247,8 +247,8 @@ export function BacklinkCommandCenterPanel({ accessKey }: { accessKey: string })
       <p className="eyebrow text-primary">Monthly report</p>
       <h3 className="mt-2 font-display text-3xl">Rolling 12-month acquisition report</h3>
       <div className="mt-5 overflow-x-auto">
-        <table className="min-w-[850px] w-full border-collapse text-left text-sm">
-          <thead><tr className="border-y border-border text-xs uppercase tracking-[0.08em] text-muted-foreground"><th className="py-3 pr-4">Month</th><th className="py-3 pr-4">Added</th><th className="py-3 pr-4">Contacted</th><th className="py-3 pr-4">Replies</th><th className="py-3 pr-4">Links won</th><th className="py-3 pr-4">Won domains</th><th className="py-3 pr-4">Contact→reply</th><th className="py-3">Contact→link</th></tr></thead>
+        <table className="min-w-full w-full border-collapse text-left text-sm">
+          <thead><tr className="border-y border-border text-xs uppercase tracking-wider text-muted-foreground"><th className="py-3 pr-4">Month</th><th className="py-3 pr-4">Added</th><th className="py-3 pr-4">Contacted</th><th className="py-3 pr-4">Replies</th><th className="py-3 pr-4">Links won</th><th className="py-3 pr-4">Won domains</th><th className="py-3 pr-4">Contact→reply</th><th className="py-3">Contact→link</th></tr></thead>
           <tbody>{dashboard.monthlyReports.map((report) => <tr key={report.month} className="border-b border-border"><td className="py-3 pr-4 font-semibold">{report.month}</td><td className="py-3 pr-4">{report.prospectsAdded}</td><td className="py-3 pr-4">{report.contacted}</td><td className="py-3 pr-4">{report.replies}</td><td className="py-3 pr-4">{report.linksWon}</td><td className="py-3 pr-4">{report.uniqueWonDomains}</td><td className="py-3 pr-4">{report.contactToReplyRate}%</td><td className="py-3">{report.contactToLinkRate}%</td></tr>)}</tbody>
         </table>
       </div>
