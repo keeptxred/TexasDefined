@@ -17,8 +17,13 @@ export interface TexasThisWeekendDigest {
   sections: TexasThisWeekendSection[];
   reusable: {
     headline: string;
+    emailSubject: string;
+    socialSummary: string;
     topEventNames: string[];
+    topEventLinks: Array<{ name: string; href: string; city: string }>;
     metroEditionPaths: string[];
+    regionalEditionPaths: string[];
+    interestSectionIds: string[];
   };
 }
 
@@ -34,6 +39,22 @@ const metroCounties = {
   austin: new Set(["Travis County", "Williamson County", "Hays County", "Bastrop County"]),
   sanAntonio: new Set(["Bexar County", "Comal County", "Guadalupe County", "Kendall County"]),
 };
+
+const majorMetroCounties = new Set([
+  ...metroCounties.houston,
+  ...metroCounties.dfw,
+  ...metroCounties.austin,
+  ...metroCounties.sanAntonio,
+]);
+
+const familySignal = /\b(family|families|kids|children|child|junior|youth)\b/i;
+const freeSignal = /\bfree\b/i;
+
+function outdoorSignal(event: TemporalEventDirectoryItem) {
+  return event.category === "sport"
+    || event.category === "rodeo"
+    || /\b(run|race|marathon|half marathon|5k|10k|trail|cycling|bike|rodeo)\b/i.test(event.name);
+}
 
 function verificationScore(event: TemporalEventDirectoryItem) {
   const checked = Date.parse(event.sourceCheckedAt ?? "");
@@ -119,6 +140,74 @@ const sections: SectionDefinition[] = [
     limit: 6,
     matches: (event) => /festival|fair|fiesta|oktoberfest|celebration|roundup/i.test(event.name),
   },
+  {
+    id: "gulf-coast",
+    title: "Gulf Coast This Weekend",
+    description: "Source-verified event guides along the Texas Gulf Coast, including Houston, Galveston and the Coastal Bend when they qualify.",
+    href: "/events/gulf-coast-events",
+    minimumItems: 2,
+    limit: 5,
+    matches: (event) => event.region === "gulf-coast",
+  },
+  {
+    id: "hill-country",
+    title: "Hill Country This Weekend",
+    description: "Current Hill Country event guides from the Austin-San Antonio corridor through Fredericksburg, Kerrville and nearby towns.",
+    href: "/events/hill-country-events",
+    minimumItems: 2,
+    limit: 5,
+    matches: (event) => event.region === "hill-country",
+  },
+  {
+    id: "east-texas",
+    title: "East Texas This Weekend",
+    description: "Current Piney Woods and East Texas events that overlap the Friday-through-Sunday window.",
+    href: "/events/piney-woods-events",
+    minimumItems: 2,
+    limit: 5,
+    matches: (event) => event.region === "piney-woods",
+  },
+  {
+    id: "west-texas",
+    title: "West Texas This Weekend",
+    description: "Current Big Bend, Far West and Panhandle event guides, shown only when enough verified events qualify.",
+    href: "/events/big-bend-events",
+    minimumItems: 2,
+    limit: 5,
+    matches: (event) => event.region === "big-bend" || event.region === "panhandle",
+  },
+  {
+    id: "family",
+    title: "Family Events This Weekend",
+    description: "Events whose verified names explicitly signal family, kids, children, junior or youth programming.",
+    minimumItems: 2,
+    limit: 5,
+    matches: (event) => familySignal.test(event.name),
+  },
+  {
+    id: "outdoors",
+    title: "Outdoor Events This Weekend",
+    description: "Races, runs, cycling, rodeos and other clearly outdoor-oriented event guides in the current weekend window.",
+    minimumItems: 2,
+    limit: 5,
+    matches: outdoorSignal,
+  },
+  {
+    id: "free",
+    title: "Free Events This Weekend",
+    description: "Only events whose verified event name explicitly identifies them as free; Texas Defined does not infer free admission from missing ticket data.",
+    minimumItems: 2,
+    limit: 5,
+    matches: (event) => freeSignal.test(event.name),
+  },
+  {
+    id: "worth-the-drive",
+    title: "Worth the Drive",
+    description: "Strong source-verified weekend events outside the four largest metro county clusters, diversified across places and event types.",
+    minimumItems: 3,
+    limit: 6,
+    matches: (event) => !majorMetroCounties.has(event.countyName ?? ""),
+  },
 ];
 
 export function loadTexasThisWeekendDigestServer(now = new Date()): TexasThisWeekendDigest | null {
@@ -141,13 +230,28 @@ export function loadTexasThisWeekendDigestServer(now = new Date()): TexasThisWee
     sections: resolvedSections,
     reusable: {
       headline: `Texas This Weekend: ${collection.dateContext}`,
+      emailSubject: `Texas This Weekend · ${collection.dateContext}`,
+      socialSummary: top.length
+        ? `Texas This Weekend: ${top.slice(0, 4).map((event) => event.name).join(" · ")}`
+        : `Texas This Weekend · ${collection.dateContext}`,
       topEventNames: top.map((event) => event.name),
+      topEventLinks: top.map((event) => ({ name: event.name, href: event.href, city: event.city })),
       metroEditionPaths: [
         "/events/houston-this-weekend",
         "/events/dallas-this-weekend",
         "/events/austin-this-weekend",
         "/events/san-antonio-this-weekend",
       ],
+      regionalEditionPaths: [
+        "/events/gulf-coast-events",
+        "/events/hill-country-events",
+        "/events/piney-woods-events",
+        "/events/big-bend-events",
+        "/events/panhandle-events",
+      ],
+      interestSectionIds: resolvedSections
+        .filter((section) => ["festivals", "family", "outdoors", "free", "worth-the-drive"].includes(section.id))
+        .map((section) => section.id),
     },
   };
 }
