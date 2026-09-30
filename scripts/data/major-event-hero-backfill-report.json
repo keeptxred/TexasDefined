@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-09-30T11:21:58.572Z",
+  "reviewedLeaves": 195,
+  "compliantBefore": 14,
+  "pendingBefore": 181,
+  "requestedSlugs": [
+    "addison-oktoberfest",
+    "heart-o-texas-fair-rodeo"
+  ],
+  "scopedPendingBefore": 2,
+  "attempted": 2,
+  "resolved": 2,
+  "unresolved": [],
+  "remainingAfterThisRun": 179,
+  "remainingRequestedAfterThisRun": [],
+  "model": "@cf/black-forest-labs/flux-1-schnell",
+  "policy": "Missing Event heroes remain fail-closed until generated assets and structured provenance are reviewed and merged.",
+  "images": [
+    {
+      "slug": "addison-oktoberfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/addison-oktoberfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "heart-o-texas-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/heart-o-texas-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    }
+  ]
+}
