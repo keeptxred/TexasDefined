@@ -1,6 +1,7 @@
 import type { UilRecentFootballHistory } from './uil-football-recent-history.server';
 
 const UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL = 'https://www.uiltexas.org/football/all-time-appearances';
+const UIL_FOOTBALL_ALL_TIME_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/all-time-appearances';
 const ALL_TIME_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
 
 type UilAllTimeAppearanceRow = {
@@ -107,38 +108,48 @@ export async function loadUilAllTimeFootballHistory() {
     return allTimeHistoryCache;
   }
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8_000);
+  let lastError: unknown = null;
 
-  try {
-    const response = await fetch(UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL, {
-      headers: {
-        accept: 'text/html,application/xhtml+xml',
-        'user-agent': 'TexasDefined-Football-Research/1.0',
-      },
-      redirect: 'follow',
-      signal: controller.signal,
-    });
-    if (!response.ok) throw new Error(`UIL football all-time appearances returned ${response.status}.`);
+  for (const sourceUrl of [UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL, UIL_FOOTBALL_ALL_TIME_FALLBACK_URL]) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8_000);
 
-    const rows = parseAllTimeRows(await response.text());
-    const publishedThroughYear = inferPublishedThroughYear(rows);
-    if (rows.length < 300 || publishedThroughYear < 2024) {
-      throw new Error(
-        `UIL all-time football appearances look incomplete: ${rows.length} schools, latest year ${publishedThroughYear || 'unknown'}.`,
-      );
+    try {
+      const response = await fetch(sourceUrl, {
+        headers: {
+          accept: 'text/html,application/xhtml+xml',
+          'user-agent': 'TexasDefined-Football-Research/1.0',
+        },
+        redirect: 'follow',
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error(`UIL football all-time appearances returned ${response.status} from ${sourceUrl}.`);
+
+      const rows = parseAllTimeRows(await response.text());
+      const publishedThroughYear = inferPublishedThroughYear(rows);
+      if (rows.length < 300 || publishedThroughYear < 2024) {
+        throw new Error(
+          `UIL all-time football appearances look incomplete from ${sourceUrl}: ${rows.length} schools, latest year ${publishedThroughYear || 'unknown'}.`,
+        );
+      }
+
+      allTimeHistoryCache = {
+        loadedAt: Date.now(),
+        publishedThroughYear,
+        rows,
+        bySchool: new Map(rows.map((row) => [normalizeSchoolName(row.schoolName), row])),
+      };
+      return allTimeHistoryCache;
+    } catch (error) {
+      lastError = error;
+    } finally {
+      clearTimeout(timeout);
     }
-
-    allTimeHistoryCache = {
-      loadedAt: Date.now(),
-      publishedThroughYear,
-      rows,
-      bySchool: new Map(rows.map((row) => [normalizeSchoolName(row.schoolName), row])),
-    };
-    return allTimeHistoryCache;
-  } finally {
-    clearTimeout(timeout);
   }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error('UIL football all-time appearances could not be loaded from either official endpoint.');
 }
 
 export function allTimeFootballHistoryFromLoaded(
@@ -183,5 +194,6 @@ export function allTimeFootballHistoryFromLoaded(
 
 export const UIL_ALL_TIME_FOOTBALL_HISTORY_SOURCE = {
   sourceUrl: UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL,
+  fallbackUrl: UIL_FOOTBALL_ALL_TIME_FALLBACK_URL,
   cacheTtlMs: ALL_TIME_CACHE_TTL_MS,
 } as const;
