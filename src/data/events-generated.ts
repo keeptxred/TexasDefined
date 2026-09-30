@@ -1,3 +1,4 @@
+import { texasEventDateKey } from "./event-occurrence-lifecycle";
 import { events as curatedTexasEvents } from "./fixtures/texas";
 import { generatedTexasEvents } from "./generated/texas-events";
 import type { TexasEvent, TexasRegion } from "./types";
@@ -58,7 +59,7 @@ function eventIdentityKey(event: Pick<TexasEvent, "name" | "city">): string {
 }
 
 export function getGeneratedTexasEvents(limit = 24): TexasEvent[] {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = texasEventDateKey();
   const merged = new Map<string, TexasEvent>();
   const sourceControlledIdentities = new Set(
     (generatedTexasEvents as readonly GeneratedEventRow[]).map((row) => eventIdentityKey(row)),

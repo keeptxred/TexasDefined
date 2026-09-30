@@ -4,7 +4,7 @@ export type EventOccurrenceDateShape = {
   occurrenceWindows?: readonly { startDate: string; endDate?: string }[];
 };
 
-function texasDateKey(now: Date) {
+export function texasEventDateKey(now = new Date()) {
   return new Intl.DateTimeFormat('en-CA', {
     timeZone: 'America/Chicago',
     year: 'numeric',
@@ -26,10 +26,10 @@ export function latestEventOccurrenceDate(event: EventOccurrenceDateShape) {
 
 export function hasCurrentOrFutureConfirmedEventOccurrence(event: EventOccurrenceDateShape, now = new Date()) {
   const latest = latestEventOccurrenceDate(event);
-  return Boolean(latest && latest >= texasDateKey(now));
+  return Boolean(latest && latest >= texasEventDateKey(now));
 }
 
 export function hasExpiredConfirmedEventOccurrence(event: EventOccurrenceDateShape, now = new Date()) {
   const latest = latestEventOccurrenceDate(event);
-  return Boolean(latest && latest < texasDateKey(now));
+  return Boolean(latest && latest < texasEventDateKey(now));
 }
