@@ -2,45 +2,9 @@ name: Validate event occurrence lifecycle
 
 on:
   pull_request:
-    paths:
-      - 'src/data/event-occurrence-lifecycle.ts'
-      - 'src/data/events-generated.ts'
-      - 'src/data/events-remote.ts'
-      - 'src/data/queries.ts'
-      - 'src/data/major-event-authority.ts'
-      - 'src/data/major-event-page.server.ts'
-      - 'src/data/major-event-schema-enrichment*.server.ts'
-      - 'src/data/major-event-directory.server.ts'
-      - 'src/data/major-event-supplemental-registry.server.ts'
-      - 'src/routes/__root.tsx'
-      - 'src/routes/event.$slug.tsx'
-      - 'src/routes/event.$slug.lazy.tsx'
-      - 'src/routes/texas-state-fair.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
-      - 'scripts/data/validate-event-occurrence-lifecycle.mjs'
-      - 'scripts/data/validate-google-event-rich-results.mjs'
-      - '.github/workflows/validate-event-occurrence-lifecycle.yml'
   push:
     branches:
       - main
-    paths:
-      - 'src/data/event-occurrence-lifecycle.ts'
-      - 'src/data/events-generated.ts'
-      - 'src/data/events-remote.ts'
-      - 'src/data/queries.ts'
-      - 'src/data/major-event-authority.ts'
-      - 'src/data/major-event-page.server.ts'
-      - 'src/data/major-event-schema-enrichment*.server.ts'
-      - 'src/data/major-event-directory.server.ts'
-      - 'src/data/major-event-supplemental-registry.server.ts'
-      - 'src/routes/__root.tsx'
-      - 'src/routes/event.$slug.tsx'
-      - 'src/routes/event.$slug.lazy.tsx'
-      - 'src/routes/texas-state-fair.tsx'
-      - 'src/routes/sitemap[.]xml.ts'
-      - 'scripts/data/validate-event-occurrence-lifecycle.mjs'
-      - 'scripts/data/validate-google-event-rich-results.mjs'
-      - '.github/workflows/validate-event-occurrence-lifecycle.yml'
   workflow_dispatch:
 
 permissions:
