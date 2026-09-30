@@ -20,15 +20,12 @@ function forbidText(source, needle, message) {
   if (source.includes(needle)) failures.push(message);
 }
 
-// Google Event rich-result required and recommended fields. Date-only values are
-// intentional when no trustworthy local time is published; Google explicitly accepts
-// date-only values for all-day or unknown-time events and derives timezone from location.
 for (const [needle, message] of [
   ['"@type": "Event"', 'Dedicated event pages must emit Event JSON-LD.'],
   ['name: event.name', 'Event JSON-LD must include the event name.'],
   ['url: canonicalUrl', 'Event JSON-LD must include its canonical URL.'],
   ['startDate: window.startDate', 'Event JSON-LD must include startDate.'],
-  ['endDate: window.endDate', 'Event JSON-LD must carry the occurrence endDate when known; undefined values are omitted by JSON serialization.'],
+  ['endDate: window.endDate', 'Event JSON-LD must carry the occurrence endDate when known.'],
   ['eventStatus: eventSchemaStatusUrl(occurrenceEnrichment?.lifecycle?.status)', 'Event JSON-LD must publish lifecycle status.'],
   ['eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"', 'Physical Texas events must publish OfflineEventAttendanceMode.'],
   ['description: event.whyItMatters', 'Event JSON-LD must include a useful event description.'],
@@ -41,14 +38,11 @@ for (const [needle, message] of [
   ['...(organizer ? { organizer } : {})', 'Verified organizers must be emitted when available.'],
   ['...(offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted when available.'],
   ['...(performers?.length ? { performer: performers } : {})', 'Verified performers must be emitted when available.'],
-  ['occurrenceWindows.map((window)', 'Recurring/multi-window guides must emit one Event entity per real occurrence window.'],
 ]) requireText(eventPage, needle, message);
 
 requireText(eventPage, 'previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate', 'Rescheduled Event JSON-LD must support previousStartDate.');
 requireText(eventPage, 'occurrenceEnrichment?.lifecycle?.status === "rescheduled"', 'previousStartDate must be gated to rescheduled events.');
 
-// Optional rich-result properties fail closed at runtime so malformed ingestion cannot
-// silently leak invalid organizer, performer, offer, lifecycle or image schema.
 for (const [needle, message] of [
   ['export function isValidEventSchemaEntity', 'Event entity validation must exist.'],
   ['export function isValidEventSchemaOffer', 'Event Offer validation must exist.'],
@@ -64,17 +58,12 @@ for (const [needle, message] of [
   ['?.filter(isValidEventSchemaEntity)', 'Invalid performers must fail closed.'],
 ]) requireText(registry, needle, message);
 
-// Canonical/indexing/SSR ownership. Dedicated routes own rich-result markup, while
-// collection pages remain CollectionPage/ItemList discovery surfaces.
 for (const [needle, message] of [
   ['const canonicalPath = `/event/${page.slug}`', 'Event route must own a stable canonical path.'],
   ['links: [canonicalLink(texasDefinedBrand, canonicalPath)]', 'Event route must emit rel=canonical.'],
   ['robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"', 'Event routes without compliant imagery must fail closed from indexing while preserving discovery.'],
 ]) requireText(eventRoute, needle, message);
 
-// Event pages also expose SSR-visible breadcrumb structured data. Global Organization
-// and WebSite identity remain owned by the root route so every Event page inherits the
-// same publisher/site entity IDs without duplicating organization records per event.
 for (const [needle, message] of [
   ['function eventBreadcrumbJsonLd', 'Dedicated Event pages must build breadcrumb JSON-LD.'],
   ['"@type": "BreadcrumbList"', 'Dedicated Event pages must expose BreadcrumbList schema.'],
@@ -92,7 +81,9 @@ for (const [needle, message] of [
 for (const [needle, message] of [
   ['isRecurrenceDerivedMajorEventSlug(page.slug)', 'Recurrence-derived dates must suppress scheduled Event schema.'],
   ['hasExpiredConfirmedEventOccurrence(occurrence)', 'Expired confirmed occurrences must suppress stale Event schema.'],
-  ['"@type": "WebPage"', 'Evergreen event guides without a current confirmed occurrence must downgrade to WebPage schema.'],
+  ['hasMultipleConfirmedOccurrenceWindows(occurrence)', 'Multi-window recurring guides must suppress Event schema until each occurrence has its own unique leaf URL.'],
+  ['occurrence?.occurrenceWindows && occurrence.occurrenceWindows.length > 1', 'Multi-window detection must require more than one confirmed occurrence window.'],
+  ['"@type": "WebPage"', 'Evergreen event guides without a single eligible occurrence must downgrade to WebPage schema.'],
 ]) requireText(authorityBridge, needle, message);
 
 requireText(eventsDirectory, '"@type": "CollectionPage"', 'Events hub must remain CollectionPage markup.');
@@ -104,8 +95,6 @@ for (const [needle, message] of [
 ]) requireText(sitemap, needle, message);
 forbidText(sitemap, 'hasCurrentOrFutureConfirmedEventOccurrence', 'Permanent event guide sitemap discovery must not disappear merely because an annual occurrence ended.');
 
-// The State Fair is a deliberate standalone individual-event authority page rather than
-// a filtered event collection, so its legacy permanent URL is allowed to own Event schema.
 for (const [needle, message] of [
   ['createFileRoute("/texas-state-fair")', 'State Fair individual event route must retain its permanent URL.'],
   ['"@type": "Event"', 'State Fair individual page must retain Event JSON-LD.'],
@@ -120,4 +109,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Google Event rich-result contract protected: dedicated occurrence pages own Event JSON-LD, collection pages do not, breadcrumbs and site identity stay linked, lifecycle/indexing rules fail closed, and optional entities/offers/images are runtime validated before emission.');
+console.log('Google Event rich-result contract protected: single-occurrence leaf pages own Event JSON-LD; collections, recurrence-derived guides, expired occurrences, and multi-window guides fail closed to WebPage until each qualifying occurrence has a unique leaf URL.');
