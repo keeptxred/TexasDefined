@@ -102,8 +102,8 @@ const exactQuerySourceTargets = [
     label: '/texas-state-fair',
     source: stateFairRoute,
     tokens: [
-      '"State Fair of Texas 2026: Hours, Tickets & Guide"',
-      '"State Fair of Texas 2026 is open Sept. 25–Oct. 18 at Fair Park in Dallas. Current hours, tickets, DART, parking, coupons, food, rides and planning."',
+      '"State Fair of Texas 2026: Dates, Hours, Schedule & Tickets"',
+      '"State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events."',
       '...stateFairData',
       'startDate: "2026-09-25"',
       'endDate: "2026-10-18"',

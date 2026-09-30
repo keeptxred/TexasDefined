@@ -139,12 +139,12 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
   "/article/texas-rivers-explained": {
-    title: "Major Rivers in Texas: Boundary Rivers, Regions & Basins",
-    description: "Find Texas's major and boundary rivers by region, see all 15 major river basins on a map, and follow the Rio Grande, Brazos, Colorado, Trinity and Sabine.",
+    title: "Major Rivers in Texas: Boundary Rivers, Regions & Map",
+    description: "Find Texas's major and boundary rivers by region, from the Rio Grande and Pecos to the Brazos, Colorado, Trinity and Sabine, with maps and waterway context.",
   },
   "/article/texas-river-basins-guide": {
-    title: "Texas River Basins: 15 Major & 8 Coastal Basins",
-    description: "Learn how Texas's 15 major and eight coastal basins divide the state by watershed, and how rivers, reservoirs, cities and the Gulf connect.",
+    title: "Texas River Basins: 15 Major, 8 Coastal & Watershed Map",
+    description: "See Texas's 15 major and eight coastal river basins on a watershed map and learn how drainage divides connect rivers, reservoirs, cities and the Gulf.",
   },
   "/article/texas-lakes-reservoirs-explained": {
     title: "Texas Lakes & Reservoirs: Why Most Are Man-Made",
@@ -183,7 +183,7 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Plan Westfest in West, Texas with the current date guidance, parade information, schedule and hours sources, admission details and trip-planning links.",
   },
   "/event/heart-o-texas-fair-rodeo": {
-    title: "Heart O' Texas Fair & Rodeo 2026: Dates & Schedule",
+    title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets",
     description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco. Check fair hours, One HOT Rodeo dates, ticket rules and official planning links.",
   },
   "/event/sweetwater-rattlesnake-roundup": {
@@ -465,8 +465,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Addison Oktoberfest runs Sept. 17-20, 2026 at Addison Circle Park. Find festival hours, tickets, parking, hotel and official planning links.",
   },
   "/texas-state-fair": {
-    title: "State Fair of Texas 2026: Dates, Hours, Tickets & Fair Park",
-    description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026 at Fair Park in Dallas. Plan hours, tickets, DART, parking, food, rides and daily events.",
+    title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets",
+    description: "State Fair of Texas 2026 runs Sept. 25-Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.",
   },
   "/article/el-paso-county-missions-rio-grande-texas": {
     title: "El Paso County Missions & Rio Grande: Borderlands History Guide",

@@ -25,10 +25,10 @@ for (const required of [
 // These URLs already rank on page one or very near it, so preserve their
 // search-intent-focused SSR snippets rather than treating them as indexing work.
 const priorityPageOneCtrRecovery = [
-  { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Basins', description: "Find Texas's major and boundary rivers by region" },
+  { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "Find Texas's major and boundary rivers by region" },
   { path: '/texas-homecoming-mums', title: 'Texas Homecoming Mums Explained: Meaning, History & Tradition', description: 'What are Texas homecoming mums?' },
-  { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates & Schedule", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
-  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major & 8 Coastal Basins', description: "Texas's 15 major and eight coastal basins" },
+  { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco" },
+  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "Texas's 15 major and eight coastal basins" },
   { path: '/article/texas-lakes-reservoirs-explained', title: 'Texas Lakes & Reservoirs: Why Most Are Man-Made', description: 'most familiar inland Texas lakes are reservoirs' },
   { path: '/article/texas-trinity-river-guide', title: 'Trinity River Texas: Dallas-Fort Worth, Basin & Gulf Guide', description: 'Follow the Trinity River through North Texas toward Trinity Bay' },
   { path: '/sports-venue/jones-att-stadium', title: 'Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide', description: 'Looking for Jones AT&T Stadium?' },
@@ -54,7 +54,7 @@ if (priorityPageOneCtrRecovery.length !== 11) {
 const experiments = [
   {
     path: '/article/texas-rivers-explained',
-    title: 'Major Rivers in Texas: Boundary Rivers, Regions & Basins',
+    title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map',
     description: "Find Texas's major and boundary rivers by region",
   },
   {
@@ -64,7 +64,7 @@ const experiments = [
   },
   {
     path: '/article/texas-river-basins-guide',
-    title: 'Texas River Basins: 15 Major & 8 Coastal Basins',
+    title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map',
     description: "Learn how Texas's 15 major and eight coastal basins divide the state by watershed",
   },
   {
@@ -84,7 +84,7 @@ const experiments = [
   },
   {
     path: '/event/heart-o-texas-fair-rodeo',
-    title: "Heart O' Texas Fair & Rodeo 2026: Dates & Schedule",
+    title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets",
     description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco",
   },
   {
@@ -251,7 +251,7 @@ if (sixthWave.length !== 20) {
 
 const seventhWave = [
   { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking", description: "Addison Oktoberfest runs Sept. 17-20, 2026" },
-  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Tickets & Fair Park", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
+  { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
   { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
   { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
   { path: "/article/texas-business-routes-explained", title: "What Is a Business Highway? Texas Business Routes Explained", description: "Learn what a business highway or business route is" },
@@ -477,6 +477,21 @@ if (seo.includes('title: "Charro Days Fiesta: Dates, Parade & Brownsville Guide"
 if (!seo.includes('const META_DESCRIPTION_MAX_LENGTH = 160;') || !seo.includes('cleanMetaDescription')) {
   failures.push('Page-one CTR experiments must retain the shared meta-description length guard.');
 }
+
+
+const liveWave10 = [
+  { path: '/article/texas-rivers-explained', title: 'Major Rivers in Texas: Boundary Rivers, Regions & Map', description: "major and boundary rivers by region" },
+  { path: '/article/texas-river-basins-guide', title: 'Texas River Basins: 15 Major, 8 Coastal & Watershed Map', description: "watershed map" },
+  { path: '/event/heart-o-texas-fair-rodeo', title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets", description: "Oct. 8-18 in Waco" },
+  { path: '/texas-state-fair', title: 'State Fair of Texas 2026: Dates, Hours, Schedule & Tickets', description: 'Sept. 25-Oct. 18' },
+];
+
+for (const experiment of liveWave10) {
+  for (const required of ['"' + experiment.path + '"', experiment.title, experiment.description]) {
+    if (!seo.includes(required) && !stateFair.includes(required)) failures.push('Live Wave 10 CTR contract missing for ' + experiment.path + ': ' + required);
+  }
+}
+if (liveWave10.length !== 4) failures.push('Expected exactly 4 live Wave 10 CTR experiments, found ' + liveWave10.length + '.');
 
 if (failures.length) {
   console.error('GSC page-one CTR validation failed:');
