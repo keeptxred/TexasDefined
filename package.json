@@ -42,9 +42,10 @@
     "production:pages:audit": "node scripts/ci/audit-production-pages.mjs",
     "gaming:validate": "node scripts/data/validate-gaming-authority.mjs",
     "calculators:validate": "node --experimental-strip-types scripts/data/validate-calculator-platform.ts",
-    "metro-proximity:validate": "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs",
+    "metro-proximity:validate": "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit",
     "relocation-search:validate": "node scripts/data/validate-relocation-search-spokes.mjs",
-    "editorial-outreach:validate": "node scripts/data/validate-editorial-outreach.mjs"
+    "editorial-outreach:validate": "node scripts/data/validate-editorial-outreach.mjs",
+    "metro-proximity:audit": "node scripts/data/run-metro-proximity-audit.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
