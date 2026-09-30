@@ -2,28 +2,25 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const description = 'A practical starting point for moving, driving, buying and owning a home, finding Texas state agencies and navigating everyday life across the state.';
+const description = 'Find practical Texas services, state agencies, local offices, moving help, property-tax resources and everyday answers organized around what you need to do.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-resources`;
 
 const discoveryLinks = [
-  ['Texas driver license', '/texas-drivers-license'],
-  ['Texas DMV', '/texas-dmv'],
+  ['Texas driver license and ID', '/texas-drivers-license'],
   ['Texas vehicle registration', '/texas-vehicle-registration'],
-  ['Texas fishing license', '/texas-fishing-license'],
+  ['Find your county by address', '/find-my-county'],
+  ['Find your school district', '/find-my-school-district'],
+  ['Find your DMV or county office', '/find-my-dmv'],
+  ['Property taxes and homestead help', '/decide/property-taxes'],
   ['Moving to Texas', '/moving-to-texas'],
-  ['Emergency & community services', '/find-my-emergency-services'],
-  ['Homestead-exemption filing path', '/find-my-homestead-exemption'],
+  ['Start a business in Texas', '/start-a-business-in-texas'],
+  ['Texas fishing license', '/texas-fishing-license'],
+  ['Texas hunting licenses and public hunting', '/hunting'],
+  ['Emergency and community services', '/find-my-emergency-services'],
   ['Texas voter-registration resources', '/find-my-voter-registration'],
-  ['Texas ZIP code explorer', '/texas-zip-code-explorer'],
-  ['Money & Property', '/decide/financial-tools'],
-  ['Texas septic system design & OSSF guide', '/article/texas-septic-systems-homeowner-guide'],
-  ['Texas Explained', '/texas-explained'],
-  ['Best places to go camping in Texas', '/best-places-to-go-camping-in-texas'],
-  ['Texas vs every other state', '/texas-vs-every-state'],
-  ['State Fair of Texas 2026', '/texas-state-fair'],
-  ['Texas flag', '/texas-flag'],
-  ['Texas Two Step', '/texas-two-step'],
+  ['Money and property tools', '/decide/financial-tools'],
+  ['Texas state agency guides', '/agency/texas-secretary-of-state'],
 ] as const;
 
 const structuredData = {
@@ -33,7 +30,7 @@ const structuredData = {
       '@type': 'CollectionPage',
       '@id': `${pageUrl}#page`,
       url: pageUrl,
-      name: 'Start Here',
+      name: 'Texas Resources: State Services, Agencies & Local Help',
       description,
       isPartOf: { '@id': `${siteUrl}/#website` },
       mainEntity: { '@id': `${pageUrl}#resources` },
@@ -42,7 +39,7 @@ const structuredData = {
     {
       '@type': 'ItemList',
       '@id': `${pageUrl}#resources`,
-      name: 'Practical Texas Defined guides',
+      name: 'Practical Texas services and resource guides',
       numberOfItems: discoveryLinks.length,
       itemListElement: discoveryLinks.map(([name, path], index) => ({
         '@type': 'ListItem',
@@ -55,7 +52,7 @@ const structuredData = {
       '@id': `${pageUrl}#breadcrumbs`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: 'Start Here', item: pageUrl },
+        { '@type': 'ListItem', position: 2, name: 'Texas Resources', item: pageUrl },
       ],
     },
   ],
@@ -65,7 +62,7 @@ export const Route = createFileRoute('/texas-resources')({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: '/texas-resources',
-      title: 'Texas Resources & State Agencies | Start Here',
+      title: 'Texas Resources: State Services, Agencies & Local Help',
       description,
     }),
     links: [canonicalLink(texasDefinedBrand, '/texas-resources')],
