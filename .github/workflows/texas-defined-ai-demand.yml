@@ -43,6 +43,7 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_DEMAND_STATUS_PATH: ${{ runner.temp }}/ask-texas-demand-base-status.json
         run: node scripts/ai/build-ai-demand-report.mjs
 
       - name: Build review-only editorial action queue
@@ -66,43 +67,7 @@ jobs:
             echo "Generalized AI demand intelligence changed; preparing a review-only PR with ranked editorial actions."
           fi
 
-      - name: Summarize demand intelligence run
-        if: always()
-        shell: bash
-        run: |
-          set -euo pipefail
-          {
-            echo "## Ask Texas demand intelligence"
-            echo
-            if [ -f ops/ai/texas-defined-ai-demand.generated.json ]; then
-              node - <<'NODE'
-          const fs = require('node:fs');
-          const report = JSON.parse(fs.readFileSync('ops/ai/texas-defined-ai-demand.generated.json', 'utf8'));
-          const totals = report.totals || {};
-          console.log(`- Telemetry events represented: ${totals.events ?? 0}`);
-          console.log(`- Strong coverage: ${totals.strong ?? 0}`);
-          console.log(`- Partial coverage: ${totals.partial ?? 0}`);
-          console.log(`- Gap coverage: ${totals.gap ?? 0}`);
-          console.log(`- Actionable opportunities: ${totals.actionableOpportunities ?? 0}`);
-          NODE
-            else
-              echo "- No generated demand report is present. If earlier steps succeeded, this means no generalized topic crossed the review threshold."
-            fi
-            if [ -f ops/ai/texas-defined-ai-editorial-queue.generated.json ]; then
-              node - <<'NODE'
-          const fs = require('node:fs');
-          const queue = JSON.parse(fs.readFileSync('ops/ai/texas-defined-ai-editorial-queue.generated.json', 'utf8'));
-          console.log(`- Editorial queue items: ${Array.isArray(queue.items) ? queue.items.length : 0}`);
-          NODE
-            else
-              echo "- Editorial queue items: 0"
-            fi
-            echo "- Review PR needed: ${{ steps.changes.outputs.changed || 'not-reached' }}"
-            echo "- Privacy boundary: only aggregate generalized signals are summarized; user question text is never printed here."
-            echo "- Publication boundary: this workflow cannot publish or auto-merge demand-generated content."
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Build privacy-safe demand status artifact
+      - name: Build privacy-safe run status and summary
         if: always()
         env:
           REVIEW_PR_NEEDED: ${{ steps.changes.outputs.changed || 'not-reached' }}
@@ -112,29 +77,46 @@ jobs:
           node - <<'NODE'
           const fs = require('node:fs');
           const path = require('node:path');
+          const basePath = path.join(process.env.RUNNER_TEMP, 'ask-texas-demand-base-status.json');
           const reportPath = 'ops/ai/texas-defined-ai-demand.generated.json';
           const queuePath = 'ops/ai/texas-defined-ai-editorial-queue.generated.json';
-          const report = fs.existsSync(reportPath) ? JSON.parse(fs.readFileSync(reportPath, 'utf8')) : null;
+          const base = fs.existsSync(basePath) ? JSON.parse(fs.readFileSync(basePath, 'utf8')) : null;
           const queue = fs.existsSync(queuePath) ? JSON.parse(fs.readFileSync(queuePath, 'utf8')) : null;
-          const totals = report?.totals ?? {};
           const status = {
             schemaVersion: 1,
             generatedAt: new Date().toISOString(),
-            reportPresent: Boolean(report),
-            reviewPrNeeded: process.env.REVIEW_PR_NEEDED || 'not-reached',
-            telemetryEventsRepresented: Number(totals.events ?? 0),
-            coverage: {
-              strong: Number(totals.strong ?? 0),
-              partial: Number(totals.partial ?? 0),
-              gap: Number(totals.gap ?? 0),
-            },
-            actionableOpportunities: Number(totals.actionableOpportunities ?? 0),
+            telemetryReadCompleted: Boolean(base),
+            telemetryRowsAnalyzed: base?.telemetryRowsAnalyzed ?? null,
+            telemetryEventsRepresented: base?.telemetryEventsRepresented ?? null,
+            coverage: base?.coverage ?? { strong: null, partial: null, gap: null },
+            actionableOpportunities: base?.actionableOpportunities ?? null,
+            reportPresent: fs.existsSync(reportPath),
             editorialQueueItems: Array.isArray(queue?.items) ? queue.items.length : 0,
+            reviewPrNeeded: process.env.REVIEW_PR_NEEDED || 'not-reached',
             privacy: 'Aggregate counts only. No raw or sanitized user question text is retained in this artifact.',
             publicationBoundary: 'Status-only artifact; it cannot publish content or auto-merge demand-generated work.',
           };
           const output = path.join(process.env.RUNNER_TEMP, 'ask-texas-demand-status.json');
           fs.writeFileSync(output, `${JSON.stringify(status, null, 2)}\n`, 'utf8');
+
+          const value = (input) => input === null || input === undefined ? 'not available' : input;
+          const summary = [
+            '## Ask Texas demand intelligence',
+            '',
+            `- Telemetry read completed: ${status.telemetryReadCompleted ? 'yes' : 'no'}`,
+            `- Private telemetry rows analyzed: ${value(status.telemetryRowsAnalyzed)}`,
+            `- Telemetry events represented: ${value(status.telemetryEventsRepresented)}`,
+            `- Strong coverage: ${value(status.coverage.strong)}`,
+            `- Partial coverage: ${value(status.coverage.partial)}`,
+            `- Gap coverage: ${value(status.coverage.gap)}`,
+            `- Actionable opportunities: ${value(status.actionableOpportunities)}`,
+            `- Editorial queue items: ${status.editorialQueueItems}`,
+            `- Review PR needed: ${status.reviewPrNeeded}`,
+            '- Privacy boundary: only aggregate generalized signals are summarized; user question text is never printed or retained here.',
+            '- Publication boundary: this workflow cannot publish or auto-merge demand-generated content.',
+            '',
+          ].join('\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary, 'utf8');
           console.log(`Wrote privacy-safe demand status artifact: ${output}`);
           NODE
 
