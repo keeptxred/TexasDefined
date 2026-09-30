@@ -17,6 +17,7 @@ const paths = {
   routeTree: "src/routeTree.gen.ts",
   server: "src/server.ts",
   productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
+  audit: "scripts/data/audit-metro-proximity-index-readiness.ts",
   package: "package.json",
 };
 for (const path of Object.values(paths)) {
@@ -245,9 +246,21 @@ for (const token of [
 ]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
 
 const pkg = JSON.parse(files.package);
-const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs";
+const expectedAuditScript = "node --experimental-strip-types scripts/data/audit-metro-proximity-index-readiness.ts";
+if (pkg.scripts?.["metro-proximity:audit"] !== expectedAuditScript) fail("package script metro-proximity:audit is missing or changed");
+const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit";
 if (pkg.scripts?.["metro-proximity:validate"] !== expectedScript) fail("package script metro-proximity:validate is missing or changed");
 if (!pkg.scripts?.["data:validate"]?.includes("npm run metro-proximity:validate")) fail("metro proximity validation is not wired into data:validate");
+
+for (const token of [
+  "listResolvedDestinations({ limit: 5000 })",
+  "METRO_PROXIMITY_METROS",
+  "METRO_PROXIMITY_COLLECTIONS",
+  "isMetroProximityCollectionIndexReady",
+  "metroProximityHubReady",
+  "sitemap-eligible proximity URLs",
+  "Near-ready blocked combinations",
+]) requireText(files.audit, token, `metro readiness audit missing ${token}`);
 
 for (const forbidden of [
   "/explore/near/near/",
