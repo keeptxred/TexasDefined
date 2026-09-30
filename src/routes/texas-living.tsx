@@ -9,39 +9,31 @@ import { articlesQuery } from '@/data/queries';
 import type { Article } from '@/data/types';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
-const description = 'Homes, history, sports, moving and the practical details of making a life in Texas — gathered into one magazine department.';
+const description = 'A practical guide to living in Texas: costs, homes, moving, utilities, property taxes, everyday life and the traditions that make the state feel different.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/texas-living`;
-const sections = [
-  ['Things That Define Texas', '/things-unique-to-texas', '250 foods, places, traditions, wildlife, sayings and icons that make Texas feel like Texas.'],
-  ['Explore', '/explore', 'Parks, lakes, small towns, road trips and places worth making time for.'],
-  ['Sports', '/sports', 'The games, rivalries and rituals that are part of life here.'],
-  ['History', '/texas-history', 'The people, places and turning points that still shape the state.'],
+
+const startHere = [
+  ['Moving to Texas', '/moving-to-texas', 'Compare places, understand costs and plan the practical details before a move.', 'Plan a Texas move →'],
+  ['Homes & Land', '/real-estate', 'Buying, owning, financing, insuring and maintaining a home or piece of land in Texas.', 'Explore homes & land →'],
+  ['Money & Property', '/decide/financial-tools', 'Calculators and explainers for housing, paychecks, utilities, insurance and property taxes.', 'Use Texas money tools →'],
+  ['Texas Resources', '/texas-resources', 'Official services, practical references and task-focused help for everyday life in Texas.', 'Find Texas resources →'],
+] as const;
+
+const everydayLife = [
   ['Home & Garden', '/home-garden', 'Texas homes, yards, seasons and the practical projects that come with them.'],
-  ['Moving Here', '/moving-to-texas', 'Compare places, understand the costs and arrive with fewer surprises.'],
-  ['Homes & Land', '/real-estate', 'Home buying, ownership, mortgages, insurance, equity and land.'],
-  ['Guides', '/guides', 'Useful answers for the decisions and details that come with living in Texas.'],
-  ['Money & Property', '/decide/financial-tools', 'Calculators and explainers for housing, paychecks, utilities, insurance and property taxes.'],
+  ['Sports', '/sports', 'The teams, rivalries, school traditions and game-day culture woven into everyday life.'],
+  ['Texas History', '/texas-history', 'The people, places and turning points that still shape communities across the state.'],
+  ['Explore Texas', '/explore', 'Parks, lakes, small towns, road trips and destinations that help explain the state by experiencing it.'],
 ] as const;
 
 const cultureGuides = [
-  ['/texas-food-history', 'Texas Food History', 'The parent guide connecting barbecue, chili, chicken-fried steak, breakfast tacos, Ranch Water, puffy tacos, barbacoa, immigrant foodways and Texas-born brands to the communities that shaped them.'],
-  ['/texas-food-trail', 'Texas Food Trail', 'Barbecue, breakfast tacos, Czech bakeries, Gulf seafood and regional food traditions built into a statewide road-trip guide.'],
-  ['/texas-breakfast-taco-guide', 'Texas Breakfast Tacos', 'Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that shape an everyday Texas breakfast.'],
-  ['/texas-chili-con-carne-history', 'Texas Chili Con Carne', 'San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the difference between food history and folklore.'],
-  ['/texas-chicken-fried-steak-guide', 'Texas Chicken-Fried Steak', 'A disputed origin, regional breading styles, cream gravy and the texture that makes the classic Texas plate work.'],
-  ['/texas-ranch-water-guide', 'Texas Ranch Water', 'A simple tequila highball whose strong Texas identity is better documented than its exact first origin.'],
-  ['/san-antonio-puffy-taco-history', 'San Antonio Puffy Tacos', 'Fresh masa, hot oil and West Side food culture explain one of San Antonio’s most recognizable regional tacos.'],
-  ['/barbacoa-big-red-san-antonio', 'Barbacoa & Big Red', 'An older Sunday barbacoa tradition and a Waco-born soda became one of San Antonio’s strongest food-and-memory pairings.'],
-  ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes that show how Texas shifts from desert mountains and canyons to cypress swamp, springs and barrier islands.'],
+  ['/texas-food-history', 'Texas Food History', 'How migration, ranching, border culture and local communities shaped the foods now associated with Texas.'],
+  ['/texas-natural-wonders-bucket-list', 'Texas Natural Wonders', 'Twelve landscapes showing how Texas changes from desert mountains and canyons to springs, swamps and barrier islands.'],
   ['/texas-dance-halls-honky-tonks', 'Dance Halls & Honky-Tonks', 'Historic halls, Western swing, the two-step and the social spaces where Texas music is still experienced together.'],
   ['/german-czech-texas-towns', 'German & Czech Texas Towns', 'Food, churches, dance halls, festivals and historic communities across Central Texas and the Hill Country.'],
-  ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an enormous wearable tradition of school spirit and local identity.'],
-  ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, ranch imagery, bilingual influence and the context behind familiar Texas sayings.'],
-  ['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms', 'Texas weather language and storm-watching culture, separated from the meteorology and National Weather Service guidance that should control real safety decisions.'],
-  ['/texas-roadside-oddities', 'Texas Roadside Oddities', 'Giant art, neon, tiny towns and strange stops that can turn a highway drive into a real Texas road trip.'],
-  ['/texas-brand-origin-stories', 'Texas Brand Origin Stories', "H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—where they started and how Texas routines made them cultural shorthand."],
-  ['/dr-pepper-texas-history', 'Dr Pepper in Texas', 'How an 1885 Waco soda-fountain drink became a nationally recognized brand while its birthplace remained part of the identity.'],
+  ['/texas-homecoming-mums', 'Texas Homecoming Mums', 'How a simple chrysanthemum became an oversized tradition of school spirit and local identity.'],
+  ['/texas-slang-explained', 'Texas Slang Explained', 'Y’all, fixin’ to, bilingual influence and the context behind familiar Texas sayings.'],
 ] as const;
 
 const financeGuides = [
@@ -124,19 +116,61 @@ export const Route = createFileRoute('/texas-living')({
   },
   head: ({ loaderData }) => {
     const articles = [...(loaderData?.homeArticles ?? []), ...(loaderData?.movingArticles ?? [])];
-    const sectionItems = sections.map(([name, path, copy]) => ({ name, path, copy }));
+    const startItems = startHere.map(([name, path, copy]) => ({ name, path, copy }));
+    const everydayItems = everydayLife.map(([name, path, copy]) => ({ name, path, copy }));
     const cultureItems = cultureGuides.map(([path, name, copy]) => ({ name, path, copy }));
     const financeItems = financeGuides.map(([path, name, copy]) => ({ name, path, copy }));
-    const topicItems = [...sectionItems, ...cultureItems, ...financeItems].map(({ name, path, copy }, index) => ({ '@type': 'ListItem', position: index + 1, item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` } }));
-    const articleItems = articles.map((article, index) => ({ '@type': 'ListItem', position: topicItems.length + index + 1, item: { '@type': 'Article', name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}` } }));
+    const topicItems = [...startItems, ...everydayItems, ...cultureItems, ...financeItems].map(({ name, path, copy }, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: { '@type': 'WebPage', name, description: copy, url: `${siteUrl}${path}` },
+    }));
+    const articleItems = articles.map((article, index) => ({
+      '@type': 'ListItem',
+      position: topicItems.length + index + 1,
+      item: { '@type': 'Article', name: article.title, description: article.dek, url: `${siteUrl}/article/${article.slug}` },
+    }));
+
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-living', title: 'Texas Life', description }),
+      meta: buildMeta(texasDefinedBrand, {
+        canonicalPath: '/texas-living',
+        title: 'Living in Texas: Cost, Homes & Everyday Life',
+        description,
+      }),
       links: [canonicalLink(texasDefinedBrand, '/texas-living')],
-      scripts: [{ type: 'application/ld+json', children: JSON.stringify({ '@context': 'https://schema.org', '@graph': [
-        { '@type': 'CollectionPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Life', description, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#topics` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` } },
-        { '@type': 'ItemList', '@id': `${pageUrl}#topics`, name: 'Texas Life departments and guides', numberOfItems: topicItems.length + articleItems.length, itemListElement: [...topicItems, ...articleItems] },
-        { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` }, { '@type': 'ListItem', position: 2, name: 'Texas Life', item: pageUrl }] },
-      ] }) }],
+      scripts: [{
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'CollectionPage',
+              '@id': `${pageUrl}#page`,
+              url: pageUrl,
+              name: 'Living in Texas',
+              description,
+              isPartOf: { '@id': `${siteUrl}/#website` },
+              mainEntity: { '@id': `${pageUrl}#topics` },
+              breadcrumb: { '@id': `${pageUrl}#breadcrumbs` },
+            },
+            {
+              '@type': 'ItemList',
+              '@id': `${pageUrl}#topics`,
+              name: 'Living in Texas guides and resources',
+              numberOfItems: topicItems.length + articleItems.length,
+              itemListElement: [...topicItems, ...articleItems],
+            },
+            {
+              '@type': 'BreadcrumbList',
+              '@id': `${pageUrl}#breadcrumbs`,
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` },
+                { '@type': 'ListItem', position: 2, name: 'Texas Life', item: pageUrl },
+              ],
+            },
+          ],
+        }),
+      }],
     };
   },
   component: TexasLivingPage,
@@ -144,22 +178,84 @@ export const Route = createFileRoute('/texas-living')({
 
 function TexasLivingPage() {
   const { homeArticles, movingArticles } = Route.useLoaderData();
+
   return <>
-    <DepartmentHero current="Texas Life" eyebrow="Texas Life" title="Home, history and everyday life across Texas" description={description} />
+    <DepartmentHero
+      current="Texas Life"
+      eyebrow="Texas Life"
+      title="Living in Texas"
+      description="A practical starting point for the real decisions behind life in Texas: where to live, what housing costs, how utilities and property taxes affect a budget, what to know before moving, and the culture that makes different parts of the state feel distinct."
+    />
+
     <Container className="py-12 sm:py-16">
-      <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-        {sections.map(([title, to, copy], index) => <Link key={to} to={to} className="group border-t border-border pt-5">
-          <span className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, '0')}</span>
-          <h2 className="mt-3 font-display text-3xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-          <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Open section →</span>
-        </Link>)}
+      <div className="grid gap-10 lg:grid-cols-[1.25fr_.75fr] lg:gap-16">
+        <div>
+          <p className="eyebrow text-primary">The short version</p>
+          <h2 className="mt-3 font-display text-4xl leading-tight sm:text-5xl">What is living in Texas actually like?</h2>
+          <div className="mt-6 space-y-5 text-base leading-8 text-muted-foreground sm:text-lg">
+            <p>There is no single Texas lifestyle. Houston, Dallas–Fort Worth, Austin, San Antonio, the Gulf Coast, East Texas, West Texas, the Panhandle and the Rio Grande Valley differ in climate, housing, commute patterns, insurance exposure, jobs and day-to-day costs.</p>
+            <p>The practical side matters as much as the mythology. Housing prices can vary sharply by metro and neighborhood, property taxes are local, electricity and utility costs depend on the home and service area, and long driving distances shape many household budgets.</p>
+            <p>This hub organizes the subjects that matter most when deciding whether to move, buy, rent, budget or simply understand everyday life here.</p>
+          </div>
+        </div>
+        <aside className="border-t border-border pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <p className="eyebrow text-muted-foreground">Use the right TexasDefined page</p>
+          <div className="mt-5 space-y-5 text-sm leading-6 text-muted-foreground">
+            <p><Link to="/moving-to-texas" className="font-semibold text-foreground hover:text-primary">Moving to Texas</Link> is for relocation planning.</p>
+            <p><Link to="/texas-resources" className="font-semibold text-foreground hover:text-primary">Texas Resources</Link> is for official services and practical tasks.</p>
+            <p><Link to="/guides" className="font-semibold text-foreground hover:text-primary">Guides</Link> is the broader reference library.</p>
+            <p><Link to="/texas-explained" className="font-semibold text-foreground hover:text-primary">Texas Explained</Link> is for understanding why Texas systems, places and institutions work the way they do.</p>
+          </div>
+        </aside>
       </div>
     </Container>
 
     <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="Signature Texas guides" title="Go deeper on the traditions that make the state feel different" description="These evergreen TexasDefined guides turn the 250-item Things That Define Texas collection into practical cultural, historical and travel-focused reading." actionLabel="See all 250 Texas icons" actionTo="/things-unique-to-texas" />
+        <SectionHeader eyebrow="Start here" title="Choose the part of Texas life you are trying to figure out" description="Four clear paths replace a second site navigation menu and send you directly to the most useful next step." />
+        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+          {startHere.map(([title, to, copy, cta]) => <Link key={to} to={to} className="group bg-background p-6 sm:p-8">
+            <h2 className="font-display text-3xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+            <span className="eyebrow mt-5 inline-block text-primary">{cta}</span>
+          </Link>)}
+        </div>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Money & home" title="Start with the costs that change the household budget" description="Housing, utilities, closing costs and affordability are more useful near the top of this hub than buried beneath cultural reading." actionLabel="Open financial tools" actionTo="/decide/financial-tools" />
+        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
+          {financeGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
+            <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+            <span className="eyebrow mt-5 inline-block text-primary">Use this guide →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </Section>
+
+    {homeArticles.length > 0 && <Section tone="surface"><Container><SectionHeader eyebrow="Homes & ownership" title="What it costs to own a home in Texas" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of ownership." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 6).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
+
+    {movingArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Moving here" title="What to know before you unpack" description="Practical relocation guidance for commutes, schools, utilities, taxes, insurance and regional costs." actionLabel="See all moving guides" actionTo="/moving-to-texas" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{movingArticles.slice(0, 6).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
+
+    <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Everyday Texas" title="The parts of daily life that do not fit on a moving checklist" description="Home projects, sports, history and places to explore all matter once Texas is more than a destination on a moving truck." />
+        <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {everydayLife.map(([title, to, copy]) => <Link key={to} to={to} className="group border-t border-border pt-5">
+            <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
+            <span className="eyebrow mt-5 inline-block text-primary">Explore {title.toLowerCase()} →</span>
+          </Link>)}
+        </div>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Texas culture" title="A few traditions that help explain what makes the state feel different" description="A focused selection belongs here; the full culture library lives in Things That Define Texas." actionLabel="Explore Things That Define Texas" actionTo="/things-unique-to-texas" />
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {cultureGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
             <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
@@ -170,21 +266,17 @@ function TexasLivingPage() {
       </Container>
     </Section>
 
-    <Section>
+    <Section tone="surface">
       <Container>
-        <SectionHeader eyebrow="Money decisions" title="Start with the costs that change the household budget" description="Three focused guides connect everyday Texas housing decisions with the calculators used to test the numbers." actionLabel="Open financial tools" actionTo="/decide/financial-tools" />
-        <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
-          {financeGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
-            <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">{copy}</p>
-            <span className="eyebrow mt-5 inline-block text-primary">Read guide →</span>
-          </Link>)}
+        <SectionHeader eyebrow="Keep exploring" title="Go to the hub that matches what you need next" description="Texas Living is the orientation page. The deeper hubs below handle relocation, official resources, explanation and statewide discovery." />
+        <div className="mt-8 flex flex-wrap gap-x-6 gap-y-4 text-sm font-semibold">
+          <Link to="/moving-to-texas" className="border-b border-primary pb-1 text-primary">Moving to Texas →</Link>
+          <Link to="/texas-resources" className="border-b border-primary pb-1 text-primary">Texas Resources →</Link>
+          <Link to="/texas-explained" className="border-b border-primary pb-1 text-primary">Texas Explained →</Link>
+          <Link to="/guides" className="border-b border-primary pb-1 text-primary">All Guides →</Link>
+          <Link to="/explore" className="border-b border-primary pb-1 text-primary">Explore Texas →</Link>
         </div>
       </Container>
     </Section>
-
-    {homeArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Homes & ownership" title="What it costs to own a home in Texas" description="Mortgages, closing costs, insurance, equity, utilities and the true cost of owning a home in Texas." actionLabel="See all home guides" actionTo="/real-estate" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{homeArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
-
-    {movingArticles.length > 0 && <Section><Container><SectionHeader eyebrow="Moving here" title="What to know before you unpack" description="City-by-city help with commutes, schools, utilities, taxes, insurance and regional costs." actionLabel="See all moving guides" actionTo="/moving-to-texas" /><ul className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">{movingArticles.slice(0, 9).map((article) => <li key={article.id}><ArticleCard article={withTexasLivingPhoto(article)} size="compact" /></li>)}</ul></Container></Section>}
   </>;
 }
