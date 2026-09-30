@@ -201,6 +201,20 @@ if (!errors.length) {
   }
 
   for (const marker of [
+    "const willsPointProfilePath = '/texas-high-school-football-teams/wills-point'",
+    "await fetchVerified(willsPointProfilePath, 'Wills Point football school profile'",
+    "'Wills Point Tigers Football'",
+    "'4A Division II'",
+    "'786'",
+    "'/texas-high-school-football-districts/4a-division-ii-district-7'",
+    '"O\'Bryant Primary"',
+    "const bryanFinderApiPath = '/api/high-school-football?q=Bryan&limit=25'",
+    "await fetchVerified(bryanFinderApiPath, 'Bryan football matcher regression API'",
+    "bryan.uilEnrollment !== 2267",
+    "/o['’]?bryant\\s+primary/i",
+  ]) requireText(productionSmoke, marker, 'Wills Point and Bryan football production regression protection');
+
+  for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
     "'1A': 159",
     "'2A': 205",
@@ -248,6 +262,9 @@ if (!errors.length) {
 
   for (const marker of [
     "const UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL = 'https://www.uiltexas.org/football/all-time-appearances'",
+    "const UIL_FOOTBALL_ALL_TIME_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/all-time-appearances'",
+    'for (const sourceUrl of [UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL, UIL_FOOTBALL_ALL_TIME_FALLBACK_URL])',
+    'lastError',
     'ALL_TIME_CACHE_TTL_MS',
     'parseAllTimeRows',
     'rows.length < 300',
@@ -920,6 +937,10 @@ if (!errors.length) {
     'right.stateTitles - left.stateTitles',
     'https://www.uiltexas.org/football/all-time-appearances',
     'https://www.uiltexas.org/football/archives',
+    'Promise.allSettled',
+    "allTimeResult.status !== 'fulfilled'",
+    'historyAvailable: false',
+    'recentArchiveAvailable',
   ]) requireText(footballChampionshipServer, marker, 'Football championship history server');
 
   for (const marker of [
@@ -933,6 +954,7 @@ if (!errors.length) {
     'getFootballChampionshipHistoryPage',
     'Texas High School Football State Championships: All-Time UIL History',
     "'@type': 'CollectionPage'",
+    'loaderData.historyAvailable',
   ]) requireText(footballChampionshipRoute, marker, 'Football championship history route');
 
   for (const marker of [
@@ -944,6 +966,9 @@ if (!errors.length) {
     'UIL history is the controlling record',
     '/texas-high-school-football-teams',
     '/texas-high-school-football-districts',
+    'Official history source temporarily unavailable',
+    'We do not replace the official record with guessed or partial totals.',
+    'data.historyAvailable',
   ]) requireText(footballChampionshipPage, marker, 'Football championship history page');
 
   // The original supplied list remains available only as alias/private-school research metadata.
