@@ -79,6 +79,11 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
       description: "Ancient pink-granite domes on the Gillespie-Llano county line.",
     },
     {
+      href: "/destination/wildseed-farms-fredericksburg",
+      label: "Wildseed Farms",
+      description: "Connect Gillespie County agriculture to working wildflower fields, accessible trails, nursery retail and the eastern wine corridor.",
+    },
+    {
       href: "/browse/counties",
       label: "Browse Texas counties",
       description: "Explore all 254 county references and guides.",
@@ -99,6 +104,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     "lyndon-b-johnson-state-park-and-historic-site",
     "lyndon-b-johnson-national-historical-park",
     "enchanted-rock-state-natural-area",
+    "wildseed-farms-fredericksburg",
   ],
   body: [
     p("Gillespie County sits where several versions of the Texas Hill Country overlap. Fredericksburg gives the county its best-known face: limestone buildings, German names, a broad Main Street and a tourism economy built around history, food, shops and wine. But the county stretches far beyond town. Stonewall follows the Pedernales River through peach orchards, ranches and the country that shaped Lyndon B. Johnson. Doss and Harper hold onto the scale of rural western Gillespie County. To the northeast, granite begins to interrupt the limestone landscape on the approach to Enchanted Rock. Taken together, these places make Gillespie County less a single destination than a compact map of Hill Country history."),

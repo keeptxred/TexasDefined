@@ -54,6 +54,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
       { href: "/destination/garrison-brothers-distillery-hye", label: "Garrison Brothers Distillery in Hye", description: "Add a working Texas bourbon distillery to the eastern U.S. 290 corridor between Fredericksburg, Stonewall and Johnson City." },
       { href: "/destination/texas-hills-vineyard", label: "Texas Hills Vineyard", description: "Open the source-backed Johnson City vineyard profile for current planning, history, lodging and nearby stops." },
       { href: "/destination/mendelbaum-cellars", label: "Mendelbaum Cellars", description: "Open the source-backed Highway 290 profile for its Texas-and-Israel wine concept, cabins and corridor planning." },
+      { href: "/destination/wildseed-farms-fredericksburg", label: "Wildseed Farms", description: "Use the full farm guide for wildflower trails, gardens, nursery shopping, food, wine and an eastern-corridor itinerary." },
       { href: "/explore/trip-planner?destination=fredericksburg", label: "Build a Fredericksburg trip", description: "Use the TexasDefined trip planner to combine town, wine, outdoors and nearby destinations." },
     ],
     relatedCollections: [],
@@ -70,6 +71,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
       "garrison-brothers-distillery-hye",
       "texas-hills-vineyard",
       "mendelbaum-cellars",
+      "wildseed-farms-fredericksburg",
       "hye",
     ],
     body: [
