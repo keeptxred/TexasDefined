@@ -47,6 +47,7 @@ for (const feature of [
   'What is living in Texas actually like?',
   'Use the right TexasDefined page',
   'Four clear paths replace a second site navigation menu',
+  'eyebrow="Money decisions"',
   'the full culture library lives in Things That Define Texas',
 ]) {
   if (!route.includes(feature)) errors.push(`Texas Living SEO, structure or naming feature missing: ${feature}.`);
@@ -79,4 +80,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Living now targets practical living intent, preserves CollectionPage/ItemList/breadcrumb schema, prioritizes moving/home/money/resources, limits culture to a focused selection, and keeps deeper hubs distinct.');
+console.log('Texas Living now targets practical living intent, preserves CollectionPage/ItemList/breadcrumb schema and the Money decisions discovery contract, prioritizes moving/home/money/resources, limits culture to a focused selection, and keeps deeper hubs distinct.');
