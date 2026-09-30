@@ -36,10 +36,15 @@ function stabilizeChappellHillWildflowerMap<T extends { slug: string; html: stri
   return { ...page, html };
 }
 
+function hasMultipleConfirmedOccurrenceWindows(occurrence: EventOccurrenceDateShape | null) {
+  return Boolean(occurrence?.occurrenceWindows && occurrence.occurrenceWindows.length > 1);
+}
+
 // These authority guides remain useful evergreen trip-planning pages even when a
-// future occurrence is recurrence-derived or the last confirmed occurrence has
-// already ended. In either case, withhold scheduled Event rich-result markup until
-// a first-party source confirms a current or future occurrence.
+// future occurrence is recurrence-derived, the last confirmed occurrence has ended,
+// or one guide represents several separately scheduled occurrence windows. In those
+// cases, withhold Event rich-result markup until TexasDefined has a unique leaf URL for
+// each qualifying occurrence, as required by Google's single-event leaf-page guidance.
 function applyEventSchemaConfidencePolicy<T extends {
   slug: string;
   name: string;
@@ -48,7 +53,8 @@ function applyEventSchemaConfidencePolicy<T extends {
   jsonLd: string;
 }>(page: T, occurrence: EventOccurrenceDateShape | null): T {
   const shouldWithholdScheduledEventSchema = isRecurrenceDerivedMajorEventSlug(page.slug)
-    || Boolean(occurrence && hasExpiredConfirmedEventOccurrence(occurrence));
+    || Boolean(occurrence && hasExpiredConfirmedEventOccurrence(occurrence))
+    || hasMultipleConfirmedOccurrenceWindows(occurrence);
   if (!shouldWithholdScheduledEventSchema) return page;
 
   const canonicalUrl = `https://texasdefined.com/event/${page.slug}`;
@@ -79,7 +85,7 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
     const page = loadMajorEventPageServer(data.slug);
     const occurrence = page ? getMajorEventRecordServer(data.slug) : null;
     // Legacy validator continuity: page ? applyEventSchemaConfidencePolicy(page) : page
-    // The live call is occurrence-aware so expired confirmed dates can also suppress stale Event schema.
+    // The live call is occurrence-aware so expired confirmed dates and multi-window guides can suppress ineligible Event schema.
     const governedPage = page ? applyEventSchemaConfidencePolicy(page, occurrence) : page;
     if (!governedPage) return governedPage;
     const renderedPage = stabilizeChappellHillWildflowerMap(governedPage);
