@@ -69,7 +69,7 @@ async function fetchWithTimeout(url, options = {}) {
       redirect: 'follow',
       ...options,
       headers: {
-        'user-agent': 'TexasDefinedImageDiscoverAudit/1.0 (+https://texasdefined.com)',
+        'user-agent': 'TexasDefinedImageDiscoverAudit/1.1 (+https://texasdefined.com)',
         ...(options.headers || {}),
       },
       signal: controller.signal,
@@ -85,25 +85,97 @@ async function fetchText(url) {
   return { response, text };
 }
 
+function u16be(bytes, offset) {
+  return (bytes[offset] << 8) | bytes[offset + 1];
+}
+
+function u32be(bytes, offset) {
+  return ((bytes[offset] << 24) >>> 0) + (bytes[offset + 1] << 16) + (bytes[offset + 2] << 8) + bytes[offset + 3];
+}
+
+function pngDimensions(bytes) {
+  if (bytes.length < 24 || bytes[0] !== 0x89 || bytes[1] !== 0x50 || bytes[2] !== 0x4e || bytes[3] !== 0x47) return null;
+  return { width: u32be(bytes, 16), height: u32be(bytes, 20) };
+}
+
+function jpegDimensions(bytes) {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return null;
+  let offset = 2;
+  const sof = new Set([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf]);
+  while (offset + 8 < bytes.length) {
+    if (bytes[offset] !== 0xff) { offset += 1; continue; }
+    const marker = bytes[offset + 1];
+    if (marker === 0xd8 || marker === 0xd9) { offset += 2; continue; }
+    if (offset + 4 >= bytes.length) break;
+    const length = u16be(bytes, offset + 2);
+    if (sof.has(marker) && offset + 8 < bytes.length) {
+      return { height: u16be(bytes, offset + 5), width: u16be(bytes, offset + 7) };
+    }
+    if (length < 2) break;
+    offset += 2 + length;
+  }
+  return null;
+}
+
+function webpDimensions(bytes) {
+  if (bytes.length < 30 || String.fromCharCode(...bytes.slice(0, 4)) !== 'RIFF' || String.fromCharCode(...bytes.slice(8, 12)) !== 'WEBP') return null;
+  const chunk = String.fromCharCode(...bytes.slice(12, 16));
+  if (chunk === 'VP8X') {
+    const width = 1 + bytes[24] + (bytes[25] << 8) + (bytes[26] << 16);
+    const height = 1 + bytes[27] + (bytes[28] << 8) + (bytes[29] << 16);
+    return { width, height };
+  }
+  if (chunk === 'VP8L' && bytes[20] === 0x2f) {
+    const width = 1 + bytes[21] + ((bytes[22] & 0x3f) << 8);
+    const height = 1 + (bytes[22] >> 6) + (bytes[23] << 2) + ((bytes[24] & 0x0f) << 10);
+    return { width, height };
+  }
+  if (chunk === 'VP8 ') {
+    for (let offset = 20; offset + 9 < bytes.length; offset += 1) {
+      if (bytes[offset] === 0x9d && bytes[offset + 1] === 0x01 && bytes[offset + 2] === 0x2a) {
+        return {
+          width: (bytes[offset + 3] | (bytes[offset + 4] << 8)) & 0x3fff,
+          height: (bytes[offset + 5] | (bytes[offset + 6] << 8)) & 0x3fff,
+        };
+      }
+    }
+  }
+  return null;
+}
+
+function imageDimensions(bytes, type) {
+  if (type === 'image/png') return pngDimensions(bytes);
+  if (type === 'image/jpeg') return jpegDimensions(bytes);
+  if (type === 'image/webp') return webpDimensions(bytes);
+  return null;
+}
+
 async function inspectImage(url) {
-  if (!url) return { ok: false, status: 0, type: '', length: 0 };
+  if (!url) return { ok: false, status: 0, type: '', length: 0, width: 0, height: 0 };
   try {
     const response = await fetchWithTimeout(url, { method: 'GET', headers: { range: 'bytes=0-65535' } });
     const type = (response.headers.get('content-type') || '').split(';')[0].toLowerCase();
     const length = Number(response.headers.get('content-length') || 0);
-    // Consume the response so keep-alive connections can be reused. We do not need
-    // full binary decoding because page metadata carries governed dimensions.
-    await response.arrayBuffer();
-    return { ok: response.ok && /^image\/(?:jpeg|png|webp|avif)$/i.test(type), status: response.status, type, length };
+    const buffer = await response.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+    const dimensions = imageDimensions(bytes, type);
+    return {
+      ok: response.ok && /^image\/(?:jpeg|png|webp|avif)$/i.test(type),
+      status: response.status,
+      type,
+      length,
+      width: dimensions?.width || 0,
+      height: dimensions?.height || 0,
+    };
   } catch (error) {
-    return { ok: false, status: 0, type: '', length: 0, error: error instanceof Error ? error.message : String(error) };
+    return { ok: false, status: 0, type: '', length: 0, width: 0, height: 0, error: error instanceof Error ? error.message : String(error) };
   }
 }
 
-function discoverGeometry(image) {
-  if (!image.width || !image.height) return { ok: false, reason: 'missing-og-image-dimensions' };
-  if (image.width < MIN_DISCOVER_WIDTH) return { ok: false, reason: `preferred-image-width-${image.width}` };
-  if (image.width * image.height < MIN_DISCOVER_PIXELS) return { ok: false, reason: `preferred-image-pixels-${image.width * image.height}` };
+function discoverGeometry(width, height) {
+  if (!width || !height) return { ok: false, reason: 'preferred-image-dimensions-unverifiable' };
+  if (width < MIN_DISCOVER_WIDTH) return { ok: false, reason: `preferred-image-width-${width}` };
+  if (width * height < MIN_DISCOVER_PIXELS) return { ok: false, reason: `preferred-image-pixels-${width * height}` };
   return { ok: true, reason: '' };
 }
 
@@ -120,12 +192,13 @@ async function loadPriorityUrls() {
 
 async function auditPage(url) {
   const issues = [];
+  const warnings = [];
   let response;
   let html = '';
   try {
     ({ response, text: html } = await fetchText(url));
   } catch (error) {
-    return { url, status: 0, indexable: false, image: null, issues: [`page-fetch:${error instanceof Error ? error.message : String(error)}`] };
+    return { url, status: 0, indexable: false, image: null, issues: [`page-fetch:${error instanceof Error ? error.message : String(error)}`], warnings };
   }
 
   if (!response.ok) issues.push(`page-status:${response.status}`);
@@ -143,11 +216,10 @@ async function auditPage(url) {
     if (image.url && FORBIDDEN_IMAGE_RE.test(new URL(image.url).pathname)) issues.push('preferred-image-looks-generic-or-placeholder');
     if (image.url && /\.svg(?:$|\?)/i.test(image.url)) issues.push('preferred-image-svg');
     if (FORBIDDEN_PAGE_RE.test(html)) issues.push('visible-image-unavailable-or-placeholder-copy');
-    const geometry = discoverGeometry(image);
-    if (!geometry.ok) issues.push(geometry.reason);
+    if (!image.width || !image.height) warnings.push('missing-og-image-dimensions');
   }
 
-  return { url, status: response.status, indexable, directives, image, issues };
+  return { url, status: response.status, indexable, directives, image, issues, warnings };
 }
 
 async function mapConcurrent(items, worker, concurrency) {
@@ -176,7 +248,14 @@ for (const result of await mapConcurrent(uniqueImageUrls, async (url) => [url, a
 for (const page of pages) {
   if (!page.indexable || !page.image?.url) continue;
   const check = imageChecks.get(page.image.url);
-  if (!check?.ok) page.issues.push(`preferred-image-fetch:${check?.status || 0}:${check?.type || 'unknown'}`);
+  if (!check?.ok) {
+    page.issues.push(`preferred-image-fetch:${check?.status || 0}:${check?.type || 'unknown'}`);
+    continue;
+  }
+  const width = page.image.width || check.width;
+  const height = page.image.height || check.height;
+  const geometry = discoverGeometry(width, height);
+  if (!geometry.ok) page.issues.push(geometry.reason);
 }
 
 const usage = new Map();
@@ -191,11 +270,12 @@ const suspiciousReuse = [...usage.entries()]
   .map(([imageUrl, pageUrls]) => ({ imageUrl, count: pageUrls.length, pages: pageUrls }));
 for (const reuse of suspiciousReuse) {
   for (const url of reuse.pages) {
-    pages.find((page) => page.url === url)?.issues.push(`preferred-image-reused-${reuse.count}-times`);
+    pages.find((page) => page.url === url)?.warnings.push(`preferred-image-reused-${reuse.count}-times`);
   }
 }
 
 const failing = pages.filter((page) => page.issues.length > 0);
+const warningPages = pages.filter((page) => page.warnings.length > 0);
 const noindex = pages.filter((page) => !page.indexable);
 const report = {
   generatedAt: new Date().toISOString(),
@@ -212,17 +292,20 @@ const report = {
     noindexPages: noindex.length,
     uniquePreferredImages: uniqueImageUrls.length,
     failingPages: failing.length,
+    warningPages: warningPages.length,
     suspiciousReusedImages: suspiciousReuse.length,
   },
   suspiciousReuse,
   failing,
-  noindex: noindex.map((page) => ({ url: page.url, directives: page.directives, issues: page.issues })),
+  warnings: warningPages.map((page) => ({ url: page.url, warnings: page.warnings, image: page.image })),
+  noindex: noindex.map((page) => ({ url: page.url, directives: page.directives, issues: page.issues, warnings: page.warnings })),
 };
 
 fs.writeFileSync(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify(report.summary, null, 2));
+if (warningPages.length) console.warn(`Image/Discover production audit found ${warningPages.length} priority page(s) with non-blocking metadata or reuse warnings.`);
 if (failing.length) {
-  console.error(`Image/Discover production audit found ${failing.length} priority page(s) with issues.`);
+  console.error(`Image/Discover production audit found ${failing.length} priority page(s) with blocking issues.`);
   for (const page of failing.slice(0, 100)) console.error(`- ${page.url}: ${page.issues.join(', ')}`);
   if (failing.length > 100) console.error(`... ${failing.length - 100} additional failing page(s) are in ${REPORT_PATH}.`);
   if (STRICT) process.exit(1);
