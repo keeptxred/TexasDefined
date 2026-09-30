@@ -102,7 +102,7 @@ if (sportsQuickAnswers.includes('TexasExplainedContextLinks')) failures.push('Sp
 for (const marker of [
   '<EntityDepthSections entity={entity} related={visibleRelated} />',
   '{notesHeading(entity)}',
-  'return `What defines ${entity.name}`',
+  'return `${entity.name} highlights`',
 ]) if (!entityRoute.includes(marker)) failures.push(`Generic entity layout contract is missing ${marker}.`);
 for (const marker of [
   'const relatedItems = related.slice(0, 6)',
