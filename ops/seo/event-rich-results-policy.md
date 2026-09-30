@@ -8,7 +8,7 @@ This policy governs public TexasDefined event URLs, Event JSON-LD, event collect
 
 - Genuine individual event authority pages own Event JSON-LD. The canonical pattern is `/event/:slug`, except for deliberate permanent individual-event authority pages such as `/texas-state-fair`.
 - Collection, region, weekend, month, category, filter, search, and discovery pages must not emit Event rich-result entities merely because they list events. They use CollectionPage/ItemList/WebPage markup and link to individual event pages.
-- One public URL must represent one stable event identity. Multi-venue events at the same time require distinct occurrences when the locations are genuinely separate; filtered result sets are never disguised as individual events.
+- One public URL must represent one stable event identity. Multi-venue or separately scheduled occurrences require their own unique leaf URLs before they are eligible for Event rich-result markup; filtered result sets are never disguised as individual events.
 
 ## Required Event contract
 
@@ -20,7 +20,7 @@ Optional structured-data properties fail closed. Invalid organizer/performer ent
 
 ## Recurring and multi-window events
 
-A stable annual guide may remain one permanent editorial URL, but each genuinely scheduled occurrence window emitted in JSON-LD is a separate Event object with its own startDate/endDate. Recurrence-derived planning windows are not eligible for scheduled Event markup until a first-party source confirms the actual occurrence.
+A stable annual guide may remain one permanent editorial URL. When that guide represents more than one separately scheduled occurrence window, the guide stays indexable as evergreen WebPage/Thing content but does not emit multiple Event entities from the same canonical URL. Event rich-result markup resumes only when each qualifying occurrence has a unique leaf URL, or when the page represents one genuine continuous event. Recurrence-derived planning windows are not eligible for scheduled Event markup until a first-party source confirms the actual occurrence.
 
 ## Lifecycle handling
 
@@ -59,4 +59,4 @@ Ticket offers are emitted only when a reviewed source supports a current public 
 
 ## Production verification
 
-CI protects the source contract and production smoke tests verify rendered JSON-LD, canonical tags, indexing behavior, collection-page separation, lifecycle suppression, and representative event pages. Production verification should include at least one normal scheduled event, one recurring/multi-window event, one recurrence-derived guide whose Event markup is intentionally withheld, and the State Fair permanent event page.
+CI protects the source contract and production smoke tests verify rendered JSON-LD, canonical tags, indexing behavior, collection-page separation, lifecycle suppression, and representative event pages. Production verification includes a normal scheduled event, a recurring/multi-window guide whose Event markup is intentionally withheld until unique occurrence URLs exist, recurrence-derived guides, expired confirmed occurrences, and the State Fair permanent event page.
