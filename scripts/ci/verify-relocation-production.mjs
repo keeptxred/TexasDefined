@@ -28,6 +28,10 @@ const routes = [
   ['/article/texas-property-taxes-for-new-residents', 'Texas Property Taxes for New Residents'],
   ['/article/corporate-relocation-to-texas', 'Corporate Relocation to Texas'],
   ['/article/employee-relocation-guide-to-texas', 'Employee Relocation Guide to Texas'],
+  ['/article/moving-to-texas-renter-guide', 'Moving to Texas as a Renter'],
+  ['/article/how-to-verify-texas-moving-company', 'How to Verify a Texas Moving Company'],
+  ['/article/health-insurance-when-moving-to-texas', 'Health Insurance When Moving to Texas'],
+  ['/article/military-family-moving-to-texas', 'Military Family Moving to Texas'],
 ];
 const toolkitLinks = routes
   .map(([path]) => path)
@@ -124,6 +128,10 @@ const relocationHubNeedles = [
   'Best Houston Suburbs for Commuters',
   'Best Dallas Suburbs for Commuters',
   'Texas Property Taxes for New Residents',
+  'Moving to Texas as a Renter',
+  'How to Verify a Texas Moving Company',
+  'Health Insurance When Moving to Texas',
+  'Military Family Moving to Texas',
   'Build an address-level research packet',
   'The submitted address is used for the Census lookup and is not saved unless you explicitly add a matched address to My Texas Move.',
 ];
