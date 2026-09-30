@@ -155,6 +155,13 @@ export const supplementalMajorEventSlugs = [
   "eagle-fest-the-woodlands",
   "bill-pickett-rodeo-fort-worth",
   "hollydays-market-corpus-christi",
+  "austoberfest",
+  "boo-at-the-austin-zoo",
+  "ta-se-dhin-tak-tabla-festival",
+  "san-antonio-black-international-film-festival",
+  "historic-market-square-car-show",
+  "tejanos-at-the-alamo",
+  "san-antonio-monarch-butterfly-pollinator-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
