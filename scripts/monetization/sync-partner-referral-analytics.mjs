@@ -1,3 +1,4 @@
+import { detectAffiliateImpressionAnomalies } from './partner-referral-impression-anomaly.mjs';
 import { createHash } from 'node:crypto';
 
 const DATASET = 'texas_defined_outcomes';
@@ -255,6 +256,11 @@ const apiToken = required('CLOUDFLARE_API_TOKEN');
 const rawRows = await queryCloudflare(accountId, apiToken);
 if (rawRows.length >= MAX_ROWS) throw new Error(`Cloudflare result hit the ${MAX_ROWS}-row safety cap; refine the aggregation before syncing.`);
 const rows = normalizeRows(rawRows);
+const anomalies = detectAffiliateImpressionAnomalies(rows);
+for (const anomaly of anomalies) {
+  const partnerSummary = anomaly.partners.map((row) => `${row.partner}=${row.impressions}`).join(', ');
+  console.warn(`::warning title=Affiliate measurement anomaly::${anomaly.metricDate} ${anomaly.pagePath} recorded ${anomaly.totalImpressions} CTA impressions and 0 clicks across ${anomaly.partners.length} high-volume partners (${partnerSummary}). Review automation/referrer conditions before using this exposure for routing decisions.`);
+}
 await upsertRows(supabaseUrl, serviceRoleKey, rows);
 const heartbeat = heartbeatRow();
 await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat]);
@@ -263,4 +269,4 @@ const retentionCutoff = await pruneOldRows(supabaseUrl, serviceRoleKey);
 const searchStarts = rows.filter((row) => row.partner === 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
 const clicks = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.click_count, 0);
 const impressions = rows.filter((row) => row.partner !== 'expedia-search').reduce((sum, row) => sum + row.impression_count, 0);
-console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);
+console.log(`Partner referral analytics sync complete: ${rows.length} aggregates covering ${clicks} non-CI referral clicks, ${impressions} non-CI CTA impressions and ${searchStarts} Expedia search starts across the last ${WINDOW_DAYS} days; ${anomalies.length} non-blocking measurement anomaly warning(s); successful pipeline heartbeat ${heartbeat.synced_at}; retained metric dates >= ${retentionCutoff} (${RETENTION_DAYS}-day retention).`);
