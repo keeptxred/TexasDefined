@@ -37,7 +37,7 @@ export const texasDefinedBrand: BrandConfig = {
     ],
   },
   seo: {
-    titleTemplate: "%s | Texas Defined",
+    titleTemplate: "%s",
     defaultTitle: "Texas Defined — The Places, Stories and Life of Texas",
     defaultDescription: "An editorial guide to the places, food, traditions, homes and everyday experiences that make Texas feel like Texas.",
     twitterSite: "@texasdefined",
