@@ -174,11 +174,12 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
 
   if (entity.kind === 'county') {
     const editorialComplete = entity.tags?.includes('county-series-complete') ?? false;
+    const countyRelationshipsComplete = entity.relationships.length >= 2;
     return description.length >= 180
       && entity.sourceConfidence === 'official'
       && entity.status === 'active'
-      && Boolean(entity.coordinates)
-      && (editorialComplete || entity.relationships.length >= 2);
+      && editorialComplete
+      && countyRelationshipsComplete;
   }
 
   if (description.length < 180) return false;
