@@ -9,7 +9,7 @@ The public hub now combines:
 - **Plan My Texas Move** — a browser-local household profile for origin, destination, timing, housing budget, household size, schools, vehicles, work corridor, industry and corporate-relocation context.
 - **Texas Match Explorer** — transparent place filtering over the governed Texas relocation place registry. It is a research shortlist, not a subjective best-city score.
 - **My Texas Move** — a browser-local shortlist, researched-address queue and notes workspace. No account or server-side storage is required for the first version.
-- **Move timeline** — before-you-commit, 30–60-day, first-30-day and first-90-day research/task sequencing.
+- **Date-aware move timeline** — the saved move date selects the current planning window across 12+ weeks before, 8–12 weeks before, 30–60 days, 1–4 weeks, move week, first 30 days, first 90 days and 90+ days after arrival. Without a saved date, all phases remain visible as a general planning sequence.
 - **Persistent moving checklist** — the governed 16-task `/moving-to-texas-checklist` stores checkmarks in the same browser-local My Texas Move workspace and reports completion back on the relocation hub.
 - **Corporate Relocation to Texas** — parallel employee/family and employer/HR/site-selection paths, backed by Texas Economic Development, Texas Workforce Commission and IRS source links.
 - **Exact-address research** — Census geography as a starting point, followed by official source-of-record verification for school districts, utilities, property-tax responsibility, flood context and related local questions. Saved addresses can be reopened from My Texas Move through an in-page browser event and reused in the school, utilities, voter, homestead, property-tax and emergency-service finders. Finder reuse remains browser-local: users can derive local context or copy the saved address for the official source, but exact addresses must never be placed in a relocation URL or query string.
@@ -71,6 +71,7 @@ Corporate relocation must also be discoverable from the Texas Industries hub, in
 - Exact jurisdiction or eligibility questions must resolve through the responsible official agency.
 - Exact street addresses saved from the research desk must stay in browser-local storage. Never serialize a saved address into a URL/query parameter, analytics label or server-side relocation profile.
 - The address research desk may write to My Texas Move only after the visitor explicitly chooses **Save this address to My Texas Move**; a lookup by itself remains ephemeral.
+- The timeline is planning guidance, not an agency deadline engine. Its phase highlighting may use the browser-local planned move date, but statutory or agency deadlines must still come from the responsible official source.
 - Moving-checklist completion must use stable task IDs rather than array positions. The governed checklist currently contains exactly 16 tasks; editorial reordering must not change existing IDs or silently reassign saved completion state.
 - Checklist progress is browser-local and is part of the same My Texas Move record as saved places, addresses and notes.
 - Keep the command center lazy-loaded from the main relocation hub so the broader route stays within the protected client bundle budget.

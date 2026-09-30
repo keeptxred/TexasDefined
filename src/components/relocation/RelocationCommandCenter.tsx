@@ -61,32 +61,86 @@ const WORKFLOW = [
 ] as const;
 
 const TIMELINE = [
-  ["Before you commit", [
-    ["Choose a Texas region and job market", "/compare-texas-cities"],
-    ["Build a realistic household budget", "/texas-cost-of-living-calculator"],
-    ["Model the one-time move", "/texas-moving-cost-calculator"],
-    ["Research schools if they affect the move", "/find-my-school-district"],
-    ["Test representative addresses", "#address-research-desk"],
-  ]],
-  ["30–60 days before", [
-    ["Confirm the lease or purchase address", "/property"],
-    ["Verify utilities for the exact service address", "/find-my-utilities"],
-    ["Build paperwork packets", "/moving-to-texas/tools"],
-    ["Review vehicle registration", "/texas-vehicle-registration"],
-    ["Review the driver-license process", "/texas-drivers-license"],
-  ]],
-  ["First 30 days", [
-    ["Complete vehicle registration steps that apply", "/texas-vehicle-registration"],
-    ["Save county and emergency-service contacts", "/find-my-emergency-services"],
-    ["Verify voter-registration options and deadlines", "/find-my-voter-registration"],
-    ["Replace estimates with actual Texas bills", "/texas-budget-planner"],
-  ]],
-  ["First 90 days", [
-    ["Finish driver-license tasks that apply", "/texas-drivers-license"],
-    ["Recheck homestead filing paths if you bought", "/find-my-homestead-exemption"],
-    ["Re-run cost of living with actual spending", "/texas-cost-of-living-calculator"],
-    ["Keep the saved research notebook current", "#my-texas-move"],
-  ]],
+  {
+    id: "twelve-plus-weeks",
+    label: "12+ weeks before",
+    tasks: [
+      ["Choose a Texas region and repeated work corridor", "/compare-texas-cities"],
+      ["Build a realistic recurring household budget", "/texas-cost-of-living-calculator"],
+      ["Compare Texas with your current state", "/texas-vs-every-state"],
+      ["Research schools early if they shape the move", "/find-my-school-district"],
+    ],
+  },
+  {
+    id: "eight-to-twelve-weeks",
+    label: "8–12 weeks before",
+    tasks: [
+      ["Build a Texas city and suburb shortlist", "/compare-texas-cities"],
+      ["Model the one-time move budget", "/texas-moving-cost-calculator"],
+      ["Test representative addresses before committing", "#address-research-desk"],
+      ["Compare salary needs in the Texas markets you kept", "/texas-salary-comparison-by-city"],
+    ],
+  },
+  {
+    id: "thirty-to-sixty-days",
+    label: "30–60 days before",
+    tasks: [
+      ["Confirm the lease or purchase address", "/property"],
+      ["Verify utilities for the exact service address", "/find-my-utilities"],
+      ["Verify the school district and campus if applicable", "/find-my-school-district"],
+      ["Build vehicle, license and school paperwork packets", "/moving-to-texas/tools"],
+    ],
+  },
+  {
+    id: "one-to-four-weeks",
+    label: "1–4 weeks before",
+    tasks: [
+      ["Finalize moving and travel costs", "/texas-moving-cost-calculator"],
+      ["Review the governed arrival checklist", "/moving-to-texas-checklist"],
+      ["Review Texas vehicle-registration steps", "/texas-vehicle-registration"],
+      ["Save local emergency and community-service contacts", "/find-my-emergency-services"],
+    ],
+  },
+  {
+    id: "move-week",
+    label: "Move week",
+    tasks: [
+      ["Confirm utilities and service start details", "/find-my-utilities"],
+      ["Keep address, lease or closing records together", "/moving-to-texas-checklist"],
+      ["Verify the repeated commute from the actual address", "#address-research-desk"],
+      ["Keep My Texas Move notes and address research current", "#my-texas-move"],
+    ],
+  },
+  {
+    id: "first-thirty-days",
+    label: "First 30 days",
+    tasks: [
+      ["Complete vehicle-registration steps that apply", "/texas-vehicle-registration"],
+      ["Verify voter-registration options and deadlines", "/find-my-voter-registration"],
+      ["Replace planning estimates with actual Texas bills", "/texas-budget-planner"],
+      ["Continue the governed new-resident checklist", "/moving-to-texas-checklist"],
+    ],
+  },
+  {
+    id: "first-ninety-days",
+    label: "First 90 days",
+    tasks: [
+      ["Finish driver-license tasks that apply", "/texas-drivers-license"],
+      ["Recheck homestead filing paths if you bought a home", "/find-my-homestead-exemption"],
+      ["Re-run cost of living with actual spending", "/texas-cost-of-living-calculator"],
+      ["Revisit saved places and address research before long-term decisions", "#my-texas-move"],
+    ],
+  },
+  {
+    id: "settled-in-review",
+    label: "90+ days after arrival",
+    tasks: [
+      ["Keep actual household costs updated", "/texas-budget-planner"],
+      ["Retain property, insurance, utility and vehicle records", "/moving-to-texas-checklist"],
+      ["Reverify property-tax and homestead records when relevant", "/find-my-property-tax"],
+      ["Use My Texas Move as the ongoing local-research notebook", "#my-texas-move"],
+    ],
+  },
 ] as const;
 
 const EMPLOYEE_STEPS = [
@@ -127,6 +181,31 @@ function placeScore(place: RelocationPlace, profile: Profile) {
 
 function money(value: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value || 0);
+}
+
+function getMoveTiming(moveDate: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(moveDate)) return null;
+  const [year, month, day] = moveDate.split("-").map(Number);
+  const target = Date.UTC(year, month - 1, day);
+  if (!Number.isFinite(target)) return null;
+
+  const now = new Date();
+  const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+  const daysUntilMove = Math.round((target - today) / 86_400_000);
+
+  if (daysUntilMove > 84) return { phaseId: "twelve-plus-weeks", daysUntilMove, title: `${daysUntilMove} days until your planned move`, copy: "You are in long-range planning. Narrow the Texas region, recurring budget, job corridor and school constraints before you commit to an address." };
+  if (daysUntilMove > 56) return { phaseId: "eight-to-twelve-weeks", daysUntilMove, title: `${daysUntilMove} days until your planned move`, copy: "Turn broad Texas research into a city shortlist, one-time move budget and representative-address tests." };
+  if (daysUntilMove > 30) return { phaseId: "thirty-to-sixty-days", daysUntilMove, title: `${daysUntilMove} days until your planned move`, copy: "This is the address-verification window: housing, utilities, schools and paperwork should move from assumptions to exact local details." };
+  if (daysUntilMove > 7) return { phaseId: "one-to-four-weeks", daysUntilMove, title: `${daysUntilMove} days until your planned move`, copy: "Shift from research to execution: finalize moving logistics, arrival records, registration prep and local contacts." };
+  if (daysUntilMove >= 0) return { phaseId: "move-week", daysUntilMove, title: daysUntilMove === 0 ? "Your planned move date is today" : `${daysUntilMove} days until your planned move`, copy: "Keep the exact address, utility start, records and repeated commute in one place while the move is happening." };
+  if (daysUntilMove >= -30) return { phaseId: "first-thirty-days", daysUntilMove, title: `${Math.abs(daysUntilMove)} days since your planned move date`, copy: "Replace estimates with actual Texas bills and complete the first round of new-resident tasks that apply to your household." };
+  if (daysUntilMove >= -90) return { phaseId: "first-ninety-days", daysUntilMove, title: `${Math.abs(daysUntilMove)} days since your planned move date`, copy: "Use the first 90 days to finish applicable licensing, homestead and budget follow-up, then keep the address-level records you will need later." };
+  return { phaseId: "settled-in-review", daysUntilMove, title: `${Math.abs(daysUntilMove)} days since your planned move date`, copy: "The initial move window has passed. Keep actual costs and local records current, and reverify address-dependent services when circumstances change." };
+}
+
+function formatMoveDate(moveDate: string) {
+  const [year, month, day] = moveDate.split("-").map(Number);
+  return new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(year, month - 1, day)));
 }
 
 export function RelocationCommandCenter() {
@@ -223,6 +302,8 @@ export function RelocationCommandCenter() {
     const normalized = profile.origin.trim().toLowerCase();
     return TEXAS_VS_STATES.find((state) => state.toLowerCase() === normalized) ?? null;
   }, [profile.origin]);
+
+  const moveTiming = useMemo(() => getMoveTiming(profile.moveDate), [profile.moveDate]);
 
   const togglePlace = (name: string) => setProfile((current) => ({
     ...current,
@@ -380,8 +461,35 @@ export function RelocationCommandCenter() {
     <section className="border-y border-border bg-surface py-12 sm:py-16" aria-labelledby="relocation-timeline">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[18rem_1fr]">
-          <div><p className="eyebrow text-primary">Move timeline</p><h2 id="relocation-timeline" className="mt-3 font-display text-4xl leading-tight">Before the move through the first 90 days</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Use this as an organizing sequence. Verify agency deadlines and eligibility on the linked source pages.</p></div>
-          <div className="grid gap-4 md:grid-cols-2">{TIMELINE.map(([phase, tasks]) => <article key={phase} className="border border-border bg-background p-5"><h3 className="font-display text-2xl">{phase}</h3><ol className="mt-4 space-y-3 text-sm leading-6">{tasks.map(([label, href], index) => <li key={label} className="flex gap-3"><span className="font-semibold text-primary">{index + 1}.</span><a href={href} className="underline underline-offset-4">{label}</a></li>)}</ol></article>)}</div>
+          <div>
+            <p className="eyebrow text-primary">Move timeline</p>
+            <h2 id="relocation-timeline" className="mt-3 font-display text-4xl leading-tight">12 weeks before through life after the move</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Use this as an organizing sequence, not a substitute for an agency deadline. Texas rules and eligibility should still be verified on the linked source pages.</p>
+          </div>
+          <div>
+            {moveTiming ? <div className="mb-6 border border-primary bg-background p-5" aria-live="polite">
+              <p className="eyebrow text-primary">Based on your planned move date · {formatMoveDate(profile.moveDate)}</p>
+              <h3 className="mt-2 font-display text-3xl">{moveTiming.title}</h3>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{moveTiming.copy}</p>
+              <a href="/moving-to-texas-checklist" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open the governed move checklist →</a>
+            </div> : <div className="mb-6 border border-border bg-background p-5">
+              <p className="text-sm leading-7 text-muted-foreground">Add a move date in Plan My Texas Move to highlight the planning window that applies to you.</p>
+            </div>}
+            <div className="grid gap-4 md:grid-cols-2">
+              {TIMELINE.map((phase) => {
+                const active = moveTiming?.phaseId === phase.id;
+                return <article key={phase.id} className={`border p-5 ${active ? "border-primary bg-background" : "border-border bg-background"}`}>
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="font-display text-2xl">{phase.label}</h3>
+                    {active ? <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Your current phase</span> : null}
+                  </div>
+                  <ol className="mt-4 space-y-3 text-sm leading-6">
+                    {phase.tasks.map(([label, href], index) => <li key={label} className="flex gap-3"><span className="font-semibold text-primary">{index + 1}.</span><a href={href} className="underline underline-offset-4">{label}</a></li>)}
+                  </ol>
+                </article>;
+              })}
+            </div>
+          </div>
         </div>
       </Container>
     </section>
