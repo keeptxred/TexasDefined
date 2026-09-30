@@ -25,12 +25,11 @@ function footballDistrictProfilePath(classification: string, division: 1 | 2 | n
 }
 
 /**
- * Lightweight sitemap/directory football URL generation.
+ * Lightweight sitemap-only football URL generation.
  *
- * Keep this module free of live TEA, venue, history or profile-resolution code.
- * The private-school rows are the same explicit non-UIL profiles already emitted
- * by the sitemap; exposing them here guarantees every indexable private profile
- * can also be linked from the canonical football-team directory.
+ * Keep this module free of football directory/search/profile imports. The public
+ * sitemap runs on the Worker request path and must not initialize live TEA,
+ * venue, history or profile-resolution code just to emit canonical URLs.
  */
 export function footballProgramSitemapEntries() {
   const entries = UIL_FOOTBALL_PROGRAMS_2026.map((program) => ({
@@ -50,32 +49,13 @@ export function footballProgramSitemapEntries() {
   return entries;
 }
 
-export function privateFootballProgramDirectoryEntries() {
-  const entries = FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS
+export function privateFootballProgramSitemapEntries() {
+  return FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS
     .filter((program) => !featuredProgramMatchesUil(program))
     .map((program) => ({
-      slug: program.slug,
-      name: program.displayName,
-      association: program.governingBodyHint ?? 'Private-school football',
-      classification: program.associationClassification ?? null,
       path: `/texas-high-school-football-teams/${program.slug}`,
-    }))
-    .sort((left, right) => left.name.localeCompare(right.name));
-
-  if (entries.length !== 24) {
-    throw new Error(`Private football directory expected 24 non-UIL profiles; found ${entries.length}.`);
-  }
-  if (new Set(entries.map((entry) => entry.path)).size !== entries.length) {
-    throw new Error('Private football directory contains duplicate profile paths.');
-  }
-  return entries;
-}
-
-export function privateFootballProgramSitemapEntries() {
-  return privateFootballProgramDirectoryEntries().map((program) => ({
-    path: program.path,
-    lastmod: '2026-09-19',
-  }));
+      lastmod: '2026-09-19',
+    }));
 }
 
 export function footballDistrictSitemapEntries() {
