@@ -145,6 +145,7 @@ const surfaces = [
   ['will-hogg-river-oaks-link', '/article/will-hogg-texas-legacy', '/article/river-oaks-hogg-brothers-houston-planning-history'],
   ['hogg-family-heritage-trail', '/article/hogg-family-heritage-trail-texas', 'Hogg Family Heritage Trail: Six Texas Places That Tell the Story'],
   ['oakwood-hogg-heritage', '/destination/oakwood-cemetery-austin', "Austin's oldest municipal burial ground contains the Hogg family plot"],
+  ['varner-hogg-heritage', '/destination/varner-hogg-plantation', 'Varner-Hogg Plantation State Historic Site'],
   ['texas-history-hogg-heritage-trail-discovery', '/texas-history', 'Connect six surviving places from James Hogg'],
   ['hogg-family-sitemap', '/sitemap.xml', '/article/hogg-family-texas-legacy'],
   ['sallie-hogg-sitemap', '/sitemap.xml', '/article/sallie-hogg-texas-legacy'],
