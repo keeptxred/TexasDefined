@@ -73,6 +73,10 @@ const priorityRelocationGuides = [
   ["Texas Property Taxes for New Residents", "/article/texas-property-taxes-for-new-residents", "Understand appraisal districts, taxing units, homestead research and why the previous owner's bill should not be copied into a new household budget."],
   ["Corporate Relocation to Texas", "/article/corporate-relocation-to-texas", "Connect site selection, workforce, registration, taxes and employee transition with current Texas and federal source links."],
   ["Employee Relocation Guide to Texas", "/article/employee-relocation-guide-to-texas", "Turn an employer transfer into a household plan for benefits, housing, commuting, utilities, vehicles and first-month tasks."],
+  ["Moving to Texas as a Renter", "/article/moving-to-texas-renter-guide", "Review the lease, deposits, utilities, insurance and exact-address facts before committing to a Texas rental."],
+  ["How to Verify a Texas Moving Company", "/article/how-to-verify-texas-moving-company", "Use TxDMV and FMCSA records to verify the company, authority and carrier-or-broker role before loading begins."],
+  ["Health Insurance When Moving to Texas", "/article/health-insurance-when-moving-to-texas", "Coordinate employer or Marketplace coverage, provider networks and any move-related Special Enrollment Period."],
+  ["Military Family Moving to Texas", "/article/military-family-moving-to-texas", "Join Military OneSource and installation PCS requirements with Texas housing, schools, TRICARE and address-level research."],
 ] as const;
 
 export const Route = createLazyFileRoute("/moving-to-texas")({ component: MovingToTexasPage });
@@ -108,7 +112,7 @@ function MovingToTexasPage() {
       </section>
       <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-priority-guides">
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">High-intent relocation guides</p><h2 id="moving-texas-priority-guides" className="mt-2 font-display text-3xl">Go from statewide research to the decision you need to make next</h2></div><Link to="/moving-to-texas/tools" className="text-sm font-semibold text-primary">Open all relocation tools →</Link></div>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These guides fill the practical gaps between choosing Texas and signing for a specific address: commute-led suburb research, new-resident property taxes, employer planning and employee transfer logistics. Each one links back into the city, county, cost, utility and checklist system rather than ending as a standalone article.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These guides fill the practical gaps between choosing Texas and signing for a specific address: commuting, renter decisions, mover verification, health coverage, military PCS planning, new-resident property taxes and employer or employee relocation. Each one links back into the city, county, cost, utility and checklist system rather than ending as a standalone article.</p>
         <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-5">{priorityRelocationGuides.map(([title, href, copy]) => <a key={href} href={href} className="group bg-background p-5"><strong className="font-display text-2xl leading-tight group-hover:text-primary">{title}</strong><span className="mt-3 block text-sm leading-6 text-muted-foreground">{copy}</span><span className="eyebrow mt-5 inline-block text-primary">Open guide →</span></a>)}</div>
       </section>
 
