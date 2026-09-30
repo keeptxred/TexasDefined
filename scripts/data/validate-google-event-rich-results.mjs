@@ -28,7 +28,7 @@ for (const [needle, message] of [
   ['name: event.name', 'Event JSON-LD must include the event name.'],
   ['url: canonicalUrl', 'Event JSON-LD must include its canonical URL.'],
   ['startDate: window.startDate', 'Event JSON-LD must include startDate.'],
-  ['...(window.endDate ? { endDate: window.endDate } : {})', 'Event JSON-LD must include endDate when known.'],
+  ['endDate: window.endDate', 'Event JSON-LD must carry the occurrence endDate when known; undefined values are omitted by JSON serialization.'],
   ['eventStatus: eventSchemaStatusUrl(occurrenceEnrichment?.lifecycle?.status)', 'Event JSON-LD must publish lifecycle status.'],
   ['eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"', 'Physical Texas events must publish OfflineEventAttendanceMode.'],
   ['description: event.whyItMatters', 'Event JSON-LD must include a useful event description.'],
