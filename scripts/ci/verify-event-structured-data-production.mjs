@@ -367,21 +367,15 @@ async function verifyRecurringLeaf() {
   assert(canonicalHref(html) === `${origin}${path}`, `Texas Renaissance Festival canonical must be ${origin}${path}`);
   assert(html.includes('Tickets and admission'), 'Texas Renaissance Festival visible page must expose occurrence-backed admission options');
 
-  const events = eventNodes(html);
-  assert(events.length === 8, `Texas Renaissance Festival must expose 8 scheduled Event windows, found ${events.length}`);
-  const windows = new Set(events.map((event) => `${event.startDate}|${event.endDate ?? ''}`));
-  assert(windows.has('2026-10-10|2026-10-11'), 'Texas Renaissance Festival must retain opening weekend occurrence dates');
-  assert(windows.has('2026-11-27|2026-11-29'), 'Texas Renaissance Festival must retain Thanksgiving weekend occurrence dates');
-  for (const event of events) {
-    assert(event.eventStatus === 'https://schema.org/EventScheduled', 'every Renaissance Festival occurrence must be scheduled');
-    assert(event.eventAttendanceMode === 'https://schema.org/OfflineEventAttendanceMode', 'every Renaissance Festival occurrence must be offline');
-    assert(hasType(event.location, 'Place'), 'every Renaissance Festival occurrence must include a Place location');
-    assert(hasType(event.organizer, 'Organization'), 'every Renaissance Festival occurrence must inherit the verified organizer');
-    const offers = asArray(event.offers);
-    assert(offers.length >= 1, 'every Renaissance Festival occurrence must retain its occurrence-scoped Offer');
-    assert(offers.every((offer) => offer.priceCurrency === 'USD' && typeof offer.url === 'string' && offer.url.startsWith('https://')), 'Renaissance Festival offers must remain current USD source-backed links');
-  }
-  console.log('[texas-renaissance-festival] recurring Event and occurrence enrichment verified');
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Texas Renaissance Festival multi-window guide must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'Texas Renaissance Festival multi-window guide must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'Texas Renaissance Festival multi-window guide must remain described as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'Texas Renaissance Festival must not expose multiple Event entities from one canonical guide URL');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'Texas Renaissance Festival multi-window guide must not expose EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Texas Renaissance Festival guide JSON-LD must not publish occurrence dates without unique occurrence URLs');
+  console.log('[texas-renaissance-festival] multi-window guide single-leaf eligibility policy verified');
 }
 
 try {
@@ -393,7 +387,7 @@ try {
   await verifyFreeOfferLeaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyRecurringLeaf();
-  console.log('TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived and expired-confirmed schema suppression, optional enrichment and intentional omissions.');
+  console.log('TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived, expired-confirmed, and multi-window schema suppression, optional enrichment and intentional omissions.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=EVENT STRUCTURED DATA LIVE PRODUCTION failure::${message}`);
