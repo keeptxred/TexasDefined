@@ -8,6 +8,7 @@ const paths = {
   functions: "src/data/backlink-command-center.functions.ts",
   route: "src/routes/admin.editorial-outreach.tsx",
   lazy: "src/routes/admin.editorial-outreach.lazy.tsx",
+  panel: "src/components/admin/BacklinkCommandCenterPanel.tsx",
   admin: "src/routes/admin.tsx",
   docs: "docs/seo/backlink-command-center.md",
   package: "package.json",
@@ -89,7 +90,7 @@ for (const marker of [
   "Cross-campaign duplicates",
   "Add prospect",
   "Monthly report",
-]) requireText(files.lazy, marker, `Backlink admin UX missing: ${marker}`);
+]) requireText(files.panel, marker, `Backlink admin UX missing: ${marker}`);
 
 requireText(files.route, "noindex,nofollow,noarchive", "Backlink admin route must remain noindex/nofollow/noarchive.");
 requireText(files.admin, "Backlinks", "Admin navigation must expose the protected backlink command center.");
