@@ -45,19 +45,6 @@ const AREA_GROUPS: Array<{
   { key: "sideTrips", eyebrow: "Go farther", title: "Worthwhile side trips", description: "Places that justify extending the visit beyond the immediate area." },
 ];
 
-function countySlug(value: string) {
-  return value
-    .replace(/\s+County$/i, "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function countyLabel(value: string) {
-  return /\s+County$/i.test(value.trim()) ? value.trim() : `${value.trim()} County`;
-}
-
 function AreaItemCard({ item }: { item: DestinationAreaItem }) {
   const name = item.href
     ? <a href={item.href} className="font-display text-xl leading-tight underline decoration-primary/30 underline-offset-4 transition-colors hover:text-primary">{item.name}</a>
@@ -137,7 +124,6 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
           <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
             {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
             {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Camping details</Link>}
-            {destination.county && <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug(destination.county) }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore {countyLabel(destination.county)}</Link>}
             <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>
             <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>
             <Link to="/explore/region/$region" params={{ region: destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>
