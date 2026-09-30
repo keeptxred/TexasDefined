@@ -49,13 +49,14 @@ export function BacklinkCommandCenterPanel({ accessKey }: { accessKey: string })
 
   async function createRecord(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const formElement = event.currentTarget;
     setSaving(true);
     setError("");
     setSuccess("");
     try {
-      const record = recordFromForm(new FormData(event.currentTarget));
+      const record = recordFromForm(new FormData(formElement));
       await addBacklinkProspect({ data: { accessKey, record } });
-      event.currentTarget.reset();
+      formElement.reset();
       setShowAdd(false);
       await refresh();
       setSuccess("Backlink prospect added to the private command center.");
