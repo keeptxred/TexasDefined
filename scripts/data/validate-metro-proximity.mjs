@@ -6,8 +6,10 @@ const paths = {
   test: "src/data/__tests__/metro-proximity.test.ts",
   pageData: "src/data/metro-proximity-page-data.server.ts",
   functions: "src/data/metro-proximity-page-data.functions.ts",
-  hubRoute: "src/routes/explore.near.$metro.tsx",
-  hubUi: "src/routes/explore.near.$metro.lazy.tsx",
+  hubLayoutRoute: "src/routes/explore.near.$metro.tsx",
+  hubLayoutUi: "src/routes/explore.near.$metro.lazy.tsx",
+  hubRoute: "src/routes/explore.near.$metro.index.tsx",
+  hubUi: "src/routes/explore.near.$metro.index.lazy.tsx",
   collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
   collectionUi: "src/routes/explore.near.$metro.$collection.lazy.tsx",
   exploreRoute: "src/routes/explore.index.tsx",
@@ -116,35 +118,48 @@ for (const token of [
   "loadMetroProximityCollectionPageDataServer",
 ]) requireText(files.functions, token, `server-function bridge missing ${token}`);
 
-for (const [label, route, fn] of [
-  ["hub", files.hubRoute, "getMetroProximityHubPageData"],
-  ["collection", files.collectionRoute, "getMetroProximityCollectionPageData"],
-]) {
-  requireText(route, "createFileRoute(", `${label} critical route missing createFileRoute`);
-  requireText(route, fn, `${label} critical route missing server-function handoff`);
-  requireText(route, "loaderData?.head", `${label} critical route missing server-built head handoff`);
-  requireText(route, "throw notFound()", `${label} critical route must reject invalid params`);
-  requireText(route, "component:", `${label} critical route missing SSR component`);
-  requireText(route, "lazy(() =>", `${label} critical route missing lazy rich-UI boundary`);
-  for (const forbidden of ["DestinationCard", "Container", "MapPreview", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
-    if (route.includes(forbidden)) fail(`${label} eager route leaked heavy UI/SEO/catalog payload: ${forbidden}`);
-  }
+for (const token of [
+  'createFileRoute("/explore/near/$metro")',
+]) requireText(files.hubLayoutRoute, token, `metro parent layout missing ${token}`);
+for (const forbidden of ["head:", "loader:", "canonicalLink", "getMetroProximityHubPageData"]) {
+  if (files.hubLayoutRoute.includes(forbidden)) fail(`metro parent layout must remain canonical-neutral: ${forbidden}`);
+}
+for (const token of [
+  'createLazyFileRoute("/explore/near/$metro")',
+  "Outlet",
+]) requireText(files.hubLayoutUi, token, `metro parent lazy layout missing ${token}`);
+
+for (const token of [
+  'createFileRoute("/explore/near/$metro/")',
+  "getMetroProximityHubPageData",
+  "loaderData?.head",
+  "throw notFound()",
+]) requireText(files.hubRoute, token, `metro hub index critical route missing ${token}`);
+for (const forbidden of ["DestinationCard", "Container", "MapPreview", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
+  if (files.hubRoute.includes(forbidden)) fail(`metro hub index route leaked heavy UI/SEO/catalog payload: ${forbidden}`);
 }
 
 for (const token of [
-  "component: MetroProximityHubPage",
+  'createLazyFileRoute("/explore/near/$metro/")',
+  "MetroProximityHubPage",
   "Explore by trip type",
   "straight-line geographic estimates",
-  "MetroProximityHubRich",
-]) requireText(files.hubRoute, token, `metro hub SSR shell missing ${token}`);
-
-for (const token of [
-  'createLazyFileRoute("/explore/near/$metro")',
-  "MetroProximityHubRich",
   "DestinationCard",
   "Nearby places worth opening first",
   'to="/explore/trip-planner"',
-]) requireText(files.hubUi, token, `metro hub lazy rich UI missing ${token}`);
+]) requireText(files.hubUi, token, `metro hub index lazy UI missing ${token}`);
+
+for (const token of [
+  "createFileRoute(",
+  "getMetroProximityCollectionPageData",
+  "loaderData?.head",
+  "throw notFound()",
+  "component:",
+  "lazy(() =>",
+]) requireText(files.collectionRoute, token, `collection critical route missing ${token}`);
+for (const forbidden of ["DestinationCard", "Container", "MapPreview", "buildMeta", '"@type":', "@/data/metro-proximity\""]) {
+  if (files.collectionRoute.includes(forbidden)) fail(`collection eager route leaked heavy UI/SEO/catalog payload: ${forbidden}`);
+}
 
 for (const token of [
   "component: MetroProximityCollectionPage",
@@ -205,10 +220,13 @@ for (const token of [
 
 for (const token of [
   "ExploreNearMetroRouteImport",
+  "ExploreNearMetroIndexRouteImport",
   "ExploreNearMetroCollectionRouteImport",
   "ExploreNearMetroRouteWithChildren",
   "explore.near.$metro.lazy",
+  "explore.near.$metro.index.lazy",
   "explore.near.$metro.$collection.lazy",
+  "'/explore/near/$metro/'",
   "'/explore/near/$metro/$collection'",
 ]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
 
@@ -227,4 +245,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: eleven metro hubs and 143 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
+console.log("Metro proximity validation passed: eleven metro hubs and 143 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable, protected by a canonical-neutral parent layout, exact hub-index ownership, server-built SEO and lazy rich-UI boundaries.");
