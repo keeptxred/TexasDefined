@@ -92,6 +92,51 @@ jobs:
             echo "- Publication boundary: this workflow cannot publish or auto-merge demand-generated content."
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Build privacy-safe demand status artifact
+        if: always()
+        env:
+          REVIEW_PR_NEEDED: ${{ steps.changes.outputs.changed || 'not-reached' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const reportPath = 'ops/ai/texas-defined-ai-demand.generated.json';
+          const queuePath = 'ops/ai/texas-defined-ai-editorial-queue.generated.json';
+          const report = fs.existsSync(reportPath) ? JSON.parse(fs.readFileSync(reportPath, 'utf8')) : null;
+          const queue = fs.existsSync(queuePath) ? JSON.parse(fs.readFileSync(queuePath, 'utf8')) : null;
+          const totals = report?.totals ?? {};
+          const status = {
+            schemaVersion: 1,
+            generatedAt: new Date().toISOString(),
+            reportPresent: Boolean(report),
+            reviewPrNeeded: process.env.REVIEW_PR_NEEDED || 'not-reached',
+            telemetryEventsRepresented: Number(totals.events ?? 0),
+            coverage: {
+              strong: Number(totals.strong ?? 0),
+              partial: Number(totals.partial ?? 0),
+              gap: Number(totals.gap ?? 0),
+            },
+            actionableOpportunities: Number(totals.actionableOpportunities ?? 0),
+            editorialQueueItems: Array.isArray(queue?.items) ? queue.items.length : 0,
+            privacy: 'Aggregate counts only. No raw or sanitized user question text is retained in this artifact.',
+            publicationBoundary: 'Status-only artifact; it cannot publish content or auto-merge demand-generated work.',
+          };
+          const output = path.join(process.env.RUNNER_TEMP, 'ask-texas-demand-status.json');
+          fs.writeFileSync(output, `${JSON.stringify(status, null, 2)}\n`, 'utf8');
+          console.log(`Wrote privacy-safe demand status artifact: ${output}`);
+          NODE
+
+      - name: Retain privacy-safe demand status artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ask-texas-demand-status-${{ github.run_id }}
+          path: ${{ runner.temp }}/ask-texas-demand-status.json
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Create or refresh review branch
         if: steps.changes.outputs.changed == 'true'
         id: branch
