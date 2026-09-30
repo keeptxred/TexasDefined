@@ -73,17 +73,35 @@ for (const marker of [
   'pickDistinct',
   'Best Things to Do in Texas This Weekend',
   'metroEditionPaths',
+  'regionalEditionPaths',
+  'interestSectionIds',
+  'emailSubject',
+  'socialSummary',
+  'topEventLinks',
   '/events/houston-this-weekend',
   '/events/dallas-this-weekend',
   '/events/austin-this-weekend',
   '/events/san-antonio-this-weekend',
+  'id: "gulf-coast"',
+  'id: "hill-country"',
+  'id: "east-texas"',
+  'id: "west-texas"',
+  'id: "family"',
+  'id: "outdoors"',
+  'id: "free"',
+  'id: "worth-the-drive"',
+  'freeSignal.test(event.name)',
+  '!majorMetroCounties.has(event.countyName ?? "")',
 ]) {
   if (!weekendDigest.includes(marker)) errors.push(`Texas This Weekend reusable selection contract missing: ${marker}.`);
 }
 for (const marker of [
   'page.weekendDigest',
   'A useful shortlist, not a feed dump',
-  'Metro sections only appear when enough events qualify',
+  'Metro, regional and interest sections only appear when enough events qualify',
+  'price-based sections never infer free admission',
+  '"data-entity-id": trackId',
+  'weekend:${section.id}:${event.slug}',
 ]) {
   if (!collectionRoute.includes(marker)) errors.push(`Texas This Weekend collection UX missing: ${marker}.`);
 }
