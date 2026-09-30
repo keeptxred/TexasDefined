@@ -6,6 +6,7 @@ const requireText = (source, token, label) => { if (!source.includes(token)) fai
 
 const paths = {
   library: "src/data/fishing/image-library.ts",
+  governance: "src/data/fishing/lake-photo-governance.ts",
   photo: "src/components/fishing/FishingPhoto.tsx",
   speciesProfile: "src/components/fishing/FishingSpeciesProfile.tsx",
   speciesDirectory: "src/components/fishing/FishSpeciesDirectory.tsx",
@@ -174,6 +175,27 @@ const localLakeImagePaths = [...files.library.matchAll(/"\/(images\/(?:explore|s
   .map((match) => `public/${match[1]}`);
 for (const path of localLakeImagePaths) if (!fs.existsSync(path)) fail(`registered lake image file does not exist: ${path}`);
 if (localLakeImagePaths.length < 10) fail(`expected at least 10 local exact-lake images, found ${localLakeImagePaths.length}`);
+
+const localLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": lake\(/gm)].map((match) => match[1]);
+if (localLakeBlocks.length !== 10) fail(`expected 10 local lake mappings requiring provenance overrides, found ${localLakeBlocks.length}`);
+for (const slug of localLakeBlocks) {
+  const start = files.library.indexOf(`  "${slug}": lake(`);
+  const end = files.library.indexOf("\n  ),", start);
+  const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
+  const id = block.match(/lake\(\s*\n?\s*"([^"]+)"/)?.[1];
+  if (!id) fail(`could not resolve local lake asset id for ${slug}`);
+  const overrideStart = files.governance.indexOf(`  "${id}": governed({`);
+  if (overrideStart < 0) fail(`local lake asset lacks traceable governance override: ${slug} (${id})`);
+  const overrideEnd = files.governance.indexOf("\n  }),", overrideStart);
+  const overrideBlock = files.governance.slice(overrideStart, overrideEnd > overrideStart ? overrideEnd + 5 : overrideStart + 1800);
+  for (const token of ["sourceUrl:", "creator:", "licenseName:", "licenseUrl:", "rightsStatus:", "credit:"]) {
+    requireText(overrideBlock, token, `governance override ${id} missing ${token}`);
+  }
+}
+for (const token of ["verifiedAt: \"2026-09-30\"", "actualLocation: true", "applyLakePhotoGovernance"]) {
+  requireText(files.governance, token, `lake photo governance contract missing ${token}`);
+}
+
 const commonsLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": commonsLake\(/gm)].map((match) => match[1]);
 const remoteLakeBlocks = [...files.library.matchAll(/^\s{2}"([^"]+)": licensedRemoteLake\(/gm)].map((match) => match[1]);
 if (remoteLakeBlocks.length < 2) fail(`expected at least two exact licensed remote lake images, found ${remoteLakeBlocks.length}`);
@@ -190,17 +212,14 @@ for (const slug of commonsLakeBlocks) {
   const start = files.library.indexOf(`  "${slug}": commonsLake(`);
   const end = files.library.indexOf("\n  ),", start);
   const block = files.library.slice(start, end > start ? end + 5 : start + 1600);
-  for (const token of ["Wikimedia Commons", "sourceUrl", "actualLocation"]) {
-    if (token === "sourceUrl" || token === "actualLocation") continue;
-  }
   if (!block.includes("CC BY") && !block.includes("Public domain")) fail(`Commons lake image missing explicit reusable license: ${slug}`);
 }
 
-
 for (const token of [
-  "image.credit",
-  "image.sourceUrl",
-  "image.licenseUrl",
+  "applyLakePhotoGovernance(image)",
+  "governedImage.credit",
+  "governedImage.sourceUrl",
+  "governedImage.licenseUrl",
   'rel="noreferrer noopener"',
 ]) requireText(files.photo, token, `FishingPhoto attribution contract missing ${token}`);
 
@@ -230,9 +249,9 @@ for (const [name, source] of Object.entries({
   lakeDirectory: files.lakeDirectory,
 })) requireText(source, "getFishingLakeImage", `${name} missing governed lake-image lookup`);
 
-for (const source of Object.values(files)) {
-  if (/https?:\/\/(?!commons\.wikimedia\.org)[^"'\s)]+\.(?:jpg|jpeg|png|webp|avif)/i.test(source) && source !== files.library) {
-    fail("hard-coded remote raster image found outside governed fishing image library");
+for (const [name, source] of Object.entries(files)) {
+  if (/https?:\/\/(?!commons\.wikimedia\.org)[^"'\s)]+\.(?:jpg|jpeg|png|webp|avif)/i.test(source) && name !== "library") {
+    fail(`hard-coded remote raster image found outside governed fishing image library: ${name}`);
   }
 }
 
