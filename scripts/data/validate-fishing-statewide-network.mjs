@@ -211,6 +211,9 @@ for (const token of [
 
 if (!files.species.includes('id: "walleye"') || !files.network.includes('fish("walleye"')) fail("Lake Meredith must retain its defining walleye fishery");
 if (!files.species.includes('id: "red-drum"') || !files.network.includes('fish("red-drum"')) fail("Calaveras must retain its distinctive freshwater red-drum fishery");
+requireText(files.network, 'liveDataNote: "No public real-time pool-elevation feed is currently published for Calaveras Lake.', "Calaveras no-live-data note missing");
+requireText(files.network, "liveDataNote: def.liveDataNote", "statewide live-data note propagation missing");
+requireText(files.component, "pageData.liveDataNote", "lake guide must render source-backed live-data availability notes");
 
 const forbidden = ["/fishing/fishing/", "guaranteed catch", "today's best lake", "affiliate pick", "sponsored ranking"];
 for (const phrase of forbidden) if (Object.values(files).some((source) => source.toLowerCase().includes(phrase.toLowerCase()))) fail(`forbidden/duplicate content pattern found: ${phrase}`);
