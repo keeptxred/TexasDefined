@@ -13,11 +13,12 @@ export const Route = createFileRoute("/events/$collection")({
   component: EventCollectionPage,
 });
 
-function EventGuideLink({ event, className, children }: { event: { slug: string; href: string }; className?: string; children: React.ReactNode }) {
+function EventGuideLink({ event, className, children, trackId }: { event: { slug: string; href: string }; className?: string; children: React.ReactNode; trackId?: string }) {
+  const tracking = trackId ? { "data-entity-id": trackId } : {};
   if (event.href === `/event/${event.slug}`) {
-    return <Link to="/event/$slug" params={{ slug: event.slug }} className={className}>{children}</Link>;
+    return <Link to="/event/$slug" params={{ slug: event.slug }} className={className} {...tracking}>{children}</Link>;
   }
-  return <a href={event.href} className={className}>{children}</a>;
+  return <a href={event.href} className={className} {...tracking}>{children}</a>;
 }
 
 function EventCollectionPage() {
@@ -65,7 +66,7 @@ function EventCollectionPage() {
             <ol className="mt-5 divide-y divide-border border-y border-border">
               {section.items.map((event, index) => <li key={event.slug} className="py-4">
                 <p className="eyebrow text-muted-foreground">0{index + 1} · {event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
-                <EventGuideLink event={event} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink>
+                <EventGuideLink event={event} trackId={`weekend:${section.id}:${event.slug}`} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink>
               </li>)}
             </ol>
           </section>)}
