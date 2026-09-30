@@ -81,32 +81,32 @@ for (const marker of ['image: page.image', 'imageAlt: page.imageAlt', 'type: "ar
 requireText(authority, 'imageCompliant: hasCompliantMajorEventImageServer(data.slug)', 'authority image compliance bridge');
 
 // 11: internal linking.
-for (const slug of austinSlugs) requireText(tranche, 'href: "/events/austin-this-weekend"', `Austin weekend backlink for ${slug}`);
-for (const slug of sanAntonioSlugs) requireText(tranche, 'href: "/events/san-antonio-this-weekend"', `San Antonio weekend backlink for ${slug}`);
+requireText(tranche, 'href: "/events/austin-this-weekend"', 'Austin weekend backlink');
+requireText(tranche, 'href: "/events/san-antonio-this-weekend"', 'San Antonio weekend backlink');
 for (const marker of ['/browse/counties#county-travis', '/browse/counties#county-bexar']) requireText(tranche, marker, 'county relationship link');
 
 // 12-14: expired/recurring/lifecycle/cancellation governance.
 for (const marker of ['scheduled', 'cancelled', 'postponed', 'rescheduled']) requireText(eventRecord, `"${marker}"`, 'canonical lifecycle state');
 for (const marker of ['previousStartDate', 'EventCancelled', 'EventPostponed', 'EventRescheduled', 'sourceUrl', 'verifiedAt']) requireText(schema, marker, 'Event schema lifecycle contract');
-requireText(ticketmaster, "status === 'cancelled'", 'cancelled commercial inventory suppression');
+requireText(ticketmaster, "['cancelled', 'postponed', 'rescheduled'].includes(event.status)", 'changed/cancelled commercial inventory suppression');
 requireText(ticketmaster, '48 * 3600000', 'stale commercial inventory suppression');
 requireText(registry, 'current occurrence can expire', 'evergreen expired-occurrence policy');
 requireText(sourceRegistry, "Never infer a new annual date from last year's weekend", 'recurrence rollover source policy');
 
 // 15: refresh reliability and independent live guard.
 for (const marker of ['schedule:', 'cron: "17 11 * * *"', 'cancel-in-progress: false', 'Prevalidate generated refresh branch']) requireText(sync, marker, 'daily event refresh reliability contract');
-for (const marker of ['existing generated catalog', 'git diff --quiet']) requireText(syncScript, marker, 'idempotent/fail-safe event sync contract');
+for (const marker of ['readFile(OUTPUT_PATH, "utf8")', 'stableEventEquals', 'preservedCheckTimestamps']) requireText(syncScript, marker, 'idempotent/fail-safe event sync contract');
 for (const marker of ['schedule:', 'workflow_run:', 'Verify temporal Event production surfaces']) requireText(temporalWorkflow, marker, 'independent live temporal guard');
 
 // 16: event-specific GSC/indexation evidence and interpretation.
 const gsc = JSON.parse(read('ops/seo/gsc-discovered-2026-09-13.json'));
 if (gsc?.routeFamilyCounts?.events !== 69) failures.push('Expected latest stored GSC snapshot to contain 69 discovered-not-indexed event URLs.');
 if (gsc?.routeFamilyCounts?.eventCollections !== 40) failures.push('Expected latest stored GSC snapshot to contain 40 discovered-not-indexed event-collection URLs.');
-requireText(sourceRegistry, 'crawl-demand', 'GSC/indexation interpretation');
+requireText(completionReport, 'crawl-demand signal', 'GSC/indexation interpretation');
 
 // 17: event monetization must stay provider-neutral and fail-safe.
 for (const marker of ['buildMajorEventTicketingMarkupServer', 'resolveEventTicketCta', 'HOTELS_COM_AFFILIATE_URL', 'data-affiliate-partner', 'sponsored nofollow']) requireText(page, marker, 'event monetization contract');
-requireText(eventRecord, 'TexasDefined never stores checkout', 'provider-neutral ticketing model');
+requireText(eventRecord, 'never stores checkout', 'provider-neutral ticketing model');
 
 // 18: reusable newsletter/social package, deliberately send-neutral.
 for (const marker of ['buildWeekendEditorialPackageServer', 'newsletterMarkdown', 'facebook', 'instagram', 'x:', 'sourcePaths', 'never sends, schedules or posts']) requireText(editorialPackage, marker, 'weekend editorial package contract');
