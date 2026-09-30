@@ -22,6 +22,38 @@ Google's current spam policies describe buying or selling ranking links, excessi
 
 Reference: https://developers.google.com/search/docs/essentials/spam-policies
 
+## Relationship-first prioritization
+
+Source outreach is prioritized on six factors. The protected editorial-outreach dashboard exposes these as a scorecard rather than relying on one opaque rank:
+
+1. **Page strength** — whether TexasDefined's page is already complete enough to deserve review, correction, photography or citation.
+2. **Organization authority** — the institutional authority of the tourism office, government body, museum, park, university, nonprofit, event organizer or other official source.
+3. **Relationship likelihood** — the practical chance of building a useful communications or subject-matter relationship.
+4. **Official assets opportunity** — access to approved photography, video, data, media kits or expert contacts.
+5. **Recurring update opportunity** — whether dates, visitor details, exhibits, programs, closures, events or operating information change over time.
+6. **Legitimate reference opportunity** — whether an independent TexasDefined guide could reasonably be useful enough to earn an optional reference without making a backlink the price of the relationship.
+
+Relationship quality is weighted above backlink potential. A target with lower backlink probability can still rank highly if it can materially improve accuracy, official-source access or future reporting.
+
+## Source-relationship workflow
+
+The editorial source system and backlink command center work together as one pipeline:
+
+`Published authority page → quality/indexability gate → managing authority or named source detected → contact research → verified communications/media contact → relationship-first outreach → correction/update/photo exchange → recurring source relationship → optional independent reference → verified backlink record if one appears`
+
+Rules for each stage:
+
+- **Published authority page:** only canonical public pages are eligible.
+- **Quality gate:** a destination must pass the site's indexing audit before outreach. Failed pages go to the `Improve first` queue.
+- **Automatic intake:** index-ready destinations with a current official URL and managing authority enter contact research automatically. Upcoming event guides and source-backed authority articles have separate conservative intake queues.
+- **Contact research:** verify the current official media, communications, visitor-services or subject-matter channel. Never invent an address from a domain pattern.
+- **Ready to contact:** the organization, contact path, page value and relationship reason are all specific.
+- **Outreach:** lead with factual verification, updates, approved imagery, expert access or future notices. The backlink/reference sentence is optional and secondary.
+- **Relationship maintenance:** record useful replies, future update channels, image permissions, correction contacts and press-release subscriptions.
+- **Reference outcome:** if an organization independently references TexasDefined, record and verify the linking URL in the backlink command center. Do not turn the relationship into reciprocal-link trading.
+
+Newly published destinations can therefore enter the queue without manual prospect creation while still requiring human contact verification before any message is sent.
+
 ## Pipeline
 
 `Prospect → Researched → Ready to Contact → Contacted → Follow-Up → Replied → Link Won`
@@ -38,6 +70,18 @@ Terminal or cooling-off stages are `Declined`, `No Response`, and `Disqualified`
 - **Declined:** organization explicitly declined the request/relationship.
 - **No Response:** reasonable outreach cycle ended without a reply.
 - **Disqualified:** prospect fails quality, relevance, legitimacy or contactability checks.
+
+## Outreach message structure
+
+Use the protected dashboard's generated draft as the starting point. A good first email should contain, in this order:
+
+1. The exact TexasDefined resource being maintained.
+2. A short explanation that the purpose is to keep it accurate and useful.
+3. Two to four specific asks such as factual review, approved images, update notices, media lists or expert contacts.
+4. A clear statement that TexasDefined is not asking for paid placement or a reciprocal-link arrangement.
+5. Only when appropriate, a final optional note that the organization may reference the resource if it is genuinely useful to its audience; no link is required.
+
+For recurring events, explicitly ask to receive next year's dates, presales and planning updates before the public planning cycle begins. For museums, parks and attractions, prioritize access changes, exhibits, closures, public programs and approved editorial assets. For tourism offices and chambers, prioritize destination updates, press materials, local-source introductions and reusable imagery.
 
 ## Goals
 
