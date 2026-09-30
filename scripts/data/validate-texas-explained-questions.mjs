@@ -1,22 +1,22 @@
 import fs from 'node:fs';
 
-// Guard the 140-answer authority layer, native lazy route split, and no-thin-child-route contract on every authority PR change.
 const dataPath = 'src/data/texas-explained-questions.ts';
 const componentPath = 'src/components/editorial/TexasExplainedQuestionsPage.tsx';
 const pagePath = 'src/components/editorial/TexasExplainedPage.tsx';
 const parentPath = 'src/routes/texas-explained.tsx';
 const lazyRoutePath = 'src/routes/texas-explained.lazy.tsx';
-const publicRoutesPath = 'src/lib/public-routes.ts';
+const childRoutePath = 'src/routes/texas-explained_.questions.tsx';
+const childLazyRoutePath = 'src/routes/texas-explained_.questions.lazy.tsx';
 const retiredServerDataPath = 'src/data/texas-explained-questions.server.ts';
 const retiredFunctionsPath = 'src/data/texas-explained-questions.functions.ts';
-const retiredChildRoutePath = 'src/routes/texas-explained_.questions.tsx';
 
 const data = fs.readFileSync(dataPath, 'utf8');
 const component = fs.readFileSync(componentPath, 'utf8');
 const page = fs.readFileSync(pagePath, 'utf8');
 const parent = fs.readFileSync(parentPath, 'utf8');
 const lazyRoute = fs.readFileSync(lazyRoutePath, 'utf8');
-const publicRoutes = fs.readFileSync(publicRoutesPath, 'utf8');
+const childRoute = fs.readFileSync(childRoutePath, 'utf8');
+const childLazyRoute = fs.readFileSync(childLazyRoutePath, 'utf8');
 
 const questionCount = (data.match(/question:\s*"/g) ?? []).length;
 const answerCount = (data.match(/answer:\s*"/g) ?? []).length;
@@ -30,9 +30,8 @@ if (answerCount !== questionCount) failures.push(`Every question must have an an
 if (categoryCount < 8) failures.push(`Expected broad topical coverage across at least 8 categories; found ${categoryCount}.`);
 if (!parentCountMatch || Number(parentCountMatch[1]) !== questionCount) failures.push(`Texas Explained route count must match the ${questionCount}-question library.`);
 if (!pageCountMatch || Number(pageCountMatch[1]) !== questionCount) failures.push(`Texas Explained page count must match the ${questionCount}-question library.`);
-if (fs.existsSync(retiredServerDataPath)) failures.push('Retired server-only question registry must not be restored; the registry belongs exclusively in the lazy renderer graph.');
-if (fs.existsSync(retiredFunctionsPath)) failures.push('Dedicated Texas Explained question server function must remain removed to protect the main client bundle budget.');
-if (fs.existsSync(retiredChildRoutePath)) failures.push('Do not restore a dedicated /texas-explained/questions route; the library belongs inside /texas-explained.');
+if (fs.existsSync(retiredServerDataPath)) failures.push('Retired server-only question registry must not be restored.');
+if (fs.existsSync(retiredFunctionsPath)) failures.push('Dedicated Texas Explained question server function must remain removed.');
 
 const requiredQuestions = [
   'Why are Texas roads called FM and RM roads?',
@@ -92,10 +91,8 @@ for (const marker of [
 for (const marker of [
   'useSuspenseQuery(articlesQuery())',
   'const { data: catalog } = useSuspenseQuery(articlesQuery());',
-  'lazy(() => import("@/components/editorial/TexasExplainedQuestionsPage"))',
-  '<Suspense fallback={null}><TexasExplainedQuestionLibrary /></Suspense>',
-  'href="#texas-questions"',
-  'everyday answers',
+  'to="/texas-explained/questions"',
+  'Browse {questionCount} Texas questions',
   'Land and water',
   'Built Texas',
   'People and place',
@@ -117,8 +114,8 @@ for (const marker of [
   'id="go-deeper"',
   'scroll-mt-28',
   'const quickAnswers = [',
-  'Quick answers',
-  'Six Texas questions, answered before you dive deeper',
+  'Popular questions',
+  'Six quick answers to common Texas questions',
   'What are the major rivers of Texas?',
   '/article/texas-rivers-explained',
   'See the major rivers and basins',
@@ -130,7 +127,6 @@ for (const marker of [
   'const supportingExplainers = [',
   'Go deeper',
   'Six supporting explainers',
-  'These sit outside the core 10-guide series',
   '/article/texas-regions-explained',
   '/explore/landscapes/where-does-texas-turn-into-desert',
   '/article/why-texas-has-254-counties',
@@ -138,9 +134,10 @@ for (const marker of [
   '/article/best-native-plants-texas-yard',
   '/article/texas-barbecue-styles-explained',
 ]) {
-  if (!page.includes(marker)) failures.push(`Lazy Texas Explained page missing SEO/content marker: ${marker}`);
+  if (!page.includes(marker)) failures.push(`Texas Explained page missing SEO/content marker: ${marker}`);
 }
-if (page.includes('texas-explained-questions.ts')) failures.push('The lazy page shell should not eagerly import the answer registry; keep it behind the nested lazy question renderer.');
+if (page.includes('TexasExplainedQuestionLibrary')) failures.push('The 140-answer renderer must not be embedded in the flagship Texas Explained hub.');
+if (page.includes('texas-explained-questions.ts')) failures.push('The flagship page must not eagerly import the answer registry.');
 if (page.includes('useLoaderData')) failures.push('The lazy page must own its article query instead of depending on eager route loader data.');
 
 for (const marker of [
@@ -151,18 +148,33 @@ for (const marker of [
   'categories.map',
   'item.answer',
   'item.href',
-  'Questions without a deep-dive link are still answered here instead of being turned into thin standalone pages.',
 ]) {
-  if (!component.includes(marker)) failures.push(`Lazy question renderer missing marker: ${marker}`);
+  if (!component.includes(marker)) failures.push(`Question library renderer missing marker: ${marker}`);
 }
-if (component.includes('useLoaderData')) failures.push('Lazy question renderer must own the lazy question registry instead of requesting it through route loader data.');
+if (component.includes('Dedicated pages are reserved')) failures.push('Reader-facing question library must not expose internal page-creation strategy.');
+if (component.includes('Questions without a deep-dive link')) failures.push('Reader-facing question library must not expose internal thin-page strategy.');
+if (component.includes('As a subject earns deeper treatment')) failures.push('Reader-facing question library must not expose future editorial workflow language.');
+if (component.includes('useLoaderData')) failures.push('Question renderer must own the lazy question registry instead of requesting it through route loader data.');
 
-if (!publicRoutes.includes('"/texas-explained"')) failures.push('Texas Explained must remain an indexable static public route.');
-if (publicRoutes.includes('"/texas-explained/questions"')) failures.push('Retired Texas Explained child route must not remain in the public-route registry.');
+for (const marker of [
+  'createFileRoute(canonicalPath)',
+  'const canonicalPath = "/texas-explained/questions";',
+  'title: "140 Texas Questions Answered | Texas Explained"',
+  'canonicalLink(texasDefinedBrand, canonicalPath)',
+]) {
+  if (!childRoute.includes(marker)) failures.push(`Texas Explained questions route missing marker: ${marker}`);
+}
+for (const marker of [
+  'createLazyFileRoute("/texas-explained/questions")',
+  'TexasExplainedQuestionLibrary',
+  'component: TexasExplainedQuestionsPage',
+]) {
+  if (!childLazyRoute.includes(marker)) failures.push(`Texas Explained questions lazy route missing marker: ${marker}`);
+}
 
 if (failures.length) {
   console.error('Texas Explained question authority validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log(`Texas Explained question authority OK: ${questionCount} questions across ${categoryCount} categories, all answered inside the indexable parent page, with native lazy routing and a nested lazy answer registry; no thin child route or question server-function stub.`);
+console.log(`Texas Explained question authority OK: ${questionCount} questions across ${categoryCount} categories, preserved in a dedicated lazy-loaded question library while the flagship hub stays focused on the 10 core guides and supporting explainers.`);
