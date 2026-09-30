@@ -208,7 +208,7 @@ export function BacklinkCommandCenterPanel({ accessKey }: { accessKey: string })
               </div>
               {record.nextAction ? <p className="mt-3 text-sm"><strong>Next:</strong> {record.nextAction}</p> : null}
             </div>
-            <div className="grid content-start gap-3">
+            <div className="grid gap-3">
               <label className="grid gap-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Stage
                 <select value={record.stage} disabled={saving} onChange={(event) => void advanceStage(record, event.target.value as BacklinkStage)} className="min-h-10 border border-border bg-background px-3 py-2 text-sm font-normal normal-case tracking-normal text-foreground">
                   {BACKLINK_STAGES.map((stage) => <option key={stage} value={stage} disabled={stage === "link-won" && (record.backlinkStatus !== "won" || !record.linkingUrl)}>{BACKLINK_STAGE_LABELS[stage]}</option>)}
