@@ -1,0 +1,73 @@
+name: Diagnose Events canonical gate
+
+on:
+  push:
+    branches:
+      - events/complete-18-task-expansion-20260930-r5
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  event-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/data/validate-events-seo.mjs
+
+  event-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/data/audit-event-schema-enrichment.mjs
+
+  major-event-authority:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/data/validate-major-event-authority.mjs
+
+  global-event-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/data/validate-global-event-calendar.mjs
+
+  indexing-and-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: node scripts/data/validate-indexation-quality.mjs
+      - run: node scripts/data/validate-sitemap-routes.mjs
+      - run: node scripts/data/validate-public-route-governance.mjs
+
+  production-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
