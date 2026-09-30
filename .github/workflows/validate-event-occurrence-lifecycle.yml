@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - 'src/data/event-occurrence-lifecycle.ts'
+      - 'src/data/events-generated.ts'
+      - 'src/data/events-remote.ts'
+      - 'src/data/queries.ts'
       - 'src/data/major-event-authority.ts'
       - 'src/data/major-event-supplemental-registry.server.ts'
       - 'src/routes/event.$slug.tsx'
@@ -14,6 +17,9 @@ on:
       - main
     paths:
       - 'src/data/event-occurrence-lifecycle.ts'
+      - 'src/data/events-generated.ts'
+      - 'src/data/events-remote.ts'
+      - 'src/data/queries.ts'
       - 'src/data/major-event-authority.ts'
       - 'src/data/major-event-supplemental-registry.server.ts'
       - 'src/routes/event.$slug.tsx'
