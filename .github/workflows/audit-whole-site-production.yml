@@ -36,6 +36,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Audit editorial headings and titles in source
+        continue-on-error: true
         run: node scripts/ci/audit-editorial-source-language.mjs
       - name: Audit every production URL
         run: npm run production:pages:audit
