@@ -92,9 +92,21 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
+  const areaGuidePlaceItems = destination.areaGuide
+    ? [
+      ...destination.areaGuide.nearbyAttractions,
+      ...destination.areaGuide.familyStops,
+      ...destination.areaGuide.sideTrips,
+    ]
+    : [];
+  const areaGuideSlugs = new Set(areaGuidePlaceItems
+    .map((item) => item.href?.match(/^\/destination\/([^/?#]+)/)?.[1])
+    .filter((slug): slug is string => Boolean(slug)));
+  const areaGuideNames = new Set(areaGuidePlaceItems.map((item) => item.name.trim().toLowerCase()));
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
   ).values()]
+    .filter((item) => !areaGuideSlugs.has(item.slug) && !areaGuideNames.has(item.name.trim().toLowerCase()))
     .sort((left, right) => (distanceMiles(destination, left) ?? Number.POSITIVE_INFINITY) - (distanceMiles(destination, right) ?? Number.POSITIVE_INFINITY))
     .slice(0, 6);
 

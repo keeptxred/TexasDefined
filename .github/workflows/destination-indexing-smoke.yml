@@ -247,7 +247,7 @@ jobs:
           done
 
           curl --retry 3 --retry-connrefused --max-time 45 -fsSL "$origin$authority_control" -o /tmp/authority-control.html
-          for marker in "The visit" "What the experience is like" "Walking &amp; exertion" "Time outdoors" "Plan ahead" "Families" "First Texas trip" "Texas context" "Three ways to visit" "Key dates" "Common visitor questions" "Sources &amp; updates" "Sources used for this guide" "Primary visitor source" "Supporting source" "Update history"; do
+          for marker in "Plan your day" "What the visit involves" "Walking &amp; exertion" "Time outdoors" "Planning needed" "Families" "Good for first-time visitors" "Texas context" "Plan by time" "Three ways to visit" "Key dates" "Common visitor questions" "Sources &amp; updates" "Sources used for this guide" "Primary visitor source" "Additional source" "Update history"; do
             grep -Fq "$marker" /tmp/authority-control.html || {
               echo "Top 25 authority control is missing required rendered marker: $marker" >&2
               exit 1
