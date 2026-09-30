@@ -56,6 +56,42 @@ jobs:
             echo "Generalized AI demand intelligence changed; preparing a review-only PR with ranked editorial actions."
           fi
 
+      - name: Summarize demand intelligence run
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "## Ask Texas demand intelligence"
+            echo
+            if [ -f ops/ai/texas-defined-ai-demand.generated.json ]; then
+              node - <<'NODE'
+          const fs = require('node:fs');
+          const report = JSON.parse(fs.readFileSync('ops/ai/texas-defined-ai-demand.generated.json', 'utf8'));
+          const totals = report.totals || {};
+          console.log(`- Telemetry events represented: ${totals.events ?? 0}`);
+          console.log(`- Strong coverage: ${totals.strong ?? 0}`);
+          console.log(`- Partial coverage: ${totals.partial ?? 0}`);
+          console.log(`- Gap coverage: ${totals.gap ?? 0}`);
+          console.log(`- Actionable opportunities: ${totals.actionableOpportunities ?? 0}`);
+          NODE
+            else
+              echo "- No generated demand report is present. If earlier steps succeeded, this means no generalized topic crossed the review threshold."
+            fi
+            if [ -f ops/ai/texas-defined-ai-editorial-queue.generated.json ]; then
+              node - <<'NODE'
+          const fs = require('node:fs');
+          const queue = JSON.parse(fs.readFileSync('ops/ai/texas-defined-ai-editorial-queue.generated.json', 'utf8'));
+          console.log(`- Editorial queue items: ${Array.isArray(queue.items) ? queue.items.length : 0}`);
+          NODE
+            else
+              echo "- Editorial queue items: 0"
+            fi
+            echo "- Review PR needed: ${{ steps.changes.outputs.changed || 'not-reached' }}"
+            echo "- Privacy boundary: only aggregate generalized signals are summarized; user question text is never printed here."
+            echo "- Publication boundary: this workflow cannot publish or auto-merge demand-generated content."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Create or refresh review branch
         if: steps.changes.outputs.changed == 'true'
         id: branch
