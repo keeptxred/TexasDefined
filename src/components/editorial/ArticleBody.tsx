@@ -32,6 +32,8 @@ export function readerFacingArticleHeading(text: string) {
   const normalized = text.trim();
   const countyMatch = normalized.match(/^What defines (.+? County)(?: today)?$/i);
   if (countyMatch) return `${countyMatch[1]} today`;
+  const definesMatch = normalized.match(/^What defines (.+?)\??$/i);
+  if (definesMatch) return `${definesMatch[1]} essentials`;
   if (/^How this guide fits the larger Texas homecoming story$/i.test(normalized)) return "The bigger Texas homecoming story";
   if (/^How this church fits the Painted Churches collection$/i.test(normalized)) return "Its place in the Painted Churches collection";
   return normalized;
