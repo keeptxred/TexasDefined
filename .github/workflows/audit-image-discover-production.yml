@@ -49,6 +49,8 @@ jobs:
 
       - name: Audit priority production pages
         env:
+          # IMAGE_AUDIT_STRICT: '1' is the post-merge/scheduled enforcement mode;
+          # pull requests run report-only against the currently deployed site.
           IMAGE_AUDIT_STRICT: ${{ github.event_name == 'pull_request' && '0' || '1' }}
           IMAGE_AUDIT_CONCURRENCY: '8'
           IMAGE_AUDIT_TIMEOUT_MS: '30000'
