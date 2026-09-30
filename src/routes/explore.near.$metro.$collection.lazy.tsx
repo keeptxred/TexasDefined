@@ -50,11 +50,11 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     .filter((value): value is string => Boolean(value)))]
     .slice(0, 10);
   const eventTitle = eventContext.kind === "weekend-destinations"
-    ? "Upcoming events in these weekend destinations"
+    ? "Events in these weekend-trip towns"
     : `Upcoming events near ${metro.name}`;
   const eventEyebrow = eventContext.kind === "weekend-destinations"
-    ? "Plan around the calendar"
-    : "Dated things to do";
+    ? "By destination"
+    : "By date";
 
   return <>
     <Container className="py-14 sm:py-18">
@@ -76,7 +76,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         title={eventTitle}
         viewAllHref="/events"
       />
-      {eventContext.kind === "weekend-destinations" && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These dated events are limited to towns represented by the weekend-trip destinations on this page, so the calendar stays tied to places you may actually build the trip around.</p>}
+      {eventContext.kind === "weekend-destinations" && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Events here are limited to towns in this weekend-trip list.</p>}
     </Container>}
 
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
