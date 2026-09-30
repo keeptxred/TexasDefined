@@ -121,6 +121,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
           },
           {
+            "@type": "Organization",
+            "@id": `${siteUrl}/#publisher`,
+            name: texasDefinedBrand.identity.name,
+            url: siteUrl,
+            logo: { "@id": `${siteUrl}/#logo` },
+            publishingPrinciples: `${siteUrl}/editorial-policy`,
+            sameAs: [`${siteUrl}/#organization`],
+          },
+          {
             "@type": "WebSite",
             "@id": `${siteUrl}/#website`,
             name: texasDefinedBrand.identity.name,
