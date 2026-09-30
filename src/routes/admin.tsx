@@ -20,6 +20,7 @@ function AdminLayout() {
         <Link to="/admin/fishing-sponsors" className="text-muted-foreground hover:text-primary">Fishing sponsorships</Link>
         <Link to="/admin/partner-referrals" className="text-muted-foreground hover:text-primary">Partner referrals</Link>
         <Link to="/admin/editorial-outreach" className="text-muted-foreground hover:text-primary">Editorial outreach</Link>
+        <Link to="/admin/backlinks" className="text-muted-foreground hover:text-primary">Backlinks</Link>
       </div>
     </nav>
     <Outlet />
