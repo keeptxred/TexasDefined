@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
+import { TexasEventCarousel, type TexasEventCarouselItem } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
 import {
   METRO_PROXIMITY_COLLECTIONS,
@@ -16,6 +17,10 @@ type CollectionPageData = {
   metro: MetroProximityMetro;
   collection: MetroProximityCollection;
   results: MetroProximityResult[];
+  eventContext: {
+    kind: "none" | "nearby" | "weekend-destinations";
+    events: TexasEventCarouselItem[];
+  };
   indexReady: boolean;
 };
 
@@ -30,7 +35,7 @@ function countySlug(value: string) {
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
-  const { metro, collection, results } = pageData;
+  const { metro, collection, results, eventContext } = pageData;
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
@@ -44,6 +49,12 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
     .filter((value): value is string => Boolean(value)))]
     .slice(0, 10);
+  const eventTitle = eventContext.kind === "weekend-destinations"
+    ? "Events in these weekend-trip towns"
+    : `Upcoming events near ${metro.name}`;
+  const eventEyebrow = eventContext.kind === "weekend-destinations"
+    ? "By destination"
+    : "By date";
 
   return <>
     <Container className="py-14 sm:py-18">
@@ -57,6 +68,16 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         >{item.navLabel}</Link>)}
       </div>
     </Container>
+
+    {eventContext.events.length > 0 && <Container className="pb-14 sm:pb-18">
+      <TexasEventCarousel
+        events={eventContext.events}
+        eyebrow={eventEyebrow}
+        title={eventTitle}
+        viewAllHref="/events"
+      />
+      {eventContext.kind === "weekend-destinations" && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Events here are limited to towns in this weekend-trip list.</p>}
+    </Container>}
 
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
       <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${collection.label} near ${metro.name}`} />
