@@ -26,7 +26,7 @@ export const Route = createFileRoute(canonicalPath)({
         url,
         name: 'Texas High School Football State Championships: All-Time UIL History',
         description,
-        numberOfItems: loaderData.finalAppearingPrograms,
+        ...(loaderData.historyAvailable ? { numberOfItems: loaderData.finalAppearingPrograms } : {}),
         isPartOf: { '@id': `${siteUrl}/#website` },
       })] : [],
     };
