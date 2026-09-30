@@ -131,10 +131,17 @@ for (const marker of [
   '21 listed attraction choices',
 ]) requireText(guidesHub + guidePage, marker, 'Three-market evergreen coverage');
 
+const priceFacts = [
+  ['Dallas', '$64', '$46', '4 of 6', 'up to 56%'],
+  ['Houston', '$82', '$72', '5 of 7', 'up to 52%'],
+  ['San Antonio', '$63', '$53', '4 of 8', 'up to 41%'],
+];
+for (const [market, adult, child, selection, savings] of priceFacts) {
+  for (const value of [`market: "${market}"`, `adult: "${adult}"`, `child: "${child}"`, `selection: "${selection}"`, `maxSavings: "${savings}"`]) {
+    requireText(guidePage, value, `${market} buying-guide price facts`);
+  }
+}
 for (const marker of [
-  'Dallas CityPASS® — $64 adult / $46 child',
-  'Houston CityPASS® — $82 adult / $72 child',
-  'San Antonio CityPASS® — $63 adult / $53 child',
   'showGuideLink={false}',
   'The break-even rule',
   'CityPASS® FAQ',
