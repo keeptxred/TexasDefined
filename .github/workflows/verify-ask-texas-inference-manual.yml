@@ -1,13 +1,15 @@
-name: Verify Ask Texas inference manually
+name: Verify Ask Texas inference
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17 13 * * 0'
 
 permissions:
   contents: read
 
 concurrency:
-  group: ask-texas-inference-manual
+  group: ask-texas-inference-health
   cancel-in-progress: false
 
 jobs:
