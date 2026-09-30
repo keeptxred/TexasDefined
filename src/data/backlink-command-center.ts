@@ -50,6 +50,30 @@ export const BACKLINK_SOURCE_TYPES = [
 ] as const;
 export type BacklinkSourceType = (typeof BACKLINK_SOURCE_TYPES)[number];
 
+export interface BacklinkRecordInput {
+  referringDomain: string;
+  linkingUrl: string | null;
+  destinationUrl: string;
+  topicCluster: string;
+  contactOrganization: string;
+  contactName: string | null;
+  contactEmail: string | null;
+  sourceType: BacklinkSourceType;
+  outreachReason: string;
+  outreachDate: string | null;
+  lastFollowUpDate: string | null;
+  responseStatus: BacklinkResponseStatus;
+  backlinkStatus: BacklinkStatus;
+  linkAttribute: BacklinkLinkAttribute;
+  anchorText: string | null;
+  authorityRelevanceNotes: string;
+  nextAction: string;
+  campaign: string;
+  stage: BacklinkStage;
+  dateFirstDiscovered: string | null;
+  dateLastVerified: string | null;
+}
+
 export interface BacklinkRecord {
   id: string;
   createdAt: string;
