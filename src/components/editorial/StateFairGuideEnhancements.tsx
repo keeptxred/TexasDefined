@@ -78,6 +78,8 @@ const additionalPhotos: FairPhoto[] = [
   { file: "State Fair of Texas September 2019 31 (Centennial Hall).jpg", alt: "Centennial Hall illuminated at night during the State Fair of Texas", caption: "Centennial Hall at night" },
 ];
 
+const historicalPhotos = [...featuredPhotos, ...additionalPhotos];
+
 function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean }) {
   return (
     <figure className="overflow-hidden border border-border bg-background">
@@ -212,7 +214,7 @@ export function StateFairHistoricalGallery() {
           <details className="mt-6 border border-border bg-muted/30 p-5">
             <summary className="cursor-pointer font-semibold">View the full 31-photo historical State Fair gallery</summary>
             <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {additionalPhotos.map((photo) => <PhotoCard key={photo.file} photo={photo} />)}
+              {historicalPhotos.map((photo) => <PhotoCard key={photo.file} photo={photo} />)}
             </div>
           </details>
 
