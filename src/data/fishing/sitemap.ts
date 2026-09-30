@@ -6,6 +6,7 @@ import { FISHING_SEASONS_PATH, FISHING_SEASONS_VERIFIED_AT } from "./season-rout
 import { EXPANDED_SHOWCASE_LAKE_SLUGS, SHOWCASE_LAKE_SECTION_SLUGS, SHOWCASE_LAKE_SLUGS, SHOWCASE_LAKE_VERIFIED_AT, STATEWIDE_NETWORK_SHOWCASE_LAKE_SLUGS, STATEWIDE_NETWORK_SHOWCASE_LAKE_VERIFIED_AT, WAVE2_SHOWCASE_LAKE_SLUGS, WAVE2_SHOWCASE_LAKE_VERIFIED_AT, showcaseLakeCanonicalPath } from "./showcase-lake-routing";
 import { COMPLETE_FISHING_SPECIES_SLUGS } from "./slugs";
 import { FISHING_SPECIES_DIRECTORY_PATH, FISHING_SPECIES_VERIFIED_AT, fishingSpeciesCanonicalPath } from "./species-routing";
+import { isFishingTechniqueHeroReady } from "./technique-images";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH, FISHING_TECHNIQUES_VERIFIED_AT, PUBLISHED_FISHING_TECHNIQUE_SLUGS, fishingTechniqueCanonicalPath } from "./technique-routing";
 
 export const FISHING_LAKES_DIRECTORY_PATH = "/fishing/lakes";
@@ -25,7 +26,9 @@ export const FISHING_SITEMAP_ENTRIES = [
   { path: FISHING_TECHNIQUES_DIRECTORY_PATH, lastmod: FISHING_TECHNIQUES_VERIFIED_AT },
   { path: FISHING_STRUCTURE_PATH, lastmod: FISHING_HABITAT_VERIFIED_AT },
   { path: FISHING_VEGETATION_PATH, lastmod: FISHING_HABITAT_VERIFIED_AT },
-  ...PUBLISHED_FISHING_TECHNIQUE_SLUGS.map((slug) => ({ path: fishingTechniqueCanonicalPath(slug), lastmod: FISHING_TECHNIQUES_VERIFIED_AT })),
+  ...PUBLISHED_FISHING_TECHNIQUE_SLUGS
+    .filter((slug) => isFishingTechniqueHeroReady(slug))
+    .map((slug) => ({ path: fishingTechniqueCanonicalPath(slug), lastmod: FISHING_TECHNIQUES_VERIFIED_AT })),
   { path: FISHING_REGULATIONS_PATH, lastmod: FISHING_REGULATIONS_VERIFIED_AT },
   { path: lakeConroeCanonicalPath(), lastmod: LAKE_CONROE_VERIFIED_AT },
   ...LAKE_CONROE_SECTION_SLUGS.map((section) => ({ path: lakeConroeCanonicalPath(section), lastmod: LAKE_CONROE_VERIFIED_AT })),
