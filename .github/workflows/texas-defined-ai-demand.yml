@@ -35,20 +35,25 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: node scripts/ai/build-ai-demand-report.mjs
 
+      - name: Build review-only editorial action queue
+        run: node scripts/ai/build-ai-editorial-queue.mjs
+
       - name: Validate privacy and publication boundaries
-        run: node scripts/ai/validate-ai-demand-report.mjs
+        run: |
+          node scripts/ai/validate-ai-demand-report.mjs
+          node scripts/ai/validate-ai-editorial-queue.mjs
 
       - name: Detect reviewable demand changes
         id: changes
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain -- ops/ai/texas-defined-ai-demand.generated.json)" ]; then
+          if [ -z "$(git status --porcelain -- ops/ai/texas-defined-ai-demand.generated.json ops/ai/texas-defined-ai-editorial-queue.generated.json)" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No generalized AI demand opportunity changed enough to create a review PR."
+            echo "No generalized AI demand or editorial action changed enough to create a review PR."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "Generalized AI demand intelligence changed; preparing a review-only PR."
+            echo "Generalized AI demand intelligence changed; preparing a review-only PR with ranked editorial actions."
           fi
 
       - name: Create or refresh review branch
@@ -62,7 +67,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$branch"
-          git add ops/ai/texas-defined-ai-demand.generated.json
+          git add ops/ai/texas-defined-ai-demand.generated.json ops/ai/texas-defined-ai-editorial-queue.generated.json
           git commit -m 'Refresh generalized Texas Defined AI demand intelligence'
           if [ -n "$remote_sha" ]; then
             git push --force-with-lease="refs/heads/$branch:$remote_sha" origin "$branch"
@@ -88,4 +93,4 @@ jobs:
             --base main \
             --head "$BRANCH" \
             --title 'Review Texas Defined AI demand and content gaps' \
-            --body $'Automated privacy-safe demand intelligence from Texas Defined AI.\n\nThis PR contains only generalized topic/category signals, aggregate demand/coverage counts, recommended asset types, and authoritative research-source targets. Raw or sanitized user questions are intentionally excluded from the public repository and workflow output.\n\nThis is a review queue, not a publication action. It does not create or publish articles, does not auto-merge, and does not bypass TexasDefined quality, indexing, source, image-rights, or publication gates. Any resulting content/data work must be researched against the listed authoritative sources and pass normal repository validation before a separate merge decision.'
+            --body $'Automated privacy-safe demand intelligence from Texas Defined AI.\n\nThis PR contains only generalized topic/category signals, aggregate demand/coverage counts, ranked editorial actions, existing-page targets when available, recommended asset types, and authoritative research-source targets. Raw or sanitized user questions are intentionally excluded from the public repository and workflow output.\n\nThe editorial queue distinguishes between improving an existing surface, reviewing an already-strong surface, and researching a possible new surface. These are recommendations for human review only.\n\nThis is a review queue, not a publication action. It does not create or publish articles, does not auto-merge, and does not bypass TexasDefined quality, indexing, source, image-rights, or publication gates. Any resulting content/data work must be researched against the listed authoritative sources and pass normal repository validation before a separate merge decision.'
