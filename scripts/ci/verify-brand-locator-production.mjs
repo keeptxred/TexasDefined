@@ -127,7 +127,7 @@ await fetchText('/things-unique-to-texas/texas-brands', [
 ]);
 await fetchText('/texas-brand-locator.js', [
   '/api/texas-brand-locator',
-  "Find H-E-B, Buc-ee's, Whataburger, Academy, Shipley, Kolache Factory and H-E-B family stores",
+  "Find H-E-B Family Stores, Buc-ee's, Whataburger, Academy, Shipley Do-Nuts & Kolache Factory",
   'central-market',
   'joe-vs',
   'mi-tienda',
