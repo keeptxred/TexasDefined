@@ -182,7 +182,7 @@ function ShopPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3">
             <StoryLink href="/best-places-to-go-camping-in-texas" title="Best places to camp in Texas">Start with the campsite before deciding what deserves space in the gear bin.</StoryLink>
             <StoryLink href="/article/bluebonnet-season-field-guide" title="Chasing bluebonnet season">The practical field guide behind the Wildflower House collection.</StoryLink>
-            <StoryLink href="/article/what-defines-texas-barbecue" title="What defines Texas barbecue">The smoke, patience and butcher-paper culture behind Smoke & Salt.</StoryLink>
+            <StoryLink href="/article/what-defines-texas-barbecue" title="Texas barbecue essentials">The smoke, patience and butcher-paper culture behind Smoke & Salt.</StoryLink>
           </div>
         </Container>
       </section>
