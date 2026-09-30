@@ -4,7 +4,7 @@ import { jsonLd } from "@/lib/seo";
 
 // PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
-const seoDescription = "State Fair of Texas 2026 is open Sept. 25–Oct. 18 at Fair Park in Dallas. Current hours, tickets, DART, parking, coupons, food, rides and planning.";
+const seoDescription = "State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.";
 
 const stateFairData = {
     eyebrow: "Texas events",
@@ -213,7 +213,7 @@ export const Route = createFileRoute("/texas-state-fair")({
     if (!loaderData) return {};
     const base = buildPrioritySearchHead({
       canonicalPath,
-      title: "State Fair of Texas 2026: Hours, Tickets & Guide",
+      title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets",
       description: seoDescription,
       data: loaderData,
       about: ["State Fair of Texas", "Fair Park", "Dallas events", "Big Tex", "Texas State Fair food"],
