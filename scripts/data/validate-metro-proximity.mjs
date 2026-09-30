@@ -43,6 +43,12 @@ const expectedMetroSlugs = [
   "tyler",
   "college-station",
   "abilene",
+  "laredo",
+  "killeen-temple",
+  "san-angelo",
+  "wichita-falls",
+  "texarkana",
+  "victoria",
 ];
 const metroMatch = files.data.match(/METRO_PROXIMITY_METROS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const metroSlugs = metroMatch ? [...metroMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
@@ -221,6 +227,12 @@ for (const token of [
   "metro-tyler-lakes",
   "metro-college-station-day-trips",
   "metro-abilene-hub",
+  "metro-laredo-hub",
+  "metro-killeen-temple-day-trips",
+  "metro-san-angelo-road-trips",
+  "metro-wichita-falls-lakes",
+  "metro-texarkana-weekend-trips",
+  "metro-victoria-historic-sites",
 ]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
 for (const token of [
@@ -247,4 +259,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: sixteen metro hubs and 208 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by leaf-only parent SEO, descendant Outlet ownership, server-built SEO and lazy hub presentation.");
+console.log("Metro proximity validation passed: twenty-two metro hubs and 286 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by leaf-only parent SEO, descendant Outlet ownership, server-built SEO and lazy hub presentation.");
