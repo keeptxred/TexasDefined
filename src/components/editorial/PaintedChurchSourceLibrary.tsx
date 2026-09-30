@@ -54,7 +54,7 @@ export function PaintedChurchSourceLibrary() {
 
       <div className="mt-10 border-t border-border pt-8">
         <p className="eyebrow text-primary">{paintedChurchAuthoritySources.length}-source authority trail · updated {paintedChurchAuthorityExpansionDate}</p>
-        <h3 className="mt-3 font-display text-3xl">A second 15-source research pass adds community, architectural and preservation evidence.</h3>
+        <h3 className="mt-3 font-display text-3xl">New research adds community, architecture and preservation context</h3>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The latest pass adds 15 exact source pages beyond the original 15-source expansion. New evidence comes from municipalities, diocesan records, the Texas State Historical Association, the Texas Society of Architects, church and school histories, Texas Highways, Wendish research and SAH Archipedia. Only facts that add to or materially qualify the existing record are synthesized into church profiles; duplicate claims are not repeated, and time-sensitive visitor guidance remains subordinate to the active parish.</p>
         <div className="mt-7 grid gap-px border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
           {paintedChurchAuthoritySources.map((source, index) => <article key={source.url} className="bg-background p-6">

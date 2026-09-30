@@ -7,6 +7,8 @@ on:
     paths:
       - '.github/workflows/audit-whole-site-production.yml'
       - 'scripts/ci/audit-production-pages.mjs'
+      - 'scripts/ci/audit-editorial-source-language.mjs'
+      - 'scripts/ci/audit-static-route-copy.mjs'
       - 'scripts/data/validate-layout-dead-space.mjs'
       - 'src/routes/**'
       - 'src/components/**'
@@ -34,6 +36,12 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - name: Audit editorial headings and titles in source
+        continue-on-error: true
+        run: node scripts/ci/audit-editorial-source-language.mjs
+      - name: Audit static route copy depth
+        continue-on-error: true
+        run: node scripts/ci/audit-static-route-copy.mjs
       - name: Audit every production URL
         run: npm run production:pages:audit
       - name: Upload complete page-quality report
@@ -44,4 +52,6 @@ jobs:
           path: |
             /tmp/texasdefined-page-audit.json
             /tmp/texasdefined-page-audit.tsv
+            /tmp/texasdefined-editorial-language-audit.json
+            /tmp/texasdefined-static-route-copy-audit.json
           if-no-files-found: warn

@@ -168,7 +168,7 @@ function statusHeading(entity: TexasEntityRecord) {
   if (entity.kind === 'appraisal-district') return 'Verified appraisal-district information';
   if (entity.kind === 'tax-office') return 'Verified tax-office information';
   if (localGovernmentKinds.has(entity.kind)) return 'Verified public-service information';
-  return 'What we can verify';
+  return 'Verified information';
 }
 
 function statusMessage(entity: TexasEntityRecord) {
@@ -200,12 +200,12 @@ function officialLinkLabel(kind: string) {
   return 'Official information';
 }
 
-function notesEyebrow(kind: string) { return referenceKinds.has(kind) ? 'Guide notes' : 'Field notes'; }
+function notesEyebrow(kind: string) { return referenceKinds.has(kind) ? 'Guide notes' : 'Highlights'; }
 function notesHeading(entity: TexasEntityRecord) {
-  if (entity.kind === 'county') return 'What defines this county';
-  if (entity.kind === 'agency') return 'What this agency handles';
-  if (localGovernmentKinds.has(entity.kind)) return 'What this office handles';
-  return `What defines ${entity.name}`;
+  if (entity.kind === 'county') return 'County highlights';
+  if (entity.kind === 'agency') return 'Agency responsibilities';
+  if (localGovernmentKinds.has(entity.kind)) return 'Office responsibilities';
+  return `${entity.name} highlights`;
 }
 function breadcrumbSection(kind: string) { return referenceKinds.has(kind) ? 'Texas reference' : 'Explore'; }
 

@@ -24,7 +24,7 @@ export function PaintedChurchCanonicalRecord({ slug }: { slug: string }) {
   return (
     <section aria-labelledby="canonical-record" className="mt-14 border-t border-border pt-8">
       <p className="eyebrow text-primary">Collection category</p>
-      <h2 id="canonical-record" className="mt-3 font-display text-4xl">How this church fits the Painted Churches collection</h2>
+      <h2 id="canonical-record" className="mt-3 font-display text-4xl">Its place in the Painted Churches collection</h2>
       <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
         <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Collection category</dt><dd className="mt-2 text-base leading-7">{classificationLabels[church.classification]}</dd></div>
         <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Interior integrity</dt><dd className="mt-2 text-base leading-7">{integrityLabels[church.interiorIntegrity]}</dd></div>
