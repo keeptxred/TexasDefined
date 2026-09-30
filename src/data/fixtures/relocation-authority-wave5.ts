@@ -104,7 +104,7 @@ const moverVerification = base({
     { href: "/moving-to-texas-checklist", label: "First 30 days in Texas checklist", description: "Keep the mover decision connected to the rest of the arrival timeline." },
     { href: "/article/employee-relocation-guide-to-texas", label: "Employee relocation guide", description: "Coordinate a professional mover with employer reimbursement and household deadlines." },
     { href: "https://www.txdmv.gov/motorists/consumer-protection/dont-make-a-move", label: "TxDMV: Don’t Make a Move Without Us", description: "Official Texas consumer guidance and the Truck Stop motor-carrier lookup." },
-    { href: "https://apps.txdmv.gov/apps/mccs/truckstop/", label: "TxDMV Truck Stop lookup", description: "Check the Texas certificate and operating status of a mover." },
+    { href: "https://www.txdmv.gov/motorists/consumer-protection/dont-make-a-move", label: "TxDMV Truck Stop lookup", description: "Use the official TxDMV consumer page to open Truck Stop and check the Texas certificate and operating status of a mover." },
     { href: "https://www.fmcsa.dot.gov/protect-your-move/search-mover", label: "FMCSA registered mover search", description: "Check interstate registration, business type, complaint and safety information." },
     { href: "https://www.fmcsa.dot.gov/protect-your-move/movers-vs-brokers", label: "FMCSA movers vs. brokers", description: "Understand whether the company actually transports goods or arranges transportation." },
   ],
