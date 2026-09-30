@@ -26,7 +26,7 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
 
       <AnswerSummary
         eyebrow="Quick answer"
-        title={`What this ${title.toLowerCase()} does`}
+        title="What the calculator estimates"
         items={[
           { question: "What does this calculator estimate?", answer: description },
           { question: "Who is it for?", answer: "Texans comparing costs, planning a move, evaluating a home purchase or trying to understand a household money decision before talking with a provider or agency." },
