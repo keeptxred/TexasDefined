@@ -19,7 +19,7 @@ if (answerCount !== questionCount) failures.push(`Expected one answer per questi
 if (categoryCount < 8) failures.push(`Expected at least 8 topic groups; found ${categoryCount}.`);
 
 for (const [label, source, markers] of [
-  ['parent route', parent, ['createFileRoute("/texas-explained")', 'const questionCount = 140;', 'buildEditorialCollectionHead']],
+  ['parent route', parent, ['createFileRoute("/texas-explained")', 'buildEditorialCollectionHead']],
   ['parent lazy route', parentLazy, ['createLazyFileRoute("/texas-explained")', 'TexasExplainedPage']],
   ['hub', hub, ['useSuspenseQuery(articlesQuery())', 'to="/texas-explained/questions"', 'const questionCount = 140;', 'Land and water', 'Built Texas', 'People and place']],
   ['questions route', questionsRoute, ['const canonicalPath = "/texas-explained/questions";', 'createFileRoute(canonicalPath)', 'canonicalLink(texasDefinedBrand, canonicalPath)']],
