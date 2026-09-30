@@ -15,6 +15,7 @@ import {
   useUrlStateDefaults,
 } from '@/components/property/PropertyCalculatorFramework';
 import { calculateHomeownershipCost } from '@/lib/financial/homeownership';
+import { calculatePropertyTax } from '@/lib/financial/property-tax';
 
 type OwnershipState = {
   homeValue: number;
@@ -88,7 +89,7 @@ export function OfficialHomeownershipCostCalculator() {
         <CurrencyInput label="Landscaping" value={state.landscaping} onChange={(value) => update('landscaping', value)}/>
         <CurrencyInput label="Other recurring costs" value={state.other} onChange={(value) => update('other', value)}/>
       </div> : null}
-      <div className="mt-6"><OfficialTaxRateAssist countySlug={state.county} title="Estimate monthly property taxes from official local rates" onApply={(rates) => setState((current) => ({ ...current, taxes: Math.max(0, current.homeValue) * rates.combinedRate / 100 / 12, rateYear: rates.year }))}/></div>
+      <div className="mt-6"><OfficialTaxRateAssist countySlug={state.county} title="Estimate monthly property taxes from official local rates" onApply={(rates) => setState((current) => ({ ...current, taxes: calculatePropertyTax(current.homeValue, rates.combinedRate) / 12, rateYear: rates.year }))}/></div>
       <p className="mt-6 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Build the full ownership budget.</strong> Add recurring costs that apply to the property instead of treating the mortgage payment as the cost of owning the home.</p>
     </section>
     <CalculatorActions onSave={persistence.save} onRestore={persistence.restore} onShare={persistence.share} onPrint={persistence.print} status={persistence.status} onReset={() => setState(DEFAULTS)}/>
