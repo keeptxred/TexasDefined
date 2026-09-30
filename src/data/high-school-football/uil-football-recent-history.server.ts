@@ -1,4 +1,5 @@
 const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives';
+const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives';
 const HISTORY_START_SEASON = '2018-2019';
 const HISTORY_END_SEASON = '2025-2026';
 const HISTORY_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
@@ -45,7 +46,7 @@ function decodeHtml(value: string) {
     .replace(/&#39;|&apos;/gi, "'")
     .replace(/&ndash;|&#8211;/gi, '–')
     .replace(/&mdash;|&#8212;/gi, '—')
-    .replace(/&#(d+);/g, (_, code: string) => String.fromCharCode(Number(code)))
+    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number(code)))
     .replace(/&#x([0-9a-f]+);/gi, (_, code: string) => String.fromCharCode(Number.parseInt(code, 16)));
 }
 
@@ -91,24 +92,41 @@ function parseArchiveRows(html: string): UilRecentFootballFinal[] {
 }
 
 async function fetchArchivePage(offset: number) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 6_000);
-  const url = offset ? `${UIL_FOOTBALL_ARCHIVE_URL}/P${offset}` : UIL_FOOTBALL_ARCHIVE_URL;
+  let lastError: unknown = null;
 
-  try {
-    const response = await fetch(url, {
-      headers: {
-        accept: 'text/html,application/xhtml+xml',
-        'user-agent': 'TexasDefined-Football-Research/1.0',
-      },
-      redirect: 'follow',
-      signal: controller.signal,
-    });
-    if (!response.ok) throw new Error(`UIL football archive returned ${response.status} for offset ${offset}.`);
-    return parseArchiveRows(await response.text());
-  } finally {
-    clearTimeout(timeout);
+  for (const baseUrl of [UIL_FOOTBALL_ARCHIVE_URL, UIL_FOOTBALL_ARCHIVE_FALLBACK_URL]) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6_000);
+    const url = offset ? `${baseUrl}/P${offset}` : baseUrl;
+
+    try {
+      const response = await fetch(url, {
+        headers: {
+          accept: 'text/html,application/xhtml+xml',
+          'user-agent': 'TexasDefined-Football-Research/1.0',
+        },
+        redirect: 'follow',
+        signal: controller.signal,
+      });
+      if (!response.ok) {
+        throw new Error(`UIL football archive returned ${response.status} for offset ${offset} from ${baseUrl}.`);
+      }
+
+      const rows = parseArchiveRows(await response.text());
+      if (!rows.length) {
+        throw new Error(`UIL football archive returned no parseable rows for offset ${offset} from ${baseUrl}.`);
+      }
+      return rows;
+    } catch (error) {
+      lastError = error;
+    } finally {
+      clearTimeout(timeout);
+    }
   }
+
+  throw lastError instanceof Error
+    ? lastError
+    : new Error(`UIL football archive could not be loaded for offset ${offset} from either official endpoint.`);
 }
 
 function seasonInWindow(season: string) {
@@ -222,5 +240,6 @@ export const UIL_RECENT_FOOTBALL_HISTORY_WINDOW = {
   startSeason: HISTORY_START_SEASON,
   endSeason: HISTORY_END_SEASON,
   sourceUrl: UIL_FOOTBALL_ARCHIVE_URL,
+  fallbackUrl: UIL_FOOTBALL_ARCHIVE_FALLBACK_URL,
   pageOffsets: ARCHIVE_PAGE_OFFSETS,
 } as const;
