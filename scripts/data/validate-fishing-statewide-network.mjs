@@ -147,8 +147,12 @@ if (files.network.includes("TPWD — current lake conditions entry point")) fail
 for (const slug of liveExpectedSlugs) {
   requireText(files.liveWorkflow, slug, `production live-water workflow missing ${slug}`);
 }
+const workflowExpectedBlock = files.liveWorkflow.match(/expected = \[[\s\S]*?\n\s*\]/)?.[0] ?? "";
+const workflowLiveUiBlock = files.liveWorkflow.match(/lakes=\([\s\S]*?\n\s*\)/)?.[0] ?? "";
 for (const slug of officialFallbackSlugs) {
-  if (files.liveWorkflow.includes(slug)) fail(`unmonitored fallback lake must not be a release-blocking live-water check: ${slug}`);
+  if (workflowExpectedBlock.includes(`'${slug}'`) || workflowLiveUiBlock.includes(slug)) {
+    fail(`unmonitored fallback lake must not be a release-blocking live-water check: ${slug}`);
+  }
 }
 for (const token of [
   "All 40 monitored lake page-data snapshots and server paths are current",
@@ -214,6 +218,11 @@ if (!files.species.includes('id: "red-drum"') || !files.network.includes('fish("
 requireText(files.network, 'liveDataNote: "No public real-time pool-elevation feed is currently published for Calaveras Lake.', "Calaveras no-live-data note missing");
 requireText(files.network, "liveDataNote: def.liveDataNote", "statewide live-data note propagation missing");
 requireText(files.component, "pageData.liveDataNote", "lake guide must render source-backed live-data availability notes");
+for (const token of [
+  "Verify Calaveras no-public-gauge disclosure",
+  "No public real-time pool-elevation feed is currently published for Calaveras Lake.",
+  "Calaveras must not render a fake live-level strip without a public real-time gauge.",
+]) requireText(files.liveWorkflow, token, `Calaveras production fallback verification missing ${token}`);
 
 const forbidden = ["/fishing/fishing/", "guaranteed catch", "today's best lake", "affiliate pick", "sponsored ranking"];
 for (const phrase of forbidden) if (Object.values(files).some((source) => source.toLowerCase().includes(phrase.toLowerCase()))) fail(`forbidden/duplicate content pattern found: ${phrase}`);
