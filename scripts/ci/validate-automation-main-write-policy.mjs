@@ -72,6 +72,10 @@ for (const contract of [
   'git push origin "HEAD:$BRANCH"',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml',
+  'statuses: write',
+  'publish_required_status "$validated_sha"',
+  "-f context='Required merge gate'",
+  "-f state='success'",
   '--auto',
   '--match-head-commit "$validated_sha"',
   'Protected auto-merge is waiting for branch policy',
@@ -130,4 +134,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
