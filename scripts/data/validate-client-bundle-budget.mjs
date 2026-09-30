@@ -1,4 +1,4 @@
-import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const assetDirCandidates = [
@@ -20,7 +20,6 @@ const MAX_MAIN_BYTES = 1_825_000;
 // of headroom so the stylesheet gate remains a tight growth detector rather than
 // blocking a measured 0.08% increase that accompanies the shared calculator UI.
 const MAX_CSS_BYTES = 140_250;
-const REPORT_PATH = path.resolve('client-bundle-budget-report.json');
 
 function reportCiError(title, message) {
   if (process.env.GITHUB_ACTIONS === 'true') {
@@ -80,23 +79,6 @@ async function main() {
 
   const mainFile = mainCandidates[0];
   const mainBytes = (await stat(path.join(assetsDir, mainFile))).size;
-  const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
-  const cssMeasurements = [];
-  for (const cssFile of cssFiles) {
-    cssMeasurements.push({ file: cssFile, bytes: (await stat(path.join(assetsDir, cssFile))).size });
-  }
-
-  await writeFile(REPORT_PATH, `${JSON.stringify({
-    assetsDir: path.relative(process.cwd(), assetsDir),
-    mainFile,
-    mainBytes,
-    stableMainBaselineBytes: STABLE_MAIN_BASELINE_BYTES,
-    maxMainBytes: MAX_MAIN_BYTES,
-    mainOverageBytes: Math.max(0, mainBytes - MAX_MAIN_BYTES),
-    cssMeasurements,
-    maxCssBytes: MAX_CSS_BYTES,
-  }, null, 2)}\n`, 'utf8');
-
   if (mainBytes > MAX_MAIN_BYTES) {
     const overageBytes = mainBytes - MAX_MAIN_BYTES;
     const message = `Main client bundle ${mainFile} is ${mainBytes.toLocaleString()} bytes; budget is ${MAX_MAIN_BYTES.toLocaleString()} bytes; over by ${overageBytes.toLocaleString()} bytes (stable baseline ${STABLE_MAIN_BASELINE_BYTES.toLocaleString()} bytes).`;
@@ -104,7 +86,9 @@ async function main() {
     throw new Error(message);
   }
 
-  for (const { file: cssFile, bytes: cssBytes } of cssMeasurements) {
+  const cssFiles = entries.filter((name) => /^styles-.*\.css$/.test(name));
+  for (const cssFile of cssFiles) {
+    const cssBytes = (await stat(path.join(assetsDir, cssFile))).size;
     if (cssBytes > MAX_CSS_BYTES) {
       const message = `Primary stylesheet ${cssFile} is ${cssBytes.toLocaleString()} bytes; budget is ${MAX_CSS_BYTES.toLocaleString()} bytes.`;
       reportCiError('Client stylesheet budget', message);
