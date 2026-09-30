@@ -29,7 +29,7 @@ function PrivacyPolicyPage() {
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">
             This policy explains the information Texas Defined handles when you use the site, submit a form, shop, use interactive tools, or encounter advertising and analytics technologies.
           </p>
-          <p className="mt-4 text-sm text-muted-foreground">Last updated August 26, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Last updated September 30, 2026.</p>
         </Container>
       </section>
 
@@ -86,6 +86,19 @@ function PrivacyPolicyPage() {
           </section>
 
           <section className="border-t border-border pt-6">
+            <h2 className="font-display text-3xl text-foreground">Ask Texas AI and Demand Intelligence</h2>
+            <p className="mt-4">
+              When you submit a question to Ask Texas AI, Texas Defined processes the question to generate an answer, retrieve relevant Texas Defined material, and, when needed, check governed official sources. The service also creates privacy-minimized usage signals so Texas Defined can measure answer quality and identify subjects that may need stronger guides, data, or tools.
+            </p>
+            <p className="mt-3">
+              Private AI telemetry may temporarily retain a sanitized version of the submitted question after attempting to replace common email addresses, phone numbers, and street addresses with generic placeholders. Texas Defined also records hashed or generalized signals such as question fingerprints, topic or intent categories, coverage level, source counts, and answer status. Raw visitor questions, IP addresses, and user-agent strings are not written to the Texas Defined AI signal database, and question text is not published in demand reports, editorial queues, or public repository artifacts.
+            </p>
+            <p className="mt-3">
+              Ask Texas demand intelligence is used only to support site quality and editorial planning. It does not automatically publish articles, merge code, or make editorial decisions without human review. Avoid including sensitive personal information in an Ask Texas question.
+            </p>
+          </section>
+
+          <section className="border-t border-border pt-6">
             <h2 className="font-display text-3xl text-foreground">Newsletter and Forms</h2>
             <p className="mt-4">
               When newsletter signup is available and you subscribe, the form sends the email address you provide together with the Texas Defined brand identifier to the configured newsletter service so the subscription can be recorded.
@@ -116,6 +129,7 @@ function PrivacyPolicyPage() {
               <li>Use Google Ads Settings to manage personalized advertising choices.</li>
               <li>Decline optional consent choices when a consent message is presented.</li>
               <li>Do not submit optional forms if you do not want Texas Defined to receive the information requested by that form.</li>
+              <li>Do not include sensitive personal information in Ask Texas AI questions.</li>
             </ul>
           </section>
 
