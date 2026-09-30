@@ -46,6 +46,10 @@ function regionHref(region?: string) {
   return "/events";
 }
 
+// Preserve the original guarded UX invariants while presenting them in a stronger editorial hierarchy:
+// A useful shortlist, not a feed dump.
+// Metro, regional and interest sections only appear when enough events qualify.
+// price-based sections never infer free admission.
 function TexasThisWeekendPage({ page }: { page: ReturnType<typeof Route.useLoaderData>["page"] }) {
   const digest = page.weekendDigest;
   if (!digest) return null;
