@@ -51,6 +51,20 @@ function collectCopy(source) {
   return [...new Set(snippets)];
 }
 
+function routeDelegatesToSharedSurface(source) {
+  const importsSharedComponent = /from\s+["']@\/components\//.test(source) || /import\(["']@\/components\//.test(source);
+  const assignsComponent = /\bcomponent\s*:\s*(?:[A-Z][A-Za-z0-9_]*|\([^)]*\)\s*=>\s*<)/.test(source);
+  const knownSharedSurface = [
+    'CategoryPage', 'ArticleBody', 'TexasEvergreenGuide', 'DestinationCollectionPage', 'CalculatorPage',
+    'CountyGuideSections', 'PrioritySearchPage', 'Fishing', 'Directory', 'Hub', 'RouteContent',
+  ].some((signal) => source.includes(signal));
+  return importsSharedComponent && (assignsComponent || knownSharedSurface);
+}
+
+function isRedirectOnlyRoute(source) {
+  return /\bredirect\s*\(/.test(source) && !/<(?:main|article|section|h1|h2|p)\b/i.test(source);
+}
+
 const entries = await fs.readdir(ROUTES_DIR, { withFileTypes: true });
 const routeFiles = entries
   .filter((entry) => entry.isFile() && /\.tsx$/.test(entry.name))
@@ -74,18 +88,21 @@ for (const [routeKey, files] of grouped) {
   const copyWords = words(snippets.join(' '));
   const sharedSurfaceSignals = [
     'CategoryPage', 'ArticleBody', 'TexasEvergreenGuide', 'DestinationCollectionPage', 'CalculatorPage',
-    'CountyGuideSections', 'Fishing', 'Directory', 'Hub', 'useLoaderData', 'Route.useLoaderData',
+    'CountyGuideSections', 'PrioritySearchPage', 'Fishing', 'Directory', 'Hub', 'RouteContent', 'useLoaderData', 'Route.useLoaderData',
   ].filter((signal) => combined.includes(signal));
-  const likelyWrapper = copyWords < 40 && sharedSurfaceSignals.length > 0;
+  const redirectOnly = isRedirectOnlyRoute(combined);
+  const delegatedSurface = routeDelegatesToSharedSurface(combined);
+  const dataDriven = /\bloader\s*:\s*(?:async\s*)?\(/.test(combined) || /Route\.useLoaderData|useLoaderData\(/.test(combined);
+  const likelyWrapper = redirectOnly || delegatedSurface || (copyWords < 40 && (sharedSurfaceSignals.length > 0 || dataDriven));
   const needsReview = copyWords < REVIEW_WORDS && !likelyWrapper;
-  results.push({ routeKey, files, copyWords, snippetCount: snippets.length, sharedSurfaceSignals, likelyWrapper, needsReview, sample: snippets.slice(0, 8) });
+  results.push({ routeKey, files, copyWords, snippetCount: snippets.length, sharedSurfaceSignals, redirectOnly, delegatedSurface, dataDriven, likelyWrapper, needsReview, sample: snippets.slice(0, 8) });
 }
 
 const review = results.filter((item) => item.needsReview).sort((a, b) => a.copyWords - b.copyWords || a.routeKey.localeCompare(b.routeKey));
 const report = { auditedAt: new Date().toISOString(), reviewThreshold: REVIEW_WORDS, routeGroups: results.length, reviewCount: review.length, review, results };
 await fs.writeFile(OUT, JSON.stringify(report, null, 2) + '\n');
 
-console.log(`Static route copy audit scanned ${results.length} route groups; ${review.length} need editorial-depth review.`);
+console.log(`Static route copy audit scanned ${results.length} route groups; ${review.length} need editorial-depth review after redirect/shared-surface filtering.`);
 for (const item of review.slice(0, 250)) {
   console.warn(`REVIEW ${item.routeKey} :: ${item.copyWords} reader-facing words across ${item.files.join(', ')} :: ${item.sample.slice(0, 3).join(' | ')}`);
 }
