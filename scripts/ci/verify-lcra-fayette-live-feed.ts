@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { parseLcraLakeLevelCsv } from "../../src/data/fishing/lcra-lake-level-csv";
+import { parseLcraLakeLevelCsv } from "../../src/data/fishing/lcra-lake-level-csv.ts";
 
 const FEED_URL = "https://hydromet.lcra.org/media/LakeLevel.csv";
 const SOURCE_URL = "https://hydromet.lcra.org/Charts/?agency=LCRA&siteNumber=5634&siteType=lakelevel";
