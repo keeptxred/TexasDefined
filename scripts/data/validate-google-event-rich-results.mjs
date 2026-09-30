@@ -3,6 +3,8 @@ import fs from 'node:fs';
 const read = (path) => fs.readFileSync(path, 'utf8');
 const eventPage = read('src/data/major-event-page.server.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
+const eventLazyRoute = read('src/routes/event.$slug.lazy.tsx');
+const rootRoute = read('src/routes/__root.tsx');
 const authorityBridge = read('src/data/major-event-authority.ts');
 const registry = read('src/data/major-event-schema-enrichment.server.ts');
 const eventsDirectory = read('src/data/major-event-directory.server.ts');
@@ -70,6 +72,23 @@ for (const [needle, message] of [
   ['robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"', 'Event routes without compliant imagery must fail closed from indexing while preserving discovery.'],
 ]) requireText(eventRoute, needle, message);
 
+// Event pages also expose SSR-visible breadcrumb structured data. Global Organization
+// and WebSite identity remain owned by the root route so every Event page inherits the
+// same publisher/site entity IDs without duplicating organization records per event.
+for (const [needle, message] of [
+  ['function eventBreadcrumbJsonLd', 'Dedicated Event pages must build breadcrumb JSON-LD.'],
+  ['"@type": "BreadcrumbList"', 'Dedicated Event pages must expose BreadcrumbList schema.'],
+  ['name: "Texas Events", item: `${SITE_URL}/events`', 'Event breadcrumbs must link through the canonical Events hub.'],
+  ['dangerouslySetInnerHTML={{ __html: breadcrumbs }}', 'Event breadcrumb JSON-LD must be rendered with the SSR event component.'],
+]) requireText(eventLazyRoute, needle, message);
+for (const [needle, message] of [
+  ['"@type": "Organization"', 'Root structured data must retain the Texas Defined Organization entity.'],
+  ['"@id": `${siteUrl}/#organization`', 'Root Organization must retain its stable entity ID.'],
+  ['"@type": "WebSite"', 'Root structured data must retain the Texas Defined WebSite entity.'],
+  ['"@id": `${siteUrl}/#website`', 'Root WebSite must retain its stable entity ID.'],
+  ['publisher: { "@id": `${siteUrl}/#organization` }', 'Root WebSite must remain linked to the publisher Organization.'],
+]) requireText(rootRoute, needle, message);
+
 for (const [needle, message] of [
   ['isRecurrenceDerivedMajorEventSlug(page.slug)', 'Recurrence-derived dates must suppress scheduled Event schema.'],
   ['hasExpiredConfirmedEventOccurrence(occurrence)', 'Expired confirmed occurrences must suppress stale Event schema.'],
@@ -101,4 +120,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Google Event rich-result contract protected: dedicated occurrence pages own Event JSON-LD, collection pages do not, lifecycle/indexing rules fail closed, and optional entities/offers/images are runtime validated before emission.');
+console.log('Google Event rich-result contract protected: dedicated occurrence pages own Event JSON-LD, collection pages do not, breadcrumbs and site identity stay linked, lifecycle/indexing rules fail closed, and optional entities/offers/images are runtime validated before emission.');
