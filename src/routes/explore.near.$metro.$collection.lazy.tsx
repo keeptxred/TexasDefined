@@ -52,9 +52,6 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
   const eventTitle = eventContext.kind === "weekend-destinations"
     ? "Events in these weekend-trip towns"
     : `Upcoming events near ${metro.name}`;
-  const eventEyebrow = eventContext.kind === "weekend-destinations"
-    ? "By destination"
-    : "By date";
 
   return <>
     <Container className="py-14 sm:py-18">
@@ -72,7 +69,6 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     {eventContext.events.length > 0 && <Container className="pb-14 sm:pb-18">
       <TexasEventCarousel
         events={eventContext.events}
-        eyebrow={eventEyebrow}
         title={eventTitle}
         viewAllHref="/events"
       />
