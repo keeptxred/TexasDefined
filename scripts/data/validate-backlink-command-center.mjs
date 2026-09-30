@@ -2,7 +2,7 @@ import fs from "node:fs";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
-  migration: "supabase/migrations/20260930023000_create_texasdefined_backlink_command_center.sql",
+  migration: "supabase/migrations/20260930023639_create_texasdefined_backlink_command_center.sql",
   types: "src/data/backlink-command-center.ts",
   server: "src/data/backlink-command-center.server.ts",
   functions: "src/data/backlink-command-center.functions.ts",
