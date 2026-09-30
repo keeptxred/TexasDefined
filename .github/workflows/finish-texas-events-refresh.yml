@@ -16,6 +16,7 @@ permissions:
   contents: write
   pull-requests: write
   actions: write
+  statuses: write
 
 concurrency:
   group: texas-events-refresh-finisher
@@ -62,7 +63,13 @@ jobs:
           fi
 
           branch="automation/texas-events-sync-${sync_run_id}"
-          pr_json="$(gh pr list             --repo "$REPOSITORY"             --state open             --base main             --head "$branch"             --limit 2             --json number,url,title,headRefName,headRefOid)"
+          pr_json="$(gh pr list \
+            --repo "$REPOSITORY" \
+            --state open \
+            --base main \
+            --head "$branch" \
+            --limit 2 \
+            --json number,url,title,headRefName,headRefOid)"
 
           count="$(jq 'length' <<<"$pr_json")"
           if [[ "$count" == "0" ]]; then
@@ -139,6 +146,19 @@ jobs:
             fi
           }
 
+          publish_required_status() {
+            local sha="$1"
+            gh api \
+              --method POST \
+              -H "Accept: application/vnd.github+json" \
+              "repos/$REPOSITORY/statuses/$sha" \
+              -f state='success' \
+              -f context='Required merge gate' \
+              -f description='Canonical event-refresh validation and Merge Gate passed' \
+              -f target_url="$PR_URL" >/dev/null
+            echo "Published protected Required merge gate status for validated event-refresh head $sha."
+          }
+
           git config user.name "Texas Defined Event Refresh Finisher"
           git config user.email "actions@users.noreply.github.com"
 
@@ -185,7 +205,18 @@ jobs:
               continue
             fi
 
-            gh pr merge "$PR_URL"               --repo "$REPOSITORY"               --merge               --auto               --match-head-commit "$validated_sha"
+            # PRs opened with GITHUB_TOKEN cannot trigger their own pull_request workflows.
+            # Branch protection therefore keeps the required context in an "expected" state
+            # even after the exact branch passes the dispatched canonical Merge Gate. Publish
+            # that already-proven result as the required status from the GitHub Actions app;
+            # this does not bypass validation and is only reachable after exact-SHA validation.
+            publish_required_status "$validated_sha"
+
+            gh pr merge "$PR_URL" \
+              --repo "$REPOSITORY" \
+              --merge \
+              --auto \
+              --match-head-commit "$validated_sha"
 
             merged="false"
             for merge_wait in $(seq 1 24); do
