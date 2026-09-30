@@ -1,0 +1,53 @@
+name: Image and Discover production audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * 2,5'
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/components/editorial/**'
+      - 'src/components/sports/**'
+      - 'src/data/**/*image*'
+      - 'src/lib/image-fallback.ts'
+      - 'src/lib/seo.ts'
+      - 'src/routes/**'
+      - 'scripts/ci/verify-image-discover-production.mjs'
+      - '.github/workflows/audit-image-discover-production.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: image-discover-production-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Crawl priority public pages for image and Discover readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+
+      - name: Audit priority production pages
+        env:
+          IMAGE_AUDIT_STRICT: '1'
+          IMAGE_AUDIT_CONCURRENCY: '8'
+          IMAGE_AUDIT_TIMEOUT_MS: '30000'
+        run: node scripts/ci/verify-image-discover-production.mjs
+
+      - name: Upload image and Discover audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-discover-production-report
+          path: image-discover-production-report.json
+          if-no-files-found: warn
