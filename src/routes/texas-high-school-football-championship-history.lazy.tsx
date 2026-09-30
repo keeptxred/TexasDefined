@@ -49,10 +49,18 @@ function Page() {
 
       <section className="grid gap-px border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Current UIL programs" value={data.currentProgramCount} />
-        <Stat label="Programs with a state final" value={data.finalAppearingPrograms} />
-        <Stat label="Programs with a state title" value={data.titleWinningPrograms} />
-        <Stat label="UIL table through" value={data.publishedThroughYear || '—'} />
+        <Stat label="Programs with a state final" value={data.historyAvailable ? data.finalAppearingPrograms : '—'} />
+        <Stat label="Programs with a state title" value={data.historyAvailable ? data.titleWinningPrograms : '—'} />
+        <Stat label="UIL table through" value={data.historyAvailable ? (data.publishedThroughYear || '—') : 'Unavailable'} />
       </section>
+
+      {!data.historyAvailable && <section className="border-b border-border py-6" role="status">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official history source temporarily unavailable</p>
+        <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">
+          TexasDefined keeps this page online when UIL’s all-time appearances service is temporarily unreachable. We do not replace the official record with guessed or partial totals. Use the official UIL source below and return later for the matched current-program table.
+        </p>
+        <a href={data.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open UIL all-time appearances ↗</a>
+      </section>}
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
@@ -75,7 +83,7 @@ function Page() {
           <a href={data.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-sm font-semibold text-primary underline underline-offset-4">UIL all-time appearances ↗</a>
         </div>
 
-        <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        {leaders.length > 0 ? <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {leaders.map((row, index) => <a key={row.profilePath} href={row.profilePath} className="group bg-background p-5 hover:bg-surface">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">#{index + 1} by titles</p>
             <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{row.schoolName}</h3>
@@ -85,7 +93,7 @@ function Page() {
               <div><p className="font-display text-3xl">{row.stateFinalAppearances}</p><p className="text-xs text-muted-foreground">State finals</p></div>
             </div>
           </a>)}
-        </div>
+        </div> : <p className="mt-6 border-y border-border py-5 text-sm leading-7 text-muted-foreground">The official all-time table is temporarily unavailable, so TexasDefined is intentionally withholding leader totals rather than publishing partial history.</p>}
       </section>
 
       <section className="border-t border-border py-10">
@@ -100,7 +108,7 @@ function Page() {
           </label>
         </div>
 
-        <p className="mt-5 text-sm text-muted-foreground">{filtered.length} {filtered.length === 1 ? 'program' : 'programs'} shown.</p>
+        <p className="mt-5 text-sm text-muted-foreground">{data.historyAvailable ? `${filtered.length} ${filtered.length === 1 ? 'program' : 'programs'} shown.` : 'Matched all-time history is temporarily unavailable from UIL.'}</p>
 
         <div className="mt-5 overflow-x-auto border border-border">
           <table className="w-full min-w-[760px] border-collapse text-left text-sm">
