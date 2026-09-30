@@ -10,6 +10,7 @@ const CURRENT_DAYS = 7;
 const MAX_ROWS = 5000;
 const MIN_DISTINCT_QUESTIONS = 2;
 const MIN_DEMAND_SCORE = 8;
+const STATUS_PATH = process.env.AI_DEMAND_STATUS_PATH?.trim() || '';
 
 const SAFE_FACETS = [
   ['rv park', ['rv', 'park']],
@@ -261,6 +262,27 @@ function buildReport(rows) {
   };
 }
 
+function writeAggregateStatus(report, rowCount) {
+  if (!STATUS_PATH) return;
+  const status = {
+    schemaVersion: 1,
+    generatedAt: report.generatedAt,
+    windowDays: report.windowDays,
+    telemetryRowsAnalyzed: rowCount,
+    telemetryEventsRepresented: Number(report.totals?.events ?? 0),
+    coverage: {
+      strong: Number(report.totals?.strong ?? 0),
+      partial: Number(report.totals?.partial ?? 0),
+      gap: Number(report.totals?.gap ?? 0),
+    },
+    actionableOpportunities: Number(report.totals?.actionableOpportunities ?? 0),
+    privacy: 'Aggregate counts only. No raw or sanitized user question text is retained in this status file.',
+  };
+  fs.mkdirSync(path.dirname(STATUS_PATH), { recursive: true });
+  fs.writeFileSync(STATUS_PATH, `${JSON.stringify(status, null, 2)}\n`, 'utf8');
+  console.log(`Texas Defined AI demand report: wrote privacy-safe aggregate status to ${STATUS_PATH}.`);
+}
+
 const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim();
 const apiToken = process.env.CLOUDFLARE_API_TOKEN?.trim();
 if (!accountId || !apiToken) fail('CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are required.');
@@ -269,6 +291,7 @@ const rows = await queryAnalytics(accountId, apiToken);
 console.log(`Texas Defined AI demand report: analyzed ${rows.length} private telemetry rows without logging question text.`);
 
 const report = buildReport(rows);
+writeAggregateStatus(report, rows.length);
 if (!report.opportunities.length) {
   console.log('Texas Defined AI demand report: no generalized topic crossed the review threshold; no repository change created.');
   process.exit(0);
