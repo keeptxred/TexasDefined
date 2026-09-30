@@ -24,6 +24,8 @@ const imageReconciler = read('scripts/data/populate-missing-site-images.mjs');
 const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml');
 const productionImageAudit = read('scripts/ci/verify-image-discover-production.mjs');
 const productionImageWorkflow = read('.github/workflows/audit-image-discover-production.yml');
+const fishingImageLibrary = read('src/data/fishing/image-library.ts');
+const fishingLakeRoute = read('src/routes/fishing.lakes.$slug.tsx');
 const eventImagePolicy = read('src/data/major-event-schema-enrichment.server.ts');
 const eventAuthority = read('src/data/major-event-authority.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
@@ -68,7 +70,9 @@ for (const forbidden of ['generatedRepresentative(', 'gradient:${h1}-${h2}', 'Ge
 for (const marker of ['CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}', 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}']) if (!imageWorkflow.includes(marker)) errors.push(`Missing image-generation workflow credential binding: ${marker}`);
 
 for (const marker of ['const MIN_DISCOVER_WIDTH = 1200;', 'const MIN_DISCOVER_PIXELS = 300_000;', 'max-image-preview:large', "twitterCard !== 'summary_large_image'", 'missing-og-image-alt', 'preferred-image-looks-generic-or-placeholder', 'preferred-image-svg', 'preferred-image-reused-', 'preferred-image-fetch-rate-limited', 'page-contains-image-unavailable-fallback-copy', '/^\\/destination\\//', '/^\\/county\\//', '/^\\/fishing(?:\\/|$)/', '/^\\/event\\//', '/^\\/sports-venue\\//', '/^\\/article\\//']) if (!productionImageAudit.includes(marker)) errors.push(`Production image/Discover crawler missing: ${marker}`);
-for (const marker of ['name: Image and Discover production audit', "IMAGE_AUDIT_STRICT: '1'", 'node scripts/ci/verify-image-discover-production.mjs', 'image-discover-production-report.json']) if (!productionImageWorkflow.includes(marker)) errors.push(`Production image/Discover workflow missing: ${marker}`);
+for (const marker of ['name: Image and Discover production audit', 'IMAGE_AUDIT_STRICT:', "github.event_name == 'pull_request'", 'node scripts/ci/verify-image-discover-production.mjs', 'image-discover-production-report.json']) if (!productionImageWorkflow.includes(marker)) errors.push(`Production image/Discover workflow missing: ${marker}`);
+for (const marker of ['function commonsLakeImage', '?width=1600', 'src: commonsLakeImage(filename)']) if (!fishingImageLibrary.includes(marker)) errors.push(`Fishing lake image library must request Discover-sized governed Wikimedia media: ${marker}`);
+for (const marker of ['DISCOVER_MIN_LAKE_IMAGE_WIDTH = 1200', 'applyLakePhotoGovernance(raw)', '...lakeImageMeta(lake.slug)', 'primaryImageOfPage']) if (!fishingLakeRoute.includes(marker)) errors.push(`Fishing lake social metadata must use governed Discover-ready lake imagery: ${marker}`);
 
 for (const marker of ['export function isCompliantMajorEventImage', 'export function hasCompliantMajorEventImageServer', 'approvedForCommercialUse === true', 'typeof image.exactLocation === "boolean"', 'image.sourceType === "ai-generated"', 'image.aiGenerated === true', 'image.exactLocation !== true', 'image.sourceType === "wikimedia"', 'image.sourceType === "flickr-cc"', 'validHttpsUrl(image.licenseUrl)']) if (!eventImagePolicy.includes(marker)) errors.push(`Major-event image compliance policy missing: ${marker}`);
 for (const forbidden of ['if (sourceHost === "commons.wikimedia.org") return true;', 'if (sourceHost === "texasdefined.com" && /\\bAI[- ]generated\\b/i.test(image.alt)) return true;']) if (eventImagePolicy.includes(forbidden)) errors.push(`Major-event image compliance must not trust source host or alt text without structured provenance: ${forbidden}`);
