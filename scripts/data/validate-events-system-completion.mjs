@@ -72,7 +72,7 @@ for (const marker of ['Panhandle/High Plains', 'Big Bend/Far West', 'Interest/ca
 // 7-8: collection and individual-event UX/content quality.
 for (const marker of ['Current verified window:', 'planningTitle', 'planningPoints', 'relatedPaths']) requireText(temporal, marker, 'collection UX contract');
 for (const marker of ['ParkingMapPanel', 'data-stay-nearby-slot', 'Planning your visit', 'hideFailedImageContainer']) requireText(eventLazyRoute, marker, 'individual-event UX contract');
-for (const marker of ['buildMajorEventTicketingMarkupServer', 'Planning your visit', 'Official sources', 'data-event-discovery-tail']) requireText(page, marker, 'individual-event content contract');
+for (const marker of ['buildMajorEventTicketingMarkupServer', 'Planning your visit', 'Official event links', 'data-event-discovery-tail']) requireText(page, marker, 'individual-event content contract');
 
 // 9-10: image/indexability and social metadata fail closed.
 for (const marker of ['verified-reusable', 'official-source-only', 'displayAllowed']) requireText(eventRecord, marker, 'event image-rights model');
