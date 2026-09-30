@@ -13,7 +13,7 @@ type FairPhoto = {
 const commonsSource = (file: string) =>
   `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ", "_"))}`;
 
-const commonsImage = (file: string, width = 1800) =>
+const commonsImage = (file: string, width = 900) =>
   editorialImageSrc(
     `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=${width}`,
   );
@@ -66,7 +66,7 @@ const additionalPhotos: FairPhoto[] = [
     file: "State Fair of Texas September 2019 24 (Esplanade).jpg",
     alt: "Esplanade at Fair Park during the State Fair of Texas",
     caption: "Esplanade",
-    // The 1,800px Special:Redirect derivative intermittently times out because this original is 9.5 MB.
+    // The Special:Redirect derivative intermittently times out because this original is 9.5 MB.
     // Use Commons' already-generated 960px derivative for this archival grid tile while keeping the canonical source/license link below.
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/State_Fair_of_Texas_September_2019_24_%28Esplanade%29.jpg/960px-State_Fair_of_Texas_September_2019_24_%28Esplanade%29.jpg",
   },
@@ -78,11 +78,19 @@ const additionalPhotos: FairPhoto[] = [
   { file: "State Fair of Texas September 2019 31 (Centennial Hall).jpg", alt: "Centennial Hall illuminated at night during the State Fair of Texas", caption: "Centennial Hall at night" },
 ];
 
-function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean }) {
+function PhotoCard({
+  photo,
+  eager = false,
+  imageWidth,
+}: {
+  photo: FairPhoto;
+  eager?: boolean;
+  imageWidth?: number;
+}) {
   return (
     <figure className="overflow-hidden border border-border bg-background">
       <img
-        src={photo.imageUrl ? editorialImageSrc(photo.imageUrl) : commonsImage(photo.file)}
+        src={photo.imageUrl ? editorialImageSrc(photo.imageUrl) : commonsImage(photo.file, imageWidth)}
         alt={photo.alt}
         className="w-full object-cover"
         style={{ aspectRatio: "4 / 3" }}
@@ -127,7 +135,8 @@ export function StateFairPlanningStrip() {
             <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
             <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
               Buy general admission from the State Fair of Texas. TexasDefined does not resell Fair admission.
-              For Cotton Bowl game days, use our event guides to check current ticket availability and trip-planning details.
+              The 2026 State Fair Classic was held September 26; its guide remains available for event context.
+              The Red River Rivalry is October 10, and its event guide reflects current provider availability when a verified ticket offer is available.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
@@ -182,7 +191,7 @@ export function StateFairPlanningStrip() {
           >
             {featuredPhotos.map((photo, index) => (
               <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}>
-                <PhotoCard photo={photo} eager={index === 0} />
+                <PhotoCard photo={photo} eager={index === 0} imageWidth={1200} />
               </div>
             ))}
           </div>
