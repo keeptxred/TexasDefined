@@ -27,6 +27,10 @@ import { majorEventSchemaEnrichmentOverrides } from "./major-event-schema-enrich
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
 export type EventSchemaLifecycleStatus = "scheduled" | "cancelled" | "postponed" | "rescheduled";
+export type EventSchemaOfferAvailability =
+  | "https://schema.org/InStock"
+  | "https://schema.org/SoldOut"
+  | "https://schema.org/PreOrder";
 export type EventImageSourceType = "licensed-real" | "owner-provided" | "government-open" | "wikimedia" | "flickr-cc" | "ai-generated";
 
 export interface EventSchemaEntity {
@@ -40,6 +44,9 @@ export interface EventSchemaOffer {
   url: string;
   price: number;
   priceCurrency: "USD";
+  availability?: EventSchemaOfferAvailability;
+  validFrom?: string;
+  validThrough?: string;
 }
 
 export interface EventSchemaImage {
@@ -80,7 +87,6 @@ export interface MajorEventSchemaEnrichment {
   verifiedAt: string;
 }
 
-
 const EVENT_STATUS_URLS: Record<EventSchemaLifecycleStatus, string> = {
   scheduled: "https://schema.org/EventScheduled",
   cancelled: "https://schema.org/EventCancelled",
@@ -88,8 +94,43 @@ const EVENT_STATUS_URLS: Record<EventSchemaLifecycleStatus, string> = {
   rescheduled: "https://schema.org/EventRescheduled",
 };
 
+const EVENT_OFFER_AVAILABILITY = new Set<EventSchemaOfferAvailability>([
+  "https://schema.org/InStock",
+  "https://schema.org/SoldOut",
+  "https://schema.org/PreOrder",
+]);
+
 export function eventSchemaStatusUrl(status: EventSchemaLifecycleStatus | undefined) {
   return EVENT_STATUS_URLS[status ?? "scheduled"];
+}
+
+function validHttpsUrl(value: string | undefined) {
+  if (!value) return false;
+  try {
+    return new URL(value).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function validEventDateLike(value: string | undefined) {
+  if (!value) return false;
+  return /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?)?$/.test(value);
+}
+
+export function isValidEventSchemaEntity(entity: EventSchemaEntity | undefined) {
+  if (!entity || !entity.name.trim()) return false;
+  if (!(["Organization", "Person", "PerformingGroup"] as const).includes(entity.type)) return false;
+  return entity.url === undefined || validHttpsUrl(entity.url);
+}
+
+export function isValidEventSchemaOffer(offer: EventSchemaOffer | undefined) {
+  if (!offer || !offer.name.trim() || !validHttpsUrl(offer.url)) return false;
+  if (offer.priceCurrency !== "USD" || !Number.isFinite(offer.price) || offer.price < 0) return false;
+  if (offer.availability && !EVENT_OFFER_AVAILABILITY.has(offer.availability)) return false;
+  if (offer.validFrom && !validEventDateLike(offer.validFrom)) return false;
+  if (offer.validThrough && !validEventDateLike(offer.validThrough)) return false;
+  return true;
 }
 
 export function isValidEventSchemaLifecycle(lifecycle: EventSchemaLifecycle | undefined) {
@@ -98,9 +139,9 @@ export function isValidEventSchemaLifecycle(lifecycle: EventSchemaLifecycle | un
   const previous = Array.isArray(lifecycle.previousStartDate)
     ? lifecycle.previousStartDate
     : lifecycle.previousStartDate ? [lifecycle.previousStartDate] : [];
-  if (previous.some((value) => !/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(value))) return false;
+  if (previous.some((value) => !validEventDateLike(value))) return false;
   if (lifecycle.status === "rescheduled" && previous.length === 0) return false;
-  if (lifecycle.status === "scheduled" && previous.length > 0) return false;
+  if (lifecycle.status !== "rescheduled" && previous.length > 0) return false;
   return true;
 }
 
@@ -112,15 +153,6 @@ const PROHIBITED_IMAGE_SOURCE_HOSTS = [
   "googleusercontent.com",
   "google.com",
 ];
-
-function validHttpsUrl(value: string | undefined) {
-  if (!value) return false;
-  try {
-    return new URL(value).protocol === "https:";
-  } catch {
-    return false;
-  }
-}
 
 function isTexasDefinedHost(host: string) {
   return host === "texasdefined.com" || host.endsWith(".texasdefined.com");
@@ -147,9 +179,6 @@ export function isCompliantMajorEventImage(image: EventSchemaImage | undefined):
       && /\bAI[- ]generated\b/i.test(image.alt);
   }
 
-  // A real-source hero must depict the actual event location rather than act as a
-  // permanent representative or generic substitute. If no such reusable image exists,
-  // the governed fallback is a documented photorealistic AI image instead.
   if (image.aiGenerated === true || image.exactLocation !== true) return false;
 
   if (image.sourceType === "wikimedia") {
@@ -162,15 +191,11 @@ export function isCompliantMajorEventImage(image: EventSchemaImage | undefined):
     return Boolean(image.licenseName?.trim()) && validHttpsUrl(image.licenseUrl);
   }
 
-  // Owner-provided, government-open and other licensed-real sources are accepted only
-  // after the shared commercial-use, exact-location and rights-documentation checks above.
   return image.sourceType === "owner-provided"
     || image.sourceType === "government-open"
     || image.sourceType === "licensed-real";
 }
 
-// Optional Google Event properties are only emitted when an official source supports a
-// truthful current value. Do not use the site's generic Open Graph fallback as Event imagery.
 const records: MajorEventSchemaEnrichment[] = [
   ...majorEventSchemaEnrichmentBatch1,
   ...majorEventSchemaEnrichmentBatch2,
@@ -215,11 +240,15 @@ export function getMajorEventSchemaOccurrenceEnrichmentServer(slug: string, labe
   if (!record) return null;
   const occurrence = label ? record.occurrences?.[label] : undefined;
   const lifecycle = occurrence?.lifecycle ?? record.lifecycle;
+  const organizer = isValidEventSchemaEntity(record.organizer) ? record.organizer : undefined;
+  const image = isCompliantMajorEventImage(record.image) ? record.image : undefined;
+  const offers = (occurrence?.offers ?? record.offers)?.filter(isValidEventSchemaOffer);
+  const performers = (occurrence?.performers ?? record.performers)?.filter(isValidEventSchemaEntity);
   return {
-    organizer: record.organizer,
-    image: record.image,
-    offers: occurrence?.offers ?? record.offers,
-    performers: occurrence?.performers ?? record.performers,
+    organizer,
+    image,
+    offers: offers?.length ? offers : undefined,
+    performers: performers?.length ? performers : undefined,
     lifecycle: isValidEventSchemaLifecycle(lifecycle) ? lifecycle : undefined,
   };
 }
