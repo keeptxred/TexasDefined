@@ -131,11 +131,19 @@ function resolveSportsVenueLandingLinks(inbound) {
 
 function resolveTexasResourcesTupleLinks(inbound) {
   const route = readOptional('src/routes/texas-resources.lazy.tsx');
-  const block = route.match(/const groups:[\s\S]*?= \[([\s\S]*?)\n\];/)?.[1] ?? '';
-  const rendersTupleLinks = /group\.links\.map\(\(\[label, to(?:, [a-zA-Z][a-zA-Z0-9]*)?\]\)/.test(route)
+  const groupsBlock = route.match(/const groups:[\s\S]*?= \[([\s\S]*?)\n\];/)?.[1] ?? '';
+  const featuredBlock = route.match(/const featuredTasks = \[([\s\S]*?)\] as const;/)?.[1] ?? '';
+  const rendersGroupTupleLinks = /group\.links\.map\(\(\[label, to(?:, [a-zA-Z][a-zA-Z0-9]*)?\]\)/.test(route)
     && route.includes('to={to}');
-  if (!rendersTupleLinks) return;
-  addQuotedPaths(inbound, block, 'src/routes/texas-resources.lazy.tsx (resolved group.links tuple link)');
+  const rendersFeaturedTupleLinks = /featuredTasks\.map\(\(\[label, to(?:, [a-zA-Z][a-zA-Z0-9]*)?\]\)/.test(route)
+    && route.includes('to={to}');
+
+  if (rendersGroupTupleLinks) {
+    addQuotedPaths(inbound, groupsBlock, 'src/routes/texas-resources.lazy.tsx (resolved group.links tuple link)');
+  }
+  if (rendersFeaturedTupleLinks) {
+    addQuotedPaths(inbound, featuredBlock, 'src/routes/texas-resources.lazy.tsx (resolved featuredTasks tuple link)');
+  }
 }
 
 function resolvePropertyTaxCalculatorTupleLinks(inbound) {
