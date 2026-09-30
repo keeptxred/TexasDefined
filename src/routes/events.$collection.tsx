@@ -13,11 +13,12 @@ export const Route = createFileRoute("/events/$collection")({
   component: EventCollectionPage,
 });
 
-function EventGuideLink({ event, className, children }: { event: { slug: string; href: string }; className?: string; children: React.ReactNode }) {
+function EventGuideLink({ event, className, children, trackId }: { event: { slug: string; href: string }; className?: string; children: React.ReactNode; trackId?: string }) {
+  const tracking = trackId ? { "data-entity-id": trackId } : {};
   if (event.href === `/event/${event.slug}`) {
-    return <Link to="/event/$slug" params={{ slug: event.slug }} className={className}>{children}</Link>;
+    return <Link to="/event/$slug" params={{ slug: event.slug }} className={className} {...tracking}>{children}</Link>;
   }
-  return <a href={event.href} className={className}>{children}</a>;
+  return <a href={event.href} className={className} {...tracking}>{children}</a>;
 }
 
 function EventCollectionPage() {
@@ -53,7 +54,7 @@ function EventCollectionPage() {
         <div className="border-b border-border pb-6">
           <p className="eyebrow text-primary">Texas This Weekend</p>
           <h2 id="texas-this-weekend-picks" className="mt-2 font-display text-4xl">A useful shortlist, not a feed dump</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These sections are selected from the same source-verified Friday-through-Sunday inventory, with statewide picks diversified across cities and event types. Metro sections only appear when enough events qualify.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These sections are selected from the same source-verified Friday-through-Sunday inventory, with statewide picks diversified across cities and event types. Metro, regional and interest sections only appear when enough events qualify, and price-based sections never infer free admission from missing ticket data.</p>
         </div>
         <div className="grid gap-8 pt-8 lg:grid-cols-2">
           {page.weekendDigest.sections.map((section) => <section key={section.id} className="border border-border p-6">
@@ -65,7 +66,7 @@ function EventCollectionPage() {
             <ol className="mt-5 divide-y divide-border border-y border-border">
               {section.items.map((event, index) => <li key={event.slug} className="py-4">
                 <p className="eyebrow text-muted-foreground">0{index + 1} · {event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
-                <EventGuideLink event={event} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink>
+                <EventGuideLink event={event} trackId={`weekend:${section.id}:${event.slug}`} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink>
               </li>)}
             </ol>
           </section>)}

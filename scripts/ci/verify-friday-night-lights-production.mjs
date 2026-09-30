@@ -14,7 +14,9 @@ const calendarPath = '/article/texas-high-school-football-2026-season-calendar';
 const finderApiPath = '/api/high-school-football?q=Dallas%20South%20Oak%20Cliff&limit=5';
 const allTimeFinderApiPath = '/api/high-school-football?q=Katy&limit=50';
 const oneAFinderApiPath = '/api/high-school-football?q=Abbott&limit=10';
+const bryanFinderApiPath = '/api/high-school-football?q=Bryan&limit=25';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
+const willsPointProfilePath = '/texas-high-school-football-teams/wills-point';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
@@ -386,6 +388,17 @@ await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body
   if (!katy.allTimeHistory.sourceUrl?.includes('uiltexas.org/football/all-time-appearances')) throw new Error('Katy all-time history is missing official UIL provenance');
 });
 
+await fetchVerified(bryanFinderApiPath, 'Bryan football matcher regression API', (body) => {
+  const payload = JSON.parse(body);
+  if (payload?.ok !== true) throw new Error('Bryan football lookup did not return ok=true');
+  const bryan = payload?.programs?.find((program) => program.schoolName === 'Bryan');
+  if (!bryan) throw new Error('Bryan was not returned from the current UIL lookup');
+  if (bryan.classification !== '6A' || bryan.district !== 12) throw new Error('Bryan current UIL placement regressed');
+  if (bryan.uilEnrollment !== 2267) throw new Error(`Bryan exact UIL enrollment expected 2267; found ${bryan.uilEnrollment}`);
+  const enrichment = [bryan.officialSchoolName, bryan.districtName, bryan.city, bryan.countyName].filter(Boolean).join(' ');
+  if (/o['’]?bryant\s+primary/i.test(enrichment)) throw new Error('Bryan football profile regressed to O\'Bryant Primary School enrichment');
+});
+
 await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
   const payload = JSON.parse(body);
   if (payload?.ok !== true) throw new Error('Abbott football lookup did not return ok=true');
@@ -394,6 +407,30 @@ await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
   if (abbott.profilePath !== abbottProfilePath) throw new Error('Abbott is missing its canonical all-UIL profile path');
   if (abbott.classification !== '1A') throw new Error('Abbott current UIL classification is not 1A');
   if (abbott.uilEnrollment !== 91) throw new Error(`Abbott exact UIL enrollment expected 91; found ${abbott.uilEnrollment}`);
+});
+
+await fetchVerified(willsPointProfilePath, 'Wills Point football school profile', (body) => {
+  for (const needle of [
+    'Wills Point Tigers Football',
+    '4A Division II',
+    'Football district',
+    '7',
+    'UIL enrollment',
+    '786',
+    'Current district',
+    '/texas-high-school-football-districts/4a-division-ii-district-7',
+    '2026 scores &amp; schedule sources',
+  ]) requireNeedle(body, needle, 'Wills Point football school profile');
+  for (const forbidden of [
+    "All $",
+    "O'Bryant Primary",
+    'TEA directory match pending',
+    'Venue details not yet available',
+    'Mascot source not yet available',
+  ]) {
+    if (decodeHtml(body).includes(forbidden)) throw new Error(`Wills Point football school profile contains regression content: ${forbidden}`);
+  }
+  if (/\bnoindex\b/i.test(body)) throw new Error('Wills Point football school profile unexpectedly contains noindex');
 });
 
 await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {

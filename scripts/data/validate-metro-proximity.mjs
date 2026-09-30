@@ -8,6 +8,7 @@ const paths = {
   functions: "src/data/metro-proximity-page-data.functions.ts",
   hubRoute: "src/routes/explore.near.$metro.tsx",
   hubUi: "src/routes/explore.near.$metro.lazy.tsx",
+  hubComponent: "src/components/explore/MetroProximityHubPage.tsx",
   collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
   collectionUi: "src/routes/explore.near.$metro.$collection.lazy.tsx",
   exploreRoute: "src/routes/explore.index.tsx",
@@ -37,6 +38,17 @@ const expectedMetroSlugs = [
   "amarillo",
   "el-paso",
   "lubbock",
+  "mcallen",
+  "midland-odessa",
+  "tyler",
+  "college-station",
+  "abilene",
+  "laredo",
+  "killeen-temple",
+  "san-angelo",
+  "wichita-falls",
+  "texarkana",
+  "victoria",
 ];
 const metroMatch = files.data.match(/METRO_PROXIMITY_METROS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const metroSlugs = metroMatch ? [...metroMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
@@ -132,19 +144,28 @@ for (const [label, route, fn] of [
 }
 
 for (const token of [
-  "component: MetroProximityHubPage",
-  "Explore by trip type",
-  "straight-line geographic estimates",
-  "MetroProximityHubRich",
-]) requireText(files.hubRoute, token, `metro hub SSR shell missing ${token}`);
+  "component: MetroProximityBoundary",
+  "matches[matches.length - 1]?.routeId === match.routeId",
+  "useRouterState",
+  "return <Outlet />",
+  'const hubPath = "/explore/near/" + pageData.metro.slug',
+  'import("@/components/explore/MetroProximityHubPage")',
+]) requireText(files.hubRoute, token, `metro parent leaf/canonical boundary missing ${token}`);
+if (!files.hubRoute.includes("return isLeaf ? (loaderData?.head ?? {}) : {};")) fail("metro parent head must fail closed on descendant routes");
 
 for (const token of [
   'createLazyFileRoute("/explore/near/$metro")',
-  "MetroProximityHubRich",
+]) requireText(files.hubUi, token, `metro parent lazy route missing ${token}`);
+if (files.hubUi.includes("component:") || files.hubUi.includes("DestinationCard")) fail("metro parent lazy route must stay component-neutral so critical boundary owns hub-vs-child rendering");
+
+for (const token of [
+  "MetroProximityHubPage",
+  "Explore by trip type",
+  "straight-line geographic estimates",
   "DestinationCard",
   "Nearby places worth opening first",
   'to="/explore/trip-planner"',
-]) requireText(files.hubUi, token, `metro hub lazy rich UI missing ${token}`);
+]) requireText(files.hubComponent, token, `metro hub lazy presentation missing ${token}`);
 
 for (const token of [
   "component: MetroProximityCollectionPage",
@@ -201,6 +222,17 @@ for (const token of [
   "metro-amarillo-road-trips",
   "metro-el-paso-weekend-trips",
   "metro-lubbock-hub",
+  "metro-mcallen-hub",
+  "metro-midland-odessa-road-trips",
+  "metro-tyler-lakes",
+  "metro-college-station-day-trips",
+  "metro-abilene-hub",
+  "metro-laredo-hub",
+  "metro-killeen-temple-day-trips",
+  "metro-san-angelo-road-trips",
+  "metro-wichita-falls-lakes",
+  "metro-texarkana-weekend-trips",
+  "metro-victoria-historic-sites",
 ]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
 for (const token of [
@@ -227,4 +259,4 @@ for (const forbidden of [
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: eleven metro hubs and 143 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by server-built SEO, critical SSR body shells and lazy rich-UI boundaries.");
+console.log("Metro proximity validation passed: twenty-two metro hubs and 286 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by leaf-only parent SEO, descendant Outlet ownership, server-built SEO and lazy hub presentation.");
