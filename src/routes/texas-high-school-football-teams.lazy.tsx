@@ -27,7 +27,7 @@ const comparisonPoints = [
 
 function Page() {
   const { q } = Route.useSearch();
-  const { programs } = Route.useLoaderData();
+  const { programs, privatePrograms } = Route.useLoaderData();
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
@@ -43,6 +43,24 @@ function Page() {
       <HighSchoolFootballLookup initialQuery={q} />
 
       <UilFootballProgramDirectory programs={programs} />
+
+      <section className="border-b border-border py-12" aria-labelledby="private-football-programs">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Separate non-UIL directory</p>
+            <h2 id="private-football-programs" className="mt-2 font-display text-3xl leading-tight">Private-school football profiles</h2>
+          </div>
+          <div>
+            <p className="max-w-3xl text-sm leading-7 text-muted-foreground">These {privatePrograms.length} sourced private-school profiles are kept separate from the 1,268-program UIL directory because TAPPS, SPC and other private-school associations use different classifications and alignment systems. They are not ranked against UIL schools. Every profile below is also sitemap-listed, so this directory is the crawlable parent for the complete non-UIL set.</p>
+            <div className="mt-7 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {privatePrograms.map((program) => <a key={program.slug} href={program.path} className="bg-background p-5 hover:bg-surface">
+                <p className="eyebrow text-muted-foreground">{program.association}{program.classification ? ` · ${program.classification}` : ''}</p>
+                <h3 className="mt-2 font-display text-xl hover:text-primary">{program.name}</h3>
+              </a>)}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="border-b border-border py-12">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
@@ -82,7 +100,7 @@ function Page() {
       <section className="py-10">
         <p className="eyebrow text-primary">Current scope</p>
         <h2 className="mt-2 max-w-4xl font-display text-3xl">The finder starts with every current UIL football program</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The finder and school directory use all 1,268 current UIL football programs as the authoritative school universe. Every UIL program receives the same football-first profile structure. ISD/county, mascot, stadium and school-enrollment layers appear only when TexasDefined has a confident source-backed match. TexasDefined now provides a sourced current-season scores/schedules guide through the UIL Texas Scoreboard; certified district standings remain a future layer until they can be maintained from a complete controlling source. Directory order follows UIL enrollment classification—6A, 5A, 4A, 3A, 2A, 1A—with Division I before Division II inside split classifications; that ordering describes school size, not program quality. Official UIL all-time state-title and state-final totals, detailed recent state-final results from 2018–19 through 2025–26, and three-program comparison remain part of the finder.</p>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The finder and school directory use all 1,268 current UIL football programs as the authoritative public-school football universe. Every UIL program receives the same football-first profile structure. The separate private-school directory above contains only the explicitly sourced non-UIL profiles TexasDefined currently maintains; it does not imply statewide private-school completeness. ISD/county, mascot, stadium and school-enrollment layers appear only when TexasDefined has a confident source-backed match. TexasDefined now provides a sourced current-season scores/schedules guide through the UIL Texas Scoreboard; certified district standings remain a future layer until they can be maintained from a complete controlling source. Directory order follows UIL enrollment classification—6A, 5A, 4A, 3A, 2A, 1A—with Division I before Division II inside split classifications; that ordering describes school size, not program quality. Official UIL all-time state-title and state-final totals, detailed recent state-final results from 2018–19 through 2025–26, and three-program comparison remain part of the finder.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="https://realignment.uiltexas.org/" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">UIL 2026–28 realignment ↗</a>
           <a href="https://tea.texas.gov/texas-schools/general-information/askted" target="_blank" rel="noreferrer" className="text-primary underline underline-offset-4">Texas Education Agency AskTED ↗</a>
