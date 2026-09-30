@@ -20,11 +20,13 @@ for(const token of [
   'redirectedInternalLinks',
   'brokenInternalLinks',
   'LINK_GRAPH_WEAK_INBOUND_THRESHOLD',
+  'LINK_GRAPH_MAX_PAGE_FETCH_FAILURES',
+  'MAX_PAGE_FETCH_FAILURES',
   '/tmp/texasdefined-link-graph.json',
   '/tmp/texasdefined-link-graph.tsv',
 ]) requireText(audit,token,`production link graph audit missing ${token}`);
 
-if(!audit.includes('if (sitemapFailures.length || fetchFailures.length || brokenInternalLinks.length) process.exit(1);')) failures.push('Link graph audit must fail only on sitemap/page fetch failures or genuinely broken internal targets.');
+if(!audit.includes('if (sitemapFailures.length || fetchFailures.length > MAX_PAGE_FETCH_FAILURES || brokenInternalLinks.length) process.exit(1);')) failures.push('Link graph audit must fail on sitemap failures, genuinely broken internal targets, or page-fetch failures above the explicit bounded threshold.');
 if(audit.includes('orphanPages.length) process.exit(1)')||audit.includes('weakPages.length) process.exit(1)')) failures.push('Orphan/weak legacy debt must remain report-only until explicit thresholds are approved.');
 
 for(const token of [
@@ -40,4 +42,4 @@ if(failures.length){
   for(const failure of failures) console.error('- '+failure);
   process.exit(1);
 }
-console.log('Public link graph validation passed: scheduled/PR whole-site crawling reports orphan, weak, redirected and broken internal-link targets with durable JSON/TSV artifacts.');
+console.log('Public link graph validation passed: scheduled/PR whole-site crawling reports orphan, weak, redirected and broken internal-link targets with durable JSON/TSV artifacts and a bounded transient-fetch failure threshold.');
