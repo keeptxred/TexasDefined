@@ -96,7 +96,11 @@ jobs:
           probe td-reloc-property-tax /article/texas-property-taxes-for-new-residents 'Texas Property Taxes for New Residents'
           probe td-reloc-corporate /article/corporate-relocation-to-texas 'Corporate Relocation to Texas'
           probe td-reloc-employee /article/employee-relocation-guide-to-texas 'Employee Relocation Guide to Texas'
-          probe td-reloc-sitemap /sitemap.xml '/article/employee-relocation-guide-to-texas'
+          probe td-reloc-renter /article/moving-to-texas-renter-guide 'Moving to Texas as a Renter'
+          probe td-reloc-mover /article/how-to-verify-texas-moving-company 'How to Verify a Texas Moving Company'
+          probe td-reloc-health /article/health-insurance-when-moving-to-texas 'Health Insurance When Moving to Texas'
+          probe td-reloc-military /article/military-family-moving-to-texas 'Military Family Moving to Texas'
+          probe td-reloc-sitemap /sitemap.xml '/article/military-family-moving-to-texas'
           exit "$failed"
       - name: Publish relocation live verification pending
         env:
