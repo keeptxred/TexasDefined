@@ -1,5 +1,6 @@
 import { buildGatewayProductionManifest } from "./texas-gateway-production-manifest.mjs";
 
+// Current-main diagnostic: partitions all 140 governed gateways without changing promotion state.
 const manifest = buildGatewayProductionManifest(process.cwd());
 
 const nonEditorialBlockers = (entry) => entry.blockers.filter((blocker) => !blocker.startsWith("editorial-status:"));
