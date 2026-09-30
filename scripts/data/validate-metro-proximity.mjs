@@ -14,6 +14,8 @@ const paths = {
   exploreUi: "src/routes/explore.index.lazy.tsx",
   sitemap: "src/routes/sitemap-explore[.]xml.ts",
   routeTree: "src/routeTree.gen.ts",
+  server: "src/server.ts",
+  productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   package: "package.json",
 };
 for (const path of Object.values(paths)) {
@@ -163,6 +165,23 @@ for (const token of [
   "const proximityEntries",
   "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+
+for (const token of [
+  "applyMetroProximityEdgeCachePolicy",
+  'url.pathname.startsWith("/explore/near/")',
+  'headers.set("Cache-Control", "no-store, max-age=0")',
+  'headers.set("CDN-Cache-Control", "no-store")',
+  'headers.set("Cloudflare-CDN-Cache-Control", "no-store")',
+]) requireText(files.server, token, `metro edge freshness safeguard missing ${token}`);
+
+for (const token of [
+  "'cache-control': 'no-cache'",
+  "pragma: 'no-cache'",
+  "cf-cache-status",
+  "metro-distance-methodology",
+  "metro-distance-schema",
+  "metro-drive-time-disclaimer",
+]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
 for (const token of [
   "ExploreNearMetroRouteImport",

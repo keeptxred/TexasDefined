@@ -24,6 +24,7 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('El Paso Film Festival - Late Night Shorts', 'El Paso'), '/event/el-paso-film-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
   assert.equal(ticketmasterAuthorityGuidePath('State Fair Classic', 'Dallas'), '/event/state-fair-classic');
+  assert.equal(ticketmasterAuthorityGuidePath('Oklahoma Sooners Football vs. Texas Longhorns Football', 'Dallas'), '/event/red-river-rivalry');
   assert.equal(ticketmasterAuthorityGuidePath('Beaumont Comic Con', 'Beaumont'), '/event/beaumont-comic-con');
   assert.equal(ticketmasterAuthorityGuidePath('Eagle Fest Featuring ZZ Top', 'The Woodlands'), '/event/eagle-fest-the-woodlands');
   assert.equal(ticketmasterAuthorityGuidePath('Austin City Limits Festival', 'Austin'), '/event/austin-city-limits-music-festival');

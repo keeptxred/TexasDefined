@@ -6,7 +6,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 import { RELOCATION_CHECKLIST_TOTAL, readRelocationChecklistProgress, setRelocationChecklistItemComplete } from '@/lib/relocation-workspace';
 
-const description = 'The practical things worth handling before the boxes arrive, during your first weeks and after the new address starts to feel like home.';
+const description = 'What to do during your first 30 days in Texas: a practical new-resident checklist for utilities, schools, vehicle registration, driver licensing, homestead research, property taxes and essential address changes.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const pageUrl = `${siteUrl}/moving-to-texas-checklist`;
 const verifiedLabel = 'Verified Aug. 26, 2026';
@@ -45,11 +45,11 @@ const howToSections = groups.map((group, groupIndex) => ({ '@type': 'HowToSectio
 
 export const Route = createFileRoute('/moving-to-texas-checklist')({
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath: '/moving-to-texas-checklist', title: 'Moving to Texas Checklist: Your First Month', description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath: '/moving-to-texas-checklist', title: 'First 30 Days in Texas: Moving Checklist for New Residents', description }),
     links: [canonicalLink(texasDefinedBrand, '/moving-to-texas-checklist')],
     scripts: [jsonLd({ '@context': 'https://schema.org', '@graph': [
-      { '@type': 'WebPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'Moving to Texas Checklist: Your First Month', description, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#howto` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` }, dateModified: '2026-09-12' },
-      { '@type': 'HowTo', '@id': `${pageUrl}#howto`, name: 'A moving checklist for your first month in Texas', description, step: howToSections },
+      { '@type': 'WebPage', '@id': `${pageUrl}#page`, url: pageUrl, name: 'First 30 Days in Texas: Moving Checklist for New Residents', description, isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': `${pageUrl}#howto` }, breadcrumb: { '@id': `${pageUrl}#breadcrumbs` }, dateModified: '2026-09-12' },
+      { '@type': 'HowTo', '@id': `${pageUrl}#howto`, name: 'What to do during your first 30 days in Texas', description, step: howToSections },
       { '@type': 'BreadcrumbList', '@id': `${pageUrl}#breadcrumbs`, itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Front page', item: `${siteUrl}/` }, { '@type': 'ListItem', position: 2, name: 'Moving Here', item: `${siteUrl}/moving-to-texas` }, { '@type': 'ListItem', position: 3, name: 'First Month Checklist', item: pageUrl }] },
     ] })],
   }),
@@ -76,7 +76,7 @@ function Page() {
       <Container className="py-16 sm:py-24">
         <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/moving-to-texas" className="hover:text-foreground">Moving Here</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-foreground">First Month Checklist</li></ol></nav>
         <p className="eyebrow mt-8 text-primary">The moving checklist</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">A smoother first month in Texas</h1>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">What to do during your first 30 days in Texas</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
         <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Official-source links {verifiedLabel}</p>
       </Container>

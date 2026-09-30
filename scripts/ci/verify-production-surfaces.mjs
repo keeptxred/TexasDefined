@@ -12,9 +12,9 @@ const surfaces = [
   ['metro-austin-swimming-holes', '/explore/near/austin/swimming-holes', 'Swimming Holes Near Austin, Texas'],
   ['metro-san-antonio-road-trips', '/explore/near/san-antonio/road-trips', 'Road Trips From San Antonio, Texas'],
   ['metro-fort-worth-lakes', '/explore/near/fort-worth/lakes', 'Lakes Near Fort Worth, Texas'],
-  ['metro-distance-window-copy', '/explore/near/houston/weekend-trips', 'Distance window'],
-  ['metro-quick-shortlist', '/explore/near/houston/weekend-trips', 'Quick shortlist'],
-  ['metro-drive-time-disclaimer', '/explore/near/houston/weekend-trips', 'not road miles or drive-time promises'],
+  ['metro-distance-methodology', '/explore/near/houston/weekend-trips', 'approximate straight-line distance'],
+  ['metro-distance-schema', '/explore/near/houston/weekend-trips', 'Approximate straight-line distance from metro center'],
+  ['metro-drive-time-disclaimer', '/explore/near/houston/weekend-trips', 'Actual road mileage and drive time vary.'],
   ['metro-explore-sitemap', '/sitemap-explore.xml', '/explore/near/'],
   ['homepage', '/', 'Texas Defined'],
   ['sitemap', '/sitemap.xml', '<urlset'],
@@ -191,10 +191,18 @@ async function verifyRevisionBoundSurface(label, path, needle) {
         redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
+        headers: {
+          'user-agent': 'TexasDefined-CI-Production-Smoke/1.0',
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+        },
       });
       lastStatus = String(response.status);
       lastChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const cacheStatus = response.headers.get('cf-cache-status') || 'missing';
+      const age = response.headers.get('age') || 'missing';
+      const cacheControl = response.headers.get('cache-control') || 'missing';
+      console.log(`[${label}] edge cache: cf-cache-status=${cacheStatus}; age=${age}; cache-control=${cacheControl}`);
       lastBody = await response.text();
       lastError = '';
 
