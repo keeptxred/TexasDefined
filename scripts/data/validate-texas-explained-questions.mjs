@@ -126,7 +126,7 @@ for (const marker of [
   'Why do Texas homes and land decisions depend so much on location?',
   'const supportingExplainers = [',
   'Go deeper',
-  'Six supporting explainers',
+  'Six more ways to understand Texas',
   '/article/texas-regions-explained',
   '/explore/landscapes/where-does-texas-turn-into-desert',
   '/article/why-texas-has-254-counties',
@@ -144,10 +144,11 @@ for (const marker of [
   'TEXAS_EXPLAINED_QUESTIONS',
   '@/data/texas-explained-questions',
   'const questions = TEXAS_EXPLAINED_QUESTIONS',
-  'id="texas-questions"',
   'categories.map',
   'item.answer',
   'item.href',
+  'A reference library for the questions Texans and newcomers actually ask.',
+  'Start with Texas Explained',
 ]) {
   if (!component.includes(marker)) failures.push(`Question library renderer missing marker: ${marker}`);
 }
@@ -166,7 +167,7 @@ for (const marker of [
 }
 for (const marker of [
   'createLazyFileRoute("/texas-explained/questions")',
-  'TexasExplainedQuestionLibrary',
+  'import TexasExplainedQuestionsPage from "@/components/editorial/TexasExplainedQuestionsPage"',
   'component: TexasExplainedQuestionsPage',
 ]) {
   if (!childLazyRoute.includes(marker)) failures.push(`Texas Explained questions lazy route missing marker: ${marker}`);
