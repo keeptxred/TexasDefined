@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   required:
-    name: Required merge gate
+    name: Required Merge Gate
     runs-on: ubuntu-latest
     timeout-minutes: 35
 
