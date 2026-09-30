@@ -48,6 +48,7 @@ export const featuredDataProducts = [
 ] as const;
 
 export const nextStops = [
+  ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS home values, rent, owner costs and household income across Texas counties.'],
   ['Find your county', '/browse/counties', 'Explore all 254 counties and continue into local guides, official resources and county-level context.'],
   ['Find a city', '/browse/cities', 'Browse major cities, regional centers and communities across Texas.'],
   ['Plan a move to Texas', '/moving-to-texas', 'Use relocation research, metro guides, city matching and practical moving tools.'],
