@@ -162,6 +162,10 @@ export const supplementalMajorEventSlugs = [
   "historic-market-square-car-show",
   "tejanos-at-the-alamo",
   "san-antonio-monarch-butterfly-pollinator-festival",
+  "amarillo-international-film-festival",
+  "big-bend-bluegrass-festival",
+  "flying-island-music-festival",
+  "sfa-homecoming",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
