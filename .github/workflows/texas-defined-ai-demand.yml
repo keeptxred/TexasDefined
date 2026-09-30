@@ -4,6 +4,16 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 12 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/texas-defined-ai-demand.yml'
+      - 'scripts/ai/build-ai-demand-report.mjs'
+      - 'scripts/ai/build-ai-editorial-queue.mjs'
+      - 'scripts/ai/validate-ai-demand-report.mjs'
+      - 'scripts/ai/validate-ai-editorial-queue.mjs'
+      - 'scripts/ai/official-source-registry.mjs'
 
 permissions:
   contents: write
