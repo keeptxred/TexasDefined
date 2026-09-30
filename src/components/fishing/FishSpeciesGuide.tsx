@@ -87,11 +87,19 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <div>
             <p className="eyebrow text-primary">Tackle</p>
             <h2 className="mt-3 font-display text-3xl">Largemouth Bass Tackle Setup</h2>
+            <figure className="mt-6 overflow-hidden border border-border bg-muted/20">
+              <img src="/images/fishing/species/largemouth-bass-tackle-setup.svg" alt="Largemouth bass tackle setups for general-purpose fishing, heavy cover, and clear or pressured water" width={640} height={280} loading="lazy" decoding="async" className="w-full object-contain" />
+              <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">Three tackle situations, not three mandatory prescriptions. Match power, line and presentation to the lake, cover and water clarity.</figcaption>
+            </figure>
             <div className="mt-6 space-y-6">{profile.tackle.map((item) => <div key={item.heading}><h3 className="font-display text-xl">{item.heading}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{item.summary}</p></div>)}</div>
           </div>
           <div>
             <p className="eyebrow text-primary">Baits & lures</p>
             <h2 className="mt-3 font-display text-3xl">Baits and Lures for Texas Bass</h2>
+            <figure className="mt-6 overflow-hidden border border-border bg-muted/20">
+              <img src="/images/fishing/species/largemouth-bass-baits-lures.svg" alt="Soft plastic, crankbait, spinnerbait and topwater lure silhouettes for largemouth bass fishing" width={640} height={280} loading="lazy" decoding="async" className="w-full object-contain" />
+              <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">Four broad presentation families represented in this guide. Choose among them by cover, depth, forage and fish activity.</figcaption>
+            </figure>
             <div className="mt-6 space-y-6">{profile.baitsAndLures.map((item) => <div key={item.name}><h3 className="font-display text-xl">{item.name}</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">{item.summary}</p></div>)}</div>
           </div>
         </section>
