@@ -19,8 +19,11 @@ const productCard = read('src/components/commerce/ProductCard.tsx');
 const shopTheStory = read('src/components/commerce/ShopTheStory.tsx');
 const collectionStrip = read('src/components/commerce/CollectionStrip.tsx');
 const governance = read('docs/site-image-governance.md');
+const imageFallback = read('src/lib/image-fallback.ts');
 const imageReconciler = read('scripts/data/populate-missing-site-images.mjs');
 const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml');
+const productionImageAudit = read('scripts/ci/verify-image-discover-production.mjs');
+const productionImageWorkflow = read('.github/workflows/audit-image-discover-production.yml');
 const eventImagePolicy = read('src/data/major-event-schema-enrichment.server.ts');
 const eventAuthority = read('src/data/major-event-authority.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
@@ -44,6 +47,27 @@ for (const [name, source] of [['ArticleCard', articleCard], ['DestinationCard', 
   for (const feature of ['sizes=', 'width=', 'height=', 'alt=', 'decoding="async"']) {
     if (!source.includes(feature)) errors.push(`${name} image contract missing: ${feature}`);
   }
+}
+
+for (const marker of [
+  'if (isDestinationPhotoPlaceholder(hero.src)) return null;',
+  'function hasEditorialImage',
+  'data-image-frame',
+  'frame.style.display = "none"',
+  'hasImage ? "bg-muted" : "bg-ink"',
+]) {
+  if (!destinationCard.includes(marker)) errors.push(`Destination cards must omit placeholder/broken image frames cleanly: ${marker}`);
+}
+for (const forbidden of ['radial-gradient(circle_at_72%_24%', 'texasdefined-destination-placeholder.svg']) {
+  if (destinationCard.includes(forbidden)) errors.push(`Destination cards must not present a procedural or placeholder graphic as editorial imagery: ${forbidden}`);
+}
+
+for (const marker of [
+  'export function collapseFailedImageFrame',
+  'closest<HTMLElement>("[data-image-frame]")',
+  'if (!collapseFailedImageFrame(image)) image.style.display = "none";',
+]) {
+  if (!imageFallback.includes(marker)) errors.push(`Shared image failure handling must collapse opted-in blank frames: ${marker}`);
 }
 
 for (const feature of ['loading="eager"', 'fetchPriority="high"', 'sizes="100vw"', 'sizes="(min-width: 1024px) 58vw, 100vw"', 'width={image.width}', 'height={image.height}', 'alt={image.alt}']) {
@@ -83,6 +107,8 @@ for (const marker of [
   'Photorealistic AI fallback',
   'must emit `noindex, follow, max-image-preview:large`',
   'must not be emitted in an indexable sitemap',
+  'Discover and social-preview contract',
+  'Responsive-image and Core Web Vitals rule',
 ]) {
   if (!governance.includes(marker)) errors.push(`Site image governance documentation missing: ${marker}`);
 }
@@ -101,6 +127,33 @@ for (const forbidden of ['generatedRepresentative(', 'gradient:${h1}-${h2}', 'Ge
 }
 for (const marker of ['CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}', 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}']) {
   if (!imageWorkflow.includes(marker)) errors.push(`Missing image-generation workflow credential binding: ${marker}`);
+}
+
+for (const marker of [
+  'const MIN_DISCOVER_WIDTH = 1200;',
+  'const MIN_DISCOVER_PIXELS = 300_000;',
+  'max-image-preview:large',
+  "twitterCard !== 'summary_large_image'",
+  'missing-og-image-alt',
+  'preferred-image-looks-generic-or-placeholder',
+  'preferred-image-svg',
+  'preferred-image-reused-',
+  '/^\\/destination\\//',
+  '/^\\/county\\//',
+  '/^\\/fishing(?:\\/|$)/',
+  '/^\\/event\\//',
+  '/^\\/sports-venue\\//',
+  '/^\\/article\\//',
+]) {
+  if (!productionImageAudit.includes(marker)) errors.push(`Production image/Discover crawler missing: ${marker}`);
+}
+for (const marker of [
+  'name: Image and Discover production audit',
+  "IMAGE_AUDIT_STRICT: '1'",
+  'node scripts/ci/verify-image-discover-production.mjs',
+  'image-discover-production-report.json',
+]) {
+  if (!productionImageWorkflow.includes(marker)) errors.push(`Production image/Discover workflow missing: ${marker}`);
 }
 
 for (const marker of [
@@ -192,9 +245,9 @@ for (const marker of [
 }
 
 if (errors.length) {
-  console.error('TexasDefined image performance, accessibility, and governance validation failed:');
+  console.error('TexasDefined image performance, accessibility, Discover, social-preview, and governance validation failed:');
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log('Image SEO, responsive sizing, rights-safe fallback, fail-closed indexing, accessibility, provenance, and hero coverage governance are protected.');
+console.log('Image SEO, responsive sizing, Discover/social metadata, rights-safe fallback, fail-closed indexing, accessibility, provenance, production crawling, and hero coverage governance are protected.');
