@@ -4,7 +4,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
-import { fishingTechniqueImages } from "./technique-images";
+import { fishingTechniqueImages, isFishingTechniqueHeroReady } from "./technique-images";
 import {
   FISHING_TECHNIQUES_DIRECTORY_PATH,
   FISHING_TECHNIQUES_VERIFIED_AT,
@@ -59,13 +59,14 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
   const { technique, canonicalPath, lakes, species, sources } = entry;
   const description = `How to fish ${technique.name.toLowerCase()} in Texas: practical setup, where and when to use it, seasonal guidance, and source-backed lake and species applications.`;
   const images = fishingTechniqueImages[technique.slug];
+  const imageReady = isFishingTechniqueHeroReady(technique.slug);
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const faq = authority?.faq ?? [];
   const dateModified = newestDate([technique.verifiedAt, ...sources.map((source) => source.checkedAt)]) ?? technique.verifiedAt;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(images?.hero ? { image: `${origin}${images.hero.src}` } : {}) },
+      { "@type": "WebPage", url: `${origin}${canonicalPath}`, name: `${technique.name} Fishing in Texas`, description, dateModified, about: { "@type": "Thing", name: technique.name, description: technique.summary }, citation: sources.map((source) => source.url), mainEntity: { "@id": `${origin}${canonicalPath}#lake-applications` }, ...(imageReady && images?.hero ? { image: images.hero.src.startsWith("http") ? images.hero.src : `${origin}${images.hero.src}` } : {}) },
       { "@type": "ItemList", "@id": `${origin}${canonicalPath}#lake-applications`, numberOfItems: lakes.length, itemListElement: lakes.map((lake, index) => ({ "@type": "ListItem", position: index + 1, name: `${technique.name} — ${lake.name}`, url: `${origin}${fishingFoundationAnchor("lake", lake.slug)}` })) },
       { "@type": "BreadcrumbList", itemListElement: [
         { "@type": "ListItem", position: 1, name: "Front page", item: origin },
@@ -83,7 +84,8 @@ function buildFishingTechniqueProfileHead(entry: ProfileHeadEntry) {
       title: `${technique.name} Fishing in Texas — Guide, Lakes & Seasons`,
       description,
       canonicalPath,
-      ...(images?.hero ? {
+      robots: imageReady ? undefined : "noindex, follow, max-image-preview:large",
+      ...(imageReady && images?.hero ? {
         image: images.hero.src,
         imageAlt: images.hero.alt,
         imageWidth: images.hero.width,

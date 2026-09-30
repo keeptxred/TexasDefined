@@ -10,6 +10,10 @@ import {
   VERIFIED_EDITORIAL_OUTREACH_TARGETS,
   type EditorialOutreachTarget,
 } from "./editorial-outreach";
+import {
+  scoreEditorialOutreachTarget,
+  type EditorialOutreachScorecard,
+} from "./editorial-outreach-scoring";
 
 export interface EditorialOutreachResearchCandidate {
   id: string;
@@ -35,10 +39,14 @@ export interface EditorialOutreachNeedsImprovement {
   issues: string[];
 }
 
+export type PrioritizedEditorialOutreachTarget = EditorialOutreachTarget & {
+  prioritization: EditorialOutreachScorecard;
+};
+
 export interface EditorialOutreachDashboard {
   generatedAt: string;
   policy: typeof EDITORIAL_OUTREACH_POLICY;
-  verifiedTargets: EditorialOutreachTarget[];
+  verifiedTargets: PrioritizedEditorialOutreachTarget[];
   automaticIntake: EditorialOutreachResearchCandidate[];
   eventIntake: EditorialOutreachResearchCandidate[];
   authoritySourceIntake: EditorialOutreachResearchCandidate[];
@@ -176,9 +184,11 @@ export async function loadEditorialOutreachDashboard(accessKey: string): Promise
   authoritySourceIntake.sort((left, right) => right.sourceCheckedAt.localeCompare(left.sourceCheckedAt) || left.organization.localeCompare(right.organization));
   needsImprovementFirst.sort((left, right) => right.auditScore - left.auditScore || left.name.localeCompare(right.name));
 
-  const verifiedTargets = [...VERIFIED_EDITORIAL_OUTREACH_TARGETS].sort((left, right) =>
-    left.priority - right.priority || right.score - left.score || left.organization.localeCompare(right.organization)
-  );
+  const verifiedTargets: PrioritizedEditorialOutreachTarget[] = VERIFIED_EDITORIAL_OUTREACH_TARGETS
+    .map((target) => ({ ...target, prioritization: scoreEditorialOutreachTarget(target) }))
+    .sort((left, right) =>
+      left.priority - right.priority || right.prioritization.total - left.prioritization.total || left.organization.localeCompare(right.organization)
+    );
 
   return {
     generatedAt: new Date().toISOString(),

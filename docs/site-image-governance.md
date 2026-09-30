@@ -4,9 +4,11 @@
 
 Every public, indexable TexasDefined directory/detail page whose template expects a hero image must have a compliant hero before it is considered production-ready.
 
-Covered surfaces include events, sports venues, destinations, RV parks, attractions, wedding venues, golf courses, food trucks, and comparable place/profile detail pages. Intentionally text-only utility pages are outside this requirement unless their template defines a hero.
+Covered surfaces include events, sports venues, destinations, RV parks, attractions, wedding venues, golf courses, food trucks, fishing technique profiles, cornerstone guides, major editorial articles, and comparable place/profile detail pages. Intentionally text-only utility pages are outside this requirement unless their template defines a hero.
 
 A page is not image-compliant when its hero is missing, blank, broken, a generic placeholder, a fallback SVG, a procedural placeholder graphic, unrelated to the subject, or missing the source/rights information required by that image registry.
+
+For a page intended to compete in Google Discover or rich social previews, the governed hero must be at least 1200 pixels wide, include intrinsic width and height, have useful non-empty alt text, and permit `max-image-preview:large`. A page-specific Open Graph/Twitter image should use the same governed hero unless a separately governed social crop is provided.
 
 ## Required acquisition order
 
@@ -35,6 +37,7 @@ Covered pages without a compliant hero must fail closed:
 - they may remain reachable while remediation is in progress;
 - they must emit `noindex, follow, max-image-preview:large` (or a stricter noindex directive);
 - they must not be emitted in an indexable sitemap until image compliance is restored;
+- they must not advertise an unrelated/default image as though it were page-specific social media;
 - internal audits/CI must report the missing or noncompliant hero as an actionable failure.
 
 Once a compliant hero is attached and the relevant image validator passes, normal indexability and sitemap eligibility may resume.

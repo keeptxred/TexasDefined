@@ -3,6 +3,7 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/editorial-outreach.ts",
+  scoring: "src/data/editorial-outreach-scoring.ts",
   server: "src/data/editorial-outreach.server.ts",
   functions: "src/data/editorial-outreach.functions.ts",
   route: "src/routes/admin.editorial-outreach.tsx",
@@ -43,6 +44,16 @@ for (const marker of [
 ]) requireText(files.data, marker, `Editorial relationship policy missing: ${marker}`);
 
 for (const marker of [
+  "pageStrength",
+  "organizationAuthority",
+  "relationshipLikelihood",
+  "officialAssetsOpportunity",
+  "recurringUpdateOpportunity",
+  "legitimateReferenceOpportunity",
+  "Relationship quality is weighted above backlink potential",
+]) requireText(files.scoring, marker, `Editorial outreach scorecard missing: ${marker}`);
+
+for (const marker of [
   "assertSportsPartnerAccess",
   "listResolvedDestinations",
   "auditDestination",
@@ -60,7 +71,9 @@ for (const marker of [
   "authoritySourceIntake.slice(0, 40)",
   'contentKind: "article-source"',
   'status: "source-research"',
-]) requireText(files.server, marker, `Automatic outreach intake missing: ${marker}`);
+  "scoreEditorialOutreachTarget",
+  "prioritization.total",
+]) requireText(files.server, marker, `Automatic outreach intake or prioritization missing: ${marker}`);
 
 for (const marker of [
   "createServerFn",
@@ -112,4 +125,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, quality-gated destination intake, verified event-organizer intake, conservative authority-source research, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
+console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, transparent six-factor relationship-first prioritization, quality-gated destination intake, verified event-organizer intake, conservative authority-source research, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
