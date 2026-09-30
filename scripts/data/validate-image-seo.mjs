@@ -29,6 +29,10 @@ const mergeGate = read('.github/workflows/merge-gate.yml');
 const premergeRunner = read('scripts/ci/run-premerge-validation.mjs');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const venueImageValidator = read('scripts/data/validate-sports-venue-photo-additions-final.mjs');
+const techniqueImages = read('src/data/fishing/technique-images.ts');
+const techniqueServer = read('src/data/fishing/technique-data.server.ts');
+const fishingSitemap = read('src/data/fishing/sitemap.ts');
+const techniqueImageAudit = read('scripts/data/validate-fishing-technique-image-readiness.mjs');
 
 for (const field of ['src: string', 'alt: string', 'width: number', 'height: number']) {
   if (!types.includes(field)) errors.push(`ImageRef must require ${field}.`);
@@ -163,6 +167,28 @@ for (const marker of [
   'Missing slugs:',
 ]) {
   if (!venueImageValidator.includes(marker)) errors.push(`Sports venue image coverage guard missing: ${marker}`);
+}
+
+for (const marker of [
+  'DISCOVER_MIN_TECHNIQUE_IMAGE_WIDTH = 1200',
+  'SOCIAL_MIN_TECHNIQUE_IMAGE_HEIGHT = 630',
+  'export function isFishingTechniqueHeroReady',
+  'sourceType: "wikimedia"',
+  'licenseLabel:',
+  'licenseUrl:',
+]) {
+  if (!techniqueImages.includes(marker)) errors.push(`Fishing technique image readiness contract missing: ${marker}`);
+}
+if (!techniqueServer.includes('robots: imageReady ? undefined : "noindex, follow, max-image-preview:large"')) errors.push('Fishing technique profiles must fail closed when page-specific hero imagery is incomplete.');
+if (!techniqueServer.includes('imageReady && images?.hero')) errors.push('Fishing technique social/schema images must be emitted only for governed ready heroes.');
+if (!fishingSitemap.includes('.filter((slug) => isFishingTechniqueHeroReady(slug))')) errors.push('Fishing technique sitemap must exclude image-incomplete technique profiles.');
+for (const marker of [
+  'Fishing technique image readiness passed:',
+  'hero width ${image.width}px is below the 1200px Discover floor',
+  'Wikimedia hero is missing structured license metadata',
+  'Fishing technique image coverage regressed below the remediated 7/9 baseline',
+]) {
+  if (!techniqueImageAudit.includes(marker)) errors.push(`Fishing technique regression audit missing: ${marker}`);
 }
 
 if (errors.length) {
