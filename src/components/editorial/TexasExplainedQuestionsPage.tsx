@@ -1,27 +1,36 @@
 import { Link } from "@tanstack/react-router";
 
+import { DepartmentHero } from "@/components/editorial/DepartmentHero";
+import { Container } from "@/components/layout/Container";
 import { TEXAS_EXPLAINED_QUESTIONS } from "@/data/texas-explained-questions";
 
 const anchorFor = (value: string) =>
   value.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-export default function TexasExplainedQuestionLibrary() {
+export default function TexasExplainedQuestionsPage() {
   const questions = TEXAS_EXPLAINED_QUESTIONS;
   const categories = Array.from(new Set(questions.map((item) => item.category)));
 
-  return (
-    <section id="texas-questions" className="mt-16 scroll-mt-28 border-t border-border pt-10" aria-labelledby="texas-questions-heading">
-      <header className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-end">
+  return <>
+    <DepartmentHero
+      current="Texas Questions"
+      eyebrow="Texas Explained"
+      title={`${questions.length} Texas questions, answered in plain English`}
+      description="Direct answers to common questions about Texas roads, government, property, schools, culture, sports, geography and everyday life—with deeper guides when a topic needs more context."
+    />
+    <Container className="py-12 sm:py-16">
+      <section className="grid gap-8 border-y border-border py-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Texas questions</p>
-          <h2 id="texas-questions-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">{questions.length} Texas questions, answered in plain English</h2>
-          <p className="mt-4 text-base leading-8 text-muted-foreground">Start with the question people actually type. TexasDefined answers the short-form question here, then points to a stronger canonical guide when the subject deserves deeper treatment. Questions without a deep-dive link are still answered here instead of being turned into thin standalone pages.</p>
+          <p className="eyebrow text-primary">Find the exact question</p>
+          <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">A searchable-style reference library without the clutter of 140 separate pages.</h2>
+          <p className="mt-4 text-base leading-8 text-muted-foreground">Browse by topic, scan the questions people actually ask, and follow a deep-dive link when you want the full history, geography or practical context behind an answer.</p>
         </div>
         <aside className="border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">
           <p className="font-semibold text-foreground">{questions.length} answers · {categories.length} topic groups</p>
-          <p className="mt-2">Dedicated pages are reserved for subjects that can support useful depth, sourcing, internal links and a reason to exist beyond the short answer.</p>
+          <p className="mt-2">Prefer the curated overview instead of the full reference library?</p>
+          <Link to="/texas-explained" className="mt-4 inline-block border-b border-primary pb-1 font-semibold text-primary">Start with Texas Explained →</Link>
         </aside>
-      </header>
+      </section>
 
       <nav aria-label="Texas question categories" className="mt-8 border-y border-border py-7">
         <p className="eyebrow text-muted-foreground">Jump to a topic</p>
@@ -39,15 +48,15 @@ export default function TexasExplainedQuestionLibrary() {
             <section key={category} id={anchorFor(category)} className="scroll-mt-28" aria-labelledby={`${anchorFor(category)}-heading`}>
               <header className="grid gap-3 border-b border-border pb-5 lg:grid-cols-[18rem_1fr] lg:items-end">
                 <div>
-                  <p className="eyebrow text-primary">Texas Explained</p>
-                  <h3 id={`${anchorFor(category)}-heading`} className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{category}</h3>
+                  <p className="eyebrow text-primary">Texas Questions</p>
+                  <h2 id={`${anchorFor(category)}-heading`} className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{category}</h2>
                 </div>
-                <p className="text-sm leading-7 text-muted-foreground">{categoryQuestions.length} common questions with direct answers and deeper TexasDefined reading where it adds value.</p>
+                <p className="text-sm leading-7 text-muted-foreground">{categoryQuestions.length} common questions with direct answers and deeper reading where it adds useful context.</p>
               </header>
               <div className="grid border-t border-border md:grid-cols-2">
                 {categoryQuestions.map((item, index) => (
                   <article key={item.question} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? "md:border-l" : ""}`}>
-                    <h4 className="font-display text-2xl leading-tight">{item.question}</h4>
+                    <h3 className="font-display text-2xl leading-tight">{item.question}</h3>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.answer}</p>
                     {item.href ? <Link to={item.href} className="eyebrow mt-5 inline-block border-b border-primary py-1 text-primary">{item.linkLabel ?? "Go deeper"} →</Link> : null}
                   </article>
@@ -58,11 +67,10 @@ export default function TexasExplainedQuestionLibrary() {
         })}
       </div>
 
-      <div className="mt-16 max-w-3xl border-t border-border pt-8">
-        <p className="eyebrow text-primary">Keep building the map</p>
-        <h3 className="mt-3 font-display text-3xl leading-tight">A short answer is the floor, not the ceiling.</h3>
-        <p className="mt-4 text-base leading-8 text-muted-foreground">As a subject earns deeper treatment, Texas Defined can publish a sourced in-depth guide and point this answer there without creating duplicate or thin pages.</p>
-      </div>
-    </section>
-  );
+      <footer className="mt-16 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
+        <Link to="/texas-explained" className="group border border-border p-6 transition-colors hover:border-primary"><p className="eyebrow text-primary">Curated overview</p><p className="mt-2 font-display text-2xl group-hover:text-primary">Texas Explained →</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Start with the 10 flagship guides that connect Texas landscapes, infrastructure, homes, wildlife and regional identity.</p></Link>
+        <Link to="/texas-resources" className="group border border-border p-6 transition-colors hover:border-primary"><p className="eyebrow text-primary">Practical next step</p><p className="mt-2 font-display text-2xl group-hover:text-primary">Texas Resources →</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Find official agencies, records, lookup tools and practical guides for getting things done in Texas.</p></Link>
+      </footer>
+    </Container>
+  </>;
 }
