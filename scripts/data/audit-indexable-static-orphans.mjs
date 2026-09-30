@@ -132,7 +132,8 @@ function resolveSportsVenueLandingLinks(inbound) {
 function resolveTexasResourcesTupleLinks(inbound) {
   const route = readOptional('src/routes/texas-resources.lazy.tsx');
   const block = route.match(/const groups:[\s\S]*?= \[([\s\S]*?)\n\];/)?.[1] ?? '';
-  const rendersTupleLinks = route.includes('group.links.map(([label, to])') && route.includes('to={to}');
+  const rendersTupleLinks = /group\.links\.map\(\(\[label, to(?:, [a-zA-Z][a-zA-Z0-9]*)?\]\)/.test(route)
+    && route.includes('to={to}');
   if (!rendersTupleLinks) return;
   addQuotedPaths(inbound, block, 'src/routes/texas-resources.lazy.tsx (resolved group.links tuple link)');
 }
