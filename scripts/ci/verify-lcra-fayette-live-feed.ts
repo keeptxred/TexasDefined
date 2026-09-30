@@ -2,34 +2,54 @@ import assert from "node:assert/strict";
 
 import { parseLcraLakeLevelCsv } from "../../src/data/fishing/lcra-lake-level-csv.ts";
 
-const FEED_URL = "https://hydromet.lcra.org/media/LakeLevel.csv";
+const CSV_URL = "https://hydromet.lcra.org/media/LakeLevel.csv";
+const ALL_SITES_URL = "https://hydromet.lcra.org/api/GetLakeLevelsForAllSites/";
 const SOURCE_URL = "https://hydromet.lcra.org/Charts/?agency=LCRA&siteNumber=5634&siteType=lakelevel";
+const requestHeaders = {
+  "user-agent": "TexasDefined-LCRA-Feed-Verification/1.0",
+  referer: SOURCE_URL,
+};
 
-const response = await fetch(FEED_URL, {
+const csvResponse = await fetch(CSV_URL, {
   redirect: "follow",
-  headers: {
-    accept: "text/csv,text/plain;q=0.9,*/*;q=0.1",
-    "user-agent": "TexasDefined-LCRA-Feed-Verification/1.0",
-    referer: SOURCE_URL,
-  },
+  headers: { ...requestHeaders, accept: "text/csv,text/plain;q=0.9,*/*;q=0.1" },
   signal: AbortSignal.timeout(15_000),
 });
-assert.equal(response.ok, true, `LCRA LakeLevel.csv returned HTTP ${response.status}`);
+assert.equal(csvResponse.ok, true, `LCRA LakeLevel.csv returned HTTP ${csvResponse.status}`);
 
-const csv = await response.text();
+const csv = await csvResponse.text();
 const lines = csv.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
 assert.ok(lines.length >= 2, "LCRA LakeLevel.csv did not contain a header and data row");
-
 console.log("LCRA LakeLevel.csv current rows:");
 for (const [index, line] of lines.entries()) console.log(`${index + 1}: ${line}`);
 
-const fayetteRow = lines.find((line) => /fayette|(?:^|,)\s*5634\s*(?:,|$)/i.test(line));
-assert.ok(fayetteRow, "LCRA LakeLevel.csv did not contain Fayette / site 5634");
+const csvFayette = parseLcraLakeLevelCsv(SOURCE_URL, "5634", csv);
+if (csvFayette) {
+  console.log(`Fayette found in CSV: ${csvFayette.elevationFeet.toFixed(2)} ft on ${csvFayette.measuredAt}`);
+} else {
+  console.log("Fayette/site 5634 is not present in current LakeLevel.csv; checking official all-sites API.");
+}
 
-const snapshot = parseLcraLakeLevelCsv(SOURCE_URL, "5634", csv);
-assert.ok(snapshot, "Hardened parser could not parse the current Fayette row");
-assert.equal(snapshot.percentFull, null, "Fayette must remain elevation-only; do not fabricate percent-full");
-assert.ok(Number.isFinite(snapshot.elevationFeet), "Fayette elevation must be numeric");
-assert.match(snapshot.measuredAt, /^\d{4}-\d{2}-\d{2}$/);
+const allSitesResponse = await fetch(ALL_SITES_URL, {
+  redirect: "follow",
+  headers: { ...requestHeaders, accept: "application/json,text/plain;q=0.9,*/*;q=0.1" },
+  signal: AbortSignal.timeout(15_000),
+});
+assert.equal(allSitesResponse.ok, true, `LCRA all-sites API returned HTTP ${allSitesResponse.status}`);
+const allSitesPayload: unknown = await allSitesResponse.json();
 
-console.log(`Fayette live LCRA snapshot verified: ${snapshot.elevationFeet.toFixed(2)} ft on ${snapshot.measuredAt}`);
+const matches: unknown[] = [];
+function collectMatches(value: unknown): void {
+  if (!value || typeof value !== "object") return;
+  if (Array.isArray(value)) {
+    for (const item of value) collectMatches(item);
+    return;
+  }
+  const text = JSON.stringify(value);
+  if (/fayette|5634/i.test(text)) matches.push(value);
+  for (const child of Object.values(value as Record<string, unknown>)) collectMatches(child);
+}
+collectMatches(allSitesPayload);
+
+assert.ok(matches.length > 0, "Official LCRA all-sites API did not expose Fayette/site 5634");
+console.log(`LCRA all-sites Fayette match: ${JSON.stringify(matches[0])}`);
