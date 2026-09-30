@@ -20,11 +20,11 @@ const csv = await response.text();
 const lines = csv.replace(/^\uFEFF/, "").split(/\r?\n/).filter((line) => line.trim().length > 0);
 assert.ok(lines.length >= 2, "LCRA LakeLevel.csv did not contain a header and data row");
 
+console.log("LCRA LakeLevel.csv current rows:");
+for (const [index, line] of lines.entries()) console.log(`${index + 1}: ${line}`);
+
 const fayetteRow = lines.find((line) => /fayette|(?:^|,)\s*5634\s*(?:,|$)/i.test(line));
 assert.ok(fayetteRow, "LCRA LakeLevel.csv did not contain Fayette / site 5634");
-
-console.log(`LCRA LakeLevel.csv first row: ${lines[0]}`);
-console.log(`LCRA Fayette row: ${fayetteRow}`);
 
 const snapshot = parseLcraLakeLevelCsv(SOURCE_URL, "5634", csv);
 assert.ok(snapshot, "Hardened parser could not parse the current Fayette row");
