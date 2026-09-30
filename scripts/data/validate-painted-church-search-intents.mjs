@@ -10,8 +10,11 @@ const hubLazyPath = "src/routes/explore.painted-churches_.guides.lazy.tsx";
 const detailPath = "src/routes/explore.painted-churches_.guides_.$slug.tsx";
 const detailLazyPath = "src/routes/explore.painted-churches_.guides_.$slug.lazy.tsx";
 const sitemapPath = "src/routes/sitemap-explore[.]xml.ts";
+const collectionPath = "src/routes/explore.painted-churches.tsx";
+const mapPath = "src/routes/explore.painted-churches.map.tsx";
+const profileDossierPath = "src/components/editorial/PaintedChurchResearchDossier.tsx";
 
-for (const path of [dataPath, hubPath, hubLazyPath, detailPath, detailLazyPath, sitemapPath]) {
+for (const path of [dataPath, hubPath, hubLazyPath, detailPath, detailLazyPath, sitemapPath, collectionPath, mapPath, profileDossierPath]) {
   if (!exists(path)) failures.push(`Missing Painted Churches search-intent file: ${path}`);
 }
 
@@ -20,6 +23,9 @@ if (failures.length === 0) {
   const hub = `${read(hubPath)}\n${read(hubLazyPath)}`;
   const detail = `${read(detailPath)}\n${read(detailLazyPath)}`;
   const sitemap = read(sitemapPath);
+  const collection = read(collectionPath);
+  const map = read(mapPath);
+  const profileDossier = read(profileDossierPath);
 
   const guideBlock = data.slice(
     data.indexOf("export const paintedChurchSearchGuides"),
@@ -100,6 +106,24 @@ if (failures.length === 0) {
   if (!sitemap.includes('"/explore/painted-churches/guides"')) failures.push("Explore sitemap is missing the search-guide hub.");
   if (!sitemap.includes("paintedChurchSearchGuides.map")) failures.push("Explore sitemap is not emitting dedicated search-guide URLs.");
 
+  // GSC showed the broad hub continuing to rank for "painted churches of texas map".
+  // Keep map intent owned by the dedicated map page and feed it exact-anchor authority
+  // from every individual church profile without turning the broad hub into a map page.
+  for (const token of [
+    'canonicalPath = "/explore/painted-churches/map"',
+    'title: "Painted Churches of Texas Map: Statewide Church Locations"',
+    'Painted Churches of Texas map and statewide locations.',
+  ]) {
+    if (!map.includes(token)) failures.push(`Dedicated Painted Churches map intent missing ${token}.`);
+  }
+  if (!collection.includes('title: "Painted Churches of Texas: Complete Statewide Guide"')) {
+    failures.push("Broad Painted Churches hub must retain statewide-guide title ownership instead of absorbing map intent.");
+  }
+  if (!profileDossier.includes('<Link to="/explore/painted-churches/map" className="border-b border-primary text-primary">Painted Churches of Texas map</Link>')) {
+    failures.push("Individual Painted Church profiles must link to the dedicated map with the exact map-intent anchor.");
+  }
+  if (!sitemap.includes('"/explore/painted-churches/map"')) failures.push("Explore sitemap must retain the dedicated Painted Churches map URL.");
+
   const requiredAmbiguousGuides = [
     "st-michael-weimar",
     "st-rose-of-lima-schulenburg",
@@ -119,4 +143,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("Painted Churches search-intent coverage protected: 50 queries (15 churches, 10 places, 13 planning, 12 history), including 32 dedicated search guides and 18 existing reader-facing guide pages.");
+console.log("Painted Churches search-intent coverage protected: 50 queries (15 churches, 10 places, 13 planning, 12 history), including 32 dedicated search guides, 18 existing reader-facing guide pages, and dedicated map-intent authority from every church profile.");

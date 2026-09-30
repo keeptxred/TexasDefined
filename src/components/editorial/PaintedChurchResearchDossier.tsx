@@ -43,6 +43,7 @@ export function PaintedChurchResearchDossier({ slug, schulenburgCluster }: { slu
         <h2 id="editorial-standard" className="mt-3 font-display text-3xl">Verified church, visible source trail.</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined separates formal National Register designation from the broader Painted Churches tradition, gives primary and official records precedence for hard facts, records meaningful source conflicts instead of hiding them, and checks image rights at the individual-item level before publication.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          <Link to="/explore/painted-churches/map" className="border-b border-primary text-primary">Painted Churches of Texas map</Link>
           <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Research methodology & corrections</Link>
           <Link to="/explore/painted-churches/compare" className="border-b border-primary text-primary">Compare all verified churches</Link>
           <Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why Painted Church counts differ</Link>
