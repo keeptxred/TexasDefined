@@ -285,6 +285,7 @@ export const GAMING_PAGES: GamingPage[] = [
     related: [
       { href: "/gaming/careers", label: "Gaming careers in Texas", description: "Career paths beyond competitive play." },
       { href: "/gaming/esports", label: "Texas esports", description: "Venues and statewide context." },
+      { href: "/texas-college-towns", label: "Texas college towns", description: "Campus-trip and city context for college-focused travel." },
     ],
   },
   {

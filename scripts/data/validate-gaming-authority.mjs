@@ -93,11 +93,24 @@ for (const marker of [
   "href: '/gaming/austin'",
   "href: '/gaming/dfw'",
   "href: '/gaming/esports-stadium-arlington'",
+  "href: '/gaming/college-esports'",
 ]) if (!city.includes(marker)) failures.push(`City gaming pathway missing: ${marker}`);
 
-for (const countySlug of ["travis", "williamson", "collin", "tarrant", "dallas", "denton"]) {
+const collegeCityMarkers = [
+  "Texas Wesleyan fields varsity esports teams in Fort Worth",
+  "Texas Tech and Lubbock Christian University both maintain active esports programs",
+  "Baylor operates a varsity esports program in Waco",
+  "Texas A&M’s competitive esports organization gives College Station",
+  "UT Tyler competes with varsity-level esports teams",
+];
+for (const marker of collegeCityMarkers) {
+  if (!city.includes("href: '/gaming/college-esports'") || !city.includes(marker)) failures.push(`College-esports city pathway missing: ${marker}`);
+}
+
+for (const countySlug of ["travis", "williamson", "collin", "tarrant", "dallas", "denton", "mclennan", "lubbock", "smith", "hays", "brazos"]) {
   if (!new RegExp(`\\b${countySlug}: \\[[^\\n]*href: "/gaming/`).test(county)) failures.push(`County gaming pathway missing: ${countySlug}`);
 }
+if (!data.includes('{ href: "/texas-college-towns", label: "Texas college towns"')) failures.push("College esports must cross-link to the Texas college-towns guide.");
 
 if (!searchRuntime.includes('await import("./gaming-search")') || !searchRuntime.includes("buildGamingSearchDocuments()")) failures.push("Gaming pages must remain in global search.");
 for (const marker of ['id: "collection:gaming"', 'href: "/gaming"', 'GAMING_PAGES']) if (!searchAdapter.includes(marker)) failures.push(`Gaming search adapter missing ${marker}`);

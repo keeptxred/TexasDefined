@@ -109,6 +109,25 @@ for (const [path, title, schemas] of pages) {
   liveBodies.set(path, result.body);
 }
 
+const localCrossLinkPages = [
+  "/city/fort-worth",
+  "/city/lubbock",
+  "/city/college-station",
+  "/county/mclennan",
+  "/county/smith",
+  "/county/hays",
+  "/county/brazos",
+];
+
+for (const path of localCrossLinkPages) {
+  const result = await fetchRetry(path, `gaming-local-crosslink-${path.replaceAll("/", "-")}`);
+  requireCondition(result?.response?.status === 200, `${path}: expected 200 while verifying local gaming cross-link`);
+  requireCondition(
+    result.body.includes('href="/gaming/college-esports"'),
+    `${path}: college-esports local-authority cross-link missing`,
+  );
+}
+
 const sitemap = await fetchRetry("/sitemap.xml", "gaming-sitemap");
 requireCondition(sitemap?.response?.status === 200, "gaming sitemap unavailable");
 for (const [path] of pages) {
