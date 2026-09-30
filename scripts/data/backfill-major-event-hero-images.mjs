@@ -268,8 +268,29 @@ async function main() {
   const overrideFile = "major-event-schema-enrichment-overrides.server.ts";
   const effectiveBySlug = await loadEffectiveRecords(batchFiles, overrideFile);
   const pending = [...effectiveBySlug.values()].filter((record) => !hasImage(record));
+  const requestedSlugs = [...new Set(
+    String(process.env.EVENT_IMAGE_SLUGS || "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean),
+  )];
+  const unknownRequestedSlugs = requestedSlugs.filter((slug) => !effectiveBySlug.has(slug));
+  if (unknownRequestedSlugs.length > 0) {
+    throw new Error(`Unknown EVENT_IMAGE_SLUGS: ${unknownRequestedSlugs.join(", ")}`);
+  }
+
+  const scopedPending = requestedSlugs.length > 0
+    ? requestedSlugs
+      .map((slug) => effectiveBySlug.get(slug))
+      .filter((record) => record && !hasImage(record))
+    : pending;
+  if (requestedSlugs.length > 0 && scopedPending.length === 0) {
+    console.log(`MAJOR_EVENT_HERO_BACKFILL=${JSON.stringify({ requestedSlugs, attempted: 0, resolved: 0, remainingRequestedAfterThisRun: 0, status: "already-complete" })}`);
+    return;
+  }
+
   const limit = Math.max(0, Number.parseInt(process.env.EVENT_IMAGE_LIMIT || "0", 10) || 0);
-  const targets = limit > 0 ? pending.slice(0, limit) : pending;
+  const targets = limit > 0 ? scopedPending.slice(0, limit) : scopedPending;
   const resolved = [];
   const unresolved = [];
 
@@ -291,24 +312,37 @@ async function main() {
 
   const effectiveAfter = await loadEffectiveRecords(batchFiles, overrideFile);
   const pendingAfter = [...effectiveAfter.values()].filter((record) => !hasImage(record));
+  const remainingRequestedAfterThisRun = requestedSlugs
+    .filter((slug) => {
+      const record = effectiveAfter.get(slug);
+      return record ? !hasImage(record) : true;
+    });
   const report = {
     generatedAt: new Date().toISOString(),
     reviewedLeaves: effectiveBySlug.size,
     compliantBefore: effectiveBySlug.size - pending.length,
     pendingBefore: pending.length,
+    requestedSlugs,
+    scopedPendingBefore: scopedPending.length,
     attempted: targets.length,
     resolved: resolved.length,
     unresolved,
     remainingAfterThisRun: pendingAfter.length,
+    remainingRequestedAfterThisRun,
     model: CLOUDFLARE_MODEL,
     policy: "Missing Event heroes remain fail-closed until generated assets and structured provenance are reviewed and merged.",
     images: resolved,
   };
   await fs.writeFile(REPORT, `${JSON.stringify(report, null, 2)}\n`, "utf8");
-  console.log(`MAJOR_EVENT_HERO_BACKFILL=${JSON.stringify({ reviewedLeaves: report.reviewedLeaves, pendingBefore: report.pendingBefore, resolved: report.resolved, unresolved: report.unresolved.length, remainingAfterThisRun: report.remainingAfterThisRun })}`);
+  console.log(`MAJOR_EVENT_HERO_BACKFILL=${JSON.stringify({ reviewedLeaves: report.reviewedLeaves, pendingBefore: report.pendingBefore, requestedSlugs: report.requestedSlugs, scopedPendingBefore: report.scopedPendingBefore, resolved: report.resolved, unresolved: report.unresolved.length, remainingAfterThisRun: report.remainingAfterThisRun, remainingRequestedAfterThisRun: report.remainingRequestedAfterThisRun.length })}`);
 
   if (unresolved.length > 0) throw new Error(`${unresolved.length} Event hero image(s) failed generation; no incomplete review PR should be created.`);
-  if (limit === 0 && pendingAfter.length !== 0) throw new Error(`${pendingAfter.length} Event hero(s) remain after full backfill run.`);
+  if (requestedSlugs.length > 0 && remainingRequestedAfterThisRun.length > 0) {
+    throw new Error(`Requested Event hero(s) remain unresolved: ${remainingRequestedAfterThisRun.join(", ")}`);
+  }
+  if (requestedSlugs.length === 0 && limit === 0 && pendingAfter.length !== 0) {
+    throw new Error(`${pendingAfter.length} Event hero(s) remain after full backfill run.`);
+  }
 }
 
 await main();
