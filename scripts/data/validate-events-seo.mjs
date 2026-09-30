@@ -100,6 +100,8 @@ for (const marker of [
   'A useful shortlist, not a feed dump',
   'Metro, regional and interest sections only appear when enough events qualify',
   'price-based sections never infer free admission',
+  '"data-entity-id": trackId',
+  'weekend:${section.id}:${event.slug}',
 ]) {
   if (!collectionRoute.includes(marker)) errors.push(`Texas This Weekend collection UX missing: ${marker}.`);
 }
