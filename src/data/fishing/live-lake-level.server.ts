@@ -60,6 +60,14 @@ function normalizeCsvHeader(value: string) {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
 }
 
+function findCsvColumn(headers: string[], aliases: string[]) {
+  for (const alias of aliases) {
+    const index = headers.indexOf(alias);
+    if (index >= 0) return index;
+  }
+  return -1;
+}
+
 function normalizeReservoirIdentity(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
@@ -147,7 +155,6 @@ export function parseWaterDataForTexasReservoirPage(sourceUrl: string, html: str
   return { sourceUrl, measuredAt, percentFull, elevationFeet: parseNumber(elevationMatch?.[1]) };
 }
 
-
 function normalizeLcraKey(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
@@ -196,17 +203,24 @@ export function parseLcraHydrometLakeLevelCsv(sourceUrl: string, csv: string): L
   if (lines.length < 2) return null;
 
   const headers = parseCsvLine(lines[0]).map(normalizeCsvHeader);
-  const siteIndex = ["site_number", "site", "site_no", "station_number", "station"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 0;
-  const nameIndex = ["lake", "lake_name", "name", "location", "site_name"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 1;
-  const dateIndex = ["read_date", "date_time", "datetime", "date", "timestamp", "last_update"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 2;
-  const levelIndex = ["current_level", "lake_level", "water_level", "elevation", "head", "level"].map((key) => headers.indexOf(key)).find((index) => index >= 0) ?? 3;
+  const siteIndex = findCsvColumn(headers, ["site_number", "site", "site_no", "station_number", "station", "site_id", "station_id"]);
+  const nameIndex = findCsvColumn(headers, ["lake", "lake_name", "name", "location", "site_name", "station_name"]);
+  const dateIndex = findCsvColumn(headers, ["read_date", "date_time", "datetime", "date", "timestamp", "last_update", "last_data_update", "measurement_time"]);
+  const levelIndex = findCsvColumn(headers, ["current_level", "lake_level", "water_level", "elevation", "head", "level", "head_elevation", "stage"]);
+
+  // LCRA has changed public feed shapes over time. Never infer a schema from
+  // column position: require named identity, date and elevation columns so an
+  // unrelated numeric CSV cannot silently become a lake-level reading.
+  if ((siteIndex < 0 && nameIndex < 0) || dateIndex < 0 || levelIndex < 0) return null;
 
   let best: { timestamp: number; snapshot: LiveLakeLevelSnapshot } | null = null;
   for (const line of lines.slice(1)) {
     const values = parseCsvLine(line);
-    const rowSite = String(values[siteIndex] ?? "").replace(/\D/g, "");
-    const rowName = String(values[nameIndex] ?? "").trim().toLowerCase();
-    if (rowSite !== siteNumber && !(siteNumber === "5634" && rowName.includes("fayette"))) continue;
+    const rowSite = siteIndex >= 0 ? String(values[siteIndex] ?? "").replace(/\D/g, "") : "";
+    const rowName = nameIndex >= 0 ? String(values[nameIndex] ?? "").trim().toLowerCase() : "";
+    const siteMatches = Boolean(rowSite) && rowSite === siteNumber;
+    const nameMatches = siteNumber === "5634" && rowName.includes("fayette");
+    if (!siteMatches && !nameMatches) continue;
 
     const measuredAt = parseLcraMeasuredDate(values[dateIndex]);
     const elevationFeet = parseLcraNumber(values[levelIndex]);
