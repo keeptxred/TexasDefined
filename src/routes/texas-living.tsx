@@ -225,7 +225,7 @@ function TexasLivingPage() {
 
     <Section>
       <Container>
-        <SectionHeader eyebrow="Money & home" title="Start with the costs that change the household budget" description="Housing, utilities, closing costs and affordability are more useful near the top of this hub than buried beneath cultural reading." actionLabel="Open financial tools" actionTo="/decide/financial-tools" />
+        <SectionHeader eyebrow="Money decisions" title="Start with the costs that change the household budget" description="Housing, utilities, closing costs and affordability are more useful near the top of this hub than buried beneath cultural reading." actionLabel="Open financial tools" actionTo="/decide/financial-tools" />
         <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
           {financeGuides.map(([to, title, copy]) => <Link key={to} to={to} className="group bg-background p-6">
             <h2 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary">{title}</h2>
