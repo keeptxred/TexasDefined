@@ -94,7 +94,7 @@ for (const [url, markers] of authorityTrustContracts) {
   for (const marker of markers) expect(resource?.trust?.includes(marker), `${url} citation resource is missing trust marker ${marker}`);
 }
 
-for (const label of ['Sources', 'Methodology', 'Last verified']) expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
+for (const label of ['Sources', 'Methodology', 'Last reviewed']) expect(trustPanel.includes(`>${label}<`), `CitationTrustPanel must retain visible ${label} label`);
 
 const collectionTrustPaths = [
   '/citation-guide',

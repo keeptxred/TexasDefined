@@ -18,7 +18,7 @@ export function CitationTrustPanel({
   sources,
   methodology,
   lastVerified,
-  title = 'Sources and verification',
+  title = 'Sources & methodology',
   className = '',
 }: CitationTrustPanelProps) {
   return (
@@ -28,7 +28,7 @@ export function CitationTrustPanel({
     >
       <div className="grid gap-7 lg:grid-cols-[14rem_minmax(0,1fr)]">
         <div>
-          <p className="eyebrow text-primary">Sources & notes</p>
+          <p className="eyebrow text-primary">Sources</p>
           <h2 id="citation-trust-heading" className="mt-2 font-display text-3xl">{title}</h2>
         </div>
         <div className="grid gap-7 text-sm leading-7 text-muted-foreground sm:grid-cols-2">
@@ -58,7 +58,7 @@ export function CitationTrustPanel({
               <p className="mt-2">{methodology}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-foreground">Last verified</h3>
+              <h3 className="font-semibold text-foreground">Last reviewed</h3>
               <p className="mt-2">{lastVerified}</p>
             </div>
           </div>

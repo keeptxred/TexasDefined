@@ -96,7 +96,7 @@ function Page() {
             </div>
             <dl className="border-l border-border pl-6 text-sm">
               <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Source</dt><dd className="mt-1 font-medium">{dataset.sourceName}</dd></div>
-              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Last verified</dt><dd className="mt-1 font-medium">{formatCheckedDate(dataset.updated)}</dd></div>
+              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Last reviewed</dt><dd className="mt-1 font-medium">{formatCheckedDate(dataset.updated)}</dd></div>
               <div className="py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Coverage</dt><dd className="mt-1 font-medium">{dataset.year}</dd></div>
             </dl>
           </header>
@@ -126,7 +126,7 @@ function Page() {
             }]}
             methodology={dataset.methodology}
             lastVerified={formatCheckedDate(dataset.updated)}
-            title="Sources, methodology and verification"
+            title="Sources & methodology"
           />
 
           <footer className="flex flex-wrap gap-x-7 gap-y-3 py-7 text-sm font-semibold">
