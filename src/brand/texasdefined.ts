@@ -13,12 +13,11 @@ import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import courthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
 import texasHomeMaintenance from "@/assets/texas-home-maintenance-photo.jpg";
 import texasSpecialDistricts from "@/assets/generated/texas-special-districts.jpg";
+import paintedChurchNavImage from "@/assets/navigation-painted-churches.svg";
+import texasDogsNavImage from "@/assets/navigation-texas-dogs.svg";
+import texasIndustriesNavImage from "@/assets/navigation-texas-industries.svg";
 
 import type { BrandConfig } from "./types";
-
-const paintedChurchNavImage = "/images/navigation/painted-churches.svg";
-const texasDogsNavImage = "/images/navigation/texas-dogs.svg";
-const texasIndustriesNavImage = "/images/navigation/texas-industries.svg";
 
 export const texasDefinedBrand: BrandConfig = {
   identity: {
