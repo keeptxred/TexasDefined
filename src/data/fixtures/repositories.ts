@@ -21,6 +21,7 @@ import { standaloneEvergreenStubs, loadStandaloneEvergreenArticle } from "./lazy
 import { coreEvergreenArticleStubs, loadCoreEvergreenArticle } from "./lazy-core-evergreen";
 import { migratedEditorialArticleStubs, loadMigratedEditorialArticle } from "./lazy-migrated-editorial";
 import { relocationAuthorityExpansionStubs, loadRelocationAuthorityExpansionArticle } from "./lazy-relocation-authority-expansion";
+import { relocationAuthorityWave5Stubs, loadRelocationAuthorityWave5Article } from "./lazy-relocation-authority-wave5";
 import { texasCoreArticleStubs, loadTexasCoreArticle } from "./lazy-texas-core-articles";
 import {
   categories,
@@ -47,6 +48,7 @@ const editorialArticles = [
   ...texasCoreArticleStubs,
   ...migratedEditorialArticleStubs,
   ...relocationAuthorityExpansionStubs,
+  ...relocationAuthorityWave5Stubs,
 ];
 
 let newestEvergreenModulePromise: Promise<typeof import("./lazy-newest-evergreen")> | null = null;
@@ -216,6 +218,9 @@ export const fixtureArticles: ArticleRepository = {
 
     const relocationAuthorityArticle = await loadRelocationAuthorityExpansionArticle(scope.brandId, slug);
     if (relocationAuthorityArticle) return normalizeArticle(relocationAuthorityArticle);
+
+    const relocationAuthorityWave5Article = await loadRelocationAuthorityWave5Article(scope.brandId, slug);
+    if (relocationAuthorityWave5Article) return normalizeArticle(relocationAuthorityWave5Article);
 
     const exploreFeatureArticle = await loadExploreFeatureArticle(scope.brandId, slug);
     if (exploreFeatureArticle) return normalizeArticle(exploreFeatureArticle);
