@@ -215,9 +215,21 @@ async function verifyEventCollections() {
 
 async function verifyRecurrenceDerivedLeaves() {
   const leaves = [
-    { slug: 'luling-watermelon-thump', name: 'Luling Watermelon Thump', planningNeedle: 'Use the recurrence rule as the planning window' },
-    { slug: 'national-polka-festival', name: 'National Polka Festival', planningNeedle: 'Treat Memorial Day Weekend as the stable planning window' },
-    { slug: 'westfest', name: 'Westfest', planningNeedle: 'Use the Labor Day Weekend recurrence as the planning window' },
+    {
+      slug: 'luling-watermelon-thump',
+      name: 'Luling Watermelon Thump',
+      planningNeedle: 'Use the recurrence rule as the planning window',
+    },
+    {
+      slug: 'national-polka-festival',
+      name: 'National Polka Festival',
+      planningNeedle: 'Treat Memorial Day Weekend as the stable planning window',
+    },
+    {
+      slug: 'westfest',
+      name: 'Westfest',
+      planningNeedle: 'Use the Labor Day Weekend recurrence as the planning window',
+    },
   ];
 
   for (const leaf of leaves) {
@@ -227,11 +239,16 @@ async function verifyRecurrenceDerivedLeaves() {
     assert(html.includes(leaf.name), `${leaf.name} page must render the event name`);
     assert(html.includes(leaf.planningNeedle), `${leaf.name} must visibly identify its recurrence-derived date as a planning window`);
     assert(/recheck the organizer/i.test(html), `${leaf.name} must visibly tell readers to recheck the organizer for the dedicated schedule`);
-    const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
+
+    const blocks = extractJsonLd(html);
+    assert(blocks.length > 0, `${leaf.name} must expose JSON-LD`);
+    const nodes = blocks.flatMap((block) => collectTypedNodes(block));
     assert(nodes.some((node) => hasType(node, 'WebPage')), `${leaf.name} recurrence-derived schema must expose WebPage`);
     assert(nodes.some((node) => hasType(node, 'Thing')), `${leaf.name} recurrence-derived schema must describe the event as a Thing`);
     assert(!nodes.some((node) => hasType(node, 'Event')), `${leaf.name} recurrence-derived schema must not expose scheduled Event markup`);
+    assert(!nodes.some((node) => hasType(node, 'EventScheduled')), `${leaf.name} recurrence-derived schema must not expose EventScheduled markup`);
     assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), `${leaf.name} recurrence-derived JSON-LD must not publish startDate or endDate`);
+    console.log(`[${leaf.slug}] recurrence-derived visible labeling and schema suppression verified`);
   }
 }
 
@@ -239,26 +256,48 @@ async function verifyFiestaLeaf() {
   const path = '/event/fiesta-san-antonio';
   const html = await fetchProduction(path, 'fiesta-san-antonio');
   assert(canonicalHref(html) === `${origin}${path}`, `Fiesta canonical must be ${origin}${path}`);
+  assert(html.includes('Fiesta San Antonio'), 'Fiesta page must render the event name');
+  assert(html.includes('Organizer:'), 'Fiesta visible page must expose the verified organizer');
+  assert(!html.includes('Tickets and admission'), 'Fiesta visible page must not invent unreleased 2027 offers');
+  assert(!html.includes('Announced performers'), 'Fiesta visible page must not leak a prior-year performer lineup');
+
   const events = eventNodes(html);
   assert(events.length >= 1, 'Fiesta leaf must expose Event schema');
   const event = events.find((node) => node.name === 'Fiesta San Antonio') ?? events[0];
+  assert(event.name === 'Fiesta San Antonio', 'Fiesta Event schema must use the verified event name');
   assert(event.startDate === '2027-04-15', 'Fiesta Event schema startDate must be 2027-04-15');
   assert(event.endDate === '2027-04-25', 'Fiesta Event schema endDate must be 2027-04-25');
   assert(event.eventStatus === 'https://schema.org/EventScheduled', 'Fiesta Event schema must be scheduled');
   assert(event.eventAttendanceMode === 'https://schema.org/OfflineEventAttendanceMode', 'Fiesta Event schema must be offline');
+  assert(typeof event.sameAs === 'string' && event.sameAs.startsWith('https://'), 'Fiesta Event schema must retain an official-source sameAs URL');
   assert(hasType(event.location, 'Place'), 'Fiesta Event schema must use a Place location');
   assert(event.location?.address?.addressLocality === 'San Antonio', 'Fiesta Event location must identify San Antonio');
+  assert(event.location?.address?.addressRegion === 'TX', 'Fiesta Event location must identify Texas');
+  assert(event.location?.address?.addressCountry === 'US', 'Fiesta Event location must identify the United States');
   assert(hasType(event.organizer, 'Organization'), 'Fiesta Event schema must expose the verified organizer');
+  assert(event.organizer?.name === 'Fiesta San Antonio Commission', 'Fiesta organizer must match repository-reviewed evidence');
   assert(asArray(event.offers).length === 0, 'Fiesta 2027 schema must intentionally omit unreleased offers');
   assert(asArray(event.performer).length === 0, 'Fiesta 2027 schema must intentionally omit unannounced performers');
+  assert(asArray(event.image).length === 0, 'Fiesta schema must not substitute generic fallback imagery');
+  console.log('[fiesta-san-antonio] organizer plus future-year omission policy verified');
 }
 
 async function verifyExpiredConfirmedLeaf() {
   const path = '/event/bandera-round-up-cattle-drive';
   const html = await fetchProduction(path, 'bandera-round-up-cattle-drive');
-  const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
+  assert(canonicalHref(html) === `${origin}${path}`, `Bandera Round-Up canonical must be ${origin}${path}`);
+  assert(html.includes('Organizer:'), 'Bandera Round-Up visible page must expose the verified organizer');
+  assert(html.includes('Tickets and admission'), 'Bandera Round-Up visible page must retain its reviewed admission evidence');
+
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Bandera Round-Up expired leaf must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
   assert(nodes.some((node) => hasType(node, 'WebPage')), 'Bandera Round-Up expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'Bandera Round-Up expired leaf must remain described as a Thing');
   assert(!nodes.some((node) => hasType(node, 'Event')), 'Bandera Round-Up expired leaf must suppress stale scheduled Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'Bandera Round-Up expired leaf must suppress EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Bandera Round-Up expired JSON-LD must not publish stale occurrence dates');
+  console.log('[bandera-round-up-cattle-drive] expired confirmed occurrence schema suppression verified');
 }
 
 async function verifyFreeOfferLeaf() {
@@ -266,43 +305,77 @@ async function verifyFreeOfferLeaf() {
   const startDate = '2026-09-25';
   const endDate = '2026-09-27';
   const html = await fetchProduction(path, 'mckinney-oktoberfest');
-  const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
+  assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
+  assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
+  assert(html.includes('Tickets and admission'), 'McKinney Oktoberfest visible page must expose verified free admission');
+
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'McKinney Oktoberfest leaf must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
   const today = currentEventDateKey();
+
   if (today <= endDate) {
-    const event = nodes.find((node) => hasType(node, 'Event'));
-    assert(event, 'McKinney Oktoberfest leaf must expose Event schema while upcoming or active');
-    assert(event.startDate === startDate && event.endDate === endDate, 'McKinney Oktoberfest dates must remain correct');
-    const freeOffer = asArray(event.offers).find((offer) => Number(offer?.price) === 0);
+    const events = nodes.filter((node) => hasType(node, 'Event'));
+    assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming or active');
+    const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
+    assert(event.startDate === startDate, `McKinney Oktoberfest Event schema startDate must be ${startDate}`);
+    assert(event.endDate === endDate, `McKinney Oktoberfest Event schema endDate must be ${endDate}`);
+    assert(hasType(event.organizer, 'Organization'), 'McKinney Oktoberfest must expose its verified organizer');
+    const offers = asArray(event.offers);
+    assert(offers.length >= 1, 'McKinney Oktoberfest must expose a verified free Offer');
+    const freeOffer = offers.find((offer) => Number(offer?.price) === 0);
     assert(freeOffer, 'McKinney Oktoberfest must include a zero-price Offer');
     verifyOfferShape(freeOffer, 'McKinney Oktoberfest free admission', true);
+    console.log('[mckinney-oktoberfest] upcoming/active organizer and free Offer verified');
     return;
   }
-  assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney Oktoberfest expired leaf must suppress stale Event markup');
+
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'McKinney Oktoberfest expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'McKinney Oktoberfest expired leaf must remain described as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney Oktoberfest expired leaf must suppress stale scheduled Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'McKinney Oktoberfest expired leaf must suppress EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'McKinney Oktoberfest expired JSON-LD must not publish stale occurrence dates');
+  console.log(`[mckinney-oktoberfest] expired confirmed occurrence schema suppression verified for ${today}`);
 }
 
 async function verifyPaidOfferAndPerformersLeaf() {
   const path = '/event/fort-bend-county-fair-rodeo';
   const html = await fetchProduction(path, 'fort-bend-county-fair-rodeo');
+  assert(canonicalHref(html) === `${origin}${path}`, `Fort Bend County Fair canonical must be ${origin}${path}`);
+  assert(html.includes('Organizer:'), 'Fort Bend visible page must expose the verified organizer');
+  assert(html.includes('Tickets and admission'), 'Fort Bend visible page must expose verified admission');
+  assert(html.includes('Announced performers'), 'Fort Bend visible page must expose announced performers');
+
   const event = eventNodes(html)[0];
   assert(event, 'Fort Bend County Fair leaf must expose Event schema');
-  const paidOffer = asArray(event.offers).find((offer) => Number(offer?.price) > 0);
+  assert(hasType(event.organizer, 'Organization'), 'Fort Bend County Fair must expose its verified organizer');
+  const offers = asArray(event.offers);
+  assert(offers.length >= 1, 'Fort Bend County Fair must expose a verified paid Offer');
+  const paidOffer = offers.find((offer) => Number(offer?.price) > 0);
   assert(paidOffer, 'Fort Bend County Fair must retain a positive-price Offer');
   verifyOfferShape(paidOffer, 'Fort Bend County Fair paid admission', false);
   const performers = asArray(event.performer);
   assert(performers.length >= 1, 'Fort Bend County Fair must expose its announced performer set');
+  assert(performers.every((item) => hasType(item, 'Person') || hasType(item, 'PerformingGroup')), 'Fort Bend performers must use Person or PerformingGroup schema');
+  assert(performers.every((item) => typeof item.name === 'string' && item.name.trim()), 'Fort Bend performers must have names');
+  console.log('[fort-bend-county-fair-rodeo] organizer, paid Offer and performer set verified');
 }
 
 async function verifyRecurringLeaf() {
   const path = '/event/texas-renaissance-festival';
   const html = await fetchProduction(path, 'texas-renaissance-festival');
   assert(canonicalHref(html) === `${origin}${path}`, `Texas Renaissance Festival canonical must be ${origin}${path}`);
-  assert(html.includes('Tickets and admission'), 'Texas Renaissance Festival visible page must retain reviewed admission information');
-  const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
+  assert(html.includes('Tickets and admission'), 'Texas Renaissance Festival visible page must expose occurrence-backed admission options');
+
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Texas Renaissance Festival multi-window guide must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
   assert(nodes.some((node) => hasType(node, 'WebPage')), 'Texas Renaissance Festival multi-window guide must expose WebPage schema');
   assert(nodes.some((node) => hasType(node, 'Thing')), 'Texas Renaissance Festival multi-window guide must remain described as a Thing');
   assert(!nodes.some((node) => hasType(node, 'Event')), 'Texas Renaissance Festival must not expose multiple Event entities from one canonical guide URL');
-  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Texas Renaissance Festival guide JSON-LD must not claim occurrence dates without unique occurrence URLs');
-  console.log('[texas-renaissance-festival] multi-window guide safely withheld from Event rich-result markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'Texas Renaissance Festival multi-window guide must not expose EventScheduled markup');
+  assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Texas Renaissance Festival guide JSON-LD must not publish occurrence dates without unique occurrence URLs');
+  console.log('[texas-renaissance-festival] multi-window guide single-leaf eligibility policy verified');
 }
 
 try {
@@ -314,7 +387,7 @@ try {
   await verifyFreeOfferLeaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyRecurringLeaf();
-  console.log('TexasDefined Event production verification passed, including collection isolation, single-event leaf ownership, lifecycle suppression, optional enrichment, and multi-window recurring-guide suppression.');
+  console.log('TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived, expired-confirmed, and multi-window schema suppression, optional enrichment and intentional omissions.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=EVENT STRUCTURED DATA LIVE PRODUCTION failure::${message}`);
