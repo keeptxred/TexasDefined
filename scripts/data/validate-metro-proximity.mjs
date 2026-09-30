@@ -18,6 +18,7 @@ const paths = {
   server: "src/server.ts",
   productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   audit: "scripts/data/audit-metro-proximity-index-readiness.ts",
+  auditRunner: "scripts/data/run-metro-proximity-audit.mjs",
   package: "package.json",
 };
 for (const path of Object.values(paths)) {
@@ -246,11 +247,18 @@ for (const token of [
 ]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
 
 const pkg = JSON.parse(files.package);
-const expectedAuditScript = "node --experimental-strip-types scripts/data/audit-metro-proximity-index-readiness.ts";
+const expectedAuditScript = "node scripts/data/run-metro-proximity-audit.mjs";
 if (pkg.scripts?.["metro-proximity:audit"] !== expectedAuditScript) fail("package script metro-proximity:audit is missing or changed");
 const expectedScript = "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit";
 if (pkg.scripts?.["metro-proximity:validate"] !== expectedScript) fail("package script metro-proximity:validate is missing or changed");
 if (!pkg.scripts?.["data:validate"]?.includes("npm run metro-proximity:validate")) fail("metro proximity validation is not wired into data:validate");
+
+for (const token of [
+  'createServer',
+  'vite-tsconfig-paths',
+  'ssrLoadModule("/scripts/data/audit-metro-proximity-index-readiness.ts")',
+  'await vite.close()',
+]) requireText(files.auditRunner, token, `metro readiness audit runner missing ${token}`);
 
 for (const token of [
   "listResolvedDestinations({ limit: 5000 })",
