@@ -224,6 +224,30 @@ jobs:
           done
           [[ "$failures" -eq 0 ]]
 
+      - name: Verify Calaveras no-public-gauge disclosure
+        shell: bash
+        run: |
+          set -euo pipefail
+          body="$(mktemp)"
+          headers="$(mktemp)"
+          trap 'rm -f "$body" "$headers"' EXIT
+          code="$(curl --silent --show-error --location --max-time 30 \
+            --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+            --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+            --dump-header "$headers" --output "$body" --write-out '%{http_code}' \
+            "https://texasdefined.com/fishing/lakes/calaveras-lake?verify-calaveras-fallback=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" || true)"
+          ! grep -iq '^cf-mitigated: *challenge' "$headers"
+          [[ "$code" == "200" ]]
+          grep -Fq 'No public real-time pool-elevation feed is currently published for Calaveras Lake.' "$body"
+          grep -Fq '485.0 ft MSL' "$body"
+          grep -Fq '484.0 ft MSL' "$body"
+          grep -Fq 'CPS Energy' "$body"
+          grep -Fq 'Official current conditions' "$body"
+          if grep -Fq 'Live lake level:' "$body"; then
+            echo "Calaveras must not render a fake live-level strip without a public real-time gauge." >&2
+            exit 1
+          fi
+
       - name: Verify lake section route exposes live-level UI
         shell: bash
         run: |
