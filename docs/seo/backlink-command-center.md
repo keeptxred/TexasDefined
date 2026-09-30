@@ -16,7 +16,7 @@ Follow and nofollow links are both legitimate relationship outcomes when they me
 
 ## Prohibited acquisition methods
 
-Reject paid links intended to pass ranking credit, PBNs, expired-domain networks, low-quality directory submissions, automated profile/comment/forum links, sitewide widget/footer link schemes, bulk guest-post packages, guaranteed-link vendors, and excessive reciprocal-link networks.
+Reject: Paid links intended to pass ranking credit; Private blog networks (PBNs) and expired-domain networks; low-quality directory submissions; automated profile/comment/forum links; sitewide widget/footer link schemes; bulk guest-post packages; guaranteed-link vendors; and excessive reciprocal-link networks.
 
 Google's current spam policies describe buying or selling ranking links, excessive link exchanges, automated link creation and low-quality directory/bookmark links as link spam. Paid or sponsored links that are legitimate advertising should be appropriately qualified rather than treated as earned editorial backlinks.
 
