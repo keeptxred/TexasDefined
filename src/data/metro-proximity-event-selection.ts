@@ -1,14 +1,20 @@
-import type { MetroProximityCollection, MetroProximityMetro, MetroProximityResult } from "./metro-proximity.ts";
+import type { MetroProximityCollection, MetroProximityMetro, MetroProximityResult } from "./metro-proximity";
 
 export interface MetroProximityEventCandidate {
   id: string;
   title: string;
   city: string;
   startDate: string;
+  endDate?: string | null;
   ticketCta: {
     href: string;
     isAffiliate: boolean;
   } | null;
+}
+
+export interface MetroProximityEventWindow {
+  todayIso?: string;
+  horizonIso?: string;
 }
 
 function normalizePlace(value: string) {
@@ -36,13 +42,20 @@ function eventIdentity(event: MetroProximityEventCandidate) {
   return `${normalizePlace(event.title)}|${normalizePlace(event.city)}|${event.startDate}`;
 }
 
-function hasSafeAffiliateDestination(event: MetroProximityEventCandidate) {
-  if (!event.ticketCta?.isAffiliate) return false;
+function safeAffiliateTicketCta<T extends MetroProximityEventCandidate>(event: T) {
+  if (!event.ticketCta?.isAffiliate) return null;
   try {
-    return new URL(event.ticketCta.href).protocol === "https:";
+    return new URL(event.ticketCta.href).protocol === "https:" ? event.ticketCta : null;
   } catch {
-    return false;
+    return null;
   }
+}
+
+function isWithinEventWindow(event: MetroProximityEventCandidate, window: MetroProximityEventWindow) {
+  const effectiveEnd = event.endDate ?? event.startDate;
+  if (window.todayIso && effectiveEnd < window.todayIso) return false;
+  if (window.horizonIso && event.startDate > window.horizonIso) return false;
+  return true;
 }
 
 export function selectMetroProximityAffiliateEvents<T extends MetroProximityEventCandidate>(
@@ -50,6 +63,7 @@ export function selectMetroProximityAffiliateEvents<T extends MetroProximityEven
   collection: MetroProximityCollection,
   results: readonly MetroProximityResult[],
   events: readonly T[],
+  window: MetroProximityEventWindow = {},
 ) {
   if (collection.slug !== "things-to-do" && collection.slug !== "weekend-trips") return [] as T[];
 
@@ -58,7 +72,7 @@ export function selectMetroProximityAffiliateEvents<T extends MetroProximityEven
   const seen = new Set<string>();
 
   return events
-    .filter(hasSafeAffiliateDestination)
+    .filter((event) => isWithinEventWindow(event, window))
     .filter((event) => {
       const cityKey = normalizePlace(event.city);
       return collection.slug === "weekend-trips"
@@ -71,5 +85,6 @@ export function selectMetroProximityAffiliateEvents<T extends MetroProximityEven
       seen.add(key);
       return true;
     })
+    .map((event) => ({ ...event, ticketCta: safeAffiliateTicketCta(event) }) as T)
     .slice(0, 12);
 }
