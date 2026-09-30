@@ -91,6 +91,46 @@ export const METRO_PROXIMITY_METROS = [
     regionLabel: "South Plains",
     context: "Lubbock is the South Plains base for caprock scenery, ranching and music history, prairie lakes, smaller High Plains towns and road trips that spread across a broad regional grid.",
   },
+  {
+    slug: "mcallen",
+    name: "McAllen",
+    shortName: "McAllen",
+    center: { lat: 26.2034, lng: -98.2300 },
+    regionLabel: "Rio Grande Valley",
+    context: "McAllen anchors the western Lower Rio Grande Valley, where birding centers, subtropical wildlife, borderland history and Gulf Coast side trips create a travel network unlike the rest of Texas.",
+  },
+  {
+    slug: "midland-odessa",
+    name: "Midland–Odessa",
+    shortName: "Midland–Odessa",
+    center: { lat: 31.9215, lng: -102.2228 },
+    regionLabel: "Permian Basin",
+    context: "Midland–Odessa anchors the Permian Basin, with oil history, desert landscapes, state parks, small West Texas towns and long scenic routes spreading across a wide-open drive market.",
+  },
+  {
+    slug: "tyler",
+    name: "Tyler",
+    shortName: "Tyler",
+    center: { lat: 32.3513, lng: -95.3011 },
+    regionLabel: "East Texas",
+    context: "Tyler sits near the center of East Texas lake and pine country, making it a practical base for reservoir trips, historic towns, state parks and Piney Woods weekends.",
+  },
+  {
+    slug: "college-station",
+    name: "College Station",
+    shortName: "College Station",
+    center: { lat: 30.6279, lng: -96.3344 },
+    regionLabel: "Brazos Valley",
+    context: "College Station and neighboring Bryan sit in the Brazos Valley between the state's largest metros, with lakes, historic communities, prairie landscapes and Central Texas road trips in several directions.",
+  },
+  {
+    slug: "abilene",
+    name: "Abilene",
+    shortName: "Abilene",
+    center: { lat: 32.4487, lng: -99.7331 },
+    regionLabel: "Big Country",
+    context: "Abilene anchors the Big Country, where frontier history, state parks, ranching towns, reservoirs and west-central Texas drives create a distinct regional trip market.",
+  },
 ] as const;
 
 export type MetroProximityMetroSlug = (typeof METRO_PROXIMITY_METROS)[number]["slug"];
