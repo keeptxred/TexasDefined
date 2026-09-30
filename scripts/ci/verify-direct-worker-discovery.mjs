@@ -11,6 +11,19 @@ const majorEventLandingForbiddenNeedles = [
   'Gillespie County Fair',
   'Austin Chronicle Hot Sauce Festival',
 ];
+const stateFairPath = '/texas-state-fair';
+const stateFairRequiredNeedles = [
+  'Updated September 25, 2026',
+  '2026 dates, hours and Fair Park location',
+  'How Food & Midway Coupons work',
+  '2026 ticket prices and admission',
+];
+const stateFairForbiddenNeedles = [
+  'Updated August 20, 2026',
+  'What the fair is known for',
+  'Planning the day',
+];
+
 const christmasAuthorityPath = '/article/free-christmas-events-in-texas';
 const christmasAuthorityRequiredNeedles = [
   'Fredericksburg: Christmas Nights of Lights at Marktplatz',
@@ -240,6 +253,10 @@ async function diagnoseRandallOrigin(targetOrigin, targetLabel) {
   }
 }
 
+await verifyContentPolicy(origin, 'direct-worker', stateFairPath, stateFairRequiredNeedles, stateFairForbiddenNeedles, 'state-fair-current-body', 'canonical');
+await verifyContentPolicy(productionOrigin, 'custom-domain', stateFairPath, stateFairRequiredNeedles, stateFairForbiddenNeedles, 'state-fair-current-body', 'canonical');
+await verifyContentPolicy(origin, 'direct-worker', stateFairPath, stateFairRequiredNeedles, stateFairForbiddenNeedles, 'state-fair-current-body', 'revision');
+await verifyContentPolicy(productionOrigin, 'custom-domain', stateFairPath, stateFairRequiredNeedles, stateFairForbiddenNeedles, 'state-fair-current-body', 'revision');
 await verifyContentPolicy(origin, 'direct-worker', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'canonical');
 await verifyContentPolicy(productionOrigin, 'custom-domain', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'canonical');
 await verifyContentPolicy(origin, 'direct-worker', christmasAuthorityPath, christmasAuthorityRequiredNeedles, christmasAuthorityForbiddenNeedles, 'free-christmas-authority', 'revision');
@@ -251,4 +268,4 @@ await verifyMajorEventLanding(productionOrigin, 'custom-domain', 'revision');
 await diagnoseRandallOrigin(origin, 'direct-worker');
 await diagnoseRandallOrigin(productionOrigin, 'custom-domain');
 
-console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus direct/custom-domain canonical and revision Christmas authority, canonical/revision-bound major-event landing policy, and Randall origin diagnostics).`);
+console.log(`Direct Worker discovery verification passed (${surfaces.length} discovery surfaces plus direct/custom-domain canonical and revision State Fair and Christmas authority, canonical/revision-bound major-event landing policy, and Randall origin diagnostics).`);
