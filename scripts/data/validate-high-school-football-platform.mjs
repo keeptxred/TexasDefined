@@ -251,9 +251,13 @@ if (!errors.length) {
 
   for (const marker of [
     "const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives'",
+    "const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives'",
     "const HISTORY_START_SEASON = '2018-2019'",
     "const HISTORY_END_SEASON = '2025-2026'",
     'ARCHIVE_PAGE_OFFSETS',
+    'for (const baseUrl of [UIL_FOOTBALL_ARCHIVE_URL, UIL_FOOTBALL_ARCHIVE_FALLBACK_URL])',
+    'lastError',
+    ".replace(/&#(\\d+);/g",
     'stateTitles',
     'stateFinalAppearances',
     "matchMethod: 'exact-normalized-uil-name'",
