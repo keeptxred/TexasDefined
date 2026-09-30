@@ -8,6 +8,7 @@ const parent = read('src/routes/texas-explained.tsx');
 const parentLazy = read('src/routes/texas-explained.lazy.tsx');
 const questionsRoute = read('src/routes/texas-explained_.questions.tsx');
 const questionsLazy = read('src/routes/texas-explained_.questions.lazy.tsx');
+const publicRoutes = read('src/lib/public-routes.ts');
 
 const questionCount = (data.match(/question:\s*"/g) ?? []).length;
 const answerCount = (data.match(/answer:\s*"/g) ?? []).length;
@@ -29,6 +30,8 @@ for (const [label, source, markers] of [
   for (const marker of markers) if (!source.includes(marker)) failures.push(`${label} missing marker: ${marker}`);
 }
 
+if (!publicRoutes.includes('"/texas-explained"')) failures.push('Texas Explained must remain an indexable static public route.');
+if (!publicRoutes.includes('"/texas-explained/questions"')) failures.push('Texas Explained question library must be registered as an indexable static public route.');
 if (hub.includes('TexasExplainedQuestionLibrary')) failures.push('The full 140-answer renderer must not be embedded in the flagship hub.');
 if (hub.includes('@/data/texas-explained-questions')) failures.push('The flagship hub must not eagerly import the question registry.');
 for (const phrase of ['Dedicated pages are reserved', 'Questions without a deep-dive link', 'As a subject earns deeper treatment']) {
@@ -44,4 +47,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Explained question authority OK: ${questionCount} questions across ${categoryCount} categories on a dedicated lazy-loaded library, with the flagship hub focused on the core guide collection.`);
+console.log(`Texas Explained question authority OK: ${questionCount} questions across ${categoryCount} categories on a dedicated lazy-loaded library, with the flagship hub focused on the core guide collection and both routes registered for indexing.`);
