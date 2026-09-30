@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Texas Dogs Defined</title>
+  <desc id="desc">Editorial illustration of a small long-haired Chihuahua standing in warm Texas evening light.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#415d61"/>
+      <stop offset="0.5" stop-color="#7b8268"/>
+      <stop offset="1" stop-color="#d4a66a"/>
+    </linearGradient>
+    <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d8873e"/>
+      <stop offset="0.5" stop-color="#a95327"/>
+      <stop offset="1" stop-color="#67372a"/>
+    </linearGradient>
+    <linearGradient id="chest" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#efd8b5"/>
+      <stop offset="1" stop-color="#cfa67b"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#1d2325" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="968" cy="156" r="96" fill="#f0c784" opacity="0.72"/>
+  <path d="M0 560 C150 520 300 530 430 570 C560 610 720 600 900 550 C1035 512 1125 524 1200 548 L1200 800 L0 800 Z" fill="#4b5a42"/>
+  <path d="M0 640 C215 604 330 648 480 632 C670 612 880 582 1200 620 L1200 800 L0 800 Z" fill="#303d36" opacity="0.72"/>
+  <g opacity="0.24" fill="#213137">
+    <circle cx="110" cy="260" r="122"/><circle cx="252" cy="300" r="88"/><circle cx="1080" cy="328" r="134"/>
+  </g>
+  <ellipse cx="585" cy="662" rx="245" ry="48" fill="#202727" opacity="0.36"/>
+  <g filter="url(#shadow)" transform="translate(330 145)">
+    <path d="M244 240 C176 214 115 235 83 286 C52 336 70 398 130 431 C197 468 303 466 380 424 C444 389 469 319 440 269 C412 221 329 211 244 240 Z" fill="url(#fur)"/>
+    <path d="M405 280 C474 220 535 214 577 250 C611 279 608 332 568 365 C535 392 500 384 472 350 C489 405 477 449 437 475 C408 493 378 492 353 480 C394 446 413 401 400 356 C390 321 389 299 405 280 Z" fill="#a5552d"/>
+    <path d="M108 292 C73 248 73 201 104 166 C127 140 160 133 189 145 C171 97 186 52 223 25 C251 5 286 6 314 25 C343 45 355 80 345 117 C383 96 425 101 452 130 C483 162 485 213 457 254 C420 306 356 334 282 332 C207 329 142 317 108 292 Z" fill="url(#fur)"/>
+    <path d="M151 171 L88 42 C84 33 95 25 104 31 L218 105 Z" fill="#a65531"/>
+    <path d="M342 124 L430 25 C437 17 449 24 447 34 L414 180 Z" fill="#8f472d"/>
+    <path d="M123 73 L172 167 L117 128 Z" fill="#d69d7d" opacity="0.75"/>
+    <path d="M406 69 L370 149 L421 119 Z" fill="#d69d7d" opacity="0.68"/>
+    <ellipse cx="216" cy="191" rx="28" ry="24" fill="#221d1a"/>
+    <ellipse cx="351" cy="186" rx="28" ry="24" fill="#221d1a"/>
+    <circle cx="224" cy="184" r="7" fill="#fff4d6"/>
+    <circle cx="359" cy="179" r="7" fill="#fff4d6"/>
+    <path d="M256 233 C280 219 306 219 330 233 C317 258 270 259 256 233 Z" fill="#2c211d"/>
+    <path d="M294 257 C298 291 275 318 243 326" fill="none" stroke="#4d2c22" stroke-width="10" stroke-linecap="round"/>
+    <path d="M294 257 C291 290 315 317 346 324" fill="none" stroke="#4d2c22" stroke-width="10" stroke-linecap="round"/>
+    <path d="M210 321 C228 357 259 377 292 378 C326 378 359 356 377 321 C357 335 329 344 294 345 C260 345 231 337 210 321 Z" fill="url(#chest)"/>
+    <path d="M139 421 C133 465 129 513 138 556 L186 556 C194 502 190 458 179 422 Z" fill="#8c472d"/>
+    <path d="M318 429 C319 475 315 516 322 556 L369 556 C380 509 374 466 361 421 Z" fill="#7c3f2b"/>
+    <path d="M126 556 H194 C197 578 186 591 161 591 C139 591 126 579 126 556 Z" fill="#3b2c28"/>
+    <path d="M310 556 H380 C384 578 371 591 347 591 C324 591 311 579 310 556 Z" fill="#3b2c28"/>
+    <path d="M99 356 C70 374 50 398 49 426 C48 455 66 476 94 485" fill="none" stroke="#7a3f2c" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <g fill="#d8bd79" opacity="0.72">
+    <circle cx="82" cy="678" r="5"/><circle cx="143" cy="648" r="4"/><circle cx="1048" cy="674" r="5"/><circle cx="1120" cy="650" r="4"/>
+  </g>
+</svg>
