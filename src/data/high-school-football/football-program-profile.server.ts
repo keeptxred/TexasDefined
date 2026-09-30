@@ -150,7 +150,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     } : {}),
   };
   const canonicalSlug = footballProgramSlug(seed.schoolName);
-  const displayName = program.officialSchoolName || seed.schoolName;
+  const displayName = seed.schoolName;
 
   return {
     slug: canonicalSlug,

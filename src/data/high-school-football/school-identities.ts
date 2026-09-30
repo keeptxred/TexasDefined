@@ -12,6 +12,13 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'wills-point',
+    mascot: 'Tigers',
+    sourceUrl: 'https://wpisd.com/',
+    sourceLabel: 'Wills Point ISD — Home of the Tigers',
+    verifiedAt: '2026-09-29',
+  },
+  {
     slug: 'copperas-cove',
     mascot: 'Bulldawgs',
     sourceUrl: 'https://cchs.ccisd.com/',

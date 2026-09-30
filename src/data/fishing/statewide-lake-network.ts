@@ -72,6 +72,7 @@ interface StatewideLakeDefinition {
   fish: FishDefinition[];
   access: string;
   specialRules?: boolean;
+  liveDataNote?: string;
   nearbyLakes: { slug: string; name: string }[];
   camping?: { name: string; summary: string };
 }
@@ -433,7 +434,7 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
       fish("red-drum","Red drum","excellent","spring","Stocked red drum create one of Texas freshwater fishing's most unusual opportunities, with TPWD highlighting a strong March-through-summer window.",["live-bait","crankbaits"]),
       fish("largemouth-bass","Largemouth bass","fair","spring","Spring fish concentrate in bulrush and riprap around the dam and intake.",["soft-plastics","crankbaits","spinnerbaits"],"secondary"),
     ],
-    access: "Calaveras Park provides the principal public boat ramps, shoreline access, camping and picnic facilities; entry and use fees apply.", specialRules: true, nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"}],
+    access: "Calaveras Park provides the principal public boat ramps, shoreline access, camping and picnic facilities; entry and use fees apply.", specialRules: true, liveDataNote: "No public real-time pool-elevation feed is currently published for Calaveras Lake. TPWD lists normal water levels of 485.0 ft MSL in summer and 484.0 ft MSL in winter, with typical fluctuation of 1–2 feet. CPS Energy is the controlling authority; use its current lake notices and TPWD updates before travel.", nearbyLakes: [{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"},{slug:"lake-lbj",name:"Lake LBJ"}],
     camping: {name:"Calaveras Park",summary:"The lake's public access park provides camping and shoreline facilities; verify current rules, reservations and operating hours."},
   },
   {
@@ -667,6 +668,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
     ],
     businessCategories: ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"],
     reportSnapshot: { checkedAt: VERIFIED_AT, summary: `TexasDefined does not convert durable ${def.name} patterns into a fake live report. Use a dated TexasDefined report when available and TPWD's current fishing report link for current conditions.` },
+    liveDataNote: def.liveDataNote,
     sources: {
       tpwdLake: { label: lakeSource.name, url: lakeSource.url },
       tpwdAccess: { label: publicAccess.name, url: publicAccess.url },

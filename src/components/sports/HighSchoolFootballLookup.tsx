@@ -76,7 +76,7 @@ type Props = {
 export function HighSchoolFootballLookup({
   countyName,
   heading = 'Find a Texas high school football program',
-  intro = 'Search a high school, ISD, city or county to see its current UIL football classification, division and district.',
+  intro = 'Search a high school, ISD, city or county to see its current UIL football classification, division, district and verified school context when an unambiguous TEA match is available.',
   compact = false,
   showSearch = true,
   initialQuery = '',
@@ -229,7 +229,7 @@ export function HighSchoolFootballLookup({
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">{alignmentLabel(program)}</p>
               </div>
-              <h4 className="mt-2 font-display text-2xl leading-tight">{program.officialSchoolName || program.schoolName}</h4>
+              <h4 className="mt-2 font-display text-2xl leading-tight">{program.schoolName}</h4>
               {program.districtName && (program.isdProfilePath
                 ? <a href={program.isdProfilePath} className="mt-2 inline-block text-sm font-medium text-primary underline underline-offset-4">{program.districtName} football programs →</a>
                 : <p className="mt-2 text-sm font-medium">{program.districtName}</p>)}
@@ -251,7 +251,7 @@ export function HighSchoolFootballLookup({
               {program.allTimeHistory && <AllTimeHistory history={program.allTimeHistory} />}
               {program.recentHistory && <RecentFinals history={program.recentHistory} />}
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold">
-                <a href={program.profilePath} className="text-primary underline underline-offset-4">School profile, enrollment & mascot →</a>
+                <a href={program.profilePath} className="text-primary underline underline-offset-4">Open team football guide →</a>
                 {program.teaSchoolProfileUrl && <a href={program.teaSchoolProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA school profile ↗</a>}
                 {program.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
                 <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alignment ↗</a>
@@ -276,7 +276,7 @@ export function HighSchoolFootballLookup({
         {!loading && !allTimeHistoryAvailable && <p className="mt-5 border border-border p-4 text-sm leading-6 text-muted-foreground">Current UIL alignment and recent state-final results are still available, but UIL’s all-time appearances table could not be reached, so all-time title and state-final totals are temporarily omitted.</p>}
 
         <div className="mt-6 border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
-          <p><strong className="text-foreground">What this tells you:</strong> current 2026–28 UIL classification, football division, district and six-man/11-man format. School, ISD, city and county context comes from Texas Education Agency AskTED when available.</p>
+          <p><strong className="text-foreground">What this tells you:</strong> current 2026–28 UIL classification, football division, district and six-man/11-man format. School, ISD, city and county context is attached only when Texas Education Agency AskTED produces an unambiguous campus match; uncertain matches are deliberately omitted.</p>
           <p className="mt-2"><strong className="text-foreground">All-time state-final history:</strong> title and appearance totals use UIL’s Football All-Time Appearances table, supplemented with newer completed state-final rows from the official State Archives when that all-time table trails the latest archive. Totals appear only on an exact normalized UIL school-name match.</p>
           <p className="mt-2"><strong className="text-foreground">Recent state-final detail:</strong> the game-level list covers the eight completed UIL championship seasons from 2018–19 through 2025–26. No history badge does not mean a weak program; it means the source did not produce an exact normalized school-name match.</p>
           <p className="mt-2">This is not a “best school” rating. Football placement and recent championship history are only parts of researching a program. Attendance zones, transfers, eligibility and campus assignments can change, so confirm an exact address and student eligibility with the school district and UIL before making a move.</p>
@@ -288,7 +288,7 @@ export function HighSchoolFootballLookup({
 
 function ProgramComparison({ programs, onClear }: { programs: FootballProgram[]; onClear: () => void }) {
   const rows = [
-    ['ISD', (program: FootballProgram) => program.districtName || 'Not matched'],
+    ['ISD', (program: FootballProgram) => program.districtName || 'Not verified'],
     ['Location', (program: FootballProgram) => placeLabel(program)],
     ['UIL level', (program: FootballProgram) => alignmentLabel(program).replace(' · UIL 2026–28', '')],
     ['UIL district', (program: FootballProgram) => String(program.district)],
@@ -315,7 +315,7 @@ function ProgramComparison({ programs, onClear }: { programs: FootballProgram[];
         <thead>
           <tr className="border-b border-border">
             <th className="p-3 text-xs uppercase tracking-[0.1em] text-muted-foreground">Measure</th>
-            {programs.map((program) => <th key={programKey(program)} className="p-3 font-display text-lg">{program.officialSchoolName || program.schoolName}</th>)}
+            {programs.map((program) => <th key={programKey(program)} className="p-3 font-display text-lg">{program.schoolName}</th>)}
           </tr>
         </thead>
         <tbody>
