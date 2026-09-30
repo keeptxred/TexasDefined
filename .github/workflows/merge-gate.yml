@@ -37,21 +37,6 @@ jobs:
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
 
-      - name: Capture performance budget diagnostic
-        if: always()
-        run: npm run performance:validate > performance-budget.log 2>&1 || true
-
-      - name: Upload validation diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: premerge-validation-diagnostics
-          path: |
-            premerge-validation-report.json
-            performance-budget.log
-          if-no-files-found: ignore
-          retention-days: 1
-
   protected-context:
     name: Required Merge Gate
     needs: required
