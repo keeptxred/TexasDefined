@@ -78,8 +78,8 @@ function ExplorePage() {
 
     <Section>
       <Container>
-        <SectionHeader eyebrow="Explore from a Texas metro" title="Find day trips without scanning the whole state" description="Start with Houston, Dallas, Fort Worth, Austin or San Antonio, then narrow to state parks, small towns, lakes and rivers, historic sites or a broader things-to-do guide." />
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+        <SectionHeader eyebrow="Explore from a Texas metro" title="Find day trips without scanning the whole state" description="Start with major Texas metro and regional hubs, then narrow to state parks, small towns, lakes and rivers, historic sites, road trips or broader things-to-do guides." />
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {METRO_PROXIMITY_METROS.map((metro) => <Link key={metro.slug} to="/explore/near/$metro" params={{ metro: metro.slug }} className="group border-t-2 border-foreground pt-5">
             <p className="eyebrow text-primary">{metro.regionLabel}</p>
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Near {metro.name}</h3>
