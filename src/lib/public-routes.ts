@@ -220,6 +220,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-resources",
   "/start-a-business-in-texas",
   "/texas-explained",
+  "/texas-explained/questions",
   "/texas-data",
   "/texas-data/city-county-relationships",
   "/county",
