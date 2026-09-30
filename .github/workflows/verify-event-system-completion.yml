@@ -1,0 +1,69 @@
+name: Verify Events system completion
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-event-system-completion.yml'
+      - 'scripts/data/validate-events-system-completion.mjs'
+      - 'scripts/ci/verify-event-expansion-production.mjs'
+      - 'src/data/major-event-expanded-authority-tranche48.server.ts'
+      - 'src/data/major-event-supplemental-registry.server.ts'
+      - 'src/data/events/weekend-editorial-package.server.ts'
+      - 'ops/editorial/events-source-registry-2026-09-30.md'
+      - 'ops/editorial/events-system-completion-2026-09-30.md'
+      - 'src/data/event-temporal-collections.server.ts'
+      - 'src/data/events/texas-event-record.ts'
+      - 'src/data/major-event-schema-enrichment.server.ts'
+      - 'src/data/major-event-page.server.ts'
+      - 'src/routes/event.$slug.tsx'
+      - 'src/routes/event.$slug.lazy.tsx'
+      - '.github/workflows/sync-texas-events.yml'
+      - 'scripts/events/sync-texas-events-safe.mjs'
+  workflow_run:
+    workflows:
+      - 'Deploy TexasDefined production'
+    types:
+      - completed
+  schedule:
+    - cron: '41 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-events-system-completion
+  cancel-in-progress: true
+
+jobs:
+  static-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate all 18 Events completion contracts
+        run: node scripts/data/validate-events-system-completion.mjs
+
+  live-production:
+    if: >-
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify expanded Events production surfaces
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-event-expansion-production.mjs
