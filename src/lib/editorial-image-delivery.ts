@@ -1,3 +1,4 @@
+import { applyArticleImageReadinessOverride } from "@/data/article-image-readiness-overrides";
 import { normalizeArticleEditorialDesk } from "@/data/editorial-desk-routing";
 import type { Article, Destination, ImageRef } from "@/data/types";
 
@@ -36,7 +37,7 @@ function deliverImage(image: ImageRef): ImageRef {
 }
 
 export function prepareArticleForDelivery(article: Article): Article {
-  const normalizedArticle = normalizeArticleEditorialDesk(article);
+  const normalizedArticle = applyArticleImageReadinessOverride(normalizeArticleEditorialDesk(article));
   const hero = deliverImage(normalizedArticle.hero);
   let bodyChanged = false;
   const body = normalizedArticle.body.map((block) => {
