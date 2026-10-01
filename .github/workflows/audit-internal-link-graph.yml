@@ -1,0 +1,44 @@
+name: Internal-link graph audit
+
+on:
+  schedule:
+    - cron: '47 14 * * 3'
+  pull_request:
+    paths:
+      - '.github/workflows/audit-internal-link-graph.yml'
+      - 'scripts/ci/audit-internal-link-graph.mjs'
+      - 'src/routes/**'
+      - 'src/components/**'
+      - 'src/data/**'
+      - 'src/platform/internal-link-*.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: internal-link-graph-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  graph:
+    name: Crawl public internal-link graph
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit sitemap and crawlable internal links
+        run: node scripts/ci/audit-internal-link-graph.mjs
+      - name: Upload graph reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-internal-link-graph
+          path: |
+            /tmp/texasdefined-internal-link-graph.json
+            /tmp/texasdefined-internal-link-graph.tsv
+            /tmp/texasdefined-internal-link-graph.md
+          if-no-files-found: error

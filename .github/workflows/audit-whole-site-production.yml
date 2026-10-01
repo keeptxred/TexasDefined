@@ -7,10 +7,12 @@ on:
     paths:
       - '.github/workflows/audit-whole-site-production.yml'
       - 'scripts/ci/audit-production-pages.mjs'
+      - 'scripts/ci/audit-internal-link-graph.mjs'
       - 'scripts/data/validate-layout-dead-space.mjs'
       - 'src/routes/**'
       - 'src/components/**'
       - 'src/data/**'
+      - 'src/platform/internal-link-*.ts'
       - 'package.json'
   workflow_dispatch:
 
@@ -36,7 +38,10 @@ jobs:
       - run: npm ci
       - name: Audit every production URL
         run: npm run production:pages:audit
-      - name: Upload complete page-quality report
+      - name: Audit production internal-link graph
+        if: always()
+        run: node scripts/ci/audit-internal-link-graph.mjs
+      - name: Upload complete page-quality and internal-link reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -44,4 +49,7 @@ jobs:
           path: |
             /tmp/texasdefined-page-audit.json
             /tmp/texasdefined-page-audit.tsv
+            /tmp/texasdefined-internal-link-graph.json
+            /tmp/texasdefined-internal-link-graph.tsv
+            /tmp/texasdefined-internal-link-graph.md
           if-no-files-found: warn
