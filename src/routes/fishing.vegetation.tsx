@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { FishingHabitatGuidePage } from "@/components/fishing/FishingHabitatGuidePage";
 import { FISHING_HABITAT_VERIFIED_AT, FISHING_VEGETATION_PATH, fishingHabitatGuides } from "@/data/fishing/habitat-guides";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const guide = fishingHabitatGuides.vegetation;
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/fishing/vegetation")({
       ],
     };
     return {
-      meta: buildMeta(texasDefinedBrand, { title: guide.metaTitle, description: guide.description, canonicalPath: FISHING_VEGETATION_PATH }),
+      meta: buildMeta(texasDefinedBrand, { title: guide.metaTitle, description: guide.description, canonicalPath: FISHING_VEGETATION_PATH, ...fishingGenericSocialMeta }),
       links: [canonicalLink(texasDefinedBrand, FISHING_VEGETATION_PATH)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
     };
