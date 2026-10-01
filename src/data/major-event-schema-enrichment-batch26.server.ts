@@ -92,4 +92,13 @@ export const majorEventSchemaEnrichmentBatch26: MajorEventSchemaEnrichment[] = [
     ],
     verifiedAt: "2026-09-30",
   },
+  {
+    slug: "los-muertos-bailan",
+    sources: [
+      { label: "Edinburg Cultural Arts — Los Muertos Bailan 2026", url: "https://www.edinburgarts.com/losmuertosbailan" },
+      { label: "City of Edinburg — 2026 performer call and event confirmation", url: "https://cityofedinburg.com/news_detail_T3_R119.php" },
+      { label: "Edinburg Cultural Arts — 2026 event calendar", url: "https://www.edinburgarts.com/2026calendar" },
+    ],
+    verifiedAt: "2026-10-01",
+  },
 ];
