@@ -80,8 +80,10 @@ export const Route = createFileRoute(canonicalPath)({
           description: "Geographic coordinates used by the Texas Defined interactive Painted Churches map. Coordinate precision and source are preserved for every pin.",
           isBasedOn: absoluteUrl(texasDefinedBrand, "/explore/painted-churches"),
           variableMeasured: ["latitude", "longitude", "coordinate precision", "coordinate source"],
-          spatialCoverage: { "@type": "State", name: "Texas" },
-          distribution: paintedChurchMapPoints.map((point) => ({
+          spatialCoverage: { "@type": "AdministrativeArea", name: "Texas" },
+          creator: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
+          publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
+          hasPart: paintedChurchMapPoints.map((point) => ({
             "@type": "Place",
             name: expandedPaintedChurches.find((church) => church.slug === point.slug)?.name ?? point.slug,
             url: `${siteUrl}/explore/painted-churches/${point.slug}`,
