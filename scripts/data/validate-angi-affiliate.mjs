@@ -1,12 +1,14 @@
 import fs from 'node:fs';
 
 const moduleSource = fs.readFileSync('public/angi-home-services.js', 'utf8');
+const loaderSource = fs.readFileSync('public/city-experience-affiliate.js', 'utf8');
 const rootSource = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const docsSource = fs.readFileSync('docs/angi-affiliate-integration.md', 'utf8');
 const errors = [];
 
 for (const [needle, label] of [
-  ['/angi-home-services.js', 'root script include'],
+  ['/angi-home-services.js', 'client-side Angi script bootstrap'],
+  ['document.createElement("script")', 'client-side script creation'],
   ['data-affiliate-partner="angi"', 'affiliate partner attribution'],
   ['data-commercial-partner="angi"', 'first-party commercial attribution'],
   ['sponsored nofollow noopener noreferrer', 'affiliate rel attributes'],
@@ -22,8 +24,14 @@ for (const [needle, label] of [
   ['category/12001/', 'remodeling deep link'],
   ['category/12070/', 'pool deep link'],
 ]) {
-  const haystack = needle === '/angi-home-services.js' ? rootSource : moduleSource;
+  const haystack = needle === '/angi-home-services.js' || needle === 'document.createElement("script")'
+    ? loaderSource
+    : moduleSource;
   if (!haystack.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
+}
+
+if (rootSource.includes('/angi-home-services.js')) {
+  errors.push('Angi must remain client-bootstrapped and must not be emitted directly from the SSR root shell.');
 }
 
 for (const [needle, label] of [

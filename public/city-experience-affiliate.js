@@ -81,3 +81,13 @@
   const root = document.getElementById("main") || document.body;
   new MutationObserver(scheduleRender).observe(root, { childList: true, subtree: true });
 })();
+
+(() => {
+  const scriptId = "td-angi-home-services-script";
+  if (document.getElementById(scriptId)) return;
+  const script = document.createElement("script");
+  script.id = scriptId;
+  script.src = "/angi-home-services.js";
+  script.async = true;
+  document.body.appendChild(script);
+})();

@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'public/angi-home-services.js'
+      - 'public/city-experience-affiliate.js'
       - 'src/routes/__root.tsx'
       - 'docs/angi-affiliate-integration.md'
       - 'scripts/data/validate-angi-affiliate.mjs'
@@ -12,6 +13,7 @@ on:
     branches: [main]
     paths:
       - 'public/angi-home-services.js'
+      - 'public/city-experience-affiliate.js'
       - 'src/routes/__root.tsx'
       - 'docs/angi-affiliate-integration.md'
       - 'scripts/data/validate-angi-affiliate.mjs'
@@ -30,5 +32,7 @@ jobs:
           node-version: 22
       - name: Validate Angi affiliate integration
         run: node scripts/data/validate-angi-affiliate.mjs
-      - name: Syntax-check client module
-        run: node --check public/angi-home-services.js
+      - name: Syntax-check client modules
+        run: |
+          node --check public/angi-home-services.js
+          node --check public/city-experience-affiliate.js
