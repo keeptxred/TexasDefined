@@ -37,6 +37,15 @@ jobs:
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
 
+      - name: Upload pre-merge validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: premerge-validation-report
+          path: .audit/reports/premerge-validation-report.json
+          if-no-files-found: ignore
+          retention-days: 7
+
   protected-context:
     name: Required Merge Gate
     needs: required
