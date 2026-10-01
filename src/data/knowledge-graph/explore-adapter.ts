@@ -4,6 +4,7 @@ const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || imp
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '');
 const PAGE_SIZE = 500;
 const MAX_GRAPH_ENTITIES = 5000;
+const REMOTE_FETCH_TIMEOUT_MS = 8_000;
 
 export type ExploreGraphRow = Record<string, unknown>;
 
@@ -136,7 +137,10 @@ async function fetchExploreGraphPage(params: URLSearchParams, offset: number, li
   const pageParams = new URLSearchParams(params);
   pageParams.set('offset', String(offset));
   pageParams.set('limit', String(limit));
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, { headers: headers() });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, {
+    headers: headers(),
+    signal: AbortSignal.timeout(REMOTE_FETCH_TIMEOUT_MS),
+  });
   if (!response.ok) throw new Error(`Explore knowledge-graph request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) ? rows : [];
