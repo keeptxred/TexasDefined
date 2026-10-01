@@ -3,9 +3,10 @@ import { Link } from "@tanstack/react-router";
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import type { Destination } from "@/data/types";
+import { recoverOrHideImage } from "@/lib/image-fallback";
+import { cn } from "@/lib/utils";
 
 type DestinationCardDestination = Pick<Destination, "slug" | "name" | "summary" | "nearestTown" | "county" | "hero" | "bestSeason" | "highlights" | "sourceCheckedAt">;
-import { cn } from "@/lib/utils";
 
 function countyLabel(value?: string) {
   if (!value) return undefined;
@@ -60,7 +61,7 @@ function DestinationImage({ destination, eager, overlay }: { destination: Destin
   if (isDestinationPhotoPlaceholder(hero.src)) return null;
 
   return <div data-image-frame className={cn(frameClass, "relative overflow-hidden bg-muted")}>
-    <img src={hero.src} alt={hero.alt || `${destination.name}, Texas`} width={hero.width || 1600} height={hero.height || 1067} sizes={overlay ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className={cn("absolute inset-0", imageClass)} onError={(event) => { const image = event.currentTarget; const fallback = destinationCardImageFallbacks[destination.slug]; if (fallback && image.dataset.fallback !== "local") { image.dataset.fallback = "local"; image.src = fallback.src; image.alt = fallback.alt; return; } const frame = image.closest<HTMLElement>("[data-image-frame]"); if (frame) frame.style.display = "none"; else image.style.display = "none"; }} />
+    <img src={hero.src} alt={hero.alt || `${destination.name}, Texas`} width={hero.width || 1600} height={hero.height || 1067} sizes={overlay ? "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw" : "(min-width: 1024px) 30vw, (min-width: 640px) 48vw, 100vw"} loading={eager ? "eager" : "lazy"} fetchPriority={eager ? "high" : "auto"} decoding="async" className={cn("absolute inset-0", imageClass)} onError={(event) => recoverOrHideImage(event.currentTarget, destinationCardImageFallbacks[destination.slug])} />
   </div>;
 }
 
