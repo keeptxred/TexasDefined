@@ -29,12 +29,12 @@ function EventGuideLink({ event, className, children, trackId }: { event: { slug
 
 function weekendCardImage(event: any) {
   if (event.image?.url) return { src: event.image.url, alt: event.image.alt || "" };
-  if (event.category === "sport") return { src: highSchoolFootballHero, alt: "" };
-  if (event.region === "hill-country") return { src: heroHillCountry, alt: "" };
-  if (event.region === "piney-woods") return { src: caddoLake, alt: "" };
-  if (event.region === "big-bend") return { src: bigBend, alt: "" };
-  if (/festival|fair|fiesta|seasonal|community|celebration/i.test(`${event.category} ${event.name}`)) return { src: smallTown, alt: "" };
-  return { src: roadTrip, alt: "" };
+  if (event.category === "sport") return { src: highSchoolFootballHero, alt: "Texas football field used as contextual Texas sports imagery" };
+  if (event.region === "hill-country") return { src: heroHillCountry, alt: "Texas Hill Country landscape used as contextual regional imagery" };
+  if (event.region === "piney-woods") return { src: caddoLake, alt: "Caddo Lake in East Texas used as contextual regional imagery" };
+  if (event.region === "big-bend") return { src: bigBend, alt: "Big Bend landscape used as contextual Far West Texas imagery" };
+  if (/festival|fair|fiesta|seasonal|community|celebration/i.test(`${event.category} ${event.name}`)) return { src: smallTown, alt: "Texas small-town scene used as contextual festival imagery" };
+  return { src: roadTrip, alt: "Texas road-trip landscape used as contextual event imagery" };
 }
 
 function WeekendEventImage({ event, eager = false }: { event: any; eager?: boolean }) {
