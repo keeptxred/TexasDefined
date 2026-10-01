@@ -37,6 +37,10 @@ jobs:
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
 
+      - name: Capture built Worker SSR failure details
+        if: failure()
+        run: node scripts/ci/verify-built-worker-ssr.mjs > built-worker-ssr-smoke-report.txt 2>&1 || true
+
       - name: Capture performance-budget failure details
         if: failure()
         run: npm run performance:validate > performance-budget-report.txt 2>&1 || true
@@ -52,6 +56,8 @@ jobs:
           name: premerge-validation-report
           path: |
             premerge-validation-report.json
+            built-worker-ssr-smoke-report.txt
+            .artifacts/built-worker-ssr-smoke.log
             performance-budget-report.txt
             full-validation-report.txt
           if-no-files-found: warn
