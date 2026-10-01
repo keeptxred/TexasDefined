@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { GenericFishingLakeGuide } from "@/components/fishing/GenericFishingLakeGuide";
 import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
@@ -104,6 +105,7 @@ function FishingLakeOverviewRoute() {
   </>;
   return <>
     {isLiveLakeLevelSource(data.pageData.sources.liveLevel.url) && <LiveLakeLevelStrip lakeName={data.pageData.overview.name} sourceUrl={data.pageData.sources.liveLevel.url} snapshot={data.liveLakeLevel} />}
+    {data.pageData.slug === "sam-rayburn-reservoir" ? <SamRayburnContext surface="reservoir" /> : null}
     <ShowcaseLakeGuide reports={data.reports} guides={data.guides} businesses={data.businesses} placements={data.placements} pageData={data.pageData} />
   </>;
 }
