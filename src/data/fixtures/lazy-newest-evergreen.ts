@@ -305,7 +305,6 @@ const texasBackupPowerGeneratorGuideStub: Article = {
   relatedDestinations: [],
 };
 
-
 const bluebonnetAnimalPreservationAthensStub: Article = {
   id: "guide-bluebonnet-animal-preservation-athens",
   brandId: "texasdefined",
@@ -359,7 +358,6 @@ const unusualTexasBusinessesServicesStub: Article = {
   relatedDestinations: ["whirlyball-hurst"],
 };
 
-
 const phenixKnivesBellvilleStub: Article = {
   id: "guide-phenix-knives-bellville",
   brandId: "texasdefined",
@@ -396,10 +394,10 @@ const horsesOnTheBeachCorpusChristiStub: Article = {
   category: "guides",
   region: "gulf-coast",
   hero: {
-    src: "https://tile.loc.gov/image-services/iiif/service%3Apnp%3Ahighsm%3A29200%3A29278/full/pct%3A25/0/default.jpg",
+    src: "https://tile.loc.gov/image-services/iiif/service%3Apnp%3Ahighsm%3A29200%3A29278/full/pct%3A50/0/default.jpg",
     alt: "Riders from Horses on the Beach traveling along the Padre Island shoreline near Corpus Christi",
-    width: 1024,
-    height: 683,
+    width: 2048,
+    height: 1366,
     credit: "Carol M. Highsmith · Library of Congress · No known restrictions on publication",
   },
   authorId: "a-marisol",
@@ -413,7 +411,6 @@ const horsesOnTheBeachCorpusChristiStub: Article = {
   relatedCollections: [],
   relatedDestinations: [],
 };
-
 
 const mumQueenSpringStub: Article = {
   id: "guide-mum-queen-spring",
