@@ -1,3 +1,4 @@
+import { articleDiscoverHero } from "@/data/article-discover-hero-overrides";
 import { normalizeArticleEditorialDesk } from "@/data/editorial-desk-routing";
 import type { Article, Destination, ImageRef } from "@/data/types";
 
@@ -37,7 +38,8 @@ function deliverImage(image: ImageRef): ImageRef {
 
 export function prepareArticleForDelivery(article: Article): Article {
   const normalizedArticle = normalizeArticleEditorialDesk(article);
-  const hero = deliverImage(normalizedArticle.hero);
+  const governedHero = articleDiscoverHero(normalizedArticle.slug, normalizedArticle.hero);
+  const hero = deliverImage(governedHero);
   let bodyChanged = false;
   const body = normalizedArticle.body.map((block) => {
     if (block.type !== "image") return block;
