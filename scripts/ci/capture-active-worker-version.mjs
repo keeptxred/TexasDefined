@@ -1,11 +1,14 @@
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 const outputPath = process.env.GITHUB_OUTPUT;
+const environmentPath = process.env.GITHUB_ENV;
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const runId = process.env.GITHUB_RUN_ID || null;
 const stateDirectory = '.artifacts';
 const statePath = `${stateDirectory}/worker-version-capture-state.json`;
+const wranglerOutputPath = process.env.WRANGLER_OUTPUT_FILE_PATH || `${stateDirectory}/wrangler-deploy-output.ndjson`;
+const expectedWorkerName = 'texasdefined-site';
 const maxAttempts = 12;
 const retryDelayMs = 5_000;
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -103,12 +106,65 @@ function captureActiveVersion() {
   return parseActiveVersion(result.stdout);
 }
 
+function captureWranglerDeployVersion() {
+  if (!existsSync(wranglerOutputPath)) {
+    return {
+      versionId: null,
+      detail: `Wrangler deploy output file was not created at ${wranglerOutputPath}.`,
+    };
+  }
+
+  const deployVersions = new Set();
+  const invalidLines = [];
+  const lines = readFileSync(wranglerOutputPath, 'utf8').split(/\r?\n/).filter((line) => line.trim());
+
+  for (const [index, line] of lines.entries()) {
+    let record;
+    try {
+      record = JSON.parse(line);
+    } catch (error) {
+      invalidLines.push(`${index + 1}: ${String(error)}`);
+      continue;
+    }
+
+    if (record?.type !== 'deploy') continue;
+    if (record.worker_name !== expectedWorkerName) continue;
+    if (typeof record.version_id !== 'string' || !uuidPattern.test(record.version_id)) {
+      invalidLines.push(`${index + 1}: deploy record did not contain a valid Worker UUID`);
+      continue;
+    }
+    deployVersions.add(record.version_id);
+  }
+
+  if (deployVersions.size === 1) {
+    return { versionId: [...deployVersions][0], detail: null };
+  }
+
+  return {
+    versionId: null,
+    detail: `Expected exactly one Wrangler deploy record for ${expectedWorkerName}, found ${deployVersions.size}.${invalidLines.length ? ` Invalid output: ${invalidLines.join('; ')}` : ''}`,
+  };
+}
+
 const state = readState();
 const phase = !state?.baselineVersion
   ? 'baseline'
   : !state?.deployedVersion
     ? 'post-deploy'
     : 'post-verification';
+
+let expectedVersion = null;
+if (phase === 'post-deploy') {
+  const deployCapture = captureWranglerDeployVersion();
+  if (!deployCapture.versionId) {
+    console.error(`::error title=Unable to capture exact Wrangler deploy version::${deployCapture.detail}`);
+    process.exit(1);
+  }
+  expectedVersion = deployCapture.versionId;
+  console.log(`Wrangler deploy emitted Worker version: ${expectedVersion}`);
+} else if (phase === 'post-verification') {
+  expectedVersion = state.deployedVersion;
+}
 
 let capturedVersion = null;
 let lastDetail = null;
@@ -120,12 +176,10 @@ for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
   if (versionId) {
     if (phase === 'baseline') {
       capturedVersion = versionId;
-    } else if (phase === 'post-deploy' && versionId !== state.baselineVersion) {
-      capturedVersion = versionId;
-    } else if (phase === 'post-verification' && versionId === state.deployedVersion) {
+    } else if (versionId === expectedVersion) {
       capturedVersion = versionId;
     } else if (phase === 'post-deploy') {
-      lastDetail = `Cloudflare still reports the pre-deploy Worker ${state.baselineVersion} as active.`;
+      lastDetail = `Cloudflare reports ${versionId} active, but this run's Wrangler deploy emitted ${expectedVersion}.`;
     } else {
       lastDetail = `Cloudflare reports ${versionId} active, but this run deployed ${state.deployedVersion}.`;
     }
@@ -143,7 +197,7 @@ if (!capturedVersion) {
   const title = phase === 'baseline'
     ? 'Unable to capture active Worker rollback target'
     : phase === 'post-deploy'
-      ? 'Deployed Worker did not become active'
+      ? 'Wrangler-deployed Worker did not become active'
       : 'Verified Worker changed during production verification';
   const fallbackDetail = phase === 'baseline'
     ? rollbackTargetFailure
@@ -153,9 +207,16 @@ if (!capturedVersion) {
 }
 
 if (phase === 'baseline') {
+  if (!environmentPath) {
+    console.error('::error title=Missing GITHUB_ENV::Worker deployment provenance requires GitHub Actions environment propagation.');
+    process.exit(1);
+  }
   writeState({ baselineVersion: capturedVersion, deployedVersion: null });
+  rmSync(wranglerOutputPath, { force: true });
+  appendFileSync(environmentPath, `WRANGLER_OUTPUT_FILE_PATH=${wranglerOutputPath}\n`);
+  console.log(`Configured Wrangler structured deploy output: ${wranglerOutputPath}`);
 } else if (phase === 'post-deploy') {
-  writeState({ baselineVersion: state.baselineVersion, deployedVersion: capturedVersion });
+  writeState({ baselineVersion: state.baselineVersion, deployedVersion: expectedVersion });
 }
 
 if (!outputPath) {
