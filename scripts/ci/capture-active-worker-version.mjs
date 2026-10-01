@@ -177,6 +177,7 @@ const phase = !state?.baselineVersion
 
 let expectedVersion = null;
 if (phase === 'post-deploy') {
+  writeFutureWranglerOutputPath('');
   const deployCapture = parseDeployCommandVersion(state.deployOutputPath || deployOutputPath);
   if (!deployCapture.versionId) {
     console.error(`::error title=Unable to identify exact Wrangler deployment::${deployCapture.detail}`);
@@ -235,7 +236,6 @@ if (phase === 'baseline') {
   writeFutureWranglerOutputPath(deployOutputPath);
 } else if (phase === 'post-deploy') {
   writeState({ baselineVersion: state.baselineVersion, deployedVersion: capturedVersion, deployOutputPath: state.deployOutputPath || deployOutputPath });
-  writeFutureWranglerOutputPath('');
 }
 
 if (!outputPath) {
