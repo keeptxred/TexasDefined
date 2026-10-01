@@ -31,6 +31,10 @@ const CAMPING_DESTINATION_SLUGS = new Set([
   "lake-tawakoni-state-park",
 ]);
 
+const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
+  "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville",
+]);
+
 const AREA_GROUPS: Array<{
   key: keyof Omit<DestinationAreaGuide, "intro">;
   eyebrow: string;
@@ -91,6 +95,7 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
+  const showAuthorityGuide = Boolean(destination.authorityGuide) && (Boolean(topAttractionRank) || AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug));
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
@@ -99,7 +104,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     .slice(0, 6);
 
   return <>
-    {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {showAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
