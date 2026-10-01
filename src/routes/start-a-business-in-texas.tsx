@@ -1,11 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
-
-const StartBusinessTexasGuide = lazy(() =>
-  import("@/components/business/StartBusinessTexasGuide").then((module) => ({ default: module.StartBusinessTexasGuide })),
-);
 
 const canonicalPath = "/start-a-business-in-texas";
 
@@ -41,13 +36,9 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
       about: loaderData.meta.about,
     });
   },
-  component: Page,
+  pendingComponent: LoadingBusinessGuide,
 });
 
-function Page() {
-  return (
-    <Suspense fallback={<div className="p-5 text-sm" role="status">Loading guide…</div>}>
-      <StartBusinessTexasGuide />
-    </Suspense>
-  );
+function LoadingBusinessGuide() {
+  return <div className="p-5 text-sm" role="status">Loading guide…</div>;
 }
