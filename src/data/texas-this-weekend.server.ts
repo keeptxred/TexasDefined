@@ -106,13 +106,48 @@ function verificationScore(event: TemporalEventDirectoryItem) {
   return Number.isFinite(checked) ? checked : 0;
 }
 
-function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"], limit: number) {
-  const ranked = items
+function rankedItems(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"]) {
+  return items
     .filter(matches)
     .sort((left, right) => verificationScore(right) - verificationScore(left)
       || left.startDate.localeCompare(right.startDate)
       || left.name.localeCompare(right.name));
+}
 
+function pickTopFive(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"], limit: number) {
+  const ranked = rankedItems(items, matches);
+  const selected: TemporalEventDirectoryItem[] = [];
+  const cities = new Set<string>();
+  const categories = new Set<string>();
+
+  // Geographic variety comes first: take the freshest qualifying event from a
+  // new host city before using a second event from a city already represented.
+  for (const event of ranked) {
+    if (selected.length >= limit) break;
+    if (cities.has(event.city)) continue;
+    selected.push(event);
+    cities.add(event.city);
+    categories.add(event.category);
+  }
+
+  // If the current weekend does not supply five distinct cities, prefer a new
+  // event type before simply filling from the same city/category combination.
+  for (const event of ranked) {
+    if (selected.length >= limit) break;
+    if (selected.some((item) => item.slug === event.slug) || categories.has(event.category)) continue;
+    selected.push(event);
+    categories.add(event.category);
+  }
+
+  for (const event of ranked) {
+    if (selected.length >= limit) break;
+    if (!selected.some((item) => item.slug === event.slug)) selected.push(event);
+  }
+  return selected;
+}
+
+function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"], limit: number) {
+  const ranked = rankedItems(items, matches);
   const selected: TemporalEventDirectoryItem[] = [];
   const cities = new Set<string>();
   const categories = new Set<string>();
@@ -275,7 +310,9 @@ export function loadTexasThisWeekendDigestServer(now = new Date()): TexasThisWee
   if (!collection) return null;
 
   const resolvedSections = sections.flatMap((section) => {
-    const selected = pickDistinct(collection.items, section.matches, section.limit);
+    const selected = section.id === "best"
+      ? pickTopFive(collection.items, section.matches, section.limit)
+      : pickDistinct(collection.items, section.matches, section.limit);
     if (selected.length < section.minimumItems) return [];
     const { matches: _matches, minimumItems: _minimumItems, limit: _limit, ...rest } = section;
     return [{ ...rest, items: selected.map(enrichWeekendEvent) }];
