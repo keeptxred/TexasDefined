@@ -58,10 +58,12 @@
     window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
   }
 
-  function buildModule(service) {
+  function buildModule(service, pathname) {
     const placement = `home-services-${service.key}-after-article`;
     const aside = document.createElement("aside");
     aside.id = MODULE_ID;
+    aside.dataset.angiService = service.key;
+    aside.dataset.angiPath = pathname;
     aside.setAttribute("aria-labelledby", `${MODULE_ID}-heading`);
     aside.className = "mt-12 border-y border-border bg-surface/55 py-8 sm:py-10";
     aside.innerHTML = `
@@ -83,18 +85,31 @@
   }
 
   function render() {
-    document.getElementById(MODULE_ID)?.remove();
-    if (!commercialPath.test(window.location.pathname)) return;
+    const pathname = window.location.pathname;
+    const existing = document.getElementById(MODULE_ID);
+
+    if (!commercialPath.test(pathname)) {
+      existing?.remove();
+      return;
+    }
 
     const article = document.querySelector("main article");
-    if (!article) return;
+    if (!article) {
+      existing?.remove();
+      return;
+    }
 
-    const signal = pageSignal();
-    const service = chooseService(signal);
-    if (!service) return;
+    const service = chooseService(pageSignal());
+    if (!service) {
+      existing?.remove();
+      return;
+    }
 
+    if (existing?.dataset.angiService === service.key && existing.dataset.angiPath === pathname) return;
+
+    existing?.remove();
     const content = article.querySelector(".max-w-3xl") || article;
-    content.appendChild(buildModule(service));
+    content.appendChild(buildModule(service, pathname));
   }
 
   let timer;
