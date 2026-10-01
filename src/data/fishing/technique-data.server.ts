@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { fishingGenericSocialMeta } from "./social-images";
 import { fishingTechniqueAuthorityContent } from "./technique-authority-content";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "./slugs";
 import { fishingTechniqueImages, isFishingTechniqueHeroReady } from "./technique-images";
@@ -49,7 +50,7 @@ function buildFishingTechniqueDirectoryHead(entries: DirectoryHeadEntry[]) {
   };
 
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Techniques — Source-Backed Methods by Lake & Species", description: directoryDescription, canonicalPath: FISHING_TECHNIQUES_DIRECTORY_PATH }),
+    meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Techniques — Source-Backed Methods by Lake & Species", description: directoryDescription, canonicalPath: FISHING_TECHNIQUES_DIRECTORY_PATH, ...fishingGenericSocialMeta }),
     links: [canonicalLink(texasDefinedBrand, FISHING_TECHNIQUES_DIRECTORY_PATH)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
   };
