@@ -27,6 +27,11 @@ for (const path of Object.values(paths)) {
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const fail = (message) => { throw new Error(`Relocation search validation failed: ${message}`); };
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
+const hasRouteCall = (source, functionName, publicPath) => {
+  const generatedPath = publicPath.replace('/compare-texas-cities/', '/compare-texas-cities_/');
+  return [publicPath, generatedPath].some((routeId) =>
+    source.includes(`${functionName}("${routeId}")`) || source.includes(`${functionName}('${routeId}')`));
+};
 
 const expectedPairs = [
   "houston-vs-dallas",
@@ -69,8 +74,10 @@ for (const token of ["createServerFn", "getRelocationCityPairPage", "loadRelocat
   requireText(files.functions, token, `server-function bridge missing ${token}`);
 }
 
+if (!hasRouteCall(files.route, 'createFileRoute', '/compare-texas-cities/$pair')) {
+  fail('critical pair route missing createFileRoute for /compare-texas-cities/$pair');
+}
 for (const token of [
-  'createFileRoute("/compare-texas-cities/$pair")',
   "getRelocationCityPairPage",
   "throw notFound()",
   "loaderData?.head",
@@ -80,8 +87,10 @@ for (const forbidden of ["Container", "buildMeta", "RELOCATION_CITY_PAIRS"]) {
   if (files.route.includes(forbidden)) fail(`critical pair route leaked eager UI/data payload: ${forbidden}`);
 }
 
+if (!hasRouteCall(files.lazyRoute, 'createLazyFileRoute', '/compare-texas-cities/$pair')) {
+  fail('lazy pair UI missing createLazyFileRoute for /compare-texas-cities/$pair');
+}
 for (const token of [
-  'createLazyFileRoute("/compare-texas-cities/$pair")',
   "Compare the address, not the stereotype",
   "Official research trail",
   "More major Texas city matchups",

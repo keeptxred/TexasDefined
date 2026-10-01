@@ -22,7 +22,14 @@ const nestedAdminChildPaths = new Set([
   '/platform-health', '/knowledge-graph-behavior', '/internal-link-tests', '/internal-link-rollback', '/governance-health', '/entity-maintenance', '/entity-import-review',
 ]);
 const nestedShopChildPaths = new Set(['/cart', '/checkout-return']);
-const normalize = (value) => value === '/' ? value : value.replace(/\/$/, '');
+const normalize = (value) => {
+  const trimmed = value === '/' ? value : value.replace(/\/$/, '');
+  if (trimmed === '/') return trimmed;
+  return trimmed
+    .split('/')
+    .map((segment) => segment.endsWith('_') ? segment.slice(0, -1) : segment)
+    .join('/');
+};
 const shouldCountPublicRoute = (routePath) => routePath.startsWith('/') && !routePath.includes('$') && !routePath.startsWith('/api/') && !routePath.startsWith('/admin') && !nestedAdminChildPaths.has(routePath) && !nestedShopChildPaths.has(routePath) && !routePath.endsWith('.xml') && !routePath.endsWith('.txt');
 const optionalParamSegment = /^\{\-\$[^}]+\}$/;
 const routePatternMatches = (concretePath, routePattern) => {
@@ -143,7 +150,8 @@ for (const contract of dynamicFinancialRouteContracts) {
   const profileSource = sourceByFile.get(contract.profileFile) ?? '';
   const prefix = contract.pattern.slice(0, contract.pattern.indexOf('$location'));
   const handRegisteredChildren = indexable.filter((routePath) => routePath.startsWith(prefix));
-  if (!routeSource.includes(`createFileRoute('${contract.pattern}')`) && !routeSource.includes(`createFileRoute("${contract.pattern}")`)) failures.push(`Governed dynamic calculator route source is missing ${contract.pattern} (${contract.routeFile}).`);
+  const governedRouteEntry = sourceRouteEntries.find((entry) => entry.file === contract.routeFile && entry.path === contract.pattern);
+  if (!governedRouteEntry) failures.push(`Governed dynamic calculator route source is missing ${contract.pattern} (${contract.routeFile}).`);
   if (!routeSource.includes('notFound()')) failures.push(`Governed dynamic calculator route must fail closed for unknown slugs with notFound(): ${contract.pattern}.`);
   if (!profileSource.includes(contract.profileMap)) failures.push(`Governed dynamic calculator family is missing its slug allowlist map ${contract.profileMap} (${contract.profileFile}).`);
   if (handRegisteredChildren.length) failures.push(`Dynamic calculator children must come from the governed profile registry, not INDEXABLE_STATIC_PATHS (${contract.pattern}): ${handRegisteredChildren.join(', ')}.`);
