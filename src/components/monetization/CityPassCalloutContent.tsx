@@ -4,15 +4,15 @@ import { trackAffiliateClick } from "@/lib/affiliate-click";
 const COPY: Record<CityPassMarket, { heading: string; body: string }> = {
   Dallas: {
     heading: "Planning several Dallas attractions?",
-    body: "Dallas CityPASS® covers four attractions from the current Dallas lineup. Compare the pass price with the four admissions you would actually buy, then check the reservation rules for your chosen stops.",
+    body: "Dallas CityPASS® covers four attractions. Compare its price with the admissions you would buy and check reservation rules.",
   },
   Houston: {
     heading: "Seeing several Houston attractions?",
-    body: "Houston CityPASS® covers five attractions from the current Houston lineup. Compare the pass price with the five admissions you would actually buy and account for discounts you qualify for.",
+    body: "Houston CityPASS® covers five attractions. Compare its price with the admissions you would buy and any discounts you qualify for.",
   },
   "San Antonio": {
     heading: "Building a San Antonio attraction weekend?",
-    body: "San Antonio CityPASS® covers four attractions from the current San Antonio lineup. Compare the pass with the four admissions you would otherwise buy and reserve the Alamo when it is part of your plan.",
+    body: "San Antonio CityPASS® covers four attractions. Compare its price with the admissions you would buy; reserve the Alamo separately if needed.",
   },
 };
 
