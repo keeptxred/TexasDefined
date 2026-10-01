@@ -57,4 +57,39 @@ export const majorEventSchemaEnrichmentBatch26: MajorEventSchemaEnrichment[] = [
     ],
     verifiedAt: "2026-09-30",
   },
+  {
+    slug: "amarillo-international-film-festival",
+    sources: [
+      { label: "Amarillo International Film Festival — official 2026 festival site", url: "https://www.amarillofilmfestival.com/" },
+      { label: "Texas Film Commission — Amarillo International Film Festival 2026", url: "https://gov.texas.gov/film/event/amarillo-international-film-festival-2026" },
+    ],
+    verifiedAt: "2026-09-30",
+  },
+  {
+    slug: "big-bend-bluegrass-festival",
+    sources: [
+      { label: "Big Bend Bluegrass Association — 2026 festival", url: "https://bigbendbluegrass.com/big-bend-bluegrass-festival/" },
+      { label: "Big Bend Bluegrass Association — organization and annual festival", url: "https://bigbendbluegrass.com/" },
+      { label: "Big Bend Bluegrass Association — 2026 sponsorship confirmation", url: "https://bigbendbluegrass.com/interest-form/" },
+      { label: "Visit Alpine — 2026 annual events", url: "https://visitalpinetx.com/attractions/annual-must-attends/" },
+    ],
+    verifiedAt: "2026-09-30",
+  },
+  {
+    slug: "flying-island-music-festival",
+    sources: [
+      { label: "Flying Island — official 2026 festival site", url: "https://www.flyingislandmarfa.com/" },
+      { label: "Visit Marfa — Flying Island Music Festival 2026", url: "https://visitmarfa.com/events/" },
+    ],
+    verifiedAt: "2026-09-30",
+  },
+  {
+    slug: "sfa-homecoming",
+    sources: [
+      { label: "Stephen F. Austin State University — Homecoming 2026", url: "https://www.sfasu.edu/events/homecoming" },
+      { label: "SFA Athletics — 2026 football home themes and Homecoming", url: "https://sfajacks.com/news/2026/8/25/sfa-football-announces-themes-and-promotions-for-2026-home-schedule" },
+      { label: "Visit Nacogdoches — SFA Homecoming", url: "https://www.visitnacogdoches.org/sfa-homecoming" },
+    ],
+    verifiedAt: "2026-09-30",
+  },
 ];
