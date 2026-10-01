@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { COMPLETE_FISHING_LAKE_SLUGS, fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingLakesDirectory = lazy(() => import("@/components/fishing/FishingLakesDirectory").then((module) => ({ default: module.FishingLakesDirectory })));
@@ -57,7 +58,7 @@ export const Route = createFileRoute("/fishing/lakes")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`, description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`, description, canonicalPath, ...fishingGenericSocialMeta }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingLakesPage,
 });
