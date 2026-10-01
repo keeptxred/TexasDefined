@@ -37,9 +37,10 @@ for (const feature of [
 }
 
 for (const feature of [
-  'image.dataset.fallback',
+  'image.dataset.fallbackSrc',
   'image.style.display = "none"',
-  'collapseFailedImageFrame',
+  'image.closest<HTMLElement>("[data-image-frame]")',
+  'frame.style.display = "none"',
 ]) {
   if (!imageFallback.includes(feature)) errors.push(`Shared destination image-failure safeguard missing: ${feature}`);
 }
