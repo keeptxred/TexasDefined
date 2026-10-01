@@ -35,6 +35,7 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", label: "Sam Houston Memorial Museum & Republic of Texas Presidential Library", description: "Plan the Woodland Home, Steamboat House, Republic-era collections and historic grounds at Walker County's essential Sam Houston site." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/grimes", label: "Explore Grimes County", description: "Continue west toward Anderson, Navasota and the historic stage-road country." },
     { href: "/county/madison", label: "Explore Madison County", description: "Head northwest toward Madisonville and the Trinity-Navasota divide." },
@@ -43,7 +44,7 @@ export const walkerCountyHuntsvilleSamHoustonPineyWoodsArticle: Article = {
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["huntsville-state-park"],
+  relatedDestinations: ["sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", "huntsville-state-park"],
   body: [
     p("Walker County sits where the wooded hills of East Texas meet one of the state's most important north-south travel corridors. Huntsville, the county seat, lies near the center of the county along Interstate 45, but the landscape beyond the highway quickly becomes a quieter world of pine forest, creek bottoms, ranches, small communities and river country. The Trinity River drains the north, the San Jacinto system reaches into the south, and broad stretches of public forest protect a landscape that looks very different from the prairies only a short drive west."),
     p("Few Texas counties carry as many distinct identities at once. Walker County is Sam Houston country, the home of a university that bears his name and several places tied directly to his final years. It is also deeply connected to the history of the Texas prison system, timber and railroads, Reconstruction, African American community building, state parks and federal forest land. Those layers overlap most visibly in Huntsville, but they shape the entire county."),
