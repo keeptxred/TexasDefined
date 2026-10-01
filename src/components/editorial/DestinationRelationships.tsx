@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
@@ -97,6 +98,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const topAttractionRank = topTexasAttractionRank(destination.slug);
   const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
+  const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
   ).values()]
@@ -106,6 +108,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   return <>
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
