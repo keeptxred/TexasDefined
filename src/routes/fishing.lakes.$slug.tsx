@@ -8,7 +8,6 @@ import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
-import { getFishingLakeSocialImage } from "@/data/fishing/lake-social-image.functions";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
@@ -22,7 +21,16 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
-    const socialImage = await getFishingLakeSocialImage(lake.slug);
+    const socialImage = import.meta.env.SSR ? await (async () => {
+      const [{ getFishingLakeImage }, { applyLakePhotoGovernance }] = await Promise.all([
+        import("@/data/fishing/image-library"),
+        import("@/data/fishing/lake-photo-governance"),
+      ]);
+      const raw = getFishingLakeImage(lake.slug);
+      if (!raw) return null;
+      const image = applyLakePhotoGovernance(raw);
+      return image.width >= 1200 && image.height > 0 ? { src: image.src, alt: image.alt, width: image.width, height: image.height } : null;
+    })() : null;
     if (params.slug === LAKE_CONROE_SLUG) {
       const pageData = await getLakeConroePageData();
       const [reports, guides] = await Promise.all([
