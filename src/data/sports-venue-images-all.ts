@@ -13,6 +13,10 @@ export type { SportsVenuePhoto } from './sports-venue-images';
 
 const XTREME_RACEWAY_DISCOVER_IMAGE = 'https://images.weserv.nl/?url=texasdefined.com/images/sports-venues/xtreme-raceway-park.jpg&w=1200&h=800&fit=cover&output=jpg';
 
+function getGovernedSportsVenuePhoto(slug: string) {
+  return getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug);
+}
+
 function deliverDiscoverSizedVenuePhoto(slug: string, photo: SportsVenuePhoto | undefined) {
   if (!photo || slug !== 'xtreme-raceway-park') return photo;
   return {
@@ -24,6 +28,5 @@ function deliverDiscoverSizedVenuePhoto(slug: string, photo: SportsVenuePhoto | 
 }
 
 export function getSportsVenuePhoto(slug: string) {
-  const photo = getCuratedSportsVenuePhotoOverride(slug) ?? getSportsVenuePhotoBase(slug) ?? getSportsVenuePhotoAddition(slug) ?? getSportsVenuePhotoAdditionWave2(slug) ?? getSportsVenuePhotoAdditionWave3(slug) ?? getSportsVenuePhotoAdditionWave4(slug) ?? getSportsVenuePhotoAdditionWave5(slug) ?? getSportsVenuePhotoAdditionWave6(slug) ?? getSportsVenuePhotoAdditionWave7(slug);
-  return deliverDiscoverSizedVenuePhoto(slug, photo);
+  return deliverDiscoverSizedVenuePhoto(slug, getGovernedSportsVenuePhoto(slug));
 }
