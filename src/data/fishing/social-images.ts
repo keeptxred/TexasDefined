@@ -14,6 +14,13 @@ export const fishingGenericSocialImage: FishingSocialImage = {
   height: 675,
 };
 
+export const fishingGenericSocialMeta = {
+  image: fishingGenericSocialImage.src,
+  imageAlt: fishingGenericSocialImage.alt,
+  imageWidth: fishingGenericSocialImage.width,
+  imageHeight: fishingGenericSocialImage.height,
+};
+
 function toMeta(image: { src: string; alt: string; width: number; height: number }): FishingSocialImage {
   return { src: image.src, alt: image.alt, width: image.width, height: image.height };
 }
