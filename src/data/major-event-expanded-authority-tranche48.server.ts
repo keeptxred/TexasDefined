@@ -392,6 +392,37 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Visit Nacogdoches — SFA Homecoming", url: "https://www.visitnacogdoches.org/sfa-homecoming" },
     ],
   },
+  {
+    slug: "los-muertos-bailan",
+    name: "12th Annual Los Muertos Bailan 2026",
+    city: "Edinburg",
+    countySlug: "hidalgo",
+    countyName: "Hidalgo County",
+    region: "south-texas",
+    category: "culture",
+    startDate: "2026-10-24",
+    endDate: "2026-10-24",
+    dateNote: "The City of Edinburg Cultural Arts Department confirms the 12th Annual Los Muertos Bailan for Saturday, October 24, 2026 at Promenade Park Amphitheater and surrounding areas. Admission is free and open to the public; the final performance program remains subject to the city's live event updates.",
+    venue: "Promenade Park Amphitheater",
+    officialUrl: "https://www.edinburgarts.com/losmuertosbailan",
+    sourceCheckedAt: "2026-10-01",
+    whyItMatters: "Los Muertos Bailan is a city-run Día de los Muertos tradition centered on art, music, dance and remembrance in Edinburg, giving the Rio Grande Valley a first-party-backed cultural event guide rather than relying on a regional roundup or social post.",
+    planningSections: [
+      { title: "Use October 24 and Promenade Park as the confirmed anchors", body: "Edinburg Cultural Arts publishes Saturday, October 24 at Promenade Park Amphitheater and surrounding areas. Use the city's live event page for any final operating details before traveling." },
+      { title: "Treat the performance lineup as live", body: "The City of Edinburg was still recruiting school, studio and community performers on September 29. Do not rely on an early lineup snapshot; check the final city program close to the event." },
+      { title: "Admission is free, but plan arrival around the downtown event footprint", body: "The official event page lists free public admission. Because programming uses Promenade Park and surrounding downtown areas, confirm the city's current access and event-day guidance before departure rather than assuming a fixed parking plan." },
+    ],
+    relatedLinks: [
+      { href: "/events/south-texas-events", label: "South Texas events", description: "Compare other source-checked Valley and South Texas event guides." },
+      { href: "/events/arts-culture", label: "Arts & culture events", description: "Browse other Texas arts, heritage and cultural event guides." },
+      { href: "/county/hidalgo", label: "Explore Hidalgo County", description: "Build a broader Rio Grande Valley weekend around Edinburg." },
+    ],
+    sources: [
+      { label: "Edinburg Cultural Arts — Los Muertos Bailan 2026", url: "https://www.edinburgarts.com/losmuertosbailan" },
+      { label: "City of Edinburg — 2026 performer call and event confirmation", url: "https://cityofedinburg.com/news_detail_T3_R119.php" },
+      { label: "Edinburg Cultural Arts — 2026 event calendar", url: "https://www.edinburgarts.com/2026calendar" },
+    ],
+  },
 ];
 
 const bySlug = new Map(records.map((event) => [event.slug, event]));
