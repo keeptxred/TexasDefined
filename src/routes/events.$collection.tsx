@@ -1,5 +1,11 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 
+import bigBend from "@/assets/big-bend.jpg";
+import caddoLake from "@/assets/caddo-lake.jpg";
+import heroHillCountry from "@/assets/hero-hill-country.jpg";
+import highSchoolFootballHero from "@/assets/high-school-football-hero.jpg";
+import roadTrip from "@/assets/road-trip.jpg";
+import smallTown from "@/assets/small-town.jpg";
 import { Container } from "@/components/layout/Container";
 import { getEventCollectionPage } from "@/data/event-collection-page";
 
@@ -19,6 +25,21 @@ function EventGuideLink({ event, className, children, trackId }: { event: { slug
     return <Link to="/event/$slug" params={{ slug: event.slug }} className={className} {...tracking}>{children}</Link>;
   }
   return <a href={event.href} className={className} {...tracking}>{children}</a>;
+}
+
+function weekendCardImage(event: any) {
+  if (event.image?.url) return { src: event.image.url, alt: event.image.alt || "" };
+  if (event.category === "sport") return { src: highSchoolFootballHero, alt: "" };
+  if (event.region === "hill-country") return { src: heroHillCountry, alt: "" };
+  if (event.region === "piney-woods") return { src: caddoLake, alt: "" };
+  if (event.region === "big-bend") return { src: bigBend, alt: "" };
+  if (/festival|fair|fiesta|seasonal|community|celebration/i.test(`${event.category} ${event.name}`)) return { src: smallTown, alt: "" };
+  return { src: roadTrip, alt: "" };
+}
+
+function WeekendEventImage({ event, eager = false }: { event: any; eager?: boolean }) {
+  const image = weekendCardImage(event);
+  return <div className="aspect-[4/3] overflow-hidden bg-muted"><img src={image.src} alt={image.alt} width={800} height={600} loading={eager ? "eager" : "lazy"} decoding="async" className="size-full object-cover" /></div>;
 }
 
 function WeekendCollectionPage({ page }: { page: any }) {
@@ -49,8 +70,8 @@ function WeekendCollectionPage({ page }: { page: any }) {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A short, source-checked guide to the Texas events actually worth considering this weekend — plus metro editions, road-trip ideas and nearby planning paths.</p>
         </div>
         <div className="border-l-4 border-primary pl-5 text-sm leading-7 text-muted-foreground">
-          <p><strong className="text-foreground">{page.itemCount.toLocaleString("en-US")} verified guides</strong> overlap this weekend.</p>
-          <p className="mt-2">The page rolls forward automatically as the calendar changes. Stale events fall out of the weekend window instead of lingering on the page.</p>
+          <p><strong className="text-foreground">{page.itemCount.toLocaleString("en-US")} verified guides</strong> have events happening this weekend.</p>
+          <p className="mt-2">This page updates automatically as each weekend approaches, so upcoming events move in and past events drop off once they’re over.</p>
         </div>
       </div>
     </Container></section>
@@ -63,9 +84,9 @@ function WeekendCollectionPage({ page }: { page: any }) {
         </div>
         <ol className="grid gap-px border-x border-b border-border bg-border md:grid-cols-2 xl:grid-cols-5">
           {best.items.map((event: any, index: number) => <li key={event.slug} className="flex min-h-64 flex-col bg-background">
-            {event.image ? <div className="aspect-[4/3] overflow-hidden bg-muted"><img src={event.image.url} alt={event.image.alt} width={800} height={600} loading={index < 2 ? "eager" : "lazy"} decoding="async" className="size-full object-cover" /></div> : null}
+            <WeekendEventImage event={event} eager={index < 2} />
             <div className="flex flex-1 flex-col p-6">
-              <div className="flex items-start justify-between gap-3"><p className="font-display text-4xl text-primary">0{index + 1}</p><span className="text-right text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{String(event.category).replaceAll("-", " ")}</span></div>
+              <span className="text-right text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{String(event.category).replaceAll("-", " ")}</span>
               <p className="eyebrow mt-4 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
               <EventGuideLink event={event} trackId={`weekend:best:${event.slug}`} className="mt-3 block font-display text-2xl leading-tight hover:text-primary">{event.name}</EventGuideLink>
               <p className="mt-3 text-xs font-medium leading-5 text-muted-foreground">{event.detail}</p>
@@ -83,7 +104,7 @@ function WeekendCollectionPage({ page }: { page: any }) {
             <div className="flex items-start justify-between gap-4"><div><p className="eyebrow text-muted-foreground">{section.id.replaceAll("-", " ")}</p><h3 className="mt-2 font-display text-2xl">{section.title}</h3></div>{section.href ? <a href={section.href} className="shrink-0 text-sm font-semibold text-primary">Full edition →</a> : null}</div>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{section.description}</p>
             <ol className="mt-5 divide-y divide-border border-y border-border">
-              {section.items.map((event: any, index: number) => <li key={event.slug} className="py-4"><p className="eyebrow text-muted-foreground">0{index + 1} · {event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><EventGuideLink event={event} trackId={`weekend:${section.id}:${event.slug}`} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink><p className="mt-2 text-xs leading-5 text-muted-foreground">{event.detail}</p></li>)}
+              {section.items.map((event: any) => <li key={event.slug} className="py-4"><WeekendEventImage event={event} /><p className="eyebrow mt-4 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><EventGuideLink event={event} trackId={`weekend:${section.id}:${event.slug}`} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink><p className="mt-2 text-xs leading-5 text-muted-foreground">{event.detail}</p></li>)}
             </ol>
           </section>)}
         </div>
@@ -93,7 +114,8 @@ function WeekendCollectionPage({ page }: { page: any }) {
         <div className="border-b border-border pb-5"><p className="eyebrow text-primary">TexasDefined trip builder</p><h2 id="make-a-weekend-of-it" className="mt-2 font-display text-4xl">Make a weekend of it</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These are real TexasDefined planning paths attached to the event authority record — city, county, destination, history, food or nearby-event coverage that can turn one event into a practical day trip or overnight.</p></div>
         <div className="grid gap-px border-x border-b border-border bg-border lg:grid-cols-3">
           {tripBuilderItems.map((event: any) => <article key={event.slug} className="bg-background p-6">
-            <p className="eyebrow text-muted-foreground">Start in {event.city}</p>
+            <WeekendEventImage event={event} />
+            <p className="eyebrow mt-4 text-muted-foreground">Start in {event.city}</p>
             <h3 className="mt-3 font-display text-2xl">{event.name}</h3>
             {event.whyGo ? <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{event.whyGo}</p> : null}
             <ul className="mt-5 divide-y divide-border border-y border-border">{event.tripLinks.map((link: any) => <li key={link.href}><a href={link.href} data-entity-id={`weekend:trip-builder:${event.slug}:${link.href}`} className="group block py-4"><strong className="font-display text-lg group-hover:text-primary">{link.label}</strong><span className="mt-1 block text-xs leading-5 text-muted-foreground">{link.description}</span></a></li>)}</ul>
@@ -118,7 +140,7 @@ function WeekendCollectionPage({ page }: { page: any }) {
         <summary className="cursor-pointer font-display text-xl">How TexasDefined chooses weekend events</summary>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">A useful shortlist, not a feed dump. Metro, regional and interest sections only appear when enough events qualify, and price-based sections never infer free admission from missing ticket data.</p>
         <div className="mt-5 grid gap-8 text-sm leading-7 text-muted-foreground lg:grid-cols-2">
-          <div><h2 className="font-display text-2xl text-foreground">{page.planningTitle}</h2><ol className="mt-4 space-y-3">{page.planningPoints.map((point: string, index: number) => <li key={point}><strong className="mr-2 text-primary">0{index + 1}</strong>{point}</li>)}</ol></div>
+          <div><h2 className="font-display text-2xl text-foreground">{page.planningTitle}</h2><ol className="mt-4 space-y-3">{page.planningPoints.map((point: string) => <li key={point}>{point}</li>)}</ol></div>
           <div><h2 className="font-display text-2xl text-foreground">{page.sourcePolicyTitle}</h2><div className="mt-4 space-y-3">{page.sourcePolicyParagraphs.map((paragraph: string) => <p key={paragraph}>{paragraph}</p>)}</div></div>
         </div>
       </details>
