@@ -85,6 +85,18 @@ const curatedSportsVenuePhotoOverrides: Record<string, SportsVenuePhoto> = {
     width: 6016,
     height: 4016,
   },
+  'xtreme-raceway-park': {
+    slug: 'xtreme-raceway-park',
+    alt: 'Drag strip illuminated for nighttime racing, used as representative media for Xtreme Raceway Park',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/The_drag_strip_at_night.jpg?width=1600',
+    sourcePage: 'https://commons.wikimedia.org/wiki/File:The_drag_strip_at_night.jpg',
+    sourceName: 'Wikimedia Commons',
+    author: 'Stl66dmk',
+    licenseName: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    width: 3456,
+    height: 4608,
+  },
 };
 
 export function getCuratedSportsVenuePhotoOverride(slug: string) {
