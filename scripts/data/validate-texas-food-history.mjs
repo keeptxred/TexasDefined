@@ -149,9 +149,9 @@ for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history'
   if (!smoke.includes(`check_page '${path}'`)) failures.push(`Production smoke must verify ${path}.`);
   if (!llms.includes(`https://texasdefined.com${path}`)) failures.push(`llms.txt must advertise ${path}.`);
 }
-if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Life must surface Texas Food History.');
-for (const path of ['/texas-ranch-water-guide','/san-antonio-puffy-taco-history','/barbacoa-big-red-san-antonio']) {
-  if (!texasLiving.includes(`['${path}'`)) failures.push(`Texas Life must surface ${path}.`);
+if (!texasLiving.includes("['/texas-food-history', 'Texas Food History'")) failures.push('Texas Living must surface the Texas Food History parent guide.');
+for (const token of ['actionTo="/things-unique-to-texas"', 'the full culture library lives in Things That Define Texas']) {
+  if (!texasLiving.includes(token)) failures.push(`Texas Living must hand deeper culture discovery to Things That Define Texas: ${token}.`);
 }
 if (!llms.includes('Texas food history: https://texasdefined.com/texas-food-history')) failures.push('llms.txt must expose Texas Food History.');
 
@@ -177,4 +177,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, sitemap governance, smoke, llms.txt and citation-index coverage intact across eager and lazy Explore category route surfaces.`);
+console.log(`Texas Food History validation passed: canonical hub, ${focusedGuides.length} focused links, parent-child schema, established-pillar inbound links, Food & BBQ discovery, sourced batch-5 guides, Dr Pepper museum handoff, six exact-subject hero/social-image contracts, focused Texas Living parent-hub discovery, sitemap governance, smoke, llms.txt and citation-index coverage intact across eager and lazy Explore category route surfaces.`);
