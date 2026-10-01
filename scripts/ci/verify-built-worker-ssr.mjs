@@ -65,7 +65,7 @@ const smokeTargets = [
   { path: '/fishing/lakes/falcon-international-reservoir', requiredText: 'Falcon International Reservoir', label: 'Falcon complete fishing guide' },
   { path: '/fishing/lakes/lake-travis/fish', requiredText: 'Lake Travis', label: 'Lake Travis shared fish section' },
   { path: '/fishing/plan?species=largemouth-bass&q=Austin&sort=best', requiredText: 'Lake Travis', label: 'wave-2 Austin largemouth finder' },
-  { path: '/guides/citypass-texas', requiredText: 'CityPASS® is a bundle, not a magic discount.', label: 'guide child route body' },
+  { path: '/guides/citypass-texas', requiredText: 'Is CityPASS® worth it in Texas?', label: 'guide child route body' },
   { path: '/explore/landscapes/hill-country', requiredText: 'The Hill Country is where the Edwards Plateau breaks into rounded hills', label: 'landscape child route body' },
   { path: '/sports/friday-night-lights', requiredText: 'Friday Night Lights, Defined', label: 'sports child route body' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
