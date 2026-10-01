@@ -18,6 +18,22 @@ For a page intended to compete in Google Discover or rich social previews, the g
 
 A missing image is not an acceptable final fallback. A procedural gradient, generic stock substitute, generic regional AI scene, or decorative SVG does not satisfy this rule.
 
+## Discover and social-preview contract
+
+For an indexable editorial or place page whose template expects a preferred image, use the same governed, representative image for the page hero, Open Graph preferred image, Twitter/X large-image card, and structured data where that schema supports an image.
+
+The preferred image should be at least 1200 pixels wide and exceed 300,000 total pixels. Favor an editorial crop that remains useful in a 16:9 presentation while preserving the original governed asset and attribution. Do not use a logo, icon, generic sitewide image, procedural graphic, placeholder, unrelated stock photograph, or text-heavy graphic as the preferred image for an otherwise image-led page.
+
+Indexable pages must permit `max-image-preview:large`. Preferred-image metadata must include meaningful alt text; width and height should be emitted when known so social crawlers and search systems can understand the media without re-probing it. Open Graph and Twitter/X preferred-image URLs should agree unless a deliberate, governed platform-specific crop exists.
+
+Missing Open Graph dimensions are a metadata defect to remediate, but the production audit verifies the real image dimensions directly for JPEG, PNG, and WebP assets before deciding that an image is too small. This avoids treating a large photo as tiny merely because dimension metadata is incomplete.
+
+## Responsive-image and Core Web Vitals rule
+
+Render intrinsic `width` and `height` for editorial images whenever available so the browser can reserve layout space. Supply responsive `sizes` on fluid images. Reserve eager loading and high fetch priority for the page's true LCP/primary hero; supporting cards and below-the-fold imagery should remain lazy-loaded and asynchronously decoded.
+
+When a remote image fails and no governed subject-matched fallback exists, collapse the opted-in image frame rather than leaving a broken icon or blank aspect-ratio box. A visual fallback treatment may support layout, but it must not masquerade as an editorial photograph or be emitted as the page's preferred social/search image.
+
 ## AI fallback requirements
 
 AI fallback must be photorealistic, relevant to the named subject and known setting, and suitable for editorial hero use. It must be grounded in verified visual facts about the named place/event as reasonably available from official or otherwise reliable sources. It must avoid fake documentary claims about an exact camera view, fabricated logos or sponsor marks, copyrighted poster/key art, embedded text, watermarks, and recognizable private individuals.
