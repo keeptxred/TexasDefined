@@ -1,12 +1,29 @@
 import { loadMajorEventGuideDirectoryServer } from "./major-event-directory.server";
+import { getMajorEventRecordServer } from "./major-event-page.server";
+import { getMajorEventSchemaOccurrenceEnrichmentServer } from "./major-event-schema-enrichment.server";
 import { resolveTemporalEventCollectionServer, type TemporalEventDirectoryItem } from "./event-temporal-collections.server";
+
+export interface TexasThisWeekendTripLink {
+  href: string;
+  label: string;
+  description: string;
+}
+
+export interface TexasThisWeekendItem extends TemporalEventDirectoryItem {
+  whyGo?: string;
+  tripLinks: TexasThisWeekendTripLink[];
+  image?: {
+    url: string;
+    alt: string;
+  };
+}
 
 export interface TexasThisWeekendSection {
   id: string;
   title: string;
   description: string;
   href?: string;
-  items: TemporalEventDirectoryItem[];
+  items: TexasThisWeekendItem[];
 }
 
 export interface TexasThisWeekendDigest {
@@ -47,6 +64,34 @@ const majorMetroCounties = new Set([
   ...metroCounties.sanAntonio,
 ]);
 
+// The broader site taxonomy uses a large Gulf Coast/Coastal Plains region. For a
+// consumer-facing weekend edition, keep the "Gulf Coast" label to counties that
+// readers reasonably understand as coastal or coastal-metro destinations.
+const gulfCoastWeekendCounties = new Set([
+  "Harris County",
+  "Fort Bend County",
+  "Brazoria County",
+  "Galveston County",
+  "Chambers County",
+  "Jefferson County",
+  "Orange County",
+  "Matagorda County",
+  "Calhoun County",
+  "Victoria County",
+  "Refugio County",
+  "Aransas County",
+  "San Patricio County",
+  "Nueces County",
+  "Kleberg County",
+  "Kenedy County",
+  "Willacy County",
+  "Cameron County",
+]);
+
+const displayNameOverrides: Record<string, string> = {
+  "bill-pickett-rodeo-fort-worth": "Bill Pickett Invitational Rodeo",
+};
+
 const familySignal = /\b(family|families|kids|children|child|junior|youth)\b/i;
 const freeSignal = /\bfree\b/i;
 
@@ -61,13 +106,48 @@ function verificationScore(event: TemporalEventDirectoryItem) {
   return Number.isFinite(checked) ? checked : 0;
 }
 
-function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"], limit: number) {
-  const ranked = items
+function rankedItems(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"]) {
+  return items
     .filter(matches)
     .sort((left, right) => verificationScore(right) - verificationScore(left)
       || left.startDate.localeCompare(right.startDate)
       || left.name.localeCompare(right.name));
+}
 
+function pickTopFive(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"], limit: number) {
+  const ranked = rankedItems(items, matches);
+  const selected: TemporalEventDirectoryItem[] = [];
+  const cities = new Set<string>();
+  const categories = new Set<string>();
+
+  // Geographic variety comes first: take the freshest qualifying event from a
+  // new host city before using a second event from a city already represented.
+  for (const event of ranked) {
+    if (selected.length >= limit) break;
+    if (cities.has(event.city)) continue;
+    selected.push(event);
+    cities.add(event.city);
+    categories.add(event.category);
+  }
+
+  // If the current weekend does not supply five distinct cities, prefer a new
+  // event type before simply filling from the same city/category combination.
+  for (const event of ranked) {
+    if (selected.length >= limit) break;
+    if (selected.some((item) => item.slug === event.slug) || categories.has(event.category)) continue;
+    selected.push(event);
+    categories.add(event.category);
+  }
+
+  for (const event of ranked) {
+    if (selected.length >= limit) break;
+    if (!selected.some((item) => item.slug === event.slug)) selected.push(event);
+  }
+  return selected;
+}
+
+function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefinition["matches"], limit: number) {
+  const ranked = rankedItems(items, matches);
   const selected: TemporalEventDirectoryItem[] = [];
   const cities = new Set<string>();
   const categories = new Set<string>();
@@ -86,13 +166,28 @@ function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefin
   return selected;
 }
 
+function enrichWeekendEvent(event: TemporalEventDirectoryItem): TexasThisWeekendItem {
+  const authority = getMajorEventRecordServer(event.slug);
+  const occurrence = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug);
+  return {
+    ...event,
+    name: displayNameOverrides[event.slug] ?? event.name,
+    whyGo: authority?.whyItMatters,
+    tripLinks: (authority?.relatedLinks ?? [])
+      .filter((link) => link.href.startsWith("/"))
+      .slice(0, 4)
+      .map(({ href, label, description }) => ({ href, label, description })),
+    image: occurrence?.image ? { url: occurrence.image.url, alt: occurrence.image.alt } : undefined,
+  };
+}
+
 const sections: SectionDefinition[] = [
   {
     id: "best",
     title: "Best Things to Do in Texas This Weekend",
-    description: "A source-verified statewide shortlist that favors recently checked events while preserving variety across cities and event types.",
+    description: "Five source-verified picks chosen for freshness, geographic variety and a useful mix of Texas experiences.",
     minimumItems: 1,
-    limit: 8,
+    limit: 5,
     matches: () => true,
   },
   {
@@ -143,11 +238,11 @@ const sections: SectionDefinition[] = [
   {
     id: "gulf-coast",
     title: "Gulf Coast This Weekend",
-    description: "Source-verified event guides along the Texas Gulf Coast, including Houston, Galveston and the Coastal Bend when they qualify.",
+    description: "Source-verified events in coastal and coastal-metro counties from Greater Houston through the Coastal Bend and Lower Coast.",
     href: "/events/gulf-coast-events",
     minimumItems: 2,
     limit: 5,
-    matches: (event) => event.region === "gulf-coast",
+    matches: (event) => gulfCoastWeekendCounties.has(event.countyName ?? ""),
   },
   {
     id: "hill-country",
@@ -215,10 +310,12 @@ export function loadTexasThisWeekendDigestServer(now = new Date()): TexasThisWee
   if (!collection) return null;
 
   const resolvedSections = sections.flatMap((section) => {
-    const items = pickDistinct(collection.items, section.matches, section.limit);
-    if (items.length < section.minimumItems) return [];
+    const selected = section.id === "best"
+      ? pickTopFive(collection.items, section.matches, section.limit)
+      : pickDistinct(collection.items, section.matches, section.limit);
+    if (selected.length < section.minimumItems) return [];
     const { matches: _matches, minimumItems: _minimumItems, limit: _limit, ...rest } = section;
-    return [{ ...rest, items }];
+    return [{ ...rest, items: selected.map(enrichWeekendEvent) }];
   });
 
   const top = resolvedSections.find((section) => section.id === "best")?.items ?? [];
