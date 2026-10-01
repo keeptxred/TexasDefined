@@ -283,11 +283,11 @@ const records: MajorEventAuthorityRecord[] = [
     venue: "Arts in the Sunset",
     officialUrl: "https://www.amarillofilmfestival.com/",
     sourceCheckedAt: "2026-09-30",
-    whyItMatters: "The Amarillo International Film Festival gives the Panhandle a multi-day film and arts anchor with a published first-party schedule, screenings, filmmaker programming and an awards night, strengthening a region where Texas Defined intentionally avoids padding thin calendars.",
+    whyItMatters: "The Amarillo International Film Festival brings three days of screenings, filmmaker events and an awards night to the Panhandle, with programming centered at Arts in the Sunset and an opening reception at the Amarillo Museum of Art.",
     planningSections: [
-      { title: "Use the official three-day schedule", body: "The festival publishes an opening reception on Thursday and full screening days on Friday and Saturday. Choose the films and program blocks you want first, then plan meals and transportation around those fixed times." },
-      { title: "Do not assume every program uses one room", body: "The opening reception is listed at the Amarillo Museum of Art while the festival home identifies Arts in the Sunset as the main venue. Recheck the official schedule before arrival for room and program assignments." },
-      { title: "Treat tickets and passes as live inventory", body: "The organizer links current festival passes and individual program information from its own site. Use that live ticket path rather than preserving a price or availability snapshot in an evergreen guide." },
+      { title: "Check the schedule before you go", body: "The festival runs October 8-10, with an opening reception Thursday and screenings on Friday and Saturday. Check the current festival schedule before your trip so you can choose the films, filmmaker events and evening programs you want to attend." },
+      { title: "Know which venue you're headed to", body: "The opening reception is scheduled at the Amarillo Museum of Art, while most festival programming takes place at Arts in the Sunset. Confirm the location of each screening or event on the official schedule before heading out." },
+      { title: "Get current ticket information from the festival", body: "Passes, individual-event tickets and availability can change as the festival approaches. Use the Amarillo International Film Festival's official website for current ticket options and last-minute schedule updates." },
     ],
     relatedLinks: [
       { href: "/events/panhandle-events", label: "Panhandle events", description: "Compare other source-checked Panhandle and High Plains event guides." },
