@@ -186,7 +186,7 @@ for (const marker of [
   'Fishing technique image readiness passed:',
   'hero width ${image.width}px is below the 1200px Discover floor',
   'Wikimedia hero is missing structured license metadata',
-  'Fishing technique image coverage regressed below the remediated 7/9 baseline',
+  'Every published fishing technique must have a governed Discover-ready hero',
 ]) {
   if (!techniqueImageAudit.includes(marker)) errors.push(`Fishing technique regression audit missing: ${marker}`);
 }

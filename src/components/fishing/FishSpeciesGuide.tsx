@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
+import { getFishingFishImage } from "@/data/fishing/image-library";
 import type { loadLargemouthBassPageDataServer } from "@/data/fishing/largemouth-bass-page-data.server";
 
 type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
@@ -9,6 +11,7 @@ const seasonLabel: Record<string, string> = { spring: "Spring", summer: "Summer"
 
 export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
   const { species, profile, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
+  const speciesImage = getFishingFishImage(species.slug);
 
   return (
     <>
@@ -27,15 +30,18 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
       </Container>
 
       <section className="mt-5 border-b border-border bg-ink text-ink-foreground">
-        <Container className="py-16 sm:py-24">
-          <p className="eyebrow text-ink-foreground/70">Texas species fishing guide</p>
-          <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Largemouth Bass Fishing in Texas</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">{species.summary}</p>
-          <dl className="mt-8 grid max-w-4xl gap-5 border-t border-ink-foreground/20 pt-6 text-sm sm:grid-cols-3">
-            <div><dt className="eyebrow text-ink-foreground/55">Scientific name</dt><dd className="mt-2 text-ink-foreground">{species.scientificName}</dd></div>
-            <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map((row) => row.replaceAll("-", " ")).join(", ") : "Statewide"}</dd></div>
-            <div><dt className="eyebrow text-ink-foreground/55">Source review</dt><dd className="mt-2 text-ink-foreground">{profile.verifiedAt}</dd></div>
-          </dl>
+        <Container className={speciesImage ? "grid gap-10 py-16 sm:py-24 lg:grid-cols-2 lg:items-center" : "py-16 sm:py-24"}>
+          <div>
+            <p className="eyebrow text-ink-foreground/70">Texas species fishing guide</p>
+            <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Largemouth Bass Fishing in Texas</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">{species.summary}</p>
+            <dl className="mt-8 grid max-w-4xl gap-5 border-t border-ink-foreground/20 pt-6 text-sm sm:grid-cols-3">
+              <div><dt className="eyebrow text-ink-foreground/55">Scientific name</dt><dd className="mt-2 text-ink-foreground">{species.scientificName}</dd></div>
+              <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map((row) => row.replaceAll("-", " ")).join(", ") : "Statewide"}</dd></div>
+              <div><dt className="eyebrow text-ink-foreground/55">Source review</dt><dd className="mt-2 text-ink-foreground">{profile.verifiedAt}</dd></div>
+            </dl>
+          </div>
+          {speciesImage ? <FishingPhoto image={speciesImage} eager className="max-w-sm" imageClassName="aspect-[4/3] w-full bg-background object-contain p-3" /> : null}
         </Container>
       </section>
 

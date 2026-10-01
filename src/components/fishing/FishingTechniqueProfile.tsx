@@ -1,4 +1,6 @@
+import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
+import { getFishingFishImage } from "@/data/fishing/image-library";
 import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent } from "@/data/fishing/technique-authority-content";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
@@ -7,6 +9,14 @@ import { relatedFishingTechniques } from "@/data/fishing/related-techniques";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishingTechniqueProfileData } from "@/data/fishing/technique-data.server";
 import { FISHING_TECHNIQUES_DIRECTORY_PATH } from "@/data/fishing/technique-routing";
+
+const techniqueSpeciesImageAliases: Record<string, string> = {
+  "white-striped-and-hybrid-bass": "hybrid-striped-bass",
+  "striped-and-hybrid-bass": "hybrid-striped-bass",
+  "black-bass": "largemouth-bass",
+  "other-panfish": "bluegill",
+  "blue-and-channel-catfish": "blue-catfish",
+};
 
 export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfileData }) {
   const { technique } = data;
@@ -153,10 +163,26 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           <h2 id="species-differences" className="mt-3 font-display text-4xl sm:text-5xl">{authority.speciesTitle ?? `${technique.name} by Target Species`}</h2>
           {authority.speciesIntro ? <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{authority.speciesIntro}</p> : null}
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
-            {authority.speciesGuide.map((row) => <article key={row.label} className="bg-background p-6">
-              <h3 className="font-display text-2xl">{row.label}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted-foreground">{row.guidance}</p>
-            </article>)}
+            {authority.speciesGuide.map((row) => {
+              const normalizedLabel = normalizeSpeciesLabel(row.label);
+              const imageSlug = techniqueSpeciesImageAliases[normalizedLabel] ?? normalizedLabel;
+              const image = getFishingFishImage(imageSlug);
+              const isRepresentative = Boolean(image && imageSlug !== normalizedLabel);
+              return <article key={row.label} className="bg-background">
+                {image ? <>
+                  <FishingPhoto
+                    image={image}
+                    className="p-5 pb-0"
+                    imageClassName="aspect-[16/10] w-full bg-muted/20 object-contain p-3"
+                  />
+                  {isRepresentative ? <p className="px-5 pt-2 text-[0.68rem] leading-5 text-muted-foreground">Representative species image for this grouped target.</p> : null}
+                </> : null}
+                <div className="p-6">
+                  <h3 className="font-display text-2xl">{row.label}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{row.guidance}</p>
+                </div>
+              </article>;
+            })}
           </div>
         </section> : null}
 
@@ -369,6 +395,16 @@ function SoftPlasticsRiggingVisual() {
       </figure>)}
     </div>
   </section>;
+}
+
+function normalizeSpeciesLabel(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function titleCase(value: string) {
