@@ -35,7 +35,7 @@ function WeekendCollectionPage({ page }: { page: any }) {
     })
     .filter((section: any) => section.items.length > 0);
 
-  const tripBuilderItems = (best?.items ?? []).slice(0, 3);
+  const tripBuilderItems = (best?.items ?? []).filter((event: any) => event.tripLinks?.length).slice(0, 3);
 
   return <main>
     <section className="border-b border-border bg-surface py-10 sm:py-14"><Container>
@@ -59,33 +59,44 @@ function WeekendCollectionPage({ page }: { page: any }) {
           <div><p className="eyebrow text-primary">Editor’s shortlist</p><h2 id="top-weekend-picks" className="mt-2 font-display text-4xl">Top 5 this weekend</h2></div>
           <p className="max-w-xl text-sm leading-6 text-muted-foreground">Five verified picks selected for freshness, geographic variety and a useful mix of Texas experiences.</p>
         </div>
-        <ol className="grid gap-px border-x border-b border-border bg-border md:grid-cols-2 lg:grid-cols-5">
-          {best.items.map((event: any, index: number) => <li key={event.slug} className="flex min-h-64 flex-col bg-background p-6">
-            <p className="font-display text-5xl text-primary/35">0{index + 1}</p>
-            <p className="eyebrow mt-5 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
-            <EventGuideLink event={event} trackId={`weekend:best:${event.slug}`} className="mt-3 block font-display text-2xl leading-tight hover:text-primary">{event.name}</EventGuideLink>
-            <p className="mt-auto pt-6 text-sm font-semibold text-primary">Open guide →</p>
+        <ol className="grid gap-px border-x border-b border-border bg-border md:grid-cols-2 xl:grid-cols-5">
+          {best.items.map((event: any, index: number) => <li key={event.slug} className="flex min-h-64 flex-col bg-background">
+            {event.image ? <div className="aspect-[4/3] overflow-hidden bg-muted"><img src={event.image.url} alt={event.image.alt} width={800} height={600} loading={index < 2 ? "eager" : "lazy"} decoding="async" className="size-full object-cover" /></div> : null}
+            <div className="flex flex-1 flex-col p-6">
+              <div className="flex items-start justify-between gap-3"><p className="font-display text-4xl text-primary/35">0{index + 1}</p><span className="text-right text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{String(event.category).replaceAll("-", " ")}</span></div>
+              <p className="eyebrow mt-4 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
+              <EventGuideLink event={event} trackId={`weekend:best:${event.slug}`} className="mt-3 block font-display text-2xl leading-tight hover:text-primary">{event.name}</EventGuideLink>
+              <p className="mt-3 text-xs font-medium leading-5 text-muted-foreground">{event.detail}</p>
+              {event.whyGo ? <p className="mt-4 line-clamp-4 text-sm leading-6 text-muted-foreground">{event.whyGo}</p> : null}
+              <p className="mt-auto pt-6 text-sm font-semibold text-primary">Open guide →</p>
+            </div>
           </li>)}
         </ol>
       </section> : null}
 
       {secondarySections.length ? <section className="pt-14" aria-labelledby="browse-weekend-by-area">
-        <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Find your version of the weekend</p><h2 id="browse-weekend-by-area" className="mt-2 font-display text-4xl">By metro, region and interest</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Events already featured in the Top 5 are removed here, so each section adds something new instead of repeating the same names down the page.</p></div>
+        <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Find your version of the weekend</p><h2 id="browse-weekend-by-area" className="mt-2 font-display text-4xl">By metro, region and interest</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Events already featured in the Top 5 are removed here, and an event is used only once across the sections below. Each block adds new options instead of repeating the same names down the page.</p></div>
         <div className="grid gap-8 pt-8 lg:grid-cols-2">
           {secondarySections.map((section: any) => <section key={section.id} className="border border-border p-6">
             <div className="flex items-start justify-between gap-4"><div><p className="eyebrow text-muted-foreground">{section.id.replaceAll("-", " ")}</p><h3 className="mt-2 font-display text-2xl">{section.title}</h3></div>{section.href ? <a href={section.href} className="shrink-0 text-sm font-semibold text-primary">Full edition →</a> : null}</div>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{section.description}</p>
             <ol className="mt-5 divide-y divide-border border-y border-border">
-              {section.items.map((event: any, index: number) => <li key={event.slug} className="py-4"><p className="eyebrow text-muted-foreground">0{index + 1} · {event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><EventGuideLink event={event} trackId={`weekend:${section.id}:${event.slug}`} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink></li>)}
+              {section.items.map((event: any, index: number) => <li key={event.slug} className="py-4"><p className="eyebrow text-muted-foreground">0{index + 1} · {event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><EventGuideLink event={event} trackId={`weekend:${section.id}:${event.slug}`} className="mt-1 block font-display text-xl hover:text-primary">{event.name}</EventGuideLink><p className="mt-2 text-xs leading-5 text-muted-foreground">{event.detail}</p></li>)}
             </ol>
           </section>)}
         </div>
       </section> : null}
 
       {tripBuilderItems.length ? <section className="pt-14" aria-labelledby="make-a-weekend-of-it">
-        <div className="border-b border-border pb-5"><p className="eyebrow text-primary">TexasDefined trip builder</p><h2 id="make-a-weekend-of-it" className="mt-2 font-display text-4xl">Make a weekend of it</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Don’t stop at the event. Use the guide as the starting point, then explore the host place and nearby TexasDefined planning coverage.</p></div>
-        <div className="grid gap-px border-x border-b border-border bg-border md:grid-cols-3">
-          {tripBuilderItems.map((event: any) => <article key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">Start in {event.city}</p><h3 className="mt-3 font-display text-2xl">{event.name}</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">Open the event guide first for verified timing and source details, then use TexasDefined’s destination, county and road-trip coverage to build out the rest of the day or overnight.</p><EventGuideLink event={event} trackId={`weekend:trip-builder:${event.slug}`} className="mt-5 inline-block text-sm font-semibold text-primary">Plan around this event →</EventGuideLink></article>)}
+        <div className="border-b border-border pb-5"><p className="eyebrow text-primary">TexasDefined trip builder</p><h2 id="make-a-weekend-of-it" className="mt-2 font-display text-4xl">Make a weekend of it</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These are real TexasDefined planning paths attached to the event authority record — city, county, destination, history, food or nearby-event coverage that can turn one event into a practical day trip or overnight.</p></div>
+        <div className="grid gap-px border-x border-b border-border bg-border lg:grid-cols-3">
+          {tripBuilderItems.map((event: any) => <article key={event.slug} className="bg-background p-6">
+            <p className="eyebrow text-muted-foreground">Start in {event.city}</p>
+            <h3 className="mt-3 font-display text-2xl">{event.name}</h3>
+            {event.whyGo ? <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{event.whyGo}</p> : null}
+            <ul className="mt-5 divide-y divide-border border-y border-border">{event.tripLinks.map((link: any) => <li key={link.href}><a href={link.href} data-entity-id={`weekend:trip-builder:${event.slug}:${link.href}`} className="group block py-4"><strong className="font-display text-lg group-hover:text-primary">{link.label}</strong><span className="mt-1 block text-xs leading-5 text-muted-foreground">{link.description}</span></a></li>)}</ul>
+            <EventGuideLink event={event} trackId={`weekend:trip-builder:event:${event.slug}`} className="mt-5 inline-block text-sm font-semibold text-primary">Open the event guide →</EventGuideLink>
+          </article>)}
         </div>
       </section> : null}
 
