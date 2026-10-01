@@ -69,15 +69,20 @@ assert(searchIntentStubs.includes('import("./lighthouse-search-intent-articles")
 assert(searchIntentStubs.includes("Port_Isabel_Texas_Lighthouse.jpg"), "Best-lighthouses page must retain its unique exact-subject hero");
 assert(searchIntentStubs.includes("CC BY 2.0"), "Best-lighthouses hero attribution/license is missing");
 assert(searchIntentStubs.includes('relatedDestinations: ["port-isabel-lighthouse"]'), "Best-lighthouses stub must point to the canonical Port Isabel destination slug");
+assert(searchIntentStubs.includes('readingMinutes: 17'), "Best-lighthouses discovery stub must match the expanded visitor guide reading time");
+assert(searchIntentStubs.includes('updatedAt: "2026-10-01"'), "Best-lighthouses discovery stub must expose the authority-guide update date");
+assert(searchIntentStubs.includes("A practical Texas lighthouse guide comparing public access, climbs, viewing methods and trip logistics"), "Best-lighthouses discovery stub must match the upgraded visitor-guide intent");
 assert(newestEvergreen.includes("lighthouseSearchIntentStubs") && newestEvergreen.includes("loadLighthouseSearchIntentArticle"), "Best-lighthouses intent loader is not registered");
 assert(searchIntentArticles.includes('title: "Best Lighthouses to Visit in Texas: What You Can Actually See and Climb"'), "Best-lighthouses search title is missing");
 for (const requiredText of [
-  "1. Port Isabel Lighthouse — best overall",
-  "2. Point Bolivar Lighthouse — best for Galveston Bay history",
-  "3. Halfmoon Reef Lighthouse — best easy historic stop from land",
-  "4. Lydia Ann Lighthouse — best for Port Aransas waterways",
-  "5. Matagorda Island Lighthouse — best for remote maritime history",
-  "6. Sabine Pass Lighthouse — best for the story, not a conventional visit",
+  "Texas lighthouses at a glance: access, climbs and trip difficulty",
+  "1. Port Isabel Lighthouse — best traditional lighthouse visit",
+  "2. Point Bolivar Lighthouse — best Galveston Bay history stop",
+  "3. Halfmoon Reef Lighthouse — easiest preserved lighthouse structure to see from land",
+  "4. Lydia Ann Lighthouse — best Port Aransas waterway experience",
+  "5. Matagorda Island Lighthouse — best remote maritime-history trip",
+  "6. Sabine Pass Lighthouse — best for border-waterway history, not a conventional visit",
+  "A reproduction third-order Fresnel lens installed in 2022",
   "the historic lighthouse tower stands on the Louisiana side of the Sabine",
 ]) assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required authority text: ${requiredText}`);
 assert(searchIntentArticles.includes('href: "/destination/port-isabel-lighthouse"'), "Best-lighthouses article must link to the canonical Port Isabel destination guide");
