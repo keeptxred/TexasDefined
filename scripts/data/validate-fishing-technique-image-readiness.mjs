@@ -6,6 +6,8 @@ const server = fs.readFileSync("src/data/fishing/technique-data.server.ts", "utf
 const sitemap = fs.readFileSync("src/data/fishing/sitemap.ts", "utf8");
 const seo = fs.readFileSync("src/lib/seo.ts", "utf8");
 const governance = fs.readFileSync("docs/site-image-governance.md", "utf8");
+const techniqueProfile = fs.readFileSync("src/components/fishing/FishingTechniqueProfile.tsx", "utf8");
+const specialSpeciesGuide = fs.readFileSync("src/components/fishing/FishSpeciesGuide.tsx", "utf8");
 const failures = [];
 
 const ready = PUBLISHED_FISHING_TECHNIQUE_SLUGS.filter((slug) => isFishingTechniqueHeroReady(slug));
@@ -40,6 +42,10 @@ if (ready.length !== PUBLISHED_FISHING_TECHNIQUE_SLUGS.length) failures.push(`Ev
 if (!server.includes('robots: imageReady ? undefined : "noindex, follow, max-image-preview:large"')) failures.push("Fishing technique profiles must fail closed when the hero is not image-ready.");
 if (!server.includes('imageReady && images?.hero')) failures.push("Fishing technique social/schema image output must be gated by image readiness.");
 if (!sitemap.includes('.filter((slug) => isFishingTechniqueHeroReady(slug))')) failures.push("Fishing technique sitemap entries must exclude image-incomplete profiles.");
+for (const [label, source] of [["technique target-species cards", techniqueProfile], ["dedicated largemouth-bass species guide", specialSpeciesGuide]]) {
+  if (!source.includes("FishingPhoto")) failures.push(`${label} must use the governed FishingPhoto renderer.`);
+  if (!source.includes("getFishingFishImage")) failures.push(`${label} must resolve fish imagery through the governed fish-image library.`);
+}
 for (const marker of ["og:image", "twitter:image", "max-image-preview:large"]) {
   if (!seo.includes(marker)) failures.push(`Shared SEO metadata is missing ${marker}.`);
 }
