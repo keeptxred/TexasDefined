@@ -469,7 +469,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "the-unofficial-job-description-of-a-texas-porch-dog": async () => (await import("./texas-dogs-evergreen")).texasPorchDogArticle,
   "why-the-best-dog-shirt-joke-feels-like-your-dog-and-nobody-elses": async () => (await import("./texas-dogs-evergreen")).dogShirtJokeArticle,
   "small-dogs-big-texas-attitude": async () => (await import("./texas-dogs-evergreen-wave2")).smallDogsBigTexasAttitudeArticle,
-  "big-dogs-texas-sized-problems": async () => (await import("./texas-dogs-evergreen-wave2")).bigDogsTexasAttitudeArticle,
+  "big-dogs-texas-sized-problems": async () => (await import("./texas-dogs-evergreen-wave2")).bigDogsTexasSizedProblemsArticle,
   "texas-dog-heat-safety": async () => (await import("./texas-dogs-practical")).texasDogHeatSafetyArticle,
   "taking-your-dog-to-texas-state-parks": async () => (await import("./texas-dogs-practical")).texasStateParkDogArticle,
   "taking-your-dog-to-the-texas-coast": async () => (await import("./texas-dogs-practical-wave2")).texasDogsCoastArticle,
