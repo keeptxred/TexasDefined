@@ -184,7 +184,7 @@ function enrichWeekendEvent(event: TemporalEventDirectoryItem): TexasThisWeekend
 const sections: SectionDefinition[] = [
   {
     id: "best",
-    title: "Top 5 Things to Do in Texas This Weekend",
+    title: "Best Things to Do in Texas This Weekend",
     description: "Five source-verified picks chosen for freshness, geographic variety and a useful mix of Texas experiences.",
     minimumItems: 1,
     limit: 5,
