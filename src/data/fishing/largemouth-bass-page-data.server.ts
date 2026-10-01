@@ -2,6 +2,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 import { fishingPlatform, fishingScope } from "./index";
+import { getFishingFishImage } from "./image-library";
 import { fishingFoundationAnchor } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
 import { fishingSpeciesCanonicalPath } from "./species-routing";
@@ -13,9 +14,9 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
-  const { species, profile } = pageData;
-  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile.verifiedAt, citation: profile.sources.map((source) => source.url) };
-  const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url };
+  const { species, profile, speciesImage } = pageData;
+  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile.verifiedAt, citation: profile.sources.map((source) => source.url), image: speciesImage.src };
+  const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url, image: speciesImage.src };
   const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
     { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
@@ -23,7 +24,16 @@ function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargem
     { "@type": "ListItem", position: 4, name: "Largemouth bass", item: url },
   ] };
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, ranked lakes, regulations and verified guide listings.", canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, {
+      title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes",
+      description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, ranked lakes, regulations and verified guide listings.",
+      canonicalPath,
+      image: speciesImage.src,
+      imageAlt: speciesImage.alt,
+      imageWidth: speciesImage.width,
+      imageHeight: speciesImage.height,
+      imageType: "image/jpeg",
+    }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPage, speciesEntity, breadcrumb] }) }],
   };
@@ -32,6 +42,8 @@ function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargem
 async function buildLargemouthBassPageData() {
   const species = await fishingPlatform.species.getBySlug(fishingScope, largemouthBassEditorialProfile.slug);
   if (!species || species.status !== "published") throw new Error("Published largemouth bass species record is unavailable.");
+  const speciesImage = getFishingFishImage(species.slug);
+  if (!speciesImage) throw new Error("Governed largemouth bass hero image is unavailable.");
 
   const [relations, lakes, techniques, guides, placements, advertisers, allSpecies] = await Promise.all([
     fishingPlatform.lakeSpecies.list({ ...fishingScope, speciesId: species.id }),
@@ -68,6 +80,7 @@ async function buildLargemouthBassPageData() {
   const regions = [...new Set(rankedLakes.map((row) => row.lake.region))];
   return {
     species,
+    speciesImage,
     profile: largemouthBassEditorialProfile,
     rankedLakes,
     recommendedTechniques,
