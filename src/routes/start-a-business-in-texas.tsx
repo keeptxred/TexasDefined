@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { Suspense } from "react";
 import { loadPrioritySearchPage } from "@/data/priority-search-page";
 import {
   START_BUSINESS_FAQ,
@@ -48,5 +49,13 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
       ],
     });
   },
-  component: StartBusinessTexasGuide,
+  component: Page,
 });
+
+function Page() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas business guide…</div>}>
+      <StartBusinessTexasGuide />
+    </Suspense>
+  );
+}
