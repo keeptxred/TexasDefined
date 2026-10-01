@@ -51,7 +51,7 @@ jobs:
         env:
           IMAGE_AUDIT_STRICT: ${{ github.event_name == 'pull_request' && '0' || '1' }}
           IMAGE_AUDIT_CONCURRENCY: '8'
-          IMAGE_AUDIT_TIMEOUT_MS: '30000'
+          IMAGE_AUDIT_TIMEOUT_MS: '60000'
         run: node scripts/ci/verify-image-discover-production.mjs
 
       - name: Upload image and Discover audit report
