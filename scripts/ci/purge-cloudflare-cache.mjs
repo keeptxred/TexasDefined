@@ -7,6 +7,14 @@ if (!token) {
   throw new Error('CLOUDFLARE_CACHE_API_TOKEN is required for targeted cache purge.');
 }
 
+const weekendEventUrls = [
+  `https://${zoneName}/events/this-weekend`,
+  `https://${zoneName}/events/houston-this-weekend`,
+  `https://${zoneName}/events/dallas-this-weekend`,
+  `https://${zoneName}/events/austin-this-weekend`,
+  `https://${zoneName}/events/san-antonio-this-weekend`,
+];
+
 const metroUrls = purgeMetroProximity
   ? (() => {
       const metros = ['houston', 'dallas', 'fort-worth', 'austin', 'san-antonio'];
@@ -40,6 +48,7 @@ const urls = [...new Set([
     .split(/[\n,]+/)
     .map((value) => value.trim())
     .filter(Boolean),
+  ...weekendEventUrls,
   ...metroUrls,
 ])];
 
