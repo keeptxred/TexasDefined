@@ -47,6 +47,30 @@ const majorMetroCounties = new Set([
   ...metroCounties.sanAntonio,
 ]);
 
+// The broader site taxonomy uses a large Gulf Coast/Coastal Plains region. For a
+// consumer-facing weekend edition, keep the "Gulf Coast" label to counties that
+// readers reasonably understand as coastal or coastal-metro destinations.
+const gulfCoastWeekendCounties = new Set([
+  "Harris County",
+  "Fort Bend County",
+  "Brazoria County",
+  "Galveston County",
+  "Chambers County",
+  "Jefferson County",
+  "Orange County",
+  "Matagorda County",
+  "Calhoun County",
+  "Victoria County",
+  "Refugio County",
+  "Aransas County",
+  "San Patricio County",
+  "Nueces County",
+  "Kleberg County",
+  "Kenedy County",
+  "Willacy County",
+  "Cameron County",
+]);
+
 const familySignal = /\b(family|families|kids|children|child|junior|youth)\b/i;
 const freeSignal = /\bfree\b/i;
 
@@ -89,10 +113,10 @@ function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefin
 const sections: SectionDefinition[] = [
   {
     id: "best",
-    title: "Best Things to Do in Texas This Weekend",
-    description: "A source-verified statewide shortlist that favors recently checked events while preserving variety across cities and event types.",
+    title: "Top 5 Things to Do in Texas This Weekend",
+    description: "Five source-verified picks chosen for freshness, geographic variety and a useful mix of Texas experiences.",
     minimumItems: 1,
-    limit: 8,
+    limit: 5,
     matches: () => true,
   },
   {
@@ -143,11 +167,11 @@ const sections: SectionDefinition[] = [
   {
     id: "gulf-coast",
     title: "Gulf Coast This Weekend",
-    description: "Source-verified event guides along the Texas Gulf Coast, including Houston, Galveston and the Coastal Bend when they qualify.",
+    description: "Source-verified events in coastal and coastal-metro counties from Greater Houston through the Coastal Bend and Lower Coast.",
     href: "/events/gulf-coast-events",
     minimumItems: 2,
     limit: 5,
-    matches: (event) => event.region === "gulf-coast",
+    matches: (event) => gulfCoastWeekendCounties.has(event.countyName ?? ""),
   },
   {
     id: "hill-country",
