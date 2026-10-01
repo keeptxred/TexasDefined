@@ -4,6 +4,8 @@ const BASE_URL = process.env.TEXASDEFINED_BASE_URL || 'https://texasdefined.com'
 const STRICT = process.env.IMAGE_AUDIT_STRICT === '1';
 const CONCURRENCY = Math.max(1, Math.min(20, Number(process.env.IMAGE_AUDIT_CONCURRENCY || 8)));
 const REQUEST_TIMEOUT_MS = Math.max(5_000, Number(process.env.IMAGE_AUDIT_TIMEOUT_MS || 20_000));
+const SITEMAP_ATTEMPTS = Math.max(1, Math.min(10, Number(process.env.IMAGE_AUDIT_SITEMAP_ATTEMPTS || 6)));
+const SITEMAP_RETRY_DELAY_MS = Math.max(500, Number(process.env.IMAGE_AUDIT_SITEMAP_RETRY_DELAY_MS || 5_000));
 const REPORT_PATH = process.env.IMAGE_AUDIT_REPORT || 'image-discover-production-report.json';
 
 const PRIORITY_PATHS = [
@@ -21,6 +23,8 @@ const FORBIDDEN_IMAGE_RE = /(?:placeholder|photo[-_ ]?unavailable|image[-_ ]?una
 const FALLBACK_COPY_RE = /Photo unavailable|Photograph unavailable|image unavailable|texasdefined-destination-placeholder\.svg/i;
 const MIN_DISCOVER_WIDTH = 1200;
 const MIN_DISCOVER_PIXELS = 300_000;
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function decodeHtml(value = '') {
   return value.replaceAll('&amp;', '&').replaceAll('&quot;', '"').replaceAll('&#39;', "'").replaceAll('&lt;', '<').replaceAll('&gt;', '>');
@@ -60,14 +64,14 @@ async function fetchWithTimeout(url, options = {}) {
     return await fetch(url, {
       redirect: 'follow',
       ...options,
-      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.2 (+https://texasdefined.com)', ...(options.headers || {}) },
+      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.3 (+https://texasdefined.com)', ...(options.headers || {}) },
       signal: controller.signal,
     });
   } finally { clearTimeout(id); }
 }
 
-async function fetchText(url) {
-  const response = await fetchWithTimeout(url);
+async function fetchText(url, options = {}) {
+  const response = await fetchWithTimeout(url, options);
   return { response, text: await response.text() };
 }
 
@@ -130,11 +134,23 @@ function discoverGeometry(width, height) {
 }
 
 async function loadPriorityUrls() {
-  const sitemapUrl = `${BASE_URL}/sitemap.xml`;
-  const { response, text } = await fetchText(sitemapUrl);
-  if (!response.ok) throw new Error(`Sitemap request failed: ${response.status} ${sitemapUrl}`);
-  const urls = [...text.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => absolute(match[1])).filter(Boolean);
-  return [...new Set(urls)].filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname)));
+  let lastError;
+  for (let attempt = 1; attempt <= SITEMAP_ATTEMPTS; attempt += 1) {
+    const sitemapUrl = `${BASE_URL}/sitemap.xml?image_audit=${encodeURIComponent(`${Date.now()}-${attempt}`)}`;
+    try {
+      const { response, text } = await fetchText(sitemapUrl, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const urls = [...text.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => absolute(match[1])).filter(Boolean);
+      if (!urls.length) throw new Error('sitemap returned no URLs');
+      console.log(`Loaded production sitemap on attempt ${attempt} (${urls.length} URL(s)).`);
+      return [...new Set(urls)].filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname)));
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      console.warn(`Production sitemap attempt ${attempt}/${SITEMAP_ATTEMPTS} failed: ${lastError.message}`);
+      if (attempt < SITEMAP_ATTEMPTS) await sleep(SITEMAP_RETRY_DELAY_MS);
+    }
+  }
+  throw new Error(`Production sitemap unavailable after ${SITEMAP_ATTEMPTS} attempts: ${lastError?.message || 'unknown error'}`);
 }
 
 async function auditPage(url) {
