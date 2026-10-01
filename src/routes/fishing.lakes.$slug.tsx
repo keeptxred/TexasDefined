@@ -6,6 +6,7 @@ import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
+import { getFishingLakeImage } from "@/data/fishing/image-library";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
@@ -21,8 +22,8 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
-    const { getFishingLakeSocialImage } = await import("@/data/fishing/lake-social-image.functions");
-    const socialImage = await getFishingLakeSocialImage(lake.slug);
+    const image = getFishingLakeImage(lake.slug);
+    const socialImage = image && image.actualLocation === true && image.width >= 1200 && image.height > 0 ? image : null;
     if (params.slug === LAKE_CONROE_SLUG) {
       const pageData = await getLakeConroePageData();
       const [reports, guides] = await Promise.all([
