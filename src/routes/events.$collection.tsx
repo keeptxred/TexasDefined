@@ -116,6 +116,7 @@ function WeekendCollectionPage({ page }: { page: any }) {
 
       <details className="mt-14 border-y border-border py-5">
         <summary className="cursor-pointer font-display text-xl">How TexasDefined chooses weekend events</summary>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">A useful shortlist, not a feed dump. Metro, regional and interest sections only appear when enough events qualify, and price-based sections never infer free admission from missing ticket data.</p>
         <div className="mt-5 grid gap-8 text-sm leading-7 text-muted-foreground lg:grid-cols-2">
           <div><h2 className="font-display text-2xl text-foreground">{page.planningTitle}</h2><ol className="mt-4 space-y-3">{page.planningPoints.map((point: string, index: number) => <li key={point}><strong className="mr-2 text-primary">0{index + 1}</strong>{point}</li>)}</ol></div>
           <div><h2 className="font-display text-2xl text-foreground">{page.sourcePolicyTitle}</h2><div className="mt-4 space-y-3">{page.sourcePolicyParagraphs.map((paragraph: string) => <p key={paragraph}>{paragraph}</p>)}</div></div>
