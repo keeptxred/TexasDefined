@@ -7,6 +7,7 @@ const REQUEST_TIMEOUT_MS = Math.max(5_000, Number(process.env.IMAGE_AUDIT_TIMEOU
 const SITEMAP_ATTEMPTS = Math.max(1, Math.min(10, Number(process.env.IMAGE_AUDIT_SITEMAP_ATTEMPTS || 6)));
 const SITEMAP_RETRY_DELAY_MS = Math.max(500, Number(process.env.IMAGE_AUDIT_SITEMAP_RETRY_DELAY_MS || 5_000));
 const REPORT_PATH = process.env.IMAGE_AUDIT_REPORT || 'image-discover-production-report.json';
+const FALLBACK_SNAPSHOT_PATH = new URL('./image-discover-priority-url-snapshot.json', import.meta.url);
 
 const PRIORITY_PATHS = [
   /^\/destination\//,
@@ -64,7 +65,7 @@ async function fetchWithTimeout(url, options = {}) {
     return await fetch(url, {
       redirect: 'follow',
       ...options,
-      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.3 (+https://texasdefined.com)', ...(options.headers || {}) },
+      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.4 (+https://texasdefined.com)', ...(options.headers || {}) },
       signal: controller.signal,
     });
   } finally { clearTimeout(id); }
@@ -133,6 +134,26 @@ function discoverGeometry(width, height) {
   return { ok: true, reason: '' };
 }
 
+function loadFallbackSnapshot(lastError) {
+  const snapshot = JSON.parse(fs.readFileSync(FALLBACK_SNAPSHOT_PATH, 'utf8'));
+  const urls = [...new Set(snapshot.priorityUrls || [])]
+    .map(absolute)
+    .filter(Boolean)
+    .filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname)));
+  if (!urls.length) throw new Error(`Production sitemap unavailable and fallback priority snapshot is empty: ${lastError?.message || 'unknown error'}`);
+  console.warn(`Production sitemap unavailable after ${SITEMAP_ATTEMPTS} attempts; using ${urls.length} last-known-good priority URL(s) from ${snapshot.source || 'repository snapshot'}.`);
+  return {
+    urls,
+    inventory: {
+      source: 'repository-fallback-snapshot',
+      sitemapError: lastError?.message || 'unknown error',
+      snapshotGeneratedAt: snapshot.generatedAt || null,
+      snapshotSource: snapshot.source || null,
+      snapshotHeadSha: snapshot.sourceHeadSha || null,
+    },
+  };
+}
+
 async function loadPriorityUrls() {
   let lastError;
   for (let attempt = 1; attempt <= SITEMAP_ATTEMPTS; attempt += 1) {
@@ -142,15 +163,17 @@ async function loadPriorityUrls() {
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const urls = [...text.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => absolute(match[1])).filter(Boolean);
       if (!urls.length) throw new Error('sitemap returned no URLs');
-      console.log(`Loaded production sitemap on attempt ${attempt} (${urls.length} URL(s)).`);
-      return [...new Set(urls)].filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname)));
+      const priorityUrls = [...new Set(urls)].filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname)));
+      if (!priorityUrls.length) throw new Error('sitemap returned no priority URLs');
+      console.log(`Loaded production sitemap on attempt ${attempt} (${urls.length} URL(s), ${priorityUrls.length} priority URL(s)).`);
+      return { urls: priorityUrls, inventory: { source: 'production-sitemap', sitemapUrl, sitemapAttempts: attempt } };
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
       console.warn(`Production sitemap attempt ${attempt}/${SITEMAP_ATTEMPTS} failed: ${lastError.message}`);
       if (attempt < SITEMAP_ATTEMPTS) await sleep(SITEMAP_RETRY_DELAY_MS);
     }
   }
-  throw new Error(`Production sitemap unavailable after ${SITEMAP_ATTEMPTS} attempts: ${lastError?.message || 'unknown error'}`);
+  return loadFallbackSnapshot(lastError);
 }
 
 async function auditPage(url) {
@@ -184,7 +207,7 @@ async function mapConcurrent(items, worker, concurrency) {
   return results;
 }
 
-const urls = await loadPriorityUrls();
+const { urls, inventory } = await loadPriorityUrls();
 const pages = await mapConcurrent(urls, auditPage, CONCURRENCY);
 const uniqueImageUrls = [...new Set(pages.filter((page) => page.indexable && page.image?.url).map((page) => page.image.url))];
 const imageChecks = new Map();
@@ -216,7 +239,7 @@ const failing = pages.filter((page) => page.issues.length > 0);
 const warningPages = pages.filter((page) => page.warnings.length > 0);
 const noindex = pages.filter((page) => !page.indexable);
 const report = {
-  generatedAt: new Date().toISOString(), baseUrl: BASE_URL,
+  generatedAt: new Date().toISOString(), baseUrl: BASE_URL, inventory,
   googleDiscoverContract: { minWidth: MIN_DISCOVER_WIDTH, minPixels: MIN_DISCOVER_PIXELS, requiresLargeImagePreview: true, requiresRepresentativePreferredImage: true },
   summary: { auditedPriorityPages: pages.length, indexablePages: pages.length - noindex.length, noindexPages: noindex.length, uniquePreferredImages: uniqueImageUrls.length, failingPages: failing.length, warningPages: warningPages.length, suspiciousReusedImages: suspiciousReuse.length },
   suspiciousReuse, failing,
@@ -224,7 +247,7 @@ const report = {
   noindex: noindex.map((page) => ({ url: page.url, directives: page.directives, issues: page.issues, warnings: page.warnings })),
 };
 fs.writeFileSync(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
-console.log(JSON.stringify(report.summary, null, 2));
+console.log(JSON.stringify({ inventory, ...report.summary }, null, 2));
 if (warningPages.length) console.warn(`Image/Discover production audit found ${warningPages.length} priority page(s) with non-blocking metadata, fallback-copy, upstream rate-limit, or reuse warnings.`);
 if (failing.length) {
   console.error(`Image/Discover production audit found ${failing.length} priority page(s) with blocking issues.`);
