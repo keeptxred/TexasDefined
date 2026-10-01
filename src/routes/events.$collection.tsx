@@ -30,10 +30,12 @@ function WeekendCollectionPage({ page }: { page: any }) {
     .filter((section: any) => section.id !== "best")
     .map((section: any) => {
       const items = section.items.filter((event: any) => !usedSlugs.has(event.slug));
+      const minimumAfterDedupe = section.id === "worth-the-drive" ? 3 : 2;
+      if (items.length < minimumAfterDedupe) return null;
       items.forEach((event: any) => usedSlugs.add(event.slug));
       return { ...section, items };
     })
-    .filter((section: any) => section.items.length > 0);
+    .filter(Boolean);
 
   const tripBuilderItems = (best?.items ?? []).filter((event: any) => event.tripLinks?.length).slice(0, 3);
 
