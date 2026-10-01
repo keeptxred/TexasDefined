@@ -8,7 +8,6 @@ import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
 import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
-import { getFishingLakeSocialImage } from "@/data/fishing/lake-social-image.functions";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
 import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
@@ -22,6 +21,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
+    const { getFishingLakeSocialImage } = await import("@/data/fishing/lake-social-image.functions");
     const socialImage = await getFishingLakeSocialImage(lake.slug);
     if (params.slug === LAKE_CONROE_SLUG) {
       const pageData = await getLakeConroePageData();
