@@ -11,6 +11,10 @@ const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 
 const failures = [];
 const locations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
+const hasRouteCall = (source, functionName, publicPath) => {
+  const generatedPath = publicPath.replace('/$location', '_/$location');
+  return [publicPath, generatedPath].some((routeId) => source.includes(`${functionName}('${routeId}')`) || source.includes(`${functionName}("${routeId}")`));
+};
 
 for (const slug of locations) {
   if (!profiles.includes(`slug: '${slug}'`)) failures.push(`Local cost-of-living registry missing ${slug}.`);
@@ -31,19 +35,12 @@ for (const marker of [
   if (!profiles.includes(marker) && !page.includes(marker)) failures.push(`Local cost-of-living authority contract missing ${marker}.`);
 }
 
-for (const marker of [
-  "createFileRoute('/texas-cost-of-living-calculator/$location')",
-  'getLocalCostOfLivingPage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
+if (!hasRouteCall(route, 'createFileRoute', '/texas-cost-of-living-calculator/$location')) failures.push("Local cost-of-living route missing createFileRoute for /texas-cost-of-living-calculator/$location.");
+for (const marker of ['getLocalCostOfLivingPage', 'notFound()', 'loaderData?.page.head']) {
   if (!route.includes(marker)) failures.push(`Local cost-of-living route missing ${marker}.`);
 }
-for (const marker of [
-  "createLazyFileRoute('/texas-cost-of-living-calculator/$location')",
-  'LocalCostOfLivingPage',
-  'page.profile',
-]) {
+if (!hasRouteCall(lazyRoute, 'createLazyFileRoute', '/texas-cost-of-living-calculator/$location')) failures.push("Local cost-of-living lazy route missing createLazyFileRoute for /texas-cost-of-living-calculator/$location.");
+for (const marker of ['LocalCostOfLivingPage', 'page.profile']) {
   if (!lazyRoute.includes(marker)) failures.push(`Local cost-of-living lazy route missing ${marker}.`);
 }
 for (const marker of [
