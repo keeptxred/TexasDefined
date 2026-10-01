@@ -14,15 +14,6 @@ export function hideImageFallbackLabel(image: HTMLImageElement) {
   if (fallbackLabel) fallbackLabel.style.display = "none";
 }
 
-export function collapseFailedImageFrame(image: HTMLImageElement) {
-  const frame = image.closest<HTMLElement>("[data-image-frame]");
-  if (frame) {
-    frame.style.display = "none";
-    return true;
-  }
-  return false;
-}
-
 export function recoverOrHideImage(image: HTMLImageElement, fallback?: ImageFallback) {
   if (fallback && image.dataset.fallbackSrc !== fallback.src) {
     image.dataset.fallbackSrc = fallback.src;
@@ -31,7 +22,9 @@ export function recoverOrHideImage(image: HTMLImageElement, fallback?: ImageFall
     return;
   }
 
-  if (!collapseFailedImageFrame(image)) image.style.display = "none";
+  const frame = image.closest<HTMLElement>("[data-image-frame]");
+  if (frame) frame.style.display = "none";
+  else image.style.display = "none";
 }
 
 export function hideFailedImageContainer(image: HTMLImageElement, selector = "figure") {
@@ -41,5 +34,5 @@ export function hideFailedImageContainer(image: HTMLImageElement, selector = "fi
     return;
   }
 
-  if (!collapseFailedImageFrame(image)) image.style.display = "none";
+  image.style.display = "none";
 }
