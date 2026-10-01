@@ -51,7 +51,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['How to start a business in Texas', '/start-a-business-in-texas'],
       ['How Texas sales tax works', '/texas-sales-tax-explained'],
       ['Understand property taxes', '/learn/property-taxes'],
-      ['Property-tax guide library', '/property-tax-guides'],
+      ['Texas property-tax guide', '/property-tax-guides'],
       ['Property-tax calculator toolkit', '/property-tax-calculators'],
       ['County property-tax guides', '/property-tax/counties'],
       ['File a homestead exemption', '/do/homestead-exemption'],
