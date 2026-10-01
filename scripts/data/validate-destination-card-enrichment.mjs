@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const card = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationCard.tsx'), 'utf8');
+const imageFallback = fs.readFileSync(path.join(root, 'src/lib/image-fallback.ts'), 'utf8');
 const categoryRoute = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
 const regionRoute = fs.readFileSync(path.join(root, 'src/routes/explore.region.$region.tsx'), 'utf8');
 const errors = [];
@@ -30,10 +31,17 @@ for (const feature of [
   'destinationCardImageFallbacks',
   '"caddo-lake-national-wildlife-refuge"',
   'onError={(event) =>',
-  'image.dataset.fallback',
-  'image.style.display = "none"',
+  'recoverOrHideImage(event.currentTarget',
 ]) {
   if (!card.includes(feature)) errors.push(`Destination card image-failure safeguard missing: ${feature}`);
+}
+
+for (const feature of [
+  'image.dataset.fallback',
+  'image.style.display = "none"',
+  'collapseFailedImageFrame',
+]) {
+  if (!imageFallback.includes(feature)) errors.push(`Shared destination image-failure safeguard missing: ${feature}`);
 }
 
 for (const feature of [
