@@ -5,14 +5,14 @@ import { Container } from '@/components/layout/Container';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/property';
-const description = 'Texas Defined’s homeowner and property hub for official local property-tax rates, parcel estimates, exemptions, appraisal protests, county guides, calculators, buying a home and ownership costs.';
+const description = 'Texas homeowner hub for property taxes, exemptions, protests, county guides, calculators and ownership costs.';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
 const startHere = [
-  { to: '/buying-a-home-in-texas', label: 'Buying a home in Texas', body: 'Build the purchase from affordability and cash to close through mortgage, local taxes, insurance, closing and post-closing reserves.' },
-  { to: '/property-tax-guides', label: 'Texas property-tax hub', body: 'Start with the 2026 statewide command center for exemptions, protests, deadlines, rates, bills, calculators and local tax resources.' },
-  { to: '/texas-property-tax-estimator', label: 'Estimate your property taxes', body: 'Choose county, school district, city and applicable special districts, then load finalized official rates.' },
-  { to: '/browse/counties', label: 'Find your county', body: 'Open the county guide for local tax rates, appraisal, exemption, protest, payment and office resources.' },
+  { to: '/buying-a-home-in-texas', label: 'Buying a home in Texas', body: 'Plan affordability, financing, taxes, insurance, closing and reserves.' },
+  { to: '/property-tax-guides', label: 'Texas property-tax hub', body: 'Use the 2026 hub for exemptions, protests, deadlines, rates, bills and local resources.' },
+  { to: '/texas-property-tax-estimator', label: 'Estimate your property taxes', body: 'Select the local taxing units, then load finalized official rates.' },
+  { to: '/browse/counties', label: 'Find your county', body: 'Find local rates, appraisal, exemption, protest and payment resources.' },
 ] as const;
 
 const roadmap = [
