@@ -37,6 +37,18 @@ jobs:
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
 
+      # Temporary PR-only diagnostic. The canonical runner already writes this
+      # report; uploading it exposes the exact failure set without weakening or
+      # bypassing any required check. Revert this step after diagnosis.
+      - name: Upload canonical validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: premerge-validation-report
+          path: premerge-validation-report.json
+          if-no-files-found: warn
+          retention-days: 1
+
   protected-context:
     name: Required Merge Gate
     needs: required
