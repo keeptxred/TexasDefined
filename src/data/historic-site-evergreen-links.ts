@@ -157,6 +157,22 @@ const routeGuides: RouteGuide[] = [
     },
   },
   {
+    slugs: new Set(["sam-rayburn-house"]),
+    item: {
+      name: "Who was Sam Rayburn?",
+      description: "Read the Texas Defined biography of the longtime U.S. House Speaker whose Bonham home is preserved here.",
+      href: "/texas-icons/sam-rayburn",
+    },
+  },
+  {
+    slugs: new Set(["sam-rayburn-house"]),
+    item: {
+      name: "Sam Rayburn Reservoir",
+      description: "See the East Texas reservoir Congress renamed for Sam Rayburn in 1963; it impounds the Angelina River and carries his name into the Piney Woods landscape.",
+      href: "/fishing/lakes/sam-rayburn-reservoir",
+    },
+  },
+  {
     slugs: new Set([
       "levi-jordan-plantation",
       "varner-hogg-plantation",
