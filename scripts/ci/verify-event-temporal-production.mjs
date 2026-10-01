@@ -101,8 +101,12 @@ async function fetchProduction(path, label) {
 }
 
 function parseVerifiedGuideCount(html, label, pattern = /([0-9,]+)\s+verified event guides/i) {
-  const decoded = decodeHtmlEntities(html);
-  const match = decoded.match(pattern);
+  const visibleText = decodeHtmlEntities(html)
+    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ');
+  const match = visibleText.match(pattern);
   assert(match, `${label} must visibly expose its verified event-guide count`);
   const count = Number(match[1].replace(/,/g, ''));
   assert(Number.isFinite(count), `${label} verified event-guide count must be numeric`);
