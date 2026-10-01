@@ -9,14 +9,16 @@ export const majorEventSchemaEnrichmentOverrides: MajorEventSchemaEnrichment[] =
       url: "https://chappellhillhistoricalsociety.com/",
     },
     image: {
-      url: "https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival-20260914.webp",
-      alt: "AI-generated Texas Bluebonnet Festival scene with Texas flags, bluebonnets, vendor tents, visitors and a Ferris wheel",
-      sourceUrl: "https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival-20260914.webp",
-      sourceType: "ai-generated",
-      rightsNote: "TexasDefined-generated photorealistic editorial image approved for site use.",
-      exactLocation: false,
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/ChappellHillTexas_(1_of_1).jpg?width=1600",
+      alt: "Historic Main Street in Chappell Hill, the downtown setting for the annual Bluebonnet Festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:ChappellHillTexas_(1_of_1).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary / Wikimedia Commons · CC BY-SA 4.0. Exact Chappell Hill Main Street setting; not represented as festival-day documentary photography.",
+      exactLocation: true,
       approvedForCommercialUse: true,
-      aiGenerated: true,
+      aiGenerated: false,
     },
     sources: [
       {
@@ -32,6 +34,6 @@ export const majorEventSchemaEnrichmentOverrides: MajorEventSchemaEnrichment[] =
         url: "https://visitbrenhamtexas.com/things/wildflower-watch/wildflower-driving-map/",
       },
     ],
-    verifiedAt: "2026-09-12",
+    verifiedAt: "2026-10-01",
   },
 ];
