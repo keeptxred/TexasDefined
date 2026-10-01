@@ -5,6 +5,7 @@ const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY |
 
 const PAGE_SIZE = 500;
 const MAX_REMOTE_DESTINATIONS = 5000;
+const REMOTE_FETCH_TIMEOUT_MS = 8_000;
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export function hasExploreRemoteData(): boolean {
@@ -283,7 +284,10 @@ async function fetchExplorePage(params: URLSearchParams, offset: number, limit: 
   const pageParams = new URLSearchParams(params);
   pageParams.set("offset", String(offset));
   pageParams.set("limit", String(limit));
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, { headers: headers() });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, {
+    headers: headers(),
+    signal: AbortSignal.timeout(REMOTE_FETCH_TIMEOUT_MS),
+  });
   if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) ? rows : [];
@@ -326,7 +330,10 @@ export async function fetchExploreDestination(slug: string): Promise<Destination
     status: "in.(published,verified)",
     limit: "1",
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, {
+    headers: headers(),
+    signal: AbortSignal.timeout(REMOTE_FETCH_TIMEOUT_MS),
+  });
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
