@@ -45,21 +45,14 @@ function Page() {
       <UilFootballProgramDirectory programs={programs} />
 
       {privatePrograms.length > 0 && <section className="border-b border-border py-12">
-        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
-          <div>
-            <p className="eyebrow text-primary">Beyond the UIL directory</p>
-            <h2 className="mt-2 font-display text-3xl leading-tight">Private and non-UIL program guides</h2>
-          </div>
-          <div>
-            <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Source-backed private and non-UIL guides are listed separately, preserving the 1,268-school UIL directory while keeping every published profile crawlable.</p>
-            <ul className="mt-7 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-              {privatePrograms.map((program) => <li key={program.slug} className="border-t border-border pt-3">
-                <a href={program.profilePath} className="font-semibold hover:text-primary">{program.schoolName}</a>
-                {program.governingBodyHint && <span className="ml-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">{program.governingBodyHint}</span>}
-              </li>)}
-            </ul>
-          </div>
-        </div>
+        <p className="eyebrow text-primary">Beyond UIL</p>
+        <h2 className="mt-2 font-display text-3xl">Private and non-UIL program guides</h2>
+        <ul className="mt-7 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+          {privatePrograms.map((program) => <li key={program.slug} className="border-t border-border pt-3">
+            <a href={program.profilePath} className="font-semibold hover:text-primary">{program.schoolName}</a>
+            {program.governingBodyHint && <span className="ml-2 text-xs uppercase text-muted-foreground">{program.governingBodyHint}</span>}
+          </li>)}
+        </ul>
       </section>}
 
       <section className="border-b border-border py-12">
