@@ -1,4 +1,5 @@
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getTexasIconProfile } from "@/data/texas-icons.functions";
@@ -115,6 +116,7 @@ function TexasIconProfilePage() {
           </header>
 
           <NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} />
+          {icon.slug === "sam-rayburn" ? <SamRayburnContext surface="profile" /> : null}
 
           <section className="py-12">
             <div className="flex items-end justify-between gap-6 border-b border-border pb-4">
