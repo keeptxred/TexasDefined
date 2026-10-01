@@ -17,10 +17,10 @@ const routes = [
   ['/compare-texas-cities/dallas-vs-austin', 'Dallas vs Austin'],
   ['/compare-texas-cities/dallas-vs-san-antonio', 'Dallas vs San Antonio'],
   ['/compare-texas-cities/austin-vs-san-antonio', 'Austin vs San Antonio'],
-  ['/texas-vs/california', 'Texas vs California'],
+  ['/article/texas-vs-california-differences', 'Texas vs. California'],
   ['/texas-vs/new-york', 'Texas vs New York'],
   ['/texas-vs/illinois', 'Texas vs Illinois'],
-  ['/texas-vs/florida', 'Texas vs Florida'],
+  ['/article/texas-vs-florida-differences', 'Texas vs. Florida'],
   ['/texas-vs/colorado', 'Texas vs Colorado'],
   ['/moving-to-texas-checklist', 'What to do during your first 30 days in Texas'],
   ['/article/best-houston-suburbs-for-commuters', 'Best Houston Suburbs for Commuters'],
@@ -32,6 +32,10 @@ const routes = [
   ['/article/how-to-verify-texas-moving-company', 'How to Verify a Texas Moving Company'],
   ['/article/health-insurance-when-moving-to-texas', 'Health Insurance When Moving to Texas'],
   ['/article/military-family-moving-to-texas', 'Military Family Moving to Texas'],
+];
+const redirectRoutes = [
+  ['/texas-vs/california', '/article/texas-vs-california-differences'],
+  ['/texas-vs/florida', '/article/texas-vs-florida-differences'],
 ];
 const toolkitLinks = routes
   .map(([path]) => path)
@@ -113,6 +117,57 @@ async function fetchLive(path, label, validate) {
   throw lastError instanceof Error ? lastError : new Error(`${label}: request failed`);
 }
 
+async function verifyRedirect(fromPath, toPath) {
+  let lastError;
+  for (let attempt = 1; attempt <= RETRY_ATTEMPTS; attempt += 1) {
+    const url = `${origin}${fromPath}?relocation_redirect_verify=${Date.now()}-${attempt}`;
+    try {
+      const response = await fetch(url, {
+        redirect: 'manual',
+        cache: 'no-store',
+        signal: AbortSignal.timeout(30000),
+        headers: {
+          'user-agent': 'TexasDefined-Relocation-Production-Smoke/1.0',
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+        },
+      });
+      const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
+      const location = response.headers.get('location');
+
+      if (response.status === 301 && !challenged && location) {
+        const destination = new URL(location, origin);
+        if (destination.origin === origin && destination.pathname === toPath) {
+          console.log(`PASS ${fromPath}: 301 -> ${toPath}`);
+          return;
+        }
+        lastError = new Error(
+          `${fromPath}: expected redirect to ${origin}${toPath}, received ${destination.origin}${destination.pathname}`,
+        );
+      } else {
+        lastError = new Error(
+          `${fromPath}: expected HTTP 301 redirect, received ${response.status}${challenged ? ' with Cloudflare challenge' : ''}`,
+        );
+      }
+    } catch (error) {
+      lastError = error;
+    }
+
+    if (attempt < RETRY_ATTEMPTS) {
+      console.warn(
+        `Retrying redirect ${fromPath} after production response was not ready (attempt ${attempt}/${RETRY_ATTEMPTS})`,
+      );
+      await sleep(RETRY_DELAY_MS);
+    }
+  }
+
+  throw lastError instanceof Error ? lastError : new Error(`${fromPath}: redirect verification failed`);
+}
+
+for (const [fromPath, toPath] of redirectRoutes) {
+  await verifyRedirect(fromPath, toPath);
+}
+
 for (const [path, needle] of routes) {
   const { response } = await fetchLive(
     path,
@@ -191,7 +246,7 @@ await fetchLive(
 );
 
 const { body: robots } = await fetchLive('/robots.txt', 'robots.txt');
-for (const [path] of routes) {
+for (const path of [...routes.map(([routePath]) => routePath), ...redirectRoutes.map(([fromPath]) => fromPath)]) {
   if (
     robots
       .split(/\r?\n/)
@@ -207,7 +262,12 @@ for (const [path] of routes) {
     throw new Error(`sitemap.xml missing ${origin}${path}`);
   }
 }
+for (const [fromPath] of redirectRoutes) {
+  if (sitemap.includes(`<loc>${origin}${fromPath}</loc>`)) {
+    throw new Error(`sitemap.xml should not include redirect-only URL ${origin}${fromPath}`);
+  }
+}
 
 console.log(
-  `TexasDefined relocation production verification passed for ${routes.length} canonical, indexable relocation URLs.`,
+  `TexasDefined relocation production verification passed for ${routes.length} canonical, indexable relocation URLs and ${redirectRoutes.length} canonical redirects.`,
 );
