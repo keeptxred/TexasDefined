@@ -38,14 +38,16 @@ export const Route = createFileRoute('/texas-data')({
             '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts and Figures', description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` }, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             dataset: [
-              ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
+              ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year), creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` } })),
               {
                 '@type': 'Dataset',
                 '@id': `${absoluteUrl(texasDefinedBrand, sportsComparisonPath)}#dataset`,
                 name: 'Texas Sports Venue Comparison',
                 description: 'A maintained comparison of 84 verified Texas sports venue guides by location, venue type, capacity and opening information where available.',
                 url: absoluteUrl(texasDefinedBrand, sportsComparisonPath),
-                spatialCoverage: { '@type': 'State', name: 'Texas' },
+                spatialCoverage: { '@type': 'AdministrativeArea', name: 'Texas' },
+                creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+                publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
                 distribution: {
                   '@type': 'DataDownload',
                   encodingFormat: 'text/csv',
