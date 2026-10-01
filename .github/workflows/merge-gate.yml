@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: premerge-validation-report
-          path: .audit/reports/premerge-validation-report.json
+          path: premerge-validation-report.json
           if-no-files-found: ignore
           retention-days: 7
 
