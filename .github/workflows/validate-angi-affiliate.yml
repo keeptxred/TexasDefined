@@ -1,0 +1,38 @@
+name: Validate Angi affiliate
+
+on:
+  pull_request:
+    paths:
+      - 'public/angi-home-services.js'
+      - 'public/city-experience-affiliate.js'
+      - 'src/routes/__root.tsx'
+      - 'docs/angi-affiliate-integration.md'
+      - 'scripts/data/validate-angi-affiliate.mjs'
+      - '.github/workflows/validate-angi-affiliate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/angi-home-services.js'
+      - 'public/city-experience-affiliate.js'
+      - 'src/routes/__root.tsx'
+      - 'docs/angi-affiliate-integration.md'
+      - 'scripts/data/validate-angi-affiliate.mjs'
+      - '.github/workflows/validate-angi-affiliate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Angi affiliate integration
+        run: node scripts/data/validate-angi-affiliate.mjs
+      - name: Syntax-check client modules
+        run: |
+          node --check public/angi-home-services.js
+          node --check public/city-experience-affiliate.js
