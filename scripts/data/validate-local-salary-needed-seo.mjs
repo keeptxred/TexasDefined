@@ -16,6 +16,10 @@ const salaryCalculator = fs.readFileSync('src/routes/texas-salary-calculator.laz
 const budgetPlanner = fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8');
 const failures = [];
 const locations = ['houston', 'austin', 'dallas', 'fort-worth', 'san-antonio', 'frisco', 'el-paso'];
+const hasRouteCall = (source, functionName, publicPath) => {
+  const generatedPath = publicPath.replace('/$location', '_/$location');
+  return [publicPath, generatedPath].some((routeId) => source.includes(`${functionName}('${routeId}')`) || source.includes(`${functionName}("${routeId}")`));
+};
 
 for (const slug of locations) {
   if (!profiles.includes(`/texas-salary-needed-calculator/${'${local.slug}'}`) && !profiles.includes(`LOCAL_COST_OF_LIVING_PROFILES.map`)) failures.push(`Salary-needed registry is not derived from the governed local cost profiles (${slug}).`);
@@ -23,8 +27,10 @@ for (const slug of locations) {
   if (!movingHub.includes(path)) failures.push(`Moving-to-Texas hub must expose crawlable salary-needed discovery for ${slug}.`);
 }
 for (const marker of ['LOCAL_SALARY_NEEDED_PROFILES', 'LOCAL_SALARY_NEEDED_PROFILE_BY_SLUG', 'made-up citywide salary requirement', 'salaryPath']) if (!profiles.includes(marker)) failures.push(`Salary-needed registry missing ${marker}.`);
-for (const marker of ["createFileRoute('/texas-salary-needed-calculator/$location')", 'getLocalSalaryNeededPage', 'notFound()', 'loaderData?.page.head']) if (!route.includes(marker)) failures.push(`Salary-needed route missing ${marker}.`);
-for (const marker of ["createLazyFileRoute('/texas-salary-needed-calculator/$location')", 'LocalSalaryNeededPage', 'page.profile', 'page.faqs']) if (!lazyRoute.includes(marker)) failures.push(`Salary-needed lazy route missing ${marker}.`);
+if (!hasRouteCall(route, 'createFileRoute', '/texas-salary-needed-calculator/$location')) failures.push('Salary-needed route missing createFileRoute for /texas-salary-needed-calculator/$location.');
+for (const marker of ['getLocalSalaryNeededPage', 'notFound()', 'loaderData?.page.head']) if (!route.includes(marker)) failures.push(`Salary-needed route missing ${marker}.`);
+if (!hasRouteCall(lazyRoute, 'createLazyFileRoute', '/texas-salary-needed-calculator/$location')) failures.push('Salary-needed lazy route missing createLazyFileRoute for /texas-salary-needed-calculator/$location.');
+for (const marker of ['LocalSalaryNeededPage', 'page.profile', 'page.faqs']) if (!lazyRoute.includes(marker)) failures.push(`Salary-needed lazy route missing ${marker}.`);
 for (const marker of ['createServerFn', "import('./local-salary-needed-page.server')"]) if (!boundary.includes(marker)) failures.push(`Salary-needed server boundary missing ${marker}.`);
 for (const marker of ["'@type': 'WebApplication'", "'@type': 'BreadcrumbList'", "'@type': 'FAQPage'", 'canonicalLink(texasDefinedBrand, profile.salaryPath)', 'buildMeta(texasDefinedBrand']) if (!server.includes(marker)) failures.push(`Salary-needed server head missing ${marker}.`);
 for (const marker of ['Monthly household budget', 'Monthly savings / reserve', 'Federal filing status', 'Pre-tax retirement / benefits', 'Other annual payroll deductions', 'Planning gross income', 'source-versioned 2026 federal engine', 'CalculatorActions', 'Planning only.', 'profile.path', 'profile.propertyTaxHref', 'profile.affordabilityHref', 'profile.homeownershipHref', 'profile.insuranceHref', 'profile.relocationHref', '/texas-salary-calculator', '/texas-budget-planner']) if (!page.includes(marker)) failures.push(`Salary-needed planner UI missing ${marker}.`);
