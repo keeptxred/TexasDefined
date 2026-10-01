@@ -92,6 +92,13 @@ const articleDiscoverHeroOverrides: Readonly<Record<string, ImageRef>> = {
     height: 1197,
     credit: "National Park Service · Public domain · Wikimedia Commons",
   },
+  "collin-county-mckinney-prairie-growth-texas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/McKinney_April_2017_001_(Historic_Collin_County_Courthouse).jpg?width=1600",
+    alt: "Historic Collin County Courthouse in downtown McKinney, the county seat of Collin County",
+    width: 1600,
+    height: 1067,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
+  },
 };
 
 export function articleDiscoverHero(articleSlug: string, currentHero: ImageRef): ImageRef {
