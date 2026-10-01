@@ -158,6 +158,16 @@ const routeGuides: RouteGuide[] = [
   },
   {
     slugs: new Set([
+      "sam-rayburn-house",
+    ]),
+    item: {
+      name: "Who was Sam Rayburn?",
+      description: "Read the dedicated Texas Defined profile of Sam Rayburn, from his Fannin County roots and Texas House service to his record-setting tenure as Speaker of the U.S. House.",
+      href: "/texas-icons/sam-rayburn",
+    },
+  },
+  {
+    slugs: new Set([
       "levi-jordan-plantation",
       "varner-hogg-plantation",
       "first-capitol-of-texas",
