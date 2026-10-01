@@ -7,6 +7,7 @@ const requireText = (source, needle, label) => {
 
 const article = fs.readFileSync('src/data/fixtures/texas-gateway-index-readiness.ts', 'utf8');
 const destination = fs.readFileSync('src/data/destination-audit.ts', 'utf8');
+const destinationRuntime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const newsRoute = fs.readFileSync('src/routes/news.$slug.tsx', 'utf8');
@@ -33,12 +34,9 @@ for (const [needle, label] of [
   ['readyForIndexing: errors === 0', 'destination fail-closed index decision'],
 ]) requireText(destination, needle, label);
 
-for (const [needle, label] of [
-  ['isArticleIndexReady', 'sitemap article readiness integration'],
-  ['filterSeoReadyDestinations', 'sitemap destination readiness integration'],
-]) requireText(sitemap, needle, label);
-
-requireText(articleRoute, 'isArticleIndexReady(article)', 'article route noindex readiness integration');
+requireText(destinationRuntime, 'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))', 'destination catalog readiness integration');
+requireText(sitemap, 'isArticleIndexReady', 'sitemap article readiness integration');
+requireText(articleRoute, 'shouldNoindexTexasGatewayArticle(article)', 'article route noindex readiness integration');
 requireText(newsRoute, 'isArticleIndexReady(article)', 'news route noindex readiness integration');
 
 for (const phrase of [
@@ -56,4 +54,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Page publication contract is wired upstream: article and destination readiness reject malformed/thin structures before indexability, routes and sitemap consume the shared gates, and the fail-closed policy is documented.');
+console.log('Page publication contract is wired upstream: article and destination readiness reject malformed/thin structures before indexability, route/catalog/sitemap surfaces consume the shared gates, and the fail-closed policy is documented.');
