@@ -166,6 +166,7 @@ export const supplementalMajorEventSlugs = [
   "big-bend-bluegrass-festival",
   "flying-island-music-festival",
   "sfa-homecoming",
+  "los-muertos-bailan",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
