@@ -34,7 +34,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             url: pageUrl,
             dateModified: loaderData.updated,
             temporalCoverage: String(loaderData.year),
-            spatialCoverage: { '@type': 'State', name: 'Texas' },
+            spatialCoverage: { '@type': 'AdministrativeArea', name: 'Texas' },
             keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
             creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
