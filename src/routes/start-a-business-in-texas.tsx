@@ -46,7 +46,7 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
 
 function Page() {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas business guide…</div>}>
+    <Suspense fallback={<div className="p-5 text-sm" role="status">Loading guide…</div>}>
       <StartBusinessTexasGuide />
     </Suspense>
   );
