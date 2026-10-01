@@ -1,0 +1,22 @@
+name: Diagnose event occurrences
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/diagnose-event-occurrences.yml'
+      - 'data/event-occurrences.json'
+      - 'src/data/**'
+      - 'src/routes/events.$collection.tsx'
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show generated occurrence diff
+        run: |
+          npm run generate:event-occurrences
+          git diff -- data/event-occurrences.json
