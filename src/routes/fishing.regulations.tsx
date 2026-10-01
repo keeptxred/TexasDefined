@@ -13,6 +13,7 @@ import {
   TPWD_FRESHWATER_EXCEPTIONS_URL,
   TPWD_FRESHWATER_LIMITS_URL,
 } from "@/data/fishing/regulations-routing";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -47,7 +48,7 @@ export const Route = createFileRoute("/fishing/regulations")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Regulations & Licenses — What to Verify Before You Fish", description, canonicalPath: FISHING_REGULATIONS_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_REGULATIONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Regulations & Licenses — What to Verify Before You Fish", description, canonicalPath: FISHING_REGULATIONS_PATH, ...fishingGenericSocialMeta }), links: [canonicalLink(texasDefinedBrand, FISHING_REGULATIONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingRegulationsPage,
 });
