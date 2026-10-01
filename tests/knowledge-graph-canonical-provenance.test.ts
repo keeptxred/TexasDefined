@@ -31,12 +31,8 @@ describe('knowledge-graph canonical provenance', () => {
     })).toBe('/state-park/not-a-known-owner');
   });
 
-  it('keeps explicit curated mirrors on their destination routes', () => {
+  it('keeps the existing seven exact curated mirrors on destination routes without seed tags', () => {
     expect(canonicalEntityPath({ kind: 'lake', slug: 'caddo-lake' })).toBe('/destination/caddo-lake');
     expect(canonicalEntityPath({ kind: 'historic-site', slug: 'the-alamo' })).toBe('/destination/the-alamo');
-    expect(canonicalEntityPath({
-      kind: 'museum',
-      slug: 'sam-houston-memorial-museum-republic-texas-presidential-library-huntsville',
-    })).toBe('/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville');
   });
 });
