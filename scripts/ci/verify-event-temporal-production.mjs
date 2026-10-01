@@ -100,9 +100,9 @@ async function fetchProduction(path, label) {
   throw new Error(`${label} failed after retries — ${lastError || `HTTP ${lastStatus}`}`);
 }
 
-function parseVerifiedGuideCount(html, label) {
+function parseVerifiedGuideCount(html, label, pattern = /([0-9,]+)\s+verified event guides/i) {
   const decoded = decodeHtmlEntities(html);
-  const match = decoded.match(/([0-9,]+)\s+verified event guides/i);
+  const match = decoded.match(pattern);
   assert(match, `${label} must visibly expose its verified event-guide count`);
   const count = Number(match[1].replace(/,/g, ''));
   assert(Number.isFinite(count), `${label} verified event-guide count must be numeric`);
@@ -118,7 +118,16 @@ function verifyCollectionSchema(html, label) {
 }
 
 const collections = [
-  { path: '/events/this-weekend', threshold: 4, label: 'Texas this weekend', titleNeedle: 'Things to Do in Texas This Weekend' },
+  {
+    path: '/events/this-weekend',
+    threshold: 4,
+    label: 'Texas this weekend',
+    titleNeedle: 'Things to Do in Texas This Weekend',
+    planningNeedle: 'How TexasDefined chooses weekend events',
+    sourcePolicyNeedle: 'Verified occurrence first, evergreen planning second',
+    windowNeedle: 'Texas This Weekend ·',
+    countPattern: /([0-9,]+)\s+verified guides\b/i,
+  },
   { path: '/events/houston-this-weekend', threshold: 4, label: 'Houston this weekend', titleNeedle: 'Things to Do in Houston This Weekend' },
   { path: '/events/dallas-this-weekend', threshold: 4, label: 'Dallas-Fort Worth this weekend', titleNeedle: 'Things to Do in Dallas-Fort Worth This Weekend' },
   { path: '/events/austin-this-weekend', threshold: 4, label: 'Austin this weekend', titleNeedle: 'Things to Do in Austin This Weekend' },
@@ -137,10 +146,10 @@ async function verifyDynamicCollection(collection, sitemap) {
   const decoded = decodeHtmlEntities(html);
   assert(canonicalHref(html) === `${origin}${collection.path}`, `${collection.label} canonical must be ${origin}${collection.path}`);
   assert(decoded.includes(collection.titleNeedle), `${collection.label} must render its expected heading`);
-  assert(decoded.includes('How to plan it'), `${collection.label} must render planning context`);
-  assert(decoded.includes('Source policy'), `${collection.label} must render source-policy context`);
-  assert(decoded.includes('Current verified window:'), `${collection.label} must render its current rolling/seasonal window`);
-  const count = parseVerifiedGuideCount(html, collection.label);
+  assert(decoded.includes(collection.planningNeedle ?? 'How to plan it'), `${collection.label} must render planning context`);
+  assert(decoded.includes(collection.sourcePolicyNeedle ?? 'Source policy'), `${collection.label} must render source-policy context`);
+  assert(decoded.includes(collection.windowNeedle ?? 'Current verified window:'), `${collection.label} must render its current rolling/seasonal window`);
+  const count = parseVerifiedGuideCount(html, collection.label, collection.countPattern);
   const shouldIndex = count >= collection.threshold;
   const inSitemap = sitemap.includes(`<loc>${origin}${collection.path}</loc>`);
   assert(hasNoindex(html) === !shouldIndex, `${collection.label} robots policy must match ${count} guides and ${collection.threshold}-guide threshold`);
