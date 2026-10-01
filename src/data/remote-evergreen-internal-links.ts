@@ -14,6 +14,7 @@ const historyHub: ArticleInternalLink = {
 
 const historyLinks: Record<string, ArticleInternalLink[]> = {
   "sam-houston-texas-life-legacy": [
+    { href: "/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", label: "Sam Houston Memorial Museum & Republic of Texas Presidential Library", description: "Visit Houston's Huntsville home landscape, Steamboat House, artifact collections and Republic-era research hub." },
     { href: "/article/stephen-f-austin-father-of-texas", label: "Stephen F. Austin and the settlement era", description: "Compare Houston's revolutionary and political career with the empresario most closely associated with Anglo-American settlement in Mexican Texas." },
     { href: "/article/mirabeau-b-lamar-president-republic-texas", label: "Mirabeau B. Lamar's rival vision", description: "See how the Republic's second president differed sharply from Houston on expansion, Native policy and the future of Texas." },
     { href: "/article/juan-seguin-tejano-texas-revolution", label: "Juan Seguín and the Tejano revolutionaries", description: "Add the Tejano military and political experience to the Texas Revolution story." },
