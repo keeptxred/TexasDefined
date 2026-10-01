@@ -54,6 +54,7 @@ jobs:
             premerge-validation-report.json
             performance-budget-report.txt
             full-validation-report.txt
+            .artifacts/built-worker-ssr-smoke.log
           if-no-files-found: warn
           retention-days: 7
 
