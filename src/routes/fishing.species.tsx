@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { getFishSpeciesDirectoryData } from "@/data/fishing/species-directory-data.functions";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
 import { buildMeta, canonicalLink } from "@/lib/seo";
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/fishing/species")({
       { "@type": "ListItem", position: 3, name: "Fish species", item: url },
     ] };
     return {
-      meta: buildMeta(texasDefinedBrand, { title: "Texas Fish Species Guide — Bass, Crappie, Catfish, Gar & Trout", description: "Browse Texas freshwater fishing species, see which complete lake guides have verified fishery relationships, and open source-backed statewide species guides as they publish.", canonicalPath }),
+      meta: buildMeta(texasDefinedBrand, { title: "Texas Fish Species Guide — Bass, Crappie, Catfish, Gar & Trout", description: "Browse Texas freshwater fishing species, see which complete lake guides have verified fishery relationships, and open source-backed statewide species guides as they publish.", canonicalPath, ...fishingGenericSocialMeta }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPage, faq, breadcrumb] }) }],
     };
