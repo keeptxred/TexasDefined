@@ -1,12 +1,29 @@
 import { loadMajorEventGuideDirectoryServer } from "./major-event-directory.server";
+import { getMajorEventRecordServer } from "./major-event-page.server";
+import { getMajorEventSchemaOccurrenceEnrichmentServer } from "./major-event-schema-enrichment.server";
 import { resolveTemporalEventCollectionServer, type TemporalEventDirectoryItem } from "./event-temporal-collections.server";
+
+export interface TexasThisWeekendTripLink {
+  href: string;
+  label: string;
+  description: string;
+}
+
+export interface TexasThisWeekendItem extends TemporalEventDirectoryItem {
+  whyGo?: string;
+  tripLinks: TexasThisWeekendTripLink[];
+  image?: {
+    url: string;
+    alt: string;
+  };
+}
 
 export interface TexasThisWeekendSection {
   id: string;
   title: string;
   description: string;
   href?: string;
-  items: TemporalEventDirectoryItem[];
+  items: TexasThisWeekendItem[];
 }
 
 export interface TexasThisWeekendDigest {
@@ -71,6 +88,10 @@ const gulfCoastWeekendCounties = new Set([
   "Cameron County",
 ]);
 
+const displayNameOverrides: Record<string, string> = {
+  "bill-pickett-rodeo-fort-worth": "Bill Pickett Invitational Rodeo",
+};
+
 const familySignal = /\b(family|families|kids|children|child|junior|youth)\b/i;
 const freeSignal = /\bfree\b/i;
 
@@ -108,6 +129,21 @@ function pickDistinct(items: TemporalEventDirectoryItem[], matches: SectionDefin
     if (!selected.some((item) => item.slug === event.slug)) selected.push(event);
   }
   return selected;
+}
+
+function enrichWeekendEvent(event: TemporalEventDirectoryItem): TexasThisWeekendItem {
+  const authority = getMajorEventRecordServer(event.slug);
+  const occurrence = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug);
+  return {
+    ...event,
+    name: displayNameOverrides[event.slug] ?? event.name,
+    whyGo: authority?.whyItMatters,
+    tripLinks: (authority?.relatedLinks ?? [])
+      .filter((link) => link.href.startsWith("/"))
+      .slice(0, 4)
+      .map(({ href, label, description }) => ({ href, label, description })),
+    image: occurrence?.image ? { url: occurrence.image.url, alt: occurrence.image.alt } : undefined,
+  };
 }
 
 const sections: SectionDefinition[] = [
@@ -239,10 +275,10 @@ export function loadTexasThisWeekendDigestServer(now = new Date()): TexasThisWee
   if (!collection) return null;
 
   const resolvedSections = sections.flatMap((section) => {
-    const items = pickDistinct(collection.items, section.matches, section.limit);
-    if (items.length < section.minimumItems) return [];
+    const selected = pickDistinct(collection.items, section.matches, section.limit);
+    if (selected.length < section.minimumItems) return [];
     const { matches: _matches, minimumItems: _minimumItems, limit: _limit, ...rest } = section;
-    return [{ ...rest, items }];
+    return [{ ...rest, items: selected.map(enrichWeekendEvent) }];
   });
 
   const top = resolvedSections.find((section) => section.id === "best")?.items ?? [];
