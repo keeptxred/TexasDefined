@@ -37,6 +37,26 @@ jobs:
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
 
+      - name: Capture performance-budget failure details
+        if: failure()
+        run: npm run performance:validate > performance-budget-report.txt 2>&1 || true
+
+      - name: Capture full-suite failure details
+        if: failure()
+        run: node scripts/ci/run-validation-suite.mjs full --collect-all > full-validation-report.txt 2>&1 || true
+
+      - name: Upload canonical pre-merge report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: premerge-validation-report
+          path: |
+            premerge-validation-report.json
+            performance-budget-report.txt
+            full-validation-report.txt
+          if-no-files-found: warn
+          retention-days: 7
+
   protected-context:
     name: Required Merge Gate
     needs: required
