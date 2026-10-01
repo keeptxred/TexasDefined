@@ -6,6 +6,9 @@ import type { Article, ImageRef } from "./types";
  * placeholder, or no longer reliably fetches. These are rights-safe,
  * representative images with attribution retained in the record so rendered
  * heroes, social previews and ImageObject metadata stay in sync.
+ *
+ * Keep this as a delivery-level correction: source fixtures remain historical,
+ * while every published surface receives the same governed hero override.
  */
 const ARTICLE_IMAGE_READINESS_OVERRIDES: Readonly<Record<string, ImageRef>> = {
   "ima-hogg-texas-legacy": {
