@@ -8,7 +8,7 @@ const COPY: Record<CityPassMarket, { heading: string; body: string }> = {
   },
   Houston: {
     heading: "Seeing several Houston attractions?",
-    body: "Houston CityPASS® covers five attractions from the current Houston lineup. Compare the pass price with the five admissions you would actually buy and account for any resident, military, student or promotional rates you already qualify for.",
+    body: "Houston CityPASS® covers five attractions from the current Houston lineup. Compare the pass price with the five admissions you would actually buy and account for discounts you qualify for.",
   },
   "San Antonio": {
     heading: "Building a San Antonio attraction weekend?",
