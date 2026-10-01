@@ -8,7 +8,7 @@ type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
 const seasonLabel: Record<string, string> = { spring: "Spring", summer: "Summer", fall: "Fall", winter: "Winter" };
 
 export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
-  const { species, profile, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
+  const { species, profile, heroImage, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
 
   return (
     <>
@@ -38,6 +38,24 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           </dl>
         </Container>
       </section>
+
+      <Container className="pt-8 sm:pt-10">
+        <figure className="overflow-hidden border border-border bg-muted/20">
+          <img
+            src={heroImage.src}
+            alt={heroImage.alt}
+            width={heroImage.width}
+            height={heroImage.height}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="aspect-[16/9] w-full object-cover"
+          />
+          <figcaption className="border-t border-border px-5 py-3 text-xs leading-5 text-muted-foreground">
+            {heroImage.credit} · <a href={heroImage.sourceUrl} target="_blank" rel="noreferrer noopener" className="underline decoration-border underline-offset-2 hover:text-foreground">Source</a>
+          </figcaption>
+        </figure>
+      </Container>
 
       <Container className="py-14 sm:py-20">
         <section className="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(280px,0.6fr)]">
