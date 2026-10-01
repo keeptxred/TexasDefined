@@ -37,12 +37,25 @@ jobs:
       - name: Run canonical pre-merge validation
         run: node scripts/ci/run-premerge-validation.mjs
 
-      - name: Upload pre-merge validation report
+      - name: Capture built client asset sizes
+        if: always()
+        run: |
+          if [ -d dist/client/assets ]; then
+            find dist/client/assets -maxdepth 1 -type f -printf '%f %s\n' | sort > client-asset-sizes.txt
+          elif [ -d .output/public/assets ]; then
+            find .output/public/assets -maxdepth 1 -type f -printf '%f %s\n' | sort > client-asset-sizes.txt
+          else
+            printf 'Client assets directory not found.\n' > client-asset-sizes.txt
+          fi
+
+      - name: Upload pre-merge diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: premerge-validation-report
-          path: premerge-validation-report.json
+          name: premerge-validation-diagnostics
+          path: |
+            premerge-validation-report.json
+            client-asset-sizes.txt
           if-no-files-found: warn
 
   protected-context:
