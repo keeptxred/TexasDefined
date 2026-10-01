@@ -42,7 +42,7 @@ function WeekendCollectionPage({ page }: { page: any }) {
   return <main>
     <section className="border-b border-border bg-surface py-10 sm:py-14"><Container>
       <nav aria-label="Breadcrumb" className="text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / <span aria-current="page">Texas This Weekend</span></nav>
-      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] lg:items-end">
+      <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:items-end">
         <div>
           <p className="eyebrow text-primary">Texas This Weekend · {digest.dateContext}</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.96] sm:text-7xl">The best things to do in Texas this weekend</h1>
@@ -65,7 +65,7 @@ function WeekendCollectionPage({ page }: { page: any }) {
           {best.items.map((event: any, index: number) => <li key={event.slug} className="flex min-h-64 flex-col bg-background">
             {event.image ? <div className="aspect-[4/3] overflow-hidden bg-muted"><img src={event.image.url} alt={event.image.alt} width={800} height={600} loading={index < 2 ? "eager" : "lazy"} decoding="async" className="size-full object-cover" /></div> : null}
             <div className="flex flex-1 flex-col p-6">
-              <div className="flex items-start justify-between gap-3"><p className="font-display text-4xl text-primary/35">0{index + 1}</p><span className="text-right text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{String(event.category).replaceAll("-", " ")}</span></div>
+              <div className="flex items-start justify-between gap-3"><p className="font-display text-4xl text-primary">0{index + 1}</p><span className="text-right text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{String(event.category).replaceAll("-", " ")}</span></div>
               <p className="eyebrow mt-4 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
               <EventGuideLink event={event} trackId={`weekend:best:${event.slug}`} className="mt-3 block font-display text-2xl leading-tight hover:text-primary">{event.name}</EventGuideLink>
               <p className="mt-3 text-xs font-medium leading-5 text-muted-foreground">{event.detail}</p>
