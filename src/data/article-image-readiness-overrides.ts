@@ -1,12 +1,11 @@
 import type { Article, ImageRef } from "./types";
 
 /**
- * Production image-readiness overrides for published articles whose original
- * editorial hero is either below Google's 1200px large-image threshold or no
- * longer reliably fetchable. These are intentionally rights-safe,
- * representative editorial images with explicit attribution retained in the
- * article hero so the rendered hero, social preview and ImageObject stay in
- * sync.
+ * Production image-readiness overrides for published editorial records whose
+ * original hero is below Google's 1200px large-image threshold, is a known
+ * placeholder, or no longer reliably fetches. These are rights-safe,
+ * representative images with attribution retained in the record so rendered
+ * heroes, social previews and ImageObject metadata stay in sync.
  */
 const ARTICLE_IMAGE_READINESS_OVERRIDES: Readonly<Record<string, ImageRef>> = {
   "ima-hogg-texas-legacy": {
@@ -71,6 +70,27 @@ const ARTICLE_IMAGE_READINESS_OVERRIDES: Readonly<Record<string, ImageRef>> = {
     width: 1600,
     height: 1197,
     credit: "National Park Service · Public domain · Wikimedia Commons",
+  },
+  "collin-county-mckinney-prairie-growth-texas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Collin_County_Courthouse_%281927%29%2C_McKinney%2C_Texas_%2828181193439%29.jpg?width=1600",
+    alt: "Historic 1927 Collin County Courthouse in McKinney, Texas",
+    width: 1600,
+    height: 1067,
+    credit: "TexasExplorer98 / Nicolas Henderson · CC BY 2.0 · Wikimedia Commons",
+  },
+  "crockett-county-ozona-pecos-edwards-plateau-ranching-texas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Crockett_County_Courthouse_November_2020.jpg?width=1600",
+    alt: "Crockett County Courthouse in Ozona, Texas",
+    width: 1600,
+    height: 1099,
+    credit: "Wikimedia Commons · licensed reusable media",
+  },
+  "dickens-county-dickens-spur-ranch-caprock-rolling-plains-texas": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Caprock%2C_around_Dickens_-_Flickr_-_brykmantra.jpg?width=1600",
+    alt: "Caprock landscape around Dickens, Texas, representing Dickens County's escarpment country",
+    width: 1600,
+    height: 1063,
+    credit: "brykmantra · Wikimedia Commons",
   },
 };
 
