@@ -1,3 +1,19 @@
+export const START_BUSINESS_META = {
+  title: "How to Start a Business in Texas: 10 Steps (2026)",
+  description: "How to start a business in Texas in 2026: entity choices, LLC filing costs, EIN, Texas taxes, licenses, permits, BOI rules, employer requirements and a step-by-step startup checklist.",
+  updated: "October 1, 2026",
+  about: [
+    "start a business in Texas",
+    "Texas LLC",
+    "Texas business registration",
+    "Texas business license",
+    "Employer Identification Number",
+    "Texas franchise tax",
+    "Texas Secretary of State",
+    "Texas Comptroller",
+  ],
+} as const;
+
 export const START_BUSINESS_FAQ = [
   { question: "Does Texas require a general business license?", answer: "No. Texas does not require one general statewide business license. Specific activities, professions and local jurisdictions can still require licenses, permits, certifications, registrations or zoning approval." },
   { question: "How much does it cost to form an LLC in Texas?", answer: "The Texas Secretary of State currently lists a $300 filing fee for an LLC Certificate of Formation. Optional services, assumed-name filings and professional help can add cost." },

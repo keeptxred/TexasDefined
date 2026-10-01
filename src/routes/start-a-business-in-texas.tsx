@@ -8,7 +8,6 @@ const StartBusinessTexasGuide = lazy(() =>
 );
 
 const canonicalPath = "/start-a-business-in-texas";
-const description = "How to start a business in Texas in 2026: entity choices, LLC filing costs, EIN, Texas taxes, licenses, permits, BOI rules, employer requirements and a step-by-step startup checklist.";
 
 export const Route = createFileRoute("/start-a-business-in-texas")({
   loader: async () => {
@@ -20,6 +19,12 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
 
     return {
       page: data,
+      meta: {
+        title: startupGuideData.START_BUSINESS_META.title,
+        description: startupGuideData.START_BUSINESS_META.description,
+        updated: startupGuideData.START_BUSINESS_META.updated,
+        about: [...startupGuideData.START_BUSINESS_META.about],
+      },
       faq: startupGuideData.START_BUSINESS_FAQ.map((item) => ({ ...item })),
       sections: startupGuideData.START_BUSINESS_SEO_SECTIONS.map((section) => ({
         heading: section.heading,
@@ -33,27 +38,18 @@ export const Route = createFileRoute("/start-a-business-in-texas")({
 
     const seoData = {
       ...loaderData.page,
-      intro: description,
-      updated: "October 1, 2026",
+      intro: loaderData.meta.description,
+      updated: loaderData.meta.updated,
       sections: loaderData.sections,
       faq: loaderData.faq,
     };
 
     return buildPrioritySearchHead({
       canonicalPath,
-      title: "How to Start a Business in Texas: 10 Steps (2026)",
-      description,
+      title: loaderData.meta.title,
+      description: loaderData.meta.description,
       data: seoData,
-      about: [
-        "start a business in Texas",
-        "Texas LLC",
-        "Texas business registration",
-        "Texas business license",
-        "Employer Identification Number",
-        "Texas franchise tax",
-        "Texas Secretary of State",
-        "Texas Comptroller",
-      ],
+      about: loaderData.meta.about,
     });
   },
   component: Page,
