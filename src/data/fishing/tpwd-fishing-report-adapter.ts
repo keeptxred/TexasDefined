@@ -11,6 +11,11 @@ export function mergeOfficialTpwdFishingReport(
   if (!snapshot) return reports;
 
   const sourceStatus = snapshot.sourceNotice ? ` TPWD status: ${snapshot.sourceNotice}` : "";
+  const freshnessLabel = snapshot.freshness === "current"
+    ? "Current"
+    : snapshot.freshness === "stale"
+      ? "Older"
+      : "Historical";
   const official: FishingReport = {
     id: `tpwd-${lake.id}-${snapshot.publishedAt}`,
     brandId: lake.brandId,
@@ -25,7 +30,7 @@ export function mergeOfficialTpwdFishingReport(
       sourceType: "state",
     }],
     lakeId: lake.id,
-    title: `TPWD fishing report for ${lake.name}`,
+    title: `${freshnessLabel} TPWD fishing report for ${lake.name}`,
     summary: `TexasDefined provides this fishing report from ${TPWD_NAME}. ${snapshot.summary}${sourceStatus}`,
     publishedAt: snapshot.publishedAt,
     speciesUpdates: [],
