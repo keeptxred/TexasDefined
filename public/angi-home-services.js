@@ -31,6 +31,19 @@
     { key: "custom-home", label: "Custom Home Builders", cta: "Request custom-home builder options", patterns: [/\bcustom home builder(?:s)?\b/i, /\bbuild a custom home\b/i], url: "http://request.angi.com/service-request/task/40105/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44364980" }
   ];
 
+  // Exact editorial overrides are intentionally narrow. They cover pages whose
+  // primary service intent is clear even when the H1/meta copy avoids contractor
+  // terminology. Null entries are explicit opt-outs for multi-system guides that
+  // mention many service categories but should not inherit whichever regex wins.
+  const pageServiceOverrides = new Map([
+    ["/article/texas-foundation-care-clay-soil-drought", "foundation"],
+    ["/article/texas-household-pests-guide", "pest-control"],
+    ["/article/texas-pool-owner-guide", "pools"],
+    ["/article/texas-home-maintenance-calendar", "handyman"],
+    ["/article/texas-homeowner-field-manual", null],
+    ["/article/true-cost-of-owning-a-home-in-texas", null]
+  ]);
+
   const commercialPath = /^\/(?:article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides)(?:\/|$)/i;
 
   function pageSignal() {
@@ -40,7 +53,12 @@
     return `${heading} ${description} ${pathname}`.replace(/\s+/g, " ").trim();
   }
 
-  function chooseService(signal) {
+  function chooseService(signal, pathname) {
+    const normalizedPathname = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+    if (pageServiceOverrides.has(normalizedPathname)) {
+      const overrideKey = pageServiceOverrides.get(normalizedPathname);
+      return overrideKey ? services.find((service) => service.key === overrideKey) || null : null;
+    }
     return services.find((service) => service.patterns.some((pattern) => pattern.test(signal))) || null;
   }
 
@@ -99,7 +117,7 @@
       return;
     }
 
-    const service = chooseService(pageSignal());
+    const service = chooseService(pageSignal(), pathname);
     if (!service) {
       existing?.remove();
       return;
@@ -117,7 +135,6 @@
     window.clearTimeout(timer);
     timer = window.setTimeout(render, 120);
   }
-
   window.addEventListener("popstate", scheduleRender);
   document.addEventListener("DOMContentLoaded", scheduleRender, { once: true });
   new MutationObserver(scheduleRender).observe(document.documentElement, { childList: true, subtree: true });
