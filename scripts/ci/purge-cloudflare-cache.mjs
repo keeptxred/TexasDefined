@@ -7,8 +7,26 @@ if (!token) {
   throw new Error('CLOUDFLARE_CACHE_API_TOKEN is required for targeted cache purge.');
 }
 
+const wildlifeSlugs = [
+  'white-tailed-deer',
+  'mule-deer',
+  'javelina',
+  'american-alligator',
+  'ocelot',
+  'whooping-crane',
+  'painted-bunting',
+  'roseate-spoonbill',
+  'bobcat',
+  'nine-banded-armadillo',
+  'black-bear',
+  'mountain-lion',
+  'wild-turkey',
+  'texas-bats',
+];
+
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
+  ...wildlifeSlugs.map((slug) => `https://${zoneName}/wildlife-species/${slug}`),
 ];
 
 const weekendEventUrls = [

@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
   group: texasdefined-merge-gate-${{ github.ref }}
@@ -69,3 +70,27 @@ jobs:
     steps:
       - name: Confirm canonical merge gate passed
         run: echo "Canonical Required merge gate completed successfully."
+
+      # Branch protection also carries the legacy commit-status context named
+      # exactly "Required merge gate". Publish it only after the canonical job
+      # above has succeeded, and only for same-repository pull requests where
+      # the workflow token can safely write the exact validated head status.
+      - name: Publish protected merge-gate status
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "repos/$REPOSITORY/statuses/$HEAD_SHA" \
+            -f state='success' \
+            -f context='Required merge gate' \
+            -f description='Canonical Required merge gate passed' \
+            -f target_url="$PR_URL" >/dev/null
+          echo "Published protected Required merge gate status for validated head $HEAD_SHA."
