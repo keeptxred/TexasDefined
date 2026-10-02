@@ -18,25 +18,45 @@ jobs:
         with:
           ref: chat8/image-discover-final-current-20261002
           fetch-depth: 0
-      - name: Build governed current-main-safe remediation
+
+      - name: Verify refreshed main baseline
         shell: bash
         run: |
           set -euo pipefail
           git fetch origin main chat8/image-discover-final-20261002
-          # Pin the ancestry gate to the exact main SHA refreshed before this material write.
-          git merge-base --is-ancestor 57c4533b89d2d848f460f2da708f8a272aa8b8dd HEAD || { echo "Branch no longer contains the refreshed main baseline"; exit 1; }
+          git merge-base --is-ancestor 5d6959862996b7024d0a2fe2553fc0d96d3971e2 HEAD
 
+      - name: Replay governed source corrections
+        shell: bash
+        run: |
+          set -euo pipefail
           git show origin/chat8/image-discover-final-20261002:src/data/article-image-readiness-overrides.ts > src/data/article-image-readiness-overrides.ts
           git show origin/chat8/image-discover-final-20261002:src/data/county-series.server.ts > src/data/county-series.server.ts
           git show origin/chat8/image-discover-final-20261002:src/data/sports-venue-images.ts > src/data/sports-venue-images.ts
           git show origin/chat8/image-discover-final-20261002:src/lib/editorial-image-delivery.ts > src/lib/editorial-image-delivery.ts
 
+      - name: Materialize governed Chappell Hill image
+        shell: bash
+        run: |
+          set -euo pipefail
           node scripts/assets/materialize-generated-images.mjs
+          test -s public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+
+      - name: Resize governed generated images
+        shell: bash
+        run: |
+          set -euo pipefail
           CONVERT_BIN="$(command -v magick || command -v convert || true)"
           test -n "$CONVERT_BIN"
           "$CONVERT_BIN" public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -filter Lanczos -resize 1600x -quality 90 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
           "$CONVERT_BIN" public/images/sports-venues/xtreme-raceway-park.jpg -filter Lanczos -resize 1600x -quality 92 public/images/sports-venues/xtreme-raceway-park.jpg
+          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+          identify public/images/sports-venues/xtreme-raceway-park.jpg
 
+      - name: Rechunk Chappell Hill image and update checksum
+        shell: bash
+        run: |
+          set -euo pipefail
           node --input-type=module <<'NODE'
           import crypto from 'node:crypto';
           import fs from 'node:fs';
@@ -60,14 +80,16 @@ jobs:
           console.log(`EVENT_SHA256=${sha}`);
           NODE
 
+      - name: Stage and validate final tree
+        shell: bash
+        run: |
+          set -euo pipefail
           rm .github/workflows/finalize-generated-image-objects.yml
-          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
-          identify public/images/sports-venues/xtreme-raceway-park.jpg
-
           git add src/data/article-image-readiness-overrides.ts src/data/county-series.server.ts src/data/sports-venue-images.ts src/lib/editorial-image-delivery.ts
           git add -f assets/generated/chappell-hill-bluebonnet-festival/clean-v4-20260914.webp.b64.* scripts/assets/materialize-generated-images.mjs public/images/sports-venues/xtreme-raceway-park.jpg
           git add -u .github/workflows/finalize-generated-image-objects.yml
           git diff --cached --check
+          git diff --cached --name-status
 
       - name: Create remote Git commit object without moving refs
         env:
@@ -92,12 +114,12 @@ jobs:
             return JSON.parse(text);
           };
           const parent = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-          const commit = JSON.parse(execFileSync('git', ['show', '-s', '--format={"tree":"%T"}', parent], { encoding: 'utf8' }));
-          const status = execFileSync('git', ['diff', '--cached', '--name-status', '-z'], { encoding: 'utf8' }).split('\0').filter(Boolean);
+          const treeSha = execFileSync('git', ['show', '-s', '--format=%T', parent], { encoding: 'utf8' }).trim();
+          const raw = execFileSync('git', ['diff', '--cached', '--name-status'], { encoding: 'utf8' }).trim().split('\n').filter(Boolean);
           const entries = [];
-          for (let i = 0; i < status.length;) {
-            const code = status[i++];
-            const file = status[i++];
+          for (const line of raw) {
+            const [code, ...pathParts] = line.split('\t');
+            const file = pathParts.at(-1);
             if (code.startsWith('D')) {
               entries.push({ path: file, mode: '100644', type: 'blob', sha: null });
               continue;
@@ -106,7 +128,7 @@ jobs:
             const blob = await api('/git/blobs', { content: bytes.toString('base64'), encoding: 'base64' });
             entries.push({ path: file, mode: '100644', type: 'blob', sha: blob.sha });
           }
-          const tree = await api('/git/trees', { base_tree: commit.tree, tree: entries });
+          const tree = await api('/git/trees', { base_tree: treeSha, tree: entries });
           const created = await api('/git/commits', { message: 'Upgrade governed generated images for Discover', tree: tree.sha, parents: [parent] });
           console.log(`FINAL_COMMIT_SHA=${created.sha}`);
           console.log(`PARENT_SHA=${parent}`);
