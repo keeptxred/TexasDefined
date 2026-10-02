@@ -76,7 +76,7 @@ export const lighthouseSearchIntentArticles: Article[] = [
     relatedCollections: [],
     relatedDestinations: ["port-isabel-lighthouse"],
     internalLinks: [
-      { href: "/explore/lighthouses", label: "Open the Texas lighthouse map", description: "Compare locations, access status and county context for the major surviving and relocated lighthouse sites." },
+      { href: "/explore/lighthouses", label: "Open the Texas lighthouse guide", description: "Compare photos, access status and county context for the major surviving and relocated lighthouse sites." },
       { href: "/article/texas-lighthouses-complete-guide", label: "Read the complete Texas lighthouse history", description: "Go beyond the visitor guide into the coastwide network of surviving and lost lights." },
       { href: "/article/texas-lighthouse-road-trip", label: "Plan the Texas lighthouse road trip", description: "Turn the lighthouse list into a multi-day Gulf Coast itinerary." },
       { href: "/destination/port-isabel-lighthouse", label: "Plan a Port Isabel Lighthouse visit", description: "Use the destination guide for the only Texas lighthouse built around a conventional public tower visit." },
@@ -155,7 +155,7 @@ export const lighthouseSearchIntentArticles: Article[] = [
 
       { type: "heading", text: "How to organize a Texas lighthouse road trip" },
       { type: "paragraph", text: "A coastwide lighthouse trip works better as four geographic legs than as one giant checklist. Upper Coast: Sabine Pass history, Galveston and Point Bolivar. Middle Coast: Port Lavaca, Halfmoon Reef, Port O'Connor and a separately planned Matagorda Island outing. Coastal Bend: Port Aransas, Lighthouse Lakes and Lydia Ann. Lower Coast: Port Isabel, South Padre Island and Brownsville. That order follows the coast and keeps the travel logic visible." },
-      { type: "paragraph", text: "Use the TexasDefined lighthouse map for location context and the dedicated road-trip guide for sequencing. Do not let a map pin imply public access: the governing distinction is whether the site is a public attraction, a lawful view-only landmark, a restricted remote-access site or a historical story tied to another jurisdiction." },
+      { type: "paragraph", text: "Use the TexasDefined lighthouse guide for location context and the dedicated road-trip guide for sequencing. Do not let a map pin imply public access: the governing distinction is whether the site is a public attraction, a lawful view-only landmark, a restricted remote-access site or a historical story tied to another jurisdiction." },
 
       { type: "heading", text: "Which Texas lighthouse can you actually climb?" },
       { type: "paragraph", text: "Port Isabel is the Texas lighthouse to plan a public climb around. Current official hours are 9 a.m.–6 p.m. off-season and 10 a.m.–9 p.m. in summer, weather permitting, but tower access can still be limited by site conditions. Point Bolivar and Lydia Ann are private, Halfmoon Reef is a preserved relocated structure rather than a public tower climb, Matagorda Island requires restricted remote-access planning, and Sabine Pass is not a conventional Texas public lighthouse attraction." },
