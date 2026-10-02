@@ -43,7 +43,7 @@ export function TexasComparedHero({ state, reviewedAt }: { state: string; review
     <section className="border-b border-border bg-muted/30 py-14 md:py-20">
       <Container>
         <div className="grid grid-cols-3 items-center gap-4 md:gap-8">
-          <div className="text-foreground/80" aria-hidden="true"><StateOutline state="Texas" /></div>
+          <div aria-hidden="true"><StateOutline state="Texas" /></div>
           <div className="text-center">
             <p className="eyebrow text-primary">Texas compared</p>
             <h1 className="mt-3 font-display text-3xl leading-none md:text-5xl lg:text-7xl">
@@ -52,7 +52,7 @@ export function TexasComparedHero({ state, reviewedAt }: { state: string; review
               <span className="block">{state}</span>
             </h1>
           </div>
-          <div className="text-foreground/80" aria-hidden="true"><StateOutline state={state} /></div>
+          <div aria-hidden="true"><StateOutline state={state} /></div>
         </div>
         <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-8 text-muted-foreground">
           A practical side-by-side framework for comparing Texas with {state}, with state-specific context for the places, climate and tradeoffs that make this comparison different from the other 48.
