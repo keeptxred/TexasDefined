@@ -14,7 +14,8 @@ const dataCenter = [
   read('src/routes/moving-to-texas_.data.lazy.tsx'),
 ].join('\n');
 const metro = read('src/components/relocation/MetroRelocationAuthority.tsx');
-const blsMetroReview = read('docs/verification/bls-metro-july-2026-review.md');
+const censusMigrationReview = read('docs/verification/acs-state-to-state-2024-review.md');
+const blsMetroReview = read('docs/verification/bls-metro-august-2026-review.md');
 
 const reviewWindows = [
   {
@@ -24,13 +25,13 @@ const reviewWindows = [
   },
   {
     id: 'acs-state-to-state-2024',
-    reviewBy: '2026-10-01',
-    reason: 'Check whether a newer ACS state-to-state migration-flow release is available.',
+    reviewBy: '2027-02-15',
+    reason: 'The October 1 review confirmed 2024 remains the newest official Census state-to-state flow table; recheck during the next annual release window.',
   },
   {
-    id: 'bls-metro-july-2026',
-    reviewBy: '2026-10-01',
-    reason: 'July 2026 BLS metropolitan employment was reviewed September 3; recheck after the August 2026 release scheduled September 30.',
+    id: 'bls-metro-august-2026',
+    reviewBy: '2026-10-29',
+    reason: 'August 2026 BLS metropolitan employment was reviewed October 1; recheck after the September 2026 release scheduled October 28.',
   },
   {
     id: 'tdi-homeowners-2025-preliminary',
@@ -50,18 +51,32 @@ for (const item of reviewWindows) {
 }
 
 for (const requirement of [
-  'Reviewed: 2026-09-03',
-  'USDL-26-1433',
+  'Reviewed: 2026-10-01',
+  'State-to-State Migration Flows',
+  'https://www.census.gov/data/tables/time-series/demo/geographic-mobility/state-to-state-migration.html',
+  '2024 State-to-State Migration Flows Statistics Now Available',
+  'https://www.census.gov/newsroom/press-releases/2026/2024-state-to-state-migration.html',
+  '2024 American Community Survey 1-year estimates',
+  'still lists **2024** as the newest available year',
+  'no later than February 15, 2027',
+]) {
+  if (!censusMigrationReview.includes(requirement)) failures.push(`ACS state-to-state migration review evidence missing: ${requirement}`);
+}
+
+for (const requirement of [
+  'Reviewed: 2026-10-01',
+  'USDL-26-1548',
   'https://www.bls.gov/news.release/metro.htm',
-  'Dallas–Fort Worth–Arlington: 4,353,400',
-  'Houston–Pasadena–The Woodlands: 3,497,700',
-  'Austin–Round Rock–San Marcos: 1,421,700',
-  'San Antonio–New Braunfels: 1,192,200',
-  'El Paso: 364,300',
-  'scheduled for September 30, 2026',
+  'https://www.bls.gov/schedule/news_release/metro.htm',
+  'Dallas–Fort Worth–Arlington: 4,357,000',
+  'Houston–Pasadena–The Woodlands: 3,495,300',
+  'Austin–Round Rock–San Marcos: 1,415,900',
+  'San Antonio–New Braunfels: 1,191,700',
+  'El Paso: 363,500',
+  'scheduled for October 28, 2026',
   'remain explicitly labeled as **June 2026** point-in-time figures',
 ]) {
-  if (!blsMetroReview.includes(requirement)) failures.push(`BLS July 2026 metro review evidence missing: ${requirement}`);
+  if (!blsMetroReview.includes(requirement)) failures.push(`BLS August 2026 metro review evidence missing: ${requirement}`);
 }
 
 for (const requirement of [
@@ -158,4 +173,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Relocation source freshness passed (${reviewWindows.length} release-backed review windows and ${continuousSourceContracts.length} continuously maintained source contracts; Census Vintage 2025 current, July 2026 BLS metro release reviewed, revised 2024 history retained, and the full registry remains server-only).`);
+console.log(`Relocation source freshness passed (${reviewWindows.length} release-backed review windows and ${continuousSourceContracts.length} continuously maintained source contracts; Census Vintage 2025 current, 2024 ACS state-to-state flows re-reviewed, August 2026 BLS metro release reviewed, revised 2024 history retained, and the full registry remains server-only).`);
