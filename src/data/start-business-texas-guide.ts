@@ -1,3 +1,7 @@
+import { notFound } from "@tanstack/react-router";
+import { loadPrioritySearchPage } from "@/data/priority-search-page";
+import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
+
 export const START_BUSINESS_META = {
   title: "How to Start a Business in Texas: 10 Steps (2026)",
   description: "How to start a business in Texas in 2026: entity choices, LLC filing costs, EIN, Texas taxes, licenses, permits, BOI rules, employer requirements and a step-by-step startup checklist.",
@@ -40,3 +44,22 @@ export const START_BUSINESS_SEO_SECTIONS = [
   { heading: "Ongoing Texas business compliance", paragraphs: ["After launch, track tax and information-report deadlines, registered-agent details, permit renewals, local obligations and changes to ownership, addresses or entity records."], links: [] },
   { heading: "Moving or expanding an existing company", paragraphs: ["If the business move includes employees or a new Texas site, business formation is only one part of the decision. Use the corporate relocation workflow for workforce, site-selection, housing, schools and commute planning."], links: [{ label: "Corporate relocation to Texas", href: "/moving-to-texas?companyMove=employer#corporate-relocation" }] },
 ];
+
+export async function loadStartBusinessHead() {
+  const page = await loadPrioritySearchPage("start-a-business-in-texas");
+  if (!page) throw notFound();
+
+  return buildPrioritySearchHead({
+    canonicalPath: "/start-a-business-in-texas",
+    title: START_BUSINESS_META.title,
+    description: START_BUSINESS_META.description,
+    data: {
+      ...page,
+      intro: START_BUSINESS_META.description,
+      updated: START_BUSINESS_META.updated,
+      sections: START_BUSINESS_SEO_SECTIONS,
+      faq: START_BUSINESS_FAQ,
+    },
+    about: START_BUSINESS_META.about,
+  });
+}
