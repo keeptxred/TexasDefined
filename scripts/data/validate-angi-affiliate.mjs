@@ -11,6 +11,12 @@ const errors = [];
 for (const [needle, label] of [
   ['/angi-home-services.js', 'client-side Angi script bootstrap'],
   ['document.createElement("script")', 'client-side script creation'],
+  ['td-angi-home-services-script', 'idempotent script id'],
+  ['document.getElementById(scriptId)', 'duplicate-script prevention'],
+  ['eligibleRoute', 'eligible-route gate'],
+  ['article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides', 'governed route families'],
+  ['window.addEventListener("popstate", scheduleAngiLoad)', 'SPA navigation handling'],
+  ['new MutationObserver(scheduleAngiLoad)', 'SPA DOM synchronization'],
   ['data-affiliate-partner="angi"', 'affiliate partner attribution'],
   ['data-commercial-partner="angi"', 'first-party commercial attribution'],
   ['sponsored nofollow noopener noreferrer', 'affiliate rel attributes'],
@@ -26,9 +32,17 @@ for (const [needle, label] of [
   ['category/12001/', 'remodeling deep link'],
   ['category/12070/', 'pool deep link'],
 ]) {
-  const haystack = needle === '/angi-home-services.js' || needle === 'document.createElement("script")'
-    ? loaderSource
-    : moduleSource;
+  const loaderNeedles = new Set([
+    '/angi-home-services.js',
+    'document.createElement("script")',
+    'td-angi-home-services-script',
+    'document.getElementById(scriptId)',
+    'eligibleRoute',
+    'article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides',
+    'window.addEventListener("popstate", scheduleAngiLoad)',
+    'new MutationObserver(scheduleAngiLoad)',
+  ]);
+  const haystack = loaderNeedles.has(needle) ? loaderSource : moduleSource;
   if (!haystack.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
 }
 
@@ -44,6 +58,7 @@ for (const [needle, label] of [
   ['1-day referral period', 'referral window documentation'],
   ['25% commission rate', 'commission documentation'],
   ['Production safeguards', 'production-safeguards documentation'],
+  ['route-gated', 'route-gated bootstrap documentation'],
 ]) {
   if (!docsSource.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
 }
@@ -52,6 +67,7 @@ for (const [needle, label] of [
   ['/article/texas-roofs-hail-wind-heat', 'representative production route'],
   ['/city-experience-affiliate.js', 'deployed client loader check'],
   ['/angi-home-services.js', 'deployed Angi asset check'],
+  ['eligibleRoute', 'production route-gate check'],
   ['cf-mitigated', 'Cloudflare challenge detection'],
   ['TexasDefined-CI-Angi-Smoke/1.0', 'Angi production smoke user agent'],
   ['aid=157319271', 'production CJ AID check'],
