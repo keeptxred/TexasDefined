@@ -32,9 +32,10 @@ export const texasRevolutionHistoricSitesRoadTripArticle: Article = {
     { href: "/destination/fannin-battleground", label: "Fannin Battleground", description: "Follow the Goliad campaign from the Coleto battlefield toward Presidio La Bahía." },
     { href: "/destination/presidio-la-bahia", label: "Presidio La Bahía", description: "Continue the Goliad story at the Spanish presidio that became a central military site in 1836." },
     { href: "/destination/san-jacinto-battleground", label: "San Jacinto Battleground", description: "End the campaign at the battlefield where the Texian army defeated Santa Anna's force." },
+    { href: "/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", label: "Sam Houston Memorial Museum & Republic of Texas Presidential Library", description: "Continue from the battlefield into Houston's Huntsville home landscape, artifacts, family history and Republic-era research collections." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground", "first-capitol-of-texas", "stephen-f-austin-memorial"],
+  relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground", "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", "first-capitol-of-texas", "stephen-f-austin-memorial"],
   body: [
     p("The easiest way to flatten the Texas Revolution is to reduce it to three names: the Alamo, Goliad and San Jacinto. Those places matter enormously, but the larger story becomes clearer when you travel through the political and settlement landscape that existed before the fighting, then follow the campaign in chronological order."),
     p("This route does that. It begins at San Felipe de Austin, moves to Washington-on-the-Brazos, turns south toward the Goliad campaign, and finishes at San Jacinto. A longer version adds the Republic-era political sites around West Columbia after independence. The result is less a checklist of monuments than a road trip through the changing geography of Texas in 1835 and 1836."),
