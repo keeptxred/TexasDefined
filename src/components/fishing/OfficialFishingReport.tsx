@@ -1,4 +1,4 @@
-import type { TpwdFishingReportSnapshot } from "@/data/fishing/tpwd-fishing-report.server";
+import type { TpwdFishingReportSnapshot } from "@/data/fishing/tpwd-fishing-report.types";
 
 export function OfficialFishingReport({
   report,
@@ -27,8 +27,9 @@ export function OfficialFishingReport({
     <p className="eyebrow text-primary">{statusLabel}</p>
     <h3 className="mt-2 font-display text-3xl">TPWD report for {lakeName}</h3>
     <p className="mt-2 text-sm font-medium">Published {formatDate(report.publishedAt)}</p>
-    <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">{report.summary}</p><p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined provides fishing-report information from TPWD and other clearly attributed sources. Source status notices are shown only while they remain published by TPWD.</p>
-    {report.reportingPaused ? <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">TPWD reporting status:</strong> Weekly fishing reports are currently on hold while TPWD updates its reporting process. This is the newest dated official report available, not a claim about today's conditions.</p> : null}
+    <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">{report.summary}</p>
+    <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined provides fishing-report information from TPWD and other clearly attributed sources. Source status notices are shown only while they remain published by TPWD.</p>
+    {report.sourceNotice ? <div className="mt-5 max-w-4xl border-l-2 border-primary pl-5"><p className="text-sm leading-7 text-muted-foreground"><strong className="text-foreground">TPWD status:</strong> {report.sourceNotice}</p></div> : null}
     <a href={report.sourceUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">View report at TPWD →</a>
   </article>;
 }
