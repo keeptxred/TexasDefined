@@ -38,6 +38,8 @@ for (const [needle, label] of [
   ['["/article/texas-home-maintenance-calendar", "handyman"]', 'home-maintenance override'],
   ['["/article/texas-homeowner-field-manual", null]', 'multi-system homeowner-guide opt-out'],
   ['["/article/true-cost-of-owning-a-home-in-texas", null]', 'multi-system ownership-cost opt-out'],
+  ['["/article/texas-wildfire-home-protection-guide", null]', 'wildfire landscaping false-positive opt-out'],
+  ['["/article/texas-home-architecture-regions", null]', 'residential-landscape false-positive opt-out'],
   ['pageServiceOverrides.has(normalizedPathname)', 'override precedence'],
   ['chooseService(pageSignal(), pathname)', 'pathname-aware service selection'],
 ]) {
@@ -70,6 +72,8 @@ for (const [needle, label] of [
   ['route-gated', 'route-gated bootstrap documentation'],
   ['exact-path overrides', 'exact-path override documentation'],
   ['explicit opt-outs', 'multi-system opt-out documentation'],
+  ['texas-wildfire-home-protection-guide', 'wildfire false-positive documentation'],
+  ['texas-home-architecture-regions', 'architecture false-positive documentation'],
 ]) {
   if (!docsSource.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
 }
@@ -85,6 +89,8 @@ for (const [needle, label] of [
   ['/article/texas-pool-owner-guide', 'production pool override check'],
   ['/article/texas-home-maintenance-calendar', 'production maintenance override check'],
   ['/article/texas-homeowner-field-manual', 'production multi-system opt-out check'],
+  ['/article/texas-wildfire-home-protection-guide', 'production wildfire false-positive opt-out check'],
+  ['/article/texas-home-architecture-regions', 'production architecture false-positive opt-out check'],
   ['cf-mitigated', 'Cloudflare challenge detection'],
   ['TexasDefined-CI-Angi-Smoke/1.0', 'Angi production smoke user agent'],
   ['aid=157319271', 'production CJ AID check'],
