@@ -93,12 +93,14 @@ try {
     '["/article/texas-home-maintenance-calendar", "handyman"]',
     '["/article/texas-homeowner-field-manual", null]',
     '["/article/true-cost-of-owning-a-home-in-texas", null]',
+    '["/article/texas-wildfire-home-protection-guide", null]',
+    '["/article/texas-home-architecture-regions", null]',
     'pageServiceOverrides.has(normalizedPathname)',
   ]) {
     requireCondition(moduleSource.includes(needle), `Deployed Angi module is missing governed marker: ${needle}`);
   }
 
-  console.log('[angi-production] Live page, route-gated client bootstrap, exact-path home-service overrides, governed Angi asset, CJ attribution and SSR separation passed production verification.');
+  console.log('[angi-production] Live page, route-gated client bootstrap, exact-path home-service overrides and false-positive opt-outs, governed Angi asset, CJ attribution and SSR separation passed production verification.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=ANGI PRODUCTION failure::${message}`);
