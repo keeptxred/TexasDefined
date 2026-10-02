@@ -26,7 +26,7 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Texas wildlife</p>
-          <h2 id="wildlife-overview-heading" className="mt-2 font-display text-4xl">Understanding {entity.name}</h2>
+          <h2 id="wildlife-overview-heading" className="mt-2 font-display text-4xl">{profile.overviewHeading ?? `Understanding ${entity.name}`}</h2>
         </div>
         <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           {profile.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -40,8 +40,8 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
     {profile.sections.map((section, index) => <section key={section.heading} className="border-b border-border py-12" aria-labelledby={`wildlife-section-${index}`}>
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Field guide</p>
-          <h2 id={`wildlife-section-${index}`} className="mt-2 font-display text-4xl">{section.heading}</h2>
+          <p className="eyebrow text-primary">{sectionEyebrow(entity.slug, index)}</p>
+          <h2 id={`wildlife-section-${index}`} className="mt-2 font-display text-4xl">{sectionHeading(entity.slug, index, section.heading)}</h2>
         </div>
         <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           {section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -52,8 +52,8 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
     <section className="border-b border-border py-12" aria-labelledby="wildlife-observation-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Observe responsibly</p>
-          <h2 id="wildlife-observation-heading" className="mt-2 font-display text-4xl">What to do around Texas wildlife</h2>
+          <p className="eyebrow text-primary">Wildlife viewing</p>
+          <h2 id="wildlife-observation-heading" className="mt-2 font-display text-4xl">How to watch Texas wildlife responsibly</h2>
         </div>
         <div>
           <p className="max-w-3xl text-base leading-7 text-muted-foreground">Wildlife viewing is safest and most useful when the animal can behave normally. These principles apply on ranch roads, trails, greenbelts, coastlines and in neighborhoods.</p>
@@ -134,6 +134,23 @@ function WildlifeImageCards({ images, speciesName }: { images: [WildlifeImage, W
       </div>
     </div>
   </section>;
+}
+
+function sectionEyebrow(slug: string, index: number) {
+  if (slug !== 'ocelot') return 'Field guide';
+  return ['Range', 'Identification', 'Habitat', 'Conservation', 'Wildlife viewing'][index] ?? 'Ocelot guide';
+}
+
+function sectionHeading(slug: string, index: number, heading: string) {
+  if (slug !== 'ocelot') return heading;
+  const ocelotHeadings = [
+    'Where ocelots remain in Texas',
+    'How to identify an ocelot',
+    'Why thornscrub matters to Texas ocelots',
+    'The biggest threats to Texas ocelots',
+    'If you see an ocelot in Texas',
+  ];
+  return ocelotHeadings[index] ?? heading;
 }
 
 function fallbackProfile(entity: TexasEntityRecord): WildlifeAuthorityProfile {
