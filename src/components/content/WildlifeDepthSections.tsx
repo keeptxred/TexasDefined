@@ -3,6 +3,7 @@ import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { WILDLIFE_CORE_PROFILES } from '@/data/wildlife-authority-core';
 import { WILDLIFE_MAMMAL_PROFILES } from '@/data/wildlife-authority-mammals';
 import { WILDLIFE_BIRD_REPTILE_PROFILES } from '@/data/wildlife-authority-birds-reptiles';
+import { WILDLIFE_AUTHORITY_IMAGES, type WildlifeImage } from '@/data/wildlife-authority-images';
 import type { WildlifeAuthorityProfile } from '@/data/wildlife-authority-types';
 
 export const WILDLIFE_AUTHORITY_PROFILES: Record<string, WildlifeAuthorityProfile> = {
@@ -13,11 +14,14 @@ export const WILDLIFE_AUTHORITY_PROFILES: Record<string, WildlifeAuthorityProfil
 
 export function WildlifeDepthSections({ entity, related }: { entity: TexasEntityRecord; related: RankedRelatedEntity[] }) {
   const profile = WILDLIFE_AUTHORITY_PROFILES[entity.slug] ?? fallbackProfile(entity);
+  const imageSet = WILDLIFE_AUTHORITY_IMAGES[entity.slug];
   const relatedItems = related
     .filter(({ entity: candidate }) => ['wildlife-species', 'state-park', 'national-park', 'natural-area', 'wildlife-management-area'].includes(candidate.kind))
     .slice(0, 6);
 
   return <>
+    {imageSet ? <WildlifeHero image={imageSet.hero} speciesName={entity.name} /> : null}
+
     <section className="border-b border-border py-12" aria-labelledby="wildlife-overview-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
@@ -30,6 +34,8 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
         </div>
       </div>
     </section>
+
+    {imageSet ? <WildlifeImageCards images={imageSet.cards} speciesName={entity.name} /> : null}
 
     {profile.sections.map((section, index) => <section key={section.heading} className="border-b border-border py-12" aria-labelledby={`wildlife-section-${index}`}>
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
@@ -85,6 +91,41 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
       </div>
     </section> : null}
   </>;
+}
+
+function WildlifeHero({ image, speciesName }: { image: WildlifeImage; speciesName: string }) {
+  return <figure className="border-b border-border py-8">
+    <div className="overflow-hidden bg-muted">
+      <img src={image.src} alt={image.alt} className="h-auto max-h-[42rem] w-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+    </div>
+    <figcaption className="mt-3 flex flex-col gap-1 text-xs leading-5 text-muted-foreground sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+      <span>{image.caption}</span>
+      <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="shrink-0 underline underline-offset-4 hover:text-foreground">{image.credit} ↗</a>
+    </figcaption>
+    <span className="sr-only">Hero photograph for {speciesName}</span>
+  </figure>;
+}
+
+function WildlifeImageCards({ images, speciesName }: { images: [WildlifeImage, WildlifeImage, WildlifeImage]; speciesName: string }) {
+  return <section className="border-b border-border py-12" aria-labelledby="wildlife-photo-notes-heading">
+    <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+      <div>
+        <p className="eyebrow text-primary">Field photos</p>
+        <h2 id="wildlife-photo-notes-heading" className="mt-2 font-display text-4xl">{speciesName} in context</h2>
+      </div>
+      <div className="grid gap-5 md:grid-cols-3">
+        {images.map((image) => <figure key={image.src} className="border border-border">
+          <div className="aspect-[4/3] overflow-hidden bg-muted">
+            <img src={image.src} alt={image.alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+          </div>
+          <figcaption className="space-y-3 p-4">
+            <p className="text-sm leading-6 text-muted-foreground">{image.caption}</p>
+            <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="block text-xs font-semibold text-primary underline underline-offset-4">{image.credit} ↗</a>
+          </figcaption>
+        </figure>)}
+      </div>
+    </div>
+  </section>;
 }
 
 function fallbackProfile(entity: TexasEntityRecord): WildlifeAuthorityProfile {
