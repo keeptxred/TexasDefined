@@ -48,7 +48,7 @@ function reportUrlForSource(sourceUrl: string) {
   const url = new URL(TPWD_REPORT_BASE);
   url.searchParams.set("Submit", "Go");
   url.searchParams.set("archive", "wholeyear");
-  url.searchParams.set("lake", code.toUpperCase());
+  url.searchParams.set("lake", code.replace(/_/g, " ").toUpperCase());
   url.searchParams.set("yearcat", "current");
   return url.toString();
 }
