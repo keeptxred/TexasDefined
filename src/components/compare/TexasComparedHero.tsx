@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { Container } from "@/components/layout/Container";
 
 const STATE_ABBREVIATIONS: Record<string, string> = {
@@ -53,10 +55,10 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
   Wyoming: "WY",
 };
 
-// MIT-licensed state silhouettes from coryetzkorn/state-svg-defs.
-// Keeping the sprite remote avoids adding a large all-state SVG payload to every page bundle.
-const STATE_SPRITE_URL =
-  "https://raw.githubusercontent.com/coryetzkorn/state-svg-defs/master/state-svg-defs.svg";
+// MIT-licensed state silhouettes from coryetzkorn/state-svg-defs, pinned to a
+// specific upstream commit so the artwork cannot change beneath published pages.
+const STATE_ICON_ROOT =
+  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/SVG";
 
 type StateOutlineProps = {
   state: string;
@@ -67,21 +69,23 @@ function StateOutline({ state, className = "" }: StateOutlineProps) {
   const abbreviation = STATE_ABBREVIATIONS[state];
   if (!abbreviation) return null;
 
+  const url = `${STATE_ICON_ROOT}/${abbreviation}.svg`;
+  const maskStyle: CSSProperties = {
+    WebkitMaskImage: `url("${url}")`,
+    maskImage: `url("${url}")`,
+    WebkitMaskPosition: "center",
+    maskPosition: "center",
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+    WebkitMaskSize: "contain",
+    maskSize: "contain",
+  };
+
   return (
-    <svg
-      aria-label={`${state} outline`}
-      className={className}
-      role="img"
-      viewBox="0 0 100 80"
-      preserveAspectRatio="xMidYMid meet"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.45"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-    >
-      <use href={`${STATE_SPRITE_URL}#icon-state-${abbreviation}`} width="100" height="80" />
-    </svg>
+    <div className={`relative aspect-[5/4] ${className}`}>
+      <span className="absolute inset-0 bg-foreground/85" style={maskStyle} />
+      <span className="absolute inset-[3px] bg-background sm:inset-1" style={maskStyle} />
+    </div>
   );
 }
 
@@ -92,11 +96,11 @@ type TexasComparedHeroProps = {
 
 export function TexasComparedHero({ state, reviewedAt }: TexasComparedHeroProps) {
   return (
-    <section className="border-b border-border bg-muted/30">
+    <section className="border-b border-border bg-background">
       <Container>
         <div className="grid min-h-[25rem] items-center gap-8 py-12 md:min-h-[30rem] md:grid-cols-[minmax(10rem,1fr)_minmax(20rem,2.35fr)_minmax(10rem,1fr)] md:gap-10 md:py-16 lg:min-h-[33rem] lg:gap-14">
-          <div className="order-2 flex justify-center text-foreground/85 md:order-1 md:justify-start" aria-hidden="true">
-            <StateOutline state="Texas" className="h-auto w-36 sm:w-44 md:w-full md:max-w-[18rem] lg:max-w-[21rem]" />
+          <div className="order-2 flex justify-center md:order-1 md:justify-start" aria-hidden="true">
+            <StateOutline state="Texas" className="w-36 sm:w-44 md:w-full md:max-w-[18rem] lg:max-w-[21rem]" />
           </div>
 
           <div className="order-1 text-center md:order-2">
@@ -114,8 +118,8 @@ export function TexasComparedHero({ state, reviewedAt }: TexasComparedHeroProps)
             )}
           </div>
 
-          <div className="order-3 flex justify-center text-foreground/85 md:justify-end" aria-hidden="true">
-            <StateOutline state={state} className="h-auto w-36 sm:w-44 md:w-full md:max-w-[18rem] lg:max-w-[21rem]" />
+          <div className="order-3 flex justify-center md:justify-end" aria-hidden="true">
+            <StateOutline state={state} className="w-36 sm:w-44 md:w-full md:max-w-[18rem] lg:max-w-[21rem]" />
           </div>
         </div>
       </Container>
