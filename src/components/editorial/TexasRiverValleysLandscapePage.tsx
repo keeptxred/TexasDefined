@@ -32,7 +32,7 @@ const landforms = [
 
 function RiverMap() {
   return <figure className="overflow-hidden rounded-sm border border-border bg-surface">
-    <div className="grid lg:grid-cols-[1.5fr_0.8fr] lg:items-stretch">
+    <div className="grid lg:grid-cols-2 lg:items-stretch">
       <div className="p-4 sm:p-6 lg:p-8">
         <svg viewBox="0 0 620 500" role="img" aria-labelledby="river-valleys-map-title river-valleys-map-desc" className="mx-auto h-auto w-full max-w-3xl">
           <title id="river-valleys-map-title">Orientation map of major Texas river systems</title>
@@ -67,8 +67,8 @@ export function TexasRiverValleysLandscapePage({ item, nearby }: { item: Enriche
     <DepartmentHero current="Explore" eyebrow="Water-shaped Texas" title="Texas Rivers & River Valleys" description="From spring-fed limestone rivers to broad coastal floodplains, Texas river valleys reveal how geology, rainfall, groundwater and elevation reshape the state." />
 
     <Section><Container>
-      <div className="overflow-hidden rounded-sm border border-border bg-surface"><img src="/images/editorial/texas-guadalupe-river.jpg" alt="Clear Guadalupe River flowing through a cypress-lined Texas river valley" className="aspect-[16/7] w-full object-cover" fetchPriority="high" /></div>
-      <div className="mt-10 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="overflow-hidden rounded-sm border border-border bg-surface"><img src="/images/editorial/texas-guadalupe-river.jpg" alt="Clear Guadalupe River flowing through a cypress-lined Texas river valley" className="aspect-video w-full object-cover" fetchPriority="high" /></div>
+      <div className="mt-10 grid gap-12 lg:grid-cols-2">
         <div className="max-w-3xl"><p className="eyebrow text-primary">How water shapes Texas</p><p className="mt-4 text-lg leading-9 text-muted-foreground">{item.intro} The same named river can begin as a narrow headwater stream, widen across prairie or ranch country, pass through reservoirs and cities, and finish in a broad floodplain or estuary. Understanding the valley around the water is what makes the system make sense.</p></div>
         <aside className="border-t-2 border-foreground pt-6"><h2 className="font-display text-2xl">At a glance</h2><dl className="mt-5 space-y-5 text-sm leading-7"><div><dt className="eyebrow text-muted-foreground">Where</dt><dd className="mt-1">Statewide, from Panhandle headwaters and West Texas desert rivers to East Texas forests and Gulf Coast estuaries.</dd></div><div><dt className="eyebrow text-muted-foreground">What changes</dt><dd className="mt-1">Rainfall, bedrock, elevation, groundwater, dams, vegetation and distance from the coast.</dd></div><div><dt className="eyebrow text-muted-foreground">Look for</dt><dd className="mt-1">Cypress corridors, gravel bars, terraces, oxbows, bottomlands, canyon reaches and broad coastal floodplains.</dd></div></dl></aside>
       </div>
