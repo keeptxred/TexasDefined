@@ -37,7 +37,7 @@ export function mergeOfficialTpwdFishingReport(
 
 export function buildTpwdReportSourceSummary(snapshot: TpwdFishingReportSnapshot | null) {
   const attribution = `TexasDefined provides fishing reports from ${TPWD_NAME} and other clearly attributed sources.`;
-  return snapshot?.sourceNotice
-    ? `${attribution} TPWD status: ${snapshot.sourceNotice}`
+  return snapshot
+    ? `${attribution} The newest TPWD report is shown below with its original publication date so older conditions are not presented as current.`
     : `${attribution} Every report is shown with its original publication date so older conditions are not presented as current.`;
 }
