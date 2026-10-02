@@ -11,6 +11,7 @@ import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
+const MoodyGardensAuthority = lazy(() => import("@/components/editorial/MoodyGardensAuthority"));
 
 const CAMPING_DESTINATION_SLUGS = new Set([
   "enchanted-rock-state-natural-area",
@@ -99,6 +100,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
+  const hasMoodyGardensAuthority = destination.slug === "moody-gardens";
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
   ).values()]
@@ -106,7 +108,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     .slice(0, 6);
 
   return <>
-    {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {hasMoodyGardensAuthority ? <Suspense fallback={null}><MoodyGardensAuthority /></Suspense> : null}
+    {topAttractionRank && !hasMoodyGardensAuthority ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     <DestinationAreaGuideSection destination={destination} />
