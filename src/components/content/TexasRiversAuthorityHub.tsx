@@ -3,11 +3,19 @@ import { Link } from "@tanstack/react-router";
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
 const riverProfiles = [
-  { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International river · largest Texas basin by area" },
-  { name: "Brazos", href: "/article/texas-brazos-river-guide", region: "West & Central Texas", note: "840 river miles · major agricultural and reservoir system" },
-  { name: "Colorado", href: "/article/texas-colorado-river-guide", region: "West & Central Texas", note: "Texas-only river · Highland Lakes and Austin" },
-  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed tributaries · Canyon Lake · tubing corridor" },
-  { name: "Trinity", href: "/article/texas-trinity-river-guide", region: "North Texas & Gulf Coast", note: "Entire basin in Texas · Dallas-Fort Worth water system" },
+  { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International river · largest Texas basin by area", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
+  { name: "Brazos", href: "/article/texas-brazos-river-guide", region: "West & Central Texas", note: "840 river miles · major agricultural and reservoir system", image: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg" },
+  { name: "Colorado", href: "/article/texas-colorado-river-guide", region: "West & Central Texas", note: "Texas-only river · Highland Lakes and Austin", image: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg" },
+  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed tributaries · Canyon Lake · tubing corridor", image: "/images/editorial/texas-guadalupe-river.jpg" },
+  { name: "Trinity", href: "/article/texas-trinity-river-guide", region: "North Texas & Gulf Coast", note: "Entire basin in Texas · Dallas-Fort Worth water system", image: "/images/editorial/texas-trinity-river.jpg" },
+] as const;
+
+const riverRegions = [
+  { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountain basins, canyon country and an international river system." },
+  { title: "Central Texas & the plains", rivers: "Brazos · Colorado", description: "Long cross-state systems connecting drier western country, major reservoirs and the Gulf." },
+  { title: "Hill Country & South-Central Texas", rivers: "Guadalupe · Frio · Nueces · San Antonio", description: "Limestone, springs, clear water, cypress-lined reaches and aquifer-fed tributaries." },
+  { title: "North Texas", rivers: "Trinity · Red", description: "Urban water supply, flood-control reservoirs and the long northern boundary with Oklahoma." },
+  { title: "East Texas", rivers: "Sabine · Neches · Cypress", description: "Wetter forests, broad floodplains, bayous and river systems flowing toward Sabine Lake and the Gulf." },
 ] as const;
 
 const sectionLinks = [
@@ -23,13 +31,12 @@ const sectionLinks = [
   { label: "San Jacinto & Lavaca", href: "#the-san-jacinto-and-lavaca-prove-a-river-does-not-have-to-be-long-to-matter" },
 ] as const;
 
-
 function TexasRiverOrientationMap() {
   return (
-    <figure className="mt-8 overflow-hidden rounded-sm border border-border bg-surface">
-      <div className="grid gap-5 md:grid-cols-2">
-        <div className="p-4 sm:p-6">
-          <svg viewBox="0 0 620 500" role="img" aria-labelledby="texas-river-map-title texas-river-map-desc" className="h-auto w-full">
+    <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-surface">
+      <div className="grid lg:grid-cols-[1.5fr_0.8fr] lg:items-stretch">
+        <div className="p-4 sm:p-6 lg:p-8">
+          <svg viewBox="0 0 620 500" role="img" aria-labelledby="texas-river-map-title texas-river-map-desc" className="mx-auto h-auto w-full max-w-3xl">
             <title id="texas-river-map-title">Orientation map of major Texas river systems</title>
             <desc id="texas-river-map-desc">A simplified Texas outline with approximate paths for the Rio Grande, Brazos, Colorado, Guadalupe, Trinity, Red, Sabine, Neches and Nueces river systems.</desc>
             <path d="M126 38H292V99H357L383 119L447 123L471 145L516 151L536 185L548 229L538 273L553 312L532 352L502 367L476 394L446 409L420 447L380 458L350 438L319 410L280 390L241 362L201 332L172 299L144 263L116 233L86 213L67 177L73 133L103 110Z" fill="currentColor" className="text-primary" opacity="0.15" stroke="currentColor" strokeWidth="3" />
@@ -56,62 +63,67 @@ function TexasRiverOrientationMap() {
             </g>
           </svg>
         </div>
-        <figcaption className="border-t border-border p-5 text-sm leading-6 text-muted-foreground lg:border-l lg:border-t-0">
-          <p className="font-semibold text-foreground">Orientation map</p>
-          <p className="mt-2">This simplified map shows the general path of major rivers. For exact basin boundaries, use the official Texas Water Development Board map.</p>
-          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-4 inline-block font-semibold text-primary underline decoration-border underline-offset-4">Open the official TWDB basin map ↗</a>
+        <figcaption className="border-t border-border p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
+          <p className="eyebrow text-primary">Map key</p>
+          <h3 className="mt-2 font-display text-2xl">Where the big systems run</h3>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">This simplified map is for orientation rather than precise basin boundaries. It shows why Texas rivers feel so different: each crosses a different combination of rainfall, elevation, geology and climate.</p>
+          <dl className="mt-6 grid grid-cols-3 gap-3">
+            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-2xl">15</dd></div>
+            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Coastal basins</dt><dd className="mt-1 font-display text-2xl">8</dd></div>
+            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Streams</dt><dd className="mt-1 font-display text-2xl">~191k mi.</dd></div>
+          </dl>
+          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official TWDB basin map ↗</a>
         </figcaption>
       </div>
     </figure>
   );
 }
 
-function RiverProfilesList({ compact = false }: { compact?: boolean }) {
+function RiverProfileCards() {
   return (
-    <ul className={compact ? "mt-4 divide-y divide-border border-y border-border" : "grid sm:grid-cols-2"}>
-      {riverProfiles.map((river, index) => (
-        <li key={river.href} className={compact ? "py-3" : `border-b border-border py-5 sm:px-5 ${index % 2 === 1 ? "sm:border-l" : ""}`}>
-          <Link to={river.href} className="group block">
-            <span className={compact ? "font-semibold group-hover:text-primary" : "font-display text-2xl group-hover:text-primary"}>{river.name}</span>
-            <span className="mt-1 block text-xs font-semibold uppercase text-muted-foreground">{river.region}</span>
-            {!compact && <span className="mt-2 block text-sm leading-6 text-muted-foreground">{river.note}</span>}
-          </Link>
-        </li>
+    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {riverProfiles.map((river) => (
+        <Link key={river.href} to={river.href} className="group overflow-hidden rounded-sm border border-border bg-background transition-colors hover:border-primary">
+          <div className="aspect-[4/3] overflow-hidden bg-surface">
+            <img src={river.image} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+          </div>
+          <div className="p-4">
+            <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
+            <span className="mt-1 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{river.region}</span>
+            <span className="mt-2 block text-sm leading-5 text-muted-foreground">{river.note}</span>
+          </div>
+        </Link>
       ))}
-    </ul>
+    </div>
   );
 }
 
 export function TexasRiversAuthorityHub() {
   return (
-    <section className="relative mb-10 border-y border-border py-8 sm:py-10" aria-labelledby="texas-rivers-authority-heading">
-      <style>{`.river-profile-rail{display:none}@media (min-width:1536px){.river-profile-rail{display:block}}`}</style>
-      <aside className="river-profile-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "0", width: "18rem" }} aria-labelledby="river-profile-rail-heading">
-        <div className="sticky top-8 rounded-sm border border-border bg-background p-5">
-          <p className="eyebrow text-primary">Explore individual rivers</p>
-          <h2 id="river-profile-rail-heading" className="mt-2 font-display text-xl">Dedicated river profiles</h2>
-          <RiverProfilesList compact />
-          <Link to="/texas-explained" className="mt-4 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Texas Explained collection →</Link>
-        </div>
-      </aside>
-
-      <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-        <div>
-          <p className="eyebrow text-primary">Texas rivers at a glance</p>
-          <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">See Texas's Major Rivers on the Map</h2>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">Texas Water Development Board data divides the state into 15 major river basins—areas of land where rain and streams drain toward the same major river system—plus eight coastal basins that drain directly toward bays and the Gulf. Use this overview to see how those systems fit together, then jump directly to the river you want to understand.</p>
-        </div>
-        <dl className="grid grid-cols-3 gap-3 lg:grid-cols-1">
-          <div className="border-t border-border pt-3"><dt className="text-xs uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-3xl">15</dd></div>
-          <div className="border-t border-border pt-3"><dt className="text-xs uppercase text-muted-foreground">Coastal basins</dt><dd className="mt-1 font-display text-3xl">8</dd></div>
-          <div className="border-t border-border pt-3"><dt className="text-xs uppercase text-muted-foreground">Texas streams</dt><dd className="mt-1 font-display text-3xl">~191k mi.</dd></div>
-        </dl>
+    <section className="mb-12 border-y border-border py-8 sm:py-10" aria-labelledby="texas-rivers-authority-heading">
+      <div className="max-w-3xl">
+        <p className="eyebrow text-primary">Start with the map</p>
+        <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Texas Rivers, Region by Region</h2>
+        <p className="mt-4 text-base leading-8 text-muted-foreground">Texas rivers make more sense when you see them as geographic systems rather than a list of names. The major basins cut across county lines, connect cities to distant headwaters and reveal how quickly the state changes from desert to limestone country to humid forest.</p>
       </div>
 
       <TexasRiverOrientationMap />
 
-      <nav aria-label="Jump to a Texas river section" className="mt-8">
-        <p className="eyebrow text-muted-foreground">Jump to a river</p>
+      <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-5" aria-label="Texas river regions">
+        {riverRegions.map((region) => (
+          <div key={region.title} className="bg-background p-4 sm:p-5">
+            <h3 className="font-display text-lg leading-tight">{region.title}</h3>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-primary">{region.rivers}</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">{region.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <nav aria-label="Jump to a Texas river section" className="mt-8 border-t border-border pt-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="eyebrow text-muted-foreground">Jump to a river</p>
+          <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">See all river basins →</Link>
+        </div>
         <div className="mt-3 flex flex-wrap gap-2">
           {sectionLinks.map((item) => <a key={item.href} href={item.href} className="rounded-sm border border-border px-3 py-2 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">{item.label}</a>)}
         </div>
@@ -122,23 +134,19 @@ export function TexasRiversAuthorityHub() {
 
 export function TexasRiversAfterArticle() {
   return (
-    <div className="mt-14">
+    <div className="mt-14 border-t border-border pt-10">
       <section aria-labelledby="river-profiles-heading">
-        <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
-          <div>
-            <p className="eyebrow text-primary">Explore individual rivers</p>
-            <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore Texas River Guides</h2>
-          </div>
-          <Link to="/texas-explained" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">Texas Explained collection →</Link>
+        <div className="max-w-3xl">
+          <p className="eyebrow text-primary">Keep exploring</p>
+          <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Go Deeper on Five Major Texas Rivers</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. These dedicated profiles follow individual river systems in more detail, including tributaries, reservoirs, landscapes and places to experience them.</p>
         </div>
-        <RiverProfilesList />
+        <RiverProfileCards />
       </section>
 
-      <section className="grid gap-5 md:grid-cols-2" style={{ marginTop: "3rem" }} aria-label="Choose the Texas water guide you need">
-        <Link to="/article/texas-river-basins-guide" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Want to know what drains into each river?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the basin guide to see the land that drains into each major river, where neighboring drainage areas meet, and why changes upstream can affect water downstream.</p></Link>
-        <Link to="/article/texas-lakes-reservoirs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need dams and lakes?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Lakes & Reservoirs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the reservoir guide for stored water, dams, flood control and why so many familiar Texas lakes are managed river systems.</p></Link>
-        <Link to="/article/texas-aquifers-springs-explained" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Need groundwater?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Texas Aquifers & Springs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Use the aquifer guide to understand spring flow, groundwater connections and why some Central Texas rivers stay clear between storms.</p></Link>
-        <Link to="/explore/lakes-rivers" className="group border border-border p-5 hover:border-primary"><p className="eyebrow text-primary">Want somewhere to go?</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from the statewide explanation to river parks, swimming water, reservoirs and destination guides.</p></Link>
+      <section className="mt-10 grid gap-4 border-t border-border pt-8 md:grid-cols-2" aria-label="Related Texas water guides">
+        <Link to="/article/texas-river-basins-guide" className="group p-1"><p className="eyebrow text-primary">Understand the watershed</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">See what land drains into each major river and why upstream changes matter downstream.</p></Link>
+        <Link to="/explore/lakes-rivers" className="group border-t border-border p-1 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-1"><p className="eyebrow text-primary">Experience the water</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from statewide geography to river parks, swimming water, reservoirs and destination guides.</p></Link>
       </section>
     </div>
   );
