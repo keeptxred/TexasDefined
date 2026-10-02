@@ -23,3 +23,5 @@ jobs:
         run: node scripts/data/validate-event-occurrence-lifecycle.mjs
       - name: Validate Google Event rich-result contract
         run: node scripts/data/validate-google-event-rich-results.mjs
+      - name: Validate State Fair Event lifecycle
+        run: node scripts/data/validate-state-fair-event-lifecycle.mjs
