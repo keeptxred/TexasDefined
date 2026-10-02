@@ -67,15 +67,13 @@ function classifyFreshness(publishedAt: string, now = new Date()) {
   return "historical" as const;
 }
 
-function extractSourceNotice(text: string) {
-  const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);
-  const reportIndex = lines.findIndex((line) => /^Weekly Fishing Reports$/i.test(line) || /^Fishing Reports?$/i.test(line));
-  const nearby = reportIndex >= 0 ? lines.slice(reportIndex, reportIndex + 8) : lines;
-  return nearby.find((line) =>
+function extractSourceNotice(preamble: string) {
+  const lines = preamble.split("\n").map((line) => line.trim()).filter(Boolean);
+  return lines.find((line) =>
     line.length >= 20 &&
     line.length <= 700 &&
     /\b(?:fishing reports?|reporting)\b/i.test(line) &&
-    !/^Fishing Reports?$/i.test(line) &&
+    !/^(?:.+\s+)?Fishing Reports?$/i.test(line) &&
     !/^Weekly Fishing Reports$/i.test(line) &&
     /[.!?]$/.test(line),
   ) ?? null;
@@ -86,14 +84,15 @@ export function parseTpwdFishingReport(sourceUrl: string, html: string): TpwdFis
   if (!reportUrl) return null;
 
   const text = htmlToText(html);
-  const sourceNotice = extractSourceNotice(text);
   const datePattern = /\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2}),\s+(20\d{2})\b/g;
   const matches = [...text.matchAll(datePattern)];
   if (!matches.length) return null;
 
   const first = matches[0];
+  if (first.index === undefined) return null;
+  const sourceNotice = extractSourceNotice(text.slice(0, first.index));
   const publishedAt = isoDate(first[1], first[2], first[3]);
-  if (!publishedAt || first.index === undefined) return null;
+  if (!publishedAt) return null;
   const nextIndex = matches[1]?.index ?? text.length;
   let summary = text.slice(first.index + first[0].length, nextIndex).trim();
   summary = summary
