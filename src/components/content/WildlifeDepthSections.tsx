@@ -26,7 +26,7 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Texas wildlife</p>
-          <h2 id="wildlife-overview-heading" className="mt-2 font-display text-4xl">Understanding {entity.name}</h2>
+          <h2 id="wildlife-overview-heading" className="mt-2 font-display text-4xl">{profile.overviewHeading ?? `Understanding ${entity.name}`}</h2>
         </div>
         <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
           {profile.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
