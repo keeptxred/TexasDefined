@@ -110,7 +110,7 @@ function TexasIconCategoryPage() {
                   <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">This chapter is not meant to be a checklist of famous buildings. The strongest landmarks explain how Texas changed over time: colonial settlement, independence and statehood, immigration, cattle and railroads, oil and ports, civic ambition, tourism and the modern skylines that now identify major cities.</p>
                   <div className="mt-8 grid gap-6 sm:grid-cols-2">
                     {LANDMARK_STORYLINES.map((storyline) => (
-                      <article key={storyline.title} className="border border-border bg-muted/15 p-6">
+                      <article key={storyline.title} className="border border-border p-6">
                         <h3 className="font-display text-2xl leading-tight">{storyline.title}</h3>
                         <p className="mt-3 text-sm leading-7 text-muted-foreground">{storyline.copy}</p>
                       </article>
