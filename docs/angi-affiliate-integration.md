@@ -53,6 +53,21 @@ The current module includes exact service-request destinations supplied through 
 
 Do not replace those tracked URLs with ordinary Angi homepage/category URLs. If Angi or CJ changes the publisher links, update the governed module from the new account-supplied link catalog and rerun validation before deployment.
 
+## Production safeguards
+
+`scripts/ci/verify-angi-production.mjs` verifies the deployed integration after a successful `Deploy TexasDefined production` workflow. The dedicated `.github/workflows/verify-angi-production.yml` post-deploy check fetches a representative home-services article plus the two deployed client assets and fails if the production bootstrap or governed affiliate markers are missing.
+
+The production check protects these contracts:
+
+- the representative page still loads the shared client affiliate bootstrap;
+- `/angi-home-services.js` is not emitted directly from the SSR root shell;
+- the deployed shared loader still creates and appends the Angi client script;
+- the deployed Angi module still contains the approved CJ AID/network attribution and representative governed service-request categories;
+- sponsored/nofollow attribution, first-party commercial metadata, disclosure language and the provider disclaimer remain present;
+- Cloudflare challenge responses and non-2xx asset responses fail closed rather than producing a false green check.
+
+`scripts/data/validate-angi-affiliate.mjs` also governs the production verifier and workflow wiring before merge. The Angi validation workflow syntax-checks the production verifier along with the two browser modules.
+
 ## Optimization rule
 
 Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high.
