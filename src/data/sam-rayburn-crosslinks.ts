@@ -1,5 +1,6 @@
 export const SAM_RAYBURN_PROFILE_PATH = "/texas-icons/sam-rayburn";
 export const SAM_RAYBURN_HOUSE_PATH = "/destination/sam-rayburn-house";
+export const SAM_RAYBURN_MUSEUM_PATH = "/destination/sam-rayburn-museum-bonham";
 export const SAM_RAYBURN_RESERVOIR_PATH = "/fishing/lakes/sam-rayburn-reservoir";
 
 export const SAM_RAYBURN_RESERVOIR_NAMING =
