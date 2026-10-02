@@ -381,8 +381,8 @@ const sportsVenuePhotos: Record<string, SportsVenuePhoto> = {
     author: 'Microsoft Copilot AI image',
     licenseName: 'AI-generated image supplied for TexasDefined use',
     licenseUrl: 'https://texasdefined.com/sports-venue/xtreme-raceway-park',
-    width: 600,
-    height: 400,
+    width: 1600,
+    height: 1067,
   },
 };
 
