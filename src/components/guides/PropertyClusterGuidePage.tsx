@@ -8,7 +8,7 @@ export type PropertyGuideFaq = { question: string; answer: string };
 type PropertyGuideLink = { to: string; label: string; description: string };
 
 const PROPERTY_GUIDES: PropertyGuideLink[] = [
-  { to: '/learn/property-taxes', label: 'Property taxes', description: 'The complete Texas property-tax system.' },
+  { to: '/learn/property-taxes', label: 'Property taxes', description: 'Texas property-tax system basics.' },
   { to: '/learn/appraisal-districts', label: 'Appraisal districts', description: 'Values, records and local appraisal offices.' },
   { to: '/do/homestead-exemption', label: 'Homestead exemption', description: 'Eligibility, filing and appraisal limits.' },
   { to: '/do/property-tax-protest', label: 'Property-tax protest', description: 'Evidence, deadlines and ARB hearings.' },
