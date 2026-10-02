@@ -8,7 +8,9 @@ on:
       - 'src/routes/__root.tsx'
       - 'docs/angi-affiliate-integration.md'
       - 'scripts/data/validate-angi-affiliate.mjs'
+      - 'scripts/ci/verify-angi-production.mjs'
       - '.github/workflows/validate-angi-affiliate.yml'
+      - '.github/workflows/verify-angi-production.yml'
   push:
     branches: [main]
     paths:
@@ -17,7 +19,9 @@ on:
       - 'src/routes/__root.tsx'
       - 'docs/angi-affiliate-integration.md'
       - 'scripts/data/validate-angi-affiliate.mjs'
+      - 'scripts/ci/verify-angi-production.mjs'
       - '.github/workflows/validate-angi-affiliate.yml'
+      - '.github/workflows/verify-angi-production.yml'
 
 permissions:
   contents: read
@@ -32,7 +36,8 @@ jobs:
           node-version: 22
       - name: Validate Angi affiliate integration
         run: node scripts/data/validate-angi-affiliate.mjs
-      - name: Syntax-check client modules
+      - name: Syntax-check Angi modules and production verifier
         run: |
           node --check public/angi-home-services.js
           node --check public/city-experience-affiliate.js
+          node --check scripts/ci/verify-angi-production.mjs
