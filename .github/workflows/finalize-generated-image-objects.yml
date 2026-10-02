@@ -63,14 +63,26 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y imagemagick python3-pil
           command -v convert
-          command -v identify
           python3 - <<'PY'
           from PIL import features
           assert features.check('webp'), 'Pillow lacks WebP support'
           print('Pillow WebP support: yes')
           PY
 
-      - name: Resize governed event image
+      - name: Decode governed event image with Pillow
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 - <<'PY'
+          from PIL import Image
+          src = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp'
+          with Image.open(src) as image:
+              image.load()
+              print('source format=', image.format, 'size=', image.size, 'mode=', image.mode)
+              assert image.size == (800, 600), f'unexpected governed source size: {image.size}'
+          PY
+
+      - name: Resize governed event image with Pillow
         shell: bash
         run: |
           set -euxo pipefail
@@ -80,15 +92,24 @@ jobs:
           tmp = 'public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp'
           with Image.open(src) as image:
               image.load()
-              assert image.size == (800, 600), f'unexpected governed source size: {image.size}'
               resized = image.resize((1600, 1200), Image.Resampling.LANCZOS)
               resized.save(tmp, 'WEBP', quality=90, method=6)
-          with Image.open(tmp) as check:
-              assert check.size == (1600, 1200), f'bad resized output: {check.size}'
           PY
           test -s public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp
+
+      - name: Validate resized event image with Pillow
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python3 - <<'PY'
+          from PIL import Image
+          tmp = 'public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp'
+          with Image.open(tmp) as check:
+              check.load()
+              print('resized format=', check.format, 'size=', check.size, 'mode=', check.mode)
+              assert check.size == (1600, 1200), f'bad resized output: {check.size}'
+          PY
           mv public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
-          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
 
       - name: Resize governed Xtreme Raceway image
         shell: bash
