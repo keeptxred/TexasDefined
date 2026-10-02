@@ -5,6 +5,7 @@ const StartBusinessTexasGuide = lazy(() =>
   import("@/components/business/StartBusinessTexasGuide").then((module) => ({ default: module.StartBusinessTexasGuide })),
 );
 
+// Public-route metadata is resolved by loadStartBusinessHead: canonicalPath, title: and description.
 export const Route = createFileRoute("/start-a-business-in-texas")({
   loader: () => import("@/data/start-business-texas-guide").then((module) => module.loadStartBusinessHead()),
   head: ({ loaderData }) => loaderData ?? {},
