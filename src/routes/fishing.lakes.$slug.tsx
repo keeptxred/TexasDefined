@@ -7,9 +7,11 @@ import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
+import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
+import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -17,7 +19,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug")({
   loader: async ({ context, params }) => {
-    const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
+    const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, getLatestTpwdFishingReport, lakeSpeciesProfilesQuery, mergeOfficialTpwdFishingReport } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     const seo = import.meta.env.SSR ? { m: await (async () => {
@@ -31,7 +33,6 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       return image.width >= 1200 && image.height > 0 ? { image: image.src, imageAlt: image.alt, imageWidth: image.width, imageHeight: image.height } : null;
     })() } : {};
     if (params.slug === LAKE_CONROE_SLUG) {
-      const { getLakeConroePageData } = await import("@/data/fishing/lake-conroe-page-data.functions");
       const pageData = await getLakeConroePageData();
       const [reports, guides] = await Promise.all([
         context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
@@ -41,9 +42,6 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     }
     if (!isShowcaseLakeSlug(params.slug)) {
       const tpwdLakeSource = lake.sources.find((source) => /tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\//i.test(source.url));
-      const officialReportPromise = tpwdLakeSource
-        ? import("@/data/fishing/tpwd-fishing-report.functions").then(({ getLatestTpwdFishingReport }) => getLatestTpwdFishingReport({ data: { sourceUrl: tpwdLakeSource.url } }))
-        : Promise.resolve(null);
       const [species, relationships, storedReports, guides, access, businesses, officialReport] = await Promise.all([
         context.queryClient.ensureQueryData(fishSpeciesQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(lakeSpeciesProfilesQuery({ lakeId: lake.id })),
@@ -51,14 +49,11 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingAccessPointsQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
-        officialReportPromise,
+        tpwdLakeSource ? getLatestTpwdFishingReport({ data: { sourceUrl: tpwdLakeSource.url } }) : Promise.resolve(null),
       ]);
-      const reports = tpwdLakeSource
-        ? (await import("@/data/fishing/tpwd-fishing-report-adapter")).mergeOfficialTpwdFishingReport(lake, storedReports, officialReport)
-        : storedReports;
+      const reports = mergeOfficialTpwdFishingReport(lake, storedReports, officialReport);
       return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses, ...seo };
     }
-    const { getShowcaseLakePageData } = await import("@/data/fishing/showcase-lakes-page-data.functions");
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     const [reports, guides, businesses, placements] = await Promise.all([
