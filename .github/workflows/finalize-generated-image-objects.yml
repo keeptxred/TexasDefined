@@ -42,19 +42,20 @@ jobs:
           node scripts/assets/materialize-generated-images.mjs
           test -s public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
 
-      - name: Locate ImageMagick
+      - name: Install ImageMagick
         shell: bash
         run: |
           set -euo pipefail
-          command -v magick || command -v convert
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
+          command -v convert
           command -v identify
 
       - name: Resize Chappell Hill generated image
         shell: bash
         run: |
           set -euo pipefail
-          CONVERT_BIN="$(command -v magick || command -v convert)"
-          "$CONVERT_BIN" public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -filter Lanczos -resize 1600x -quality 90 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+          convert public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -filter Lanczos -resize 1600x -quality 90 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
           identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
 
       - name: Resize Xtreme Raceway generated image
@@ -63,8 +64,7 @@ jobs:
           set -euo pipefail
           test -s public/images/sports-venues/xtreme-raceway-park.jpg
           file public/images/sports-venues/xtreme-raceway-park.jpg
-          CONVERT_BIN="$(command -v magick || command -v convert)"
-          "$CONVERT_BIN" public/images/sports-venues/xtreme-raceway-park.jpg -filter Lanczos -resize 1600x -quality 92 public/images/sports-venues/xtreme-raceway-park.jpg
+          convert public/images/sports-venues/xtreme-raceway-park.jpg -filter Lanczos -resize 1600x -quality 92 public/images/sports-venues/xtreme-raceway-park.jpg
           identify public/images/sports-venues/xtreme-raceway-park.jpg
 
       - name: Rechunk Chappell Hill image and update checksum
