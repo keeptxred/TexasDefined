@@ -172,7 +172,7 @@ function TexasLighthousesHub() {
         <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Meet the lights along the Gulf Coast.</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a lighthouse to see its history, public-access reality and trip-planning details. Each card opens the dedicated TexasDefined guide for that light.</p>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {lighthouseCards.map((card) => <Link key={card.slug} to={card.href} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4">
+          {lighthouseCards.map((card) => <Link key={card.slug} to={card.href} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
             <article>
               <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary sm:text-3xl">{card.name}</h3>
               <div className="mt-4 overflow-hidden bg-surface">
