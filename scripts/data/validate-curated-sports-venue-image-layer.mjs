@@ -180,9 +180,22 @@ assert(
   'TPC San Antonio hero must be documentary venue media, not generated or illustrative imagery.',
 );
 
+const xtremeOverrideMatch = overrideSource.match(/'xtreme-raceway-park': \{[\s\S]*?\n  \},/);
+const xtremeOverrideSource = xtremeOverrideMatch?.[0] ?? '';
+assert(xtremeOverrideSource, 'Xtreme Raceway Park must use a curated documentary override when explicit commercial-reuse rights are available.');
+for (const marker of [
+  "imageUrl: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/The_drag_strip_at_night.jpg?width=1600'",
+  "sourcePage: 'https://commons.wikimedia.org/wiki/File:The_drag_strip_at_night.jpg'",
+  "sourceName: 'Wikimedia Commons'",
+  "author: 'Stl66dmk'",
+  "licenseName: 'CC BY-SA 3.0'",
+  "licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/'",
+]) {
+  assert(xtremeOverrideSource.includes(marker), `Xtreme Raceway Park licensed documentary override is missing required source marker: ${marker}`);
+}
 assert(
-  !overrideSource.includes("'xtreme-raceway-park': {"),
-  'Xtreme Raceway Park must not use a curated documentary override unless the media has explicit commercial-reuse rights.',
+  !/AI-generated|illustration|OpenAI|Copilot/i.test(xtremeOverrideSource),
+  'Xtreme Raceway Park curated override must be licensed documentary/representative media, not generated imagery.',
 );
 const xtremeBaseMatch = baseSource.match(/'xtreme-raceway-park': \{[\s\S]*?\n  \},/);
 const xtremeBaseSource = xtremeBaseMatch?.[0] ?? '';
@@ -221,4 +234,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log("Curated sports venue image layer validated: precedence, HTTPS policy, explicit commercial-reuse licensing, documentary Children's Health Stadium, Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park and TPC San Antonio sources, safe site-owner Xtreme fallback, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.");
+console.log("Curated sports venue image layer validated: precedence, HTTPS policy, explicit commercial-reuse licensing, documentary Children's Health Stadium, Legacy Stadium, Memorial Park Golf Course, National Shooting Complex, PGA Frisco, Retama Park, TPC San Antonio and licensed representative Xtreme Raceway sources, safe site-owner Xtreme fallback, real Dickies Arena fallback, production target enforcement, and disallowed-source guardrails are intact.");
