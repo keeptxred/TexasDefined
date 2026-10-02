@@ -1,0 +1,170 @@
+name: Finalize governed Discover image remediation
+
+on:
+  push:
+    branches:
+      - chat8/image-discover-final-current3-20261002
+    paths:
+      - .github/workflows/finalize-generated-image-objects-v2.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: chat8/image-discover-final-current3-20261002
+          fetch-depth: 0
+
+      - name: Verify current main ancestry
+        run: |
+          set -euxo pipefail
+          git fetch origin main chat8/image-discover-final-20261002
+          git merge-base --is-ancestor origin/main HEAD
+
+      - name: Restore safe current-main corrections
+        run: |
+          set -euxo pipefail
+          for path in \
+            src/data/article-image-readiness-overrides.ts \
+            src/data/county-series.server.ts \
+            src/data/sports-venue-images.ts \
+            src/lib/editorial-image-delivery.ts; do
+            git show "origin/chat8/image-discover-final-20261002:${path}" > "${path}"
+          done
+
+      - name: Materialize governed Bluebonnet source
+        run: |
+          set -euxo pipefail
+          node scripts/assets/materialize-generated-images.mjs
+          test -s public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+
+      - name: Install proven image toolchain
+        run: |
+          set -euxo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg imagemagick python3-pil
+
+      - name: Recover and upscale governed Bluebonnet image
+        run: |
+          set -euxo pipefail
+          src='public/images/events/chappell-hill-bluebonnet-festival-20260914.webp'
+          ffprobe -v error -show_entries stream=codec_name,width,height -of default=noprint_wrappers=1 "$src"
+          ffmpeg -hide_banner -loglevel warning -err_detect ignore_err -i "$src" -frames:v 1 -vf scale=1600:1200:flags=lanczos -y /tmp/chappell-recovered.png
+          test -s /tmp/chappell-recovered.png
+          python3 - <<'PY'
+          from PIL import Image
+          src = '/tmp/chappell-recovered.png'
+          out = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp'
+          with Image.open(src) as image:
+              image.load()
+              assert image.size == (1600, 1200), image.size
+              image.save(out, 'WEBP', quality=90, method=6)
+          with Image.open(out) as check:
+              check.load()
+              assert check.size == (1600, 1200), check.size
+          print('Bluebonnet derivative validated at 1600x1200')
+          PY
+
+      - name: Upscale governed Xtreme Raceway image
+        run: |
+          set -euxo pipefail
+          src='public/images/sports-venues/xtreme-raceway-park.jpg'
+          tmp='/tmp/xtreme-raceway-park.jpg'
+          convert "$src" -filter Lanczos -resize '1600x' -quality 92 "$tmp"
+          test -s "$tmp"
+          mv "$tmp" "$src"
+          dims="$(identify -format '%wx%h' "$src")"
+          echo "Xtreme dimensions=${dims}"
+          test "$dims" = '1600x1067'
+
+      - name: Rechunk Bluebonnet and update governed checksums
+        run: |
+          set -euxo pipefail
+          node --input-type=module <<'NODE'
+          import crypto from 'node:crypto';
+          import fs from 'node:fs';
+          import path from 'node:path';
+
+          const imagePath = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp';
+          const bytes = fs.readFileSync(imagePath);
+          const encoded = bytes.toString('base64');
+          const dir = 'assets/generated/chappell-hill-bluebonnet-festival';
+          const prefix = 'clean-v4-20260914.webp.b64.';
+          const parts = 10;
+          const chunkSize = Math.ceil(encoded.length / parts);
+          for (let index = 0; index < parts; index += 1) {
+            fs.writeFileSync(path.join(dir, `${prefix}${String(index).padStart(2, '0')}`), encoded.slice(index * chunkSize, (index + 1) * chunkSize) + '\n');
+          }
+          const sha = crypto.createHash('sha256').update(bytes).digest('hex');
+          for (const [file, pattern] of [
+            ['scripts/assets/materialize-generated-images.mjs', /expectedSha256: "[a-f0-9]{64}"/],
+            ['scripts/ci/verify-critical-static-assets-production.mjs', /const BLUEBONNET_SHA256 = '[a-f0-9]{64}'/],
+          ]) {
+            const source = fs.readFileSync(file, 'utf8');
+            const replacement = file.includes('materialize') ? `expectedSha256: "${sha}"` : `const BLUEBONNET_SHA256 = '${sha}'`;
+            const updated = source.replace(pattern, replacement);
+            if (updated === source) throw new Error(`Could not update checksum in ${file}`);
+            fs.writeFileSync(file, updated);
+          }
+          console.log(`BLUEBONNET_SHA256=${sha}`);
+          NODE
+
+      - name: Stage governed remediation and remove temporary workflows
+        run: |
+          set -euxo pipefail
+          rm .github/workflows/finalize-generated-image-objects.yml
+          rm .github/workflows/finalize-generated-image-objects-v2.yml
+          rm .github/workflows/test-chappell-ffmpeg.yml
+          git add src/data/article-image-readiness-overrides.ts src/data/county-series.server.ts src/data/sports-venue-images.ts src/lib/editorial-image-delivery.ts
+          git add scripts/assets/materialize-generated-images.mjs scripts/ci/verify-critical-static-assets-production.mjs
+          git add -f assets/generated/chappell-hill-bluebonnet-festival/clean-v4-20260914.webp.b64.* public/images/sports-venues/xtreme-raceway-park.jpg
+          git add -u .github/workflows
+          git diff --cached --check
+          git diff --cached --name-status
+
+      - name: Create final commit and ready branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { execFileSync } from 'node:child_process';
+          const owner = 'keeptxred';
+          const repo = 'TexasDefined';
+          const token = process.env.GH_TOKEN;
+          const api = async (path, body) => {
+            const response = await fetch(`https://api.github.com/repos/${owner}/${repo}${path}`, {
+              method: 'POST',
+              headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+              body: JSON.stringify(body),
+            });
+            const text = await response.text();
+            if (!response.ok) throw new Error(`${path} ${response.status}: ${text}`);
+            return JSON.parse(text);
+          };
+          const parent = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+          const treeSha = execFileSync('git', ['show', '-s', '--format=%T', parent], { encoding: 'utf8' }).trim();
+          const raw = execFileSync('git', ['diff', '--cached', '--name-status', '-z']);
+          const fields = raw.toString('utf8').split('\0').filter(Boolean);
+          const entries = [];
+          for (let i = 0; i < fields.length;) {
+            const code = fields[i++];
+            const file = fields[i++];
+            if (code.startsWith('D')) { entries.push({ path: file, mode: '100644', type: 'blob', sha: null }); continue; }
+            const bytes = fs.readFileSync(file);
+            const blob = await api('/git/blobs', { content: bytes.toString('base64'), encoding: 'base64' });
+            entries.push({ path: file, mode: '100644', type: 'blob', sha: blob.sha });
+          }
+          const tree = await api('/git/trees', { base_tree: treeSha, tree: entries });
+          const created = await api('/git/commits', { message: 'Close production image and Discover blockers', tree: tree.sha, parents: [parent] });
+          const ref = 'refs/heads/chat8/image-discover-final-ready4-20261002';
+          await api('/git/refs', { ref, sha: created.sha });
+          console.log(`FINAL_COMMIT_SHA=${created.sha}`);
+          console.log(`PARENT_SHA=${parent}`);
+          console.log(`READY_REF=${ref}`);
+          NODE
