@@ -99,8 +99,14 @@ for (const [file, entries] of entriesByFile) {
       failures.push(`${file}: ${entry.key} uses an AI-generated venue depiction; only the owner-approved Xtreme Raceway exception is permitted.`);
     }
     if (entry.key === 'xtreme-raceway-park') {
-      if (entry.sourceName !== 'site-owner supplied media') failures.push('Xtreme Raceway must retain site-owner supplied provenance.');
-      if (!/^AI-generated\b/i.test(entry.licenseName)) failures.push('Xtreme Raceway must retain its AI provenance disclosure.');
+      if (file === 'src/data/sports-venue-images.ts') {
+        if (entry.sourceName !== 'site-owner supplied media') failures.push('Xtreme Raceway base fallback must retain site-owner supplied provenance.');
+        if (!/^AI-generated\b/i.test(entry.licenseName)) failures.push('Xtreme Raceway base fallback must retain its AI provenance disclosure.');
+      } else if (file === 'src/data/sports-venue-images-curated-overrides.ts') {
+        if (entry.sourceName !== 'Wikimedia Commons') failures.push('Xtreme Raceway curated override must identify Wikimedia Commons as its source.');
+        if (!/^CC\s/i.test(entry.licenseName)) failures.push('Xtreme Raceway curated override must retain an explicit Creative Commons commercial-reuse license.');
+        if (!entry.licenseUrl.startsWith('https://creativecommons.org/licenses/')) failures.push('Xtreme Raceway curated override must retain its Creative Commons license URL.');
+      }
     }
 
     if (entry.sourceName === 'Wikimedia Commons') {
@@ -184,4 +190,4 @@ console.log(`Curated override count: ${entriesByFile.get('src/data/sports-venue-
 console.log(`Unique governed venues with approved photos: ${effective.size}/${governed.size}`);
 console.log(`Remaining fallback count: ${missingSlugs.length}`);
 console.log(`Missing slugs: ${missingSlugs.join(', ') || 'none'}`);
-console.log(`Approved AI exception(s): ${effectiveGenerated.join(', ') || 'none'}`);
+console.log(`Approved effective AI exception(s): ${effectiveGenerated.join(', ') || 'none'}; Xtreme retains its site-owner AI fallback behind the licensed curated override.`);
