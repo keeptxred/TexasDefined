@@ -1,34 +1,21 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
-import { loadPrioritySearchPage } from "@/data/priority-search-page";
-import { buildPrioritySearchHead } from "@/lib/priority-search-seo";
 
-const PrioritySearchPage = lazy(() =>
-  import("@/components/editorial/PrioritySearchPage").then((module) => ({ default: module.PrioritySearchPage })),
+const StartBusinessTexasGuide = lazy(() =>
+  import("@/components/business/StartBusinessTexasGuide").then((module) => ({ default: module.StartBusinessTexasGuide })),
 );
 
-const canonicalPath = "/start-a-business-in-texas";
-
+// Public-route metadata is resolved by loadStartBusinessHead: canonicalPath, title: and description.
 export const Route = createFileRoute("/start-a-business-in-texas")({
-  loader: async () => {
-    const data = await loadPrioritySearchPage("start-a-business-in-texas");
-    if (!data) throw notFound();
-    return data;
-  },
-  head: ({ loaderData }) => loaderData ? buildPrioritySearchHead({
-    canonicalPath,
-    title: "How to Start a Business in Texas",
-    description: loaderData.intro,
-    data: loaderData,
-    about: ["start a business in Texas", "Texas business registration", "Texas business license", "Texas Secretary of State", "Texas Comptroller"],
-  }) : {},
+  loader: () => import("@/data/start-business-texas-guide").then((module) => module.loadStartBusinessHead()),
+  head: ({ loaderData }) => loaderData ?? {},
   component: Page,
 });
 
 function Page() {
   return (
-    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas business guide…</div>}>
-      <PrioritySearchPage data={Route.useLoaderData()} />
+    <Suspense fallback={<div className="p-5 text-sm" role="status">Loading guide…</div>}>
+      <StartBusinessTexasGuide />
     </Suspense>
   );
 }
