@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 import { Container } from "@/components/layout/Container";
 
 const STATE_ABBREVIATIONS: Record<string, string> = {
@@ -13,30 +15,47 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
 };
 
 // MIT-licensed state artwork from coryetzkorn/state-svg-defs, pinned to a fixed revision.
-// Individual SVG files are rendered as images so production does not depend on
-// cross-origin external <use> fragment behavior.
 const STATE_IMAGE_ROOT =
   "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/SVG";
 
 function StateOutline({ state }: { state: string }) {
   const abbreviation = STATE_ABBREVIATIONS[state];
+  const filterId = `state-outline-${useId().replaceAll(":", "")}`;
   if (!abbreviation) return null;
 
   return (
-    <img
-      src={`${STATE_IMAGE_ROOT}/${abbreviation}.svg`}
-      alt=""
+    <svg
+      viewBox="0 0 100 80"
       aria-hidden="true"
-      loading="eager"
-      decoding="async"
+      focusable="false"
       style={{
         display: "block",
         width: "100%",
         height: "clamp(8rem, 18vw, 16rem)",
-        objectFit: "contain",
+        overflow: "visible",
+        color: "currentColor",
         opacity: 0.72,
       }}
-    />
+    >
+      <defs>
+        <filter id={filterId} x="-12%" y="-12%" width="124%" height="124%" colorInterpolationFilters="sRGB">
+          <feMorphology in="SourceAlpha" operator="dilate" radius="0.9" result="outer" />
+          <feMorphology in="SourceAlpha" operator="erode" radius="0.9" result="inner" />
+          <feComposite in="outer" in2="inner" operator="out" result="edge" />
+          <feFlood floodColor="currentColor" result="ink" />
+          <feComposite in="ink" in2="edge" operator="in" />
+        </filter>
+      </defs>
+      <image
+        href={`${STATE_IMAGE_ROOT}/${abbreviation}.svg`}
+        x="0"
+        y="0"
+        width="100"
+        height="80"
+        preserveAspectRatio="xMidYMid meet"
+        filter={`url(#${filterId})`}
+      />
+    </svg>
   );
 }
 
