@@ -31,8 +31,14 @@ describe('knowledge-graph canonical provenance', () => {
     })).toBe('/state-park/not-a-known-owner');
   });
 
-  it('keeps the existing seven exact curated mirrors on destination routes without seed tags', () => {
+  it('keeps exact curated mirrors on destination routes without seed tags', () => {
     expect(canonicalEntityPath({ kind: 'lake', slug: 'caddo-lake' })).toBe('/destination/caddo-lake');
     expect(canonicalEntityPath({ kind: 'historic-site', slug: 'the-alamo' })).toBe('/destination/the-alamo');
+  });
+
+  it('keeps the Sam Houston museum on one canonical destination regardless of graph kind', () => {
+    const slug = 'sam-houston-memorial-museum-republic-texas-presidential-library-huntsville';
+    expect(canonicalEntityPath({ kind: 'museum', slug })).toBe(`/destination/${slug}`);
+    expect(canonicalEntityPath({ kind: 'historic-site', slug })).toBe(`/destination/${slug}`);
   });
 });
