@@ -84,10 +84,30 @@
 
 (() => {
   const scriptId = "td-angi-home-services-script";
-  if (document.getElementById(scriptId)) return;
-  const script = document.createElement("script");
-  script.id = scriptId;
-  script.src = "/angi-home-services.js";
-  script.async = true;
-  document.body.appendChild(script);
+  const eligibleRoute = /^\/(?:article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides)(?:\/|$)/;
+
+  function ensureAngiScript() {
+    if (!eligibleRoute.test(window.location.pathname)) return;
+    if (document.getElementById(scriptId)) return;
+    const script = document.createElement("script");
+    script.id = scriptId;
+    script.src = "/angi-home-services.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  let scheduled = false;
+  function scheduleAngiLoad() {
+    if (scheduled) return;
+    scheduled = true;
+    queueMicrotask(() => {
+      scheduled = false;
+      ensureAngiScript();
+    });
+  }
+
+  ensureAngiScript();
+  window.addEventListener("popstate", scheduleAngiLoad);
+  const root = document.getElementById("main") || document.body;
+  new MutationObserver(scheduleAngiLoad).observe(root, { childList: true, subtree: true });
 })();
