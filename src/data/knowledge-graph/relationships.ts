@@ -37,6 +37,7 @@ const DESTINATION_MIRROR_IDS = new Set([
   'cavern:westcave-preserve',
   'beach:padre-island-national-seashore',
   'historic-site:the-alamo',
+  'historic-site:sam-houston-memorial-museum-republic-texas-presidential-library-huntsville',
 ]);
 
 const APPRAISAL_DISTRICT_SUFFIX = '-appraisal-district';
