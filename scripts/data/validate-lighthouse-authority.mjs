@@ -64,23 +64,51 @@ const historyIntentBlock = intentPaths.slice(historyIntentStart, historyIntentEn
 assert(historyIntentBlock.includes('to: "/explore/lighthouses"'), "Explore History routes must link to /explore/lighthouses");
 
 const intentSlug = "best-lighthouses-to-visit-in-texas";
+const currentIntentMetadata = {
+  dek: "A practical Texas lighthouse guide comparing public access, climbs, viewing methods and trip logistics from Port Isabel to the Sabine gateway.",
+  updatedAt: "2026-10-01",
+  readingMinutes: 18,
+  tags: ["best lighthouses in texas", "texas lighthouses to visit", "port isabel lighthouse", "point bolivar lighthouse", "lydia ann lighthouse", "matagorda island lighthouse", "halfmoon reef lighthouse", "texas gulf coast"],
+  sourceName: "Texas Historical Commission · U.S. Coast Guard Historian's Office · Texas Parks and Wildlife Department",
+  sourceUrl: "https://thc.texas.gov/historic-sites/port-isabel-lighthouse",
+};
+const serializedTags = `[${currentIntentMetadata.tags.map((tag) => `\"${tag}\"`).join(", ")}]`;
+for (const source of [searchIntentStubs, searchIntentArticles]) {
+  assert(source.includes(`dek: \"${currentIntentMetadata.dek}\"`), "Best-lighthouses discovery/article dek must match the upgraded visitor-guide intent");
+  assert(source.includes(`updatedAt: \"${currentIntentMetadata.updatedAt}\"`), "Best-lighthouses discovery/article update date is stale");
+  assert(source.includes(`readingMinutes: ${currentIntentMetadata.readingMinutes}`), "Best-lighthouses discovery/article reading time is stale");
+  assert(source.includes(`tags: ${serializedTags}`), "Best-lighthouses discovery/article tags are out of parity");
+  assert(source.includes(`sourceName: \"${currentIntentMetadata.sourceName}\"`), "Best-lighthouses authority source name is out of parity");
+  assert(source.includes(`sourceUrl: \"${currentIntentMetadata.sourceUrl}\"`), "Best-lighthouses authority source URL is out of parity");
+  assert(source.includes('relatedDestinations: ["port-isabel-lighthouse"]'), "Best-lighthouses metadata must point to the canonical Port Isabel destination slug");
+  assert(source.includes("Port_Isabel_Texas_Lighthouse.jpg"), "Best-lighthouses page must retain its exact-subject hero");
+  assert(source.includes("CC BY 2.0"), "Best-lighthouses hero attribution/license is missing");
+}
 assert(searchIntentStubs.includes(`slug: \"${intentSlug}\"`), "Best-lighthouses search-intent stub is missing");
 assert(searchIntentStubs.includes('import("./lighthouse-search-intent-articles")'), "Best-lighthouses article must remain lazy-loaded");
-assert(searchIntentStubs.includes("Port_Isabel_Texas_Lighthouse.jpg"), "Best-lighthouses page must retain its unique exact-subject hero");
-assert(searchIntentStubs.includes("CC BY 2.0"), "Best-lighthouses hero attribution/license is missing");
-assert(searchIntentStubs.includes('relatedDestinations: ["port-isabel-lighthouse"]'), "Best-lighthouses stub must point to the canonical Port Isabel destination slug");
 assert(newestEvergreen.includes("lighthouseSearchIntentStubs") && newestEvergreen.includes("loadLighthouseSearchIntentArticle"), "Best-lighthouses intent loader is not registered");
 assert(searchIntentArticles.includes('title: "Best Lighthouses to Visit in Texas: What You Can Actually See and Climb"'), "Best-lighthouses search title is missing");
 for (const requiredText of [
+  "Texas lighthouses at a glance: access, climbs and trip difficulty",
   "1. Port Isabel Lighthouse — best overall",
   "2. Point Bolivar Lighthouse — best for Galveston Bay history",
   "3. Halfmoon Reef Lighthouse — best easy historic stop from land",
   "4. Lydia Ann Lighthouse — best for Port Aransas waterways",
   "5. Matagorda Island Lighthouse — best for remote maritime history",
   "6. Sabine Pass Lighthouse — best for the story, not a conventional visit",
+  "A reproduction third-order Fresnel lens installed in 2022 returned a soft light to the lantern room; it is an interpretive reproduction, not the restored original lens and not an official navigation beacon.",
+  "Current official hours: the lighthouse is open daily from 9 a.m. to 6 p.m. in the off-season and 10 a.m. to 9 p.m. in summer, weather permitting.",
+  "Practical plan: do not plan on entering or climbing the lighthouse. Treat it as a private, view-only historic landmark",
+  "Practical plan: do not attempt to enter the privately owned lighthouse property.",
+  "access to Matagorda Island Wildlife Management Area is restricted and visitors should call ahead; the island is accessible only by boat",
+  "the north end of the island—including the headquarters/runway area, road system to the lighthouse and beach—is available for unsupervised wildlife viewing and hiking during daylight hours",
   "the historic lighthouse tower stands on the Louisiana side of the Sabine",
-]) assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required authority text: ${requiredText}`);
+]) assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required current authority text: ${requiredText}`);
+assert(searchIntentArticles.includes('href: "/explore/lighthouses"'), "Best-lighthouses article must link to the lighthouse authority hub");
 assert(searchIntentArticles.includes('href: "/destination/port-isabel-lighthouse"'), "Best-lighthouses article must link to the canonical Port Isabel destination guide");
+for (const authoritySlug of ["point-bolivar-lighthouse-history", "halfmoon-reef-lighthouse-port-lavaca", "lydia-ann-lighthouse-port-aransas", "matagorda-island-lighthouse-history", "sabine-pass-lighthouse-texas-border"]) {
+  assert(searchIntentArticles.includes(`href: \"/article/${authoritySlug}\"`), `Best-lighthouses article missing authority link: ${authoritySlug}`);
+}
 assert(!searchIntentArticles.includes('href: "/destination/port-isabel-lighthouse-state-park"'), "Best-lighthouses article must not link to the retired Port Isabel destination slug");
 assert(links.includes(`\"${intentSlug}\"`), "Best-lighthouses intent page is missing from lighthouse reciprocal links");
 assert(links.includes(`/article/${intentSlug}`), "Existing lighthouse authority pages must discover the best-lighthouses intent page");
