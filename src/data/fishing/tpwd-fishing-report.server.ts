@@ -1,4 +1,5 @@
 import type { TpwdFishingReportSnapshot } from "./tpwd-fishing-report.types";
+export type { TpwdFishingReportSnapshot } from "./tpwd-fishing-report.types";
 
 const REPORT_TIMEOUT_MS = 8_000;
 const CURRENT_WINDOW_DAYS = 14;
