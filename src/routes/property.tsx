@@ -10,7 +10,7 @@ const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
 const startHere = [
   { to: '/buying-a-home-in-texas', label: 'Buying a home in Texas', body: 'Build the purchase from affordability and cash to close through mortgage, local taxes, insurance, closing and post-closing reserves.' },
-  { to: '/learn/property-taxes', label: 'Understand Texas property taxes', body: 'Start with the full system: values, exemptions, rates, protests, payments and local taxing units.' },
+  { to: '/property-tax-guides', label: 'Texas property tax guide', body: 'Use the statewide command center for appraisals, exemptions, protests, rates, bills, deadlines and county tools.' },
   { to: '/texas-property-tax-estimator', label: 'Estimate your property taxes', body: 'Choose county, school district, city and applicable special districts, then load finalized official rates.' },
   { to: '/browse/counties', label: 'Find your county', body: 'Open the county guide for local tax rates, appraisal, exemption, protest, payment and office resources.' },
 ] as const;
@@ -24,7 +24,7 @@ const roadmap = [
 ] as const;
 
 const popularGuides = [
-  { to: '/learn/property-taxes', label: 'Texas Property Taxes', body: 'The main guide to the Texas property-tax system.' },
+  { to: '/property-tax-guides', label: 'Texas Property Tax Guide', body: 'The statewide command center for exemptions, protests, local rates, bills, deadlines, counties and tax tools.' },
   { to: '/decide/property-taxes', label: 'Property Tax Decisions', body: 'A decision-oriented path through exemptions, protests, payments and the next action to take.' },
   { to: '/do/homestead-exemption', label: 'Homestead Exemption', body: 'Eligibility, filing, appraisal limits and related protections.' },
   { to: '/do/property-tax-protest', label: 'Property Tax Protest', body: 'Deadlines, evidence, appraisal review board hearings and next steps.' },
