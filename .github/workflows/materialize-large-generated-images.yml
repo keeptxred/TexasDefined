@@ -1,0 +1,67 @@
+name: Materialize large generated image derivatives
+
+on:
+  push:
+    branches:
+      - chat8/image-discover-final-20261002
+    paths:
+      - .github/workflows/materialize-large-generated-images.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: chat8/image-discover-final-20261002
+          fetch-depth: 0
+      - name: Rebuild governed generated derivatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git merge-base --is-ancestor origin/main HEAD || { echo "Branch no longer contains current main"; exit 1; }
+          node scripts/assets/materialize-generated-images.mjs
+          CONVERT_BIN="$(command -v magick || command -v convert || true)"
+          test -n "$CONVERT_BIN"
+          "$CONVERT_BIN" public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -filter Lanczos -resize 1600x -quality 90 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+          cp public/images/events/chappell-hill-bluebonnet-festival-20260914.webp public/images/events/chappell-hill-bluebonnet-festival.webp
+          "$CONVERT_BIN" public/images/sports-venues/xtreme-raceway-park.jpg -filter Lanczos -resize 1600x -quality 92 public/images/sports-venues/xtreme-raceway-park.jpg
+          node --input-type=module <<'NODE'
+          import crypto from 'node:crypto';
+          import fs from 'node:fs';
+          import path from 'node:path';
+          const imagePath = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp';
+          const bytes = fs.readFileSync(imagePath);
+          const encoded = bytes.toString('base64');
+          const dir = 'assets/generated/chappell-hill-bluebonnet-festival';
+          const prefix = 'clean-v4-20260914.webp.b64.';
+          const parts = 10;
+          const chunkSize = Math.ceil(encoded.length / parts);
+          for (let index = 0; index < parts; index += 1) {
+            const filename = `${prefix}${String(index).padStart(2, '0')}`;
+            fs.writeFileSync(path.join(dir, filename), encoded.slice(index * chunkSize, (index + 1) * chunkSize) + '\n');
+          }
+          const sha = crypto.createHash('sha256').update(bytes).digest('hex');
+          const materializerPath = 'scripts/assets/materialize-generated-images.mjs';
+          const source = fs.readFileSync(materializerPath, 'utf8');
+          const updated = source.replace(/expectedSha256: "[a-f0-9]{64}"/, `expectedSha256: "${sha}"`);
+          if (updated === source) throw new Error('Could not update generated-image checksum');
+          fs.writeFileSync(materializerPath, updated);
+          console.log(`event sha256=${sha} bytes=${bytes.length}`);
+          NODE
+          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp || true
+          identify public/images/sports-venues/xtreme-raceway-park.jpg || true
+      - name: Commit governed derivatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/generated/chappell-hill-bluebonnet-festival/clean-v4-20260914.webp.b64.* scripts/assets/materialize-generated-images.mjs public/images/sports-venues/xtreme-raceway-park.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m "Upgrade governed generated images for Discover"
+          git push origin HEAD:chat8/image-discover-final-20261002
