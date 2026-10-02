@@ -9,7 +9,6 @@ import {
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
-import { WILDLIFE_AUTHORITY_IMAGES } from '@/data/wildlife-authority-images';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
@@ -49,7 +48,6 @@ export const Route = createFileRoute('/$kind/$slug')({
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
-    const wildlifeHero = loaderData.entity.kind === 'wildlife-species' ? WILDLIFE_AUTHORITY_IMAGES[loaderData.entity.slug]?.hero : undefined;
     let description = searchSnippetDescription(loaderData.entity);
     if (loaderData.entity.kind === 'county' && countySeriesArticle?.dek) description = countySeriesArticle.dek;
     const indexable = isIndexableEntityPage(loaderData.entity);
@@ -58,8 +56,8 @@ export const Route = createFileRoute('/$kind/$slug')({
         canonicalPath,
         title: searchIntentTitle(loaderData.entity),
         description,
-        image: countySeriesArticle?.hero.src ?? wildlifeHero?.src,
-        imageAlt: countySeriesArticle?.hero.alt ?? wildlifeHero?.alt,
+        image: countySeriesArticle?.hero.src,
+        imageAlt: countySeriesArticle?.hero.alt,
         imageWidth: countySeriesArticle?.hero.width,
         imageHeight: countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
