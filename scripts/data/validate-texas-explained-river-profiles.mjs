@@ -5,6 +5,8 @@ const stubs = read('src/data/fixtures/texas-explained-river-profile-stubs.ts');
 const articles = read('src/data/fixtures/texas-explained-river-profiles.ts');
 const pillar = read('src/data/fixtures/texas-rivers-explained.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
+const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
+const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
@@ -29,6 +31,32 @@ for (const marker of [
   'href: "/article/texas-river-basins-guide"',
   'href: "/article/texas-lakes-reservoirs-explained"',
 ]) if (!pillar.includes(marker)) errors.push(`GSC river-intent contract missing: ${marker}`);
+
+for (const marker of [
+  'Start with the map',
+  'Texas Rivers, Region by Region',
+  'const riverRegions = [',
+  'See all river basins →',
+  'Go Deeper on Five Major Texas Rivers',
+  'Texas River Basins Explained →',
+  'Explore Texas Lakes & Rivers →',
+]) if (!authority.includes(marker)) errors.push(`Texas rivers map-first authority contract missing: ${marker}`);
+
+for (const forbiddenMarker of [
+  'river-profile-rail',
+  'Dedicated river profiles',
+  'See Texas\'s Major Rivers on the Map',
+]) if (authority.includes(forbiddenMarker)) errors.push(`Texas rivers authority must not restore retired duplicate module: ${forbiddenMarker}`);
+
+for (const marker of [
+  'const basinHighlights = [',
+  'Largest basin in Texas',
+  'Longest Texas reach',
+  'Highest average flow',
+  '<details className="group mt-5',
+  'Open the full 15-basin comparison',
+  'Eight coastal basins drain directly toward bays and the Gulf',
+]) if (!basinReference.includes(marker)) errors.push(`Texas river basin reference presentation contract missing: ${marker}`);
 
 for (const marker of [
   'const riversLink = { href: "/article/texas-rivers-explained"',
@@ -97,4 +125,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, basin/region answer layer and internal links are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference and internal links are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
