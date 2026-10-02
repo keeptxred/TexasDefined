@@ -12,29 +12,31 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
   Washington: "WA", "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY",
 };
 
-// MIT-licensed state silhouettes from coryetzkorn/state-svg-defs, pinned to a fixed revision.
-const STATE_SPRITE_URL =
-  "https://raw.githubusercontent.com/coryetzkorn/state-svg-defs/5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg";
+// MIT-licensed state artwork from coryetzkorn/state-svg-defs, pinned to a fixed revision.
+// Individual SVG files are rendered as images so production does not depend on
+// cross-origin external <use> fragment behavior.
+const STATE_IMAGE_ROOT =
+  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/SVG";
 
 function StateOutline({ state }: { state: string }) {
   const abbreviation = STATE_ABBREVIATIONS[state];
   if (!abbreviation) return null;
 
   return (
-    <svg
-      aria-label={`${state} outline`}
-      role="img"
-      viewBox="0 0 100 80"
-      preserveAspectRatio="xMidYMid meet"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.45"
-      strokeLinejoin="round"
-      strokeLinecap="round"
-      style={{ width: "100%", height: "clamp(8rem, 18vw, 16rem)" }}
-    >
-      <use href={`${STATE_SPRITE_URL}#icon-state-${abbreviation}`} width="100" height="80" />
-    </svg>
+    <img
+      src={`${STATE_IMAGE_ROOT}/${abbreviation}.svg`}
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+      decoding="async"
+      style={{
+        display: "block",
+        width: "100%",
+        height: "clamp(8rem, 18vw, 16rem)",
+        objectFit: "contain",
+        opacity: 0.72,
+      }}
+    />
   );
 }
 
