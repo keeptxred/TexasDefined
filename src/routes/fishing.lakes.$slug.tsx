@@ -7,11 +7,9 @@ import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
-import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, lakeConroeCanonicalPath } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSlug, showcaseLakeCanonicalPath } from "@/data/fishing/showcase-lake-routing";
 import { canonicalFishingPath } from "@/data/fishing/slugs";
-import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -33,6 +31,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       return image.width >= 1200 && image.height > 0 ? { image: image.src, imageAlt: image.alt, imageWidth: image.width, imageHeight: image.height } : null;
     })() } : {};
     if (params.slug === LAKE_CONROE_SLUG) {
+      const { getLakeConroePageData } = await import("@/data/fishing/lake-conroe-page-data.functions");
       const pageData = await getLakeConroePageData();
       const [reports, guides] = await Promise.all([
         context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
@@ -59,6 +58,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
         : storedReports;
       return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses, ...seo };
     }
+    const { getShowcaseLakePageData } = await import("@/data/fishing/showcase-lakes-page-data.functions");
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     const [reports, guides, businesses, placements] = await Promise.all([
