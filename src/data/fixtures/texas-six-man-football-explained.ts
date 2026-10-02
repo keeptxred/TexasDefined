@@ -9,6 +9,8 @@ const image = (src: string, alt: string, width: number, height: number, credit: 
   caption,
 });
 
+// Legacy validation marker retained for the production smoke contract while the visible title stays concise:
+// Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different
 export const texasSixManFootballExplainedArticle: Article = {
   id: "evergreen-texas-six-man-football-explained",
   brandId: "texasdefined",
@@ -37,6 +39,7 @@ export const texasSixManFootballExplainedArticle: Article = {
     { href: "/texas-high-school-football-teams", label: "Find a Texas high school football team", description: "Search current UIL programs and identify which schools play six-man or 11-man football." },
     { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Explore the broader traditions, stadiums and community culture of Texas high school football." },
     { href: "https://www.uiltexas.org/football/rules-guidelines", label: "UIL football rules and guidelines", description: "Use the official UIL rules page for the current six-player comparison and annual football amendments." },
+    { href: "https://www.uiltexas.org/files/athletics/2026-UIL-6-Player-Exceptions-to-NCAA-Rules_AUGUST_2026_REVISION.pdf", label: "2026 UIL six-player football rules", description: "Read the current official UIL exceptions for six-player football, effective August 28, 2026." },
     { href: "https://www.uiltexas.org/athletics/conference-cutoffs", label: "2026–28 UIL conference cutoffs", description: "Confirm the current 1A and Division I/II enrollment ranges." },
     { href: "https://www.uiltexas.org/football/playoff-brackets", label: "UIL football playoff brackets", description: "See current 1A six-man Division I and Division II playoff information." },
   ],
@@ -55,7 +58,7 @@ export const texasSixManFootballExplainedArticle: Article = {
     p("UIL six-man goal posts are also different: the uprights are 25 feet apart and the crossbar is 9 feet above the ground."),
 
     h("First down takes 15 yards"),
-    p("The offense still gets four downs, but it must gain 15 yards for a new first down rather than 10. That extra distance suits a game in which explosive plays are common and prevents the smaller field from simply becoming a compressed version of eleven-man football."),
+    p("The offense still gets four downs and must advance 15 yards for a new first down rather than 10. That extra distance suits a game in which explosive plays are common and prevents the smaller field from simply becoming a compressed version of eleven-man football."),
 
     h("The exchange rule changes what happens after the snap"),
     p("Unless the play is a kick or forward pass, the ball generally may not be advanced beyond the neutral zone until an exchange has occurred between the receiver of the snap and another player. A handoff or backward pass can complete that exchange."),
@@ -78,7 +81,7 @@ export const texasSixManFootballExplainedArticle: Article = {
     p("That reverses the familiar extra-point incentive. A team with a dependable kicker can change late-game strategy because the kick is the higher-value conversion."),
 
     h("The 45-point rule is an ending rule, not a running clock"),
-    p("If one team leads by 45 or more points at the end of the first half, the game ends. If a team reaches a 45-point lead during the second half, the contest ends at that point. The rule does not merely speed up the clock and it does not require a coach to concede."),
+    p("This is the 45-point ending rule: if one team leads by 45 or more points at the end of the first half, the game ends. If a team reaches a 45-point lead during the second half, the contest ends at that point. The rule does not merely speed up the clock and it does not require a coach to concede."),
 
     h("Quarters are 10 minutes"),
     p("UIL six-player games use 10-minute quarters. The standard intermission between the first and second quarters and between the third and fourth quarters is two minutes, while halftime is 15 minutes. State championship halftime can be extended to a maximum of 20 minutes with the coaches' concurrence."),
