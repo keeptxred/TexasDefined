@@ -22,6 +22,8 @@ Eligible route families are intentionally limited to editorial and guide surface
 - `/home-garden/*`
 - `/property-tax-guides/*`
 
+The Angi module is client-bootstrapped from the already-global `public/city-experience-affiliate.js` infrastructure. That bootstrap is route-gated to the eligible families above, is idempotent by script ID, and re-checks after client-side navigation so an SPA transition into an eligible route can load Angi without changing Worker SSR output. Unrelated routes do not download the Angi module.
+
 A page gets no Angi module when no governed service pattern matches.
 
 ## Tracking and disclosure
@@ -61,7 +63,7 @@ The production check protects these contracts:
 
 - the representative page still loads the shared client affiliate bootstrap;
 - `/angi-home-services.js` is not emitted directly from the SSR root shell;
-- the deployed shared loader still creates and appends the Angi client script;
+- the deployed shared loader remains route-gated, idempotent, SPA-aware, and still creates/appends the Angi client script only for governed route families;
 - the deployed Angi module still contains the approved CJ AID/network attribution and representative governed service-request categories;
 - sponsored/nofollow attribution, first-party commercial metadata, disclosure language and the provider disclaimer remain present;
 - Cloudflare challenge responses and non-2xx asset responses fail closed rather than producing a false green check.
