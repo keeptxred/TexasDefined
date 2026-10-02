@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { PoliticalHistoricSiteContext } from "@/components/editorial/PoliticalHistoricSiteContext";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
@@ -114,6 +115,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     {hasSamRayburnMuseumContext ? <SamRayburnContext surface="museum" /> : null}
+    <PoliticalHistoricSiteContext surface="destination" slug={destination.slug} />
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
