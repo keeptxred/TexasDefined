@@ -29,6 +29,21 @@ for (const contract of [
   requireText(dispatcherPath, dispatcher, contract);
 }
 
+const mergeGatePath = '.github/workflows/merge-gate.yml';
+const mergeGate = read(mergeGatePath);
+for (const contract of [
+  'statuses: write',
+  'needs: required',
+  "github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository",
+  'HEAD_SHA: ${{ github.event.pull_request.head.sha }}',
+  '"repos/$REPOSITORY/statuses/$HEAD_SHA"',
+  "-f context='Required merge gate'",
+  "-f state='success'",
+  "-f description='Canonical Required merge gate passed'",
+]) {
+  requireText(mergeGatePath, mergeGate, contract);
+}
+
 const eventSyncScriptPath = 'scripts/events/sync-texas-events-safe.mjs';
 const eventSyncScript = read(eventSyncScriptPath);
 for (const contract of [
@@ -134,4 +149,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: the canonical Merge Gate publishes the legacy protected Required merge gate status only after its canonical required job succeeds and only for same-repository pull requests; daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
