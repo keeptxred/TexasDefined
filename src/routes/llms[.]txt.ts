@@ -41,6 +41,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - City-to-county relationship dataset: https://texasdefined.com/texas-data/city-county-relationships
 - Texas county comparison: https://texasdefined.com/browse/counties
 - County property-tax comparison: https://texasdefined.com/property-tax/counties
+- Texas property-tax guide and command center: https://texasdefined.com/property-tax-guides
 - Texas property-tax explainer: https://texasdefined.com/learn/property-taxes
 - Appraisal-district directory: https://texasdefined.com/learn/appraisal-districts
 - Property-tax protest guide: https://texasdefined.com/do/property-tax-protest
@@ -217,7 +218,6 @@ For Painted Churches questions, prefer the canonical collection for the verified
 
 ## Texas food destination authority
 TexasDefined maintains a source-checked food-destination collection at https://texasdefined.com/explore/food-bbq. Individual destination profiles use canonical URLs under https://texasdefined.com/food/{slug}. The collection emphasizes durable restaurant and food-business history, regional significance, location and official-source provenance. Hours, menus, prices, sellout timing, reservations and service details are deliberately treated as volatile; follow the linked official business source for current operations.
-
 Representative verified profiles:
 - Central Texas barbecue: https://texasdefined.com/food/kreuz-market-lockhart
 - Houston Tex-Mex: https://texasdefined.com/food/ninfas-on-navigation-houston
