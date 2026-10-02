@@ -29,6 +29,7 @@ function Step({ number, title, body }: { number: string; title: string; body: st
 
 export function SixManFootballAuthority() {
   return <>
+    <span className="sr-only">Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different · The short answer</span>
     <section className="mt-8 rounded-2xl border border-border bg-surface p-5 sm:p-7" aria-labelledby="six-man-at-a-glance">
       <p className="eyebrow text-primary">Six-man at a glance</p>
       <h2 id="six-man-at-a-glance" className="mt-2 font-display text-3xl font-semibold">The rules that make it a different game</h2>
