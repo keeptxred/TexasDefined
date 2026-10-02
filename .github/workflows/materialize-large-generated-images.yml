@@ -1,4 +1,4 @@
-name: Materialize large generated image derivatives
+name: Finalize image and Discover remediation
 
 on:
   push:
@@ -11,57 +11,45 @@ permissions:
   contents: write
 
 jobs:
-  materialize:
+  finalize:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
         with:
           ref: chat8/image-discover-final-20261002
           fetch-depth: 0
-      - name: Rebuild governed generated derivatives
+      - name: Apply current-main-safe governed delivery corrections
         shell: bash
         run: |
           set -euo pipefail
-          git fetch origin main
+          git fetch origin main chat8/close-production-image-blockers-20261001-r2
           git merge-base --is-ancestor origin/main HEAD || { echo "Branch no longer contains current main"; exit 1; }
-          node scripts/assets/materialize-generated-images.mjs
-          CONVERT_BIN="$(command -v magick || command -v convert || true)"
-          test -n "$CONVERT_BIN"
-          "$CONVERT_BIN" public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -filter Lanczos -resize 1600x -quality 90 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
-          cp public/images/events/chappell-hill-bluebonnet-festival-20260914.webp public/images/events/chappell-hill-bluebonnet-festival.webp
-          "$CONVERT_BIN" public/images/sports-venues/xtreme-raceway-park.jpg -filter Lanczos -resize 1600x -quality 92 public/images/sports-venues/xtreme-raceway-park.jpg
+
+          git show origin/chat8/close-production-image-blockers-20261001-r2:src/data/article-image-readiness-overrides.ts > src/data/article-image-readiness-overrides.ts
+          git show origin/chat8/close-production-image-blockers-20261001-r2:src/lib/editorial-image-delivery.ts > src/lib/editorial-image-delivery.ts
+          git show origin/chat8/close-production-image-blockers-20261001-r2:src/data/county-series.server.ts > src/data/county-series.server.ts
+
           node --input-type=module <<'NODE'
-          import crypto from 'node:crypto';
           import fs from 'node:fs';
-          import path from 'node:path';
-          const imagePath = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp';
-          const bytes = fs.readFileSync(imagePath);
-          const encoded = bytes.toString('base64');
-          const dir = 'assets/generated/chappell-hill-bluebonnet-festival';
-          const prefix = 'clean-v4-20260914.webp.b64.';
-          const parts = 10;
-          const chunkSize = Math.ceil(encoded.length / parts);
-          for (let index = 0; index < parts; index += 1) {
-            const filename = `${prefix}${String(index).padStart(2, '0')}`;
-            fs.writeFileSync(path.join(dir, filename), encoded.slice(index * chunkSize, (index + 1) * chunkSize) + '\n');
-          }
-          const sha = crypto.createHash('sha256').update(bytes).digest('hex');
-          const materializerPath = 'scripts/assets/materialize-generated-images.mjs';
-          const source = fs.readFileSync(materializerPath, 'utf8');
-          const updated = source.replace(/expectedSha256: "[a-f0-9]{64}"/, `expectedSha256: "${sha}"`);
-          if (updated === source) throw new Error('Could not update generated-image checksum');
-          fs.writeFileSync(materializerPath, updated);
-          console.log(`event sha256=${sha} bytes=${bytes.length}`);
+          const path = 'src/data/sports-venue-images.ts';
+          const source = fs.readFileSync(path, 'utf8');
+          const blockPattern = /(\'xtreme-raceway-park\': \{[\s\S]*?licenseUrl: \'https:\/\/texasdefined\.com\/sports-venue\/xtreme-raceway-park\',\n\s*)width: 600,\n\s*height: 400,/;
+          if (!blockPattern.test(source)) throw new Error('Expected Xtreme generated-media block not found');
+          const updated = source.replace(blockPattern, '$1width: 1600,\n    height: 1067,');
+          fs.writeFileSync(path, updated);
           NODE
-          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp || true
-          identify public/images/sports-venues/xtreme-raceway-park.jpg || true
-      - name: Commit governed derivatives
+
+          rm .github/workflows/materialize-large-generated-images.yml
+
+          git diff --check
+          git diff -- src/data/article-image-readiness-overrides.ts src/lib/editorial-image-delivery.ts src/data/county-series.server.ts src/data/sports-venue-images.ts
+      - name: Commit final governed image corrections
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/generated/chappell-hill-bluebonnet-festival/clean-v4-20260914.webp.b64.* scripts/assets/materialize-generated-images.mjs public/images/sports-venues/xtreme-raceway-park.jpg
+          git add -A .github/workflows/materialize-large-generated-images.yml src/data/article-image-readiness-overrides.ts src/lib/editorial-image-delivery.ts src/data/county-series.server.ts src/data/sports-venue-images.ts
           git diff --cached --quiet && exit 0
-          git commit -m "Upgrade governed generated images for Discover"
+          git commit -m "Apply governed image readiness overrides"
           git push origin HEAD:chat8/image-discover-final-20261002
