@@ -1,14 +1,13 @@
-import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { lighthouseVisitorPlanBySlug, lighthouseVisitorPlans } from "@/data/lighthouse-visitor-planning";
+import { lighthouseVisitorPlans } from "@/data/lighthouse-visitor-planning";
 import { texasLighthouseMapPoints, type TexasLighthouseStatus } from "@/data/texas-lighthouse-map-points";
 import { absoluteUrl, buildEditorialCollectionHead, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/lighthouses";
-const description = "Explore Texas lighthouses from Sabine Pass to Port Isabel with a sourced map, public-access notes, county guides, lighthouse history and a Gulf Coast road-trip itinerary.";
+const description = "Explore Texas lighthouses from Sabine Pass to Port Isabel with photos, public-access notes, county guides, lighthouse history and a Gulf Coast road-trip itinerary.";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 const statusMeta: Record<TexasLighthouseStatus, { label: string; detail: string }> = {
@@ -17,6 +16,63 @@ const statusMeta: Record<TexasLighthouseStatus, { label: string; detail: string 
   relocated: { label: "Relocated", detail: "Historic light preserved off its original station" },
   historic: { label: "Historic site", detail: "Original light no longer survives here" },
 };
+
+const lighthouseCards = [
+  {
+    slug: "port-isabel-lighthouse",
+    name: "Port Isabel Lighthouse",
+    href: "/destination/port-isabel-lighthouse",
+    description: "Texas' only lighthouse built around a conventional public tower visit and climb.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Isabel%2C_Texas_Lighthouse.jpg?width=1600",
+    alt: "Port Isabel Lighthouse in Port Isabel, Texas",
+    credit: "Billy D. Wagner · CC BY-SA 4.0 · Wikimedia Commons",
+  },
+  {
+    slug: "point-bolivar-lighthouse",
+    name: "Point Bolivar Lighthouse",
+    href: "/article/point-bolivar-lighthouse-history",
+    description: "The black cast-iron tower guarding the entrance to Galveston Bay.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg?width=1600",
+    alt: "Point Bolivar Lighthouse on the Bolivar Peninsula at the entrance to Galveston Bay",
+    credit: "Patrick Feller · CC BY 2.0 · Wikimedia Commons",
+  },
+  {
+    slug: "halfmoon-reef-lighthouse",
+    name: "Halfmoon Reef Lighthouse",
+    href: "/article/halfmoon-reef-lighthouse-port-lavaca",
+    description: "The Matagorda Bay lighthouse that was moved ashore and preserved in Port Lavaca.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/HALFMOON_REEF_LIGHTHOUSE.jpg?width=1600",
+    alt: "Halfmoon Reef Lighthouse preserved in Port Lavaca, Texas",
+    credit: "Charles Henry · CC BY 2.0 · Wikimedia Commons",
+  },
+  {
+    slug: "matagorda-island-lighthouse",
+    name: "Matagorda Island Lighthouse",
+    href: "/article/matagorda-island-lighthouse-history",
+    description: "A remote cast-iron lighthouse preserved on wild Matagorda Island.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Matagorda_Island_Light_%28Calhoun_County%2C_Texas%29.jpg?width=1600",
+    alt: "Matagorda Island Lighthouse, the tapered cast-iron tower in Calhoun County",
+    credit: "U.S. Coast Guard · Public domain · Wikimedia Commons",
+  },
+  {
+    slug: "lydia-ann-lighthouse",
+    name: "Lydia Ann Lighthouse",
+    href: "/article/lydia-ann-lighthouse-port-aransas",
+    description: "The historic Aransas Pass light across the channel from Port Aransas.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lydia_Ann_Lighthouse_near_Port_Aransas.jpg?width=1600",
+    alt: "Lydia Ann Lighthouse near Port Aransas with its brick tower and keeper's dwelling",
+    credit: "Jon Lebkowsky · CC BY-SA 2.0 · Wikimedia Commons",
+  },
+  {
+    slug: "sabine-pass-lighthouse",
+    name: "Sabine Pass Lighthouse",
+    href: "/article/sabine-pass-lighthouse-texas-border",
+    description: "The border lighthouse tied to Texas' eastern Gulf gateway and Sabine-Neches approach.",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabine_Pass_Lighthouse_01.jpg?width=1600",
+    alt: "Sabine Pass Lighthouse on the Louisiana side of the Texas-Louisiana border waterway",
+    credit: "Jessica Kemm / National Park Service · Public domain · Wikimedia Commons",
+  },
+] as const;
 
 const lighthouseFaq = [
   {
@@ -41,28 +97,11 @@ const lighthouseFaq = [
   },
 ];
 
-const mapBounds = { minLon: -98.2, maxLon: -93.4, minLat: 25.7, maxLat: 30.2 };
-const mapWidth = 820;
-const mapHeight = 720;
-const pad = 34;
-const project = (lat: number, lon: number) => ({
-  x: pad + ((lon - mapBounds.minLon) / (mapBounds.maxLon - mapBounds.minLon)) * (mapWidth - pad * 2),
-  y: pad + ((mapBounds.maxLat - lat) / (mapBounds.maxLat - mapBounds.minLat)) * (mapHeight - pad * 2),
-});
-const coastGuide = [
-  [29.72, -93.85], [29.37, -94.77], [29.10, -95.05], [28.70, -95.85],
-  [28.34, -96.42], [27.86, -97.06], [27.20, -97.35], [26.08, -97.21],
-] as const;
-const coastPoints = coastGuide.map(([lat, lon]) => {
-  const point = project(lat, lon);
-  return `${point.x},${point.y}`;
-}).join(" ");
-
 export const Route = createFileRoute(canonicalPath)({
   head: () => {
     const base = buildEditorialCollectionHead(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Lighthouses: Map, History & Gulf Coast Road Trip",
+      title: "Texas Lighthouses: Photos, History & Gulf Coast Guide",
       description,
       collectionName: "Texas Lighthouses",
       breadcrumbParentName: "Explore Texas",
@@ -81,8 +120,8 @@ export const Route = createFileRoute(canonicalPath)({
         jsonLd({
           "@context": "https://schema.org",
           "@type": "Dataset",
-          "@id": `${absoluteUrl(texasDefinedBrand, canonicalPath)}#map`,
-          name: "Texas lighthouse map",
+          "@id": `${absoluteUrl(texasDefinedBrand, canonicalPath)}#lighthouses`,
+          name: "Texas lighthouse locations",
           description: "Sourced geographic points for surviving, relocated and historically important Texas Gulf Coast lighthouses.",
           spatialCoverage: { "@type": "State", name: "Texas" },
           variableMeasured: ["latitude", "longitude", "public access", "county", "historic era"],
@@ -110,13 +149,6 @@ export const Route = createFileRoute(canonicalPath)({
 });
 
 function TexasLighthousesHub() {
-  const [selectedSlug, setSelectedSlug] = useState("port-isabel-lighthouse");
-  const selected = useMemo(
-    () => texasLighthouseMapPoints.find((point) => point.slug === selectedSlug) ?? texasLighthouseMapPoints[0],
-    [selectedSlug],
-  );
-  const selectedPlan = lighthouseVisitorPlanBySlug.get(selected.slug);
-
   return <main>
     <section className="border-b border-border bg-surface">
       <Container className="py-16 sm:py-24">
@@ -135,50 +167,22 @@ function TexasLighthousesHub() {
     </section>
 
     <Container className="py-14 sm:py-20">
-      <section className="grid gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(300px,.55fr)]">
-        <div>
-          <p className="eyebrow text-primary">Sourced lighthouse map</p>
-          <h2 className="mt-3 font-display text-4xl sm:text-5xl">From the Sabine to the lower Rio Grande</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The line is a geographic guide to the Gulf Coast, not a driving route. Pins use documented coordinates; select one to see access status, county context and the source behind the point.</p>
-          <div className="mt-7 overflow-hidden border border-border bg-surface p-3 sm:p-6">
-            <svg viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="lighthouse-map-title lighthouse-map-desc" className="h-auto w-full">
-              <title id="lighthouse-map-title">Texas Gulf Coast lighthouse map</title>
-              <desc id="lighthouse-map-desc">A simplified coast guide with sourced points for important Texas lighthouse locations from Sabine Pass to Port Isabel.</desc>
-              <rect x="0" y="0" width={mapWidth} height={mapHeight} className="fill-background" />
-              {[26, 27, 28, 29, 30].map((lat) => { const y = project(lat, -96).y; return <line key={lat} x1={pad} x2={mapWidth - pad} y1={y} y2={y} className="stroke-border" strokeDasharray="4 9"/>; })}
-              {[-98, -97, -96, -95, -94].map((lon) => { const x = project(28, lon).x; return <line key={lon} y1={pad} y2={mapHeight - pad} x1={x} x2={x} className="stroke-border" strokeDasharray="4 9"/>; })}
-              <polyline points={coastPoints} fill="none" className="stroke-primary/40" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-              {texasLighthouseMapPoints.map((point) => {
-                const { x, y } = project(point.lat, point.lon);
-                const active = selected.slug === point.slug;
-                return <g key={point.slug} role="button" tabIndex={0} aria-label={`Select ${point.name}`} className="cursor-pointer focus:outline-none" onClick={() => setSelectedSlug(point.slug)} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") setSelectedSlug(point.slug); }}>
-                  <circle cx={x} cy={y} r={active ? 12 : 8} className={active ? "fill-primary stroke-background" : "fill-foreground stroke-background"} strokeWidth="4"><title>{point.name}</title></circle>
-                  {active ? <text x={x + 16} y={y + 5} className="fill-foreground text-[13px] font-semibold">{point.name}</text> : null}
-                </g>;
-              })}
-            </svg>
-          </div>
+      <section>
+        <p className="eyebrow text-primary">Texas lighthouse guides</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Meet the lights along the Gulf Coast.</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a lighthouse to see its history, public-access reality and trip-planning details. Each card opens the dedicated TexasDefined guide for that light.</p>
+        <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {lighthouseCards.map((card) => <Link key={card.slug} to={card.href} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4">
+            <article>
+              <h3 className="font-display text-2xl leading-tight transition-colors group-hover:text-primary sm:text-3xl">{card.name}</h3>
+              <div className="mt-4 overflow-hidden bg-surface">
+                <img src={card.src} alt={card.alt} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.015]" />
+              </div>
+              <p className="mt-4 text-base leading-7 text-muted-foreground">{card.description}</p>
+              <p className="mt-3 text-[0.7rem] leading-5 text-muted-foreground/80">Photo: {card.credit}</p>
+            </article>
+          </Link>)}
         </div>
-
-        <aside className="border-t-2 border-foreground pt-6 lg:mt-16">
-          <p className="eyebrow text-primary">Selected light</p>
-          <h3 className="mt-3 font-display text-3xl leading-tight">{selected.name}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{selected.county} · {selected.era}</p>
-          <p className="mt-5 text-sm leading-7 text-muted-foreground">{selected.note}</p>
-          <dl className="mt-6 border-y border-border py-5 text-sm">
-            <div><dt className="eyebrow text-muted-foreground">Access</dt><dd className="mt-1 font-semibold">{statusMeta[selected.status].label}</dd><dd className="mt-1 text-muted-foreground">{statusMeta[selected.status].detail}</dd></div>
-            {selectedPlan ? <>
-              <div className="mt-5"><dt className="eyebrow text-muted-foreground">Best for</dt><dd className="mt-1 text-muted-foreground">{selectedPlan.bestFor}</dd></div>
-              <div className="mt-5"><dt className="eyebrow text-muted-foreground">Pair with</dt><dd className="mt-1 text-muted-foreground">{selectedPlan.pairWith}</dd></div>
-            </> : null}
-            <div className="mt-5"><dt className="eyebrow text-muted-foreground">Map source</dt><dd className="mt-1"><a href={selected.sourceUrl} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">{selected.sourceLabel}</a></dd></div>
-          </dl>
-          {selectedPlan ? <p className="mt-5 text-sm leading-7 text-muted-foreground">{selectedPlan.planningNote}</p> : null}
-          <div className="mt-6 flex flex-col items-start gap-3 text-sm">
-            {selected.articleHref ? <Link to={selected.articleHref} className="border-b border-primary text-primary">Read the lighthouse story</Link> : null}
-            <Link to={selected.countyHref} className="border-b border-primary text-primary">Explore county guide</Link>
-          </div>
-        </aside>
       </section>
 
       <section className="mt-20 border-t-2 border-foreground pt-8">
