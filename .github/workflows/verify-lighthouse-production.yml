@@ -105,6 +105,7 @@ jobs:
           fetch_assert port-isabel-history-link '/destination/port-isabel-lighthouse' 'Read the full Port Isabel Lighthouse history'
           fetch_assert explore-home-discovery '/explore' 'Texas lighthouses'
           fetch_assert beaches-discovery '/explore/beaches-coast' 'Texas lighthouses'
+          fetch_assert beaches-photo-guide-copy '/explore/beaches-coast' 'Browse photo-led lighthouse guides that connect Gulf Coast beaches with maritime history, public-access guidance and a coast-spanning route.'
           fetch_assert historic-discovery '/explore/historic-sites' 'Texas lighthouses'
           fetch_assert roadtrip-discovery '/explore/road-trips' 'Texas lighthouse trail'
           fetch_assert point-bolivar '/article/point-bolivar-lighthouse-history' 'Point Bolivar Lighthouse: The Black Tower at Galveston Bay'
