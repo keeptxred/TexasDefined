@@ -11,11 +11,11 @@ const heroImage = {
   height: 1067,
 } as const;
 const trailSystems = [
-  { name: "Franklin Mountains State Park", region: "El Paso / Far West Texas", path: "/destination/franklin-mountains-state-park", description: "More than 100 miles of rugged Chihuahuan Desert trail beside El Paso." },
-  { name: "Big Bend Ranch State Park", region: "Big Bend / Far West Texas", path: "/destination/big-bend-ranch-state-park", description: "A remote 238-mile multiuse network with Contrabando, Encino and Fresno Canyon riding resources." },
-  { name: "Palo Duro Canyon State Park", region: "Texas Panhandle", path: "/destination/palo-duro-canyon-state-park", description: "Canyon riding anchored by the 3.5-mile mountain-bike-only Capitol Peak loop." },
-  { name: "Hill Country State Natural Area", region: "Hill Country", path: "/destination/hill-country-state-natural-area", description: "Forty miles of shared-use trail through rocky hills, creek bottoms and plateaus near Bandera." },
-  { name: "Tyler State Park", region: "East Texas", path: "/destination/tyler-state-park", description: "A compact 13-mile forest trail network with directional multiuse loops." },
+  { name: "Franklin Mountains State Park", region: "El Paso / Far West Texas" },
+  { name: "Big Bend Ranch State Park", region: "Big Bend / Far West Texas" },
+  { name: "Palo Duro Canyon State Park", region: "Texas Panhandle" },
+  { name: "Hill Country State Natural Area", region: "Hill Country" },
+  { name: "Tyler State Park", region: "East Texas" },
 ] as const;
 
 export const Route = createFileRoute(canonicalPath)({
@@ -24,13 +24,7 @@ export const Route = createFileRoute(canonicalPath)({
     const itemListElement = trailSystems.map((area, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      item: {
-        "@type": "Place",
-        name: area.name,
-        url: `${siteUrl}${area.path}`,
-        description: area.description,
-        containedInPlace: { "@type": "AdministrativeArea", name: area.region },
-      },
+      item: { "@type": "Place", name: area.name, containedInPlace: { "@type": "AdministrativeArea", name: area.region } },
     }));
     const schema = {
       "@context": "https://schema.org",
