@@ -32,7 +32,14 @@ jobs:
           EVENT_SRC="public/images/events/chappell-hill-bluebonnet-festival-20260914.webp"
           EVENT_PNG="$(mktemp --suffix=.png)"
           EVENT_WEBP="$(mktemp --suffix=.webp)"
-          dwebp "$EVENT_SRC" -png -o "$EVENT_PNG"
+          if ! dwebp "$EVENT_SRC" -png -o "$EVENT_PNG"; then
+            echo "Current governed Chappell payload is damaged; validating older governed generated payload."
+            OLD_EVENT_B64="$(mktemp)"
+            cat assets/generated/chappell-hill-bluebonnet-festival/chappell-hill-bluebonnet-festival.webp.b64.* | tr -d '\r\n ' > "$OLD_EVENT_B64"
+            base64 -d "$OLD_EVENT_B64" > "$EVENT_SRC"
+            rm -f "$OLD_EVENT_B64"
+            dwebp "$EVENT_SRC" -png -o "$EVENT_PNG"
+          fi
           cwebp -quiet -q 90 -resize 1600 1067 "$EVENT_PNG" -o "$EVENT_WEBP"
           mv "$EVENT_WEBP" "$EVENT_SRC"
           rm -f "$EVENT_PNG"
