@@ -56,6 +56,11 @@ try {
   const loader = await fetchLive('/city-experience-affiliate.js', 'affiliate-loader');
   for (const needle of [
     'td-angi-home-services-script',
+    'eligibleRoute',
+    'article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides',
+    'document.getElementById(scriptId)',
+    'window.addEventListener("popstate", scheduleAngiLoad)',
+    'new MutationObserver(scheduleAngiLoad)',
     'document.createElement("script")',
     'script.src = "/angi-home-services.js"',
     'document.body.appendChild(script)',
@@ -85,7 +90,7 @@ try {
     requireCondition(moduleSource.includes(needle), `Deployed Angi module is missing governed marker: ${needle}`);
   }
 
-  console.log('[angi-production] Live page, client bootstrap, governed Angi asset, CJ attribution and SSR separation passed production verification.');
+  console.log('[angi-production] Live page, route-gated client bootstrap, governed Angi asset, CJ attribution and SSR separation passed production verification.');
 } catch (error) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`::error title=ANGI PRODUCTION failure::${message}`);
