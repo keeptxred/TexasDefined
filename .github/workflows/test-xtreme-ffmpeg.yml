@@ -19,23 +19,34 @@ jobs:
         run: |
           git fetch origin main
           git merge-base --is-ancestor origin/main HEAD
-      - name: Install FFmpeg
+      - name: Install Pillow and FFmpeg
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y ffmpeg
-      - name: Probe governed JPEG
+          sudo apt-get install -y python3-pil ffmpeg
+      - name: Probe governed JPEG header
         run: |
           ffprobe -v error -show_entries stream=codec_name,width,height,pix_fmt -of default=noprint_wrappers=1 public/images/sports-venues/xtreme-raceway-park.jpg
-      - name: Decode governed JPEG
+      - name: Recover truncated governed JPEG with Pillow
         run: |
-          ffmpeg -hide_banner -loglevel warning -err_detect ignore_err -i public/images/sports-venues/xtreme-raceway-park.jpg -frames:v 1 -y /tmp/xtreme-source.png
+          python3 - <<'PY'
+          from PIL import Image, ImageFile
+          ImageFile.LOAD_TRUNCATED_IMAGES = True
+          src = 'public/images/sports-venues/xtreme-raceway-park.jpg'
+          out = '/tmp/xtreme-source.png'
+          with Image.open(src) as image:
+              image.load()
+              print('recovered source size=', image.size, 'format=', image.format)
+              assert image.size == (900, 506), image.size
+              image.convert('RGB').save(out, 'PNG')
+          PY
           test -s /tmp/xtreme-source.png
       - name: Scale recovered frame
         run: |
           ffmpeg -hide_banner -loglevel warning -i /tmp/xtreme-source.png -frames:v 1 -vf scale=1600:900:flags=lanczos -q:v 2 -y /tmp/xtreme-raceway-park.jpg
           test -s /tmp/xtreme-raceway-park.jpg
-      - name: Validate output dimensions
+      - name: Validate output dimensions and decode
         run: |
           dims="$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 /tmp/xtreme-raceway-park.jpg)"
           echo "Xtreme dimensions=${dims}"
           test "$dims" = '1600x900'
+          ffmpeg -v error -i /tmp/xtreme-raceway-park.jpg -frames:v 1 -f null -
