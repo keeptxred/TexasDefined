@@ -65,11 +65,11 @@ export const texasTrinityRiverGuideStub = riverStub(
 
 export const texasRioGrandeGuideStub = riverStub(
   "texas-rio-grande-river-guide",
-  "The Rio Grande Explained: Texas' International River and Largest Basin",
-  "The Rio Grande crosses states, deserts and an international boundary before reaching the Gulf. In Texas, its enormous basin, low watershed yield and compact-and-treaty rules make it a river unlike any other in the state.",
+  "Rio Grande in Texas: River Guide, Big Bend, Reservoirs & Border History",
+  "Follow the Rio Grande through Texas from El Paso and Big Bend to Amistad, Laredo, Falcon Reservoir and the Lower Rio Grande Valley, with river access, history, ecology and water-management context.",
   { src: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg", alt: "Blue reservoir water and arid canyon landscape in the Rio Grande basin", width: 1600, height: 1067 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/riogrande/",
-  ["Rio Grande", "Rio Grande basin", "Texas Mexico border", "Amistad Reservoir", "Texas water", "TWDB"],
+  ["Rio Grande", "Rio Grande Texas", "Big Bend", "Amistad Reservoir", "Falcon Reservoir", "Lower Rio Grande Valley", "Texas rivers", "Texas borderlands"],
 );
 
 export const texasExplainedRiverProfileStubs: Article[] = [
