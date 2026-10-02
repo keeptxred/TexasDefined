@@ -8,7 +8,6 @@ const required = [
   "src/data/fishing/lake-conroe-prototype.ts", "src/data/fishing/lake-conroe-routing.ts", "src/data/fishing/lake-conroe-page-data.server.ts",
   "src/data/fishing/lake-conroe-page-data.functions.ts", "src/data/fishing/sitemap.ts", "src/components/fishing/LakeConroeGuide.tsx",
   "src/data/fishing/tpwd-fishing-report.types.ts", "src/data/fishing/tpwd-fishing-report.server.ts", "src/data/fishing/tpwd-fishing-report.functions.ts", "src/data/fishing/tpwd-fishing-report-adapter.ts",
-  "src/components/fishing/OfficialFishingReport.tsx",
   "src/routes/fishing.tsx", "src/routes/fishing.lakes.$slug.tsx", "src/routes/fishing.lakes.$slug.$section.tsx",
   "src/routes/fishing.lake.lake-conroe.tsx", "src/routes/lakes.lake-conroe[.]html.tsx",
 ];
@@ -36,7 +35,6 @@ if (!failures.length) {
   const tpwdReportServer = read("src/data/fishing/tpwd-fishing-report.server.ts");
   const tpwdReportFunctions = read("src/data/fishing/tpwd-fishing-report.functions.ts");
   const tpwdReportAdapter = read("src/data/fishing/tpwd-fishing-report-adapter.ts");
-  const officialReportUi = read("src/components/fishing/OfficialFishingReport.tsx");
 
   for (const name of ["FishingLake", "FishSpecies", "FishingTechnique", "BoatRamp", "Marina", "FishingAccessSite", "TackleShop", "FishingGuide", "GuideLakeRelationship", "GuideSpeciesRelationship", "FishingReport", "FishingAdvertiser", "FishingPlacement"]) {
     if (!new RegExp(`interface ${name}\\b`).test(types)) failures.push(`Fishing domain type missing: ${name}`);
@@ -59,11 +57,11 @@ if (!failures.length) {
   if (!functions.includes("createServerFn") || !functions.includes("loadLakeConroePageDataServer")) failures.push("Lake Conroe server-function boundary missing.");
 
   if (!tpwdReportServer.includes("extractSourceNotice") || !tpwdReportServer.includes("sourceNotice")) failures.push("TPWD fishing reports must extract source status notices dynamically.");
+  if (!tpwdReportServer.includes('text.slice(0, first.index)')) failures.push("TPWD source notice extraction must be limited to the pre-report source preamble.");
   if (!tpwdReportFunctions.includes("createServerFn") || !tpwdReportFunctions.includes('await import("./tpwd-fishing-report.server")')) failures.push("TPWD fishing report fetch must stay behind a server-function boundary.");
   if (!tpwdReportAdapter.includes("mergeOfficialTpwdFishingReport") || !tpwdReportAdapter.includes("buildTpwdReportSourceSummary")) failures.push("TPWD fishing report adapter contract missing.");
   if (!tpwdReportAdapter.includes("snapshot.sourceNotice")) failures.push("TPWD source notice must flow into the existing fishing report model.");
-  if (!officialReportUi.includes("report.sourceNotice")) failures.push("Official TPWD report component must render source-provided status notices conditionally.");
-  if (officialReportUi.includes("Weekly fishing reports are currently on hold while TPWD updates its reporting process")) failures.push("TPWD status wording must never be hard-coded in the client UI.");
+  if (tpwdReportAdapter.includes("Weekly fishing reports are currently on hold while TPWD updates its reporting process")) failures.push("TPWD status wording must never be hard-coded into the report adapter.");
   if (overviewRoute.includes("tpwd-fishing-report.server") || sectionRoute.includes("tpwd-fishing-report.server")) failures.push("Fishing routes must not import the TPWD server module directly.");
   if (!sectionRoute.includes("getLatestTpwdFishingReport") || !sectionRoute.includes("mergeOfficialTpwdFishingReport") || !sectionRoute.includes("buildTpwdReportSourceSummary")) failures.push("Fishing report sections are not hydrated from the current TPWD source.");
   if (!overviewRoute.includes("getLatestTpwdFishingReport") || !overviewRoute.includes("mergeOfficialTpwdFishingReport")) failures.push("Generic fishing lakes are not hydrated from the current TPWD source.");
