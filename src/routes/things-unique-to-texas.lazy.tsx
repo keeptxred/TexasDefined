@@ -178,13 +178,22 @@ function ThingsUniqueToTexasPage() {
 
             <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
               <PillarLink to="/texas-food-history" eyebrow="Food history" title="Texas Food History" text="Barbecue, chili, breakfast tacos, Czech and German foodways, Dr Pepper and the cultures behind the Texas table." />
+              <PillarLink to="/texas-food-trail" eyebrow="Food road trips" title="The Texas Food Trail" text="Ten food traditions organized as a travel-ready route through barbecue, Czech bakeries, Gulf seafood and more." />
               <PillarLink to="/texas-roadside-oddities" eyebrow="Roadside Texas" title="Texas Roadside Oddities" text="Cadillac Ranch, giant boots, neon, courthouse squares and the logic behind a better weird-Texas road trip." />
+              <PillarLink to="/texas-slang-explained" eyebrow="Language" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
+              <PillarLink to="/texas-blue-norther-weather-guide" eyebrow="Weather culture" title="Blue Northers & Spring Storms" text="The language Texans use for dramatic weather, separated from the meteorology and safety guidance that matter most." />
               <PillarLink to="/texas-dance-halls-honky-tonks" eyebrow="Music & social life" title="Dance Halls & Honky-Tonks" text="Two-step culture, historic halls, Western swing, honky-tonks and the places where the tradition still lives." />
+              <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums" text="How a chrysanthemum corsage became an oversized wearable record of school spirit, friends and local identity." />
               <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors" title="Texas Natural Wonders" text="Big Bend, Palo Duro, Caddo Lake, Padre Island and other landscapes that show how varied Texas really is." />
               <PillarLink to="/german-czech-texas-towns" eyebrow="Heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the traditions connecting their food, churches and dance halls." />
               <PillarLink to="/texas-brand-origin-stories" eyebrow="Business & identity" title="Texas Brand Origin Stories" text="H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—and how they became cultural shorthand." />
-              <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums" text="How a chrysanthemum corsage became an oversized wearable record of school spirit, friends and local identity." />
-              <PillarLink to="/texas-slang-explained" eyebrow="Language" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
+              <PillarLink to="/texas-chili-con-carne-history" eyebrow="Food history" title="Texas Chili Con Carne" text="San Antonio Chili Queens, commercial chili powder, Terlingua cookoff culture and the history behind the famous bowl." />
+              <PillarLink to="/texas-chicken-fried-steak-guide" eyebrow="Comfort food" title="Texas Chicken-Fried Steak" text="The disputed origin, regional styles, cream gravy and what separates a balanced plate from an oversized stunt." />
+              <PillarLink to="/texas-breakfast-taco-guide" eyebrow="Everyday Texas food" title="Texas Breakfast Tacos" text="Tortillas, eggs, beans, potatoes, barbacoa, carne guisada, migas and the salsa habits that make local counters different." />
+              <PillarLink to="/dr-pepper-texas-history" eyebrow="Waco history" title="Dr Pepper in Texas" text="How an 1885 Waco soda-fountain drink grew into a national brand while keeping a durable connection to its birthplace." />
+              <PillarLink to="/texas-ranch-water-guide" eyebrow="Texas drinks" title="Texas Ranch Water" text="Tequila, lime and sparkling mineral water, plus the folk origin and the more documentable modern chapter." />
+              <PillarLink to="/san-antonio-puffy-taco-history" eyebrow="San Antonio food" title="San Antonio Puffy Tacos" text="Fresh corn masa, hot oil, Ray's Drive Inn and the West Side food culture behind one of the city's signature dishes." />
+              <PillarLink to="/barbacoa-big-red-san-antonio" eyebrow="Sunday tradition" title="Barbacoa & Big Red" text="How an older weekend barbacoa tradition and a Waco-born soda became one of San Antonio's strongest food-memory pairings." />
             </div>
           </div>
         </Container>
