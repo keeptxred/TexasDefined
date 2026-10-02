@@ -95,9 +95,14 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
 
 function WildlifeHero({ image }: { image: WildlifeImage }) {
   return <figure className="border-b border-border py-12">
-    <div className="overflow-hidden bg-muted">
-      <img src={image.src} alt={image.alt} className="w-full object-cover" style={{ maxHeight: '42rem' }} loading="eager" fetchPriority="high" decoding="async" />
-    </div>
+    <img
+      src={image.src}
+      alt={image.alt}
+      style={{ display: 'block', width: '100%', maxHeight: '42rem', objectFit: 'cover' }}
+      loading="eager"
+      fetchPriority="high"
+      decoding="async"
+    />
     <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
       <span>{image.caption} </span>
       <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">{image.credit} ↗</a>
@@ -114,9 +119,13 @@ function WildlifeImageCards({ images, speciesName }: { images: [WildlifeImage, W
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))', gap: '1rem' }}>
         {images.map((image) => <figure key={image.src} className="border border-border">
-          <div className="overflow-hidden bg-muted" style={{ aspectRatio: '4 / 3' }}>
-            <img src={image.src} alt={image.alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
-          </div>
+          <img
+            src={image.src}
+            alt={image.alt}
+            style={{ display: 'block', width: '100%', aspectRatio: '4 / 3', objectFit: 'cover' }}
+            loading="lazy"
+            decoding="async"
+          />
           <figcaption className="p-5">
             <p className="text-sm leading-6 text-muted-foreground">{image.caption}</p>
             <p className="mt-3"><a href={image.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">{image.credit} ↗</a></p>
