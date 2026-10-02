@@ -7,6 +7,10 @@ if (!token) {
   throw new Error('CLOUDFLARE_CACHE_API_TOKEN is required for targeted cache purge.');
 }
 
+const alwaysPurgeUrls = [
+  `https://${zoneName}/article/texas-rivers-explained`,
+];
+
 const weekendEventUrls = [
   `https://${zoneName}/events/this-weekend`,
   `https://${zoneName}/events/houston-this-weekend`,
@@ -48,12 +52,13 @@ const urls = [...new Set([
     .split(/[\n,]+/)
     .map((value) => value.trim())
     .filter(Boolean),
+  ...alwaysPurgeUrls,
   ...weekendEventUrls,
   ...metroUrls,
 ])];
 
 if (urls.length === 0) {
-  throw new Error('CLOUDFLARE_PURGE_URLS must contain at least one URL or CLOUDFLARE_PURGE_METRO_PROXIMITY must be true.');
+  throw new Error('Cloudflare targeted purge URL list is empty.');
 }
 
 for (const value of urls) {
