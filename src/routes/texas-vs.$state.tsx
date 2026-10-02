@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
 import { Container } from "@/components/layout/Container";
 import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
@@ -107,14 +108,7 @@ function TexasVsStatePage() {
   ];
 
   return <main>
-    <section className="border-b border-border bg-muted/30 py-14 md:py-20">
-      <Container>
-        <p className="eyebrow text-primary">Texas compared</p>
-        <h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs {name}</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical side-by-side framework for comparing Texas with {name}, with state-specific context for the places, climate and tradeoffs that make this comparison different from the other 48.</p>
-        {evidence && <p className="mt-4 text-sm text-muted-foreground">Official-source review updated {evidence.reviewedAt}.</p>}
-      </Container>
-    </section>
+    <TexasComparedHero state={name} reviewedAt={evidence?.reviewedAt} />
 
     <section className="py-12 md:py-16">
       <Container>
