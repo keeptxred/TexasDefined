@@ -4,6 +4,7 @@ import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
+import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
 import {
@@ -125,7 +126,7 @@ function EntityPage() {
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
-        {entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
+        {entity.kind === 'wildlife-species' ? <WildlifeDepthSections entity={entity} related={visibleRelated} /> : entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
@@ -197,6 +198,7 @@ function officialLinkLabel(kind: string) {
   if (kind === 'tax-office') return 'Official tax office';
   if (kind === 'county-clerk') return 'Official county clerk';
   if (kind === 'dps-office') return 'Official DPS information';
+  if (kind === 'wildlife-species') return 'TPWD species information';
   return 'Official information';
 }
 
@@ -224,7 +226,7 @@ function readerLabel(kind: string) {
     'appraisal-district': 'Property Appraisal', 'tax-office': 'County Tax Office', 'county-clerk': 'County Clerk', 'dps-office': 'DPS Office',
     museum: 'Museum Guide', 'historic-site': 'Then & Now', mission: 'Texas History', battlefield: 'Texas History',
     attraction: 'Worth the Drive', fair: 'Texas Calendar', rodeo: 'Texas Calendar', festival: 'Texas Calendar',
-    'holiday-event': 'Seasonal Guide', 'sporting-event': 'The Texas Game',
+    'holiday-event': 'Seasonal Guide', 'sporting-event': 'The Texas Game', 'wildlife-species': 'Texas Wildlife',
   };
   return labels[kind] ?? title(kind);
 }
@@ -234,6 +236,7 @@ function schemaType(kind: string) {
   if (['county','region','metro-area'].includes(kind)) return 'AdministrativeArea';
   if (kind === 'museum') return 'Museum';
   if (['historic-site','mission','battlefield','attraction'].includes(kind)) return 'TouristAttraction';
+  if (kind === 'wildlife-species') return 'Taxon';
   // Generic knowledge-graph records do not carry occurrence dates/locations.
   // Reserve Schema.org Event for dedicated /event/:slug pages with verified occurrence data.
   if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Thing';

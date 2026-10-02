@@ -41,14 +41,35 @@ const FEATURED_GUIDES: Record<string, { href: string; label: string; description
   ],
   "landmarks": [
     { href: "/german-czech-texas-towns", label: "German & Czech Texas towns", description: "Historic districts, churches and settlement landscapes connect architecture to immigrant history." },
+    { href: "/texas-roadside-oddities", label: "Texas Roadside Oddities", description: "Compare formal historic landmarks with the giant signs, sculptures and highway curiosities that became Texas road-trip icons." },
   ],
 };
+
+const LANDMARK_STORYLINES = [
+  {
+    title: "Spanish colonial and mission landscapes",
+    copy: "Some of Texas's most important landmarks predate the Republic and statehood. Missions, plazas and related sites preserve evidence of Spanish colonial systems, Indigenous communities, religion, military power and settlement patterns. They are strongest when visited as parts of a larger cultural landscape rather than as isolated photo stops.",
+  },
+  {
+    title: "Republic, statehood and civic identity",
+    copy: "Capitols, courthouses, battle sites and early public buildings tell the political story of Texas through architecture and place. A landmark can matter because of what happened there, because of the institution it housed, or because later generations chose to preserve it as a public symbol.",
+  },
+  {
+    title: "Railroads, cattle, ports and the oil era",
+    copy: "Commercial growth left its own landmarks: depots, hotels, stockyards, waterfront structures and industrial sites. These places help explain how Texas cities grew around transportation, cattle, cotton, ports, oil and the businesses that connected regional economies to national markets.",
+  },
+  {
+    title: "Architecture, memory and modern Texas icons",
+    copy: "Not every landmark is ancient. Hotels, theaters, towers, stadiums and modern civic structures can become culturally important when they shape a skyline, anchor a neighborhood or become part of how Texans describe a place. The list below mixes historic significance with the built environment people still recognize today.",
+  },
+] as const;
 
 export const Route = createLazyFileRoute("/things-unique-to-texas/$category")({ component: TexasIconCategoryPage });
 
 function TexasIconCategoryPage() {
   const category = Route.useLoaderData();
   const isTexasBrands = category.slug === "texas-brands";
+  const isLandmarks = category.slug === "landmarks";
   const tripPlanningCategory = ["natural-wonders", "landmarks", "roadside-small-towns", "food-drink"].includes(category.slug);
   const featuredGuides = FEATURED_GUIDES[category.slug] ?? [];
 
@@ -79,6 +100,23 @@ function TexasIconCategoryPage() {
                   <h2 className="font-display text-3xl">Texas roots first, commercial relationships second</h2>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">Brand inclusion is editorial. Any affiliate or sponsored relationship must be separately labeled and does not buy rankings, favorable coverage or factual changes.</p>
                   <a href="/partner-with-us?type=brand-retail&source=%2Fthings-unique-to-texas%2Ftexas-brands" className="mt-4 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline">Represent a Texas brand, grocer or retailer? Explore partnership options →</a>
+                </section>
+              )}
+
+              {isLandmarks && (
+                <section className="mb-10 border-y border-border py-8" aria-labelledby="landmark-story-heading">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">How to read the list</p>
+                  <h2 id="landmark-story-heading" className="mt-2 max-w-3xl font-display text-4xl">Texas landmarks tell more than one Texas story</h2>
+                  <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">This chapter is not meant to be a checklist of famous buildings. The strongest landmarks explain how Texas changed over time: colonial settlement, independence and statehood, immigration, cattle and railroads, oil and ports, civic ambition, tourism and the modern skylines that now identify major cities.</p>
+                  <div className="mt-8 grid gap-6 sm:grid-cols-2">
+                    {LANDMARK_STORYLINES.map((storyline) => (
+                      <article key={storyline.title} className="border border-border p-6">
+                        <h3 className="font-display text-2xl leading-tight">{storyline.title}</h3>
+                        <p className="mt-3 text-sm leading-7 text-muted-foreground">{storyline.copy}</p>
+                      </article>
+                    ))}
+                  </div>
+                  <p className="mt-8 max-w-3xl text-base leading-7 text-muted-foreground">For a trip, group landmarks by city or corridor instead of racing across the state for individual pins. San Antonio, Austin, Galveston, Dallas–Fort Worth and several Central Texas heritage towns each support multi-stop itineraries where the surrounding streets, museums and neighborhoods add context to the landmark itself.</p>
                 </section>
               )}
 
