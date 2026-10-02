@@ -9,7 +9,11 @@ import type {
   FishingReportQuery,
   FishingTechniqueQuery,
 } from "./repositories";
+import { buildTpwdReportSourceSummary, mergeOfficialTpwdFishingReport } from "./tpwd-fishing-report-adapter";
+import { getLatestTpwdFishingReport } from "./tpwd-fishing-report.functions";
 import { isFishingRecordVerified } from "./validation";
+
+export { buildTpwdReportSourceSummary, getLatestTpwdFishingReport, mergeOfficialTpwdFishingReport };
 
 type PublicQuery<T extends { brandId: unknown; status?: unknown }> = Omit<T, "brandId" | "status">;
 const published = { status: "published" as const };
