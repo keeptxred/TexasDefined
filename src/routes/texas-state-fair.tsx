@@ -5,15 +5,14 @@ import { jsonLd } from "@/lib/seo";
 // PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
 const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
-const seoDescription = "State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.";
+const seoDescription = "State Fair of Texas 2026: Sept. 25–Oct. 18 at Fair Park in Dallas. Hours, tickets and schedule.";
 
 function stateFairStructuredData(description: string) {
   if (Date.now() >= Date.parse("2026-10-19T00:00:00-05:00")) {
     return {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      url: canonicalUrl,
-      about: { "@type": "Thing", name: "State Fair of Texas", sameAs: "https://bigtex.com/" },
+      about: { "@type": "Thing", name: "State Fair of Texas" },
     };
   }
 
