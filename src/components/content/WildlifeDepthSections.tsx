@@ -98,7 +98,7 @@ function WildlifeHero({ image }: { image: WildlifeImage }) {
     <img
       src={image.src}
       alt={image.alt}
-      style={{ display: 'block', width: '100%', maxHeight: '42rem', objectFit: 'cover' }}
+      style={{ display: 'block', width: '100%', height: 'clamp(14rem, 28vw, 24rem)', objectFit: 'cover', objectPosition: 'center 42%' }}
       loading="eager"
       fetchPriority="high"
       decoding="async"
@@ -122,7 +122,7 @@ function WildlifeImageCards({ images, speciesName }: { images: [WildlifeImage, W
           <img
             src={image.src}
             alt={image.alt}
-            style={{ display: 'block', width: '100%', aspectRatio: '4 / 3', objectFit: 'cover' }}
+            style={{ display: 'block', width: '100%', aspectRatio: '3 / 2', objectFit: 'cover' }}
             loading="lazy"
             decoding="async"
           />
