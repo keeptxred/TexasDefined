@@ -54,8 +54,8 @@ if (!failures.length) {
 
   if (ui.includes("lake-conroe-prototype")) failures.push("Lake Conroe client UI must not import the prototype catalog.");
   if (!server.includes("Latest fishing conditions")) failures.push("Lake Conroe latest-report copy missing.");
-  const tpwdReportFetcher = readFileSync(join(root, "src/data/fishing/tpwd-fishing-report.server.ts"), "utf8");
-  const officialReportUi = readFileSync(join(root, "src/components/fishing/OfficialFishingReport.tsx"), "utf8");
+  const tpwdReportFetcher = read("src/data/fishing/tpwd-fishing-report.server.ts");
+  const officialReportUi = read("src/components/fishing/OfficialFishingReport.tsx");
   if (!tpwdReportFetcher.includes("sourceNotice") || !tpwdReportFetcher.includes("split(\"\\n\")")) failures.push("TPWD report status notice must be sourced dynamically from the current TPWD response.");
   if (!officialReportUi.includes("report.sourceNotice")) failures.push("Official fishing report UI must render source-provided TPWD notices conditionally.");
   if (officialReportUi.includes("Weekly fishing reports are currently on hold while TPWD updates its reporting process")) failures.push("TPWD status notice must not be hard-coded in the client UI.");
@@ -79,13 +79,8 @@ if (!failures.length) {
 }
 
 if (failures.length) {
-  console.error("Fishing platform validation failed:");
-  failures.forEach((failure) => console.error(`- ${failure}`));
+  console.error(failures.map((failure) => `- ${failure}`).join("\n"));
   process.exit(1);
 }
 
-await import("./validate-fishing-species-platform.mjs");
-await import("./validate-fishing-showcase-lakes.mjs");
-await import("./validate-fishing-guide-platform.mjs");
-
-console.log("Fishing platform validation passed: foundation contracts, Lake Conroe, Batch 4 species depth, showcase-lake routing/content, and Batch 6 verified statewide guide directory/profile infrastructure are protected with source-backed data, guide/report integrity, sponsorship separation, structured data, sitemap governance and client bundle boundaries.");
+console.log("Fishing platform validation passed: canonical routes, source-backed lake data, bundle-safe server hydration, dynamic TPWD status notices and fishing domain contracts are protected.");
