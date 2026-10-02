@@ -12,6 +12,9 @@ function TexasStateFairPage() {
     <PrioritySearchPage
       data={Route.useLoaderData()}
       showSectionNumbers={false}
+      collapsibleOfficialSources
+      officialSourcesHeading="Official State Fair sources"
+      officialSourcesIntro="Hours, schedules, prices and operating details can change during the Fair. These are the official State Fair pages used to verify this guide."
       afterQuickAnswer={
         <>
           <StateFairPlanningStrip />
