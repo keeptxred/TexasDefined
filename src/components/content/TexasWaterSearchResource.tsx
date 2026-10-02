@@ -31,6 +31,12 @@ const topicLinks: WaterGuide[] = [
 ];
 
 export function TexasWaterSearchResource({ active }: { active: WaterTopic }) {
+  // The flagship rivers page already ends with its own focused river-profile
+  // and next-step navigation. Repeating this generic selector immediately after
+  // that ending makes the page feel like stacked widgets instead of a magazine
+  // feature. Keep this resource for the basin guide, where it adds distinct value.
+  if (active === "rivers") return null;
+
   return (
     <section className="mt-8 border-y border-border py-7" aria-labelledby="texas-water-topic-heading">
       <p className="eyebrow text-primary">Texas water by topic</p>
