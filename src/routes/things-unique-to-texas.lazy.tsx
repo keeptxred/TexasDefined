@@ -4,7 +4,6 @@ import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import caddoLake from "@/assets/caddo-lake.jpg";
-import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import rodeo from "@/assets/rodeo-101-hero-photo.jpg";
 import shopFlatlay from "@/assets/shop-flatlay.jpg";
