@@ -18,6 +18,7 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
   const relatedItems = related
     .filter(({ entity: candidate }) => ['wildlife-species', 'state-park', 'national-park', 'natural-area', 'wildlife-management-area'].includes(candidate.kind))
     .slice(0, 6);
+  const overviewHeading = entity.slug === 'ocelot' ? 'Ocelots in Texas' : `Understanding ${entity.name}`;
 
   return <>
     {imageSet ? <WildlifeHero image={imageSet.hero} /> : null}
@@ -26,10 +27,10 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Texas wildlife</p>
-          <h2 id="wildlife-overview-heading" className="mt-2 font-display text-4xl">Understanding {entity.name}</h2>
+          <h2 id="wildlife-overview-heading" className="mt-2 font-display text-4xl">{overviewHeading}</h2>
         </div>
         <div className="max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
-          {profile.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {profile.intro.map((paragraph, index) => <p key={paragraph}>{expandOcelotTpwdFirstMention(entity.slug, paragraph, index)}</p>)}
           {entity.officialUrl ? <p><a className="font-semibold text-primary underline underline-offset-4" href={entity.officialUrl} target="_blank" rel="noreferrer">Check the current TPWD species source ↗</a></p> : null}
         </div>
       </div>
@@ -134,6 +135,11 @@ function WildlifeImageCards({ images, speciesName }: { images: [WildlifeImage, W
       </div>
     </div>
   </section>;
+}
+
+function expandOcelotTpwdFirstMention(slug: string, paragraph: string, index: number) {
+  if (slug !== 'ocelot' || index !== 0 || !paragraph.includes('TPWD')) return paragraph;
+  return paragraph.replace('TPWD', 'Texas Parks and Wildlife Department (TPWD)');
 }
 
 function fallbackProfile(entity: TexasEntityRecord): WildlifeAuthorityProfile {
