@@ -80,7 +80,7 @@ const guideGroups = [
   {
     title: 'Bills, rates and special districts',
     links: [
-      ['/learn/property-taxes', 'Complete Texas property-tax guide', 'Start with the statewide system from appraisal through payment.'],
+      ['/learn/property-taxes', 'How Texas property taxes work', 'Understand the statewide system from appraisal through payment.'],
       ['/learn/property-tax-payments', 'Property-tax payments', 'Understand bills, deadlines, escrow, delinquency and payment options.'],
       ['/learn/mud-taxes-explained', 'MUD taxes explained', 'Understand how utility-district taxes can change ownership cost.'],
       ['/property-tax-calculators', 'Property-tax calculator toolkit', 'Use the full set of Texas Defined tax-planning tools.'],
