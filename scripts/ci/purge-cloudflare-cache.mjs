@@ -9,6 +9,7 @@ if (!token) {
 
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
+  `https://${zoneName}/article/texas-rio-grande-river-guide`,
 ];
 
 const weekendEventUrls = [
