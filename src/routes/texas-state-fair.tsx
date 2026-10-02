@@ -5,35 +5,15 @@ import { jsonLd } from "@/lib/seo";
 // PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
 const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
-const STATE_FAIR_START_DATE = "2026-09-25";
-const STATE_FAIR_END_DATE = "2026-10-18";
 const seoDescription = "State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.";
 
-function texasDateKey(now = new Date()) {
-  const parts = Object.fromEntries(
-    new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Chicago",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).formatToParts(now).map(({ type, value }) => [type, value]),
-  );
-  return `${parts.year}-${parts.month}-${parts.day}`;
-}
-
-function stateFairStructuredData(description: string, now = new Date()) {
-  if (texasDateKey(now) > STATE_FAIR_END_DATE) {
+function stateFairStructuredData(description: string) {
+  if (Date.now() >= Date.parse("2026-10-19T00:00:00-05:00")) {
     return {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      name: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets",
-      description,
       url: canonicalUrl,
-      about: {
-        "@type": "Thing",
-        name: "State Fair of Texas",
-        sameAs: "https://bigtex.com/",
-      },
+      about: { "@type": "Thing", name: "State Fair of Texas", sameAs: "https://bigtex.com/" },
     };
   }
 
@@ -41,8 +21,8 @@ function stateFairStructuredData(description: string, now = new Date()) {
     "@context": "https://schema.org",
     "@type": "Event",
     name: "2026 State Fair of Texas",
-    startDate: STATE_FAIR_START_DATE,
-    endDate: STATE_FAIR_END_DATE,
+    startDate: "2026-09-25",
+    endDate: "2026-10-18",
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
