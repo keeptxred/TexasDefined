@@ -4,6 +4,8 @@ const moduleSource = fs.readFileSync('public/angi-home-services.js', 'utf8');
 const loaderSource = fs.readFileSync('public/city-experience-affiliate.js', 'utf8');
 const rootSource = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const docsSource = fs.readFileSync('docs/angi-affiliate-integration.md', 'utf8');
+const productionSource = fs.readFileSync('scripts/ci/verify-angi-production.mjs', 'utf8');
+const productionWorkflow = fs.readFileSync('.github/workflows/verify-angi-production.yml', 'utf8');
 const errors = [];
 
 for (const [needle, label] of [
@@ -41,8 +43,31 @@ for (const [needle, label] of [
   ['Exhibit A', 'special-terms governance'],
   ['1-day referral period', 'referral window documentation'],
   ['25% commission rate', 'commission documentation'],
+  ['Production safeguards', 'production-safeguards documentation'],
 ]) {
   if (!docsSource.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
+}
+
+for (const [needle, label] of [
+  ['/article/texas-roofs-hail-wind-heat', 'representative production route'],
+  ['/city-experience-affiliate.js', 'deployed client loader check'],
+  ['/angi-home-services.js', 'deployed Angi asset check'],
+  ['cf-mitigated', 'Cloudflare challenge detection'],
+  ['TexasDefined-CI-Angi-Smoke/1.0', 'Angi production smoke user agent'],
+  ['aid=157319271', 'production CJ AID check'],
+  ['category/12061/', 'production roofing deep-link check'],
+  ['sponsored nofollow noopener noreferrer', 'production sponsored-link check'],
+]) {
+  if (!productionSource.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
+}
+
+for (const [needle, label] of [
+  ['workflow_run:', 'post-deploy workflow trigger'],
+  ['Deploy TexasDefined production', 'production deployment dependency'],
+  ["github.event.workflow_run.conclusion == 'success'", 'successful-deploy guard'],
+  ['node scripts/ci/verify-angi-production.mjs', 'Angi production verifier execution'],
+]) {
+  if (!productionWorkflow.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
 }
 
 if (!moduleSource.includes('aid=157319271')) errors.push('Angi CJ AID is missing from governed links.');
