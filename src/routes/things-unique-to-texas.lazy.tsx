@@ -4,8 +4,13 @@ import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import caddoLake from "@/assets/caddo-lake.jpg";
+import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
+import rodeo from "@/assets/rodeo-101-hero-photo.jpg";
+import shopFlatlay from "@/assets/shop-flatlay.jpg";
+import sixFlags from "@/assets/six-flags-hero-photo.jpg";
 import smallTown from "@/assets/small-town.jpg";
+import wildlife from "@/assets/wildlife.jpg";
 import { Container } from "@/components/layout/Container";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
@@ -14,51 +19,51 @@ export const Route = createLazyFileRoute("/things-unique-to-texas")({
 });
 
 const signatureItems = [
-  "Central Texas brisket",
-  "Bluebonnets",
-  "Big Bend",
-  "Friday-night football",
-  "Breakfast tacos",
-  "The Alamo",
-  "Dr Pepper",
-  "Dance halls",
-  "Buc-ee's",
-  "Palo Duro Canyon",
-  "H-E-B",
-  "Homecoming mums",
-  "Whataburger",
-  "Armadillos",
-  "Hill Country",
-  "Cowboy boots",
-  "State Fair traditions",
-  "Kolaches",
-  "Ranch roads",
-  "Painted churches",
-  "Gulf Coast beaches",
-  "Shiner",
-  "Courthouse squares",
-  "Caddo Lake",
-  "Texas slang",
-];
+  { name: "Central Texas brisket", to: "/texas-food-history" },
+  { name: "Bluebonnets", to: "/things-unique-to-texas/wildlife-landscape" },
+  { name: "Big Bend", to: "/texas-natural-wonders-bucket-list" },
+  { name: "Friday-night football", to: "/things-unique-to-texas/culture-music" },
+  { name: "Breakfast tacos", to: "/texas-breakfast-taco-guide" },
+  { name: "The Alamo", to: "/things-unique-to-texas/landmarks" },
+  { name: "Dr Pepper", to: "/dr-pepper-texas-history" },
+  { name: "Dance halls", to: "/texas-dance-halls-honky-tonks" },
+  { name: "Buc-ee's", to: "/texas-brand-origin-stories" },
+  { name: "Palo Duro Canyon", to: "/texas-natural-wonders-bucket-list" },
+  { name: "H-E-B", to: "/texas-brand-origin-stories" },
+  { name: "Homecoming mums", to: "/texas-homecoming-mums" },
+  { name: "Whataburger", to: "/texas-brand-origin-stories" },
+  { name: "Armadillos", to: "/things-unique-to-texas/wildlife-landscape" },
+  { name: "Hill Country", to: "/things-unique-to-texas/natural-wonders" },
+  { name: "Cowboy boots", to: "/things-unique-to-texas/culture-music" },
+  { name: "State Fair traditions", to: "/texas-state-fair" },
+  { name: "Kolaches", to: "/german-czech-texas-towns" },
+  { name: "Ranch roads", to: "/things-unique-to-texas/roadside-small-towns" },
+  { name: "Painted churches", to: "/german-czech-texas-towns" },
+  { name: "Gulf Coast beaches", to: "/things-unique-to-texas/natural-wonders" },
+  { name: "Shiner", to: "/texas-brand-origin-stories" },
+  { name: "Courthouse squares", to: "/things-unique-to-texas/landmarks" },
+  { name: "Caddo Lake", to: "/texas-natural-wonders-bucket-list" },
+  { name: "Texas slang", to: "/texas-slang-explained" },
+] as const;
 
 const featureCards = [
-  { src: bbqBrisket, alt: "Texas barbecue brisket served on butcher paper", title: "Smoke, spice and the Texas table" },
-  { src: bluebonnets, alt: "A field of Texas bluebonnets in spring", title: "Bluebonnets and spring roads" },
-  { src: bigBend, alt: "The Chisos Mountains rising over the Big Bend desert", title: "Desert, mountains and enormous skies" },
-  { src: smallTown, alt: "A Texas courthouse square at golden hour", title: "Small towns and courthouse squares" },
-  { src: caddoLake, alt: "Cypress trees on Caddo Lake", title: "Bayous, cypress and East Texas" },
-  { src: roadTrip, alt: "A two-lane Texas road stretching toward the horizon", title: "Road trips, ranch roads and distance" },
-];
+  { src: bbqBrisket, alt: "Texas barbecue brisket served on butcher paper", title: "Smoke, spice and the Texas table", to: "/things-unique-to-texas/food-drink" },
+  { src: bluebonnets, alt: "A field of Texas bluebonnets in spring", title: "Bluebonnets and spring roads", to: "/things-unique-to-texas/wildlife-landscape" },
+  { src: bigBend, alt: "The Chisos Mountains rising over the Big Bend desert", title: "Desert, mountains and enormous skies", to: "/things-unique-to-texas/natural-wonders" },
+  { src: smallTown, alt: "A Texas courthouse square at golden hour", title: "Small towns and courthouse squares", to: "/things-unique-to-texas/roadside-small-towns" },
+  { src: caddoLake, alt: "Cypress trees on Caddo Lake", title: "Bayous, cypress and East Texas", to: "/things-unique-to-texas/natural-wonders" },
+  { src: roadTrip, alt: "A two-lane Texas road stretching toward the horizon", title: "Road trips, ranch roads and distance", to: "/things-unique-to-texas/roadside-small-towns" },
+] as const;
 
 const categoryImages: Record<string, { src: string; alt: string }> = {
   "food-drink": { src: bbqBrisket, alt: "Texas barbecue brisket" },
-  "texas-brands": { src: roadTrip, alt: "A Texas highway on a road trip" },
+  "texas-brands": { src: shopFlatlay, alt: "Texas goods arranged in a retail flat lay" },
   "natural-wonders": { src: bigBend, alt: "Big Bend desert and mountains" },
   landmarks: { src: smallTown, alt: "A Texas courthouse square" },
   "roadside-small-towns": { src: roadTrip, alt: "A two-lane Texas road" },
-  "culture-music": { src: smallTown, alt: "A Texas small-town square" },
-  "wildlife-landscape": { src: caddoLake, alt: "Cypress trees on Caddo Lake" },
-  "slang-folklore": { src: bluebonnets, alt: "Texas bluebonnets" },
+  "culture-music": { src: rodeo, alt: "A Texas rodeo arena and rider" },
+  "wildlife-landscape": { src: wildlife, alt: "Texas wildlife in its natural landscape" },
+  "slang-folklore": { src: sixFlags, alt: "Texas historical flag imagery" },
 };
 
 function ThingsUniqueToTexasPage() {
@@ -105,21 +110,23 @@ function ThingsUniqueToTexasPage() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {featureCards.map((card) => (
-              <figure key={card.title} className="border border-border bg-background">
+              <Link key={card.title} to={card.to} className="group border border-border bg-background transition-colors hover:border-primary/50">
                 <img src={card.src} alt={card.alt} loading="lazy" decoding="async" style={{ width: "100%", height: 260, objectFit: "cover" }} />
-                <figcaption className="p-7">
-                  <strong className="font-display text-3xl leading-tight">{card.title}</strong>
-                </figcaption>
-              </figure>
+                <div className="p-7">
+                  <strong className="font-display text-3xl leading-tight group-hover:text-primary">{card.title}</strong>
+                  <span className="mt-4 block text-sm font-semibold">Explore this side of Texas →</span>
+                </div>
+              </Link>
             ))}
           </div>
 
           <div className="mt-10 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-            {signatureItems.map((name, index) => (
-              <div key={name} className="bg-background p-7">
+            {signatureItems.map((item, index) => (
+              <Link key={item.name} to={item.to} className="group bg-background p-7 transition-colors hover:bg-muted/30">
                 <span className="text-sm font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
-                <strong className="mt-3 block font-display text-3xl leading-tight">{name}</strong>
-              </div>
+                <strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{item.name}</strong>
+                <span className="mt-4 block text-sm font-semibold text-muted-foreground group-hover:text-foreground">Go deeper →</span>
+              </Link>
             ))}
           </div>
         </Container>
