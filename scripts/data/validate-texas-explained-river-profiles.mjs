@@ -7,6 +7,7 @@ const pillar = read('src/data/fixtures/texas-rivers-explained.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
+const waterResource = read('src/components/content/TexasWaterSearchResource.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
@@ -57,6 +58,10 @@ for (const marker of [
   'Open the full 15-basin comparison',
   'Eight coastal basins drain directly toward bays and the Gulf',
 ]) if (!basinReference.includes(marker)) errors.push(`Texas river basin reference presentation contract missing: ${marker}`);
+
+if (!waterResource.includes('if (active === "rivers") return null;')) {
+  errors.push('Texas rivers authority must not append the generic Texas water topic selector after its focused ending.');
+}
 
 for (const marker of [
   'const riversLink = { href: "/article/texas-rivers-explained"',
@@ -125,4 +130,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference and internal links are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, focused ending and internal links are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
