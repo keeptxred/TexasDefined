@@ -7,6 +7,28 @@ if (!token) {
   throw new Error('CLOUDFLARE_CACHE_API_TOKEN is required for targeted cache purge.');
 }
 
+const wildlifeSlugs = [
+  'white-tailed-deer',
+  'mule-deer',
+  'javelina',
+  'american-alligator',
+  'ocelot',
+  'whooping-crane',
+  'painted-bunting',
+  'roseate-spoonbill',
+  'bobcat',
+  'nine-banded-armadillo',
+  'black-bear',
+  'mountain-lion',
+  'wild-turkey',
+  'texas-bats',
+];
+
+const alwaysPurgeUrls = [
+  `https://${zoneName}/article/texas-rivers-explained`,
+  ...wildlifeSlugs.map((slug) => `https://${zoneName}/wildlife-species/${slug}`),
+];
+
 const weekendEventUrls = [
   `https://${zoneName}/events/this-weekend`,
   `https://${zoneName}/events/houston-this-weekend`,
@@ -48,12 +70,13 @@ const urls = [...new Set([
     .split(/[\n,]+/)
     .map((value) => value.trim())
     .filter(Boolean),
+  ...alwaysPurgeUrls,
   ...weekendEventUrls,
   ...metroUrls,
 ])];
 
 if (urls.length === 0) {
-  throw new Error('CLOUDFLARE_PURGE_URLS must contain at least one URL or CLOUDFLARE_PURGE_METRO_PROXIMITY must be true.');
+  throw new Error('Cloudflare targeted purge URL list is empty.');
 }
 
 for (const value of urls) {
