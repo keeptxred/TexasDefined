@@ -32,8 +32,10 @@ const CAMPING_DESTINATION_SLUGS = new Set([
   "lake-tawakoni-state-park",
 ]);
 
+const SAM_HOUSTON_MUSEUM_SLUG = "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville";
+
 const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
-  "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville",
+  SAM_HOUSTON_MUSEUM_SLUG,
 ]);
 
 const AREA_GROUPS: Array<{
@@ -99,6 +101,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
+  const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
   ).values()]
@@ -133,6 +136,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
           <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
             {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
             {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Camping details</Link>}
+            {hasSamHoustonMuseumContext && <Link to="/article/republic-of-texas-government-trail" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Republic government trail</Link>}
+            {hasSamHoustonMuseumContext && <Link to="/article/texas-revolution-historic-sites-road-trip" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Texas Revolution road trip</Link>}
             <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>
             <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>
             <Link to="/explore/region/$region" params={{ region: destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>
