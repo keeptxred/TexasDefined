@@ -5,10 +5,9 @@ import { LakeConroeGuide } from "@/components/fishing/LakeConroeGuide";
 import { LiveLakeLevelStrip } from "@/components/fishing/LiveLakeLevelStrip";
 import { ShowcaseLakeGuide } from "@/components/fishing/ShowcaseLakeGuide";
 import { Container } from "@/components/layout/Container";
-import { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
+import type { getLakeConroePageData } from "@/data/fishing/lake-conroe-page-data.functions";
 import { LAKE_CONROE_SLUG, isLakeConroeSection, lakeConroeCanonicalPath, type LakeConroeSection } from "@/data/fishing/lake-conroe-routing";
 import { isShowcaseLakeSection, isShowcaseLakeSlug, showcaseLakeCanonicalPath, type ShowcaseLakeSection } from "@/data/fishing/showcase-lake-routing";
-import { getShowcaseLakePageData } from "@/data/fishing/showcase-lakes-page-data.functions";
 import { isLiveLakeLevelSource } from "@/data/fishing/live-lake-level-source";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -22,6 +21,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
       if (!isLakeConroeSection(params.section)) throw notFound();
+      const { getLakeConroePageData } = await import("@/data/fishing/lake-conroe-page-data.functions");
       const pageData = await getLakeConroePageData();
       const officialReportPromise = params.section === "reports"
         ? import("@/data/fishing/tpwd-fishing-report.functions").then(({ getLatestTpwdFishingReport }) => getLatestTpwdFishingReport({ data: { sourceUrl: pageData.sources.tpwdReport.url } }))
@@ -38,6 +38,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       return { kind: "conroe" as const, lake, reports, guides, pageData: hydratedPageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
     }
     if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section)) throw notFound();
+    const { getShowcaseLakePageData } = await import("@/data/fishing/showcase-lakes-page-data.functions");
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     const officialReportPromise = params.section === "reports"
