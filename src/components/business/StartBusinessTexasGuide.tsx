@@ -14,10 +14,10 @@ const steps = [
 ] as const;
 
 const entityRows = [
-  ["Sole proprietorship", "Usually no SOS formation filing", "No entity-level liability shield", "Simple one-owner businesses"],
-  ["General partnership", "Usually no SOS formation filing", "Partners can have personal liability", "Simple businesses with two or more owners"],
-  ["LLC", "$300 Certificate of Formation", "Generally separates business liabilities from owners", "Small businesses seeking liability separation and flexible management"],
-  ["For-profit corporation", "$300 Certificate of Formation", "Generally separates business liabilities from shareholders", "Businesses using a corporate ownership and governance structure"],
+  ["Sole proprietorship", "Usually no SOS formation filing", "$0 SOS formation fee in the usual case", "No entity-level liability shield", "Low — the owner and business are not separate filing entities", "Simple one-owner businesses"],
+  ["General partnership", "Usually no SOS formation filing", "$0 SOS formation fee in the usual case", "Partners can have personal liability", "Low to moderate — agreements, tax records and ownership changes still require care", "Simple businesses with two or more owners"],
+  ["LLC", "Certificate of Formation (Form 205)", "$300", "Generally separates business liabilities from owners", "Moderate — registered agent, company records and tax/information-report obligations", "Owners seeking liability separation and flexible management"],
+  ["For-profit corporation", "Certificate of Formation (Form 201)", "$300", "Generally separates business liabilities from shareholders", "Higher — formal governance, records and ownership administration", "Businesses using corporate governance or planning for outside investment"],
 ] as const;
 
 const checklist = [
@@ -45,6 +45,7 @@ const sources = [
   ["IRS — Get an Employer Identification Number", "https://www.irs.gov/businesses/small-businesses-self-employed/get-an-employer-identification-number"],
   ["FinCEN — Beneficial Ownership Information", "https://www.fincen.gov/boi"],
   ["Texas Workforce Commission — Businesses & Employers", "https://www.twc.texas.gov/businesses"],
+  ["USPTO — Search the federal trademark database", "https://www.uspto.gov/trademarks/search"],
 ] as const;
 
 export function StartBusinessTexasGuide() {
@@ -85,8 +86,8 @@ export function StartBusinessTexasGuide() {
             <h2 className="font-display text-3xl font-bold">Which Texas business structure should you choose?</h2>
             <p className="mt-3 leading-7 text-muted-foreground">There is no single best structure for every owner. Liability, tax treatment, ownership, financing plans and administrative burden all matter. This table is a high-level orientation, not legal or tax advice.</p>
             <div className="mt-6 overflow-x-auto border border-border" role="region" aria-label="Texas business entity comparison" tabIndex={0}>
-              <table className="w-full min-w-[760px] text-left text-sm">
-                <thead className="bg-muted/40"><tr><th className="p-4 font-semibold">Structure</th><th className="p-4 font-semibold">Texas formation filing</th><th className="p-4 font-semibold">Liability</th><th className="p-4 font-semibold">Common fit</th></tr></thead>
+              <table className="w-full min-w-[1080px] text-left text-sm">
+                <thead className="bg-muted/40"><tr><th className="p-4 font-semibold">Structure</th><th className="p-4 font-semibold">Formation requirement</th><th className="p-4 font-semibold">State filing fee</th><th className="p-4 font-semibold">Liability protection</th><th className="p-4 font-semibold">Administration</th><th className="p-4 font-semibold">Best fit</th></tr></thead>
                 <tbody>{entityRows.map((row) => <tr key={row[0]} className="border-t border-border">{row.map((cell) => <td key={cell} className="p-4 align-top leading-6">{cell}</td>)}</tr>)}</tbody>
               </table>
             </div>
@@ -107,6 +108,7 @@ export function StartBusinessTexasGuide() {
               <div className="border border-border p-5"><h3 className="font-semibold">Assumed name / DBA</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A DBA does not create a separate liability-protecting entity. Determine whether an assumed-name filing applies to your structure and where it must be filed.</p></div>
               <div className="border border-border p-5"><h3 className="font-semibold">Registered agent</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Texas filing entities must maintain a registered agent and registered office. The agent receives official legal and government notices and must consent to serve.</p></div>
             </div>
+            <a className="mt-4 inline-block font-semibold underline underline-offset-4" href="https://www.uspto.gov/trademarks/search" target="_blank" rel="noreferrer">Search the USPTO trademark database →</a>
           </section>
 
           <section id="taxes" className="border-b border-border py-10">
@@ -165,13 +167,13 @@ export function StartBusinessTexasGuide() {
 
           <section id="sources" className="border-b border-border py-10">
             <h2 className="font-display text-3xl font-bold">Official sources</h2>
-            <p className="mt-3 leading-7 text-muted-foreground">Use these agencies as the source of truth for filing fees, tax rules, licensing and federal requirements.</p>
+            <p className="mt-3 leading-7 text-muted-foreground">Use these agencies as the source of truth for filing fees, tax rules, licensing, federal requirements and trademark searching.</p>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2">{sources.map(([label, href]) => <li key={href} className="border-t border-border py-3"><a className="font-semibold underline underline-offset-4" href={href} target="_blank" rel="noreferrer">{label} →</a></li>)}</ul>
           </section>
 
           <section className="py-10">
             <h2 className="font-display text-2xl font-bold">Keep researching Texas</h2>
-            <div className="mt-4 flex flex-wrap gap-4"><a className="font-semibold underline underline-offset-4" href="/texas-industries">Texas industries</a><a className="font-semibold underline underline-offset-4" href="/made-in-texas">Made in Texas</a><a className="font-semibold underline underline-offset-4" href="/moving-to-texas">Moving to Texas</a><a className="font-semibold underline underline-offset-4" href="/texas-resources">Texas resources</a></div>
+            <div className="mt-4 flex flex-wrap gap-4"><a className="font-semibold underline underline-offset-4" href="/guides">Texas guides</a><a className="font-semibold underline underline-offset-4" href="/texas-industries">Texas industries</a><a className="font-semibold underline underline-offset-4" href="/made-in-texas">Made in Texas</a><a className="font-semibold underline underline-offset-4" href="/moving-to-texas">Moving to Texas</a><a className="font-semibold underline underline-offset-4" href="/texas-resources">Texas resources</a></div>
             <p className="mt-6 text-sm leading-6 text-muted-foreground">This guide is general information, not legal, tax or accounting advice. Rules and fees can change; verify requirements with the responsible agency and qualified professionals when needed.</p>
           </section>
         </article>
