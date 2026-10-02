@@ -61,24 +61,34 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y imagemagick webp
+          sudo apt-get install -y imagemagick python3-pil
           command -v convert
           command -v identify
-          command -v dwebp
-          command -v cwebp
+          python3 - <<'PY'
+          from PIL import features
+          assert features.check('webp'), 'Pillow lacks WebP support'
+          print('Pillow WebP support: yes')
+          PY
 
       - name: Resize governed event image
         shell: bash
         run: |
           set -euxo pipefail
-          src='public/images/events/chappell-hill-bluebonnet-festival-20260914.webp'
-          tmp='public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp'
-          dwebp "$src" -ppm -o /tmp/chappell-source.ppm
-          convert /tmp/chappell-source.ppm -filter Lanczos -resize '1600x' /tmp/chappell-large.ppm
-          cwebp -quiet -q 90 /tmp/chappell-large.ppm -o "$tmp"
-          test -s "$tmp"
-          mv "$tmp" "$src"
-          identify "$src"
+          python3 - <<'PY'
+          from PIL import Image
+          src = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp'
+          tmp = 'public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp'
+          with Image.open(src) as image:
+              image.load()
+              assert image.size == (800, 600), f'unexpected governed source size: {image.size}'
+              resized = image.resize((1600, 1200), Image.Resampling.LANCZOS)
+              resized.save(tmp, 'WEBP', quality=90, method=6)
+          with Image.open(tmp) as check:
+              assert check.size == (1600, 1200), f'bad resized output: {check.size}'
+          PY
+          test -s public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp
+          mv public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
 
       - name: Resize governed Xtreme Raceway image
         shell: bash
