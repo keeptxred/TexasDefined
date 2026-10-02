@@ -69,15 +69,26 @@ assert(searchIntentStubs.includes('import("./lighthouse-search-intent-articles")
 assert(searchIntentStubs.includes("Port_Isabel_Texas_Lighthouse.jpg"), "Best-lighthouses page must retain its unique exact-subject hero");
 assert(searchIntentStubs.includes("CC BY 2.0"), "Best-lighthouses hero attribution/license is missing");
 assert(searchIntentStubs.includes('relatedDestinations: ["port-isabel-lighthouse"]'), "Best-lighthouses stub must point to the canonical Port Isabel destination slug");
+assert(searchIntentStubs.includes('readingMinutes: 18'), "Best-lighthouses discovery stub must match the expanded visitor guide reading time");
+assert(searchIntentStubs.includes('updatedAt: "2026-10-01"'), "Best-lighthouses discovery stub must expose the latest authority-guide update date");
+assert(searchIntentStubs.includes("A practical Texas lighthouse guide comparing public access, climbs, viewing methods and trip logistics"), "Best-lighthouses discovery stub must match the practical visitor-guide intent");
+assert(searchIntentStubs.includes("Texas Historical Commission · U.S. Coast Guard Historian's Office · Texas Parks and Wildlife Department"), "Best-lighthouses discovery stub must retain authoritative source metadata");
 assert(newestEvergreen.includes("lighthouseSearchIntentStubs") && newestEvergreen.includes("loadLighthouseSearchIntentArticle"), "Best-lighthouses intent loader is not registered");
 assert(searchIntentArticles.includes('title: "Best Lighthouses to Visit in Texas: What You Can Actually See and Climb"'), "Best-lighthouses search title is missing");
+assert(searchIntentArticles.includes('readingMinutes: 18'), "Best-lighthouses full article must retain the current reading time");
 for (const requiredText of [
+  "Texas lighthouses at a glance: access, climbs and trip difficulty",
   "1. Port Isabel Lighthouse — best overall",
   "2. Point Bolivar Lighthouse — best for Galveston Bay history",
   "3. Halfmoon Reef Lighthouse — best easy historic stop from land",
   "4. Lydia Ann Lighthouse — best for Port Aransas waterways",
   "5. Matagorda Island Lighthouse — best for remote maritime history",
   "6. Sabine Pass Lighthouse — best for the story, not a conventional visit",
+  "Current official hours: the lighthouse is open daily from 9 a.m. to 6 p.m. in the off-season and 10 a.m. to 9 p.m. in summer",
+  "Current posted admission is $5 for adults, $4 for seniors, $3 for children age 5 and older, and $2.50 for military visitors.",
+  "A reproduction third-order Fresnel lens installed in 2022",
+  "Entrance and lower tower of the Port Isabel Lighthouse in Port Isabel, Texas",
+  "the island is accessible only by boat.",
   "the historic lighthouse tower stands on the Louisiana side of the Sabine",
 ]) assert(searchIntentArticles.includes(requiredText), `Best-lighthouses article missing required authority text: ${requiredText}`);
 assert(searchIntentArticles.includes('href: "/destination/port-isabel-lighthouse"'), "Best-lighthouses article must link to the canonical Port Isabel destination guide");
