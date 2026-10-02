@@ -19,12 +19,14 @@ For a small set of audited evergreen guides, the module also uses **exact-path o
 - `/article/texas-pool-owner-guide` → Swimming Pools
 - `/article/texas-home-maintenance-calendar` → Handyman Services
 
-Broad multi-system pages use **explicit opt-outs** instead of being forced into whichever service keyword happens to match first. Current opt-outs include:
+Broad multi-system pages and pages that use service-like words in a non-contractor sense use **explicit opt-outs** instead of being forced into whichever service keyword happens to match first. Current opt-outs include:
 
 - `/article/texas-homeowner-field-manual`
 - `/article/true-cost-of-owning-a-home-in-texas`
+- `/article/texas-wildfire-home-protection-guide` — mentions landscaping, decks and fences as wildfire-hardening concepts; the primary intent is wildfire preparedness, not hiring a landscaper or contractor.
+- `/article/texas-home-architecture-regions` — uses “residential landscape” in an architectural/geographic sense; it is not a landscaping-services page.
 
-Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
+Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Do not treat generic or figurative uses of `landscape` as contractor intent. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
 
 Eligible route families are intentionally limited to editorial and guide surfaces with potential homeowner intent:
 
@@ -79,7 +81,7 @@ The production check protects these contracts:
 - `/angi-home-services.js` is not emitted directly from the SSR root shell;
 - the deployed shared loader remains route-gated, idempotent, SPA-aware, and still creates/appends the Angi client script only for governed route families;
 - the deployed Angi module still contains the approved CJ AID/network attribution and representative governed service-request categories;
-- the audited exact-path overrides and multi-system explicit opt-outs remain present in the deployed asset;
+- the audited exact-path overrides and explicit false-positive/multi-system opt-outs remain present in the deployed asset;
 - sponsored/nofollow attribution, first-party commercial metadata, disclosure language and the provider disclaimer remain present;
 - Cloudflare challenge responses and non-2xx asset responses fail closed rather than producing a false green check.
 
@@ -87,4 +89,4 @@ The production check protects these contracts:
 
 ## Optimization rule
 
-Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening generic keyword regexes.
+Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening generic keyword regexes. When an informational page matches only because a service term is incidental or figurative, add a governed exact-path opt-out instead of weakening the service patterns sitewide.
