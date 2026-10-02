@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
 import { Container } from "@/components/layout/Container";
 import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
@@ -58,46 +59,16 @@ function TexasVsStatePage() {
   const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
   const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
   const sections = [
-    {
-      heading: "Start with the places you would live",
-      body: profile.comparisonFocus,
-    },
-    {
-      heading: "Compare places, not state averages",
-      body: profile.placeLens,
-    },
-    ...(evidence ? [{
-      heading: "Metro and place matchups",
-      body: evidence.metroLens,
-    }] : []),
-    {
-      heading: "Taxes",
-      body: evidence?.taxLens ?? `Texas has no individual state income tax, but that single fact does not determine whether a household pays less overall than it would in ${name}. Compare income taxes, sales taxes, property taxes and the taxes that apply to your actual household and location.`,
-    },
-    {
-      heading: "Housing and cost of living",
-      body: evidence?.housingLens ?? `Statewide averages can hide large local differences. Compare the Texas city or county you would actually choose with the ${name} community you would actually choose, including home prices or rent, insurance, utilities, property taxes and transportation costs.`,
-    },
-    {
-      heading: "Jobs and pay",
-      body: evidence?.jobsLens ?? `A useful Texas-versus-${name} job comparison looks at occupation-specific wages, unemployment, major industries and openings in the metro areas that match your career. State averages are a starting point, not the whole decision.`,
-    },
-    {
-      heading: "Climate and geography",
-      body: profile.climateLens,
-    },
-    ...(evidence ? [{
-      heading: "Risk, insurance and resilience",
-      body: evidence.riskLens,
-    }] : []),
-    {
-      heading: "Transportation and daily life",
-      body: evidence?.transportationLens ?? `Driving distances, transit, airport access and commute patterns can materially change daily costs. Texas is large, so Dallas–Fort Worth, Houston, Austin, San Antonio, El Paso and rural Texas can produce very different living experiences when compared with ${name}.`,
-    },
-    {
-      heading: "Culture and fit",
-      body: `The final choice is not purely financial. Family ties, schools, recreation, food, sports, pace of life and access to the places you value can outweigh a modest difference in taxes or housing costs between Texas and ${name}.`,
-    },
+    { heading: "Start with the places you would live", body: profile.comparisonFocus },
+    { heading: "Compare places, not state averages", body: profile.placeLens },
+    ...(evidence ? [{ heading: "Metro and place matchups", body: evidence.metroLens }] : []),
+    { heading: "Taxes", body: evidence?.taxLens ?? `Texas has no individual state income tax, but that single fact does not determine whether a household pays less overall than it would in ${name}. Compare income taxes, sales taxes, property taxes and the taxes that apply to your actual household and location.` },
+    { heading: "Housing and cost of living", body: evidence?.housingLens ?? `Statewide averages can hide large local differences. Compare the Texas city or county you would actually choose with the ${name} community you would actually choose, including home prices or rent, insurance, utilities, property taxes and transportation costs.` },
+    { heading: "Jobs and pay", body: evidence?.jobsLens ?? `A useful Texas-versus-${name} job comparison looks at occupation-specific wages, unemployment, major industries and openings in the metro areas that match your career. State averages are a starting point, not the whole decision.` },
+    { heading: "Climate and geography", body: profile.climateLens },
+    ...(evidence ? [{ heading: "Risk, insurance and resilience", body: evidence.riskLens }] : []),
+    { heading: "Transportation and daily life", body: evidence?.transportationLens ?? `Driving distances, transit, airport access and commute patterns can materially change daily costs. Texas is large, so Dallas–Fort Worth, Houston, Austin, San Antonio, El Paso and rural Texas can produce very different living experiences when compared with ${name}.` },
+    { heading: "Culture and fit", body: `The final choice is not purely financial. Family ties, schools, recreation, food, sports, pace of life and access to the places you value can outweigh a modest difference in taxes or housing costs between Texas and ${name}.` },
   ];
 
   const faq = [
@@ -107,14 +78,7 @@ function TexasVsStatePage() {
   ];
 
   return <main>
-    <section className="border-b border-border bg-muted/30 py-14 md:py-20">
-      <Container>
-        <p className="eyebrow text-primary">Texas compared</p>
-        <h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Texas vs {name}</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A practical side-by-side framework for comparing Texas with {name}, with state-specific context for the places, climate and tradeoffs that make this comparison different from the other 48.</p>
-        {evidence && <p className="mt-4 text-sm text-muted-foreground">Official-source review updated {evidence.reviewedAt}.</p>}
-      </Container>
-    </section>
+    <TexasComparedHero state={name} reviewedAt={evidence?.reviewedAt} />
 
     <section className="py-12 md:py-16">
       <Container>
@@ -130,9 +94,7 @@ function TexasVsStatePage() {
             {evidence && <div className="mt-6">
               <h3 className="font-display text-2xl">{name} official sources</h3>
               <ul className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-                {evidence.sources.map((source) => <li key={source.url}>
-                  <a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>
-                </li>)}
+                {evidence.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a></li>)}
               </ul>
             </div>}
             <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
@@ -150,10 +112,7 @@ function TexasVsStatePage() {
     <section id="moving-from-state-to-texas" className="border-t border-border bg-muted/30 py-12">
       <Container>
         <div className="grid gap-8 lg:grid-cols-[18rem_1fr]">
-          <div>
-            <p className="eyebrow text-primary">Moving from {name} to Texas</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">Turn this comparison into a move plan</h2>
-          </div>
+          <div><p className="eyebrow text-primary">Moving from {name} to Texas</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Turn this comparison into a move plan</h2></div>
           <div>
             <p className="max-w-3xl leading-8 text-muted-foreground">Keep {name} as the origin in My Texas Move, then choose the Texas city or metro, model the one-time move, compare the recurring household budget and carry the same plan into schools, utilities, property taxes and exact-address research.</p>
             <a href={`/moving-to-texas?originState=${encodeURIComponent(name)}#relocation-command-center`} className="mt-5 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Build My Texas Move plan →</a>
@@ -179,22 +138,13 @@ function TexasVsStatePage() {
         <p className="eyebrow text-primary">Keep comparing</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">More Texas vs {relatedGroup?.region} comparisons</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Compare Texas with nearby or regionally similar states using the same framework, then return to the full 49-state index when you want to widen the search.</p>
-        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedStates.map((state) => <Link key={state} to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</Link>)}
-        </div>
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{relatedStates.map((state) => <Link key={state} to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</Link>)}</div>
         <Link to="/texas-vs-every-state" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse all 49 Texas state comparisons</Link>
       </Container>
     </section>}
 
     <section className="border-t border-border bg-muted/30 py-10">
-      <Container>
-        <div className="flex flex-wrap gap-x-7 gap-y-3 text-sm">
-          <Link to="/texas-vs-every-state" className="font-semibold text-primary">All 49 state comparisons</Link>
-          <Link to="/moving-to-texas" className="font-semibold text-primary">Moving to Texas</Link>
-          <Link to="/browse/cities" className="font-semibold text-primary">Texas city guides</Link>
-          <Link to="/browse/counties" className="font-semibold text-primary">Texas county guides</Link>
-        </div>
-      </Container>
+      <Container><div className="flex flex-wrap gap-x-7 gap-y-3 text-sm"><Link to="/texas-vs-every-state" className="font-semibold text-primary">All 49 state comparisons</Link><Link to="/moving-to-texas" className="font-semibold text-primary">Moving to Texas</Link><Link to="/browse/cities" className="font-semibold text-primary">Texas city guides</Link><Link to="/browse/counties" className="font-semibold text-primary">Texas county guides</Link></div></Container>
     </section>
   </main>;
 }

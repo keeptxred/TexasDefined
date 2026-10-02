@@ -1,6 +1,6 @@
 # TexasDefined Angi affiliate integration
 
-Reviewed 2026-10-01 from the active CJ advertiser terms and current Angi link catalog supplied from the TexasDefined publisher account.
+Reviewed 2026-10-02 from the active CJ advertiser terms and current Angi link catalog supplied from the TexasDefined publisher account.
 
 ## Purpose
 
@@ -10,7 +10,21 @@ The conversion action is an **Angi.com Service Request**: a customer submits a s
 
 ## Placement rule
 
-`public/angi-home-services.js` uses the page H1, meta description, and pathname to select a single service category. It does not scan the full article body for incidental mentions. This keeps placements aligned with the page's primary intent and reduces irrelevant affiliate modules.
+`public/angi-home-services.js` normally uses the page H1, meta description, and pathname to select a single service category. It does not scan the full article body for incidental mentions. This keeps placements aligned with the page's primary intent and reduces irrelevant affiliate modules.
+
+For a small set of audited evergreen guides, the module also uses **exact-path overrides** when the article's primary contractor intent is clear but the editorial H1/meta copy intentionally avoids sales-oriented service terminology. Current governed overrides are:
+
+- `/article/texas-foundation-care-clay-soil-drought` → Foundation Services
+- `/article/texas-household-pests-guide` → Pest Control
+- `/article/texas-pool-owner-guide` → Swimming Pools
+- `/article/texas-home-maintenance-calendar` → Handyman Services
+
+Broad multi-system pages use **explicit opt-outs** instead of being forced into whichever service keyword happens to match first. Current opt-outs include:
+
+- `/article/texas-homeowner-field-manual`
+- `/article/true-cost-of-owning-a-home-in-texas`
+
+Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
 
 Eligible route families are intentionally limited to editorial and guide surfaces with potential homeowner intent:
 
@@ -22,7 +36,9 @@ Eligible route families are intentionally limited to editorial and guide surface
 - `/home-garden/*`
 - `/property-tax-guides/*`
 
-A page gets no Angi module when no governed service pattern matches.
+The Angi module is client-bootstrapped from the already-global `public/city-experience-affiliate.js` infrastructure. That bootstrap is route-gated to the eligible families above, is idempotent by script ID, and re-checks after client-side navigation so an SPA transition into an eligible route can load Angi without changing Worker SSR output. Unrelated routes do not download the Angi module.
+
+A page gets no Angi module when no governed service pattern or exact-path override matches, or when it has an explicit opt-out.
 
 ## Tracking and disclosure
 
@@ -61,8 +77,9 @@ The production check protects these contracts:
 
 - the representative page still loads the shared client affiliate bootstrap;
 - `/angi-home-services.js` is not emitted directly from the SSR root shell;
-- the deployed shared loader still creates and appends the Angi client script;
+- the deployed shared loader remains route-gated, idempotent, SPA-aware, and still creates/appends the Angi client script only for governed route families;
 - the deployed Angi module still contains the approved CJ AID/network attribution and representative governed service-request categories;
+- the audited exact-path overrides and multi-system explicit opt-outs remain present in the deployed asset;
 - sponsored/nofollow attribution, first-party commercial metadata, disclosure language and the provider disclaimer remain present;
 - Cloudflare challenge responses and non-2xx asset responses fail closed rather than producing a false green check.
 
@@ -70,4 +87,4 @@ The production check protects these contracts:
 
 ## Optimization rule
 
-Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high.
+Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening generic keyword regexes.

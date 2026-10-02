@@ -11,6 +11,12 @@ const errors = [];
 for (const [needle, label] of [
   ['/angi-home-services.js', 'client-side Angi script bootstrap'],
   ['document.createElement("script")', 'client-side script creation'],
+  ['td-angi-home-services-script', 'idempotent script id'],
+  ['document.getElementById(scriptId)', 'duplicate-script prevention'],
+  ['eligibleRoute', 'eligible-route gate'],
+  ['article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides', 'governed route families'],
+  ['window.addEventListener("popstate", scheduleAngiLoad)', 'SPA navigation handling'],
+  ['new MutationObserver(scheduleAngiLoad)', 'SPA DOM synchronization'],
   ['data-affiliate-partner="angi"', 'affiliate partner attribution'],
   ['data-commercial-partner="angi"', 'first-party commercial attribution'],
   ['sponsored nofollow noopener noreferrer', 'affiliate rel attributes'],
@@ -25,10 +31,27 @@ for (const [needle, label] of [
   ['category/12033/', 'foundation deep link'],
   ['category/12001/', 'remodeling deep link'],
   ['category/12070/', 'pool deep link'],
+  ['pageServiceOverrides', 'exact-path service overrides'],
+  ['["/article/texas-foundation-care-clay-soil-drought", "foundation"]', 'foundation guide override'],
+  ['["/article/texas-household-pests-guide", "pest-control"]', 'household-pests override'],
+  ['["/article/texas-pool-owner-guide", "pools"]', 'pool-owner override'],
+  ['["/article/texas-home-maintenance-calendar", "handyman"]', 'home-maintenance override'],
+  ['["/article/texas-homeowner-field-manual", null]', 'multi-system homeowner-guide opt-out'],
+  ['["/article/true-cost-of-owning-a-home-in-texas", null]', 'multi-system ownership-cost opt-out'],
+  ['pageServiceOverrides.has(normalizedPathname)', 'override precedence'],
+  ['chooseService(pageSignal(), pathname)', 'pathname-aware service selection'],
 ]) {
-  const haystack = needle === '/angi-home-services.js' || needle === 'document.createElement("script")'
-    ? loaderSource
-    : moduleSource;
+  const loaderNeedles = new Set([
+    '/angi-home-services.js',
+    'document.createElement("script")',
+    'td-angi-home-services-script',
+    'document.getElementById(scriptId)',
+    'eligibleRoute',
+    'article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides',
+    'window.addEventListener("popstate", scheduleAngiLoad)',
+    'new MutationObserver(scheduleAngiLoad)',
+  ]);
+  const haystack = loaderNeedles.has(needle) ? loaderSource : moduleSource;
   if (!haystack.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
 }
 
@@ -44,6 +67,9 @@ for (const [needle, label] of [
   ['1-day referral period', 'referral window documentation'],
   ['25% commission rate', 'commission documentation'],
   ['Production safeguards', 'production-safeguards documentation'],
+  ['route-gated', 'route-gated bootstrap documentation'],
+  ['exact-path overrides', 'exact-path override documentation'],
+  ['explicit opt-outs', 'multi-system opt-out documentation'],
 ]) {
   if (!docsSource.includes(needle)) errors.push(`Missing ${label}: ${needle}`);
 }
@@ -52,6 +78,13 @@ for (const [needle, label] of [
   ['/article/texas-roofs-hail-wind-heat', 'representative production route'],
   ['/city-experience-affiliate.js', 'deployed client loader check'],
   ['/angi-home-services.js', 'deployed Angi asset check'],
+  ['eligibleRoute', 'production route-gate check'],
+  ['pageServiceOverrides', 'production override check'],
+  ['/article/texas-foundation-care-clay-soil-drought', 'production foundation override check'],
+  ['/article/texas-household-pests-guide', 'production pests override check'],
+  ['/article/texas-pool-owner-guide', 'production pool override check'],
+  ['/article/texas-home-maintenance-calendar', 'production maintenance override check'],
+  ['/article/texas-homeowner-field-manual', 'production multi-system opt-out check'],
   ['cf-mitigated', 'Cloudflare challenge detection'],
   ['TexasDefined-CI-Angi-Smoke/1.0', 'Angi production smoke user agent'],
   ['aid=157319271', 'production CJ AID check'],
