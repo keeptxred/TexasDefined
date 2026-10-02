@@ -1,5 +1,5 @@
 type SamRayburnContextProps = {
-  surface: "reservoir" | "profile";
+  surface: "reservoir" | "profile" | "house";
 };
 
 export function SamRayburnContext({ surface }: SamRayburnContextProps) {
@@ -15,6 +15,24 @@ export function SamRayburnContext({ surface }: SamRayburnContextProps) {
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
             <a href="/texas-icons/sam-rayburn" className="border-b border-primary pb-1">Who was Sam Rayburn? →</a>
             <a href="/destination/sam-rayburn-house" className="border-b border-primary pb-1">Visit the Sam Rayburn House →</a>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (surface === "house") {
+    return (
+      <section className="border-y border-border bg-muted/25">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+          <p className="eyebrow text-primary">The person behind the place</p>
+          <h2 className="mt-3 font-display text-3xl sm:text-4xl">Who was Sam Rayburn?</h2>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
+            Sam Rayburn served 48 years in the U.S. House of Representatives and a total of 17 years, two months and two days as Speaker, the longest Speakership in House history. His Bonham-area home preserves the private setting behind that public career and connects his life in Fannin County with the Texas places that still carry his name.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-primary">
+            <a href="/texas-icons/sam-rayburn" className="border-b border-primary pb-1">Read the Sam Rayburn biography →</a>
+            <a href="/fishing/lakes/sam-rayburn-reservoir" className="border-b border-primary pb-1">Explore Sam Rayburn Reservoir →</a>
           </div>
         </div>
       </section>
