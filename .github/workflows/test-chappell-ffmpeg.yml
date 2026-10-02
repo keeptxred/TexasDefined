@@ -1,0 +1,49 @@
+name: Test governed Chappell VP8 recovery
+
+on:
+  push:
+    branches:
+      - chat8/image-discover-final-current3-20261002
+    paths:
+      - .github/workflows/test-chappell-ffmpeg.yml
+
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: chat8/image-discover-final-current3-20261002
+          fetch-depth: 0
+      - name: Verify current main ancestry
+        run: |
+          git fetch origin main
+          git merge-base --is-ancestor origin/main HEAD
+      - name: Materialize governed image
+        run: node scripts/assets/materialize-generated-images.mjs
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg python3-pil
+      - name: Probe governed VP8 payload
+        run: |
+          ffprobe -v error -show_entries stream=codec_name,width,height -of default=noprint_wrappers=1 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+      - name: Decode governed frame with error concealment
+        run: |
+          ffmpeg -hide_banner -loglevel warning -err_detect ignore_err -i public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -frames:v 1 -vf scale=1600:1200:flags=lanczos -y /tmp/chappell-recovered.png
+          test -s /tmp/chappell-recovered.png
+      - name: Re-encode and validate recovered frame
+        run: |
+          python3 - <<'PY'
+          from PIL import Image
+          src = '/tmp/chappell-recovered.png'
+          out = '/tmp/chappell-recovered.webp'
+          with Image.open(src) as image:
+              image.load()
+              assert image.size == (1600, 1200), image.size
+              image.save(out, 'WEBP', quality=90, method=6)
+          with Image.open(out) as check:
+              check.load()
+              assert check.size == (1600, 1200), check.size
+          print('Recovered governed Chappell image: 1600x1200 WebP')
+          PY
