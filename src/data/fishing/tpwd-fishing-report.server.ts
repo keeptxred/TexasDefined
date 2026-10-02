@@ -1,10 +1,4 @@
-export type TpwdFishingReportSnapshot = {
-  publishedAt: string;
-  summary: string;
-  sourceUrl: string;
-  sourceNotice: string | null;
-  freshness: "current" | "stale" | "historical";
-};
+import type { TpwdFishingReportSnapshot } from "./tpwd-fishing-report.types";
 
 const REPORT_TIMEOUT_MS = 8_000;
 const CURRENT_WINDOW_DAYS = 14;
