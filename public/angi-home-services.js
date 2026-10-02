@@ -34,14 +34,17 @@
   // Exact editorial overrides are intentionally narrow. They cover pages whose
   // primary service intent is clear even when the H1/meta copy avoids contractor
   // terminology. Null entries are explicit opt-outs for multi-system guides that
-  // mention many service categories but should not inherit whichever regex wins.
+  // mention many service categories or use service-like words in a non-contractor
+  // context and should not inherit whichever regex wins.
   const pageServiceOverrides = new Map([
     ["/article/texas-foundation-care-clay-soil-drought", "foundation"],
     ["/article/texas-household-pests-guide", "pest-control"],
     ["/article/texas-pool-owner-guide", "pools"],
     ["/article/texas-home-maintenance-calendar", "handyman"],
     ["/article/texas-homeowner-field-manual", null],
-    ["/article/true-cost-of-owning-a-home-in-texas", null]
+    ["/article/true-cost-of-owning-a-home-in-texas", null],
+    ["/article/texas-wildfire-home-protection-guide", null],
+    ["/article/texas-home-architecture-regions", null]
   ]);
 
   const commercialPath = /^\/(?:article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides)(?:\/|$)/i;
