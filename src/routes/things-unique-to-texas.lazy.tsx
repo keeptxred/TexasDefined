@@ -124,7 +124,7 @@ function ThingsUniqueToTexasPage() {
               <Link key={item.name} to={item.to} className="group bg-background p-7 transition-colors hover:bg-muted/30">
                 <span className="text-sm font-semibold text-primary">{String(index + 1).padStart(2, "0")}</span>
                 <strong className="mt-3 block font-display text-3xl leading-tight group-hover:text-primary">{item.name}</strong>
-                <span className="mt-4 block text-sm font-semibold text-muted-foreground group-hover:text-foreground">Go deeper →</span>
+                <span className="mt-4 block text-sm font-semibold text-muted-foreground">Go deeper →</span>
               </Link>
             ))}
           </div>
