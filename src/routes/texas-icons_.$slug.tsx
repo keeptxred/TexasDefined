@@ -1,4 +1,5 @@
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { PoliticalHistoricSiteContext } from "@/components/editorial/PoliticalHistoricSiteContext";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Container } from "@/components/layout/Container";
 import { texasDefinedBrand } from "@/brand/texasdefined";
@@ -116,6 +117,7 @@ function TexasIconProfilePage() {
           </header>
 
           <NarrativeProfile profile={narrativeProfile} subjectType={icon.subjectType} />
+          <PoliticalHistoricSiteContext surface="profile" slug={icon.slug} />
           {icon.slug === "sam-rayburn" ? <SamRayburnContext surface="profile" /> : null}
 
           <section className="py-12">
