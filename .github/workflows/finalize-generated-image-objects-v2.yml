@@ -36,6 +36,23 @@ jobs:
             git show "origin/chat8/image-discover-final-20261002:${path}" > "${path}"
           done
 
+      - name: Correct Xtreme metadata to measured derivative
+        run: |
+          set -euxo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const file = 'src/data/sports-venue-images.ts';
+          const source = fs.readFileSync(file, 'utf8');
+          const start = source.indexOf("'xtreme-raceway-park': {");
+          if (start < 0) throw new Error('Xtreme Raceway photo block not found');
+          const end = source.indexOf('\n  },', start);
+          if (end < 0) throw new Error('Xtreme Raceway photo block end not found');
+          const block = source.slice(start, end);
+          const updatedBlock = block.replace(/width: \d+,\n\s+height: \d+,/, 'width: 1600,\n    height: 900,');
+          if (updatedBlock === block) throw new Error('Xtreme dimensions were not updated');
+          fs.writeFileSync(file, source.slice(0, start) + updatedBlock + source.slice(end));
+          NODE
+
       - name: Materialize governed Bluebonnet source
         run: |
           set -euxo pipefail
@@ -46,7 +63,7 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y ffmpeg imagemagick python3-pil
+          sudo apt-get install -y ffmpeg python3-pil
 
       - name: Recover and upscale governed Bluebonnet image
         run: |
@@ -69,17 +86,17 @@ jobs:
           print('Bluebonnet derivative validated at 1600x1200')
           PY
 
-      - name: Upscale governed Xtreme Raceway image
+      - name: Recover and upscale governed Xtreme Raceway image
         run: |
           set -euxo pipefail
           src='public/images/sports-venues/xtreme-raceway-park.jpg'
-          tmp='/tmp/xtreme-raceway-park.jpg'
-          convert "$src" -filter Lanczos -resize '1600x' -quality 92 "$tmp"
-          test -s "$tmp"
-          mv "$tmp" "$src"
-          dims="$(identify -format '%wx%h' "$src")"
+          ffprobe -v error -show_entries stream=codec_name,width,height -of default=noprint_wrappers=1 "$src"
+          ffmpeg -hide_banner -loglevel warning -err_detect ignore_err -i "$src" -frames:v 1 -vf scale=1600:900:flags=lanczos -q:v 2 -y /tmp/xtreme-raceway-park.jpg
+          test -s /tmp/xtreme-raceway-park.jpg
+          dims="$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 /tmp/xtreme-raceway-park.jpg)"
           echo "Xtreme dimensions=${dims}"
-          test "$dims" = '1600x1067'
+          test "$dims" = '1600x900'
+          mv /tmp/xtreme-raceway-park.jpg "$src"
 
       - name: Rechunk Bluebonnet and update governed checksums
         run: |
