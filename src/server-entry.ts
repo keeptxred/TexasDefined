@@ -10,6 +10,7 @@ const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-compet
 const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
   "/texas-vs/california": "/article/texas-vs-california-differences",
   "/texas-vs/florida": "/article/texas-vs-florida-differences",
+  "/destination/sam-houston-memorial-museum": "/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville",
   [`/article/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH,
   [`/news/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH,
 };
