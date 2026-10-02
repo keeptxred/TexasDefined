@@ -58,7 +58,7 @@ const TOPIC_PATHS: Partial<Record<CategorySlug, TopicLink[]>> = {
     { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Connect caves and karst to surface habitat, public-land access and outdoor trip safety." },
   ],
   "beaches-coast": [
-    { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Use the sourced lighthouse map to connect Gulf Coast beaches with maritime history, public-access guidance and a coast-spanning route." },
+    { to: "/explore/lighthouses", label: "Texas lighthouses", description: "Browse photo-led lighthouse guides that connect Gulf Coast beaches with maritime history, public-access guidance and a coast-spanning route." },
     { to: "/texas-birds-guide", label: "Texas birds guide", description: "Add migration seasons, coastal habitat and birding context to a Gulf Coast trip." },
     { to: "/fishing", label: "Texas fishing", description: "Connect the coast to fishing planning, species, techniques and access resources." },
     { to: "/explore/outdoors", label: "Outdoors & wildlife", description: "Add habitat, wildlife, weather and heat-safety context to beaches, bays and barrier islands." },
