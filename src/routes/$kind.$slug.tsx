@@ -44,6 +44,13 @@ export const Route = createFileRoute('/$kind/$slug')({
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
     return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations };
   },
+  headers: ({ params }) => params.kind === 'wildlife-species'
+    ? {
+        'Cache-Control': 'no-store, max-age=0',
+        'CDN-Cache-Control': 'no-store',
+        'Cloudflare-CDN-Cache-Control': 'no-store',
+      }
+    : {},
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
