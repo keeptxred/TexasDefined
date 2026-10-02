@@ -19,30 +19,31 @@ const GOVERNMENT_REFERENCE_KINDS = new Set([
   'dps-office',
 ]);
 
-const DESTINATION_MIRROR_IDS = new Set([
-  'lake:caddo-lake',
-  'state-park:palo-duro-canyon-state-park',
-  'state-park:enchanted-rock-state-natural-area',
-  'national-park:big-bend-national-park',
-  'cavern:natural-bridge-caverns',
-  'cavern:inner-space-cavern',
-  'cavern:longhorn-cavern-state-park',
-  'cavern:caverns-of-sonora',
-  'cavern:cascade-caverns',
-  'cavern:cave-without-a-name',
-  'cavern:wonder-world-cave',
-  'cavern:kickapoo-cavern-state-park',
-  'cavern:gorman-cave',
-  'cavern:devils-sinkhole-state-natural-area',
-  'cavern:westcave-preserve',
-  'beach:padre-island-national-seashore',
-  'historic-site:the-alamo',
+const DESTINATION_MIRROR_SLUGS = new Set([
+  'caddo-lake',
+  'palo-duro-canyon-state-park',
+  'enchanted-rock-state-natural-area',
+  'big-bend-national-park',
+  'natural-bridge-caverns',
+  'inner-space-cavern',
+  'longhorn-cavern-state-park',
+  'caverns-of-sonora',
+  'cascade-caverns',
+  'cave-without-a-name',
+  'wonder-world-cave',
+  'kickapoo-cavern-state-park',
+  'gorman-cave',
+  'devils-sinkhole-state-natural-area',
+  'westcave-preserve',
+  'padre-island-national-seashore',
+  'the-alamo',
+  'sam-houston-memorial-museum-republic-texas-presidential-library-huntsville',
 ]);
 
 const APPRAISAL_DISTRICT_SUFFIX = '-appraisal-district';
 
 function isDestinationMirror(entity: CanonicalEntityRef) {
-  return DESTINATION_MIRROR_IDS.has(`${entity.kind}:${entity.slug}`);
+  return DESTINATION_MIRROR_SLUGS.has(entity.slug);
 }
 
 export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntityRecord[], limit = 12): RankedRelatedEntity[] {
