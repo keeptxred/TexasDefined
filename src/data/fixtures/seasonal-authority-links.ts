@@ -3,8 +3,8 @@ import type { ArticleInternalLink } from "../types";
 
 const lighthouseHub: ArticleInternalLink = {
   href: "/explore/lighthouses",
-  label: "Explore the Texas lighthouse map",
-  description: "See surviving and relocated lights on a sourced Gulf Coast map, check access status and jump into the relevant county guides.",
+  label: "Explore the Texas lighthouse guide",
+  description: "See surviving and relocated lights through photo guides, access notes and the relevant county guides.",
 };
 
 const bluebonnetHub: ArticleInternalLink = {
@@ -40,7 +40,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
   ],
   "port-isabel-lighthouse-guide": [
     lighthouseHub,
-    { href: "/article/texas-lighthouses-complete-guide", label: "Put Port Isabel on the statewide lighthouse map", description: "Compare the lower-coast survivor with Bolivar, Matagorda, Lydia Ann and the lost Texas lights." },
+    { href: "/article/texas-lighthouses-complete-guide", label: "Put Port Isabel in the statewide lighthouse guide", description: "Compare the lower-coast survivor with Bolivar, Matagorda, Lydia Ann and the lost Texas lights." },
     { href: "/county/cameron", label: "Explore Cameron County", description: "Connect the lighthouse with Brownsville, South Padre Island, Boca Chica and lower Rio Grande history." },
   ],
   "lost-lighthouses-of-texas": [
