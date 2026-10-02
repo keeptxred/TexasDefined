@@ -4,10 +4,10 @@ import bbqBrisket from "@/assets/bbq-brisket.jpg";
 import bigBend from "@/assets/big-bend.jpg";
 import bluebonnets from "@/assets/bluebonnets.jpg";
 import caddoLake from "@/assets/caddo-lake.jpg";
+import highSchoolFootball from "@/assets/high-school-football-hero.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import rodeo from "@/assets/rodeo-101-hero-photo.jpg";
 import shopFlatlay from "@/assets/shop-flatlay.jpg";
-import sixFlags from "@/assets/six-flags-hero-photo.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import wildlife from "@/assets/wildlife.jpg";
 import { Container } from "@/components/layout/Container";
@@ -60,9 +60,9 @@ const categoryImages: Record<string, { src: string; alt: string }> = {
   "natural-wonders": { src: bigBend, alt: "Big Bend desert and mountains" },
   landmarks: { src: smallTown, alt: "A Texas courthouse square" },
   "roadside-small-towns": { src: roadTrip, alt: "A two-lane Texas road" },
-  "culture-music": { src: rodeo, alt: "A Texas rodeo arena and rider" },
+  "culture-music": { src: highSchoolFootball, alt: "Texas high-school football under stadium lights" },
   "wildlife-landscape": { src: wildlife, alt: "Texas wildlife in its natural landscape" },
-  "slang-folklore": { src: sixFlags, alt: "Texas historical flag imagery" },
+  "slang-folklore": { src: rodeo, alt: "A Texas rodeo rider representing cowboy tradition and mythology" },
 };
 
 function ThingsUniqueToTexasPage() {
