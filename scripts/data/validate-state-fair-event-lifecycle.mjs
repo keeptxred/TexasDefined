@@ -8,9 +8,9 @@ const requireText = (needle, message) => {
 
 for (const [needle, message] of [
   ['const canonicalUrl = `https://texasdefined.com${canonicalPath}`;', 'State Fair schema must use the TexasDefined canonical leaf URL.'],
-  ['const STATE_FAIR_END_DATE = "2026-10-18";', 'State Fair lifecycle must retain the verified 2026 end date.'],
-  ['timeZone: "America/Chicago"', 'State Fair lifecycle must evaluate expiry in Texas local time.'],
-  ['if (texasDateKey(now) > STATE_FAIR_END_DATE)', 'State Fair Event schema must stop after the confirmed occurrence ends.'],
+  ['Date.parse("2026-10-19T00:00:00-05:00")', 'State Fair lifecycle must expire at Texas-local midnight immediately after the verified 2026 end date.'],
+  ['startDate: "2026-09-25"', 'State Fair lifecycle must retain the verified 2026 start date.'],
+  ['endDate: "2026-10-18"', 'State Fair lifecycle must retain the verified 2026 end date.'],
   ['"@type": "WebPage"', 'Expired State Fair content must downgrade to evergreen WebPage schema.'],
   ['"@type": "Thing"', 'Expired State Fair content must remain described as an evergreen Thing.'],
   ['"@type": "Event"', 'Current/upcoming State Fair occurrence must retain Event schema.'],
