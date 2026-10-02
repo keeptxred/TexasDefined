@@ -23,7 +23,8 @@ jobs:
         run: |
           set -euo pipefail
           git fetch origin main chat8/image-discover-final-20261002
-          git merge-base --is-ancestor origin/main HEAD || { echo "Branch no longer contains current main"; exit 1; }
+          # Pin the ancestry gate to the exact main SHA refreshed before this material write.
+          git merge-base --is-ancestor 57c4533b89d2d848f460f2da708f8a272aa8b8dd HEAD || { echo "Branch no longer contains the refreshed main baseline"; exit 1; }
 
           git show origin/chat8/image-discover-final-20261002:src/data/article-image-readiness-overrides.ts > src/data/article-image-readiness-overrides.ts
           git show origin/chat8/image-discover-final-20261002:src/data/county-series.server.ts > src/data/county-series.server.ts
