@@ -47,7 +47,7 @@ function PreviousNextGuides({ pathname }: { pathname: string }) {
 }
 
 const relatedLinks = [
-  { to: '/learn/property-taxes', label: 'Complete property-tax guide', description: 'Understand values, exemptions, rates, protests and payments.', kind: 'guide' as const },
+  { to: '/property-tax-guides', label: 'Texas property tax guide', description: 'Understand values, exemptions, rates, protests and payments.', kind: 'guide' as const },
   { to: '/property-tax-calculators', label: 'Property-tax calculators', description: 'Model exemptions, protests, escrow and local scenarios.', kind: 'calculator' as const },
   { to: '/property-tax/counties', label: 'County property-tax guides', description: 'Start from the county and exact property account.', kind: 'county' as const },
   { to: '/do/homestead-exemption', label: 'Homestead exemption', description: 'Review eligibility, filing and appraisal protections.', kind: 'guide' as const },
