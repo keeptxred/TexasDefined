@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { stateParkHeroMap } from "@/data/state-park-hero-map";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-mountain-biking-guide";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const heroImage = stateParkHeroMap["franklin-mountains-state-park"];
+const heroImage = {
+  src: "/images/state-parks/franklin-mountains-state-park.jpg",
+  width: 1600,
+  height: 1067,
+} as const;
 const trailSystems = [
   { name: "Franklin Mountains State Park", region: "El Paso / Far West Texas", path: "/destination/franklin-mountains-state-park", description: "More than 100 miles of rugged Chihuahuan Desert trail beside El Paso." },
   { name: "Big Bend Ranch State Park", region: "Big Bend / Far West Texas", path: "/destination/big-bend-ranch-state-park", description: "A remote 238-mile multiuse network with Contrabando, Encino and Fresno Canyon riding resources." },
