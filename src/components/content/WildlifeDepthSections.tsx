@@ -20,7 +20,7 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
     .slice(0, 6);
 
   return <>
-    {imageSet ? <WildlifeHero image={imageSet.hero} speciesName={entity.name} /> : null}
+    {imageSet ? <WildlifeHero image={imageSet.hero} /> : null}
 
     <section className="border-b border-border py-12" aria-labelledby="wildlife-overview-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
@@ -93,16 +93,15 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
   </>;
 }
 
-function WildlifeHero({ image, speciesName }: { image: WildlifeImage; speciesName: string }) {
-  return <figure className="border-b border-border py-8">
+function WildlifeHero({ image }: { image: WildlifeImage }) {
+  return <figure className="border-b border-border py-12">
     <div className="overflow-hidden bg-muted">
-      <img src={image.src} alt={image.alt} className="h-auto max-h-[42rem] w-full object-cover" loading="eager" fetchPriority="high" decoding="async" />
+      <img src={image.src} alt={image.alt} className="w-full object-cover" style={{ maxHeight: '42rem' }} loading="eager" fetchPriority="high" decoding="async" />
     </div>
-    <figcaption className="mt-3 flex flex-col gap-1 text-xs leading-5 text-muted-foreground sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-      <span>{image.caption}</span>
-      <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="shrink-0 underline underline-offset-4 hover:text-foreground">{image.credit} ↗</a>
+    <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+      <span>{image.caption} </span>
+      <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">{image.credit} ↗</a>
     </figcaption>
-    <span className="sr-only">Hero photograph for {speciesName}</span>
   </figure>;
 }
 
@@ -113,14 +112,14 @@ function WildlifeImageCards({ images, speciesName }: { images: [WildlifeImage, W
         <p className="eyebrow text-primary">Field photos</p>
         <h2 id="wildlife-photo-notes-heading" className="mt-2 font-display text-4xl">{speciesName} in context</h2>
       </div>
-      <div className="grid gap-5 md:grid-cols-3">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))', gap: '1rem' }}>
         {images.map((image) => <figure key={image.src} className="border border-border">
-          <div className="aspect-[4/3] overflow-hidden bg-muted">
+          <div className="overflow-hidden bg-muted" style={{ aspectRatio: '4 / 3' }}>
             <img src={image.src} alt={image.alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
           </div>
-          <figcaption className="space-y-3 p-4">
+          <figcaption className="p-5">
             <p className="text-sm leading-6 text-muted-foreground">{image.caption}</p>
-            <a href={image.sourceUrl} target="_blank" rel="noreferrer" className="block text-xs font-semibold text-primary underline underline-offset-4">{image.credit} ↗</a>
+            <p className="mt-3"><a href={image.sourceUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">{image.credit} ↗</a></p>
           </figcaption>
         </figure>)}
       </div>
