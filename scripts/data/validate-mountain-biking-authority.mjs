@@ -23,7 +23,7 @@ const routeMarkers = [
   'Hill Country State Natural Area',
   'Tyler State Park',
   'Outdoors & Wildlife',
-  'stateParkHeroMap["franklin-mountains-state-park"]',
+  '/images/state-parks/franklin-mountains-state-park.jpg',
 ];
 for (const marker of routeMarkers) {
   if (!route.includes(marker)) errors.push(`Texas mountain biking structured authority missing marker: ${marker}.`);
