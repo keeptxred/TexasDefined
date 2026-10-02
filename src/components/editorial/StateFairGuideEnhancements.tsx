@@ -66,8 +66,6 @@ const additionalPhotos: FairPhoto[] = [
     file: "State Fair of Texas September 2019 24 (Esplanade).jpg",
     alt: "Esplanade at Fair Park during the State Fair of Texas",
     caption: "Esplanade",
-    // The 1,800px Special:Redirect derivative intermittently times out because this original is 9.5 MB.
-    // Use Commons' already-generated 960px derivative for this archival grid tile while keeping the canonical source/license link below.
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/State_Fair_of_Texas_September_2019_24_%28Esplanade%29.jpg/960px-State_Fair_of_Texas_September_2019_24_%28Esplanade%29.jpg",
   },
   { file: "State Fair of Texas September 2019 26 (Hall of State).jpg", alt: "Hall of State at Fair Park during the State Fair of Texas", caption: "Hall of State" },
@@ -95,23 +93,9 @@ function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean
         <p className="font-semibold text-foreground">{photo.caption}</p>
         <p className="text-xs leading-5 text-muted-foreground">
           Michael Barera ·{" "}
-          <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-2"
-          >
-            CC BY-SA 4.0
-          </a>
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer" className="underline underline-offset-2">CC BY-SA 4.0</a>
           {" "}·{" "}
-          <a
-            href={commonsSource(photo.file)}
-            target="_blank"
-            rel="noreferrer"
-            className="underline underline-offset-2"
-          >
-            Wikimedia Commons
-          </a>
+          <a href={commonsSource(photo.file)} target="_blank" rel="noreferrer" className="underline underline-offset-2">Wikimedia Commons</a>
           {" "}· cropped for layout
         </p>
       </figcaption>
@@ -119,82 +103,88 @@ function PhotoCard({ photo, eager = false }: { photo: FairPhoto; eager?: boolean
   );
 }
 
-export function StateFairPlanningStrip() {
+function StateFairLivePanel() {
+  const today = new Date();
+  const fairStart = new Date("2026-09-25T00:00:00-05:00");
+  const fairEnd = new Date("2026-10-19T00:00:00-05:00");
+  const fairUnderway = today >= fairStart && today < fairEnd;
+  const fairFinished = today >= fairEnd;
+  const status = fairFinished ? "2026 Fair concluded" : fairUnderway ? "2026 Fair underway" : "2026 Fair opens September 25";
+
   return (
-    <section className="border-b border-border py-10" data-state-fair-planning-strip>
+    <section className="border-b border-border bg-background py-8" data-state-fair-live-panel>
       <Container>
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow text-primary">Plan the visit</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
-            <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-              Buy general admission from the State Fair of Texas. TexasDefined does not resell Fair admission.
-              For Cotton Bowl game days, use our event guides to check current ticket availability and trip-planning details.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="https://bigtex.com/buy-tickets-new/"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90"
-                data-state-fair-official-ticket-cta
-              >
-                Buy State Fair tickets ↗
-              </a>
-              <Link
-                to="/event/state-fair-classic"
-                className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
-              >
-                State Fair Classic guide
-              </Link>
-              <Link
-                to="/event/red-river-rivalry"
-                className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted"
-              >
-                Red River Rivalry tickets
-              </Link>
+        <div className="overflow-hidden border border-border bg-muted/20 lg:grid lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="relative min-h-[20rem] lg:min-h-[30rem]">
+            <img
+              src={commonsImage(featuredPhotos[0].file, 2200)}
+              alt="Big Tex at the State Fair of Texas in Dallas"
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="eager"
+              decoding="async"
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 pt-20 text-white md:p-8">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em]">Fair Park · Dallas</p>
+              <p className="mt-2 font-display text-3xl md:text-5xl">September 25–October 18, 2026</p>
             </div>
           </div>
 
-          <div
-            data-stay-nearby-slot
-            data-state-fair-stay-slot
-            aria-label="Places to stay for the State Fair of Texas"
-          />
-        </div>
-
-        <div className="mt-10" data-state-fair-featured-gallery>
-          <div className="flex items-end justify-between gap-6">
-            <div>
-              <p className="eyebrow text-primary">State Fair photo carousel</p>
-              <h2 className="mt-2 font-display text-3xl md:text-4xl">A look at the Fair</h2>
+          <div className="flex flex-col justify-center p-6 md:p-8 lg:p-10">
+            <p className="eyebrow text-primary">{status}</p>
+            <h2 className="mt-2 font-display text-3xl md:text-4xl">Plan the day before you enter the gates</h2>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="border border-border bg-background p-4"><p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Sun–Thu</p><p className="mt-1 text-lg font-semibold">10 AM–9 PM</p></div>
+              <div className="border border-border bg-background p-4"><p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Fri–Sat</p><p className="mt-1 text-lg font-semibold">10 AM–10 PM</p></div>
+              <div className="border border-border bg-background p-4"><p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Last entry</p><p className="mt-1 text-lg font-semibold">9 PM</p></div>
+              <div className="border border-border bg-background p-4"><p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Midway</p><p className="mt-1 text-lg font-semibold">11 AM most days</p></div>
             </div>
-            <a
-              href="https://bigtex.com/about-us/media-room/photo-gallery/"
-              target="_blank"
-              rel="noreferrer"
-              className="hidden text-sm font-semibold text-primary underline underline-offset-4 md:inline"
-            >
-              Official Fair photo archive ↗
-            </a>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Today’s schedule ↗</a>
+              <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center rounded-md border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted">Tickets ↗</a>
+              <a href="https://bigtex.com/plan-your-visit/getting-here/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center rounded-md border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted">DART & parking ↗</a>
+              <a href="https://bigtex.com/plan-your-visit/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center justify-center rounded-md border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted">Visitor guide ↗</a>
+            </div>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">Hours and operations can change for weather or special circumstances. Check the official schedule before leaving.</p>
           </div>
-          <div
-            className="mt-6 flex gap-4 overflow-x-auto pb-4"
-            aria-label="State Fair of Texas featured photos"
-          >
-            {featuredPhotos.map((photo, index) => (
-              <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}>
-                <PhotoCard photo={photo} eager={index === 0} />
-              </div>
-            ))}
-          </div>
-          <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Historical photos shown here are independently licensed through Wikimedia Commons. The State Fair of Texas
-            also maintains an official media photo archive with its own credit requirements.
-          </p>
         </div>
       </Container>
     </section>
+  );
+}
+
+export function StateFairPlanningStrip() {
+  return (
+    <>
+      <StateFairLivePanel />
+      <section className="border-b border-border py-10" data-state-fair-planning-strip>
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div>
+              <p className="eyebrow text-primary">Plan the visit</p>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, game days and where to stay</h2>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Buy Fair admission directly from the State Fair of Texas. If you are coming for a Cotton Bowl game, use the dedicated event guide for game-day timing, then use this page for food, rides and Fair planning.</p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>Buy State Fair tickets ↗</a>
+                <Link to="/event/state-fair-classic" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">State Fair Classic guide</Link>
+                <Link to="/event/red-river-rivalry" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Red River Rivalry guide</Link>
+              </div>
+            </div>
+            <div data-stay-nearby-slot data-state-fair-stay-slot aria-label="Places to stay for the State Fair of Texas" />
+          </div>
+
+          <div className="mt-10" data-state-fair-featured-gallery>
+            <div className="flex items-end justify-between gap-6">
+              <div><p className="eyebrow text-primary">See the Fair</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Big Tex, the Midway and Fair Park</h2></div>
+              <a href="https://bigtex.com/about-us/media-room/photo-gallery/" target="_blank" rel="noreferrer" className="hidden text-sm font-semibold text-primary underline underline-offset-4 md:inline">Official Fair photo archive ↗</a>
+            </div>
+            <div className="mt-6 flex gap-4 overflow-x-auto pb-4" aria-label="State Fair of Texas featured photos">
+              {featuredPhotos.map((photo, index) => <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}><PhotoCard photo={photo} eager={index === 0} /></div>)}
+            </div>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">These archival images are independently licensed through Wikimedia Commons. For current-year photography, use the State Fair’s official media galleries.</p>
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }
 
@@ -205,36 +195,14 @@ export function StateFairHistoricalGallery() {
         <div className="max-w-5xl">
           <p className="eyebrow text-primary">Historical gallery</p>
           <h2 className="mt-2 font-display text-3xl md:text-4xl">More scenes from previous State Fairs</h2>
-          <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-            This complete 31-photo September 2019 archival set covers Big Tex, the Midway, food, vendors, entertainment and Fair Park landmarks. For current official
-            publication photography, the State Fair media room maintains galleries covering recent highlights,
-            historical images, Big Tex, award-winning food, new foods, livestock, Creative Arts and State Fair Cares.
-          </p>
-
+          <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">The full September 2019 archival set is kept here for historical context without overwhelming the main visitor guide. Current official photography is available from the State Fair media room.</p>
           <details className="mt-6 border border-border bg-muted/30 p-5">
             <summary className="cursor-pointer font-semibold">View the full 31-photo historical State Fair gallery</summary>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {historicalPhotos.map((photo) => <PhotoCard key={photo.file} photo={photo} />)}
-            </div>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{historicalPhotos.map((photo) => <PhotoCard key={photo.file} photo={photo} />)}</div>
           </details>
-
           <div className="mt-6 flex flex-wrap gap-4 text-sm">
-            <a
-              href="https://bigtex.com/about-us/media-room/photo-gallery/"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-primary underline underline-offset-4"
-            >
-              Browse the official State Fair photo galleries ↗
-            </a>
-            <a
-              href="https://bigtex.com/about-us/media-room/"
-              target="_blank"
-              rel="noreferrer"
-              className="font-semibold text-primary underline underline-offset-4"
-            >
-              State Fair media room ↗
-            </a>
+            <a href="https://bigtex.com/about-us/media-room/photo-gallery/" target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">Browse the official State Fair photo galleries ↗</a>
+            <a href="https://bigtex.com/about-us/media-room/" target="_blank" rel="noreferrer" className="font-semibold text-primary underline underline-offset-4">State Fair media room ↗</a>
           </div>
         </div>
       </Container>
