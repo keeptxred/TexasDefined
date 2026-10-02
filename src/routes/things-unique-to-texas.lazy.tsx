@@ -80,7 +80,7 @@ function ThingsUniqueToTexasPage() {
               <div className="mt-8 grid max-w-2xl grid-cols-3 gap-px overflow-hidden border border-border bg-border">
                 <Stat value={String(itemCount)} label="Things" />
                 <Stat value={String(categories.length)} label="Collections" />
-                <Stat value={String(deeperGuideCount)} label="Stories & guides" />
+                <Stat value={String(deeperGuideCount)} label="Deeper guide links" />
               </div>
             </div>
 
