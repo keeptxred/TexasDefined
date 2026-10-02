@@ -25,10 +25,25 @@ jobs:
           git fetch origin main
           git merge-base --is-ancestor origin/main HEAD || { echo "Branch no longer contains current main"; exit 1; }
           node scripts/assets/materialize-generated-images.mjs
+
+          sudo apt-get update
+          sudo apt-get install -y webp
+
+          EVENT_SRC="public/images/events/chappell-hill-bluebonnet-festival-20260914.webp"
+          EVENT_PNG="$(mktemp --suffix=.png)"
+          EVENT_WEBP="$(mktemp --suffix=.webp)"
+          dwebp "$EVENT_SRC" -png -o "$EVENT_PNG"
+          cwebp -quiet -q 90 -resize 1600 1067 "$EVENT_PNG" -o "$EVENT_WEBP"
+          mv "$EVENT_WEBP" "$EVENT_SRC"
+          rm -f "$EVENT_PNG"
+
           CONVERT_BIN="$(command -v magick || command -v convert || true)"
           test -n "$CONVERT_BIN"
-          "$CONVERT_BIN" public/images/events/chappell-hill-bluebonnet-festival-20260914.webp -filter Lanczos -resize 1600x -quality 90 public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
-          "$CONVERT_BIN" public/images/sports-venues/xtreme-raceway-park.jpg -filter Lanczos -resize 1600x -quality 92 public/images/sports-venues/xtreme-raceway-park.jpg
+          XTREME_SRC="public/images/sports-venues/xtreme-raceway-park.jpg"
+          XTREME_OUT="$(mktemp --suffix=.jpg)"
+          "$CONVERT_BIN" "$XTREME_SRC" -filter Lanczos -resize 1600x -quality 92 "$XTREME_OUT"
+          mv "$XTREME_OUT" "$XTREME_SRC"
+
           node --input-type=module <<'NODE'
           import crypto from 'node:crypto';
           import fs from 'node:fs';
@@ -51,8 +66,9 @@ jobs:
           fs.writeFileSync(materializer, updated);
           console.log(`EVENT_SHA256=${sha}`);
           NODE
+
           rm .github/workflows/finalize-generated-image-objects.yml
-          identify public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+          webpinfo -summary public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
           identify public/images/sports-venues/xtreme-raceway-park.jpg
           git add -f assets/generated/chappell-hill-bluebonnet-festival/clean-v4-20260914.webp.b64.* scripts/assets/materialize-generated-images.mjs public/images/sports-venues/xtreme-raceway-park.jpg
           git add -u .github/workflows/finalize-generated-image-objects.yml
