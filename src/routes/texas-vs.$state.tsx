@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
 import { Container } from "@/components/layout/Container";
 import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
+import { TEXAS_VS_STATE_SNAPSHOTS } from "@/data/texas-vs-state-snapshots";
 import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -56,19 +57,20 @@ export const Route = createFileRoute("/texas-vs/$state")({
 function TexasVsStatePage() {
   const { name, profile } = Route.useLoaderData();
   const evidence = profile.evidence;
+  const snapshot = TEXAS_VS_STATE_SNAPSHOTS[name];
   const relatedGroup = TEXAS_VS_STATE_GROUPS.find((group) => group.states.some((state) => state === name));
   const relatedStates = relatedGroup?.states.filter((state) => state !== name).slice(0, 6) ?? [];
   const sections = [
-    { heading: "Start with the places you would live", body: profile.comparisonFocus },
-    { heading: "Compare places, not state averages", body: profile.placeLens },
-    ...(evidence ? [{ heading: "Metro and place matchups", body: evidence.metroLens }] : []),
-    { heading: "Taxes", body: evidence?.taxLens ?? `Texas has no individual state income tax, but that single fact does not determine whether a household pays less overall than it would in ${name}. Compare income taxes, sales taxes, property taxes and the taxes that apply to your actual household and location.` },
-    { heading: "Housing and cost of living", body: evidence?.housingLens ?? `Statewide averages can hide large local differences. Compare the Texas city or county you would actually choose with the ${name} community you would actually choose, including home prices or rent, insurance, utilities, property taxes and transportation costs.` },
-    { heading: "Jobs and pay", body: evidence?.jobsLens ?? `A useful Texas-versus-${name} job comparison looks at occupation-specific wages, unemployment, major industries and openings in the metro areas that match your career. State averages are a starting point, not the whole decision.` },
-    { heading: "Climate and geography", body: profile.climateLens },
-    ...(evidence ? [{ heading: "Risk, insurance and resilience", body: evidence.riskLens }] : []),
-    { heading: "Transportation and daily life", body: evidence?.transportationLens ?? `Driving distances, transit, airport access and commute patterns can materially change daily costs. Texas is large, so Dallas–Fort Worth, Houston, Austin, San Antonio, El Paso and rural Texas can produce very different living experiences when compared with ${name}.` },
-    { heading: "Culture and fit", body: `The final choice is not purely financial. Family ties, schools, recreation, food, sports, pace of life and access to the places you value can outweigh a modest difference in taxes or housing costs between Texas and ${name}.` },
+    { heading: `Where the Texas vs ${name} comparison starts`, body: profile.comparisonFocus },
+    { heading: `Texas places vs ${name} places`, body: profile.placeLens },
+    ...(evidence ? [{ heading: `Texas metros vs ${name} metros`, body: evidence.metroLens }] : []),
+    { heading: `Taxes: Texas vs ${name}`, body: evidence?.taxLens ?? `Texas has no individual state income tax, but that single fact does not determine whether a household pays less overall than it would in ${name}. Compare income taxes, sales taxes, property taxes and the taxes that apply to your actual household and location.` },
+    { heading: `Housing: Texas vs ${name}`, body: evidence?.housingLens ?? `Statewide averages can hide large local differences. Compare the Texas city or county you would actually choose with the ${name} community you would actually choose, including home prices or rent, insurance, utilities, property taxes and transportation costs.` },
+    { heading: `Jobs and pay: Texas vs ${name}`, body: evidence?.jobsLens ?? `A useful Texas-versus-${name} job comparison looks at occupation-specific wages, unemployment, major industries and openings in the metro areas that match your career. State averages are a starting point, not the whole decision.` },
+    { heading: `Climate and geography: Texas vs ${name}`, body: profile.climateLens },
+    ...(evidence ? [{ heading: `Risk and insurance: Texas vs ${name}`, body: evidence.riskLens }] : []),
+    { heading: `Transportation: Texas vs ${name}`, body: evidence?.transportationLens ?? `Driving distances, transit, airport access and commute patterns can materially change daily costs. Texas is large, so Dallas–Fort Worth, Houston, Austin, San Antonio, El Paso and rural Texas can produce very different living experiences when compared with ${name}.` },
+    { heading: `Culture and fit: Texas vs ${name}`, body: `The final choice is not purely financial. Family ties, schools, recreation, food, sports, pace of life and access to the places you value can outweigh a modest difference in taxes or housing costs between Texas and ${name}.` },
   ];
 
   const faq = [
@@ -80,12 +82,49 @@ function TexasVsStatePage() {
   return <main>
     <TexasComparedHero state={name} reviewedAt={evidence?.reviewedAt} />
 
+    {snapshot && <section className="border-b border-border bg-surface py-12 md:py-16">
+      <Container>
+        <div className="max-w-6xl">
+          <p className="eyebrow text-primary">Side-by-side</p>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl">Texas vs {name}: the numbers</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">These are the same measures on both sides, so you can see the statewide difference before drilling down to the Texas and {name} communities you would actually compare.</p>
+          <p className="mt-2 text-sm text-muted-foreground">{snapshot.period}</p>
+
+          <div className="mt-8" style={{ overflowX: "auto" }}>
+            <table className="w-full text-left" style={{ minWidth: "920px", borderCollapse: "collapse" }}>
+              <thead>
+                <tr className="border-b border-border">
+                  <th scope="col" className="pb-3 pr-5 text-sm font-semibold">Measure</th>
+                  <th scope="col" className="pb-3 pr-5 text-sm font-semibold text-primary">Texas</th>
+                  <th scope="col" className="pb-3 pr-5 text-sm font-semibold text-primary">{name}</th>
+                  <th scope="col" className="pb-3 pr-5 text-sm font-semibold">Difference</th>
+                  <th scope="col" className="pb-3 text-sm font-semibold">Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                {snapshot.rows.map((row) => <tr key={row.metric} className="border-b border-border">
+                  <th scope="row" className="py-4 pr-5 font-semibold" style={{ verticalAlign: "top" }}>{row.metric}</th>
+                  <td className="py-4 pr-5 font-display text-xl" style={{ verticalAlign: "top" }}>{row.texas}</td>
+                  <td className="py-4 pr-5 font-display text-xl" style={{ verticalAlign: "top" }}>{row.state}</td>
+                  <td className="py-4 pr-5 font-semibold" style={{ verticalAlign: "top" }}>{row.difference}</td>
+                  <td className="py-4 text-sm leading-6 text-muted-foreground" style={{ verticalAlign: "top" }}>{row.context}</td>
+                </tr>)}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            {snapshot.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a>)}
+          </div>
+        </div>
+      </Container>
+    </section>}
+
     <section className="py-12 md:py-16">
       <Container>
         <div className="max-w-4xl divide-y divide-border">
-          {sections.map((section, index) => <section key={section.heading} className="py-8 first:pt-0">
-            <p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">{section.heading}</h2>
+          {sections.map((section) => <section key={section.heading} className="py-8 first:pt-0">
+            <h2 className="font-display text-3xl md:text-4xl">{section.heading}</h2>
             <p className="mt-4 leading-8 text-muted-foreground">{section.body}</p>
           </section>)}
           <section className="py-8">
