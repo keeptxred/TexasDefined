@@ -11,6 +11,7 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
   `https://${zoneName}/article/texas-rio-grande-river-guide`,
   `https://${zoneName}/article/texas-six-man-football-rules-explained`,
+  `https://${zoneName}/article/spanish-texas-military-battle-medina`,
 ];
 
 const weekendEventUrls = [
