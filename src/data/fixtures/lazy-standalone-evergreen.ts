@@ -29,11 +29,11 @@ const texasHighSchoolFootballClassificationsStub: Article = {
 
 const texasSixManFootballExplainedStub: Article = {
   id: "evergreen-texas-six-man-football-explained", brandId: "texasdefined", slug: "texas-six-man-football-rules-explained",
-  title: "Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different",
-  dek: "Texas six-man football is not simply 11-man football with five players removed. Here is how the UIL game changes the field, first downs, scoring, ball movement and the 45-point rule.",
+  title: "Texas Six-Man Football: Rules, Scoring & How It Works",
+  dek: "A visual guide to Texas six-man football: the 80-yard field, 15-yard first downs, exchange rule, scoring, 45-point rule, UIL divisions and where to find a team.",
   category: "sports",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bart_Coan_Field_from_west.jpg?width=1600", alt: "Six-man football game at Bart Coan Field on the Fort Davis High School campus in Fort Davis, Texas", width: 1600, height: 1200, credit: "Fortguy · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-09-19", updatedAt: "2026-10-02", readingMinutes: 11,
   tags: ["texas six-man football", "six player football rules", "1A football Texas", "45 point rule", "UIL football", "small town Texas football"], featured: false,
   sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/rules-guidelines",
   body: [], relatedCollections: [], relatedDestinations: [],
