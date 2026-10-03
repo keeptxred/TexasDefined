@@ -10,6 +10,7 @@ import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
 const articlePolicy = INTERNAL_LINK_POLICIES.article;
 const MetroRelocationAuthority = lazy(() => import("@/components/relocation/MetroRelocationAuthority").then((module) => ({ default: module.MetroRelocationAuthority })));
+const SixManFootballAuthority = lazy(() => import("@/components/content/SixManFootballAuthority").then((module) => ({ default: module.SixManFootballAuthority })));
 const metroRelocationGuidePaths = new Set([
   "/article/moving-to-dallas-fort-worth-guide",
   "/article/moving-to-houston-address-checklist",
@@ -17,7 +18,7 @@ const metroRelocationGuidePaths = new Set([
   "/article/moving-to-san-antonio-guide",
   "/article/moving-to-el-paso-guide",
 ]);
-
+const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
 
 export function articleHeadingId(text: string) {
   return text
@@ -50,6 +51,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
 export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
+  const showSixManFootballAuthority = pathname === SIX_MAN_FOOTBALL_PATH;
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -71,6 +73,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     return <AutoEntityLinks text={text} entities={candidates} maxLinks={maxLinks} policy={policyForSurface('article')} />;
   };
   return <div className="editorial-body text-foreground/92">
+    {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
         case "heading": return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
