@@ -1,12 +1,18 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
+import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
+import { UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE } from '@/data/high-school-football/enrollment-bands';
+
+const UIL_FOOTBALL_ALIGNMENTS_URL = 'https://www.uiltexas.org/football/alignments';
+const UIL_EXACT_ENROLLMENT_URL = 'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf';
 
 export const Route = createLazyFileRoute('/texas-high-school-football-districts')({ component: Page });
 
 function Page() {
   const districts = Route.useLoaderData();
   const groups = new Map<string, typeof districts>();
+  const programCount = districts.reduce((sum, district) => sum + district.programCount, 0);
 
   for (const district of districts) {
     const key = district.division
@@ -30,8 +36,14 @@ function Page() {
         <p className="eyebrow text-primary">2026–28 UIL football alignment</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas high school football districts</h1>
         <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground">Browse all 192 current UIL football districts. Each district page lists every member school in the official 2026–28 alignment and links directly to that program’s TexasDefined research profile.</p>
+        <dl className="mt-6 grid gap-3 sm:grid-cols-3">
+          <div className="border-l-2 border-primary pl-3"><dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">UIL districts</dt><dd className="mt-1 font-display text-2xl font-semibold">{districts.length}</dd></div>
+          <div className="border-l-2 border-primary pl-3"><dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">UIL programs</dt><dd className="mt-1 font-display text-2xl font-semibold">{programCount.toLocaleString('en-US')}</dd></div>
+          <div className="border-l-2 border-primary pl-3"><dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">Alignment cycle</dt><dd className="mt-1 font-display text-2xl font-semibold">2026–28</dd></div>
+        </dl>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="/texas-high-school-football-teams" className="text-primary">Search all 1,268 UIL programs →</a>
+          <a href="/texas-data/high-school-football-programs.csv" className="text-primary">Download UIL program data (CSV) ↓</a>
           <a href="/article/texas-high-school-football-classifications-1a-6a" className="text-primary">Understand 1A through 6A →</a>
           <a href="/article/texas-high-school-football-playoffs-explained" className="text-primary">How the playoffs work →</a>
         </div>
@@ -60,9 +72,24 @@ function Page() {
         </section>)}
       </div>
 
-      <section className="mt-12 border-t border-border pt-8">
-        <p className="text-sm leading-7 text-muted-foreground">Source: University Interscholastic League 2026–28 football alignment. Use the linked district page or school profile for the controlling UIL alignment document and current school context.</p>
-      </section>
+      <CitationTrustPanel
+        className="mt-12"
+        title="UIL football district sources and methodology"
+        citationTitle="Texas High School Football Districts — 2026–28 UIL Alignment"
+        sources={[
+          { name: 'University Interscholastic League — Football Alignments', url: UIL_FOOTBALL_ALIGNMENTS_URL, note: 'Controlling source for current football district assignments; UIL posts revisions on this page.' },
+          { name: 'UIL 2026–28 Alphabetical List of Schools', url: UIL_EXACT_ENROLLMENT_URL, note: 'Source for the reported enrollment snapshot used in realignment.' },
+          { name: 'UIL 2026–28 conference and division cutoffs', url: UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url, note: 'Official classification and division enrollment bands.' },
+        ]}
+        methodology="TexasDefined groups the current UIL football program records by classification, division and district, then links each district to the same school-profile records used throughout the football directory. District membership is not ranked or inferred. The downloadable CSV is generated from the same 1,268-program index that powers the directory. If UIL revises an alignment, UIL remains the controlling source."
+        lastVerified="Official UIL football alignment and 2026–28 realignment sources rechecked October 3, 2026."
+        keyStats={[
+          { label: 'UIL districts', value: districts.length.toLocaleString('en-US') },
+          { label: 'UIL programs', value: programCount.toLocaleString('en-US') },
+          { label: 'Alignment cycle', value: '2026–28' },
+        ]}
+        dataDownloads={[{ label: 'UIL football programs', url: '/texas-data/high-school-football-programs.csv', format: 'CSV' }]}
+      />
     </main>
   </Container>;
 }
