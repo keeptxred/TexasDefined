@@ -19,7 +19,8 @@ This standard applies to existing resources promoted from the Batch 2.2 scorecar
    - When a maintained dataset is useful outside the page, expose a downloadable CSV and/or JSON distribution generated from the same underlying rows as the visible page.
 
 3. **Visible trust layer**
-   - Every promoted citation magnet must visibly show **Primary sources**, **Methodology**, **Last verified**, **Editor**, **Stable URL**, and a **Recommended citation**.
+   - Every promoted citation magnet must visibly show **Sources**, **Methodology**, **Last verified**, **Editor**, **Stable URL**, and a **Recommended citation**.
+   - The Sources section should prefer government, agency and other primary records under the hierarchy below.
    - Source names should link directly to the authoritative record when possible.
    - Methodology must explain what was collected, normalized, calculated or interpreted.
    - Last verified must describe the factual verification date, not merely the code deployment date.
@@ -91,6 +92,6 @@ A resource is citation-ready only when all are true:
 
 ## Reusable implementation
 
-Use `CitationTrustPanel` for the visible trust layer instead of creating page-specific variants. Individual page families may add specialized provenance details, but the labels **Primary sources**, **Methodology**, **Last verified**, **Editor**, **Stable URL**, **Recommended citation**, and **Downloadable data** (when present) stay consistent across promoted resources.
+Use `CitationTrustPanel` for the visible trust layer instead of creating page-specific variants. Individual page families may add specialized provenance details, but the labels **Sources**, **Methodology**, **Last verified**, **Editor**, **Stable URL**, **Recommended citation**, and **Downloadable data** (when present) stay consistent across promoted resources.
 
 `CitationTrustPanel` derives the stable production URL from the active canonical route by default, identifies the Texas Defined Editorial Desk, and generates a copyable recommended citation. Page families should pass `citationTitle`, `keyStats`, and `dataDownloads` whenever those values are more specific than the panel defaults.
