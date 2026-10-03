@@ -1,3 +1,7 @@
+const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
+const lastVerified = "2026-10-03";
+const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
+
 const majorBasins = [
   ["Brazos", "42,865", "840", "6,074,000"],
   ["Canadian", "12,865", "213", "196,000"],
@@ -28,22 +32,61 @@ const coastalBasins = [
 ] as const;
 
 const basinHighlights = [
-  {
-    label: "Largest basin in Texas",
-    value: "Rio Grande",
-    detail: "49,387 sq. mi. in Texas",
-  },
-  {
-    label: "Longest Texas reach",
-    value: "Rio Grande",
-    detail: "889 river miles in Texas",
-  },
-  {
-    label: "Highest average flow",
-    value: "Brazos",
-    detail: "6.074 million acre-feet/year",
-  },
+  { label: "Largest basin in Texas", value: "Rio Grande", detail: "49,387 sq. mi. in Texas" },
+  { label: "Longest Texas reach", value: "Rio Grande", detail: "889 river miles in Texas" },
+  { label: "Highest average flow", value: "Brazos", detail: "6.074 million acre-feet/year" },
 ] as const;
+
+const csvHeaders = [
+  "basin",
+  "basin_type",
+  "area_in_texas_square_miles",
+  "river_length_in_texas_miles",
+  "average_annual_flow_acre_feet",
+  "source_url",
+  "last_verified",
+  "canonical_page",
+] as const;
+
+function csvCell(value: string) {
+  return /[",\n]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value;
+}
+
+const normalizeNumber = (value: string) => value.replaceAll(",", "");
+
+const csvRows = [
+  ...majorBasins.map(([basin, area, miles, flow]) => [
+    basin,
+    "major",
+    normalizeNumber(area),
+    normalizeNumber(miles),
+    normalizeNumber(flow),
+    sourceUrl,
+    lastVerified,
+    canonicalPage,
+  ]),
+  ...coastalBasins.map((basin) => [basin, "coastal", "", "", "", sourceUrl, lastVerified, canonicalPage]),
+];
+
+const csvContent = `${csvHeaders.join(",")}\n${csvRows.map((row) => row.map(csvCell).join(",")).join("\n")}\n`;
+const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;
+
+const jsonContent = JSON.stringify({
+  name: "Texas river basin reference",
+  description: "Texas Defined reference data for the 15 major Texas river basins and eight coastal basins.",
+  source: { name: "Texas Water Development Board", url: sourceUrl },
+  lastVerified,
+  canonicalPage,
+  methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
+  majorBasins: majorBasins.map(([basin, area, miles, flow]) => ({
+    basin,
+    areaInTexasSquareMiles: Number(normalizeNumber(area)),
+    riverLengthInTexasMiles: Number(normalizeNumber(miles)),
+    averageAnnualFlowAcreFeet: Number(normalizeNumber(flow)),
+  })),
+  coastalBasins,
+}, null, 2);
+const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;
 
 export function TexasRiverBasinReference() {
   return (
@@ -53,14 +96,30 @@ export function TexasRiverBasinReference() {
           <p className="eyebrow text-primary">Compare the river basins</p>
           <h3 id="major-basin-reference-heading" className="mt-2 font-display text-2xl">Texas's 15 major river basins</h3>
         </div>
-        <a
-          href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp"
-          target="_blank"
-          rel="noreferrer"
-          className="text-xs font-semibold text-primary underline decoration-border underline-offset-4"
-        >
-          Texas Water Development Board data ↗
-        </a>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-primary">
+          <a
+            href={sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-border underline-offset-4"
+          >
+            Texas Water Development Board data ↗
+          </a>
+          <a
+            href={csvDownloadHref}
+            download="texasdefined-texas-river-basins.csv"
+            className="underline decoration-border underline-offset-4"
+          >
+            Download CSV ↓
+          </a>
+          <a
+            href={jsonDownloadHref}
+            download="texasdefined-texas-river-basins.json"
+            className="underline decoration-border underline-offset-4"
+          >
+            Download JSON ↓
+          </a>
+        </div>
       </div>
 
       <p className="mt-3 text-sm leading-7 text-muted-foreground">

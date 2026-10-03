@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
+import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
+
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
 const riverProfiles = [
@@ -142,7 +144,9 @@ export function TexasRiversAuthorityHub() {
 export function TexasRiversAfterArticle() {
   return (
     <div style={wideModuleStyle} className="mt-14 border-t border-border pt-10">
-      <section aria-labelledby="river-profiles-heading">
+      <TexasRiversCitationTrust />
+
+      <section className="mt-12" aria-labelledby="river-profiles-heading">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
           <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Go Deeper on Five Major Texas Rivers</h2>
