@@ -43,7 +43,6 @@ function Page() {
         </dl>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
           <a href="/texas-high-school-football-teams" className="text-primary">Search all 1,268 UIL programs →</a>
-          <a href="/texas-data/high-school-football-programs.csv" className="text-primary">Download UIL program data (CSV) ↓</a>
           <a href="/article/texas-high-school-football-classifications-1a-6a" className="text-primary">Understand 1A through 6A →</a>
           <a href="/article/texas-high-school-football-playoffs-explained" className="text-primary">How the playoffs work →</a>
         </div>
@@ -81,14 +80,13 @@ function Page() {
           { name: 'UIL 2026–28 Alphabetical List of Schools', url: UIL_EXACT_ENROLLMENT_URL, note: 'Source for the reported enrollment snapshot used in realignment.' },
           { name: 'UIL 2026–28 conference and division cutoffs', url: UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url, note: 'Official classification and division enrollment bands.' },
         ]}
-        methodology="TexasDefined groups the current UIL football program records by classification, division and district, then links each district to the same school-profile records used throughout the football directory. District membership is not ranked or inferred. The downloadable CSV is generated from the same 1,268-program index that powers the directory. If UIL revises an alignment, UIL remains the controlling source."
+        methodology="TexasDefined groups the current UIL football program records by classification, division and district, then links each district to the same school-profile records used throughout the football directory. District membership is not ranked or inferred. If UIL revises an alignment, UIL remains the controlling source."
         lastVerified="Official UIL football alignment and 2026–28 realignment sources rechecked October 3, 2026."
         keyStats={[
           { label: 'UIL districts', value: districts.length.toLocaleString('en-US') },
           { label: 'UIL programs', value: programCount.toLocaleString('en-US') },
           { label: 'Alignment cycle', value: '2026–28' },
         ]}
-        dataDownloads={[{ label: 'UIL football programs', url: '/texas-data/high-school-football-programs.csv', format: 'CSV' }]}
       />
     </main>
   </Container>;
