@@ -1,0 +1,94 @@
+name: Replay Discover image readiness
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/discover-image-readiness-current-main
+          fetch-depth: 0
+
+      - name: Replay durable Discover assets
+        run: |
+          git fetch origin fix/discover-image-readiness-13:refs/remotes/origin/fix/discover-image-readiness-13
+          git checkout origin/fix/discover-image-readiness-13 -- public/images/discover
+
+      - name: Reconcile Discover SEO overrides onto current seo.ts
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("src/lib/seo.ts")
+          text = path.read_text()
+
+          anchor = 'const META_DESCRIPTION_MAX_LENGTH = 160;\n'
+          block = '''
+const TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES: Record<string, string> = {
+  "/event/chappell-hill-bluebonnet-festival": "/images/discover/chappell-hill-bluebonnet-festival.webp",
+  "/article/ima-hogg-texas-legacy": "/images/discover/ima-hogg-texas-legacy.webp",
+  "/article/camping-in-texas-with-your-dog": "/images/discover/camping-in-texas-with-your-dog.webp",
+  "/article/texas-high-school-football-scores-schedules": "/images/discover/texas-high-school-football-scores-schedules.webp",
+  "/article/best-lighthouses-to-visit-in-texas": "/images/discover/best-lighthouses-to-visit-in-texas.webp",
+  "/article/texas-medal-of-honor-heroes": "/images/discover/texas-medal-of-honor-heroes.webp",
+  "/article/texas-red-river-war-guide": "/images/discover/texas-red-river-war-guide.webp",
+  "/article/republic-of-texas-government-trail": "/images/discover/republic-of-texas-government-trail.webp",
+  "/article/brazoria-plantations-slavery-emancipation-history": "/images/discover/brazoria-plantations-slavery-emancipation-history.webp",
+  "/article/texas-frontier-forts-road-trip": "/images/discover/texas-frontier-forts-road-trip.webp",
+  "/sports-venue/freeman-coliseum": "/images/discover/freeman-coliseum.webp",
+  "/sports-venue/eagle-stadium-allen": "/images/discover/eagle-stadium-allen.webp",
+  "/sports-venue/xtreme-raceway-park": "/images/discover/xtreme-raceway-park.webp",
+};
+'''
+          if "TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES" not in text:
+              assert anchor in text, "meta-description anchor missing"
+              text = text.replace(anchor, anchor + "\n" + block, 1)
+
+          old_image = '''  const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
+  const image = page.image
+    ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+    : fallbackImage;
+'''
+          new_image = '''  const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
+  const discoverImage = brand.identity.id === "texasdefined" && page.canonicalPath
+    ? TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]
+    : undefined;
+  const image = discoverImage
+    ? { src: discoverImage, alt: page.imageAlt, type: "image/webp" }
+    : page.image
+      ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+      : fallbackImage;
+'''
+          if "const discoverImage =" not in text:
+              assert old_image in text, "image-selection anchor missing"
+              text = text.replace(old_image, new_image, 1)
+
+          old_dimensions = '''  const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
+  const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
+'''
+          new_dimensions = '''  const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
+  const imageWidth = discoverImage ? 1600 : page.imageWidth;
+  const imageHeight = discoverImage ? 900 : page.imageHeight;
+  const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
+'''
+          if "const imageWidth = discoverImage ? 1600" not in text:
+              assert old_dimensions in text, "image-dimension anchor missing"
+              text = text.replace(old_dimensions, new_dimensions, 1)
+
+          path.write_text(text)
+
+      - name: Commit durable replay only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/images/discover src/lib/seo.ts
+          git diff --cached --check
+          test "$(git diff --cached --name-only | grep -c '^\.github/workflows/' || true)" -eq 0
+          git commit -m "Make remaining pages Discover image ready"
+          git push origin HEAD:fix/discover-image-readiness-current-main
