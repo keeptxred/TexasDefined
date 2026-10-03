@@ -119,7 +119,7 @@ jobs:
           fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Carnival_scene_outside_the_San_Antonio_Stock_Show_and_Rodeo_on_the_grounds_of_the_Freeman_Coliseum,_San_Antonio,_Texas_LCCN2014631343.tif?width=1920' .tmp/discover/freeman-coliseum
           make_card .tmp/discover/freeman-coliseum public/images/discover/freeman-coliseum.webp
 
-          make_card public/images/sports-venues/xtreme-raceway-park.jpg public/images/discover/xtreme-raceway-park.webp
+          render_browser_card 'https://texasdefined.com/images/sports-venues/xtreme-raceway-park.jpg' public/images/discover/xtreme-raceway-park.webp
 
           ls -lh public/images/discover/*.webp
 
