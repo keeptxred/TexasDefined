@@ -19,14 +19,14 @@ const ruleCards = [
 
 const sixManPhotos = [
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Six-man_football_battle.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Six-man_football_battle.jpg/1280px-Six-man_football_battle.jpg",
     alt: "Six-man football players battling for the ball under stadium lights",
     caption: "Six-man football creates huge one-on-one spaces. One missed tackle can become a scoring play in seconds.",
     credit: "KaleenaBurt · CC BY-SA 4.0",
     href: "https://commons.wikimedia.org/wiki/File:Six-man_football_battle.jpg",
   },
   {
-    src: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg/1280px-Whitharral_Texas_Panthers_six-man_football_2010.jpg",
     alt: "Whitharral Panthers six-man football players on a West Texas field",
     caption: "At schools such as Whitharral, six-man football keeps Friday-night football viable with a much smaller student body.",
     credit: "Leaflet · CC BY-SA 3.0",
@@ -47,8 +47,8 @@ function WidePhoto({ photo }: { photo: (typeof sixManPhotos)[number] }) {
       <img
         src={photo.src}
         alt={photo.alt}
-        width={1600}
-        height={1067}
+        width={1280}
+        height={853}
         loading="lazy"
         decoding="async"
         referrerPolicy="no-referrer"
