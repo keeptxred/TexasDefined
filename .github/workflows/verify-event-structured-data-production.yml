@@ -35,3 +35,8 @@ jobs:
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-event-structured-data-production.mjs
+
+      - name: Verify State Fair Event lifecycle in production
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-state-fair-event-production.mjs

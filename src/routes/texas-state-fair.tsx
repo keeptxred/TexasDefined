@@ -4,7 +4,43 @@ import { jsonLd } from "@/lib/seo";
 
 // PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
+const canonicalUrl = `https://texasdefined.com${canonicalPath}`;
 const seoDescription = "State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.";
+
+function stateFairStructuredData(description: string) {
+  if (Date.now() >= Date.parse("2026-10-19T00:00:00-05:00")) {
+    return {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      about: { "@type": "Thing", name: "State Fair of Texas" },
+    };
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "2026 State Fair of Texas",
+    startDate: "2026-09-25",
+    endDate: "2026-10-18",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: "Fair Park",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "3809 Grand Avenue",
+        addressLocality: "Dallas",
+        postalCode: "75210",
+        addressRegion: "TX",
+        addressCountry: "US",
+      },
+    },
+    url: canonicalUrl,
+    sameAs: "https://bigtex.com/",
+    description,
+  };
+}
 
 const stateFairData = {
     eyebrow: "Texas events",
@@ -222,28 +258,7 @@ export const Route = createFileRoute("/texas-state-fair")({
       ...base,
       scripts: [
         ...base.scripts,
-        jsonLd({
-          "@context": "https://schema.org",
-          "@type": "Event",
-          name: "2026 State Fair of Texas",
-          startDate: "2026-09-25",
-          endDate: "2026-10-18",
-          eventStatus: "https://schema.org/EventScheduled",
-          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-          location: {
-            "@type": "Place",
-            name: "Fair Park",
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: "Dallas",
-              addressRegion: "TX",
-              addressCountry: "US",
-            },
-          },
-          url: "https://bigtex.com/",
-          description: loaderData.intro,
-          organizer: { "@type": "Organization", name: "State Fair of Texas", url: "https://bigtex.com/" },
-        }),
+        jsonLd(stateFairStructuredData(loaderData.intro)),
       ],
     };
   },
