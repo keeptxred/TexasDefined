@@ -28,6 +28,18 @@ const pages = [
     forbidden: [],
   },
   {
+    label: 'Battle of Medina',
+    url: 'https://texasdefined.com/article/spanish-texas-military-battle-medina',
+    required: [
+      'Battle of Medina: The Bloodiest Battle Fought on Texas Soil',
+      'Battle of Medina at a glance',
+      'Rosillo changed everything',
+      "Arredondo's victory brought repression to San Antonio",
+      'Joaquín de Arredondo',
+    ],
+    forbidden: [],
+  },
+  {
     label: 'Mountain biking',
     url: 'https://texasdefined.com/texas-mountain-biking-guide',
     required: ['Five Texas trail systems at a glance'],
