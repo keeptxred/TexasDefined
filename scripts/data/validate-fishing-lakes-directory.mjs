@@ -4,9 +4,10 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes] = await Promise.all([
+const [route, component, csvRoute, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
+  read("src/routes/fishing.lakes[.]csv.ts"),
   read("src/routes/fishing.tsx"),
   read("src/components/fishing/FishingHub.tsx"),
   read("src/data/fishing/slugs.ts"),
@@ -25,28 +26,46 @@ for (const marker of [
   'lakeSpeciesProfilesQuery()',
   'isCompleteFishingLakeSlug(lake.slug)',
   '"@type": "CollectionPage"',
+  '"@type": "Dataset"',
+  '"@type": "DataDownload"',
+  'encodingFormat: "text/csv"',
+  'contentUrl: csvUrl',
   '"@type": "ItemList"',
   '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
   'numberOfItems: rows.length',
   'const completeLakeCount = rows.length || COMPLETE_FISHING_LAKE_SLUGS.length',
-  'title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`',
+  'title: `Texas Lakes Database — Map & Compare ${completeLakeCount} Source-Backed Lakes`',
   'lazy(() => import("@/components/fishing/FishingLakesDirectory")',
   'FishingLakesDirectory rows={rows} latestReview={latestReview}',
-]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/lazy-boundary marker: ${marker}.`);
+]) assert(route.includes(marker), `Fishing lakes route is missing loader/SEO/dataset/lazy-boundary marker: ${marker}.`);
 
 for (const marker of [
-  "complete Texas fishing lake guides are published",
-  'What this directory covers',
-  'not a claim that these are the only or universally “best” fishing lakes in Texas',
-  'Compare Texas Fishing Lakes',
-  'Fishing targets',
-  'Check Current Lake Conditions Before You Go',
-  'unfinished lake records are not exposed here as thin pages',
-  'same sourcing standard',
-  'source-backed lake-to-species relationships',
-  'fishingFoundationAnchor("lake", lake.slug)',
-]) assert(component.includes(marker), `Fishing lakes UI is missing quality/discovery marker: ${marker}.`);
+  'Texas Lakes Database',
+  'What this database covers',
+  'Is this every lake in Texas?',
+  'Search and compare Texas lakes',
+  'Interactive map',
+  'Download full CSV',
+  'Derived TexasDefined views',
+  'Most represented fish targets',
+  'thin pages',
+  'complete, source-backed lake records',
+  "fishingFoundationAnchor('lake', lake.slug)",
+  'CitationTrustPanel',
+]) assert(component.includes(marker), `Fishing lakes UI is missing citation-database quality marker: ${marker}.`);
+
+for (const marker of [
+  "createFileRoute('/fishing/lakes.csv')",
+  "'content-type': 'text/csv; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  'texasdefined-texas-lakes-database.csv',
+  'surface_acres',
+  'maximum_depth_feet',
+  'river_basin',
+  'source_urls',
+  'isCompleteFishingLakeSlug(lake.slug)',
+]) assert(csvRoute.includes(marker), `Fishing lakes CSV is missing distribution/source marker: ${marker}.`);
 
 for (const forbidden of [
   '@/data/fishing/fixtures',
@@ -95,4 +114,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Fishing lakes directory validated: 41 completed lake guides remain query-backed, dynamically counted, lazily rendered, sitemap/search-owned and answer-first, while the original 15-lake cohort remains protected.");
+console.log("Fishing lakes database validated: 41 completed lake records remain query-backed and quality-gated, with Dataset metadata, interactive comparison and a source-aligned CSV distribution.");
