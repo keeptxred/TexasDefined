@@ -6,13 +6,14 @@ on:
       - Deploy TexasDefined production
     types:
       - completed
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   purge:
-    if: ${{ github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     environment: texasdefined-publication
@@ -24,7 +25,7 @@ jobs:
       - name: Check out deployed revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -54,6 +55,23 @@ jobs:
         run: |
           node --input-type=module <<'NODE'
           const pages = [
+            {
+              label: 'Texas rivers',
+              url: 'https://texasdefined.com/article/texas-rivers-explained',
+              required: [
+                'Texas Rivers Explained',
+                'Start with the map',
+                'Texas Rivers, Region by Region',
+                'Go Deeper on Five Major Texas Rivers',
+                'Open the full 15-basin comparison',
+              ],
+              forbidden: [
+                'Dedicated river profiles',
+                "See Texas's Major Rivers on the Map",
+                'Texas rivers at a glance',
+                'More stories to read next',
+              ],
+            },
             {
               label: 'Six-man football',
               url: 'https://texasdefined.com/article/texas-six-man-football-rules-explained',
