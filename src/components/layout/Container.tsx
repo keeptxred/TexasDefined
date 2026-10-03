@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 export function Container({
   children,
@@ -14,14 +14,17 @@ export function Container({
   as?: "div" | "section" | "header" | "footer" | "article" | "nav" | "main";
   id?: string;
 }) {
+  const editorialWidth: CSSProperties | undefined = width === "narrow"
+    ? undefined
+    : { maxWidth: width === "wide" ? "100rem" : "82rem" };
+
   return (
     <Tag
       id={id}
+      style={editorialWidth}
       className={cn(
         "mx-auto w-full px-5 sm:px-8",
         width === "narrow" && "max-w-3xl",
-        width === "default" && "max-w-6xl",
-        width === "wide" && "max-w-[90rem]",
         className,
       )}
     >

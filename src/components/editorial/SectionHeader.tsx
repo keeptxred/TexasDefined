@@ -18,5 +18,8 @@ export function SectionHeader({ eyebrow, title, description, actionLabel, action
 }
 
 export function Section({ children, className, tone = "default" }: { children: ReactNode; className?: string; tone?: "default" | "surface" | "ink"; }) {
-  return <section className={cn("py-14 sm:py-16 lg:py-20", tone === "surface" && "bg-surface text-surface-foreground", tone === "ink" && "bg-ink text-ink-foreground", className)}>{children}</section>;
+  const surfaceStyle = tone === "surface"
+    ? { background: "linear-gradient(180deg, color-mix(in oklch, oklch(0.86 0.035 79) 25%, var(--surface)), var(--surface))" }
+    : undefined;
+  return <section style={surfaceStyle} className={cn("py-14 sm:py-16 lg:py-20", tone === "surface" && "text-surface-foreground", tone === "ink" && "bg-ink text-ink-foreground", className)}>{children}</section>;
 }

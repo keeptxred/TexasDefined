@@ -12,14 +12,28 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = {
   culture: "Arts & Culture",
 };
 
+const EVENT_ACCENTS: Record<TexasEvent["category"], string> = {
+  music: "oklch(0.48 0.145 278)",
+  food: "oklch(0.69 0.15 52)",
+  rodeo: "oklch(0.55 0.13 38)",
+  seasonal: "oklch(0.79 0.09 92)",
+  sport: "oklch(0.58 0.105 218)",
+  culture: "oklch(0.52 0.075 58)",
+};
+
 export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLabel?: string | undefined }) {
   const brand = useBrand();
   const venueGuide = resolveSportsVenueEventLink(event.venue);
+  const accent = EVENT_ACCENTS[event.category];
 
   return (
-    <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
-      <div>
-        <p className="eyebrow text-primary">{EVENT_LABELS[event.category]}</p>
+    <article
+      className="grid gap-4 sm:grid-cols-[9rem_1fr] sm:gap-7"
+      style={{ position: "relative", overflow: "hidden", border: "1px solid var(--border)", borderRadius: "0.4rem", background: "var(--card)", boxShadow: "var(--shadow-soft)", padding: "1.5rem" }}
+    >
+      <div aria-hidden style={{ position: "absolute", insetBlock: 0, left: 0, width: "0.25rem", background: accent }} />
+      <div className="sm:border-r sm:border-border sm:pr-6">
+        <p className="eyebrow" style={{ color: accent }}>{EVENT_LABELS[event.category]}</p>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">{formatDateRange(event.startDate, event.endDate, brand.identity.locale)}</p>
         <p className="mt-1 text-xs uppercase tracking-[0.1em] text-muted-foreground">{event.city}{regionLabel ? ` · ${regionLabel}` : ""}</p>
       </div>
