@@ -244,33 +244,21 @@ async function verifyRevisionBoundSurface(label, path, needle) {
     if (attempt < 6) await sleep(5_000);
   }
 
-  appendSummary(`| ${passed ? '✅ pass' : '❌ FAIL'} | ${label} | ${lastStatus} | ${attempts} | ${lastChallenge ? 'yes' : 'no'} |\
-`);
+  appendSummary(`| ${passed ? '✅ pass' : '❌ FAIL'} | ${label} | ${lastStatus} | ${attempts} | ${lastChallenge ? 'yes' : 'no'} |\n`);
 
   if (!passed) {
     const reason = lastError
       || (lastChallenge ? 'Cloudflare returned cf-mitigated: challenge' : '')
       || (lastStatus !== '200' ? `HTTP ${lastStatus}` : `expected text not found: ${needle}`);
     console.error(`::error title=LIVE PRODUCTION failure::${label} failed after ${attempts} attempts — ${reason}`);
-    appendSummary(`\
-**Failure class:** \`LIVE PRODUCTION\`  \
-**Surface:** \`${origin}${path}\`  \
-**Last HTTP result:** \`${lastStatus}\`  \
-**Cloudflare challenge:** \`${lastChallenge ? 'yes' : 'no'}\`  \
-**Expected text:** \`${needle}\`  \
-**Reason:** ${reason}\
-`);
+    appendSummary(`\n**Failure class:** \`LIVE PRODUCTION\`  \n**Surface:** \`${origin}${path}\`  \n**Last HTTP result:** \`${lastStatus}\`  \n**Cloudflare challenge:** \`${lastChallenge ? 'yes' : 'no'}\`  \n**Expected text:** \`${needle}\`  \n**Reason:** ${reason}\n`);
     if (lastBody) console.error(`[${label}] response sample: ${lastBody.slice(0, 1200).replace(/\s+/g, ' ')}`);
     process.exit(1);
   }
 }
 
-appendSummary('## Production surface verification\
-\
-');
-appendSummary('| Result | Surface | HTTP | Attempts | Cloudflare challenge |\
-|---|---|---:|---:|---|\
-');
+appendSummary('## Production surface verification\n\n');
+appendSummary('| Result | Surface | HTTP | Attempts | Cloudflare challenge |\n|---|---|---:|---:|---|\n');
 
 for (const [label, path, needle] of surfaces) {
   await verifyRevisionBoundSurface(label, path, needle);
@@ -326,8 +314,7 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
   if (attempt < 6) await sleep(5_000);
 }
 
-appendSummary(`| ${canonicalHomepagePassed ? '✅ pass' : '❌ FAIL'} | homepage-canonical | ${canonicalHomepageStatus} | ${canonicalHomepageAttempts} | ${canonicalHomepageChallenge ? 'yes' : 'no'} |\
-`);
+appendSummary(`| ${canonicalHomepagePassed ? '✅ pass' : '❌ FAIL'} | homepage-canonical | ${canonicalHomepageStatus} | ${canonicalHomepageAttempts} | ${canonicalHomepageChallenge ? 'yes' : 'no'} |\n`);
 
 if (!canonicalHomepagePassed) {
   const reason = canonicalHomepageError
@@ -336,20 +323,12 @@ if (!canonicalHomepagePassed) {
     || (canonicalHomepageMissing.length > 0 ? `required text missing: ${canonicalHomepageMissing.join(' | ')}` : '')
     || `HTTP ${canonicalHomepageStatus}`;
   console.error(`::error title=LIVE PRODUCTION failure::canonical homepage failed after ${canonicalHomepageAttempts} attempts — ${reason}`);
-  appendSummary(`\
-**Failure class:** \`LIVE PRODUCTION\`  \
-**Surface:** \`${origin}/\`  \
-**Last HTTP result:** \`${canonicalHomepageStatus}\`  \
-**Cloudflare challenge:** \`${canonicalHomepageChallenge ? 'yes' : 'no'}\`  \
-**Reason:** ${reason}\
-`);
+  appendSummary(`\n**Failure class:** \`LIVE PRODUCTION\`  \n**Surface:** \`${origin}/\`  \n**Last HTTP result:** \`${canonicalHomepageStatus}\`  \n**Cloudflare challenge:** \`${canonicalHomepageChallenge ? 'yes' : 'no'}\`  \n**Reason:** ${reason}\n`);
   if (canonicalHomepageBody) console.error(`[homepage-canonical] response sample: ${canonicalHomepageBody.slice(0, 1600).replace(/\s+/g, ' ')}`);
   process.exit(1);
 }
 
-appendSummary(`\
-All ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\
-`);
+appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
 console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
 
 await import('./verify-texas-industries-production.mjs');
