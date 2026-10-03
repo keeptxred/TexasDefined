@@ -1,88 +1,68 @@
-import bigBend from '@/assets/big-bend.jpg';
-import blueHole from '@/assets/blue-hole.jpg';
-import bluebonnets from '@/assets/bluebonnets.jpg';
-import caddoLake from '@/assets/caddo-lake.jpg';
-import enchantedRock from '@/assets/enchanted-rock.jpg';
-import highSchoolFootball from '@/assets/high-school-football-hero.jpg';
-import paloDuro from '@/assets/palo-duro.jpg';
-import roadTrip from '@/assets/road-trip.jpg';
-import smallTown from '@/assets/small-town.jpg';
-import wildlife from '@/assets/wildlife.jpg';
-
 import type { NewsletterImageKind } from './newsletter-visual-standard';
 
 type CuratedNewsletterVisual = {
   path: string;
   imageUrl: string;
   imageAlt: string;
+  imageCredit?: string;
   imageKind: NewsletterImageKind;
 };
 
 const curatedNewsletterVisuals: CuratedNewsletterVisual[] = [
   {
     path: '/explore/lakes-rivers',
-    imageUrl: caddoLake,
-    imageAlt: 'Cypress trees rising from the water at Caddo Lake in East Texas',
+    imageUrl: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg',
+    imageAlt: 'Amistad National Recreation Area on the Rio Grande in Texas',
+    imageCredit: 'National Park Service Digital Image Archives · Public domain · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/explore/state-parks',
-    imageUrl: enchantedRock,
-    imageAlt: 'The granite dome and surrounding Hill Country landscape at Enchanted Rock',
+    imageUrl: '/images/state-parks/enchanted-rock-state-natural-area.jpg',
+    imageAlt: 'Enchanted Rock State Natural Area in the Texas Hill Country',
+    imageCredit: 'Wing-Chi Poon · CC BY-SA 3.0 · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/best-places-to-go-camping-in-texas',
-    imageUrl: paloDuro,
-    imageAlt: 'Layered canyon walls and open country at Palo Duro Canyon',
+    imageUrl: '/images/state-parks/palo-duro-canyon-state-park.jpg',
+    imageAlt: 'Palo Duro Canyon State Park in the Texas Panhandle',
+    imageCredit: 'Larry D. Moore · CC BY 4.0 · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/explore/national-parks',
-    imageUrl: bigBend,
-    imageAlt: 'Desert mountains and wide-open country in Big Bend',
+    imageUrl: '/images/explore/national-parks/guadalupe-mountains-national-park.jpg',
+    imageAlt: 'Guadalupe Mountains National Park in West Texas',
+    imageCredit: 'National Park Service Digital Image Archives · Public domain · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/explore/major-springs',
-    imageUrl: blueHole,
-    imageAlt: 'Clear spring-fed water in the Texas Hill Country',
+    imageUrl: '/images/explore/major-springs/balmorhea-state-park.jpg',
+    imageAlt: 'The spring-fed pool at Balmorhea State Park in West Texas',
+    imageCredit: 'SHAWN VR · CC BY-SA 4.0 · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/explore/road-trips',
-    imageUrl: bluebonnets,
-    imageAlt: 'Texas bluebonnets beside a scenic spring drive',
-    imageKind: 'photo',
-  },
-  {
-    path: '/explore/small-towns',
-    imageUrl: smallTown,
-    imageAlt: 'A historic Texas small-town streetscape',
+    imageUrl: '/images/state-parks/monahans-sandhills-state-park.jpg',
+    imageAlt: 'Monahans Sandhills State Park, a West Texas road-trip destination',
+    imageCredit: 'Alexander Hatley · CC BY 2.0 · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/explore/outdoors',
-    imageUrl: wildlife,
-    imageAlt: 'White-tailed deer in Texas brush country',
-    imageKind: 'photo',
-  },
-  {
-    path: '/sports',
-    imageUrl: highSchoolFootball,
-    imageAlt: 'Texas high school football under stadium lights',
-    imageKind: 'photo',
-  },
-  {
-    path: '/moving-to-texas',
-    imageUrl: roadTrip,
-    imageAlt: 'A Texas highway stretching toward the horizon',
+    imageUrl: '/images/state-parks/brazos-bend-state-park.jpg',
+    imageAlt: 'Brazos Bend State Park in Southeast Texas',
+    imageCredit: 'Mike Fisher · CC BY 2.0 · Wikimedia Commons',
     imageKind: 'photo',
   },
   {
     path: '/texas-history',
-    imageUrl: smallTown,
-    imageAlt: 'A historic Texas town representing the places and communities in the state’s story',
+    imageUrl: '/images/explore/historic-sites/battleship-texas.jpg',
+    imageAlt: 'Battleship Texas, a preserved Texas historic site',
+    imageCredit: 'Daniel Schwen · CC BY-SA 4.0 · Wikimedia Commons',
     imageKind: 'photo',
   },
 ];
@@ -100,6 +80,7 @@ export function hydrateNewsletterStoryVisual<T extends {
   url: string;
   imageUrl?: string;
   imageAlt?: string;
+  imageCredit?: string;
   imageKind?: NewsletterImageKind;
 }>(story: T): T {
   if (story.imageUrl) return story;
@@ -110,6 +91,7 @@ export function hydrateNewsletterStoryVisual<T extends {
     ...story,
     imageUrl: visual.imageUrl,
     imageAlt: story.imageAlt || visual.imageAlt,
+    imageCredit: story.imageCredit || visual.imageCredit,
     imageKind: story.imageKind || visual.imageKind,
   };
 }
