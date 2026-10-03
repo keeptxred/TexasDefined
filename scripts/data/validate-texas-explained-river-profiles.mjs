@@ -23,15 +23,15 @@ const profiles = [
 for (const marker of [
   'title: "Major Rivers of Texas: Basins, Regions & Waterways Explained"',
   'major rivers and river basins of Texas',
-  "Where Texas\'s Major Rivers Flow",
-  'West Texas and the mountains',
-  'Central Texas and the plains',
-  'Hill Country and South-Central Texas',
-  'North Texas',
-  'East Texas',
   'href: "/article/texas-river-basins-guide"',
   'href: "/article/texas-lakes-reservoirs-explained"',
 ]) if (!pillar.includes(marker)) errors.push(`GSC river-intent contract missing: ${marker}`);
+
+for (const forbiddenMarker of [
+  'h("Where Texas\'s Major Rivers Flow")',
+  '"West Texas and the mountains: Rio Grande, Pecos and Devils River systems move through high desert, basins and canyon country."',
+  '"Central Texas and the plains: Brazos and Colorado systems cross large portions of the state and feed major reservoirs."',
+]) if (pillar.includes(forbiddenMarker)) errors.push(`Texas rivers pillar must not restore duplicate regional rundown: ${forbiddenMarker}`);
 
 for (const marker of [
   '/images/state-parks/garner-state-park.jpg',
@@ -141,4 +141,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, focused flagship presentation and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, focused flagship presentation, non-duplicative regional flow and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
