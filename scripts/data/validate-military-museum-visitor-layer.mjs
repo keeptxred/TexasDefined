@@ -29,6 +29,11 @@ const requiredDestinations = [
     officialUrl: 'https://www.mylubbock.us/400/Silent-Wings-Museum',
     terms: ['Silent Wings Museum', 'South Plains Army Air Field', 'CG-4A', 'Lubbock', 'county: "Lubbock"', 'areaGuide:', 'sourceCheckedAt: "2026-08-20"'],
   },
+  {
+    slug: '12th-armored-division-memorial-museum',
+    officialUrl: 'https://www.12tharmoreddivisionmuseum.com/',
+    terms: ['12th Armored Division Memorial Museum', 'Hellcats', 'Abilene', 'Hurlach 4', 'county: "Taylor"', 'areaGuide:', 'authorityGuide:', 'sourceCheckedAt: "2026-10-03"', 'CC BY-SA 3.0'],
+  },
 ];
 
 for (const destination of requiredDestinations) {
@@ -50,6 +55,7 @@ for (const marker of [
   '/destination/uss-lexington-museum-corpus-christi',
   '/destination/national-wasp-wwii-museum-sweetwater',
   '/destination/silent-wings-museum-lubbock',
+  '/destination/12th-armored-division-memorial-museum',
   '/destination/texas-military-forces-museum',
   '/destination/palo-alto-battlefield-national-historical-park',
   'National Museum of the Pacific War',
@@ -58,8 +64,8 @@ for (const marker of [
 
 const paragraphCount = (article.match(/\bp\("/g) ?? []).length;
 const headingCount = (article.match(/\bh\("/g) ?? []).length;
-if (paragraphCount < 20) failures.push(`Military museums guide too thin: ${paragraphCount} paragraphs`);
-if (headingCount < 9) failures.push(`Military museums guide lacks depth: ${headingCount} headings`);
+if (paragraphCount < 22) failures.push(`Military museums guide too thin: ${paragraphCount} paragraphs`);
+if (headingCount < 10) failures.push(`Military museums guide lacks depth: ${headingCount} headings`);
 
 for (const marker of [
   'texas-military-museums-historic-sites-guide',
@@ -73,14 +79,17 @@ for (const marker of [
   '"women-in-texas-military-history"',
   '"texas-world-war-ii-bases-pow-camps"',
   '"texas-national-guard-history"',
+  '"taylor-county-abilene-buffalo-gap-dyess-big-country-texas"',
   '/destination/uss-lexington-museum-corpus-christi',
   '/destination/national-wasp-wwii-museum-sweetwater',
   '/destination/silent-wings-museum-lubbock',
+  '/destination/12th-armored-division-memorial-museum',
   '/article/texas-military-museums-historic-sites-guide',
 ]) if (!links.includes(marker)) failures.push(`Reciprocal military visitor discovery missing: ${marker}`);
 
 if (!destinations.includes('credit:')) failures.push('Military museum destinations lack image credits');
 if (!destinations.includes('Public domain')) failures.push('Military museum destinations do not retain public-domain image sourcing');
+if (!destinations.includes('Wikimedia Commons')) failures.push('Military museum destinations do not retain Wikimedia image provenance');
 
 if (failures.length) {
   console.error('Military museum visitor-layer validation failed:');
