@@ -13,9 +13,9 @@ import heroHillCountry from "@/assets/hero-hill-country.jpg";
 import courthouseSquare from "@/assets/generated/texas-courthouse-square.jpg";
 import texasHomeMaintenance from "@/assets/texas-home-maintenance-photo.jpg";
 import texasSpecialDistricts from "@/assets/generated/texas-special-districts.jpg";
-import paintedChurchNavImage from "@/assets/navigation-painted-churches.svg";
-import texasDogsNavImage from "@/assets/navigation-texas-dogs.svg";
-import texasIndustriesNavImage from "@/assets/navigation-texas-industries.svg";
+import paintedChurchNavImage from "@/assets/navigation-painted-churches.svg?no-inline";
+import texasDogsNavImage from "@/assets/navigation-texas-dogs.svg?no-inline";
+import texasIndustriesNavImage from "@/assets/navigation-texas-industries.svg?no-inline";
 
 import type { BrandConfig } from "./types";
 
