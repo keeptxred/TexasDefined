@@ -36,6 +36,22 @@ interface EditorialCollectionSeo extends PageSeo {
 const DEFAULT_INDEX_ROBOTS = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
 const META_DESCRIPTION_MAX_LENGTH = 160;
 
+const TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES: Record<string, string> = {
+  "/event/chappell-hill-bluebonnet-festival": "/images/discover/chappell-hill-bluebonnet-festival.webp",
+  "/article/ima-hogg-texas-legacy": "/images/discover/ima-hogg-texas-legacy.webp",
+  "/article/camping-in-texas-with-your-dog": "/images/discover/camping-in-texas-with-your-dog.webp",
+  "/article/texas-high-school-football-scores-schedules": "/images/discover/texas-high-school-football-scores-schedules.webp",
+  "/article/best-lighthouses-to-visit-in-texas": "/images/discover/best-lighthouses-to-visit-in-texas.webp",
+  "/article/texas-medal-of-honor-heroes": "/images/discover/texas-medal-of-honor-heroes.webp",
+  "/article/texas-red-river-war-guide": "/images/discover/texas-red-river-war-guide.webp",
+  "/article/republic-of-texas-government-trail": "/images/discover/republic-of-texas-government-trail.webp",
+  "/article/brazoria-plantations-slavery-emancipation-history": "/images/discover/brazoria-plantations-slavery-emancipation-history.webp",
+  "/article/texas-frontier-forts-road-trip": "/images/discover/texas-frontier-forts-road-trip.webp",
+  "/sports-venue/freeman-coliseum": "/images/discover/freeman-coliseum.webp",
+  "/sports-venue/eagle-stadium-allen": "/images/discover/eagle-stadium-allen.webp",
+  "/sports-venue/xtreme-raceway-park": "/images/discover/xtreme-raceway-park.webp",
+};
+
 type TechnicalSeoOverride = { title: string; description?: string };
 
 const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride> = {
@@ -719,10 +735,17 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
-  const image = page.image
-    ? { src: page.image, alt: page.imageAlt, type: page.imageType }
-    : fallbackImage;
+  const discoverImage = brand.identity.id === "texasdefined" && page.canonicalPath
+    ? TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]
+    : undefined;
+  const image = discoverImage
+    ? { src: discoverImage, alt: page.imageAlt, type: "image/webp" }
+    : page.image
+      ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+      : fallbackImage;
   const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
+  const imageWidth = discoverImage ? 1600 : page.imageWidth;
+  const imageHeight = discoverImage ? 900 : page.imageHeight;
   const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
@@ -744,8 +767,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       { name: "twitter:image", content: imageUrl },
     );
     if (image?.alt) meta.push({ property: "og:image:alt", content: cleanMetaText(image.alt) }, { name: "twitter:image:alt", content: cleanMetaText(image.alt) });
-    if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });
-    if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });
+    if (imageWidth) meta.push({ property: "og:image:width", content: String(imageWidth) });
+    if (imageHeight) meta.push({ property: "og:image:height", content: String(imageHeight) });
     if (image?.type) meta.push({ property: "og:image:type", content: image.type });
   }
   if (robots) meta.push({ name: "robots", content: robots }, { name: "googlebot", content: robots });
