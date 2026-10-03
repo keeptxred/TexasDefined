@@ -20,7 +20,7 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
       : `District ${loaderData.district}-${loaderData.classification}`;
     const canonicalPath = loaderData.profilePath;
     const url = `${siteUrl}${canonicalPath}`;
-    const description = `${label}: ${loaderData.programCount} teams in the 2026–28 UIL alignment, with school pages, score and schedule resources, playoff context and official UIL sources.`;
+    const description = `${label}: ${loaderData.programCount} teams in the 2026–28 UIL alignment, with team pages, schedules, playoff context and official sources.`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
