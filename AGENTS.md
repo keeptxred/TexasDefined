@@ -14,6 +14,18 @@ For every code, data, content-system, routing, SEO, image-governance, build, or 
 - Auxiliary PR workflows may provide faster feature-specific feedback, but they must be path-scoped and their deterministic requirements must also exist in the canonical pre-merge contract. Do not create a second unscoped PR validation contract.
 - Validators that enforce CI wiring must validate the canonical contract itself, not depend on a particular command remaining textually embedded in a workflow YAML file.
 
+## Page publication rule
+
+For every new or materially changed public TexasDefined page or content record:
+
+- Follow `docs/page-publication-contract.md`.
+- Treat the page-family readiness function as the upstream publication boundary; the merge gate is a backstop, not the first place quality defects should be discovered.
+- Do not make a page indexable or sitemap-eligible until its family readiness gate qualifies title/H1, useful summary/dek, substantive content, media, internal discovery, canonical/indexability, and source/freshness requirements that apply to that family.
+- New editorial articles must satisfy the shared `isArticleIndexReady` contract before indexable discovery.
+- New destinations must satisfy `auditDestination(...).readyForIndexing` before public catalog/indexable discovery.
+- Do not invent internal URLs, accept placeholder/temporary imagery as index-ready, or weaken a quality floor merely to unblock a PR.
+- Existing legacy weaknesses belong in remediation; new work must not add more of the same debt.
+
 ## Editorial article rule
 
 For every new Texas Defined editorial article:

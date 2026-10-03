@@ -26,6 +26,8 @@ export type DestinationAuditResult = {
 const GENERIC_BEST_SEASON = "check current conditions before visiting";
 const GENERIC_ENTRY = "confirm current hours, fees, reservations, and access with the official source";
 const SOURCE_MAX_AGE_DAYS = 730;
+const MIN_HERO_WIDTH = 600;
+const MIN_HERO_HEIGHT = 315;
 const GENERATED_COPY_MARKERS = [
   " is a texas destination",
   "those details make it easier to decide whether this stop fits a quick outing",
@@ -59,6 +61,21 @@ function usesTemporaryRepresentativeAiHero(destination: Destination) {
   return TEMPORARY_REPRESENTATIVE_AI_MARKER.test(`${destination.hero.alt} ${destination.hero.credit ?? ""}`);
 }
 
+function hasSaneDestinationName(name: string) {
+  const value = name.trim();
+  if (value.length < 3 || value.length > 100) return false;
+  if (/[!?.,:;\-–—]{3,}/.test(value)) return false;
+  if (/\s{2,}/.test(value)) return false;
+  return true;
+}
+
+function hasUsefulHeroDimensions(destination: Destination) {
+  return Number.isFinite(destination.hero.width)
+    && Number.isFinite(destination.hero.height)
+    && destination.hero.width >= MIN_HERO_WIDTH
+    && destination.hero.height >= MIN_HERO_HEIGHT;
+}
+
 export function auditDestination(input: Destination): DestinationAuditResult {
   const destination = input.category === "rv-parks"
     ? applyRvParkCuratedPublicWave12(applyRvParkCuratedPublicWave11(applyRvParkCuratedPublicWave10(applyRvParkCuratedPublicWave9(applyRvParkCuratedPublicWave8(applyRvParkCuratedPublicWave7(applyRvParkCuratedPublicWave6(applyRvParkCuratedPublicWave5(applyRvParkCuratedPublicWave4(input)))))))))
@@ -66,10 +83,10 @@ export function auditDestination(input: Destination): DestinationAuditResult {
   const issues: DestinationAuditIssue[] = [];
   const summary = destination.summary.trim();
   const bodyText = destination.body.join(" ").trim();
-  const uniqueBody = new Set(destination.body.map((item) => item.trim()).filter(Boolean));
+  const uniqueBody = new Set(destination.body.map((item) => item.trim().toLowerCase()).filter(Boolean));
 
-  if (!destination.name.trim() || !destination.slug.trim()) {
-    issues.push({ code: "identity", severity: "error", message: "Destination is missing a usable name or slug." });
+  if (!destination.name.trim() || !destination.slug.trim() || (import.meta.env.SSR && !hasSaneDestinationName(destination.name))) {
+    issues.push({ code: "identity", severity: "error", message: "Destination is missing a usable, human-readable name or slug." });
   }
   if (summary.length < 90) {
     issues.push({ code: "summary-thin", severity: "error", message: "Summary is too thin to work well as search and card copy." });
@@ -90,6 +107,9 @@ export function auditDestination(input: Destination): DestinationAuditResult {
   }
   if (usesTemporaryRepresentativeAiHero(destination)) {
     issues.push({ code: "hero-representative-ai", severity: "error", message: "Destination still uses a generic representative AI hero. Replace it with a rights-cleared exact-location image or a photorealistic AI depiction grounded in verified facts about the named place before indexing." });
+  }
+  if (import.meta.env.SSR && !hasUsefulHeroDimensions(destination)) {
+    issues.push({ code: "hero-dimensions", severity: "error", message: `Hero image must declare at least ${MIN_HERO_WIDTH}x${MIN_HERO_HEIGHT} dimensions before indexing.` });
   }
   if (!destination.hero.alt || destination.hero.alt.trim().length < 20) {
     issues.push({ code: "hero-alt", severity: "warning", message: "Hero image needs descriptive alt text." });
