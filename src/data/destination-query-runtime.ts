@@ -24,6 +24,21 @@ import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
 const WATER_COLLECTION = "swimming-holes-river-tubing";
 const RV_COLLECTION = "rv-parks";
 const CAVERN_COLLECTION = "caverns";
+const REMOTE_DESTINATION_TIMEOUT_MS = 3_000;
+
+async function withDestinationRemoteTimeout<T>(label: string, operation: Promise<T>): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      operation,
+      new Promise<T>((_resolve, reject) => {
+        timer = setTimeout(() => reject(new Error(`${label} timed out after ${REMOTE_DESTINATION_TIMEOUT_MS}ms`)), REMOTE_DESTINATION_TIMEOUT_MS);
+      }),
+    ]);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+}
 
 function featuredFallback(destinations: Destination[], limit = 6) {
   return [...destinations]
@@ -153,16 +168,16 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   let enriched: Destination[] = [];
   let core: Destination[] = [];
   try {
-    enriched = await fetchExploreDestinations(options);
+    enriched = await withDestinationRemoteTimeout("Explore enrichment", fetchExploreDestinations(options));
     if (params.featured && !enriched.length) {
-      const catalog = await fetchExploreDestinations({ category: params.category, limit: 5000 });
+      const catalog = await withDestinationRemoteTimeout("Explore featured fallback catalog", fetchExploreDestinations({ category: params.category, limit: 5000 }));
       enriched = featuredFallback(catalog, params.limit ?? 6);
     }
   } catch (error) { console.error("Explore enrichment unavailable; merging core and preserved catalogs", error); }
   try {
-    core = await fetchCoreExploreDestinations(options);
+    core = await withDestinationRemoteTimeout("Core Explore catalog", fetchCoreExploreDestinations(options));
     if (params.featured && !core.length) {
-      const catalog = await fetchCoreExploreDestinations({ category: params.category, limit: 5000 });
+      const catalog = await withDestinationRemoteTimeout("Core Explore featured fallback catalog", fetchCoreExploreDestinations({ category: params.category, limit: 5000 }));
       core = featuredFallback(catalog, params.limit ?? 6);
     }
   } catch (error) { console.error("Core Explore remote catalog unavailable; merging preserved catalog", error); }
@@ -179,10 +194,14 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 }
 
 export async function getResolvedDestination(slug: Slug) {
-  try { const enriched = await fetchExploreDestination(slug); if (enriched) return applyResolvedHero(enriched); }
-  catch (error) { console.error("Explore destination enrichment unavailable; retrying core remote record", error); }
-  try { const core = await fetchCoreExploreDestination(slug); if (core) return applyResolvedHero(core); }
-  catch (error) { console.error("Core Explore remote destination unavailable; retrying preserved catalog", error); }
+  try {
+    const enriched = await withDestinationRemoteTimeout("Explore destination enrichment", fetchExploreDestination(slug));
+    if (enriched) return applyResolvedHero(enriched);
+  } catch (error) { console.error("Explore destination enrichment unavailable; retrying core remote record", error); }
+  try {
+    const core = await withDestinationRemoteTimeout("Core Explore destination", fetchCoreExploreDestination(slug));
+    if (core) return applyResolvedHero(core);
+  } catch (error) { console.error("Core Explore remote destination unavailable; retrying preserved catalog", error); }
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
   if (rvPark) return applyResolvedHero(rvPark);
@@ -199,9 +218,9 @@ export async function getResolvedDestination(slug: Slug) {
 export async function listResolvedDestinationSearchCatalog() {
   let enriched: Destination[] = [];
   let core: Destination[] = [];
-  try { enriched = await fetchExploreDestinations({ limit: 5000 }); }
+  try { enriched = await withDestinationRemoteTimeout("Explore destination search catalog", fetchExploreDestinations({ limit: 5000 })); }
   catch (error) { console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error); }
-  try { core = await fetchCoreExploreDestinations({ limit: 5000 }); }
+  try { core = await withDestinationRemoteTimeout("Core destination search catalog", fetchCoreExploreDestinations({ limit: 5000 })); }
   catch (coreError) { console.error("Core remote destination search index unavailable; retaining preserved destinations", coreError); }
   const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
   const cavernSearchCatalog = reconcileExploreCatalog(mergeDestinations(preservedSearchCatalog, await loadPublicCavernDestinationFallbacks()));

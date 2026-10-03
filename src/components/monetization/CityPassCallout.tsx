@@ -8,6 +8,6 @@ const CityPassCalloutContent = lazy(() =>
   import("./CityPassCalloutContent").then((module) => ({ default: module.CityPassCalloutContent })),
 );
 
-export function CityPassCallout(props: { market: CityPassMarket; placement?: "inline" | "rail" }) {
+export function CityPassCallout(props: { market: CityPassMarket; placement?: "inline" | "rail"; showGuideLink?: boolean }) {
   return <Suspense fallback={null}><CityPassCalloutContent {...props} /></Suspense>;
 }

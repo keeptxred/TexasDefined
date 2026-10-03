@@ -12,6 +12,7 @@ const destinationRuntime = read('src/data/destination-query-runtime.ts');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const guideRoute = read('src/routes/guides.citypass-texas.tsx');
 const guidePage = read('src/routes/guides.citypass-texas.lazy.tsx');
+const guideStructuredData = read('src/components/monetization/CityPassStructuredData.tsx');
 const guidesHub = read('src/routes/guides.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const entityRoute = read('src/routes/$kind.$slug.lazy.tsx');
@@ -32,7 +33,10 @@ for (const [needle, label] of [
   ['cityPassMarketForSportsVenueSlug', 'Sports venue market resolver'],
 ]) requireText(component, needle, label);
 requireText(calloutWrapper, 'import("./CityPassCalloutContent")', 'Lazy CityPASS CTA performance split');
+requireText(calloutWrapper, 'showGuideLink?: boolean', 'Guide self-link suppression contract');
 requireText(calloutContent, 'CITYPASS_AFFILIATE_URLS[market]', 'Market-specific CityPASS CTA target');
+requireText(calloutContent, 'showGuideLink = true', 'Contextual guide-link default');
+requireText(calloutContent, 'Check current {market} CityPASS® price', 'Price-oriented affiliate CTA');
 
 const affiliateTargets = [
   ['Dallas', 'https://citypass.7eer.net/c/7236213/305537/3331'],
@@ -124,8 +128,26 @@ for (const marker of [
   'Dallas CityPASS®',
   'Houston CityPASS®',
   'San Antonio CityPASS®',
-  'all 21 current attraction choices',
+  '21 listed attraction choices',
 ]) requireText(guidesHub + guidePage, marker, 'Three-market evergreen coverage');
+
+const priceFacts = [
+  ['Dallas', '$64', '$46', '4 of 6', 'up to 56%'],
+  ['Houston', '$82', '$72', '5 of 7', 'up to 52%'],
+  ['San Antonio', '$63', '$53', '4 of 8', 'up to 41%'],
+];
+for (const [market, adult, child, selection, savings] of priceFacts) {
+  for (const value of [`market: "${market}"`, `adult: "${adult}"`, `child: "${child}"`, `selection: "${selection}"`, `maxSavings: "${savings}"`]) {
+    requireText(guidePage, value, `${market} buying-guide price facts`);
+  }
+}
+for (const marker of [
+  'showGuideLink={false}',
+  'The break-even rule',
+  'CityPASS® FAQ',
+]) requireText(guidePage, marker, 'Buying-guide decision support');
+requireText(guideRoute, 'Texas CityPASS Guide 2026: Dallas, Houston & San Antonio', 'Search-intent title');
+requireText(guideStructuredData, '"@type": "FAQPage"', 'CityPASS FAQ structured data');
 
 for (const url of ['https://www.citypass.com/dallas', 'https://www.citypass.com/houston', 'https://www.citypass.com/san-antonio']) requireText(guideRoute + guidePage, url, 'Official CityPASS source');
 requireText(publicRoutes, '"/guides/citypass-texas"', 'Public route registry');
@@ -136,4 +158,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered; all 21 current Texas CityPASS attractions/tours map to TexasDefined pages; eight previously missing destination guides are published through the async preserved runtime; contextual city, destination and AT&T Stadium placements retain the disclosed market-specific CJ affiliate links and lazy CTA split.');
+console.log('CityPASS affiliate validation passed: Dallas, Houston and San Antonio are covered as three separate products; all 21 listed Texas CityPASS attraction/tour choices map to TexasDefined pages; the buying guide preserves current price, savings, reservation and self-link-suppression decision support; contextual city, destination and AT&T Stadium placements retain the disclosed market-specific affiliate links and lazy CTA split.');
