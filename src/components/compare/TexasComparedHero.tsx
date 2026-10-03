@@ -12,15 +12,13 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
   Washington: "WA", "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY",
 };
 
-// MIT-licensed state artwork from coryetzkorn/state-svg-defs, pinned to a fixed revision.
-const STATE_IMAGE_ROOT =
-  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/SVG";
+const STATE_SPRITE_URL =
+  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg";
+const STATE_SPRITE_PATH = `/media/remote?url=${encodeURIComponent(STATE_SPRITE_URL)}`;
 
 function StateOutline({ state }: { state: string }) {
   const abbreviation = STATE_ABBREVIATIONS[state];
   if (!abbreviation) return null;
-
-  const filterId = `texas-compared-outline-${abbreviation}`;
 
   return (
     <svg
@@ -36,23 +34,17 @@ function StateOutline({ state }: { state: string }) {
         opacity: 0.72,
       }}
     >
-      <defs>
-        <filter id={filterId} x="-12%" y="-12%" width="124%" height="124%" colorInterpolationFilters="sRGB">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="0.65" result="outer" />
-          <feMorphology in="SourceAlpha" operator="erode" radius="0.65" result="inner" />
-          <feComposite in="outer" in2="inner" operator="out" result="edge" />
-          <feFlood floodColor="currentColor" result="ink" />
-          <feComposite in="ink" in2="edge" operator="in" />
-        </filter>
-      </defs>
-      <image
-        href={`${STATE_IMAGE_ROOT}/${abbreviation}.svg`}
+      <use
+        href={`${STATE_SPRITE_PATH}#icon-state-${abbreviation}`}
         x="0"
         y="0"
         width="100"
         height="80"
-        preserveAspectRatio="xMidYMid meet"
-        filter={`url(#${filterId})`}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="0.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
