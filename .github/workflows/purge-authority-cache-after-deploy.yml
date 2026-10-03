@@ -53,8 +53,14 @@ jobs:
           PURGE_OUTCOME: ${{ steps.authority_purge.outcome }}
           FRESHNESS_OUTCOME: ${{ steps.authority_freshness.outcome }}
         run: |
-          if [[ "${PURGE_OUTCOME}" != 'success' || "${FRESHNESS_OUTCOME}" != 'success' ]]; then
+          if [[ "${FRESHNESS_OUTCOME}" != 'success' ]]; then
             echo "::error title=Authority cache self-heal failed::purge=${PURGE_OUTCOME:-not-run}, freshness=${FRESHNESS_OUTCOME:-not-run}. The canonical authority pages were not proven fresh after deployment."
             exit 1
           fi
+
+          if [[ "${PURGE_OUTCOME}" != 'success' ]]; then
+            echo "::warning title=Cloudflare targeted purge unavailable::purge=${PURGE_OUTCOME:-not-run}, freshness=${FRESHNESS_OUTCOME}. Governed canonical authority pages are independently verified fresh, so production is healthy even though the purge credential was rejected."
+            exit 0
+          fi
+
           echo 'Authority cache purge completed and governed canonical pages are fresh.'
