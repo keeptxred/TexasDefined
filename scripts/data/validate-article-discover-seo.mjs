@@ -33,6 +33,44 @@ for (const feature of [
   if (!seo.includes(feature)) failures.push(`Shared SEO Discover contract missing: ${feature}`);
 }
 
+const discoverImageOverrides = [
+  ['/event/chappell-hill-bluebonnet-festival', '/images/discover/chappell-hill-bluebonnet-festival.webp'],
+  ['/article/ima-hogg-texas-legacy', '/images/discover/ima-hogg-texas-legacy.webp'],
+  ['/article/camping-in-texas-with-your-dog', '/images/discover/camping-in-texas-with-your-dog.webp'],
+  ['/article/texas-high-school-football-scores-schedules', '/images/discover/texas-high-school-football-scores-schedules.webp'],
+  ['/article/best-lighthouses-to-visit-in-texas', '/images/discover/best-lighthouses-to-visit-in-texas.webp'],
+  ['/article/texas-medal-of-honor-heroes', '/images/discover/texas-medal-of-honor-heroes.webp'],
+  ['/article/texas-red-river-war-guide', '/images/discover/texas-red-river-war-guide.webp'],
+  ['/article/republic-of-texas-government-trail', '/images/discover/republic-of-texas-government-trail.webp'],
+  ['/article/brazoria-plantations-slavery-emancipation-history', '/images/discover/brazoria-plantations-slavery-emancipation-history.webp'],
+  ['/article/texas-frontier-forts-road-trip', '/images/discover/texas-frontier-forts-road-trip.webp'],
+  ['/sports-venue/freeman-coliseum', '/images/discover/freeman-coliseum.webp'],
+  ['/sports-venue/eagle-stadium-allen', '/images/discover/eagle-stadium-allen.webp'],
+  ['/sports-venue/xtreme-raceway-park', '/images/discover/xtreme-raceway-park.webp'],
+];
+
+for (const [canonicalPath, imagePath] of discoverImageOverrides) {
+  const mapping = `  "${canonicalPath}": "${imagePath}",`;
+  if (!seo.includes(mapping)) {
+    failures.push(`Shared SEO Discover image override missing: ${canonicalPath} -> ${imagePath}`);
+  }
+
+  const publicPath = `public${imagePath}`;
+  if (!fs.existsSync(publicPath)) {
+    failures.push(`Discover image derivative missing: ${publicPath}`);
+  }
+}
+
+for (const feature of [
+  'const TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES: Record<string, string>',
+  'TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]',
+  'discoverImage ? 1600 : page.imageWidth',
+  'discoverImage ? 900 : page.imageHeight',
+  '{ src: discoverImage, alt: page.imageAlt, type: "image/webp" }',
+]) {
+  if (!seo.includes(feature)) failures.push(`Shared SEO Discover override governance missing: ${feature}`);
+}
+
 if (route.includes('destinationsQuery({ limit: 5000 })')) {
   failures.push('Article route must not hydrate the full destination catalog for related-place rendering.');
 }
@@ -47,4 +85,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Article metadata, large-image Discover handling, entity relationships, read-next pathways and freshness integrity are protected.');
+console.log(`Article metadata, large-image Discover handling, ${discoverImageOverrides.length} governed Discover image overrides, entity relationships, read-next pathways and freshness integrity are protected.`);
