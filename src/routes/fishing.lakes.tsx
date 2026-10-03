@@ -9,7 +9,8 @@ const FishingLakesDirectory = lazy(() => import("@/components/fishing/FishingLak
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = "/fishing/lakes";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
-const description = "Compare complete TexasDefined fishing-lake guides across Texas by region, size, counties, nearby cities and verified fishery strengths, then open each lake for fish, access, boating, rules, reports and guide planning.";
+const csvUrl = `${siteUrl}/fishing/lakes.csv`;
+const description = "Search, filter, map and download TexasDefined's source-backed Texas Lakes Database with lake size, depth, counties, nearby cities, river basins, waterways, managing authorities and documented fishery strengths.";
 
 export const Route = createFileRoute("/fishing/lakes")({
   loader: async ({ context }) => {
@@ -47,17 +48,31 @@ export const Route = createFileRoute("/fishing/lakes")({
     const jsonLd = {
       "@context": "https://schema.org",
       "@graph": [
-        { "@type": "CollectionPage", "@id": `${canonicalUrl}#page`, url: canonicalUrl, name: "Texas Fishing Lakes", description, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${canonicalUrl}#lakes` } },
-        { "@type": "ItemList", "@id": `${canonicalUrl}#lakes`, name: "Complete TexasDefined fishing lake guides", numberOfItems: rows.length, itemListElement: rows.map(({ lake }, index) => ({ "@type": "ListItem", position: index + 1, name: lake.name, url: `${siteUrl}${fishingFoundationAnchor("lake", lake.slug)}` })) },
+        { "@type": "CollectionPage", "@id": `${canonicalUrl}#page`, url: canonicalUrl, name: "Texas Lakes Database", description, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${canonicalUrl}#dataset` } },
+        {
+          "@type": "Dataset",
+          "@id": `${canonicalUrl}#dataset`,
+          name: "TexasDefined Texas Lakes Database",
+          description,
+          url: canonicalUrl,
+          spatialCoverage: { "@type": "State", name: "Texas" },
+          creator: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+          publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
+          dateModified: loaderData?.latestReview,
+          variableMeasured: ["Lake name", "Counties", "Nearest cities", "Surface acreage", "Maximum depth", "Year impounded", "River basin", "Primary waterway", "Managing authority", "Coordinates", "Documented fish species"],
+          distribution: [{ "@type": "DataDownload", encodingFormat: "text/csv", contentUrl: csvUrl }],
+          hasPart: { "@id": `${canonicalUrl}#lakes` },
+        },
+        { "@type": "ItemList", "@id": `${canonicalUrl}#lakes`, name: "Source-backed Texas lake records", numberOfItems: rows.length, itemListElement: rows.map(({ lake }, index) => ({ "@type": "ListItem", position: index + 1, name: lake.name, url: `${siteUrl}${fishingFoundationAnchor("lake", lake.slug)}` })) },
         { "@type": "FAQPage", "@id": `${canonicalUrl}#answers`, mainEntity: quickAnswers.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
         { "@type": "BreadcrumbList", "@id": `${canonicalUrl}#breadcrumbs`, itemListElement: [
           { "@type": "ListItem", position: 1, name: "Front page", item: siteUrl },
           { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
-          { "@type": "ListItem", position: 3, name: "Fishing lakes", item: canonicalUrl },
+          { "@type": "ListItem", position: 3, name: "Texas Lakes Database", item: canonicalUrl },
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`, description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: `Texas Lakes Database — Map & Compare ${completeLakeCount} Source-Backed Lakes`, description, canonicalPath }), links: [canonicalLink(texasDefinedBrand, canonicalPath)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingLakesPage,
 });
@@ -65,7 +80,7 @@ export const Route = createFileRoute("/fishing/lakes")({
 function FishingLakesPage() {
   const { rows, latestReview } = Route.useLoaderData();
   return (
-    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas fishing lakes…</div>}>
+    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas lakes database…</div>}>
       <FishingLakesDirectory rows={rows} latestReview={latestReview} />
     </Suspense>
   );
@@ -73,9 +88,9 @@ function FishingLakesPage() {
 
 function buildQuickAnswers(count: number) {
   return [
-    { question: "How many complete Texas fishing lake guides are here?", answer: `TexasDefined currently publishes ${count} complete fishing-lake guides in this directory. The collection spans East Texas, North and Central Texas, the Hill Country, South Texas and the Rio Grande border region.` },
-    { question: "Are these ranked as the best fishing lakes in Texas?", answer: "No. This directory compares completed, source-backed TexasDefined guides. It does not claim a universal best-lake ranking, and the collection will expand as more lake profiles clear the same verification standard." },
-    { question: "Can I compare what fish each lake is known for?", answer: "Yes. Each lake card shows the strongest verified lake-to-species relationships currently in the fishing catalog, while the full lake guide explains seasonal patterns and techniques without presenting them as a live fishing report." },
+    { question: "How many lakes are in this Texas Lakes Database?", answer: `TexasDefined currently publishes ${count} complete, source-backed lake records in this database. The scope is intentionally limited to records that have cleared the site's lake-guide verification standard rather than attempting to expose every named waterbody as a thin page.` },
+    { question: "Is this a list of every lake in Texas?", answer: "No. It is a maintained reference set of verified Texas lake records with enough structured information to support useful comparison. TexasDefined expands the dataset as additional lakes clear the same sourcing and completeness standard." },
+    { question: "Can I compare what fish each lake is known for?", answer: "Yes. Each lake record includes the strongest verified lake-to-species relationships currently in the fishing catalog, while the full lake guide explains seasonal patterns and techniques without presenting them as a live fishing report." },
     { question: "Where should I check current regulations and lake conditions?", answer: "Open the individual lake guide and follow its official source links. TexasDefined keeps current regulations, water levels, access restrictions and fishing reports separate from durable lake facts because those details can change." },
   ];
 }
