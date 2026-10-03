@@ -3,16 +3,14 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { PropertyTaxChangesContent } from '@/components/data/PropertyTaxChangesContent';
+import { loadPropertyTaxChanges } from '@/data/research/property-tax-changes';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/property-tax-changes';
 const description = 'TexasDefined independently compares finalized Texas Comptroller adopted property-tax rates year over year for counties, cities and school districts with clean matches.';
 
 export const Route = createFileRoute('/texas-data/property-tax-changes')({
-  loader: async () => {
-    const { loadPropertyTaxChangesServer } = await import('@/data/research/property-tax-changes.server');
-    return loadPropertyTaxChangesServer();
-  },
+  loader: () => loadPropertyTaxChanges(),
   head: ({ loaderData }) => {
     const currentYear = loaderData?.currentYear ?? 2025;
     const previousYear = loaderData?.previousYear ?? currentYear - 1;
