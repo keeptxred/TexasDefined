@@ -100,7 +100,7 @@ function CityPassTexasGuide() {
 
     <Section>
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">The answer first</p>
             <h2 className="mt-3 font-display text-4xl leading-tight">It can save real money — if you already want enough of the included attractions.</h2>
@@ -182,8 +182,8 @@ function CityPassTexasGuide() {
 
     <Section>
       <Container>
-        <div id="dallas" className="scroll-mt-24 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
-          <div>
+        <div id="dallas" className="scroll-mt-24 grid gap-10 lg:grid-cols-3">
+          <div className="lg:col-span-2">
             <SectionHeader eyebrow="Dallas CityPASS® — $64 adult / $46 child" title="Choose 4 of 6 Dallas attractions" description="Dallas currently advertises savings up to 56%. Perot Museum and Reunion Tower require reservations; AT&T Stadium Tours recommends a reservation." />
             <AttractionList items={DALLAS_ATTRACTIONS} />
             <CityMath sentence="A particularly high-value adult combination is AT&T Stadium Tours, Perot Museum, Dallas Zoo and Reunion Tower. Using CityPASS's current comparison prices, those four total $144.46 versus the $64 pass." />
@@ -196,8 +196,8 @@ function CityPassTexasGuide() {
 
     <Section tone="surface">
       <Container>
-        <div id="houston" className="scroll-mt-24 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
-          <div>
+        <div id="houston" className="scroll-mt-24 grid gap-10 lg:grid-cols-3">
+          <div className="lg:col-span-2">
             <SectionHeader eyebrow="Houston CityPASS® — $82 adult / $72 child" title="Choose 5 of 7 Houston attractions" description="Houston currently advertises savings up to 52%. Houston Museum of Natural Science currently recommends a reservation." />
             <AttractionList items={HOUSTON_ATTRACTIONS} />
             <CityMath sentence="The current maximum-value adult comparison uses Space Center Houston, Houston Zoo, Kemah Boardwalk, Houston Museum of Natural Science and the Museum of Fine Arts, Houston: $169.12 in CityPASS's published regular-price comparison versus the $82 pass." />
@@ -210,8 +210,8 @@ function CityPassTexasGuide() {
 
     <Section>
       <Container>
-        <div id="san-antonio" className="scroll-mt-24 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
-          <div>
+        <div id="san-antonio" className="scroll-mt-24 grid gap-10 lg:grid-cols-3">
+          <div className="lg:col-span-2">
             <SectionHeader eyebrow="San Antonio CityPASS® — $63 adult / $53 child" title="Choose 4 of 8 San Antonio attractions" description="San Antonio currently advertises savings up to 41%. The Alamo Exhibit and Church currently requires a reservation." />
             <AttractionList items={SAN_ANTONIO_ATTRACTIONS} />
             <CityMath sentence="The current maximum-value adult comparison uses San Antonio Zoo, San Antonio Museum of Art, San Antonio Botanical Garden and Tower of the Americas: $107.10 in CityPASS's published regular-price comparison versus the $63 pass." />
