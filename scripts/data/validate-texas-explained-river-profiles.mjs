@@ -6,6 +6,7 @@ const articles = read('src/data/fixtures/texas-explained-river-profiles.ts');
 const pillar = read('src/data/fixtures/texas-rivers-explained.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
+const citationTrust = read('src/components/content/TexasRiversCitationTrust.tsx');
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
@@ -23,15 +24,15 @@ const profiles = [
 for (const marker of [
   'title: "Major Rivers of Texas: Basins, Regions & Waterways Explained"',
   'major rivers and river basins of Texas',
-  "Where Texas\'s Major Rivers Flow",
-  'West Texas and the mountains',
-  'Central Texas and the plains',
-  'Hill Country and South-Central Texas',
-  'North Texas',
-  'East Texas',
   'href: "/article/texas-river-basins-guide"',
   'href: "/article/texas-lakes-reservoirs-explained"',
 ]) if (!pillar.includes(marker)) errors.push(`GSC river-intent contract missing: ${marker}`);
+
+for (const forbiddenMarker of [
+  'h("Where Texas\'s Major Rivers Flow")',
+  '"West Texas and the mountains: Rio Grande, Pecos and Devils River systems move through high desert, basins and canyon country."',
+  '"Central Texas and the plains: Brazos and Colorado systems cross large portions of the state and feed major reservoirs."',
+]) if (pillar.includes(forbiddenMarker)) errors.push(`Texas rivers pillar must not restore duplicate regional rundown: ${forbiddenMarker}`);
 
 for (const marker of [
   '/images/state-parks/garner-state-park.jpg',
@@ -47,6 +48,7 @@ for (const marker of [
   'Go Deeper on Five Major Texas Rivers',
   'Texas River Basins Explained →',
   'Explore Texas Lakes & Rivers →',
+  '<TexasRiversCitationTrust />',
 ]) if (!authority.includes(marker)) errors.push(`Texas rivers map-first authority contract missing: ${marker}`);
 
 for (const forbiddenMarker of [
@@ -54,6 +56,16 @@ for (const forbiddenMarker of [
   'Dedicated river profiles',
   'See Texas\'s Major Rivers on the Map',
 ]) if (authority.includes(forbiddenMarker)) errors.push(`Texas rivers authority must not restore retired duplicate module: ${forbiddenMarker}`);
+
+for (const marker of [
+  'CitationTrustPanel',
+  'Texas Water Development Board — River Basins',
+  'Texas Water Development Board — Major River Basins Map',
+  'Sources, methodology and verification',
+  'lastVerified="October 3, 2026"',
+  'Recommended citation',
+  'https://texasdefined.com/article/texas-rivers-explained',
+]) if (!citationTrust.includes(marker)) errors.push(`Texas rivers citation trust contract missing: ${marker}`);
 
 for (const marker of [
   'const basinHighlights = [',
@@ -141,4 +153,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, focused flagship presentation and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, focused flagship presentation, non-duplicative regional flow and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
