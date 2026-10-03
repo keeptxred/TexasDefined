@@ -9,7 +9,6 @@ const FishingLakesDirectory = lazy(() => import("@/components/fishing/FishingLak
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const canonicalPath = "/fishing/lakes";
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
-const csvUrl = `${siteUrl}/fishing/lakes.csv`;
 const description = "Search, filter, map and download TexasDefined's source-backed Texas Lakes Database with lake size, depth, counties, nearby cities, river basins, waterways, managing authorities and documented fishery strengths.";
 
 export const Route = createFileRoute("/fishing/lakes")({
@@ -31,13 +30,10 @@ export const Route = createFileRoute("/fishing/lakes")({
       current.push({ name: fish.commonName, quality: relation.quality, prominence: relation.prominence });
       targetsByLake.set(relation.lakeId, current);
     }
-    const rows = lakes
-      .map((lake) => ({
-        lake,
-        targets: (targetsByLake.get(lake.id) ?? [])
-          .sort((left, right) => prominenceRank(left.prominence) - prominenceRank(right.prominence) || qualityRank(left.quality) - qualityRank(right.quality) || left.name.localeCompare(right.name)),
-      }))
-      .sort((left, right) => left.lake.name.localeCompare(right.lake.name));
+    const rows = lakes.map((lake) => ({
+      lake,
+      targets: (targetsByLake.get(lake.id) ?? []).sort((left, right) => prominenceRank(left.prominence) - prominenceRank(right.prominence) || qualityRank(left.quality) - qualityRank(right.quality) || left.name.localeCompare(right.name)),
+    })).sort((left, right) => left.lake.name.localeCompare(right.lake.name));
     const latestReview = lakes.map((lake) => lake.verifiedAt).filter(Boolean).sort().at(-1);
     return { rows, latestReview };
   },
@@ -60,7 +56,6 @@ export const Route = createFileRoute("/fishing/lakes")({
           publisher: { "@type": "Organization", name: "TexasDefined", url: siteUrl },
           dateModified: loaderData?.latestReview,
           variableMeasured: ["Lake name", "Counties", "Nearest cities", "Surface acreage", "Maximum depth", "Year impounded", "River basin", "Primary waterway", "Managing authority", "Coordinates", "Documented fish species"],
-          distribution: [{ "@type": "DataDownload", encodingFormat: "text/csv", contentUrl: csvUrl }],
           hasPart: { "@id": `${canonicalUrl}#lakes` },
         },
         { "@type": "ItemList", "@id": `${canonicalUrl}#lakes`, name: "Source-backed Texas lake records", numberOfItems: rows.length, itemListElement: rows.map(({ lake }, index) => ({ "@type": "ListItem", position: index + 1, name: lake.name, url: `${siteUrl}${fishingFoundationAnchor("lake", lake.slug)}` })) },
@@ -79,13 +74,8 @@ export const Route = createFileRoute("/fishing/lakes")({
 
 function FishingLakesPage() {
   const { rows, latestReview } = Route.useLoaderData();
-  return (
-    <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas lakes database…</div>}>
-      <FishingLakesDirectory rows={rows} latestReview={latestReview} />
-    </Suspense>
-  );
+  return <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-12 text-sm text-muted-foreground" role="status">Loading Texas lakes database…</div>}><FishingLakesDirectory rows={rows} latestReview={latestReview} /></Suspense>;
 }
-
 function buildQuickAnswers(count: number) {
   return [
     { question: "How many lakes are in this Texas Lakes Database?", answer: `TexasDefined currently publishes ${count} complete, source-backed lake records in this database. The scope is intentionally limited to records that have cleared the site's lake-guide verification standard rather than attempting to expose every named waterbody as a thin page.` },
