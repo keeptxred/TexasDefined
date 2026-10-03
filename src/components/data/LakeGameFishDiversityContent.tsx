@@ -43,7 +43,7 @@ export function LakeGameFishDiversityContent({ data }: { data: LakeGameFishDiver
       <div className="mt-6 space-y-4 border-y border-border py-7">
         {chartRows.map((row, index) => <div key={row.lakeId} className="grid gap-2 sm:grid-cols-[2rem_minmax(11rem,16rem)_1fr_3rem] sm:items-center">
           <span className="text-xs tabular-nums text-muted-foreground">{index + 1}</span>
-          <Link to="/fishing/lakes/$lakeSlug" params={{ lakeSlug: row.slug }} className="font-semibold hover:text-primary">{row.name}</Link>
+          <Link to="/fishing/lakes/$slug" params={{ slug: row.slug }} className="font-semibold hover:text-primary">{row.name}</Link>
           <div className="h-2 bg-surface"><div className="h-full bg-primary" style={{ width: `${Math.max(2, (row.targetCount / maxTargets) * 100)}%` }} /></div>
           <span className="text-right text-sm font-semibold tabular-nums">{row.targetCount}</span>
         </div>)}
@@ -91,7 +91,7 @@ function Stat({ label, value }: { label: string; value: string }) { return <div 
 function SortHead({ label, active, descending, onClick }: { label: string; active: boolean; descending: boolean; onClick: () => void }) { return <th className="px-4 py-3"><button type="button" onClick={onClick} className="font-semibold hover:text-foreground">{label}{active ? (descending ? ' ↓' : ' ↑') : ''}</button></th>; }
 
 function LakeRow({ row }: { row: LakeGameFishDiversityRow }) {
-  return <tr><td className="px-4 py-4 font-semibold"><Link to="/fishing/lakes/$lakeSlug" params={{ lakeSlug: row.slug }} className="hover:text-primary hover:underline">{row.name}</Link></td><td className="px-4 py-4">{row.counties.join(', ') || '—'}</td><td className="px-4 py-4 tabular-nums">{row.surfaceAcres?.toLocaleString('en-US') ?? '—'}</td><td className="px-4 py-4">{row.riverBasin ?? '—'}</td><td className="px-4 py-4 font-semibold tabular-nums">{row.targetCount}</td><td className="px-4 py-4 tabular-nums">{row.targetsPerThousandAcres?.toFixed(3) ?? '—'}</td><td className="px-4 py-4 text-xs leading-5 text-muted-foreground">{row.targets.join(', ')}</td></tr>;
+  return <tr><td className="px-4 py-4 font-semibold"><Link to="/fishing/lakes/$slug" params={{ slug: row.slug }} className="hover:text-primary hover:underline">{row.name}</Link></td><td className="px-4 py-4">{row.counties.join(', ') || '—'}</td><td className="px-4 py-4 tabular-nums">{row.surfaceAcres?.toLocaleString('en-US') ?? '—'}</td><td className="px-4 py-4">{row.riverBasin ?? '—'}</td><td className="px-4 py-4 font-semibold tabular-nums">{row.targetCount}</td><td className="px-4 py-4 tabular-nums">{row.targetsPerThousandAcres?.toFixed(3) ?? '—'}</td><td className="px-4 py-4 text-xs leading-5 text-muted-foreground">{row.targets.join(', ')}</td></tr>;
 }
 
 function sortRows(rows: LakeGameFishDiversityRow[], key: SortKey, descending: boolean) {
