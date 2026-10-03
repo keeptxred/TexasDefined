@@ -1,11 +1,30 @@
-const token = process.env.CLOUDFLARE_CACHE_API_TOKEN?.trim();
+const token = process.env.CLOUDFLARE_CACHE_API_TOKEN?.trim() || process.env.CLOUDFLARE_API_TOKEN?.trim();
 const zoneName = (process.env.CLOUDFLARE_ZONE_NAME || 'texasdefined.com').trim();
 const rawUrls = process.env.CLOUDFLARE_PURGE_URLS || '';
 const purgeMetroProximity = process.env.CLOUDFLARE_PURGE_METRO_PROXIMITY?.trim().toLowerCase() === 'true';
 
 if (!token) {
-  throw new Error('CLOUDFLARE_CACHE_API_TOKEN is required for targeted cache purge.');
+  throw new Error('CLOUDFLARE_CACHE_API_TOKEN or CLOUDFLARE_API_TOKEN is required for targeted cache purge.');
 }
+
+const alwaysPurgeUrls = [
+  `https://${zoneName}/article/texas-rivers-explained`,
+  `https://${zoneName}/article/texas-rio-grande-river-guide`,
+  `https://${zoneName}/article/texas-six-man-football-rules-explained`,
+  `https://${zoneName}/texas-mountain-biking-guide`,
+  `https://${zoneName}/texas-horseback-riding-guide`,
+  `https://${zoneName}/texas-ohv-guide`,
+  `https://${zoneName}/texas-paddling-guide`,
+  `https://${zoneName}/texas-rock-climbing-bouldering-guide`,
+];
+
+const weekendEventUrls = [
+  `https://${zoneName}/events/this-weekend`,
+  `https://${zoneName}/events/houston-this-weekend`,
+  `https://${zoneName}/events/dallas-this-weekend`,
+  `https://${zoneName}/events/austin-this-weekend`,
+  `https://${zoneName}/events/san-antonio-this-weekend`,
+];
 
 const metroUrls = purgeMetroProximity
   ? (() => {
@@ -40,11 +59,13 @@ const urls = [...new Set([
     .split(/[\n,]+/)
     .map((value) => value.trim())
     .filter(Boolean),
+  ...alwaysPurgeUrls,
+  ...weekendEventUrls,
   ...metroUrls,
 ])];
 
 if (urls.length === 0) {
-  throw new Error('CLOUDFLARE_PURGE_URLS must contain at least one URL or CLOUDFLARE_PURGE_METRO_PROXIMITY must be true.');
+  throw new Error('Cloudflare targeted purge URL list is empty.');
 }
 
 for (const value of urls) {

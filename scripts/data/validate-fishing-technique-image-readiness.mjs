@@ -36,7 +36,7 @@ for (const [slug, images] of Object.entries(fishingTechniqueImages)) {
   }
 }
 
-if (ready.length < 7) failures.push(`Fishing technique image coverage regressed below the remediated 7/9 baseline (${ready.length}/9 ready).`);
+if (ready.length !== PUBLISHED_FISHING_TECHNIQUE_SLUGS.length) failures.push(`Every published fishing technique must have a governed Discover-ready hero (${ready.length}/${PUBLISHED_FISHING_TECHNIQUE_SLUGS.length} ready; missing: ${pending.join(", ") || "none"}).`);
 if (!server.includes('robots: imageReady ? undefined : "noindex, follow, max-image-preview:large"')) failures.push("Fishing technique profiles must fail closed when the hero is not image-ready.");
 if (!server.includes('imageReady && images?.hero')) failures.push("Fishing technique social/schema image output must be gated by image readiness.");
 if (!sitemap.includes('.filter((slug) => isFishingTechniqueHeroReady(slug))')) failures.push("Fishing technique sitemap entries must exclude image-incomplete profiles.");
@@ -53,4 +53,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Fishing technique image readiness passed: ${ready.length}/${PUBLISHED_FISHING_TECHNIQUE_SLUGS.length} Discover-ready; ${pending.length} fail-closed pending unique photography (${pending.join(", ") || "none"}).`);
+console.log(`Fishing technique image readiness passed: ${ready.length}/${PUBLISHED_FISHING_TECHNIQUE_SLUGS.length} Discover-ready; ${pending.length} pending (${pending.join(", ") || "none"}).`);

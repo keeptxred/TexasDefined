@@ -13,6 +13,10 @@ const ownershipPage = fs.readFileSync('src/components/calculators/LocalHomeowner
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 
 const failures = [];
+const hasRouteCall = (source, functionName, publicPath) => {
+  const generatedPath = publicPath.replace('/$location', '_/$location');
+  return [publicPath, generatedPath].some((routeId) => source.includes(`${functionName}('${routeId}')`) || source.includes(`${functionName}("${routeId}")`));
+};
 const governedLocations = [...affordabilityProfiles.matchAll(/slug:\s*'([^']+)'/g)].map((match) => match[1]);
 const uniqueLocations = new Set(governedLocations);
 if (governedLocations.length !== 19 || uniqueLocations.size !== 19) {
@@ -44,19 +48,12 @@ for (const marker of [
   if (!insuranceHub.includes(marker)) failures.push(`Statewide home-insurance hub local discovery contract missing ${marker}`);
 }
 
-for (const marker of [
-  "createFileRoute('/texas-home-insurance-calculator/$location')",
-  'getLocalHomeInsurancePage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
+if (!hasRouteCall(insuranceRoute, 'createFileRoute', '/texas-home-insurance-calculator/$location')) failures.push('Local home-insurance route missing createFileRoute for /texas-home-insurance-calculator/$location.');
+for (const marker of ['getLocalHomeInsurancePage', 'notFound()', 'loaderData?.page.head']) {
   if (!insuranceRoute.includes(marker)) failures.push(`Local home-insurance route missing ${marker}`);
 }
-for (const marker of [
-  "createLazyFileRoute('/texas-home-insurance-calculator/$location')",
-  'LocalHomeInsurancePage',
-  'page.profile',
-]) {
+if (!hasRouteCall(insuranceLazyRoute, 'createLazyFileRoute', '/texas-home-insurance-calculator/$location')) failures.push('Local home-insurance lazy route missing createLazyFileRoute for /texas-home-insurance-calculator/$location.');
+for (const marker of ['LocalHomeInsurancePage', 'page.profile']) {
   if (!insuranceLazyRoute.includes(marker)) failures.push(`Local home-insurance lazy route missing ${marker}`);
 }
 for (const marker of [

@@ -179,6 +179,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           { expandedPaintedChurches },
           { fetchCoreExploreDestinations },
           { fetchExploreDestinations, hasExploreRemoteData },
+          { withSitemapRemoteTimeout },
         ] = await Promise.all([
           import("@/data/painted-church-heritage"),
           import("@/data/painted-church-itineraries"),
@@ -189,6 +190,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           import("@/data/painted-churches-expanded"),
           import("@/data/explore-core-remote"),
           import("@/data/explore-remote"),
+          import("@/lib/sitemap-remote-timeout.server"),
         ]);
         let enrichedDestinations: Awaited<ReturnType<typeof fetchExploreDestinations>> = [];
         let coreDestinations: Awaited<ReturnType<typeof fetchCoreExploreDestinations>> = [];
@@ -198,13 +200,19 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
 
         if (remoteConfigured) {
           try {
-            enrichedDestinations = await fetchExploreDestinations({ limit: 5000 });
+            enrichedDestinations = await withSitemapRemoteTimeout(
+              "Explore sitemap enriched catalog",
+              fetchExploreDestinations({ limit: 5000 }),
+            );
           } catch (error) {
             enrichedFailed = true;
             console.error("Explore sitemap enriched catalog unavailable", error);
           }
           try {
-            coreDestinations = await fetchCoreExploreDestinations({ limit: 5000 });
+            coreDestinations = await withSitemapRemoteTimeout(
+              "Explore sitemap core catalog",
+              fetchCoreExploreDestinations({ limit: 5000 }),
+            );
           } catch (error) {
             coreFailed = true;
             console.error("Explore sitemap core catalog unavailable", error);

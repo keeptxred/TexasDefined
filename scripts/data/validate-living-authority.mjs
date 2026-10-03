@@ -104,8 +104,10 @@ for (const requirement of [
   if (!relocationHub.includes(requirement)) failures.push(`Moving hub authority surface missing: ${requirement}.`);
 }
 
+if (!/createFileRoute\(["']\/moving-to-texas_?\/data["']\)/.test(relocationDataCenter)) {
+  failures.push('Relocation Data Center safeguard missing: createFileRoute for /moving-to-texas/data.');
+}
 for (const requirement of [
-  "createFileRoute('/moving-to-texas/data')",
   "const canonicalPath = '/moving-to-texas/data'",
   "'@type': ['CollectionPage', 'DataCatalog']",
   "'texas-population-and-migration-2025'",

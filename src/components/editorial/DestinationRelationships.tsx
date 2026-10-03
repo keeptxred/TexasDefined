@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
@@ -29,6 +30,12 @@ const CAMPING_DESTINATION_SLUGS = new Set([
   "pedernales-falls-state-park",
   "lake-whitney-state-park",
   "lake-tawakoni-state-park",
+]);
+
+const SAM_HOUSTON_MUSEUM_SLUG = "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville";
+
+const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
+  SAM_HOUSTON_MUSEUM_SLUG,
 ]);
 
 const AREA_GROUPS: Array<{
@@ -91,7 +98,10 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
+  const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
+  const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
+  const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
   ).values()]
@@ -100,6 +110,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
   return <>
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
@@ -124,6 +136,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
           <nav aria-label={`Continue exploring from ${destination.name}`} className="flex flex-wrap gap-x-6 gap-y-3">
             {topAttractionRank && <Link to="/explore/top-attractions" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Top 25 · #{topAttractionRank}</Link>}
             {hasCampingProfile && <Link to="/best-places-to-go-camping-in-texas" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Camping details</Link>}
+            {hasSamHoustonMuseumContext && <Link to="/article/republic-of-texas-government-trail" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Republic government trail</Link>}
+            {hasSamHoustonMuseumContext && <Link to="/article/texas-revolution-historic-sites-road-trip" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Texas Revolution road trip</Link>}
             <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>
             <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>
             <Link to="/explore/region/$region" params={{ region: destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>

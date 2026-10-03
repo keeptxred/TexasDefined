@@ -30,6 +30,11 @@ const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
 const movingHub = fs.readFileSync('src/routes/moving-to-texas.lazy.tsx', 'utf8');
 const homestead = fs.readFileSync('src/routes/texas-homestead-savings-calculator.tsx', 'utf8');
 
+const hasRouteCall = (source, functionName, publicPath) => {
+  const generatedPath = publicPath.replace('/$location', '_/$location');
+  return [publicPath, generatedPath].some((routeId) => source.includes(`${functionName}('${routeId}')`) || source.includes(`${functionName}("${routeId}")`));
+};
+
 const required = [
   "'@type': 'CollectionPage'",
   "'@type': 'BreadcrumbList'",
@@ -186,19 +191,12 @@ for (const marker of [
 ]) {
   if (!affordabilityHub.includes(marker)) failures.push(`Texas home affordability hub county-discovery contract missing ${marker}`);
 }
-for (const marker of [
-  "createFileRoute('/texas-home-affordability-calculator/$location')",
-  'getLocalHomeAffordabilityPage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
+if (!hasRouteCall(affordabilityRoute, 'createFileRoute', '/texas-home-affordability-calculator/$location')) failures.push('Local affordability route missing createFileRoute for /texas-home-affordability-calculator/$location.');
+for (const marker of ['getLocalHomeAffordabilityPage', 'notFound()', 'loaderData?.page.head']) {
   if (!affordabilityRoute.includes(marker)) failures.push(`Local affordability route missing ${marker}`);
 }
-for (const marker of [
-  "createLazyFileRoute('/texas-home-affordability-calculator/$location')",
-  'LocalHomeAffordabilityPage',
-  'page.profile',
-]) {
+if (!hasRouteCall(affordabilityLazyRoute, 'createLazyFileRoute', '/texas-home-affordability-calculator/$location')) failures.push('Local affordability lazy route missing createLazyFileRoute for /texas-home-affordability-calculator/$location.');
+for (const marker of ['LocalHomeAffordabilityPage', 'page.profile']) {
   if (!affordabilityLazyRoute.includes(marker)) failures.push(`Local affordability lazy route missing ${marker}`);
 }
 for (const marker of [
@@ -280,19 +278,12 @@ for (const marker of [
 ]) {
   if (!ownershipProfiles.includes(marker)) failures.push(`Local homeownership-cost profile contract missing ${marker}`);
 }
-for (const marker of [
-  "createFileRoute('/texas-homeownership-cost-calculator/$location')",
-  'getLocalHomeownershipCostPage',
-  'notFound()',
-  'loaderData?.page.head',
-]) {
+if (!hasRouteCall(ownershipRoute, 'createFileRoute', '/texas-homeownership-cost-calculator/$location')) failures.push('Local homeownership-cost route missing createFileRoute for /texas-homeownership-cost-calculator/$location.');
+for (const marker of ['getLocalHomeownershipCostPage', 'notFound()', 'loaderData?.page.head']) {
   if (!ownershipRoute.includes(marker)) failures.push(`Local homeownership-cost route missing ${marker}`);
 }
-for (const marker of [
-  "createLazyFileRoute('/texas-homeownership-cost-calculator/$location')",
-  'LocalHomeownershipCostPage',
-  'page.profile',
-]) {
+if (!hasRouteCall(ownershipLazyRoute, 'createLazyFileRoute', '/texas-homeownership-cost-calculator/$location')) failures.push('Local homeownership-cost lazy route missing createLazyFileRoute for /texas-homeownership-cost-calculator/$location.');
+for (const marker of ['LocalHomeownershipCostPage', 'page.profile']) {
   if (!ownershipLazyRoute.includes(marker)) failures.push(`Local homeownership-cost lazy route missing ${marker}`);
 }
 for (const marker of [

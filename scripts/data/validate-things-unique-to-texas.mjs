@@ -98,7 +98,7 @@ if (!categoryRoute.includes('...(href ? { url: `${origin}${href}` } : {})')) fai
 for (const token of ['isBasedOn: methodologyUrl', 'Texas Defined Editorial Desk', 'dateModified: "2026-08-19"']) if (!categoryRoute.includes(token)) failures.push(`Category CollectionPage schema must retain provenance token: ${token}.`);
 if (!lazyRoute.includes('to="/things-unique-to-texas/methodology"')) failures.push('Every magazine chapter must visibly link the collection methodology.');
 
-if (!methodologyRoute.includes('createFileRoute("/things-unique-to-texas/methodology")')) failures.push('Magazine methodology route must remain canonical.');
+if (!/createFileRoute\(["']\/things-unique-to-texas_?\/methodology["']\)/.test(methodologyRoute)) failures.push('Magazine methodology route must remain canonical.');
 for (const token of ['Inclusion standard', 'Official fact versus Texas folklore', 'Cross-link policy', 'Changing information', 'Data distributions', 'Corrections and maintenance']) if (!methodologyRoute.includes(token)) failures.push(`Magazine methodology must retain section: ${token}.`);
 for (const download of ['/things-that-define-texas.csv', '/things-that-define-texas.json']) {
   if (!methodologyRoute.includes(`href="${download}"`)) failures.push(`Magazine methodology must link ${download}.`);

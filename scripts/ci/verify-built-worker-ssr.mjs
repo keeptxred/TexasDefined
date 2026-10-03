@@ -6,8 +6,14 @@ const host = process.env.BUILT_WORKER_SMOKE_HOST || '127.0.0.1';
 const port = Number.parseInt(process.env.BUILT_WORKER_SMOKE_PORT || '8799', 10);
 const origin = `http://${host}:${port}`;
 const rootRequiredText = process.env.BUILT_WORKER_SMOKE_REQUIRED_TEXT || 'Texas Defined';
-const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '45000', 10) || 45000);
+const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '60000', 10) || 60000);
 const requestTimeoutMs = Math.max(3000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS || '10000', 10) || 10000);
+const readinessRequestTimeoutMs = Math.max(
+  requestTimeoutMs,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_READINESS_REQUEST_TIMEOUT_MS || '30000', 10) || 30000,
+);
+const targetAttempts = Math.max(1, Number.parseInt(process.env.BUILT_WORKER_SMOKE_TARGET_ATTEMPTS || '3', 10) || 3);
+const retryDelayMs = Math.max(0, Number.parseInt(process.env.BUILT_WORKER_SMOKE_RETRY_DELAY_MS || '750', 10) || 750);
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const artifactDir = '.artifacts';
 const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
@@ -81,6 +87,13 @@ const redirectTargets = [
   },
 ];
 
+const renderRouteGroups = [...smokeTargets.reduce((groups, target) => {
+  const existing = groups.get(target.path);
+  if (existing) existing.checks.push(target);
+  else groups.set(target.path, { path: target.path, checks: [target] });
+  return groups;
+}, new Map()).values()];
+
 mkdirSync(artifactDir, { recursive: true });
 writeFileSync(logPath, '');
 
@@ -150,103 +163,154 @@ async function stopChild() {
   }
 }
 
-let failure = '';
-let passed = false;
-const lastStatus = new Map([...smokeTargets, ...redirectTargets].map((target) => [target.path, 'not-run']));
+const lastStatus = new Map([...renderRouteGroups, ...redirectTargets].map((target) => [target.path, 'not-run']));
+
+function smokeUrl(targetPath, attemptToken) {
+  const url = new URL(targetPath, origin);
+  url.searchParams.set('built_worker_smoke', `${process.env.GITHUB_SHA || 'local'}-${attemptToken}`);
+  return url;
+}
+
+const requestHeaders = {
+  'cache-control': 'no-cache, no-store, max-age=0',
+  pragma: 'no-cache',
+  'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
+};
+
+async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
+  try {
+    const response = await fetch(smokeUrl(group.path, attemptToken), {
+      redirect: 'follow',
+      cache: 'no-store',
+      headers: requestHeaders,
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    lastStatus.set(group.path, String(response.status));
+    const body = await response.text();
+
+    if (response.status === 200) {
+      const missingChecks = group.checks.filter((check) => {
+        const requiredText = check.requiredText;
+        return !body.includes(requiredText);
+      });
+      if (missingChecks.length) {
+        return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      }
+      return '';
+    }
+
+    return `${group.path} returned HTTP ${response.status}`;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    lastStatus.set(group.path, 'network-error');
+    return `${group.path} failed: ${detail}`;
+  }
+}
+
+async function checkRedirectTarget(target, attemptToken) {
+  try {
+    const url = smokeUrl(target.path, attemptToken);
+    const response = await fetch(url, {
+      redirect: 'manual',
+      cache: 'no-store',
+      headers: requestHeaders,
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    });
+    lastStatus.set(target.path, String(response.status));
+    const location = response.headers.get('location');
+    const redirectedUrl = location ? new URL(location, url) : null;
+    const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
+      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
+
+    if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) {
+      return '';
+    }
+
+    return `${target.label} (${target.path}) expected HTTP ${target.expectedStatus} -> ${target.expectedPath} with query preserved; got HTTP ${response.status} -> ${location || 'no location'}`;
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    lastStatus.set(target.path, 'network-error');
+    return `${target.label} (${target.path}) failed: ${detail}`;
+  }
+}
+
+async function verifyWithRetries(target, checker, label) {
+  let failure = '';
+
+  for (let attempt = 1; attempt <= targetAttempts; attempt += 1) {
+    if (child.exitCode !== null) {
+      return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
+    }
+
+    failure = await checker(target, `${label.replaceAll(' ', '-')}-${attempt}`);
+    if (!failure) {
+      if (attempt > 1) console.log(`${label} passed on retry ${attempt}/${targetAttempts}.`);
+      return '';
+    }
+
+    if (attempt < targetAttempts) {
+      console.log(`${label} attempt ${attempt}/${targetAttempts} failed: ${failure}. Retrying.`);
+      await sleep(retryDelayMs);
+    }
+  }
+
+  return failure;
+}
 
 try {
-  const startedAt = Date.now();
-  let attempt = 0;
+  const readinessGroup = renderRouteGroups.find((group) => group.path === '/');
+  const readinessStartedAt = Date.now();
+  let readinessAttempt = 0;
+  let readinessFailure = 'Built Worker did not become ready.';
+  let ready = false;
 
-  while (Date.now() - startedAt < startupTimeoutMs) {
-    attempt += 1;
-
+  while (Date.now() - readinessStartedAt < startupTimeoutMs) {
+    readinessAttempt += 1;
     if (child.exitCode !== null) {
-      failure = `Wrangler dev exited before the smoke request completed (exit ${child.exitCode}).`;
+      readinessFailure = `Wrangler dev exited before readiness completed (exit ${child.exitCode}).`;
       break;
     }
 
-    const attemptFailures = [];
+    readinessFailure = await checkRenderRoute(
+      readinessGroup,
+      `startup-${readinessAttempt}`,
+      readinessRequestTimeoutMs,
+    );
+    if (!readinessFailure) {
+      ready = true;
+      console.log(`Built Worker became ready after ${readinessAttempt} readiness probe(s).`);
+      break;
+    }
 
-    for (const target of smokeTargets) {
-      try {
-        const url = new URL(target.path, origin);
-        url.searchParams.set('built_worker_smoke', `${process.env.GITHUB_SHA || 'local'}-${attempt}`);
-        const response = await fetch(url, {
-          redirect: 'follow',
-          cache: 'no-store',
-          headers: {
-            'cache-control': 'no-cache, no-store, max-age=0',
-            pragma: 'no-cache',
-            'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
-          },
-          signal: AbortSignal.timeout(requestTimeoutMs),
-        });
-        lastStatus.set(target.path, String(response.status));
-        const body = await response.text();
-        const requiredText = target.requiredText;
+    await sleep(retryDelayMs);
+  }
 
-        if (response.status === 200 && body.includes(requiredText)) {
-          continue;
-        }
-        if (response.status !== 200) {
-          attemptFailures.push(`${target.label} (${target.path}) returned HTTP ${response.status}`);
-        } else {
-          attemptFailures.push(`${target.label} (${target.path}) returned HTTP 200 without required marker: ${requiredText}`);
-        }
-      } catch (error) {
-        const detail = error instanceof Error ? error.message : String(error);
-        lastStatus.set(target.path, 'network-error');
-        attemptFailures.push(`${target.label} (${target.path}) failed: ${detail}`);
-      }
+  const failures = [];
+
+  if (!ready) {
+    failures.push(readinessFailure || `Built Worker did not become healthy within ${startupTimeoutMs}ms.`);
+  } else {
+    for (const group of renderRouteGroups) {
+      const label = `render route ${group.path}`;
+      const failure = await verifyWithRetries(group, checkRenderRoute, label);
+      if (failure) failures.push(failure);
+      else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
     }
 
     for (const target of redirectTargets) {
-      try {
-        const url = new URL(target.path, origin);
-        url.searchParams.set('built_worker_smoke', `${process.env.GITHUB_SHA || 'local'}-${attempt}`);
-        const response = await fetch(url, {
-          redirect: 'manual',
-          cache: 'no-store',
-          headers: {
-            'cache-control': 'no-cache, no-store, max-age=0',
-            pragma: 'no-cache',
-            'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
-          },
-          signal: AbortSignal.timeout(requestTimeoutMs),
-        });
-        lastStatus.set(target.path, String(response.status));
-        const location = response.headers.get('location');
-        const redirectedUrl = location ? new URL(location, url) : null;
-        const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
-          && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
-
-        if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) {
-          continue;
-        }
-        attemptFailures.push(`${target.label} (${target.path}) expected HTTP ${target.expectedStatus} -> ${target.expectedPath} with query preserved; got HTTP ${response.status} -> ${location || 'no location'}`);
-      } catch (error) {
-        const detail = error instanceof Error ? error.message : String(error);
-        lastStatus.set(target.path, 'network-error');
-        attemptFailures.push(`${target.label} (${target.path}) failed: ${detail}`);
-      }
+      const label = `redirect route ${target.path}`;
+      const failure = await verifyWithRetries(target, checkRedirectTarget, label);
+      if (failure) failures.push(failure);
+      else console.log(`[redirect] verified (${target.expectedStatus}): ${target.path} -> ${target.expectedPath}`);
     }
-
-    if (!attemptFailures.length) {
-      passed = true;
-      console.log(`Built Worker SSR smoke passed on attempt ${attempt}: ${smokeTargets.length} render target(s) and ${redirectTargets.length} redirect target(s) passed.`);
-      if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${smokeTargets.length} render + ${redirectTargets.length} redirect target(s) | ${attempt} attempt(s) |\n`);
-      break;
-    }
-
-    failure = attemptFailures.join('; ');
-    console.log(`Built Worker SSR smoke attempt ${attempt} not ready: ${failure}.`);
-    await sleep(1000);
   }
 
-  if (!passed) {
-    if (!failure) failure = `Built Worker did not become healthy within ${startupTimeoutMs}ms.`;
-    const statuses = [...smokeTargets, ...redirectTargets].map((target) => `${target.path}=${lastStatus.get(target.path)}`).join(', ');
+  if (!failures.length) {
+    console.log(`Built Worker SSR smoke passed: ${renderRouteGroups.length} unique render route(s), ${smokeTargets.length} marker check(s), and ${redirectTargets.length} redirect target(s) passed.`);
+    if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${renderRouteGroups.length} render routes / ${smokeTargets.length} marker checks + ${redirectTargets.length} redirect target(s) | per-route retries: ${targetAttempts} |\n`);
+  } else {
+    const failure = failures.join('; ');
+    const statuses = [...renderRouteGroups, ...redirectTargets].map((target) => `${target.path}=${lastStatus.get(target.path)}`).join(', ');
     if (summaryPath) appendFileSync(summaryPath, `| ❌ FAIL | Built Worker SSR smoke | ${statuses} | predeploy local runtime |\n`);
     console.error(`::error title=Built Worker SSR smoke failed::${failure}`);
     if (captured.trim()) {

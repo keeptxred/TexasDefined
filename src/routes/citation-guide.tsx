@@ -23,6 +23,7 @@ const GROUPS = [
     title: 'Property-tax references',
     description: 'Statewide explanations, county comparisons, appraisal districts, deadlines and action guides.',
     links: [
+      ['Texas property tax guide', '/property-tax-guides'],
       ['How Texas property taxes work', '/learn/property-taxes'],
       ['Property tax by county', '/property-tax/counties'],
       ['Appraisal district directory', '/learn/appraisal-districts'],

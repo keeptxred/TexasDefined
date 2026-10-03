@@ -12,7 +12,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { description, texasExplainedGuide, travelIntro } from "./guides";
 
 const practicalGuides = [
-  { to: "/learn/property-taxes", label: "Property Taxes Without the Guesswork", body: "A plain-English look at appraisals, exemptions, protests, rates and the yearly tax cycle.", action: "Read the guide" },
+  { to: "/property-tax-guides", label: "Texas Property Tax Guide", body: "The statewide 2026 hub for appraisals, exemptions, protests, rates, bills, deadlines and county tools.", action: "Open the guide" },
   { to: "/decide/property-taxes", label: "Estimate Your Property Taxes", body: "Get a quick estimate using your home value, exemptions and local tax rate.", action: "Open calculator" },
   { to: "/learn/property-tax-payments", label: "Paying Your Property Taxes", body: "What to know about deadlines, escrow, payment plans, late bills and tax liens.", action: "Read the guide" },
   { to: "/do/homestead-exemption", label: "File a Homestead Exemption", body: "See who qualifies, what you need and how to file with your appraisal district.", action: "Follow the steps" },

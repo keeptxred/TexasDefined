@@ -41,6 +41,7 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - City-to-county relationship dataset: https://texasdefined.com/texas-data/city-county-relationships
 - Texas county comparison: https://texasdefined.com/browse/counties
 - County property-tax comparison: https://texasdefined.com/property-tax/counties
+- Texas property-tax guide and command center: https://texasdefined.com/property-tax-guides
 - Texas property-tax explainer: https://texasdefined.com/learn/property-taxes
 - Appraisal-district directory: https://texasdefined.com/learn/appraisal-districts
 - Property-tax protest guide: https://texasdefined.com/do/property-tax-protest

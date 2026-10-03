@@ -33,6 +33,7 @@ export const republicOfTexasGovernmentTrailArticle: Article = {
     { href: "/destination/stephen-f-austin-memorial", label: "Stephen F. Austin Memorial", description: "Connect the first capital to Austin's brief service as secretary of state and his final months in Brazoria County." },
     { href: "/destination/french-legation", label: "French Legation", description: "Finish in Austin with the diplomatic outpost created after France recognized the Republic as a sovereign nation." },
     { href: "/destination/barrington-living-history-farm", label: "Barrington Living History Farm", description: "Use Anson Jones' final home to connect Republic government with annexation and the end of the independent nation." },
+    { href: "/destination/sam-houston-memorial-museum-republic-texas-presidential-library-huntsville", label: "Sam Houston Memorial Museum & Republic of Texas Presidential Library", description: "Extend the government trail into Huntsville to study Houston's original home landscape, artifacts, final years and the research repository devoted to the Republic's first and third president." },
     { href: "/article/texas-revolution-historic-sites-road-trip", label: "Texas Revolution road trip", description: "Pair the government story with the military chronology from San Felipe and Goliad to San Jacinto." },
   ],
   relatedCollections: [],
@@ -44,6 +45,7 @@ export const republicOfTexasGovernmentTrailArticle: Article = {
     "stephen-f-austin-memorial",
     "french-legation",
     "barrington-living-history-farm",
+    "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville",
   ],
   body: [
     p("The Republic of Texas is often told as a sequence of battles followed by a flag and nine years of independence. Government history makes the period look different. Before Texas could function as an independent nation, people had to decide where officials would meet, how records would move, where Congress would sit, how diplomacy would work and what happened when a capital city became unsafe or politically inconvenient."),
@@ -77,7 +79,8 @@ export const republicOfTexasGovernmentTrailArticle: Article = {
       "Brazos founding day: San Felipe de Austin, then Washington-on-the-Brazos and the Star of the Republic Museum.",
       "Brazoria County government day: First Capitol of Texas in West Columbia, Stephen F. Austin Memorial and nearby Republic-era context.",
       "Austin diplomacy day: French Legation, then the modern Capitol area to compare the Republic-era capital with the later state-government city.",
-      "Washington County extension: Barrington Living History Farm for Anson Jones, domestic life and the end of the Republic."
+      "Washington County extension: Barrington Living History Farm for Anson Jones, domestic life and the end of the Republic.",
+      "Huntsville research extension: Sam Houston Memorial Museum & Republic of Texas Presidential Library for Houston's home landscape, artifacts, final years and the modern Republic-era research repository."
     ),
     h("What this route changes about the Republic story"),
     p("Following government rather than battles reveals a Republic that was constantly improvising. Officials worked in small settlements, relocated records, argued over capital sites, built new institutions and sought recognition abroad. The repeated moves were not trivia; they show how fragile and unfinished the new nation remained."),
