@@ -3,21 +3,21 @@ const lastVerified = "2026-10-03";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
 
 const majorBasins = [
-  { basin: "Brazos", areaSquareMiles: 42865, riverMilesInTexas: 840, averageAnnualFlowAcreFeet: 6074000 },
-  { basin: "Canadian", areaSquareMiles: 12865, riverMilesInTexas: 213, averageAnnualFlowAcreFeet: 196000 },
-  { basin: "Colorado", areaSquareMiles: 39428, riverMilesInTexas: 865, averageAnnualFlowAcreFeet: 1904000 },
-  { basin: "Cypress", areaSquareMiles: 2929, riverMilesInTexas: 75, averageAnnualFlowAcreFeet: 493700 },
-  { basin: "Guadalupe", areaSquareMiles: 5953, riverMilesInTexas: 409, averageAnnualFlowAcreFeet: 1422000 },
-  { basin: "Lavaca", areaSquareMiles: 2309, riverMilesInTexas: 117, averageAnnualFlowAcreFeet: 277000 },
-  { basin: "Neches", areaSquareMiles: 9937, riverMilesInTexas: 416, averageAnnualFlowAcreFeet: 4323000 },
-  { basin: "Nueces", areaSquareMiles: 16700, riverMilesInTexas: 315, averageAnnualFlowAcreFeet: 539700 },
-  { basin: "Red", areaSquareMiles: 24297, riverMilesInTexas: 695, averageAnnualFlowAcreFeet: 3464000 },
-  { basin: "Rio Grande", areaSquareMiles: 49387, riverMilesInTexas: 889, averageAnnualFlowAcreFeet: 645500 },
-  { basin: "Sabine", areaSquareMiles: 7570, riverMilesInTexas: 360, averageAnnualFlowAcreFeet: 5864000 },
-  { basin: "San Antonio", areaSquareMiles: 4180, riverMilesInTexas: 238, averageAnnualFlowAcreFeet: 562700 },
-  { basin: "San Jacinto", areaSquareMiles: 3936, riverMilesInTexas: 85, averageAnnualFlowAcreFeet: 1365000 },
-  { basin: "Sulphur", areaSquareMiles: 3580, riverMilesInTexas: 200, averageAnnualFlowAcreFeet: 932700 },
-  { basin: "Trinity", areaSquareMiles: 17913, riverMilesInTexas: 550, averageAnnualFlowAcreFeet: 5727000 },
+  ["Brazos", "42,865", "840", "6,074,000"],
+  ["Canadian", "12,865", "213", "196,000"],
+  ["Colorado", "39,428", "865", "1,904,000"],
+  ["Cypress", "2,929", "75", "493,700"],
+  ["Guadalupe", "5,953", "409", "1,422,000"],
+  ["Lavaca", "2,309", "117", "277,000"],
+  ["Neches", "9,937", "416", "4,323,000"],
+  ["Nueces", "16,700", "315", "539,700"],
+  ["Red", "24,297", "695", "3,464,000"],
+  ["Rio Grande", "49,387", "889", "645,500"],
+  ["Sabine", "7,570", "360", "5,864,000"],
+  ["San Antonio", "4,180", "238", "562,700"],
+  ["San Jacinto", "3,936", "85", "1,365,000"],
+  ["Sulphur", "3,580", "200", "932,700"],
+  ["Trinity", "17,913", "550", "5,727,000"],
 ] as const;
 
 const coastalBasins = [
@@ -52,13 +52,15 @@ function csvCell(value: string) {
   return /[",\n]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value;
 }
 
+const normalizeNumber = (value: string) => value.replaceAll(",", "");
+
 const csvRows = [
-  ...majorBasins.map((row) => [
-    row.basin,
+  ...majorBasins.map(([basin, area, miles, flow]) => [
+    basin,
     "major",
-    String(row.areaSquareMiles),
-    String(row.riverMilesInTexas),
-    String(row.averageAnnualFlowAcreFeet),
+    normalizeNumber(area),
+    normalizeNumber(miles),
+    normalizeNumber(flow),
     sourceUrl,
     lastVerified,
     canonicalPage,
@@ -76,12 +78,15 @@ const jsonContent = JSON.stringify({
   lastVerified,
   canonicalPage,
   methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
-  majorBasins,
+  majorBasins: majorBasins.map(([basin, area, miles, flow]) => ({
+    basin,
+    areaInTexasSquareMiles: Number(normalizeNumber(area)),
+    riverLengthInTexasMiles: Number(normalizeNumber(miles)),
+    averageAnnualFlowAcreFeet: Number(normalizeNumber(flow)),
+  })),
   coastalBasins,
 }, null, 2);
 const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;
-
-const number = new Intl.NumberFormat("en-US");
 
 export function TexasRiverBasinReference() {
   return (
@@ -152,12 +157,12 @@ export function TexasRiverBasinReference() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {majorBasins.map((row) => (
-                  <tr key={row.basin}>
-                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">{row.basin}</th>
-                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.areaSquareMiles)}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.riverMilesInTexas)}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.averageAnnualFlowAcreFeet)}</td>
+                {majorBasins.map(([name, area, miles, flow]) => (
+                  <tr key={name}>
+                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">{name}</th>
+                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{area}</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{miles}</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{flow}</td>
                   </tr>
                 ))}
               </tbody>
