@@ -8,46 +8,51 @@ const requireText = (source, needle, label) => {
 
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
-const subscribe = read('src/routes/api.newsletter.subscribe.ts');
-const confirm = read('src/routes/api.newsletter.confirm.ts');
-const unsubscribe = read('src/routes/api.newsletter.unsubscribe.ts');
-const webhook = read('src/routes/api.newsletter.resend-webhook.ts');
+const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
+const serverEntry = read('src/server-entry.ts');
 const docs = read('docs/newsletter-infrastructure.md');
 const migration = read('supabase/migrations/20261003113000_add_texasdefined_newsletter_provider_identity.sql');
 const wrangler = read('wrangler.jsonc');
 
 for (const marker of [
-  "RESEND_API_KEY",
-  "RESEND_NEWSLETTER_SEGMENT_ID",
-  "NEWSLETTER_FROM_EMAIL",
-  "NEWSLETTER_SENDING_ENABLED",
-  "RESEND_WEBHOOK_SECRET",
-  "syncNewsletterAudienceToResend",
-  "contact.unsubscribed === true",
-  "mirrorProviderUnsubscribeToTexasDefined",
-  "{{{RESEND_UNSUBSCRIBE_URL}}}",
-  "Math.abs(Date.now() / 1000 - timestampNumber) > 300",
+  'RESEND_API_KEY',
+  'RESEND_NEWSLETTER_SEGMENT_ID',
+  'NEWSLETTER_FROM_EMAIL',
+  'NEWSLETTER_SENDING_ENABLED',
+  'RESEND_WEBHOOK_SECRET',
+  'syncNewsletterAudienceToResend',
+  'contact.unsubscribed === true',
+  'mirrorProviderUnsubscribeToTexasDefined',
+  '{{{RESEND_UNSUBSCRIBE_URL}}}',
+  'Math.abs(Date.now() / 1000 - timestampNumber) > 300',
   "crypto.subtle.sign('HMAC'",
-  "finalizeNewsletterIssueIfComplete",
+  'finalizeNewsletterIssueIfComplete',
+  'Update and send are intentionally separate',
 ]) requireText(resend, marker, 'Resend adapter');
 
 for (const marker of [
-  "{{{RESEND_UNSUBSCRIBE_URL}}}",
+  '{{{RESEND_UNSUBSCRIBE_URL}}}',
   'renderTexasDefinedNewsletter',
   'Read on TexasDefined',
   'safeHttpUrl',
 ]) requireText(template, marker, 'Newsletter template');
 
-requireText(subscribe, "NEWSLETTER_SIGNUPS_ENABLED", 'Subscribe rollout gate');
-requireText(subscribe, "createFileRoute('/api/newsletter/subscribe')", 'Subscribe API route');
-requireText(confirm, "createFileRoute('/api/newsletter/confirm')", 'Confirm API route');
-requireText(unsubscribe, "createFileRoute('/api/newsletter/unsubscribe')", 'Unsubscribe API route');
 for (const marker of [
-  "createFileRoute('/api/newsletter/resend-webhook')",
+  "NEWSLETTER_SIGNUPS_ENABLED",
+  "'/api/newsletter/subscribe'",
+  "'/api/newsletter/confirm'",
+  "'/api/newsletter/unsubscribe'",
+  "'/api/newsletter/resend-webhook'",
   'verifyResendWebhook(rawBody, request.headers)',
   'await request.text()',
-  "invalid_signature",
-]) requireText(webhook, marker, 'Resend webhook route');
+  'invalid_signature',
+  'contentLength > 2_000_000',
+]) requireText(newsletterApi, marker, 'Worker newsletter API');
+
+for (const marker of [
+  'texasDefinedNewsletterApiResponse',
+  'if (newsletterApiResponse) return newsletterApiResponse',
+]) requireText(serverEntry, marker, 'Worker entry integration');
 
 for (const marker of [
   'provider_contact_id',
