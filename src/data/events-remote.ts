@@ -3,6 +3,7 @@ import type { TexasEvent, TexasRegion } from "./types";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
+const REMOTE_EVENT_TIMEOUT_MS = 3_000;
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
@@ -67,7 +68,10 @@ export async function fetchPublishedTexasEvents(limit = 24): Promise<TexasEvent[
     order: "start_date.asc,editorial_score.desc,confidence_score.desc",
     limit: String(Math.max(1, Math.min(limit, 100))),
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/texas_events?${params}`, { headers: headers() });
+  const response = await fetch(`${supabaseUrl}/rest/v1/texas_events?${params}`, {
+    headers: headers(),
+    signal: AbortSignal.timeout(REMOTE_EVENT_TIMEOUT_MS),
+  });
   if (!response.ok) throw new Error(`Texas events request failed: ${response.status}`);
   const value = await response.json();
   if (!Array.isArray(value)) return [];
