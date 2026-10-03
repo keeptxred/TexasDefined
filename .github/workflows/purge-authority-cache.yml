@@ -149,3 +149,7 @@ jobs:
             throw new Error(`Authority canonical freshness failed:\n- ${failures.join('\n- ')}`);
           }
           NODE
+
+      - name: Verify Rivers and River Valleys canonical freshness
+        if: ${{ always() }}
+        run: node scripts/ci/verify-rivers-landscape-production.mjs
