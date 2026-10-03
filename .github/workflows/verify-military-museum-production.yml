@@ -64,6 +64,7 @@ jobs:
           fetch_assert uss-lexington '/destination/uss-lexington-museum-corpus-christi' 'USS Lexington Museum'
           fetch_assert wasp-museum '/destination/national-wasp-wwii-museum-sweetwater' 'National WASP WWII Museum'
           fetch_assert silent-wings '/destination/silent-wings-museum-lubbock' 'Silent Wings Museum'
+          fetch_assert hellcats-museum '/destination/12th-armored-division-memorial-museum' '12th Armored Division Memorial Museum'
           fetch_assert texas-history '/texas-history' 'Texas Military Museums'
 
       - name: Publish success status
