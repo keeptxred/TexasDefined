@@ -1,0 +1,60 @@
+name: Purge authority cache after production deploy
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  purge:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.head_branch == 'main' }}
+    runs-on: ubuntu-latest
+    environment: texasdefined-publication
+    env:
+      # Prefer the narrowly scoped purge token. The fallback does not broaden any
+      # credential: Cloudflare will reject it unless that existing token already
+      # has Cache Purge permission. The helper itself only purges its governed URL list.
+      CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ZONE_NAME: texasdefined.com
+      CLOUDFLARE_PURGE_METRO_PROXIMITY: 'false'
+
+    steps:
+      - name: Check out deployed revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Purge governed authority HTML
+        id: authority_purge
+        continue-on-error: true
+        run: node scripts/ci/purge-cloudflare-cache.mjs
+
+      - name: Verify governed authority canonical freshness
+        if: always()
+        id: authority_freshness
+        continue-on-error: true
+        run: node scripts/ci/verify-authority-canonical-freshness.mjs
+
+      - name: Enforce authority cache self-heal
+        if: always()
+        shell: bash
+        env:
+          PURGE_OUTCOME: ${{ steps.authority_purge.outcome }}
+          FRESHNESS_OUTCOME: ${{ steps.authority_freshness.outcome }}
+        run: |
+          if [[ "${PURGE_OUTCOME}" != 'success' || "${FRESHNESS_OUTCOME}" != 'success' ]]; then
+            echo "::error title=Authority cache self-heal failed::purge=${PURGE_OUTCOME:-not-run}, freshness=${FRESHNESS_OUTCOME:-not-run}. The canonical authority pages were not proven fresh after deployment."
+            exit 1
+          fi
+          echo 'Authority cache purge completed and governed canonical pages are fresh.'
