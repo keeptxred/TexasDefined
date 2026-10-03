@@ -1,9 +1,85 @@
-import {
-  texasCoastalRiverBasins,
-  texasMajorRiverBasins,
-  texasRiverBasinHighlights,
-  texasRiverBasinReferenceMetadata,
-} from "@/data/texas-river-basin-reference";
+const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
+const lastVerified = "2026-10-03";
+const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
+
+const majorBasins = [
+  { basin: "Brazos", areaSquareMiles: 42865, riverMilesInTexas: 840, averageAnnualFlowAcreFeet: 6074000 },
+  { basin: "Canadian", areaSquareMiles: 12865, riverMilesInTexas: 213, averageAnnualFlowAcreFeet: 196000 },
+  { basin: "Colorado", areaSquareMiles: 39428, riverMilesInTexas: 865, averageAnnualFlowAcreFeet: 1904000 },
+  { basin: "Cypress", areaSquareMiles: 2929, riverMilesInTexas: 75, averageAnnualFlowAcreFeet: 493700 },
+  { basin: "Guadalupe", areaSquareMiles: 5953, riverMilesInTexas: 409, averageAnnualFlowAcreFeet: 1422000 },
+  { basin: "Lavaca", areaSquareMiles: 2309, riverMilesInTexas: 117, averageAnnualFlowAcreFeet: 277000 },
+  { basin: "Neches", areaSquareMiles: 9937, riverMilesInTexas: 416, averageAnnualFlowAcreFeet: 4323000 },
+  { basin: "Nueces", areaSquareMiles: 16700, riverMilesInTexas: 315, averageAnnualFlowAcreFeet: 539700 },
+  { basin: "Red", areaSquareMiles: 24297, riverMilesInTexas: 695, averageAnnualFlowAcreFeet: 3464000 },
+  { basin: "Rio Grande", areaSquareMiles: 49387, riverMilesInTexas: 889, averageAnnualFlowAcreFeet: 645500 },
+  { basin: "Sabine", areaSquareMiles: 7570, riverMilesInTexas: 360, averageAnnualFlowAcreFeet: 5864000 },
+  { basin: "San Antonio", areaSquareMiles: 4180, riverMilesInTexas: 238, averageAnnualFlowAcreFeet: 562700 },
+  { basin: "San Jacinto", areaSquareMiles: 3936, riverMilesInTexas: 85, averageAnnualFlowAcreFeet: 1365000 },
+  { basin: "Sulphur", areaSquareMiles: 3580, riverMilesInTexas: 200, averageAnnualFlowAcreFeet: 932700 },
+  { basin: "Trinity", areaSquareMiles: 17913, riverMilesInTexas: 550, averageAnnualFlowAcreFeet: 5727000 },
+] as const;
+
+const coastalBasins = [
+  "Neches-Trinity",
+  "Trinity-San Jacinto",
+  "San Jacinto-Brazos",
+  "Brazos-Colorado",
+  "Colorado-Lavaca",
+  "Lavaca-Guadalupe",
+  "San Antonio-Nueces",
+  "Nueces-Rio Grande",
+] as const;
+
+const basinHighlights = [
+  { label: "Largest basin in Texas", value: "Rio Grande", detail: "49,387 sq. mi. in Texas" },
+  { label: "Longest Texas reach", value: "Rio Grande", detail: "889 river miles in Texas" },
+  { label: "Highest average flow", value: "Brazos", detail: "6.074 million acre-feet/year" },
+] as const;
+
+const csvHeaders = [
+  "basin",
+  "basin_type",
+  "area_in_texas_square_miles",
+  "river_length_in_texas_miles",
+  "average_annual_flow_acre_feet",
+  "source_url",
+  "last_verified",
+  "canonical_page",
+] as const;
+
+function csvCell(value: string) {
+  return /[",\n]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value;
+}
+
+const csvRows = [
+  ...majorBasins.map((row) => [
+    row.basin,
+    "major",
+    String(row.areaSquareMiles),
+    String(row.riverMilesInTexas),
+    String(row.averageAnnualFlowAcreFeet),
+    sourceUrl,
+    lastVerified,
+    canonicalPage,
+  ]),
+  ...coastalBasins.map((basin) => [basin, "coastal", "", "", "", sourceUrl, lastVerified, canonicalPage]),
+];
+
+const csvContent = `${csvHeaders.join(",")}\n${csvRows.map((row) => row.map(csvCell).join(",")).join("\n")}\n`;
+const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;
+
+const jsonContent = JSON.stringify({
+  name: "Texas river basin reference",
+  description: "Texas Defined reference data for the 15 major Texas river basins and eight coastal basins.",
+  source: { name: "Texas Water Development Board", url: sourceUrl },
+  lastVerified,
+  canonicalPage,
+  methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
+  majorBasins,
+  coastalBasins,
+}, null, 2);
+const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;
 
 const number = new Intl.NumberFormat("en-US");
 
@@ -17,7 +93,7 @@ export function TexasRiverBasinReference() {
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-primary">
           <a
-            href={texasRiverBasinReferenceMetadata.sourceUrl}
+            href={sourceUrl}
             target="_blank"
             rel="noreferrer"
             className="underline decoration-border underline-offset-4"
@@ -25,13 +101,15 @@ export function TexasRiverBasinReference() {
             Texas Water Development Board data ↗
           </a>
           <a
-            href="/texas-river-basins.csv"
+            href={csvDownloadHref}
+            download="texasdefined-texas-river-basins.csv"
             className="underline decoration-border underline-offset-4"
           >
             Download CSV ↓
           </a>
           <a
-            href="/texas-river-basins.json"
+            href={jsonDownloadHref}
+            download="texasdefined-texas-river-basins.json"
             className="underline decoration-border underline-offset-4"
           >
             Download JSON ↓
@@ -44,7 +122,7 @@ export function TexasRiverBasinReference() {
       </p>
 
       <dl className="mt-5 flex flex-wrap gap-2">
-        {texasRiverBasinHighlights.map((item) => (
+        {basinHighlights.map((item) => (
           <div key={item.label} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold">
             <dt className="text-muted-foreground">{item.label}</dt>
             <dd className="mt-2 font-display text-xl text-foreground">{item.value}</dd>
@@ -74,7 +152,7 @@ export function TexasRiverBasinReference() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {texasMajorRiverBasins.map((row) => (
+                {majorBasins.map((row) => (
                   <tr key={row.basin}>
                     <th scope="row" className="px-4 py-3 font-semibold text-foreground">{row.basin}</th>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.areaSquareMiles)}</td>
@@ -93,7 +171,7 @@ export function TexasRiverBasinReference() {
         <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
         <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast is still part of the statewide watershed story.</p>
         <ul className="mt-3 flex flex-wrap gap-2" aria-label="Eight designated Texas coastal basins">
-          {texasCoastalRiverBasins.map((basin) => (
+          {coastalBasins.map((basin) => (
             <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground">
               {basin}
             </li>
