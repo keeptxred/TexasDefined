@@ -1,12 +1,12 @@
 import { CitationTrustPanel } from "@/components/authority/CitationTrustPanel";
 import { unusualBusinessAuthorityProfile } from "@/data/unusual-business-authority";
 
-export function UnusualBusinessAuthorityPanel({ slug, title }: { slug: string; title: string }) {
+export function UnusualBusinessAuthorityPanel({ slug }: { slug: string }) {
   const profile = unusualBusinessAuthorityProfile(slug);
   if (!profile) return null;
 
   const stableUrl = `https://texasdefined.com${profile.canonicalPath}`;
-  const recommendedCitation = `Texas Defined Editorial Desk. “${title}.” TexasDefined.com. Last verified ${profile.lastVerified}. ${stableUrl}`;
+  const recommendedCitation = `Texas Defined Editorial Desk. “${profile.title}.” TexasDefined.com. Last verified ${profile.lastVerified}. ${stableUrl}`;
 
   return (
     <div className="mt-8 space-y-8">
