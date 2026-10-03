@@ -53,7 +53,7 @@ for (const marker of [
   'Largest basin in Texas',
   'Longest Texas reach',
   'Highest average flow',
-  '<details className="group mt-5',
+  '<details className="mt-5',
   'Open the full 15-basin comparison',
   'Eight coastal basins drain directly toward bays and the Gulf',
 ]) if (!basinReference.includes(marker)) errors.push(`Texas river basin reference presentation contract missing: ${marker}`);
