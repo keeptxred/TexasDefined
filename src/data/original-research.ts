@@ -1,4 +1,6 @@
 export type TexasDefinedResearchDomain = 'counties' | 'property-tax' | 'fishing' | 'state-parks' | 'rivers' | 'football' | 'wildlife' | 'historic-sites';
+export type TexasDefinedResearchPath = '/texas-data/county-growth' | '/texas-data/property-tax-changes' | '/texas-data/lake-game-fish-diversity';
+export type TexasDefinedResearchCsvPath = '/texas-data/county-growth.csv' | '/texas-data/property-tax-changes.csv' | '/texas-data/lake-game-fish-diversity.csv';
 
 export type TexasDefinedResearchBrief = {
   slug: string;
@@ -6,8 +8,8 @@ export type TexasDefinedResearchBrief = {
   question: string;
   description: string;
   domain: TexasDefinedResearchDomain;
-  path: string;
-  csvPath: string;
+  path: TexasDefinedResearchPath;
+  csvPath: TexasDefinedResearchCsvPath;
   sourceName: string;
   updated: string;
   updateCadence: string;
