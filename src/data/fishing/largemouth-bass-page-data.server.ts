@@ -10,12 +10,23 @@ const qualityScore = { excellent: 40, good: 30, fair: 20, poor: 10, unknown: 0 }
 const prominenceScore = { primary: 6, secondary: 3, present: 1 } as const;
 const canonicalPath = fishingSpeciesCanonicalPath("largemouth-bass");
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+const largemouthBassHeroImage = {
+  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Largemouth%20Bass%20%28Micropterus%20salmoides%29%20%2853118577249%29.jpg?width=1280",
+  alt: "Largemouth bass in side view",
+  width: 1280,
+  height: 723,
+  sourceName: "Wikimedia Commons / U.S. Fish & Wildlife Service",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Largemouth_Bass_(Micropterus_salmoides)_(53118577249).jpg",
+  creator: "USFWS Mountain-Prairie / Sam Stukel",
+  licenseName: "Public domain — U.S. federal government work",
+  credit: "Sam Stukel / U.S. Fish & Wildlife Service · Public domain",
+} as const;
 
 function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargemouthBassPageData>>) {
   const url = `${siteUrl}${canonicalPath}`;
-  const { species, profile } = pageData;
-  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile.verifiedAt, citation: profile.sources.map((source) => source.url) };
-  const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, sameAs: profile.sources[0]?.url };
+  const { species, profile, heroImage } = pageData;
+  const webPage = { "@type": "WebPage", "@id": url, url, name: "Largemouth Bass Fishing in Texas", description: profile.overview, image: heroImage.src, isPartOf: { "@id": `${siteUrl}/#website` }, mainEntity: { "@id": `${url}#species` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, dateModified: profile.verifiedAt, citation: profile.sources.map((source) => source.url) };
+  const speciesEntity = { "@type": "Thing", "@id": `${url}#species`, name: species.commonName, alternateName: species.aliases, description: species.summary, image: heroImage.src, sameAs: profile.sources[0]?.url };
   const breadcrumb = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
     { "@type": "ListItem", position: 2, name: "Fishing", item: `${siteUrl}/fishing` },
@@ -23,7 +34,16 @@ function buildLargemouthBassHead(pageData: Awaited<ReturnType<typeof buildLargem
     { "@type": "ListItem", position: 4, name: "Largemouth bass", item: url },
   ] };
   return {
-    meta: buildMeta(texasDefinedBrand, { title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes", description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, ranked lakes, regulations and verified guide listings.", canonicalPath }),
+    meta: buildMeta(texasDefinedBrand, {
+      title: "Largemouth Bass Fishing in Texas — Seasons, Tactics & Best Lakes",
+      description: "Fish largemouth bass across Texas with source-backed habitat, seasonal patterns, techniques, tackle, lures, ranked lakes, regulations and verified guide listings.",
+      canonicalPath,
+      image: heroImage.src,
+      imageAlt: heroImage.alt,
+      imageWidth: heroImage.width,
+      imageHeight: heroImage.height,
+      imageType: "image/jpeg",
+    }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPage, speciesEntity, breadcrumb] }) }],
   };
@@ -69,6 +89,7 @@ async function buildLargemouthBassPageData() {
   return {
     species,
     profile: largemouthBassEditorialProfile,
+    heroImage: largemouthBassHeroImage,
     rankedLakes,
     recommendedTechniques,
     relatedSpecies,
