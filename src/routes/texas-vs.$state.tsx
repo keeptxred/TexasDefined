@@ -83,9 +83,8 @@ function TexasVsStatePage() {
     <section className="py-12 md:py-16">
       <Container>
         <div className="max-w-4xl divide-y divide-border">
-          {sections.map((section, index) => <section key={section.heading} className="py-8 first:pt-0">
-            <p className="eyebrow text-muted-foreground">{String(index + 1).padStart(2, "0")}</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">{section.heading}</h2>
+          {sections.map((section) => <section key={section.heading} className="py-8 first:pt-0">
+            <h2 className="font-display text-3xl md:text-4xl">{section.heading}</h2>
             <p className="mt-4 leading-8 text-muted-foreground">{section.body}</p>
           </section>)}
           <section className="py-8">
