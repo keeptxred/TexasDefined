@@ -4,6 +4,15 @@ const read = (path) => readFile(path, 'utf8');
 const growthRoute = await read('src/routes/texas-data.county-growth.tsx');
 const growthContent = await read('src/components/data/CountyGrowthContent.tsx');
 const growthCsv = await read('src/routes/texas-data.county-growth[.]csv.ts');
+const taxChangeRoute = await read('src/routes/texas-data.property-tax-changes.tsx');
+const taxChangeContent = await read('src/components/data/PropertyTaxChangesContent.tsx');
+const taxChangeCsv = await read('src/routes/texas-data.property-tax-changes[.]csv.ts');
+const lakeDiversityRoute = await read('src/routes/texas-data.lake-game-fish-diversity.tsx');
+const lakeDiversityContent = await read('src/components/data/LakeGameFishDiversityContent.tsx');
+const lakeDiversityCsv = await read('src/routes/texas-data.lake-game-fish-diversity[.]csv.ts');
+const researchRoute = await read('src/routes/texas-data.research.tsx');
+const researchRegistry = await read('src/data/original-research.ts');
+const texasDataLanding = await read('src/routes/texas-data.lazy.tsx');
 const cityCountyRoute = await read('src/routes/texas-data.city-county-relationships.tsx');
 const cityCountyCsv = await read('src/routes/texas-data.city-county-relationships[.]csv.ts');
 const sportsRoute = await read('src/routes/sports-venues.compare.tsx');
@@ -28,8 +37,16 @@ const expect = (condition, message) => { if (!condition) errors.push(message); }
 for (const token of [
   "encodingFormat: 'text/csv'",
   "contentUrl: absoluteUrl(texasDefinedBrand, '/texas-data/county-growth.csv')",
+  "measurementTechnique:",
+  "dateModified: '2026-10-03'",
 ]) expect(growthRoute.includes(token), `county-growth Dataset distribution missing: ${token}`);
-expect(growthContent.includes('href="/texas-data/county-growth.csv"'), 'county-growth page must expose a visible CSV download link');
+for (const token of [
+  'href="/texas-data/county-growth.csv"',
+  'Complete dataset',
+  'recommendedCitation=',
+  'nextReview=',
+  'All Texas counties',
+]) expect(growthContent.includes(token), `county-growth research presentation missing: ${token}`);
 for (const token of [
   "createFileRoute('/texas-data/county-growth.csv')",
   "'content-type': 'text/csv; charset=utf-8'",
@@ -39,6 +56,61 @@ for (const token of [
   'status: 503',
   'population_change_percent',
 ]) expect(growthCsv.includes(token), `county-growth CSV contract missing: ${token}`);
+
+for (const token of [
+  "createFileRoute('/texas-data/property-tax-changes')",
+  "encodingFormat: 'text/csv'",
+  "contentUrl: absoluteUrl(texasDefinedBrand, csvPath)",
+  'measurementTechnique:',
+  "name: 'Original Research'",
+]) expect(taxChangeRoute.includes(token), `property-tax research Dataset contract missing: ${token}`);
+for (const token of [
+  'href="/texas-data/property-tax-changes.csv"',
+  'Complete matched dataset',
+  'recommendedCitation=',
+  'nextReview=',
+  'A rate change is not the same thing as a change in an individual tax bill',
+]) expect(taxChangeContent.includes(token), `property-tax research presentation missing: ${token}`);
+for (const token of [
+  "createFileRoute('/texas-data/property-tax-changes.csv')",
+  "'content-type': 'text/csv; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  'rate_point_change',
+  'rate_change_percent',
+]) expect(taxChangeCsv.includes(token), `property-tax research CSV contract missing: ${token}`);
+
+for (const token of [
+  "createFileRoute('/texas-data/lake-game-fish-diversity')",
+  "encodingFormat: 'text/csv'",
+  "contentUrl: absoluteUrl(texasDefinedBrand, csvPath)",
+  'measurementTechnique:',
+  "name: 'Original Research'",
+]) expect(lakeDiversityRoute.includes(token), `lake-diversity Dataset contract missing: ${token}`);
+for (const token of [
+  'href="/texas-data/lake-game-fish-diversity.csv"',
+  'Complete dataset',
+  'recommendedCitation=',
+  'nextReview=',
+  'documented fishing targets, not a biological species census',
+]) expect(lakeDiversityContent.includes(token), `lake-diversity research presentation missing: ${token}`);
+for (const token of [
+  "createFileRoute('/texas-data/lake-game-fish-diversity.csv')",
+  "'content-type': 'text/csv; charset=utf-8'",
+  "'x-robots-tag': 'noindex, follow'",
+  'documented_target_count',
+  'targets_per_1000_acres',
+  'source_urls',
+]) expect(lakeDiversityCsv.includes(token), `lake-diversity research CSV contract missing: ${token}`);
+
+for (const token of [
+  "createFileRoute('/texas-data/research')",
+  "'@type': ['CollectionPage', 'DataCatalog']",
+  'TEXASDEFINED_RESEARCH_BRIEFS.map',
+  'Built to be checked and cited',
+  'Reusable research engine',
+]) expect(researchRoute.includes(token), `original research hub missing: ${token}`);
+for (const token of ['county-growth', 'property-tax-changes', 'lake-game-fish-diversity', 'TEXASDEFINED_RESEARCH_EXTENSION_DOMAINS']) expect(researchRegistry.includes(token), `original research registry missing: ${token}`);
+for (const token of ['TexasDefined Research', '/texas-data/research', 'TEXASDEFINED_RESEARCH_BRIEFS.map', 'CSV ↓']) expect(texasDataLanding.includes(token), `Texas Data landing research discovery missing: ${token}`);
 
 for (const token of [
   "encodingFormat: 'text/csv'",
@@ -180,4 +252,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Citation dataset download validation passed: growth, city-county, sports-venue, Top-25 and Things-That-Define-Texas CSV/JSON distributions remain visible, noindex, source-aligned and machine-readable.');
+console.log('Citation dataset download validation passed: original research, growth, city-county, sports-venue, Top-25 and Things-That-Define-Texas distributions remain visible, source-aligned and machine-readable.');
