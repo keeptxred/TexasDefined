@@ -7,7 +7,7 @@ export type CitationSource = {
 };
 
 export interface CitationTrustPanelProps {
-  sources: CitationSource[];
+  sources: readonly CitationSource[];
   methodology: string;
   lastVerified: string;
   title?: string;
