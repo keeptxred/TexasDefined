@@ -34,7 +34,7 @@ export const Route = createFileRoute(canonicalPath)({
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
           name: "Mountain Biking in Texas: 5 Public Trail Systems & Where to Ride",
-          description: "Compare five Texas public mountain-biking systems with trail mileage, terrain, route ideas and official maps.",
+          description: "Compare five Texas mountain-biking trail systems and official maps.",
           image: absoluteUrl(texasDefinedBrand, heroImage.src),
           isPartOf: { "@id": `${siteUrl}/#website` },
           mainEntity: { "@type": "ItemList", "@id": `${pageUrl}#trail-systems`, numberOfItems: itemListElement.length, itemListElement },
