@@ -123,9 +123,11 @@ export const Route = createFileRoute(canonicalPath)({
           "@id": `${absoluteUrl(texasDefinedBrand, canonicalPath)}#lighthouses`,
           name: "Texas lighthouse locations",
           description: "Sourced geographic points for surviving, relocated and historically important Texas Gulf Coast lighthouses.",
-          spatialCoverage: { "@type": "State", name: "Texas" },
+          spatialCoverage: { "@type": "AdministrativeArea", name: "Texas" },
+          creator: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
+          publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
           variableMeasured: ["latitude", "longitude", "public access", "county", "historic era"],
-          distribution: texasLighthouseMapPoints.map((point) => ({
+          hasPart: texasLighthouseMapPoints.map((point) => ({
             "@type": "Place",
             name: point.name,
             url: point.articleHref ? `${siteUrl}${point.articleHref}` : `${siteUrl}${canonicalPath}`,

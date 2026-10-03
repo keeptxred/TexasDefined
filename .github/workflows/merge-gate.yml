@@ -61,6 +61,27 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
 
+      - name: Capture built client asset sizes
+        if: always()
+        run: |
+          if [ -d dist/client/assets ]; then
+            find dist/client/assets -maxdepth 1 -type f -printf '%f %s\n' | sort > client-asset-sizes.txt
+          elif [ -d .output/public/assets ]; then
+            find .output/public/assets -maxdepth 1 -type f -printf '%f %s\n' | sort > client-asset-sizes.txt
+          else
+            printf 'Client assets directory not found.\n' > client-asset-sizes.txt
+          fi
+
+      - name: Upload pre-merge diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: premerge-validation-diagnostics
+          path: |
+            premerge-validation-report.json
+            client-asset-sizes.txt
+          if-no-files-found: warn
+
   protected-context:
     name: Required Merge Gate
     needs: required
