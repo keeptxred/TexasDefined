@@ -169,7 +169,7 @@ function TexasMountainBikingGuidePage() {
             <h2 id="compare-rides" className="mt-2 font-display text-4xl">Five Texas trail systems at a glance</h2>
             <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">If you only need the decision-making version of this guide, start here. Trail status can change, so the official map linked inside each section should still be your final check.</p>
             <div className="mt-7 overflow-x-auto border border-border">
-              <table className="min-w-[900px] w-full border-collapse text-left text-sm">
+              <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "900px" }}>
                 <thead className="bg-muted/50">
                   <tr>
                     <th className="border-b border-border p-4 font-semibold">Trail system</th>
