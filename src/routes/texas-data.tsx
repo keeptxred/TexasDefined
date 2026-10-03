@@ -13,6 +13,8 @@ export const researchBriefs = [
   ['Texas counties gaining population fastest', '/texas-data/county-growth', '/texas-data/county-growth.csv', 'Census Vintage 2025 county estimates ranked by percentage growth and absolute gain.'],
   ['Texas property-tax rate changes', '/texas-data/property-tax-changes', '/texas-data/property-tax-changes.csv', 'Year-over-year adopted-rate changes for comparable counties, cities and school districts.'],
   ['Texas lake game-fish diversity', '/texas-data/lake-game-fish-diversity', '/texas-data/lake-game-fish-diversity.csv', 'Documented fishing-target diversity across verified TexasDefined lake profiles.'],
+  ['How far Texas counties are from a state park', '/texas-data/state-park-access', '/texas-data/state-park-access.csv', 'Straight-line county reference-point distance to the nearest verified TPWD state-park profile.'],
+  ['Texas high-school football programs by UIL region', '/texas-data/high-school-football-regions', '/texas-data/high-school-football-regions.csv', 'Complete 2026–28 UIL football program distribution across competitive Regions I–IV.'],
 ] as const;
 
 export const nextStops = [
@@ -23,6 +25,8 @@ export const nextStops = [
   ['County population growth', '/texas-data/county-growth', 'Compare Census Vintage 2025 county population change from the 2020 estimates base to July 1, 2025.'],
   ['Property-tax rate changes', '/texas-data/property-tax-changes', 'Compare matched year-over-year adopted rates across counties, cities and school districts.'],
   ['Lake game-fish diversity', '/texas-data/lake-game-fish-diversity', 'Compare the documented fishing-target mix across verified Texas lake profiles.'],
+  ['State-park access by county', '/texas-data/state-park-access', 'Compare county Census reference-point distance to the nearest verified TPWD state-park profile.'],
+  ['High-school football by UIL region', '/texas-data/high-school-football-regions', 'Compare all 1,268 programs in the 2026–28 alignment across Regions I–IV and classifications.'],
   ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'],
   ['Compare sports venues', sportsComparisonPath, 'Compare 84 verified Texas sports venue guides by location, type, capacity and opening information where available.'],
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
