@@ -129,7 +129,6 @@ function Page() {
           { label: 'Enrollment range', value: `${formatEnrollment(enrollmentLow)}–${formatEnrollment(enrollmentHigh)}` },
           { label: 'Alignment cycle', value: '2026–28' },
         ]}
-        dataDownloads={[{ label: 'Statewide UIL football programs', url: '/texas-data/high-school-football-programs.csv', format: 'CSV' }]}
       />
     </article>
   </Container>;
