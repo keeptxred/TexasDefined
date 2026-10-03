@@ -70,6 +70,18 @@ Use a dedicated sending subdomain such as `news.texasdefined.com` for Resend ins
 
 Domain verification, Resend API-key creation, segment creation, webhook registration, and production secrets are external-provider setup steps and are not performed merely by deploying this repository.
 
+## Server-only issue composer
+
+`newsletter-compose.server.ts` is the pre-UI composition layer. It accepts a validated issue label, subject/preheader, headline, intro, one to twelve story cards, optional closing text, sender metadata, audience metadata, and operator metadata.
+
+- `previewTexasDefinedNewsletterDraft` renders the branded HTML and plain-text bodies without creating a database row or contacting Resend.
+- `saveTexasDefinedNewsletterDraft` renders the same bodies and stores them through the canonical draft issue service.
+- Duplicate story URLs are removed before rendering.
+- Story URLs are normalized to HTTP(S), and the underlying template escapes editorial text before inserting it into HTML.
+- Saved content retains the structured story selection plus a composer/version marker, so a future admin editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
+
+The composer is intentionally server-only. It does not add an admin page, public route, signup form, provider call, or sending side effect.
+
 ## Resend issue lifecycle
 
 Server-only newsletter services can:
