@@ -12,6 +12,10 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
   Washington: "WA", "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY",
 };
 
+const STATE_SPRITE_URL =
+  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg";
+const STATE_SPRITE_PATH = `/media/remote?url=${encodeURIComponent(STATE_SPRITE_URL)}`;
+
 function StateOutline({ state }: { state: string }) {
   const abbreviation = STATE_ABBREVIATIONS[state];
   if (!abbreviation) return null;
@@ -31,7 +35,7 @@ function StateOutline({ state }: { state: string }) {
       }}
     >
       <use
-        href={`/state-outlines.xml#icon-state-${abbreviation}`}
+        href={`${STATE_SPRITE_PATH}#icon-state-${abbreviation}`}
         x="0"
         y="0"
         width="100"
