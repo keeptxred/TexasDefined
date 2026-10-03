@@ -17,38 +17,28 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
   loader: async ({ context, params }) => {
-    const { buildTpwdReportSourceSummary, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, getLatestTpwdFishingReport, mergeOfficialTpwdFishingReport } = await import("@/data/fishing/queries");
+    const { fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     if (params.slug === LAKE_CONROE_SLUG) {
       if (!isLakeConroeSection(params.section)) throw notFound();
       const pageData = await getLakeConroePageData();
-      const [storedReports, guides, officialReport] = await Promise.all([
-        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
+      const [reports, guides] = await Promise.all([
+        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, params.section === "reports" ? lake : undefined)),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
-        params.section === "reports" ? getLatestTpwdFishingReport({ data: { sourceUrl: pageData.sources.tpwdReport.url } }) : Promise.resolve(null),
       ]);
-      const reports = mergeOfficialTpwdFishingReport(lake, storedReports, officialReport);
-      const hydratedPageData = params.section === "reports"
-        ? { ...pageData, reportSnapshot: { ...pageData.reportSnapshot, summary: buildTpwdReportSourceSummary(officialReport) } }
-        : pageData;
-      return { kind: "conroe" as const, lake, reports, guides, pageData: hydratedPageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
+      return { kind: "conroe" as const, lake, reports, guides, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
     }
     if (!isShowcaseLakeSlug(params.slug) || !isShowcaseLakeSection(params.section)) throw notFound();
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
-    const [storedReports, guides, businesses, placements, officialReport] = await Promise.all([
-      context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
+    const [reports, guides, businesses, placements] = await Promise.all([
+      context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, params.section === "reports" ? lake : undefined)),
       context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })),
-      params.section === "reports" ? getLatestTpwdFishingReport({ data: { sourceUrl: pageData.sources.tpwdLake.url } }) : Promise.resolve(null),
     ]);
-    const reports = mergeOfficialTpwdFishingReport(lake, storedReports, officialReport);
-    const hydratedPageData = params.section === "reports"
-      ? { ...pageData, reportSnapshot: { ...pageData.reportSnapshot, summary: buildTpwdReportSourceSummary(officialReport) } }
-      : pageData;
-    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData: hydratedPageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
+    return { kind: "showcase" as const, lake, reports, guides, businesses, placements, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Fishing guide unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
