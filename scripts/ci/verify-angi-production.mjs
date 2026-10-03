@@ -95,6 +95,8 @@ try {
     '["/article/true-cost-of-owning-a-home-in-texas", null]',
     '["/article/texas-wildfire-home-protection-guide", null]',
     '["/article/texas-home-architecture-regions", null]',
+    '["/moving-to-texas/data", null]',
+    '["/moving-to-texas/tools", null]',
     'pageServiceOverrides.has(normalizedPathname)',
   ]) {
     requireCondition(moduleSource.includes(needle), `Deployed Angi module is missing governed marker: ${needle}`);
