@@ -17,8 +17,11 @@ const OWN_IMAGE = /^https:\/\/(?:www\.)?texasdefined\.com(\/[^#]*)/i;
 // editorial library continues to use governed same-origin remote-image delivery.
 const BROWSER_DIRECT_WIKIMEDIA_PATHS = new Set([
   "/wikipedia/commons/a/a6/Bart_Coan_Field_from_west.jpg",
+  "/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/1280px-Bart_Coan_Field_from_west.jpg",
   "/wikipedia/commons/f/fa/Six-man_football_battle.jpg",
+  "/wikipedia/commons/thumb/f/fa/Six-man_football_battle.jpg/1280px-Six-man_football_battle.jpg",
   "/wikipedia/commons/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg",
+  "/wikipedia/commons/thumb/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg/1280px-Whitharral_Texas_Panthers_six-man_football_2010.jpg",
   "/wikipedia/commons/5/5e/Six_man_field.png",
 ]);
 
