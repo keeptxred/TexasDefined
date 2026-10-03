@@ -110,6 +110,17 @@ function buildLandscapePageHead(item: (typeof enrichedTexasLandscapeProfiles)[nu
   };
 }
 
+function balancedLandscapePeers(slug: string, limit = 6) {
+  const currentIndex = texasLandscapeCatalog.findIndex((item) => item.slug === slug);
+  if (currentIndex < 0 || texasLandscapeCatalog.length <= 1) return [];
+
+  return Array.from({ length: Math.min(limit, texasLandscapeCatalog.length - 1) }, (_, offset) => {
+    const peerIndex = (currentIndex + offset + 1) % texasLandscapeCatalog.length;
+    const peer = texasLandscapeCatalog[peerIndex];
+    return { slug: peer.slug, name: peer.name, dek: peer.dek };
+  });
+}
+
 export function loadTexasLandscapeHubServer() {
   return {
     landscapes: texasLandscapeCatalog,
@@ -127,12 +138,7 @@ export function loadTexasLandscapePageServer(slug: string) {
 
   return {
     item,
-    nearby: 'name' in item
-      ? texasLandscapeCatalog
-        .filter((landscape) => landscape.slug !== item.slug)
-        .slice(0, 6)
-        .map(({ slug: nearbySlug, name, dek }) => ({ slug: nearbySlug, name, dek }))
-      : [],
+    nearby: 'name' in item ? balancedLandscapePeers(item.slug) : [],
     head: buildLandscapePageHead(item),
   };
 }
