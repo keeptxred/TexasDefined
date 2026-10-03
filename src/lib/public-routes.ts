@@ -221,6 +221,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/start-a-business-in-texas",
   "/texas-explained",
   "/texas-data",
+  "/texas-data/research",
   "/texas-data/city-county-relationships",
   "/county",
   "/property-tax-guides",
@@ -313,6 +314,8 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/fishing/services",
   "/texas-icons",
   "/texas-data/county-growth",
+  "/texas-data/property-tax-changes",
+  "/texas-data/lake-game-fish-diversity",
   "/texas-data/county-housing-costs",
 ] as const;
 
@@ -444,6 +447,8 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/painted-churches.json",
   "/painted-churches-checklist.txt",
   "/texas-data/county-growth.csv",
+  "/texas-data/property-tax-changes.csv",
+  "/texas-data/lake-game-fish-diversity.csv",
   "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
 ] as const;
