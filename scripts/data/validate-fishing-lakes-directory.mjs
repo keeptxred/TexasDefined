@@ -4,10 +4,9 @@ import path from "node:path";
 const root = process.cwd();
 const read = (file) => fs.readFile(path.join(root, file), "utf8");
 
-const [route, component, csvRoute, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes] = await Promise.all([
+const [route, component, hubRoute, hubComponent, slugs, sitemap, search, publicRoutes] = await Promise.all([
   read("src/routes/fishing.lakes.tsx"),
   read("src/components/fishing/FishingLakesDirectory.tsx"),
-  read("src/routes/fishing.lakes[.]csv.ts"),
   read("src/routes/fishing.tsx"),
   read("src/components/fishing/FishingHub.tsx"),
   read("src/data/fishing/slugs.ts"),
@@ -27,9 +26,6 @@ for (const marker of [
   'isCompleteFishingLakeSlug(lake.slug)',
   '"@type": "CollectionPage"',
   '"@type": "Dataset"',
-  '"@type": "DataDownload"',
-  'encodingFormat: "text/csv"',
-  'contentUrl: csvUrl',
   '"@type": "ItemList"',
   '"@type": "FAQPage"',
   '"@type": "BreadcrumbList"',
@@ -46,26 +42,20 @@ for (const marker of [
   'Is this every lake in Texas?',
   'Search and compare Texas lakes',
   'Interactive map',
-  'Download full CSV',
+  'Download filtered CSV',
   'Derived TexasDefined views',
   'Most represented fish targets',
   'thin pages',
   'complete, source-backed lake records',
   "fishingFoundationAnchor('lake', lake.slug)",
   'CitationTrustPanel',
-]) assert(component.includes(marker), `Fishing lakes UI is missing citation-database quality marker: ${marker}.`);
-
-for (const marker of [
-  "createFileRoute('/fishing/lakes.csv')",
-  "'content-type': 'text/csv; charset=utf-8'",
-  "'x-robots-tag': 'noindex, follow'",
+  'downloadLakeCsv',
   'texasdefined-texas-lakes-database.csv',
   'surface_acres',
   'maximum_depth_feet',
   'river_basin',
   'source_urls',
-  'isCompleteFishingLakeSlug(lake.slug)',
-]) assert(csvRoute.includes(marker), `Fishing lakes CSV is missing distribution/source marker: ${marker}.`);
+]) assert(component.includes(marker), `Fishing lakes UI is missing citation-database/export marker: ${marker}.`);
 
 for (const forbidden of [
   '@/data/fishing/fixtures',
@@ -114,4 +104,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Fishing lakes database validated: 41 completed lake records remain query-backed and quality-gated, with Dataset metadata, interactive comparison and a source-aligned CSV distribution.");
+console.log("Fishing lakes database validated: 41 completed lake records remain query-backed and quality-gated, with Dataset metadata, interactive comparison and a source-aligned client CSV export.");
