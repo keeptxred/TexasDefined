@@ -237,7 +237,7 @@ function CityPassTexasGuide() {
     <Section>
       <Container>
         <SectionHeader eyebrow="CityPASS® FAQ" title="The details that matter before checkout" />
-        <div className="mt-10 grid gap-x-12 gap-y-8 lg:grid-cols-2">
+        <div className="mt-10 grid gap-x-12 gap-y-6 lg:grid-cols-2">
           <Faq question="How long is a Texas CityPASS valid?" answer="Dallas, Houston and San Antonio CityPASS tickets are currently valid for nine consecutive days, starting with and including the first attraction visit or earliest reservation. CityPASS also says you have one year from purchase to start using these non-theme-park products." />
           <Faq question="Do I choose my attractions before buying?" answer="No. CityPASS says you can decide which attractions to visit after purchase. Make required or recommended reservations as soon as practical once you have your tickets." />
           <Faq question="Can I get a refund?" answer="CityPASS's current general policy offers a full refund for entirely unused eligible products within 365 days of purchase. Partially used products are not refundable, and existing reservations must be canceled or will be canceled as part of the refund process. Check the current policy before purchase." />
