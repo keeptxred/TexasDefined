@@ -12,6 +12,8 @@ export const dataHubNavigationPaths = {
   cities: '/browse/cities',
   explore: '/explore',
   resources: '/texas-resources',
+  countyGrowth: '/texas-data/county-growth',
+  cityCountyRelationships: '/texas-data/city-county-relationships',
 } as const;
 export const countyHousingNextStop = ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'] as const;
 
