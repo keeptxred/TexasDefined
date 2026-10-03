@@ -63,7 +63,7 @@ Supported `imageKind` values:
 
 ## Curated automatic image fill
 
-The newsletter composer now fills missing images for a first set of high-value evergreen sections from existing TexasDefined assets. Explicit story images always win; automatic fill only runs when `imageUrl` is absent.
+The newsletter composer fills missing images only where TexasDefined has a stable public image URL and the reuse/credit information is already documented. Explicit story images always win; automatic fill only runs when `imageUrl` is absent.
 
 Initial covered sections:
 
@@ -73,13 +73,12 @@ Initial covered sections:
 - National Parks
 - Major Springs
 - Road Trips
-- Small Towns
-- Outdoors & Wildlife
-- Sports
-- Moving to Texas
+- Outdoors
 - Texas History
 
-This library is intentionally conservative. It is better to leave a visual warning than silently attach a generic or misleading image.
+These eight fallbacks use permanent `/images/...` paths and carry their photographer or agency credit into the rendered email. Small Towns, Sports and Moving to Texas still require an explicit editor-selected image until a stable, licensed fallback is curated for those broad sections. Synthetic or unverified assets are not used merely to increase the image count.
+
+This library is intentionally conservative. It is better to leave a visual warning than silently attach a generic, misleading or weakly sourced image.
 
 ## Next visual priorities
 
