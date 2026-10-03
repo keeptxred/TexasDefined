@@ -74,11 +74,9 @@ export function articleBodyWordCount(article: Pick<Article, "body">): number {
 function hasValidOptionalSource(article: Pick<Article, "sourceName" | "sourceUrl">): boolean {
   const name = article.sourceName?.trim() ?? "";
   const url = article.sourceUrl?.trim() ?? "";
-  if (!name && !url) return true;
-  if (!name || !url) return false;
+  if (!name || !url) return name === url;
   try {
-    const parsed = new URL(url);
-    return parsed.protocol === "https:" || parsed.protocol === "http:";
+    return /^https?:$/.test(new URL(url).protocol);
   } catch {
     return false;
   }
