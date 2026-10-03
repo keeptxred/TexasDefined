@@ -19,7 +19,7 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 export const Route = createFileRoute("/fishing/lakes/$slug")({
   loader: async ({ context, params }) => {
-    const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, getLatestTpwdFishingReport, lakeSpeciesProfilesQuery, mergeOfficialTpwdFishingReport } = await import("@/data/fishing/queries");
+    const { fishSpeciesQuery, fishingAccessPointsQuery, fishingBusinessesQuery, fishingGuidesQuery, fishingLakeQuery, fishingPlacementsQuery, fishingReportsQuery, lakeSpeciesProfilesQuery } = await import("@/data/fishing/queries");
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     const seo = import.meta.env.SSR ? { m: await (async () => {
@@ -41,17 +41,14 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       return { kind: "conroe" as const, lake, reports, guides, pageData, liveLakeLevel: pageData.liveLakeLevel, ...seo };
     }
     if (!isShowcaseLakeSlug(params.slug)) {
-      const tpwdLakeSource = lake.sources.find((source) => /tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\//i.test(source.url));
-      const [species, relationships, storedReports, guides, access, businesses, officialReport] = await Promise.all([
+      const [species, relationships, reports, guides, access, businesses] = await Promise.all([
         context.queryClient.ensureQueryData(fishSpeciesQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(lakeSpeciesProfilesQuery({ lakeId: lake.id })),
-        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 10 })),
+        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 10 }, lake)),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingAccessPointsQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
-        tpwdLakeSource ? getLatestTpwdFishingReport({ data: { sourceUrl: tpwdLakeSource.url } }) : Promise.resolve(null),
       ]);
-      const reports = mergeOfficialTpwdFishingReport(lake, storedReports, officialReport);
       return { kind: "generic" as const, lake, species, relationships, reports, guides, access, businesses, ...seo };
     }
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
