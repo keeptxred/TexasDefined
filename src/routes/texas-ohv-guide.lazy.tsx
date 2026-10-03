@@ -139,12 +139,12 @@ function TexasOhvGuidePage() {
             </div>
           </section>
 
-          <section className="border-b border-border py-10" aria-labelledby="safety-boundary">
-            <p className="eyebrow text-primary">Safety boundary</p>
-            <h2 id="safety-boundary" className="mt-2 font-display text-3xl">This is access planning, not off-road driving instruction</h2>
+          <section className="border-b border-border py-10" aria-labelledby="before-unload">
+            <p className="eyebrow text-primary">Before you unload</p>
+            <h2 id="before-unload" className="mt-2 font-display text-3xl">Rules and conditions to check before you unload</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
-              <p>OHV recreation can result in serious injury or death. This guide does not teach vehicle control, speed selection, hill climbing, descending, jumps, water crossings, obstacle negotiation, recovery, winching, rollover response, mechanical repair or how to modify a vehicle for trail use.</p>
-              <p>Follow the vehicle manufacturer, required safety training, protective-equipment rules and the land manager's current instructions. Weather, wildfire, trail damage, flooding, dust, heat and capacity limits can close or change a legal venue quickly.</p>
+              <p>Confirm the vehicle class, legal trail designation, current map, permit or decal, and any required safety equipment or training before entering the riding area. Manufacturer limits and posted land-manager rules belong in the same pre-trip check.</p>
+              <p>Weather, wildfire, trail damage, flooding, dust, heat and capacity limits can close or change a legal venue quickly. If the open routes or current conditions no longer match the vehicle and trip you planned, choose another route or day rather than treating an old map as permission to continue.</p>
             </div>
           </section>
 

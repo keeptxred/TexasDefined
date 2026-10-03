@@ -25,8 +25,13 @@ Broad multi-system pages and pages that use service-like words in a non-contract
 - `/article/true-cost-of-owning-a-home-in-texas`
 - `/article/texas-wildfire-home-protection-guide` — mentions landscaping, decks and fences as wildfire-hardening concepts; the primary intent is wildfire preparedness, not hiring a landscaper or contractor.
 - `/article/texas-home-architecture-regions` — uses “residential landscape” in an architectural/geographic sense; it is not a landscaping-services page.
+- `/article/corporate-relocation-to-texas` — an employer/site-selection guide; “relocation” describes corporate workforce and location planning, not a household moving-service search.
+- `/article/health-insurance-when-moving-to-texas` — a health-coverage transition guide; the move is context for insurance enrollment and provider-network changes, not mover selection.
+- `/article/texas-vs-florida-differences` — a state-comparison research page whose title uses “relocation tradeoffs”; it is not a moving-company selection page.
+- `/moving-to-texas/data` — a source-backed relocation research/data center; its route and metadata contain relocation language, but its primary intent is research rather than selecting a mover.
+- `/moving-to-texas/tools` — a planning toolkit for checklists, first-year costs, paperwork and official-source lookups; its route contains “moving to Texas,” but it is not a moving-company selection page.
 
-Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Do not treat generic or figurative uses of `landscape` as contractor intent. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
+Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Do not treat generic or figurative uses of `landscape`, or route-family words such as `moving to texas` and `relocation`, as sufficient contractor intent on research/tool hubs or adjacent planning articles. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
 
 Eligible route families are intentionally limited to editorial and guide surfaces with potential homeowner intent:
 
@@ -89,4 +94,4 @@ The production check protects these contracts:
 
 ## Optimization rule
 
-Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening generic keyword regexes. When an informational page matches only because a service term is incidental or figurative, add a governed exact-path opt-out instead of weakening the service patterns sitewide.
+Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening generic keyword regexes. When an informational page matches only because a service term is incidental, figurative or inherited from a broad route family, add a governed exact-path opt-out instead of weakening the service patterns sitewide.

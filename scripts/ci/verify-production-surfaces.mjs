@@ -105,7 +105,7 @@ const surfaces = [
   ['historic-sites', '/explore/historic-sites', 'Painted Churches of Texas'],
   ['road-trips', '/explore/road-trips', 'Painted Churches routes'],
   ['small-towns', '/explore/small-towns', 'Painted Churches'],
-  ['spanish-texas', '/article/spanish-texas-military-battle-medina', 'Military Texas Before the Republic'],
+  ['spanish-texas', '/article/spanish-texas-military-battle-medina', 'Battle of Medina: The Bloodiest Battle Fought on Texas Soil'],
   ['mexican-texas', '/article/mexican-texas-military-history', 'Military in Mexican Texas'],
   ['buffalo-soldiers', '/article/buffalo-soldiers-texas-frontier-guide', 'Buffalo Soldiers in Texas'],
   ['red-river-war', '/article/texas-red-river-war-guide', 'The Red River War in Texas'],

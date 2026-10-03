@@ -236,7 +236,7 @@ export const toledoBendWaterSystemArticle: Article = {
     h("Why two states built one reservoir"),
     p("Rapid industrial development after World War II increased demand for dependable water and electricity in the Sabine basin. Texas created its Sabine River Authority in 1949, Louisiana created its counterpart soon afterward, and the two authorities began working toward a shared reservoir during the 1950s. Their cooperation eventually produced one of the largest artificial lakes in the South."),
     p("Construction began in the 1960s, impoundment followed and full project operations began by the end of the decade. TWDB notes that Texas and Louisiana shared the cost without federal construction assistance. That financing history distinguishes Toledo Bend from large federal projects such as Lake Whitney, even though both ultimately serve multiple public purposes."),
-    h("The state line runs through the operating system"),
+    h("How Texas and Louisiana Manage Toledo Bend Together"),
     p("On a map, the Sabine River is a political boundary. In reservoir operations, it is one watershed. Water entering from tributaries does not care which state it came from, and releases below the dam continue down the same river toward the Gulf. The two authorities therefore have to manage a shared physical system even while operating under separate state institutions."),
     p("The joint structure applies to benefits as well. Official Sabine River Authority materials describe shared water and hydroelectric power from the project. That makes Toledo Bend an example of interstate resource management in which the value of a river cannot be cleanly divided at the centerline."),
     h("What 'largest reservoir in Texas' actually means"),

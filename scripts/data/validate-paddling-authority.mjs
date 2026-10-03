@@ -28,8 +28,9 @@ for (const marker of [
 for (const marker of [
   'Texas Paddling Guide',
   "Choose the waterbody first, then verify today's conditions",
-  'This is trip planning, not paddling instruction',
-  'Paddling can result in drowning',
+  'Check the route, weather and exit plan before launching',
+  'Confirm the legal put-in and takeout, shuttle plan',
+  'thunderstorms, flood flows, strong wind, tides, water quality, heat, poor visibility or access conditions',
   'more than 100 certified paddling trails',
   'Lady Bird Lake Paddling Trail',
   'Buffalo Bayou Paddling Trail',
@@ -53,6 +54,15 @@ for (const marker of [
   if (!lazyRoute.includes(marker)) errors.push(`Texas paddling visible authority missing marker: ${marker}.`);
 }
 
+for (const bannedBoilerplate of [
+  'This is trip planning, not paddling instruction',
+  'Paddling can result in drowning',
+  'Safety boundary',
+  'This guide does not teach',
+]) {
+  if (lazyRoute.includes(bannedBoilerplate)) errors.push(`Texas paddling guide regressed to defensive template boilerplate: ${bannedBoilerplate}.`);
+}
+
 const sourceCount = (lazyRoute.match(/href: "https:\/\//g) ?? []).length;
 if (sourceCount < 6) errors.push(`Texas paddling guide needs at least 6 first-party source links; found ${sourceCount}.`);
 const trailCount = (route.match(/name: "(?:Lady Bird Lake Paddling Trail|Buffalo Bayou Paddling Trail|Bosque Bluffs & Brazos Bridges Paddling Trails|Lighthouse Lakes Paddling Trail)"|name: "Hell's Half Acre Paddling Trail"/g) ?? []).length;
@@ -73,4 +83,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas paddling guide retains five official trails, six first-party TPWD sources, current-condition safeguards, structured collection metadata, Lakes & Rivers discovery and Outdoors discovery.');
+console.log('Texas paddling guide retains five official trails, six first-party TPWD sources, current-condition and launch-planning safeguards, structured collection metadata, Lakes & Rivers discovery and Outdoors discovery without defensive template boilerplate.');

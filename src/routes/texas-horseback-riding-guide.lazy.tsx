@@ -103,12 +103,12 @@ function TexasHorsebackRidingGuidePage() {
             <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife requires proof of a negative Equine Infectious Anemia test within the previous 12 months for each horse entering a state park or natural area. After that statewide requirement, local rules diverge: Big Bend Ranch requires backcountry permits; Hill Country State Natural Area is heavily shared-use; Palo Duro has dedicated riding acreage; Caprock combines canyon trails with a long trailway; and Dinosaur Valley uses a small primitive riding area. Verify the current park page before every trip.</p>
           </section>
 
-          <section className="border-b border-border py-10" aria-labelledby="safety-boundary">
-            <p className="eyebrow text-primary">Safety boundary</p>
-            <h2 id="safety-boundary" className="mt-2 font-display text-3xl">This is trip planning, not horsemanship instruction</h2>
+          <section className="border-b border-border py-10" aria-labelledby="trip-conditions">
+            <p className="eyebrow text-primary">Before you haul</p>
+            <h2 id="trip-conditions" className="mt-2 font-display text-3xl">Conditions that should change the plan</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
-              <p>Horseback riding can result in serious injury. This guide does not teach riding technique, horse handling, trailer loading, veterinary care, hoof care, tack selection, obstacle negotiation or emergency animal treatment. Riders and horses should be appropriately prepared for the terrain and conditions, with competent instruction or professional support where needed.</p>
-              <p>Heat, storms, flooding, wildfire, trail damage, water availability and closures can change a safe plan. Remote places such as Big Bend Ranch add long distances and limited services. Check current land-manager alerts and weather, and change the plan when conditions no longer fit the horse, rider or trailer access.</p>
+              <p>Heat, storms, flooding, wildfire, trail damage, water availability and closures can change the right riding destination quickly. Remote places such as Big Bend Ranch add long distances and limited services, so current park alerts and weather should be checked before departure rather than after the trailer is already on the road.</p>
+              <p>Confirm trailer access, stock water, route length, shared-use rules and overnight facilities before hauling out. If current conditions no longer match the horse, rider, vehicle or planned route, choose a different trail or day instead of forcing the itinerary.</p>
             </div>
           </section>
 
