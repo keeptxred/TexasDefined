@@ -9,6 +9,7 @@ import {
   isCompleteFishingSpeciesSlug,
   type CompleteFishingSpeciesSlug,
 } from "./slugs";
+import { getFishingFishSocialImage } from "./social-images";
 import {
   FISHING_SPECIES_DIRECTORY_PATH,
   FISHING_SPECIES_VERIFIED_AT,
@@ -36,6 +37,7 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
   const { species, canonicalPath, lakes, sources } = entry;
   const url = `${origin}${canonicalPath}`;
   const speciesImage = getFishingFishImage(species.slug);
+  const socialImage = getFishingFishSocialImage(species.slug);
   const isBlueCatfish = canonicalPath === "/fishing/species/blue-catfish";
   const title = isBlueCatfish
     ? "Blue Catfish in Texas: Fishing Guide"
@@ -96,6 +98,10 @@ function buildFishingSpeciesProfileHead(entry: NonNullable<SpeciesProfileHeadEnt
       title,
       description,
       canonicalPath,
+      image: socialImage.src,
+      imageAlt: socialImage.alt,
+      imageWidth: socialImage.width,
+      imageHeight: socialImage.height,
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],

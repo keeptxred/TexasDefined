@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { getFishingTechniquePathNormalizationRedirect } from "@/data/fishing/technique-redirects";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/fishing")({
     ]);
     return { lakes, species, lakeSpecies };
   },
-  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide — Lakes, Fish Species & Local Fishing", description: "Explore Texas fishing lake by lake, with verified lake facts, target species, seasonal patterns, access, reports, trip planning and verified local guide infrastructure.", canonicalPath: "/fishing" }), links: [canonicalLink(texasDefinedBrand, "/fishing")] }),
+  head: () => ({ meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Guide — Lakes, Fish Species & Local Fishing", description: "Explore Texas fishing lake by lake, with verified lake facts, target species, seasonal patterns, access, reports, trip planning and verified local guide infrastructure.", canonicalPath: "/fishing", ...fishingGenericSocialMeta }), links: [canonicalLink(texasDefinedBrand, "/fishing")] }),
   component: FishingPage,
 });
 
