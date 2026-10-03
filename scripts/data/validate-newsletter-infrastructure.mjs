@@ -71,10 +71,16 @@ for (const marker of [
 for (const marker of [
   "path: '/explore/state-parks'",
   "path: '/explore/lakes-rivers'",
-  "path: '/sports'",
+  "path: '/texas-history'",
+  "imageCredit: 'Wing-Chi Poon · CC BY-SA 3.0 · Wikimedia Commons'",
+  "imageUrl: '/images/",
   'hydrateNewsletterStoryVisual',
   'NEWSLETTER_CURATED_VISUAL_PATHS',
 ]) requireText(visualLibrary, marker, 'Newsletter visual library');
+
+if (visualLibrary.includes("@/assets/")) {
+  failures.push('Newsletter visual library must use stable public image URLs, not build-hashed bundled asset imports.');
+}
 
 for (const marker of [
   'NEWSLETTER_SIGNUPS_ENABLED',
@@ -117,6 +123,8 @@ for (const marker of [
   '1200×900',
   'AI-generated decorative imagery is not the default newsletter solution',
   'Curated automatic image fill',
+  'permanent `/images/...` paths',
+  'Small Towns, Sports and Moving to Texas still require an explicit editor-selected image',
 ]) requireText(visualDocs, marker, 'Newsletter visual documentation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
