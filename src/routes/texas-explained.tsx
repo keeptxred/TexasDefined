@@ -5,8 +5,7 @@ import type { TexasExplainedLoaderData } from "@/components/editorial/TexasExpla
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
 const canonicalPath = "/texas-explained";
-const questionCount = 140;
-const description = `Ten deeply reported Texas Defined guides, twenty-five focused supporting explainers and ${questionCount} plain-English answers connecting the roads, water, government, food, traditions, landscapes, homes and local systems that make Texas work the way it does.`;
+const description = "A guide to the systems, landscapes and traditions that make Texas work—from rivers and roads to courthouse squares, wildlife, homes, land and regional identity.";
 
 export const Route = createFileRoute("/texas-explained")({
   head: ({ loaderData }: { loaderData?: TexasExplainedLoaderData | null }) => {
