@@ -1,5 +1,6 @@
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
+import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
@@ -111,15 +112,24 @@ function Page() {
         </div>
       </section>
 
-      <section className="py-10">
-        <p className="eyebrow text-primary">Official source</p>
-        <h2 className="mt-2 font-display text-3xl">University Interscholastic League</h2>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined derives district membership from the current UIL 2026–28 football alignment and each displayed enrollment from UIL’s 2026–28 Realignment Alphabetical Listing. The UIL documents remain the controlling sources if an assignment or enrollment snapshot is corrected.</p>
-        <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
-          <a href={district.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Open official UIL alignment ↗</a>
-          <a href={district.enrollmentSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Open UIL enrollment listing ↗</a>
-        </div>
-      </section>
+      <CitationTrustPanel
+        className="mt-10"
+        title={`${label} sources and methodology`}
+        citationTitle={`${label} — 2026–28 UIL Football Alignment`}
+        sources={[
+          { name: 'University Interscholastic League — official football alignment', url: district.sourceUrl, note: 'Controlling source for this district assignment.' },
+          { name: 'UIL 2026–28 alphabetical enrollment listing', url: district.enrollmentSourceUrl, note: 'Source for the displayed realignment enrollment snapshot.' },
+          { name: 'UIL 2026–28 conference and division cutoffs', url: UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url, note: 'Official enrollment bands for classification and division context.' },
+        ]}
+        methodology="TexasDefined derives district membership from the current UIL 2026–28 football alignment and each displayed enrollment from UIL’s 2026–28 Realignment Alphabetical Listing. Member schools are displayed alphabetically, not ranked. Classification, division, district and enrollment are kept as separate fields, and the UIL documents remain controlling if an assignment or enrollment snapshot is revised."
+        lastVerified="Official UIL football alignment and 2026–28 realignment sources rechecked October 3, 2026."
+        keyStats={[
+          { label: 'Programs', value: district.programCount.toLocaleString('en-US') },
+          { label: 'Classification', value: district.classification },
+          { label: 'Enrollment range', value: `${formatEnrollment(enrollmentLow)}–${formatEnrollment(enrollmentHigh)}` },
+          { label: 'Alignment cycle', value: '2026–28' },
+        ]}
+      />
     </article>
   </Container>;
 }
