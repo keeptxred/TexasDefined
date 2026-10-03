@@ -7,3 +7,9 @@ export const getTaxingUnitRateHistory = createServerFn({ method: 'GET' })
     const { getTaxingUnitRateHistoryServer } = await import('@/data/property/texas-tax-rates.server');
     return getTaxingUnitRateHistoryServer(data.slug, data.type);
   });
+
+export const getPropertyTaxDataCenter = createServerFn({ method: 'GET' })
+  .handler(async () => {
+    const { getPropertyTaxDataCenterServer } = await import('@/data/property/texas-tax-rates.server');
+    return getPropertyTaxDataCenterServer();
+  });
