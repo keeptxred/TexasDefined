@@ -17,6 +17,12 @@ jobs:
     name: Required merge gate
     runs-on: ubuntu-latest
     timeout-minutes: 35
+    env:
+      # The first Worker SSR render can legitimately be much slower than warm
+      # route checks. Give only the readiness probe extra room; the actual
+      # route assertions keep their normal strict request timeout and retries.
+      BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS: '120000'
+      BUILT_WORKER_SMOKE_READINESS_REQUEST_TIMEOUT_MS: '60000'
 
     steps:
       - name: Check out repository
@@ -39,13 +45,24 @@ jobs:
           set -o pipefail
           node scripts/ci/run-premerge-validation.mjs 2>&1 | tee canonical-premerge-output.txt
 
-      - name: Capture performance-budget failure details
+      # Do not rerun expensive suites after a failure. The canonical runner
+      # already executes the full suite, build, SSR smoke, and performance
+      # budget and records the complete failure set in this report.
+      - name: Surface canonical failure summary
         if: failure()
-        run: npm run performance:validate > performance-budget-report.txt 2>&1 || true
-
-      - name: Capture full-suite failure details
-        if: failure()
-        run: node scripts/ci/run-validation-suite.mjs full --collect-all > full-validation-report.txt 2>&1 || true
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const path = 'premerge-validation-report.json';
+          if (!fs.existsSync(path)) process.exit(0);
+          const report = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const lines = ['## Merge gate failures', ''];
+          for (const failure of report.failures || []) {
+            lines.push(`- **${failure.classification}** — ${failure.label}: \`${failure.command}\` (${failure.detail})`);
+          }
+          lines.push('', `Passed ${report.summary?.passed ?? 0}/${report.summary?.total ?? 0} canonical checks.`);
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `${lines.join('\n')}\n`);
+          NODE
 
       - name: Upload canonical pre-merge report
         if: always()
@@ -55,8 +72,6 @@ jobs:
           path: |
             premerge-validation-report.json
             canonical-premerge-output.txt
-            performance-budget-report.txt
-            full-validation-report.txt
             .artifacts/built-worker-ssr-smoke.log
           if-no-files-found: warn
           retention-days: 7
