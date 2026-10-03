@@ -144,12 +144,22 @@ const requestHeaders = {
 
 async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
   try {
-    const response = await fetch(smokeUrl(group.path, attemptToken), { redirect: 'follow', cache: 'no-store', headers: requestHeaders, signal: AbortSignal.timeout(timeoutMs) });
+    const response = await fetch(smokeUrl(group.path, attemptToken), {
+      redirect: 'follow',
+      cache: 'no-store',
+      headers: requestHeaders,
+      signal: AbortSignal.timeout(timeoutMs),
+    });
     lastStatus.set(group.path, String(response.status));
     const body = await response.text();
     if (response.status === 200) {
-      const missingChecks = group.checks.filter((check) => !body.includes(check.requiredText));
-      if (missingChecks.length) return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      const missingChecks = group.checks.filter((check) => {
+        const requiredText = check.requiredText;
+        return !body.includes(requiredText);
+      });
+      if (missingChecks.length) {
+        return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      }
       return '';
     }
     return `${group.path} returned HTTP ${response.status}`;
@@ -163,11 +173,17 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
 async function checkRedirectTarget(target, attemptToken) {
   try {
     const url = smokeUrl(target.path, attemptToken);
-    const response = await fetch(url, { redirect: 'manual', cache: 'no-store', headers: requestHeaders, signal: AbortSignal.timeout(requestTimeoutMs) });
+    const response = await fetch(url, {
+      redirect: 'manual',
+      cache: 'no-store',
+      headers: requestHeaders,
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    });
     lastStatus.set(target.path, String(response.status));
     const location = response.headers.get('location');
     const redirectedUrl = location ? new URL(location, url) : null;
-    const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1] && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
+    const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
+      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
     if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) return '';
     return `${target.label} (${target.path}) expected HTTP ${target.expectedStatus} -> ${target.expectedPath} with query preserved; got HTTP ${response.status} -> ${location || 'no location'}`;
   } catch (error) {
