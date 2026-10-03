@@ -6,12 +6,21 @@ export type CitationSource = {
   note?: string | null;
 };
 
+export type CitationDownload = {
+  label: string;
+  url: string;
+  format?: string;
+};
+
 export interface CitationTrustPanelProps {
   sources: CitationSource[];
   methodology: string;
   lastVerified: string;
   title?: string;
   className?: string;
+  citation?: string;
+  reusePolicy?: string;
+  downloads?: CitationDownload[];
 }
 
 export function CitationTrustPanel({
@@ -20,7 +29,12 @@ export function CitationTrustPanel({
   lastVerified,
   title = 'Sources and verification',
   className = '',
+  citation,
+  reusePolicy,
+  downloads = [],
 }: CitationTrustPanelProps) {
+  const hasReferenceTools = Boolean(citation || reusePolicy || downloads.length);
+
   return (
     <section
       aria-labelledby="citation-trust-heading"
@@ -63,6 +77,42 @@ export function CitationTrustPanel({
             </div>
           </div>
         </div>
+
+        {hasReferenceTools ? (
+          <div className="lg:col-start-2">
+            <div className="grid gap-5 border-t border-border pt-6 text-sm leading-7 text-muted-foreground md:grid-cols-2">
+              {citation ? (
+                <div>
+                  <h3 className="font-semibold text-foreground">Cite this data</h3>
+                  <p className="mt-2">{citation}</p>
+                </div>
+              ) : null}
+              {reusePolicy ? (
+                <div>
+                  <h3 className="font-semibold text-foreground">Editorial reuse</h3>
+                  <p className="mt-2">{reusePolicy}</p>
+                </div>
+              ) : null}
+              {downloads.length ? (
+                <div className="md:col-span-2">
+                  <h3 className="font-semibold text-foreground">Download structured data</h3>
+                  <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2">
+                    {downloads.map((download) => (
+                      <a
+                        key={`${download.label}-${download.url}`}
+                        href={download.url}
+                        className="font-semibold text-primary underline decoration-primary/50 underline-offset-4"
+                        download
+                      >
+                        {download.label}{download.format ? ` (${download.format})` : ''}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </div>
     </section>
   );
