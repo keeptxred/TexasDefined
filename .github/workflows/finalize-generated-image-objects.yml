@@ -75,9 +75,13 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y libvips-tools ffmpeg
+          sudo apt-get install -y libvips-tools ffmpeg python3-pil
           vips --version
           ffmpeg -version | head -n 1
+          python3 - <<'PY'
+          from PIL import Image
+          print('Pillow', Image.__version__)
+          PY
 
       - name: Upscale governed Chappell derivative to 1600px
         shell: bash
@@ -98,28 +102,39 @@ jobs:
           test "$out_height" -ge 1
           mv "$tmp" "$src"
 
-      - name: Upscale governed Xtreme derivative proportionally to 1600px
+      - name: Repair and upscale governed Xtreme JPEG proportionally to 1600px
         shell: bash
         run: |
           set -euxo pipefail
-          src='public/images/sports-venues/xtreme-raceway-park.jpg'
-          tmp='/tmp/xtreme-raceway-park.large.jpg'
-          width="$(vipsheader -f width "$src")"
-          height="$(vipsheader -f height "$src")"
-          echo "Xtreme source ${width}x${height}"
-          test "$width" -gt 0
-          test "$height" -gt 0
-          factor="$(awk -v w="$width" 'BEGIN { printf "%.12f", 1600 / w }')"
-          echo "Xtreme scale factor=${factor}"
-          vips resize "$src" "$tmp" "$factor" --kernel lanczos3
-          out_width="$(vipsheader -f width "$tmp")"
-          out_height="$(vipsheader -f height "$tmp")"
-          echo "Xtreme derivative ${out_width}x${out_height}"
-          test "$out_width" -eq 1600
-          test "$out_height" -ge 1
-          mv "$tmp" "$src"
-          printf '%s\n' "$out_width" > /tmp/xtreme-width.txt
-          printf '%s\n' "$out_height" > /tmp/xtreme-height.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageFile
+
+          ImageFile.LOAD_TRUNCATED_IMAGES = True
+          src = Path('public/images/sports-venues/xtreme-raceway-park.jpg')
+          tmp = Path('/tmp/xtreme-raceway-park.large.jpg')
+          with Image.open(src) as image:
+              image.load()
+              width, height = image.size
+              if width <= 0 or height <= 0:
+                  raise SystemExit(f'Invalid Xtreme source dimensions: {width}x{height}')
+              out_width = 1600
+              out_height = round(height * out_width / width)
+              if out_height <= 0:
+                  raise SystemExit(f'Invalid proportional output height: {out_height}')
+              print(f'Xtreme source {width}x{height}')
+              repaired = image.convert('RGB').resize((out_width, out_height), Image.Resampling.LANCZOS)
+              repaired.save(tmp, format='JPEG', quality=92, optimize=True, progressive=True)
+          with Image.open(tmp) as check:
+              check.load()
+              actual_width, actual_height = check.size
+          if actual_width != 1600 or actual_height <= 0:
+              raise SystemExit(f'Unexpected Xtreme derivative dimensions: {actual_width}x{actual_height}')
+          print(f'Xtreme derivative {actual_width}x{actual_height}')
+          src.write_bytes(tmp.read_bytes())
+          Path('/tmp/xtreme-width.txt').write_text(f'{actual_width}\n')
+          Path('/tmp/xtreme-height.txt').write_text(f'{actual_height}\n')
+          PY
 
       - name: Align Xtreme registry dimensions to the real derivative
         shell: bash
