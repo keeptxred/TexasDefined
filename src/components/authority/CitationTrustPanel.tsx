@@ -1,3 +1,5 @@
+import { useId } from 'react';
+import { useLocation } from '@tanstack/react-router';
 import { Copy, Download, ExternalLink } from 'lucide-react';
 
 export type CitationSource = {
@@ -46,21 +48,20 @@ export function CitationTrustPanel({
   dataDownloads = [],
   keyStats = [],
 }: CitationTrustPanelProps) {
-  const citation = recommendedCitation ?? (
-    citationTitle && canonicalUrl
-      ? `${editorName}. “${citationTitle}.” Texas Defined. Last verified ${lastVerified}. ${canonicalUrl}`
-      : null
-  );
+  const headingId = useId();
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const stableUrl = canonicalUrl ?? `https://texasdefined.com${pathname}`;
+  const citation = recommendedCitation ?? `${editorName}. “${citationTitle ?? title}.” Texas Defined. Last verified ${lastVerified}. ${stableUrl}`;
 
   return (
     <section
-      aria-labelledby="citation-trust-heading"
+      aria-labelledby={headingId}
       className={`border-y border-border py-8 ${className}`.trim()}
     >
       <div className="grid gap-7 lg:grid-cols-[14rem_minmax(0,1fr)]">
         <div>
           <p className="eyebrow text-primary">Citation ready</p>
-          <h2 id="citation-trust-heading" className="mt-2 font-display text-3xl">{title}</h2>
+          <h2 id={headingId} className="mt-2 font-display text-3xl">{title}</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">Use the primary sources below to verify claims, or cite the stable Texas Defined URL for this maintained reference.</p>
         </div>
 
@@ -114,49 +115,43 @@ export function CitationTrustPanel({
             </div>
           </div>
 
-          {canonicalUrl || citation || dataDownloads.length ? (
-            <div className="grid gap-5 border-t border-border pt-6 lg:grid-cols-2">
-              <div className="space-y-5">
-                {canonicalUrl ? (
-                  <div>
-                    <h3 className="text-sm font-semibold text-foreground">Stable URL</h3>
-                    <a href={canonicalUrl} className="mt-2 block break-all text-sm font-medium text-primary underline underline-offset-4">{canonicalUrl}</a>
-                  </div>
-                ) : null}
-
-                {dataDownloads.length ? (
-                  <div>
-                    <h3 className="text-sm font-semibold text-foreground">Downloadable data</h3>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {dataDownloads.map((download) => (
-                        <a key={`${download.label}-${download.url}`} href={download.url} className="inline-flex items-center gap-2 border border-border px-3 py-2 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
-                          <Download className="h-3.5 w-3.5" aria-hidden="true" />
-                          {download.label}{download.format ? ` · ${download.format}` : ''}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
+          <div className="grid gap-5 border-t border-border pt-6 lg:grid-cols-2">
+            <div className="space-y-5">
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">Stable URL</h3>
+                <a href={stableUrl} className="mt-2 block break-all text-sm font-medium text-primary underline underline-offset-4">{stableUrl}</a>
               </div>
 
-              {citation ? (
+              {dataDownloads.length ? (
                 <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-sm font-semibold text-foreground">Recommended citation</h3>
-                    <button
-                      type="button"
-                      onClick={() => void navigator.clipboard?.writeText(citation)}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary underline underline-offset-4"
-                    >
-                      <Copy className="h-3.5 w-3.5" aria-hidden="true" />
-                      Copy citation
-                    </button>
+                  <h3 className="text-sm font-semibold text-foreground">Downloadable data</h3>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {dataDownloads.map((download) => (
+                      <a key={`${download.label}-${download.url}`} href={download.url} className="inline-flex items-center gap-2 border border-border px-3 py-2 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
+                        <Download className="h-3.5 w-3.5" aria-hidden="true" />
+                        {download.label}{download.format ? ` · ${download.format}` : ''}
+                      </a>
+                    ))}
                   </div>
-                  <blockquote className="mt-2 border-l-2 border-primary pl-4 text-sm leading-7 text-foreground">{citation}</blockquote>
                 </div>
               ) : null}
             </div>
-          ) : null}
+
+            <div>
+              <div className="flex items-center justify-between gap-3">
+                <h3 className="text-sm font-semibold text-foreground">Recommended citation</h3>
+                <button
+                  type="button"
+                  onClick={() => void navigator.clipboard?.writeText(citation)}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary underline underline-offset-4"
+                >
+                  <Copy className="h-3.5 w-3.5" aria-hidden="true" />
+                  Copy citation
+                </button>
+              </div>
+              <blockquote className="mt-2 border-l-2 border-primary pl-4 text-sm leading-7 text-foreground">{citation}</blockquote>
+            </div>
+          </div>
         </div>
       </div>
     </section>
