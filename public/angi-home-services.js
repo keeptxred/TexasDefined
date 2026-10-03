@@ -3,7 +3,7 @@
   const PARTNER = "angi";
 
   const services = [
-    { key: "roofing", label: "Roofing", cta: "Request roofing service options", patterns: [/\broof(?:ing| replacement| repair|er|ers)?\b/i], url: "http://request.angi.com/service-request/category/12061/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313936" },
+    { key: "roofing", label: "Roofing", cta: "Request roofing service options", patterns: [/\broofing\b/i, /\broofers?\b/i, /\broof (?:replacement|repair|installation|installer|installers|inspection|inspector|inspectors|contractor|contractors|company|companies|cost|costs)\b/i], url: "http://request.angi.com/service-request/category/12061/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313936" },
     { key: "hvac", label: "HVAC & Air Conditioning", cta: "Request HVAC service options", patterns: [/\bhvac\b/i, /\bair conditioning\b/i, /\bac repair\b/i, /\bair conditioner\b/i], url: "http://request.angi.com/service-request/category/12002/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313937" },
     { key: "heating", label: "Heating & Furnace Systems", cta: "Request heating service options", patterns: [/\bfurnace\b/i, /\bheating system\b/i, /\bheater repair\b/i], url: "http://request.angi.com/service-request/category/12040/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313943" },
     { key: "plumbing", label: "Plumbing", cta: "Request plumbing service options", patterns: [/\bplumb(?:er|ers|ing)\b/i, /\bwater heater\b/i], url: "http://request.angi.com/service-request/category/12058/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303139" },
@@ -13,7 +13,7 @@
     { key: "windows", label: "Windows", cta: "Request window service options", patterns: [/\bwindow replacement\b/i, /\breplacement windows\b/i, /\bwindow installer\b/i, /\bwindow installation\b/i], url: "http://request.angi.com/service-request/category/12080/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313942" },
     { key: "fences", label: "Fences", cta: "Request fence service options", patterns: [/\bfence (?:repair|installation|installer|contractor|company|cost|costs)\b/i, /\bfencing contractor\b/i], url: "http://request.angi.com/service-request/category/12030/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313954" },
     { key: "pools", label: "Swimming Pools", cta: "Request pool service options", patterns: [/\bpool (?:builder|builders|contractor|contractors|installation|remodel|repair|resurfacing)\b/i, /\bswimming pool (?:builder|builders|contractor|contractors|installation)\b/i], url: "http://request.angi.com/service-request/category/12070/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313957" },
-    { key: "landscaping", label: "Landscaping", cta: "Request landscaping service options", patterns: [/\blandscap(?:e|er|ers|ing)\b/i], url: "http://request.angi.com/service-request/category/12046/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313945" },
+    { key: "landscaping", label: "Landscaping", cta: "Request landscaping service options", patterns: [/\blandscapers?\b/i, /\blandscaping (?:company|companies|contractor|contractors|service|services|installation|design|cost|costs)\b/i, /\blandscape (?:company|companies|contractor|contractors|service|services|installation|designer|designers)\b/i], url: "http://request.angi.com/service-request/category/12046/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313945" },
     { key: "concrete", label: "Concrete", cta: "Request concrete service options", patterns: [/\bconcrete (?:contractor|contractors|driveway|patio|repair|installation|cost|costs)\b/i], url: "http://request.angi.com/service-request/category/12015/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313956" },
     { key: "flooring", label: "Flooring & Carpet", cta: "Request flooring service options", patterns: [/\bflooring (?:installation|installer|installers|contractor|contractors|cost|costs)\b/i, /\bcarpet installation\b/i], url: "http://request.angi.com/service-request/category/12032/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313952" },
     { key: "painting", label: "Painting", cta: "Request painting service options", patterns: [/\bhouse paint(?:ing|er|ers)?\b/i, /\binterior painting\b/i, /\bexterior painting\b/i, /\bpainter(?:s)? cost\b/i], url: "http://request.angi.com/service-request/category/12054/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313950" },
@@ -37,10 +37,13 @@
   // mention many service categories or use service-like words in a non-contractor
   // context and should not inherit whichever regex wins.
   const pageServiceOverrides = new Map([
+    ["/article/texas-roofs-hail-wind-heat", "roofing"],
     ["/article/texas-foundation-care-clay-soil-drought", "foundation"],
     ["/article/texas-household-pests-guide", "pest-control"],
     ["/article/texas-pool-owner-guide", "pools"],
     ["/article/texas-home-maintenance-calendar", "handyman"],
+    ["/article/texas-native-garden-that-survives-august", "landscaping"],
+    ["/article/best-native-plants-texas-yard", "landscaping"],
     ["/article/texas-homeowner-field-manual", null],
     ["/article/true-cost-of-owning-a-home-in-texas", null],
     ["/article/texas-wildfire-home-protection-guide", null],
