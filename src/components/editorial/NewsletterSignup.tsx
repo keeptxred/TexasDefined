@@ -1,6 +1,10 @@
 import { useState, type FormEvent } from "react";
 
 import { useBrand } from "@/brand/context";
+import {
+  INSIDE_TEXASDEFINED_NAME,
+  INSIDE_TEXASDEFINED_TAGLINE,
+} from "@/data/newsletter/newsletter-visual-standard";
 import { newsletterSignupSchema } from "@/domain/validation/schemas";
 import { analytics } from "@/services/analytics";
 
@@ -18,7 +22,7 @@ export function NewsletterSignup() {
     event.preventDefault();
     const result = newsletterSignupSchema.safeParse({ email, brandId: brand.identity.id });
     if (!result.success) { setError("That email doesn’t look quite right. Give it another try."); return; }
-    if (!signupUrl) { setError("The letter isn’t taking new names just yet. Check back soon."); return; }
+    if (!signupUrl) { setError(`${INSIDE_TEXASDEFINED_NAME} isn’t taking new names just yet. Check back soon.`); return; }
     setError(null);
     setSubmitting(true);
     try {
@@ -35,24 +39,24 @@ export function NewsletterSignup() {
   return (
     <div className="grid gap-10 border-t-2 border-foreground pt-8 md:grid-cols-[0.9fr_1.1fr] md:items-end">
       <div>
-        <p className="eyebrow text-primary">{copy.newsletterEyebrow}</p>
-        <h2 className="mt-3 max-w-xl font-display text-4xl leading-tight sm:text-5xl">{copy.newsletterHeading}</h2>
-        <p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground">{copy.newsletterBody}</p>
+        <p className="eyebrow text-primary">{INSIDE_TEXASDEFINED_NAME}</p>
+        <h2 className="mt-3 max-w-xl font-display text-4xl leading-tight sm:text-5xl">{INSIDE_TEXASDEFINED_TAGLINE}</h2>
+        <p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground">A visual weekly digest of Texas places, stories, data, outdoors, history and the things worth knowing around the state.</p>
       </div>
       <div>
         {done ? (
-          <p className="font-display text-2xl text-primary" role="status">{copy.newsletterSuccess}</p>
+          <p className="font-display text-2xl text-primary" role="status">You’re subscribed to {INSIDE_TEXASDEFINED_NAME}.</p>
         ) : signupUrl ? (
           <form onSubmit={onSubmit} className="flex border-b-2 border-foreground transition-colors focus-within:border-primary" noValidate>
             <div className="flex-1">
-              <label htmlFor="newsletter-email" className="sr-only">Email address for the Texas Defined Letter</label>
+              <label htmlFor="newsletter-email" className="sr-only">Email address for {INSIDE_TEXASDEFINED_NAME}</label>
               <input id="newsletter-email" type="email" value={email} onChange={(event) => { setEmail(event.target.value); if (error) setError(null); }} placeholder={copy.newsletterPlaceholder} aria-invalid={Boolean(error)} aria-describedby={error ? "newsletter-error" : undefined} className="h-14 w-full bg-transparent px-0 text-base outline-none placeholder:text-muted-foreground/70" disabled={submitting} />
               {error && <p id="newsletter-error" role="alert" className="mt-2 text-xs text-destructive">{error}</p>}
             </div>
             <button type="submit" className="eyebrow h-14 shrink-0 px-3 text-primary" disabled={submitting}>{submitting ? "Joining…" : `${copy.newsletterCta} →`}</button>
           </form>
         ) : (
-          <p className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground" role="status">The Texas Defined Letter isn’t taking new names just yet. Check back soon.</p>
+          <p className="border-t border-border pt-4 text-sm leading-7 text-muted-foreground" role="status">{INSIDE_TEXASDEFINED_NAME} isn’t taking new names just yet. Check back soon.</p>
         )}
       </div>
     </div>
