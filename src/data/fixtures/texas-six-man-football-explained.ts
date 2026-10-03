@@ -12,10 +12,10 @@ export const texasSixManFootballExplainedArticle: Article = {
   dek: "A visual guide to Texas six-man football: the 80-yard field, 15-yard first downs, exchange rule, scoring, 45-point rule, UIL divisions and where to find a team.",
   category: "sports",
   hero: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Bart_Coan_Field_from_west.jpg",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/1280px-Bart_Coan_Field_from_west.jpg",
     alt: "Six-man football game at Bart Coan Field on the Fort Davis High School campus in Fort Davis, Texas",
-    width: 3264,
-    height: 2448,
+    width: 1280,
+    height: 960,
     credit: "Fortguy · CC BY-SA 4.0 · Wikimedia Commons",
   },
   authorId: "a-marisol",
