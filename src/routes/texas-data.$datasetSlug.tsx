@@ -97,6 +97,7 @@ function Page() {
             <dl className="border-l border-border pl-6 text-sm">
               <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Source</dt><dd className="mt-1 font-medium">{dataset.sourceName}</dd></div>
               <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Last verified</dt><dd className="mt-1 font-medium">{formatCheckedDate(dataset.updated)}</dd></div>
+              <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Statistics</dt><dd className="mt-1 font-medium">{dataset.rows.length.toLocaleString('en-US')} reported values</dd></div>
               <div className="py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Coverage</dt><dd className="mt-1 font-medium">{dataset.year}</dd></div>
             </dl>
           </header>
@@ -119,6 +120,7 @@ function Page() {
 
           <CitationTrustPanel
             className="mt-2"
+            citationTitle={dataset.title}
             sources={[{
               name: dataset.sourceName,
               url: dataset.sourceUrl,
@@ -127,6 +129,11 @@ function Page() {
             methodology={dataset.methodology}
             lastVerified={formatCheckedDate(dataset.updated)}
             title="Sources, methodology and verification"
+            keyStats={[
+              { label: 'Coverage', value: String(dataset.year) },
+              { label: 'Reported values', value: dataset.rows.length.toLocaleString('en-US') },
+              { label: 'Unit', value: unitLabel(dataset.unit) },
+            ]}
           />
 
           <footer className="flex flex-wrap gap-x-7 gap-y-3 py-7 text-sm font-semibold">
@@ -153,6 +160,10 @@ function formatDatasetValue(value: number, unit: 'percent' | 'dollars' | 'count'
     : unit === 'percent'
       ? `${value.toFixed(4)}%`
       : new Intl.NumberFormat('en-US').format(value);
+}
+
+function unitLabel(unit: 'percent' | 'dollars' | 'count') {
+  return unit === 'percent' ? 'Percent' : unit === 'dollars' ? 'U.S. dollars' : 'Count';
 }
 
 function formatCheckedDate(value: string) {
