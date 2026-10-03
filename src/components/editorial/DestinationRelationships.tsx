@@ -101,6 +101,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
+  const hasSamRayburnMuseumContext = destination.slug === "sam-rayburn-museum-bonham";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
   const pairedDestinations = [...new Map(
     groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
@@ -112,6 +113,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
+    {hasSamRayburnMuseumContext ? <SamRayburnContext surface="museum" /> : null}
     <DestinationAreaGuideSection destination={destination} />
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
