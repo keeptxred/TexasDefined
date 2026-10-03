@@ -10,6 +10,7 @@ const citationTrust = read('src/components/content/TexasRiversCitationTrust.tsx'
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const server = read('src/server.ts');
+const authorityFreshness = read('scripts/ci/verify-authority-canonical-freshness.mjs');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
@@ -111,6 +112,13 @@ for (const marker of [
 ]) if (!server.includes(marker)) errors.push(`Texas rivers anti-stale edge-cache contract missing: ${marker}`);
 
 for (const marker of [
+  "requiredCacheDirectives: ['no-store']",
+  "const cacheControl = response.headers.get('cache-control')?.toLowerCase() ?? '';",
+  'lastMissingCacheDirectives.length === 0',
+  'cache-control missing:',
+]) if (!authorityFreshness.includes(marker)) errors.push(`Texas rivers live cache-freshness verification contract missing: ${marker}`);
+
+for (const marker of [
   'const riversLink = { href: "/article/texas-rivers-explained"',
   'const basinsLink = { href: "/article/texas-river-basins-guide"',
   'const collectionLink = { href: "/texas-explained"',
@@ -177,4 +185,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, downloadable CSV/JSON basin data, focused flagship presentation, non-duplicative regional flow, river-section imagery and anti-stale edge-cache policy are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, downloadable CSV/JSON basin data, focused flagship presentation, non-duplicative regional flow, river-section imagery, anti-stale edge-cache policy and live no-store verification are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
