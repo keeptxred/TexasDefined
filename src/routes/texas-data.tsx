@@ -12,6 +12,7 @@ export const dataHubNavigationPaths = {
   cities: '/browse/cities',
   explore: '/explore',
   resources: '/texas-resources',
+  industries: '/texas-industries',
   countyGrowth: '/texas-data/county-growth',
   cityCountyRelationships: '/texas-data/city-county-relationships',
 } as const;
