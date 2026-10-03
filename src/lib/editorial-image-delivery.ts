@@ -10,13 +10,19 @@ export const REMOTE_IMAGE_HOSTS = new Set([
   "images.unsplash.com",
 ]);
 
+const REMOTE_IMAGE_EXACT_URLS = new Set([
+  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg",
+]);
+
 const OWN_IMAGE = /^https:\/\/(?:www\.)?texasdefined\.com(\/[^#]*)/i;
 
 export function allowedRemoteImageUrl(value: string): URL | null {
   try {
     const url = new URL(value);
     if (url.protocol !== "https:") return null;
-    return REMOTE_IMAGE_HOSTS.has(url.hostname.toLowerCase()) ? url : null;
+    return REMOTE_IMAGE_HOSTS.has(url.hostname.toLowerCase()) || REMOTE_IMAGE_EXACT_URLS.has(url.toString())
+      ? url
+      : null;
   } catch {
     return null;
   }
