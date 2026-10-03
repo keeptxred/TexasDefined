@@ -20,6 +20,13 @@ jobs:
           ref: fix/discover-image-readiness-13
           fetch-depth: 1
 
+      - name: Install generation-only image tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
       - name: Build 1600x900 Discover derivatives
         shell: bash
         run: |
@@ -27,23 +34,25 @@ jobs:
           mkdir -p public/images/discover .tmp/discover
 
           if command -v magick >/dev/null 2>&1; then
-            IM="magick"
-          elif command -v convert >/dev/null 2>&1; then
-            IM="convert"
+            CONVERT="magick"
+            IDENTIFY="magick identify"
+          elif command -v convert >/dev/null 2>&1 && command -v identify >/dev/null 2>&1; then
+            CONVERT="convert"
+            IDENTIFY="identify"
           else
-            echo "ImageMagick is not available on the runner" >&2
+            echo "ImageMagick is not available after installation" >&2
             exit 1
           fi
 
           make_card() {
             local src="$1"
             local out="$2"
-            "$IM" \
+            $CONVERT \
               \( "$src" -auto-orient -resize '1600x900^' -gravity center -extent 1600x900 -blur 0x20 \) \
               \( "$src" -auto-orient -resize '1540x840>' \) \
               -gravity center -compose over -composite -strip -quality 88 "$out"
             local dims
-            dims=$("$IM" identify -format '%wx%h' "$out")
+            dims=$($IDENTIFY -format '%wx%h' "$out")
             test "$dims" = "1600x900" || { echo "Unexpected output dimensions for $out: $dims" >&2; exit 1; }
           }
 
@@ -90,13 +99,47 @@ jobs:
 
           ls -lh public/images/discover/*.webp
 
+      - name: Point Discover metadata at the durable derivatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('src/lib/seo.ts')
+          text = path.read_text()
+
+          anchor = 'const META_DESCRIPTION_MAX_LENGTH = 160;\n'
+          overrides = '''\nconst TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES: Record<string, string> = {\n  "/event/chappell-hill-bluebonnet-festival": "/images/discover/chappell-hill-bluebonnet-festival.webp",\n  "/article/ima-hogg-texas-legacy": "/images/discover/ima-hogg-texas-legacy.webp",\n  "/article/camping-in-texas-with-your-dog": "/images/discover/camping-in-texas-with-your-dog.webp",\n  "/article/texas-high-school-football-scores-schedules": "/images/discover/texas-high-school-football-scores-schedules.webp",\n  "/article/best-lighthouses-to-visit-in-texas": "/images/discover/best-lighthouses-to-visit-in-texas.webp",\n  "/article/texas-medal-of-honor-heroes": "/images/discover/texas-medal-of-honor-heroes.webp",\n  "/article/texas-red-river-war-guide": "/images/discover/texas-red-river-war-guide.webp",\n  "/article/republic-of-texas-government-trail": "/images/discover/republic-of-texas-government-trail.webp",\n  "/article/brazoria-plantations-slavery-emancipation-history": "/images/discover/brazoria-plantations-slavery-emancipation-history.webp",\n  "/article/texas-frontier-forts-road-trip": "/images/discover/texas-frontier-forts-road-trip.webp",\n  "/sports-venue/freeman-coliseum": "/images/discover/freeman-coliseum.webp",\n  "/sports-venue/eagle-stadium-allen": "/images/discover/eagle-stadium-allen.webp",\n  "/sports-venue/xtreme-raceway-park": "/images/discover/xtreme-raceway-park.webp",\n};\n'''
+          if 'TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES' not in text:
+              if text.count(anchor) != 1:
+                  raise SystemExit('SEO insertion anchor changed')
+              text = text.replace(anchor, anchor + overrides, 1)
+
+          old_image = '''  const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];\n  const image = page.image\n    ? { src: page.image, alt: page.imageAlt, type: page.imageType }\n    : fallbackImage;\n  const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;\n'''
+          new_image = '''  const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];\n  const discoverImage = brand.identity.id === "texasdefined" && page.canonicalPath\n    ? TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]\n    : undefined;\n  const image = discoverImage\n    ? { src: discoverImage, alt: page.imageAlt, type: "image/webp" }\n    : page.image\n      ? { src: page.image, alt: page.imageAlt, type: page.imageType }\n      : fallbackImage;\n  const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;\n  const imageWidth = discoverImage ? 1600 : page.imageWidth;\n  const imageHeight = discoverImage ? 900 : page.imageHeight;\n'''
+          if old_image in text:
+              text = text.replace(old_image, new_image, 1)
+          elif 'const discoverImage = brand.identity.id === "texasdefined"' not in text:
+              raise SystemExit('SEO image-selection contract changed')
+
+          old_dims = '''    if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });\n    if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });\n'''
+          new_dims = '''    if (imageWidth) meta.push({ property: "og:image:width", content: String(imageWidth) });\n    if (imageHeight) meta.push({ property: "og:image:height", content: String(imageHeight) });\n'''
+          if old_dims in text:
+              text = text.replace(old_dims, new_dims, 1)
+          elif new_dims not in text:
+              raise SystemExit('SEO image-dimension contract changed')
+
+          path.write_text(text)
+          PY
+
       - name: Commit generated derivatives to feature branch
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add public/images/discover/*.webp
+          git add public/images/discover/*.webp src/lib/seo.ts
           if git diff --cached --quiet; then
             echo 'No derivative changes to commit.'
             exit 0
