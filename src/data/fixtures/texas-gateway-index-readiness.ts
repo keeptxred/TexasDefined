@@ -41,6 +41,10 @@ export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
 export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = 400;
 export const ARTICLE_INDEX_MIN_DEK_CHARS = 80;
 export const ARTICLE_DISCOVERY_MIN_READING_MINUTES = 4;
+export const ARTICLE_INDEX_MIN_HEADINGS = 2;
+export const ARTICLE_INDEX_MIN_DISCOVERY_LINKS = 2;
+export const ARTICLE_INDEX_MIN_HERO_WIDTH = 600;
+export const ARTICLE_INDEX_MIN_HERO_HEIGHT = 315;
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
   return article.brandId === "texasdefined" && article.id.startsWith("gateway-");
@@ -80,11 +84,58 @@ function hasValidOptionalSource(article: Pick<Article, "sourceName" | "sourceUrl
   }
 }
 
+function hasSaneArticleTitle(title: string): boolean {
+  const value = title.trim();
+  if (value.length < 20 || value.length > 110) return false;
+  if (/\|\s*Texas\s*Defined\s*$/i.test(value)) return false;
+  if (/[!?.,:;\-–—]{3,}/.test(value)) return false;
+  if (/\s{2,}/.test(value)) return false;
+  return true;
+}
+
+function hasUsefulHero(article: Pick<Article, "hero">): boolean {
+  const { src, alt, width, height } = article.hero ?? {};
+  return Boolean(
+    src?.trim()
+    && alt?.trim().length >= 20
+    && Number.isFinite(width)
+    && Number.isFinite(height)
+    && width >= ARTICLE_INDEX_MIN_HERO_WIDTH
+    && height >= ARTICLE_INDEX_MIN_HERO_HEIGHT,
+  );
+}
+
+function hasUsefulEditorialStructure(article: Pick<Article, "body">): boolean {
+  if (article.body.length === 0) return true;
+  const headings = article.body
+    .filter((block): block is Extract<ArticleBlock, { type: "heading" }> => block.type === "heading")
+    .map((block) => block.text.trim())
+    .filter(Boolean);
+  if (headings.length < ARTICLE_INDEX_MIN_HEADINGS) return false;
+  if (headings.some((heading) => heading.length < 8 || heading.length > 100)) return false;
+  const normalized = headings.map((heading) => heading.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim());
+  if (new Set(normalized).size !== normalized.length) return false;
+
+  const paragraphs = article.body
+    .filter((block): block is Extract<ArticleBlock, { type: "paragraph" }> => block.type === "paragraph")
+    .map((block) => block.text.trim())
+    .filter(Boolean);
+  return paragraphs.length >= 3;
+}
+
+function hasDiscoveryLinks(article: Pick<Article, "internalLinks" | "relatedDestinations" | "relatedCollections">): boolean {
+  const internal = article.internalLinks?.filter((link) => /^\/(?!\/)/.test(link.href.trim()) && link.label.trim().length >= 3).length ?? 0;
+  const destinations = article.relatedDestinations.filter(Boolean).length;
+  const collections = article.relatedCollections.filter(Boolean).length;
+  return internal + destinations + collections >= ARTICLE_INDEX_MIN_DISCOVERY_LINKS;
+}
+
 function hasArticleReadinessMetadata(article: Article): boolean {
   if (!isTexasGatewayIndexReadyArticle(article)) return false;
-  if (!article.title.trim() || article.dek.trim().length < ARTICLE_INDEX_MIN_DEK_CHARS) return false;
+  if (!hasSaneArticleTitle(article.title) || article.dek.trim().length < ARTICLE_INDEX_MIN_DEK_CHARS) return false;
   if (!article.authorId.trim()) return false;
-  if (!article.hero?.src?.trim() || !article.hero?.alt?.trim()) return false;
+  if (!hasUsefulHero(article)) return false;
+  if (!hasDiscoveryLinks(article)) return false;
   return hasValidOptionalSource(article);
 }
 
@@ -97,7 +148,8 @@ function meetsArticleIndexBodyFloor(article: Article): boolean {
 /**
  * Strict route-level boundary for a fully loaded editorial article. Direct URLs
  * remain usable for QA/history, but a full article must carry substantive body
- * depth before it can be indexed.
+ * depth, useful editorial structure, valid media and crawlable internal discovery
+ * before it can be indexed.
  *
  * The explicit seasonal intent family uses a 400-word body floor because those
  * pages answer narrow planning questions and already carry source, author, hero,
@@ -105,7 +157,9 @@ function meetsArticleIndexBodyFloor(article: Article): boolean {
  * for every other article family.
  */
 export function isArticleIndexReady(article: Article): boolean {
-  return hasArticleReadinessMetadata(article) && meetsArticleIndexBodyFloor(article);
+  return hasArticleReadinessMetadata(article)
+    && hasUsefulEditorialStructure(article)
+    && meetsArticleIndexBodyFloor(article);
 }
 
 /**
@@ -120,7 +174,7 @@ export function isArticleIndexReady(article: Article): boolean {
  */
 export function isArticleDiscoveryReady(article: Article): boolean {
   if (!hasArticleReadinessMetadata(article)) return false;
-  if (meetsArticleIndexBodyFloor(article)) return true;
+  if (meetsArticleIndexBodyFloor(article)) return hasUsefulEditorialStructure(article);
   return article.body.length === 0
     && article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES;
 }

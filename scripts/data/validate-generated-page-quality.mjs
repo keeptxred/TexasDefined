@@ -20,6 +20,12 @@ const propertySchema = read('src/data/property/county-property-schema.ts');
 const propertyRoute = read('src/routes/property-tax.county.$county.tsx');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const ownership = read('src/lib/brand-route-ownership.ts');
+const articleReadiness = read('src/data/fixtures/texas-gateway-index-readiness.ts');
+const destinationAudit = read('src/data/destination-audit.ts');
+const destinationRuntime = read('src/data/destination-query-runtime.ts');
+const articleRoute = readRouteSurface('src/routes/article.$slug.tsx');
+const newsRoute = readRouteSurface('src/routes/news.$slug.tsx');
+const publicationContract = read('docs/page-publication-contract.md');
 
 function requireAll(label, text, needles) {
   for (const needle of needles) if (!text.includes(needle)) errors.push(`${label}: missing ${needle}`);
@@ -27,6 +33,51 @@ function requireAll(label, text, needles) {
 function forbidAll(label, text, needles) {
   for (const needle of needles) if (text.includes(needle)) errors.push(`${label}: forbidden regression returned: ${needle}`);
 }
+
+requireAll('shared article publication gate', articleReadiness, [
+  'ARTICLE_INDEX_MIN_BODY_WORDS',
+  'ARTICLE_INDEX_MIN_HEADINGS',
+  'ARTICLE_INDEX_MIN_DISCOVERY_LINKS',
+  'ARTICLE_INDEX_MIN_HERO_WIDTH',
+  'ARTICLE_INDEX_MIN_HERO_HEIGHT',
+  'hasSaneArticleTitle',
+  'hasUsefulHero',
+  'hasUsefulEditorialStructure',
+  'hasDiscoveryLinks',
+  'hasUsefulEditorialStructure(article)',
+  'meetsArticleIndexBodyFloor(article)',
+]);
+requireAll('shared article index consumers', sitemap, [
+  'isArticleIndexReady',
+  'const indexableLocalArticles = articles.filter((article) => !isLegacyCountySeriesArticle(article.slug) && isArticleIndexReady(article));',
+]);
+requireAll('article route publication boundary', articleRoute, [
+  'shouldNoindexTexasGatewayArticle(article)',
+  'max-image-preview:large',
+]);
+requireAll('news route publication boundary', newsRoute, [
+  'isArticleIndexReady(article)',
+  'max-image-preview:large',
+]);
+requireAll('destination publication gate', destinationAudit, [
+  'MIN_HERO_WIDTH',
+  'MIN_HERO_HEIGHT',
+  'hasSaneDestinationName',
+  'hasUsefulHeroDimensions',
+  'hero-dimensions',
+  'readyForIndexing: errors === 0',
+]);
+requireAll('destination catalog publication boundary', destinationRuntime, [
+  'filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved))',
+]);
+requireAll('page publication contract', publicationContract, [
+  'must not become indexable until its page-family readiness function qualifies it',
+  'human-readable, non-garbled title or H1',
+  'sane heading structure',
+  'crawlable internal discovery',
+  'declared dimensions',
+  'Do not weaken these floors to make a PR pass',
+]);
 
 requireAll('registry inventory', registry, [
   'TEXAS_COUNTY_ENTITIES.length!==254',
@@ -220,4 +271,4 @@ if (errors.length) {
   process.exit(1);
 }
 for (const warning of warnings) console.warn(`- ${warning}`);
-console.log('Generated-page quality validator passed: inventory, source authority, county-seat place semantics, editorial-first county richness, brand ownership, indexability, sitemap qualification, snapshot-backed local-office data, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');
+console.log('Generated-page quality validator passed: shared article and destination publication floors, inventory, source authority, county-seat place semantics, editorial-first county richness, brand ownership, indexability, sitemap qualification, snapshot-backed local-office data, property-page gating, county crawl-demand filtering, and related-content relevance are protected.');
