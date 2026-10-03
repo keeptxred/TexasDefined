@@ -1,0 +1,29 @@
+name: Diagnose Discover 3869 gate
+
+on:
+  push:
+    branches:
+      - diag/discover-3869-gate
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Validate image SEO governance
+        run: node scripts/data/validate-image-seo.mjs
+      - name: Build production application
+        run: npm run build
+      - name: Validate client performance budget
+        run: npm run performance:validate
+      - name: Smoke-test built Worker SSR
+        run: node scripts/ci/verify-built-worker-ssr.mjs
