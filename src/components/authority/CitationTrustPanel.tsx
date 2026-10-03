@@ -7,11 +7,14 @@ export type CitationSource = {
 };
 
 export interface CitationTrustPanelProps {
-  sources: CitationSource[];
+  sources: readonly CitationSource[];
   methodology: string;
   lastVerified: string;
   title?: string;
   className?: string;
+  stableUrl?: string;
+  recommendedCitation?: string;
+  reviewedBy?: string;
 }
 
 export function CitationTrustPanel({
@@ -20,6 +23,9 @@ export function CitationTrustPanel({
   lastVerified,
   title = 'Sources and verification',
   className = '',
+  stableUrl,
+  recommendedCitation,
+  reviewedBy,
 }: CitationTrustPanelProps) {
   return (
     <section
@@ -61,6 +67,18 @@ export function CitationTrustPanel({
               <h3 className="font-semibold text-foreground">Last verified</h3>
               <p className="mt-2">{lastVerified}</p>
             </div>
+            {reviewedBy ? <div>
+              <h3 className="font-semibold text-foreground">Reviewed by</h3>
+              <p className="mt-2">{reviewedBy}</p>
+            </div> : null}
+            {stableUrl ? <div>
+              <h3 className="font-semibold text-foreground">Stable URL</h3>
+              <p className="mt-2 break-all"><a href={stableUrl} className="font-semibold text-foreground underline decoration-primary/50 underline-offset-4">{stableUrl}</a></p>
+            </div> : null}
+            {recommendedCitation ? <div>
+              <h3 className="font-semibold text-foreground">Recommended citation</h3>
+              <p className="mt-2">{recommendedCitation}</p>
+            </div> : null}
           </div>
         </div>
       </div>
