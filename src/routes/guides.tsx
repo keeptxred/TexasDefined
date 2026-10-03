@@ -11,7 +11,7 @@ export const texasExplainedGuide = {
   body: "Understand the systems behind the scenery: rivers, reservoirs, roads, courthouse towns, wildlife, homes, land and cultural regions.",
   note: "Ten connected evergreen guides to why Texas works the way it does.",
 } as const;
-export const travelIntro = "Start with Texas Explained, compare CityPASS® for Dallas, Houston or San Antonio, then explore Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations.";
+export const travelIntro = "Start with Texas Explained for the why behind the state. Compare CityPASS® for Dallas, Houston or San Antonio, then explore Painted Churches, parks, water, camping, roads, caverns, small towns, historic places and sports destinations.";
 export const paintedChurchesGuide = {
   to: "/explore/painted-churches",
   label: "Painted Churches of Texas",
