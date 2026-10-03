@@ -20,13 +20,12 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
       : `District ${loaderData.district}-${loaderData.classification}`;
     const canonicalPath = loaderData.profilePath;
     const url = `${siteUrl}${canonicalPath}`;
-    const schools = loaderData.programs.map((program) => program.schoolName).join(', ');
-    const description = `${label} Texas high school football for the 2026–28 UIL alignment. See all ${loaderData.programCount} teams, school pages, scores and schedule resources, playoff context and official UIL data. Teams: ${schools}.`;
+    const description = `${label}: ${loaderData.programCount} teams in the 2026–28 UIL alignment, with school pages, score and schedule resources, playoff context and official UIL sources.`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${label} Football | Teams, Scores & UIL Guide`,
+        title: `${label} Football | Teams & UIL Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
