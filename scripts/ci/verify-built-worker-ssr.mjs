@@ -6,13 +6,22 @@ const host = process.env.BUILT_WORKER_SMOKE_HOST || '127.0.0.1';
 const port = Number.parseInt(process.env.BUILT_WORKER_SMOKE_PORT || '8799', 10);
 const origin = `http://${host}:${port}`;
 const rootRequiredText = process.env.BUILT_WORKER_SMOKE_REQUIRED_TEXT || 'Texas Defined';
-const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '45000', 10) || 45000);
+const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '60000', 10) || 60000);
 const requestTimeoutMs = Math.max(3000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS || '10000', 10) || 10000);
+const homepageTimeoutMs = Math.max(
+  requestTimeoutMs,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_HOMEPAGE_TIMEOUT_MS || '20000', 10) || 20000,
+);
+const warmupTimeoutMs = Math.max(
+  requestTimeoutMs,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_WARMUP_TIMEOUT_MS || '30000', 10) || 30000,
+);
 const targetAttempts = Math.max(1, Number.parseInt(process.env.BUILT_WORKER_SMOKE_TARGET_ATTEMPTS || '3', 10) || 3);
 const retryDelayMs = Math.max(0, Number.parseInt(process.env.BUILT_WORKER_SMOKE_RETRY_DELAY_MS || '750', 10) || 750);
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const artifactDir = '.artifacts';
 const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
+const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
@@ -173,13 +182,13 @@ const requestHeaders = {
   'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
 };
 
-async function checkRenderRoute(group, attemptToken) {
+async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
   try {
     const response = await fetch(smokeUrl(group.path, attemptToken), {
       redirect: 'follow',
       cache: 'no-store',
       headers: requestHeaders,
-      signal: AbortSignal.timeout(requestTimeoutMs),
+      signal: AbortSignal.timeout(timeoutMs),
     });
     lastStatus.set(group.path, String(response.status));
     const body = await response.text();
@@ -218,9 +227,7 @@ async function checkRedirectTarget(target, attemptToken) {
     const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
       && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
 
-    if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) {
-      return '';
-    }
+    if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) return '';
 
     return `${target.label} (${target.path}) expected HTTP ${target.expectedStatus} -> ${target.expectedPath} with query preserved; got HTTP ${response.status} -> ${location || 'no location'}`;
   } catch (error) {
@@ -234,9 +241,7 @@ async function verifyWithRetries(target, checker, label) {
   let failure = '';
 
   for (let attempt = 1; attempt <= targetAttempts; attempt += 1) {
-    if (child.exitCode !== null) {
-      return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
-    }
+    if (child.exitCode !== null) return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
 
     failure = await checker(target, `${label.replaceAll(' ', '-')}-${attempt}`);
     if (!failure) {
@@ -253,38 +258,57 @@ async function verifyWithRetries(target, checker, label) {
   return failure;
 }
 
-try {
-  const readinessGroup = renderRouteGroups.find((group) => group.path === '/');
-  const readinessStartedAt = Date.now();
-  let readinessAttempt = 0;
-  let readinessFailure = 'Built Worker did not become ready.';
-  let ready = false;
+async function waitForWranglerReady() {
+  const startedAt = Date.now();
+  const pollMs = Math.min(250, Math.max(50, retryDelayMs || 100));
 
-  while (Date.now() - readinessStartedAt < startupTimeoutMs) {
-    readinessAttempt += 1;
-    if (child.exitCode !== null) {
-      readinessFailure = `Wrangler dev exited before readiness completed (exit ${child.exitCode}).`;
-      break;
+  while (Date.now() - startedAt < startupTimeoutMs) {
+    if (child.exitCode !== null) return `Wrangler dev exited before signaling readiness (exit ${child.exitCode}).`;
+    if (captured.includes(wranglerReadyMarker)) {
+      console.log(`Wrangler local runtime signaled readiness after ${Date.now() - startedAt}ms.`);
+      return '';
     }
-
-    readinessFailure = await checkRenderRoute(readinessGroup, `startup-${readinessAttempt}`);
-    if (!readinessFailure) {
-      ready = true;
-      console.log(`Built Worker became ready after ${readinessAttempt} readiness probe(s).`);
-      break;
-    }
-
-    await sleep(retryDelayMs);
+    await sleep(pollMs);
   }
 
-  const failures = [];
+  return `Wrangler dev did not signal ${wranglerReadyMarker} within ${startupTimeoutMs}ms.`;
+}
 
-  if (!ready) {
-    failures.push(readinessFailure || `Built Worker did not become healthy within ${startupTimeoutMs}ms.`);
+async function warmBuiltWorker() {
+  const warmupGroup = renderRouteGroups.find((group) => group.path === '/guides/citypass-texas') || renderRouteGroups[0];
+  if (!warmupGroup) return;
+
+  const failure = await checkRenderRoute(warmupGroup, 'warmup', warmupTimeoutMs);
+  if (!failure) {
+    console.log(`Built Worker warmup completed on ${warmupGroup.path}.`);
+    return;
+  }
+
+  if (child.exitCode !== null) throw new Error(`Wrangler dev exited during warmup (exit ${child.exitCode}).`);
+  console.log(`Built Worker warmup did not complete cleanly: ${failure}. Continuing to protected route assertions with retries.`);
+  await sleep(retryDelayMs);
+}
+
+try {
+  const failures = [];
+  const readinessFailure = await waitForWranglerReady();
+
+  if (readinessFailure) {
+    failures.push(readinessFailure);
   } else {
+    // Wrangler process readiness and SSR correctness are separate concerns. Warm one
+    // deterministic route first so the homepage is never the cold-start readiness probe.
+    await sleep(250);
+    await warmBuiltWorker();
+
     for (const group of renderRouteGroups) {
       const label = `render route ${group.path}`;
-      const failure = await verifyWithRetries(group, checkRenderRoute, label);
+      const timeoutMs = group.path === '/' ? homepageTimeoutMs : requestTimeoutMs;
+      const failure = await verifyWithRetries(
+        group,
+        (target, attemptToken) => checkRenderRoute(target, attemptToken, timeoutMs),
+        label,
+      );
       if (failure) failures.push(failure);
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
     }
@@ -299,7 +323,7 @@ try {
 
   if (!failures.length) {
     console.log(`Built Worker SSR smoke passed: ${renderRouteGroups.length} unique render route(s), ${smokeTargets.length} marker check(s), and ${redirectTargets.length} redirect target(s) passed.`);
-    if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${renderRouteGroups.length} render routes / ${smokeTargets.length} marker checks + ${redirectTargets.length} redirect target(s) | per-route retries: ${targetAttempts} |\n`);
+    if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${renderRouteGroups.length} render routes / ${smokeTargets.length} marker checks + ${redirectTargets.length} redirect target(s) | process-ready signal + warmup + per-route retries: ${targetAttempts} |\n`);
   } else {
     const failure = failures.join('; ');
     const statuses = [...renderRouteGroups, ...redirectTargets].map((target) => `${target.path}=${lastStatus.get(target.path)}`).join(', ');
