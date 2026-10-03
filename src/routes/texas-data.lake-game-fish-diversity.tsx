@@ -3,16 +3,14 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { LakeFishDiversityContent } from '@/components/data/LakeFishDiversityContent';
+import { loadLakeFishDiversity } from '@/data/research/lake-game-fish-diversity';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/lake-game-fish-diversity';
 const description = 'TexasDefined compares the documented fishing-target mix across its verified Texas lake profiles and calculates targets per 1,000 surface acres.';
 
 export const Route = createFileRoute('/texas-data/lake-game-fish-diversity')({
-  loader: async () => {
-    const { loadLakeFishDiversityServer } = await import('@/data/research/lake-game-fish-diversity.server');
-    return loadLakeFishDiversityServer();
-  },
+  loader: () => loadLakeFishDiversity(),
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
