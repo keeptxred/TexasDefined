@@ -82,6 +82,17 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 
 The composer is intentionally server-only. It does not add an admin page, public route, signup form, provider call, or sending side effect.
 
+## Server-only operator control plane
+
+`newsletter-operations.server.ts` exposes the read-side backend needed by a future newsletter admin experience without creating a browser-accessible newsletter admin API.
+
+- `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
+- `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
+- `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
+- Rollout state reports whether public signup, bulk sending, double opt-in, and the complete Resend credential set are configured. It does not expose secret values.
+
+These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
+
 ## Resend issue lifecycle
 
 Server-only newsletter services can:
@@ -111,9 +122,10 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
+- No newsletter admin page has been added.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI is approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
 - No newsletter will send merely because these migrations/code are deployed.
 
-This separation allows the public signup surfaces and actual sending credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows the public signup surfaces, admin surface, and actual sending credentials to be added later without exposing subscriber data or redesigning the core model.
