@@ -17,7 +17,6 @@ export const nextStops = [
   ['Compare sports venues', sportsComparisonPath, 'Compare 84 verified Texas sports venue guides by location, type, capacity and opening information where available.'],
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
   ['City-to-county relationships', '/texas-data/city-county-relationships', 'See the current Texas Defined city directory mapped to counties and regions.'],
-  ['Free Texas maps & graphics', '/texas-graphics', 'Download original TexasDefined maps and graphics for editorial use with visible credit; a backlink is appreciated but not required.'],
   ['Explore Texas', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
   ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
   ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
