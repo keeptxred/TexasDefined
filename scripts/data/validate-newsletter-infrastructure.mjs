@@ -8,6 +8,7 @@ const requireText = (source, needle, label) => {
 
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
+const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
 const serverEntry = read('src/server-entry.ts');
 const docs = read('docs/newsletter-infrastructure.md');
@@ -36,6 +37,16 @@ for (const marker of [
   'Read on TexasDefined',
   'safeHttpUrl',
 ]) requireText(template, marker, 'Newsletter template');
+
+for (const marker of [
+  'previewTexasDefinedNewsletterDraft',
+  'saveTexasDefinedNewsletterDraft',
+  'saveNewsletterIssueDraft',
+  'renderTexasDefinedNewsletter',
+  '.min(1).max(12)',
+  "composer: 'texasdefined-story-digest-v1'",
+  'storyCount',
+]) requireText(composer, marker, 'Newsletter issue composer');
 
 for (const marker of [
   'NEWSLETTER_SIGNUPS_ENABLED',
@@ -67,6 +78,7 @@ for (const marker of [
   'NEWSLETTER_SENDING_ENABLED=true',
   'news.texasdefined.com',
   'Cloudflare Email Service is not the newsletter transport',
+  'server-only issue composer',
 ]) requireText(docs, marker, 'Newsletter documentation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
