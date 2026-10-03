@@ -118,7 +118,7 @@ function CityPassTexasGuide() {
       <Container>
         <SectionHeader eyebrow="At a glance" title="Dallas vs. Houston vs. San Antonio CityPASS®" description="Current published CityPASS pricing and maximum savings. The maximum savings figures use CityPASS's own regular-price comparison, so your actual savings can be lower." />
         <div className="mt-8 overflow-x-auto border border-border bg-background">
-          <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+          <table className="w-full min-w-full border-collapse text-left text-sm">
             <thead className="bg-surface">
               <tr>
                 <th scope="col" className="px-5 py-4 font-semibold text-foreground">City</th>
@@ -263,10 +263,10 @@ function CityPassTexasGuide() {
 }
 
 function AttractionList({ items }: { items: readonly Attraction[] }) {
-  return <ul className="mt-8 divide-y divide-border border-y border-border">{items.map((item) => <li key={item.name} className="grid gap-2 py-5 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] md:gap-8">
+  return <ul className="mt-8 divide-y divide-border border-y border-border">{items.map((item) => <li key={item.name} className="grid gap-2 py-5 md:grid-cols-2 md:gap-8">
     <div>
       <a href={item.href} className="font-semibold text-foreground underline decoration-primary/40 underline-offset-4 hover:text-primary">{item.name}</a>
-      {item.reservation ? <span className="ml-2 inline-block border border-border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary">Reservation {item.reservation.toLowerCase()}</span> : null}
+      {item.reservation ? <span className="ml-2 inline-block border border-border px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary">Reservation {item.reservation.toLowerCase()}</span> : null}
     </div>
     <p className="text-sm leading-6 text-muted-foreground">{item.admission}</p>
   </li>)}</ul>;
