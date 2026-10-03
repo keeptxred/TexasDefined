@@ -10,7 +10,7 @@ export type LakeGameFishDiversityRow = {
   targetCount: number;
   targets: string[];
   targetsPerThousandAcres: number | null;
-  verifiedAt: string;
+  verifiedAt: string | null;
   sourceUrls: string[];
 };
 
@@ -50,6 +50,10 @@ async function buildLakeGameFishDiversity(): Promise<LakeGameFishDiversityDatase
       .filter((name): name is string => Boolean(name)))]
       .sort((a, b) => a.localeCompare(b));
     const acres = lake.surfaceAcres && lake.surfaceAcres > 0 ? lake.surfaceAcres : null;
+    const sourceUrls = [...new Set([
+      ...lake.sources.map((source) => source.url),
+      ...relations.flatMap((relation) => relation.sources.map((source) => source.url)),
+    ].filter(Boolean))];
     return {
       lakeId: lake.id,
       slug: lake.slug,
@@ -60,8 +64,8 @@ async function buildLakeGameFishDiversity(): Promise<LakeGameFishDiversityDatase
       targetCount: targetNames.length,
       targets: targetNames,
       targetsPerThousandAcres: acres ? (targetNames.length / acres) * 1000 : null,
-      verifiedAt: lake.verifiedAt,
-      sourceUrls: [...new Set(lake.sources.map((source) => source.url).filter(Boolean))],
+      verifiedAt: lake.verifiedAt ?? null,
+      sourceUrls,
     } satisfies LakeGameFishDiversityRow;
   }).filter((row) => row.targetCount > 0)
     .sort((a, b) => b.targetCount - a.targetCount || (b.targetsPerThousandAcres ?? -1) - (a.targetsPerThousandAcres ?? -1) || a.name.localeCompare(b.name));
