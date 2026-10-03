@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
+import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { topAttractionTimeline } from "@/data/destination-timelines-top-attractions";
 import type { Destination } from "@/data/types";
 import { Container } from "@/components/layout/Container";
@@ -45,6 +46,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <div className="py-3"><dt className="text-muted-foreground">Good for first-time visitors</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
           </dl>
         </section>
+        <UnusualBusinessAuthorityPanel slug={destination.slug} />
       </Container>
     </Section>
 
