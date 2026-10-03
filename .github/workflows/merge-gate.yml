@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # Pull-request reruns are snapshots: GitHub can rerun an old merge commit even
       # after main has moved forward. Reconcile the latest protected base into the
