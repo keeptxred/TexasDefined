@@ -316,6 +316,8 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
   "/texas-data/county-growth",
   "/texas-data/property-tax-changes",
   "/texas-data/lake-game-fish-diversity",
+  "/texas-data/state-park-access",
+  "/texas-data/high-school-football-regions",
   "/texas-data/county-housing-costs",
 ] as const;
 
@@ -449,6 +451,8 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/texas-data/county-growth.csv",
   "/texas-data/property-tax-changes.csv",
   "/texas-data/lake-game-fish-diversity.csv",
+  "/texas-data/state-park-access.csv",
+  "/texas-data/high-school-football-regions.csv",
   "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
 ] as const;
