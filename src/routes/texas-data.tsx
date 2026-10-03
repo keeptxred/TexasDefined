@@ -1,14 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { TEXASDEFINED_RESEARCH_BRIEFS } from '@/data/original-research';
 import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
+export const description = 'Useful Texas facts, original TexasDefined research, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
 
 export const nextStops = [
+  ['Original TexasDefined research', '/texas-data/research', 'See TexasDefined calculations built from reputable source data, with complete tables, CSV downloads, methodology and stable citation URLs.'],
   ['Plan a move to Texas', '/moving-to-texas', 'Use the relocation research center for metro guides, city matching, address-level source checks, moving tasks and cost tools.'],
   ['Texas industries', '/texas-industries', 'Connect statewide economic data with sourced sector guides, regional industry hubs and county pathways.'],
   ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
@@ -29,15 +31,25 @@ export const Route = createFileRoute('/texas-data')({
     const pageUrl = absoluteUrl(texasDefinedBrand, '/texas-data');
     const datasets = loaderData?.datasets ?? [];
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Facts and Figures', description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Facts, Data and Original Research', description }),
       links: [canonicalLink(texasDefinedBrand, '/texas-data')],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
         '@graph': [
           {
-            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts and Figures', description,
+            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts, Data and Original Research', description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` }, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             dataset: [
+              ...TEXASDEFINED_RESEARCH_BRIEFS.map((brief) => ({
+                '@type': 'Dataset',
+                '@id': `${absoluteUrl(texasDefinedBrand, brief.path)}#dataset`,
+                name: brief.title,
+                description: brief.description,
+                url: absoluteUrl(texasDefinedBrand, brief.path),
+                dateModified: brief.updated,
+                spatialCoverage: { '@type': 'State', name: 'Texas' },
+                distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, brief.csvPath) },
+              })),
               ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
               {
                 '@type': 'Dataset',
