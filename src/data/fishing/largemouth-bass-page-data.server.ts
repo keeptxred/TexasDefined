@@ -1,6 +1,7 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+import { fishingFishImages } from "./image-library";
 import { fishingPlatform, fishingScope } from "./index";
 import { fishingFoundationAnchor } from "./slugs";
 import { largemouthBassEditorialProfile } from "./species-profiles";
@@ -69,6 +70,7 @@ async function buildLargemouthBassPageData() {
   return {
     species,
     profile: largemouthBassEditorialProfile,
+    heroImage: fishingFishImages["largemouth-bass"] ?? null,
     rankedLakes,
     recommendedTechniques,
     relatedSpecies,
