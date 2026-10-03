@@ -30,6 +30,12 @@ export function TexasRiverBasinReference() {
           >
             Download CSV ↓
           </a>
+          <a
+            href="/texas-river-basins.json"
+            className="underline decoration-border underline-offset-4"
+          >
+            Download JSON ↓
+          </a>
         </div>
       </div>
 
