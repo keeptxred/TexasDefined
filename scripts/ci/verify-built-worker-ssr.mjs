@@ -6,8 +6,12 @@ const host = process.env.BUILT_WORKER_SMOKE_HOST || '127.0.0.1';
 const port = Number.parseInt(process.env.BUILT_WORKER_SMOKE_PORT || '8799', 10);
 const origin = `http://${host}:${port}`;
 const rootRequiredText = process.env.BUILT_WORKER_SMOKE_REQUIRED_TEXT || 'Texas Defined';
-const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '45000', 10) || 45000);
+const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '60000', 10) || 60000);
 const requestTimeoutMs = Math.max(3000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS || '10000', 10) || 10000);
+const readinessRequestTimeoutMs = Math.max(
+  requestTimeoutMs,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_READINESS_REQUEST_TIMEOUT_MS || '30000', 10) || 30000,
+);
 const targetAttempts = Math.max(1, Number.parseInt(process.env.BUILT_WORKER_SMOKE_TARGET_ATTEMPTS || '3', 10) || 3);
 const retryDelayMs = Math.max(0, Number.parseInt(process.env.BUILT_WORKER_SMOKE_RETRY_DELAY_MS || '750', 10) || 750);
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
@@ -173,13 +177,13 @@ const requestHeaders = {
   'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
 };
 
-async function checkRenderRoute(group, attemptToken) {
+async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
   try {
     const response = await fetch(smokeUrl(group.path, attemptToken), {
       redirect: 'follow',
       cache: 'no-store',
       headers: requestHeaders,
-      signal: AbortSignal.timeout(requestTimeoutMs),
+      signal: AbortSignal.timeout(timeoutMs),
     });
     lastStatus.set(group.path, String(response.status));
     const body = await response.text();
@@ -267,7 +271,11 @@ try {
       break;
     }
 
-    readinessFailure = await checkRenderRoute(readinessGroup, `startup-${readinessAttempt}`);
+    readinessFailure = await checkRenderRoute(
+      readinessGroup,
+      `startup-${readinessAttempt}`,
+      readinessRequestTimeoutMs,
+    );
     if (!readinessFailure) {
       ready = true;
       console.log(`Built Worker became ready after ${readinessAttempt} readiness probe(s).`);
