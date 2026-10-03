@@ -1,16 +1,18 @@
 import fs from 'node:fs';
 
 const workflowPath = '.github/workflows/purge-authority-cache-after-deploy.yml';
+const verifyWorkflowPath = '.github/workflows/verify-authority-freshness-after-deploy.yml';
 const helperPath = 'scripts/ci/purge-cloudflare-cache.mjs';
 const freshnessPath = 'scripts/ci/verify-authority-canonical-freshness.mjs';
 const productionWorkflowPath = '.github/workflows/deploy-production.yml';
 const failures = [];
 
-if (!fs.existsSync(workflowPath)) {
-  failures.push(`Missing authority cache self-heal workflow: ${workflowPath}`);
+for (const requiredPath of [workflowPath, verifyWorkflowPath]) {
+  if (!fs.existsSync(requiredPath)) failures.push(`Missing authority cache workflow: ${requiredPath}`);
 }
 
 const workflow = fs.existsSync(workflowPath) ? fs.readFileSync(workflowPath, 'utf8') : '';
+const verifyWorkflow = fs.existsSync(verifyWorkflowPath) ? fs.readFileSync(verifyWorkflowPath, 'utf8') : '';
 const helper = fs.readFileSync(helperPath, 'utf8');
 const freshness = fs.readFileSync(freshnessPath, 'utf8');
 const productionWorkflow = fs.readFileSync(productionWorkflowPath, 'utf8');
@@ -33,6 +35,19 @@ for (const [needle, label] of [
   ['node scripts/ci/verify-authority-canonical-freshness.mjs', 'post-purge freshness verification'],
   ['Authority cache self-heal failed', 'fail-closed aggregate result'],
 ]) requireText(workflow, needle, label);
+
+for (const [needle, label] of [
+  ['workflow_run:', 'independent freshness workflow-run trigger'],
+  ['- Purge authority cache after production deploy', 'freshness must wait for cache self-heal'],
+  ['workflow_dispatch:', 'manual freshness trigger'],
+  ["github.event.workflow_run.conclusion == 'success'", 'freshness requires successful cache self-heal'],
+  ["github.event.workflow_run.head_branch == 'main'", 'freshness main-branch guard'],
+  ['node scripts/ci/verify-authority-canonical-freshness.mjs', 'independent canonical freshness command'],
+]) requireText(verifyWorkflow, needle, label);
+
+if (verifyWorkflow.includes('- Deploy TexasDefined production')) {
+  failures.push('Independent authority freshness must run after cache self-heal, not race the production deploy completion.');
+}
 
 for (const forbidden of ['purge_everything', 'purgeEverything', 'cache: purge-everything']) {
   if (workflow.includes(forbidden) || helper.includes(forbidden)) {
@@ -66,4 +81,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Authority cache self-heal protected: post-deploy targeted purge, permission-checked fallback, canonical freshness verification, main-branch guard and least-privilege primary deployment are intact.');
+console.log('Authority cache self-heal protected: deploy triggers targeted purge, purge verifies freshness, independent verification waits for repair, broad purge is forbidden, and primary deployment least privilege remains intact.');
