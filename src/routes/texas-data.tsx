@@ -4,9 +4,53 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
+export const description = 'Texas Defined’s maintained data and reference library: sourced Texas datasets, directories, comparison tables and downloadable records built for research, reporting, planning and citation.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
+
+export const referenceCollections = [
+  {
+    eyebrow: 'Maritime history · lighthouse records',
+    title: 'Texas Lighthouse Database — Complete List, Map, Status & Visitor Access',
+    description: 'A source-backed lighthouse reference covering location, county, historic era, present status, visitor-access reality, planning context and the supporting record for each mapped light.',
+    href: '/explore/lighthouses',
+    csvHref: '/texas-lighthouses.csv',
+    secondaryHref: '/article/texas-lighthouses-complete-guide',
+    secondaryLabel: 'Read the historical guide',
+    sourceLabel: 'Texas Historical Commission, U.S. Coast Guard, NOAA and linked source records',
+  },
+  {
+    eyebrow: 'Historic places · statewide verified directory',
+    title: 'Texas Painted Churches Directory — Census, Map, Sources & Visitor Access',
+    description: 'The canonical Texas Defined Painted Churches collection with verified profiles, a transparent census, methodology, map, designation evidence, reusable CSV/JSON data and a dedicated citation guide.',
+    href: '/explore/painted-churches',
+    csvHref: '/painted-churches.csv',
+    jsonHref: '/painted-churches.json',
+    secondaryHref: '/explore/painted-churches/cite',
+    secondaryLabel: 'How to cite the collection',
+    sourceLabel: 'National Park Service, Texas Historical Commission, parish and archival source trails',
+  },
+  {
+    eyebrow: 'Freshwater fishing · lake × species matrix',
+    title: 'Texas Fishing Species & Lake Reference Matrix',
+    description: 'A statewide relationship dataset connecting published Texas fishing lakes with documented species, prominence, fishery quality, seasonal patterns, lake characteristics and the source records behind each relationship.',
+    href: '/fishing/species',
+    csvHref: '/fishing-lake-species.csv',
+    secondaryHref: '/fishing/lakes',
+    secondaryLabel: 'Browse the lake directory',
+    sourceLabel: 'Texas Parks & Wildlife and source records attached to lake, species and fishery relationships',
+  },
+  {
+    eyebrow: 'High-school football · 2026–28 UIL alignment',
+    title: 'Texas UIL Football District Reference — Classifications, Teams & Enrollments',
+    description: 'All 192 current UIL football districts with classification, division, district number, member programs and the exact enrollment values used for the 2026–28 alignment cycle.',
+    href: '/texas-high-school-football-districts',
+    csvHref: '/texas-high-school-football-districts.csv',
+    secondaryHref: '/texas-high-school-football-teams',
+    secondaryLabel: 'Search every football program',
+    sourceLabel: 'University Interscholastic League alignment and enrollment source records',
+  },
+] as const;
 
 export const nextStops = [
   ['Plan a move to Texas', '/moving-to-texas', 'Use the relocation research center for metro guides, city matching, address-level source checks, moving tasks and cost tools.'],
@@ -29,16 +73,29 @@ export const Route = createFileRoute('/texas-data')({
     const pageUrl = absoluteUrl(texasDefinedBrand, '/texas-data');
     const datasets = loaderData?.datasets ?? [];
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Facts and Figures', description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Data & Reference Library', description }),
       links: [canonicalLink(texasDefinedBrand, '/texas-data')],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
         '@graph': [
           {
-            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts and Figures', description,
+            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Data & Reference Library', description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` }, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             dataset: [
               ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
+              ...referenceCollections.map((collection) => ({
+                '@type': 'Dataset',
+                '@id': `${absoluteUrl(texasDefinedBrand, collection.href)}#dataset`,
+                name: collection.title,
+                description: collection.description,
+                url: absoluteUrl(texasDefinedBrand, collection.href),
+                spatialCoverage: { '@type': 'State', name: 'Texas' },
+                isBasedOn: collection.sourceLabel,
+                distribution: [
+                  { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, collection.csvHref) },
+                  ...('jsonHref' in collection ? [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: absoluteUrl(texasDefinedBrand, collection.jsonHref) }] : []),
+                ],
+              })),
               {
                 '@type': 'Dataset',
                 '@id': `${absoluteUrl(texasDefinedBrand, sportsComparisonPath)}#dataset`,
