@@ -12,9 +12,7 @@ const STATE_ABBREVIATIONS: Record<string, string> = {
   Washington: "WA", "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY",
 };
 
-const STATE_SPRITE_URL =
-  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg";
-const STATE_SPRITE_PATH = `/media/remote?url=${encodeURIComponent(STATE_SPRITE_URL)}`;
+const STATE_SPRITE_PATH = `/media/remote?url=${encodeURIComponent("https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg")}`;
 
 function StateOutline({ state }: { state: string }) {
   const abbreviation = STATE_ABBREVIATIONS[state];
@@ -23,28 +21,20 @@ function StateOutline({ state }: { state: string }) {
   return (
     <svg
       viewBox="0 0 100 80"
-      aria-hidden="true"
-      focusable="false"
       style={{
         display: "block",
         width: "100%",
         height: "clamp(8rem, 18vw, 16rem)",
-        overflow: "visible",
-        color: "currentColor",
         opacity: 0.72,
       }}
     >
       <use
         href={`${STATE_SPRITE_PATH}#icon-state-${abbreviation}`}
-        x="0"
-        y="0"
         width="100"
         height="80"
         fill="none"
         stroke="currentColor"
         strokeWidth="0.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
       />
     </svg>
   );
