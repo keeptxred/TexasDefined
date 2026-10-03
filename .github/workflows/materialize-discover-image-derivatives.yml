@@ -62,8 +62,31 @@ jobs:
             curl --fail --location --retry 3 --retry-delay 2 --user-agent 'TexasDefined-Discover-Image-Materializer/1.0' "$url" --output "$out"
           }
 
-          fetch 'https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival-20260914.webp' .tmp/discover/chappell-hill-bluebonnet-festival
-          make_card .tmp/discover/chappell-hill-bluebonnet-festival public/images/discover/chappell-hill-bluebonnet-festival.webp
+          render_browser_card() {
+            local image_url="$1"
+            local out="$2"
+            local chrome
+            chrome="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+            test -n "$chrome" || { echo "No Chromium-compatible browser is available on the runner" >&2; exit 1; }
+            cat > .tmp/discover/browser-card.html <<HTML
+          <!doctype html>
+          <html><head><meta charset="utf-8"><style>
+          html,body{width:1600px;height:900px;margin:0;overflow:hidden;background:#111}
+          img{position:fixed;display:block}
+          .bg{inset:-45px;width:1690px;height:990px;object-fit:cover;filter:blur(28px);opacity:.92}
+          .fg{left:50%;top:50%;max-width:1540px;max-height:840px;transform:translate(-50%,-50%);object-fit:contain;box-shadow:0 12px 50px rgba(0,0,0,.35)}
+          </style></head><body><img class="bg" src="$image_url"><img class="fg" src="$image_url"></body></html>
+          HTML
+            "$chrome" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --window-size=1600,900 --virtual-time-budget=5000 \
+              --screenshot=.tmp/discover/browser-card.png "file://$PWD/.tmp/discover/browser-card.html"
+            local screenshot_dims
+            screenshot_dims=$($IDENTIFY -format '%wx%h' .tmp/discover/browser-card.png)
+            test "$screenshot_dims" = "1600x900" || { echo "Unexpected browser card dimensions: $screenshot_dims" >&2; exit 1; }
+            $CONVERT .tmp/discover/browser-card.png -strip -quality 88 "$out"
+          }
+
+          render_browser_card 'https://texasdefined.com/images/events/chappell-hill-bluebonnet-festival-20260914.webp' public/images/discover/chappell-hill-bluebonnet-festival.webp
 
           fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/ImaHogg.jpg' .tmp/discover/ima-hogg
           make_card .tmp/discover/ima-hogg public/images/discover/ima-hogg-texas-legacy.webp
