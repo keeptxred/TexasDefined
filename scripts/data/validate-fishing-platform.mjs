@@ -32,6 +32,7 @@ if (!failures.length) {
   const legacyHtml = read("src/routes/lakes.lake-conroe[.]html.tsx");
   const globalQueries = read("src/data/queries.ts");
   const globalSearchRuntime = read("src/data/search-documents-runtime.ts");
+  const fishingQueries = read("src/data/fishing/queries.ts");
   const tpwdReportServer = read("src/data/fishing/tpwd-fishing-report.server.ts");
   const tpwdReportFunctions = read("src/data/fishing/tpwd-fishing-report.functions.ts");
   const tpwdReportAdapter = read("src/data/fishing/tpwd-fishing-report-adapter.ts");
@@ -62,9 +63,14 @@ if (!failures.length) {
   if (!tpwdReportAdapter.includes("mergeOfficialTpwdFishingReport") || !tpwdReportAdapter.includes("buildTpwdReportSourceSummary")) failures.push("TPWD fishing report adapter contract missing.");
   if (!tpwdReportAdapter.includes("snapshot.sourceNotice")) failures.push("TPWD source notice must flow into the existing fishing report model.");
   if (tpwdReportAdapter.includes("Weekly fishing reports are currently on hold while TPWD updates its reporting process")) failures.push("TPWD status wording must never be hard-coded into the report adapter.");
+  if (!fishingQueries.includes("officialLake") || !fishingQueries.includes("getLatestTpwdFishingReport") || !fishingQueries.includes("mergeOfficialTpwdFishingReport")) failures.push("Official TPWD report hydration must stay inside the fishing query boundary.");
+  if (!fishingQueries.includes('officialLake ? "official" : "stored"')) failures.push("Fishing report query cache keys must distinguish official hydration from stored-only reports.");
   if (overviewRoute.includes("tpwd-fishing-report.server") || sectionRoute.includes("tpwd-fishing-report.server")) failures.push("Fishing routes must not import the TPWD server module directly.");
-  if (!sectionRoute.includes("getLatestTpwdFishingReport") || !sectionRoute.includes("mergeOfficialTpwdFishingReport") || !sectionRoute.includes("buildTpwdReportSourceSummary")) failures.push("Fishing report sections are not hydrated from the current TPWD source.");
-  if (!overviewRoute.includes("getLatestTpwdFishingReport") || !overviewRoute.includes("mergeOfficialTpwdFishingReport")) failures.push("Generic fishing lakes are not hydrated from the current TPWD source.");
+  for (const helper of ["getLatestTpwdFishingReport", "mergeOfficialTpwdFishingReport", "buildTpwdReportSourceSummary"]) {
+    if (overviewRoute.includes(helper) || sectionRoute.includes(helper)) failures.push(`Fishing routes must not orchestrate TPWD helper directly: ${helper}`);
+  }
+  if (!overviewRoute.includes("fishingReportsQuery({ lakeId: lake.id, limit: 10 }, lake)")) failures.push("Generic fishing lakes are not hydrated from the current TPWD source through fishingReportsQuery.");
+  if ((sectionRoute.match(/fishingReportsQuery\(\{ lakeId: lake\.id, limit: 20 \}, params\.section === "reports" \? lake : undefined\)/g) ?? []).length < 2) failures.push("Lake Conroe and showcase report sections must request official TPWD hydration only on the reports tab.");
 
   if (ui.includes("lake-conroe-prototype")) failures.push("Lake Conroe client UI must not import the prototype catalog.");
   if (!ui.includes("lake-conroe-routing") || !ui.includes("pageData.sections") || !ui.includes("pageData.copy")) failures.push("Lake Conroe client routing/server hydration contract missing.");
