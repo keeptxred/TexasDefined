@@ -78,10 +78,11 @@ function CityCountyRelationshipsPage() {
   const { relationships } = Route.useLoaderData();
   const grouped = [...relationships].sort((a, b) => a.city.name.localeCompare(b.city.name));
   const unmatched = grouped.filter((item) => !item.county);
+  const matched = grouped.length - unmatched.length;
   return (
     <Container className="pb-20 pt-12 sm:pt-16">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/texas-data">Texas Data</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">City-to-county relationships</span></nav>
-      <header className="py-10"><p className="eyebrow text-primary">Relationship dataset</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas city-to-county relationships</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A machine-readable and human-readable mapping of the cities in the current Texas Defined directory to their county and region. This curated directory is not an exhaustive list of every incorporated municipality or census place in Texas.</p><a href="/texas-data/city-county-relationships.csv" className="mt-5 inline-block border-b border-primary text-sm font-semibold text-primary">Download the CSV →</a></header>
+      <header className="py-10"><p className="eyebrow text-primary">Relationship dataset</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Texas city-to-county relationships</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">A machine-readable and human-readable mapping of the cities in the current Texas Defined directory to their county and region. This curated directory is not an exhaustive list of every incorporated municipality or census place in Texas.</p><div className="mt-6 grid gap-3 sm:grid-cols-3"><div className="border-l-2 border-primary pl-3"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">City records</span><strong className="mt-1 block font-display text-2xl">{grouped.length}</strong></div><div className="border-l-2 border-primary pl-3"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">County matches</span><strong className="mt-1 block font-display text-2xl">{matched}</strong></div><div className="border-l-2 border-primary pl-3"><span className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">Pending matches</span><strong className="mt-1 block font-display text-2xl">{unmatched.length}</strong></div></div><a href="/texas-data/city-county-relationships.csv" className="mt-5 inline-block border-b border-primary text-sm font-semibold text-primary">Download the CSV →</a></header>
 
       <div className="overflow-x-auto border-y border-border">
         <table className="w-full min-w-[720px] text-left text-sm">
@@ -93,10 +94,17 @@ function CityCountyRelationshipsPage() {
 
       <CitationTrustPanel
         className="mt-10"
+        citationTitle="Texas City-to-County Relationship Dataset"
         sources={[{ name: 'State of Texas county website directory', url: officialCountyDirectory, note: 'Official county discovery reference; city-to-county rows come from the maintained Texas Defined city registry.' }]}
         methodology="This dataset exposes the relationships already used by Texas Defined’s city and county navigation. City records are mapped to the 254-county registry by county name, and an unmatched relationship is shown as pending rather than guessed. The curated city registry intentionally covers a useful set of Texas cities and places rather than claiming statewide municipal completeness. The downloadable CSV is generated from the same registries as the visible table."
         lastVerified="Generated from the current Texas Defined city and county registries; legal boundaries and municipal status should be confirmed with official local sources for address-specific decisions."
         title="City-to-county dataset sources and methodology"
+        keyStats={[
+          { label: 'City records', value: grouped.length.toLocaleString('en-US') },
+          { label: 'County matches', value: matched.toLocaleString('en-US') },
+          { label: 'Pending matches', value: unmatched.length.toLocaleString('en-US') },
+        ]}
+        dataDownloads={[{ label: 'City-to-county relationships', url: '/texas-data/city-county-relationships.csv', format: 'CSV' }]}
       />
     </Container>
   );
