@@ -1,5 +1,22 @@
 const pages = [
   {
+    label: 'Texas rivers',
+    url: 'https://texasdefined.com/article/texas-rivers-explained',
+    required: [
+      'Texas Rivers Explained',
+      'Start with the map',
+      'Texas Rivers, Region by Region',
+      'Go Deeper on Five Major Texas Rivers',
+      'Open the full 15-basin comparison',
+    ],
+    forbidden: [
+      'Dedicated river profiles',
+      "See Texas's Major Rivers on the Map",
+      'Texas rivers at a glance',
+      'More stories to read next',
+    ],
+  },
+  {
     label: 'Six-man football',
     url: 'https://texasdefined.com/article/texas-six-man-football-rules-explained',
     required: [
@@ -50,12 +67,12 @@ for (const page of pages) {
   let lastForbidden = [];
   let lastProblem = '';
 
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
     try {
       const response = await fetch(page.url, {
         redirect: 'follow',
         cache: 'no-store',
-        signal: AbortSignal.timeout(10_000),
+        signal: AbortSignal.timeout(15_000),
         headers: {
           'user-agent': 'TexasDefined-CI-Authority-Freshness/1.0',
           'cache-control': 'no-cache',
@@ -81,7 +98,7 @@ for (const page of pages) {
       lastProblem = error instanceof Error ? error.message : String(error);
     }
 
-    if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, 2_000));
+    if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, 2_000));
   }
 
   if (!passed) {
