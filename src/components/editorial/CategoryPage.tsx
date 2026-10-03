@@ -35,6 +35,24 @@ const TEXAS_LIFE_DEPARTMENTS = new Set<CategorySlug>([
   "texas-history",
 ]);
 
+const CATEGORY_ACCENTS: Partial<Record<CategorySlug, string>> = {
+  "lakes-rivers": "oklch(0.58 0.105 218)",
+  "beaches-coast": "oklch(0.58 0.105 218)",
+  "major-springs": "oklch(0.68 0.105 190)",
+  outdoors: "oklch(0.46 0.09 148)",
+  "state-parks": "oklch(0.66 0.065 135)",
+  "national-parks": "oklch(0.71 0.105 70)",
+  "road-trips": "oklch(0.69 0.15 52)",
+  "food-bbq": "oklch(0.69 0.15 52)",
+  "small-towns": "oklch(0.52 0.075 58)",
+  "home-garden": "oklch(0.52 0.075 58)",
+  "real-estate": "oklch(0.52 0.075 58)",
+  "texas-history": "oklch(0.55 0.13 38)",
+  "historic-sites": "oklch(0.55 0.13 38)",
+  caverns: "oklch(0.55 0.13 38)",
+  "moving-to-texas": "oklch(0.79 0.09 92)",
+};
+
 function CategoryBreadcrumb({ belongsToExplore, belongsToTexasLife, current, inverse = false }: { belongsToExplore: boolean; belongsToTexasLife: boolean; current: string; inverse?: boolean }) {
   return (
     <nav aria-label="Breadcrumb" className={`text-[0.72rem] font-medium uppercase tracking-[0.12em] ${inverse ? "text-ink-foreground/65" : "text-muted-foreground"}`}>
@@ -67,6 +85,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
   const others = lead ? articles.slice(1) : articles;
   const belongsToTexasLife = TEXAS_LIFE_DEPARTMENTS.has(category);
   const belongsToExplore = !belongsToTexasLife;
+  const accent = CATEGORY_ACCENTS[category] ?? "oklch(0.48 0.145 278)";
   const answerItems = [
     {
       question: `What is this ${belongsToExplore ? "Texas guide" : "section"} about?`,
@@ -93,9 +112,8 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
     <>
       {image ? (
         <section className="relative isolate overflow-hidden bg-ink text-ink-foreground">
-          <div aria-hidden className="absolute inset-0 bg-ink">
-            
-          </div>
+          <div aria-hidden className="absolute inset-x-0 top-0 z-10 h-1" style={{ background: accent }} />
+          <div aria-hidden className="absolute inset-0 bg-ink" />
           <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" onError={(event) => recoverOrHideImage(event.currentTarget)} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
           <Container className="relative flex min-h-[480px] flex-col justify-end py-14 sm:min-h-[540px] sm:py-20">
@@ -106,8 +124,12 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
           </Container>
         </section>
       ) : (
-        <section className="border-b border-border">
-          <Container className="pb-12 pt-16 sm:pb-14 sm:pt-24">
+        <section
+          className="relative overflow-hidden border-b border-border"
+          style={{ background: `linear-gradient(112deg, color-mix(in oklch, oklch(0.86 0.035 79) 30%, var(--background)), var(--background) 62%, color-mix(in oklch, ${accent} 7%, var(--background)))` }}
+        >
+          <div aria-hidden className="absolute inset-x-0 top-0 h-1" style={{ background: accent }} />
+          <Container className="relative pb-12 pt-16 sm:pb-14 sm:pt-24">
             <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} />
             <div className="mt-10 max-w-5xl border-t border-border pt-8">
               <p className="eyebrow text-primary">{eyebrow}</p>
