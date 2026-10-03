@@ -26,6 +26,8 @@ export const Route = createFileRoute(canonicalPath)({
       { CAMPING_DISCOVERY_PROFILES_WAVE6 },
       { CAMPING_DISCOVERY_PROFILES_WAVE7 },
       { CAMPING_DISCOVERY_PROFILES_WAVE8 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE9 },
+      { CAMPING_DISCOVERY_PROFILES_WAVE10 },
     ] = await Promise.all([
       import("@/data/camping/discovery"),
       import("@/data/camping/profiles-wave2"),
@@ -35,6 +37,8 @@ export const Route = createFileRoute(canonicalPath)({
       import("@/data/camping/profiles-wave6"),
       import("@/data/camping/profiles-wave7"),
       import("@/data/camping/profiles-wave8"),
+      import("@/data/camping/profiles-wave9"),
+      import("@/data/camping/profiles-wave10"),
     ]);
     const profiles = [
       ...CAMPING_DISCOVERY_PROFILES,
@@ -45,6 +49,8 @@ export const Route = createFileRoute(canonicalPath)({
       ...CAMPING_DISCOVERY_PROFILES_WAVE6,
       ...CAMPING_DISCOVERY_PROFILES_WAVE7,
       ...CAMPING_DISCOVERY_PROFILES_WAVE8,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE9,
+      ...CAMPING_DISCOVERY_PROFILES_WAVE10,
     ];
     return { entries: profiles.map((profile) => ({ profile })) };
   },
