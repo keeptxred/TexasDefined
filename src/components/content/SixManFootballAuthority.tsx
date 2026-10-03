@@ -19,14 +19,14 @@ const ruleCards = [
 
 const sixManPhotos = [
   {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Six-man_football_battle.jpg?width=1600",
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Six-man_football_battle.jpg",
     alt: "Six-man football players battling for the ball under stadium lights",
     caption: "Six-man football creates huge one-on-one spaces. One missed tackle can become a scoring play in seconds.",
     credit: "KaleenaBurt · CC BY-SA 4.0",
     href: "https://commons.wikimedia.org/wiki/File:Six-man_football_battle.jpg",
   },
   {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Whitharral_Texas_Panthers_six-man_football_2010.jpg?width=1600",
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg",
     alt: "Whitharral Panthers six-man football players on a West Texas field",
     caption: "At schools such as Whitharral, six-man football keeps Friday-night football viable with a much smaller student body.",
     credit: "Leaflet · CC BY-SA 3.0",
@@ -118,14 +118,14 @@ export function SixManFootballAuthority() {
         </div>
         <figure className="overflow-hidden rounded-2xl border border-border bg-background p-4 shadow-sm">
           <img
-            src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Six_man_field.png?width=1200"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Six_man_field.png"
             alt="Diagram of a typical six-man football field showing the shorter 80-yard field"
-            width={1200}
-            height={657}
+            width={325}
+            height={178}
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
-            className="w-full"
+            className="w-full image-render-auto"
           />
           <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
             Typical six-man field diagram · <a href="https://commons.wikimedia.org/wiki/File:Six_man_field.png" target="_blank" rel="noreferrer" className="underline decoration-border underline-offset-4 hover:text-primary">Lothar1976 · public domain · Wikimedia Commons</a>
