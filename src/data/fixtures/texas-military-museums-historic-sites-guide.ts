@@ -9,7 +9,7 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
   brandId: "texasdefined",
   slug: "texas-military-museums-historic-sites-guide",
   title: "Texas Military Museums & Historic Sites: The Best Places to See the Story in Person",
-  dek: "From aircraft carriers and battlefields to frontier forts, WASP hangars, glider training and Pacific War collections, this statewide guide turns Texas military history into places you can actually visit.",
+  dek: "From aircraft carriers and battlefields to armored-division archives, frontier forts, WASP hangars, glider training and Pacific War collections, this statewide guide turns Texas military history into places you can actually visit.",
   category: "texas-history",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg?width=1600",
@@ -20,8 +20,9 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-20",
-  readingMinutes: 19,
-  tags: ["Texas military museums", "Texas military historic sites", "USS Lexington", "National WASP WWII Museum", "Silent Wings Museum", "Texas Military Forces Museum", "National Museum of the Pacific War", "Texas battlefields", "Texas forts", "Texas military history"],
+  updatedAt: "2026-10-03",
+  readingMinutes: 21,
+  tags: ["Texas military museums", "Texas military historic sites", "12th Armored Division Memorial Museum", "Hellcats", "Abilene", "USS Lexington", "National WASP WWII Museum", "Silent Wings Museum", "Texas Military Forces Museum", "National Museum of the Pacific War", "Texas battlefields", "Texas forts", "Texas military history"],
   featured: true,
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/learn/military-history",
@@ -30,15 +31,16 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
     { href: "/destination/uss-lexington-museum-corpus-christi", label: "USS Lexington Museum", description: "Walk the decks of the World War II Essex-class carrier preserved on Corpus Christi's North Beach." },
     { href: "/destination/national-wasp-wwii-museum-sweetwater", label: "National WASP WWII Museum", description: "Visit Avenger Field in Sweetwater, where Women Airforce Service Pilots trained during World War II." },
     { href: "/destination/silent-wings-museum-lubbock", label: "Silent Wings Museum", description: "See a restored CG-4A and the former South Plains Army Air Field where military glider pilots trained." },
+    { href: "/destination/12th-armored-division-memorial-museum", label: "12th Armored Division Memorial Museum", description: "Use the Hellcats' Abilene museum to connect armored warfare, veteran testimony and Holocaust-liberation history through a division-specific archive." },
     { href: "/destination/texas-military-forces-museum", label: "Texas Military Forces Museum", description: "Use Camp Mabry's collection to understand the Texas militia, National Guard, State Guard and 36th Infantry Division." },
     { href: "/destination/palo-alto-battlefield-national-historical-park", label: "Palo Alto Battlefield", description: "Walk the preserved prairie where the first major battle of the U.S.–Mexican War was fought." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas", description: "Follow BB-35 from the dreadnought era through both world wars and its Galveston restoration." },
     { href: "/texas-history", label: "Texas History", description: "Return to the statewide TexasDefined history collection." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "texas-military-forces-museum", "palo-alto-battlefield-national-historical-park", "battleship-texas", "national-museum-pacific-war", "fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
+  relatedDestinations: ["uss-lexington-museum-corpus-christi", "national-wasp-wwii-museum-sweetwater", "silent-wings-museum-lubbock", "12th-armored-division-memorial-museum", "texas-military-forces-museum", "palo-alto-battlefield-national-historical-park", "battleship-texas", "national-museum-pacific-war", "fort-davis-national-historic-site", "fort-mckavett", "fort-lancaster"],
   body: [
-    p("Texas military history is unusually easy to experience on the ground. The state preserves battlefields from the Republic, the U.S.–Mexican War and the Civil War; frontier Army posts; World War training fields; naval vessels; National Guard collections; and museums built around specialized aviation programs. The strongest visits are the ones where the physical place explains something a general timeline cannot."),
+    p("Texas military history is unusually easy to experience on the ground. The state preserves battlefields from the Republic, the U.S.–Mexican War and the Civil War; frontier Army posts; World War training fields; naval vessels; National Guard collections; and museums built around specialized aviation and armored-division histories. The strongest visits are the ones where the physical place or primary-source collection explains something a general timeline cannot."),
     p("This guide is organized by what each place helps you understand, not by a ranking that pretends a carrier museum and a battlefield are interchangeable. Use it to choose a trip by era, geography or type of experience, then open the individual TexasDefined destination pages for current access and nearby-stop planning."),
 
     h("For naval aviation: USS Lexington in Corpus Christi"),
@@ -59,11 +61,15 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
 
     h("For women in military aviation: National WASP WWII Museum in Sweetwater"),
     p("The National WASP WWII Museum stands at Avenger Field, the principal World War II training base for Women Airforce Service Pilots. That original setting makes Sweetwater much more than a collection of WASP memorabilia: the training landscape itself is part of the interpretation."),
-    p("The museum is the natural physical companion to TexasDefined's Women in Texas Military History guide. It also creates a useful West Texas aviation route with Lubbock's Silent Wings Museum."),
+    p("The museum is the natural physical companion to TexasDefined's Women in Texas Military History guide. It also creates a useful West Texas aviation route with Lubbock's Silent Wings Museum and a broader World War II route with Abilene's 12th Armored Division Memorial Museum."),
 
     h("For a specialized World War II aviation story: Silent Wings Museum in Lubbock"),
     p("Silent Wings Museum preserves the American military glider program on the former South Plains Army Air Field, where glider pilots trained during World War II. A restored CG-4A lets visitors see the aircraft used to carry troops, vehicles and supplies into combat without an engine."),
     p("Sweetwater and Lubbock work especially well together because both museums preserve unusual training programs that depended on Texas airfields, but their missions were very different. One centered women pilots flying powered military aircraft; the other trained pilots for engineless assault gliders."),
+
+    h("For armored warfare, primary sources and liberation testimony: 12th Armored Division Memorial Museum in Abilene"),
+    p("Abilene's 12th Armored Division Memorial Museum approaches World War II through the Hellcats, the U.S. Army armored division that entered combat in Europe late in 1944 and fought through the final months of the war. The museum's value is the density of its division-specific archive: photographs, uniforms, vehicles, weapons, dioramas, written experiences and recorded oral histories make it possible to follow the war through individual soldiers as well as operations."),
+    p("The collection is especially useful for the fighting around Herrlisheim and for Holocaust education. The museum's education program uses letters, photographs, artifacts and oral histories from division soldiers and identifies the 12th Armored Division among the recognized liberators of the Hurlach 4 sub-camp of Dachau. Because the museum is downtown, it also fits naturally with The Grace Museum and Taylor County history, while Sweetwater's WASP museum is about 40 miles west for a two-stop World War II route."),
 
     h("For the opening of the U.S.–Mexican War: Palo Alto Battlefield"),
     p("Palo Alto Battlefield National Historical Park near Brownsville preserves the prairie where U.S. and Mexican armies fought on May 8, 1846. Unlike an artifact museum, the landscape itself explains artillery ranges, troop movement and why terrain mattered."),
@@ -81,11 +87,12 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
     list(
       "Austin and the Hill Country: Texas Military Forces Museum, National Museum of the Pacific War and nearby Texas-history sites.",
       "Corpus Christi and the Gulf Coast: USS Lexington, coastal museums and a separate Galveston extension for Battleship Texas when public access allows.",
-      "West Texas aviation: National WASP WWII Museum in Sweetwater plus Silent Wings Museum in Lubbock.",
+      "Abilene and Sweetwater: 12th Armored Division Memorial Museum plus the National WASP WWII Museum for a compact two-stop World War II route along I-20.",
+      "South Plains aviation: continue from Sweetwater toward Silent Wings Museum in Lubbock for the military-glider story.",
       "Lower Rio Grande: Palo Alto Battlefield, Resaca de la Palma, Brownsville and Port Isabel.",
       "Fort country: choose a Fort Davis/Trans-Pecos route or a Fort McKavett–Fort Concho route rather than forcing distant posts into one day.",
       "Texas Revolution corridor: San Antonio, Goliad and San Jacinto work best as a multi-day sequence rather than one rushed loop."
     ),
-    p("The practical rule is simple: use museums for objects and systems, ships for scale, and preserved landscapes for geography. Texas has enough of all three that military history can be experienced as a statewide network instead of a list of disconnected monuments."),
+    p("The practical rule is simple: use museums for objects and systems, ships for scale, archives and oral histories for individual experience, and preserved landscapes for geography. Texas has enough of all four that military history can be experienced as a statewide network instead of a list of disconnected monuments."),
   ],
 };

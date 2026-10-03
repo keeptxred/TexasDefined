@@ -30,20 +30,27 @@ const lexingtonDestination = {
   description: "Walk the flight and hangar decks of the World War II Essex-class aircraft carrier preserved in Corpus Christi.",
 };
 
+const hellcatsDestination = {
+  href: "/destination/12th-armored-division-memorial-museum",
+  label: "Visit the 12th Armored Division Memorial Museum",
+  description: "Explore the Hellcats' archives, oral histories, vehicles and three floors of World War II exhibits in downtown Abilene.",
+};
+
 const additionsBySlug: Record<string, Array<{ href: string; label: string; description: string }>> = {
-  "texas-military-history-timeline": [visitorGuide, nationalCemeteryGuide],
-  "texas-military-museums-historic-sites-guide": [nationalCemeteryGuide],
+  "texas-military-history-timeline": [hellcatsDestination, visitorGuide, nationalCemeteryGuide],
+  "texas-military-museums-historic-sites-guide": [hellcatsDestination, nationalCemeteryGuide],
   "women-in-texas-military-history": [waspDestination, visitorGuide],
   "texas-medal-of-honor-heroes": [visitorGuide, nationalCemeteryGuide],
   "buffalo-soldiers-texas-frontier-guide": [visitorGuide],
   "texas-frontier-forts-road-trip": [visitorGuide],
-  "texas-world-war-ii-bases-pow-camps": [waspDestination, silentWingsDestination, lexingtonDestination, visitorGuide, nationalCemeteryGuide],
-  "texas-world-war-ii-historic-sites-guide": [waspDestination, silentWingsDestination, lexingtonDestination, visitorGuide, nationalCemeteryGuide],
+  "texas-world-war-ii-bases-pow-camps": [hellcatsDestination, waspDestination, silentWingsDestination, lexingtonDestination, visitorGuide, nationalCemeteryGuide],
+  "texas-world-war-ii-historic-sites-guide": [hellcatsDestination, waspDestination, silentWingsDestination, lexingtonDestination, visitorGuide, nationalCemeteryGuide],
   "texas-national-guard-history": [visitorGuide, nationalCemeteryGuide],
   "san-antonio-military-aviation-history": [waspDestination, silentWingsDestination, visitorGuide, nationalCemeteryGuide],
   "texas-cold-war-military-history": [visitorGuide, nationalCemeteryGuide],
   "texas-recent-wars-military-history": [visitorGuide, nationalCemeteryGuide],
   "battleship-texas-bb-35-history-restoration": [lexingtonDestination, visitorGuide],
+  "taylor-county-abilene-buffalo-gap-dyess-big-country-texas": [hellcatsDestination, waspDestination, visitorGuide],
 };
 
 for (const [slug, additions] of Object.entries(additionsBySlug)) {
