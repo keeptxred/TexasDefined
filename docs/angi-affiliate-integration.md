@@ -25,8 +25,10 @@ Broad multi-system pages and pages that use service-like words in a non-contract
 - `/article/true-cost-of-owning-a-home-in-texas`
 - `/article/texas-wildfire-home-protection-guide` — mentions landscaping, decks and fences as wildfire-hardening concepts; the primary intent is wildfire preparedness, not hiring a landscaper or contractor.
 - `/article/texas-home-architecture-regions` — uses “residential landscape” in an architectural/geographic sense; it is not a landscaping-services page.
+- `/moving-to-texas/data` — a relocation data/evidence hub whose route and copy use “moving” and “relocation,” but its primary intent is research and comparison, not hiring movers.
+- `/moving-to-texas/tools` — a calculator and lookup index for relocation decisions; it should not inherit the Moving service solely from its `/moving-to-texas/` pathname or utility copy.
 
-Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Do not treat generic or figurative uses of `landscape` as contractor intent. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
+Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Do not treat generic or figurative uses of `landscape` as contractor intent. Likewise, do not assume every `/moving-to-texas/*` utility has moving-service intent merely because its pathname contains `moving`. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
 
 Eligible route families are intentionally limited to editorial and guide surfaces with potential homeowner intent:
 
