@@ -15,6 +15,7 @@ const pages = [
       'Texas rivers at a glance',
       'More stories to read next',
     ],
+    requiredCacheDirectives: ['no-store'],
   },
   {
     label: 'Six-man football',
@@ -65,6 +66,7 @@ for (const page of pages) {
   let passed = false;
   let lastMissing = page.required;
   let lastForbidden = [];
+  let lastMissingCacheDirectives = page.requiredCacheDirectives ?? [];
   let lastProblem = '';
 
   for (let attempt = 1; attempt <= 4; attempt += 1) {
@@ -83,12 +85,19 @@ for (const page of pages) {
       if (!response.ok) {
         lastProblem = `HTTP ${response.status}`;
       } else {
+        const cacheControl = response.headers.get('cache-control')?.toLowerCase() ?? '';
         const html = await response.text();
         lastMissing = page.required.filter((marker) => !html.includes(marker));
         lastForbidden = page.forbidden.filter((marker) => html.includes(marker));
+        lastMissingCacheDirectives = (page.requiredCacheDirectives ?? [])
+          .filter((directive) => !cacheControl.includes(directive.toLowerCase()));
         lastProblem = '';
 
-        if (lastMissing.length === 0 && lastForbidden.length === 0) {
+        if (
+          lastMissing.length === 0
+          && lastForbidden.length === 0
+          && lastMissingCacheDirectives.length === 0
+        ) {
           console.log(`${page.label} canonical page is fresh on attempt ${attempt}.`);
           passed = true;
           break;
@@ -106,6 +115,9 @@ for (const page of pages) {
     if (lastProblem) details.push(lastProblem);
     if (lastMissing.length) details.push(`missing: ${lastMissing.join(', ')}`);
     if (lastForbidden.length) details.push(`obsolete text still present: ${lastForbidden.join(', ')}`);
+    if (lastMissingCacheDirectives.length) {
+      details.push(`cache-control missing: ${lastMissingCacheDirectives.join(', ')}`);
+    }
     failures.push(`${page.label}: ${details.join('; ')}`);
   }
 }
