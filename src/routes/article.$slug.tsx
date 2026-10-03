@@ -385,6 +385,7 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
+  const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
@@ -394,11 +395,7 @@ function ArticlePage() {
     : -1;
   const riverBodyBeforeBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(0, riverBasinInsertIndex) : article.body;
   const riverBodyAfterBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(riverBasinInsertIndex) : [];
-  const waterTopic = article.slug === "texas-river-basins-guide"
-    ? "basins"
-    : article.slug === "texas-rivers-explained"
-      ? "rivers"
-      : null;
+  const waterTopic = article.slug === "texas-river-basins-guide" ? "basins" : null;
 
   return <article>
     <Container className="pt-8 sm:pt-12">
@@ -411,7 +408,7 @@ function ArticlePage() {
             <li><Link to={department.path} className="py-1 hover:text-foreground">{department.name}</Link></li>
             {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link></li></>}
           </>}
-          <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{article.title}</li>
+          <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{articleDisplayTitle}</li>
         </ol>
       </nav>
     </Container>
@@ -420,7 +417,7 @@ function ArticlePage() {
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
       <Container className="relative flex flex-col justify-end pb-10 pt-24 sm:pb-14 sm:pt-28" style={{ minHeight: "clamp(24rem, 48vw, 34rem)" }}>
         <p className="eyebrow text-ink-foreground/80">{isTexasExplainedCollectionArticle ? "Texas Explained" : categoryName}</p>
-        <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1] sm:text-6xl lg:text-7xl">{article.title}</h1>
+        <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1] sm:text-6xl lg:text-7xl">{articleDisplayTitle}</h1>
         {!isTexasExplainedPillar && <p className="mt-5 max-w-2xl text-base leading-7 text-ink-foreground/86 sm:mt-6 sm:text-lg sm:leading-8">{article.dek}</p>}
       </Container>
     </section>
@@ -461,9 +458,9 @@ function ArticlePage() {
         <p className="eyebrow text-primary">Texas Explained · Supporting explainer</p>
         <p className="mt-2 text-sm leading-7 text-muted-foreground">This focused guide extends one of the collection's core topics. <Link to="/texas-explained" className="border-b border-primary py-1 text-foreground transition-colors hover:text-primary">Browse the full Texas Explained collection →</Link></p>
       </aside>}
-      {texasExplainedQuickAnswer && <section className="mt-8 rounded-sm border border-border bg-surface p-6 sm:p-7" aria-labelledby="texas-explained-quick-answer">
-        <p className="eyebrow text-primary">{isTexasRiversArticle ? "Texas rivers at a glance" : "Quick answer"}</p>
-        <h2 id="texas-explained-quick-answer" className="mt-3 font-display text-2xl">{isTexasRiversArticle ? "In brief" : "The short version"}</h2>
+      {texasExplainedQuickAnswer && !isTexasRiversArticle && <section className="mt-8 rounded-sm border border-border bg-surface p-6 sm:p-7" aria-labelledby="texas-explained-quick-answer">
+        <p className="eyebrow text-primary">Quick answer</p>
+        <h2 id="texas-explained-quick-answer" className="mt-3 font-display text-2xl">The short version</h2>
         <p className="mt-3 text-base leading-8 text-foreground/85">{texasExplainedQuickAnswer}</p>
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
@@ -496,7 +493,7 @@ function ArticlePage() {
           <span className="block">{source.scope}</span>
         </li>)}</ul>
       </section>}
-      {internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
+      {!isTexasRiversArticle && internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
         <p className="eyebrow text-primary">Related reading</p>
         <ul className="mt-5 divide-y divide-border">{internalLinks.map((item) => <li key={item.href} className="py-4 first:pt-0 last:pb-0">
           <a href={item.href} {...unusualBusinessAnalyticsAttributes(item.href, `article-related:${article.slug}`)} className="group block py-1">
@@ -505,7 +502,7 @@ function ArticlePage() {
           </a>
         </li>)}</ul>
       </aside>}
-      {article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
+      {!isTexasRiversArticle && article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
     </Container>
     {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : "Plan Your Visit"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
   ? <article className="border-t border-border pt-5">
@@ -516,6 +513,6 @@ function ArticlePage() {
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
-    <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>
+    {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }
