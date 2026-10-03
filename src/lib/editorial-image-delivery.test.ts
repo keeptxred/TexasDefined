@@ -18,8 +18,8 @@ describe("editorial image delivery", () => {
   });
 
   it("keeps the verified six-man football Wikimedia assets browser-direct", () => {
-    const hero = "https://upload.wikimedia.org/wikipedia/commons/a/a6/Bart_Coan_Field_from_west.jpg";
-    const action = "https://upload.wikimedia.org/wikipedia/commons/f/fa/Six-man_football_battle.jpg";
+    const hero = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/1280px-Bart_Coan_Field_from_west.jpg";
+    const action = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Six-man_football_battle.jpg/1280px-Six-man_football_battle.jpg";
     expect(editorialImageSrc(hero)).toBe(hero);
     expect(editorialImageSrc(action)).toBe(action);
   });
