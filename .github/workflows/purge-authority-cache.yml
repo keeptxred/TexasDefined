@@ -32,18 +32,25 @@ jobs:
           node-version: 22
 
       - name: Purge governed authority URLs
+        id: purge_authority_cache
         if: ${{ env.CLOUDFLARE_CACHE_API_TOKEN != '' }}
+        continue-on-error: true
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Report unavailable purge credential
         if: ${{ env.CLOUDFLARE_CACHE_API_TOKEN == '' }}
         shell: bash
         run: |
-          echo '::error title=Cloudflare cache purge unavailable::No dedicated, general, or deploy Cloudflare token is available to this workflow.'
-          exit 1
+          echo '::warning title=Cloudflare cache purge unavailable::No dedicated, general, or deploy Cloudflare token is available. Canonical freshness verification will still run.'
+
+      - name: Report rejected purge credential
+        if: ${{ steps.purge_authority_cache.outcome == 'failure' }}
+        shell: bash
+        run: |
+          echo '::warning title=Cloudflare cache purge rejected::The available Cloudflare credential could not purge zone cache. Canonical freshness verification will determine whether production is actually stale.'
 
       - name: Verify six-man authority canonical freshness
-        if: ${{ env.CLOUDFLARE_CACHE_API_TOKEN != '' }}
+        if: ${{ always() }}
         run: |
           node --input-type=module <<'NODE'
           const url = 'https://texasdefined.com/article/texas-six-man-football-rules-explained';
@@ -51,20 +58,26 @@ jobs:
             'Texas Six-Man Football: Rules, Scoring',
             'How It Works',
             'Six-man at a glance',
+            'How the exchange rule works',
           ];
 
           let lastMissing = required;
           for (let attempt = 1; attempt <= 4; attempt += 1) {
-            const response = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(15_000) });
+            const response = await fetch(url, {
+              redirect: 'follow',
+              cache: 'no-store',
+              signal: AbortSignal.timeout(15_000),
+              headers: { 'user-agent': 'TexasDefined-CI-Authority-Freshness/1.0' },
+            });
             if (!response.ok) throw new Error(`Six-man canonical freshness check returned HTTP ${response.status}.`);
             const html = await response.text();
             lastMissing = required.filter((marker) => !html.includes(marker));
             if (lastMissing.length === 0) {
-              console.log(`Six-man canonical page is fresh after purge on attempt ${attempt}.`);
+              console.log(`Six-man canonical page is fresh on attempt ${attempt}.`);
               process.exit(0);
             }
             if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, 2_000));
           }
 
-          throw new Error(`Six-man canonical page stayed stale after purge; missing: ${lastMissing.join(', ')}`);
+          throw new Error(`Six-man canonical page is stale; missing: ${lastMissing.join(', ')}`);
           NODE
