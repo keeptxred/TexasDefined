@@ -4,14 +4,12 @@ import type { Article, Destination, ImageRef } from "@/data/types";
 export const REMOTE_IMAGE_PATH = "/media/remote";
 export const REMOTE_IMAGE_HOSTS = new Set([
   "basemap.nationalmap.gov",
+  "cdn.jsdelivr.net",
   "commons.wikimedia.org",
   "thumb.wikimedia.org",
   "upload.wikimedia.org",
   "images.unsplash.com",
 ]);
-
-const REMOTE_IMAGE_EXACT_URL =
-  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg";
 
 const OWN_IMAGE = /^https:\/\/(?:www\.)?texasdefined\.com(\/[^#]*)/i;
 
@@ -19,9 +17,7 @@ export function allowedRemoteImageUrl(value: string): URL | null {
   try {
     const url = new URL(value);
     if (url.protocol !== "https:") return null;
-    return REMOTE_IMAGE_HOSTS.has(url.hostname.toLowerCase()) || url.toString() === REMOTE_IMAGE_EXACT_URL
-      ? url
-      : null;
+    return REMOTE_IMAGE_HOSTS.has(url.hostname.toLowerCase()) ? url : null;
   } catch {
     return null;
   }
