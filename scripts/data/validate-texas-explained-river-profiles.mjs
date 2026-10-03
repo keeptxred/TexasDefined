@@ -8,8 +8,6 @@ const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
 const citationTrust = read('src/components/content/TexasRiversCitationTrust.tsx');
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
-const basinData = read('src/data/texas-river-basin-reference.ts');
-const basinCsv = read('src/routes/texas-river-basins[.]csv.ts');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
@@ -70,31 +68,28 @@ for (const marker of [
 ]) if (!citationTrust.includes(marker)) errors.push(`Texas rivers citation trust contract missing: ${marker}`);
 
 for (const marker of [
-  'texasRiverBasinHighlights',
+  'const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";',
+  'const lastVerified = "2026-10-03";',
+  'const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";',
+  'const majorBasins = [',
+  'const coastalBasins = [',
+  'const basinHighlights = [',
   'Largest basin in Texas',
   'Longest Texas reach',
   'Highest average flow',
-]) if (!basinData.includes(marker)) errors.push(`Texas river basin data contract missing: ${marker}`);
-
-for (const marker of [
-  'texasMajorRiverBasins',
-  'texasCoastalRiverBasins',
+  'const csvHeaders = [',
+  '"basin_type"',
+  'const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;',
+  'const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;',
+  'methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison.',
+  'download="texasdefined-texas-river-basins.csv"',
+  'Download CSV ↓',
+  'download="texasdefined-texas-river-basins.json"',
+  'Download JSON ↓',
   '<details className="mt-5',
   'Open the full 15-basin comparison',
   'Eight coastal basins drain directly toward bays and the Gulf',
-  'href="/texas-river-basins.csv"',
-  'Download CSV ↓',
-]) if (!basinReference.includes(marker)) errors.push(`Texas river basin reference presentation contract missing: ${marker}`);
-
-for (const marker of [
-  "createFileRoute('/texas-river-basins.csv')",
-  'texasMajorRiverBasins',
-  'texasCoastalRiverBasins',
-  "'basin_type'",
-  "'content-type': 'text/csv; charset=utf-8'",
-  "'content-disposition': 'attachment; filename=\"texasdefined-texas-river-basins.csv\"'",
-  "'x-robots-tag': 'noindex, follow'",
-]) if (!basinCsv.includes(marker)) errors.push(`Texas river basin CSV contract missing: ${marker}`);
+]) if (!basinReference.includes(marker)) errors.push(`Texas river basin reference/download contract missing: ${marker}`);
 
 for (const marker of [
   'const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;',
@@ -172,4 +167,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, downloadable basin data, focused flagship presentation, non-duplicative regional flow and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, downloadable CSV/JSON basin data, focused flagship presentation, non-duplicative regional flow and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
