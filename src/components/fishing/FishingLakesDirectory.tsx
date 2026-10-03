@@ -1,15 +1,15 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link } from "@tanstack/react-router";
 
 import { CitationTrustPanel } from '@/components/authority/CitationTrustPanel';
-import { TexasReferenceMap } from '@/components/authority/TexasReferenceMap';
 import { Container } from "@/components/layout/Container";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
 import type { FishingLake } from "@/data/fishing/types";
 
+const TexasReferenceMap = lazy(() => import('@/components/authority/TexasReferenceMap').then((module) => ({ default: module.TexasReferenceMap })));
+
 type Target = { name: string; quality: string; prominence: string };
 type Row = { lake: FishingLake; targets: Target[] };
-
 type SortKey = 'name' | 'size-desc' | 'depth-desc' | 'year' | 'species-desc';
 
 export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; latestReview?: string }) {
@@ -61,7 +61,7 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
 
   return <>
     <Container className="pt-8 sm:pt-10"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/fishing" className="hover:text-foreground">Fishing</Link></li><li aria-hidden>·</li><li aria-current="page">Texas Lakes Database</li></ol></nav></Container>
-    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas reference data</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Lakes Database</h1><p className="mt-6 max-w-4xl text-lg leading-8 text-ink-foreground/80">Search, map and compare {rows.length} complete, source-backed Texas lake records by size, depth, county, river basin, waterway and documented fishery strengths. The database grows only when another lake clears the same verification standard.</p><div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm"><a href="/fishing/lakes.csv" className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Download Texas Lakes Data (CSV) →</a><Link to="/fishing/species" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fish species directory →</Link><Link to="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fishing regulations →</Link></div></Container></header>
+    <header className="mt-5 border-y border-border bg-ink text-ink-foreground"><Container className="py-14 sm:py-20"><p className="eyebrow text-ink-foreground/65">Texas reference data</p><h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Texas Lakes Database</h1><p className="mt-6 max-w-4xl text-lg leading-8 text-ink-foreground/80">Search, map and compare {rows.length} complete, source-backed Texas lake records by size, depth, county, river basin, waterway and documented fishery strengths. The database grows only when another lake clears the same verification standard.</p><div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm"><button type="button" onClick={() => downloadLakeCsv(rows, 'texasdefined-texas-lakes-database.csv')} className="border-b border-ink-foreground pb-1 font-semibold text-ink-foreground">Download Texas Lakes Data (CSV) →</button><Link to="/fishing/species" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fish species directory →</Link><Link to="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1 text-ink-foreground/75">Fishing regulations →</Link></div></Container></header>
     <Container className="py-12 sm:py-16">
       <section className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-5" aria-label="Texas Lakes Database summary">
         <Stat label="Verified lake records" value={rows.length.toLocaleString('en-US')} />
@@ -75,7 +75,6 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
 
       <section className="py-12" aria-labelledby="lake-directory-heading">
         <div className="flex flex-wrap items-end justify-between gap-5 border-b border-border pb-5"><div><p className="eyebrow text-primary">Work with the data</p><h2 id="lake-directory-heading" className="mt-2 font-display text-4xl">Search and compare Texas lakes</h2></div>{latestReview ? <p className="text-xs leading-5 text-muted-foreground">Records reviewed through {formatDate(latestReview)}.</p> : null}</div>
-
         <div className="grid gap-4 border-b border-border py-6 md:grid-cols-2 xl:grid-cols-6">
           <label className="text-sm font-semibold md:col-span-2">Search<input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Lake, city, county, basin, fish…" className="mt-2 w-full border border-border bg-background px-3 py-2.5 font-normal" /></label>
           <Filter label="Region" value={region} onChange={setRegion} options={regions.map((value) => [value, titleCase(value)] as const)} />
@@ -83,10 +82,10 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
           <Filter label="River basin" value={basin} onChange={setBasin} options={basins.map((value) => [value, value] as const)} />
           <Filter label="Fish species" value={species} onChange={setSpecies} options={speciesNames.map((value) => [value, value] as const)} />
           <label className="text-sm font-semibold">Sort by<select value={sortBy} onChange={(event) => setSortBy(event.target.value as SortKey)} className="mt-2 w-full border border-border bg-background px-3 py-2.5 font-normal"><option value="name">Name</option><option value="size-desc">Largest first</option><option value="depth-desc">Deepest first</option><option value="year">Oldest impoundment first</option><option value="species-desc">Most documented fish targets</option></select></label>
-          <div className="flex flex-wrap items-end gap-2 md:col-span-2 xl:col-span-5"><button type="button" onClick={() => setView('table')} className={`border px-4 py-2 text-sm font-semibold ${view === 'table' ? 'border-primary text-primary' : 'border-border'}`}>Table</button><button type="button" onClick={() => setView('map')} className={`border px-4 py-2 text-sm font-semibold ${view === 'map' ? 'border-primary text-primary' : 'border-border'}`}>Interactive map</button><a href="/fishing/lakes.csv" className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download full CSV</a><button type="button" onClick={() => { setQuery(''); setRegion('all'); setCounty('all'); setBasin('all'); setSpecies('all'); setSortBy('name'); }} className="px-2 py-2 text-sm font-semibold underline underline-offset-4">Reset filters</button><span className="self-center text-sm text-muted-foreground">{filtered.length} matching lake{filtered.length === 1 ? '' : 's'}</span></div>
+          <div className="flex flex-wrap items-end gap-2 md:col-span-2 xl:col-span-5"><button type="button" onClick={() => setView('table')} className={`border px-4 py-2 text-sm font-semibold ${view === 'table' ? 'border-primary text-primary' : 'border-border'}`}>Table</button><button type="button" onClick={() => setView('map')} className={`border px-4 py-2 text-sm font-semibold ${view === 'map' ? 'border-primary text-primary' : 'border-border'}`}>Interactive map</button><button type="button" onClick={() => downloadLakeCsv(filtered, 'texasdefined-texas-lakes-filtered.csv')} className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary">Download filtered CSV</button><button type="button" onClick={() => { setQuery(''); setRegion('all'); setCounty('all'); setBasin('all'); setSpecies('all'); setSortBy('name'); }} className="px-2 py-2 text-sm font-semibold underline underline-offset-4">Reset filters</button><span className="self-center text-sm text-muted-foreground">{filtered.length} matching lake{filtered.length === 1 ? '' : 's'}</span></div>
         </div>
 
-        {view === 'map' ? <div className="mt-8"><TexasReferenceMap records={mapRecords} title="Texas Lakes Database interactive map" description={`A simplified Texas orientation map showing ${mapRecords.length} matching lake records with verified coordinates.`} /></div> : <div className="mt-8 overflow-x-auto border-y border-border"><table className="w-full min-w-[1180px] text-left text-sm"><thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">Lake</th><th className="px-4 py-3">County / nearby city</th><th className="px-4 py-3">River basin / waterway</th><th className="px-4 py-3">Surface area</th><th className="px-4 py-3">Max depth</th><th className="px-4 py-3">Impounded</th><th className="px-4 py-3">Authority</th><th className="px-4 py-3">Documented fish</th></tr></thead><tbody className="divide-y divide-border">{filtered.map(({ lake, targets }) => <tr key={lake.id}><td className="px-4 py-4 align-top"><a href={fishingFoundationAnchor('lake', lake.slug)} className="font-display text-lg font-semibold hover:text-primary">{lake.name}</a>{lake.aliases?.length ? <span className="mt-1 block text-xs text-muted-foreground">Also: {lake.aliases.join(', ')}</span> : null}<span className="mt-1 block text-xs text-muted-foreground">{lake.waterType.replaceAll('-', ' ')} · {titleCase(lake.region)}</span></td><td className="px-4 py-4 align-top"><span>{lake.counties.join(', ') || '—'}</span><span className="mt-1 block text-muted-foreground">{lake.nearestCities.join(', ') || '—'}</span></td><td className="px-4 py-4 align-top"><span className="font-semibold">{lake.riverBasin ?? '—'}</span><span className="mt-1 block text-muted-foreground">{lake.primaryWaterway ?? '—'}</span></td><td className="px-4 py-4 align-top tabular-nums">{lake.surfaceAcres ? lake.surfaceAcres.toLocaleString('en-US') : '—'}</td><td className="px-4 py-4 align-top tabular-nums">{lake.maxDepthFeet ? `${lake.maxDepthFeet} ft` : '—'}</td><td className="px-4 py-4 align-top tabular-nums">{lake.impoundedYear ?? '—'}</td><td className="max-w-xs px-4 py-4 align-top text-muted-foreground">{lake.controllingAuthorities.join(', ') || '—'}</td><td className="max-w-sm px-4 py-4 align-top"><div className="flex flex-wrap gap-1.5">{targets.slice(0, 6).map((target) => <span key={target.name} className="border border-border px-2 py-1 text-xs">{target.name}</span>)}{targets.length === 0 ? <span className="text-muted-foreground">No verified relationship listed</span> : null}</div></td></tr>)}</tbody></table>{!filtered.length ? <p className="px-4 py-10 text-sm text-muted-foreground">No lake records match the current filters.</p> : null}</div>}
+        {view === 'map' ? <div className="mt-8"><Suspense fallback={<p className="py-8 text-sm text-muted-foreground">Loading map…</p>}><TexasReferenceMap records={mapRecords} title="Texas Lakes Database interactive map" description={`A simplified Texas orientation map showing ${mapRecords.length} matching lake records with verified coordinates.`} /></Suspense></div> : <div className="mt-8 overflow-x-auto border-y border-border"><table className="w-full min-w-[1180px] text-left text-sm"><thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">Lake</th><th className="px-4 py-3">County / nearby city</th><th className="px-4 py-3">River basin / waterway</th><th className="px-4 py-3">Surface area</th><th className="px-4 py-3">Max depth</th><th className="px-4 py-3">Impounded</th><th className="px-4 py-3">Authority</th><th className="px-4 py-3">Documented fish</th></tr></thead><tbody className="divide-y divide-border">{filtered.map(({ lake, targets }) => <tr key={lake.id}><td className="px-4 py-4 align-top"><a href={fishingFoundationAnchor('lake', lake.slug)} className="font-display text-lg font-semibold hover:text-primary">{lake.name}</a>{lake.aliases?.length ? <span className="mt-1 block text-xs text-muted-foreground">Also: {lake.aliases.join(', ')}</span> : null}<span className="mt-1 block text-xs text-muted-foreground">{lake.waterType.replaceAll('-', ' ')} · {titleCase(lake.region)}</span></td><td className="px-4 py-4 align-top"><span>{lake.counties.join(', ') || '—'}</span><span className="mt-1 block text-muted-foreground">{lake.nearestCities.join(', ') || '—'}</span></td><td className="px-4 py-4 align-top"><span className="font-semibold">{lake.riverBasin ?? '—'}</span><span className="mt-1 block text-muted-foreground">{lake.primaryWaterway ?? '—'}</span></td><td className="px-4 py-4 align-top tabular-nums">{lake.surfaceAcres ? lake.surfaceAcres.toLocaleString('en-US') : '—'}</td><td className="px-4 py-4 align-top tabular-nums">{lake.maxDepthFeet ? `${lake.maxDepthFeet} ft` : '—'}</td><td className="px-4 py-4 align-top tabular-nums">{lake.impoundedYear ?? '—'}</td><td className="max-w-xs px-4 py-4 align-top text-muted-foreground">{lake.controllingAuthorities.join(', ') || '—'}</td><td className="max-w-sm px-4 py-4 align-top"><div className="flex flex-wrap gap-1.5">{targets.slice(0, 6).map((target) => <span key={target.name} className="border border-border px-2 py-1 text-xs">{target.name}</span>)}{targets.length === 0 ? <span className="text-muted-foreground">No verified relationship listed</span> : null}</div></td></tr>)}</tbody></table>{!filtered.length ? <p className="px-4 py-10 text-sm text-muted-foreground">No lake records match the current filters.</p> : null}</div>}
       </section>
 
       <section className="border-y border-border py-10"><div className="grid gap-8 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Derived TexasDefined views</p><h2 className="mt-2 font-display text-3xl">Useful comparisons from the same data</h2></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"><Derived title="Largest lakes in this dataset" rows={[...rows].filter(({ lake }) => lake.surfaceAcres != null).sort((a, b) => (b.lake.surfaceAcres ?? 0) - (a.lake.surfaceAcres ?? 0)).slice(0, 5).map(({ lake }) => `${lake.name} — ${lake.surfaceAcres?.toLocaleString('en-US')} acres`)} /><Derived title="Deepest lakes in this dataset" rows={[...rows].filter(({ lake }) => lake.maxDepthFeet != null).sort((a, b) => (b.lake.maxDepthFeet ?? 0) - (a.lake.maxDepthFeet ?? 0)).slice(0, 5).map(({ lake }) => `${lake.name} — ${lake.maxDepthFeet} ft`)} /><Derived title="Most represented fish targets" rows={speciesNames.map((name) => ({ name, count: rows.filter(({ targets }) => targets.some((target) => target.name === name)).length })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name)).slice(0, 5).map((item) => `${item.name} — ${item.count} lakes`)} /></div></div></section>
@@ -99,12 +98,48 @@ export function FishingLakesDirectory({ rows, latestReview }: { rows: Row[]; lat
         title="Texas Lakes Database sources and methodology"
         citation={`TexasDefined, “Texas Lakes Database,” TexasDefined.com, updated ${latestReview ? formatDate(latestReview) : 'on the date shown in the database'}.`}
         reusePolicy="TexasDefined-created tables, derived comparisons and original data organization may be republished for editorial or educational use with attribution to TexasDefined.com. Underlying source material remains subject to each source owner’s terms."
-        downloads={[{ label: 'Download TexasDefined Texas Lakes Data', url: '/fishing/lakes.csv', format: 'CSV' }]}
       />
     </Container>
   </>;
 }
 
+function downloadLakeCsv(rows: Row[], filename: string) {
+  const header = ['name', 'alternate_names', 'canonical_url', 'region', 'water_type', 'water_class', 'counties', 'nearest_cities', 'surface_acres', 'maximum_depth_feet', 'impounded_year', 'river_basin', 'primary_waterway', 'controlling_authorities', 'latitude', 'longitude', 'verified_at', 'source_names', 'source_urls'];
+  const lines = [header.join(',')];
+  for (const { lake } of rows) {
+    lines.push([
+      lake.name,
+      lake.aliases?.join(' | ') ?? '',
+      `https://texasdefined.com${fishingFoundationAnchor('lake', lake.slug)}`,
+      lake.region,
+      lake.waterType,
+      lake.waterClass,
+      lake.counties.join(' | '),
+      lake.nearestCities.join(' | '),
+      lake.surfaceAcres ?? '',
+      lake.maxDepthFeet ?? '',
+      lake.impoundedYear ?? '',
+      lake.riverBasin ?? '',
+      lake.primaryWaterway ?? '',
+      lake.controllingAuthorities.join(' | '),
+      lake.coordinates?.lat ?? '',
+      lake.coordinates?.lng ?? '',
+      lake.verifiedAt ?? '',
+      lake.sources.map((source) => source.name).join(' | '),
+      lake.sources.map((source) => source.url).join(' | '),
+    ].map(csvValue).join(','));
+  }
+  const blob = new Blob([`${lines.join('\n')}\n`], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+function csvValue(value: unknown) { const text = String(value ?? ''); return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text; }
 function uniqueSources(rows: Row[]) {
   const seen = new Set<string>();
   return rows.flatMap(({ lake }) => lake.sources).flatMap((source) => {
@@ -118,7 +153,7 @@ function buildQuickAnswers(count: number) {
     { question: "How many lakes are in this database?", answer: `TexasDefined currently publishes ${count} complete, source-backed lake records. The dataset spans major reservoirs and natural lakes across Texas and expands only as additional records clear the same verification standard.` },
     { question: "Is this every lake in Texas?", answer: "No. Texas has far more named waterbodies than this maintained reference set. TexasDefined intentionally keeps incomplete records out of the indexable lake database rather than creating thin pages simply to increase page count." },
     { question: "What can I compare?", answer: "Where available, the table exposes surface acreage, maximum depth, year impounded, counties, nearby cities, river basin, primary waterway, managing authorities, coordinates and documented fishery relationships." },
-    { question: "Where should I check current conditions?", answer: "Use the source links in each lake guide for current regulations, water levels, access restrictions, ramps and fishing reports. Those conditions can change after the durable reference data was verified." },
+    { question: "Where should I check current conditions?", answer: "Use the Texas fishing regulations checklist for rules and the source links in each lake guide for current water levels, access restrictions, ramps and fishing reports. Those conditions can change after the durable reference data was verified." },
   ];
 }
 function Filter({ label, value, onChange, options }: { label: string; value: string; onChange: (value: string) => void; options: ReadonlyArray<readonly [string, string]> }) { return <label className="text-sm font-semibold">{label}<select value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full border border-border bg-background px-3 py-2.5 font-normal"><option value="all">All</option>{options.map(([optionValue, optionLabel]) => <option key={optionValue} value={optionValue}>{optionLabel}</option>)}</select></label>; }
