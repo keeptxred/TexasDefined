@@ -1,49 +1,11 @@
-const majorBasins = [
-  ["Brazos", "42,865", "840", "6,074,000"],
-  ["Canadian", "12,865", "213", "196,000"],
-  ["Colorado", "39,428", "865", "1,904,000"],
-  ["Cypress", "2,929", "75", "493,700"],
-  ["Guadalupe", "5,953", "409", "1,422,000"],
-  ["Lavaca", "2,309", "117", "277,000"],
-  ["Neches", "9,937", "416", "4,323,000"],
-  ["Nueces", "16,700", "315", "539,700"],
-  ["Red", "24,297", "695", "3,464,000"],
-  ["Rio Grande", "49,387", "889", "645,500"],
-  ["Sabine", "7,570", "360", "5,864,000"],
-  ["San Antonio", "4,180", "238", "562,700"],
-  ["San Jacinto", "3,936", "85", "1,365,000"],
-  ["Sulphur", "3,580", "200", "932,700"],
-  ["Trinity", "17,913", "550", "5,727,000"],
-] as const;
+import {
+  texasCoastalRiverBasins,
+  texasMajorRiverBasins,
+  texasRiverBasinHighlights,
+  texasRiverBasinReferenceMetadata,
+} from "@/data/texas-river-basin-reference";
 
-const coastalBasins = [
-  "Neches-Trinity",
-  "Trinity-San Jacinto",
-  "San Jacinto-Brazos",
-  "Brazos-Colorado",
-  "Colorado-Lavaca",
-  "Lavaca-Guadalupe",
-  "San Antonio-Nueces",
-  "Nueces-Rio Grande",
-] as const;
-
-const basinHighlights = [
-  {
-    label: "Largest basin in Texas",
-    value: "Rio Grande",
-    detail: "49,387 sq. mi. in Texas",
-  },
-  {
-    label: "Longest Texas reach",
-    value: "Rio Grande",
-    detail: "889 river miles in Texas",
-  },
-  {
-    label: "Highest average flow",
-    value: "Brazos",
-    detail: "6.074 million acre-feet/year",
-  },
-] as const;
+const number = new Intl.NumberFormat("en-US");
 
 export function TexasRiverBasinReference() {
   return (
@@ -53,14 +15,22 @@ export function TexasRiverBasinReference() {
           <p className="eyebrow text-primary">Compare the river basins</p>
           <h3 id="major-basin-reference-heading" className="mt-2 font-display text-2xl">Texas's 15 major river basins</h3>
         </div>
-        <a
-          href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp"
-          target="_blank"
-          rel="noreferrer"
-          className="text-xs font-semibold text-primary underline decoration-border underline-offset-4"
-        >
-          Texas Water Development Board data ↗
-        </a>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-primary">
+          <a
+            href={texasRiverBasinReferenceMetadata.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-border underline-offset-4"
+          >
+            Texas Water Development Board data ↗
+          </a>
+          <a
+            href="/texas-river-basins.csv"
+            className="underline decoration-border underline-offset-4"
+          >
+            Download CSV ↓
+          </a>
+        </div>
       </div>
 
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
@@ -68,7 +38,7 @@ export function TexasRiverBasinReference() {
       </p>
 
       <dl className="mt-5 flex flex-wrap gap-2">
-        {basinHighlights.map((item) => (
+        {texasRiverBasinHighlights.map((item) => (
           <div key={item.label} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold">
             <dt className="text-muted-foreground">{item.label}</dt>
             <dd className="mt-2 font-display text-xl text-foreground">{item.value}</dd>
@@ -98,12 +68,12 @@ export function TexasRiverBasinReference() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {majorBasins.map(([name, area, miles, flow]) => (
-                  <tr key={name}>
-                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">{name}</th>
-                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{area}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{miles}</td>
-                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{flow}</td>
+                {texasMajorRiverBasins.map((row) => (
+                  <tr key={row.basin}>
+                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">{row.basin}</th>
+                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.areaSquareMiles)}</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.riverMilesInTexas)}</td>
+                    <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{number.format(row.averageAnnualFlowAcreFeet)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -117,7 +87,7 @@ export function TexasRiverBasinReference() {
         <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
         <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast is still part of the statewide watershed story.</p>
         <ul className="mt-3 flex flex-wrap gap-2" aria-label="Eight designated Texas coastal basins">
-          {coastalBasins.map((basin) => (
+          {texasCoastalRiverBasins.map((basin) => (
             <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground">
               {basin}
             </li>
