@@ -1,0 +1,34 @@
+name: Diagnose six-man runtime
+
+on:
+  push:
+    branches:
+      - diagnose/six-man-runtime
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Compare canonical and direct Worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          path='/article/texas-six-man-football-rules-explained'
+          for target in \
+            'https://texasdefined.com' \
+            'https://texasdefined-site.freddy-coppola.workers.dev'
+          do
+            echo "===== ${target}${path} ====="
+            curl -sS -L --max-time 20 -D headers.txt -o body.html "${target}${path}"
+            grep -Ei '^(HTTP/|cache-control:|cdn-cache-control:|cloudflare-cdn-cache-control:|cf-cache-status:|age:|etag:|date:|server:|cf-ray:)' headers.txt || true
+            printf 'new_title='; grep -Fq 'Texas Six-Man Football: Rules, Scoring &amp; How It Works' body.html && echo yes || echo no
+            printf 'new_title_plain='; grep -Fq 'Texas Six-Man Football: Rules, Scoring & How It Works' body.html && echo yes || echo no
+            printf 'old_title='; grep -Fq 'Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different' body.html && echo yes || echo no
+            printf 'at_glance='; grep -Fq 'Six-man at a glance' body.html && echo yes || echo no
+            printf 'exchange_visual='; grep -Fq 'How the exchange rule works' body.html && echo yes || echo no
+            printf 'bytes='; wc -c < body.html
+          done
