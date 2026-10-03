@@ -144,7 +144,7 @@ function TexasMountainBikingGuidePage() {
 
       <Container className="pt-10">
         <article className="mx-auto max-w-6xl">
-          <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end">
+          <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-2 lg:items-end">
             <div>
               <p className="eyebrow text-primary">Texas trails · five very different rides</p>
               <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Mountain Biking in Texas: 5 Public Trail Systems &amp; Where to Ride</h1>
@@ -206,7 +206,7 @@ function TexasMountainBikingGuidePage() {
           <div>
             {trailSystems.map((area, index) => (
               <section key={area.name} className="border-b border-border py-12" aria-labelledby={`trail-system-${index + 1}`}>
-                <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-start">
+                <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
                   <div>
                     <p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")} · {area.region}</p>
                     <h2 id={`trail-system-${index + 1}`} className="mt-2 font-display text-4xl leading-tight">{area.name}</h2>
