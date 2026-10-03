@@ -1,3 +1,4 @@
+import { articleDiscoverHero } from "@/data/article-discover-hero-overrides";
 import type { Article } from "@/data/types";
 import { COUNTY_SERIES_PROFILES } from "@/data/county-series-profiles";
 import { COUNTY_SERIES_PROFILES_CENTRAL } from "@/data/county-series-profiles-central";
@@ -35,7 +36,11 @@ export function loadCountySeriesArticleServer(countySlug: string): Promise<Artic
   if (cached) return cached;
 
   const countyProfile = countySeriesProfiles.find((item) => item.countySlug === countySlug);
-  const promise = countyProfile?.loadArticle() ?? Promise.resolve(null);
+  const promise = (countyProfile?.loadArticle() ?? Promise.resolve(null)).then((article) => {
+    if (!article) return null;
+    const hero = articleDiscoverHero(article.slug, article.hero);
+    return hero === article.hero ? article : { ...article, hero };
+  });
   articlePromiseCache.set(countySlug, promise);
   return promise;
 }
