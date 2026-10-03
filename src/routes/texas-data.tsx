@@ -7,6 +7,13 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 export const description = 'Texas Defined’s maintained data and reference library: sourced Texas datasets, directories, comparison tables and downloadable records built for research, reporting, planning and citation.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
+export const dataHubNavigationPaths = {
+  counties: '/browse/counties',
+  cities: '/browse/cities',
+  explore: '/explore',
+  resources: '/texas-resources',
+} as const;
+export const countyHousingNextStop = ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'] as const;
 
 const referenceDatasets = [
   ['Texas Lighthouse Database', '/explore/lighthouses', '/texas-lighthouses.csv', null],
