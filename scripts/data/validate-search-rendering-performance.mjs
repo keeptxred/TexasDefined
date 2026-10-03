@@ -50,7 +50,6 @@ for (const feature of [
   if (!sitemap.includes(feature)) errors.push(`Crawler-critical sitemap resilience missing: ${feature}`);
 }
 
-
 if (destination.includes('destinationsQuery({ limit: 5000 })')) {
   errors.push('Destination detail routes must not query-cache the 5,000-item destination catalog; that catalog would be dehydrated into the browser.');
 }
@@ -82,7 +81,6 @@ for (const feature of [
 if (destinationRelationshipsServer.includes('queryClient')) {
   errors.push('Server-only destination relationship assembly must not populate the client query cache.');
 }
-
 
 if (article.includes('destinationsQuery({ limit: 5000 })')) {
   errors.push('Article detail routes must not query-cache the 5,000-item destination catalog.');
@@ -176,7 +174,7 @@ for (const forbidden of ['body: destination.body', 'entryNote: destination.entry
 
 for (const feature of [
   "const pageSize = kind === 'attractions' ? 100 : sorted.length;",
-  'const visibleDestinations = sorted.slice(0, visibleCount);',
+  "const visibleDestinations = (kind === 'attractions' ? filtered.slice(0, visibleCount) : filtered);",
   'Show 100 more',
 ]) {
   if (!attractionsComparisonComponent.includes(feature)) errors.push(`Attractions comparison progressive-render guard missing: ${feature}`);
@@ -208,4 +206,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Homepage payload bounds, detail and collection hydration bounds, destination query caching, progressive comparison rendering, complete destination crawl discovery, sitemap resilience, and primary hero rendering contracts passed validation.');
+console.log('Homepage payload bounds, detail and collection hydration bounds, destination query caching, progressive filtered comparison rendering, complete destination crawl discovery, sitemap resilience, and primary hero rendering contracts passed validation.');

@@ -36,6 +36,32 @@ type CountyTaxRateSummary = {
   specialDistricts: TexasTaxRateRecord[];
 };
 
+export type PropertyTaxChangeRecord = {
+  name: string;
+  slug: string;
+  type: TexasTaxingUnitType;
+  countySlugs: string[];
+  priorYear: number;
+  latestYear: number;
+  priorRate: number;
+  latestRate: number;
+  change: number;
+};
+
+export type PropertyTaxDataCenterSummary = {
+  sourceName: string;
+  sourcePage: string;
+  latestYear: number;
+  priorYear: number;
+  availableYears: number[];
+  generatedAt: string | null;
+  recordCount: number;
+  countsByType: Array<{ type: TexasTaxingUnitType; records: number; fixedRates: number }>;
+  medianFixedRateByType: Array<{ type: TexasTaxingUnitType; value: number | null }>;
+  largestIncreases: PropertyTaxChangeRecord[];
+  largestDecreases: PropertyTaxChangeRecord[];
+};
+
 const db = supabase as any;
 
 function numeric(value: number | string | null | undefined) {
@@ -92,6 +118,81 @@ export function taxRateMetadata(latestYear: number, generatedAt: string | null =
     generatedAt,
     recordCount,
     status: 'synced' as const,
+  };
+}
+
+async function getTaxRateRowsForYear(year: number): Promise<TaxRateRow[]> {
+  const { data, error } = await db
+    .from('texas_property_tax_rates')
+    .select('*')
+    .eq('year', year)
+    .order('type', { ascending: true })
+    .order('name', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TaxRateRow[];
+}
+
+export async function getTaxRateCatalogServer(year: number): Promise<TexasTaxRateRecord[]> {
+  return (await getTaxRateRowsForYear(year)).map(mapTaxRateRow);
+}
+
+function isComparableFixedRate(record: TexasTaxRateRecord) {
+  return !record.rateUnavailable && !record.variableRate && record.totalRate != null && Number.isFinite(record.totalRate);
+}
+
+function median(values: number[]) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((left, right) => left - right);
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+export async function getPropertyTaxDataCenterServer(): Promise<PropertyTaxDataCenterSummary> {
+  const latestYear = await getLatestTaxRateYearServer();
+  const priorYear = latestYear - 1;
+  const [latestRows, priorRows] = await Promise.all([getTaxRateRowsForYear(latestYear), getTaxRateRowsForYear(priorYear)]);
+  const latest = latestRows.map(mapTaxRateRow);
+  const prior = priorRows.map(mapTaxRateRow);
+  const priorByIdentity = new Map(prior.map((record) => [`${record.type}:${record.slug}`, record]));
+  const changes: PropertyTaxChangeRecord[] = [];
+  for (const record of latest) {
+    if (!isComparableFixedRate(record)) continue;
+    const earlier = priorByIdentity.get(`${record.type}:${record.slug}`);
+    if (!earlier || !isComparableFixedRate(earlier) || earlier.totalRate == null || record.totalRate == null) continue;
+    changes.push({
+      name: record.name,
+      slug: record.slug,
+      type: record.type,
+      countySlugs: record.countySlugs,
+      priorYear,
+      latestYear,
+      priorRate: earlier.totalRate,
+      latestRate: record.totalRate,
+      change: record.totalRate - earlier.totalRate,
+    });
+  }
+  const types: TexasTaxingUnitType[] = ['county', 'city', 'school-district', 'special-district'];
+  const countsByType = types.map((type) => {
+    const records = latest.filter((record) => record.type === type);
+    return { type, records: records.length, fixedRates: records.filter(isComparableFixedRate).length };
+  });
+  const medianFixedRateByType = types.map((type) => ({
+    type,
+    value: median(latest.filter((record) => record.type === type && isComparableFixedRate(record)).flatMap((record) => record.totalRate == null ? [] : [record.totalRate])),
+  }));
+  const generatedAt = latestRows.map((row) => row.imported_at).filter(Boolean).sort().at(-1) ?? null;
+  return {
+    sourceName: TAX_RATE_SOURCE_NAME,
+    sourcePage: TAX_RATE_SOURCE_PAGE,
+    latestYear,
+    priorYear,
+    availableYears: availableTaxYears(latestYear),
+    generatedAt,
+    recordCount: latest.length,
+    countsByType,
+    medianFixedRateByType,
+    largestIncreases: [...changes].filter((record) => record.change > 0).sort((a, b) => b.change - a.change || a.name.localeCompare(b.name)).slice(0, 12),
+    largestDecreases: [...changes].filter((record) => record.change < 0).sort((a, b) => a.change - b.change || a.name.localeCompare(b.name)).slice(0, 12),
   };
 }
 

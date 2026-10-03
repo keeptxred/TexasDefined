@@ -6,6 +6,7 @@ const HEADERS = {
   'access-control-allow-origin': '*',
   'x-robots-tag': 'noindex, follow',
 };
+const quote = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
 
 export const Route = createFileRoute('/api/property-tax-rates')({
   server: {
@@ -15,10 +16,13 @@ export const Route = createFileRoute('/api/property-tax-rates')({
           const {
             getCountyTaxRateSummaryServer,
             getLatestTaxRateYearServer,
+            getTaxRateCatalogServer,
             getTaxRateDatasetCountServer,
             getTaxingUnitRateHistoryServer,
             searchTaxingUnitsServer,
             taxRateMetadata,
+            TAX_RATE_SOURCE_NAME,
+            TAX_RATE_SOURCE_PAGE,
           } = await import('@/data/property/texas-tax-rates.server');
 
           const latestYear = await getLatestTaxRateYearServer();
@@ -29,6 +33,44 @@ export const Route = createFileRoute('/api/property-tax-rates')({
           const query = url.searchParams.get('q')?.trim() ?? '';
           const unit = url.searchParams.get('unit')?.trim().toLowerCase() ?? '';
           const type = (url.searchParams.get('type')?.trim() || undefined) as TexasTaxingUnitType | undefined;
+          const download = url.searchParams.get('download')?.trim().toLowerCase() ?? '';
+
+          if (download === 'latest-csv') {
+            const records = await getTaxRateCatalogServer(latestYear);
+            const header = [
+              'year', 'taxing_unit_name', 'taxing_unit_type', 'slug', 'county_slugs', 'total_rate_per_100', 'maintenance_operations_rate',
+              'debt_service_rate', 'reported_levy', 'source_status', 'variable_rate', 'rate_variants', 'rate_unavailable',
+              'official_taxing_unit_ids', 'split_across_cads', 'canonical_url', 'source_name', 'source_url',
+            ];
+            const rows = records.map((record) => [
+              record.year,
+              record.name,
+              record.type,
+              record.slug,
+              record.countySlugs.join(' | '),
+              record.totalRate ?? '',
+              record.maintenanceOperationsRate ?? '',
+              record.debtServiceRate ?? '',
+              record.levy ?? '',
+              record.sourceStatus,
+              record.variableRate ? 'yes' : 'no',
+              record.rateVariants.join(' | '),
+              record.rateUnavailable ? 'yes' : 'no',
+              record.officialTaxingUnitIds.join(' | '),
+              record.splitAcrossCads ? 'yes' : 'no',
+              `https://texasdefined.com/property-tax/taxing-unit/${record.slug}`,
+              TAX_RATE_SOURCE_NAME,
+              record.sourceUrl || TAX_RATE_SOURCE_PAGE,
+            ]);
+            const csv = [header, ...rows].map((row) => row.map(quote).join(',')).join('\n');
+            return new Response(`${csv}\n`, {
+              headers: {
+                ...HEADERS,
+                'content-type': 'text/csv; charset=utf-8',
+                'content-disposition': `attachment; filename="texasdefined-property-tax-rates-${latestYear}.csv"`,
+              },
+            });
+          }
 
           if (unit) {
             const history = await getTaxingUnitRateHistoryServer(unit, type);
@@ -55,6 +97,7 @@ export const Route = createFileRoute('/api/property-tax-rates')({
               county: '/api/property-tax-rates?county=harris',
               search: '/api/property-tax-rates?q=katy',
               history: '/api/property-tax-rates?unit=katy-isd&type=school-district',
+              download: '/api/property-tax-rates?download=latest-csv',
             },
           }, { headers: HEADERS });
         } catch (error) {
