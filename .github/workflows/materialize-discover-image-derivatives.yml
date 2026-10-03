@@ -1,0 +1,105 @@
+name: Materialize Discover image derivatives
+
+on:
+  push:
+    branches:
+      - fix/discover-image-readiness-13
+    paths:
+      - .github/workflows/materialize-discover-image-derivatives.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/discover-image-readiness-13
+          fetch-depth: 1
+
+      - name: Build 1600x900 Discover derivatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/discover .tmp/discover
+
+          if command -v magick >/dev/null 2>&1; then
+            IM="magick"
+          elif command -v convert >/dev/null 2>&1; then
+            IM="convert"
+          else
+            echo "ImageMagick is not available on the runner" >&2
+            exit 1
+          fi
+
+          make_card() {
+            local src="$1"
+            local out="$2"
+            "$IM" \
+              \( "$src" -auto-orient -resize '1600x900^' -gravity center -extent 1600x900 -blur 0x20 \) \
+              \( "$src" -auto-orient -resize '1540x840>' \) \
+              -gravity center -compose over -composite -strip -quality 88 "$out"
+            local dims
+            dims=$("$IM" identify -format '%wx%h' "$out")
+            test "$dims" = "1600x900" || { echo "Unexpected output dimensions for $out: $dims" >&2; exit 1; }
+          }
+
+          fetch() {
+            local url="$1"
+            local out="$2"
+            curl --fail --location --retry 3 --retry-delay 2 --user-agent 'TexasDefined-Discover-Image-Materializer/1.0' "$url" --output "$out"
+          }
+
+          make_card public/images/events/chappell-hill-bluebonnet-festival-20260914.webp public/images/discover/chappell-hill-bluebonnet-festival.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/ImaHogg.jpg' .tmp/discover/ima-hogg
+          make_card .tmp/discover/ima-hogg public/images/discover/ima-hogg-texas-legacy.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/CSP_tent_camping.jpg' .tmp/discover/camping-dog
+          make_card .tmp/discover/camping-dog public/images/discover/camping-in-texas-with-your-dog.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Eagle_Stadium.jpg' .tmp/discover/eagle-stadium
+          make_card .tmp/discover/eagle-stadium public/images/discover/texas-high-school-football-scores-schedules.webp
+          make_card .tmp/discover/eagle-stadium public/images/discover/eagle-stadium-allen.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Isabel_Texas_Lighthouse.jpg' .tmp/discover/port-isabel
+          make_card .tmp/discover/port-isabel public/images/discover/best-lighthouses-to-visit-in-texas.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Audie_Murphy.jpg' .tmp/discover/audie-murphy
+          make_card .tmp/discover/audie-murphy public/images/discover/texas-medal-of-honor-heroes.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Ledger-sm2.jpg' .tmp/discover/red-river-war
+          make_card .tmp/discover/red-river-war public/images/discover/texas-red-river-war-guide.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/First_Capitol_of_the_Republic_of_Texas_%283967003172%29.jpg' .tmp/discover/republic-capitol
+          make_card .tmp/discover/republic-capitol public/images/discover/republic-of-texas-government-trail.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Levi_Jordan_Plantation_State_Historic_Site.jpg' .tmp/discover/levi-jordan
+          make_card .tmp/discover/levi-jordan public/images/discover/brazoria-plantations-slavery-emancipation-history.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/0011FortGriffinTxAdminBuilding.jpg' .tmp/discover/fort-griffin
+          make_card .tmp/discover/fort-griffin public/images/discover/texas-frontier-forts-road-trip.webp
+
+          fetch 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Carnival_scene_outside_the_San_Antonio_Stock_Show_and_Rodeo_on_the_grounds_of_the_Freeman_Coliseum,_San_Antonio,_Texas_LCCN2014631343.tif?width=1920' .tmp/discover/freeman-coliseum
+          make_card .tmp/discover/freeman-coliseum public/images/discover/freeman-coliseum.webp
+
+          make_card public/images/sports-venues/xtreme-raceway-park.jpg public/images/discover/xtreme-raceway-park.webp
+
+          ls -lh public/images/discover/*.webp
+
+      - name: Commit generated derivatives to feature branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/images/discover/*.webp
+          if git diff --cached --quiet; then
+            echo 'No derivative changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Materialize Discover-safe image derivatives'
+          git push origin HEAD:fix/discover-image-readiness-13
