@@ -41,10 +41,10 @@ export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
 export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = 400;
 export const ARTICLE_INDEX_MIN_DEK_CHARS = 80;
 export const ARTICLE_DISCOVERY_MIN_READING_MINUTES = 4;
-export const ARTICLE_INDEX_MIN_HEADINGS = 2;
-export const ARTICLE_INDEX_MIN_DISCOVERY_LINKS = 2;
-export const ARTICLE_INDEX_MIN_HERO_WIDTH = 600;
-export const ARTICLE_INDEX_MIN_HERO_HEIGHT = 315;
+const ARTICLE_INDEX_MIN_HEADINGS = 2;
+const ARTICLE_INDEX_MIN_DISCOVERY_LINKS = 2;
+const ARTICLE_INDEX_MIN_HERO_WIDTH = 600;
+const ARTICLE_INDEX_MIN_HERO_HEIGHT = 315;
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
   return article.brandId === "texasdefined" && article.id.startsWith("gateway-");
@@ -86,48 +86,45 @@ function hasValidOptionalSource(article: Pick<Article, "sourceName" | "sourceUrl
 
 function hasSaneArticleTitle(title: string): boolean {
   const value = title.trim();
-  if (value.length < 20 || value.length > 110) return false;
-  if (/\|\s*Texas\s*Defined\s*$/i.test(value)) return false;
-  if (/[!?.,:;\-–—]{3,}/.test(value)) return false;
-  if (/\s{2,}/.test(value)) return false;
-  return true;
+  return value.length >= 20
+    && value.length <= 110
+    && !/\s{2,}|[!?.,:;\-–—]{3,}|\|\s*Texas\s*Defined\s*$/i.test(value);
 }
 
 function hasUsefulHero(article: Pick<Article, "hero">): boolean {
-  const { src, alt, width, height } = article.hero ?? {};
+  const hero = article.hero;
   return Boolean(
-    src?.trim()
-    && alt?.trim().length >= 20
-    && Number.isFinite(width)
-    && Number.isFinite(height)
-    && width >= ARTICLE_INDEX_MIN_HERO_WIDTH
-    && height >= ARTICLE_INDEX_MIN_HERO_HEIGHT,
+    hero?.src?.trim()
+    && hero.alt?.trim().length >= 20
+    && Number.isFinite(hero.width)
+    && Number.isFinite(hero.height)
+    && hero.width >= ARTICLE_INDEX_MIN_HERO_WIDTH
+    && hero.height >= ARTICLE_INDEX_MIN_HERO_HEIGHT,
   );
 }
 
 function hasUsefulEditorialStructure(article: Pick<Article, "body">): boolean {
   if (article.body.length === 0) return true;
-  const headings = article.body
-    .filter((block): block is Extract<ArticleBlock, { type: "heading" }> => block.type === "heading")
-    .map((block) => block.text.trim())
-    .filter(Boolean);
-  if (headings.length < ARTICLE_INDEX_MIN_HEADINGS) return false;
-  if (headings.some((heading) => heading.length < 8 || heading.length > 100)) return false;
-  const normalized = headings.map((heading) => heading.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim());
-  if (new Set(normalized).size !== normalized.length) return false;
-
-  const paragraphs = article.body
-    .filter((block): block is Extract<ArticleBlock, { type: "paragraph" }> => block.type === "paragraph")
-    .map((block) => block.text.trim())
-    .filter(Boolean);
-  return paragraphs.length >= 3;
+  let headings = 0;
+  let paragraphs = 0;
+  for (const block of article.body) {
+    if (block.type === "heading") {
+      const length = block.text.trim().length;
+      if (length < 8 || length > 100) return false;
+      headings += 1;
+    } else if (block.type === "paragraph" && block.text.trim()) {
+      paragraphs += 1;
+    }
+  }
+  return headings >= ARTICLE_INDEX_MIN_HEADINGS && paragraphs >= 3;
 }
 
 function hasDiscoveryLinks(article: Pick<Article, "internalLinks" | "relatedDestinations" | "relatedCollections">): boolean {
-  const internal = article.internalLinks?.filter((link) => /^\/(?!\/)/.test(link.href.trim()) && link.label.trim().length >= 3).length ?? 0;
-  const destinations = article.relatedDestinations.filter(Boolean).length;
-  const collections = article.relatedCollections.filter(Boolean).length;
-  return internal + destinations + collections >= ARTICLE_INDEX_MIN_DISCOVERY_LINKS;
+  const internal = article.internalLinks?.filter((link) => {
+    const href = link.href.trim();
+    return href.startsWith("/") && !href.startsWith("//") && link.label.trim().length >= 3;
+  }).length ?? 0;
+  return internal + article.relatedDestinations.length + article.relatedCollections.length >= ARTICLE_INDEX_MIN_DISCOVERY_LINKS;
 }
 
 function hasArticleReadinessMetadata(article: Article): boolean {
@@ -140,9 +137,9 @@ function hasArticleReadinessMetadata(article: Article): boolean {
 }
 
 function meetsArticleIndexBodyFloor(article: Article): boolean {
-  if (articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS) return true;
-  return SEASONAL_INTENT_INDEX_READY_SLUGS.has(article.slug)
-    && articleBodyWordCount(article) >= SEASONAL_INTENT_INDEX_MIN_BODY_WORDS;
+  const words = articleBodyWordCount(article);
+  return words >= ARTICLE_INDEX_MIN_BODY_WORDS
+    || (SEASONAL_INTENT_INDEX_READY_SLUGS.has(article.slug) && words >= SEASONAL_INTENT_INDEX_MIN_BODY_WORDS);
 }
 
 /**
