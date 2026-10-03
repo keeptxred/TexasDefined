@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
+export type ContainerWidth = "prose" | "narrow" | "content" | "default" | "wide";
+
 export function Container({
   children,
   className,
@@ -10,7 +12,7 @@ export function Container({
 }: {
   children: ReactNode;
   className?: string;
-  width?: "narrow" | "default" | "wide";
+  width?: ContainerWidth;
   as?: "div" | "section" | "header" | "footer" | "article" | "nav" | "main";
   id?: string;
 }) {
@@ -18,10 +20,12 @@ export function Container({
     <Tag
       id={id}
       className={cn(
-        "mx-auto w-full px-5 sm:px-8",
+        "mx-auto w-full px-5 sm:px-8 xl:px-10 2xl:px-12",
+        width === "prose" && "max-w-[52rem]",
         width === "narrow" && "max-w-3xl",
-        width === "default" && "max-w-6xl",
-        width === "wide" && "max-w-[90rem]",
+        width === "content" && "max-w-6xl",
+        width === "default" && "max-w-[96rem]",
+        width === "wide" && "max-w-[108rem]",
         className,
       )}
     >
