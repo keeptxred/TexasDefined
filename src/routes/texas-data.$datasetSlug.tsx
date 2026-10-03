@@ -16,6 +16,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
     if (!loaderData) return {};
     const canonicalPath = `/texas-data/${loaderData.slug}`;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
+    const csvUrl = absoluteUrl(texasDefinedBrand, `${canonicalPath}.csv`);
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
@@ -42,6 +43,11 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             isBasedOn: loaderData.sourceUrl,
             citation: loaderData.sourceUrl,
             measurementTechnique: loaderData.methodology,
+            distribution: {
+              '@type': 'DataDownload',
+              encodingFormat: 'text/csv',
+              contentUrl: csvUrl,
+            },
             variableMeasured: loaderData.rows.map((row) => ({
               '@type': 'PropertyValue',
               name: row.label,
@@ -76,6 +82,7 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
 function Page() {
   const dataset = Route.useLoaderData();
   const isRelocationDataset = ['Relocation and migration', 'Insurance', 'Jobs', 'Transportation'].includes(dataset.category);
+  const csvHref = `/texas-data/${dataset.slug}.csv`;
   return (
     <>
       <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -127,6 +134,8 @@ function Page() {
             methodology={dataset.methodology}
             lastVerified={formatCheckedDate(dataset.updated)}
             title="Sources, methodology and verification"
+            citationTitle={dataset.title}
+            downloads={[{ label: 'Download this dataset', href: csvHref, format: 'CSV' }]}
           />
 
           <footer className="flex flex-wrap gap-x-7 gap-y-3 py-7 text-sm font-semibold">

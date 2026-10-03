@@ -9,6 +9,7 @@ This standard applies to existing resources promoted from the Batch 2.2 scorecar
 1. **Direct answer layer**
    - The first substantive section must answer the page's primary query in plain language.
    - Key facts, statuses, dates or comparisons should be visible without opening accordions or navigating elsewhere.
+   - Put the most useful concise statistics or fact blocks near the top when the page is data-backed.
    - Avoid throat-clearing introductions that delay the useful answer.
 
 2. **Structured evidence layer**
@@ -16,16 +17,21 @@ This standard applies to existing resources promoted from the Batch 2.2 scorecar
    - Use consistent field names across programmatic families.
    - Unknown values must be labeled as unknown/pending rather than inferred.
 
-3. **Visible trust layer**
-   - Every promoted citation magnet must visibly show **Sources**, **Methodology**, and **Last verified**.
-   - Source names should link directly to the authoritative record when possible.
+3. **Visible trust and citation layer**
+   - Every promoted citation magnet must visibly show **Author/editor**, **Sources**, **Methodology**, **Last verified**, **Stable URL**, and a **Recommended citation**.
+   - Use a real verified contributor when one exists; otherwise use the responsible Texas Defined institutional editorial desk. Never invent a human byline.
+   - Source names should link directly to authoritative records when possible, with primary and official sources first.
    - Methodology must explain what was collected, normalized, calculated or interpreted.
    - Last verified must describe the factual verification date, not merely the code deployment date.
+   - Stable URL must be the canonical TexasDefined URL without campaign parameters.
+   - Recommended citation should identify the responsible author/editor, page title, TexasDefined, verification date and stable URL.
+   - Data-backed pages should expose a CSV/JSON download when the underlying rows are suitable for reuse.
 
 4. **Machine-readable layer**
    - Keep canonical URLs stable.
    - Emit appropriate JSON-LD (`Dataset`, `Article`, `Place`, `GovernmentOrganization`, `FAQPage`, etc.) only when the visible page supports it.
    - When available, expose `dateModified`, `isBasedOn`, `measurementTechnique`, identifiers and entity relationships.
+   - Dataset pages with a public download should expose a `DataDownload` distribution with the canonical download URL and media type.
 
 5. **Relationship layer**
    - Link to the canonical parent hub and the most relevant related entities/tools.
@@ -69,15 +75,18 @@ The visible trust layer must use the actual verification date available for the 
 A resource is citation-ready only when all are true:
 
 - one canonical intent and one canonical URL;
-- direct answer is visible near the top;
+- direct answer and useful statistics are visible near the top;
+- visible author/editor responsibility is clear;
 - factual claims have traceable provenance;
 - structured facts are internally consistent;
 - methodology distinguishes source facts from calculations/editorial interpretation;
 - last-verified date is visible;
+- stable URL and recommended citation are visible;
+- reusable data is downloadable where appropriate;
 - thin/template safeguards pass;
 - internal links reinforce the entity/topic graph without forced anchors;
 - indexability matches content quality.
 
 ## Reusable implementation
 
-Use `CitationTrustPanel` for the visible trust layer instead of creating page-specific variants. Individual page families may add specialized provenance details, but the labels **Sources**, **Methodology**, and **Last verified** stay consistent across promoted resources.
+Use `CitationTrustPanel` for the visible trust/citation layer instead of creating page-specific variants. Individual page families may add specialized provenance details, but the labels **Sources**, **Methodology**, **Last verified**, **Stable URL**, **Author/editor**, and **Recommended citation** stay consistent across promoted resources.
