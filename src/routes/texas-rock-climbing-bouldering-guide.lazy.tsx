@@ -92,12 +92,12 @@ function TexasClimbingGuidePage() {
             <p className="mt-4 max-w-4xl text-base leading-8">For a public-land climbing trip, start with Hueco Tanks, Enchanted Rock, Lake Mineral Wells and Milton Reimers Ranch. The important distinction is access: Hueco Tanks uses tightly managed guided and self-guided areas; Enchanted Rock requires climber check-in and follows a climbing-management plan; Lake Mineral Wells requires registration before climbing or rappelling; and Reimers Ranch is managed by Travis County rather than TPWD. Always use the managing agency's current instructions for reservations, closures, maps and climbing rules.</p>
           </section>
 
-          <section className="border-b border-border py-10" aria-labelledby="safety-boundary">
-            <p className="eyebrow text-primary">Safety boundary</p>
-            <h2 id="safety-boundary" className="mt-2 font-display text-3xl">This is a trip-planning guide, not climbing instruction</h2>
+          <section className="border-b border-border py-10" aria-labelledby="before-climbing">
+            <p className="eyebrow text-primary">Before you climb</p>
+            <h2 id="before-climbing" className="mt-2 font-display text-3xl">Check access, weather and site rules before committing to the day</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
-              <p>Rock climbing and bouldering can result in serious injury or death. This page does not teach anchors, protection placement, belaying, rappelling, spotting, fall technique, route grades or equipment selection. Those skills require competent instruction, appropriate equipment and judgment specific to the activity and site.</p>
-              <p>Weather also changes the decision. Heat, lightning, wet rock, flooding, fire restrictions and park closures can turn a planned climbing day into the wrong day to climb. Check the land manager and current weather before leaving home, and be willing to change the plan.</p>
+              <p>Confirm the reservation, orientation or registration process for the exact area you plan to visit, then check current closures, designated climbing zones and any guide-service or access requirements. Hueco Tanks, Enchanted Rock, Lake Mineral Wells and Reimers Ranch do not use one common access system.</p>
+              <p>Heat, lightning, wet rock, flooding, fire restrictions and park closures can turn a planned climbing day into the wrong day to climb. Check the land manager and current weather before leaving home, and change the plan when access or conditions no longer fit the day you prepared for.</p>
             </div>
           </section>
 
