@@ -5,6 +5,10 @@ export const Route = createFileRoute('/api/newsletter/subscribe')({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        // The infrastructure can deploy before the public signup surfaces. Keep the endpoint dark until launch.
+        if (process.env['NEWSLETTER_SIGNUPS_ENABLED'] !== 'true') {
+          return Response.json({ ok: false, error: 'not_found' }, { status: 404, headers: { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' } });
+        }
         const body = await request.json().catch(() => null);
         const parsed = newsletterSignupSchema.safeParse(body);
         if (!parsed.success) return Response.json({ ok: false, error: 'invalid_signup' }, { status: 400, headers: { 'cache-control': 'no-store' } });
