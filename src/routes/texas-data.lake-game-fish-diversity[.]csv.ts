@@ -17,7 +17,7 @@ export const Route = createFileRoute('/texas-data/lake-game-fish-diversity.csv')
           row.targetCount,
           row.targetsPerThousandAcres?.toFixed(6) ?? '',
           row.targets.join('; '),
-          row.verifiedAt,
+          row.verifiedAt ?? '',
           row.sourceUrls.join('; '),
         ]);
         const csv = [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\n');
