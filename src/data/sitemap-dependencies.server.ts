@@ -1,3 +1,11 @@
+import { texasReferenceDatasetSlugs } from '@/data/texas-reference-datasets.server';
+import { INDEXABLE_STATIC_PATHS as BASE_INDEXABLE_STATIC_PATHS } from '@/lib/public-routes';
+
+export const INDEXABLE_STATIC_PATHS = [
+  ...BASE_INDEXABLE_STATIC_PATHS,
+  ...texasReferenceDatasetSlugs().map((slug) => `/texas-data/${slug}`),
+];
+
 export { getTexasCountyHousingCosts } from "@/data/acs-county-housing-costs.functions";
 export {
   fetchPublishedTexasDefinedEvergreenArticlesForSitemap,
@@ -38,7 +46,6 @@ export {
   isTexasDefinedOwnedStaticPath,
 } from "@/lib/brand-route-ownership";
 export {
-  INDEXABLE_STATIC_PATHS,
   isExploreSitemapOwnedPath,
   isIndexablePublicPath,
   normalizePublicPath,

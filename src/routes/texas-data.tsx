@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
+export const description = 'TexasDefined’s maintained data center for parks, lakes, property taxes, high-school football, rivers, counties and other useful Texas reference datasets — with source methodology and downloadable CSV files.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
 
@@ -16,7 +16,7 @@ export const nextStops = [
   ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'],
   ['Compare sports venues', sportsComparisonPath, 'Compare 84 verified Texas sports venue guides by location, type, capacity and opening information where available.'],
   ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
-  ['City-to-county relationships', '/texas-data/city-county-relationships', 'See the current Texas Defined city directory mapped to counties and regions.'],
+  ['City-to-county relationships', '/texas-data/city-county-relationships', 'See the current TexasDefined city directory mapped to counties and regions.'],
   ['Explore Texas', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
   ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
   ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
@@ -24,20 +24,35 @@ export const nextStops = [
 ] as const;
 
 export const Route = createFileRoute('/texas-data')({
-  loader: async () => ({ datasets: await getTexasDatasets() }),
+  loader: async () => {
+    const { getTexasReferenceDatasetDefinitions } = await import('@/data/texas-reference-datasets.server');
+    return { datasets: await getTexasDatasets(), referenceDatasets: getTexasReferenceDatasetDefinitions() };
+  },
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, '/texas-data');
     const datasets = loaderData?.datasets ?? [];
+    const referenceDatasets = loaderData?.referenceDatasets ?? [];
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Facts and Figures', description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Data — Maintained Reference Datasets', description }),
       links: [canonicalLink(texasDefinedBrand, '/texas-data')],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
         '@graph': [
           {
-            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts and Figures', description,
+            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Data', description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` }, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             dataset: [
+              ...referenceDatasets.map((dataset) => ({
+                '@type': 'Dataset',
+                '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`,
+                name: dataset.title,
+                description: dataset.description,
+                url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`),
+                dateModified: dataset.updated,
+                spatialCoverage: { '@type': 'State', name: 'Texas' },
+                variableMeasured: dataset.columns.map((column) => column.label),
+                distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, dataset.csvPath) },
+              })),
               ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
               {
                 '@type': 'Dataset',
@@ -46,11 +61,7 @@ export const Route = createFileRoute('/texas-data')({
                 description: 'A maintained comparison of 84 verified Texas sports venue guides by location, venue type, capacity and opening information where available.',
                 url: absoluteUrl(texasDefinedBrand, sportsComparisonPath),
                 spatialCoverage: { '@type': 'State', name: 'Texas' },
-                distribution: {
-                  '@type': 'DataDownload',
-                  encodingFormat: 'text/csv',
-                  contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath),
-                },
+                distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) },
               },
             ],
           },
