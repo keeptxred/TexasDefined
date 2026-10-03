@@ -12,12 +12,12 @@ permissions:
 
 jobs:
   purge:
-    if: ${{ github.event.workflow_run.head_branch == 'main' }}
+    if: ${{ github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     environment: texasdefined-publication
     env:
-      CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
+      CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN }}
       CLOUDFLARE_ZONE_NAME: texasdefined.com
 
     steps:
@@ -32,39 +32,120 @@ jobs:
           node-version: 22
 
       - name: Purge governed authority URLs
+        id: purge_authority_cache
         if: ${{ env.CLOUDFLARE_CACHE_API_TOKEN != '' }}
+        continue-on-error: true
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Report unavailable purge credential
         if: ${{ env.CLOUDFLARE_CACHE_API_TOKEN == '' }}
         shell: bash
         run: |
-          echo '::error title=Cloudflare cache purge unavailable::No dedicated, general, or deploy Cloudflare token is available to this workflow.'
-          exit 1
+          echo '::warning title=Cloudflare cache purge unavailable::CLOUDFLARE_CACHE_API_TOKEN is not configured in the texasdefined-publication environment. Canonical freshness verification will still run; targeted purge requires a token with Zone / Cache Purge / Edit for texasdefined.com.'
 
-      - name: Verify six-man authority canonical freshness
-        if: ${{ env.CLOUDFLARE_CACHE_API_TOKEN != '' }}
+      - name: Report rejected purge credential
+        if: ${{ steps.purge_authority_cache.outcome == 'failure' }}
+        shell: bash
+        run: |
+          echo '::warning title=Cloudflare cache purge rejected::CLOUDFLARE_CACHE_API_TOKEN could not purge the texasdefined.com zone cache. Confirm the token has Zone / Cache Purge / Edit for this zone. Canonical freshness verification will still run.'
+
+      - name: Verify authority canonical freshness
+        if: ${{ always() }}
         run: |
           node --input-type=module <<'NODE'
-          const url = 'https://texasdefined.com/article/texas-six-man-football-rules-explained';
-          const required = [
-            'Texas Six-Man Football: Rules, Scoring',
-            'How It Works',
-            'Six-man at a glance',
+          const pages = [
+            {
+              label: 'Six-man football',
+              url: 'https://texasdefined.com/article/texas-six-man-football-rules-explained',
+              required: [
+                'Texas Six-Man Football: Rules, Scoring',
+                'How It Works',
+                'Six-man at a glance',
+                'How the exchange rule works',
+              ],
+              forbidden: [],
+            },
+            {
+              label: 'Mountain biking',
+              url: 'https://texasdefined.com/texas-mountain-biking-guide',
+              required: ['Five Texas trail systems at a glance'],
+              forbidden: ['This is trip planning, not riding instruction'],
+            },
+            {
+              label: 'Horseback riding',
+              url: 'https://texasdefined.com/texas-horseback-riding-guide',
+              required: ['Conditions that should change the plan'],
+              forbidden: ['This is trip planning, not horsemanship instruction'],
+            },
+            {
+              label: 'OHV',
+              url: 'https://texasdefined.com/texas-ohv-guide',
+              required: ['Rules and conditions to check before you unload'],
+              forbidden: ['This is access planning, not off-road driving instruction'],
+            },
+            {
+              label: 'Paddling',
+              url: 'https://texasdefined.com/texas-paddling-guide',
+              required: ['Check the route, weather and exit plan before launching'],
+              forbidden: ['This is trip planning, not paddling instruction'],
+            },
+            {
+              label: 'Rock climbing',
+              url: 'https://texasdefined.com/texas-rock-climbing-bouldering-guide',
+              required: ['Check access, weather and site rules before committing to the day'],
+              forbidden: ['This is a trip-planning guide, not climbing instruction'],
+            },
           ];
 
-          let lastMissing = required;
-          for (let attempt = 1; attempt <= 4; attempt += 1) {
-            const response = await fetch(url, { redirect: 'follow', signal: AbortSignal.timeout(15_000) });
-            if (!response.ok) throw new Error(`Six-man canonical freshness check returned HTTP ${response.status}.`);
-            const html = await response.text();
-            lastMissing = required.filter((marker) => !html.includes(marker));
-            if (lastMissing.length === 0) {
-              console.log(`Six-man canonical page is fresh after purge on attempt ${attempt}.`);
-              process.exit(0);
+          const failures = [];
+          for (const page of pages) {
+            let passed = false;
+            let lastMissing = page.required;
+            let lastForbidden = [];
+            let lastProblem = '';
+
+            for (let attempt = 1; attempt <= 4; attempt += 1) {
+              try {
+                const response = await fetch(page.url, {
+                  redirect: 'follow',
+                  cache: 'no-store',
+                  signal: AbortSignal.timeout(15_000),
+                  headers: {
+                    'user-agent': 'TexasDefined-CI-Authority-Freshness/1.0',
+                    'cache-control': 'no-cache',
+                    pragma: 'no-cache',
+                  },
+                });
+                if (!response.ok) {
+                  lastProblem = `HTTP ${response.status}`;
+                } else {
+                  const html = await response.text();
+                  lastMissing = page.required.filter((marker) => !html.includes(marker));
+                  lastForbidden = page.forbidden.filter((marker) => html.includes(marker));
+                  lastProblem = '';
+                  if (lastMissing.length === 0 && lastForbidden.length === 0) {
+                    console.log(`${page.label} canonical page is fresh on attempt ${attempt}.`);
+                    passed = true;
+                    break;
+                  }
+                }
+              } catch (error) {
+                lastProblem = error instanceof Error ? error.message : String(error);
+              }
+
+              if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, 2_000));
             }
-            if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, 2_000));
+
+            if (!passed) {
+              const details = [];
+              if (lastProblem) details.push(lastProblem);
+              if (lastMissing.length) details.push(`missing: ${lastMissing.join(', ')}`);
+              if (lastForbidden.length) details.push(`obsolete text still present: ${lastForbidden.join(', ')}`);
+              failures.push(`${page.label}: ${details.join('; ')}`);
+            }
           }
 
-          throw new Error(`Six-man canonical page stayed stale after purge; missing: ${lastMissing.join(', ')}`);
+          if (failures.length) {
+            throw new Error(`Authority canonical freshness failed:\n- ${failures.join('\n- ')}`);
+          }
           NODE
