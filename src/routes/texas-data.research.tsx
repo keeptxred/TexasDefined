@@ -27,6 +27,18 @@ const briefs = [
     summary: 'A TexasDefined comparison of documented fishing targets across verified lake profiles, including targets per 1,000 surface acres.',
     source: 'Texas Parks & Wildlife Department and verified lake sources',
   },
+  {
+    title: 'How far Texas counties are from a state park',
+    href: '/texas-data/state-park-access',
+    summary: 'A county-level geographic access proxy using Census internal points and straight-line distance to verified TPWD state-park profiles.',
+    source: 'U.S. Census Bureau and Texas Parks & Wildlife Department',
+  },
+  {
+    title: 'Texas high-school football programs by UIL region',
+    href: '/texas-data/high-school-football-regions',
+    summary: 'The complete 2026–28 UIL football alignment counted across Regions I–IV, classifications and six-man versus eleven-man programs.',
+    source: 'University Interscholastic League',
+  },
 ] as const;
 
 export const Route = createFileRoute('/texas-data/research')({
@@ -78,7 +90,7 @@ function Page() {
       <section className="py-12" aria-labelledby="research-briefs-heading">
         <div className="border-b border-border pb-4"><p className="eyebrow text-primary">Research briefs</p><h2 id="research-briefs-heading" className="mt-2 font-display text-4xl">Current original analyses</h2></div>
         <div className="grid lg:grid-cols-3">
-          {briefs.map((brief, index) => <Link key={brief.href} to={brief.href} className={`group border-b border-border py-7 lg:px-6 ${index > 0 ? 'lg:border-l' : ''}`}>
+          {briefs.map((brief, index) => <Link key={brief.href} to={brief.href} className={`group border-b border-border py-7 lg:px-6 ${index % 3 !== 0 ? 'lg:border-l' : ''}`}>
             <p className="eyebrow text-primary">Original calculation</p>
             <h3 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">{brief.title}</h3>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">{brief.summary}</p>
