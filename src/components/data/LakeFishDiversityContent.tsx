@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { ResearchBriefTrustBlock } from '@/components/data/ResearchBriefTrustBlock';
-import type { LakeFishDiversityDataset, LakeFishDiversityRow } from '@/data/research/lake-game-fish-diversity.server';
+import type { LakeFishDiversityDataset, LakeFishDiversityRow } from '@/data/research/lake-game-fish-diversity';
 
 type SortKey = 'targets' | 'density' | 'acreage' | 'name';
 
