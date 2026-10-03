@@ -6,7 +6,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 const canonicalPath = '/texas-property-tax-rate-history';
 const description = 'Search Texas county, city, school-district and special-district property-tax rates, compare year-over-year changes, inspect historical records and download the latest finalized statewide dataset.';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const csvUrl = absoluteUrl(texasDefinedBrand, '/texas-property-tax-rate-history.csv');
+const csvUrl = absoluteUrl(texasDefinedBrand, '/api/property-tax-rates?download=latest-csv');
 
 export const Route = createFileRoute('/texas-property-tax-rate-history')({
   loader: async () => getPropertyTaxDataCenter(),
