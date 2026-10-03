@@ -49,35 +49,69 @@ jobs:
         run: |
           echo '::warning title=Cloudflare cache purge rejected::The available Cloudflare credential could not purge zone cache. Canonical freshness verification will determine whether production is actually stale.'
 
-      - name: Verify six-man authority canonical freshness
+      - name: Verify governed authority canonical freshness
         if: ${{ always() }}
         run: |
           node --input-type=module <<'NODE'
-          const url = 'https://texasdefined.com/article/texas-six-man-football-rules-explained';
-          const required = [
-            'Texas Six-Man Football: Rules, Scoring',
-            'How It Works',
-            'Six-man at a glance',
-            'How the exchange rule works',
+          const authorities = [
+            {
+              name: 'Six-man',
+              url: 'https://texasdefined.com/article/texas-six-man-football-rules-explained',
+              required: [
+                'Texas Six-Man Football: Rules, Scoring',
+                'How It Works',
+                'Six-man at a glance',
+                'How the exchange rule works',
+              ],
+            },
+            {
+              name: 'Battle of Medina',
+              url: 'https://texasdefined.com/article/spanish-texas-military-battle-medina',
+              required: [
+                'Battle of Medina: The Bloodiest Battle Fought on Texas Soil',
+                'Battle of Medina at a glance',
+                'Rosillo changed everything',
+                "Arredondo's victory brought repression to San Antonio",
+                'Joaquín de Arredondo',
+              ],
+            },
           ];
 
-          let lastMissing = required;
-          for (let attempt = 1; attempt <= 4; attempt += 1) {
-            const response = await fetch(url, {
-              redirect: 'follow',
-              cache: 'no-store',
-              signal: AbortSignal.timeout(15_000),
-              headers: { 'user-agent': 'TexasDefined-CI-Authority-Freshness/1.0' },
-            });
-            if (!response.ok) throw new Error(`Six-man canonical freshness check returned HTTP ${response.status}.`);
-            const html = await response.text();
-            lastMissing = required.filter((marker) => !html.includes(marker));
-            if (lastMissing.length === 0) {
-              console.log(`Six-man canonical page is fresh on attempt ${attempt}.`);
-              process.exit(0);
+          const failures = [];
+          for (const authority of authorities) {
+            let lastMissing = authority.required;
+            let lastStatus = null;
+            for (let attempt = 1; attempt <= 4; attempt += 1) {
+              const response = await fetch(authority.url, {
+                redirect: 'follow',
+                cache: 'no-store',
+                signal: AbortSignal.timeout(15_000),
+                headers: {
+                  'cache-control': 'no-cache',
+                  pragma: 'no-cache',
+                  'user-agent': 'TexasDefined-CI-Authority-Freshness/1.0',
+                },
+              });
+              lastStatus = response.status;
+              if (!response.ok) {
+                lastMissing = [`HTTP ${response.status}`];
+              } else {
+                const html = await response.text();
+                lastMissing = authority.required.filter((marker) => !html.includes(marker));
+                if (lastMissing.length === 0) {
+                  console.log(`${authority.name} canonical page is fresh on attempt ${attempt}.`);
+                  break;
+                }
+              }
+              if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, 2_000));
             }
-            if (attempt < 4) await new Promise((resolve) => setTimeout(resolve, 2_000));
+
+            if (lastMissing.length > 0) {
+              failures.push(`${authority.name} (${lastStatus ?? 'no response'}) missing: ${lastMissing.join(', ')}`);
+            }
           }
 
-          throw new Error(`Six-man canonical page is stale; missing: ${lastMissing.join(', ')}`);
+          if (failures.length > 0) {
+            throw new Error(`Authority canonical freshness failed: ${failures.join(' | ')}`);
+          }
           NODE
