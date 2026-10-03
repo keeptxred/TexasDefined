@@ -31,7 +31,7 @@ function StateOutline({ state }: { state: string }) {
       }}
     >
       <use
-        href={`/state-outlines.svg#icon-state-${abbreviation}`}
+        href={`/state-outlines.xml#icon-state-${abbreviation}`}
         x="0"
         y="0"
         width="100"
