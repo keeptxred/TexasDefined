@@ -1,0 +1,1 @@
+Camping authority expansion uses official managing-agency sources and keeps volatile rates out of the curated dataset. Waves 9 and 10 add ten TPWD profiles while preserving the lean route loader and canonical-or-anchor schema behavior. Focused validators live beside the camping data validators; the repository Required Merge Gate remains authoritative.
