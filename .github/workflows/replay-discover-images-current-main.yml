@@ -1,13 +1,16 @@
 name: Replay Discover image readiness
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - fix/discover-image-readiness-current-main
 
 permissions:
   contents: write
 
 jobs:
   replay:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
