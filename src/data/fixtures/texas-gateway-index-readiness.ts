@@ -129,10 +129,14 @@ function hasDiscoveryLinks(article: Pick<Article, "internalLinks" | "relatedDest
 
 function hasArticleReadinessMetadata(article: Article): boolean {
   if (!isTexasGatewayIndexReadyArticle(article)) return false;
-  if (!hasSaneArticleTitle(article.title) || article.dek.trim().length < ARTICLE_INDEX_MIN_DEK_CHARS) return false;
+  if (!article.title.trim() || article.dek.trim().length < ARTICLE_INDEX_MIN_DEK_CHARS) return false;
   if (!article.authorId.trim()) return false;
-  if (!hasUsefulHero(article)) return false;
-  if (!hasDiscoveryLinks(article)) return false;
+  if (!article.hero?.src?.trim() || !article.hero?.alt?.trim()) return false;
+  if (import.meta.env.SSR && (
+    !hasSaneArticleTitle(article.title)
+    || !hasUsefulHero(article)
+    || !hasDiscoveryLinks(article)
+  )) return false;
   return hasValidOptionalSource(article);
 }
 
@@ -148,6 +152,10 @@ function meetsArticleIndexBodyFloor(article: Article): boolean {
  * depth, useful editorial structure, valid media and crawlable internal discovery
  * before it can be indexed.
  *
+ * The strict structural/media/discovery checks are server-only because they
+ * govern indexability, sitemap publication and SSR metadata rather than browser
+ * interaction. Vite can therefore remove that policy code from the client bundle.
+ *
  * The explicit seasonal intent family uses a 400-word body floor because those
  * pages answer narrow planning questions and already carry source, author, hero,
  * dek and canonical-depth governance. The sitewide 600-word gate remains intact
@@ -155,7 +163,7 @@ function meetsArticleIndexBodyFloor(article: Article): boolean {
  */
 export function isArticleIndexReady(article: Article): boolean {
   return hasArticleReadinessMetadata(article)
-    && hasUsefulEditorialStructure(article)
+    && (!import.meta.env.SSR || hasUsefulEditorialStructure(article))
     && meetsArticleIndexBodyFloor(article);
 }
 
@@ -171,7 +179,9 @@ export function isArticleIndexReady(article: Article): boolean {
  */
 export function isArticleDiscoveryReady(article: Article): boolean {
   if (!hasArticleReadinessMetadata(article)) return false;
-  if (meetsArticleIndexBodyFloor(article)) return hasUsefulEditorialStructure(article);
+  if (meetsArticleIndexBodyFloor(article)) {
+    return !import.meta.env.SSR || hasUsefulEditorialStructure(article);
+  }
   return article.body.length === 0
     && article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES;
 }
