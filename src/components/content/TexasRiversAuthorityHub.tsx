@@ -31,6 +31,13 @@ const sectionLinks = [
   { label: "San Jacinto & Lavaca", href: "#the-san-jacinto-and-lavaca-prove-a-river-does-not-have-to-be-long-to-matter" },
 ] as const;
 
+const wideModuleStyle = {
+  position: "relative",
+  left: "50%",
+  width: "min(calc(100vw - 2rem), 80rem)",
+  transform: "translateX(-50%)",
+} as const;
+
 function TexasRiverOrientationMap() {
   return (
     <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-surface">
@@ -100,7 +107,7 @@ function RiverProfileCards() {
 
 export function TexasRiversAuthorityHub() {
   return (
-    <section className="mb-12 border-y border-border py-8 sm:py-10" aria-labelledby="texas-rivers-authority-heading">
+    <section style={wideModuleStyle} className="mb-12 border-y border-border py-8 sm:py-10" aria-labelledby="texas-rivers-authority-heading">
       <div className="max-w-3xl">
         <p className="eyebrow text-primary">Start with the map</p>
         <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Texas Rivers, Region by Region</h2>
@@ -134,7 +141,7 @@ export function TexasRiversAuthorityHub() {
 
 export function TexasRiversAfterArticle() {
   return (
-    <div className="mt-14 border-t border-border pt-10">
+    <div style={wideModuleStyle} className="mt-14 border-t border-border pt-10">
       <section aria-labelledby="river-profiles-heading">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
