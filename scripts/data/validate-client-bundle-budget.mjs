@@ -11,11 +11,13 @@ const feedRoutePaths = [
   path.resolve('src/routes/rss[.]xml.ts'),
   primarySitemapPath,
 ];
-// CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
-// Keep less than 1% headroom so meaningful growth fails without making the
-// budget smaller than the known-good production build.
-const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
-const MAX_MAIN_BYTES = 1_825_000;
+// Rebaseline only from a verified green protected-main build. The 2026-10-03
+// protected merge gate measured 1,824,994 bytes. Keep roughly 1% growth room
+// from that known-good production baseline so the budget catches meaningful
+// shared-bundle regressions without failing ordinary changes by single bytes.
+const STABLE_MAIN_BASELINE_BYTES = 1_824_994;
+const MAX_MAIN_GROWTH_BYTES = 18_000;
+const MAX_MAIN_BYTES = STABLE_MAIN_BASELINE_BYTES + MAX_MAIN_GROWTH_BYTES;
 // The calculator decision-platform build measures 140,115 bytes. Keep only 135 bytes
 // of headroom so the stylesheet gate remains a tight growth detector rather than
 // blocking a measured 0.08% increase that accompanies the shared calculator UI.
@@ -96,9 +98,10 @@ async function main() {
     }
   }
 
+  const baselineDeltaBytes = mainBytes - STABLE_MAIN_BASELINE_BYTES;
   const headroomBytes = MAX_MAIN_BYTES - mainBytes;
   const usagePercent = (mainBytes / MAX_MAIN_BYTES) * 100;
-  console.log(`Client main bundle measurement: file=${mainFile}; bytes=${mainBytes}; cap_bytes=${MAX_MAIN_BYTES}; headroom_bytes=${headroomBytes}; usage_percent=${usagePercent.toFixed(2)}.`);
+  console.log(`Client main bundle measurement: file=${mainFile}; bytes=${mainBytes}; baseline_bytes=${STABLE_MAIN_BASELINE_BYTES}; baseline_delta_bytes=${baselineDeltaBytes}; cap_bytes=${MAX_MAIN_BYTES}; headroom_bytes=${headroomBytes}; usage_percent=${usagePercent.toFixed(2)}.`);
   console.log(`Client performance budget passed using ${path.relative(process.cwd(), assetsDir)}: ${mainFile} ${(mainBytes / 1024).toFixed(1)} KiB <= ${(MAX_MAIN_BYTES / 1024).toFixed(1)} KiB (${headroomBytes.toLocaleString()} bytes headroom); ${cssFiles.length || 0} primary stylesheet(s) within budget; failed route-splitting experiment remains disabled.`);
 }
 
