@@ -21,4 +21,8 @@ process.env.BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS ||= '30000';
 process.env.BUILT_WORKER_SMOKE_HOMEPAGE_TIMEOUT_MS ||= '45000';
 process.env.BUILT_WORKER_SMOKE_WARMUP_TIMEOUT_MS ||= '45000';
 
+// The authority cache repair is part of production correctness, not an optional
+// follow-up. Keep its workflow and targeted-purge safeguards inside the same
+// required smoke path so a later branch consolidation cannot silently drop it.
+await import('./validate-authority-cache-self-heal.mjs');
 await import('./verify-built-worker-ssr-core.mjs');
