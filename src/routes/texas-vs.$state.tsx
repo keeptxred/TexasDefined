@@ -91,13 +91,14 @@ function TexasVsStatePage() {
           <p className="mt-2 text-sm text-muted-foreground">{snapshot.period}</p>
 
           <div className="mt-8" style={{ overflowX: "auto" }}>
-            <table className="w-full text-left" style={{ minWidth: "760px", borderCollapse: "collapse" }}>
+            <table className="w-full text-left" style={{ minWidth: "920px", borderCollapse: "collapse" }}>
               <thead>
                 <tr className="border-b border-border">
                   <th scope="col" className="pb-3 pr-5 text-sm font-semibold">Measure</th>
                   <th scope="col" className="pb-3 pr-5 text-sm font-semibold text-primary">Texas</th>
                   <th scope="col" className="pb-3 pr-5 text-sm font-semibold text-primary">{name}</th>
-                  <th scope="col" className="pb-3 text-sm font-semibold">What the number means</th>
+                  <th scope="col" className="pb-3 pr-5 text-sm font-semibold">Difference</th>
+                  <th scope="col" className="pb-3 text-sm font-semibold">Context</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,6 +106,7 @@ function TexasVsStatePage() {
                   <th scope="row" className="py-4 pr-5 font-semibold" style={{ verticalAlign: "top" }}>{row.metric}</th>
                   <td className="py-4 pr-5 font-display text-xl" style={{ verticalAlign: "top" }}>{row.texas}</td>
                   <td className="py-4 pr-5 font-display text-xl" style={{ verticalAlign: "top" }}>{row.state}</td>
+                  <td className="py-4 pr-5 font-semibold" style={{ verticalAlign: "top" }}>{row.difference}</td>
                   <td className="py-4 text-sm leading-6 text-muted-foreground" style={{ verticalAlign: "top" }}>{row.context}</td>
                 </tr>)}
               </tbody>
