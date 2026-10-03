@@ -28,12 +28,12 @@ export function LakeGameFishDiversityContent({ data }: { data: LakeGameFishDiver
       <p className="eyebrow text-primary">Direct answer</p>
       <h2 className="mt-2 max-w-4xl font-display text-4xl">The comparison counts verified lake-to-fish relationships already maintained by TexasDefined</h2>
       <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">This is an original calculation over TexasDefined's source-backed fishing catalog. It measures documented fishing targets, not a biological species census. Some maintained targets are fishing groups such as crappie or catfish, so the table deliberately uses “targets” rather than implying every row is a species-level taxonomic inventory.</p>
-      <div className="mt-7 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-7 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Lakes compared" value={data.lakeCount.toLocaleString('en-US')} />
         <Stat label="Verified relationships" value={data.relationshipCount.toLocaleString('en-US')} />
         <Stat label="Most targets" value={leader ? `${leader.name}: ${leader.targetCount}` : '—'} />
         <Stat label="Most targets / 1,000 acres" value={densityLeader?.targetsPerThousandAcres != null ? `${densityLeader.name}: ${densityLeader.targetsPerThousandAcres.toFixed(2)}` : '—'} />
-      </div>
+      </dl>
       <a href="/texas-data/lake-game-fish-diversity.csv" className="mt-6 inline-block border-b border-primary text-sm font-semibold text-primary">Download the full CSV →</a>
     </section>
 
