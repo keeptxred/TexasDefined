@@ -1,0 +1,213 @@
+name: Finalize governed image remediation
+
+on:
+  push:
+    branches:
+      - chat8/image-discover-final-current4-20261002
+    paths:
+      - .github/workflows/finalize-generated-image-objects.yml
+
+permissions:
+  contents: write
+  statuses: write
+
+jobs:
+  build-final-commit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: chat8/image-discover-final-current4-20261002
+          fetch-depth: 0
+
+      - name: Verify exact current main base
+        shell: bash
+        run: |
+          set -euxo pipefail
+          expected_main='996b48d3c9c46f99967e463f45763941a5ff93fb'
+          git fetch origin 'refs/heads/main:refs/remotes/origin/main' 'refs/heads/chat8/image-discover-final-20261002:refs/remotes/origin/chat8/image-discover-final-20261002'
+          test "$(git rev-parse origin/main)" = "$expected_main"
+          git merge-base --is-ancestor origin/main HEAD
+
+      - name: Restore governed text corrections
+        shell: bash
+        run: |
+          set -euxo pipefail
+          for path in \
+            src/data/article-image-readiness-overrides.ts \
+            src/data/county-series.server.ts \
+            src/data/sports-venue-images.ts \
+            src/lib/editorial-image-delivery.ts; do
+            git cat-file -e "origin/chat8/image-discover-final-20261002:${path}"
+            git show "origin/chat8/image-discover-final-20261002:${path}" > "${path}"
+          done
+
+      - name: Validate governed image inputs
+        shell: bash
+        run: |
+          set -euxo pipefail
+          test -f scripts/assets/materialize-generated-images.mjs
+          count="$(find assets/generated/chappell-hill-bluebonnet-festival -maxdepth 1 -type f -name 'clean-v4-20260914.webp.b64.*' | wc -l)"
+          echo "clean chunk count=${count}"
+          test "$count" -eq 10
+          test -f public/images/sports-venues/xtreme-raceway-park.jpg
+
+      - name: Materialize governed Chappell source
+        shell: bash
+        run: |
+          set -euxo pipefail
+          node scripts/assets/materialize-generated-images.mjs
+          test -s public/images/events/chappell-hill-bluebonnet-festival-20260914.webp
+
+      - name: Install governed derivative tooling
+        shell: bash
+        run: |
+          set -euxo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y libvips-tools
+          vips --version
+
+      - name: Upscale governed Chappell derivative to 1600px
+        shell: bash
+        run: |
+          set -euxo pipefail
+          src='public/images/events/chappell-hill-bluebonnet-festival-20260914.webp'
+          tmp='public/images/events/.chappell-hill-bluebonnet-festival-20260914.large.webp'
+          width="$(vipsheader -f width "$src")"
+          height="$(vipsheader -f height "$src")"
+          test "$width" -gt 0
+          test "$height" -gt 0
+          scale="$(awk -v w="$width" 'BEGIN { printf "%.12f", 1600 / w }')"
+          echo "Chappell source ${width}x${height}; scale=${scale}"
+          vips resize "$src" "$tmp" "$scale"
+          out_width="$(vipsheader -f width "$tmp")"
+          out_height="$(vipsheader -f height "$tmp")"
+          echo "Chappell derivative ${out_width}x${out_height}"
+          test "$out_width" -eq 1600
+          test "$out_height" -ge 1
+          mv "$tmp" "$src"
+
+      - name: Upscale governed Xtreme derivative to 1600px
+        shell: bash
+        run: |
+          set -euxo pipefail
+          src='public/images/sports-venues/xtreme-raceway-park.jpg'
+          tmp='public/images/sports-venues/.xtreme-raceway-park.large.jpg'
+          width="$(vipsheader -f width "$src")"
+          height="$(vipsheader -f height "$src")"
+          test "$width" -gt 0
+          test "$height" -gt 0
+          scale="$(awk -v w="$width" 'BEGIN { printf "%.12f", 1600 / w }')"
+          echo "Xtreme source ${width}x${height}; scale=${scale}"
+          vips resize "$src" "$tmp" "$scale"
+          out_width="$(vipsheader -f width "$tmp")"
+          out_height="$(vipsheader -f height "$tmp")"
+          echo "Xtreme derivative ${out_width}x${out_height}"
+          test "$out_width" -eq 1600
+          test "$out_height" -ge 1
+          mv "$tmp" "$src"
+
+      - name: Rechunk governed Chappell derivative and update checksum
+        shell: bash
+        run: |
+          set -euxo pipefail
+          node --input-type=module <<'NODE'
+          import crypto from 'node:crypto';
+          import fs from 'node:fs';
+          import path from 'node:path';
+
+          const imagePath = 'public/images/events/chappell-hill-bluebonnet-festival-20260914.webp';
+          const bytes = fs.readFileSync(imagePath);
+          const encoded = bytes.toString('base64');
+          const dir = 'assets/generated/chappell-hill-bluebonnet-festival';
+          const prefix = 'clean-v4-20260914.webp.b64.';
+          const parts = 10;
+          const chunkSize = Math.ceil(encoded.length / parts);
+          for (let index = 0; index < parts; index += 1) {
+            fs.writeFileSync(path.join(dir, `${prefix}${String(index).padStart(2, '0')}`), encoded.slice(index * chunkSize, (index + 1) * chunkSize) + '\n');
+          }
+          const sha = crypto.createHash('sha256').update(bytes).digest('hex');
+          const materializer = 'scripts/assets/materialize-generated-images.mjs';
+          const source = fs.readFileSync(materializer, 'utf8');
+          const oldSha = '9664491618145e39ce2ebac354ae65325dba7d65d9557dc9d13206fe8ead62d8';
+          if (!source.includes(oldSha)) throw new Error('Expected governed Chappell checksum not found');
+          const updated = source.replace(oldSha, sha);
+          fs.writeFileSync(materializer, updated);
+          console.log(`EVENT_SHA256=${sha}`);
+          NODE
+          node scripts/assets/materialize-generated-images.mjs
+          test "$(vipsheader -f width public/images/events/chappell-hill-bluebonnet-festival-20260914.webp)" -eq 1600
+
+      - name: Stage only governed remediation
+        shell: bash
+        run: |
+          set -euxo pipefail
+          rm .github/workflows/finalize-generated-image-objects.yml
+          git add src/data/article-image-readiness-overrides.ts src/data/county-series.server.ts src/data/sports-venue-images.ts src/lib/editorial-image-delivery.ts
+          git add -f assets/generated/chappell-hill-bluebonnet-festival/clean-v4-20260914.webp.b64.* scripts/assets/materialize-generated-images.mjs public/images/sports-venues/xtreme-raceway-park.jpg
+          git add -u .github/workflows/finalize-generated-image-objects.yml
+          git diff --cached --check
+          git diff --cached --name-status
+          test -z "$(git diff --name-only)"
+
+      - name: Create immutable Git commit object and publish its SHA as status metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { execFileSync } from 'node:child_process';
+
+          const owner = 'keeptxred';
+          const repo = 'TexasDefined';
+          const token = process.env.GH_TOKEN;
+          const api = async (path, body) => {
+            const response = await fetch(`https://api.github.com/repos/${owner}/${repo}${path}`, {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+              },
+              body: JSON.stringify(body),
+            });
+            const text = await response.text();
+            if (!response.ok) throw new Error(`${path} ${response.status}: ${text}`);
+            return text ? JSON.parse(text) : {};
+          };
+
+          const parent = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+          const treeSha = execFileSync('git', ['show', '-s', '--format=%T', parent], { encoding: 'utf8' }).trim();
+          const raw = execFileSync('git', ['diff', '--cached', '--name-status', '-z'], { encoding: 'buffer' });
+          const fields = raw.toString('utf8').split('\0').filter(Boolean);
+          const entries = [];
+          for (let i = 0; i < fields.length;) {
+            const code = fields[i++];
+            const file = fields[i++];
+            if (!file) throw new Error(`Malformed staged diff near ${code}`);
+            if (code.startsWith('D')) {
+              entries.push({ path: file, mode: '100644', type: 'blob', sha: null });
+              continue;
+            }
+            const bytes = fs.readFileSync(file);
+            const blob = await api('/git/blobs', { content: bytes.toString('base64'), encoding: 'base64' });
+            entries.push({ path: file, mode: '100644', type: 'blob', sha: blob.sha });
+          }
+          if (entries.length === 0) throw new Error('No staged remediation changes found');
+          const tree = await api('/git/trees', { base_tree: treeSha, tree: entries });
+          const created = await api('/git/commits', {
+            message: 'Upgrade governed generated images for Discover',
+            tree: tree.sha,
+            parents: [parent],
+          });
+          await api(`/statuses/${parent}`, {
+            state: 'success',
+            context: 'image-finalizer/final-commit',
+            description: created.sha,
+          });
+          console.log(`FINAL_COMMIT_SHA=${created.sha}`);
+          console.log(`PARENT_SHA=${parent}`);
+          console.log(`CHANGED_PATHS=${entries.map((entry) => entry.path).join(',')}`);
+          NODE
