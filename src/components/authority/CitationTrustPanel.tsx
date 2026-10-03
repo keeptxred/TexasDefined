@@ -79,7 +79,8 @@ export function CitationTrustPanel({
 
           <div className="grid gap-7 text-sm leading-7 text-muted-foreground sm:grid-cols-2">
             <div>
-              <h3 className="font-semibold text-foreground">Primary sources</h3>
+              <h3 className="font-semibold text-foreground">Sources</h3>
+              <p className="mt-1 text-xs uppercase tracking-[0.12em] text-muted-foreground">Primary sources preferred</p>
               <ul className="mt-2 space-y-2">
                 {sources.map((source) => (
                   <li key={`${source.name}-${source.url ?? ''}`}>
