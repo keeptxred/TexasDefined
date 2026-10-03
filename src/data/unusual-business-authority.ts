@@ -10,6 +10,7 @@ export interface UnusualBusinessQuickFact {
 }
 
 export interface UnusualBusinessAuthorityProfile {
+  title: string;
   canonicalPath: string;
   quickFacts: readonly UnusualBusinessQuickFact[];
   sources: readonly UnusualBusinessAuthoritySource[];
@@ -22,6 +23,7 @@ const VERIFIED = "October 3, 2026";
 
 export const unusualBusinessAuthorityProfiles: Readonly<Record<string, UnusualBusinessAuthorityProfile>> = {
   "unusual-texas-businesses-services": {
+    title: "Unusual Texas Businesses & Services",
     canonicalPath: "/article/unusual-texas-businesses-services",
     lastVerified: VERIFIED,
     freshness: "Directory membership is reviewed when a featured business materially changes and at least annually.",
@@ -46,6 +48,7 @@ export const unusualBusinessAuthorityProfiles: Readonly<Record<string, UnusualBu
     methodology: "TexasDefined includes a business only when the service, craft or experience is unusually distinctive, the Texas location or cultural connection materially shapes the story, and current first-party information is strong enough to answer practical questions. We verify mutable details against the operator and use local, tourism, archival or independent reporting where available. Ordinary businesses are intentionally excluded so this remains an editorial reference rather than a directory scrape.",
   },
   "bluebonnet-animal-preservation-athens": {
+    title: "Bluebonnet Animal Preservation in Athens",
     canonicalPath: "/article/bluebonnet-animal-preservation-athens",
     lastVerified: VERIFIED,
     freshness: "Operational details should be rechecked before use because pricing, hours, intake instructions and processing estimates can change.",
@@ -65,6 +68,7 @@ export const unusualBusinessAuthorityProfiles: Readonly<Record<string, UnusualBu
     methodology: "TexasDefined reviewed the operator's current home, services, pricing and about pages and separated durable service descriptions from mutable operational details. Claims about timing, deposits, species accepted and care instructions are attributed to the business rather than presented as independent veterinary or scientific advice. Local context is connected through TexasDefined's Henderson County and Athens authority pages.",
   },
   "phenix-knives-bellville": {
+    title: "Phenix Knives in Bellville",
     canonicalPath: "/article/phenix-knives-bellville",
     lastVerified: VERIFIED,
     freshness: "Hours, prices, class schedules and walk-in activity availability are treated as operational and should be rechecked before travel.",
@@ -85,6 +89,7 @@ export const unusualBusinessAuthorityProfiles: Readonly<Record<string, UnusualBu
     methodology: "TexasDefined verified current operating claims against Phenix Knives and cross-checked the Bellville address, historic-shop context and visitor role against local Bellville sources. The guide distinguishes a short visitor activity from formal instruction and avoids freezing changeable hours, prices or class availability into evergreen recommendations.",
   },
   "horses-on-the-beach-corpus-christi": {
+    title: "Horses on the Beach in Corpus Christi",
     canonicalPath: "/article/horses-on-the-beach-corpus-christi",
     lastVerified: VERIFIED,
     freshness: "Ride schedules, prices, age rules and weather policies are operational and should be confirmed with the operator before booking.",
@@ -105,6 +110,7 @@ export const unusualBusinessAuthorityProfiles: Readonly<Record<string, UnusualBu
     methodology: "TexasDefined checked current ride details against the operator, used Visit Corpus Christi to corroborate the business as a recognized local beach activity, and used the Library of Congress record to document the operation's longer presence on Padre Island. The guide deliberately sends readers back to the operator for weather, schedule, price and participation rules that can change quickly.",
   },
   "mum-queen-spring-texas-homecoming-mums": {
+    title: "The Mum Queen in Spring",
     canonicalPath: "/article/mum-queen-spring-texas-homecoming-mums",
     lastVerified: VERIFIED,
     freshness: "Seasonal ordering details, products, pricing and rush availability are rechecked during homecoming season and should be confirmed directly before purchase.",
@@ -125,6 +131,26 @@ export const unusualBusinessAuthorityProfiles: Readonly<Record<string, UnusualBu
       { name: "Houston Chronicle — Texas homecoming mums", url: "https://www.houstonchronicle.com/news/houston-texas/houston/article/history-texas-homecoming-mums-19730689.php", note: "Independent cultural context for the evolution and modern form of Texas homecoming mums." },
     ],
     methodology: "TexasDefined uses The Mum Queen's current first-party pages for ordering and business-specific details, then cross-checks the maker and cultural context against independent Houston Chronicle reporting. Older promotional copy is not treated as current availability. This guide covers the business and ordering process; TexasDefined's separate statewide homecoming-mum page owns the broader history and tradition intent.",
+  },
+  "whirlyball-hurst": {
+    title: "WhirlyBall Hurst",
+    canonicalPath: "/destination/whirlyball-hurst",
+    lastVerified: VERIFIED,
+    freshness: "Hours, open-play schedules, league dates, pricing and group availability can change and should be confirmed before travel.",
+    quickFacts: [
+      { label: "Location", value: "147 E Harwood Rd, Hurst, Tarrant County, Texas" },
+      { label: "Core attraction", value: "WhirlyBall team game played in bumper-style WhirlyBugs with scoops and electronic scoring targets" },
+      { label: "Additional activities", value: "Two-story LaserWhirld arena, arcade games and group-event space" },
+      { label: "Published participation minimum", value: "Age 9+ and at least 4 feet tall for WhirlyBall, according to the operator" },
+      { label: "Last verified", value: VERIFIED },
+    ],
+    sources: [
+      { name: "WhirlyBall Texas — locations", url: "https://whirlyballtexas.com/locations/", note: "Current Hurst location, address and operating identity." },
+      { name: "WhirlyBall Texas — how WhirlyBall works", url: "https://whirlyballtexas.com/whirlyball/", note: "Game format, WhirlyBug controls, scoring and participant requirements." },
+      { name: "WhirlyBall Texas — LaserWhirld", url: "https://whirlyballtexas.com/lasertag/", note: "Laser-tag arena and related Hurst entertainment." },
+      { name: "HEB Chamber of Commerce — WhirlyBall/LaserWhirld", url: "https://business.heb.org/list/member/whirlyball-laserwhirld-of-heb-11652", note: "Independent local corroboration of the Hurst venue and its Mid-Cities group-entertainment role." },
+    ],
+    methodology: "TexasDefined verifies the Hurst address, game format, participant requirements and related activities against WhirlyBall Texas, then uses the HEB Chamber of Commerce as independent local corroboration. Mutable schedules and prices are not frozen into evergreen copy; the operator remains the controlling source for current-day availability.",
   },
 };
 
