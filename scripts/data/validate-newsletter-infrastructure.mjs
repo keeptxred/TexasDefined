@@ -78,7 +78,7 @@ for (const marker of [
   'NEWSLETTER_SENDING_ENABLED=true',
   'news.texasdefined.com',
   'Cloudflare Email Service is not the newsletter transport',
-  'server-only issue composer',
+  'Server-only issue composer',
 ]) requireText(docs, marker, 'Newsletter documentation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
