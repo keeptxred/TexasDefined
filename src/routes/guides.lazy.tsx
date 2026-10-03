@@ -7,6 +7,7 @@ import { GuideCard } from "@/components/editorial/GuideCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { guidesQuery } from "@/data/queries";
+import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl } from "@/lib/seo";
 
 import { description, texasExplainedGuide, travelIntro } from "./guides";
@@ -58,6 +59,16 @@ const TOPIC_LABELS: Record<string, { eyebrow: string; title: string }> = {
 };
 const editorialLabel = (value: string) => value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
+const guideImageAliases: Record<string, string> = {
+  "/texas-explained": "/explore/road-trips",
+  "/sports-venues": "/sports",
+};
+const visualNavItems = texasDefinedBrand.nav.flatMap((section) => section.children ?? []);
+function travelGuideImage(path: string) {
+  const imagePath = guideImageAliases[path] ?? path;
+  return visualNavItems.find((item) => item.to === imagePath)?.image;
+}
+
 export const Route = createLazyFileRoute("/guides")({ component: GuidesRoute });
 
 function GuidesRoute() {
@@ -72,7 +83,10 @@ function GuidesPage() {
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(guidesStructuredData) }} />
     <DepartmentHero current="Guides" eyebrow="The Texas Guidebook" title="Travel well. Live well. Know Texas better." description={description} />
-    <Section tone="surface"><Container><SectionHeader eyebrow="Travel guides" title="Where to go and how to make the most of it" description={travelIntro} /><ul className="mt-10 divide-y divide-border border-y border-border md:grid md:grid-cols-2 md:divide-y-0 lg:grid-cols-4">{travelGuides.map((guide, index) => <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)} className="border-border py-6 md:border-b md:p-6 lg:border-r lg:last:border-r-0"><Link to={guide.to} className="group block h-full"><p className="eyebrow text-muted-foreground">Guide {String(index + 1).padStart(2, "0")}</p><h2 className="mt-3 font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><p className="mt-4 text-xs leading-5 text-muted-foreground">{guide.note}</p><span className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Read the guide</span></Link></li>)}</ul></Container></Section>
+    <Section tone="surface"><Container><SectionHeader eyebrow="Travel guides" title="Where to go and how to make the most of it" description={travelIntro} /><ul className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{travelGuides.map((guide, index) => {
+      const image = travelGuideImage(guide.to);
+      return <li key={`${guide.label}-${guide.to}`} id={guideAnchor(index)}><Link to={guide.to} className="group flex h-full flex-col overflow-hidden border border-border bg-card" style={{ borderRadius: "0.4rem", boxShadow: "var(--shadow-soft)" }}>{image ? <div className="relative aspect-[3/2] overflow-hidden bg-muted"><img src={image.src} alt={image.alt} width={1200} height={800} sizes="(min-width: 1024px) 31vw, (min-width: 640px) 48vw, 100vw" loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} decoding="async" className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" onError={(event) => recoverOrHideImage(event.currentTarget)} /><div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-ink/35 to-transparent" aria-hidden /></div> : <div className="h-24" style={{ background: "linear-gradient(120deg, color-mix(in oklch, oklch(0.48 0.145 278) 16%, var(--surface)), color-mix(in oklch, oklch(0.69 0.15 52) 12%, var(--surface)))" }} aria-hidden />}<div className="flex flex-1 flex-col p-6"><p className="eyebrow text-primary">Guide {String(index + 1).padStart(2, "0")}</p><h2 className="mt-3 font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><p className="mt-4 flex-1 text-xs leading-5 text-muted-foreground">{guide.note}</p><span className="eyebrow mt-6 inline-block border-b border-primary pb-1 text-primary">Read the guide</span></div></Link></li>;
+    })}</ul></Container></Section>
     <Section><Container><SectionHeader eyebrow="Living here" title="Practical guides for making Texas home" /><ul className="mt-10 grid gap-x-8 gap-y-0 md:grid-cols-2 lg:grid-cols-4">{practicalGuides.map((guide, index) => <li key={guide.to} id={guideAnchor(travelGuides.length + index)} className="border-t border-border py-6"><Link to={guide.to} className="group block"><h2 className="font-display text-2xl leading-tight group-hover:text-primary">{guide.label}</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.body}</p><span className="eyebrow mt-5 inline-block text-primary">{guide.action} →</span></Link></li>)}</ul></Container></Section>
     {topics.map((topic, index) => {
       const topicCopy = TOPIC_LABELS[topic] ?? { eyebrow: editorialLabel(topic), title: `Explore ${editorialLabel(topic)}` };
