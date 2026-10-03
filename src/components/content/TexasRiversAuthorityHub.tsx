@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
+import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
+
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
 const riverProfiles = [
@@ -36,7 +38,7 @@ function TexasRiverOrientationMap() {
     <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-surface">
       <div className="grid lg:grid-cols-[1.5fr_0.8fr] lg:items-stretch">
         <div className="p-4 sm:p-6 lg:p-8">
-          <svg viewBox="0 0 620 500" role="img" aria-labelledby="texas-river-map-title texas-river-map-desc" className="mx-auto h-auto w-full max-w-3xl">
+          <svg id="texas-rivers-orientation-graphic" viewBox="0 0 620 500" role="img" aria-labelledby="texas-river-map-title texas-river-map-desc" className="mx-auto h-auto w-full max-w-3xl">
             <title id="texas-river-map-title">Orientation map of major Texas river systems</title>
             <desc id="texas-river-map-desc">A simplified Texas outline with approximate paths for the Rio Grande, Brazos, Colorado, Guadalupe, Trinity, Red, Sabine, Neches and Nueces river systems.</desc>
             <path d="M126 38H292V99H357L383 119L447 123L471 145L516 151L536 185L548 229L538 273L553 312L532 352L502 367L476 394L446 409L420 447L380 458L350 438L319 410L280 390L241 362L201 332L172 299L144 263L116 233L86 213L67 177L73 133L103 110Z" fill="currentColor" className="text-primary" opacity="0.15" stroke="currentColor" strokeWidth="3" />
@@ -74,6 +76,16 @@ function TexasRiverOrientationMap() {
           </dl>
           <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official TWDB basin map ↗</a>
         </figcaption>
+      </div>
+      <div className="border-t border-border bg-background p-4 sm:p-6">
+        <PublishableGraphic
+          targetId="texas-rivers-orientation-graphic"
+          filename="texas-major-river-systems-map"
+          title="Major Texas river systems orientation map"
+          methodologyHref="/sourcing-methodology"
+          sourceNote="TexasDefined original orientation graphic. River paths are generalized for statewide context; use official TWDB mapping for exact basin boundaries."
+          compact
+        />
       </div>
     </figure>
   );
