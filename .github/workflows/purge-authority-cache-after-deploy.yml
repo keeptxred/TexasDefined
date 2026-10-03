@@ -41,7 +41,7 @@ jobs:
           if [[ "${CLOUDFLARE_CACHE_TOKEN_PRESENT}" == 'true' ]]; then
             echo 'Dedicated Cloudflare cache-purge token is available.'
           else
-            echo '::warning title=Targeted cache purge unavailable::CLOUDFLARE_CACHE_API_TOKEN is not configured. Canonical freshness will still be verified fail-closed.'
+            echo '::warning title=Targeted cache purge unavailable::CLOUDFLARE_CACHE_API_TOKEN is not configured. Canonical freshness will still be checked, but the repair workflow remains fail-closed until global purge capability is available.'
           fi
 
       - name: Purge governed authority HTML
@@ -68,10 +68,9 @@ jobs:
             exit 1
           fi
 
-          if [[ "${PURGE_OUTCOME}" == 'failure' ]]; then
-            echo '::warning title=Targeted cache purge failed::Canonical authority pages are nevertheless verified fresh, so no stale HTML remains to repair.'
-          elif [[ "${PURGE_OUTCOME}" == 'skipped' ]]; then
-            echo 'Targeted cache purge was skipped because no dedicated purge token is configured; canonical authority pages are verified fresh.'
-          else
-            echo 'Authority cache purge completed and governed canonical pages are fresh.'
+          if [[ "${PURGE_OUTCOME}" != 'success' ]]; then
+            echo "::error title=Authority global cache purge not proven::purge=${PURGE_OUTCOME:-not-run}, freshness=${FRESHNESS_OUTCOME}. One canonical probe is fresh, but without a successful zone purge other Cloudflare edges may still serve stale authority HTML."
+            exit 1
           fi
+
+          echo 'Authority cache purge completed and governed canonical pages are fresh.'
