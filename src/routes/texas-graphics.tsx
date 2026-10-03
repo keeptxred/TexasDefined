@@ -20,7 +20,35 @@ const graphics = [
     title: "Major Texas river systems map",
     eyebrow: "Water · statewide orientation",
     href: "/article/texas-rivers-explained",
-    copy: "An original orientation graphic showing the major river systems in statewide context, paired with Texas Water Development Board source guidance for exact basin boundaries.",
+    copy: "An original orientation graphic showing major river systems in statewide context, paired with Texas Water Development Board source guidance for exact basin boundaries.",
+    formats: "PNG + SVG",
+  },
+  {
+    title: "Texas state parks map",
+    eyebrow: "State parks · maintained destination data",
+    href: "/explore/state-parks",
+    copy: "A statewide point map generated from the same maintained state-park destination records used by the TexasDefined park guide.",
+    formats: "PNG + SVG",
+  },
+  {
+    title: "Texas lighthouse locations map",
+    eyebrow: "Gulf Coast · sourced lighthouse coordinates",
+    href: "/explore/lighthouses",
+    copy: "A six-location Gulf Coast map using the source-backed lighthouse coordinate dataset, including the Texas-Louisiana border context at Sabine Pass.",
+    formats: "PNG + SVG",
+  },
+  {
+    title: "UIL football districts graphic",
+    eyebrow: "High-school football · 2026–28 alignment",
+    href: "/texas-high-school-football-districts",
+    copy: "A chart generated from the current UIL district directory showing how the 192 football districts are distributed by classification and division.",
+    formats: "PNG + SVG",
+  },
+  {
+    title: "Texas wildlife range graphics",
+    eyebrow: "Wildlife · broad regional range",
+    href: "/wildlife-species/ocelot",
+    copy: "Species-page range graphics for ocelot, javelina, white-tailed deer, black bear, mountain lion and American alligator, with conservative regional framing rather than invented precision polygons.",
     formats: "PNG + SVG",
   },
   {
@@ -30,14 +58,20 @@ const graphics = [
     copy: "A downloadable map generated from the fishing lakes currently shown by the TexasDefined fishing finder and its representative published reservoir coordinates.",
     formats: "PNG + SVG",
   },
+  {
+    title: "Texas historic sites map",
+    eyebrow: "Historic sites · maintained destination data",
+    href: "/explore/historic-sites",
+    copy: "A statewide location map generated from the maintained historic-sites catalog, covering battlefields, monuments, museums and other source-backed heritage destinations.",
+    formats: "PNG + SVG",
+  },
 ] as const;
 
 const expansionTopics = [
-  ["State parks", "park locations, acreage and water access"],
-  ["Texas lighthouses", "verified lighthouse and light-station locations"],
-  ["High-school football", "district, team and venue reference graphics"],
-  ["Wildlife", "carefully sourced range and habitat graphics"],
-  ["Historic sites", "statewide location and era graphics"],
+  ["County data", "population growth, housing costs and county-to-county comparison graphics"],
+  ["Property tax", "county, city and school-district rate comparisons with annual context"],
+  ["Texas water", "aquifers, reservoirs, basin comparisons and water-supply reference graphics"],
+  ["Sports venues", "capacity, opening era and regional venue-comparison graphics"],
 ] as const;
 
 export const Route = createFileRoute(canonicalPath)({
@@ -103,8 +137,8 @@ function TexasGraphicsPage() {
       </section>
 
       <section className="py-12" aria-labelledby="available-heading">
-        <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Available now</p><h2 id="available-heading" className="mt-2 font-display text-4xl">Downloadable Texas maps</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Open a source page, choose the view you want and use the publish box directly beneath the map to download a standalone PNG or SVG.</p></div>
-        <div className="grid gap-px border-x border-b border-border bg-border md:grid-cols-3">
+        <div className="border-b border-border pb-5"><p className="eyebrow text-primary">Available now</p><h2 id="available-heading" className="mt-2 font-display text-4xl">Downloadable Texas maps & graphics</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Open a source page and use the publish box directly beneath the graphic to download a standalone PNG or SVG. The download reflects the data or filter state shown on that page.</p></div>
+        <div className="grid gap-px border-x border-b border-border bg-border md:grid-cols-2 lg:grid-cols-3">
           {graphics.map((graphic) => <article key={graphic.href} className="bg-background p-6 sm:p-7">
             <p className="eyebrow text-primary">{graphic.eyebrow}</p>
             <h3 className="mt-3 font-display text-3xl leading-tight"><Link to={graphic.href} className="hover:text-primary">{graphic.title}</Link></h3>
@@ -118,13 +152,14 @@ function TexasGraphicsPage() {
       <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]" aria-labelledby="method-heading">
         <div><p className="eyebrow text-primary">How we build them</p><h2 id="method-heading" className="mt-2 font-display text-4xl">Data first, artwork second</h2></div>
         <div className="max-w-4xl text-sm leading-7 text-muted-foreground">
-          <p>Where coordinates or measurements exist, the graphic should be generated from maintained TexasDefined data rather than hand-placing a decorative marker. When a map is intentionally simplified for orientation, the graphic says so and points readers toward the authoritative source for exact legal, hydrologic or operational boundaries.</p>
+          <p>Where coordinates or measurements exist, the graphic is generated from maintained TexasDefined data rather than hand-placing a decorative marker. When a map is intentionally simplified for orientation, the graphic says so and points readers toward the authoritative source for exact legal, hydrologic, biological or operational boundaries.</p>
+          <p className="mt-4">That distinction is especially important for wildlife. Broad range graphics deliberately avoid pretending that a clean shape can represent live animal distribution, habitat quality or current sightings.</p>
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 font-semibold"><Link to="/texas-data" className="border-b border-primary text-primary">Texas Data →</Link><Link to="/sourcing-methodology" className="border-b border-primary text-primary">Sourcing methodology →</Link><Link to="/corrections-policy" className="border-b border-primary text-primary">Corrections & updates →</Link></div>
         </div>
       </section>
 
       <section className="py-12" aria-labelledby="expansion-heading">
-        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Graphic pipeline</p><h2 id="expansion-heading" className="mt-2 font-display text-4xl">Built from the datasets we maintain</h2></div><div className="grid sm:grid-cols-2">{expansionTopics.map(([title, copy]) => <div key={title} className="border-t border-border py-5 sm:px-5"><h3 className="font-display text-2xl">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p></div>)}</div></div>
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Next graphic families</p><h2 id="expansion-heading" className="mt-2 font-display text-4xl">More citation assets from Texas Data</h2></div><div className="grid sm:grid-cols-2">{expansionTopics.map(([title, copy]) => <div key={title} className="border-t border-border py-5 sm:px-5"><h3 className="font-display text-2xl">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p></div>)}</div></div>
       </section>
     </Container>
   </>;
