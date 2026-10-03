@@ -63,34 +63,30 @@ export function TexasRiverBasinReference() {
         </a>
       </div>
 
-      <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">
         The statewide numbers are useful for comparison, but the full table does not need to dominate the story. Start with three scale markers, then open the complete TWDB reference when you want basin-by-basin detail.
       </p>
 
-      <dl className="mt-5 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-3">
+      <dl className="mt-5 flex flex-wrap gap-2">
         {basinHighlights.map((item) => (
-          <div key={item.label} className="bg-background p-4 sm:p-5">
-            <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{item.label}</dt>
-            <dd className="mt-2 font-display text-2xl text-foreground">{item.value}</dd>
-            <dd className="mt-1 text-sm text-primary">{item.detail}</dd>
+          <div key={item.label} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold">
+            <dt className="text-muted-foreground">{item.label}</dt>
+            <dd className="mt-2 font-display text-xl text-foreground">{item.value}</dd>
+            <dd className="mt-2 text-primary">{item.detail}</dd>
           </div>
         ))}
       </dl>
 
-      <details className="mt-5 overflow-hidden rounded-sm border border-border bg-background">
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-4 font-semibold text-foreground marker:hidden sm:p-5">
-          <span>
-            <span className="block font-display text-lg">Open the full 15-basin comparison</span>
-            <span className="mt-1 block text-xs font-normal leading-5 text-muted-foreground">Area, Texas river miles and average annual flow from TWDB.</span>
-          </span>
-          <span aria-hidden="true" className="text-xl text-primary">+</span>
+      <details className="mt-5 border border-border">
+        <summary className="px-4 py-3 font-semibold text-foreground">
+          Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">area, Texas river miles and average annual flow</span>
         </summary>
 
-        <div className="border-t border-border px-4 pb-4 sm:px-5 sm:pb-5">
-          <p className="py-4 text-sm leading-7 text-muted-foreground">
+        <div className="px-4 py-3">
+          <p className="text-sm leading-7 text-muted-foreground">
             Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot.
           </p>
-          <div className="overflow-x-auto border border-border">
+          <div className="mt-5 overflow-x-auto border border-border">
             <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "42rem" }}>
               <caption className="sr-only">Texas Water Development Board statistics for the 15 major river basins</caption>
               <thead className="bg-surface text-xs uppercase text-muted-foreground" style={{ letterSpacing: "0.1em" }}>
@@ -116,13 +112,11 @@ export function TexasRiverBasinReference() {
         </div>
       </details>
 
-      <div className="mt-6 border-t border-border pt-6">
-        <div className="max-w-3xl">
-          <p className="eyebrow text-muted-foreground">Between the major rivers</p>
-          <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast is still part of the statewide watershed story.</p>
-        </div>
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4" aria-label="Eight designated Texas coastal basins">
+      <div className="mt-6">
+        <p className="eyebrow text-muted-foreground">Between the major rivers</p>
+        <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast is still part of the statewide watershed story.</p>
+        <ul className="mt-3 flex flex-wrap gap-2" aria-label="Eight designated Texas coastal basins">
           {coastalBasins.map((basin) => (
             <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground">
               {basin}
