@@ -193,14 +193,18 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
     lastStatus.set(group.path, String(response.status));
     const body = await response.text();
 
-    if (response.status !== 200) return `${group.path} returned HTTP ${response.status}`;
-
-    const missingChecks = group.checks.filter((check) => !body.includes(check.requiredText));
-    if (missingChecks.length) {
-      return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+    if (response.status === 200) {
+      const missingChecks = group.checks.filter((check) => {
+        const requiredText = check.requiredText;
+        return !body.includes(requiredText);
+      });
+      if (missingChecks.length) {
+        return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      }
+      return '';
     }
 
-    return '';
+    return `${group.path} returned HTTP ${response.status}`;
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
     lastStatus.set(group.path, 'network-error');
