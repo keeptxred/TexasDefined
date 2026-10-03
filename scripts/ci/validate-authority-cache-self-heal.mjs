@@ -35,9 +35,11 @@ for (const [needle, label] of [
   ["if: ${{ env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true' }}", 'dedicated-token purge guard'],
   ['node scripts/ci/purge-cloudflare-cache.mjs', 'targeted cache purge command'],
   ['node scripts/ci/verify-authority-canonical-freshness.mjs', 'post-purge freshness verification'],
-  ["if [[ \"${FRESHNESS_OUTCOME}\" != 'success' ]]; then", 'freshness-driven fail-closed gate'],
+  ["if [[ \"${FRESHNESS_OUTCOME}\" != 'success' ]]; then", 'freshness fail-closed gate'],
+  ["if [[ \"${PURGE_OUTCOME}\" != 'success' ]]; then", 'global purge fail-closed gate'],
   ['The canonical authority pages were not proven fresh after deployment.', 'freshness failure message'],
-  ['Canonical authority pages are nevertheless verified fresh', 'non-blocking purge failure handling'],
+  ['Authority global cache purge not proven', 'global purge failure message'],
+  ['other Cloudflare edges may still serve stale authority HTML', 'multi-edge stale-cache protection'],
 ]) requireText(workflow, needle, label);
 
 for (const [needle, label] of [
@@ -92,4 +94,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Authority cache self-heal protected: deploy triggers dedicated-token targeted purge when available, canonical freshness is fail-closed, independent verification waits for repair, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');
+console.log('Authority cache self-heal protected: post-deploy repair requires a successful dedicated-token targeted purge and canonical freshness verification, independent verification waits for repair, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');
