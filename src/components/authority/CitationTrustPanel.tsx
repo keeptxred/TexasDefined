@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import { useLocation } from '@tanstack/react-router';
-import { Copy, Download, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 export type CitationSource = {
   name: string;
@@ -129,8 +129,7 @@ export function CitationTrustPanel({
                   <div className="mt-2 flex flex-wrap gap-2">
                     {dataDownloads.map((download) => (
                       <a key={`${download.label}-${download.url}`} href={download.url} className="inline-flex items-center gap-2 border border-border px-3 py-2 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary">
-                        <Download className="h-3.5 w-3.5" aria-hidden="true" />
-                        {download.label}{download.format ? ` · ${download.format}` : ''}
+                        {download.label}{download.format ? ` · ${download.format}` : ''} ↓
                       </a>
                     ))}
                   </div>
@@ -144,9 +143,8 @@ export function CitationTrustPanel({
                 <button
                   type="button"
                   onClick={() => void navigator.clipboard?.writeText(citation)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary underline underline-offset-4"
+                  className="text-xs font-semibold text-primary underline underline-offset-4"
                 >
-                  <Copy className="h-3.5 w-3.5" aria-hidden="true" />
                   Copy citation
                 </button>
               </div>
