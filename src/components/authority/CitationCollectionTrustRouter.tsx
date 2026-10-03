@@ -30,6 +30,60 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
     methodology: 'The Texas Data hub is a catalog across multiple public datasets. Each dataset page controls its own source list, year, methodology and freshness; the hub does not create a synthetic catalog-wide verification date.',
     lastVerified: 'Catalog source hierarchy reviewed August 11, 2026. Dataset-specific source and modification dates control individual figures.',
   },
+  '/county': {
+    title: 'Texas county directory sources',
+    sources: [
+      { name: 'Texas State Library and Archives Commission — Texas counties', url: 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html' },
+      { name: 'U.S. Census Bureau — Census data', url: 'https://data.census.gov/' },
+    ],
+    methodology: 'The county directory provides stable navigation across all 254 Texas counties. County-seat and statewide identity fields come from authoritative Texas records; population and demographic figures should retain their dataset year and Census provenance on the page where they are displayed.',
+    lastVerified: 'County reference source hierarchy and directory coverage reviewed October 3, 2026; dataset-specific dates control individual statistics.',
+  },
+  '/browse/counties': {
+    title: 'Texas county comparison sources',
+    sources: [
+      { name: 'U.S. Census Bureau — Census data', url: 'https://data.census.gov/' },
+      { name: 'Texas State Library and Archives Commission — Texas counties', url: 'https://www.tsl.texas.gov/ref/abouttx/countyseats.html' },
+    ],
+    methodology: 'The comparison normalizes county names and stable county relationships while keeping population, area and other measured fields tied to their stated source vintage. Missing values are not inferred from neighboring counties or older datasets.',
+    lastVerified: 'County comparison source hierarchy reviewed October 3, 2026; visible dataset years and page-specific verification dates control individual values.',
+  },
+  '/explore/state-parks': {
+    title: 'Texas state parks sources',
+    sources: [
+      { name: 'Texas Parks & Wildlife Department — State Parks', url: 'https://tpwd.texas.gov/state-parks/' },
+      { name: 'Texas Parks & Wildlife Department', url: 'https://tpwd.texas.gov/' },
+    ],
+    methodology: 'The statewide park reference uses TPWD as the controlling source for official park identity, access, facilities, alerts and visitor rules. TexasDefined may normalize park fields for comparison, but current closures, reservations, fees and operating restrictions remain controlled by TPWD.',
+    lastVerified: 'State-park source hierarchy and reference structure reviewed October 3, 2026. Current operating conditions must be checked against each linked TPWD park record.',
+  },
+  '/explore/lakes-rivers': {
+    title: 'Texas lakes and rivers sources',
+    sources: [
+      { name: 'Texas Water Development Board — Water Data for Texas', url: 'https://waterdatafortexas.org/' },
+      { name: 'Texas Parks & Wildlife Department — Inland Fisheries', url: 'https://tpwd.texas.gov/fishboat/fish/recreational/lakes/' },
+    ],
+    methodology: 'The lakes and rivers reference separates physical and hydrologic facts from fishing and recreation guidance. TWDB and other official water records lead for water-system facts; TPWD leads for fishery and lake recreation records. Current conditions are not inferred from historical averages.',
+    lastVerified: 'Lakes-and-rivers source hierarchy and reference structure reviewed October 3, 2026; lake-specific conditions and fishery updates retain their own source dates.',
+  },
+  '/texas-high-school-football-teams': {
+    title: 'Texas high-school football team reference sources',
+    sources: [
+      { name: 'University Interscholastic League — Football', url: 'https://www.uiltexas.org/football' },
+      { name: 'Texas Education Agency — AskTED', url: 'https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/Home.aspx' },
+    ],
+    methodology: 'The football team reference separates UIL competition alignment from TEA school and district identity. Classification and district placement follow the current UIL alignment represented by the page; school identity and district context should be traceable to TEA records where available.',
+    lastVerified: 'UIL/TEA source hierarchy and reference structure reviewed October 3, 2026. Alignment-cycle labels on individual pages control current classification claims.',
+  },
+  '/texas-high-school-football-isds': {
+    title: 'Texas high-school football district reference sources',
+    sources: [
+      { name: 'Texas Education Agency — AskTED', url: 'https://tealprod.tea.state.tx.us/Tea.AskTed.Web/Forms/Home.aspx' },
+      { name: 'University Interscholastic League — Football', url: 'https://www.uiltexas.org/football' },
+    ],
+    methodology: 'The ISD reference uses TEA records for district and campus identity and UIL records for football alignment. It does not infer attendance zones, enrollment eligibility or school quality from football classification.',
+    lastVerified: 'TEA/UIL source hierarchy and reference structure reviewed October 3, 2026. District- and alignment-specific records retain their own controlling dates.',
+  },
   '/things-unique-to-texas': {
     title: 'Things That Define Texas sources',
     sources: [
