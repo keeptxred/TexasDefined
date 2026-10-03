@@ -1,9 +1,18 @@
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
+import { finalizeNewsletterIssueIfComplete } from './newsletter-issue.server';
 import { buildNewsletterDeliveryQueue } from './newsletter.server';
 
 type NewsletterClient = {
   from: (table: string) => any;
 };
+
+type ResendContact = {
+  id: string;
+  email: string;
+  unsubscribed?: boolean;
+};
+
+type WebhookRecord = Record<string, unknown>;
 
 const client = supabaseAdmin as unknown as NewsletterClient;
 const RESEND_API = 'https://api.resend.com';
@@ -15,6 +24,10 @@ function env(name: string) {
 
 export function resendNewsletterConfigured() {
   return Boolean(env('RESEND_API_KEY') && env('RESEND_NEWSLETTER_SEGMENT_ID') && env('NEWSLETTER_FROM_EMAIL'));
+}
+
+export function resendNewsletterSendingEnabled() {
+  return process.env['NEWSLETTER_SENDING_ENABLED'] === 'true';
 }
 
 async function resendFetch(path: string, init: RequestInit = {}) {
@@ -29,10 +42,11 @@ async function resendFetch(path: string, init: RequestInit = {}) {
     },
   });
   const text = await response.text();
-  let body: any = null;
+  let body: unknown = null;
   try { body = text ? JSON.parse(text) : null; } catch { body = { message: text }; }
   if (!response.ok) {
-    const message = body?.message || body?.error || `Resend request failed with HTTP ${response.status}.`;
+    const record = body && typeof body === 'object' ? body as Record<string, unknown> : {};
+    const message = record.message || record.error || `Resend request failed with HTTP ${response.status}.`;
     const error = new Error(String(message)) as Error & { status?: number };
     error.status = response.status;
     throw error;
@@ -40,8 +54,22 @@ async function resendFetch(path: string, init: RequestInit = {}) {
   return body;
 }
 
-async function getResendContact(email: string) {
-  return resendFetch(`/contacts/${encodeURIComponent(email)}`) as Promise<{ id: string; email: string; unsubscribed?: boolean }>;
+async function getResendContact(email: string): Promise<ResendContact | null> {
+  try {
+    return await resendFetch(`/contacts/${encodeURIComponent(email)}`) as ResendContact;
+  } catch (error) {
+    if ((error as Error & { status?: number }).status === 404) return null;
+    throw error;
+  }
+}
+
+async function mirrorProviderUnsubscribeToTexasDefined(subscriberId: string) {
+  const now = new Date().toISOString();
+  const { error } = await client
+    .from('texasdefined_newsletter_subscribers')
+    .update({ status: 'unsubscribed', unsubscribed_at: now, updated_at: now })
+    .eq('id', subscriberId) as { error: { message: string } | null };
+  if (error) throw new Error(`Newsletter provider unsubscribe mirror failed: ${error.message}`);
 }
 
 export async function syncNewsletterSubscriberToResend(subscriberId: string) {
@@ -54,29 +82,34 @@ export async function syncNewsletterSubscriberToResend(subscriberId: string) {
   if (error) throw new Error(`Newsletter subscriber lookup failed: ${error.message}`);
   if (!subscriber) return { ok: false, configured: true } as const;
 
-  const shouldReceive = subscriber.status === 'active';
+  let shouldReceive = subscriber.status === 'active';
+  let contact = await getResendContact(subscriber.email);
   let contactId = subscriber.provider_contact_id;
-  if (!contactId) {
-    try {
-      const created = await resendFetch('/contacts', {
-        method: 'POST',
-        body: JSON.stringify({ email: subscriber.email, unsubscribed: !shouldReceive }),
-      }) as { id?: string };
-      contactId = created.id || null;
-    } catch (createError) {
-      if ((createError as Error & { status?: number }).status !== 409) throw createError;
-      const existing = await getResendContact(subscriber.email);
-      contactId = existing.id;
+
+  if (!contact) {
+    const created = await resendFetch('/contacts', {
+      method: 'POST',
+      body: JSON.stringify({ email: subscriber.email, unsubscribed: !shouldReceive }),
+    }) as { id?: string };
+    contactId = created.id || null;
+    contact = contactId ? { id: contactId, email: subscriber.email, unsubscribed: !shouldReceive } : null;
+  } else {
+    contactId = contact.id;
+    // A provider-side opt-out wins over stale local active state. Never silently re-subscribe it.
+    if (contact.unsubscribed === true && shouldReceive) {
+      shouldReceive = false;
+      await mirrorProviderUnsubscribeToTexasDefined(subscriber.id);
+    } else if (!shouldReceive && contact.unsubscribed !== true) {
+      await resendFetch(`/contacts/${encodeURIComponent(subscriber.email)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ unsubscribed: true }),
+      });
     }
   }
 
-  await resendFetch(`/contacts/${encodeURIComponent(subscriber.email)}`, {
-    method: 'PATCH',
-    body: JSON.stringify({ unsubscribed: !shouldReceive }),
-  });
-
+  if (!contactId) throw new Error('Resend did not return a contact ID.');
   const segmentId = env('RESEND_NEWSLETTER_SEGMENT_ID');
-  const segmentPath = `/contacts/${encodeURIComponent(subscriber.email)}/segments/${encodeURIComponent(segmentId)}`;
+  const segmentPath = `/contacts/${encodeURIComponent(contactId)}/segments/${encodeURIComponent(segmentId)}`;
   try {
     await resendFetch(segmentPath, { method: shouldReceive ? 'POST' : 'DELETE' });
   } catch (segmentError) {
@@ -93,7 +126,7 @@ export async function syncNewsletterSubscriberToResend(subscriberId: string) {
   return { ok: true, configured: true, contactId, subscribed: shouldReceive } as const;
 }
 
-export async function syncActiveNewsletterSubscribersToResend() {
+export async function syncNewsletterAudienceToResend() {
   if (!resendNewsletterConfigured()) return { ok: false, configured: false, synced: 0 } as const;
   let offset = 0;
   let synced = 0;
@@ -102,7 +135,6 @@ export async function syncActiveNewsletterSubscribersToResend() {
     const { data, error } = await client
       .from('texasdefined_newsletter_subscribers')
       .select('id')
-      .eq('status', 'active')
       .order('id', { ascending: true })
       .range(offset, offset + pageSize - 1) as { data: Array<{ id: string }> | null; error: { message: string } | null };
     if (error) throw new Error(`Newsletter audience sync lookup failed: ${error.message}`);
@@ -131,6 +163,8 @@ function ensureResendUnsubscribe(html: string | null, text: string | null) {
 
 export async function publishNewsletterIssueToResend(issueId: string, options: { send?: boolean } = {}) {
   if (!resendNewsletterConfigured()) throw new Error('Resend newsletter delivery is not configured.');
+  if (options.send && !resendNewsletterSendingEnabled()) throw new Error('Newsletter sending is disabled. Set NEWSLETTER_SENDING_ENABLED=true only when launch is approved.');
+
   const { data: issue, error } = await client
     .from('texasdefined_newsletter_issues')
     .select('id,slug,status,subject,preheader,from_name,reply_to,html_body,text_body,scheduled_for,provider_campaign_id')
@@ -144,10 +178,11 @@ export async function publishNewsletterIssueToResend(issueId: string, options: {
   if (!['ready', 'scheduled'].includes(issue.status)) throw new Error(`Newsletter issue cannot publish from status ${issue.status}.`);
   if (!issue.html_body && !issue.text_body) throw new Error('Newsletter issue has no body.');
 
-  await syncActiveNewsletterSubscribersToResend();
+  // Full reconciliation, not active-only: local suppressions are removed from the Resend segment before every send.
+  await syncNewsletterAudienceToResend();
   await buildNewsletterDeliveryQueue(issue.id);
   const bodies = ensureResendUnsubscribe(issue.html_body, issue.text_body);
-  const payload = {
+  const basePayload = {
     name: `TexasDefined: ${issue.slug}`.slice(0, 70),
     segment_id: env('RESEND_NEWSLETTER_SEGMENT_ID'),
     from: `${issue.from_name} <${env('NEWSLETTER_FROM_EMAIL')}>`,
@@ -156,13 +191,12 @@ export async function publishNewsletterIssueToResend(issueId: string, options: {
     preview_text: issue.preheader || undefined,
     html: bodies.htmlBody || undefined,
     text: bodies.textBody || undefined,
-    send: Boolean(options.send),
-    scheduled_at: options.send && issue.status === 'scheduled' ? issue.scheduled_for || undefined : undefined,
   };
 
   let campaignId = issue.provider_campaign_id;
   if (campaignId) {
-    await resendFetch(`/broadcasts/${campaignId}`, { method: 'PATCH', body: JSON.stringify(payload) });
+    // Update and send are intentionally separate for an existing draft; PATCH must never trigger delivery.
+    await resendFetch(`/broadcasts/${campaignId}`, { method: 'PATCH', body: JSON.stringify(basePayload) });
     if (options.send) {
       await resendFetch(`/broadcasts/${campaignId}/send`, {
         method: 'POST',
@@ -170,22 +204,28 @@ export async function publishNewsletterIssueToResend(issueId: string, options: {
       });
     }
   } else {
-    const created = await resendFetch('/broadcasts', { method: 'POST', body: JSON.stringify(payload) }) as { id: string };
+    const createPayload = {
+      ...basePayload,
+      send: Boolean(options.send),
+      scheduled_at: options.send && issue.status === 'scheduled' ? issue.scheduled_for || undefined : undefined,
+    };
+    const created = await resendFetch('/broadcasts', { method: 'POST', body: JSON.stringify(createPayload) }) as { id: string };
     campaignId = created.id;
   }
 
   const now = new Date().toISOString();
   const nextStatus = options.send && issue.status !== 'scheduled' ? 'sending' : issue.status;
+  const issueUpdate: Record<string, unknown> = {
+    provider: PROVIDER,
+    provider_campaign_id: campaignId,
+    provider_synced_at: now,
+    status: nextStatus,
+    updated_at: now,
+  };
+  if (nextStatus === 'sending') issueUpdate.sending_started_at = now;
   const { error: updateError } = await client
     .from('texasdefined_newsletter_issues')
-    .update({
-      provider: PROVIDER,
-      provider_campaign_id: campaignId,
-      provider_synced_at: now,
-      status: nextStatus,
-      sending_started_at: nextStatus === 'sending' ? now : undefined,
-      updated_at: now,
-    })
+    .update(issueUpdate)
     .eq('id', issue.id) as { error: { message: string } | null };
   if (updateError) throw new Error(`Newsletter issue provider state failed: ${updateError.message}`);
   return { ok: true, campaignId, sentOrScheduled: Boolean(options.send) } as const;
@@ -216,7 +256,7 @@ function timingSafeEqual(left: string, right: string) {
   const b = new TextEncoder().encode(right);
   if (a.length !== b.length) return false;
   let diff = 0;
-  for (let index = 0; index < a.length; index += 1) diff |= a[index] ^ b[index];
+  for (let index = 0; index < a.length; index += 1) diff |= a[index]! ^ b[index]!;
   return diff === 0;
 }
 
@@ -249,22 +289,37 @@ const emailEventMap: Record<string, string> = {
   'email.complained': 'complained',
 };
 
-export async function processResendNewsletterWebhook(event: any, providerEventId: string) {
-  if (event?.type === 'contact.updated' && event?.data?.email && event?.data?.unsubscribed === true) {
-    const now = event.created_at || new Date().toISOString();
-    const { error } = await client.from('texasdefined_newsletter_subscribers').update({ status: 'unsubscribed', unsubscribed_at: now, updated_at: now }).eq('email', String(event.data.email).toLowerCase()) as { error: { message: string } | null };
+function webhookData(event: unknown): { type: string; createdAt: string | null; data: WebhookRecord } {
+  const record = event && typeof event === 'object' ? event as WebhookRecord : {};
+  const data = record.data && typeof record.data === 'object' ? record.data as WebhookRecord : {};
+  return {
+    type: typeof record.type === 'string' ? record.type : '',
+    createdAt: typeof record.created_at === 'string' ? record.created_at : null,
+    data,
+  };
+}
+
+export async function processResendNewsletterWebhook(event: unknown, providerEventId: string) {
+  const parsed = webhookData(event);
+  if (parsed.type === 'contact.updated' && typeof parsed.data.email === 'string' && parsed.data.unsubscribed === true) {
+    const now = parsed.createdAt || new Date().toISOString();
+    const { error } = await client
+      .from('texasdefined_newsletter_subscribers')
+      .update({ status: 'unsubscribed', unsubscribed_at: now, updated_at: now })
+      .eq('email', parsed.data.email.toLowerCase()) as { error: { message: string } | null };
     if (error) throw new Error(`Newsletter unsubscribe webhook failed: ${error.message}`);
     return { ok: true, matched: true } as const;
   }
 
-  const normalizedType = emailEventMap[event?.type];
-  const broadcastId = event?.data?.broadcast_id;
-  const email = Array.isArray(event?.data?.to) ? event.data.to[0] : event?.data?.to;
+  const normalizedType = emailEventMap[parsed.type];
+  const broadcastId = typeof parsed.data.broadcast_id === 'string' ? parsed.data.broadcast_id : '';
+  const recipient = Array.isArray(parsed.data.to) ? parsed.data.to[0] : parsed.data.to;
+  const email = typeof recipient === 'string' ? recipient.toLowerCase() : '';
   if (!normalizedType || !broadcastId || !email) return { ok: true, matched: false } as const;
 
   const [{ data: issue }, { data: subscriber }] = await Promise.all([
     client.from('texasdefined_newsletter_issues').select('id').eq('provider', PROVIDER).eq('provider_campaign_id', broadcastId).maybeSingle(),
-    client.from('texasdefined_newsletter_subscribers').select('id,status').eq('email', String(email).toLowerCase()).maybeSingle(),
+    client.from('texasdefined_newsletter_subscribers').select('id,status').eq('email', email).maybeSingle(),
   ]) as [{ data: { id: string } | null }, { data: { id: string; status: string } | null }];
   if (!issue || !subscriber) return { ok: true, matched: false } as const;
 
@@ -277,33 +332,42 @@ export async function processResendNewsletterWebhook(event: any, providerEventId
   if (deliveryError) throw new Error(`Newsletter delivery webhook lookup failed: ${deliveryError.message}`);
   if (!delivery) return { ok: true, matched: false } as const;
 
-  const eventAt = event.created_at || event?.data?.created_at || new Date().toISOString();
-  const providerMessageId = event?.data?.email_id || null;
+  const dataCreatedAt = typeof parsed.data.created_at === 'string' ? parsed.data.created_at : null;
+  const eventAt = parsed.createdAt || dataCreatedAt || new Date().toISOString();
+  const providerMessageId = typeof parsed.data.email_id === 'string' ? parsed.data.email_id : null;
   const update: Record<string, unknown> = { provider: PROVIDER, updated_at: new Date().toISOString() };
   if (providerMessageId) update.provider_message_id = providerMessageId;
   if (normalizedType === 'sent') { update.status = 'sent'; update.sent_at = eventAt; }
   if (normalizedType === 'delivered') { update.status = 'delivered'; update.delivered_at = eventAt; }
+  if (normalizedType === 'delivery_delayed') update.status = 'sending';
   if (normalizedType === 'bounced') { update.status = 'bounced'; update.failed_at = eventAt; }
   if (normalizedType === 'complained') { update.status = 'complained'; update.failed_at = eventAt; }
   if (normalizedType === 'failed' || normalizedType === 'suppressed') { update.status = 'failed'; update.failed_at = eventAt; update.error_code = normalizedType; }
   const { error: updateError } = await client.from('texasdefined_newsletter_deliveries').update(update).eq('id', delivery.id) as { error: { message: string } | null };
   if (updateError) throw new Error(`Newsletter delivery webhook state failed: ${updateError.message}`);
 
+  const click = parsed.data.click && typeof parsed.data.click === 'object' ? parsed.data.click as WebhookRecord : {};
+  const clickUrl = typeof click.link === 'string' ? click.link : null;
   const { error: eventError } = await client.from('texasdefined_newsletter_events').upsert({
     delivery_id: delivery.id,
     event_type: normalizedType,
     event_at: eventAt,
     provider_event_id: providerEventId,
-    url: event?.data?.click?.link || null,
-    metadata: event?.data || {},
+    url: clickUrl,
+    metadata: parsed.data,
   }, { onConflict: 'provider_event_id', ignoreDuplicates: true }) as { error: { message: string } | null };
   if (eventError) throw new Error(`Newsletter provider event write failed: ${eventError.message}`);
 
   if (normalizedType === 'bounced' || normalizedType === 'complained') {
     const status = normalizedType === 'bounced' ? 'bounced' : 'complained';
     const timestampField = normalizedType === 'bounced' ? 'bounced_at' : 'complained_at';
-    const { error: suppressionError } = await client.from('texasdefined_newsletter_subscribers').update({ status, [timestampField]: eventAt, updated_at: eventAt }).eq('id', subscriber.id) as { error: { message: string } | null };
+    const { error: suppressionError } = await client
+      .from('texasdefined_newsletter_subscribers')
+      .update({ status, [timestampField]: eventAt, updated_at: eventAt })
+      .eq('id', subscriber.id) as { error: { message: string } | null };
     if (suppressionError) throw new Error(`Newsletter suppression webhook failed: ${suppressionError.message}`);
   }
+
+  await finalizeNewsletterIssueIfComplete(issue.id);
   return { ok: true, matched: true } as const;
 }
