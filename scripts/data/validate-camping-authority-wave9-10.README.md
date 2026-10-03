@@ -1,1 +1,0 @@
-This branch adds focused camping authority regression checks in `validate-camping-authority-wave9-10.mjs` alongside the existing Wave 10 check. Required Merge Gate remains authoritative; these scripts document and protect the new data contract without changing runtime behavior or performance budgets.
