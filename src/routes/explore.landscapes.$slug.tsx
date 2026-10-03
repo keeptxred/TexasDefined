@@ -8,4 +8,11 @@ export const Route = createFileRoute('/explore/landscapes/$slug')({
     return result;
   },
   head: ({ loaderData }) => loaderData?.head ?? {},
+  headers: ({ params }) => params.slug === 'rivers-and-river-valleys'
+    ? {
+        'Cache-Control': 'no-store, max-age=0',
+        'CDN-Cache-Control': 'no-store',
+        'Cloudflare-CDN-Cache-Control': 'no-store',
+      }
+    : {},
 });
