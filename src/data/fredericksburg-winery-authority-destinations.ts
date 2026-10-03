@@ -1,4 +1,5 @@
 import type { Destination } from "./types";
+import { fredericksburgWineryAuthorityExpansion } from "./fredericksburg-winery-authority-expansion";
 
 const CHECKED = "2026-09-24";
 
@@ -63,6 +64,7 @@ export const fredericksburgWineryAuthorityDestinations: Destination[] = [
       foodAndDrink: [
         { name: "Texas Hills reservations", description: "Use the current official site for tasting, tour and event availability.", proximity: "Onsite", href: "https://texashillsvineyard.com/" },
         { name: "William Chris Vineyards", description: "Continue west to Hye for a deeper source-backed Texas-wine estate experience.", proximity: "Hye", href: "/destination/william-chris-vineyards-hye" },
+        { name: "Pedernales Cellars", description: "Compare another source-backed Hill Country producer focused on Texas-grown fruit and a Stonewall estate visit.", proximity: "Stonewall", href: "/destination/pedernales-cellars" },
       ],
       lodging: [
         { name: "Texas Hills Ranch House", description: "The winery promotes on-property lodging among the vines; verify current availability directly.", proximity: "Onsite", href: "https://texashillsvineyard.com/" },
@@ -161,7 +163,9 @@ export const fredericksburgWineryAuthorityDestinations: Destination[] = [
       ],
       foodAndDrink: [
         { name: "Mendelbaum tasting room", description: "Use the current official site for the active Texan and Israeli wine selection.", proximity: "Onsite", href: "https://www.mendelbaumcellars.com/" },
-        { name: "Messina Hof Hill Country Winery", description: "A nearby destination-style winery with an onsite vineyard, broad Texas portfolio and cottages.", proximity: "Same corridor", href: "/destination/messina-hof-hill-country" },
+        { name: "Messina Hof Hill Country Winery", description: "A nearby destination-scale winery with its own vineyard, a broad Texas portfolio and cottages.", proximity: "Same corridor", href: "/destination/messina-hof-hill-country" },
+        { name: "Grape Creek Vineyards", description: "Compare a larger working-vineyard and production-tour operation within Heath Family Brands.", proximity: "Same corridor", href: "/destination/grape-creek-vineyards" },
+        { name: "Signor Vineyards", description: "Compare a garden-centered 200-acre estate with a second downtown tasting room.", proximity: "Same corridor", href: "/destination/signor-vineyards" },
       ],
       lodging: [
         { name: "Mendelbaum guest cabins", description: "The winery markets cabins and lofts; confirm current availability and check-in details on the live lodging page.", proximity: "Winery property", href: "https://www.mendelbaumcellars.com/cabins" },
@@ -203,4 +207,5 @@ export const fredericksburgWineryAuthorityDestinations: Destination[] = [
     },
     featured: false,
   },
+  ...fredericksburgWineryAuthorityExpansion,
 ];
