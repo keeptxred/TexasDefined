@@ -1,14 +1,15 @@
-const token = process.env.CLOUDFLARE_CACHE_API_TOKEN?.trim();
+const token = process.env.CLOUDFLARE_CACHE_API_TOKEN?.trim() || process.env.CLOUDFLARE_API_TOKEN?.trim();
 const zoneName = (process.env.CLOUDFLARE_ZONE_NAME || 'texasdefined.com').trim();
 const rawUrls = process.env.CLOUDFLARE_PURGE_URLS || '';
 const purgeMetroProximity = process.env.CLOUDFLARE_PURGE_METRO_PROXIMITY?.trim().toLowerCase() === 'true';
 
 if (!token) {
-  throw new Error('CLOUDFLARE_CACHE_API_TOKEN is required for targeted cache purge.');
+  throw new Error('CLOUDFLARE_CACHE_API_TOKEN or CLOUDFLARE_API_TOKEN is required for targeted cache purge.');
 }
 
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
+  `https://${zoneName}/article/texas-six-man-football-rules-explained`,
 ];
 
 const weekendEventUrls = [
