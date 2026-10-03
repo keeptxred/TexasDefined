@@ -29,8 +29,9 @@ for (const marker of [
 for (const marker of [
   'Texas Horseback Riding Guide',
   'Start with the paperwork, then choose the landscape',
-  'This is trip planning, not horsemanship instruction',
-  'Horseback riding can result in serious injury.',
+  'Conditions that should change the plan',
+  'stock water',
+  'shared-use rules',
   'negative Equine Infectious Anemia test within the previous 12 months',
   'Many Texas horse trails are also hiking and biking trails',
   'Big Bend Ranch State Park',
@@ -55,6 +56,15 @@ for (const marker of [
   if (!lazyRoute.includes(marker)) errors.push(`Texas horseback riding visible authority missing marker: ${marker}.`);
 }
 
+for (const bannedBoilerplate of [
+  'This is trip planning, not horsemanship instruction',
+  'Horseback riding can result in serious injury.',
+  'This guide does not teach',
+  '>Safety boundary<',
+]) {
+  if (lazyRoute.includes(bannedBoilerplate)) errors.push(`Texas horseback riding guide regressed to defensive template boilerplate: ${bannedBoilerplate}.`);
+}
+
 const officialSourceCount = (lazyRoute.match(/href: "https:\/\//g) ?? []).length;
 if (officialSourceCount < 6) errors.push(`Texas horseback riding guide needs at least 6 first-party source links; found ${officialSourceCount}.`);
 const ridingAreaCount = (route.match(/name: "(?:Big Bend Ranch State Park|Hill Country State Natural Area|Palo Duro Canyon State Park|Caprock Canyons State Park & Trailway|Dinosaur Valley State Park)"/g) ?? []).length;
@@ -72,4 +82,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas horseback riding guide retains five public riding destinations, six first-party TPWD sources, Coggins/access safeguards, structured collection metadata, indexable route ownership and Outdoors discovery.');
+console.log('Texas horseback riding guide retains five public riding destinations, six first-party TPWD sources, Coggins/access safeguards, practical current-condition planning, structured collection metadata, indexable route ownership and Outdoors discovery without defensive template boilerplate.');
