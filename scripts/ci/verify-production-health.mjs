@@ -3,9 +3,12 @@ import { appendFileSync } from 'node:fs';
 const origin = String(process.env.PRODUCTION_HEALTH_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const label = process.env.PRODUCTION_HEALTH_LABEL || 'production';
 const requiredText = process.env.PRODUCTION_HEALTH_REQUIRED_TEXT || 'Texas Defined';
-const attempts = Math.max(2, Number.parseInt(process.env.PRODUCTION_HEALTH_ATTEMPTS || '18', 10) || 18);
+// Production health is a correctness gate, not a response-time benchmark. A cache-busted
+// canonical request can exercise a cold SSR path, so give an individual response enough
+// time to complete while keeping the overall fail-closed window close to the old budget.
+const attempts = Math.max(2, Number.parseInt(process.env.PRODUCTION_HEALTH_ATTEMPTS || '6', 10) || 6);
 const delayMs = Math.max(1000, Number.parseInt(process.env.PRODUCTION_HEALTH_DELAY_MS || '5000', 10) || 5000);
-const timeoutMs = Math.max(3000, Number.parseInt(process.env.PRODUCTION_HEALTH_TIMEOUT_MS || '10000', 10) || 10000);
+const timeoutMs = Math.max(3000, Number.parseInt(process.env.PRODUCTION_HEALTH_TIMEOUT_MS || '45000', 10) || 45000);
 const requiredConsecutive = 2;
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
