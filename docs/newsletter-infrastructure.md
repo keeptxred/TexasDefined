@@ -23,7 +23,7 @@ All four tables have RLS enabled. `anon` and `authenticated` have no table privi
 
 Signup input is validated with Zod and includes a honeypot. Email addresses are normalized to lowercase. Signup source, source path, consent version, and optional interest tags are retained.
 
-Complaint status is a hard suppression. A later public signup does not automatically reactivate an address that previously complained.
+Complaint and bounce states are hard suppressions. A later public signup does not automatically reactivate either state; an operator must deliberately resolve it. Provider unsubscribe events also move the subscriber into the unsubscribed suppression state.
 
 ### Double opt-in
 
@@ -37,11 +37,11 @@ Server-only newsletter services can:
 
 1. Save a draft issue.
 2. Mark an issue ready or schedule it.
-3. Build an idempotent per-subscriber delivery queue.
-4. Atomically claim eligible queued deliveries using `FOR UPDATE ... SKIP LOCKED`.
+3. Build an idempotent per-subscriber delivery queue only after the issue is ready/scheduled.
+4. Atomically claim eligible queued deliveries using `FOR UPDATE ... SKIP LOCKED`; the first successful claim moves the issue into `sending` state.
 5. Hand a provider-neutral message payload to a future transport adapter.
 6. Record sent/failed/skipped state.
-7. Record provider webhook events and suppress bounced/complained recipients.
+7. Record provider webhook events and suppress bounced, complained, or unsubscribed recipients.
 8. Finalize an issue after no queued/sending deliveries remain.
 
 The claim RPC is limited to the service role and caps a single claim at 500 deliveries.
