@@ -150,7 +150,11 @@ for (const token of ["Crankbait Types by Depth and Cover","Squarebill","Deep div
 for (const token of ["Texas rig","Weightless stick bait","Carolina rig","Drop shot","Shaky head","Ned rig","Choose the Soft-Plastic Rig for the Job"]) requireText(files.guideContent, token, "soft-plastics authority content missing " + token);
 for (const token of ["/images/fishing/crankbaits-hero.avif","/images/fishing/crankbait-types-depth-cover.avif","AI-generated","OpenAI image generation","subjectScope"]) requireText(files.imageRegistry, token, "crankbait image governance missing " + token);
 for (const token of ["fishingTechniqueImages","image: images.hero.src","imageAlt: images.hero.alt","imageType: images.hero.imageType"]) requireText(files.server, token, "crankbait social image metadata missing " + token);
-const workerSmoke = read("scripts/ci/verify-built-worker-ssr.mjs");
+const workerSmokeEntrypoint = read("scripts/ci/verify-built-worker-ssr.mjs");
+const workerSmokeCorePath = "scripts/ci/verify-built-worker-ssr-core.mjs";
+const workerSmoke = fs.existsSync(workerSmokeCorePath)
+  ? `${workerSmokeEntrypoint}\n${read(workerSmokeCorePath)}`
+  : workerSmokeEntrypoint;
 for (const [path, marker] of [["/fishing/structure","Fishing Structure and Cover in Texas Lakes"],["/fishing/vegetation","Fishing Aquatic Vegetation in Texas"],["/fishing/techniques/soft-plastics","Related Fishing Techniques"]]) {
   requireText(workerSmoke, path, "built Worker habitat/cross-link smoke missing " + path);
   requireText(workerSmoke, marker, "built Worker habitat/cross-link marker missing " + marker);
