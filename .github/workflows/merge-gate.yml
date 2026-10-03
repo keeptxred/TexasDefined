@@ -22,6 +22,21 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # Pull-request reruns are snapshots: GitHub can rerun an old merge commit even
+      # after main has moved forward. Reconcile the latest protected base into the
+      # workspace so validation always uses current shared CI/runtime fixes instead
+      # of repeatedly exercising an obsolete harness. A real conflict fails here
+      # immediately instead of surfacing later as a misleading validation failure.
+      - name: Reconcile latest main into PR workspace
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git merge --no-edit --no-commit origin/main
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
