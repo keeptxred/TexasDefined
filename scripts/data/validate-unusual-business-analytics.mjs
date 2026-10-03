@@ -9,6 +9,12 @@ const unique = read("src/routes/things-unique-to-texas.lazy.tsx");
 const analytics = read("src/platform/analytics.ts");
 const report = read("scripts/analytics/report-unusual-business-experiment.mjs");
 const workflow = read(".github/workflows/report-unusual-business-experiment.yml");
+const authorityData = read("src/data/unusual-business-authority.ts");
+const authorityPanel = read("src/components/authority/UnusualBusinessAuthorityPanel.tsx");
+const citationPanel = read("src/components/authority/CitationTrustPanel.tsx");
+const articleBody = read("src/components/editorial/ArticleBody.tsx");
+const destinationAuthority = read("src/components/editorial/DestinationAuthorityGuide.tsx");
+const whirlyball = read("src/data/whirlyball-hurst-destination.ts");
 
 const errors = [];
 const requireAll = (label, source, needles) => {
@@ -88,10 +94,76 @@ if (reportJob.includes("environment: texasdefined-publication")) {
   errors.push("protected report workflow: analytics query job must use repository Cloudflare credentials after the environment authorization gate");
 }
 
+const authoritySlugs = [
+  "unusual-texas-businesses-services",
+  "bluebonnet-animal-preservation-athens",
+  "phenix-knives-bellville",
+  "horses-on-the-beach-corpus-christi",
+  "mum-queen-spring-texas-homecoming-mums",
+  "whirlyball-hurst",
+];
+for (const slug of authoritySlugs) {
+  if (!authorityData.includes(`"${slug}": {`)) errors.push(`authority profiles: missing ${slug}`);
+}
+
+requireAll("authority profile contract", authorityData, [
+  'title: string;',
+  'canonicalPath: string;',
+  'quickFacts: readonly UnusualBusinessQuickFact[];',
+  'sources: readonly UnusualBusinessAuthoritySource[];',
+  'methodology: string;',
+  'lastVerified: string;',
+  'freshness: string;',
+  'const VERIFIED = "October 3, 2026";',
+  'Bellville Chamber of Commerce — Phenix Knives',
+  'Visit Corpus Christi — beach activities',
+  'Library of Congress — Carol M. Highsmith archive',
+  'Houston Chronicle — The Mum Queen',
+  'HEB Chamber of Commerce — WhirlyBall/LaserWhirld',
+]);
+
+requireAll("visible authority panel", authorityPanel, [
+  'Quick reference',
+  'At a glance',
+  'Freshness:',
+  'recommendedCitation',
+  'stableUrl',
+  'reviewedBy="Texas Defined Editorial Desk"',
+  '<CitationTrustPanel',
+]);
+
+requireAll("shared citation panel", citationPanel, [
+  'Sources and verification',
+  'Methodology',
+  'Last verified',
+  'Reviewed by',
+  'Stable URL',
+  'Recommended citation',
+]);
+
+requireAll("article authority rendering", articleBody, [
+  'import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";',
+  'const articleSlug = pathname.startsWith("/article/")',
+  '<UnusualBusinessAuthorityPanel slug={articleSlug} />',
+]);
+
+requireAll("destination authority rendering", destinationAuthority, [
+  'import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";',
+  '<UnusualBusinessAuthorityPanel slug={destination.slug} />',
+]);
+
+requireAll("WhirlyBall authority source contract", whirlyball, [
+  'sourceCheckedAt: SOURCE_CHECKED_AT',
+  'authorityGuide:',
+  'WhirlyBall Texas — locations',
+  'WhirlyBall Texas — how WhirlyBall works',
+  'WhirlyBall Texas — LaserWhirld',
+]);
+
 if (errors.length) {
-  console.error("Unusual-business analytics validation failed:");
+  console.error("Unusual-business authority/analytics validation failed:");
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
 
-console.log("Unusual-business analytics validation passed: the statewide hub and promoted business guides retain placement-aware first-party impression/click attribution through the existing internal-link analytics pipeline.");
+console.log("Unusual-business authority/analytics validation passed: promoted pages retain placement-aware first-party measurement plus visible quick facts, sources, methodology, last-verified date, stable URL, editorial reviewer and recommended citation.");
