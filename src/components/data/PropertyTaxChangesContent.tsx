@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { ResearchBriefTrustBlock } from '@/components/data/ResearchBriefTrustBlock';
-import type { PropertyTaxChangeDataset, PropertyTaxChangeRow } from '@/data/research/property-tax-changes.server';
+import type { PropertyTaxChangeDataset, PropertyTaxChangeRow } from '@/data/research/property-tax-changes';
 
 const typeLabel: Record<PropertyTaxChangeRow['type'], string> = {
   county: 'County',
