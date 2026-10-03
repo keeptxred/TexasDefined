@@ -64,8 +64,9 @@ jobs:
         run: |
           set -euxo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y libvips-tools
+          sudo apt-get install -y libvips-tools ffmpeg
           vips --version
+          ffmpeg -version | head -n 1
 
       - name: Upscale governed Chappell derivative to 1600px
         shell: bash
@@ -77,9 +78,8 @@ jobs:
           height="$(vipsheader -f height "$src")"
           test "$width" -gt 0
           test "$height" -gt 0
-          scale="$(awk -v w="$width" 'BEGIN { printf "%.12f", 1600 / w }')"
-          echo "Chappell source ${width}x${height}; scale=${scale}"
-          vips resize "$src" "$tmp" "$scale"
+          echo "Chappell source ${width}x${height}"
+          ffmpeg -hide_banner -loglevel error -y -i "$src" -vf 'scale=1600:-2:flags=lanczos' "$tmp"
           out_width="$(vipsheader -f width "$tmp")"
           out_height="$(vipsheader -f height "$tmp")"
           echo "Chappell derivative ${out_width}x${out_height}"
@@ -97,9 +97,8 @@ jobs:
           height="$(vipsheader -f height "$src")"
           test "$width" -gt 0
           test "$height" -gt 0
-          scale="$(awk -v w="$width" 'BEGIN { printf "%.12f", 1600 / w }')"
-          echo "Xtreme source ${width}x${height}; scale=${scale}"
-          vips resize "$src" "$tmp" "$scale"
+          echo "Xtreme source ${width}x${height}"
+          ffmpeg -hide_banner -loglevel error -y -i "$src" -vf 'scale=1600:-2:flags=lanczos' "$tmp"
           out_width="$(vipsheader -f width "$tmp")"
           out_height="$(vipsheader -f height "$tmp")"
           echo "Xtreme derivative ${out_width}x${out_height}"
