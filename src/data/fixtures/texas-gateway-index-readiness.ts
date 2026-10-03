@@ -137,9 +137,9 @@ function hasArticleReadinessMetadata(article: Article): boolean {
 }
 
 function meetsArticleIndexBodyFloor(article: Article): boolean {
-  const words = articleBodyWordCount(article);
-  return words >= ARTICLE_INDEX_MIN_BODY_WORDS
-    || (SEASONAL_INTENT_INDEX_READY_SLUGS.has(article.slug) && words >= SEASONAL_INTENT_INDEX_MIN_BODY_WORDS);
+  if (articleBodyWordCount(article) >= ARTICLE_INDEX_MIN_BODY_WORDS) return true;
+  return SEASONAL_INTENT_INDEX_READY_SLUGS.has(article.slug)
+    && articleBodyWordCount(article) >= SEASONAL_INTENT_INDEX_MIN_BODY_WORDS;
 }
 
 /**
