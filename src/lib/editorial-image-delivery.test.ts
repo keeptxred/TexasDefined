@@ -17,6 +17,13 @@ describe("editorial image delivery", () => {
     expect(editorialImageSrc(wikimediaThumb)).toBe(`/media/remote?url=${encodeURIComponent(wikimediaThumb)}`);
   });
 
+  it("keeps the verified six-man football Wikimedia assets browser-direct", () => {
+    const hero = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/1280px-Bart_Coan_Field_from_west.jpg";
+    const action = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Six-man_football_battle.jpg/1280px-Six-man_football_battle.jpg";
+    expect(editorialImageSrc(hero)).toBe(hero);
+    expect(editorialImageSrc(action)).toBe(action);
+  });
+
   it("rejects non-HTTPS and unapproved hosts from the remote-image policy", () => {
     expect(allowedRemoteImageUrl("http://images.unsplash.com/photo.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("http://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg")).toBeNull();

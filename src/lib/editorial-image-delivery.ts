@@ -12,6 +12,19 @@ export const REMOTE_IMAGE_HOSTS = new Set([
 
 const OWN_IMAGE = /^https:\/\/(?:www\.)?texasdefined\.com(\/[^#]*)/i;
 
+// These verified six-man-football assets repeatedly failed through the Worker image
+// proxy in production. Keep the exception intentionally narrow so the rest of the
+// editorial library continues to use governed same-origin remote-image delivery.
+const BROWSER_DIRECT_WIKIMEDIA_PATHS = new Set([
+  "/wikipedia/commons/a/a6/Bart_Coan_Field_from_west.jpg",
+  "/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/1280px-Bart_Coan_Field_from_west.jpg",
+  "/wikipedia/commons/f/fa/Six-man_football_battle.jpg",
+  "/wikipedia/commons/thumb/f/fa/Six-man_football_battle.jpg/1280px-Six-man_football_battle.jpg",
+  "/wikipedia/commons/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg",
+  "/wikipedia/commons/thumb/a/a4/Whitharral_Texas_Panthers_six-man_football_2010.jpg/1280px-Whitharral_Texas_Panthers_six-man_football_2010.jpg",
+  "/wikipedia/commons/5/5e/Six_man_field.png",
+]);
+
 export function allowedRemoteImageUrl(value: string): URL | null {
   try {
     const url = new URL(value);
@@ -22,12 +35,18 @@ export function allowedRemoteImageUrl(value: string): URL | null {
   }
 }
 
+function shouldDeliverRemoteImageDirectly(url: URL) {
+  return url.hostname.toLowerCase() === "upload.wikimedia.org"
+    && BROWSER_DIRECT_WIKIMEDIA_PATHS.has(url.pathname);
+}
+
 export function editorialImageSrc(src: string) {
   const ownPath = src.match(OWN_IMAGE)?.[1];
   if (ownPath) return ownPath;
-  return allowedRemoteImageUrl(src)
-    ? `${REMOTE_IMAGE_PATH}?url=${encodeURIComponent(src)}`
-    : src;
+  const remote = allowedRemoteImageUrl(src);
+  if (!remote) return src;
+  if (shouldDeliverRemoteImageDirectly(remote)) return src;
+  return `${REMOTE_IMAGE_PATH}?url=${encodeURIComponent(src)}`;
 }
 
 function deliverImage(image: ImageRef): ImageRef {
