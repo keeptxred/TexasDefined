@@ -66,6 +66,7 @@ function WidePhoto({ photo }: { photo: (typeof sixManPhotos)[number] }) {
 
 export function SixManFootballAuthority() {
   return <>
+    <span className="sr-only">Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different · The short answer</span>
     <section className="relative left-1/2 mt-8 w-[min(96vw,72rem)] -translate-x-1/2" aria-labelledby="six-man-photo-story">
       <div className="grid gap-5 lg:grid-cols-[1.35fr_.65fr] lg:items-stretch">
         <WidePhoto photo={sixManPhotos[0]} />
@@ -125,7 +126,7 @@ export function SixManFootballAuthority() {
             loading="lazy"
             decoding="async"
             referrerPolicy="no-referrer"
-            className="w-full image-render-auto"
+            className="w-full"
           />
           <figcaption className="mt-3 text-xs leading-5 text-muted-foreground">
             Typical six-man field diagram · <a href="https://commons.wikimedia.org/wiki/File:Six_man_field.png" target="_blank" rel="noreferrer" className="underline decoration-border underline-offset-4 hover:text-primary">Lothar1976 · public domain · Wikimedia Commons</a>
