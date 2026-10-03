@@ -27,13 +27,17 @@ for (const [needle, label] of [
   ['workflow_dispatch:', 'manual repair trigger'],
   ["github.event.workflow_run.head_branch == 'main'", 'main-branch workflow-run guard'],
   ['environment: texasdefined-publication', 'publication environment protection'],
-  ["CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN || secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'permission-checked cache-token fallback'],
+  ["CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN }}", 'dedicated cache token'],
+  ["CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}", 'cache-token presence guard'],
   ['CLOUDFLARE_ZONE_NAME: texasdefined.com', 'fixed production zone'],
   ["CLOUDFLARE_PURGE_METRO_PROXIMITY: 'false'", 'authority-only purge scope'],
   ['ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'deployed-revision checkout'],
+  ["if: ${{ env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true' }}", 'dedicated-token purge guard'],
   ['node scripts/ci/purge-cloudflare-cache.mjs', 'targeted cache purge command'],
   ['node scripts/ci/verify-authority-canonical-freshness.mjs', 'post-purge freshness verification'],
-  ['Authority cache self-heal failed', 'fail-closed aggregate result'],
+  ["if [[ \"${FRESHNESS_OUTCOME}\" != 'success' ]]; then", 'freshness-driven fail-closed gate'],
+  ['The canonical authority pages were not proven fresh after deployment.', 'freshness failure message'],
+  ['Canonical authority pages are nevertheless verified fresh', 'non-blocking purge failure handling'],
 ]) requireText(workflow, needle, label);
 
 for (const [needle, label] of [
@@ -55,6 +59,15 @@ for (const forbidden of ['purge_everything', 'purgeEverything', 'cache: purge-ev
   }
 }
 
+for (const forbiddenFallback of [
+  'secrets.CLOUDFLARE_DEPLOY_API_TOKEN',
+  'secrets.CLOUDFLARE_API_TOKEN',
+]) {
+  if (workflow.includes(forbiddenFallback)) {
+    failures.push(`Authority cache repair must not reuse deploy/general Cloudflare credentials: ${forbiddenFallback}`);
+  }
+}
+
 for (const path of [
   '/article/texas-rivers-explained',
   '/article/texas-rio-grande-river-guide',
@@ -69,8 +82,6 @@ for (const marker of [
   "'Texas rivers at a glance'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
 
-// Keep the primary deployment least-privilege rule intact. The permission-checked
-// fallback is allowed only in the isolated post-deploy repair workflow above.
 if (productionWorkflow.includes("CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN ||")) {
   failures.push('Primary production deployment must not fall back to deploy/general Cloudflare tokens for cache purge.');
 }
@@ -81,4 +92,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Authority cache self-heal protected: deploy triggers targeted purge, purge verifies freshness, independent verification waits for repair, broad purge is forbidden, and primary deployment least privilege remains intact.');
+console.log('Authority cache self-heal protected: deploy triggers dedicated-token targeted purge when available, canonical freshness is fail-closed, independent verification waits for repair, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');
