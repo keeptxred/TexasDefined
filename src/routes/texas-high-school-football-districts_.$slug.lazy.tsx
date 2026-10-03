@@ -25,7 +25,7 @@ import {
  * Submitted conference:
  * Enrollment figures are UIL snapshots, not current headcounts.
  * Open UIL enrollment listing ↗
- * Official UIL cutoff
+ * Official UIL 2026–28 enrollment cutoffs ↗
  * Follow scores & weekly schedules
  * Current season
  * Scores & weekly schedules
