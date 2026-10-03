@@ -29,7 +29,9 @@ export const Route = createFileRoute('/texas-data/county-growth')({
       dateModified: '2026-03-17',
       temporalCoverage: '2020/2025',
       creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
+      publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
       isBasedOn: loaderData.sourceFileUrl,
+      measurementTechnique: 'TexasDefined calculation of numeric and percentage population change from the Census ESTIMATESBASE2020 field to POPESTIMATE2025.',
       variableMeasured: ['2020 population estimates base', '2025 population estimate', 'population change', 'population change percent'],
       distribution: {
         '@type': 'DataDownload',
@@ -44,7 +46,7 @@ export const Route = createFileRoute('/texas-data/county-growth')({
 function Page() {
   const data = Route.useLoaderData();
   return <>
-    <DepartmentHero current="County Growth" eyebrow="Texas Data" title="Texas county population growth, 2020–2025" description={description} tone="surface" />
+    <DepartmentHero current="County Growth" eyebrow="TexasDefined Research" title="Texas county population growth, 2020–2025" description={description} tone="surface" />
     <Suspense fallback={<div className="mx-auto max-w-6xl px-5 py-10 text-sm text-muted-foreground" role="status">Loading county growth data…</div>}><CountyGrowthContent data={data} /></Suspense>
   </>;
 }
