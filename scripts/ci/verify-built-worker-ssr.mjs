@@ -8,9 +8,9 @@ const origin = `http://${host}:${port}`;
 const rootRequiredText = process.env.BUILT_WORKER_SMOKE_REQUIRED_TEXT || 'Texas Defined';
 const startupTimeoutMs = Math.max(5000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS || '60000', 10) || 60000);
 const requestTimeoutMs = Math.max(3000, Number.parseInt(process.env.BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS || '10000', 10) || 10000);
-const readinessRequestTimeoutMs = Math.max(
+const coldStartRequestTimeoutMs = Math.max(
   requestTimeoutMs,
-  Number.parseInt(process.env.BUILT_WORKER_SMOKE_READINESS_REQUEST_TIMEOUT_MS || '30000', 10) || 30000,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_COLD_START_REQUEST_TIMEOUT_MS || '45000', 10) || 45000,
 );
 const targetAttempts = Math.max(1, Number.parseInt(process.env.BUILT_WORKER_SMOKE_TARGET_ATTEMPTS || '3', 10) || 3);
 const retryDelayMs = Math.max(0, Number.parseInt(process.env.BUILT_WORKER_SMOKE_RETRY_DELAY_MS || '750', 10) || 750);
@@ -20,26 +20,10 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 
 const smokeTargets = [
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
-  {
-    path: '/best-places-to-go-camping-in-texas',
-    requiredText: 'Best Places to Go Camping in Texas',
-    label: 'camping guide',
-  },
-  {
-    path: '/fishing/plan?species=largemouth-bass&species=crappie&q=Lake%20Conroe&sort=best',
-    requiredText: 'matching lake',
-    label: 'fishing finder multi-species',
-  },
-  {
-    path: '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map',
-    requiredText: 'Map of matching Texas fishing lakes',
-    label: 'fishing finder closest map',
-  },
-  {
-    path: '/fishing/plan?species=catfish&shore=1&boat=1&guide=1&report=1',
-    requiredText: 'More filters',
-    label: 'fishing finder verified filters',
-  },
+  { path: '/best-places-to-go-camping-in-texas', requiredText: 'Best Places to Go Camping in Texas', label: 'camping guide' },
+  { path: '/fishing/plan?species=largemouth-bass&species=crappie&q=Lake%20Conroe&sort=best', requiredText: 'matching lake', label: 'fishing finder multi-species' },
+  { path: '/fishing/plan?lat=29.76&lng=-95.37&origin=Houston&sort=closest&view=map', requiredText: 'Map of matching Texas fishing lakes', label: 'fishing finder closest map' },
+  { path: '/fishing/plan?species=catfish&shore=1&boat=1&guide=1&report=1', requiredText: 'More filters', label: 'fishing finder verified filters' },
   { path: '/fishing/techniques/soft-plastics', requiredText: 'How to Fish Soft Plastics in Texas', label: 'soft-plastics technique detail route' },
   { path: '/fishing/techniques/soft-plastics', requiredText: 'Related Fishing Techniques', label: 'soft-plastics related technique links' },
   { path: '/fishing/techniques/soft-plastics', requiredText: '/fishing/techniques/crankbaits', label: 'soft-plastics related crankbaits link' },
@@ -78,13 +62,7 @@ const smokeTargets = [
 ];
 
 const redirectTargets = [
-  {
-    path: '/fishing/fishing/techniques/soft-plastics?source=smoke',
-    expectedStatus: 301,
-    expectedPath: '/fishing/techniques/soft-plastics',
-    expectedQuery: ['source', 'smoke'],
-    label: 'duplicated fishing technique path normalization',
-  },
+  { path: '/fishing/fishing/techniques/soft-plastics?source=smoke', expectedStatus: 301, expectedPath: '/fishing/techniques/soft-plastics', expectedQuery: ['source', 'smoke'], label: 'duplicated fishing technique path normalization' },
 ];
 
 const renderRouteGroups = [...smokeTargets.reduce((groups, target) => {
@@ -97,33 +75,13 @@ const renderRouteGroups = [...smokeTargets.reduce((groups, target) => {
 mkdirSync(artifactDir, { recursive: true });
 writeFileSync(logPath, '');
 
-const wranglerExecutable = path.resolve(
-  process.platform === 'win32' ? 'node_modules/.bin/wrangler.cmd' : 'node_modules/.bin/wrangler',
-);
-
-const child = spawn(
-  wranglerExecutable,
-  [
-    'dev',
-    '--config',
-    'dist/server/wrangler.json',
-    '--local',
-    '--ip',
-    host,
-    '--port',
-    String(port),
-  ],
-  {
-    cwd: process.cwd(),
-    env: {
-      ...process.env,
-      CI: 'true',
-      NO_COLOR: '1',
-    },
-    stdio: ['ignore', 'pipe', 'pipe'],
-    detached: process.platform !== 'win32',
-  },
-);
+const wranglerExecutable = path.resolve(process.platform === 'win32' ? 'node_modules/.bin/wrangler.cmd' : 'node_modules/.bin/wrangler');
+const child = spawn(wranglerExecutable, ['dev', '--config', 'dist/server/wrangler.json', '--local', '--ip', host, '--port', String(port)], {
+  cwd: process.cwd(),
+  env: { ...process.env, CI: 'true', NO_COLOR: '1' },
+  stdio: ['ignore', 'pipe', 'pipe'],
+  detached: process.platform !== 'win32',
+});
 
 let captured = '';
 const capture = (chunk) => {
@@ -150,17 +108,24 @@ function signalChild(signal) {
 async function stopChild() {
   if (child.exitCode !== null) return;
   signalChild('SIGTERM');
-  await Promise.race([
-    new Promise((resolve) => child.once('exit', resolve)),
-    sleep(3000),
-  ]);
+  await Promise.race([new Promise((resolve) => child.once('exit', resolve)), sleep(3000)]);
   if (child.exitCode === null) {
     signalChild('SIGKILL');
-    await Promise.race([
-      new Promise((resolve) => child.once('exit', resolve)),
-      sleep(1000),
-    ]);
+    await Promise.race([new Promise((resolve) => child.once('exit', resolve)), sleep(1000)]);
   }
+}
+
+async function waitForWranglerReady() {
+  const startedAt = Date.now();
+  while (Date.now() - startedAt < startupTimeoutMs) {
+    if (child.exitCode !== null) return `Wrangler dev exited before readiness completed (exit ${child.exitCode}).`;
+    if (captured.includes(`Ready on ${origin}`) || captured.includes('Ready on http://')) {
+      console.log('Wrangler local runtime reported ready; beginning SSR route verification.');
+      return '';
+    }
+    await sleep(100);
+  }
+  return `Wrangler dev did not report readiness within ${startupTimeoutMs}ms.`;
 }
 
 const lastStatus = new Map([...renderRouteGroups, ...redirectTargets].map((target) => [target.path, 'not-run']));
@@ -187,7 +152,6 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
     });
     lastStatus.set(group.path, String(response.status));
     const body = await response.text();
-
     if (response.status === 200) {
       const missingChecks = group.checks.filter((check) => {
         const requiredText = check.requiredText;
@@ -198,7 +162,6 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       }
       return '';
     }
-
     return `${group.path} returned HTTP ${response.status}`;
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
@@ -221,11 +184,7 @@ async function checkRedirectTarget(target, attemptToken) {
     const redirectedUrl = location ? new URL(location, url) : null;
     const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
       && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
-
-    if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) {
-      return '';
-    }
-
+    if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) return '';
     return `${target.label} (${target.path}) expected HTTP ${target.expectedStatus} -> ${target.expectedPath} with query preserved; got HTTP ${response.status} -> ${location || 'no location'}`;
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
@@ -236,59 +195,27 @@ async function checkRedirectTarget(target, attemptToken) {
 
 async function verifyWithRetries(target, checker, label) {
   let failure = '';
-
   for (let attempt = 1; attempt <= targetAttempts; attempt += 1) {
-    if (child.exitCode !== null) {
-      return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
-    }
-
-    failure = await checker(target, `${label.replaceAll(' ', '-')}-${attempt}`);
+    if (child.exitCode !== null) return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
+    const timeoutMs = target.path === '/' && attempt === 1 ? coldStartRequestTimeoutMs : requestTimeoutMs;
+    failure = await checker(target, `${label.replaceAll(' ', '-')}-${attempt}`, timeoutMs);
     if (!failure) {
       if (attempt > 1) console.log(`${label} passed on retry ${attempt}/${targetAttempts}.`);
       return '';
     }
-
     if (attempt < targetAttempts) {
       console.log(`${label} attempt ${attempt}/${targetAttempts} failed: ${failure}. Retrying.`);
       await sleep(retryDelayMs);
     }
   }
-
   return failure;
 }
 
 try {
-  const readinessGroup = renderRouteGroups.find((group) => group.path === '/');
-  const readinessStartedAt = Date.now();
-  let readinessAttempt = 0;
-  let readinessFailure = 'Built Worker did not become ready.';
-  let ready = false;
-
-  while (Date.now() - readinessStartedAt < startupTimeoutMs) {
-    readinessAttempt += 1;
-    if (child.exitCode !== null) {
-      readinessFailure = `Wrangler dev exited before readiness completed (exit ${child.exitCode}).`;
-      break;
-    }
-
-    readinessFailure = await checkRenderRoute(
-      readinessGroup,
-      `startup-${readinessAttempt}`,
-      readinessRequestTimeoutMs,
-    );
-    if (!readinessFailure) {
-      ready = true;
-      console.log(`Built Worker became ready after ${readinessAttempt} readiness probe(s).`);
-      break;
-    }
-
-    await sleep(retryDelayMs);
-  }
-
+  const readinessFailure = await waitForWranglerReady();
   const failures = [];
-
-  if (!ready) {
-    failures.push(readinessFailure || `Built Worker did not become healthy within ${startupTimeoutMs}ms.`);
+  if (readinessFailure) {
+    failures.push(readinessFailure);
   } else {
     for (const group of renderRouteGroups) {
       const label = `render route ${group.path}`;
@@ -296,7 +223,6 @@ try {
       if (failure) failures.push(failure);
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
     }
-
     for (const target of redirectTargets) {
       const label = `redirect route ${target.path}`;
       const failure = await verifyWithRetries(target, checkRedirectTarget, label);
