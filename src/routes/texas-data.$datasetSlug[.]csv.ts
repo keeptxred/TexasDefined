@@ -4,9 +4,12 @@ import type {} from '@tanstack/react-start';
 export const Route = createFileRoute('/texas-data/$datasetSlug.csv')({
   server: {
     handlers: {
-      GET: async ({ params }) => {
+      GET: async ({ request }) => {
+        const pathname = new URL(request.url).pathname;
+        const match = pathname.match(/^\/texas-data\/([^/]+)\.csv$/);
+        const datasetSlug = match?.[1] ? decodeURIComponent(match[1]) : '';
         const { loadTexasReferenceDataset } = await import('@/data/texas-reference-datasets.server');
-        const dataset = await loadTexasReferenceDataset(params.datasetSlug, { full: true });
+        const dataset = datasetSlug ? await loadTexasReferenceDataset(datasetSlug, { full: true }) : null;
         if (!dataset) {
           return new Response('TexasDefined dataset not found', {
             status: 404,
