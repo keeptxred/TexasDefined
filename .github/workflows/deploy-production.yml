@@ -271,7 +271,6 @@ jobs:
           CLOUDFLARE_PURGE_URLS: |
             https://texasdefined.com/texas-state-fair
             https://texasdefined.com/explore/painted-churches
-            https://texasdefined.com/explore/landscapes/rivers-and-river-valleys
             https://texasdefined.com/moving-to-texas
             https://texasdefined.com/moving-to-texas-checklist
             https://texasdefined.com/article/best-houston-suburbs-for-commuters
