@@ -77,13 +77,13 @@ export function TexasRiverBasinReference() {
         ))}
       </dl>
 
-      <details className="group mt-5 overflow-hidden rounded-sm border border-border bg-background">
+      <details className="mt-5 overflow-hidden rounded-sm border border-border bg-background">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-4 font-semibold text-foreground marker:hidden sm:p-5">
           <span>
             <span className="block font-display text-lg">Open the full 15-basin comparison</span>
             <span className="mt-1 block text-xs font-normal leading-5 text-muted-foreground">Area, Texas river miles and average annual flow from TWDB.</span>
           </span>
-          <span aria-hidden="true" className="text-xl text-primary transition-transform group-open:rotate-45">+</span>
+          <span aria-hidden="true" className="text-xl text-primary">+</span>
         </summary>
 
         <div className="border-t border-border px-4 pb-4 sm:px-5 sm:pb-5">
