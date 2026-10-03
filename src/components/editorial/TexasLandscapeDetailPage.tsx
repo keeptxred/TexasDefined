@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
+import { TexasRiverValleysLandscapePage } from '@/components/editorial/TexasRiverValleysLandscapePage';
 import { Container } from '@/components/layout/Container';
 import type { LandscapeCatalogItem } from '@/data/texas-landscape-catalog';
 import type { EnrichedLandscapeGuide } from '@/data/texas-landscape-guide-enrichment';
@@ -51,6 +52,10 @@ export function TexasLandscapeDetailPage({ item, nearby }: TexasLandscapeDetailP
         </Container>
       </Section>
     </>;
+  }
+
+  if (item.slug === 'rivers-and-river-valleys') {
+    return <TexasRiverValleysLandscapePage item={item} nearby={nearby} />;
   }
 
   return <>

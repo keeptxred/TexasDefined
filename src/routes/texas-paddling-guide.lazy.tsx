@@ -97,12 +97,12 @@ function TexasPaddlingGuidePage() {
             <p className="mt-4 max-w-4xl text-base leading-8">Texas Parks &amp; Wildlife maintains more than 100 certified paddling trails across rivers, lakes, bayous and bays. The map gives you the route; current wind, flow, water level, weather, launch access and land-manager notices decide whether that route makes sense today.</p>
           </section>
 
-          <section className="border-b border-border py-10" aria-labelledby="safety-boundary">
-            <p className="eyebrow text-primary">Safety boundary</p>
-            <h2 id="safety-boundary" className="mt-2 font-display text-3xl">This is trip planning, not paddling instruction</h2>
+          <section className="border-b border-border py-10" aria-labelledby="before-launch">
+            <p className="eyebrow text-primary">Before you launch</p>
+            <h2 id="before-launch" className="mt-2 font-display text-3xl">Check the route, weather and exit plan before launching</h2>
             <div className="mt-5 max-w-4xl space-y-4 text-base leading-8 text-muted-foreground">
-              <p>Paddling can result in drowning, cold-water exposure, heat illness or other serious injury. This guide does not teach strokes, bracing, rescues, surf launches, rapid running, capsize recovery, navigation in fog, open-water crossing technique or how to judge a boat's seaworthiness.</p>
-              <p>Use an appropriate personal flotation device and follow current legal and land-manager requirements. Postpone or change a trip when wind, thunderstorms, flood flows, tides, water quality, heat, visibility or access conditions no longer fit the paddler, craft or route.</p>
+              <p>Confirm the legal put-in and takeout, shuttle plan, current flow or water level, wind, weather and—on coastal routes—tide and marine conditions. Check current personal-flotation-device and access requirements, and make sure the planned water and distance fit the craft and group before leaving shore.</p>
+              <p>Postpone or change the trip when thunderstorms, flood flows, strong wind, tides, water quality, heat, poor visibility or access conditions no longer match the route you planned. A saved trail map is useful for orientation, but current conditions and land-manager notices should control the launch decision.</p>
             </div>
           </section>
 
