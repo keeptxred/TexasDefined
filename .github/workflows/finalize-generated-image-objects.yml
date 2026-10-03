@@ -20,14 +20,23 @@ jobs:
           ref: chat8/image-discover-final-current5-20261003
           fetch-depth: 0
 
-      - name: Verify exact current main base
+      - name: Verify pinned base and reject overlapping main changes
         shell: bash
         run: |
           set -euxo pipefail
-          expected_main='62dfe44f63f9e7a2595453a98afb5f4258d1555d'
+          expected_base='62dfe44f63f9e7a2595453a98afb5f4258d1555d'
           git fetch origin 'refs/heads/main:refs/remotes/origin/main' 'refs/heads/chat8/image-discover-final-20261002:refs/remotes/origin/chat8/image-discover-final-20261002'
-          test "$(git rev-parse origin/main)" = "$expected_main"
-          git merge-base --is-ancestor origin/main HEAD
+          git merge-base --is-ancestor "$expected_base" HEAD
+          git merge-base --is-ancestor "$expected_base" origin/main
+          git diff --quiet "$expected_base"..origin/main -- \
+            src/data/article-image-readiness-overrides.ts \
+            src/data/county-series.server.ts \
+            src/data/sports-venue-images.ts \
+            src/lib/editorial-image-delivery.ts \
+            assets/generated/chappell-hill-bluebonnet-festival \
+            scripts/assets/materialize-generated-images.mjs \
+            public/images/sports-venues/xtreme-raceway-park.jpg
+          echo "No governed remediation overlap through $(git rev-parse origin/main)"
 
       - name: Restore safe governed text corrections
         shell: bash
