@@ -11,7 +11,7 @@ const template = read('src/data/newsletter/newsletter-template.ts');
 const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
 const serverEntry = read('src/server-entry.ts');
 const docs = read('docs/newsletter-infrastructure.md');
-const migration = read('supabase/migrations/20261003113000_add_texasdefined_newsletter_provider_identity.sql');
+const migration = read('supabase/migrations/20261003112811_add_texasdefined_newsletter_provider_identity.sql');
 const wrangler = read('wrangler.jsonc');
 
 for (const marker of [
@@ -38,7 +38,7 @@ for (const marker of [
 ]) requireText(template, marker, 'Newsletter template');
 
 for (const marker of [
-  "NEWSLETTER_SIGNUPS_ENABLED",
+  'NEWSLETTER_SIGNUPS_ENABLED',
   "'/api/newsletter/subscribe'",
   "'/api/newsletter/confirm'",
   "'/api/newsletter/unsubscribe'",
