@@ -30,8 +30,9 @@ for (const marker of [
   'Texas OHV Guide',
   'Legal OHV riding starts with the venue, not the vehicle',
   'Do not assume Texas state parks allow OHVs',
-  'This is access planning, not off-road driving instruction',
-  'OHV recreation can result in serious injury or death.',
+  'Rules and conditions to check before you unload',
+  'Confirm the vehicle class, legal trail designation',
+  'Weather, wildfire, trail damage, flooding, dust, heat and capacity limits',
   'Texas law also requires a current OHV decal',
   'Eisenhower State Park OHV Trails',
   'Barnwell Mountain Recreation Area',
@@ -55,6 +56,15 @@ for (const marker of [
   if (!lazyRoute.includes(marker)) errors.push(`Texas OHV visible authority missing marker: ${marker}.`);
 }
 
+for (const bannedBoilerplate of [
+  'This is access planning, not off-road driving instruction',
+  'OHV recreation can result in serious injury or death.',
+  'Safety boundary',
+  'This guide does not teach',
+]) {
+  if (lazyRoute.includes(bannedBoilerplate)) errors.push(`Texas OHV guide regressed to defensive template boilerplate: ${bannedBoilerplate}.`);
+}
+
 const officialSourceCount = (lazyRoute.match(/href: "https:\/\//g) ?? []).length;
 if (officialSourceCount < 6) errors.push(`Texas OHV guide needs at least 6 first-party source links; found ${officialSourceCount}.`);
 const areaCount = (route.match(/name: "(?:Eisenhower State Park OHV Trails|Barnwell Mountain Recreation Area|Sam Houston National Forest Motorized Trails|Lake Meredith National Recreation Area OHV Areas|Escondido Draw Recreation Area)"/g) ?? []).length;
@@ -72,4 +82,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas OHV guide retains five legal riding destinations, six first-party TPWD sources, decal/state-park safeguards, structured collection metadata, indexable route ownership and Outdoors discovery.');
+console.log('Texas OHV guide retains five legal riding destinations, six first-party TPWD sources, vehicle-class/decal/current-condition safeguards, structured collection metadata, indexable route ownership and Outdoors discovery without defensive template boilerplate.');

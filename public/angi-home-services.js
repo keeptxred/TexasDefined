@@ -44,7 +44,9 @@
     ["/article/texas-homeowner-field-manual", null],
     ["/article/true-cost-of-owning-a-home-in-texas", null],
     ["/article/texas-wildfire-home-protection-guide", null],
-    ["/article/texas-home-architecture-regions", null]
+    ["/article/texas-home-architecture-regions", null],
+    ["/moving-to-texas/data", null],
+    ["/moving-to-texas/tools", null]
   ]);
 
   const commercialPath = /^\/(?:article|guides|texas-living|moving-to-texas|real-estate|home-garden|property-tax-guides)(?:\/|$)/i;

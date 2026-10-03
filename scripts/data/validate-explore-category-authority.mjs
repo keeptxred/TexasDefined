@@ -257,8 +257,9 @@ for (const marker of [
 for (const marker of [
   'Texas Rock Climbing &amp; Bouldering',
   'Texas climbing is a patchwork, not one rulebook',
-  'This is a trip-planning guide, not climbing instruction',
-  'Rock climbing and bouldering can result in serious injury or death.',
+  'Check access, weather and site rules before committing to the day',
+  'Confirm the reservation, orientation or registration process',
+  'Heat, lightning, wet rock, flooding, fire restrictions and park closures',
   'Hueco Tanks State Park & Historic Site',
   'Enchanted Rock State Natural Area',
   'Lake Mineral Wells State Park & Trailway',
@@ -275,6 +276,14 @@ for (const marker of [
   'to: "/explore/trip-planner"',
 ]) {
   if (!climbingLazy.includes(marker)) errors.push(`Texas climbing visitor authority missing marker: ${marker}.`);
+}
+for (const bannedBoilerplate of [
+  'This is a trip-planning guide, not climbing instruction',
+  'Rock climbing and bouldering can result in serious injury or death.',
+  'Safety boundary',
+  'This page does not teach',
+]) {
+  if (climbingLazy.includes(bannedBoilerplate)) errors.push(`Texas climbing guide regressed to defensive template boilerplate: ${bannedBoilerplate}.`);
 }
 const climbingSourceCount = (climbingLazy.match(/href: "https:\/\//g) ?? []).length;
 if (climbingSourceCount < 4) errors.push(`Texas climbing guide needs at least four first-party source links; found ${climbingSourceCount}.`);
@@ -293,4 +302,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Small Towns, Texas Birds, Natural Wonders, and the four-area Texas climbing guide retain substantive official-source authority, reciprocal discovery, safety boundaries, structured collection coverage and protected indexability.');
+console.log('Explore Outdoors, Caverns, Lakes & Rivers, Beaches & Coast, Small Towns, Texas Birds, Natural Wonders, and the four-area Texas climbing guide retain substantive official-source authority, reciprocal discovery, current-condition and access safeguards, structured collection coverage and protected indexability.');
