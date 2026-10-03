@@ -54,9 +54,11 @@ export async function subscribeNewsletter(input: {
 
   if (lookupError) throw new Error(`Newsletter signup lookup failed: ${lookupError.message}`);
 
-  // A complaint is a permanent suppression until an operator deliberately resolves it.
+  // Complaints and bounces remain suppressed until an operator deliberately resolves them.
   // Return the same public response so callers cannot probe suppression state.
-  if (existing?.status === 'complained') return { ok: true, confirmationRequired } as const;
+  if (existing?.status === 'complained' || existing?.status === 'bounced') {
+    return { ok: true, confirmationRequired } as const;
+  }
 
   const mergedInterests = normalizeInterests([...(existing?.interests ?? []), ...interests]);
   const nextStatus: NewsletterSubscriberStatus = confirmationRequired && existing?.status !== 'active' ? 'pending' : 'active';
@@ -71,7 +73,6 @@ export async function subscribeNewsletter(input: {
       interests: mergedInterests,
       subscribed_at: now,
       unsubscribed_at: null,
-      bounced_at: null,
       updated_at: now,
     };
 
@@ -79,6 +80,9 @@ export async function subscribeNewsletter(input: {
       update.confirmation_token = crypto.randomUUID();
       update.confirmation_requested_at = now;
       update.confirmed_at = null;
+    } else {
+      update.confirmation_token = null;
+      update.confirmation_requested_at = null;
     }
 
     const { error } = await client
@@ -99,6 +103,7 @@ export async function subscribeNewsletter(input: {
     signup_path: input.sourcePath,
     interests,
     subscribed_at: now,
+    confirmation_token: nextStatus === 'pending' ? crypto.randomUUID() : null,
     confirmation_requested_at: nextStatus === 'pending' ? now : null,
   }) as { error: { message: string } | null };
 
@@ -162,6 +167,17 @@ export async function saveNewsletterIssueDraft(input: {
   audience?: Record<string, unknown>;
   metadata?: Record<string, unknown>;
 }) {
+  const { data: existing, error: lookupError } = await client
+    .from('texasdefined_newsletter_issues')
+    .select('id,status')
+    .eq('slug', input.slug)
+    .maybeSingle() as { data: { id: string; status: string } | null; error: { message: string } | null };
+
+  if (lookupError) throw new Error(`Newsletter draft lookup failed: ${lookupError.message}`);
+  if (existing && ['sending', 'sent', 'cancelled'].includes(existing.status)) {
+    throw new Error(`Newsletter issue cannot be edited as a draft from status ${existing.status}.`);
+  }
+
   const now = nowIso();
   const payload = {
     slug: input.slug,
@@ -200,7 +216,7 @@ export async function buildNewsletterDeliveryQueue(issueId: string) {
 
   if (issueError) throw new Error(`Newsletter issue lookup failed: ${issueError.message}`);
   if (!issue) throw new Error('Newsletter issue does not exist.');
-  if (!['draft', 'ready', 'scheduled'].includes(issue.status)) throw new Error(`Newsletter issue cannot be queued from status ${issue.status}.`);
+  if (!['ready', 'scheduled'].includes(issue.status)) throw new Error(`Newsletter issue cannot be queued from status ${issue.status}.`);
 
   let offset = 0;
   const pageSize = 500;
@@ -284,10 +300,12 @@ export async function recordNewsletterDeliveryEvent(input: {
     if (error) throw new Error(`Newsletter delivery state could not be updated: ${error.message}`);
   }
 
-  if (input.eventType === 'bounced' || input.eventType === 'complained') {
+  if (input.eventType === 'bounced' || input.eventType === 'complained' || input.eventType === 'unsubscribed') {
     const subscriberUpdate = input.eventType === 'bounced'
       ? { status: 'bounced', bounced_at: eventAt, updated_at: nowIso() }
-      : { status: 'complained', complained_at: eventAt, updated_at: nowIso() };
+      : input.eventType === 'complained'
+        ? { status: 'complained', complained_at: eventAt, updated_at: nowIso() }
+        : { status: 'unsubscribed', unsubscribed_at: eventAt, updated_at: nowIso() };
     const { error } = await client.from('texasdefined_newsletter_subscribers').update(subscriberUpdate).eq('id', delivery.subscriber_id) as { error: { message: string } | null };
     if (error) throw new Error(`Newsletter subscriber suppression could not be updated: ${error.message}`);
   }
