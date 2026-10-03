@@ -83,7 +83,7 @@ const curatedNewsletterVisuals: CuratedNewsletterVisual[] = [
     path: '/texas-history',
     imageUrl: smallTown,
     imageAlt: 'A historic Texas town representing the places and communities in the state’s story',
-    imageKind: 'historic',
+    imageKind: 'photo',
   },
 ];
 
