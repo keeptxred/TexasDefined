@@ -12,6 +12,10 @@ export interface CitationTrustPanelProps {
   lastVerified: string;
   title?: string;
   className?: string;
+  author?: string;
+  editor?: string;
+  nextReview?: string;
+  recommendedCitation?: string;
 }
 
 export function CitationTrustPanel({
@@ -20,6 +24,10 @@ export function CitationTrustPanel({
   lastVerified,
   title = 'Sources and verification',
   className = '',
+  author,
+  editor,
+  nextReview,
+  recommendedCitation,
 }: CitationTrustPanelProps) {
   return (
     <section
@@ -30,6 +38,12 @@ export function CitationTrustPanel({
         <div>
           <p className="eyebrow text-primary">Sources & notes</p>
           <h2 id="citation-trust-heading" className="mt-2 font-display text-3xl">{title}</h2>
+          {(author || editor) ? (
+            <dl className="mt-5 space-y-3 text-xs leading-5 text-muted-foreground">
+              {author ? <div><dt className="font-semibold uppercase tracking-[0.12em] text-foreground">Research & analysis</dt><dd>{author}</dd></div> : null}
+              {editor ? <div><dt className="font-semibold uppercase tracking-[0.12em] text-foreground">Editorial review</dt><dd>{editor}</dd></div> : null}
+            </dl>
+          ) : null}
         </div>
         <div className="grid gap-7 text-sm leading-7 text-muted-foreground sm:grid-cols-2">
           <div>
@@ -61,9 +75,17 @@ export function CitationTrustPanel({
               <h3 className="font-semibold text-foreground">Last verified</h3>
               <p className="mt-2">{lastVerified}</p>
             </div>
+            {nextReview ? <div><h3 className="font-semibold text-foreground">Next review</h3><p className="mt-2">{nextReview}</p></div> : null}
           </div>
         </div>
       </div>
+      {recommendedCitation ? (
+        <div className="mt-8 border-t border-border pt-6">
+          <p className="eyebrow text-primary">Recommended citation</p>
+          <p className="mt-2 max-w-4xl text-sm leading-7 text-foreground">{recommendedCitation}</p>
+          <p className="mt-2 text-xs leading-5 text-muted-foreground">You may quote or reuse the findings with attribution to TexasDefined.com. Link to the stable research URL when practical.</p>
+        </div>
+      ) : null}
     </section>
   );
 }
