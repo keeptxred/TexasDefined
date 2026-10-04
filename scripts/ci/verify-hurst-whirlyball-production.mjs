@@ -3,6 +3,10 @@ const revision = process.env.GITHUB_SHA || 'local';
 const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const FETCH_ATTEMPTS = 4;
+const FETCH_TIMEOUT_MS = 15_000;
+const FETCH_RETRY_DELAY_MS = 2_000;
+
 function requireCondition(condition, message) {
   if (!condition) throw new Error(message);
 }
@@ -22,49 +26,49 @@ function liveUrl(path, attempt) {
   return url;
 }
 
-async function fetchLive(path) {
+async function fetchLive(path, { attempts = FETCH_ATTEMPTS, timeoutMs = FETCH_TIMEOUT_MS } = {}) {
   let lastError;
-  for (let attempt = 1; attempt <= 12; attempt += 1) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const url = liveUrl(path, attempt);
     try {
       const response = await fetch(url, {
         redirect: 'follow',
         cache: 'no-store',
-        signal: AbortSignal.timeout(30_000),
+        signal: AbortSignal.timeout(timeoutMs),
         headers: {
           'cache-control': 'no-cache',
           pragma: 'no-cache',
-          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/1.0',
+          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/2.0',
         },
       });
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       const body = await response.text();
-      if (!challenged && response.ok) return body;
+      if (!challenged && response.ok && body.length > 0) return body;
       lastError = new Error(challenged
         ? `${url.pathname} returned a Cloudflare challenge.`
         : `${url.pathname} returned HTTP ${response.status}.`);
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
     }
-    if (attempt < 12) await sleep(5_000);
+    if (attempt < attempts) await sleep(FETCH_RETRY_DELAY_MS);
   }
   throw lastError || new Error(`${path} failed production verification.`);
 }
 
 async function verifyLiveImage(path, label) {
   let lastError;
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
     const url = new URL(path, origin);
     url.searchParams.set('td_hurst_whirlyball_image_verify', `${revision}-${runId}-${attempt}`);
     try {
       const response = await fetch(url, {
         redirect: 'follow',
         cache: 'no-store',
-        signal: AbortSignal.timeout(30_000),
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         headers: {
           'cache-control': 'no-cache',
           pragma: 'no-cache',
-          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/1.0',
+          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/2.0',
         },
       });
       const contentType = response.headers.get('content-type') || '';
@@ -74,7 +78,7 @@ async function verifyLiveImage(path, label) {
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
     }
-    if (attempt < 4) await sleep(3_000);
+    if (attempt < 3) await sleep(FETCH_RETRY_DELAY_MS);
   }
   throw lastError || new Error(`${label} failed production image verification.`);
 }
@@ -128,10 +132,23 @@ requireCondition(
 
 requireIndexableHtml(whirlyball, 'https://texasdefined.com/destination/whirlyball-hurst', 'WhirlyBall Hurst destination page');
 requireCondition(whirlyball.includes('/city/hurst'), 'WhirlyBall Hurst is missing the reciprocal Hurst city-authority link.');
+const whirlyballText = renderedText(whirlyball);
 requireCondition(
-  renderedText(whirlyball).includes('Use the Hurst city guide for verified local systems, schools, parks, rail access and Mid-Cities context, then continue into Tarrant County for the broader county picture.'),
+  whirlyballText.includes('Use the Hurst city guide for verified local systems, schools, parks, rail access and Mid-Cities context, then continue into Tarrant County for the broader county picture.'),
   'WhirlyBall Hurst is still serving the stale Tarrant-only neighborhood copy instead of the current Hurst city-authority context.',
 );
+for (const marker of [
+  'Quick reference',
+  'At a glance',
+  'Sources and verification',
+  'Methodology',
+  'Last verified',
+  'Reviewed by',
+  'Stable URL',
+  'Recommended citation',
+]) {
+  requireCondition(whirlyballText.includes(marker), `WhirlyBall Hurst authority panel is missing: ${marker}.`);
+}
 requireNearbyLink(
   whirlyball,
   'Hurst and HEB Mid-Cities dining',
@@ -157,4 +174,4 @@ requireCondition(
   'WhirlyBall Hurst regressed to the unstable Wikimedia Special:Redirect hero source.',
 );
 
-console.log('Hurst / WhirlyBall production smoke passed: city directory, city authority, destination reciprocity, canonical indexability and hero source are live.');
+console.log('Hurst / WhirlyBall production smoke passed: city directory, city authority, destination authority panel, reciprocity, canonical indexability, sitemaps and hero source are live.');
