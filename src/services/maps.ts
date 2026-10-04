@@ -15,8 +15,10 @@ export interface MapMarker {
 export interface MapService {
   /** Static preview image for a set of markers, or null when unavailable. */
   staticImageUrl(markers: MapMarker[], zoom: number): string | null;
-  /** Deep link to an external directions provider. */
+  /** Deep link to an external map provider for one point. */
   directionsUrl(point: GeoPoint, label: string): string;
+  /** Driving route from an explicit origin to an explicit destination. */
+  drivingRouteUrl(origin: GeoPoint, destination: GeoPoint): string;
 }
 
 export const linkOnlyMaps: MapService = {
@@ -26,6 +28,11 @@ export const linkOnlyMaps: MapService = {
   directionsUrl(point, label) {
     const query = encodeURIComponent(`${label} ${point.lat},${point.lng}`);
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
+  },
+  drivingRouteUrl(origin, destination) {
+    const originQuery = encodeURIComponent(`${origin.lat},${origin.lng}`);
+    const destinationQuery = encodeURIComponent(`${destination.lat},${destination.lng}`);
+    return `https://www.google.com/maps/dir/?api=1&origin=${originQuery}&destination=${destinationQuery}&travelmode=driving`;
   },
 };
 
