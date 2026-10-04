@@ -10,6 +10,8 @@ const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const confirmation = read('src/data/newsletter/newsletter-confirmation.server.ts');
 const subscription = read('src/data/newsletter/newsletter-subscription.server.ts');
 const functions = read('src/data/newsletter/newsletter.functions.ts');
+const adminAuth = read('src/data/newsletter/newsletter-admin-auth.server.ts');
+const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
@@ -61,6 +63,34 @@ for (const marker of [
   'NEWSLETTER_SIGNUPS_ENABLED',
   'subscribeNewsletterWithConfirmation',
 ]) requireText(functions, marker, 'Newsletter server functions');
+
+for (const marker of [
+  'useSession',
+  'NEWSLETTER_ADMIN_ACCESS_KEY',
+  'NEWSLETTER_ADMIN_SESSION_SECRET',
+  'NEWSLETTER_ADMIN_SESSION_VERSION',
+  "sameSite: 'strict'",
+  'httpOnly: true',
+  'SESSION_MAX_AGE_SECONDS',
+  "crypto.subtle.digest('SHA-256'",
+  'constantTimeEqual',
+  'requireNewsletterAdmin',
+]) requireText(adminAuth, marker, 'Newsletter operator authentication');
+
+for (const marker of [
+  'private, no-store',
+  "Vary: 'Cookie'",
+  'requireNewsletterAdmin',
+  'getNewsletterAdminDashboard',
+  'getNewsletterAdminIssue',
+  'markNewsletterAdminIssueReady',
+  'scheduleNewsletterAdminIssue',
+  'cancelNewsletterAdminIssue',
+  'syncNewsletterAdminAudience',
+  'stageNewsletterAdminIssueInResend',
+  'sendOrScheduleNewsletterAdminIssue',
+  'NEWSLETTER_SENDING_ENABLED',
+]) requireText(adminFunctions, marker, 'Newsletter authenticated operator functions');
 
 for (const marker of [
   '{{{RESEND_UNSUBSCRIBE_URL}}}',
@@ -127,6 +157,9 @@ for (const marker of [
   'Cloudflare Email Service is not the newsletter transport',
   'Double opt-in and confirmation delivery',
   '15-minute confirmation-email cooldown',
+  'Authenticated operator boundary',
+  'NEWSLETTER_ADMIN_ACCESS_KEY',
+  'NEWSLETTER_ADMIN_SESSION_SECRET',
   'Server-only issue composer',
   'Server-only operator control plane',
 ]) requireText(docs, marker, 'Newsletter documentation');
