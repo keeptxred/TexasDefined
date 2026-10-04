@@ -5,11 +5,14 @@ import { newsletterSignupSchema, newsletterTokenSchema } from './newsletter-cont
 export const subscribeToTexasDefinedNewsletter = createServerFn({ method: 'POST' })
   .inputValidator(newsletterSignupSchema)
   .handler(async ({ data }) => {
+    if (process.env['NEWSLETTER_SIGNUPS_ENABLED'] !== 'true') {
+      throw new Error('Newsletter signup is disabled.');
+    }
     // Quietly accept honeypot submissions so bots do not learn the filter.
     if (data.addressLine2.trim()) return { ok: true, confirmationRequired: false } as const;
 
-    const { subscribeNewsletter } = await import('./newsletter.server');
-    return subscribeNewsletter({
+    const { subscribeNewsletterWithConfirmation } = await import('./newsletter-subscription.server');
+    return subscribeNewsletterWithConfirmation({
       email: data.email,
       sourcePath: data.sourcePath,
       source: data.source,

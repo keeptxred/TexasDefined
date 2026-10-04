@@ -7,6 +7,9 @@ const requireText = (source, needle, label) => {
 };
 
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
+const confirmation = read('src/data/newsletter/newsletter-confirmation.server.ts');
+const subscription = read('src/data/newsletter/newsletter-subscription.server.ts');
+const functions = read('src/data/newsletter/newsletter.functions.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
@@ -31,6 +34,33 @@ for (const marker of [
   'finalizeNewsletterIssueIfComplete',
   'Update and send are intentionally separate',
 ]) requireText(resend, marker, 'Resend adapter');
+
+for (const marker of [
+  "fetch(`${RESEND_API}/emails`",
+  "'idempotency-key'",
+  'RESEND_API_KEY',
+  'NEWSLETTER_FROM_EMAIL',
+  'NEWSLETTER_PUBLIC_BASE_URL',
+  'Confirm your subscription',
+  'resendNewsletterConfirmationConfigured',
+]) requireText(confirmation, marker, 'Newsletter confirmation transport');
+
+for (const marker of [
+  'CONFIRMATION_COOLDOWN_MS',
+  'confirmationRequestIsFresh',
+  'resendNewsletterConfirmationConfigured',
+  'sendNewsletterConfirmationEmail',
+  'markConfirmationRetryable',
+  'confirmation_token',
+  'confirmation_requested_at',
+  'subscribeNewsletterWithConfirmation',
+  'newsletterDoubleOptInReady',
+]) requireText(subscription, marker, 'Newsletter signup orchestration');
+
+for (const marker of [
+  'NEWSLETTER_SIGNUPS_ENABLED',
+  'subscribeNewsletterWithConfirmation',
+]) requireText(functions, marker, 'Newsletter server functions');
 
 for (const marker of [
   '{{{RESEND_UNSUBSCRIBE_URL}}}',
@@ -58,6 +88,8 @@ for (const marker of [
   'recentEventCounts',
   'signupsEnabled',
   'sendingEnabled',
+  'confirmationConfigured',
+  'doubleOptInReady',
   'resendConfigured',
 ]) requireText(operations, marker, 'Newsletter operator control plane');
 
@@ -67,6 +99,8 @@ for (const marker of [
   "'/api/newsletter/confirm'",
   "'/api/newsletter/unsubscribe'",
   "'/api/newsletter/resend-webhook'",
+  'subscribeNewsletterWithConfirmation',
+  "error: 'temporarily_unavailable'",
   'verifyResendWebhook(rawBody, request.headers)',
   'await request.text()',
   'invalid_signature',
@@ -91,6 +125,8 @@ for (const marker of [
   'NEWSLETTER_SENDING_ENABLED=true',
   'news.texasdefined.com',
   'Cloudflare Email Service is not the newsletter transport',
+  'Double opt-in and confirmation delivery',
+  '15-minute confirmation-email cooldown',
   'Server-only issue composer',
   'Server-only operator control plane',
 ]) requireText(docs, marker, 'Newsletter documentation');
