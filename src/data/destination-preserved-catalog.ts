@@ -12,6 +12,7 @@ import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
 import { historicSiteDestinations } from "./historic-sites";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
+import { mcdonaldObservatoryDestinations } from "./mcdonald-observatory-destination";
 import { austinMuseumDestinations } from "./museum-expansion-austin";
 import { dfwMuseumDestinations } from "./museum-expansion-dfw";
 import { georgeWBushMuseumDestinations } from "./museum-expansion-george-w-bush";
@@ -227,6 +228,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   historicSiteDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
+  mcdonaldObservatoryDestinations,
   houstonGalvestonMuseumDestinations,
   hoggLegacyDestinations,
   dfwMuseumDestinations,
