@@ -28,15 +28,27 @@ HTTP infrastructure also exists at:
 - `GET|POST /api/newsletter/unsubscribe`
 - `POST /api/newsletter/resend-webhook`
 
-The subscribe endpoint deliberately returns 404 until `NEWSLETTER_SIGNUPS_ENABLED=true`. Signup input is validated with Zod and includes a honeypot. Email addresses are normalized to lowercase. Signup source, source path, consent version, and optional interest tags are retained.
+Both the HTTP subscribe endpoint and the TanStack server-function signup path remain fail-closed until `NEWSLETTER_SIGNUPS_ENABLED=true`. Signup input is validated with Zod and includes a honeypot. Email addresses are normalized to lowercase. Signup source, source path, consent version, and optional interest tags are retained.
 
 Complaint and bounce states are hard suppressions. A later public signup does not automatically reactivate either state; an operator must deliberately resolve it. Provider unsubscribe events also move the subscriber into the unsubscribed suppression state.
 
-### Double opt-in
+### Double opt-in and confirmation delivery
 
-Set `NEWSLETTER_DOUBLE_OPT_IN=true` to put new or re-subscribing addresses into `pending` until their confirmation token is consumed. The default is single opt-in (`active`) while still recording explicit signup consent.
+Set `NEWSLETTER_DOUBLE_OPT_IN=true` to put new or re-subscribing addresses into `pending` until their confirmation token is consumed.
 
-No confirmation email is sent until the confirmation-email transport is enabled.
+When double opt-in is enabled, `newsletter-subscription.server.ts` routes the signup through the transactional confirmation-email transport in `newsletter-confirmation.server.ts`:
+
+1. `RESEND_API_KEY` and `NEWSLETTER_FROM_EMAIL` must be configured before a double-opt-in signup can mutate subscriber state.
+2. The pending subscriber is stored first so the one-time confirmation token is valid before email delivery begins.
+3. Resend's `POST /emails` endpoint sends a branded confirmation message containing the canonical `/api/newsletter/confirm` link.
+4. The confirmation request uses a Resend `Idempotency-Key` so duplicate in-flight requests do not send duplicate messages.
+5. Repeated pending signups preserve the existing confirmation token and enforce a 15-minute confirmation-email cooldown instead of generating unlimited messages or invalidating a link that is already in the inbox.
+6. If provider delivery fails, the request timestamp is cleared for that still-pending token so the next legitimate submission can retry instead of being trapped behind the cooldown.
+7. Public signup responses never include the confirmation token or provider response details.
+
+`NEWSLETTER_PUBLIC_BASE_URL` may override the canonical link origin for a controlled environment. It falls back to `https://texasdefined.com`, and non-HTTP(S) values are rejected back to the canonical origin.
+
+The operator dashboard reports both `confirmationConfigured` and `doubleOptInReady`, so double opt-in cannot look healthy merely because the database portion is present.
 
 ## Marketing delivery provider: Resend Broadcasts
 
@@ -50,19 +62,21 @@ Provider-side unsubscribes are fail-closed: if Resend says a contact is unsubscr
 
 ### Required provider configuration
 
-The Worker needs these secrets/variables before Resend integration can be used:
+The Worker needs these secrets/variables before the complete Resend integration can be used:
 
 - `RESEND_API_KEY`
 - `RESEND_NEWSLETTER_SEGMENT_ID`
 - `NEWSLETTER_FROM_EMAIL`
 - `RESEND_WEBHOOK_SECRET`
 
+Transactional double-opt-in confirmation only needs `RESEND_API_KEY` and `NEWSLETTER_FROM_EMAIL`; Broadcast audience/sending readiness additionally needs the segment and webhook configuration.
+
 Two independent rollout switches remain off by default:
 
-- `NEWSLETTER_SIGNUPS_ENABLED=true` exposes the subscribe endpoint for public forms.
+- `NEWSLETTER_SIGNUPS_ENABLED=true` exposes the subscribe endpoint and server-function signup path for public forms.
 - `NEWSLETTER_SENDING_ENABLED=true` permits a Resend Broadcast to actually send or schedule.
 
-Having provider credentials alone does **not** arm sending.
+Having provider credentials alone does **not** arm public signup or bulk sending.
 
 ### Sending domain
 
@@ -89,7 +103,7 @@ The composer is intentionally server-only. It does not add an admin page, public
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
-- Rollout state reports whether public signup, bulk sending, double opt-in, and the complete Resend credential set are configured. It does not expose secret values.
+- Rollout state reports whether public signup, bulk sending, double opt-in, confirmation delivery, and the complete Resend credential set are configured. It does not expose secret values.
 
 These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
 
@@ -123,9 +137,9 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
 - No newsletter admin page has been added.
-- `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI is approved.
+- `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI and provider configuration are approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
-- No newsletter will send merely because these migrations/code are deployed.
+- No newsletter will send merely because these files are deployed.
 
-This separation allows the public signup surfaces, admin surface, and actual sending credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows the public signup surfaces, authenticated admin surface, and actual provider credentials to be added later without exposing subscriber data or redesigning the core model.
