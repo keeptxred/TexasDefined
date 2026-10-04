@@ -137,3 +137,4 @@ await import('./verify-stay-nearby-production.mjs');
 await import('./verify-critical-static-assets-production.mjs');
 await import('./verify-sports-venue-heroes-production.mjs');
 await import('./verify-galaxy-social-production.mjs');
+await import('./verify-san-angelo-proximity-production.mjs');
