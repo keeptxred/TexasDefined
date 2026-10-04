@@ -9,6 +9,8 @@ import {
   type MetroProximityMetro,
   type MetroProximityResult,
 } from "@/data/metro-proximity";
+import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
+import { maps } from "@/services/maps";
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
 
@@ -17,6 +19,15 @@ type CollectionPageData = {
   collection: MetroProximityCollection;
   results: MetroProximityResult[];
   indexReady: boolean;
+  presentation: {
+    label: string;
+    navLabel: string;
+    titlePrefix: string;
+    summary: string;
+    searchIntent: string;
+    tripFit: string | null;
+    usesGeographicRing: boolean;
+  };
 };
 
 function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip") {
@@ -30,7 +41,7 @@ function countySlug(value: string) {
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
-  const { metro, collection, results } = pageData;
+  const { metro, collection, results, presentation } = pageData;
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
@@ -49,32 +60,36 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     <Container className="py-14 sm:py-18">
       <div className="flex flex-wrap gap-x-6 gap-y-3 border-b border-border pb-6">
         <Link to="/explore/near/$metro" params={{ metro: metro.slug }} className="eyebrow border-b border-primary pb-1 text-primary">All near {metro.name}</Link>
-        {METRO_PROXIMITY_COLLECTIONS.filter((item) => item.slug !== collection.slug).map((item) => <Link
-          key={item.slug}
-          to="/explore/near/$metro/$collection"
-          params={{ metro: metro.slug, collection: item.slug }}
-          className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary"
-        >{item.navLabel}</Link>)}
+        {METRO_PROXIMITY_COLLECTIONS.filter((item) => item.slug !== collection.slug).map((item) => {
+          const itemPresentation = metroProximityCollectionPresentation(item);
+          return <Link
+            key={item.slug}
+            to="/explore/near/$metro/$collection"
+            params={{ metro: metro.slug, collection: item.slug }}
+            className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary"
+          >{itemPresentation.navLabel}</Link>;
+        })}
       </div>
     </Container>
 
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
-      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${collection.label} near ${metro.name}`} />
+      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} />
     </Container>}
 
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">{bandLabel(group.band)}</p>
-          <h2 className="mt-3 font-display text-4xl">{group.rows.length} place{group.rows.length === 1 ? "" : "s"} in this distance band</h2>
+          <h2 className="mt-3 font-display text-4xl">{group.rows.length} place{group.rows.length === 1 ? "" : "s"} in this geographic band</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>
             <div className="mb-3 flex items-baseline justify-between gap-4">
-              <p className="eyebrow text-primary">About {Math.round(row.distanceMiles)} miles away</p>
+              <p className="eyebrow text-primary">About {Math.round(row.distanceMiles)} geographic miles</p>
               <span className="text-xs text-muted-foreground">{row.destination.nearestTown}</span>
             </div>
             <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} />
+            <a href={maps.drivingRouteUrl(metro.center, row.destination.coordinates)} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Check current drive from {metro.name} ↗</a>
           </div>)}
         </div>
       </Container>
@@ -84,8 +99,8 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       <div className="grid gap-8 border-t border-border pt-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <p className="eyebrow text-primary">Before you go</p>
-          <h2 className="mt-3 font-display text-3xl">Use proximity as a shortlist, not a schedule.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined uses location data to make the statewide catalog easier to search. For the final trip, open each destination guide and verify driving routes, opening hours, reservations, park alerts, water conditions and weather with the current official source.</p>
+          <h2 className="mt-3 font-display text-3xl">Use geography as a shortlist, then check the real route.</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined uses location data to make the statewide catalog easier to search. Open the current driving route for the places you are considering, then verify opening hours, reservations, park alerts, water conditions and weather with the current official source.</p>
           {counties.length > 0 && <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
             {counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{county} County</Link>)}
           </div>}

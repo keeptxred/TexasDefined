@@ -14,6 +14,7 @@ import {
   metroProximityTitle,
   selectMetroProximityDestinations,
 } from "./metro-proximity";
+import { metroProximityCollectionPresentation } from "./metro-proximity-presentation";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -96,7 +97,7 @@ export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
             itemListElement: collections.map((row, index) => ({
               "@type": "ListItem",
               position: index + 1,
-              name: row.collection.label,
+              name: metroProximityCollectionPresentation(row.collection).label,
               url: `${siteUrl}/explore/near/${metro.slug}/${row.collection.slug}`,
             })),
           },
@@ -124,8 +125,13 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const results = selectMetroProximityDestinations(destinations, metro, collection);
   const indexReady = isMetroProximityCollectionIndexReady(destinations, metro, collection);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
-  const title = metroProximityTitle(metro, collection);
-  const description = metroProximityDescription(metro, collection, results.length);
+  const presentation = metroProximityCollectionPresentation(collection);
+  const title = presentation.usesGeographicRing
+    ? `${presentation.titlePrefix} ${metro.name}, Texas`
+    : metroProximityTitle(metro, collection);
+  const description = presentation.usesGeographicRing
+    ? `Compare ${results.length} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides. Use the page's route links for current road mileage and driving time.`
+    : metroProximityDescription(metro, collection, results.length);
   const reviewedAt = latestReview(results.map((row) => row.destination));
   const image = results[0]?.destination.hero;
   const pageUrl = `${siteUrl}${canonicalPath}`;
@@ -169,12 +175,12 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
               { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
               { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
               { "@type": "ListItem", position: 3, name: `Near ${metro.name}`, item: `${siteUrl}/explore/near/${metro.slug}` },
-              { "@type": "ListItem", position: 4, name: collection.label, item: pageUrl },
+              { "@type": "ListItem", position: 4, name: presentation.label, item: pageUrl },
             ],
           },
         ],
       }),
     }],
   };
-  return { metro, collection, results, indexReady, canonicalPath, title, description, reviewedAt, head };
+  return { metro, collection, results, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
 }
