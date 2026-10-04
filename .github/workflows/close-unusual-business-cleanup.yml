@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/close-unusual-business-cleanup.yml'
+      - 'src/components/editorial/DestinationRelationships.tsx'
 
 permissions:
   contents: write
@@ -99,6 +100,7 @@ jobs:
             'feature/close-unusual-business-cleanup'
             'feature/authority-live-diagnostic'
             'fix/whirlyball-authority-closeout'
+            'fix/whirlyball-authority-closeout-v2'
           )
 
           for branch in "${branches[@]}"; do
@@ -133,6 +135,7 @@ jobs:
             'feature/close-unusual-business-cleanup'
             'feature/authority-live-diagnostic'
             'fix/whirlyball-authority-closeout'
+            'fix/whirlyball-authority-closeout-v2'
           )
 
           failed=0
