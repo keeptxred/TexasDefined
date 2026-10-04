@@ -64,7 +64,7 @@ function PrivacyPolicyPage() {
               Google&apos;s use of advertising cookies enables Google and its partners to serve ads based on visits to Texas Defined and other sites on the Internet. You can manage or opt out of personalized advertising through <a href="https://adssettings.google.com/" rel="noreferrer noopener" target="_blank" className="border-b border-primary text-primary">Google Ads Settings</a>. You can also learn about choices for some other participating advertising vendors at <a href="https://www.aboutads.info/choices/" rel="noreferrer noopener" target="_blank" className="border-b border-primary text-primary">YourAdChoices</a>.
             </p>
             <p className="mt-3">
-              If Texas Defined enables third-party advertising vendors or ad networks beyond Google, those providers may use their own cookies or similar technologies subject to their own terms and privacy information and available opt-out controls.
+              If Texas Defined enables third-party advertising vendors or ad networks beyond Google, those providers may use their own cookies or similar technologies subject to their own privacy information and available opt-out controls.
             </p>
           </section>
 
