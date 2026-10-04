@@ -222,6 +222,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-explained",
   "/texas-data",
   "/texas-data/city-county-relationships",
+  "/texas-data/research/texas-population-growth-slowdown",
   "/county",
   "/property-tax-guides",
   "/property-tax-calculators",
@@ -446,6 +447,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/texas-data/county-growth.csv",
   "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
+  "/texas-data/research/texas-population-growth-slowdown.csv",
 ] as const;
 
 const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
