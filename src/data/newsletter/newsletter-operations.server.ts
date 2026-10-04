@@ -123,6 +123,11 @@ export async function getNewsletterOperatorDashboard() {
       signupsEnabled: process.env['NEWSLETTER_SIGNUPS_ENABLED'] === 'true',
       sendingEnabled: process.env['NEWSLETTER_SENDING_ENABLED'] === 'true',
       doubleOptIn: process.env['NEWSLETTER_DOUBLE_OPT_IN'] === 'true',
+      confirmationEmailsEnabled: process.env['NEWSLETTER_CONFIRMATION_EMAILS_ENABLED'] === 'true',
+      confirmationEmailConfigured: Boolean(
+        process.env['RESEND_API_KEY']
+        && process.env['NEWSLETTER_FROM_EMAIL'],
+      ),
       resendConfigured: Boolean(
         process.env['RESEND_API_KEY']
         && process.env['RESEND_NEWSLETTER_SEGMENT_ID']
