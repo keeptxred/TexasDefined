@@ -14,7 +14,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The 2026 Heart O' Texas Fair & Rodeo runs October 8-18 at the Extraco Events Center in Waco. Fair hours vary by day, and the One HOT Rodeo is scheduled October 9-11 and 13-18. Use the organizer's current hours, rodeo and ticket pages for the exact day you plan to attend.",
     venue: "Extraco Events Center",
     officialUrl: "https://www.hotfair.com/",
-    sourceCheckedAt: "2026-09-10",
+    sourceCheckedAt: "2026-10-04",
     whyItMatters: "The Heart O' Texas Fair & Rodeo is an 11-day Waco destination combining fairgrounds attractions, concerts, livestock and competitive events with a separately scheduled rodeo program. The official 2026 pages now publish the day-by-day fair hours, One HOT Rodeo dates and ticket rules visitors need before choosing a date.",
     planningSections: [
       { title: "Heart O' Texas Fair 2026 dates and hours", body: "The fair runs October 8-18, 2026. The organizer lists Thursday, October 8 from 6-11 p.m.; Friday, October 9 from 4 p.m.-midnight; Saturday, October 10 from noon-midnight; Sunday, October 11 from noon-11 p.m.; Monday through Thursday, October 12-15 from 4-11 p.m.; Friday, October 16 from 4 p.m.-midnight; Saturday, October 17 from noon-midnight; and Sunday, October 18 from noon-11 p.m. Day-specific promotions also vary, so confirm the official hours page for the date you choose." },
