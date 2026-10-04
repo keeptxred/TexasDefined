@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { statewideMuseumExpansionWave85Destinations } from "./museum-expansion-statewide-wave85";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-10-03";
@@ -102,4 +103,5 @@ export const statewideMuseumExpansionWave84Destinations: Destination[] = [
       ],
     },
   },
+  ...statewideMuseumExpansionWave85Destinations,
 ];
