@@ -25,14 +25,14 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
           : 'Texas high school football';
     const seoName = program?.schoolName || displayName;
     const teamName = identity?.mascot ? `${seoName} ${identity.mascot}` : seoName;
-    const enrollment = program?.uilEnrollment ? `, UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}` : '';
-    const description = `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`;
+    const enrollment = program?.uilEnrollment ? ` UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}.` : '';
+    const description = `${teamName} football guide for 2026: ${classification}.${enrollment} Find district opponents, classification, enrollment, school and stadium links, plus score and schedule sources.`;
     const url = `${siteUrl}${canonicalPath}`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${teamName} Football: 2026 District, Enrollment & Team Guide`,
+        title: `${teamName} Football 2026: Class, District & Schedule`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
