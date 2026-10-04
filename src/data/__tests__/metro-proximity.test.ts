@@ -8,6 +8,10 @@ import {
   isMetroProximityCollectionIndexReady,
   selectMetroProximityDestinations,
 } from "../metro-proximity.ts";
+import {
+  isMetroProximityCollectionIndexReadyWithTownReferences,
+  selectMetroProximityTownReferences,
+} from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
@@ -90,6 +94,47 @@ test("substantive, diverse inventory can clear the index gate", () => {
     }),
   );
   assert.equal(isMetroProximityCollectionIndexReady(rows, metro, collection), true);
+});
+
+test("San Angelo one-hour guide is geography-first instead of destination-catalog-only", () => {
+  const metro = getMetroProximityMetro("san-angelo")!;
+  const collection = getMetroProximityCollection("small-towns-1-hour")!;
+  const rows = selectMetroProximityTownReferences(metro, collection);
+  assert.deepEqual(rows.map((row) => row.town.name), [
+    "Miles",
+    "Christoval",
+    "Mertzon",
+    "Robert Lee",
+    "Bronte",
+    "Paint Rock",
+    "Ballinger",
+  ]);
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], metro, collection), true);
+});
+
+test("San Angelo town references stay inside their configured distance rings", () => {
+  const metro = getMetroProximityMetro("san-angelo")!;
+  const oneHour = getMetroProximityCollection("small-towns-1-hour")!;
+  const twoHours = getMetroProximityCollection("small-towns-2-hours")!;
+  const oneHourNames = new Set(selectMetroProximityTownReferences(metro, oneHour).map((row) => row.town.name));
+  const twoHourNames = new Set(selectMetroProximityTownReferences(metro, twoHours).map((row) => row.town.name));
+  assert.equal(oneHourNames.has("Eden"), false);
+  for (const name of ["Eden", "Sterling City", "Eldorado", "Winters", "Big Lake"]) assert.ok(twoHourNames.has(name), `missing ${name}`);
+});
+
+test("a full destination guide supersedes its supplemental town reference", () => {
+  const metro = getMetroProximityMetro("san-angelo")!;
+  const collection = getMetroProximityCollection("small-towns-1-hour")!;
+  const christoval = destination(99, "small-towns", {
+    slug: "christoval",
+    name: "Christoval",
+    nearestTown: "Christoval",
+    county: "Tom Green",
+    coordinates: { lat: 31.1932, lng: -100.4998 },
+  });
+  const destinationRows = selectMetroProximityDestinations([christoval], metro, collection);
+  const townRows = selectMetroProximityTownReferences(metro, collection, destinationRows);
+  assert.equal(townRows.some((row) => row.town.slug === "christoval"), false);
 });
 
 test("launch registry includes requested trip-intent expansions", () => {
