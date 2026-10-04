@@ -21,8 +21,8 @@ describe("Texas Defined AI Keep TX Red government grounding", () => {
   it("owns only government questions and preserves the primary AI for ordinary Texas questions", () => {
     expect(gateway).toContain('function isGovernmentQuestion(question: string)');
     expect(gateway).toContain('if (!question || question.length > MAX_QUESTION_LENGTH || !isGovernmentQuestion(question)) return null;');
-    const governmentPosition = serverEntry.indexOf('texasDefinedGovernmentAiResponse(request, env)');
-    const primaryPosition = serverEntry.indexOf('texasDefinedAiResponse(request, env)');
+    const governmentPosition = serverEntry.indexOf('texasDefinedGovernmentAiResponse(request, aiEnv)');
+    const primaryPosition = serverEntry.indexOf('texasDefinedAiResponse(request, aiEnv)');
     expect(governmentPosition).toBeGreaterThan(-1);
     expect(primaryPosition).toBeGreaterThan(governmentPosition);
     expect(primaryAi).toContain('researchOfficialQuestion(question)');
@@ -43,6 +43,16 @@ describe("Texas Defined AI Keep TX Red government grounding", () => {
     expect(gateway).toContain("Never adopt Keep TX Red's political commentary, editorial opinion, candidate preference or ideological framing as Texas Defined's voice.");
     expect(gateway).toContain('Distinguish current officeholders from candidates and historical figures.');
     expect(gateway).toContain('Distinguish introduced/pending bills from enacted law.');
+  });
+
+  it("minimizes AI telemetry before either AI path writes analytics", () => {
+    expect(serverEntry).toContain('const aiEnv = privacySafeAiEnvironment(env);');
+    expect(serverEntry).toContain('blobs[0] = privacySafeDemandTerms(blobs[0] ?? "");');
+    expect(serverEntry).toContain('return matches.length ? matches.slice(0, 24).join(" ") : "general texas";');
+    expect(serverEntry).toContain('if (property === "TEXAS_DEFINED_AI_ANALYTICS") return wrappedDataset;');
+    expect(serverEntry).not.toContain('[email]');
+    expect(serverEntry).not.toContain('[phone]');
+    expect(serverEntry).not.toContain('[address]');
   });
 
   it("adds no paid inference/search dependency or browser-side AI bundle", () => {
