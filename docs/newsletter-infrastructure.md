@@ -94,18 +94,38 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 - Story URLs are normalized to HTTP(S), and the underlying template escapes editorial text before inserting it into HTML.
 - Saved content retains the structured story selection plus a composer/version marker, so a future admin editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
 
-The composer is intentionally server-only. It does not add an admin page, public route, signup form, provider call, or sending side effect.
+The composer is intentionally server-only. It does not add a public route, signup form, provider call, or sending side effect.
 
 ## Server-only operator control plane
 
-`newsletter-operations.server.ts` exposes the read-side backend needed by a future newsletter admin experience without creating a browser-accessible newsletter admin API.
+`newsletter-operations.server.ts` exposes the read-side backend needed by newsletter operations without creating a browser-accessible public newsletter API.
 
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
 - Rollout state reports whether public signup, bulk sending, double opt-in, confirmation delivery, and the complete Resend credential set are configured. It does not expose secret values.
 
-These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
+These functions remain service-role/server-only. Browser access is provided only through the authenticated server-function boundary described below.
+
+## Protected newsletter operations panel
+
+Newsletter operations live inside the existing lazy-loaded Platform Health surface at `/admin/platform-health#newsletter`. This deliberately avoids creating another top-level route while keeping newsletter tools out of the public site.
+
+The panel does **not** load newsletter data just because someone can open the admin shell. The browser must supply the existing TexasDefined operations admin key. `newsletter-admin.functions.ts` verifies that key on the server by reusing the established constant-time SHA-256 access-key check. The key is retained only in browser `sessionStorage` for the current session, and the service-role database credential never reaches the browser.
+
+The protected panel can:
+
+- show active and pending subscriber totals plus suppression counts without exposing a public subscriber-list endpoint;
+- show draft and queued-delivery counts;
+- report whether public signup, bulk sending, confirmation delivery, double opt-in, and Resend Broadcast configuration are ready;
+- list recent newsletter issues and provider-event totals;
+- review one issue and its delivery-state totals;
+- preview rendered newsletter HTML inside a sandboxed iframe;
+- mark an eligible issue ready;
+- schedule an eligible issue for a future time;
+- cancel a draft/ready/scheduled issue.
+
+The panel deliberately exposes **no send-now control** and does not bypass `NEWSLETTER_SENDING_ENABLED`. Scheduling changes the issue lifecycle only; the server-side sending kill switch remains authoritative. The newsletter infrastructure validator fails if direct send operations are wired into this admin layer without an explicit architecture change.
 
 ## Resend issue lifecycle
 
@@ -136,10 +156,11 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
-- No newsletter admin page has been added.
+- The protected operations panel is admin-only and does not expose subscriber data without the existing TexasDefined operations admin key.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI and provider configuration are approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
+- The protected panel has no send-now control and does not arm sending.
 - No newsletter will send merely because these files are deployed.
 
-This separation allows the public signup surfaces, authenticated admin surface, and actual provider credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows public signup surfaces and actual provider credentials to be activated later without exposing subscriber data or redesigning the core model.
