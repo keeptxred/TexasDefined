@@ -10,6 +10,7 @@ const maxAttempts = 12;
 const retryDelayMs = 5_000;
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const rollbackTargetFailure = 'Refusing to deploy without a deterministic rollback target.';
+const workerName = process.env.CLOUDFLARE_WORKER_NAME?.trim() || 'texasdefined-site';
 
 const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
@@ -30,25 +31,15 @@ function writeState(state) {
   writeFileSync(statePath, `${JSON.stringify({ runId, ...state }, null, 2)}\n`);
 }
 
-function parseActiveVersion(stdout) {
-  let payload;
-  try {
-    payload = JSON.parse(stdout);
-  } catch (error) {
+function parseTrafficVersions(versions, sourceLabel) {
+  if (!Array.isArray(versions) || versions.length === 0) {
     return {
       versionId: null,
-      detail: `Could not parse wrangler deployments status --json output: ${String(error)}`,
+      detail: `${sourceLabel} did not contain a non-empty versions array.`,
     };
   }
 
-  if (!Array.isArray(payload?.versions) || payload.versions.length === 0) {
-    return {
-      versionId: null,
-      detail: 'Wrangler deployment status did not contain the expected top-level versions array.',
-    };
-  }
-
-  const traffic = payload.versions.map((entry, index) => {
+  const traffic = versions.map((entry, index) => {
     const versionId = typeof entry?.version_id === 'string' ? entry.version_id : null;
     const percentage = Number(entry?.percentage);
     return { index, versionId, percentage };
@@ -61,7 +52,7 @@ function parseActiveVersion(stdout) {
   if (invalid.length > 0) {
     return {
       versionId: null,
-      detail: `Wrangler deployment status contained ${invalid.length} invalid active-traffic ${invalid.length === 1 ? 'entry' : 'entries'}.`,
+      detail: `${sourceLabel} contained ${invalid.length} invalid active-traffic ${invalid.length === 1 ? 'entry' : 'entries'}.`,
     };
   }
 
@@ -78,11 +69,115 @@ function parseActiveVersion(stdout) {
 
   return {
     versionId: null,
-    detail: `Expected exactly one 100% active Worker version in the latest deployment traffic, found ${trafficSummary || 'no valid traffic entries'}.`,
+    detail: `Expected exactly one 100% active Worker version in ${sourceLabel}, found ${trafficSummary || 'no valid traffic entries'}.`,
   };
 }
 
-function captureActiveVersion() {
+function parseWranglerActiveVersion(stdout) {
+  let payload;
+  try {
+    payload = JSON.parse(stdout);
+  } catch (error) {
+    return {
+      versionId: null,
+      detail: `Could not parse wrangler deployments status --json output: ${String(error)}`,
+    };
+  }
+
+  return parseTrafficVersions(payload?.versions, 'Wrangler latest deployment traffic');
+}
+
+function latestDeploymentFromPayload(payload) {
+  const result = payload?.result;
+  const deployments = Array.isArray(result)
+    ? result
+    : Array.isArray(result?.deployments)
+      ? result.deployments
+      : null;
+
+  if (!deployments?.length) return null;
+
+  const dated = deployments.map((deployment) => ({
+    deployment,
+    timestamp: Date.parse(deployment?.created_on || ''),
+  }));
+
+  if (dated.every((entry) => Number.isFinite(entry.timestamp))) {
+    dated.sort((a, b) => b.timestamp - a.timestamp);
+    return dated[0].deployment;
+  }
+
+  return deployments[0];
+}
+
+async function captureViaCloudflareApi() {
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim();
+  const token = process.env.CLOUDFLARE_API_TOKEN?.trim();
+
+  if (!accountId || !token) {
+    return {
+      versionId: null,
+      detail: 'Cloudflare account/token environment is unavailable for direct deployment lookup.',
+      mayFallback: true,
+    };
+  }
+
+  const endpoint = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/workers/scripts/${encodeURIComponent(workerName)}/deployments`;
+
+  let response;
+  try {
+    response = await fetch(endpoint, {
+      headers: { authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(20_000),
+    });
+  } catch (error) {
+    return {
+      versionId: null,
+      detail: `Cloudflare deployment lookup failed before receiving a response: ${String(error)}`,
+      mayFallback: true,
+    };
+  }
+
+  let payload;
+  try {
+    payload = await response.json();
+  } catch (error) {
+    return {
+      versionId: null,
+      detail: `Cloudflare deployment lookup returned non-JSON HTTP ${response.status}: ${String(error)}`,
+      mayFallback: true,
+    };
+  }
+
+  if (!response.ok || payload?.success !== true) {
+    const messages = [
+      ...(Array.isArray(payload?.errors) ? payload.errors : []),
+      ...(Array.isArray(payload?.messages) ? payload.messages : []),
+    ]
+      .map((item) => item?.message)
+      .filter(Boolean)
+      .join(' | ');
+    return {
+      versionId: null,
+      detail: `Cloudflare deployment lookup failed with HTTP ${response.status}${messages ? `: ${messages}` : ''}.`,
+      mayFallback: true,
+    };
+  }
+
+  const latestDeployment = latestDeploymentFromPayload(payload);
+  if (!latestDeployment) {
+    return {
+      versionId: null,
+      detail: 'Cloudflare deployment lookup returned no deployments.',
+      mayFallback: false,
+    };
+  }
+
+  const parsed = parseTrafficVersions(latestDeployment.versions, 'Cloudflare latest deployment traffic');
+  return { ...parsed, mayFallback: false };
+}
+
+function captureViaWrangler() {
   const result = spawnSync('npx', ['wrangler', 'deployments', 'status', '--json'], {
     cwd: process.cwd(),
     env: process.env,
@@ -97,7 +192,21 @@ function captureActiveVersion() {
     };
   }
 
-  return parseActiveVersion(result.stdout);
+  return parseWranglerActiveVersion(result.stdout);
+}
+
+async function captureActiveVersion() {
+  const apiResult = await captureViaCloudflareApi();
+  if (apiResult.versionId || !apiResult.mayFallback) return apiResult;
+
+  console.log(`Direct Cloudflare deployment lookup unavailable; using Wrangler fallback: ${apiResult.detail}`);
+  const wranglerResult = captureViaWrangler();
+  return wranglerResult.versionId
+    ? wranglerResult
+    : {
+        versionId: null,
+        detail: `${apiResult.detail} Wrangler fallback also failed: ${wranglerResult.detail}`,
+      };
 }
 
 const state = readState();
@@ -111,7 +220,7 @@ let capturedVersion = null;
 let lastDetail = null;
 
 for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
-  const { versionId, detail } = captureActiveVersion();
+  const { versionId, detail } = await captureActiveVersion();
   lastDetail = detail;
 
   if (versionId) {
