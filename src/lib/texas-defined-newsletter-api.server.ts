@@ -38,7 +38,14 @@ async function subscribe(request: Request) {
   // Quietly accept honeypot submissions so bots do not learn the filter.
   if (parsed.data.addressLine2.trim()) return Response.json({ ok: true }, { headers: NO_STORE_HEADERS });
 
-  const { subscribeNewsletter } = await import('@/data/newsletter/newsletter.server');
+  const { newsletterRequiresConfirmation, subscribeNewsletter } = await import('@/data/newsletter/newsletter.server');
+  if (newsletterRequiresConfirmation()) {
+    const { newsletterConfirmationEmailReady } = await import('@/data/newsletter/newsletter-confirmation.server');
+    if (!newsletterConfirmationEmailReady()) {
+      return Response.json({ ok: false, error: 'confirmation_unavailable' }, { status: 503, headers: NO_STORE_HEADERS });
+    }
+  }
+
   const result = await subscribeNewsletter({
     email: parsed.data.email,
     sourcePath: parsed.data.sourcePath,
@@ -46,7 +53,17 @@ async function subscribe(request: Request) {
     consentVersion: parsed.data.consentVersion,
     interests: parsed.data.interests,
   });
-  return Response.json(result, { headers: NO_STORE_HEADERS });
+
+  if (result.confirmationRequired) {
+    const { sendNewsletterConfirmationEmail } = await import('@/data/newsletter/newsletter-confirmation.server');
+    try {
+      await sendNewsletterConfirmationEmail(parsed.data.email);
+    } catch {
+      return Response.json({ ok: false, error: 'confirmation_delivery_failed' }, { status: 503, headers: NO_STORE_HEADERS });
+    }
+  }
+
+  return Response.json({ ok: true, confirmationRequired: result.confirmationRequired }, { headers: NO_STORE_HEADERS });
 }
 
 async function tokenFromRequest(request: Request) {
