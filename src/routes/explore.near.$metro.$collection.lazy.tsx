@@ -9,6 +9,7 @@ import {
   type MetroProximityMetro,
   type MetroProximityResult,
 } from "@/data/metro-proximity";
+import type { MetroProximityTownResult } from "@/data/metro-proximity-town-references";
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
 
@@ -16,6 +17,8 @@ type CollectionPageData = {
   metro: MetroProximityMetro;
   collection: MetroProximityCollection;
   results: MetroProximityResult[];
+  townReferences: MetroProximityTownResult[];
+  optionCount: number;
   indexReady: boolean;
 };
 
@@ -30,20 +33,34 @@ function countySlug(value: string) {
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
-  const { metro, collection, results } = pageData;
+  const { metro, collection, results, townReferences } = pageData;
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
-  const mapMarkers = results.slice(0, 10).map((row) => ({
-    id: row.destination.slug,
-    label: row.destination.name,
-    point: row.destination.coordinates,
-    href: `/destination/${row.destination.slug}`,
-  }));
-  const counties = [...new Set(results
-    .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
-    .filter((value): value is string => Boolean(value)))]
-    .slice(0, 10);
+  const mapMarkers = [
+    ...townReferences.map((row) => ({
+      id: `town-${row.town.slug}`,
+      label: row.town.name,
+      point: row.town.coordinates,
+      href: `/county/${countySlug(row.town.county)}`,
+      distanceMiles: row.distanceMiles,
+    })),
+    ...results.map((row) => ({
+      id: row.destination.slug,
+      label: row.destination.name,
+      point: row.destination.coordinates,
+      href: `/destination/${row.destination.slug}`,
+      distanceMiles: row.distanceMiles,
+    })),
+  ]
+    .sort((left, right) => left.distanceMiles - right.distanceMiles)
+    .map(({ distanceMiles: _distanceMiles, ...marker }) => marker);
+  const counties = [...new Set([
+    ...townReferences.map((row) => row.town.county.replace(/\s+County$/i, "").trim()),
+    ...results
+      .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
+      .filter((value): value is string => Boolean(value)),
+  ])].slice(0, 12);
 
   return <>
     <Container className="py-14 sm:py-18">
@@ -66,7 +83,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">{bandLabel(group.band)}</p>
-          <h2 className="mt-3 font-display text-4xl">{group.rows.length} place{group.rows.length === 1 ? "" : "s"} in this distance band</h2>
+          <h2 className="mt-3 font-display text-4xl">{group.rows.length} full TexasDefined guide{group.rows.length === 1 ? "" : "s"} in this distance band</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>
@@ -85,7 +102,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         <div>
           <p className="eyebrow text-primary">Before you go</p>
           <h2 className="mt-3 font-display text-3xl">Use proximity as a shortlist, not a schedule.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined uses location data to make the statewide catalog easier to search. For the final trip, open each destination guide and verify driving routes, opening hours, reservations, park alerts, water conditions and weather with the current official source.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined uses location data to make the statewide catalog easier to search. For the final trip, verify driving routes, opening hours, reservations, park alerts, water conditions and weather with the current official source.</p>
           {counties.length > 0 && <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
             {counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{county} County</Link>)}
           </div>}
