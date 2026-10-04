@@ -1,6 +1,6 @@
 import process from "node:process";
 
-const collectorVersion = "2026-09-18.4";
+const collectorVersion = "2026-10-04.1";
 const bingApiKey = process.env.BING_WEBMASTER_API_KEY?.trim();
 const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -9,6 +9,9 @@ const targetHosts = (process.env.BING_WEBMASTER_SITE_HOSTS || "texasdefined.com,
   .map((host) => host.trim().toLowerCase().replace(/^www\./, ""))
   .filter(Boolean);
 const bingBaseUrl = "https://ssl.bing.com/webmaster/api.svc/json";
+const supabaseInsertMaxAttempts = 5;
+const supabaseInsertBaseDelayMs = 1_000;
+const retryableSupabaseStatuses = new Set([408, 425, 429, 500, 502, 503, 504]);
 
 if (!bingApiKey) throw new Error("BING_WEBMASTER_API_KEY is required.");
 if (!supabaseUrl) throw new Error("SUPABASE_URL is required.");
@@ -38,6 +41,15 @@ function cleanBingValue(value) {
     cleaned[key] = cleanBingValue(child);
   }
   return cleaned;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isRetryableSupabaseFailure(status, body) {
+  if (retryableSupabaseStatuses.has(status)) return true;
+  return body.includes('"code":"PGRST002"') || body.toLowerCase().includes("schema cache");
 }
 
 async function bingGet(method, params = {}) {
@@ -95,20 +107,53 @@ function normalizedHostname(url) {
 }
 
 async function insertSnapshot(snapshot) {
-  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_bing_webmaster_snapshots`, {
-    method: "POST",
-    headers: {
-      apikey: supabaseServiceRoleKey,
-      authorization: `Bearer ${supabaseServiceRoleKey}`,
-      "content-type": "application/json",
-      prefer: "return=minimal",
-    },
-    body: JSON.stringify(snapshot),
-  });
+  for (let attempt = 1; attempt <= supabaseInsertMaxAttempts; attempt += 1) {
+    let response;
+    try {
+      response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_bing_webmaster_snapshots`, {
+        method: "POST",
+        headers: {
+          apikey: supabaseServiceRoleKey,
+          authorization: `Bearer ${supabaseServiceRoleKey}`,
+          "content-type": "application/json",
+          prefer: "return=minimal",
+        },
+        body: JSON.stringify(snapshot),
+      });
+    } catch (error) {
+      if (attempt === supabaseInsertMaxAttempts) throw error;
+      const delayMs = supabaseInsertBaseDelayMs * 2 ** (attempt - 1);
+      console.warn(
+        JSON.stringify({
+          event: "supabase_snapshot_insert_retry",
+          attempt,
+          reason: "network_error",
+          delayMs,
+          message: error instanceof Error ? error.message : String(error),
+        }),
+      );
+      await sleep(delayMs);
+      continue;
+    }
 
-  if (!response.ok) {
+    if (response.ok) return;
+
     const body = (await response.text()).slice(0, 1000);
-    throw new Error(`Supabase snapshot insert returned HTTP ${response.status}${body ? `: ${body}` : ""}`);
+    const retryable = isRetryableSupabaseFailure(response.status, body);
+    if (!retryable || attempt === supabaseInsertMaxAttempts) {
+      throw new Error(`Supabase snapshot insert returned HTTP ${response.status}${body ? `: ${body}` : ""}`);
+    }
+
+    const delayMs = supabaseInsertBaseDelayMs * 2 ** (attempt - 1);
+    console.warn(
+      JSON.stringify({
+        event: "supabase_snapshot_insert_retry",
+        attempt,
+        status: response.status,
+        delayMs,
+      }),
+    );
+    await sleep(delayMs);
   }
 }
 
