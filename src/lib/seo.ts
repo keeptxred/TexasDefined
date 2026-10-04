@@ -191,8 +191,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14. The dedicated 2027 schedule is not yet published; confirm dates and hours before travel.",
   },
   "/texas-symbols": {
-    title: "Texas State Symbols: Official List, Meanings & State Icons",
-    description: "Explore Texas state symbols and official designations, from the flag, flower and bird to foods, animals, plants and other Lone Star State icons.",
+    title: "77 Texas State Symbols: Complete Official List & Meanings",
+    description: "Browse all 77 current official Texas state symbols by category, year and legislative designation, verified against the Texas State Library's statewide list.",
   },
   "/article/republic-of-texas-navy-history": {
     title: "Republic of Texas Navy: Ships, Battles & History",
