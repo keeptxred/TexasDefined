@@ -42,11 +42,13 @@ const bingCollector = read('scripts/seo/sync-bing-webmaster.mjs');
 const bingSyncWorkflow = read('.github/workflows/sync-bing-webmaster.yml');
 const keyFile = read(`public/${indexNowKey}.txt`);
 
-requirePattern(
-  robots,
-  /User-agent:\s*Bingbot\s*[\r\n]+Allow:\s*\//i,
-  'robots.txt must explicitly allow Bingbot.',
-);
+for (const crawler of ['Bingbot', 'Applebot', 'DuckDuckBot', 'OAI-SearchBot']) {
+  requirePattern(
+    robots,
+    new RegExp(`User-agent:\\s*${crawler}`, 'i'),
+    `robots.txt must explicitly identify ${crawler}.`,
+  );
+}
 for (const sitemap of sitemapUrls) {
   requireText(robots, `Sitemap: ${sitemap}`, `robots.txt must advertise ${sitemap}.`);
 }
@@ -95,6 +97,14 @@ for (const expected of [
   '[200, 202]',
   '10_000',
   "process.env.PUBLIC_INDEXING_ENABLED === 'true'",
+  "process.env.INDEXNOW_FULL === 'true'",
+  'INDEXNOW_FRESHNESS_HOURS',
+  'INDEXNOW_URLS',
+  'lastmodMs',
+  "const blockedPrefixes = ['/admin', '/api', '/auth', '/search'];",
+  "if (url.search || url.hash) return null;",
+  "const strict = process.env.INDEXNOW_STRICT === 'true';",
+  'IndexNow failure is non-fatal so normal publishing/deployment can continue.',
   'IndexNow submission skipped: PUBLIC_INDEXING_ENABLED is not explicitly true. No URLs were submitted.',
 ]) {
   requireText(indexNowScript, expected, `IndexNow submitter is missing required contract: ${expected}`);
@@ -102,6 +112,11 @@ for (const expected of [
 
 for (const expected of [
   'workflow_dispatch:',
+  'schedule:',
+  'INDEXNOW_STRICT:',
+  'INDEXNOW_FULL:',
+  'INDEXNOW_URLS:',
+  'INDEXNOW_FRESHNESS_HOURS:',
   'Verify Bing Webmaster meta tag is live',
   webmasterToken,
   'node scripts/seo/submit-indexnow.mjs',
@@ -120,6 +135,11 @@ for (const expected of [
   'GetCrawlIssues',
   'GetFeeds',
   'SubmitFeed',
+  'expectedFeedUrls',
+  'https://texasdefined.com/sitemap-explore.xml',
+  'https://texasdefined.com/sitemap-texas-icons.xml',
+  'requiredFeedUrls',
+  'submittedFeedUrls',
   'canonicalFeedUrl',
   'canonicalFeedSubmitted',
   'RemoveFeed',
@@ -162,13 +182,13 @@ requireText(
 );
 
 if (/^\s*push:\s*$/m.test(indexNowWorkflow)) {
-  errors.push('Bing IndexNow workflow must remain manual-only and must not have a push trigger.');
+  errors.push('Bing IndexNow workflow must not run directly on an undeployed push.');
 }
 if (/\bnpx\s+wrangler\s+deploy\b/.test(indexNowWorkflow)) {
   errors.push('Bing IndexNow workflow must not duplicate the production Cloudflare deployment.');
 }
-if (!indexNowWorkflow.includes('manual-only') || !indexNowWorkflow.includes('PUBLIC_INDEXING_ENABLED=true')) {
-  errors.push('Bing IndexNow workflow summary must document the manual-only and explicit public-indexing approval safeguards.');
+if (!indexNowWorkflow.includes('recent sitemap lastmod values') || !indexNowWorkflow.includes('PUBLIC_INDEXING_ENABLED=true')) {
+  errors.push('Bing IndexNow workflow summary must document freshness filtering and explicit public-indexing approval safeguards.');
 }
 
 if (errors.length) {
@@ -177,4 +197,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Bing Webmaster verification, Bingbot access, canonical sitemaps, IndexNow keying, private Webmaster data collection, Supabase-only storage, scheduled sync, and URL submission contracts are protected.');
+console.log('Bing verification, crawler access, canonical sitemaps, meaningful-change IndexNow submission, non-fatal deployment behavior, complete feed submission, private Webmaster collection, and scheduled sync are protected.');
