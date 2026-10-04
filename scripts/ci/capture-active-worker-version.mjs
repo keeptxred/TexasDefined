@@ -41,47 +41,44 @@ function parseActiveVersion(stdout) {
     };
   }
 
-  const weighted = [];
-  const unweighted = new Set();
-
-  function visit(value) {
-    if (Array.isArray(value)) {
-      for (const item of value) visit(item);
-      return;
-    }
-    if (!value || typeof value !== 'object') return;
-
-    const versionId =
-      typeof value.version_id === 'string' ? value.version_id :
-      typeof value.versionId === 'string' ? value.versionId :
-      value.version && typeof value.version === 'object' && typeof value.version.id === 'string' ? value.version.id :
-      null;
-
-    if (versionId && uuidPattern.test(versionId)) {
-      unweighted.add(versionId);
-      const percentage = Number(value.percentage ?? value.traffic_percentage ?? value.traffic ?? value.percent);
-      if (Number.isFinite(percentage)) weighted.push({ versionId, percentage });
-    }
-
-    for (const nested of Object.values(value)) visit(nested);
+  if (!Array.isArray(payload?.versions) || payload.versions.length === 0) {
+    return {
+      versionId: null,
+      detail: 'Wrangler deployment status did not contain the expected top-level versions array.',
+    };
   }
 
-  visit(payload);
+  const traffic = payload.versions.map((entry, index) => {
+    const versionId = typeof entry?.version_id === 'string' ? entry.version_id : null;
+    const percentage = Number(entry?.percentage);
+    return { index, versionId, percentage };
+  });
 
-  const fullTraffic = [...new Set(weighted.filter((item) => item.percentage >= 99.999).map((item) => item.versionId))];
-  let versionId = null;
+  const invalid = traffic.filter(
+    (entry) => !entry.versionId || !uuidPattern.test(entry.versionId) || !Number.isFinite(entry.percentage),
+  );
 
-  if (fullTraffic.length === 1) {
-    versionId = fullTraffic[0];
-  } else if (fullTraffic.length === 0 && unweighted.size === 1) {
-    versionId = [...unweighted][0];
+  if (invalid.length > 0) {
+    return {
+      versionId: null,
+      detail: `Wrangler deployment status contained ${invalid.length} invalid active-traffic ${invalid.length === 1 ? 'entry' : 'entries'}.`,
+    };
   }
+
+  const fullTraffic = traffic.filter((entry) => entry.percentage >= 99.999);
+  const otherTraffic = traffic.filter((entry) => entry.percentage > 0.001 && entry.percentage < 99.999);
+
+  if (fullTraffic.length === 1 && otherTraffic.length === 0) {
+    return { versionId: fullTraffic[0].versionId, detail: null };
+  }
+
+  const trafficSummary = traffic
+    .map((entry) => `${entry.versionId}:${entry.percentage}%`)
+    .join(', ');
 
   return {
-    versionId,
-    detail: versionId
-      ? null
-      : `Expected exactly one 100% active Worker version, found full-traffic=${fullTraffic.length}, discovered=${unweighted.size}.`,
+    versionId: null,
+    detail: `Expected exactly one 100% active Worker version in the latest deployment traffic, found ${trafficSummary || 'no valid traffic entries'}.`,
   };
 }
 
