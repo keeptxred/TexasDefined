@@ -53,6 +53,7 @@ const prebuildChecks = [
   ['CI/GOVERNANCE', 'Validate automation main-write policy', 'node', ['scripts/ci/validate-automation-main-write-policy.mjs']],
   ['CI/GOVERNANCE', 'Validate retired one-time certifications', 'node', ['scripts/ci/validate-retired-one-time-certifications.mjs']],
   ['CI/DEPLOYMENT', 'Validate production rollback safety', 'node', ['scripts/data/validate-production-deployment-safety.mjs']],
+  ['CI/DEPLOYMENT', 'Validate live verification contract', 'node', ['scripts/ci/validate-live-verification-contract.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate permanent SEO content quality governance', 'node', ['scripts/data/validate-content-quality-governance.mjs']],
   ['UX/LAYOUT', 'Validate sitewide dead-space safeguards', 'node', ['scripts/data/validate-layout-dead-space.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate 250 Texas Stories source backlog', 'node', ['scripts/data/validate-250-texas-stories-backlog.mjs']],
