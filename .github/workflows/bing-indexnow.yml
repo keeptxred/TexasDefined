@@ -1,7 +1,19 @@
 name: Bing IndexNow
 
 on:
+  schedule:
+    - cron: '23 14 * * *'
   workflow_dispatch:
+    inputs:
+      full:
+        description: 'Submit every canonical sitemap URL (use only for recovery/backfill)'
+        required: false
+        default: false
+        type: boolean
+      urls:
+        description: 'Optional canonical URLs for explicit publish/update/delete/redirect notification (space or comma separated)'
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -13,6 +25,10 @@ jobs:
     timeout-minutes: 10
     env:
       PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
+      INDEXNOW_STRICT: 'true'
+      INDEXNOW_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full && 'true' || 'false' }}
+      INDEXNOW_URLS: ${{ github.event_name == 'workflow_dispatch' && inputs.urls || '' }}
+      INDEXNOW_FRESHNESS_HOURS: ${{ github.event_name == 'schedule' && '48' || '168' }}
 
     steps:
       - name: Check out TexasDefined
@@ -38,6 +54,8 @@ jobs:
           {
             echo '## Bing / IndexNow'
             echo
-            echo 'This workflow is manual-only.'
+            echo 'Scheduled runs submit only URLs with recent sitemap lastmod values.'
+            echo 'Manual runs may submit explicit canonical URLs or request a guarded full recovery submission.'
             echo 'The submission script is a hard no-op unless PUBLIC_INDEXING_ENABLED=true.'
+            echo 'Normal production deployment treats IndexNow transport failures as non-fatal; this dedicated diagnostic workflow runs in strict mode.'
           } >> "$GITHUB_STEP_SUMMARY"
