@@ -1,4 +1,11 @@
-import type { GeoPoint } from "./types";
+import {
+  isMetroProximityCollectionIndexReady,
+  selectMetroProximityDestinations,
+  type MetroProximityCollection,
+  type MetroProximityMetro,
+  type MetroProximityResult,
+} from "./metro-proximity";
+import type { Destination, GeoPoint } from "./types";
 
 export interface MetroProximityTownReference {
   metroSlug: string;
@@ -10,6 +17,12 @@ export interface MetroProximityTownReference {
   bestFor: readonly string[];
   officialUrl: string;
   sourceCheckedAt: string;
+}
+
+export interface MetroProximityTownResult {
+  town: MetroProximityTownReference;
+  distanceMiles: number;
+  distanceBand: MetroProximityResult["distanceBand"];
 }
 
 const sourceCheckedAt = "2026-10-04";
@@ -155,6 +168,84 @@ export const METRO_PROXIMITY_TOWN_REFERENCES: readonly MetroProximityTownReferen
   },
 ];
 
+function pointDistanceMiles(origin: GeoPoint, target: GeoPoint) {
+  const radians = (value: number) => value * Math.PI / 180;
+  const earthRadiusMiles = 3958.8;
+  const dLat = radians(target.lat - origin.lat);
+  const dLng = radians(target.lng - origin.lng);
+  const leftLat = radians(origin.lat);
+  const rightLat = radians(target.lat);
+  const h = Math.sin(dLat / 2) ** 2
+    + Math.cos(leftLat) * Math.cos(rightLat) * Math.sin(dLng / 2) ** 2;
+  return earthRadiusMiles * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+
+function distanceBand(miles: number): MetroProximityTownResult["distanceBand"] {
+  if (miles <= 35) return "close-in";
+  if (miles <= 80) return "easy-day-trip";
+  return "longer-day-trip";
+}
+
+export function isSmallTownProximityCollection(collection: MetroProximityCollection) {
+  return collection.slug === "small-towns" || collection.slug.startsWith("small-towns-");
+}
+
 export function getMetroProximityTownReferences(metroSlug: string) {
   return METRO_PROXIMITY_TOWN_REFERENCES.filter((town) => town.metroSlug === metroSlug);
+}
+
+export function selectMetroProximityTownReferences(
+  metro: MetroProximityMetro,
+  collection: MetroProximityCollection,
+  destinationRows: MetroProximityResult[] = [],
+): MetroProximityTownResult[] {
+  if (!isSmallTownProximityCollection(collection)) return [];
+  const destinationSlugs = new Set(destinationRows.map((row) => row.destination.slug));
+  const destinationNames = new Set(destinationRows.flatMap((row) => [row.destination.name, row.destination.nearestTown]).map((value) => value.trim().toLowerCase()));
+  const allowance = Math.max(0, collection.maxResults - destinationRows.length);
+
+  return getMetroProximityTownReferences(metro.slug)
+    .filter((town) => !destinationSlugs.has(town.slug) && !destinationNames.has(town.name.toLowerCase()))
+    .map((town) => ({ town, distanceMiles: pointDistanceMiles(metro.center, town.coordinates) }))
+    .filter((row) => (collection.minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > collection.minimumMiles) && row.distanceMiles <= collection.radiusMiles)
+    .sort((left, right) => left.distanceMiles - right.distanceMiles || left.town.name.localeCompare(right.town.name))
+    .slice(0, allowance)
+    .map((row) => ({ ...row, distanceBand: distanceBand(row.distanceMiles) }));
+}
+
+export function isMetroProximityCollectionIndexReadyWithTownReferences(
+  destinations: Destination[],
+  metro: MetroProximityMetro,
+  collection: MetroProximityCollection,
+) {
+  if (!isSmallTownProximityCollection(collection)) {
+    return isMetroProximityCollectionIndexReady(destinations, metro, collection);
+  }
+
+  const destinationRows = selectMetroProximityDestinations(destinations, metro, collection);
+  const townRows = selectMetroProximityTownReferences(metro, collection, destinationRows);
+  const combinedCount = destinationRows.length + townRows.length;
+  if (combinedCount < collection.minResults) return false;
+
+  const slugs = [
+    ...destinationRows.map((row) => row.destination.slug),
+    ...townRows.map((row) => row.town.slug),
+  ];
+  if (new Set(slugs).size !== slugs.length) return false;
+
+  const towns = [
+    ...destinationRows.map((row) => row.destination.nearestTown.trim().toLowerCase()).filter(Boolean),
+    ...townRows.map((row) => row.town.name.trim().toLowerCase()),
+  ];
+  if (new Set(towns).size < collection.minTowns) return false;
+
+  const counties = [
+    ...destinationRows.map((row) => row.destination.county?.replace(/\s+County$/i, "").trim().toLowerCase()).filter((value): value is string => Boolean(value)),
+    ...townRows.map((row) => row.town.county.replace(/\s+County$/i, "").trim().toLowerCase()),
+  ];
+  if (new Set(counties).size < collection.minCounties) return false;
+
+  const destinationQuality = destinationRows.every((row) => row.destination.summary.trim().length >= 80 && Boolean(row.destination.hero?.src));
+  const townQuality = townRows.every((row) => row.town.summary.trim().length >= 80 && Boolean(row.town.officialUrl));
+  return destinationQuality && townQuality;
 }
