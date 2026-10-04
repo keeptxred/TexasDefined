@@ -1,6 +1,7 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
+import { DestinationAuthorityGuide } from "@/components/editorial/DestinationAuthorityGuide";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
@@ -10,8 +11,6 @@ import { Container } from "@/components/layout/Container";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
-
-const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
 
 const CAMPING_DESTINATION_SLUGS = new Set([
   "enchanted-rock-state-natural-area",
