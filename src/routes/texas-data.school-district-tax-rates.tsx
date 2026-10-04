@@ -8,7 +8,10 @@ import { getSchoolDistrictTaxRateData, type SchoolDistrictTaxRateRow } from '@/d
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/school-district-tax-rates';
-const verifiedDate = '2026-10-04';
+const publishedDate = '2026-07-30';
+const updatedDate = '2026-10-04';
+const publishedLabel = 'July 30, 2026';
+const updatedLabel = 'October 4, 2026';
 const teaSource = 'https://tea.texas.gov/about-tea/state-funding/additional-finance-resources/school-district-property-values-and-tax-rates';
 
 type SortKey = 'district' | 'rate-high' | 'rate-low' | 'change-up' | 'change-down';
@@ -37,7 +40,8 @@ export const Route = createFileRoute('/texas-data/school-district-tax-rates')({
             name: title,
             description,
             url: pageUrl,
-            dateModified: verifiedDate,
+            datePublished: publishedDate,
+            dateModified: updatedDate,
             temporalCoverage: `${loaderData.priorYear}/${loaderData.year}`,
             spatialCoverage: { '@type': 'State', name: 'Texas' },
             creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
@@ -118,7 +122,8 @@ function SchoolDistrictTaxRatesPage() {
           </div>
           <dl className="border-l border-border pl-6 text-sm">
             <MetaRow label="Source" value="Texas Comptroller PTAD" />
-            <MetaRow label="Last verified" value="October 4, 2026" />
+            <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Published</dt><dd className="mt-1 font-medium"><time dateTime={publishedDate}>{publishedLabel}</time></dd></div>
+            <div className="border-b border-border py-3"><dt className="text-[0.68rem] uppercase tracking-[0.16em] text-muted-foreground">Updated</dt><dd className="mt-1 font-medium"><time dateTime={updatedDate}>{updatedLabel}</time></dd></div>
             <MetaRow label="Production sync" value={sourceSync} />
             <MetaRow label="District records" value={new Intl.NumberFormat('en-US').format(data.rows.length)} last />
           </dl>
@@ -206,7 +211,7 @@ function SchoolDistrictTaxRatesPage() {
           <div>
             <p className="eyebrow text-primary">Recommended citation</p>
             <h2 className="mt-2 font-display text-3xl">Cite this reference page</h2>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined editorial staff. “Texas School District Property Tax Rates — {data.year}.” TexasDefined.com. Last verified October 4, 2026. Source data: Texas Comptroller of Public Accounts, Property Tax Assistance Division.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined editorial staff. “Texas School District Property Tax Rates — {data.year}.” TexasDefined.com. Published {publishedLabel}; updated {updatedLabel}. Source data: Texas Comptroller of Public Accounts, Property Tax Assistance Division.</p>
           </div>
           <div>
             <p className="eyebrow text-primary">Editor & scope</p>
@@ -222,7 +227,7 @@ function SchoolDistrictTaxRatesPage() {
             { name: 'Texas Education Agency — School District Property Values and Tax Rates', url: teaSource, note: 'Official school-finance reference for adopted M&O and I&S tax-rate components.' },
           ]}
           methodology={`TexasDefined reads its production school-district records from the statewide Texas Comptroller Property Tax Assistance Division rate dataset. The ${data.year} rows are matched to ${data.priorYear} by stable district slug for year-over-year comparisons. Summary statistics exclude records with no single reported total rate or a variable total rate. A school district can span multiple counties, and county labels come from the official taxing-unit record. Rates are dollars per $100 of taxable value; levies and parcel-specific exemptions are not inferred here.`}
-          lastVerified="October 4, 2026"
+          lastVerified={updatedLabel}
           title="Sources, methodology and verification"
         />
 
