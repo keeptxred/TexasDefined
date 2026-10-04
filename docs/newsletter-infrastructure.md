@@ -86,7 +86,7 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 
 ## Server-only issue composer
 
-`newsletter-compose.server.ts` is the pre-UI composition layer. It accepts a validated issue label, subject/preheader, headline, intro, one to twelve story cards, optional closing text, sender metadata, audience metadata, and operator metadata.
+`newsletter-compose.server.ts` is the pre-UI composition layer. Its shared Zod input contract lives in `newsletter-compose-contract.ts` so both the composer and authenticated operator functions validate the exact same payload. The contract accepts an issue label, subject/preheader, headline, intro, one to twelve story cards, optional closing text, sender metadata, audience metadata, and operator metadata.
 
 - `previewTexasDefinedNewsletterDraft` renders the branded HTML and plain-text bodies without creating a database row or contacting Resend.
 - `saveTexasDefinedNewsletterDraft` renders the same bodies and stores them through the canonical draft issue service.
@@ -105,7 +105,46 @@ The composer is intentionally server-only. It does not add an admin page, public
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
 - Rollout state reports whether public signup, bulk sending, double opt-in, confirmation delivery, and the complete Resend credential set are configured. It does not expose secret values.
 
-These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
+These low-level functions remain service-role/server-only and are not routed through the public Worker API.
+
+## Authenticated operator boundary
+
+`newsletter-admin-auth.server.ts` and `newsletter-admin.functions.ts` provide the secure boundary a future newsletter admin screen can call. The existing generic `/admin` route is **not** considered an authorization boundary; sensitive newsletter data and actions are authorized again inside every server function that touches them.
+
+Operator authentication requires two independent production secrets:
+
+- `NEWSLETTER_ADMIN_ACCESS_KEY` — a high-entropy operator access key of at least 32 characters.
+- `NEWSLETTER_ADMIN_SESSION_SECRET` — a separate high-entropy secret of at least 32 characters used to protect the server session.
+
+`NEWSLETTER_ADMIN_SESSION_VERSION` is optional and defaults to `1`. Changing it invalidates previously issued newsletter operator sessions without changing either secret.
+
+The operator session:
+
+- is stored in an HTTP-only cookie;
+- uses `SameSite=Strict`;
+- is secure-only in production;
+- expires after eight hours;
+- is checked for both authorization and current session-version on every protected request.
+
+Access-key comparison hashes both values with Web Crypto SHA-256 and performs a constant-time byte comparison. The raw key is never stored in session data or returned to the browser.
+
+Every authenticated newsletter server function returns `Cache-Control: private, no-store`, `CDN-Cache-Control: no-store`, `Vary: Cookie`, and `X-Robots-Tag: noindex, nofollow` so private operator responses are not shared by a browser/CDN cache or indexed.
+
+The authenticated boundary currently exposes server functions for:
+
+- session login, logout, and status;
+- operator dashboard statistics;
+- issue list and issue detail;
+- validated, zero-side-effect draft preview;
+- validated draft creation through the canonical issue composer;
+- marking an issue ready;
+- local scheduling;
+- cancellation (provider first, then local state);
+- Resend audience synchronization;
+- staging/updating a Resend Broadcast without sending;
+- send-or-schedule, which still independently fails closed unless `NEWSLETTER_SENDING_ENABLED=true` inside the provider adapter.
+
+No newsletter admin page is added by this layer. A future UI will be a thin client over these already-authorized server functions.
 
 ## Resend issue lifecycle
 
@@ -137,9 +176,10 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
 - No newsletter admin page has been added.
+- Newsletter operator authentication remains unusable until both admin secrets are configured.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI and provider configuration are approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
 - No newsletter will send merely because these files are deployed.
 
-This separation allows the public signup surfaces, authenticated admin surface, and actual provider credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows the public signup surfaces, authenticated admin UI, and actual provider credentials to be added later without exposing subscriber data or redesigning the core model.

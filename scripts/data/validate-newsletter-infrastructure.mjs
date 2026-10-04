@@ -10,7 +10,10 @@ const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const confirmation = read('src/data/newsletter/newsletter-confirmation.server.ts');
 const subscription = read('src/data/newsletter/newsletter-subscription.server.ts');
 const functions = read('src/data/newsletter/newsletter.functions.ts');
+const adminAuth = read('src/data/newsletter/newsletter-admin-auth.server.ts');
+const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
+const composeContract = read('src/data/newsletter/newsletter-compose-contract.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
 const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
@@ -63,6 +66,44 @@ for (const marker of [
 ]) requireText(functions, marker, 'Newsletter server functions');
 
 for (const marker of [
+  'useSession',
+  'NEWSLETTER_ADMIN_ACCESS_KEY',
+  'NEWSLETTER_ADMIN_SESSION_SECRET',
+  'NEWSLETTER_ADMIN_SESSION_VERSION',
+  "sameSite: 'strict'",
+  'httpOnly: true',
+  'SESSION_MAX_AGE_SECONDS',
+  "crypto.subtle.digest('SHA-256'",
+  'constantTimeEqual',
+  'requireNewsletterAdmin',
+]) requireText(adminAuth, marker, 'Newsletter operator authentication');
+
+for (const marker of [
+  'private, no-store',
+  "Vary: 'Cookie'",
+  'requireNewsletterAdmin',
+  'getNewsletterAdminDashboard',
+  'getNewsletterAdminIssue',
+  'previewNewsletterAdminDraft',
+  'saveNewsletterAdminDraft',
+  'newsletterDraftSchema',
+  'markNewsletterAdminIssueReady',
+  'scheduleNewsletterAdminIssue',
+  'cancelNewsletterAdminIssue',
+  'syncNewsletterAdminAudience',
+  'stageNewsletterAdminIssueInResend',
+  'sendOrScheduleNewsletterAdminIssue',
+  'NEWSLETTER_SENDING_ENABLED',
+]) requireText(adminFunctions, marker, 'Newsletter authenticated operator functions');
+
+for (const marker of [
+  'newsletterDraftSchema',
+  'newsletterStorySchema',
+  '.min(1).max(12)',
+  'TexasDefinedNewsletterDraftInput',
+]) requireText(composeContract, marker, 'Newsletter draft contract');
+
+for (const marker of [
   '{{{RESEND_UNSUBSCRIBE_URL}}}',
   'renderTexasDefinedNewsletter',
   'Read on TexasDefined',
@@ -74,7 +115,6 @@ for (const marker of [
   'saveTexasDefinedNewsletterDraft',
   'saveNewsletterIssueDraft',
   'renderTexasDefinedNewsletter',
-  '.min(1).max(12)',
   "composer: 'texasdefined-story-digest-v1'",
   'storyCount',
 ]) requireText(composer, marker, 'Newsletter issue composer');
@@ -127,6 +167,9 @@ for (const marker of [
   'Cloudflare Email Service is not the newsletter transport',
   'Double opt-in and confirmation delivery',
   '15-minute confirmation-email cooldown',
+  'Authenticated operator boundary',
+  'NEWSLETTER_ADMIN_ACCESS_KEY',
+  'NEWSLETTER_ADMIN_SESSION_SECRET',
   'Server-only issue composer',
   'Server-only operator control plane',
 ]) requireText(docs, marker, 'Newsletter documentation');
