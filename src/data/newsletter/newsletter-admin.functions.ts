@@ -8,6 +8,7 @@ import {
   newsletterAdminSessionStatus,
   requireNewsletterAdmin,
 } from './newsletter-admin-auth.server';
+import { newsletterDraftSchema } from './newsletter-compose-contract';
 
 const issueStatusSchema = z.enum(['draft', 'ready', 'scheduled', 'sending', 'sent', 'cancelled']);
 const issueIdSchema = z.object({ issueId: z.string().uuid() });
@@ -75,6 +76,22 @@ export const getNewsletterAdminIssue = createServerFn({ method: 'GET' })
     await authorize();
     const { getNewsletterIssueForOperator } = await import('./newsletter-operations.server');
     return getNewsletterIssueForOperator(data.issueId);
+  });
+
+export const previewNewsletterAdminDraft = createServerFn({ method: 'POST' })
+  .inputValidator(newsletterDraftSchema)
+  .handler(async ({ data }) => {
+    await authorize();
+    const { previewTexasDefinedNewsletterDraft } = await import('./newsletter-compose.server');
+    return previewTexasDefinedNewsletterDraft(data);
+  });
+
+export const saveNewsletterAdminDraft = createServerFn({ method: 'POST' })
+  .inputValidator(newsletterDraftSchema)
+  .handler(async ({ data }) => {
+    await authorize();
+    const { saveTexasDefinedNewsletterDraft } = await import('./newsletter-compose.server');
+    return saveTexasDefinedNewsletterDraft(data);
   });
 
 export const markNewsletterAdminIssueReady = createServerFn({ method: 'POST' })
