@@ -265,7 +265,7 @@ function IssueReview({ detail, busy, canStage, scheduleValue, setScheduleValue, 
         </div> : null}
         <p className="mt-4 text-xs leading-5 text-muted-foreground">No send-now action is exposed here. Provider staging and scheduling do not bypass NEWSLETTER_SENDING_ENABLED.</p>
       </div>
-      <div><h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Rendered preview</h4>{html ? <iframe title="Newsletter issue preview" sandbox="" srcDoc={html} style={{ minHeight: 720 }} className="mt-3 w-full border border-border bg-white" /> : <pre style={{ maxHeight: 720 }} className="mt-3 overflow-auto whitespace-pre-wrap border border-border bg-muted/20 p-5 text-xs leading-6">{String(issue.text_body || 'No rendered body is available.')}</pre>}</div>
+      <div><h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Rendered preview</h4>{html ? <iframe title="Newsletter issue preview" sandbox="" srcDoc={html} style={{ minHeight: 720, backgroundColor: '#fff' }} className="mt-3 w-full border border-border" /> : <pre style={{ maxHeight: 720 }} className="mt-3 overflow-auto whitespace-pre-wrap border border-border bg-muted/20 p-5 text-xs leading-6">{String(issue.text_body || 'No rendered body is available.')}</pre>}</div>
     </div>
   </div>;
 }
