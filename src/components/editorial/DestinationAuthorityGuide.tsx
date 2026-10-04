@@ -17,7 +17,13 @@ function sourceHref(index: number) {
   return `#authority-source-${index + 1}`;
 }
 
-export function DestinationAuthorityGuide({ destination }: { destination: Destination }) {
+export function DestinationAuthorityGuide({
+  destination,
+  showUnusualBusinessAuthority = true,
+}: {
+  destination: Destination;
+  showUnusualBusinessAuthority?: boolean;
+}) {
   const authority = destination.authorityGuide;
   if (!authority) return null;
 
@@ -46,7 +52,7 @@ export function DestinationAuthorityGuide({ destination }: { destination: Destin
             <div className="py-3"><dt className="text-muted-foreground">Good for first-time visitors</dt><dd className="mt-1 leading-6">{authority.assessment.firstTimeValue}</dd></div>
           </dl>
         </section>
-        <UnusualBusinessAuthorityPanel slug={destination.slug} />
+        {showUnusualBusinessAuthority ? <UnusualBusinessAuthorityPanel slug={destination.slug} /> : null}
       </Container>
     </Section>
 
