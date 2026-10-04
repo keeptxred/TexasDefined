@@ -54,9 +54,9 @@ The operator dashboard reports both `confirmationConfigured` and `doubleOptInRea
 
 TexasDefined uses the Resend Broadcast/Contacts/Segments model for newsletter delivery. Resend is intentionally used as a **marketing email** provider rather than treating a newsletter as a sequence of transactional sends.
 
-Cloudflare Email Service is not the newsletter transport. Its current product scope is transactional email, while TexasDefined needs marketing/broadcast functionality such as recipient segmentation, automatic unsubscribe handling, scheduling, throttling, and engagement events.
+Cloudflare Email Service is not the newsletter transport. Its product scope is transactional email, while TexasDefined needs marketing/broadcast functionality such as recipient segmentation, unsubscribe handling, scheduling, throttling, and engagement events.
 
-`newsletter-resend.server.ts` provides the provider adapter. Before a broadcast is created or sent it reconciles **every** TexasDefined subscriber against the configured Resend segment, not just active rows. This is important because local suppressions must be removed from the provider audience before every send.
+`newsletter-resend.server.ts` provides the provider adapter. Before a broadcast is created or sent it reconciles every TexasDefined subscriber against the configured Resend segment, not just active rows. Local suppressions are therefore removed from the provider audience before every send.
 
 Provider-side unsubscribes are fail-closed: if Resend says a contact is unsubscribed while TexasDefined still says active, the provider opt-out wins and is mirrored back into Supabase. The adapter never silently flips an existing provider-unsubscribed contact back to subscribed.
 
@@ -71,12 +71,20 @@ The Worker needs these secrets/variables before the complete Resend integration 
 
 Transactional double-opt-in confirmation only needs `RESEND_API_KEY` and `NEWSLETTER_FROM_EMAIL`; Broadcast audience/sending readiness additionally needs the segment and webhook configuration.
 
+`RESEND_API_KEY` and `RESEND_WEBHOOK_SECRET` should be stored as Cloudflare Worker secrets. `RESEND_NEWSLETTER_SEGMENT_ID`, `NEWSLETTER_FROM_EMAIL`, and rollout flags can be regular Worker variables. `wrangler.jsonc` sets `keep_vars: true` so normal CI deployments preserve dashboard-configured runtime variables rather than silently replacing them. Secret values remain outside the repository.
+
 Two independent rollout switches remain off by default:
 
 - `NEWSLETTER_SIGNUPS_ENABLED=true` exposes the subscribe endpoint and server-function signup path for public forms.
 - `NEWSLETTER_SENDING_ENABLED=true` permits a Resend Broadcast to actually send or schedule.
 
 Having provider credentials alone does **not** arm public signup or bulk sending.
+
+### Runtime readiness
+
+`getNewsletterRuntimeReadiness()` reports operational readiness without returning secret values. It reports public-signup state, bulk-sending state, double-opt-in state, confirmation readiness, Resend marketing readiness, `missingRuntimeBindings`, and `activationBlocked`.
+
+The missing runtime bindings list is diagnostic and fail-closed. Bulk sending is blocked when the full Resend marketing configuration is incomplete. Public signup is reported blocked when double opt-in is enabled but confirmation delivery is not configured.
 
 ### Sending domain
 
@@ -92,24 +100,24 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 - `saveTexasDefinedNewsletterDraft` renders the same bodies and stores them through the canonical draft issue service.
 - Duplicate story URLs are removed before rendering.
 - Story URLs are normalized to HTTP(S), and the underlying template escapes editorial text before inserting it into HTML.
-- Saved content retains the structured story selection plus a composer/version marker, so a future admin editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
+- Saved content retains the structured story selection plus a composer/version marker, so an editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
 
-The composer is intentionally server-only. It does not add an admin page, public route, signup form, provider call, or sending side effect.
+The composer is intentionally server-only. It does not add a public route, signup form, provider call, or sending side effect.
 
 ## Server-only operator control plane
 
-`newsletter-operations.server.ts` exposes the read-side backend needed by a future newsletter admin experience without creating a browser-accessible newsletter admin API.
+`newsletter-operations.server.ts` exposes the read-side backend used by newsletter operations without creating a browser-accessible public newsletter API.
 
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
-- `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
-- Rollout state reports whether public signup, bulk sending, double opt-in, confirmation delivery, and the complete Resend credential set are configured. It does not expose secret values.
+- `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and rollout readiness.
+- `getNewsletterRuntimeReadiness` reports the rollout state and names of missing runtime bindings without exposing their values.
 
 These low-level functions remain service-role/server-only and are not routed through the public Worker API.
 
 ## Authenticated operator boundary
 
-`newsletter-admin-auth.server.ts` and `newsletter-admin.functions.ts` provide the secure boundary a future newsletter admin screen can call. The existing generic `/admin` route is **not** considered an authorization boundary; sensitive newsletter data and actions are authorized again inside every server function that touches them.
+`newsletter-admin-auth.server.ts` and `newsletter-admin.functions.ts` provide the secure boundary used by the newsletter operations UI. The generic `/admin` route is **not** considered an authorization boundary; sensitive newsletter data and actions are authorized again inside every server function that touches them.
 
 Operator authentication requires two independent production secrets:
 
@@ -118,33 +126,41 @@ Operator authentication requires two independent production secrets:
 
 `NEWSLETTER_ADMIN_SESSION_VERSION` is optional and defaults to `1`. Changing it invalidates previously issued newsletter operator sessions without changing either secret.
 
-The operator session:
+The dedicated newsletter operator session:
 
 - is stored in an HTTP-only cookie;
 - uses `SameSite=Strict`;
 - is secure-only in production;
 - expires after eight hours;
-- is checked for both authorization and current session-version on every protected request.
+- is checked for both authorization and current session version on every protected request.
 
 Access-key comparison hashes both values with Web Crypto SHA-256 and performs a constant-time byte comparison. The raw key is never stored in session data or returned to the browser.
 
 Every authenticated newsletter server function returns `Cache-Control: private, no-store`, `CDN-Cache-Control: no-store`, `Vary: Cookie`, and `X-Robots-Tag: noindex, nofollow` so private operator responses are not shared by a browser/CDN cache or indexed.
 
-The authenticated boundary currently exposes server functions for:
+The authenticated boundary exposes server functions for session login/logout/status, dashboard statistics, issue list/detail, draft preview/save, marking ready, local scheduling, cancellation, Resend audience synchronization, provider staging, and send-or-schedule. The final send-or-schedule function still independently fails closed unless `NEWSLETTER_SENDING_ENABLED=true` inside the provider adapter.
 
-- session login, logout, and status;
-- operator dashboard statistics;
-- issue list and issue detail;
-- validated, zero-side-effect draft preview;
-- validated draft creation through the canonical issue composer;
-- marking an issue ready;
-- local scheduling;
-- cancellation (provider first, then local state);
-- Resend audience synchronization;
-- staging/updating a Resend Broadcast without sending;
-- send-or-schedule, which still independently fails closed unless `NEWSLETTER_SENDING_ENABLED=true` inside the provider adapter.
+## Protected newsletter operations panel
 
-No newsletter admin page is added by this layer. A future UI will be a thin client over these already-authorized server functions.
+The protected newsletter operations panel lives inside the existing lazy-loaded Platform Health surface at `/admin/platform-health#newsletter`. Keeping it inside that lazy admin route avoids creating another top-level bundle or a public newsletter endpoint.
+
+The panel does not load newsletter data simply because someone can open the admin shell. It first checks the dedicated newsletter operator session. If no valid session exists, the operator must authenticate using `NEWSLETTER_ADMIN_ACCESS_KEY`; the server then establishes the HTTP-only session described above. The access key is not stored in `localStorage` or `sessionStorage`.
+
+The panel can:
+
+- show active and pending subscriber totals plus suppression counts;
+- show draft and queued-delivery counts;
+- report public-signup, bulk-send, confirmation, double-opt-in, Resend, and runtime-binding readiness;
+- list recent newsletter issues and provider-event totals;
+- review one issue and its delivery-state totals;
+- preview rendered newsletter HTML inside a sandboxed iframe;
+- synchronize the local audience to Resend without sending;
+- stage or update an issue in Resend without sending;
+- mark an eligible issue ready;
+- schedule an eligible issue for a future time;
+- cancel an eligible issue.
+
+The panel deliberately exposes **no send-now control**. Provider staging and scheduling do not bypass `NEWSLETTER_SENDING_ENABLED`; the server-side sending kill switch remains authoritative.
 
 ## Resend issue lifecycle
 
@@ -175,11 +191,11 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
-- No newsletter admin page has been added.
-- Newsletter operator authentication remains unusable until both admin secrets are configured.
+- The protected newsletter operations panel is admin-only and remains unusable until both newsletter admin secrets are configured.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI and provider configuration are approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
+- The protected panel has no send-now control and does not arm sending.
 - No newsletter will send merely because these files are deployed.
 
-This separation allows the public signup surfaces, authenticated admin UI, and actual provider credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows public signup surfaces and provider credentials to be activated later without exposing subscriber data or redesigning the core model.
