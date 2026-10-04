@@ -17,6 +17,17 @@ const pages = [
     ],
   },
   {
+    label: 'Hill Country geology',
+    url: 'https://texasdefined.com/explore/landscapes/why-is-the-texas-hill-country-so-hilly',
+    required: [
+      'Texas geology explained',
+      'The answer in 30 seconds',
+      'Llano Uplift',
+      'Research desk',
+    ],
+    forbidden: ['Texas Landscapes guide'],
+  },
+  {
     label: 'Six-man football',
     url: 'https://texasdefined.com/article/texas-six-man-football-rules-explained',
     required: [
