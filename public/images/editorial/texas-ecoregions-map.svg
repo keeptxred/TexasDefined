@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Texas ecoregions simplified orientation map</title>
+  <desc id="desc">A simplified Texas-shaped orientation graphic labeling the ten major natural regions used by Texas Parks and Wildlife. Boundaries are generalized and not official.</desc>
+  <defs>
+    <clipPath id="texas">
+      <path d="M330 130 L610 130 L620 310 L1010 310 L1110 365 L1285 350 L1395 455 L1315 565 L1240 640 L1160 790 L1010 900 L900 850 L815 765 L745 675 L650 600 L560 570 L500 495 L430 470 L385 380 L330 315 Z"/>
+    </clipPath>
+    <style>
+      .label{font:700 29px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#1d2522;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+      .small{font:600 24px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#1d2522;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+      .legend{font:600 21px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#25322d}
+      .note{font:500 22px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#58645f}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#f4efe5"/>
+  <text x="95" y="82" font-family="Georgia,serif" font-size="47" font-weight="700" fill="#1f2a26">Texas natural regions</text>
+  <text x="96" y="118" class="note">Simplified orientation · 10-region TPWD framework · boundaries generalized</text>
+
+  <g clip-path="url(#texas)">
+    <rect x="250" y="110" width="310" height="820" fill="#c99a63"/>
+    <rect x="500" y="110" width="220" height="820" fill="#d8b66d"/>
+    <rect x="680" y="110" width="180" height="820" fill="#c8ce78"/>
+    <rect x="820" y="110" width="210" height="820" fill="#aabf73"/>
+    <rect x="970" y="110" width="225" height="820" fill="#85aa79"/>
+    <rect x="1160" y="110" width="260" height="820" fill="#6f9d84"/>
+    <path d="M1060 600 C1180 620 1290 650 1430 720 L1430 940 L1010 940 Z" fill="#71aebe"/>
+    <path d="M630 575 C735 520 855 520 960 560 L960 790 C830 755 720 720 610 650 Z" fill="#b8a36b"/>
+    <path d="M610 320 C700 330 770 355 840 405 L805 580 C735 545 675 525 600 515 Z" fill="#d5cb86"/>
+    <path d="M815 360 C900 335 985 345 1060 390 L1045 585 C970 550 900 540 820 560 Z" fill="#9eb278"/>
+  </g>
+
+  <path d="M330 130 L610 130 L620 310 L1010 310 L1110 365 L1285 350 L1395 455 L1315 565 L1240 640 L1160 790 L1010 900 L900 850 L815 765 L745 675 L650 600 L560 570 L500 495 L430 470 L385 380 L330 315 Z" fill="none" stroke="#26332e" stroke-width="8" stroke-linejoin="round"/>
+
+  <text x="445" y="560" class="label">Trans-Pecos</text>
+  <text x="596" y="440" class="small">High Plains</text>
+  <text x="690" y="585" class="small">Rolling Plains</text>
+  <text x="770" y="455" class="small">Cross Timbers</text>
+  <text x="880" y="665" class="small">Edwards Plateau</text>
+  <text x="920" y="455" class="small">Blackland Prairie</text>
+  <text x="1040" y="505" class="small">Post Oak Savannah</text>
+  <text x="1185" y="470" class="small">Piney Woods</text>
+  <text x="850" y="785" class="small">South Texas Plains</text>
+  <text x="1190" y="745" class="small">Gulf Prairies</text>
+  <text x="1190" y="776" class="small">&amp; Marshes</text>
+
+  <g transform="translate(105,730)">
+    <rect x="0" y="0" width="430" height="190" rx="18" fill="#fffaf2" stroke="#d5caba" stroke-width="2"/>
+    <text x="25" y="43" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#26332e">How to read this graphic</text>
+    <text x="25" y="82" class="note">This is an editorial orientation map,</text>
+    <text x="25" y="112" class="note">not an official boundary layer.</text>
+    <text x="25" y="151" class="note">Use TPWD for exact regional boundaries.</text>
+  </g>
+</svg>
