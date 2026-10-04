@@ -1,0 +1,124 @@
+name: Close unusual-business cleanup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/close-unusual-business-cleanup.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: close-unusual-business-cleanup
+  cancel-in-progress: false
+
+jobs:
+  verify-and-clean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Verify six live authority panels
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          paths=(
+            '/article/unusual-texas-businesses-services'
+            '/article/bluebonnet-animal-preservation-athens'
+            '/article/phenix-knives-bellville'
+            '/article/horses-on-the-beach-corpus-christi'
+            '/article/mum-queen-spring-texas-homecoming-mums'
+            '/destination/whirlyball-hurst'
+          )
+          markers=(
+            'Quick reference'
+            'At a glance'
+            'Sources and verification'
+            'Methodology'
+            'Last verified'
+            'Reviewed by'
+            'Stable URL'
+            'Recommended citation'
+          )
+
+          verified=0
+          for attempt in $(seq 1 40); do
+            all_ok=1
+            for path in "${paths[@]}"; do
+              url="https://texasdefined.com${path}?authority_verify=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${attempt}"
+              body="$(curl -fsSL --compressed --max-time 25 -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' "$url" || true)"
+              if [[ -z "$body" ]]; then
+                echo "attempt ${attempt}: empty response for ${path}"
+                all_ok=0
+                continue
+              fi
+              for marker in "${markers[@]}"; do
+                if ! grep -Fq "$marker" <<<"$body"; then
+                  echo "attempt ${attempt}: ${path} missing marker: ${marker}"
+                  all_ok=0
+                fi
+              done
+            done
+
+            if [[ "$all_ok" == '1' ]]; then
+              verified=1
+              echo "All six authority pages expose the complete live citation layer."
+              break
+            fi
+
+            if [[ "$attempt" != '40' ]]; then
+              sleep 15
+            fi
+          done
+
+          if [[ "$verified" != '1' ]]; then
+            echo '::error title=Authority layer not live::One or more canonical production pages did not expose the required authority markers.'
+            exit 1
+          fi
+
+      - name: Delete stale unusual-business scratch branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          branches=(
+            'feature/unusual-business-authority-upgrade-final'
+            'feature/unusual-business-authority-upgrade-final2'
+            'feature/unusual-business-authority-upgrade-final3'
+            'feature/unusual-business-authority-upgrade-final4'
+            'feature/unusual-business-authority-upgrade-final5'
+            'feature/unusual-business-authority-upgrade-final6'
+            'feature/unusual-business-authority-upgrade-final7'
+            'feature/unusual-business-authority-upgrade-final8'
+            'feature/unusual-business-authority-upgrade-v2'
+            'feature/unusual-business-authority-upgrade-v3'
+            'feature/unusual-business-authority-upgrade-v4'
+            'feature/close-unusual-business-cleanup'
+          )
+
+          for branch in "${branches[@]}"; do
+            encoded_branch="${branch//\//%2F}"
+            if gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${encoded_branch}" >/dev/null 2>&1; then
+              gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${encoded_branch}"
+              echo "deleted ${branch}"
+            else
+              echo "already absent ${branch}"
+            fi
+          done
+
+      - name: Confirm scratch branches are gone
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          leftovers="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/branches?per_page=100" --jq '.[].name' | grep -E '^feature/(unusual-business-authority-upgrade-(final[2-8]?|v[2-4])|close-unusual-business-cleanup)$' || true)"
+          if [[ -n "$leftovers" ]]; then
+            echo '::error title=Scratch branch cleanup incomplete::'
+            echo "$leftovers"
+            exit 1
+          fi
+          echo 'No unusual-business scratch branches remain.'
