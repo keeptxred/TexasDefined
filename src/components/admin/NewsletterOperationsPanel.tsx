@@ -217,7 +217,7 @@ export function NewsletterOperationsPanel() {
         <button type="button" disabled={busy} onClick={() => void refresh()} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary disabled:opacity-50">Refresh</button>
       </div>
 
-      <div className="mt-8 grid gap-8 xl:grid-cols-[1.25fr_0.75fr]">
+      <div className="mt-8 grid gap-8 xl:grid-cols-2">
         <div>
           <h3 className="font-display text-2xl">Recent issues</h3>
           {dashboard.recentIssues.length ? dashboard.recentIssues.map((issue) => <article key={issue.id} className="border-b border-border py-5">
@@ -252,7 +252,7 @@ function IssueReview({ detail, busy, canStage, scheduleValue, setScheduleValue, 
   const html = typeof issue.html_body === 'string' ? issue.html_body : '';
   return <div className="mt-9 border-t border-border pt-7">
     <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="eyebrow text-primary">Issue review</p><h3 className="mt-2 font-display text-3xl">{String(issue.subject || 'Untitled issue')}</h3><p className="mt-2 text-sm text-muted-foreground">{label(status)}</p></div><button type="button" onClick={close} className="min-h-10 border border-border px-3 py-2 text-sm font-semibold">Close</button></div>
-    <div className="mt-6 grid gap-6 lg:grid-cols-[18rem_1fr]">
+    <div className="mt-6 grid gap-6 lg:grid-cols-2">
       <div>
         <h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Delivery state</h4>
         <div className="mt-3 border-t border-border">{Object.entries(detail.deliveryCounts).length ? Object.entries(detail.deliveryCounts).map(([state, count]) => <div key={state} className="flex justify-between border-b border-border py-3 text-sm"><span>{label(state)}</span><strong>{count}</strong></div>) : <p className="py-4 text-sm text-muted-foreground">No deliveries queued.</p>}</div>
@@ -265,7 +265,7 @@ function IssueReview({ detail, busy, canStage, scheduleValue, setScheduleValue, 
         </div> : null}
         <p className="mt-4 text-xs leading-5 text-muted-foreground">No send-now action is exposed here. Provider staging and scheduling do not bypass NEWSLETTER_SENDING_ENABLED.</p>
       </div>
-      <div><h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Rendered preview</h4>{html ? <iframe title="Newsletter issue preview" sandbox="" srcDoc={html} className="mt-3 min-h-[720px] w-full border border-border bg-white" /> : <pre className="mt-3 max-h-[720px] overflow-auto whitespace-pre-wrap border border-border bg-muted/20 p-5 text-xs leading-6">{String(issue.text_body || 'No rendered body is available.')}</pre>}</div>
+      <div><h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Rendered preview</h4>{html ? <iframe title="Newsletter issue preview" sandbox="" srcDoc={html} style={{ minHeight: 720 }} className="mt-3 w-full border border-border bg-white" /> : <pre style={{ maxHeight: 720 }} className="mt-3 overflow-auto whitespace-pre-wrap border border-border bg-muted/20 p-5 text-xs leading-6">{String(issue.text_body || 'No rendered body is available.')}</pre>}</div>
     </div>
   </div>;
 }
