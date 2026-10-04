@@ -2,6 +2,7 @@ import { Container } from "@/components/layout/Container";
 import { fishingTechniqueAuthorityContent, type FishingTechniqueAuthorityContent } from "@/data/fishing/technique-authority-content";
 import { fishingTechniqueGuideContent } from "@/data/fishing/technique-guide-content";
 import { fishingTechniqueImages } from "@/data/fishing/technique-images";
+import { fishingTechniqueTackleVisuals } from "@/data/fishing/technique-tackle-visuals";
 import { FISHING_STRUCTURE_PATH, FISHING_VEGETATION_PATH } from "@/data/fishing/habitat-guides";
 import { relatedFishingTechniques } from "@/data/fishing/related-techniques";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
@@ -13,6 +14,7 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
   const guide = fishingTechniqueGuideContent[technique.slug];
   const authority = fishingTechniqueAuthorityContent[technique.slug as keyof typeof fishingTechniqueAuthorityContent];
   const images = fishingTechniqueImages[technique.slug];
+  const tackleVisual = fishingTechniqueTackleVisuals[technique.slug];
   const relatedTechniques = technique.slug in relatedFishingTechniques ? relatedFishingTechniques[technique.slug as keyof typeof relatedFishingTechniques] : [];
   const selectionGuide = guide?.selectionGuide ?? authority?.selectionGuide ?? [];
   const selectionTitle = guide?.selectionTitle ?? authority?.selectionTitle ?? `${technique.name} by Depth and Cover`;
@@ -160,8 +162,23 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
           </div>
         </section> : null}
 
-        <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[15rem_1fr]">
-          <div><p className="eyebrow text-primary">Rod, reel, line and rigging</p><h2 className="mt-2 font-display text-3xl">Basic Tackle and Rigging Setup</h2></div>
+        <section className="grid gap-8 border-y border-border py-10 lg:grid-cols-[20rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Rod, reel, line and rigging</p>
+            <h2 className="mt-2 font-display text-3xl">Basic Tackle and Rigging Setup</h2>
+            {tackleVisual ? <figure className="mt-6 overflow-hidden border border-border bg-muted/20">
+              <img
+                src={tackleVisual.src}
+                alt={tackleVisual.alt}
+                width={tackleVisual.width}
+                height={tackleVisual.height}
+                loading="lazy"
+                decoding="async"
+                className="w-full object-contain"
+              />
+              <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">{tackleVisual.caption}</figcaption>
+            </figure> : null}
+          </div>
           <div className="grid gap-px border border-border bg-border md:grid-cols-2">
             {guide.setup.map((item) => <div key={item} className="bg-background p-5 text-sm leading-7">{item}</div>)}
           </div>

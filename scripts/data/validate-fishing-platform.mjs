@@ -104,6 +104,7 @@ if (failures.length) {
 }
 
 await import("./validate-fishing-species-platform.mjs");
+await import("./validate-fishing-technique-tackle-visuals.mjs");
 await import("./validate-fishing-showcase-lakes.mjs");
 await import("./validate-fishing-guide-platform.mjs");
 
