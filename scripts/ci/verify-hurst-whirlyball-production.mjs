@@ -4,7 +4,7 @@ const runId = process.env.GITHUB_RUN_ID || Date.now().toString();
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const FETCH_ATTEMPTS = 4;
-const FETCH_TIMEOUT_MS = 15_000;
+const FETCH_TIMEOUT_MS = 30_000;
 const FETCH_RETRY_DELAY_MS = 2_000;
 
 function requireCondition(condition, message) {
@@ -38,17 +38,21 @@ async function fetchLive(path, { attempts = FETCH_ATTEMPTS, timeoutMs = FETCH_TI
         headers: {
           'cache-control': 'no-cache',
           pragma: 'no-cache',
-          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/2.0',
+          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/2.1',
         },
       });
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       const body = await response.text();
-      if (!challenged && response.ok && body.length > 0) return body;
+      if (!challenged && response.ok && body.length > 0) {
+        console.log(`verified live fetch ${path} on attempt ${attempt}`);
+        return body;
+      }
       lastError = new Error(challenged
         ? `${url.pathname} returned a Cloudflare challenge.`
         : `${url.pathname} returned HTTP ${response.status}.`);
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
+      console.warn(`live fetch ${path} attempt ${attempt}/${attempts} failed: ${lastError.message}`);
     }
     if (attempt < attempts) await sleep(FETCH_RETRY_DELAY_MS);
   }
@@ -68,7 +72,7 @@ async function verifyLiveImage(path, label) {
         headers: {
           'cache-control': 'no-cache',
           pragma: 'no-cache',
-          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/2.0',
+          'user-agent': 'TexasDefined-CI-Hurst-WhirlyBall/2.1',
         },
       });
       const contentType = response.headers.get('content-type') || '';
@@ -77,6 +81,7 @@ async function verifyLiveImage(path, label) {
       lastError = new Error(`${label} returned HTTP ${response.status}, content-type ${contentType || 'missing'}, ${body.byteLength} bytes.`);
     } catch (error) {
       lastError = error instanceof Error ? error : new Error(String(error));
+      console.warn(`${label} attempt ${attempt}/3 failed: ${lastError.message}`);
     }
     if (attempt < 3) await sleep(FETCH_RETRY_DELAY_MS);
   }
@@ -95,14 +100,14 @@ function requireNearbyLink(html, label, href, message) {
   requireCondition(window.includes(href), message);
 }
 
-const [directory, city, whirlyball, tarrant, primarySitemap, exploreSitemap] = await Promise.all([
-  fetchLive('/browse/cities'),
-  fetchLive('/city/hurst'),
-  fetchLive('/destination/whirlyball-hurst'),
-  fetchLive('/county/tarrant'),
-  fetchLive('/sitemap.xml'),
-  fetchLive('/sitemap-explore.xml'),
-]);
+// Fetch sequentially so six cache-busted SSR requests do not compete with each
+// other and turn normal production latency into a false-negative smoke result.
+const directory = await fetchLive('/browse/cities');
+const city = await fetchLive('/city/hurst');
+const whirlyball = await fetchLive('/destination/whirlyball-hurst');
+const tarrant = await fetchLive('/county/tarrant');
+const primarySitemap = await fetchLive('/sitemap.xml');
+const exploreSitemap = await fetchLive('/sitemap-explore.xml');
 
 requireCondition(
   directory.includes('Hurst has a Texas Defined city guide with official municipal sources'),
