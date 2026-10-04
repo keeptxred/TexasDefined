@@ -14,6 +14,7 @@ import {
   metroProximityTitle,
   selectMetroProximityDestinations,
 } from "./metro-proximity";
+import { buildMetroProximityEventContextServer } from "./metro-proximity-events.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -123,6 +124,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const destinations = await listResolvedDestinations({ limit: 5000 });
   const results = selectMetroProximityDestinations(destinations, metro, collection);
   const indexReady = isMetroProximityCollectionIndexReady(destinations, metro, collection);
+  const eventContext = buildMetroProximityEventContextServer(metro, collection, results);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const title = metroProximityTitle(metro, collection);
   const description = metroProximityDescription(metro, collection, results.length);
@@ -176,5 +178,5 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       }),
     }],
   };
-  return { metro, collection, results, indexReady, canonicalPath, title, description, reviewedAt, head };
+  return { metro, collection, results, eventContext, indexReady, canonicalPath, title, description, reviewedAt, head };
 }
