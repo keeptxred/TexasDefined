@@ -162,6 +162,23 @@ function metrics(source) {
   };
 }
 
+function validateAssuranceContracts(errors) {
+  const seatRegistry = read('src/data/county-seat-registry.ts');
+  const countyProfile = read('src/data/county-profile.ts');
+  const localGovernment = read('src/data/local-government-profile.ts');
+  const entityRoute = read('src/routes/$kind.$slug.lazy.tsx');
+
+  for (let batch = 1; batch <= 9; batch += 1) {
+    if (!seatRegistry.includes(`TEXAS_COUNTY_FACTS_BATCH${batch}`)) errors.push(`County-seat registry is missing verified batch ${batch}`);
+  }
+  if (!seatRegistry.includes('COUNTY_SEAT_BY_SLUG.size !== 254')) errors.push('County-seat registry does not enforce exactly 254 verified county seats');
+  if (!countyProfile.includes('verifiedCountySeatBySlug') || !countyProfile.includes('liveCountySeatName ?? verifiedSeat?.name')) errors.push('County runtime does not guarantee repository-backed verified county-seat fallback');
+  if (!localGovernment.includes('verifyExternalWebsite') || !localGovernment.includes('websiteUrl: appraisalWebsiteUrl') || !localGovernment.includes('websiteUrl: taxOfficeWebsiteUrl')) errors.push('County local-government runtime does not filter discovered service links through reachability checks');
+  if (!entityRoute.includes('countyProfileCoordinates') || !entityRoute.includes('encodeURIComponent(`${entity.name}, Texas`)')) errors.push('County pages do not guarantee an Open in maps fallback');
+  if (!entityRoute.includes("if (['county','region','metro-area'].includes(kind)) return 'AdministrativeArea'")) errors.push('County JSON-LD is not protected as AdministrativeArea');
+  if (!entityRoute.includes("name: 'County seat'") || !entityRoute.includes('creditText: countySeriesArticle.hero.credit')) errors.push('County JSON-LD is missing county-seat or image-credit assurance fields');
+}
+
 const canonical = counties();
 const canonicalBySlug = new Map(canonical.map((county) => [county.slug, county]));
 const registries = activeRegistries();
@@ -174,6 +191,7 @@ for (const row of definitions) {
 }
 
 const errors = [];
+validateAssuranceContracts(errors);
 const missing = canonical.filter((county) => !effective.has(county.slug));
 const extra = [...effective.keys()].filter((slug) => !canonicalBySlug.has(slug));
 if (missing.length) errors.push(`Missing canonical county profiles (${missing.length}): ${missing.map((county) => county.slug).join(', ')}`);
@@ -201,18 +219,24 @@ for (const county of canonical) {
   const heroBlock = matchingBlock(source, 'hero', '{', '}');
   const src = heroSource(source, heroBlock);
   const alt = stringField(heroBlock, 'alt');
+  const credit = stringField(heroBlock, 'credit');
   const body = metrics(source);
 
-  if (!id || !slug || !title || !dek || !src || !alt) errors.push(`Missing publication metadata: ${county.slug} (${sourcePath})`);
+  if (!id || !slug || !title || !dek || !src || !alt || !credit) errors.push(`Missing publication/image provenance metadata: ${county.slug} (${sourcePath})`);
   if (id && !id.startsWith('county-')) errors.push(`County article id must start with county-: ${county.slug}`);
   if (slug && slug !== profile.articleSlug) errors.push(`Registry/fixture slug mismatch: ${county.slug} (${profile.articleSlug} != ${slug})`);
   if (title && !title.toLowerCase().includes(county.baseName.toLowerCase())) errors.push(`County title does not name ${county.baseName}: ${title}`);
+  if (src && /^http:\/\//i.test(src)) errors.push(`Insecure county hero source: ${county.slug} (${src})`);
+  if (src && /commons\.wikimedia\.org/i.test(src)) {
+    if (!credit || !/Wikimedia Commons/i.test(credit)) errors.push(`Wikimedia county hero lacks Commons attribution: ${county.slug}`);
+    if (!credit || !/(CC(?:\s|0|-)|Public domain)/i.test(credit)) errors.push(`Wikimedia county hero lacks explicit reusable-rights marker: ${county.slug} (${credit ?? 'no credit'})`);
+  }
   if (body.words < MIN_WORDS) errors.push(`Thin county body: ${county.slug} has ${body.words} words; minimum ${MIN_WORDS}`);
   if (body.paragraphs < MIN_PARAGRAPHS) errors.push(`Thin county structure: ${county.slug} has ${body.paragraphs} paragraphs; minimum ${MIN_PARAGRAPHS}`);
   if (body.headings < MIN_HEADINGS) errors.push(`Thin county structure: ${county.slug} has ${body.headings} headings; minimum ${MIN_HEADINGS}`);
   if (readingMinutes != null && readingMinutes < 5) errors.push(`County reading time too short: ${county.slug} has ${readingMinutes} minutes`);
   for (const phrase of FORBIDDEN) if (source.toLowerCase().includes(phrase.toLowerCase())) errors.push(`Forbidden placeholder in ${county.slug}: ${phrase}`);
-  rows.push({ countySlug: county.slug, countyName: county.name, articleSlug: profile.articleSlug, title: title ?? profile.articleSlug, fixture: sourcePath, registry: profile.registry, readingMinutes, heroSrc: src, heroAlt: alt, ...body });
+  rows.push({ countySlug: county.slug, countyName: county.name, articleSlug: profile.articleSlug, title: title ?? profile.articleSlug, fixture: sourcePath, registry: profile.registry, readingMinutes, heroSrc: src, heroAlt: alt, heroCredit: credit, ...body });
 }
 
 rows.sort((a, b) => a.countySlug.localeCompare(b.countySlug));
@@ -225,8 +249,8 @@ console.log(`Effective county profiles: ${effective.size}`);
 console.log(`Shadowed compatibility definitions: ${shadowed.length}`);
 for (const row of rows) console.log(`${row.countySlug}\t/county/${row.countySlug}\t${row.words} words\t${row.paragraphs} paragraphs\t${row.headings} headings\t${row.title}`);
 if (errors.length) {
-  console.error(`County editorial quality audit failed with ${errors.length} issue(s):`);
+  console.error(`County editorial/assurance preflight failed with ${errors.length} issue(s):`);
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('PASS: all 254 Texas counties have effective, substantive, non-placeholder editorial profiles with required publication metadata.');
+console.log('PASS: all 254 Texas counties have substantive editorial profiles, protected county-seat/map/JSON-LD contracts, and required hero provenance metadata.');
