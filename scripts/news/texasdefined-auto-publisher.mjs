@@ -300,13 +300,33 @@ const queueSummary = {
 };
 if (!publishRequested) Object.assign(queueSummary, { published: 0, skipped: 0, failed: 0 });
 console.log(JSON.stringify(queueSummary));
-if (publishRequested && queue.length > 0) {
-  const destinationRows = await destinations();
-  if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
-  for (const item of queue) {
-    const draft = await generateDraft(item, destinationRows);
-    const heroUrl = await generateAndStoreImage(draft);
-    const liveUrl = await publish(item, draft, heroUrl);
-    console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl }));
+if (publishRequested) {
+  let publishedCount = 0;
+  let failedCount = 0;
+  try {
+    if (queue.length > 0) {
+      const destinationRows = await destinations();
+      if (destinationRows.length < 2) throw new Error('Fewer than two verified TexasDefined destinations are available; publication stopped.');
+      for (const item of queue) {
+        try {
+          const draft = await generateDraft(item, destinationRows);
+          const heroUrl = await generateAndStoreImage(draft);
+          const liveUrl = await publish(item, draft, heroUrl);
+          publishedCount += 1;
+          console.log(JSON.stringify({ published: true, feedId: item.id, slug: draft.slug, liveUrl }));
+        } catch (error) {
+          failedCount += 1;
+          throw error;
+        }
+      }
+    }
+  } finally {
+    console.log(JSON.stringify({
+      mode: 'publish-summary',
+      ...queueSummary,
+      published: publishedCount,
+      skipped: Math.max(0, queue.length - publishedCount - failedCount),
+      failed: failedCount,
+    }));
   }
 }
