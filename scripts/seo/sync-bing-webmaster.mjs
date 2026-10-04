@@ -1,6 +1,6 @@
 import process from "node:process";
 
-const collectorVersion = "2026-10-04.2";
+const collectorVersion = "2026-10-04.3";
 const bingApiKey = process.env.BING_WEBMASTER_API_KEY?.trim();
 const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -12,6 +12,9 @@ const bingBaseUrl = "https://ssl.bing.com/webmaster/api.svc/json";
 const supabaseInsertMaxAttempts = 5;
 const supabaseInsertBaseDelayMs = 1_000;
 const retryableSupabaseStatuses = new Set([408, 425, 429, 500, 502, 503, 504]);
+const bingUrlInfoProbeLimit = Math.max(1, Number(process.env.BING_URL_INFO_PROBE_LIMIT ?? 6));
+const bingUrlInfoProbeDelayMs = Math.max(500, Number(process.env.BING_URL_INFO_PROBE_DELAY_MS ?? 1_500));
+const bingUrlInfoThrottleRetryDelayMs = Math.max(1_000, Number(process.env.BING_URL_INFO_THROTTLE_RETRY_DELAY_MS ?? 5_000));
 
 const indexProbePathsByHost = {
   "texasdefined.com": [
@@ -34,6 +37,8 @@ const indexProbePathsByHost = {
     { family: "history", path: "/texas-history" },
     { family: "painted-churches", path: "/explore/painted-churches" },
     { family: "nearby-small-towns", path: "/explore/near/san-angelo/small-towns" },
+    { family: "nearby-austin-things-to-do", path: "/explore/near/austin/things-to-do" },
+    { family: "nearby-san-antonio-things-to-do", path: "/explore/near/san-antonio/things-to-do" },
   ],
   "keeptxred.com": [
     { family: "homepage", path: "/" },
@@ -92,6 +97,22 @@ function isRetryableSupabaseFailure(status, body) {
   return body.includes('"code":"PGRST002"') || body.toLowerCase().includes("schema cache");
 }
 
+function isBingThrottleError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return message.includes("ThrottleUser") || message.includes("ThrottleHost");
+}
+
+function selectRotatingUrlInfoProbes(host) {
+  const configured = indexProbePathsByHost[host] || [{ family: "homepage", path: "/" }];
+  const limit = Math.min(bingUrlInfoProbeLimit, configured.length);
+  if (limit >= configured.length) return configured;
+
+  const epochDay = Math.floor(Date.now() / 86_400_000);
+  const hostSalt = [...host].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  const start = (epochDay * limit + hostSalt) % configured.length;
+  return Array.from({ length: limit }, (_, index) => configured[(start + index) % configured.length]);
+}
+
 async function bingGet(method, params = {}) {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
@@ -147,21 +168,35 @@ function normalizedHostname(url) {
 }
 
 async function collectUrlInfoProbes(host, siteUrl) {
-  const probes = indexProbePathsByHost[host] || [{ family: "homepage", path: "/" }];
+  const probes = selectRotatingUrlInfoProbes(host);
   const results = [];
 
-  for (const probe of probes) {
+  for (let probeIndex = 0; probeIndex < probes.length; probeIndex += 1) {
+    if (probeIndex > 0) await sleep(bingUrlInfoProbeDelayMs);
+    const probe = probes[probeIndex];
     const url = new URL(probe.path, `https://${host}`).toString();
-    try {
-      const info = await bingGet("GetUrlInfo", { siteUrl, url });
-      results.push({ family: probe.family, url, ok: true, info });
-    } catch (error) {
-      results.push({
-        family: probe.family,
-        url,
-        ok: false,
-        error: error instanceof Error ? error.message : String(error),
-      });
+
+    for (let attempt = 1; attempt <= 2; attempt += 1) {
+      try {
+        const info = await bingGet("GetUrlInfo", { siteUrl, url });
+        results.push({ family: probe.family, url, ok: true, info });
+        break;
+      } catch (error) {
+        const throttle = isBingThrottleError(error);
+        if (throttle && attempt === 1) {
+          console.warn(JSON.stringify({ event: "bing_url_info_throttle_retry", host, family: probe.family, delayMs: bingUrlInfoThrottleRetryDelayMs }));
+          await sleep(bingUrlInfoThrottleRetryDelayMs);
+          continue;
+        }
+        results.push({
+          family: probe.family,
+          url,
+          ok: false,
+          rateLimited: throttle,
+          error: error instanceof Error ? error.message : String(error),
+        });
+        break;
+      }
     }
   }
 
@@ -311,7 +346,9 @@ for (const host of targetHosts) {
       crawlIssues: crawlIssues.length,
       feeds: feeds.length,
       urlInfo: urlInfo.length,
+      urlInfoConfigured: indexProbePathsByHost[host]?.length ?? 1,
       urlInfoErrors: urlInfo.filter((probe) => !probe.ok).length,
+      urlInfoRateLimited: urlInfo.filter((probe) => probe.rateLimited).length,
     },
     canonicalFeedUrl,
     canonicalFeedSubmitted,
