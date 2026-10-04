@@ -7,6 +7,7 @@ import { FishingResultsMap } from "@/components/fishing/FishingResultsMap";
 import { resolveFishingLocation } from "@/data/fishing/location.functions";
 import { getFishingPlannerData } from "@/data/fishing/planner-data.functions";
 import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "@/data/fishing/planner-routing";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import type { FishSpecies, FishingLake } from "@/data/fishing/types";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
@@ -76,7 +77,7 @@ export const Route = createFileRoute("/fishing/plan")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lake Finder — Search by Place & Fish Species", description, canonicalPath: FISHING_TRIP_PLANNER_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_TRIP_PLANNER_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lake Finder — Search by Place & Fish Species", description, canonicalPath: FISHING_TRIP_PLANNER_PATH, ...fishingGenericSocialMeta }), links: [canonicalLink(texasDefinedBrand, FISHING_TRIP_PLANNER_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingTripPlannerPage,
 });

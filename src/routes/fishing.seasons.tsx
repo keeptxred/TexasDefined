@@ -4,6 +4,7 @@ import { lazy, Suspense } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getFishingSeasonData } from "@/data/fishing/season-data.functions";
 import { FISHING_SEASONS_PATH, isFishingSeasonFilter, type FishingSeasonFilter } from "@/data/fishing/season-routing";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingSeasonDirectory = lazy(() => import("@/components/fishing/FishingSeasonDirectory").then((module) => ({ default: module.FishingSeasonDirectory })));
@@ -41,7 +42,7 @@ export const Route = createFileRoute("/fishing/seasons")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Lake Fishing Seasons by Month — What to Catch & Where", description, canonicalPath: FISHING_SEASONS_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_SEASONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Texas Lake Fishing Seasons by Month — What to Catch & Where", description, canonicalPath: FISHING_SEASONS_PATH, ...fishingGenericSocialMeta }), links: [canonicalLink(texasDefinedBrand, FISHING_SEASONS_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingSeasonsPage,
 });

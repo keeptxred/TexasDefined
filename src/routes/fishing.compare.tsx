@@ -4,6 +4,7 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
 import { getFishingPlannerData } from "@/data/fishing/planner-data.functions";
 import { FISHING_LAKE_COMPARE_PATH, FISHING_TRIP_PLANNER_PATH } from "@/data/fishing/planner-routing";
+import { fishingGenericSocialMeta } from "@/data/fishing/social-images";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/fishing/compare")({
         ] },
       ],
     };
-    return { meta: buildMeta(texasDefinedBrand, { title: "Compare Texas Fishing Lakes — Fishery, Access & Trip Planning", description, canonicalPath: FISHING_LAKE_COMPARE_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_LAKE_COMPARE_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
+    return { meta: buildMeta(texasDefinedBrand, { title: "Compare Texas Fishing Lakes — Fishery, Access & Trip Planning", description, canonicalPath: FISHING_LAKE_COMPARE_PATH, ...fishingGenericSocialMeta }), links: [canonicalLink(texasDefinedBrand, FISHING_LAKE_COMPARE_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
   component: FishingLakeComparePage,
 });

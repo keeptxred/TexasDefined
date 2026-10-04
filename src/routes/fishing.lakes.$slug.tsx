@@ -23,14 +23,9 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
     const lake = await context.queryClient.ensureQueryData(fishingLakeQuery(params.slug));
     if (!lake) throw notFound();
     const seo = import.meta.env.SSR ? { m: await (async () => {
-      const [{ getFishingLakeImage }, { applyLakePhotoGovernance }] = await Promise.all([
-        import("@/data/fishing/image-library"),
-        import("@/data/fishing/lake-photo-governance"),
-      ]);
-      const raw = getFishingLakeImage(lake.slug);
-      if (!raw) return null;
-      const image = applyLakePhotoGovernance(raw);
-      return image.width >= 1200 && image.height > 0 ? { image: image.src, imageAlt: image.alt, imageWidth: image.width, imageHeight: image.height } : null;
+      const { getFishingLakeSocialImage } = await import("@/data/fishing/social-images");
+      const image = getFishingLakeSocialImage(lake.slug);
+      return { image: image.src, imageAlt: image.alt, imageWidth: image.width, imageHeight: image.height };
     })() } : {};
     if (params.slug === LAKE_CONROE_SLUG) {
       const pageData = await getLakeConroePageData();
