@@ -1,6 +1,6 @@
 import process from "node:process";
 
-const collectorVersion = "2026-09-18.4";
+const collectorVersion = "2026-10-04.1";
 const bingApiKey = process.env.BING_WEBMASTER_API_KEY?.trim();
 const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -50,7 +50,7 @@ async function bingGet(method, params = {}) {
   const response = await fetch(`${bingBaseUrl}/${method}?${search.toString()}`, {
     headers: {
       accept: "application/json",
-      "user-agent": "TexasDefinedBingWebmasterCollector/1.1",
+      "user-agent": "TexasDefinedBingWebmasterCollector/1.3",
     },
     redirect: "follow",
   });
@@ -71,7 +71,7 @@ async function bingPost(method, body) {
     headers: {
       accept: "application/json",
       "content-type": "application/json; charset=utf-8",
-      "user-agent": "TexasDefinedBingWebmasterCollector/1.2",
+      "user-agent": "TexasDefinedBingWebmasterCollector/1.3",
     },
     redirect: "follow",
     body: JSON.stringify(body),
@@ -92,6 +92,17 @@ function normalizedHostname(url) {
   } catch {
     return "";
   }
+}
+
+function expectedFeedUrls(host) {
+  if (host === "texasdefined.com") {
+    return [
+      "https://texasdefined.com/sitemap.xml",
+      "https://texasdefined.com/sitemap-explore.xml",
+      "https://texasdefined.com/sitemap-texas-icons.xml",
+    ];
+  }
+  return [`https://${host}/sitemap.xml`];
 }
 
 async function insertSnapshot(snapshot) {
@@ -144,13 +155,18 @@ for (const host of targetHosts) {
   ]);
 
   const canonicalFeedUrl = `https://${host}/sitemap.xml`;
+  const requiredFeedUrls = expectedFeedUrls(host);
   let feeds = initialFeeds;
-  let canonicalFeedSubmitted = false;
-  if (!feeds.some((feed) => feed?.Url === canonicalFeedUrl)) {
-    await bingPost("SubmitFeed", { siteUrl, feedUrl: canonicalFeedUrl });
-    canonicalFeedSubmitted = true;
+  const submittedFeedUrls = [];
+  for (const feedUrl of requiredFeedUrls) {
+    if (feeds.some((feed) => feed?.Url === feedUrl)) continue;
+    await bingPost("SubmitFeed", { siteUrl, feedUrl });
+    submittedFeedUrls.push(feedUrl);
+  }
+  if (submittedFeedUrls.length > 0) {
     feeds = asArray(await requestForSite("GetFeeds"));
   }
+  const canonicalFeedSubmitted = submittedFeedUrls.includes(canonicalFeedUrl);
 
   const canonicalFeed = feeds.find((feed) => feed?.Url === canonicalFeedUrl);
   let legacyFeedAliasesRemoved = 0;
@@ -203,6 +219,8 @@ for (const host of targetHosts) {
       feeds: feeds.length,
     },
     canonicalFeedUrl,
+    requiredFeedUrls,
+    submittedFeedUrls,
     canonicalFeedSubmitted,
     legacyFeedAliasesRemoved,
   });
