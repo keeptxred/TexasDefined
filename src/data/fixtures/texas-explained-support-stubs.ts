@@ -81,8 +81,8 @@ export const texasEcoregionsHabitatsGuideStub: Article = {
   id: "evergreen-texas-ecoregions-habitats-guide",
   brandId: "texasdefined",
   slug: "texas-ecoregions-habitats-guide",
-  title: "Texas Ecoregions Explained: Why the Landscape Changes So Fast",
-  dek: "Pine forest, coastal marsh, blackland prairie, limestone plateau, High Plains and desert can all exist in one state because Texas sits at the meeting point of major climates, elevations, soils and habitat systems.",
+  title: "Texas Ecoregions: Complete Map & Guide to All 10 Natural Regions",
+  dek: "A map-first guide to all 10 major Texas natural regions, from Piney Woods and coastal marshes to Blackland Prairie, Hill Country, High Plains and the Trans-Pecos, with landscapes, vegetation, wildlife and places to experience each one.",
   category: "outdoors",
   hero: {
     src: "/images/editorial/texas-ecoregions-habitats.jpg",
@@ -93,14 +93,15 @@ export const texasEcoregionsHabitatsGuideStub: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-16",
-  readingMinutes: 9,
-  tags: ["texas ecoregions", "texas habitats", "texas geography", "texas plants", "texas wildlife", "TPWD"],
+  updatedAt: "2026-10-04",
+  readingMinutes: 18,
+  tags: ["texas ecoregions", "texas natural regions", "texas habitats", "texas geography", "texas plants", "texas wildlife", "TPWD"],
   featured: false,
   sourceName: "Texas Parks and Wildlife Department",
   sourceUrl: "https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/texas-ecoregions",
   body: [],
   relatedCollections: [],
-  relatedDestinations: ["big-bend-national-park", "palo-duro-canyon-state-park"],
+  relatedDestinations: ["big-thicket-national-preserve", "palo-duro-canyon-state-park", "big-bend-national-park"],
 };
 
 export const texasSettlementPatternsGuideStub: Article = {
