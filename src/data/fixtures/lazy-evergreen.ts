@@ -197,7 +197,7 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasRiverBasinsGuideStub.slug) { const { texasRiverBasinsGuideArticle } = await import("./texas-explained-support-articles"); return texasRiverBasinsGuideArticle; }
   if (slug === texasHighwayDesignationsGuideStub.slug) { const { texasHighwayDesignationsGuideArticle } = await import("./texas-explained-support-articles"); return texasHighwayDesignationsGuideArticle; }
   if (slug === texasCourthouseArchitectureGuideStub.slug) { const { texasCourthouseArchitectureGuideArticle } = await import("./texas-explained-support-articles"); return texasCourthouseArchitectureGuideArticle; }
-  if (slug === texasEcoregionsHabitatsGuideStub.slug) { const { texasEcoregionsHabitatsGuideArticle } = await import("./texas-explained-support-articles"); return texasEcoregionsHabitatsGuideArticle; }
+  if (slug === texasEcoregionsHabitatsGuideStub.slug) { const { texasEcoregionsHabitatsGuideArticle } = await import("./texas-ecoregions-habitats-guide"); return texasEcoregionsHabitatsGuideArticle; }
   if (slug === texasSettlementPatternsGuideStub.slug) { const { texasSettlementPatternsGuideArticle } = await import("./texas-explained-support-articles"); return texasSettlementPatternsGuideArticle; }
 
   if (texasExplainedSupportStubs2.some((article) => article.slug === slug)) {
