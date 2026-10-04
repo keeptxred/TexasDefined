@@ -120,6 +120,18 @@ export async function getCountyTaxRateSummaryServer(countySlug: string, year: nu
   };
 }
 
+export async function getTaxingUnitsByTypeServer(type: TexasTaxingUnitType, year: number): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
+  const { data, error } = await db
+    .from('texas_property_tax_rates')
+    .select('*')
+    .eq('year', year)
+    .eq('type', type)
+    .order('name', { ascending: true });
+  if (error) throw error;
+  const rows = (data ?? []) as TaxRateRow[];
+  return { records: rows.map(mapTaxRateRow), generatedAt: rows[0]?.imported_at ?? null };
+}
+
 export async function searchTaxingUnitsServer(query: string, year: number, limit = 100): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
   const safeQuery = query.replace(/[%_]/g, ' ').replace(/\s+/g, ' ').trim();
   if (!safeQuery) return { records: [], generatedAt: null };
