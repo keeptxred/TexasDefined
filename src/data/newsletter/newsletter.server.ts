@@ -10,6 +10,9 @@ type SubscriberRow = {
   interests: string[];
   unsubscribe_token: string;
   confirmation_token: string | null;
+  confirmation_requested_at: string | null;
+  confirmation_email_attempt_id: string | null;
+  confirmation_email_sent_at: string | null;
 };
 
 type NewsletterClient = {
@@ -17,6 +20,7 @@ type NewsletterClient = {
 };
 
 const client = supabaseAdmin as unknown as NewsletterClient;
+const CONFIRMATION_RESEND_COOLDOWN_MS = 10 * 60 * 1000;
 
 function nowIso() {
   return new Date().toISOString();
@@ -28,6 +32,28 @@ function normalizeEmail(email: string) {
 
 function normalizeInterests(interests: string[]) {
   return [...new Set(interests.map((interest) => interest.trim().toLowerCase()).filter(Boolean))].slice(0, 12);
+}
+
+function timestamp(value: string | null) {
+  if (!value) return null;
+  const parsed = Date.parse(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function confirmationAttemptSucceeded(subscriber: SubscriberRow) {
+  const requestedAt = timestamp(subscriber.confirmation_requested_at);
+  const sentAt = timestamp(subscriber.confirmation_email_sent_at);
+  return requestedAt !== null && sentAt !== null && sentAt >= requestedAt;
+}
+
+async function dispatchConfirmationEmail(input: {
+  subscriberId: string;
+  email: string;
+  token: string;
+  attemptId: string;
+}) {
+  const { sendNewsletterConfirmationEmail } = await import('./newsletter-confirmation.server');
+  return sendNewsletterConfirmationEmail(input);
 }
 
 export function newsletterRequiresConfirmation() {
@@ -44,11 +70,12 @@ export async function subscribeNewsletter(input: {
   const email = normalizeEmail(input.email);
   const interests = normalizeInterests(input.interests);
   const now = nowIso();
+  const nowMs = Date.parse(now);
   const confirmationRequired = newsletterRequiresConfirmation();
 
   const { data: existing, error: lookupError } = await client
     .from('texasdefined_newsletter_subscribers')
-    .select('id,email,status,interests,unsubscribe_token,confirmation_token')
+    .select('id,email,status,interests,unsubscribe_token,confirmation_token,confirmation_requested_at,confirmation_email_attempt_id,confirmation_email_sent_at')
     .eq('email', email)
     .maybeSingle() as { data: SubscriberRow | null; error: { message: string } | null };
 
@@ -76,9 +103,34 @@ export async function subscribeNewsletter(input: {
       updated_at: now,
     };
 
+    let confirmationToken: string | null = null;
+    let confirmationAttemptId: string | null = null;
+    let shouldDispatchConfirmation = false;
+
     if (nextStatus === 'pending') {
-      update.confirmation_token = crypto.randomUUID();
-      update.confirmation_requested_at = now;
+      const continuingPending = existing.status === 'pending' && Boolean(existing.confirmation_token);
+      confirmationToken = continuingPending ? existing.confirmation_token : crypto.randomUUID();
+
+      const lastSentAt = timestamp(existing.confirmation_email_sent_at);
+      const withinCooldown = continuingPending
+        && lastSentAt !== null
+        && nowMs - lastSentAt < CONFIRMATION_RESEND_COOLDOWN_MS;
+
+      if (!withinCooldown) {
+        const retryingUnfinishedAttempt = continuingPending
+          && Boolean(existing.confirmation_email_attempt_id)
+          && !confirmationAttemptSucceeded(existing);
+        confirmationAttemptId = retryingUnfinishedAttempt
+          ? existing.confirmation_email_attempt_id
+          : crypto.randomUUID();
+        shouldDispatchConfirmation = true;
+        if (!retryingUnfinishedAttempt) update.confirmation_requested_at = now;
+      } else {
+        confirmationAttemptId = existing.confirmation_email_attempt_id;
+      }
+
+      update.confirmation_token = confirmationToken;
+      update.confirmation_email_attempt_id = confirmationAttemptId;
       update.confirmed_at = null;
     } else {
       update.confirmation_token = null;
@@ -91,10 +143,21 @@ export async function subscribeNewsletter(input: {
       .eq('id', existing.id) as { error: { message: string } | null };
 
     if (error) throw new Error(`Newsletter signup could not be updated: ${error.message}`);
+
+    if (shouldDispatchConfirmation && confirmationToken && confirmationAttemptId) {
+      await dispatchConfirmationEmail({
+        subscriberId: existing.id,
+        email,
+        token: confirmationToken,
+        attemptId: confirmationAttemptId,
+      });
+    }
     return { ok: true, confirmationRequired } as const;
   }
 
-  const { error } = await client.from('texasdefined_newsletter_subscribers').insert({
+  const confirmationToken = nextStatus === 'pending' ? crypto.randomUUID() : null;
+  const confirmationAttemptId = nextStatus === 'pending' ? crypto.randomUUID() : null;
+  const { data: inserted, error } = await client.from('texasdefined_newsletter_subscribers').insert({
     email,
     status: nextStatus,
     consent_at: now,
@@ -103,11 +166,20 @@ export async function subscribeNewsletter(input: {
     signup_path: input.sourcePath,
     interests,
     subscribed_at: now,
-    confirmation_token: nextStatus === 'pending' ? crypto.randomUUID() : null,
+    confirmation_token: confirmationToken,
     confirmation_requested_at: nextStatus === 'pending' ? now : null,
-  }) as { error: { message: string } | null };
+    confirmation_email_attempt_id: confirmationAttemptId,
+  }).select('id').single() as { data: { id: string } | null; error: { message: string } | null };
 
-  if (error) throw new Error(`Newsletter signup could not be saved: ${error.message}`);
+  if (error || !inserted) throw new Error(`Newsletter signup could not be saved: ${error?.message ?? 'No subscriber returned.'}`);
+  if (confirmationToken && confirmationAttemptId) {
+    await dispatchConfirmationEmail({
+      subscriberId: inserted.id,
+      email,
+      token: confirmationToken,
+      attemptId: confirmationAttemptId,
+    });
+  }
   return { ok: true, confirmationRequired } as const;
 }
 
@@ -132,7 +204,7 @@ export async function confirmNewsletterSubscription(token: string) {
 export async function unsubscribeNewsletter(token: string) {
   const { data: subscriber, error: lookupError } = await client
     .from('texasdefined_newsletter_subscribers')
-    .select('id,email,status,interests,unsubscribe_token,confirmation_token')
+    .select('id,email,status,interests,unsubscribe_token,confirmation_token,confirmation_requested_at,confirmation_email_attempt_id,confirmation_email_sent_at')
     .eq('unsubscribe_token', token)
     .maybeSingle() as { data: SubscriberRow | null; error: { message: string } | null };
 
