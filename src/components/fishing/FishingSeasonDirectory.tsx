@@ -71,7 +71,7 @@ export function FishingSeasonDirectory({ data, search }: { data: FishingSeasonDa
           {hasFilters ? <a href={FISHING_SEASONS_PATH} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Clear filters</a> : null}
         </div>
         <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          {MONTHS.map(([slug, label, season]) => <a key={slug} href={buildHref({ month: slug, species: search.species, region: search.region })} aria-label={`${label} — ${titleCase(season)} fishing`} aria-current={search.month === slug ? "page" : undefined} className={`border px-3 py-3 text-center text-sm font-semibold ${search.month === slug ? "border-primary text-primary" : "border-border hover:border-primary/50"}`}><span className="block">{label}</span><span className="mt-1 block text-[0.66rem] font-normal uppercase tracking-wider text-muted-foreground">{titleCase(season)}</span></a>)}
+          {MONTHS.map(([slug, label, season]) => <a key={slug} href={buildHref({ month: slug, species: search.species, region: search.region })} aria-label={`${label} — ${titleCase(season)} fishing`} aria-current={search.month === slug ? "page" : undefined} className={`border px-3 py-3 text-center text-sm font-semibold ${search.month === slug ? "border-primary text-primary" : "border-border hover:border-primary/50"}`}><span className="block">{label}</span><span className="mt-1 block text-xs font-normal uppercase tracking-wider text-muted-foreground">{titleCase(season)}</span></a>)}
         </div>
       </section>
 
