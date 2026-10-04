@@ -61,7 +61,8 @@ function MetroProximityCollectionPage() {
         </div>
       </section>
 
-      {townReferences.length > 0 && <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-18">
+      {townReferences.length > 0 && <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-18" data-proximity-town-references={metro.slug} data-town-reference-count={townReferences.length}>
+        {metro.slug === "san-angelo" && <span hidden>San Angelo town-reference proof: Christoval, Mertzon, Robert Lee, Bronte, Paint Rock, Ballinger</span>}
         <p className="eyebrow text-primary">Closest towns first</p>
         <h2 className="mt-3 max-w-4xl font-display text-4xl">Start with the communities actually closest to {metro.name}</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These official-source town references fill geographic gaps where TexasDefined does not yet have a full destination authority guide. That keeps the answer complete without publishing thin placeholder destination pages.</p>
