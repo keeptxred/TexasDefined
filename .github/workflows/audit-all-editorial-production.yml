@@ -18,40 +18,34 @@ on:
       - 'src/routes/$kind.$slug.lazy.tsx'
       - 'src/data/fixtures/*county*.ts'
       - 'src/data/fixtures/repositories.ts'
-  push:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
     branches:
       - main
-    paths:
-      - '.github/workflows/audit-all-editorial-production.yml'
-      - 'scripts/data/inventory-county-series.mjs'
-      - 'src/components/content/CountyGuideSections.tsx'
-      - 'src/components/content/CountyIdentitySection.tsx'
-      - 'src/data/county-profile.ts'
-      - 'src/data/county-series.ts'
-      - 'src/data/county-series.server.ts'
-      - 'src/data/county-series-profiles*.ts'
-      - 'src/data/knowledge-graph/relationships.ts'
-      - 'src/data/knowledge-graph/index.ts'
-      - 'src/data/texas-places.ts'
-      - 'src/routes/$kind.$slug.tsx'
-      - 'src/routes/$kind.$slug.lazy.tsx'
-      - 'src/data/fixtures/*county*.ts'
-      - 'src/data/fixtures/repositories.ts'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: all-254-county-production-${{ github.ref }}
+  group: all-254-county-production-${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.ref }}
   cancel-in-progress: true
+
+env:
+  AUDIT_REF: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
 
 jobs:
   validate-county-source:
     name: Audit all 254 county editorial profiles
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.AUDIT_REF }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -77,6 +71,8 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.AUDIT_REF }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
