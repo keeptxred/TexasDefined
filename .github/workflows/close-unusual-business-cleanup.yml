@@ -1,15 +1,10 @@
 name: Close unusual-business cleanup
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
     branches: [main]
-    paths:
-      - '.github/workflows/close-unusual-business-cleanup.yml'
-      - 'src/components/authority/CitationTrustPanel.tsx'
-      - 'src/components/authority/UnusualBusinessAuthorityPanel.tsx'
-      - 'src/components/editorial/ArticleBody.tsx'
-      - 'src/components/editorial/DestinationRelationships.tsx'
-      - 'src/data/unusual-business-authority.ts'
   workflow_dispatch:
 
 permissions:
@@ -21,12 +16,15 @@ concurrency:
 
 jobs:
   verify-and-clean:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - name: Verify six live authority panels
         env:
-          VERIFY_REVISION: ${{ github.sha }}
+          VERIFY_REVISION: ${{ github.event.workflow_run.head_sha || github.sha }}
         shell: bash
         run: |
           node --input-type=module <<'NODE'
