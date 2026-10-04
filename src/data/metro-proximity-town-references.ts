@@ -4,7 +4,7 @@ import {
   type MetroProximityCollection,
   type MetroProximityMetro,
   type MetroProximityResult,
-} from "./metro-proximity";
+} from "./metro-proximity.ts";
 import type { Destination, GeoPoint } from "./types";
 
 export interface MetroProximityTownReference {
