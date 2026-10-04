@@ -36,6 +36,7 @@ const SAM_HOUSTON_MUSEUM_SLUG = "sam-houston-memorial-museum-republic-texas-pres
 
 const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
+  "whirlyball-hurst",
 ]);
 
 const AREA_GROUPS: Array<{
