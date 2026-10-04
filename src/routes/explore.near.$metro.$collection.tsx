@@ -2,7 +2,6 @@ import { lazy, Suspense } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { getMetroProximityCollectionPageData } from "@/data/metro-proximity-page-data.functions";
-import { maps } from "@/services/maps";
 
 const MetroProximityCollectionRich = lazy(() =>
   import("./explore.near.$metro.$collection.lazy").then((module) => ({ default: module.MetroProximityCollectionRich })),
@@ -56,7 +55,7 @@ function MetroProximityCollectionPage() {
             <p><span className="eyebrow mr-2 text-muted-foreground">Ordering</span>Geographic distance</p>
             {presentation.tripFit && <p><span className="eyebrow mr-2 text-muted-foreground">Trip fit</span>{presentation.tripFit}</p>}
           </div>
-          <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links below for current Google Maps routing, road mileage and travel-time estimates.</p>
+          <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links in the map and guide sections below for current Google Maps routing, road mileage and travel-time estimates.</p>
           {presentation.usesGeographicRing && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not treat these geographic rings as literal one-, two- or three-hour drives. Texas road networks vary too much for a straight-line radius to make that claim reliably.</p>}
           {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until its source-backed inventory reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
         </div>
@@ -73,7 +72,6 @@ function MetroProximityCollectionPage() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{row.town.summary}</p>
             <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong>Good for:</strong> {row.town.bestFor.join(" · ")}</p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
-              <a href={maps.drivingRouteUrl(metro.center, row.town.coordinates)} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Check current drive ↗</a>
               <a href={row.town.officialUrl} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Official local source ↗</a>
               <Link to="/county/$slug" params={{ slug: countySlug(row.town.county) }} className="border-b border-border pb-1 hover:border-primary hover:text-primary">Explore {row.town.county} County</Link>
             </div>
