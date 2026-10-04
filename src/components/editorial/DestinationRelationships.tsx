@@ -1,7 +1,7 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
-import { DestinationAuthorityGuide } from "@/components/editorial/DestinationAuthorityGuide";
+import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
@@ -11,6 +11,8 @@ import { Container } from "@/components/layout/Container";
 import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
+
+const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
 
 const CAMPING_DESTINATION_SLUGS = new Set([
   "enchanted-rock-state-natural-area",
@@ -33,10 +35,11 @@ const CAMPING_DESTINATION_SLUGS = new Set([
 ]);
 
 const SAM_HOUSTON_MUSEUM_SLUG = "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville";
+const WHIRLYBALL_SLUG = "whirlyball-hurst";
 
 const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
-  "whirlyball-hurst",
+  WHIRLYBALL_SLUG,
   "my-story-museum-crystal-city",
 ]);
 
@@ -101,6 +104,7 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
   const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
+  const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
@@ -112,8 +116,9 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
 
   return <>
     {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
+    {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
-    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     <DestinationAreaGuideSection destination={destination} />
 
