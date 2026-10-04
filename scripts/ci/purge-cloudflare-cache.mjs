@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+
 const token = process.env.CLOUDFLARE_CACHE_API_TOKEN?.trim() || process.env.CLOUDFLARE_API_TOKEN?.trim();
 const zoneName = (process.env.CLOUDFLARE_ZONE_NAME || 'texasdefined.com').trim();
 const rawUrls = process.env.CLOUDFLARE_PURGE_URLS || '';
@@ -27,9 +29,24 @@ const weekendEventUrls = [
   `https://${zoneName}/events/san-antonio-this-weekend`,
 ];
 
+async function readMetroSlugs() {
+  const source = await readFile(new URL('../../src/data/metro-proximity.ts', import.meta.url), 'utf8');
+  const metroBlock = source.match(/export const METRO_PROXIMITY_METROS = \[([\s\S]*?)\]\s+as const;/)?.[1];
+  if (!metroBlock) {
+    throw new Error('Unable to locate METRO_PROXIMITY_METROS in src/data/metro-proximity.ts.');
+  }
+
+  const metros = [...metroBlock.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
+  if (metros.length === 0) {
+    throw new Error('No metro slugs were found in METRO_PROXIMITY_METROS.');
+  }
+
+  return [...new Set(metros)];
+}
+
 const metroUrls = purgeMetroProximity
-  ? (() => {
-      const metros = ['houston', 'dallas', 'fort-worth', 'austin', 'san-antonio'];
+  ? await (async () => {
+      const metros = await readMetroSlugs();
       const collections = [
         'things-to-do',
         'day-trips',
