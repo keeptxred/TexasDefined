@@ -37,7 +37,7 @@ for (const marker of [
   'NEWSLETTER_CONFIRMATION_EMAIL_ENABLED',
   'newsletterConfirmationEmailReady',
   'sendNewsletterConfirmationEmail',
-  "'/emails'",
+  '${RESEND_API}/emails',
   "'idempotency-key'",
   'texasdefined-newsletter-confirm/',
   '/api/newsletter/confirm?token=',
