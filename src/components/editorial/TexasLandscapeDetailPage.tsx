@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
+import { TexasHillCountryGeologyGuidePage } from '@/components/editorial/TexasHillCountryGeologyGuidePage';
 import { TexasRiverValleysLandscapePage } from '@/components/editorial/TexasRiverValleysLandscapePage';
 import { Container } from '@/components/layout/Container';
 import type { LandscapeCatalogItem } from '@/data/texas-landscape-catalog';
@@ -24,6 +25,10 @@ function SourceDesk({ sources, noun }: { sources: Array<{ label: string; href: s
 
 export function TexasLandscapeDetailPage({ item, nearby }: TexasLandscapeDetailPageProps) {
   const isLandscape = 'name' in item;
+
+  if (!isLandscape && item.slug === 'why-is-the-texas-hill-country-so-hilly') {
+    return <TexasHillCountryGeologyGuidePage item={item} />;
+  }
 
   if (!isLandscape) {
     return <>

@@ -7,12 +7,14 @@ import type {
   MetroProximityMetro,
   MetroProximityResult,
 } from "@/data/metro-proximity";
+import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
 
 type HubPageData = {
   metro: MetroProximityMetro;
   collections: Array<{
     collection: MetroProximityCollection;
     results: MetroProximityResult[];
+    optionCount: number;
     indexReady: boolean;
   }>;
   highlights: MetroProximityResult[];
@@ -40,7 +42,7 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
         <p className="eyebrow text-primary">{metro.regionLabel} drive market</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{pageData.title}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{metro.context}</p>
-        <p className="mt-7 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">TexasDefined ranks these nearby guides with destination coordinates and source-backed place records. Mileages are straight-line geographic estimates for comparison, not promised driving distances or travel times.</p>
+        <p className="mt-7 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">TexasDefined ranks these nearby guides with destination coordinates and source-backed place records. Mileages are straight-line geographic estimates for comparison, not promised driving distances or travel times. The destination-ring pages link directly to current driving routes from central {metro.name}.</p>
       </div>
     </section>
 
@@ -48,11 +50,14 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
       <p className="eyebrow text-primary">Explore by trip type</p>
       <h2 className="mt-3 font-display text-4xl">Choose the kind of escape you want</h2>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {collections.map(({ collection, results }) => <article key={collection.slug} className="border-t border-border pt-5">
-          <p className="eyebrow text-muted-foreground">{results.length} nearby options</p>
-          <h3 className="mt-2 font-display text-2xl"><Link to="/explore/near/$metro/$collection" params={{ metro: metro.slug, collection: collection.slug }} className="hover:text-primary">{collection.label}</Link></h3>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">{collection.summary}</p>
-        </article>)}
+        {collections.map(({ collection, optionCount }) => {
+          const presentation = metroProximityCollectionPresentation(collection);
+          return <article key={collection.slug} className="border-t border-border pt-5">
+            <p className="eyebrow text-muted-foreground">{optionCount} source-backed options</p>
+            <h3 className="mt-2 font-display text-2xl"><Link to="/explore/near/$metro/$collection" params={{ metro: metro.slug, collection: collection.slug }} className="hover:text-primary">{presentation.label}</Link></h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{presentation.summary}</p>
+          </article>;
+        })}
       </div>
     </section>
 
@@ -65,7 +70,7 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {highlights.slice(0, 9).map((row, index) => <div key={row.destination.slug}>
-            <p className="eyebrow mb-3 text-muted-foreground">About {Math.round(row.distanceMiles)} miles away</p>
+            <p className="eyebrow mb-3 text-muted-foreground">About {Math.round(row.distanceMiles)} geographic miles</p>
             <DestinationCard destination={row.destination} eager={index < 2} />
           </div>)}
         </div>

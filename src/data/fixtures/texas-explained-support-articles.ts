@@ -212,7 +212,7 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
   slug: "texas-ecoregions-habitats-guide",
   title: "Texas Ecoregions Explained: Why the Landscape Changes So Fast",
   dek: "Pine forest, coastal marsh, blackland prairie, limestone plateau, High Plains and desert can all exist in one state because Texas sits at the meeting point of major climates, elevations, soils and habitat systems.",
-  category: "outdoors",
+  category: "guides",
   hero: {
     src: "/images/editorial/texas-ecoregions-habitats.jpg",
     alt: "A broad Texas landscape showing the state's dramatic regional variety",

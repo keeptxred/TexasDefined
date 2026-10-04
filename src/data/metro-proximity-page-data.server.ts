@@ -7,18 +7,22 @@ import {
   METRO_PROXIMITY_COLLECTIONS,
   getMetroProximityCollection,
   getMetroProximityMetro,
-  isMetroProximityCollectionIndexReady,
   metroProximityCanonicalPath,
   metroProximityDescription,
-  metroProximityHubReady,
   metroProximityTitle,
   selectMetroProximityDestinations,
 } from "./metro-proximity";
+import { metroProximityCollectionPresentation } from "./metro-proximity-presentation";
+import {
+  isMetroProximityCollectionIndexReadyWithTownReferences,
+  selectMetroProximityTownReferences,
+  type MetroProximityTownResult,
+} from "./metro-proximity-town-references";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
-function latestReview(destinations: Destination[]) {
-  return destinations.map((destination) => destination.sourceCheckedAt).filter(Boolean).sort().at(-1);
+function latestReview(values: Array<string | undefined>) {
+  return values.filter((value): value is string => Boolean(value)).sort().at(-1);
 }
 
 function destinationSchema(row: { destination: Destination; distanceMiles: number }) {
@@ -43,29 +47,60 @@ function destinationSchema(row: { destination: Destination; distanceMiles: numbe
   };
 }
 
+function townSchema(row: MetroProximityTownResult, pageUrl: string) {
+  return {
+    "@type": "City",
+    "@id": `${pageUrl}#town-${row.town.slug}`,
+    name: row.town.name,
+    description: row.town.summary,
+    sameAs: row.town.officialUrl,
+    dateModified: row.town.sourceCheckedAt,
+    containedInPlace: { "@type": "AdministrativeArea", name: `${row.town.county} County, Texas` },
+    geo: { "@type": "GeoCoordinates", latitude: row.town.coordinates.lat, longitude: row.town.coordinates.lng },
+    additionalProperty: {
+      "@type": "PropertyValue",
+      name: "Approximate straight-line distance from metro center",
+      value: Math.round(row.distanceMiles),
+      unitText: "miles",
+    },
+  };
+}
+
 export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
   const metro = getMetroProximityMetro(metroSlug);
   if (!metro) return null;
   const destinations = await listResolvedDestinations({ limit: 5000 });
   const collections = METRO_PROXIMITY_COLLECTIONS
-    .map((collection) => ({
-      collection,
-      results: selectMetroProximityDestinations(destinations, metro, collection),
-      indexReady: isMetroProximityCollectionIndexReady(destinations, metro, collection),
-    }))
+    .map((collection) => {
+      const results = selectMetroProximityDestinations(destinations, metro, collection);
+      const townReferences = selectMetroProximityTownReferences(metro, collection, results);
+      return {
+        collection,
+        results,
+        townReferences,
+        optionCount: results.length + townReferences.length,
+        indexReady: isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection),
+      };
+    })
     .filter((row) => row.indexReady);
-  const ready = metroProximityHubReady(destinations, metro);
+  const ready = collections.length >= 4;
   const highlights = collections
     .flatMap((row) => row.results.slice(0, 3))
     .filter((row, index, all) => all.findIndex((candidate) => candidate.destination.slug === row.destination.slug) === index)
     .slice(0, 12);
   const canonicalPath = metroProximityCanonicalPath(metro.slug);
   const title = `Day Trips & Things to Do Near ${metro.name}`;
-  const count = new Set(collections.flatMap((row) => row.results.map((item) => item.destination.slug))).size;
+  const count = new Set([
+    ...collections.flatMap((row) => row.results.map((item) => `destination:${item.destination.slug}`)),
+    ...collections.flatMap((row) => row.townReferences.map((item) => `town:${item.town.slug}`)),
+  ]).size;
   const description = `Plan day trips and things to do near ${metro.name}, Texas with ${count} source-backed parks, towns, lakes, historic sites and outdoor destinations ordered by approximate distance.`;
   const image = highlights[0]?.destination.hero;
   const pageUrl = `${siteUrl}${canonicalPath}`;
-  const reviewedAt = latestReview(highlights.map((row) => row.destination));
+  const reviewedAt = latestReview([
+    ...highlights.map((row) => row.destination.sourceCheckedAt),
+    ...collections.flatMap((row) => row.townReferences.map((item) => item.town.sourceCheckedAt)),
+  ]);
   const head = {
     meta: [
       ...buildMeta(texasDefinedBrand, { canonicalPath, title, description, image: image?.src, imageAlt: image?.alt }),
@@ -96,7 +131,7 @@ export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
             itemListElement: collections.map((row, index) => ({
               "@type": "ListItem",
               position: index + 1,
-              name: row.collection.label,
+              name: metroProximityCollectionPresentation(row.collection).label,
               url: `${siteUrl}/explore/near/${metro.slug}/${row.collection.slug}`,
             })),
           },
@@ -122,13 +157,27 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   if (!metro || !collection) return null;
   const destinations = await listResolvedDestinations({ limit: 5000 });
   const results = selectMetroProximityDestinations(destinations, metro, collection);
-  const indexReady = isMetroProximityCollectionIndexReady(destinations, metro, collection);
+  const townReferences = selectMetroProximityTownReferences(metro, collection, results);
+  const optionCount = results.length + townReferences.length;
+  const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
-  const title = metroProximityTitle(metro, collection);
-  const description = metroProximityDescription(metro, collection, results.length);
-  const reviewedAt = latestReview(results.map((row) => row.destination));
+  const presentation = metroProximityCollectionPresentation(collection);
+  const title = presentation.usesGeographicRing
+    ? `${presentation.titlePrefix} ${metro.name}, Texas`
+    : metroProximityTitle(metro, collection);
+  const description = presentation.usesGeographicRing
+    ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
+    : metroProximityDescription(metro, collection, optionCount);
+  const reviewedAt = latestReview([
+    ...results.map((row) => row.destination.sourceCheckedAt),
+    ...townReferences.map((row) => row.town.sourceCheckedAt),
+  ]);
   const image = results[0]?.destination.hero;
   const pageUrl = `${siteUrl}${canonicalPath}`;
+  const places = [
+    ...results.map((row) => ({ distanceMiles: row.distanceMiles, schema: destinationSchema(row) })),
+    ...townReferences.map((row) => ({ distanceMiles: row.distanceMiles, schema: townSchema(row, pageUrl) })),
+  ].sort((left, right) => left.distanceMiles - right.distanceMiles);
   const head = {
     meta: [
       ...buildMeta(texasDefinedBrand, { canonicalPath, title, description, image: image?.src, imageAlt: image?.alt }),
@@ -155,12 +204,8 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
             "@type": "ItemList",
             "@id": `${pageUrl}#places`,
             name: title,
-            numberOfItems: results.length,
-            itemListElement: results.map((row, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              item: destinationSchema(row),
-            })),
+            numberOfItems: places.length,
+            itemListElement: places.map((place, index) => ({ "@type": "ListItem", position: index + 1, item: place.schema })),
           },
           {
             "@type": "BreadcrumbList",
@@ -169,12 +214,12 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
               { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
               { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` },
               { "@type": "ListItem", position: 3, name: `Near ${metro.name}`, item: `${siteUrl}/explore/near/${metro.slug}` },
-              { "@type": "ListItem", position: 4, name: collection.label, item: pageUrl },
+              { "@type": "ListItem", position: 4, name: presentation.label, item: pageUrl },
             ],
           },
         ],
       }),
     }],
   };
-  return { metro, collection, results, indexReady, canonicalPath, title, description, reviewedAt, head };
+  return { metro, collection, results, townReferences, optionCount, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
 }
