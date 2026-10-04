@@ -12,6 +12,9 @@ const subscription = read('src/data/newsletter/newsletter-subscription.server.ts
 const functions = read('src/data/newsletter/newsletter.functions.ts');
 const adminAuth = read('src/data/newsletter/newsletter-admin-auth.server.ts');
 const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
+const adminPanel = read('src/components/admin/NewsletterOperationsPanel.tsx');
+const platformHealth = read('src/routes/admin.platform-health.lazy.tsx');
+const adminLayout = read('src/routes/admin.tsx');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composeContract = read('src/data/newsletter/newsletter-compose-contract.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
@@ -82,6 +85,9 @@ for (const marker of [
   'private, no-store',
   "Vary: 'Cookie'",
   'requireNewsletterAdmin',
+  'newsletterAdminLogin',
+  'newsletterAdminLogout',
+  'getNewsletterAdminSession',
   'getNewsletterAdminDashboard',
   'getNewsletterAdminIssue',
   'previewNewsletterAdminDraft',
@@ -95,6 +101,34 @@ for (const marker of [
   'sendOrScheduleNewsletterAdminIssue',
   'NEWSLETTER_SENDING_ENABLED',
 ]) requireText(adminFunctions, marker, 'Newsletter authenticated operator functions');
+
+for (const marker of [
+  'newsletterAdminLogin',
+  'newsletterAdminLogout',
+  'getNewsletterAdminSession',
+  'Newsletter Operations',
+  'Unlock newsletter operations',
+  'sandbox=""',
+  'no send-now control',
+  'Sync audience to Resend',
+  'Stage in Resend',
+  'Schedule issue',
+  'Lock',
+]) requireText(adminPanel, marker, 'Newsletter operations panel');
+
+requireText(platformHealth, '<NewsletterOperationsPanel />', 'Platform health newsletter integration');
+requireText(adminLayout, '/admin/platform-health#newsletter', 'Admin newsletter navigation');
+
+for (const forbidden of [
+  'sendOrScheduleNewsletterAdminIssue',
+  'sendResendBroadcast',
+  'sendNewsletterBroadcast',
+  'NEWSLETTER_SENDING_ENABLED=true',
+]) {
+  if (adminPanel.includes(forbidden)) {
+    failures.push(`Newsletter operations panel must not expose direct sending: found ${JSON.stringify(forbidden)}`);
+  }
+}
 
 for (const marker of [
   'newsletterDraftSchema',
@@ -123,6 +157,7 @@ for (const marker of [
   'listNewsletterIssues',
   'getNewsletterIssueForOperator',
   'getNewsletterOperatorDashboard',
+  'getNewsletterRuntimeReadiness',
   'getNewsletterInfrastructureStats',
   'deliveryCounts',
   'recentEventCounts',
@@ -131,6 +166,12 @@ for (const marker of [
   'confirmationConfigured',
   'doubleOptInReady',
   'resendConfigured',
+  'missingRuntimeBindings',
+  'activationBlocked',
+  'RESEND_API_KEY',
+  'RESEND_NEWSLETTER_SEGMENT_ID',
+  'NEWSLETTER_FROM_EMAIL',
+  'RESEND_WEBHOOK_SECRET',
 ]) requireText(operations, marker, 'Newsletter operator control plane');
 
 for (const marker of [
@@ -172,7 +213,14 @@ for (const marker of [
   'NEWSLETTER_ADMIN_SESSION_SECRET',
   'Server-only issue composer',
   'Server-only operator control plane',
+  'Protected newsletter operations panel',
+  '/admin/platform-health#newsletter',
+  'dedicated newsletter operator',
+  'keep_vars',
+  'missing runtime bindings',
 ]) requireText(docs, marker, 'Newsletter documentation');
+
+requireText(wrangler, '"keep_vars": true', 'Wrangler newsletter runtime preservation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
 if (/\"send_email\"\s*:|\bsend_email\b|\bEMAIL\s*:\s*\{/.test(wrangler)) {
