@@ -7,6 +7,13 @@ User-agent: Bingbot
 Allow: /
 Disallow: /admin
 
+# Public search/discovery crawlers. These were already allowed by the wildcard
+# policy; listing them explicitly keeps crawler diagnostics unambiguous.
+User-agent: Applebot
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /admin
+
 # AI search, assistant, training and indexing crawlers checked by GEO readiness tools.
 # These agents were already allowed by the wildcard policy in this group; listing
 # them explicitly makes the site's existing access policy unambiguous to parsers.
