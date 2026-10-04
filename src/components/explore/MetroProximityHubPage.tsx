@@ -14,6 +14,7 @@ type HubPageData = {
   collections: Array<{
     collection: MetroProximityCollection;
     results: MetroProximityResult[];
+    optionCount: number;
     indexReady: boolean;
   }>;
   highlights: MetroProximityResult[];
@@ -49,10 +50,10 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
       <p className="eyebrow text-primary">Explore by trip type</p>
       <h2 className="mt-3 font-display text-4xl">Choose the kind of escape you want</h2>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        {collections.map(({ collection, results }) => {
+        {collections.map(({ collection, optionCount }) => {
           const presentation = metroProximityCollectionPresentation(collection);
           return <article key={collection.slug} className="border-t border-border pt-5">
-            <p className="eyebrow text-muted-foreground">{results.length} nearby options</p>
+            <p className="eyebrow text-muted-foreground">{optionCount} source-backed options</p>
             <h3 className="mt-2 font-display text-2xl"><Link to="/explore/near/$metro/$collection" params={{ metro: metro.slug, collection: collection.slug }} className="hover:text-primary">{presentation.label}</Link></h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{presentation.summary}</p>
           </article>;

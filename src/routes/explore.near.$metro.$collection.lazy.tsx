@@ -10,6 +10,7 @@ import {
   type MetroProximityResult,
 } from "@/data/metro-proximity";
 import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
+import type { MetroProximityTownResult } from "@/data/metro-proximity-town-references";
 import { maps } from "@/services/maps";
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
@@ -18,6 +19,8 @@ type CollectionPageData = {
   metro: MetroProximityMetro;
   collection: MetroProximityCollection;
   results: MetroProximityResult[];
+  townReferences: MetroProximityTownResult[];
+  optionCount: number;
   indexReady: boolean;
   presentation: {
     label: string;
@@ -41,20 +44,20 @@ function countySlug(value: string) {
 }
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
-  const { metro, collection, results, presentation } = pageData;
+  const { metro, collection, results, townReferences, presentation } = pageData;
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
     .filter((group) => group.rows.length > 0);
-  const mapMarkers = results.slice(0, 10).map((row) => ({
-    id: row.destination.slug,
-    label: row.destination.name,
-    point: row.destination.coordinates,
-    href: `/destination/${row.destination.slug}`,
-  }));
-  const counties = [...new Set(results
-    .map((row) => row.destination.county?.replace(/\s+County$/i, "").trim())
-    .filter((value): value is string => Boolean(value)))]
-    .slice(0, 10);
+  const mapMarkers = [
+    ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: `/county/${countySlug(row.town.county)}`, distanceMiles: row.distanceMiles })),
+    ...results.map((row) => ({ id: row.destination.slug, label: row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
+  ]
+    .sort((left, right) => left.distanceMiles - right.distanceMiles)
+    .map(({ distanceMiles: _distanceMiles, ...marker }) => marker);
+  const counties = [...new Set([
+    ...townReferences.map((row) => row.town.county.replace(/\s+County$/i, "").trim()),
+    ...results.map((row) => row.destination.county?.replace(/\s+County$/i, "").trim()).filter((value): value is string => Boolean(value)),
+  ])].slice(0, 12);
 
   return <>
     <Container className="py-14 sm:py-18">
@@ -62,12 +65,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         <Link to="/explore/near/$metro" params={{ metro: metro.slug }} className="eyebrow border-b border-primary pb-1 text-primary">All near {metro.name}</Link>
         {METRO_PROXIMITY_COLLECTIONS.filter((item) => item.slug !== collection.slug).map((item) => {
           const itemPresentation = metroProximityCollectionPresentation(item);
-          return <Link
-            key={item.slug}
-            to="/explore/near/$metro/$collection"
-            params={{ metro: metro.slug, collection: item.slug }}
-            className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary"
-          >{itemPresentation.navLabel}</Link>;
+          return <Link key={item.slug} to="/explore/near/$metro/$collection" params={{ metro: metro.slug, collection: item.slug }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{itemPresentation.navLabel}</Link>;
         })}
       </div>
     </Container>
@@ -80,7 +78,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">{bandLabel(group.band)}</p>
-          <h2 className="mt-3 font-display text-4xl">{group.rows.length} place{group.rows.length === 1 ? "" : "s"} in this geographic band</h2>
+          <h2 className="mt-3 font-display text-4xl">{group.rows.length} full TexasDefined guide{group.rows.length === 1 ? "" : "s"} in this geographic band</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>

@@ -8,15 +8,15 @@ import {
   isMetroProximityCollectionIndexReady,
   selectMetroProximityDestinations,
 } from "../metro-proximity.ts";
+import {
+  isMetroProximityCollectionIndexReadyWithTownReferences,
+  selectMetroProximityTownReferences,
+} from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
 
-function destination(
-  index: number,
-  category: CategorySlug,
-  overrides: Partial<Destination> = {},
-): Destination {
+function destination(index: number, category: CategorySlug, overrides: Partial<Destination> = {}): Destination {
   return {
     id: `test-${index}`,
     brandId: "texasdefined",
@@ -73,9 +73,7 @@ test("swimming-hole intent requires water-use language, not only a broad outdoor
 test("thin or geographically narrow collections remain noindex", () => {
   const metro = getMetroProximityMetro("houston")!;
   const collection = getMetroProximityCollection("things-to-do")!;
-  const thin = Array.from({ length: collection.minResults }, (_, index) =>
-    destination(index + 1, "small-towns", { county: "One County", nearestTown: "One Town" }),
-  );
+  const thin = Array.from({ length: collection.minResults }, (_, index) => destination(index + 1, "small-towns", { county: "One County", nearestTown: "One Town" }));
   assert.equal(isMetroProximityCollectionIndexReady(thin, metro, collection), false);
 });
 
@@ -83,24 +81,49 @@ test("substantive, diverse inventory can clear the index gate", () => {
   const metro = getMetroProximityMetro("houston")!;
   const collection = getMetroProximityCollection("things-to-do")!;
   const categories: CategorySlug[] = ["small-towns", "state-parks", "lakes-rivers", "historic-sites"];
-  const rows = Array.from({ length: 16 }, (_, index) =>
-    destination(index + 1, categories[index % categories.length], {
-      nearestTown: `Town ${index % 10}`,
-      county: `County ${index % 5}`,
-    }),
-  );
+  const rows = Array.from({ length: 16 }, (_, index) => destination(index + 1, categories[index % categories.length], {
+    nearestTown: `Town ${index % 10}`,
+    county: `County ${index % 5}`,
+  }));
   assert.equal(isMetroProximityCollectionIndexReady(rows, metro, collection), true);
+});
+
+test("San Angelo closest-small-town page is geography-first instead of catalog-only", () => {
+  const metro = getMetroProximityMetro("san-angelo")!;
+  const collection = getMetroProximityCollection("small-towns-1-hour")!;
+  const rows = selectMetroProximityTownReferences(metro, collection);
+  const names = new Set(rows.map((row) => row.town.name));
+  for (const name of ["Miles", "Christoval", "Mertzon", "Robert Lee", "Bronte", "Paint Rock", "Ballinger"]) assert.ok(names.has(name), `missing ${name}`);
+  assert.ok(rows.every((row) => row.distanceMiles > collection.minimumMiles && row.distanceMiles <= collection.radiusMiles));
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], metro, collection), true);
+});
+
+test("San Angelo town references stay inside configured geographic rings", () => {
+  const metro = getMetroProximityMetro("san-angelo")!;
+  const closest = getMetroProximityCollection("small-towns-1-hour")!;
+  const middle = getMetroProximityCollection("small-towns-2-hours")!;
+  const closestNames = new Set(selectMetroProximityTownReferences(metro, closest).map((row) => row.town.name));
+  const middleNames = new Set(selectMetroProximityTownReferences(metro, middle).map((row) => row.town.name));
+  assert.equal(closestNames.has("Eden"), false);
+  for (const name of ["Eden", "Sterling City", "Eldorado", "Winters", "Big Lake"]) assert.ok(middleNames.has(name), `missing ${name}`);
+});
+
+test("a full destination guide supersedes its supplemental town reference", () => {
+  const metro = getMetroProximityMetro("san-angelo")!;
+  const collection = getMetroProximityCollection("small-towns-1-hour")!;
+  const christoval = destination(99, "small-towns", {
+    slug: "christoval",
+    name: "Christoval",
+    nearestTown: "Christoval",
+    county: "Tom Green",
+    coordinates: { lat: 31.1932, lng: -100.4998 },
+  });
+  const destinationRows = selectMetroProximityDestinations([christoval], metro, collection);
+  const townRows = selectMetroProximityTownReferences(metro, collection, destinationRows);
+  assert.equal(townRows.some((row) => row.town.slug === "christoval"), false);
 });
 
 test("launch registry includes requested trip-intent expansions", () => {
   const slugs = new Set(METRO_PROXIMITY_COLLECTIONS.map((collection) => collection.slug));
-  for (const slug of [
-    "weekend-trips",
-    "road-trips",
-    "small-towns-1-hour",
-    "small-towns-2-hours",
-    "small-towns-3-hours",
-    "lakes",
-    "swimming-holes",
-  ]) assert.ok(slugs.has(slug as never), `missing ${slug}`);
+  for (const slug of ["weekend-trips", "road-trips", "small-towns-1-hour", "small-towns-2-hours", "small-towns-3-hours", "lakes", "swimming-holes"]) assert.ok(slugs.has(slug as never), `missing ${slug}`);
 });

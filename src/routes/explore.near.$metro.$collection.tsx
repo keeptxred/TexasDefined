@@ -17,14 +17,13 @@ export const Route = createFileRoute("/explore/near/$metro/$collection")({
   component: MetroProximityCollectionPage,
 });
 
-function countyLabel(value?: string) {
-  if (!value) return "";
-  return /\bCounty$/i.test(value) ? value : `${value} County`;
+function countySlug(value: string) {
+  return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 function MetroProximityCollectionPage() {
   const pageData = Route.useLoaderData();
-  const { metro, collection, results, indexReady, presentation } = pageData;
+  const { metro, collection, townReferences, optionCount, indexReady, presentation } = pageData;
   const distanceWindow = collection.minimumMiles > 0
     ? `${collection.minimumMiles}–${collection.radiusMiles} straight-line miles`
     : `Up to ${collection.radiusMiles} straight-line miles`;
@@ -51,27 +50,31 @@ function MetroProximityCollectionPage() {
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{pageData.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{presentation.summary}</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm">
-            <p><span className="eyebrow mr-2 text-muted-foreground">Published options</span>{results.length}</p>
+            <p><span className="eyebrow mr-2 text-muted-foreground">Source-backed options</span>{optionCount}</p>
             <p><span className="eyebrow mr-2 text-muted-foreground">Distance window</span>{distanceWindow}</p>
             <p><span className="eyebrow mr-2 text-muted-foreground">Ordering</span>Geographic distance</p>
             {presentation.tripFit && <p><span className="eyebrow mr-2 text-muted-foreground">Trip fit</span>{presentation.tripFit}</p>}
           </div>
-          <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are catalog-screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links below for current Google Maps routing, road mileage and travel-time estimates.</p>
-          {presentation.usesGeographicRing && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined no longer treats these geographic rings as literal one-, two- or three-hour drives. Texas road networks vary too much for a straight-line radius to make that claim reliably.</p>}
-          {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until the source-backed catalog reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
+          <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links in the map and guide sections below for current Google Maps routing, road mileage and travel-time estimates.</p>
+          {presentation.usesGeographicRing && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not treat these geographic rings as literal one-, two- or three-hour drives. Texas road networks vary too much for a straight-line radius to make that claim reliably.</p>}
+          {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until its source-backed inventory reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
         </div>
       </section>
 
-      {results.length > 0 && <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
-        <p className="eyebrow text-primary">Quick shortlist</p>
-        <h2 className="mt-3 font-display text-4xl">Start with these nearby options</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          {results.slice(0, 6).map((row) => <article key={row.destination.slug} className="border-t border-border pt-5">
-            <p className="eyebrow text-muted-foreground">About {Math.round(row.distanceMiles)} geographic miles · {row.destination.nearestTown}{row.destination.county ? ` · ${countyLabel(row.destination.county)}` : ""}</p>
-            <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: row.destination.slug }} className="hover:text-primary">{row.destination.name}</Link></h3>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">{row.destination.summary}</p>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong>Best season:</strong> {row.destination.bestSeason}</p>
-            {row.destination.highlights.length > 0 && <p className="mt-2 text-sm leading-6 text-muted-foreground"><strong>Good for:</strong> {row.destination.highlights.slice(0, 2).join(" · ")}</p>}
+      {townReferences.length > 0 && <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-18">
+        <p className="eyebrow text-primary">Closest towns first</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl">Start with the communities actually closest to {metro.name}</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These official-source town references fill geographic gaps where TexasDefined does not yet have a full destination authority guide. That keeps the answer complete without publishing thin placeholder destination pages.</p>
+        <div className="mt-9 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          {townReferences.map((row) => <article key={row.town.slug} className="border-t border-border pt-5">
+            <p className="eyebrow text-muted-foreground">About {Math.round(row.distanceMiles)} geographic miles · {row.town.county} County</p>
+            <h3 className="mt-2 font-display text-3xl">{row.town.name}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{row.town.summary}</p>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong>Good for:</strong> {row.town.bestFor.join(" · ")}</p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a href={row.town.officialUrl} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Official local source ↗</a>
+              <Link to="/county/$slug" params={{ slug: countySlug(row.town.county) }} className="border-b border-border pb-1 hover:border-primary hover:text-primary">Explore {row.town.county} County</Link>
+            </div>
           </article>)}
         </div>
       </section>}
