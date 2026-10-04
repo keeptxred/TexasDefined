@@ -215,21 +215,19 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   }
 
   const options = { featured: params.featured, category: params.category, limit: params.limit };
-  const [enriched, core, local, cavernPreserved] = await Promise.all([
+  const [enriched, core, cavernPreserved] = await Promise.all([
     loadEnrichedCatalog(options, params),
     loadCoreCatalog(options, params),
-    platform.destinations.list({ ...scope, ...params }),
     cavernPreservedFor(params),
   ]);
+  const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
   const abilenePreserved = abilenePreservedFor(params);
   const cityPassPreserved = await cityPassPreservedFor(params);
+  const baseReady = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
-    enriched,
-    core,
-    preserved,
+    baseReady,
     abilenePreserved,
-    local,
     cavernPreserved,
     cityPassPreserved,
   ));
@@ -293,9 +291,10 @@ export async function getResolvedDestination(slug: Slug) {
   const readyLocal = resolveSeoReadyDestination(local);
   if (readyLocal) return readyLocal;
 
-  const fallback = preserved ?? cavernPreserved ?? cityPassPreserved ?? local;
+  const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
   if (fallback) return applyResolvedHero(fallback);
-  return weakCandidates.length ? applyResolvedHero(weakCandidates[0]) : null;
+  if (!local && weakCandidates.length) return applyResolvedHero(weakCandidates[0]);
+  return local ? applyResolvedHero(local) : local;
 }
 
 export async function listResolvedDestinationSearchCatalog() {
