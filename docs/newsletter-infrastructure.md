@@ -71,6 +71,8 @@ The Worker needs these secrets/variables before the complete Resend integration 
 
 Transactional double-opt-in confirmation only needs `RESEND_API_KEY` and `NEWSLETTER_FROM_EMAIL`; Broadcast audience/sending readiness additionally needs the segment and webhook configuration.
 
+`RESEND_API_KEY` and `RESEND_WEBHOOK_SECRET` should be stored as Cloudflare Worker secrets. `RESEND_NEWSLETTER_SEGMENT_ID`, `NEWSLETTER_FROM_EMAIL`, and the rollout flags can be regular Worker variables. `wrangler.jsonc` sets `keep_vars: true` so normal CI deployments preserve dashboard-configured runtime variables instead of silently replacing them. Secret values remain managed outside the repository and are never committed.
+
 Two independent rollout switches remain off by default:
 
 - `NEWSLETTER_SIGNUPS_ENABLED=true` exposes the subscribe endpoint and server-function signup path for public forms.
@@ -103,7 +105,9 @@ The composer is intentionally server-only. It does not add an admin page, public
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
-- Rollout state reports whether public signup, bulk sending, double opt-in, confirmation delivery, and the complete Resend credential set are configured. It does not expose secret values.
+- `getNewsletterRuntimeReadiness` reports whether public signup, bulk sending, double opt-in, confirmation delivery, and the complete Resend credential set are configured. It also reports the names of any missing runtime bindings and an `activationBlocked` flag, without exposing secret values.
+
+The missing runtime bindings list is diagnostic and fail-closed. Bulk sending is blocked when the full Resend marketing configuration is incomplete. Public signup is reported blocked when double opt-in is enabled but confirmation delivery is not configured.
 
 These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
 
