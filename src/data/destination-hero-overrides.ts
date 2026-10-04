@@ -9,6 +9,13 @@ import type { ImageRef } from "./types";
  * credit remains visible with each image reference.
  */
 export const destinationHeroOverrides: Record<string, ImageRef> = {
+  "grace-museum-abilene": {
+    src: "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Grace%20Museum%20Abilene%20Texas%202015.jpg",
+    alt: "The historic Grace Museum building in downtown Abilene, Texas",
+    width: 1809,
+    height: 1206,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+  },
   "jocelyn-nungaray-national-wildlife-refuge": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Anahuac%20National%20Wildlife%20Refuge%20%285A%29%20Chambers%20Co.%20TX%3B%201%20Dec%202018.jpg",
     alt: "Coastal wetland habitat at Jocelyn Nungaray National Wildlife Refuge, formerly Anahuac National Wildlife Refuge",
@@ -88,7 +95,7 @@ export const destinationHeroOverrides: Record<string, ImageRef> = {
   },
   "neches-river-national-wildlife-refuge": {
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Entrance%20Sign%20Neches%20River%20NWR.jpg",
-    alt: "Entrance to Neches River National Wildlife Refuge in East Texas",
+    alt: "Entrance to Neches River National Wildlife Refuge in Grayson County",
     width: 2250,
     height: 1500,
     credit: "Wikimedia Commons",
