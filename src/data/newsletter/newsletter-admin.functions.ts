@@ -1,8 +1,6 @@
 import { createServerFn } from '@tanstack/react-start';
 import { z } from 'zod';
 
-import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
-
 const accessSchema = z.object({
   accessKey: z.string().trim().min(20).max(200),
 });
@@ -17,7 +15,8 @@ const scheduleSchema = issueSchema.extend({
 
 async function assertNewsletterAdminAccess(accessKey: string) {
   // Reuse the existing operations-admin key and its server-side constant-time hash check.
-  // Newsletter subscriber data is never returned until this assertion succeeds.
+  // Keep the verifier behind a dynamic server import so the client bundle never pulls in service-role code.
+  const { assertSportsPartnerAccess } = await import('@/data/sports-partner-leads.server');
   await assertSportsPartnerAccess(accessKey);
 }
 
