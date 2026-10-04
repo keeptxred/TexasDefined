@@ -8,7 +8,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 const FishingSeasonDirectory = lazy(() => import("@/components/fishing/FishingSeasonDirectory").then((module) => ({ default: module.FishingSeasonDirectory })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-const description = "Plan Texas freshwater lake fishing month by month with source-backed seasonal patterns, grouped lake guides, species and region filters, plus fresh fishing reports.";
+const description = "Plan Texas lake fishing by month with seasonal patterns, species and region filters, lake guides, and fresh fishing reports.";
 type SeasonSearch = { season?: FishingSeasonFilter; species?: string; month?: string; region?: string };
 
 const faq = [
