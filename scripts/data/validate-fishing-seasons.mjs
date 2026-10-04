@@ -52,24 +52,30 @@ for (const token of [
 ]) requireText(route, token, `season route contract missing ${token}`);
 
 for (const token of [
-  "Texas Fishing Seasons by Month",
-  "Season at a glance",
-  "This is coverage, not a best-fish ranking.",
+  "Texas Lake Fishing Seasons by Month",
   "What month are you fishing?",
-  "Fishing in Texas right now",
+  "What our lake guides cover each season",
+  "This is coverage, not a best-fish ranking.",
   "Choose a fish",
   "Choose a Texas region",
-  "Fishing: Lakes and Fish",
-  "grouped together",
+  "Current Texas fishing reports",
+  "Only reports that are still current appear here.",
+  "Start with a month, season, fish or region.",
+  "Rather than dumping the entire database onto this page",
+  "Browse all fishing lakes",
   "Available year-round",
   "fresh fishing reports",
   "current regulations",
   "Last reviewed:",
-  "No Lake Guides Match These Filters",
+  "No lake guides match these filters",
+  "Prairies & Lakes",
 ]) requireText(component, token, `season UI contract missing ${token}`);
+requireText(component, "const hasFilters = Boolean", "unfiltered landing page must not render the full lake database by default");
+requireText(component, '!hasFilters ? <div', "planning-first empty state missing");
 requireText(route, "monthSlug(search.month)", "month filter validation missing");
 requireText(route, "region: slug(search.region)", "region filter validation missing");
 for (const month of ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]) requireText(component, `"${month}"`, `month navigation missing ${month}`);
+for (const monthName of ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]) requireText(component, `"${monthName}"`, `full month label missing ${monthName}`);
 
 for (const forbidden of ["the best season is", "guaranteed catch", "today's best", "fish are biting", "current bite is"]) {
   if (`${route}\n${component}`.toLowerCase().includes(forbidden)) throw new Error(`Fishing Batch 12 validation failed: live/predictive claim leaked into evergreen season route (${forbidden}).`);
@@ -83,4 +89,4 @@ requireText(links, "fishing-reference:seasons", "seasons internal-link entity mi
 requireText(publicRoutes, '"/fishing/seasons"', "public route governance missing seasons engine");
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-seasons.mjs", "Batch 12 validator is not wired into fishing:validate");
 
-console.log("Fishing Batch 12 seasons validation passed: source-backed seasonal patterns, complete-lake scope, lazy UI boundary, year-round semantics, technique relationships, anti-live-condition safeguards, editorial ordering, schemas and discovery governance are protected.");
+console.log("Fishing Batch 12 seasons validation passed: source-backed seasonal patterns, complete-lake scope, planning-first landing UX, full month labels, lazy UI boundary, year-round semantics, technique relationships, current-report safeguards, editorial ordering, schemas and discovery governance are protected.");
