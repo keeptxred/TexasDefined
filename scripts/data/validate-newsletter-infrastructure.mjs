@@ -10,6 +10,9 @@ const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
+const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
+const adminRoute = read('src/routes/admin.newsletter.lazy.tsx');
+const adminLayout = read('src/routes/admin.tsx');
 const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
 const serverEntry = read('src/server-entry.ts');
 const docs = read('docs/newsletter-infrastructure.md');
@@ -62,6 +65,39 @@ for (const marker of [
 ]) requireText(operations, marker, 'Newsletter operator control plane');
 
 for (const marker of [
+  'assertSportsPartnerAccess',
+  'assertNewsletterAdminAccess',
+  'getNewsletterAdminDashboard',
+  'getNewsletterAdminIssue',
+  'markNewsletterAdminIssueReady',
+  'scheduleNewsletterAdminIssue',
+  'cancelNewsletterAdminIssue',
+]) requireText(adminFunctions, marker, 'Newsletter admin server boundary');
+
+for (const marker of [
+  "createLazyFileRoute('/admin/newsletter')",
+  "SESSION_KEY = 'texasdefined:sports-partner-admin-key'",
+  'Protected newsletter data',
+  'Unlock newsletter operations',
+  'sandbox=""',
+  'This console intentionally has no send-now control',
+  'Schedule issue',
+  'Lock console',
+]) requireText(adminRoute, marker, 'Newsletter admin console');
+
+requireText(adminLayout, 'to="/admin/newsletter"', 'Admin navigation');
+
+for (const forbidden of [
+  'sendResendBroadcast',
+  'sendNewsletterBroadcast',
+  'NEWSLETTER_SENDING_ENABLED=true',
+]) {
+  if (adminFunctions.includes(forbidden) || adminRoute.includes(forbidden)) {
+    failures.push(`Newsletter admin console must not expose direct sending: found ${JSON.stringify(forbidden)}`);
+  }
+}
+
+for (const marker of [
   'NEWSLETTER_SIGNUPS_ENABLED',
   "'/api/newsletter/subscribe'",
   "'/api/newsletter/confirm'",
@@ -93,6 +129,9 @@ for (const marker of [
   'Cloudflare Email Service is not the newsletter transport',
   'Server-only issue composer',
   'Server-only operator control plane',
+  'Protected newsletter admin console',
+  '/admin/newsletter',
+  'existing TexasDefined operations admin key',
 ]) requireText(docs, marker, 'Newsletter documentation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
