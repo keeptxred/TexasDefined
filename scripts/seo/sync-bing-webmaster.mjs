@@ -9,9 +9,6 @@ const targetHosts = (process.env.BING_WEBMASTER_SITE_HOSTS || "texasdefined.com,
   .map((host) => host.trim().toLowerCase().replace(/^www\./, ""))
   .filter(Boolean);
 const bingBaseUrl = "https://ssl.bing.com/webmaster/api.svc/json";
-const supabaseInsertMaxAttempts = 5;
-const supabaseInsertBaseDelayMs = 1_000;
-const retryableSupabaseStatuses = new Set([408, 425, 429, 500, 502, 503, 504]);
 
 if (!bingApiKey) throw new Error("BING_WEBMASTER_API_KEY is required.");
 if (!supabaseUrl) throw new Error("SUPABASE_URL is required.");
@@ -43,15 +40,6 @@ function cleanBingValue(value) {
   return cleaned;
 }
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function isRetryableSupabaseFailure(status, body) {
-  if (retryableSupabaseStatuses.has(status)) return true;
-  return body.includes('"code":"PGRST002"') || body.toLowerCase().includes("schema cache");
-}
-
 async function bingGet(method, params = {}) {
   const search = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
@@ -62,7 +50,7 @@ async function bingGet(method, params = {}) {
   const response = await fetch(`${bingBaseUrl}/${method}?${search.toString()}`, {
     headers: {
       accept: "application/json",
-      "user-agent": "TexasDefinedBingWebmasterCollector/1.1",
+      "user-agent": "TexasDefinedBingWebmasterCollector/1.3",
     },
     redirect: "follow",
   });
@@ -83,7 +71,7 @@ async function bingPost(method, body) {
     headers: {
       accept: "application/json",
       "content-type": "application/json; charset=utf-8",
-      "user-agent": "TexasDefinedBingWebmasterCollector/1.2",
+      "user-agent": "TexasDefinedBingWebmasterCollector/1.3",
     },
     redirect: "follow",
     body: JSON.stringify(body),
@@ -106,54 +94,32 @@ function normalizedHostname(url) {
   }
 }
 
+function expectedFeedUrls(host) {
+  if (host === "texasdefined.com") {
+    return [
+      "https://texasdefined.com/sitemap.xml",
+      "https://texasdefined.com/sitemap-explore.xml",
+      "https://texasdefined.com/sitemap-texas-icons.xml",
+    ];
+  }
+  return [`https://${host}/sitemap.xml`];
+}
+
 async function insertSnapshot(snapshot) {
-  for (let attempt = 1; attempt <= supabaseInsertMaxAttempts; attempt += 1) {
-    let response;
-    try {
-      response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_bing_webmaster_snapshots`, {
-        method: "POST",
-        headers: {
-          apikey: supabaseServiceRoleKey,
-          authorization: `Bearer ${supabaseServiceRoleKey}`,
-          "content-type": "application/json",
-          prefer: "return=minimal",
-        },
-        body: JSON.stringify(snapshot),
-      });
-    } catch (error) {
-      if (attempt === supabaseInsertMaxAttempts) throw error;
-      const delayMs = supabaseInsertBaseDelayMs * 2 ** (attempt - 1);
-      console.warn(
-        JSON.stringify({
-          event: "supabase_snapshot_insert_retry",
-          attempt,
-          reason: "network_error",
-          delayMs,
-          message: error instanceof Error ? error.message : String(error),
-        }),
-      );
-      await sleep(delayMs);
-      continue;
-    }
+  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_bing_webmaster_snapshots`, {
+    method: "POST",
+    headers: {
+      apikey: supabaseServiceRoleKey,
+      authorization: `Bearer ${supabaseServiceRoleKey}`,
+      "content-type": "application/json",
+      prefer: "return=minimal",
+    },
+    body: JSON.stringify(snapshot),
+  });
 
-    if (response.ok) return;
-
+  if (!response.ok) {
     const body = (await response.text()).slice(0, 1000);
-    const retryable = isRetryableSupabaseFailure(response.status, body);
-    if (!retryable || attempt === supabaseInsertMaxAttempts) {
-      throw new Error(`Supabase snapshot insert returned HTTP ${response.status}${body ? `: ${body}` : ""}`);
-    }
-
-    const delayMs = supabaseInsertBaseDelayMs * 2 ** (attempt - 1);
-    console.warn(
-      JSON.stringify({
-        event: "supabase_snapshot_insert_retry",
-        attempt,
-        status: response.status,
-        delayMs,
-      }),
-    );
-    await sleep(delayMs);
+    throw new Error(`Supabase snapshot insert returned HTTP ${response.status}${body ? `: ${body}` : ""}`);
   }
 }
 
@@ -189,13 +155,18 @@ for (const host of targetHosts) {
   ]);
 
   const canonicalFeedUrl = `https://${host}/sitemap.xml`;
+  const requiredFeedUrls = expectedFeedUrls(host);
   let feeds = initialFeeds;
-  let canonicalFeedSubmitted = false;
-  if (!feeds.some((feed) => feed?.Url === canonicalFeedUrl)) {
-    await bingPost("SubmitFeed", { siteUrl, feedUrl: canonicalFeedUrl });
-    canonicalFeedSubmitted = true;
+  const submittedFeedUrls = [];
+  for (const feedUrl of requiredFeedUrls) {
+    if (feeds.some((feed) => feed?.Url === feedUrl)) continue;
+    await bingPost("SubmitFeed", { siteUrl, feedUrl });
+    submittedFeedUrls.push(feedUrl);
+  }
+  if (submittedFeedUrls.length > 0) {
     feeds = asArray(await requestForSite("GetFeeds"));
   }
+  const canonicalFeedSubmitted = submittedFeedUrls.includes(canonicalFeedUrl);
 
   const canonicalFeed = feeds.find((feed) => feed?.Url === canonicalFeedUrl);
   let legacyFeedAliasesRemoved = 0;
@@ -248,6 +219,8 @@ for (const host of targetHosts) {
       feeds: feeds.length,
     },
     canonicalFeedUrl,
+    requiredFeedUrls,
+    submittedFeedUrls,
     canonicalFeedSubmitted,
     legacyFeedAliasesRemoved,
   });
