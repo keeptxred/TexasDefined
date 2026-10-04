@@ -9,9 +9,12 @@ const requireText = (source, needle, label) => {
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
+const visualStandard = read('src/data/newsletter/newsletter-visual-standard.ts');
+const visualLibrary = read('src/data/newsletter/newsletter-visual-library.ts');
 const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
 const serverEntry = read('src/server-entry.ts');
 const docs = read('docs/newsletter-infrastructure.md');
+const visualDocs = read('docs/newsletter-visual-standard.md');
 const migration = read('supabase/migrations/20261003112811_add_texasdefined_newsletter_provider_identity.sql');
 const wrangler = read('wrangler.jsonc');
 
@@ -36,6 +39,11 @@ for (const marker of [
   'renderTexasDefinedNewsletter',
   'Read on TexasDefined',
   'safeHttpUrl',
+  'INSIDE_TEXASDEFINED_NAME',
+  'INSIDE_TEXASDEFINED_TAGLINE',
+  'NEWSLETTER_VISIBLE_IMAGE_SLOTS',
+  'imageAlt',
+  'imageCredit',
 ]) requireText(template, marker, 'Newsletter template');
 
 for (const marker of [
@@ -44,9 +52,35 @@ for (const marker of [
   'saveNewsletterIssueDraft',
   'renderTexasDefinedNewsletter',
   '.min(1).max(12)',
-  "composer: 'texasdefined-story-digest-v1'",
+  "composer: 'inside-texasdefined-visual-digest-v2'",
+  'hydrateNewsletterStoryVisual',
+  'inspectNewsletterVisualCoverage',
+  'visualCoverage',
   'storyCount',
 ]) requireText(composer, marker, 'Newsletter issue composer');
+
+for (const marker of [
+  "INSIDE_TEXASDEFINED_NAME = 'Inside TexasDefined'",
+  "INSIDE_TEXASDEFINED_TAGLINE = 'Defining everything that is Texas.'",
+  "ratio: '16:9'",
+  "ratio: '3:2'",
+  "ratio: '4:3'",
+  'inspectNewsletterVisualCoverage',
+]) requireText(visualStandard, marker, 'Newsletter visual standard');
+
+for (const marker of [
+  "path: '/explore/state-parks'",
+  "path: '/explore/lakes-rivers'",
+  "path: '/texas-history'",
+  "imageCredit: 'Wing-Chi Poon · CC BY-SA 3.0 · Wikimedia Commons'",
+  "imageUrl: '/images/",
+  'hydrateNewsletterStoryVisual',
+  'NEWSLETTER_CURATED_VISUAL_PATHS',
+]) requireText(visualLibrary, marker, 'Newsletter visual library');
+
+if (visualLibrary.includes("@/assets/")) {
+  failures.push('Newsletter visual library must use stable public image URLs, not build-hashed bundled asset imports.');
+}
 
 for (const marker of [
   'NEWSLETTER_SIGNUPS_ENABLED',
@@ -80,6 +114,18 @@ for (const marker of [
   'Cloudflare Email Service is not the newsletter transport',
   'Server-only issue composer',
 ]) requireText(docs, marker, 'Newsletter documentation');
+
+for (const marker of [
+  '# Inside TexasDefined visual standard',
+  '**Tagline:** Defining everything that is Texas.',
+  '1600×900',
+  '1200×800',
+  '1200×900',
+  'AI-generated decorative imagery is not the default newsletter solution',
+  'Curated automatic image fill',
+  'permanent `/images/...` paths',
+  'Small Towns, Sports and Moving to Texas still require an explicit editor-selected image',
+]) requireText(visualDocs, marker, 'Newsletter visual documentation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
 if (/\"send_email\"\s*:|\bsend_email\b|\bEMAIL\s*:\s*\{/.test(wrangler)) {
