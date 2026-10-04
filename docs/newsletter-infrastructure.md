@@ -32,11 +32,15 @@ The subscribe endpoint deliberately returns 404 until `NEWSLETTER_SIGNUPS_ENABLE
 
 Complaint and bounce states are hard suppressions. A later public signup does not automatically reactivate either state; an operator must deliberately resolve it. Provider unsubscribe events also move the subscriber into the unsubscribed suppression state.
 
-### Double opt-in
+### Double opt-in and confirmation email transport
 
 Set `NEWSLETTER_DOUBLE_OPT_IN=true` to put new or re-subscribing addresses into `pending` until their confirmation token is consumed. The default is single opt-in (`active`) while still recording explicit signup consent.
 
-No confirmation email is sent until the confirmation-email transport is enabled.
+`newsletter-confirmation.server.ts` provides the confirmation email transport through Resend's transactional Email API. It sends the subscriber a stable TexasDefined confirmation URL, uses a provider idempotency key tied to the confirmation token, and never returns the confirmation token through the public signup response.
+
+Double-opt-in signup fails closed before creating a pending subscription unless both `RESEND_API_KEY` and `NEWSLETTER_FROM_EMAIL` are present and `NEWSLETTER_CONFIRMATION_EMAIL_ENABLED=true`. If Resend rejects the confirmation send after the pending row is created, the public endpoint returns a generic `confirmation_delivery_failed` response rather than exposing provider details.
+
+The confirmation-email switch is independent from `NEWSLETTER_SENDING_ENABLED`; enabling transactional confirmation does not arm bulk newsletter broadcasts.
 
 ## Marketing delivery provider: Resend Broadcasts
 
@@ -50,7 +54,7 @@ Provider-side unsubscribes are fail-closed: if Resend says a contact is unsubscr
 
 ### Required provider configuration
 
-The Worker needs these secrets/variables before Resend integration can be used:
+The Worker needs these secrets/variables before the full Resend integration can be used:
 
 - `RESEND_API_KEY`
 - `RESEND_NEWSLETTER_SEGMENT_ID`
@@ -61,12 +65,13 @@ The Worker needs these secrets/variables before Resend integration can be used:
 
 `wrangler.jsonc` sets `keep_vars: true` so environment variables configured outside Wrangler are preserved across CI deployments. This matters for newsletter rollout because a normal site deployment must not silently erase the Resend segment/from-address or the signup/sending switches. Worker secrets remain managed separately and are never committed to the repository.
 
-Two independent rollout switches remain off by default:
+Three independent rollout switches remain off by default:
 
 - `NEWSLETTER_SIGNUPS_ENABLED=true` exposes the subscribe endpoint for public forms.
+- `NEWSLETTER_CONFIRMATION_EMAIL_ENABLED=true` permits double-opt-in confirmation emails to be sent.
 - `NEWSLETTER_SENDING_ENABLED=true` permits a Resend Broadcast to actually send or schedule.
 
-Having provider credentials alone does **not** arm sending.
+Having provider credentials alone does **not** arm confirmation mail or bulk sending.
 
 ### Sending domain
 
@@ -93,9 +98,9 @@ The composer is intentionally server-only. It does not add an admin page, public
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
-- `getNewsletterRuntimeReadiness` reports signup, sending, and double-opt-in switch state; whether the complete Resend configuration exists; the names of any missing runtime bindings; and whether activation is blocked by an incomplete provider configuration. It never exposes secret values.
+- `getNewsletterRuntimeReadiness` reports signup, sending, double-opt-in, and confirmation-email switch state; confirmation transport readiness; whether the complete Resend marketing configuration exists; the names of any missing runtime bindings; and whether activation is blocked. It never exposes secret values.
 
-The missing runtime bindings list is deliberately diagnostic rather than permissive: if signup or sending is enabled while required provider bindings are absent, `activationBlocked` becomes true so a future operator UI can fail closed and identify the configuration problem without revealing credentials.
+The missing runtime bindings list is deliberately diagnostic rather than permissive. `activationBlocked` becomes true when bulk sending is enabled without full Resend marketing configuration, or when double-opt-in public signup is enabled without a ready confirmation email transport.
 
 These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
 
@@ -130,6 +135,7 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 - No public `/newsletter` editorial/landing page has been added.
 - No newsletter admin page has been added.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI is approved.
+- `NEWSLETTER_CONFIRMATION_EMAIL_ENABLED` remains off until the Resend sending identity is configured.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
 - No newsletter will send merely because these migrations/code are deployed.
