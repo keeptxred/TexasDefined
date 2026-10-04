@@ -68,7 +68,9 @@ export const Route = createFileRoute("/fishing/plan")({
     };
     return { meta: buildMeta(texasDefinedBrand, { title: "Texas Fishing Lake Finder — Search by Place & Fish Species", description, canonicalPath: FISHING_TRIP_PLANNER_PATH }), links: [canonicalLink(texasDefinedBrand, FISHING_TRIP_PLANNER_PATH)], scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }] };
   },
-}).lazy(() => import("@/lazy/fishing-plan").then((d) => d.Route));
+});
+
+Route.lazy(() => import("@/lazy/fishing-plan").then((d) => d.Route));
 
 function cleanText(value: unknown) {
   if (typeof value !== "string") return undefined;
