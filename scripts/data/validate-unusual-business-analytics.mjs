@@ -14,6 +14,7 @@ const authorityPanel = read("src/components/authority/UnusualBusinessAuthorityPa
 const citationPanel = read("src/components/authority/CitationTrustPanel.tsx");
 const articleBody = read("src/components/editorial/ArticleBody.tsx");
 const destinationAuthority = read("src/components/editorial/DestinationAuthorityGuide.tsx");
+const destinationRelationships = read("src/components/editorial/DestinationRelationships.tsx");
 const whirlyball = read("src/data/whirlyball-hurst-destination.ts");
 
 const errors = [];
@@ -150,6 +151,13 @@ requireAll("article authority rendering", articleBody, [
 requireAll("destination authority rendering", destinationAuthority, [
   'import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";',
   '<UnusualBusinessAuthorityPanel slug={destination.slug} />',
+]);
+
+requireAll("WhirlyBall destination authority gate", destinationRelationships, [
+  'const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([',
+  '"whirlyball-hurst",',
+  'Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug)',
+  '<DestinationAuthorityGuide destination={destination} />',
 ]);
 
 requireAll("WhirlyBall authority source contract", whirlyball, [
