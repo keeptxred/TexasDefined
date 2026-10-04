@@ -326,5 +326,5 @@ export async function listResolvedDestinationSearchCatalog() {
     cavernFallbacks,
     cityPassFallbacks,
   ));
-  return mergeReadyCatalogs(primaryReady, fallbackReady);
+  return reconcileExploreCatalog(mergeReadyCatalogs(primaryReady, fallbackReady));
 }
