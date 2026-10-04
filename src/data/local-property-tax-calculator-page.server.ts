@@ -17,12 +17,19 @@ export function loadLocalPropertyTaxCalculatorPageServer(slug: string) {
   const verifiedCountyGuide = countyRecord && isCountyPropertyIndexReady(countyRecord)
     ? { href: `/property-tax/county/${countyRecord.slug}`, label: `${countyRecord.name} verified property-tax guide` }
     : null;
+  const isCountyCalculator = profile.name.endsWith(' County');
+  const searchTitle = isCountyCalculator
+    ? `${profile.name} Property Tax Calculator 2026 | Estimate Taxes`
+    : profile.seoTitle;
+  const searchDescription = isCountyCalculator
+    ? `Estimate 2026 ${profile.name} property taxes using official county, city, school-district and special-district rates. Build the taxing-unit stack for your property.`
+    : profile.description;
 
   const head = {
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath: profile.path,
-      title: profile.seoTitle,
-      description: profile.description,
+      title: searchTitle,
+      description: searchDescription,
     }),
     links: [canonicalLink(texasDefinedBrand, profile.path)],
     scripts: [jsonLd({
