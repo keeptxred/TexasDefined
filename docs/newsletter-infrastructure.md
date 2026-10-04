@@ -57,6 +57,10 @@ The Worker needs these secrets/variables before Resend integration can be used:
 - `NEWSLETTER_FROM_EMAIL`
 - `RESEND_WEBHOOK_SECRET`
 
+`RESEND_API_KEY` and `RESEND_WEBHOOK_SECRET` should be stored as Cloudflare Worker secrets. `RESEND_NEWSLETTER_SEGMENT_ID`, `NEWSLETTER_FROM_EMAIL`, and the newsletter rollout switches can be regular Worker variables.
+
+`wrangler.jsonc` sets `keep_vars: true` so environment variables configured outside Wrangler are preserved across CI deployments. This matters for newsletter rollout because a normal site deployment must not silently erase the Resend segment/from-address or the signup/sending switches. Worker secrets remain managed separately and are never committed to the repository.
+
 Two independent rollout switches remain off by default:
 
 - `NEWSLETTER_SIGNUPS_ENABLED=true` exposes the subscribe endpoint for public forms.
@@ -89,7 +93,9 @@ The composer is intentionally server-only. It does not add an admin page, public
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
-- Rollout state reports whether public signup, bulk sending, double opt-in, and the complete Resend credential set are configured. It does not expose secret values.
+- `getNewsletterRuntimeReadiness` reports signup, sending, and double-opt-in switch state; whether the complete Resend configuration exists; the names of any missing runtime bindings; and whether activation is blocked by an incomplete provider configuration. It never exposes secret values.
+
+The missing runtime bindings list is deliberately diagnostic rather than permissive: if signup or sending is enabled while required provider bindings are absent, `activationBlocked` becomes true so a future operator UI can fail closed and identify the configuration problem without revealing credentials.
 
 These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
 
