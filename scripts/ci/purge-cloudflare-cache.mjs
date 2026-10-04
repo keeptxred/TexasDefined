@@ -11,6 +11,7 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
   `https://${zoneName}/article/texas-rio-grande-river-guide`,
   `https://${zoneName}/article/texas-six-man-football-rules-explained`,
+  `https://${zoneName}/explore/landscapes/why-is-the-texas-hill-country-so-hilly`,
   `https://${zoneName}/texas-mountain-biking-guide`,
   `https://${zoneName}/texas-horseback-riding-guide`,
   `https://${zoneName}/texas-ohv-guide`,
