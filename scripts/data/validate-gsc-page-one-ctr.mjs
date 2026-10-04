@@ -104,8 +104,8 @@ const experiments = [
   },
   {
     path: '/texas-symbols',
-    title: 'Texas State Symbols: Official List, Meanings & State Icons',
-    description: 'Explore Texas state symbols and official designations',
+    title: '77 Texas State Symbols: Complete Official List & Meanings',
+    description: 'Browse all 77 current official Texas state symbols by category, year and legislative designation',
   },
   {
     path: '/article/republic-of-texas-navy-history',
