@@ -8,6 +8,13 @@ type NewsletterClient = {
 
 const client = supabaseAdmin as unknown as NewsletterClient;
 
+const requiredNewsletterRuntimeBindings = [
+  'RESEND_API_KEY',
+  'RESEND_NEWSLETTER_SEGMENT_ID',
+  'NEWSLETTER_FROM_EMAIL',
+  'RESEND_WEBHOOK_SECRET',
+] as const;
+
 export type NewsletterIssueStatus = 'draft' | 'ready' | 'scheduled' | 'sending' | 'sent' | 'cancelled';
 
 export type NewsletterIssueListItem = {
@@ -22,6 +29,29 @@ export type NewsletterIssueListItem = {
   providerCampaignId: string | null;
   updatedAt: string;
 };
+
+export function getNewsletterRuntimeReadiness() {
+  const signupsEnabled = process.env['NEWSLETTER_SIGNUPS_ENABLED'] === 'true';
+  const sendingEnabled = process.env['NEWSLETTER_SENDING_ENABLED'] === 'true';
+  const doubleOptIn = process.env['NEWSLETTER_DOUBLE_OPT_IN'] === 'true';
+  const confirmationConfigured = resendNewsletterConfirmationConfigured();
+  const doubleOptInReady = !doubleOptIn || confirmationConfigured;
+  const missingRuntimeBindings = requiredNewsletterRuntimeBindings.filter((key) => !process.env[key]?.trim());
+  const resendConfigured = missingRuntimeBindings.length === 0;
+
+  return {
+    signupsEnabled,
+    sendingEnabled,
+    doubleOptIn,
+    confirmationConfigured,
+    doubleOptInReady,
+    resendConfigured,
+    missingRuntimeBindings,
+    activationBlocked:
+      (sendingEnabled && !resendConfigured)
+      || (signupsEnabled && !doubleOptInReady),
+  } as const;
+}
 
 export async function listNewsletterIssues(options: {
   status?: NewsletterIssueStatus;
@@ -116,25 +146,10 @@ export async function getNewsletterOperatorDashboard() {
     recentEventCounts[event.event_type] = (recentEventCounts[event.event_type] ?? 0) + 1;
   }
 
-  const doubleOptIn = process.env['NEWSLETTER_DOUBLE_OPT_IN'] === 'true';
-  const confirmationConfigured = resendNewsletterConfirmationConfigured();
-
   return {
     infrastructure,
     recentIssues,
     recentEventCounts,
-    rollout: {
-      signupsEnabled: process.env['NEWSLETTER_SIGNUPS_ENABLED'] === 'true',
-      sendingEnabled: process.env['NEWSLETTER_SENDING_ENABLED'] === 'true',
-      doubleOptIn,
-      confirmationConfigured,
-      doubleOptInReady: !doubleOptIn || confirmationConfigured,
-      resendConfigured: Boolean(
-        process.env['RESEND_API_KEY']
-        && process.env['RESEND_NEWSLETTER_SEGMENT_ID']
-        && process.env['NEWSLETTER_FROM_EMAIL']
-        && process.env['RESEND_WEBHOOK_SECRET'],
-      ),
-    },
+    rollout: getNewsletterRuntimeReadiness(),
   };
 }
