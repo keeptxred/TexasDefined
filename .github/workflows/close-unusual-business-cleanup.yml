@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/close-unusual-business-cleanup.yml'
+      - 'scripts/ci/verify-hurst-whirlyball-production.mjs'
       - 'src/components/authority/CitationTrustPanel.tsx'
       - 'src/components/authority/UnusualBusinessAuthorityPanel.tsx'
       - 'src/components/editorial/ArticleBody.tsx'
@@ -22,7 +23,7 @@ concurrency:
 jobs:
   verify-and-clean:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - name: Verify six live authority panels
         env:
@@ -69,36 +70,44 @@ jobs:
                 const response = await fetch(url, {
                   redirect: 'follow',
                   cache: 'no-store',
-                  signal: AbortSignal.timeout(15_000),
+                  signal: AbortSignal.timeout(30_000),
                   headers: {
                     'cache-control': 'no-cache',
                     pragma: 'no-cache',
-                    'user-agent': 'TexasDefined-CI-Unusual-Business-Authority/2.0',
+                    'user-agent': 'TexasDefined-CI-Unusual-Business-Authority/2.1',
                   },
                 });
                 const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
                 const html = await response.text();
-                if (!challenged && response.ok && html.length > 0) return html;
+                if (!challenged && response.ok && html.length > 0) {
+                  console.log(`fetched ${path} on attempt ${attempt}`);
+                  return html;
+                }
                 lastError = new Error(challenged
                   ? `${path} returned a Cloudflare challenge.`
                   : `${path} returned HTTP ${response.status}.`);
               } catch (error) {
                 lastError = error instanceof Error ? error : new Error(String(error));
+                console.warn(`${path} attempt ${attempt}/4 failed: ${lastError.message}`);
               }
               if (attempt < 4) await sleep(2_000);
             }
             throw lastError || new Error(`${path} returned no usable HTML.`);
           }
 
-          const results = await Promise.all(paths.map(async (path) => {
+          const verified = [];
+          for (const path of paths) {
+            // Keep the cache-busted production requests sequential. Six concurrent
+            // SSR requests were enough to create false timeout failures even when
+            // the live authority content was correct.
             const html = await fetchPage(path);
             const text = renderedText(html);
             const missing = markers.filter((marker) => !text.includes(marker));
             if (missing.length) throw new Error(`${path} missing authority markers: ${missing.join(', ')}`);
-            return path;
-          }));
+            verified.push(path);
+          }
 
-          for (const path of results) console.log(`verified ${path}`);
+          for (const path of verified) console.log(`verified ${path}`);
           console.log('All six unusual-business authority pages expose the complete live citation layer.');
           NODE
 
