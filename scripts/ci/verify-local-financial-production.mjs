@@ -5,6 +5,11 @@ const sha = process.env.GITHUB_SHA ?? 'local';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
+const FETCH_ATTEMPTS = 3;
+const FETCH_TIMEOUT_MS = 15_000;
+const FETCH_RETRY_DELAY_MS = 1_500;
+const VERIFY_CONCURRENCY = 4;
+
 const cityMappings = [
   { slug: 'houston', name: 'Houston', tax: '/property-tax-calculator/houston', relocation: '/article/moving-to-houston-address-checklist' },
   { slug: 'austin', name: 'Austin', tax: '/property-tax-calculator/austin', relocation: '/article/moving-to-austin-guide' },
@@ -41,7 +46,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function fetchProduction(path) {
   let lastError;
 
-  for (let attempt = 1; attempt <= 4; attempt += 1) {
+  for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt += 1) {
     const separator = path.includes('?') ? '&' : '?';
     const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
 
@@ -49,8 +54,12 @@ async function fetchProduction(path) {
       const response = await fetch(url, {
         redirect: 'follow',
         cache: 'no-store',
-        signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-CI-Local-Financial-Smoke/1.0' },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        headers: {
+          'cache-control': 'no-cache',
+          pragma: 'no-cache',
+          'user-agent': 'TexasDefined-CI-Local-Financial-Smoke/2.0',
+        },
       });
       const body = await response.text();
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
@@ -64,16 +73,30 @@ async function fetchProduction(path) {
       console.log(`[local-financial:${path}] attempt ${attempt} failed: ${lastError.message}`);
     }
 
-    if (attempt < 4) await sleep(5_000);
+    if (attempt < FETCH_ATTEMPTS) await sleep(FETCH_RETRY_DELAY_MS);
   }
 
   throw lastError ?? new Error('production request failed');
 }
 
-appendSummary('\n## Local financial production verification\n\n');
-appendSummary('| Result | Surface | Contract |\n|---|---|---|\n');
+async function runWithConcurrency(items, worker, limit = VERIFY_CONCURRENCY) {
+  let nextIndex = 0;
+  const workerCount = Math.min(limit, items.length);
+  await Promise.all(Array.from({ length: workerCount }, async () => {
+    while (true) {
+      const currentIndex = nextIndex;
+      nextIndex += 1;
+      if (currentIndex >= items.length) return;
+      await worker(items[currentIndex]);
+    }
+  }));
+}
 
-for (const page of affordabilityPages) {
+function hasNoindex(body) {
+  return /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
+}
+
+async function verifyAffordability(page) {
   const label = `affordability:${page.slug}`;
   try {
     const { response, body } = await fetchProduction(page.path);
@@ -89,9 +112,8 @@ for (const page of affordabilityPages) {
       'This is a planning calculator',
     ];
     const missing = required.filter((needle) => !body.includes(needle));
-    const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
     if (!response.ok) fail(label, `HTTP ${response.status}`);
-    else if (hasNoindex) fail(label, 'unexpected robots noindex');
+    else if (hasNoindex(body)) fail(label, 'unexpected robots noindex');
     else if (missing.length) fail(label, `missing ${missing.join(', ')}`);
     else {
       console.log(`[${label}] verified (${response.status})`);
@@ -102,7 +124,7 @@ for (const page of affordabilityPages) {
   }
 }
 
-for (const page of costOfLivingPages) {
+async function verifyCostOfLiving(page) {
   const label = `cost-of-living:${page.slug}`;
   try {
     const { response, body } = await fetchProduction(page.path);
@@ -120,9 +142,8 @@ for (const page of costOfLivingPages) {
       'Planning only.',
     ];
     const missing = required.filter((needle) => !body.includes(needle));
-    const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
     if (!response.ok) fail(label, `HTTP ${response.status}`);
-    else if (hasNoindex) fail(label, 'unexpected robots noindex');
+    else if (hasNoindex(body)) fail(label, 'unexpected robots noindex');
     else if (missing.length) fail(label, `missing ${missing.join(', ')}`);
     else {
       console.log(`[${label}] verified (${response.status})`);
@@ -133,7 +154,7 @@ for (const page of costOfLivingPages) {
   }
 }
 
-for (const page of salaryNeededPages) {
+async function verifySalaryNeeded(page) {
   const label = `salary-needed:${page.slug}`;
   try {
     const { response, body } = await fetchProduction(page.path);
@@ -151,9 +172,8 @@ for (const page of salaryNeededPages) {
       'Planning only.',
     ];
     const missing = required.filter((needle) => !body.includes(needle));
-    const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
     if (!response.ok) fail(label, `HTTP ${response.status}`);
-    else if (hasNoindex) fail(label, 'unexpected robots noindex');
+    else if (hasNoindex(body)) fail(label, 'unexpected robots noindex');
     else if (missing.length) fail(label, `missing ${missing.join(', ')}`);
     else {
       console.log(`[${label}] verified (${response.status})`);
@@ -164,16 +184,16 @@ for (const page of salaryNeededPages) {
   }
 }
 
-for (const page of propertyTaxSamples) {
+async function verifyPropertyTax(page) {
   const label = `property-tax:${page.path.split('/').at(-1)}`;
   try {
     const { response, body } = await fetchProduction(page.path);
     const canonicalUrl = `${origin}${page.path}`;
     const required = [page.name, 'property tax calculator', canonicalUrl, 'parcel', 'taxing'];
-    const missing = required.filter((needle) => !body.toLowerCase().includes(needle.toLowerCase()));
-    const hasNoindex = /<meta[^>]+(?:name=["']robots["'][^>]+content=["'][^"']*noindex|content=["'][^"']*noindex[^"']*["'][^>]+name=["']robots["'])/i.test(body);
+    const lowerBody = body.toLowerCase();
+    const missing = required.filter((needle) => !lowerBody.includes(needle.toLowerCase()));
     if (!response.ok) fail(label, `HTTP ${response.status}`);
-    else if (hasNoindex) fail(label, 'unexpected robots noindex');
+    else if (hasNoindex(body)) fail(label, 'unexpected robots noindex');
     else if (missing.length) fail(label, `missing ${missing.join(', ')}`);
     else {
       console.log(`[${label}] verified (${response.status})`);
@@ -183,6 +203,14 @@ for (const page of propertyTaxSamples) {
     fail(label, error instanceof Error ? error.message : String(error));
   }
 }
+
+appendSummary('\n## Local financial production verification\n\n');
+appendSummary('| Result | Surface | Contract |\n|---|---|---|\n');
+
+await runWithConcurrency(affordabilityPages, verifyAffordability);
+await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
+await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
+await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
 
 try {
   const { response, body } = await fetchProduction('/sitemap.xml');
