@@ -7,6 +7,7 @@ const requireText = (source, needle, label) => {
 };
 
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
+const confirmation = read('src/data/newsletter/newsletter-confirmation.server.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
@@ -31,6 +32,17 @@ for (const marker of [
   'finalizeNewsletterIssueIfComplete',
   'Update and send are intentionally separate',
 ]) requireText(resend, marker, 'Resend adapter');
+
+for (const marker of [
+  'NEWSLETTER_CONFIRMATION_EMAIL_ENABLED',
+  'newsletterConfirmationEmailReady',
+  'sendNewsletterConfirmationEmail',
+  "'/emails'",
+  "'idempotency-key'",
+  'texasdefined-newsletter-confirm/',
+  '/api/newsletter/confirm?token=',
+  'Confirm your TexasDefined newsletter subscription',
+]) requireText(confirmation, marker, 'Newsletter confirmation transport');
 
 for (const marker of [
   '{{{RESEND_UNSUBSCRIBE_URL}}}',
@@ -62,6 +74,9 @@ for (const marker of [
   'resendConfigured',
   'missingRuntimeBindings',
   'activationBlocked',
+  'confirmationEmailEnabled',
+  'confirmationEmailConfigured',
+  'confirmationEmailReady',
   'RESEND_API_KEY',
   'RESEND_NEWSLETTER_SEGMENT_ID',
   'NEWSLETTER_FROM_EMAIL',
@@ -74,6 +89,10 @@ for (const marker of [
   "'/api/newsletter/confirm'",
   "'/api/newsletter/unsubscribe'",
   "'/api/newsletter/resend-webhook'",
+  'newsletterConfirmationEmailReady',
+  'sendNewsletterConfirmationEmail',
+  'confirmation_unavailable',
+  'confirmation_delivery_failed',
   'verifyResendWebhook(rawBody, request.headers)',
   'await request.text()',
   'invalid_signature',
@@ -96,12 +115,14 @@ for (const marker of [
   'Resend Broadcasts',
   'NEWSLETTER_SIGNUPS_ENABLED=true',
   'NEWSLETTER_SENDING_ENABLED=true',
+  'NEWSLETTER_CONFIRMATION_EMAIL_ENABLED=true',
   'news.texasdefined.com',
   'Cloudflare Email Service is not the newsletter transport',
   'Server-only issue composer',
   'Server-only operator control plane',
   'keep_vars',
   'missing runtime bindings',
+  'confirmation email transport',
 ]) requireText(docs, marker, 'Newsletter documentation');
 
 requireText(wrangler, '"keep_vars": true', 'Wrangler newsletter runtime preservation');
