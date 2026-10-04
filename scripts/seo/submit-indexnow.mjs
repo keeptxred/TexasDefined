@@ -1,76 +1,69 @@
-const publicIndexingEnabled = process.env.PUBLIC_INDEXING_ENABLED === 'true';
-
-if (!publicIndexingEnabled) {
-  console.log('IndexNow submission skipped: PUBLIC_INDEXING_ENABLED is not explicitly true. No URLs were submitted.');
-  process.exit(0);
-}
+import { readFile } from 'node:fs/promises';
+import {
+  collectSitemapEntries,
+  parseExplicitUrls,
+  selectMeaningfulUrls,
+  submitIndexNowSafely,
+  verifyIndexNowKey,
+} from './indexnow-lib.mjs';
 
 const origin = 'https://texasdefined.com';
 const host = 'texasdefined.com';
 const key = '0c2b08423ce5be707dd931f57239acf1';
-const keyLocation = `${origin}/${key}.txt`;
 const sitemapUrls = [
   `${origin}/sitemap.xml`,
   `${origin}/sitemap-explore.xml`,
   `${origin}/sitemap-texas-icons.xml`,
 ];
+const fullSubmission = process.env.INDEXNOW_FULL === 'true';
+const freshnessHours = Math.max(1, Number(process.env.INDEXNOW_FRESHNESS_HOURS || 72));
+const explicitUrls = parseExplicitUrls(process.env.INDEXNOW_URLS, { origin });
+const strict = process.env.INDEXNOW_STRICT === 'true';
 
-async function fetchText(url) {
-  const response = await fetch(url, {
-    headers: { 'user-agent': 'TexasDefinedIndexNow/1.0' },
-    redirect: 'follow',
-  });
-  if (!response.ok) throw new Error(`${url} returned HTTP ${response.status}`);
-  return response.text();
+if (process.env.PUBLIC_INDEXING_ENABLED === 'false') {
+  console.log('IndexNow submission disabled because PUBLIC_INDEXING_ENABLED=false.');
+  process.exit(0);
 }
 
-function decodeXml(value) {
-  return value
-    .replaceAll('&amp;', '&')
-    .replaceAll('&lt;', '<')
-    .replaceAll('&gt;', '>')
-    .replaceAll('&quot;', '"')
-    .replaceAll('&apos;', "'");
-}
+const localKey = (await readFile(new URL(`../../public/${key}.txt`, import.meta.url), 'utf8')).trim();
+if (localKey !== key) throw new Error('Tracked IndexNow key file does not match the configured key.');
 
-const robots = await fetchText(`${origin}/robots.txt`);
+const robotsResponse = await fetch(`${origin}/robots.txt`, {
+  headers: { 'user-agent': 'TexasDefinedIndexNow/2.0' },
+  redirect: 'follow',
+  signal: AbortSignal.timeout(15_000),
+});
+if (!robotsResponse.ok) throw new Error(`robots.txt returned HTTP ${robotsResponse.status}`);
+const robots = await robotsResponse.text();
 for (const required of [
   'User-agent: Bingbot',
+  'User-agent: OAI-SearchBot',
   'Sitemap: https://texasdefined.com/sitemap.xml',
   'Sitemap: https://texasdefined.com/sitemap-explore.xml',
   'Sitemap: https://texasdefined.com/sitemap-texas-icons.xml',
-  'Sitemap: https://texasdefined.com/rss.xml',
 ]) {
   if (!robots.includes(required)) throw new Error(`robots.txt missing: ${required}`);
 }
 
-const liveKey = (await fetchText(keyLocation)).trim();
-if (liveKey !== key) throw new Error('Live IndexNow ownership key does not match the configured key.');
+await verifyIndexNowKey({ origin, key });
 
-const urls = new Set();
-for (const sitemapUrl of sitemapUrls) {
-  const xml = await fetchText(sitemapUrl);
-  if (!xml.includes('<urlset')) throw new Error(`${sitemapUrl} is not a URL sitemap.`);
-  for (const match of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
-    const url = decodeXml(match[1].trim());
-    const parsed = new URL(url);
-    if (parsed.protocol === 'https:' && parsed.hostname === host) urls.add(url);
-  }
+let selected = explicitUrls;
+let selectionMode = explicitUrls.length ? 'explicit transition/publish event' : 'sitemap meaningful changes';
+if (!selected.length) {
+  const nested = await Promise.all(sitemapUrls.map((sitemapUrl) => collectSitemapEntries(sitemapUrl, { origin })));
+  selected = selectMeaningfulUrls(nested.flat(), { full: fullSubmission, freshnessHours });
+  selectionMode = fullSubmission ? 'full canonical sitemap' : `canonical URLs changed in the last ${freshnessHours}h`;
 }
 
-if (urls.size === 0) throw new Error('No canonical TexasDefined URLs were found in the live sitemaps.');
-if (urls.size > 10_000) throw new Error(`IndexNow batch exceeds 10,000 URLs: ${urls.size}`);
-
-const payload = { host, key, keyLocation, urlList: [...urls].sort() };
-const response = await fetch('https://api.indexnow.org/indexnow', {
-  method: 'POST',
-  headers: { 'content-type': 'application/json; charset=utf-8' },
-  body: JSON.stringify(payload),
-});
-
-if (![200, 202].includes(response.status)) {
-  const body = await response.text();
-  throw new Error(`IndexNow returned HTTP ${response.status}${body ? `: ${body}` : ''}`);
+if (!selected.length) {
+  console.log(`IndexNow: no ${selectionMode}; cosmetic deployment produced no notification.`);
+  process.exit(0);
 }
 
-console.log(`IndexNow accepted ${urls.size} canonical TexasDefined URLs with HTTP ${response.status}.`);
+const result = await submitIndexNowSafely({ origin, host, key, urls: selected, logger: console });
+if (!result.ok) {
+  console.warn(`IndexNow soft failure: ${result.error}`);
+  if (strict) process.exitCode = 1;
+} else {
+  console.log(`IndexNow accepted ${result.submitted} canonical TexasDefined URL(s) across ${result.batches.length} batch(es): ${selectionMode}.`);
+}
