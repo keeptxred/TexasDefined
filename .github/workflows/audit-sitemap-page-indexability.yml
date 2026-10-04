@@ -2,6 +2,16 @@ name: Audit sitemap page indexability
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/routes/sitemap*.ts"
+      - "src/lib/public-routes.ts"
+      - "src/data/metro-proximity*.ts"
+      - "src/data/sitemap-dependencies.server.ts"
+      - "scripts/ci/audit-sitemap-page-indexability.mjs"
+      - ".github/workflows/audit-sitemap-page-indexability.yml"
   schedule:
     - cron: "17 12 * * *"
 
@@ -31,7 +41,7 @@ jobs:
         env:
           AUDIT_CONCURRENCY: "12"
           AUDIT_RETRIES: "2"
-          AUDIT_TIMEOUT_MS: "30000"
+          AUDIT_TIMEOUT_MS: "60000"
           AUDIT_OUTPUT: tmp/sitemap-page-indexability-audit.json
         run: node scripts/ci/audit-sitemap-page-indexability.mjs
 
