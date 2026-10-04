@@ -53,12 +53,19 @@ for (const marker of [
   'listNewsletterIssues',
   'getNewsletterIssueForOperator',
   'getNewsletterOperatorDashboard',
+  'getNewsletterRuntimeReadiness',
   'getNewsletterInfrastructureStats',
   'deliveryCounts',
   'recentEventCounts',
   'signupsEnabled',
   'sendingEnabled',
   'resendConfigured',
+  'missingRuntimeBindings',
+  'activationBlocked',
+  'RESEND_API_KEY',
+  'RESEND_NEWSLETTER_SEGMENT_ID',
+  'NEWSLETTER_FROM_EMAIL',
+  'RESEND_WEBHOOK_SECRET',
 ]) requireText(operations, marker, 'Newsletter operator control plane');
 
 for (const marker of [
@@ -93,7 +100,11 @@ for (const marker of [
   'Cloudflare Email Service is not the newsletter transport',
   'Server-only issue composer',
   'Server-only operator control plane',
+  'keep_vars',
+  'missing runtime bindings',
 ]) requireText(docs, marker, 'Newsletter documentation');
+
+requireText(wrangler, '"keep_vars": true', 'Wrangler newsletter runtime preservation');
 
 // Marketing newsletters must not acquire a Cloudflare transactional-email binding by accident.
 if (/\"send_email\"\s*:|\bsend_email\b|\bEMAIL\s*:\s*\{/.test(wrangler)) {
