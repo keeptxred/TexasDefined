@@ -215,15 +215,15 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   }
 
   const options = { featured: params.featured, category: params.category, limit: params.limit };
-  const [enriched, core, local, cavernPreserved, cityPassPreserved] = await Promise.all([
+  const [enriched, core, local, cavernPreserved] = await Promise.all([
     loadEnrichedCatalog(options, params),
     loadCoreCatalog(options, params),
     platform.destinations.list({ ...scope, ...params }),
     cavernPreservedFor(params),
-    cityPassPreservedFor(params),
   ]);
   const preserved = preservedFor(params);
   const abilenePreserved = abilenePreservedFor(params);
+  const cityPassPreserved = await cityPassPreservedFor(params);
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     enriched,
     core,
@@ -313,10 +313,9 @@ export async function listResolvedDestinationSearchCatalog() {
     loadPublicCavernDestinationFallbacks(),
     loadCityPassDestinationExpansion(),
   ]);
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
-    enriched,
-    core,
-    preservedExploreDestinations,
+    preservedSearchCatalog,
     abileneAreaDestinationFallbacks,
     cavernFallbacks,
     cityPassFallbacks,
