@@ -64,7 +64,7 @@ export const majorEventSchemaEnrichmentBatch11: MajorEventSchemaEnrichment[] = [
       { label: "Heart O' Texas Fair & Rodeo official 2026 rodeo schedule", url: "https://www.hotfair.com/p/rodeo" },
       { label: "Heart O' Texas Fair & Rodeo official 2026 tickets", url: "https://www.hotfair.com/p/tickets" },
     ],
-    verifiedAt: "2026-09-10",
+    verifiedAt: "2026-10-04",
   },
   {
     slug: "east-texas-state-fair",
