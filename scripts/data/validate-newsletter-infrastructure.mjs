@@ -6,7 +6,9 @@ const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${JSON.stringify(needle)}`);
 };
 
+const newsletter = read('src/data/newsletter/newsletter.server.ts');
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
+const confirmation = read('src/data/newsletter/newsletter-confirmation.server.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
@@ -31,6 +33,28 @@ for (const marker of [
   'finalizeNewsletterIssueIfComplete',
   'Update and send are intentionally separate',
 ]) requireText(resend, marker, 'Resend adapter');
+
+for (const marker of [
+  'NEWSLETTER_CONFIRMATION_EMAILS_ENABLED',
+  'NEWSLETTER_SITE_ORIGIN',
+  'https://api.resend.com',
+  "`${RESEND_API}/emails`",
+  'idempotency-key',
+  'confirmation_email_attempt_id',
+  'confirmation_email_sent_at',
+  "reason: 'superseded'",
+  "current.status !== 'pending'",
+]) requireText(confirmation, marker, 'Newsletter confirmation sender');
+
+for (const marker of [
+  'CONFIRMATION_RESEND_COOLDOWN_MS',
+  'confirmationAttemptSucceeded',
+  'dispatchConfirmationEmail',
+  'confirmation_email_attempt_id',
+  'confirmation_email_sent_at',
+  'continuingPending',
+  'retryingUnfinishedAttempt',
+]) requireText(newsletter, marker, 'Newsletter subscriber lifecycle');
 
 for (const marker of [
   '{{{RESEND_UNSUBSCRIBE_URL}}}',
@@ -58,6 +82,8 @@ for (const marker of [
   'recentEventCounts',
   'signupsEnabled',
   'sendingEnabled',
+  'confirmationEmailsEnabled',
+  'confirmationEmailConfigured',
   'resendConfigured',
 ]) requireText(operations, marker, 'Newsletter operator control plane');
 
@@ -71,6 +97,10 @@ for (const marker of [
   'await request.text()',
   'invalid_signature',
   'contentLength > 2_000_000',
+  'form method="post"',
+  'GET is deliberately side-effect free',
+  "form-action 'self'",
+  "'referrer-policy': 'no-referrer'",
 ]) requireText(newsletterApi, marker, 'Worker newsletter API');
 
 for (const marker of [
@@ -89,6 +119,9 @@ for (const marker of [
   'Resend Broadcasts',
   'NEWSLETTER_SIGNUPS_ENABLED=true',
   'NEWSLETTER_SENDING_ENABLED=true',
+  'NEWSLETTER_CONFIRMATION_EMAILS_ENABLED=true',
+  'NEWSLETTER_SITE_ORIGIN',
+  'scanner-safe confirmation and unsubscribe',
   'news.texasdefined.com',
   'Cloudflare Email Service is not the newsletter transport',
   'Server-only issue composer',
