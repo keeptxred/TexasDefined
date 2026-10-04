@@ -1,6 +1,6 @@
 import process from "node:process";
 
-const collectorVersion = "2026-10-04.1";
+const collectorVersion = "2026-10-04.2";
 const bingApiKey = process.env.BING_WEBMASTER_API_KEY?.trim();
 const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -12,6 +12,46 @@ const bingBaseUrl = "https://ssl.bing.com/webmaster/api.svc/json";
 const supabaseInsertMaxAttempts = 5;
 const supabaseInsertBaseDelayMs = 1_000;
 const retryableSupabaseStatuses = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+const indexProbePathsByHost = {
+  "texasdefined.com": [
+    { family: "homepage", path: "/" },
+    { family: "category", path: "/explore" },
+    { family: "destination", path: "/destination/caddo-lake" },
+    { family: "county", path: "/county/travis" },
+    { family: "article", path: "/article/texas-rivers-explained" },
+    { family: "events", path: "/events" },
+    { family: "event", path: "/event/texas-state-championship-fiddlers-frolics" },
+    { family: "guides", path: "/guides" },
+    { family: "state-parks", path: "/explore/state-parks" },
+    { family: "fishing", path: "/fishing" },
+    { family: "fishing-lake", path: "/fishing/lakes/sam-rayburn-reservoir" },
+    { family: "property-tax", path: "/property-tax-calculator/travis-county" },
+    { family: "high-school-football", path: "/texas-high-school-football-districts" },
+    { family: "high-school-football-team", path: "/texas-high-school-football-teams/wills-point" },
+    { family: "texas-data", path: "/texas-data" },
+    { family: "museums", path: "/explore/museums" },
+    { family: "history", path: "/texas-history" },
+    { family: "painted-churches", path: "/explore/painted-churches" },
+    { family: "nearby-small-towns", path: "/explore/near/san-angelo/small-towns" },
+  ],
+  "keeptxred.com": [
+    { family: "homepage", path: "/" },
+    { family: "news", path: "/news" },
+    { family: "politics", path: "/texas-politics" },
+    { family: "elections", path: "/elections/2026" },
+    { family: "election-races", path: "/elections/races" },
+    { family: "sports", path: "/sports" },
+    { family: "houston", path: "/houston" },
+    { family: "business", path: "/texas-business" },
+    { family: "evergreen", path: "/issues/texas-property-tax-relief" },
+    { family: "government", path: "/texas-government" },
+    { family: "bills", path: "/bills" },
+    { family: "laws", path: "/laws" },
+    { family: "reference", path: "/contact-legislators" },
+    { family: "voting-guide", path: "/news/texas-voting-guide-2026" },
+  ],
+};
 
 if (!bingApiKey) throw new Error("BING_WEBMASTER_API_KEY is required.");
 if (!supabaseUrl) throw new Error("SUPABASE_URL is required.");
@@ -104,6 +144,28 @@ function normalizedHostname(url) {
   } catch {
     return "";
   }
+}
+
+async function collectUrlInfoProbes(host, siteUrl) {
+  const probes = indexProbePathsByHost[host] || [{ family: "homepage", path: "/" }];
+  const results = [];
+
+  for (const probe of probes) {
+    const url = new URL(probe.path, `https://${host}`).toString();
+    try {
+      const info = await bingGet("GetUrlInfo", { siteUrl, url });
+      results.push({ family: probe.family, url, ok: true, info });
+    } catch (error) {
+      results.push({
+        family: probe.family,
+        url,
+        ok: false,
+        error: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  return results;
 }
 
 async function insertSnapshot(snapshot) {
@@ -221,6 +283,7 @@ for (const host of targetHosts) {
     }
   }
 
+  const urlInfo = await collectUrlInfoProbes(host, siteUrl);
   const fetchedAt = new Date().toISOString();
   await insertSnapshot({
     fetched_at: fetchedAt,
@@ -233,6 +296,7 @@ for (const host of targetHosts) {
     crawl_stats: crawlStats,
     crawl_issues: crawlIssues,
     feeds,
+    url_info: urlInfo,
   });
 
   results.push({
@@ -246,6 +310,8 @@ for (const host of targetHosts) {
       crawlStats: crawlStats.length,
       crawlIssues: crawlIssues.length,
       feeds: feeds.length,
+      urlInfo: urlInfo.length,
+      urlInfoErrors: urlInfo.filter((probe) => !probe.ok).length,
     },
     canonicalFeedUrl,
     canonicalFeedSubmitted,
