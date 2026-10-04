@@ -43,6 +43,23 @@ function EntityPage() {
   const canonicalPath = canonicalEntityPath(entity);
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const incomplete = !entity.description;
+  const countyProfileCoordinates = entity.kind === 'county'
+    && countyProfile?.latitude != null
+    && countyProfile.longitude != null
+    ? { latitude: countyProfile.latitude, longitude: countyProfile.longitude }
+    : undefined;
+  const mapCoordinates = entity.coordinates ?? countyProfileCoordinates;
+  const mapUrl = mapCoordinates
+    ? `https://www.google.com/maps/search/?api=1&query=${mapCoordinates.latitude},${mapCoordinates.longitude}`
+    : entity.kind === 'county'
+      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${entity.name}, Texas`)}`
+      : undefined;
+  const officialPageUrl = entity.kind === 'county' ? localGovernment?.countyWebsiteUrl : entity.officialUrl;
+  const sameAs = Array.from(new Set([
+    officialPageUrl,
+    entity.kind === 'county' ? localGovernment?.tacCountyUrl : undefined,
+    entity.kind === 'county' ? localGovernment?.comptrollerCountyUrl : undefined,
+  ].filter((value): value is string => Boolean(value))));
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -53,8 +70,16 @@ function EntityPage() {
         alternateName: entity.aliases.length ? entity.aliases : undefined,
         description,
         url: canonicalUrl,
-        sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
-        geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
+        sameAs: sameAs.length ? sameAs : undefined,
+        geo: mapCoordinates ? { '@type': 'GeoCoordinates', latitude: mapCoordinates.latitude, longitude: mapCoordinates.longitude } : undefined,
+        image: entity.kind === 'county' && countySeriesArticle ? {
+          '@type': 'ImageObject',
+          contentUrl: absoluteUrl(countySeriesArticle.hero.src),
+          caption: countySeriesArticle.hero.alt,
+          creditText: countySeriesArticle.hero.credit,
+          width: countySeriesArticle.hero.width,
+          height: countySeriesArticle.hero.height,
+        } : undefined,
         containedInPlace: entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
         ...(entity.kind === 'county' && countyProfile ? {
           additionalProperty: [
@@ -116,8 +141,8 @@ function EntityPage() {
         </section> : null}
 
         <div className="flex flex-wrap gap-x-7 gap-y-3 border-b border-border py-5 text-sm font-semibold">
-          {entity.officialUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={entity.officialUrl} target="_blank" rel="noreferrer">{officialLinkLabel(entity.kind)} ↗</a>}
-          {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
+          {officialPageUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={officialPageUrl} target="_blank" rel="noreferrer">{officialLinkLabel(entity.kind)} ↗</a>}
+          {mapUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={mapUrl} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
@@ -242,3 +267,4 @@ function schemaType(kind: string) {
   if (['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)) return 'Thing';
   return 'Place';
 }
+function absoluteUrl(value: string) { return value.startsWith('/') ? `${siteUrl}${value}` : value; }
