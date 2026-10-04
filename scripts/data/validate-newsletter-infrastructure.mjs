@@ -13,6 +13,7 @@ const functions = read('src/data/newsletter/newsletter.functions.ts');
 const adminAuth = read('src/data/newsletter/newsletter-admin-auth.server.ts');
 const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
 const template = read('src/data/newsletter/newsletter-template.ts');
+const composeContract = read('src/data/newsletter/newsletter-compose-contract.ts');
 const composer = read('src/data/newsletter/newsletter-compose.server.ts');
 const operations = read('src/data/newsletter/newsletter-operations.server.ts');
 const newsletterApi = read('src/lib/texas-defined-newsletter-api.server.ts');
@@ -83,6 +84,9 @@ for (const marker of [
   'requireNewsletterAdmin',
   'getNewsletterAdminDashboard',
   'getNewsletterAdminIssue',
+  'previewNewsletterAdminDraft',
+  'saveNewsletterAdminDraft',
+  'newsletterDraftSchema',
   'markNewsletterAdminIssueReady',
   'scheduleNewsletterAdminIssue',
   'cancelNewsletterAdminIssue',
@@ -91,6 +95,13 @@ for (const marker of [
   'sendOrScheduleNewsletterAdminIssue',
   'NEWSLETTER_SENDING_ENABLED',
 ]) requireText(adminFunctions, marker, 'Newsletter authenticated operator functions');
+
+for (const marker of [
+  'newsletterDraftSchema',
+  'newsletterStorySchema',
+  '.min(1).max(12)',
+  'TexasDefinedNewsletterDraftInput',
+]) requireText(composeContract, marker, 'Newsletter draft contract');
 
 for (const marker of [
   '{{{RESEND_UNSUBSCRIBE_URL}}}',
@@ -104,7 +115,6 @@ for (const marker of [
   'saveTexasDefinedNewsletterDraft',
   'saveNewsletterIssueDraft',
   'renderTexasDefinedNewsletter',
-  '.min(1).max(12)',
   "composer: 'texasdefined-story-digest-v1'",
   'storyCount',
 ]) requireText(composer, marker, 'Newsletter issue composer');
