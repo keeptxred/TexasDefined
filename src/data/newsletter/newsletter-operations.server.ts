@@ -34,15 +34,26 @@ export function getNewsletterRuntimeReadiness() {
   const signupsEnabled = process.env['NEWSLETTER_SIGNUPS_ENABLED'] === 'true';
   const sendingEnabled = process.env['NEWSLETTER_SENDING_ENABLED'] === 'true';
   const doubleOptIn = process.env['NEWSLETTER_DOUBLE_OPT_IN'] === 'true';
+  const confirmationEmailEnabled = process.env['NEWSLETTER_CONFIRMATION_EMAIL_ENABLED'] === 'true';
+  const confirmationEmailConfigured = Boolean(
+    process.env['RESEND_API_KEY']?.trim()
+    && process.env['NEWSLETTER_FROM_EMAIL']?.trim(),
+  );
+  const confirmationEmailReady = confirmationEmailEnabled && confirmationEmailConfigured;
   const resendConfigured = missingRuntimeBindings.length === 0;
 
   return {
     signupsEnabled,
     sendingEnabled,
     doubleOptIn,
+    confirmationEmailEnabled,
+    confirmationEmailConfigured,
+    confirmationEmailReady,
     resendConfigured,
     missingRuntimeBindings,
-    activationBlocked: (signupsEnabled || sendingEnabled) && !resendConfigured,
+    activationBlocked:
+      (sendingEnabled && !resendConfigured)
+      || (signupsEnabled && doubleOptIn && !confirmationEmailReady),
   } as const;
 }
 
