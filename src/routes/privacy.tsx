@@ -64,7 +64,7 @@ function PrivacyPolicyPage() {
               Google&apos;s use of advertising cookies enables Google and its partners to serve ads based on visits to Texas Defined and other sites on the Internet. You can manage or opt out of personalized advertising through <a href="https://adssettings.google.com/" rel="noreferrer noopener" target="_blank" className="border-b border-primary text-primary">Google Ads Settings</a>. You can also learn about choices for some other participating advertising vendors at <a href="https://www.aboutads.info/choices/" rel="noreferrer noopener" target="_blank" className="border-b border-primary text-primary">YourAdChoices</a>.
             </p>
             <p className="mt-3">
-              If Texas Defined enables third-party advertising vendors or ad networks beyond Google, those providers may use their own cookies or similar technologies subject to their own privacy information and available opt-out controls.
+              If Texas Defined enables third-party advertising vendors or ad networks beyond Google, those providers may use their own cookies or similar technologies subject to their own terms and privacy information and available opt-out controls.
             </p>
           </section>
 
@@ -91,7 +91,7 @@ function PrivacyPolicyPage() {
               When you submit a question to Ask Texas AI, Texas Defined processes the question to generate an answer, retrieve relevant Texas Defined material, and, when needed, check governed official sources. The service also creates privacy-minimized usage signals so Texas Defined can measure answer quality and identify subjects that may need stronger guides, data, or tools.
             </p>
             <p className="mt-3">
-              Private AI telemetry may temporarily retain a sanitized version of the submitted question after attempting to replace common email addresses, phone numbers, and street addresses with generic placeholders. Texas Defined also records hashed or generalized signals such as question fingerprints, topic or intent categories, coverage level, source counts, and answer status. Raw visitor questions, IP addresses, and user-agent strings are not written to the Texas Defined AI signal database, and question text is not published in demand reports, editorial queues, or public repository artifacts.
+              New Ask Texas analytics telemetry does not store the submitted question text. Before an AI analytics event is written, Texas Defined reduces the question to a bounded set of predefined generalized demand terms such as broad topic or feature categories and keeps a one-way question fingerprint for distinct-pattern counting. The separate Texas Defined AI signal database likewise stores fingerprints and generalized fields such as topic or intent categories, coverage level, source counts, and answer status rather than raw visitor questions. IP addresses and user-agent strings are not written to the AI signal database, and question text is not published in demand reports, editorial queues, or public repository artifacts. Older sanitized AI telemetry collected before this minimization change may remain temporarily until the analytics provider&apos;s retention period expires.
             </p>
             <p className="mt-3">
               Ask Texas demand intelligence is used only to support site quality and editorial planning. It does not automatically publish articles, merge code, or make editorial decisions without human review. Avoid including sensitive personal information in an Ask Texas question.
