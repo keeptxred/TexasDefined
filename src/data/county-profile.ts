@@ -64,11 +64,13 @@ export function loadCountyProfile(slug: string, countyName: string) {
 }
 
 async function fetchCountyProfile(slug: string, countyName: string): Promise<CountyProfile> {
-  const [{ getCountyPropertyRecordBySlug }, { TEXAS_CITIES }] = await Promise.all([
+  const [{ getCountyPropertyRecordBySlug }, { TEXAS_CITIES }, { verifiedCountySeatBySlug }] = await Promise.all([
     import('@/data/property/county-property-data'),
     import('@/data/texas-places'),
+    import('@/data/county-seat-registry'),
   ]);
   const propertyRecord = getCountyPropertyRecordBySlug(slug);
+  const verifiedSeat = verifiedCountySeatBySlug(slug);
   const fips = propertyRecord?.fips;
   const countyCode = fips?.slice(2);
   const baseName = countyName.replace(/ County$/, '');
@@ -85,8 +87,9 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     countyCensusFactsPromise,
   ]);
 
-  const countySeatName = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
-  const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined;
+  const liveCountySeatName = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
+  const countySeatName = liveCountySeatName ?? verifiedSeat?.name;
+  const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName, verifiedSeat?.sourceUrl ?? TSL_COUNTY_SEATS_URL) : undefined;
   const countySeat = countySeatPlace?.displayName;
   const censusFacts = censusFactsResult.status === 'fulfilled' && countyCode ? censusFactsResult.value.get(countyCode) ?? {} : {};
   const fallbackGeography = COUNTY_GEOGRAPHY_FALLBACKS[slug];
@@ -108,22 +111,22 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     latitude,
     longitude,
     majorCommunities,
-    sourceUrls: [
-      TSL_COUNTY_SEATS_URL,
+    sourceUrls: Array.from(new Set([
+      verifiedSeat?.sourceUrl ?? TSL_COUNTY_SEATS_URL,
       CENSUS_TIGERWEB_SOURCE_URL,
       ...(usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []),
-    ],
+    ])),
   };
 }
 
-function toCountySeatPlace(name: string): CountySeatPlace {
+function toCountySeatPlace(name: string, sourceUrl = TSL_COUNTY_SEATS_URL): CountySeatPlace {
   return {
     name,
     displayName: `${name}, Texas`,
     entityType: 'place',
     role: 'county-seat',
     state: 'Texas',
-    sourceUrl: TSL_COUNTY_SEATS_URL,
+    sourceUrl,
   };
 }
 
