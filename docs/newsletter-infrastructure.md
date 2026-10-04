@@ -86,7 +86,7 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 
 ## Server-only issue composer
 
-`newsletter-compose.server.ts` is the pre-UI composition layer. It accepts a validated issue label, subject/preheader, headline, intro, one to twelve story cards, optional closing text, sender metadata, audience metadata, and operator metadata.
+`newsletter-compose.server.ts` is the pre-UI composition layer. Its shared Zod input contract lives in `newsletter-compose-contract.ts` so both the composer and authenticated operator functions validate the exact same payload. The contract accepts an issue label, subject/preheader, headline, intro, one to twelve story cards, optional closing text, sender metadata, audience metadata, and operator metadata.
 
 - `previewTexasDefinedNewsletterDraft` renders the branded HTML and plain-text bodies without creating a database row or contacting Resend.
 - `saveTexasDefinedNewsletterDraft` renders the same bodies and stores them through the canonical draft issue service.
@@ -135,6 +135,8 @@ The authenticated boundary currently exposes server functions for:
 - session login, logout, and status;
 - operator dashboard statistics;
 - issue list and issue detail;
+- validated, zero-side-effect draft preview;
+- validated draft creation through the canonical issue composer;
 - marking an issue ready;
 - local scheduling;
 - cancellation (provider first, then local state);
