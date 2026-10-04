@@ -38,15 +38,20 @@ async function subscribe(request: Request) {
   // Quietly accept honeypot submissions so bots do not learn the filter.
   if (parsed.data.addressLine2.trim()) return Response.json({ ok: true }, { headers: NO_STORE_HEADERS });
 
-  const { subscribeNewsletter } = await import('@/data/newsletter/newsletter.server');
-  const result = await subscribeNewsletter({
-    email: parsed.data.email,
-    sourcePath: parsed.data.sourcePath,
-    source: parsed.data.source,
-    consentVersion: parsed.data.consentVersion,
-    interests: parsed.data.interests,
-  });
-  return Response.json(result, { headers: NO_STORE_HEADERS });
+  try {
+    const { subscribeNewsletterWithConfirmation } = await import('@/data/newsletter/newsletter-subscription.server');
+    const result = await subscribeNewsletterWithConfirmation({
+      email: parsed.data.email,
+      sourcePath: parsed.data.sourcePath,
+      source: parsed.data.source,
+      consentVersion: parsed.data.consentVersion,
+      interests: parsed.data.interests,
+    });
+    return Response.json(result, { headers: NO_STORE_HEADERS });
+  } catch (error) {
+    console.error('Newsletter signup processing failed.', error instanceof Error ? error.message : 'Unknown error.');
+    return Response.json({ ok: false, error: 'temporarily_unavailable' }, { status: 503, headers: NO_STORE_HEADERS });
+  }
 }
 
 async function tokenFromRequest(request: Request) {
