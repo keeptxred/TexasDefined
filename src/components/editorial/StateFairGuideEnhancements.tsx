@@ -159,7 +159,7 @@ export function StateFairPlanningStrip() {
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
               <p className="eyebrow text-primary">Plan the visit</p>
-              <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, game days and where to stay</h2>
+              <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
               <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Buy Fair admission directly from the State Fair of Texas. If you are coming for a Cotton Bowl game, use the dedicated event guide for game-day timing, then use this page for food, rides and Fair planning.</p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>Buy State Fair tickets ↗</a>
@@ -172,7 +172,7 @@ export function StateFairPlanningStrip() {
 
           <div className="mt-10" data-state-fair-featured-gallery>
             <div className="flex items-end justify-between gap-6">
-              <div><p className="eyebrow text-primary">See the Fair</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Big Tex, the Midway and Fair Park</h2></div>
+              <div><p className="eyebrow text-primary">State Fair photo carousel</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Big Tex, the Midway and Fair Park</h2></div>
               <a href="https://bigtex.com/about-us/media-room/photo-gallery/" target="_blank" rel="noreferrer" className="hidden text-sm font-semibold text-primary underline underline-offset-4 md:inline">Official Fair photo archive ↗</a>
             </div>
             <div className="mt-6 flex gap-4 overflow-x-auto pb-4" aria-label="State Fair of Texas featured photos">

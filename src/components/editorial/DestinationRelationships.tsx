@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
+import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
@@ -11,11 +12,6 @@ import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
-const MoodyGardensSpotlights = lazy(() =>
-  import("@/components/editorial/MoodyGardensSpotlights").then((module) => ({
-    default: module.MoodyGardensSpotlights,
-  })),
-);
 
 const CAMPING_DESTINATION_SLUGS = new Set([
   "enchanted-rock-state-natural-area",
@@ -116,7 +112,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     .slice(0, 6);
 
   return <>
-    {destination.slug === "moody-gardens" ? <Suspense fallback={null}><MoodyGardensSpotlights /></Suspense> : null}
+    {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
