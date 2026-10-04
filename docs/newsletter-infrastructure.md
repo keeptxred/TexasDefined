@@ -15,7 +15,7 @@ All four tables have RLS enabled. `anon` and `authenticated` have no table privi
 
 ## Subscriber lifecycle
 
-`newsletter.functions.ts` exposes server functions that future UI can call without exposing the service-role key:
+`newsletter.functions.ts` exposes server functions that future public UI can call without exposing the service-role key:
 
 - `subscribeToTexasDefinedNewsletter`
 - `confirmTexasDefinedNewsletter`
@@ -92,13 +92,13 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 - `saveTexasDefinedNewsletterDraft` renders the same bodies and stores them through the canonical draft issue service.
 - Duplicate story URLs are removed before rendering.
 - Story URLs are normalized to HTTP(S), and the underlying template escapes editorial text before inserting it into HTML.
-- Saved content retains the structured story selection plus a composer/version marker, so a future admin editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
+- Saved content retains the structured story selection plus a composer/version marker, so an admin editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
 
-The composer is intentionally server-only. It does not add an admin page, public route, signup form, provider call, or sending side effect.
+The composer is intentionally server-only. It does not add a public route, signup form, provider call, or sending side effect.
 
 ## Server-only operator control plane
 
-`newsletter-operations.server.ts` exposes the read-side backend needed by a future newsletter admin experience without creating a browser-accessible newsletter admin API.
+`newsletter-operations.server.ts` exposes the read-side backend needed by the newsletter admin experience without creating a browser-accessible newsletter admin API.
 
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
@@ -109,7 +109,7 @@ These low-level functions remain service-role/server-only and are not routed thr
 
 ## Authenticated operator boundary
 
-`newsletter-admin-auth.server.ts` and `newsletter-admin.functions.ts` provide the secure boundary a future newsletter admin screen can call. The existing generic `/admin` route is **not** considered an authorization boundary; sensitive newsletter data and actions are authorized again inside every server function that touches them.
+`newsletter-admin-auth.server.ts` and `newsletter-admin.functions.ts` provide the secure boundary used by the newsletter operations UI. The existing generic `/admin` route is **not** considered an authorization boundary; sensitive newsletter data and actions are authorized again inside every server function that touches them.
 
 Operator authentication requires two independent production secrets:
 
@@ -130,7 +130,7 @@ Access-key comparison hashes both values with Web Crypto SHA-256 and performs a 
 
 Every authenticated newsletter server function returns `Cache-Control: private, no-store`, `CDN-Cache-Control: no-store`, `Vary: Cookie`, and `X-Robots-Tag: noindex, nofollow` so private operator responses are not shared by a browser/CDN cache or indexed.
 
-The authenticated boundary currently exposes server functions for:
+The authenticated boundary exposes server functions for:
 
 - session login, logout, and status;
 - operator dashboard statistics;
@@ -144,7 +144,24 @@ The authenticated boundary currently exposes server functions for:
 - staging/updating a Resend Broadcast without sending;
 - send-or-schedule, which still independently fails closed unless `NEWSLETTER_SENDING_ENABLED=true` inside the provider adapter.
 
-No newsletter admin page is added by this layer. A future UI will be a thin client over these already-authorized server functions.
+## Authenticated newsletter operations UI
+
+`NewsletterOperationsPanel.tsx` is embedded in the existing lazy-loaded Platform Health route at `/admin/platform-health#newsletter`. It is a thin client over the authenticated operator boundary and does not create another public or top-level admin route.
+
+The panel:
+
+- checks the newsletter-native operator session before loading any newsletter data;
+- submits the access key only to `newsletterAdminLogin` and does not store the raw key in `localStorage` or `sessionStorage`;
+- relies on the server-issued HTTP-only operator cookie after login;
+- displays active/pending subscriber totals and suppression counts without exposing a subscriber-list endpoint;
+- displays rollout readiness for public signup, bulk sending, confirmation delivery, double opt-in, and Resend Broadcast configuration;
+- lists recent issues and provider-event totals;
+- loads issue detail and delivery-state counts through authenticated server functions;
+- previews rendered issue HTML inside a sandboxed iframe;
+- allows mark-ready, local schedule, and cancel actions;
+- exposes **no send-now action**, audience-sync action, or Resend stage/publish action.
+
+The absence of a send button is deliberate even though the authenticated server boundary contains a separately guarded send-or-schedule function. `NEWSLETTER_SENDING_ENABLED` remains the authoritative server-side kill switch, and this UI does not provide a path to invoke that send operation.
 
 ## Resend issue lifecycle
 
@@ -175,11 +192,11 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
-- No newsletter admin page has been added.
 - Newsletter operator authentication remains unusable until both admin secrets are configured.
+- The authenticated operations panel exposes no send-now action.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI and provider configuration are approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
 - No newsletter will send merely because these files are deployed.
 
-This separation allows the public signup surfaces, authenticated admin UI, and actual provider credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows the public signup surfaces and provider credentials to be activated later without exposing subscriber data or redesigning the core model.
