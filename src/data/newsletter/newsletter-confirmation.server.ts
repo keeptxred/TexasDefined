@@ -50,6 +50,33 @@ export async function sendNewsletterConfirmationEmail(input: {
     throw new Error('Newsletter confirmation email delivery is enabled but Resend is not configured.');
   }
 
+  // Re-read the claim immediately before the provider call. A newer signup attempt,
+  // confirmation, or unsubscribe makes this request stale and must suppress the send.
+  const { data: current, error: currentError } = await client
+    .from('texasdefined_newsletter_subscribers')
+    .select('id,email,status,confirmation_token,confirmation_email_attempt_id')
+    .eq('id', input.subscriberId)
+    .maybeSingle() as {
+      data: {
+        id: string;
+        email: string;
+        status: string;
+        confirmation_token: string | null;
+        confirmation_email_attempt_id: string | null;
+      } | null;
+      error: { message: string } | null;
+    };
+  if (currentError) throw new Error(`Newsletter confirmation preflight failed: ${currentError.message}`);
+  if (
+    !current
+    || current.status !== 'pending'
+    || current.email.toLowerCase() !== input.email.trim().toLowerCase()
+    || current.confirmation_token !== input.token
+    || current.confirmation_email_attempt_id !== input.attemptId
+  ) {
+    return { ok: true, sent: false, reason: 'superseded' } as const;
+  }
+
   const confirmationUrl = new URL('/api/newsletter/confirm', newsletterOrigin());
   confirmationUrl.searchParams.set('token', input.token);
   const confirmationHref = confirmationUrl.toString();
