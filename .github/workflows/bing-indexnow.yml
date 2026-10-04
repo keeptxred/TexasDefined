@@ -26,7 +26,7 @@ jobs:
   submit:
     runs-on: ubuntu-latest
     environment: texasdefined-publication
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
       PUBLIC_INDEXING_ENABLED: ${{ vars.PUBLIC_INDEXING_ENABLED }}
       INDEXNOW_FULL: ${{ github.event_name == 'workflow_dispatch' && inputs.full && 'true' || 'false' }}
@@ -48,6 +48,9 @@ jobs:
           html="$(curl --fail --silent --show-error --retry 5 --retry-delay 2 https://texasdefined.com/)"
           printf '%s' "$html" | grep -F '<meta name="msvalidate.01" content="74E5E79AEC351CF6D2577A6FC6A125DF" />'
 
+      - name: Verify production crawler, canonical, sitemap and asset access
+        run: node scripts/seo/verify-search-production.mjs
+
       - name: Notify IndexNow of canonical meaningful changes
         run: node scripts/seo/submit-indexnow.mjs
 
@@ -58,6 +61,7 @@ jobs:
             echo '## Bing / IndexNow'
             echo
             echo 'Runs hourly for sitemap URLs with recent lastmod values; cosmetic deployments are ignored.'
+            echo 'Googlebot, Bingbot, Applebot, DuckDuckBot, OAI-SearchBot and anonymous crawler access is checked against production before notification.'
             echo 'Manual runs can submit clean former URLs for deletion/redirect recrawls or request a full canonical refresh.'
             echo 'PUBLIC_INDEXING_ENABLED=false remains an emergency kill switch.'
           } >> "$GITHUB_STEP_SUMMARY"
