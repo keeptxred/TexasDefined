@@ -11,7 +11,9 @@ const requiredFiles = [
   "src/data/fishing/lake-expansion-fixtures.ts",
   "src/data/fishing/lake-expansion-wave2-fixtures.ts",
   "src/routes/fishing.plan.tsx",
+  "src/lazy/fishing-plan.tsx",
   "src/routes/fishing.compare.tsx",
+  "src/lazy/fishing-compare.tsx",
   "src/components/fishing/FishingHub.tsx",
   "src/components/fishing/FishingResultsMap.tsx",
   "src/components/fishing/GenericFishingLakeGuide.tsx",
@@ -24,14 +26,18 @@ for (const path of requiredFiles) {
 
 const routing = read("src/data/fishing/planner-routing.ts");
 const server = read("src/data/fishing/planner-data.server.ts");
-const planner = read("src/routes/fishing.plan.tsx");
+const plannerRoute = read("src/routes/fishing.plan.tsx");
+const plannerLazy = read("src/lazy/fishing-plan.tsx");
+const planner = `${plannerRoute}\n${plannerLazy}`;
 const locationServer = read("src/data/fishing/location.server.ts");
 const locationFunctions = read("src/data/fishing/location.functions.ts");
 const resultsMap = read("src/components/fishing/FishingResultsMap.tsx");
 const fishingFixtures = read("src/data/fishing/fixtures.ts");
 const expandedLakeFixtures = read("src/data/fishing/lake-expansion-fixtures.ts");
 const wave2LakeFixtures = read("src/data/fishing/lake-expansion-wave2-fixtures.ts");
-const compare = read("src/routes/fishing.compare.tsx");
+const compareRoute = read("src/routes/fishing.compare.tsx");
+const compareLazy = read("src/lazy/fishing-compare.tsx");
+const compare = `${compareRoute}\n${compareLazy}`;
 const search = read("src/data/fishing/search.ts");
 const links = read("src/data/fishing/internal-links.ts");
 const sitemap = read("src/data/fishing/sitemap.ts");
@@ -47,6 +53,10 @@ const requireText = (text, needle, label) => { if (!text.includes(needle)) throw
 
 requireText(routing, '"/fishing/plan"', "trip planner canonical route missing");
 requireText(routing, '"/fishing/compare"', "lake comparison canonical route missing");
+requireText(plannerRoute, '.lazy(() => import("@/lazy/fishing-plan").then((d) => d.Route))', "planner lazy route boundary missing");
+requireText(plannerLazy, 'createLazyFileRoute("/fishing/plan")', "planner lazy route definition missing");
+requireText(compareRoute, '.lazy(() => import("@/lazy/fishing-compare").then((d) => d.Route))', "comparison lazy route boundary missing");
+requireText(compareLazy, 'createLazyFileRoute("/fishing/compare")', "comparison lazy route definition missing");
 requireText(server, "fullGuide: isCompleteFishingLakeSlug", "planner must distinguish full guides from basic lake profiles");
 requireText(server, "Boolean(relation.verifiedAt) && relation.sources.length > 0", "planner lake/species relationships must be verified and sourced");
 requireText(server, ".filter((row) => row.targets.length > 0)", "planner must omit lakes without verified fish relationships");

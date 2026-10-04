@@ -1,9 +1,9 @@
-name: Verify authority freshness after production deploy
+name: Verify authority freshness after cache self-heal
 
 on:
   workflow_run:
     workflows:
-      - Deploy TexasDefined production
+      - Purge authority cache after production deploy
     types:
       - completed
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - name: Check out deployed revision
+      - name: Check out repaired revision
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
@@ -28,5 +28,5 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify governed authority canonical freshness
+      - name: Independently verify governed authority canonical freshness
         run: node scripts/ci/verify-authority-canonical-freshness.mjs

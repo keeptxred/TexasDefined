@@ -20,7 +20,7 @@ export const Route = createFileRoute("/event/$slug")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: page.title,
+        title: page.title.replace("Texas Travel Guide", `${page.city} Guide`),
         description: page.description,
         image: page.image,
         imageAlt: page.imageAlt,

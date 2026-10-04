@@ -44,7 +44,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug")({
       const [species, relationships, reports, guides, access, businesses] = await Promise.all([
         context.queryClient.ensureQueryData(fishSpeciesQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(lakeSpeciesProfilesQuery({ lakeId: lake.id })),
-        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 10 })),
+        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 10 }, lake)),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 20 })),
         context.queryClient.ensureQueryData(fishingAccessPointsQuery({ lakeId: lake.id, limit: 50 })),
         context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),

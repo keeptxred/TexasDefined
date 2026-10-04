@@ -24,7 +24,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
       if (!isLakeConroeSection(params.section)) throw notFound();
       const pageData = await getLakeConroePageData();
       const [reports, guides] = await Promise.all([
-        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
+        context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, params.section === "reports" ? lake : undefined)),
         context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
       ]);
       return { kind: "conroe" as const, lake, reports, guides, pageData, section: params.section, liveLakeLevel: pageData.liveLakeLevel };
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/fishing/lakes/$slug/$section")({
     const pageData = await getShowcaseLakePageData({ data: { slug: params.slug } });
     if (!pageData) throw notFound();
     const [reports, guides, businesses, placements] = await Promise.all([
-      context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 })),
+      context.queryClient.ensureQueryData(fishingReportsQuery({ lakeId: lake.id, limit: 20 }, params.section === "reports" ? lake : undefined)),
       context.queryClient.ensureQueryData(fishingGuidesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingBusinessesQuery({ lakeId: lake.id, limit: 50 })),
       context.queryClient.ensureQueryData(fishingPlacementsQuery({ lakeId: lake.id, limit: 20 })),

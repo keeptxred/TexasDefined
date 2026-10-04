@@ -9,6 +9,9 @@ import type {
   FishingReportQuery,
   FishingTechniqueQuery,
 } from "./repositories";
+import { mergeOfficialTpwdFishingReport } from "./tpwd-fishing-report-adapter";
+import { getLatestTpwdFishingReport } from "./tpwd-fishing-report.functions";
+import type { FishingLake } from "./types";
 import { isFishingRecordVerified } from "./validation";
 
 type PublicQuery<T extends { brandId: unknown; status?: unknown }> = Omit<T, "brandId" | "status">;
@@ -95,10 +98,17 @@ export const fishingGuideSpeciesQuery = (params: { guideId?: string; speciesId?:
   queryFn: async () => (await loadFishingPlatform()).guideSpecies.list({ ...fishingScope, ...params }),
 });
 
-export const fishingReportsQuery = (params: PublicQuery<FishingReportQuery> = {}) => queryOptions({
-  queryKey: ["fishing", "reports", fishingScope.brandId, params],
+export const fishingReportsQuery = (params: PublicQuery<FishingReportQuery> = {}, officialLake?: FishingLake) => queryOptions({
+  queryKey: ["fishing", "reports", fishingScope.brandId, params, officialLake ? "official" : "stored"],
   staleTime: 10 * 60 * 1000,
-  queryFn: async () => (await loadFishingPlatform()).reports.list({ ...fishingScope, ...published, ...params }),
+  queryFn: async () => {
+    const reports = await (await loadFishingPlatform()).reports.list({ ...fishingScope, ...published, ...params });
+    if (!officialLake) return reports;
+    const source = officialLake.sources.find((item) => /tpwd\.texas\.gov\/fishboat\/fish\/recreational\/lakes\//i.test(item.url));
+    if (!source) return reports;
+    const snapshot = await getLatestTpwdFishingReport({ data: { sourceUrl: source.url } });
+    return mergeOfficialTpwdFishingReport(officialLake, reports, snapshot);
+  },
 });
 
 export const fishingReportQuery = (slug: string) => queryOptions({
