@@ -86,6 +86,7 @@ function resolveKnownDynamicInboundPaths() {
   resolveTexasResourcesTupleLinks(inbound);
   resolvePropertyTaxCalculatorTupleLinks(inbound);
   resolveTexasDataNextStopLinks(inbound);
+  resolveTexasDataFeaturedProductLinks(inbound);
   return inbound;
 }
 
@@ -152,6 +153,19 @@ function resolveTexasDataNextStopLinks(inbound) {
   const rendersTupleLinks = renderer.includes('nextStops.map(([title, to, copy])') && renderer.includes('to={to}');
   if (!rendersTupleLinks) return;
   addQuotedPaths(inbound, block, 'src/routes/texas-data.lazy.tsx (resolved nextStops tuple link)');
+}
+
+function resolveTexasDataFeaturedProductLinks(inbound) {
+  const data = readOptional('src/routes/texas-data.tsx');
+  const renderer = readOptional('src/routes/texas-data.lazy.tsx');
+  const block = data.match(/export const featuredDataProducts = \[([\s\S]*?)\] as const;/)?.[1] ?? '';
+  const rendersProductLinks = renderer.includes('featuredDataProducts.map((dataset')
+    && renderer.includes('to={dataset.path}');
+  if (!rendersProductLinks) return;
+  const paths = [...block.matchAll(/\bpath:\s*["'](\/[a-z0-9][a-z0-9./-]*)["']/gi)].map((match) => match[1]);
+  for (const routePath of paths) {
+    addDynamicInbound(inbound, routePath, 'src/routes/texas-data.lazy.tsx (resolved featuredDataProducts path link)');
+  }
 }
 
 function addQuotedPaths(inbound, sourceBlock, sourceLabel) {
