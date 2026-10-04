@@ -97,6 +97,8 @@ jobs:
             'feature/unusual-business-authority-upgrade-v3'
             'feature/unusual-business-authority-upgrade-v4'
             'feature/close-unusual-business-cleanup'
+            'feature/authority-live-diagnostic'
+            'fix/whirlyball-authority-closeout'
           )
 
           for branch in "${branches[@]}"; do
@@ -115,10 +117,35 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          leftovers="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/branches?per_page=100" --jq '.[].name' | grep -E '^feature/(unusual-business-authority-upgrade-(final[2-8]?|v[2-4])|close-unusual-business-cleanup)$' || true)"
-          if [[ -n "$leftovers" ]]; then
-            echo '::error title=Scratch branch cleanup incomplete::'
-            echo "$leftovers"
+
+          branches=(
+            'feature/unusual-business-authority-upgrade-final'
+            'feature/unusual-business-authority-upgrade-final2'
+            'feature/unusual-business-authority-upgrade-final3'
+            'feature/unusual-business-authority-upgrade-final4'
+            'feature/unusual-business-authority-upgrade-final5'
+            'feature/unusual-business-authority-upgrade-final6'
+            'feature/unusual-business-authority-upgrade-final7'
+            'feature/unusual-business-authority-upgrade-final8'
+            'feature/unusual-business-authority-upgrade-v2'
+            'feature/unusual-business-authority-upgrade-v3'
+            'feature/unusual-business-authority-upgrade-v4'
+            'feature/close-unusual-business-cleanup'
+            'feature/authority-live-diagnostic'
+            'fix/whirlyball-authority-closeout'
+          )
+
+          failed=0
+          for branch in "${branches[@]}"; do
+            encoded_branch="${branch//\//%2F}"
+            if gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${encoded_branch}" >/dev/null 2>&1; then
+              echo "still present: ${branch}"
+              failed=1
+            fi
+          done
+
+          if [[ "$failed" == '1' ]]; then
+            echo '::error title=Scratch branch cleanup incomplete::One or more unusual-business scratch branches still exists.'
             exit 1
           fi
-          echo 'No unusual-business scratch branches remain.'
+          echo 'No unusual-business scratch or diagnostic branches remain.'
