@@ -45,6 +45,7 @@ const checks = [
   ['historic-supporting-guides', 'CONTENT/AUTHORITY', 'Validate historic supporting guides', 'node', ['scripts/data/validate-historic-supporting-guides.mjs']],
   ['texas-before-us-history', 'CONTENT/AUTHORITY', 'Validate Texas before U.S. history authority', 'node', ['scripts/data/validate-texas-before-us-history.mjs']],
   ['indigenous-texas-history', 'CONTENT/AUTHORITY', 'Validate Indigenous Texas history authority', 'node', ['scripts/data/validate-indigenous-texas-history.mjs']],
+  ['indigenous-texas-authority-cluster', 'CONTENT/AUTHORITY', 'Validate Indigenous Texas authority cluster', 'node', ['scripts/data/validate-indigenous-texas-authority-cluster.mjs']],
   ['military-history-expansion', 'CONTENT/AUTHORITY', 'Validate military history expansion', 'node', ['scripts/data/validate-military-history-expansion.mjs']],
   ['things-unique-to-texas', 'CONTENT/AUTHORITY', 'Validate Things That Define Texas authority', 'node', ['scripts/data/validate-things-unique-to-texas.mjs']],
   ['texas-icon-link-depth', 'INTERNAL-LINKING', 'Validate Things That Define Texas deep-link coverage', 'node', ['scripts/data/validate-texas-icon-link-depth.mjs']],
