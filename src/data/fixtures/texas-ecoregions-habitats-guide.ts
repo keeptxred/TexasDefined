@@ -3,11 +3,6 @@ import type { Article, ArticleBlock } from "../types";
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
-const image = (src: string, alt: string, caption: string, credit?: string): ArticleBlock => ({
-  type: "image",
-  image: { src, alt, width: 1600, height: 1000, ...(credit ? { credit } : {}) },
-  caption,
-});
 
 export const texasEcoregionsHabitatsGuideArticle: Article = {
   id: "evergreen-texas-ecoregions-habitats-guide",
@@ -17,11 +12,11 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
   dek: "A map-first guide to all 10 major Texas natural regions, from Piney Woods and coastal marshes to Blackland Prairie, Hill Country, High Plains and the Trans-Pecos, with landscapes, vegetation, wildlife and places to experience each one.",
   category: "outdoors",
   hero: {
-    src: "/images/editorial/texas-ecoregions-habitats.jpg",
-    alt: "A broad Texas landscape showing the state's dramatic regional variety",
+    src: "/images/editorial/texas-ecoregions-map.svg",
+    alt: "Simplified orientation map showing the 10 major Texas natural regions from the Trans-Pecos in far West Texas to the Piney Woods in East Texas and Gulf Prairies and Marshes along the coast",
     width: 1600,
-    height: 2133,
-    credit: "Betty Alex (U.S. National Park Service) · Public domain · Wikimedia Commons",
+    height: 1000,
+    credit: "TexasDefined · simplified from the Texas Parks and Wildlife natural-region framework",
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-16",
@@ -56,14 +51,9 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
     p("Texas is not one landscape. It is a meeting place for southeastern forests, tallgrass and mixed-grass prairies, limestone plateau country, subtropical thornscrub, High Plains grassland, coastal marshes and Chihuahuan Desert mountains. Texas Parks and Wildlife commonly organizes that diversity into 10 major natural regions. Those regions are a useful first layer for understanding the state's plants, wildlife, soils, water, agriculture and even the way long road trips feel from the windshield."),
     p("The boundaries are ecological rather than political. They do not stop at county lines, and transition zones can be broad. A ranch, park or city can sit near an edge where characteristics of two regions overlap. Use this guide for statewide orientation, then use site-specific soil, hydrology, vegetation and management information when a precise parcel or habitat decision matters."),
 
-    h("Texas ecoregions map"),
-    image(
-      "/images/editorial/texas-ecoregions-map.svg",
-      "Simplified orientation map showing the 10 major Texas natural regions from the Trans-Pecos in far West Texas to the Piney Woods in East Texas and Gulf Prairies and Marshes along the coast",
-      "TexasDefined simplified orientation map of the 10 major TPWD natural regions. Boundaries are intentionally generalized; use the linked TPWD source for official regional boundaries.",
-      "TexasDefined · simplified from the Texas Parks and Wildlife natural-region framework",
-    ),
-    p("The map is deliberately simplified. Its job is to show the statewide pattern: wetter forests dominate the east; prairie and savannah systems occupy much of the center; limestone plateau country rises through Central Texas; South Texas becomes hotter and brushier; the Panhandle and northwest open into plains; and the Trans-Pecos becomes true desert-and-mountain country."),
+    h("How to read the Texas ecoregions map"),
+    p("The map above is a TexasDefined orientation graphic based on the Texas Parks and Wildlife 10-region framework. Its boundaries are deliberately generalized rather than survey-grade. Use it to understand the statewide pattern, and use the linked TPWD source whenever exact regional boundaries matter."),
+    p("The broad pattern is clear: wetter forests dominate the east; prairie and savannah systems occupy much of the center; limestone plateau country rises through Central Texas; South Texas becomes hotter and brushier; the Panhandle and northwest open into plains; and the Trans-Pecos becomes true desert-and-mountain country."),
 
     h("The 10 Texas natural regions at a glance"),
     list(
