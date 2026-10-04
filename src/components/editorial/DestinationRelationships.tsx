@@ -39,7 +39,7 @@ const WHIRLYBALL_SLUG = "whirlyball-hurst";
 
 const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
-  WHIRLYBALL_SLUG,
+  "whirlyball-hurst",
   "my-story-museum-crystal-city",
 ]);
 
