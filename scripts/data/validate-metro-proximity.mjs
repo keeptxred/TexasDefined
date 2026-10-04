@@ -3,6 +3,7 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
+  townReferences: "src/data/metro-proximity-town-references.ts",
   test: "src/data/__tests__/metro-proximity.test.ts",
   pageData: "src/data/metro-proximity-page-data.server.ts",
   functions: "src/data/metro-proximity-page-data.functions.ts",
@@ -29,28 +30,10 @@ const fail = (message) => { throw new Error(`Metro proximity validation failed: 
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
 
 const expectedMetroSlugs = [
-  "houston",
-  "dallas",
-  "fort-worth",
-  "austin",
-  "san-antonio",
-  "corpus-christi",
-  "waco",
-  "beaumont-port-arthur",
-  "amarillo",
-  "el-paso",
-  "lubbock",
-  "mcallen",
-  "midland-odessa",
-  "tyler",
-  "college-station",
-  "abilene",
-  "laredo",
-  "killeen-temple",
-  "san-angelo",
-  "wichita-falls",
-  "texarkana",
-  "victoria",
+  "houston", "dallas", "fort-worth", "austin", "san-antonio", "corpus-christi", "waco",
+  "beaumont-port-arthur", "amarillo", "el-paso", "lubbock", "mcallen", "midland-odessa",
+  "tyler", "college-station", "abilene", "laredo", "killeen-temple", "san-angelo",
+  "wichita-falls", "texarkana", "victoria",
 ];
 const metroMatch = files.data.match(/METRO_PROXIMITY_METROS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const metroSlugs = metroMatch ? [...metroMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
@@ -59,75 +42,52 @@ if (JSON.stringify(metroSlugs) !== JSON.stringify(expectedMetroSlugs)) fail(`met
 const collectionMatch = files.data.match(/METRO_PROXIMITY_COLLECTIONS\s*=\s*\[([\s\S]*?)\n\] as const;/);
 const collectionSlugs = collectionMatch ? [...collectionMatch[1].matchAll(/slug: "([a-z0-9-]+)"/g)].map((match) => match[1]) : [];
 const expectedCollections = [
-  "things-to-do",
-  "day-trips",
-  "weekend-trips",
-  "road-trips",
-  "state-parks",
-  "small-towns",
-  "small-towns-1-hour",
-  "small-towns-2-hours",
-  "small-towns-3-hours",
-  "lakes-rivers",
-  "lakes",
-  "swimming-holes",
-  "historic-sites",
+  "things-to-do", "day-trips", "weekend-trips", "road-trips", "state-parks", "small-towns",
+  "small-towns-1-hour", "small-towns-2-hours", "small-towns-3-hours", "lakes-rivers", "lakes",
+  "swimming-holes", "historic-sites",
 ];
 if (JSON.stringify(collectionSlugs) !== JSON.stringify(expectedCollections)) fail(`collection allowlist drifted: ${collectionSlugs.join(", ")}`);
 
 for (const token of [
-  "radiusMiles:", "minimumMiles:", "minResults:", "maxResults:",
-  "minTowns:", "minCounties:", "minCategories:", "matchTerms:",
-  "distanceFromPointMiles", "selectMetroProximityDestinations",
-  "isMetroProximityCollectionIndexReady", "metroProximityHubReady",
-  "metroProximityCanonicalPath", "metroProximitySitemapEntries",
-  "const seen = new Set<string>()",
-  "summary.trim().length >= 80",
+  "radiusMiles:", "minimumMiles:", "minResults:", "maxResults:", "minTowns:", "minCounties:",
+  "minCategories:", "matchTerms:", "distanceFromPointMiles", "selectMetroProximityDestinations",
+  "isMetroProximityCollectionIndexReady", "metroProximityHubReady", "metroProximityCanonicalPath",
+  "metroProximitySitemapEntries", "const seen = new Set<string>()", "summary.trim().length >= 80",
   "collection.matchTerms.some",
 ]) requireText(files.data, token, `data model missing ${token}`);
 
 for (const token of [
-  '"small-towns-1-hour"',
-  '"small-towns-2-hours"',
-  '"small-towns-3-hours"',
-  '"weekend-trips"',
-  '"road-trips"',
-  '"lakes"',
-  '"swimming-holes"',
-  "Actual road mileage and drive time vary.",
+  '"small-towns-1-hour"', '"small-towns-2-hours"', '"small-towns-3-hours"', '"weekend-trips"',
+  '"road-trips"', '"lakes"', '"swimming-holes"', "Actual road mileage and drive time vary.",
 ]) requireText(files.data, token, `requested intent expansion missing ${token}`);
 
 for (const token of [
-  "unknown metro and collection slugs fail closed",
-  "small-town hour-intent rings are non-overlapping",
-  "duplicate destination slugs cannot inflate collection inventory",
-  "swimming-hole intent requires water-use language",
-  "thin or geographically narrow collections remain noindex",
-  "substantive, diverse inventory can clear the index gate",
+  'metroSlug: "san-angelo"', 'name: "Miles"', 'name: "Christoval"', 'name: "Mertzon"',
+  'name: "Robert Lee"', 'name: "Bronte"', 'name: "Paint Rock"', 'name: "Ballinger"',
+  "selectMetroProximityTownReferences", "isMetroProximityCollectionIndexReadyWithTownReferences",
+  "officialUrl", "sourceCheckedAt", "destinationNames", "collection.maxResults - destinationRows.length",
+]) requireText(files.townReferences, token, `supplemental town-reference layer missing ${token}`);
+
+for (const token of [
+  "unknown metro and collection slugs fail closed", "small-town hour-intent rings are non-overlapping",
+  "duplicate destination slugs cannot inflate collection inventory", "swimming-hole intent requires water-use language",
+  "thin or geographically narrow collections remain noindex", "substantive, diverse inventory can clear the index gate",
+  "San Angelo closest-small-town page is geography-first instead of catalog-only",
+  "San Angelo town references stay inside configured geographic rings",
+  "a full destination guide supersedes its supplemental town reference",
 ]) requireText(files.test, token, `metro proximity regression test missing ${token}`);
 
 for (const token of [
-  "listResolvedDestinations",
-  "loadMetroProximityHubPageDataServer",
-  "loadMetroProximityCollectionPageDataServer",
-  "isMetroProximityCollectionIndexReady",
-  "metroProximityHubReady",
-  "selectMetroProximityDestinations",
-  '"@type": "CollectionPage"',
-  '"@type": "ItemList"',
-  '"@type": "BreadcrumbList"',
-  '"index, follow, max-image-preview:large"',
-  '"noindex, follow"',
-  "buildMeta",
-  "canonicalLink",
+  "listResolvedDestinations", "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer",
+  "isMetroProximityCollectionIndexReadyWithTownReferences", "selectMetroProximityTownReferences",
+  "selectMetroProximityDestinations", "optionCount", '"@type": "CollectionPage"', '"@type": "ItemList"',
+  '"@type": "BreadcrumbList"', '"@type": "City"', '"index, follow, max-image-preview:large"',
+  '"noindex, follow"', "buildMeta", "canonicalLink", "metroProximityCollectionPresentation",
 ]) requireText(files.pageData, token, `server page-data layer missing ${token}`);
 
 for (const token of [
-  "createServerFn",
-  "getMetroProximityHubPageData",
-  "getMetroProximityCollectionPageData",
-  "loadMetroProximityHubPageDataServer",
-  "loadMetroProximityCollectionPageDataServer",
+  "createServerFn", "getMetroProximityHubPageData", "getMetroProximityCollectionPageData",
+  "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer",
 ]) requireText(files.functions, token, `server-function bridge missing ${token}`);
 
 for (const [label, route, fn] of [
@@ -146,104 +106,62 @@ for (const [label, route, fn] of [
 }
 
 for (const token of [
-  "component: MetroProximityBoundary",
-  "matches[matches.length - 1]?.routeId === match.routeId",
-  "useRouterState",
-  "return <Outlet />",
-  'const hubPath = "/explore/near/" + pageData.metro.slug',
+  "component: MetroProximityBoundary", "matches[matches.length - 1]?.routeId === match.routeId", "useRouterState",
+  "return <Outlet />", 'const hubPath = "/explore/near/" + pageData.metro.slug',
   'import("@/components/explore/MetroProximityHubPage")',
 ]) requireText(files.hubRoute, token, `metro parent leaf/canonical boundary missing ${token}`);
 if (!files.hubRoute.includes("return isLeaf ? (loaderData?.head ?? {}) : {};")) fail("metro parent head must fail closed on descendant routes");
 
-for (const token of [
-  'createLazyFileRoute("/explore/near/$metro")',
-]) requireText(files.hubUi, token, `metro parent lazy route missing ${token}`);
+for (const token of ['createLazyFileRoute("/explore/near/$metro")']) requireText(files.hubUi, token, `metro parent lazy route missing ${token}`);
 if (files.hubUi.includes("component:") || files.hubUi.includes("DestinationCard")) fail("metro parent lazy route must stay component-neutral so critical boundary owns hub-vs-child rendering");
 
 for (const token of [
-  "MetroProximityHubPage",
-  "Explore by trip type",
-  "straight-line geographic estimates",
-  "DestinationCard",
-  "Nearby places worth opening first",
-  'to="/explore/trip-planner"',
+  "MetroProximityHubPage", "Explore by trip type", "straight-line geographic estimates", "DestinationCard",
+  "Nearby places worth opening first", 'to="/explore/trip-planner"', "optionCount", "source-backed options",
 ]) requireText(files.hubComponent, token, `metro hub lazy presentation missing ${token}`);
 
 for (const token of [
-  "component: MetroProximityCollectionPage",
-  "Distance window",
-  "not road miles or drive-time promises",
-  "Quick shortlist",
-  "Best season:",
+  "component: MetroProximityCollectionPage", "Distance window", "not road miles or drive-time promises",
+  "Closest towns first", "Official local source", "Check current drive", "Source-backed options",
   "MetroProximityCollectionRich",
 ]) requireText(files.collectionRoute, token, `metro collection SSR shell missing ${token}`);
 
 for (const token of [
-  'createLazyFileRoute("/explore/near/$metro/$collection")',
-  "METRO_PROXIMITY_COLLECTIONS",
-  "MetroProximityCollectionRich",
-  "DestinationCard destination={row.destination}",
-  "MapPreview",
-  'to="/county/$slug"',
-  'to="/explore/near/$metro"',
+  'createLazyFileRoute("/explore/near/$metro/$collection")', "METRO_PROXIMITY_COLLECTIONS",
+  "MetroProximityCollectionRich", "DestinationCard destination={row.destination}", "MapPreview", "townReferences",
+  'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
 if (files.exploreRoute.includes("@/data/metro-proximity")) fail("Explore head route must not eagerly import metro proximity catalog");
 for (const token of [
-  "METRO_PROXIMITY_METROS",
-  "Explore from a Texas metro",
-  'to="/explore/near/$metro"',
+  "METRO_PROXIMITY_METROS", "Explore from a Texas metro", 'to="/explore/near/$metro"',
   "Find day trips without scanning the whole state",
 ]) requireText(files.exploreUi, token, `Explore internal discovery missing ${token}`);
 
 for (const token of [
-  'await import("@/data/metro-proximity")',
-  "metroProximitySitemapEntries(indexableDestinations)",
-  "const proximityEntries",
-  "...proximityEntries",
+  'await import("@/data/metro-proximity")', "metroProximitySitemapEntries(indexableDestinations)",
+  "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
 
 for (const token of [
-  "applyMetroProximityEdgeCachePolicy",
-  'url.pathname.startsWith("/explore/near/")',
-  'headers.set("Cache-Control", "no-store, max-age=0")',
-  'headers.set("CDN-Cache-Control", "no-store")',
+  "applyMetroProximityEdgeCachePolicy", 'url.pathname.startsWith("/explore/near/")',
+  'headers.set("Cache-Control", "no-store, max-age=0")', 'headers.set("CDN-Cache-Control", "no-store")',
   'headers.set("Cloudflare-CDN-Cache-Control", "no-store")',
 ]) requireText(files.server, token, `metro edge freshness safeguard missing ${token}`);
 
 for (const token of [
-  "'cache-control': 'no-cache'",
-  "pragma: 'no-cache'",
-  "cf-cache-status",
-  "metro-distance-methodology",
-  "metro-distance-schema",
-  "metro-drive-time-disclaimer",
-  "metro-corpus-christi-hub",
-  "metro-waco-day-trips",
-  "metro-beaumont-port-arthur-hub",
-  "metro-amarillo-road-trips",
-  "metro-el-paso-weekend-trips",
-  "metro-lubbock-hub",
-  "metro-mcallen-hub",
-  "metro-midland-odessa-road-trips",
-  "metro-tyler-lakes",
-  "metro-college-station-day-trips",
-  "metro-abilene-hub",
-  "metro-laredo-hub",
-  "metro-killeen-temple-day-trips",
-  "metro-san-angelo-road-trips",
-  "metro-wichita-falls-lakes",
-  "metro-texarkana-weekend-trips",
-  "metro-victoria-historic-sites",
+  "'cache-control': 'no-cache'", "pragma: 'no-cache'", "cf-cache-status", "metro-distance-methodology",
+  "metro-distance-schema", "metro-drive-time-disclaimer", "metro-corpus-christi-hub", "metro-waco-day-trips",
+  "metro-beaumont-port-arthur-hub", "metro-amarillo-road-trips", "metro-el-paso-weekend-trips",
+  "metro-lubbock-hub", "metro-mcallen-hub", "metro-midland-odessa-road-trips", "metro-tyler-lakes",
+  "metro-college-station-day-trips", "metro-abilene-hub", "metro-laredo-hub",
+  "metro-killeen-temple-day-trips", "metro-san-angelo-road-trips", "metro-wichita-falls-lakes",
+  "metro-texarkana-weekend-trips", "metro-victoria-historic-sites",
 ]) requireText(files.productionSmoke, token, `metro production freshness smoke missing ${token}`);
 
 for (const token of [
-  "ExploreNearMetroRouteImport",
-  "ExploreNearMetroCollectionRouteImport",
-  "ExploreNearMetroRouteWithChildren",
-  "explore.near.$metro.lazy",
-  "explore.near.$metro.$collection.lazy",
-  "'/explore/near/$metro/$collection'",
+  "ExploreNearMetroRouteImport", "ExploreNearMetroCollectionRouteImport", "ExploreNearMetroRouteWithChildren",
+  "explore.near.$metro.lazy", "explore.near.$metro.$collection.lazy", "'/explore/near/$metro/$collection'",
 ]) requireText(files.routeTree, token, `generated route tree missing ${token}`);
 
 const pkg = JSON.parse(files.package);
@@ -254,30 +172,20 @@ if (pkg.scripts?.["metro-proximity:validate"] !== expectedScript) fail("package 
 if (!pkg.scripts?.["data:validate"]?.includes("npm run metro-proximity:validate")) fail("metro proximity validation is not wired into data:validate");
 
 for (const token of [
-  'createServer',
-  'vite-tsconfig-paths',
-  'ssrLoadModule("/scripts/data/audit-metro-proximity-index-readiness.ts")',
-  'await vite.close()',
+  "createServer", "vite-tsconfig-paths", 'ssrLoadModule("/scripts/data/audit-metro-proximity-index-readiness.ts")',
+  "await vite.close()",
 ]) requireText(files.auditRunner, token, `metro readiness audit runner missing ${token}`);
 
 for (const token of [
-  "listResolvedDestinations({ limit: 5000 })",
-  "METRO_PROXIMITY_METROS",
-  "METRO_PROXIMITY_COLLECTIONS",
-  "isMetroProximityCollectionIndexReady",
-  "metroProximityHubReady",
-  "sitemap-eligible proximity URLs",
+  "listResolvedDestinations({ limit: 5000 })", "METRO_PROXIMITY_METROS", "METRO_PROXIMITY_COLLECTIONS",
+  "isMetroProximityCollectionIndexReady", "metroProximityHubReady", "sitemap-eligible proximity URLs",
   "Near-ready blocked combinations",
 ]) requireText(files.audit, token, `metro readiness audit missing ${token}`);
 
 for (const forbidden of [
-  "/explore/near/near/",
-  "guaranteed drive time",
-  "exact drive time",
-  "best attraction near",
-  "sponsored ranking",
+  "/explore/near/near/", "guaranteed drive time", "exact drive time", "best attraction near", "sponsored ranking",
 ]) {
   if (Object.values(files).some((source) => source.toLowerCase().includes(forbidden.toLowerCase()))) fail(`forbidden proximity pattern leaked: ${forbidden}`);
 }
 
-console.log("Metro proximity validation passed: twenty-two metro hubs and 286 governed intent combinations are distance-ranked, source-backed, diversity-gated, duplicate-resistant, fail-closed for indexing, sitemap-owned, internally discoverable and protected by leaf-only parent SEO, descendant Outlet ownership, server-built SEO and lazy hub presentation.");
+console.log("Metro proximity validation passed: twenty-two metro hubs and 286 governed intent combinations remain distance-ranked, source-backed, diversity-gated, duplicate-resistant and fail-closed for indexing, with supplemental official-source town references allowed to close verified geography gaps without manufacturing thin destination pages.");
