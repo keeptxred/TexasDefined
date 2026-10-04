@@ -1,6 +1,7 @@
 const COMPTROLLER_DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const TAC_COUNTY_BASE_URL = 'https://www.county.org';
 const REQUEST_TIMEOUT_MS = 12000;
+const LINK_CHECK_TIMEOUT_MS = 6000;
 
 export type LocalOfficeProfile = {
   name?: string;
@@ -16,7 +17,7 @@ export type LocalGovernmentProfile = {
   appraisalDistrict: LocalOfficeProfile;
   taxOffice: LocalOfficeProfile;
   comptrollerCountyUrl?: string;
-  tacCountyUrl: string;
+  tacCountyUrl?: string;
   sourceUrls: string[];
 };
 
@@ -38,14 +39,17 @@ async function fetchLocalGovernmentProfile(countySlug: string, countyName: strin
     findComptrollerCountyUrl(countySlug, countyName),
   ]);
 
-  const countyWebsiteUrl = countyWebsiteResult.status === 'fulfilled' ? countyWebsiteResult.value : undefined;
-  const comptrollerCountyUrl = comptrollerUrlResult.status === 'fulfilled' ? comptrollerUrlResult.value : undefined;
+  const countyWebsiteCandidate = countyWebsiteResult.status === 'fulfilled' ? countyWebsiteResult.value : undefined;
+  const verifiedTacCountyUrl = countyWebsiteResult.status === 'fulfilled' ? tacCountyUrl : undefined;
+  const comptrollerCandidate = comptrollerUrlResult.status === 'fulfilled' ? comptrollerUrlResult.value : undefined;
+  let comptrollerCountyUrl: string | undefined;
   let appraisalDistrict: LocalOfficeProfile = {};
   let taxOffice: LocalOfficeProfile = {};
 
-  if (comptrollerCountyUrl) {
+  if (comptrollerCandidate) {
     try {
-      const page = await fetchText(comptrollerCountyUrl);
+      const page = await fetchText(comptrollerCandidate);
+      comptrollerCountyUrl = comptrollerCandidate;
       appraisalDistrict = parseOfficeSection(page, 'Appraisal District', 'Tax Assessor/Collector');
       taxOffice = parseOfficeSection(page, 'Tax Assessor/Collector');
     } catch (error) {
@@ -53,13 +57,25 @@ async function fetchLocalGovernmentProfile(countySlug: string, countyName: strin
     }
   }
 
+  const [countyWebsiteUrl, appraisalWebsiteUrl, taxOfficeWebsiteUrl] = await Promise.all([
+    verifyExternalWebsite(countyWebsiteCandidate),
+    verifyExternalWebsite(appraisalDistrict.websiteUrl),
+    verifyExternalWebsite(taxOffice.websiteUrl),
+  ]);
+
+  appraisalDistrict = { ...appraisalDistrict, websiteUrl: appraisalWebsiteUrl };
+  taxOffice = { ...taxOffice, websiteUrl: taxOfficeWebsiteUrl };
+
   return {
     countyWebsiteUrl,
     appraisalDistrict,
     taxOffice,
     comptrollerCountyUrl,
-    tacCountyUrl,
-    sourceUrls: [tacCountyUrl, comptrollerCountyUrl].filter((value): value is string => Boolean(value)),
+    tacCountyUrl: verifiedTacCountyUrl,
+    sourceUrls: Array.from(new Set([
+      verifiedTacCountyUrl,
+      comptrollerCountyUrl,
+    ].filter((value): value is string => Boolean(value)))),
   };
 }
 
@@ -151,6 +167,26 @@ export function localOfficeDescription(countyName: string, kind: 'appraisal-dist
     return `${base} County Appraisal District, also commonly searched as ${base} CAD or ${base} Central Appraisal District, is the local property appraisal authority for ${countyName}. Use the district for property search and appraisal records, appraised values, homestead and other exemptions, agricultural appraisal, and property-tax protests. ${details.join('; ')}. ${sourceNote}`;
   }
   return `${countyName} Tax Office is the county tax assessor-collector reference for property-tax bills, tax-payment information and county tax services. Residents commonly use the office to find payment options, due-date information and local tax records; county tax offices also commonly handle vehicle title and registration services in partnership with TxDMV. ${details.join('; ')}. ${sourceNote}`;
+}
+
+async function verifyExternalWebsite(url?: string) {
+  if (!url) return undefined;
+  const normalized = normalizeExternalUrl(url);
+  if (!normalized) return undefined;
+  try {
+    const response = await fetch(normalized, {
+      redirect: 'follow',
+      signal: AbortSignal.timeout(LINK_CHECK_TIMEOUT_MS),
+      headers: {
+        accept: 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8',
+        'user-agent': 'TexasDefined official-link verifier/1.0 (+https://texasdefined.com)',
+      },
+    });
+    if (!response.ok) return undefined;
+    return normalizeExternalUrl(response.url) ?? normalized;
+  } catch {
+    return undefined;
+  }
 }
 
 async function fetchText(url: string) {
