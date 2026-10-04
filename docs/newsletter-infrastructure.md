@@ -78,20 +78,39 @@ Domain verification, Resend API-key creation, segment creation, webhook registra
 - `saveTexasDefinedNewsletterDraft` renders the same bodies and stores them through the canonical draft issue service.
 - Duplicate story URLs are removed before rendering.
 - Story URLs are normalized to HTTP(S), and the underlying template escapes editorial text before inserting it into HTML.
-- Saved content retains the structured story selection plus a composer/version marker, so a future admin editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
+- Saved content retains the structured story selection plus a composer/version marker, so an editor can reload and revise a draft instead of treating the rendered HTML as the source of truth.
 
-The composer is intentionally server-only. It does not add an admin page, public route, signup form, provider call, or sending side effect.
+The composer is server-only. It does not add a public route, signup form, provider call, or sending side effect.
 
 ## Server-only operator control plane
 
-`newsletter-operations.server.ts` exposes the read-side backend needed by a future newsletter admin experience without creating a browser-accessible newsletter admin API.
+`newsletter-operations.server.ts` exposes the read-side backend needed by newsletter operations without creating a browser-accessible public newsletter API.
 
 - `listNewsletterIssues` returns the most recently updated issues, optionally filtered by lifecycle status, with a hard page-size cap.
 - `getNewsletterIssueForOperator` loads the complete saved issue plus delivery counts grouped by state for preview/review screens.
 - `getNewsletterOperatorDashboard` combines subscriber/queue/draft statistics, recent issues, recent provider-event counts, and explicit rollout-state indicators.
 - Rollout state reports whether public signup, bulk sending, double opt-in, and the complete Resend credential set are configured. It does not expose secret values.
 
-These functions remain service-role/server-only and are not routed through the public Worker API. The future admin page can call them through an authenticated server boundary after the admin access model is finalized; no new public endpoint or UI is introduced by this layer.
+These functions remain service-role/server-only. Browser access is provided only through the authenticated server-function boundary described below.
+
+## Protected newsletter admin console
+
+`/admin/newsletter` is the operator surface for the newsletter infrastructure. It is intentionally separate from the public signup experience and remains `noindex, nofollow, noarchive` through the admin route hierarchy.
+
+The route does **not** load newsletter data merely because someone can navigate to its URL. The browser must provide the existing TexasDefined operations admin key. `newsletter-admin.functions.ts` verifies that key on the server through the same constant-time, SHA-256-backed access-key mechanism already used for sensitive advertiser/partner operations. The key itself is retained only in browser `sessionStorage` for that session; the service-role database credential never reaches the browser.
+
+The console can:
+
+- show active/pending/suppressed subscriber counts without exposing a public subscriber-list endpoint;
+- show draft and queued-delivery counts;
+- show whether public signup, bulk sending, double opt-in, and the Resend credential set are configured;
+- list recent issues and provider-event counts;
+- review one issue, its delivery-state totals, and its rendered HTML in a sandboxed preview frame;
+- mark an eligible issue ready;
+- schedule an eligible issue for a future time;
+- cancel draft/ready/scheduled issues and skip any queued deliveries.
+
+The console deliberately exposes **no send-now control** and does not bypass `NEWSLETTER_SENDING_ENABLED`. Scheduling changes the issue lifecycle but the server-side sending kill switch remains authoritative. The newsletter infrastructure validator fails if direct send operations are added to the admin function/route layer without an explicit architecture change.
 
 ## Resend issue lifecycle
 
@@ -122,10 +141,10 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 
 - No newsletter signup form or CTA is rendered on the public site.
 - No public `/newsletter` editorial/landing page has been added.
-- No newsletter admin page has been added.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI is approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
+- The protected admin console cannot send immediately and does not arm sending.
 - No newsletter will send merely because these migrations/code are deployed.
 
-This separation allows the public signup surfaces, admin surface, and actual sending credentials to be added later without exposing subscriber data or redesigning the core model.
+This separation allows the public signup surfaces and actual sending credentials to be activated later without exposing subscriber data or redesigning the core model.
