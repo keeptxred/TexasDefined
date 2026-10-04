@@ -7,6 +7,7 @@ import { Container } from '@/components/layout/Container';
 import type { EnrichedLandscapeGuide } from '@/data/texas-landscape-guide-enrichment';
 
 const VERIFIED_DATE = 'October 4, 2026';
+const USGS_EDWARDS_TRINITY_HISTORY = 'https://pubs.usgs.gov/publication/wri944039';
 
 const processSteps = [
   {
@@ -76,6 +77,29 @@ const fieldStops = [
   },
 ] as const;
 
+const faqItems = [
+  {
+    question: 'Is the Texas Hill Country actually a mountain range?',
+    answer: 'Not in the usual sense. Most of the Hill Country is the deeply dissected eastern and southeastern margin of the Edwards Plateau. Local relief can feel mountainous because rivers have cut steep valleys and canyons into the limestone, but the regional landform is better described as an eroded plateau than a young folded mountain chain.',
+  },
+  {
+    question: 'Did the Balcones Fault Zone create the Hill Country hills?',
+    answer: 'It helped set the stage, but it did not carve every hill. Normal faulting fractured and displaced Cretaceous rocks and created a major structural and elevation transition along the plateau margin. Rivers, floods, weathering and groundwater then exploited that relief and those fractures over millions of years.',
+  },
+  {
+    question: 'Why are there so many caves, springs and clear rivers in the Hill Country?',
+    answer: 'Limestone dissolves slowly as slightly acidic groundwater moves through joints, bedding planes and faults. That karst process enlarges underground pathways, forms caves and sink features, stores and transmits groundwater, and feeds major springs. River clarity varies with flow and storms, but spring-fed systems are one of the region’s defining geologic signatures.',
+  },
+  {
+    question: 'Why does Enchanted Rock look so different from the limestone Hill Country?',
+    answer: 'Enchanted Rock belongs to the Llano Uplift, where much older Precambrian igneous and metamorphic rocks are exposed inside the broader Hill Country region. That older crystalline terrain interrupts the younger Cretaceous limestone landscape found across much of the Edwards Plateau.',
+  },
+  {
+    question: 'Is the eastern Hill Country hillier than the plateau farther west?',
+    answer: 'Generally, yes. The eastern and southeastern plateau margin is more deeply dissected, especially near the Balcones fault-and-escarpment zone. Farther onto the Edwards Plateau, broader uplands become more common between major river valleys.',
+  },
+] as const;
+
 function HillCountryCrossSection() {
   return <figure className="overflow-hidden rounded-sm border border-border bg-background">
     <div className="p-5 sm:p-8">
@@ -111,7 +135,10 @@ function SourceDesk({ sources }: { sources: EnrichedLandscapeGuide['sourceLinks'
     <div className="mt-6 grid gap-8 lg:grid-cols-2">
       <div>
         <p className="text-sm leading-7 text-muted-foreground">This guide synthesizes physical-geography, aquifer and park-geology material from Texas public agencies and the U.S. Geological Survey. The diagram is interpretive and intentionally simplified; it is not a geologic map or survey cross section.</p>
-        <ul className="mt-6 space-y-3">{sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}</ul>
+        <ul className="mt-6 space-y-3">
+          <li><a href={USGS_EDWARDS_TRINITY_HISTORY} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">U.S. Geological Survey — Edwards-Trinity geologic history →</a></li>
+          {sources.map((source) => <li key={source.href}><a href={source.href} target="_blank" rel="noreferrer" className="border-b border-primary pb-1 text-sm font-semibold text-primary">{source.label} →</a></li>)}
+        </ul>
       </div>
       <aside className="border border-border bg-surface p-5 text-sm leading-7">
         <p><strong>Prepared by:</strong> Texas Defined Editorial Desk</p>
@@ -218,7 +245,7 @@ export function TexasHillCountryGeologyGuidePage({ item }: { item: EnrichedLands
             <ol className="mt-6 space-y-5 text-sm leading-7">
               <li className="border-t border-border pt-4"><strong>Precambrian:</strong> ancient igneous and metamorphic rocks now exposed in the Llano Uplift formed long before the limestone plateau.</li>
               <li className="border-t border-border pt-4"><strong>Cretaceous:</strong> shallow marine environments deposited thick carbonate units across Central Texas.</li>
-              <li className="border-t border-border pt-4"><strong>Later deformation:</strong> regional uplift and Balcones faulting fractured and displaced rock along the plateau margin.</li>
+              <li className="border-t border-border pt-4"><strong>Late Oligocene–early Miocene:</strong> extensional Balcones faulting fractured and displaced Cretaceous rock along the eastern Edwards Plateau margin.</li>
               <li className="border-t border-border pt-4"><strong>Ongoing erosion:</strong> rivers, floods, weathering and groundwater dissolution continue to deepen valleys and enlarge karst pathways today.</li>
             </ol>
           </section>
@@ -228,6 +255,15 @@ export function TexasHillCountryGeologyGuidePage({ item }: { item: EnrichedLands
             <p className="mt-5 text-base leading-8 text-muted-foreground">The region can feel mountainous because local relief is strong, roads repeatedly climb and drop, and limestone canyons produce dramatic walls. But most of the terrain is better described as an elevated and deeply dissected plateau margin. That distinction explains both the broad uplands and the sudden steep valleys.</p>
             <Link to="/explore/landscapes/edwards-plateau" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Explore the Edwards Plateau landscape →</Link>
           </section>
+        </div>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Quick answers" title="Texas Hill Country geology FAQ" description="Short answers to the questions people ask most often about the region’s hills, faults, limestone and water." />
+        <div className="mt-10 grid gap-8 md:grid-cols-2">
+          {faqItems.map((item) => <article key={item.question} className="border-t-2 border-foreground pt-5"><h3 className="font-display text-2xl leading-tight">{item.question}</h3><p className="mt-4 text-sm leading-7 text-muted-foreground">{item.answer}</p></article>)}
         </div>
       </Container>
     </Section>
