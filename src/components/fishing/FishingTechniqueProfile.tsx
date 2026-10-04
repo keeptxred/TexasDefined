@@ -190,14 +190,13 @@ export function FishingTechniqueProfile({ data }: { data: FishingTechniqueProfil
 
       <section className="py-12" aria-labelledby="lake-applications">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Verified lake coverage</p>
-          <h2 id="lake-applications" className="mt-3 font-display text-4xl sm:text-5xl">Texas Lakes Covered in This Guide</h2>
+          <h2 id="lake-applications" className="font-display text-4xl sm:text-5xl">Browse Lake Guides</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Each entry below comes from a lake-technique relationship already attached to a complete TexasDefined fishing guide. A lake missing from this page is simply not yet covered by this verified technique dataset.</p>
         </div>
         <div className="mt-8 grid gap-x-8 lg:grid-cols-2">
           {data.profiles.map((row) => <article key={row.profile.id} className="border-t border-border py-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
-              <div><p className="eyebrow text-primary">Lake guide</p><h3 className="mt-2 font-display text-3xl"><a href={fishingFoundationAnchor("lake", row.lake.slug)} className="hover:text-primary">{row.lake.name}</a></h3></div>
+              <div><h3 className="font-display text-3xl"><a href={fishingFoundationAnchor("lake", row.lake.slug)} className="hover:text-primary">{row.lake.name}</a></h3></div>
               <span className="border border-border px-3 py-1.5 text-xs">{row.profile.seasons.map(titleCase).join(" · ")}</span>
             </div>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">{row.profile.summary}</p>
