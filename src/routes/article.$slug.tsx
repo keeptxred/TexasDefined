@@ -21,7 +21,8 @@ import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authori
 import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
-import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";\nimport { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
+import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
