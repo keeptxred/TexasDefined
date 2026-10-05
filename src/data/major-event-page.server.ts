@@ -275,8 +275,16 @@ export function loadMajorEventPageServer(slug: string) {
   const performersMarkup = displayPerformers.length
     ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
     : "";
+  const heroImageAttribution = schemaEnrichment?.image
+    ? [
+        schemaEnrichment.image.rightsNote ? esc(schemaEnrichment.image.rightsNote) : "",
+        schemaEnrichment.image.licenseName && schemaEnrichment.image.licenseUrl
+          ? `<a class="underline" href="${esc(schemaEnrichment.image.licenseUrl)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.image.licenseName)} ↗</a>`
+          : "",
+      ].filter(Boolean).join(" · ")
+    : "";
   const heroImageMarkup = schemaEnrichment?.image
-    ? `<figure data-major-event-hero="true" class="mt-8"><div class="aspect-[16/9] overflow-hidden rounded-2xl bg-muted"><img data-major-event-enrichment-image="true" class="h-full w-full object-cover" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="eager" decoding="async" /></div><figcaption class="mt-2 text-xs leading-5 text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
+    ? `<figure data-major-event-hero="true" class="mt-8"><div class="aspect-[16/9] overflow-hidden rounded-2xl bg-muted"><img data-major-event-enrichment-image="true" class="h-full w-full object-cover" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="eager" decoding="async" /></div><figcaption class="mt-2 text-xs leading-5 text-muted-foreground">${heroImageAttribution ? `${heroImageAttribution} · ` : ""}<a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
     : "";
   const lifecycleRows = occurrenceWindows.flatMap((window) => {
     const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label)?.lifecycle;
