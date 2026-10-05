@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
+import { buildFootballProfileFaq, footballProfileAlignmentLabel } from '@/data/high-school-football/football-profile-content';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -14,7 +15,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification } = loaderData;
+    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, venueLinks, editorial } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
@@ -28,11 +29,13 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     const enrollment = program?.uilEnrollment ? `, UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}` : '';
     const description = `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`;
     const url = `${siteUrl}${canonicalPath}`;
+    const faq = buildFootballProfileFaq({ displayName, program, identity, privateAlignment, venueLinks, editorial });
+    const sportsTeamName = identity?.mascot ? `${seoName} ${identity.mascot}` : `${seoName} Football`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${teamName} Football: 2026 District, Enrollment & Team Guide`,
+        title: `${teamName} Football: 2026 District, Schedule & Team Guide`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -57,6 +60,39 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
               } : undefined,
             },
           },
+          {
+            '@type': 'SportsTeam',
+            '@id': `${url}#football-team`,
+            name: sportsTeamName,
+            sport: 'American football',
+            memberOf: {
+              '@type': 'HighSchool',
+              name: program?.officialSchoolName || displayName,
+            },
+            location: program?.city ? {
+              '@type': 'Place',
+              name: [program.city, program.countyName].filter(Boolean).join(', '),
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: program.city,
+                addressRegion: 'TX',
+                addressCountry: 'US',
+              },
+            } : undefined,
+            description: `${sportsTeamName} competes in ${footballProfileAlignmentLabel({ displayName, program, identity, privateAlignment, venueLinks, editorial })}.`,
+          },
+          ...(faq.length ? [{
+            '@type': 'FAQPage',
+            '@id': `${url}#faq`,
+            mainEntity: faq.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
+              },
+            })),
+          }] : []),
           {
             '@type': 'BreadcrumbList',
             '@id': `${url}#breadcrumbs`,
