@@ -13,13 +13,16 @@ export const newsQuery = {
 
 export const Route = createFileRoute("/news/")({
   loader: async ({ context }) => context.queryClient.ensureQueryData(newsQuery),
-  head: ({ loaderData }) => ({
-    meta: buildMeta(texasDefinedBrand, {
-      title: "Texas Life & Culture News",
-      description: "Fresh Texas stories about places, culture, history, outdoors and the people who make the state distinctive.",
-      canonicalPath: "/news",
-      robots: loaderData?.length ? undefined : "noindex, follow",
-    }),
-    links: [canonicalLink(texasDefinedBrand, "/news")],
-  }),
+  head: ({ loaderData }) => {
+    const hasStories = Boolean(loaderData?.length);
+    return {
+      meta: buildMeta(texasDefinedBrand, {
+        title: "Texas Life & Culture News",
+        description: "Fresh Texas stories about places, culture, history, outdoors and the people who make the state distinctive.",
+        canonicalPath: "/news",
+        robots: hasStories ? undefined : "noindex, follow",
+      }),
+      links: [canonicalLink(texasDefinedBrand, "/news")],
+    };
+  },
 });
