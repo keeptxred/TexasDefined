@@ -73,7 +73,7 @@ const canyon: ShowcaseLakePrototype = {
 };
 
 const chokeCanyon: ShowcaseLakePrototype = {
-  slug: "choke-canyon-reservoir", verifiedAt: VERIFIED_AT,
+  slug: "choke-canyon-reservoir", verifiedAt: "2026-10-05",
   overview: { name: "Choke Canyon Reservoir", summary: "A 25,670-acre South Texas Frio River reservoir with excellent largemouth bass, blue/flathead catfish, channel catfish and alligator gar, plus varied brush, timber, vegetation, humps and roadbeds.", region: "South Texas", surfaceAcres: 25670, maxDepthFeet: 95.5, impoundedYear: 1982, counties: ["Live Oak", "McMullen"], nearestCommunities: ["Three Rivers", "Tilden"], riverBasin: "Nueces River Basin", waterway: "Frio River", conservationPool: "220.5 ft msl", normalFluctuation: "High and frequent, 10–20 feet", normalClarity: "Clear to slightly stained", controllingAuthority: "City of Corpus Christi", mapQuery: "Choke Canyon Reservoir Texas" },
   identityAngle: "Choke Canyon is a South Texas cover-and-water-level lake. TPWD rates largemouth bass, blue/flathead catfish, channel catfish and alligator gar excellent, while major fluctuations repeatedly change the amount of flooded brush, terrestrial vegetation and shallow habitat available to anglers.",
   habitat: ["Steep rocky banks, flooded timber, shallow brushy flats and creek channels create multiple fishable zones.", "Hydrilla and native aquatic vegetation add cover alongside flooded mesquite and huisache when water is high.", "Lower-lake islands, submerged humps, roadbeds and long points connect shallow cover to deeper water.", "Large water-level swings can materially change shoreline habitat and ramp usability, so live level belongs in trip planning."],
