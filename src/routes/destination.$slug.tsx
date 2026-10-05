@@ -145,11 +145,10 @@ export const Route = createFileRoute("/destination/$slug")({
     const attractionSchema = { "@type": "TouristAttraction", "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: destination.address } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = { "@type": "ItemList", "@id": `${url}#related-places`, name: `Places related to ${destination.name}`, numberOfItems: relatedPlaces.length, itemListElement: relatedPlaces.map((item, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "TouristAttraction", name: item.name, description: item.summary, url: `${siteUrl}/destination/${item.slug}`, image: absoluteUrl(texasDefinedBrand, item.hero.src) } })) };
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
-    const isMayborn = destination.slug === "mayborn-museum-waco";
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: isMayborn ? "Mayborn Museum in Waco: Exhibits, Tickets, Hours & Visitor Guide" : destinationSeoTitle(destination.name, categoryName),
-        description: isMayborn ? "Plan a visit to Baylor University’s Mayborn Museum in Waco with current hours, admission, 2026 closures, exhibits, Historic Village tips, accessibility notes and nearby attractions." : destination.summary,
+        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : destinationSeoTitle(destination.name, categoryName),
+        description: destination.summary,
         canonicalPath,
         robots: indexable ? undefined : "noindex, follow",
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
@@ -165,9 +164,7 @@ export const Route = createFileRoute("/destination/$slug")({
 function DestinationPage() {
   const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
 
-  if (destination.slug === "mayborn-museum-waco") {
-    return <Suspense fallback={<Container className="py-24"><p className="text-sm text-muted-foreground">Loading Mayborn Museum visitor guide…</p></Container>}><MaybornMuseumAuthority /></Suspense>;
-  }
+  if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
   const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
