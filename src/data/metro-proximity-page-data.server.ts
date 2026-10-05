@@ -162,12 +162,17 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
-  const title = presentation.usesGeographicRing
-    ? `${presentation.titlePrefix} ${metro.name}, Texas`
-    : metroProximityTitle(metro, collection);
-  const description = presentation.usesGeographicRing
-    ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
-    : metroProximityDescription(metro, collection, optionCount);
+  const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
+  const title = isAustinTwoHourGuide
+    ? `${optionCount} Small Towns About 1–2 Hours From Austin, Texas`
+    : presentation.usesGeographicRing
+      ? `${presentation.titlePrefix} ${metro.name}, Texas`
+      : metroProximityTitle(metro, collection);
+  const description = isAustinTwoHourGuide
+    ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
+    : presentation.usesGeographicRing
+      ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
+      : metroProximityDescription(metro, collection, optionCount);
   const reviewedAt = latestReview([
     ...results.map((row) => row.destination.sourceCheckedAt),
     ...townReferences.map((row) => row.town.sourceCheckedAt),
