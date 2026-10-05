@@ -461,8 +461,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   },
 
   "/event/addison-oktoberfest": {
-    title: "Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking",
-    description: "Addison Oktoberfest runs Sept. 17-20, 2026 at Addison Circle Park. Find festival hours, tickets, parking, hotel and official planning links.",
+    title: "Addison Oktoberfest: Dates, Hours, Tickets & Parking",
+    description: "Plan Addison Oktoberfest with the latest confirmed dates, festival hours, tickets, parking, hotel and official planning links while the next occurrence is pending.",
   },
   "/texas-state-fair": {
     title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets",
