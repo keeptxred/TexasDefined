@@ -12,6 +12,7 @@ const paths = {
   hubComponent: "src/components/explore/MetroProximityHubPage.tsx",
   collectionRoute: "src/routes/explore.near.$metro.$collection.tsx",
   collectionUi: "src/routes/explore.near.$metro.$collection.lazy.tsx",
+  roadTripAuthority: "src/components/editorial/MetroRoadTripAuthority.tsx",
   exploreRoute: "src/routes/explore.index.tsx",
   exploreUi: "src/routes/explore.index.lazy.tsx",
   sitemap: "src/routes/sitemap-explore[.]xml.ts",
@@ -131,6 +132,18 @@ for (const token of [
   "MetroProximityCollectionRich", "DestinationCard destination={row.destination}", "MapPreview", "townReferences",
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
+
+for (const token of [
+  "MetroRoadTripAuthority", 'collection.slug === "road-trips"',
+]) requireText(files.collectionUi, token, `shared road-trip authority handoff missing ${token}`);
+for (const token of [
+  "Build a route, not a list of pins.", "Curated route builders", "Open live multi-stop route",
+  "Geographic reach", "Road mileage", "Route anchors", "Seasonal strategy",
+  "Let the live road network make the final decision.", "buildPlans", "liveLoopUrl",
+]) requireText(files.roadTripAuthority, token, `shared road-trip authority layer missing ${token}`);
+for (const token of [
+  'const isRoadTrips = collection.slug === "road-trips"', "Best Road Trips From", "Plan multi-stop road trips from",
+]) requireText(files.pageData, token, `shared road-trip SEO layer missing ${token}`);
 
 for (const token of [
   "AUSTIN_TWO_HOUR_EDITORIAL", "Choose the trip, not the radius",
