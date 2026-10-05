@@ -670,8 +670,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Follow the Trinity River through North Texas toward Trinity Bay, with its forks, Dallas-Fort Worth watershed, reservoirs and basin geography explained.",
   },
   "/texas-homecoming-mums": {
-    title: "Texas Homecoming Mums Explained: Meaning, History & Tradition",
-    description: "What are Texas homecoming mums? See what the ribbons and charms mean, how the tradition started, why mums became huge, and how garters fit into homecoming.",
+    title: "Texas Homecoming Mums: History, Meaning, Colors & Traditions",
+    description: "Texas homecoming mums explained: history, colors, senior traditions, garters, costs, DIY construction, preservation, etiquette and modern school customs.",
   },
   "/sports-venue/jones-att-stadium": {
     title: "Jones AT&T Stadium (Now Galaxy Stadium): Texas Tech Guide",
