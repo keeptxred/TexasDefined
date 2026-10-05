@@ -176,7 +176,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
     : isAustinTwoHourGuide
       ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
       : presentation.usesGeographicRing
-        ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
+        ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name} with source-backed TexasDefined guides, useful trip context and live route links. Geography builds the shortlist; current road mileage and driving time come from the route you actually choose.`
         : metroProximityDescription(metro, collection, optionCount);
   const reviewedAt = latestReview([
     ...results.map((row) => row.destination.sourceCheckedAt),
