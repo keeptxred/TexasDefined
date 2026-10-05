@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
+import { MetroRoadTripAuthority } from "@/components/editorial/MetroRoadTripAuthority";
 import { Container } from "@/components/layout/Container";
 import {
   METRO_PROXIMITY_COLLECTIONS,
@@ -322,8 +323,9 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
   const { metro, collection, results, townReferences, presentation } = pageData;
-  if (metro.slug === "texarkana" && collection.slug === "road-trips") {
-    return <TexarkanaRoadTripsAuthority pageData={pageData} />;
+  if (collection.slug === "road-trips") {
+    if (metro.slug === "texarkana") return <TexarkanaRoadTripsAuthority pageData={pageData} />;
+    return <MetroRoadTripAuthority metro={metro} collection={collection} results={results} />;
   }
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band) }))
