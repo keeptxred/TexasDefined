@@ -13,6 +13,7 @@ import type { VerifiedPrivateSchoolAdmissions } from './private-school-admission
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
+import { getFootballProgramEditorial } from './program-editorial';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
   UIL_FOOTBALL_PROGRAMS_2026,
@@ -42,6 +43,7 @@ export type FootballProgramProfile = {
   associationSourceUrl?: string;
   privateAlignment: VerifiedPrivateFootballAlignment | null;
   privateAdmissions: VerifiedPrivateSchoolAdmissions | null;
+  editorial: ReturnType<typeof getFootballProgramEditorial>;
 };
 
 export type FootballProgramDirectoryEntry = {
@@ -136,6 +138,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       associationSourceUrl: legacy.featured.associationSourceUrl,
       privateAlignment: legacy.privateAlignment,
       privateAdmissions: legacy.privateAdmissions,
+      editorial: getFootballProgramEditorial(legacy.featured.slug),
     };
   }
 
@@ -167,6 +170,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     }),
     privateAlignment: null,
     privateAdmissions: null,
+    editorial: getFootballProgramEditorial(canonicalSlug),
   };
 }
 
