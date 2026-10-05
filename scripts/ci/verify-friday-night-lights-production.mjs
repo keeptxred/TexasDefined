@@ -20,6 +20,7 @@ const willsPointProfilePath = '/texas-high-school-football-teams/wills-point';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
+const springProfilePath = '/texas-high-school-football-teams/spring';
 const universalProfileCases = [
   { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
   { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
@@ -509,6 +510,19 @@ await fetchVerified(friscoProfilePath, 'Frisco football school profile', (body) 
   if (/\bnoindex\b/i.test(body)) throw new Error('Frisco football school profile unexpectedly contains noindex');
 });
 
+await fetchVerified(springProfilePath, 'Spring football school profile', (body) => {
+  for (const needle of [
+    'Spring Lions Football',
+    'Quick answers',
+    'KaRon Coleman Sr.',
+    'Planet Ford Stadium',
+    '2026–27 football schedule',
+    'Football FAQ',
+    'Source trail',
+  ]) requireNeedle(body, needle, 'Spring football school profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Spring football school profile unexpectedly contains noindex');
+});
+
 for (const profile of universalProfileCases) {
   await fetchVerified(profile.path, `${profile.classification} universal football profile ${profile.name}`, (body) => {
     for (const needle of [
@@ -536,6 +550,7 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/spring</loc>', 'sitemap');
   for (const profile of universalProfileCases) {
     requireNeedle(body, `<loc>https://texasdefined.com${profile.path}</loc>`, 'sitemap universal football profile');
   }
