@@ -2,7 +2,6 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
-import { buildFootballProfileFaq, footballProfileAlignmentLabel } from '@/data/high-school-football/football-profile-content';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -15,7 +14,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, venueLinks, editorial } = loaderData;
+    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, faq } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
@@ -29,7 +28,6 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     const enrollment = program?.uilEnrollment ? `, UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}` : '';
     const description = `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`;
     const url = `${siteUrl}${canonicalPath}`;
-    const faq = buildFootballProfileFaq({ displayName, program, identity, privateAlignment, venueLinks, editorial });
     const sportsTeamName = identity?.mascot ? `${seoName} ${identity.mascot}` : `${seoName} Football`;
 
     return {
@@ -79,7 +77,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
                 addressCountry: 'US',
               },
             } : undefined,
-            description: `${sportsTeamName} competes in ${footballProfileAlignmentLabel({ displayName, program, identity, privateAlignment, venueLinks, editorial })}.`,
+            description: `${sportsTeamName} competes in ${classification}.`,
           },
           ...(faq.length ? [{
             '@type': 'FAQPage',
