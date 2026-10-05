@@ -14,6 +14,7 @@ const functions = read('src/data/newsletter/newsletter.functions.ts');
 const adminAuth = read('src/data/newsletter/newsletter-admin-auth.server.ts');
 const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
 const adminPanel = read('src/components/admin/NewsletterOperationsPanel.tsx');
+const draftComposerPanel = read('src/components/admin/NewsletterDraftComposerPanel.tsx');
 const platformHealth = read('src/routes/admin.platform-health.lazy.tsx');
 const adminLayout = read('src/routes/admin.tsx');
 const template = read('src/data/newsletter/newsletter-template.ts');
@@ -123,15 +124,33 @@ for (const marker of [
   'newsletterAdminLogin',
   'newsletterAdminLogout',
   'getNewsletterAdminSession',
+  'NewsletterDraftComposerPanel',
+  'sendNewsletterAdminTestIssue',
   'Newsletter Operations',
   'Unlock newsletter operations',
   'sandbox=""',
-  'no send-now control',
+  'no bulk send-now control',
   'Sync audience to Resend',
   'Stage in Resend',
   'Schedule issue',
+  'Allowlisted test delivery',
+  'Send allowlisted test',
+  'dashboard.rollout.testDelivery',
   'Lock',
 ]) requireText(adminPanel, marker, 'Newsletter operations panel');
+
+for (const marker of [
+  'previewNewsletterAdminDraft',
+  'saveNewsletterAdminDraft',
+  'Build a Newsletter Draft',
+  'Preview without saving',
+  'Save draft',
+  'stories.length >= 12',
+  'Duplicate story URLs are removed',
+  'sandbox=""',
+  'Nothing was saved or sent',
+  'Nothing was sent',
+]) requireText(draftComposerPanel, marker, 'Newsletter draft composer panel');
 
 requireText(platformHealth, '<NewsletterOperationsPanel />', 'Platform health newsletter integration');
 requireText(adminLayout, '/admin/platform-health#newsletter', 'Admin newsletter navigation');
@@ -143,7 +162,7 @@ for (const forbidden of [
   'NEWSLETTER_SENDING_ENABLED=true',
 ]) {
   if (adminPanel.includes(forbidden)) {
-    failures.push(`Newsletter operations panel must not expose direct sending: found ${JSON.stringify(forbidden)}`);
+    failures.push(`Newsletter operations panel must not expose direct bulk sending: found ${JSON.stringify(forbidden)}`);
   }
 }
 
@@ -236,6 +255,8 @@ for (const marker of [
   'Server-only issue composer',
   'Server-only operator control plane',
   'Protected newsletter operations panel',
+  'Draft composer UI',
+  'Allowlisted test-delivery control',
   '/admin/platform-health#newsletter',
   'dedicated newsletter operator',
   'keep_vars',
