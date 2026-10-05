@@ -177,7 +177,7 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: `${teamName} Football: 2026 District, Enrollment & Team Guide`",
+    "title: `${teamName} Football: 2026 District, Schedule & Team Guide`",
     "const description = `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
@@ -1041,9 +1041,9 @@ if (!errors.length) {
     'Quick answers',
     'Source trail',
     'Football FAQ',
-    'buildFootballProfileSummary',
-    'buildFootballProfileQuickFacts',
-    'buildFootballProfileFaq',
+    'profileSummary',
+    'quickFacts',
+    'faq',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
     'All ${program.districtName} football programs →',
@@ -1073,8 +1073,13 @@ if (!errors.length) {
     'buildFootballProfileSummary',
     'buildFootballProfileQuickFacts',
     'buildFootballProfileFaq',
-    'classification is not a quality ranking',
+    'Classification is not a quality ranking.',
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
+  for (const marker of [
+    'profileSummary: buildFootballProfileSummary',
+    'quickFacts: buildFootballProfileQuickFacts',
+    'faq: buildFootballProfileFaq',
+  ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
   for (const marker of [
     "slug: 'spring'",
     "name: 'KaRon Coleman Sr.'",
