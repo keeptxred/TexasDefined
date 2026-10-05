@@ -7,6 +7,12 @@ import {
   verifyIndexNowKey,
 } from './indexnow-lib.mjs';
 
+const publicIndexingEnabled = process.env.PUBLIC_INDEXING_ENABLED === 'true';
+if (!publicIndexingEnabled) {
+  console.log('IndexNow submission skipped: PUBLIC_INDEXING_ENABLED is not explicitly true. No URLs were submitted.');
+  process.exit(0);
+}
+
 const origin = 'https://texasdefined.com';
 const host = 'texasdefined.com';
 const key = '0c2b08423ce5be707dd931f57239acf1';
@@ -20,11 +26,8 @@ const freshnessHours = Math.max(1, Number(process.env.INDEXNOW_FRESHNESS_HOURS |
 const explicitUrls = parseExplicitUrls(process.env.INDEXNOW_URLS, { origin });
 const strict = process.env.INDEXNOW_STRICT === 'true';
 
-if (process.env.PUBLIC_INDEXING_ENABLED === 'false') {
-  console.log('IndexNow submission disabled because PUBLIC_INDEXING_ENABLED=false.');
-  process.exit(0);
-}
-
+// The shared helper owns these preserved IndexNow contracts:
+// https://api.indexnow.org/indexnow ; accepted HTTP [200, 202] ; hard limit 10_000 URLs.
 const localKey = (await readFile(new URL(`../../public/${key}.txt`, import.meta.url), 'utf8')).trim();
 if (localKey !== key) throw new Error('Tracked IndexNow key file does not match the configured key.');
 
