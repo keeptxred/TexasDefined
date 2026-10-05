@@ -37,10 +37,12 @@ const TexasRiversAfterArticle = lazy(() =>
 const TexasRiverBasinReference = lazy(() =>
   import("@/components/content/TexasRiverBasinReference").then((module) => ({ default: module.TexasRiverBasinReference })),
 );
+const TexasLoopsSpursVisualGuide = lazy(() => import("@/components/content/TexasLoopsSpursVisualGuide"));
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const DISCOVER_MIN_IMAGE_WIDTH = 1200;
 const MOVING_TO_TEXAS_PILLAR_SLUG = "moving-to-texas-what-nobody-tells-you";
+const TEXAS_LOOPS_SPURS_SLUG = "texas-loops-spurs-explained";
 const texasExplainedPillarOrder = [
   "texas-rivers-explained",
   "texas-lakes-reservoirs-explained",
@@ -75,7 +77,7 @@ const texasExplainedSupportOrder = [
   "possum-kingdom-water-system-guide",
   "toledo-bend-water-system-guide",
   "texas-ranch-to-market-roads-explained",
-  "texas-loops-spurs-explained",
+  TEXAS_LOOPS_SPURS_SLUG,
   "texas-business-routes-explained",
   "texas-park-recreational-roads-explained",
   "texas-historic-memorial-highways-explained",
@@ -91,6 +93,7 @@ const FAQ_ARTICLE_SLUGS = new Set([
   MOVING_TO_TEXAS_PILLAR_SLUG,
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
+  TEXAS_LOOPS_SPURS_SLUG,
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
@@ -466,6 +469,7 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
+      {article.slug === TEXAS_LOOPS_SPURS_SLUG ? <Suspense fallback={null}><TexasLoopsSpursVisualGuide /></Suspense> : null}
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
         {isTexasRiversArticle ? <>
