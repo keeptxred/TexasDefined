@@ -12,6 +12,15 @@ const requiredNeedles = [
   'Texas Water Development Board — Sabine Basin',
   'Pecos River',
   'Canadian River',
+  'FAQPage',
+  'texas-pecos-river-guide',
+  'texas-sabine-river-guide',
+  'texas-neches-river-guide',
+  'texas-nueces-river-guide',
+  'texas-frio-river-guide',
+  'texas-san-antonio-river-guide',
+  'texas-red-river-guide',
+  'texas-canadian-river-guide',
 ];
 const forbiddenNeedles = [
   'Rock, water and living cover',
