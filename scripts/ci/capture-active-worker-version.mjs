@@ -59,10 +59,7 @@ export function parseWranglerDeployOutput(text, expectedWorkerName = workerName)
     .filter(Boolean);
 
   if (lines.length === 0) {
-    return {
-      versionId: null,
-      detail: 'Wrangler deploy output file was empty.',
-    };
+    return { versionId: null, detail: 'Wrangler deploy output file was empty.' };
   }
 
   const records = [];
@@ -70,10 +67,7 @@ export function parseWranglerDeployOutput(text, expectedWorkerName = workerName)
     try {
       records.push(JSON.parse(line));
     } catch (error) {
-      return {
-        versionId: null,
-        detail: `Wrangler deploy output line ${index + 1} was not valid JSON: ${String(error)}`,
-      };
+      return { versionId: null, detail: `Wrangler deploy output line ${index + 1} was not valid JSON: ${String(error)}` };
     }
   }
 
@@ -82,10 +76,7 @@ export function parseWranglerDeployOutput(text, expectedWorkerName = workerName)
   );
 
   if (deployRecords.length !== 1) {
-    return {
-      versionId: null,
-      detail: `Expected exactly one Wrangler deploy record for ${expectedWorkerName}, found ${deployRecords.length}.`,
-    };
+    return { versionId: null, detail: `Expected exactly one Wrangler deploy record for ${expectedWorkerName}, found ${deployRecords.length}.` };
   }
 
   const versionId = typeof deployRecords[0]?.version_id === 'string'
@@ -93,10 +84,7 @@ export function parseWranglerDeployOutput(text, expectedWorkerName = workerName)
     : '';
 
   if (!uuidPattern.test(versionId)) {
-    return {
-      versionId: null,
-      detail: `Wrangler deploy record for ${expectedWorkerName} did not contain a valid Worker version UUID.`,
-    };
+    return { versionId: null, detail: `Wrangler deploy record for ${expectedWorkerName} did not contain a valid Worker version UUID.` };
   }
 
   return { versionId, detail: null };
@@ -104,28 +92,19 @@ export function parseWranglerDeployOutput(text, expectedWorkerName = workerName)
 
 function captureWranglerDeployedVersion() {
   if (!existsSync(wranglerOutputPath)) {
-    return {
-      versionId: null,
-      detail: `Wrangler deploy output file is missing at ${wranglerOutputPath}.`,
-    };
+    return { versionId: null, detail: `Wrangler deploy output file is missing at ${wranglerOutputPath}.` };
   }
 
   try {
     return parseWranglerDeployOutput(readFileSync(wranglerOutputPath, 'utf8'), workerName);
   } catch (error) {
-    return {
-      versionId: null,
-      detail: `Could not read Wrangler deploy output at ${wranglerOutputPath}: ${String(error)}`,
-    };
+    return { versionId: null, detail: `Could not read Wrangler deploy output at ${wranglerOutputPath}: ${String(error)}` };
   }
 }
 
 export function parseTrafficVersions(versions, sourceLabel) {
   if (!Array.isArray(versions) || versions.length === 0) {
-    return {
-      versionId: null,
-      detail: `${sourceLabel} did not contain a non-empty versions array.`,
-    };
+    return { versionId: null, detail: `${sourceLabel} did not contain a non-empty versions array.` };
   }
 
   const traffic = versions.map((entry, index) => {
@@ -139,10 +118,7 @@ export function parseTrafficVersions(versions, sourceLabel) {
   );
 
   if (invalid.length > 0) {
-    return {
-      versionId: null,
-      detail: `${sourceLabel} contained ${invalid.length} invalid active-traffic ${invalid.length === 1 ? 'entry' : 'entries'}.`,
-    };
+    return { versionId: null, detail: `${sourceLabel} contained ${invalid.length} invalid active-traffic ${invalid.length === 1 ? 'entry' : 'entries'}.` };
   }
 
   const fullTraffic = traffic.filter((entry) => entry.percentage >= 99.999);
@@ -152,10 +128,7 @@ export function parseTrafficVersions(versions, sourceLabel) {
     return { versionId: fullTraffic[0].versionId, detail: null };
   }
 
-  const trafficSummary = traffic
-    .map((entry) => `${entry.versionId}:${entry.percentage}%`)
-    .join(', ');
-
+  const trafficSummary = traffic.map((entry) => `${entry.versionId}:${entry.percentage}%`).join(', ');
   return {
     versionId: null,
     detail: `Expected exactly one 100% active Worker version in ${sourceLabel}, found ${trafficSummary || 'no valid traffic entries'}.`,
@@ -167,12 +140,8 @@ export function parseWranglerActiveVersion(stdout) {
   try {
     payload = JSON.parse(stdout);
   } catch (error) {
-    return {
-      versionId: null,
-      detail: `Could not parse wrangler deployments status --json output: ${String(error)}`,
-    };
+    return { versionId: null, detail: `Could not parse wrangler deployments status --json output: ${String(error)}` };
   }
-
   return parseTrafficVersions(payload?.versions, 'Wrangler latest deployment traffic');
 }
 
@@ -185,10 +154,7 @@ export function activeDeploymentFromPayload(payload) {
       : null;
 
   if (!deployments?.length) {
-    return {
-      versionId: null,
-      detail: 'Cloudflare deployment lookup returned no deployments.',
-    };
+    return { versionId: null, detail: 'Cloudflare deployment lookup returned no deployments.' };
   }
 
   return parseTrafficVersions(deployments[0]?.versions, 'Cloudflare active deployment traffic');
@@ -197,17 +163,10 @@ export function activeDeploymentFromPayload(payload) {
 export function evaluateCapturedVersion(phase, versionId, state, exactDeployedVersion = null) {
   if (!versionId) return { capturedVersion: null, detail: null };
 
-  if (phase === 'baseline') {
-    return { capturedVersion: versionId, detail: null };
-  }
+  if (phase === 'baseline') return { capturedVersion: versionId, detail: null };
 
-  const expectedVersion = phase === 'post-deploy'
-    ? exactDeployedVersion
-    : state?.deployedVersion;
-
-  if (expectedVersion && versionId === expectedVersion) {
-    return { capturedVersion: versionId, detail: null };
-  }
+  const expectedVersion = phase === 'post-deploy' ? exactDeployedVersion : state?.deployedVersion;
+  if (expectedVersion && versionId === expectedVersion) return { capturedVersion: versionId, detail: null };
 
   if (phase === 'post-deploy' && versionId === state?.baselineVersion) {
     return {
@@ -227,11 +186,7 @@ async function captureViaCloudflareApi() {
   const token = process.env.CLOUDFLARE_API_TOKEN?.trim();
 
   if (!accountId || !token) {
-    return {
-      versionId: null,
-      detail: 'Cloudflare account/token environment is unavailable for direct deployment lookup.',
-      mayFallback: true,
-    };
+    return { versionId: null, detail: 'Cloudflare account/token environment is unavailable for direct deployment lookup.', mayFallback: true };
   }
 
   const endpoint = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/workers/scripts/${encodeURIComponent(workerName)}/deployments`;
@@ -243,32 +198,21 @@ async function captureViaCloudflareApi() {
       signal: AbortSignal.timeout(20_000),
     });
   } catch (error) {
-    return {
-      versionId: null,
-      detail: `Cloudflare deployment lookup failed before receiving a response: ${String(error)}`,
-      mayFallback: true,
-    };
+    return { versionId: null, detail: `Cloudflare deployment lookup failed before receiving a response: ${String(error)}`, mayFallback: true };
   }
 
   let payload;
   try {
     payload = await response.json();
   } catch (error) {
-    return {
-      versionId: null,
-      detail: `Cloudflare deployment lookup returned non-JSON HTTP ${response.status}: ${String(error)}`,
-      mayFallback: true,
-    };
+    return { versionId: null, detail: `Cloudflare deployment lookup returned non-JSON HTTP ${response.status}: ${String(error)}`, mayFallback: true };
   }
 
   if (!response.ok || payload?.success !== true) {
     const messages = [
       ...(Array.isArray(payload?.errors) ? payload.errors : []),
       ...(Array.isArray(payload?.messages) ? payload.messages : []),
-    ]
-      .map((item) => item?.message)
-      .filter(Boolean)
-      .join(' | ');
+    ].map((item) => item?.message).filter(Boolean).join(' | ');
     return {
       versionId: null,
       detail: `Cloudflare deployment lookup failed with HTTP ${response.status}${messages ? `: ${messages}` : ''}.`,
@@ -289,12 +233,8 @@ function captureViaWrangler() {
   });
 
   if (result.error || result.status !== 0) {
-    return {
-      versionId: null,
-      detail: result.error?.message || result.stderr || `wrangler exited with code ${result.status}`,
-    };
+    return { versionId: null, detail: result.error?.message || result.stderr || `wrangler exited with code ${result.status}` };
   }
-
   return parseWranglerActiveVersion(result.stdout);
 }
 
@@ -306,10 +246,7 @@ async function captureActiveVersion() {
   const wranglerResult = captureViaWrangler();
   return wranglerResult.versionId
     ? wranglerResult
-    : {
-        versionId: null,
-        detail: `${apiResult.detail} Wrangler fallback also failed: ${wranglerResult.detail}`,
-      };
+    : { versionId: null, detail: `${apiResult.detail} Wrangler fallback also failed: ${wranglerResult.detail}` };
 }
 
 async function main() {
@@ -334,16 +271,26 @@ async function main() {
   let capturedVersion = null;
   let lastDetail = null;
 
-  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+  // Final version capture is bookkeeping after both blocking runtime gates have passed.
+  // Re-querying Cloudflare here creates a race with queued production deployments and can
+  // turn a healthy deployment red after verification. The exact version was already
+  // captured from Wrangler and required to become active in the post-deploy phase.
+  if (phase === 'post-verification') {
+    if (state?.deployedVersion && uuidPattern.test(state.deployedVersion)) {
+      capturedVersion = state.deployedVersion;
+      console.log(`Using the already verified Wrangler-deployed Worker version for final bookkeeping: ${capturedVersion}`);
+    } else {
+      lastDetail = 'The run state does not contain a valid exact Wrangler-deployed Worker version.';
+    }
+  }
+
+  for (let attempt = 1; !capturedVersion && attempt <= maxAttempts; attempt += 1) {
     const { versionId, detail } = await captureActiveVersion();
     lastDetail = detail;
 
     const evaluated = evaluateCapturedVersion(phase, versionId, state, exactDeployedVersion);
-    if (evaluated.capturedVersion) {
-      capturedVersion = evaluated.capturedVersion;
-    } else if (evaluated.detail) {
-      lastDetail = evaluated.detail;
-    }
+    if (evaluated.capturedVersion) capturedVersion = evaluated.capturedVersion;
+    else if (evaluated.detail) lastDetail = evaluated.detail;
 
     if (capturedVersion) break;
 
@@ -357,12 +304,12 @@ async function main() {
     const title = phase === 'baseline'
       ? 'Unable to capture active Worker rollback target'
       : phase === 'post-verification'
-        ? 'Verified Worker identity did not converge'
+        ? 'Verified Worker bookkeeping state is invalid'
         : 'Exact Wrangler deployed Worker did not become active';
     const fallbackDetail = phase === 'baseline'
       ? rollbackTargetFailure
       : phase === 'post-verification'
-        ? 'Cloudflare did not keep reporting this run\'s exact Wrangler-deployed Worker as the active version through final verification.'
+        ? 'The exact Wrangler-deployed Worker version was not retained in this run state.'
         : `Cloudflare did not report Wrangler-deployed Worker ${exactDeployedVersion || 'unknown'} active before the bounded retry window expired.`;
     console.error(`::error title=${title}::${String(lastDetail || fallbackDetail).trim()}`);
     process.exit(1);
@@ -391,6 +338,4 @@ async function main() {
 }
 
 const isDirectExecution = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-if (isDirectExecution) {
-  await main();
-}
+if (isDirectExecution) await main();
