@@ -120,6 +120,21 @@ for (const marker of [
   if (!eventLeafRoute.includes(marker)) errors.push(`Major-event Open Graph/Twitter metadata wiring missing: ${marker}.`);
 }
 
+for (const marker of [
+  'data-event-date-confidence="recurrence-derived"',
+  'Planning dates, not yet year-specific.',
+  'legacyCountyHref',
+  'data-major-event-hero="true"',
+  'sourceReviewMarkup',
+  'Projected Dates & Texas Travel Guide',
+  'projected planning dates, official sources and practical trip planning',
+]) {
+  if (!eventLeaf.includes(marker)) errors.push(`Shared major-event authority UX missing: ${marker}.`);
+}
+if (eventLeaf.includes('Texas Defined will show reviewed nearby hotel options here when available')) {
+  errors.push('Major-event pages must not advertise unfinished lodging inventory.');
+}
+
 const recurrenceDerivedDateSlugs = [
   'dallas-holiday-parade',
   'schulenburg-festival',
