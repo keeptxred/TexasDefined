@@ -18,15 +18,6 @@ function decode(value) {
     .replace(/&gt;/gi, '>');
 }
 
-function tagAttribute(html, selector, attribute) {
-  const tags = html.match(new RegExp(`<${selector}\\b[^>]*>`, 'gi')) || [];
-  for (const tag of tags) {
-    const match = tag.match(new RegExp(`\\b${attribute}=["']([^"']*)["']`, 'i'));
-    if (match) return decode(match[1]);
-  }
-  return '';
-}
-
 function canonical(html) {
   const tags = html.match(/<link\b[^>]*>/gi) || [];
   for (const tag of tags) {
@@ -47,10 +38,7 @@ function robots(html) {
 
 function hasMeta(html, key, value) {
   const tags = html.match(/<meta\b[^>]*>/gi) || [];
-  return tags.some((tag) => {
-    const attr = decode(tag.match(new RegExp(`\\b${key}=["']([^"']*)["']`, 'i'))?.[1] || '');
-    return attr.toLowerCase() === value.toLowerCase();
-  });
+  return tags.some((tag) => decode(tag.match(new RegExp(`\\b${key}=["']([^"']*)["']`, 'i'))?.[1] || '').toLowerCase() === value.toLowerCase());
 }
 
 async function fetchProduction(path, label) {
@@ -60,12 +48,7 @@ async function fetchProduction(path, label) {
     const separator = path.includes('?') ? '&' : '?';
     const url = `${origin}${path}${separator}verify-event-expansion=${encodeURIComponent(`${runToken}-${attempt}`)}`;
     try {
-      const response = await fetch(url, {
-        redirect: 'follow',
-        cache: 'no-store',
-        signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': 'TexasDefined-Event-Expansion-Smoke/1.0' },
-      });
+      const response = await fetch(url, { redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000), headers: { 'user-agent': 'TexasDefined-Event-Expansion-Smoke/1.0' } });
       body = await response.text();
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       if (response.ok && !challenged) return body;
@@ -118,14 +101,16 @@ async function verifyMetro(path, name, sitemap) {
   const count = Number(text.match(/([0-9,]+)\s+verified event guides/i)?.[1]?.replace(/,/g, '') || NaN);
   assert(Number.isFinite(count) && count >= 4, `${name} must have at least four verified event guides after expansion; found ${count}`);
   assert(!/(?:^|[\s,])noindex(?:$|[\s,])/i.test(robots(html)), `${name} must be indexable at four or more verified guides`);
-  assert(sitemap.includes(`<loc>${origin}${path}</loc>`), `${name} must be present in sitemap after qualifying`);
+  assert(sitemap.includes(`<loc>${origin}${path}</loc>`), `${name} must be present in event sitemap after qualifying`);
   assert(hasMeta(html, 'property', 'og:title'), `${name} must expose Open Graph title metadata`);
   assert(hasMeta(html, 'property', 'og:description'), `${name} must expose Open Graph description metadata`);
   console.log(`[${name}] ${count} verified guides; indexable/sitemap/social contract verified`);
 }
 
-const sitemap = await fetchProduction('/sitemap.xml', 'event sitemap');
-assert(!sitemap.includes('/events/events/'), 'sitemap must not contain duplicate /events/events/ routes');
+// Event verification uses the dedicated event sitemap so unrelated article, fishing,
+// shop, county, or knowledge-graph outages cannot make the event health check fail.
+const sitemap = await fetchProduction('/sitemap-events.xml', 'event sitemap');
+assert(!sitemap.includes('/events/events/'), 'event sitemap must not contain duplicate /events/events/ routes');
 for (const [slug, name, weekendPath] of guides) await verifyGuide(slug, name, weekendPath, sitemap);
 await verifyMetro('/events/austin-this-weekend', 'Austin this weekend', sitemap);
 await verifyMetro('/events/san-antonio-this-weekend', 'San Antonio this weekend', sitemap);
