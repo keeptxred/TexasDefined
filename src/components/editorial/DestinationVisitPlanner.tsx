@@ -25,7 +25,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
     destination.nearestTown,
     ...destination.highlights,
   ].filter(Boolean).join(" ");
-  const showRentalCarOption = drivingIntentPattern.test(drivingIntentText);
+  const showRentalCarOption = destination.slug !== "moody-gardens" && drivingIntentPattern.test(drivingIntentText);
 
   const groups = [
     { title: "Highlights", items: unique([...activities, ...otherHighlights]) },
