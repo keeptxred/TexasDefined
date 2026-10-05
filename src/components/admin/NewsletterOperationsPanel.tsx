@@ -199,7 +199,7 @@ export function NewsletterOperationsPanel() {
       <div>
         <p className="eyebrow text-primary">Newsletter infrastructure</p>
         <h2 id="newsletter-operations-heading" className="mt-2 font-display text-3xl sm:text-4xl">Newsletter Operations</h2>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Protected controls for readiness, issue review, provider staging, safe test delivery and lifecycle operations. This panel intentionally has no bulk send-now control; public signup and bulk sending remain governed by server-side kill switches.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Protected controls for readiness, issue review, provider staging, safe test delivery and lifecycle operations. This panel intentionally has no send-now control for bulk delivery; public signup and bulk sending remain governed by server-side kill switches.</p>
       </div>
       {session?.authorized ? <button type="button" onClick={() => void lock()} disabled={busy} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary disabled:opacity-60">Lock</button> : null}
     </div>
@@ -320,7 +320,7 @@ function IssueReview({ detail, busy, canStage, testDeliveryReady, testRecipientC
           <button type="button" disabled={busy || !scheduleValue} onClick={() => void runIssueAction('schedule')} className="min-h-11 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60">Schedule issue</button>
           <button type="button" disabled={busy} onClick={() => void runIssueAction('cancel')} className="min-h-11 border border-destructive/40 px-4 py-2 text-sm font-semibold text-destructive disabled:opacity-60">Cancel issue</button>
         </div> : null}
-        <p className="mt-4 text-xs leading-5 text-muted-foreground">No bulk send-now action is exposed here. Test delivery has its own independent kill switch and allowlist. Provider staging and scheduling do not bypass NEWSLETTER_SENDING_ENABLED.</p>
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">No send-now control is exposed here for bulk delivery. Test delivery has its own independent kill switch and allowlist. Provider staging and scheduling do not bypass NEWSLETTER_SENDING_ENABLED.</p>
       </div>
       <div><h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Rendered preview</h4>{html ? <iframe title="Newsletter issue preview" sandbox="" srcDoc={html} style={{ minHeight: 720, backgroundColor: '#fff' }} className="mt-3 w-full border border-border" /> : <pre style={{ maxHeight: 720 }} className="mt-3 overflow-auto whitespace-pre-wrap border border-border bg-muted/20 p-5 text-xs leading-6">{String(issue.text_body || 'No rendered body is available.')}</pre>}</div>
     </div>
