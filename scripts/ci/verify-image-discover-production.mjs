@@ -61,7 +61,7 @@ async function fetchWithTimeout(url, options = {}) {
     return await fetch(url, {
       redirect: 'follow',
       ...options,
-      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.3 (+https://texasdefined.com)', ...(options.headers || {}) },
+      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.4 (+https://texasdefined.com)', ...(options.headers || {}) },
       signal: controller.signal,
     });
   } finally { clearTimeout(id); }
@@ -109,17 +109,25 @@ function imageDimensions(bytes, type) {
   return null;
 }
 
+async function inspectImageAttempt(url, headers = {}) {
+  const response = await fetchWithTimeout(url, { method: 'GET', headers });
+  const type = (response.headers.get('content-type') || '').split(';')[0].toLowerCase();
+  const length = Number(response.headers.get('content-length') || 0);
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  const dimensions = imageDimensions(bytes, type);
+  return { ok: response.ok && /^image\/(?:jpeg|png|webp|avif)$/i.test(type), status: response.status, type, length, width: dimensions?.width || 0, height: dimensions?.height || 0 };
+}
+
 async function inspectImage(url) {
   if (!url) return { ok: false, status: 0, type: '', length: 0, width: 0, height: 0 };
   try {
-    const response = await fetchWithTimeout(url, { method: 'GET', headers: { range: 'bytes=0-65535' } });
-    const type = (response.headers.get('content-type') || '').split(';')[0].toLowerCase();
-    const length = Number(response.headers.get('content-length') || 0);
-    const bytes = new Uint8Array(await response.arrayBuffer());
-    const dimensions = imageDimensions(bytes, type);
-    return { ok: response.ok && /^image\/(?:jpeg|png|webp|avif)$/i.test(type), status: response.status, type, length, width: dimensions?.width || 0, height: dimensions?.height || 0 };
-  } catch (error) {
-    return { ok: false, status: 0, type: '', length: 0, width: 0, height: 0, error: error instanceof Error ? error.message : String(error) };
+    const ranged = await inspectImageAttempt(url, { range: 'bytes=0-65535' });
+    if (ranged.ok && ranged.width && ranged.height) return ranged;
+    const full = await inspectImageAttempt(url);
+    return full.ok || !ranged.ok ? full : ranged;
+  } catch (firstError) {
+    try { return await inspectImageAttempt(url); }
+    catch (error) { return { ok: false, status: 0, type: '', length: 0, width: 0, height: 0, error: error instanceof Error ? error.message : String(error), firstError: firstError instanceof Error ? firstError.message : String(firstError) }; }
   }
 }
 
@@ -176,7 +184,6 @@ async function auditPage(url) {
     if (image.url && FORBIDDEN_IMAGE_RE.test(new URL(image.url).pathname)) issues.push('preferred-image-looks-generic-or-placeholder');
     if (image.url && /\.svg(?:$|\?)/i.test(image.url)) issues.push('preferred-image-svg');
     if (FALLBACK_COPY_RE.test(html)) warnings.push('page-contains-image-unavailable-fallback-copy');
-    if (!image.width || !image.height) warnings.push('missing-og-image-dimensions');
   }
   return { url, status: response.status, indexable, directives, image, issues, warnings };
 }
@@ -205,6 +212,7 @@ for (const page of pages) {
   }
   const width = page.image.width || check.width;
   const height = page.image.height || check.height;
+  if ((!page.image.width || !page.image.height) && (!check.width || !check.height)) page.warnings.push('preferred-image-dimensions-unverifiable');
   const geometry = discoverGeometry(width, height);
   if (!geometry.ok) page.issues.push(geometry.reason);
 }
@@ -232,7 +240,7 @@ const report = {
 fs.writeFileSync(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify(report.summary, null, 2));
 if (discovery.sitemapFailures.length) console.warn(`Image/Discover production audit used partial sitemap discovery because ${discovery.sitemapFailures.length} sitemap surface(s) were unavailable.`);
-if (warningPages.length) console.warn(`Image/Discover production audit found ${warningPages.length} priority page(s) with non-blocking metadata, fallback-copy, upstream rate-limit, or reuse warnings.`);
+if (warningPages.length) console.warn(`Image/Discover production audit found ${warningPages.length} priority page(s) with non-blocking fallback-copy, upstream rate-limit, unverifiable-dimension, or reuse warnings.`);
 if (failing.length) {
   console.error(`Image/Discover production audit found ${failing.length} priority page(s) with blocking issues.`);
   for (const page of failing.slice(0, 100)) console.error(`- ${page.url}: ${page.issues.join(', ')}`);
