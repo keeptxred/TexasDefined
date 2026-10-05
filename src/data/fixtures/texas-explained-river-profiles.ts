@@ -664,7 +664,7 @@ export const texasRioGrandeGuideArticle: Article = {
   dek: "Follow the Rio Grande through Texas from El Paso and Big Bend to Amistad, Laredo, Falcon Reservoir and the Lower Rio Grande Valley, with river access, history, ecology and water-management context.",
   category: "lakes-rivers", region: "big-bend",
   hero: { src: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg", alt: "Blue water and limestone shoreline at Amistad in the Rio Grande basin", width: 1600, height: 1067 },
-  authorId: "a-marisol", publishedAt: "2026-08-16", updatedAt: "2026-10-02", readingMinutes: 24,
+  authorId: "a-marisol", publishedAt: "2026-08-16", updatedAt: "2026-10-05", readingMinutes: 24,
   tags: ["Rio Grande", "Rio Grande Texas", "Big Bend", "Santa Elena Canyon", "Amistad Reservoir", "Falcon Reservoir", "Lower Rio Grande Valley", "Texas rivers", "Texas borderlands"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/riogrande/",
   internalLinks: [
@@ -816,12 +816,18 @@ export const texasRioGrandeGuideArticle: Article = {
     p("That route reveals the river's logic. Desert city becomes remote canyon. Canyon becomes reservoir. Reservoir becomes urban border. Urban border becomes another reservoir, then an irrigated subtropical plain. No single photograph can represent the Rio Grande because the river keeps changing what kind of Texas landscape it occupies."),
 
     h("Frequently asked questions about the Rio Grande in Texas"),
-    p("Where is the prettiest part of the Rio Grande in Texas? For dramatic scenery, the Big Bend canyon country—especially Santa Elena Canyon—is the best-known reach. Amistad offers a very different kind of broad blue-water desert scenery, while the lower valley is more important for ecology and bird habitat than canyon views."),
-    p("Can you float the Rio Grande? Yes in designated reaches, especially around Big Bend, but permits, flows, access and skill requirements matter. Use current NPS river-trip and regulation pages before planning a launch."),
-    p("Is the Rio Grande entirely in Texas? No. It begins in Colorado, crosses New Mexico and then forms the Texas–Mexico boundary from El Paso to the Gulf. Its watershed also includes major tributaries in Mexico."),
-    p("What are the biggest Rio Grande reservoirs in Texas? Amistad International Reservoir near Del Rio and Falcon International Reservoir downstream of Laredo are the two major international storage reservoirs on the Texas reach."),
-    p("What are the most important Texas tributaries? The Pecos and Devils rivers are the most prominent Texas tributaries commonly highlighted in statewide basin descriptions, while many smaller creeks and channels also contribute to the system."),
-    p("Why is the Rio Grande sometimes low? Much of the basin is arid or semiarid, and the river is heavily allocated and managed. Snowpack, drought, tributary inflows, reservoir storage, irrigation and upstream obligations all influence the amount of water moving through a particular reach."),
+    h("Where is the prettiest part of the Rio Grande in Texas?"),
+    p("For dramatic scenery, the Big Bend canyon country—especially Santa Elena Canyon—is the best-known reach. Amistad offers a very different kind of broad blue-water desert scenery, while the lower valley is more important for ecology and bird habitat than canyon views."),
+    h("Can you float the Rio Grande?"),
+    p("Yes in designated reaches, especially around Big Bend, but permits, flows, access and skill requirements matter. Use current NPS river-trip and regulation pages before planning a launch."),
+    h("Is the Rio Grande entirely in Texas?"),
+    p("No. It begins in Colorado, crosses New Mexico and then forms the Texas–Mexico boundary from El Paso to the Gulf. Its watershed also includes major tributaries in Mexico."),
+    h("What are the biggest Rio Grande reservoirs in Texas?"),
+    p("Amistad International Reservoir near Del Rio and Falcon International Reservoir downstream of Laredo are the two major international storage reservoirs on the Texas reach."),
+    h("What are the most important Texas tributaries?"),
+    p("The Pecos and Devils rivers are the most prominent Texas tributaries commonly highlighted in statewide basin descriptions, while many smaller creeks and channels also contribute to the system."),
+    h("Why is the Rio Grande sometimes low?"),
+    p("Much of the basin is arid or semiarid, and the river is heavily allocated and managed. Snowpack, drought, tributary inflows, reservoir storage, irrigation and upstream obligations all influence the amount of water moving through a particular reach."),
 
     h("What the Rio Grande teaches about Texas"),
     list(
