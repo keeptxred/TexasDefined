@@ -186,7 +186,28 @@ The panel can:
 - schedule an eligible issue for a future time;
 - cancel an eligible issue.
 
-The panel deliberately exposes **no send-now control**. Provider staging and scheduling do not bypass `NEWSLETTER_SENDING_ENABLED`; the server-side sending kill switch remains authoritative. The backend has an authenticated, allowlisted test-delivery function, but adding or exposing a corresponding panel control should not weaken the separate test-send kill switch or allowlist.
+### Draft composer UI
+
+`NewsletterDraftComposerPanel.tsx` is rendered only inside an authorized newsletter operator session. It is a thin UI over the already protected `previewNewsletterAdminDraft` and `saveNewsletterAdminDraft` server functions.
+
+The draft composer UI can:
+
+- enter the issue slug, label, subject, preheader, headline, introduction, sender metadata, and closing text;
+- build between one and twelve story cards with optional kickers/images;
+- preview the actual branded HTML inside a sandboxed iframe without saving anything;
+- save the same rendered issue as a canonical `draft` and refresh the operations dashboard.
+
+The preview path does not write to Supabase and does not contact Resend. Saving creates or updates draft content through the canonical issue service only; it does not stage, schedule, or send a Broadcast.
+
+### Allowlisted test-delivery control
+
+Issue review includes an **Allowlisted test delivery** control. It calls the authenticated `sendNewsletterAdminTestIssue` server function only when `getNewsletterTestDeliveryReadiness()` reports ready.
+
+The operator must type an address that is already present in `NEWSLETTER_TEST_RECIPIENTS`; the browser never receives the allowlist itself. The UI reports only whether test delivery is ready and how many recipients are allowlisted.
+
+The control is disabled when the test-send kill switch is off or required sender/allowlist configuration is missing. It remains independent from `NEWSLETTER_SENDING_ENABLED`, so testing the email cannot silently enable or exercise the marketing Broadcast send path.
+
+The panel deliberately exposes **no bulk send-now control**. Provider staging and scheduling do not bypass `NEWSLETTER_SENDING_ENABLED`; the server-side sending kill switch remains authoritative. The test-delivery control cannot weaken the separate test-send kill switch or allowlist because those checks are repeated server-side.
 
 ## Resend issue lifecycle
 
@@ -222,7 +243,7 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
 - `NEWSLETTER_TEST_SENDS_ENABLED` remains off until a verified Resend sender and explicit `NEWSLETTER_TEST_RECIPIENTS` allowlist are configured.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
-- The protected panel has no send-now control and does not arm sending.
+- The protected panel has no bulk send-now control and does not arm sending.
 - No newsletter will send merely because these files are deployed.
 
 This separation allows public signup surfaces and provider credentials to be activated later without exposing subscriber data or redesigning the core model.
