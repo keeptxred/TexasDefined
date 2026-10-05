@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   required:
-    name: Required merge gate
+    name: Canonical pre-merge validation
     runs-on: ubuntu-latest
     timeout-minutes: 35
 
@@ -79,10 +79,10 @@ jobs:
           retention-days: 7
 
   protected-context:
-    name: Required Merge Gate
+    name: Required merge gate
     needs: required
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
       - name: Confirm canonical merge gate passed
-        run: echo "Canonical Required merge gate completed successfully."
+        run: echo "Canonical pre-merge validation completed successfully."
