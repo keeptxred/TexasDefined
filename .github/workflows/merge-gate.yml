@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 concurrency:
   group: texasdefined-merge-gate-${{ github.ref }}
@@ -55,6 +56,26 @@ jobs:
         run: |
           set -o pipefail
           node scripts/ci/run-premerge-validation.mjs 2>&1 | tee canonical-premerge-output.txt
+
+      - name: Publish required protected-branch status
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "repos/$REPOSITORY/statuses/$VALIDATED_SHA" \
+            -f state='success' \
+            -f context='Required merge gate' \
+            -f description='Canonical Required merge gate passed' \
+            -f target_url="$RUN_URL" >/dev/null
+          echo "Published Required merge gate status for validated PR head $VALIDATED_SHA."
 
       - name: Capture performance-budget failure details
         if: failure()
