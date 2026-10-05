@@ -132,10 +132,11 @@ export const majorEventSchemaEnrichmentBatch11: MajorEventSchemaEnrichment[] = [
       group("Shiner Hobo Band"),
     ],
     sources: [
-      { label: "Come and Take It Celebration official 2026 events and musical acts", url: "https://comeandtakeitcelebration.com/event/" },
+      { label: "Come and Take It Celebration official 2026 event calendar", url: "https://comeandtakeitcelebration.com/events/" },
+      { label: "Come and Take It Celebration official Sunday schedule", url: "https://comeandtakeitcelebration.com/sunday-schedule/" },
       { label: "Come and Take It Celebration official performer page identifying the organizing committee", url: "https://comeandtakeitcelebration.com/event/reagan-hicks/" },
     ],
-    verifiedAt: "2026-09-03",
+    verifiedAt: "2026-10-05",
   },
   {
     slug: "texas-mushroom-festival",
