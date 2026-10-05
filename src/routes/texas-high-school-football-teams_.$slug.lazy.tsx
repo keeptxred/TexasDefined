@@ -6,11 +6,6 @@ import {
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
 } from '@/data/high-school-football/enrollment-bands';
-import {
-  buildFootballProfileFaq,
-  buildFootballProfileQuickFacts,
-  buildFootballProfileSummary,
-} from '@/data/high-school-football/football-profile-content';
 
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
 const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
@@ -33,6 +28,9 @@ function Page() {
     associationClassification,
     associationSourceUrl,
     editorial,
+    profileSummary,
+    quickFacts,
+    faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
@@ -46,9 +44,6 @@ function Page() {
   const conferenceBand = program
     ? uilFootballConferenceBand(program.classification)
     : null;
-  const profileSummary = buildFootballProfileSummary({ displayName, program, identity, privateAlignment, venueLinks, editorial });
-  const quickFacts = buildFootballProfileQuickFacts({ displayName, program, identity, privateAlignment, venueLinks, editorial });
-  const faq = buildFootballProfileFaq({ displayName, program, identity, privateAlignment, venueLinks, editorial });
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
