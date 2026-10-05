@@ -1,3 +1,4 @@
+import { texasExtendedRiverProfileArticles } from "./texas-explained-river-profiles-extended";
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
@@ -358,4 +359,5 @@ export const texasExplainedRiverProfileArticles: Article[] = [
   texasGuadalupeRiverGuideArticle,
   texasTrinityRiverGuideArticle,
   texasRioGrandeGuideArticle,
+  ...texasExtendedRiverProfileArticles,
 ];
