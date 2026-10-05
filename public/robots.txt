@@ -41,5 +41,6 @@ Disallow: /admin
 
 Sitemap: https://texasdefined.com/sitemap.xml
 Sitemap: https://texasdefined.com/sitemap-explore.xml
+Sitemap: https://texasdefined.com/sitemap-evergreen.xml
 Sitemap: https://texasdefined.com/sitemap-texas-icons.xml
 Sitemap: https://texasdefined.com/rss.xml
