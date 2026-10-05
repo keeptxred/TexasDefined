@@ -59,8 +59,8 @@ const experiments = [
   },
   {
     path: '/event/westfest',
-    title: 'Westfest Texas: Dates, Parade, Schedule & Hours',
-    description: 'Plan Westfest in West, Texas with the current date guidance',
+    title: 'Westfest Texas: Projected Dates, Parade & Visitor Guide',
+    description: 'Plan Westfest in West, Texas with projected date guidance',
   },
   {
     path: '/article/texas-river-basins-guide',
@@ -94,8 +94,8 @@ const experiments = [
   },
   {
     path: '/event/sweetwater-rattlesnake-roundup',
-    title: 'Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide',
-    description: 'Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14',
+    title: 'Sweetwater Rattlesnake Roundup 2027: Projected Dates & Guide',
+    description: 'Sweetwater Rattlesnake Roundup 2027 projected planning window: March 12-14',
   },
   {
     path: '/article/texas-school-districts-explained',
@@ -155,7 +155,7 @@ const experiments = [
 ];
 
 const secondWave = [
-  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Date, Route & Planning Guide', description: 'Dallas Holiday Parade 2026 planning date: Dec. 5' },
+  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Projected Date, Route & Guide', description: 'Dallas Holiday Parade 2026 projected planning date: Dec. 5' },
   { path: '/event/houston-thanksgiving-day-parade', title: 'Houston Thanksgiving Parade 2026: Date, Time & Route', description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown" },
   { path: '/event/texas-rose-festival', title: 'Texas Rose Festival 2026: Tyler Dates, Parade & Schedule', description: 'Plan the 2026 Texas Rose Festival in Tyler with official dates' },
   { path: '/event/larry-joe-taylor-texas-music-festival', title: 'Larry Joe Taylor Festival 2027: Dates, Tickets & Camping', description: 'LJT Fest returns to Stephenville April 19-24, 2027' },
