@@ -4,6 +4,7 @@ import {
   evaluateCapturedVersion,
   parseTrafficVersions,
   parseWranglerDeployOutput,
+  supersedingActiveVersion,
 } from './capture-active-worker-version.mjs';
 
 const OLD = '11111111-1111-4111-8111-111111111111';
@@ -48,25 +49,41 @@ assert.equal(
 assert.deepEqual(
   evaluateCapturedVersion('post-deploy', NEW, { baselineVersion: OLD }, NEW),
   { capturedVersion: NEW, detail: null },
-  'Post-deploy identity must accept only the exact Wrangler-created version once active.',
+  'Post-deploy identity must accept the exact Wrangler-created version once active.',
 );
 
 assert.equal(
   evaluateCapturedVersion('post-deploy', OTHER, { baselineVersion: OLD }, NEW).capturedVersion,
   null,
-  'Post-deploy identity must reject an active version that differs from Wrangler output.',
+  'The strict post-deploy identity matcher must not pretend an unrelated active version is the Wrangler-created version.',
+);
+
+assert.equal(
+  supersedingActiveVersion('post-deploy', OTHER, { baselineVersion: OLD }, NEW),
+  OTHER,
+  'A third active version must be recognized as a superseding production deployment instead of an identity-capture failure.',
+);
+assert.equal(
+  supersedingActiveVersion('post-deploy', OLD, { baselineVersion: OLD }, NEW),
+  null,
+  'The pre-deploy baseline is propagation lag, not a superseding deployment.',
+);
+assert.equal(
+  supersedingActiveVersion('post-deploy', NEW, { baselineVersion: OLD }, NEW),
+  null,
+  'The Wrangler-created version is the normal successful post-deploy identity.',
 );
 
 assert.deepEqual(
   evaluateCapturedVersion('post-verification', NEW, { deployedVersion: NEW }),
   { capturedVersion: NEW, detail: null },
-  'Final verification must accept the exact deployed version while it remains active.',
+  'Final verification must accept the effective production version retained after post-deploy identity capture.',
 );
 
 assert.equal(
   evaluateCapturedVersion('post-verification', OTHER, { deployedVersion: NEW }).capturedVersion,
   null,
-  'Final verification must fail closed if active Worker identity changes.',
+  'Strict identity comparison must still reject an unexpected version change.',
 );
 
 assert.equal(
@@ -78,4 +95,4 @@ assert.equal(
   'Split traffic must remain fail closed.',
 );
 
-console.log('Worker version capture contract passed: the exact Wrangler deploy version is the identity anchor, Cloudflare must activate that exact version, final verification must retain it, and ambiguous/split identities fail closed.');
+console.log('Worker version capture contract passed: Wrangler identity stays exact, propagation lag stays fail closed, a distinct 100% active Worker is treated as a superseding production deployment, and ambiguous/split traffic remains fail closed.');
