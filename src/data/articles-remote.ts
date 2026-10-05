@@ -6,6 +6,7 @@ const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY |
 const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
 const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
+const REMOTE_ARTICLE_REQUEST_TIMEOUT_MS = 8_000;
 
 const REMOTE_INTERNAL_LINK_CANONICALS: Readonly<Record<string, string>> = {
   "/article/texas-chili-beans-history": "/texas-chili-con-carne-history",
@@ -110,7 +111,10 @@ function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEver
 
 async function requestRows(params: URLSearchParams): Promise<Record<string, unknown>[]> {
   if (!supabaseUrl || !supabaseKey) return [];
-  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, { headers: headers() });
+  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, {
+    headers: headers(),
+    signal: AbortSignal.timeout(REMOTE_ARTICLE_REQUEST_TIMEOUT_MS),
+  });
   if (!response.ok) throw new Error(`TexasDefined articles request failed: ${response.status}`);
   const value = await response.json();
   if (!Array.isArray(value)) return [];
