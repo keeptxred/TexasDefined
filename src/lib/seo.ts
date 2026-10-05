@@ -179,16 +179,16 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Plan a McKinney ISD Stadium visit with verified parking, arrival, event-day and official venue links for football and community events.",
   },
   "/event/westfest": {
-    title: "Westfest Texas: Dates, Parade, Schedule & Hours",
-    description: "Plan Westfest in West, Texas with the current date guidance, parade information, schedule and hours sources, admission details and trip-planning links.",
+    title: "Westfest Texas: Projected Dates, Parade & Visitor Guide",
+    description: "Plan Westfest in West, Texas with projected date guidance, parade information, schedule and hours sources, admission details and trip-planning links.",
   },
   "/event/heart-o-texas-fair-rodeo": {
     title: "Heart O' Texas Fair & Rodeo 2026: Dates, Schedule & Tickets",
     description: "The 2026 Heart O' Texas Fair & Rodeo runs Oct. 8-18 in Waco. Check fair hours, One HOT Rodeo dates, ticket rules and official planning links.",
   },
   "/event/sweetwater-rattlesnake-roundup": {
-    title: "Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide",
-    description: "Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14. The dedicated 2027 schedule is not yet published; confirm dates and hours before travel.",
+    title: "Sweetwater Rattlesnake Roundup 2027: Projected Dates & Guide",
+    description: "Sweetwater Rattlesnake Roundup 2027 projected planning window: March 12-14. The dedicated 2027 schedule is not yet published; confirm dates and hours before travel.",
   },
   "/texas-symbols": {
     title: "77 Texas State Symbols: Complete Official List & Meanings",
@@ -223,8 +223,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Plan a Children's Health Stadium visit in Prosper with parking, arrival, event-day and official venue links for football, soccer and community events.",
   },
   "/event/dallas-holiday-parade": {
-    title: "Dallas Holiday Parade 2026: Date, Route & Planning Guide",
-    description: "Dallas Holiday Parade 2026 planning date: Dec. 5, based on the organizer's first-Saturday rule. See route, 9 a.m. start, viewing and DART guidance.",
+    title: "Dallas Holiday Parade 2026: Projected Date, Route & Guide",
+    description: "Dallas Holiday Parade 2026 projected planning date: Dec. 5, based on the organizer's first-Saturday rule. See route, 9 a.m. start, viewing and DART guidance.",
   },
   "/event/houston-thanksgiving-day-parade": {
     title: "Houston Thanksgiving Parade 2026: Date, Time & Route",
