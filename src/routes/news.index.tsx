@@ -5,33 +5,21 @@ import { fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
 import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
-async function fetchNewsSafely() {
-  try {
-    return (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 })).filter(isArticleIndexReady);
-  } catch (error) {
-    console.error("TexasDefined news index remote fetch failed; serving an empty noindex index instead.", error);
-    return [];
-  }
-}
-
 export const newsQuery = {
   queryKey: ["texasdefined-live-news"] as const,
-  queryFn: fetchNewsSafely,
+  queryFn: async () => (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 }).catch(() => [])).filter(isArticleIndexReady),
   staleTime: 5 * 60 * 1000,
 };
 
 export const Route = createFileRoute("/news/")({
   loader: async ({ context }) => context.queryClient.ensureQueryData(newsQuery),
-  head: ({ loaderData }) => {
-    const hasStories = Boolean(loaderData?.length);
-    return {
-      meta: buildMeta(texasDefinedBrand, {
-        title: "Texas Life & Culture News",
-        description: "Fresh Texas stories about places, culture, history, outdoors and the people who make the state distinctive.",
-        canonicalPath: "/news",
-        robots: hasStories ? undefined : "noindex, follow",
-      }),
-      links: [canonicalLink(texasDefinedBrand, "/news")],
-    };
-  },
+  head: ({ loaderData }) => ({
+    meta: buildMeta(texasDefinedBrand, {
+      title: "Texas Life & Culture News",
+      description: "Fresh Texas stories about places, culture, history, outdoors and the people who make the state distinctive.",
+      canonicalPath: "/news",
+      robots: loaderData?.length ? undefined : "noindex, follow",
+    }),
+    links: [canonicalLink(texasDefinedBrand, "/news")],
+  }),
 });
