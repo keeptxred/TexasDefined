@@ -99,8 +99,8 @@ export function MoodyGardensSpotlights() {
                 <p className="eyebrow text-primary">{card.eyebrow}</p>
                 <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{card.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-muted-foreground">{card.description}</p>
-                <p className="mt-4 border-t border-border pt-4 text-xs font-medium leading-5 text-foreground/80">{card.detail}</p>
-                <p className="mt-4 text-[0.65rem] uppercase tracking-[0.1em] text-muted-foreground">Photo: {card.credit}</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{card.detail}</p>
+                <p className="mt-5 text-[0.65rem] uppercase tracking-[0.1em] text-muted-foreground">Photo: {card.credit}</p>
                 <span className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Official details</span>
               </div>
             </a>
@@ -111,15 +111,15 @@ export function MoodyGardensSpotlights() {
 
     <Section className="py-10 sm:py-12 lg:py-14">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-2">
+        <div className="grid gap-7 sm:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">Ticket decision</p>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl">Single attraction or combination pass?</h2>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">
+            <h2 className="mt-3 font-display text-2xl leading-tight">Single attraction or combination pass?</h2>
+            <p className="mt-5 text-sm leading-6 text-muted-foreground">
               Buy for the itinerary you will actually complete. Choose a single-attraction ticket for a short stop; consider a combination package only when you have time for several operating attractions.
             </p>
-            <div className="mt-6 border-l-2 border-primary pl-5">
-              <strong className="font-display text-xl">Best first-time default</strong>
+            <div className="mt-5 border-t-2 border-primary py-5">
+              <strong className="font-display text-2xl">Best first-time default</strong>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan Aquarium + Rainforest first, then compare package pricing only if you are adding a theater or seasonal attraction.</p>
             </div>
             <a href="https://www.moodygardens.com/visitor-info/hours" target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">
@@ -129,8 +129,8 @@ export function MoodyGardensSpotlights() {
 
           <div>
             <p className="eyebrow text-primary">Choose by time</p>
-            <div className="mt-4 divide-y divide-border border-y border-border">
-              {itineraries.map((item) => <article key={item.time} className="py-5">
+            <div className="mt-5 grid gap-4">
+              {itineraries.map((item) => <article key={item.time} className="border border-border p-5">
                 <p className="eyebrow text-primary">{item.time}</p>
                 <div className="mt-2">
                   <h3 className="font-display text-2xl">{item.title}</h3>
@@ -150,18 +150,18 @@ export function MoodyGardensSpotlights() {
           title="What to pair with Moody Gardens"
           description="Keep the pairings intentional: beach and amusement activity to the east, nature farther west, or historic Galveston on a second half-day."
         />
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <Link to="/destination/$slug" params={{ slug: "pleasure-pier" }} className="group border-t border-border pt-5">
+        <div className="mt-7 grid gap-7 md:grid-cols-3">
+          <Link to="/destination/$slug" params={{ slug: "pleasure-pier" }} className="group border border-border p-5">
             <p className="eyebrow text-primary">Gulf-front energy</p>
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Pleasure Pier</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Pair indoor pyramids with rides, games and the Seawall when you want a very different second stop.</p>
           </Link>
-          <Link to="/destination/$slug" params={{ slug: "galveston-island-state-park" }} className="group border-t border-border pt-5">
+          <Link to="/destination/$slug" params={{ slug: "galveston-island-state-park" }} className="group border border-border p-5">
             <p className="eyebrow text-primary">Quieter coast</p>
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Galveston Island State Park</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Best add-on when you want beach, bay, paddling or nature instead of another built attraction.</p>
           </Link>
-          <Link to="/search" search={{ q: "The Strand Galveston" }} className="group border-t border-border pt-5">
+          <Link to="/search" search={{ q: "The Strand Galveston" }} className="group border border-border p-5">
             <p className="eyebrow text-primary">Historic Galveston</p>
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">The Strand and downtown</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Use a separate half-day for architecture, museums, shops and the historic core instead of cramming it into a rushed Moody Gardens visit.</p>
