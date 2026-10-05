@@ -69,6 +69,28 @@ function austinEditorial(slug: string) {
   return AUSTIN_TWO_HOUR_EDITORIAL[slug];
 }
 
+function smallTownDecisionCopy(collectionSlug: string, metroName: string) {
+  if (collectionSlug === "small-towns-1-hour") {
+    return {
+      eyebrow: "Choose the easy outing",
+      title: `Which close-in small town near ${metroName} fits your day?`,
+      body: "Use these towns when you want a lower-friction outing: lunch, a courthouse square, a museum, a short walk or one strong local attraction. Pick the experience first, then check the current route.",
+    };
+  }
+  if (collectionSlug === "small-towns-3-hours") {
+    return {
+      eyebrow: "Choose the escape",
+      title: `Which farther small-town escape from ${metroName} is worth the drive?`,
+      body: "Farther trips need a stronger reason to go. Favor towns with enough history, scenery, food, outdoor access or overnight value to justify the extra road time.",
+    };
+  }
+  return {
+    eyebrow: "Choose the day trip",
+    title: `Which small-town day trip from ${metroName} fits your day?`,
+    body: "The useful question is not which town falls inside a geometric ring. Compare what each place gives you to do, then let current traffic and opening hours decide the final route.",
+  };
+}
+
 function googleMultiStopRoute(stops: string[]) {
   const origin = encodeURIComponent("Texarkana, TX");
   const destination = encodeURIComponent(stops.at(-1) ?? "Texarkana, TX");
@@ -339,6 +361,9 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     ...results.map((row) => row.destination.county?.replace(/\s+County$/i, "").trim()).filter((value): value is string => Boolean(value)),
   ])].slice(0, 12);
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
+  const isSmallTownRing = presentation.usesGeographicRing;
+  const genericSmallTownRows = isSmallTownRing && !isAustinTwoHourGuide ? results.slice(0, 12) : [];
+  const smallTownDecision = isSmallTownRing ? smallTownDecisionCopy(collection.slug, metro.name) : null;
   const austinRows = isAustinTwoHourGuide
     ? results.filter((row) => austinEditorial(row.destination.slug))
     : [];
@@ -417,6 +442,36 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
+    {genericSmallTownRows.length > 0 && smallTownDecision && <section className="border-b border-border">
+      <Container className="py-14 sm:py-18">
+        <p className="eyebrow text-primary">{smallTownDecision.eyebrow}</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">{smallTownDecision.title}</h2>
+        <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">{smallTownDecision.body}</p>
+
+        <div className="mt-10 overflow-x-auto border-y border-border">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-border">
+                <th className="py-4 pr-6 font-semibold">Town</th>
+                <th className="px-4 py-4 font-semibold">Why go</th>
+                <th className="px-4 py-4 font-semibold">Shortlist distance</th>
+                <th className="py-4 pl-4 font-semibold">Live route</th>
+              </tr>
+            </thead>
+            <tbody>
+              {genericSmallTownRows.map((row) => <tr key={row.destination.slug} className="border-b border-border last:border-0">
+                <td className="py-4 pr-6"><Link to="/destination/$slug" params={{ slug: row.destination.slug }} className="font-semibold hover:text-primary">{row.destination.name}</Link></td>
+                <td className="px-4 py-4 text-muted-foreground">{row.destination.highlights[0] ?? row.destination.summary}</td>
+                <td className="px-4 py-4 text-muted-foreground">About {Math.round(row.distanceMiles)} geographic miles</td>
+                <td className="py-4 pl-4"><a href={maps.drivingRouteUrl(metro.center, row.destination.coordinates)} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline-offset-4 hover:underline">Check drive ↗</a></td>
+              </tr>)}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">The shortlist distance is only a geographic screen used to find candidates. It is not road mileage or a promised drive time; use the live route for the trip you actually choose.</p>
+      </Container>
+    </section>}
+
     {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
       <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} />
     </Container>}
@@ -424,13 +479,13 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">{isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band)}</p>
-          <h2 className="mt-3 font-display text-4xl">{isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
+          <p className="eyebrow text-primary">{isSmallTownRing ? "Town guides" : bandLabel(group.band)}</p>
+          <h2 className="mt-3 font-display text-4xl">{isSmallTownRing ? `${group.rows.length} places worth building a trip around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {group.rows.map((row, index) => <div key={row.destination.slug}>
             <div className="mb-3 flex items-baseline justify-between gap-4">
-              <p className="eyebrow text-primary">{isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
+              <p className="eyebrow text-primary">{isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : isSmallTownRing ? `Planning shortlist · about ${Math.round(row.distanceMiles)} geographic miles` : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
               <span className="text-xs text-muted-foreground">{row.destination.nearestTown}</span>
             </div>
             <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} />
@@ -468,8 +523,8 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       <div className="grid gap-8 border-t border-border pt-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <p className="eyebrow text-primary">Before you go</p>
-          <h2 className="mt-3 font-display text-3xl">{isAustinTwoHourGuide ? "Pick the town first. Then let the live route decide the departure time." : "Use geography as a shortlist, then check the real route."}</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{isAustinTwoHourGuide ? "Austin-area traffic can add meaningful time, especially on I-35 and on Friday or Sunday travel periods. After choosing the experience you want, open the current route and verify attraction hours, reservations, weather and any park or river conditions before you leave." : "TexasDefined uses location data to make the statewide catalog easier to search. Open the current driving route for the places you are considering, then verify opening hours, reservations, park alerts, water conditions and weather with the current official source."}</p>
+          <h2 className="mt-3 font-display text-3xl">{isSmallTownRing ? "Pick the town first. Then let the live route decide the departure time." : "Use geography as a shortlist, then check the real route."}</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">{isSmallTownRing ? `Traffic, construction and your exact starting point can change the trip materially. After choosing the experience you want, open the current route from ${metro.name} and verify attraction hours, reservations and weather before you leave.` : "TexasDefined uses location data to make the statewide catalog easier to search. Open the current driving route for the places you are considering, then verify opening hours, reservations, park alerts, water conditions and weather with the current official source."}</p>
           {counties.length > 0 && <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
             {counties.map((county) => <Link key={county} to="/county/$slug" params={{ slug: countySlug(county) }} className="eyebrow border-b border-border pb-1 hover:border-primary hover:text-primary">{county} County</Link>)}
           </div>}
