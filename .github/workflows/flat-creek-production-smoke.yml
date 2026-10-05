@@ -1,0 +1,36 @@
+name: Flat Creek Estate production smoke
+
+on:
+  workflow_run:
+    workflows: ["Deploy Production"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: flat-creek-estate-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify Flat Creek Estate live page
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://texasdefined.com/destination/flat-creek-estate"
+          body="$(curl --fail --location --silent --show-error --retry 5 --retry-delay 5 --max-time 30 \
+            -H 'Cache-Control: no-cache' \
+            -H 'User-Agent: TexasDefined-Flat-Creek-Production-Smoke/1.0' \
+            "$url")"
+
+          grep -Fq 'Flat Creek Estate' <<<"$body"
+          grep -Fq 'AI editorial illustration' <<<"$body"
+          grep -Fq 'https://flatcreekestate.com/' <<<"$body"
+          grep -Fq 'https://texasdefined.com/destination/flat-creek-estate' <<<"$body"
+
+          echo "Flat Creek Estate production certification passed: $url"
