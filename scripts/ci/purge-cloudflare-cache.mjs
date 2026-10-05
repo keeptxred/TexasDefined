@@ -9,6 +9,8 @@ if (!token) {
   throw new Error('CLOUDFLARE_CACHE_API_TOKEN or CLOUDFLARE_API_TOKEN is required for targeted cache purge.');
 }
 
+const maybornAuthorityUrl = `https://${zoneName}/destination/mayborn-museum-waco`;
+
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
   `https://${zoneName}/article/texas-rio-grande-river-guide`,
@@ -19,6 +21,7 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/texas-ohv-guide`,
   `https://${zoneName}/texas-paddling-guide`,
   `https://${zoneName}/texas-rock-climbing-bouldering-guide`,
+  maybornAuthorityUrl,
 ];
 
 const weekendEventUrls = [
@@ -151,3 +154,47 @@ for (let index = 0; index < chunks.length; index += 1) {
 
 console.log(`Cloudflare accepted targeted purge for ${urls.length} URL(s) in ${zoneName} across ${chunks.length} request(s).`);
 for (const url of urls) console.log(`- ${url}`);
+
+const requiredMaybornMarkers = [
+  'Mayborn Museum in Waco',
+  'Cultural Crossroads changes the museum',
+  'Attack of the Bloodsuckers!',
+];
+const retiredMaybornMarkers = [
+  'Tours and experiences near Mayborn Museum',
+  'Mayborn Museum | Texas Historic Site Guide',
+];
+let maybornVerified = false;
+let maybornReason = 'no response';
+
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  try {
+    const response = await fetch(maybornAuthorityUrl, {
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: {
+        'user-agent': 'TexasDefined-CI-Mayborn-Authority/1.0',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+      },
+    });
+    const body = await response.text();
+    const missing = requiredMaybornMarkers.filter((marker) => !body.includes(marker));
+    const retired = retiredMaybornMarkers.filter((marker) => body.includes(marker));
+    if (response.ok && missing.length === 0 && retired.length === 0) {
+      maybornVerified = true;
+      console.log(`Mayborn authority verification passed after targeted purge (attempt ${attempt}).`);
+      break;
+    }
+    maybornReason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; retired=${retired.join(' | ') || 'none'}`;
+  } catch (error) {
+    maybornReason = error instanceof Error ? error.message : String(error);
+  }
+
+  if (attempt < 6) await new Promise((resolve) => setTimeout(resolve, 5_000));
+}
+
+if (!maybornVerified) {
+  throw new Error(`Mayborn authority page did not verify after targeted cache purge: ${maybornReason}`);
+}
