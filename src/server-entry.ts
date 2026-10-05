@@ -8,6 +8,7 @@ import { texasDefinedOutcomeAnalyticsResponse } from "./lib/texas-defined-outcom
 const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
 const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-competition";
 const WORKER_VERSION_HEADER = "x-texasdefined-worker-version";
+const WORKER_VERSION_PROBE_PARAM = "__worker_version_probe";
 
 const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
   "/texas-vs/california": "/article/texas-vs-california-differences",
@@ -44,6 +45,34 @@ const AI_DEMAND_TERMS = [
   "food", "culture", "history", "historic", "county", "city", "region", "geography", "population",
   "county seat",
 ] as const;
+
+function workerVersionId(env: unknown) {
+  if (typeof env !== "object" || env === null) return "";
+  const metadata = Reflect.get(env, "CF_VERSION_METADATA") as WorkerVersionMetadata | undefined;
+  return typeof metadata?.id === "string" ? metadata.id.trim() : "";
+}
+
+function workerVersionProbeResponse(request: Request, env: unknown) {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  if (url.pathname !== "/" || !url.searchParams.has(WORKER_VERSION_PROBE_PARAM)) return null;
+
+  const versionId = workerVersionId(env);
+  if (!versionId) {
+    return new Response("Worker version metadata unavailable", {
+      status: 503,
+      headers: { "cache-control": "no-store, max-age=0" },
+    });
+  }
+
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "cache-control": "no-store, max-age=0",
+      [WORKER_VERSION_HEADER]: versionId,
+    },
+  });
+}
 
 function privacySafeDemandTerms(value: string) {
   const normalized = value
@@ -82,9 +111,7 @@ function privacySafeAiEnvironment(env: unknown): unknown {
 }
 
 function withWorkerVersionHeader(response: Response, env: unknown) {
-  if (typeof env !== "object" || env === null) return response;
-  const metadata = Reflect.get(env, "CF_VERSION_METADATA") as WorkerVersionMetadata | undefined;
-  const versionId = typeof metadata?.id === "string" ? metadata.id.trim() : "";
+  const versionId = workerVersionId(env);
   if (!versionId) return response;
 
   const headers = new Headers(response.headers);
@@ -98,6 +125,9 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const probeResponse = workerVersionProbeResponse(request, env);
+    if (probeResponse) return probeResponse;
+
     const newsletterApiResponse = await texasDefinedNewsletterApiResponse(request);
     if (newsletterApiResponse) return newsletterApiResponse;
 
