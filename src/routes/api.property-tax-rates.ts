@@ -17,6 +17,7 @@ export const Route = createFileRoute('/api/property-tax-rates')({
             getLatestTaxRateYearServer,
             getTaxRateDatasetCountServer,
             getTaxingUnitRateHistoryServer,
+            getStatewideTaxRateInsightsServer,
             searchTaxingUnitsServer,
             taxRateMetadata,
           } = await import('@/data/property/texas-tax-rates.server');
@@ -29,6 +30,12 @@ export const Route = createFileRoute('/api/property-tax-rates')({
           const query = url.searchParams.get('q')?.trim() ?? '';
           const unit = url.searchParams.get('unit')?.trim().toLowerCase() ?? '';
           const type = (url.searchParams.get('type')?.trim() || undefined) as TexasTaxingUnitType | undefined;
+          const insights = url.searchParams.get('insights')?.trim().toLowerCase() ?? '';
+
+          if (insights === 'statewide') {
+            const statewide = await getStatewideTaxRateInsightsServer(year);
+            return Response.json({ ready: true, metadata: taxRateMetadata(latestYear, statewide.generatedAt), statewide }, { headers: HEADERS });
+          }
 
           if (unit) {
             const history = await getTaxingUnitRateHistoryServer(unit, type);
@@ -55,6 +62,7 @@ export const Route = createFileRoute('/api/property-tax-rates')({
               county: '/api/property-tax-rates?county=harris',
               search: '/api/property-tax-rates?q=katy',
               history: '/api/property-tax-rates?unit=katy-isd&type=school-district',
+              statewideInsights: '/api/property-tax-rates?insights=statewide',
             },
           }, { headers: HEADERS });
         } catch (error) {
