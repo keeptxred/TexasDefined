@@ -13,8 +13,8 @@ export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Homecoming Mums: What They Are, History & Tradition",
-      description: "What are Texas homecoming mums? Learn how giant ribbon-and-charm corsages became a Texas high school tradition, what they mean and how they evolved.",
+      title: "Texas Homecoming Mums: History, Meaning, DIY & Mum Queen",
+      description: "See what Texas homecoming mums mean, how mums and garters evolved, DIY materials and the Spring maker known as the Mum Queen.",
       type: "article",
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
