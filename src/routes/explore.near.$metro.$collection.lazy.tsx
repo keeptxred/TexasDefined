@@ -120,7 +120,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
 
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
           <div>
             <p className="eyebrow text-primary">Choose the trip, not the radius</p>
             <h2 className="mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Which Austin small-town day trip fits your day?</h2>
@@ -135,7 +135,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         </div>
 
         <div className="mt-10 overflow-x-auto border-y border-border">
-          <table className="w-full min-w-[760px] text-left text-sm">
+          <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-border">
                 <th className="py-4 pr-6 font-semibold">Town</th>
