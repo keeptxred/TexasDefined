@@ -118,7 +118,7 @@ function Boating({ pageData }: { pageData: PageData }) {
       </div>
       <aside className="border-t-2 border-foreground pt-5">
         <p className="eyebrow text-primary">Map & current conditions</p>
-        {lakeImage ? <FishingPhoto image={lakeImage} showCredit={false} className="mt-4" imageClassName="aspect-[4/3] w-full object-cover" /> : null}
+        {lakeImage ? <FishingPhoto image={lakeImage} className="mt-4" imageClassName="aspect-[4/3] w-full object-cover" /> : null}
         <div className={lakeImage ? "mt-5 aspect-[4/3] overflow-hidden border border-border bg-muted" : "mt-4 aspect-[4/3] overflow-hidden border border-border bg-muted"}><iframe title={`Boating map of ${o.name}`} src={`https://www.google.com/maps?q=${encodeURIComponent(o.mapQuery)}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-full w-full" /></div>
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3"><a href={pageData.sources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">{isLiveLakeLevelSource(pageData.sources.liveLevel.url) ? "Live lake level →" : "Official current conditions →"}</a><a href={statusSource.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">{statusLabel}</a></div>
         {pageData.liveDataNote ? <p className="mt-5 text-xs leading-6 text-muted-foreground">{pageData.liveDataNote}</p> : null}
