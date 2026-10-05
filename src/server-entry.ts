@@ -7,6 +7,7 @@ import { texasDefinedOutcomeAnalyticsResponse } from "./lib/texas-defined-outcom
 
 const LEGACY_PITMASTERS_SLUG = "live-2026-07-07-texas-pitmasters-to-feature-in-new-food-network-competition-series-v3wglp";
 const PITMASTERS_CANONICAL_PATH = "/article/texas-pitmasters-food-network-competition";
+const WORKER_VERSION_HEADER = "x-texasdefined-worker-version";
 
 const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
   "/texas-vs/california": "/article/texas-vs-california-differences",
@@ -23,6 +24,10 @@ type AiAnalyticsPoint = {
 
 type AiAnalyticsDataset = {
   writeDataPoint: (input: AiAnalyticsPoint) => void;
+};
+
+type WorkerVersionMetadata = {
+  id?: string;
 };
 
 const AI_DEMAND_TERMS = [
@@ -76,6 +81,21 @@ function privacySafeAiEnvironment(env: unknown): unknown {
   });
 }
 
+function withWorkerVersionHeader(response: Response, env: unknown) {
+  if (typeof env !== "object" || env === null) return response;
+  const metadata = Reflect.get(env, "CF_VERSION_METADATA") as WorkerVersionMetadata | undefined;
+  const versionId = typeof metadata?.id === "string" ? metadata.id.trim() : "";
+  if (!versionId) return response;
+
+  const headers = new Headers(response.headers);
+  headers.set(WORKER_VERSION_HEADER, versionId);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     const newsletterApiResponse = await texasDefinedNewsletterApiResponse(request);
@@ -107,6 +127,6 @@ export default {
       }
     }
 
-    return server.fetch(request, env, ctx);
+    return withWorkerVersionHeader(await server.fetch(request, env, ctx), env);
   },
 };
