@@ -55,6 +55,7 @@ import {
   eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
+  isCompliantMajorEventImage,
 } from "./major-event-schema-enrichment.server";
 
 const siteUrl = "https://texasdefined.com";
@@ -258,6 +259,7 @@ export function loadMajorEventPageServer(slug: string) {
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
   const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging early for major event weekends, when the closest rooms can fill quickly. Check in-town options first, then widen the search to nearby communities if your preferred dates or price range are unavailable.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${HOTELS_COM_AFFILIATE_URL}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">Search hotels on Hotels.com →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
   const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
+  const displayImage = isCompliantMajorEventImage(schemaEnrichment?.image) ? schemaEnrichment.image : undefined;
   const displayOffers = [
     ...(schemaEnrichment?.offers ?? []),
     ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.offers ?? []),
@@ -275,16 +277,16 @@ export function loadMajorEventPageServer(slug: string) {
   const performersMarkup = displayPerformers.length
     ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
     : "";
-  const heroImageAttribution = schemaEnrichment?.image
+  const heroImageAttribution = displayImage
     ? [
-        schemaEnrichment.image.rightsNote ? esc(schemaEnrichment.image.rightsNote) : "",
-        schemaEnrichment.image.licenseName && schemaEnrichment.image.licenseUrl
-          ? `<a class="underline" href="${esc(schemaEnrichment.image.licenseUrl)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.image.licenseName)} ↗</a>`
+        displayImage.rightsNote ? esc(displayImage.rightsNote) : "",
+        displayImage.licenseName && displayImage.licenseUrl
+          ? `<a class="underline" href="${esc(displayImage.licenseUrl)}" target="_blank" rel="noreferrer noopener">${esc(displayImage.licenseName)} ↗</a>`
           : "",
       ].filter(Boolean).join(" · ")
     : "";
-  const heroImageMarkup = schemaEnrichment?.image
-    ? `<figure data-major-event-hero="true" class="mt-8"><div class="aspect-[16/9] overflow-hidden rounded-2xl bg-muted"><img data-major-event-enrichment-image="true" class="h-full w-full object-cover" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="eager" decoding="async" /></div><figcaption class="mt-2 text-xs leading-5 text-muted-foreground">${heroImageAttribution ? `${heroImageAttribution} · ` : ""}<a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
+  const heroImageMarkup = displayImage
+    ? `<figure data-major-event-hero="true" class="mt-8"><div class="aspect-[16/9] overflow-hidden rounded-2xl bg-muted"><img data-major-event-enrichment-image="true" class="h-full w-full object-cover" src="${esc(displayImage.url)}" alt="${esc(displayImage.alt)}" loading="eager" decoding="async" /></div><figcaption class="mt-2 text-xs leading-5 text-muted-foreground">${heroImageAttribution ? `${heroImageAttribution} · ` : ""}<a class="underline" href="${esc(displayImage.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
     : "";
   const lifecycleRows = occurrenceWindows.flatMap((window) => {
     const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label)?.lifecycle;
