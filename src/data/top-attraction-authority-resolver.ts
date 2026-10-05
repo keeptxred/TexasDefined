@@ -1,6 +1,5 @@
 import { applyTopAttractionAuthority } from "./destination-authority-top-attractions";
 import { topAttractionSupplementalSources } from "./top-attraction-authority-sources";
-import { applyMoodyGardensCurrentCuration } from "./destination-curation-moody-gardens";
 import type { Destination, DestinationAuthoritySource } from "./types";
 
 function dedupeSources(sources: DestinationAuthoritySource[]): DestinationAuthoritySource[] {
@@ -40,7 +39,10 @@ function moodyGardensSources(): DestinationAuthoritySource[] {
  * accessibility or designation evidence.
  */
 export function resolveTopAttractionAuthority(destination: Destination): Destination {
-  const base = applyMoodyGardensCurrentCuration(applyTopAttractionAuthority(destination));
+  const authority = applyTopAttractionAuthority(destination);
+  const base = authority.slug === "moody-gardens" && authority.sourceCheckedAt !== "2026-10-05"
+    ? { ...authority, sourceCheckedAt: "2026-10-05" }
+    : authority;
   if (!base.authorityGuide) return base;
   const currentSources = base.slug === "moody-gardens" ? moodyGardensSources() : [];
   return {
