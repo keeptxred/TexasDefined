@@ -1,6 +1,6 @@
 const origins=[['canonical','https://texasdefined.com'],['direct-worker','https://texasdefined-site.freddy-coppola.workers.dev']];
 const metros=[['waco','Waco'],['abilene','Abilene'],['san-angelo','San Angelo'],['corpus-christi','Corpus Christi'],['amarillo','Amarillo'],['el-paso','El Paso'],['lubbock','Lubbock'],['tyler','Tyler'],['college-station','College Station'],['killeen-temple','Killeen–Temple'],['wichita-falls','Wichita Falls']];
-const rings=[['small-towns-1-hour','Closest Small Towns From'],['small-towns-2-hours','Mid-Range Small Towns From'],['small-towns-3-hours','Farther Small-Town Escapes From']];
+const rings=[['small-towns-1-hour','Closest Small Towns to'],['small-towns-2-hours','Small-Town Day Trips From'],['small-towns-3-hours','Farther Small-Town Escapes From']];
 const forbidden=['Small Towns About 1 Hour From','Small Towns About 2 Hours From','Small Towns About 3 Hours From','kept separate from the closer pages to avoid duplicate doorway content'];
 const requiredWaco=['Farther Small-Town Escapes From Waco, Texas','straight-line','drive time','Trip fit','Check current drive'];
 const failures=[];
