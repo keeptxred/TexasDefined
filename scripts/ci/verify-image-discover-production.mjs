@@ -4,6 +4,8 @@ const BASE_URL = process.env.TEXASDEFINED_BASE_URL || 'https://texasdefined.com'
 const STRICT = process.env.IMAGE_AUDIT_STRICT === '1';
 const CONCURRENCY = Math.max(1, Math.min(20, Number(process.env.IMAGE_AUDIT_CONCURRENCY || 8)));
 const REQUEST_TIMEOUT_MS = Math.max(5_000, Number(process.env.IMAGE_AUDIT_TIMEOUT_MS || 20_000));
+const REQUEST_RETRIES = Math.max(1, Math.min(5, Number(process.env.IMAGE_AUDIT_RETRIES || 3)));
+const RETRY_DELAY_MS = Math.max(100, Number(process.env.IMAGE_AUDIT_RETRY_DELAY_MS || 750));
 const REPORT_PATH = process.env.IMAGE_AUDIT_REPORT || 'image-discover-production-report.json';
 
 const PRIORITY_PATHS = [
@@ -60,14 +62,41 @@ async function fetchWithTimeout(url, options = {}) {
     return await fetch(url, {
       redirect: 'follow',
       ...options,
-      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.2 (+https://texasdefined.com)', ...(options.headers || {}) },
+      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.3 (+https://texasdefined.com)', ...(options.headers || {}) },
       signal: controller.signal,
     });
   } finally { clearTimeout(id); }
 }
 
+function transientFetchError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return error?.name === 'AbortError'
+    || /fetch failed|socket|ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|UND_ERR/i.test(message);
+}
+
+function fetchErrorLabel(error) {
+  if (error?.name === 'AbortError') return `timeout-after-${REQUEST_TIMEOUT_MS}ms`;
+  return error instanceof Error ? error.message : String(error);
+}
+
+async function fetchWithRetry(url, options = {}) {
+  let lastError;
+  for (let attempt = 1; attempt <= REQUEST_RETRIES; attempt += 1) {
+    try {
+      return await fetchWithTimeout(url, options);
+    } catch (error) {
+      lastError = error;
+      if (!transientFetchError(error) || attempt === REQUEST_RETRIES) throw error;
+      const delay = RETRY_DELAY_MS * attempt;
+      console.warn(`Transient fetch failure (${attempt}/${REQUEST_RETRIES}) for ${url}: ${fetchErrorLabel(error)}. Retrying in ${delay}ms.`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw lastError;
+}
+
 async function fetchText(url) {
-  const response = await fetchWithTimeout(url);
+  const response = await fetchWithRetry(url);
   return { response, text: await response.text() };
 }
 
@@ -111,7 +140,7 @@ function imageDimensions(bytes, type) {
 async function inspectImage(url) {
   if (!url) return { ok: false, status: 0, type: '', length: 0, width: 0, height: 0 };
   try {
-    const response = await fetchWithTimeout(url, { method: 'GET', headers: { range: 'bytes=0-65535' } });
+    const response = await fetchWithRetry(url, { method: 'GET', headers: { range: 'bytes=0-65535' } });
     const type = (response.headers.get('content-type') || '').split(';')[0].toLowerCase();
     const length = Number(response.headers.get('content-length') || 0);
     const bytes = new Uint8Array(await response.arrayBuffer());
@@ -168,8 +197,15 @@ async function mapConcurrent(items, worker, concurrency) {
   return results;
 }
 
-const urls = await loadPriorityUrls();
-const pages = await mapConcurrent(urls, auditPage, CONCURRENCY);
+let urls = [];
+let infrastructureError = '';
+try {
+  urls = await loadPriorityUrls();
+} catch (error) {
+  infrastructureError = `priority-url-load:${fetchErrorLabel(error)}`;
+  console.error(`Image/Discover production audit could not load priority URLs after ${REQUEST_RETRIES} attempt(s): ${fetchErrorLabel(error)}`);
+}
+const pages = infrastructureError ? [] : await mapConcurrent(urls, auditPage, CONCURRENCY);
 const uniqueImageUrls = [...new Set(pages.filter((page) => page.indexable && page.image?.url).map((page) => page.image.url))];
 const imageChecks = new Map();
 for (const result of await mapConcurrent(uniqueImageUrls, async (url) => [url, await inspectImage(url)], CONCURRENCY)) imageChecks.set(result[0], result[1]);
@@ -202,6 +238,7 @@ const noindex = pages.filter((page) => !page.indexable);
 const report = {
   generatedAt: new Date().toISOString(), baseUrl: BASE_URL,
   googleDiscoverContract: { minWidth: MIN_DISCOVER_WIDTH, minPixels: MIN_DISCOVER_PIXELS, requiresLargeImagePreview: true, requiresRepresentativePreferredImage: true },
+  infrastructure: { degraded: Boolean(infrastructureError), error: infrastructureError || null, requestRetries: REQUEST_RETRIES, requestTimeoutMs: REQUEST_TIMEOUT_MS },
   summary: { auditedPriorityPages: pages.length, indexablePages: pages.length - noindex.length, noindexPages: noindex.length, uniquePreferredImages: uniqueImageUrls.length, failingPages: failing.length, warningPages: warningPages.length, suspiciousReusedImages: suspiciousReuse.length },
   suspiciousReuse, failing,
   warnings: warningPages.map((page) => ({ url: page.url, warnings: page.warnings, image: page.image })),
@@ -209,6 +246,10 @@ const report = {
 };
 fs.writeFileSync(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify(report.summary, null, 2));
+if (infrastructureError) {
+  console.error(`Image/Discover production audit infrastructure failure: ${infrastructureError}. A report was written instead of crashing before artifact upload.`);
+  if (STRICT) process.exit(1);
+}
 if (warningPages.length) console.warn(`Image/Discover production audit found ${warningPages.length} priority page(s) with non-blocking metadata, fallback-copy, upstream rate-limit, or reuse warnings.`);
 if (failing.length) {
   console.error(`Image/Discover production audit found ${failing.length} priority page(s) with blocking issues.`);
