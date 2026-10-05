@@ -25,6 +25,8 @@ const records: MajorEventAuthorityRecord[] = [
       { title: "Saturday is the densest activity day", body: "Recent Saturday programming has included the Ranch Run, chili and BBQ judging, arts and crafts, tricycle races, a kiddie parade, kids cook-off, cornhole, basketball, softball, carnival hours, live music and evening rodeo. Families or first-time visitors who want the broadest sampling should watch the 2027 Saturday schedule closely when it is released." },
       { title: "The Sunday parade starts downtown and heads toward Wolters Park", body: "The 2026 Grand Festival Parade was scheduled for Sunday morning in downtown Schulenburg, with the published festival schedule describing the route as downtown to Wolters Park. If the parade matters to your trip, arrive early enough to handle downtown staging and street access, then confirm the 2027 route and start time on the organizer's parade page." },
       { title: "Food competitions are part of the festival, not a side note", body: "Recent programs include CASI chili, IBCA BBQ, beans, Bloody Mary, salsa and kids cook-off competitions alongside regular food booths. Visitors who care about the cook-off atmosphere should use the detailed official schedule because judging windows and public activity are concentrated at specific times." },
+      { title: "Know the Wolters Park carry-in rules before you arrive", body: "The organizer's current FAQ allows lawn chairs and leashed dogs, but prohibits outside alcohol, coolers or ice chests, and glass containers. Treat those as current operating rules rather than permanent guarantees, and recheck the FAQ before the 2027 trip in case security or entry policies change." },
+      { title: "Do not count on camping inside Wolters Park", body: "The organizer says there are no general RV, motorhome or public camping spaces in Wolters Park; limited exceptions apply to cook-off teams and some tournament participants. Schulenburg has RV parks, but the organizer notes they are not within walking distance of the festival grounds, so arrange transportation rather than assuming an on-site campground." },
       { title: "Make the festival part of a Schulenburg heritage weekend", body: "Schulenburg is a practical base for the Painted Churches circuit and a strong German-Czech heritage stop in its own right. Pair the festival with historic Main Street, local museums or a carefully timed Painted Churches route, but verify church access because these are active houses of worship and festival weekend does not override services or private events." },
     ],
     relatedLinks: [
@@ -42,6 +44,7 @@ const records: MajorEventAuthorityRecord[] = [
       { label: "Schulenburg Festival official parade information", url: "https://www.schulenburgfestival.org/parade" },
       { label: "Schulenburg Festival official activities directory", url: "https://www.schulenburgfestival.org/activities" },
       { label: "Schulenburg Festival official rodeo information", url: "https://www.schulenburgfestival.org/rodeo" },
+      { label: "Schulenburg Festival official visitor FAQ", url: "https://www.schulenburgfestival.org/faq" },
       { label: "Schulenburg Festival official press releases", url: "https://www.schulenburgfestival.org/news" },
     ],
   },
