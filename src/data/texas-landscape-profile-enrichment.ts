@@ -1,5 +1,6 @@
 import type { LandscapeRecord } from "./texas-landscapes";
 import { texasLandscapes } from "./texas-landscapes";
+import { texasRiverValleysSources } from "./texas-river-valleys-authority";
 
 export type LandscapeAuthoritySource = {
   label: string;
@@ -211,14 +212,7 @@ const enhancements: Record<string, LandscapeProfileEnhancement> = {
       { heading: "Texas rivers cross landscapes instead of staying inside them", body: "Texas Water Development Board recognizes 15 major river basins plus eight coastal basins. Individual rivers may begin in dry plains or spring country and then cross prairies, forests and coastal lowlands before reaching the Gulf. That journey explains why one named river can look completely different from its headwaters to its lower valley." },
       { heading: "Rainfall changes basin behavior from west to east", body: "Precipitation varies dramatically across Texas, and TWDB identifies rainfall, evaporation, vegetation, soil, slope, geology and land use among the factors shaping each basin. Western streams can be intermittent or low-yield, while eastern basins generally carry more water. Reservoirs, diversions and groundwater-fed reaches add another layer to what travelers see today." },
     ],
-    sourceLinks: [
-      { label: "Texas Water Development Board — River Basins & Reservoirs", href: TWDB_RIVERS_RESERVOIRS },
-      { label: "Texas Water Development Board — Texas water conditions", href: TWDB_WATER_CONDITIONS },
-      { label: "Texas Parks & Wildlife — River habitats", href: "https://tpwd.texas.gov/landwater/water/habitats/rivers/" },
-      { label: "USGS — Texas real-time water data", href: "https://waterdata.usgs.gov/tx/nwis/rt" },
-      { label: "USGS Water Science School — Rivers, streams and creeks", href: "https://www.usgs.gov/special-topics/water-science-school/science/rivers-streams-and-creeks" },
-      { label: "National Park Service — Rio Grande Wild & Scenic River", href: "https://www.nps.gov/rigr/index.htm" },
-    ],
+    sourceLinks: [...texasRiverValleysSources],
   },
   "lakes-and-reservoirs": {
     fieldNotes: [
