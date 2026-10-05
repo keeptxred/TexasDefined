@@ -18,7 +18,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: whole-site-production-audit-${{ github.ref }}
+  # PR runs all crawl the same live production site, so only the newest PR audit
+  # needs to consume a runner. Scheduled/manual runs keep ref-specific isolation.
+  group: whole-site-production-audit-${{ github.event_name == 'pull_request' && 'pr' || github.ref }}
   cancel-in-progress: true
 
 jobs:
