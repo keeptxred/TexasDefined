@@ -84,8 +84,8 @@ export const wacoMuseumDestinations: Destination[] = [
       credit: "Michael Barera · Wikimedia Commons · CC BY-SA 4.0",
     },
     bestSeason: "Year-round museum; fall through spring is most comfortable for spending additional time in the outdoor Historic Village along the Brazos River.",
-    entryNote: "The museum currently opens daily, with Sunday beginning at 1 p.m. Baylor home-football Saturdays and several holidays are scheduled closure dates, and the outdoor Historic Village may close for weather, so review the official visit calendar before traveling.",
-    highlights: ["Natural science and paleontology", "Hands-on discovery galleries", "Historic Village", "Baylor University museum"],
+    entryNote: "Hours are Monday-Saturday 10 a.m.-5 p.m. and Sunday 1-5 p.m. General admission is currently $12 adults, $10 children ages 2-15 and $11 seniors 65+. Qualifying EBT households can use Museums for All for $1 admission per person; active Baylor, TSTC and MCC students and active-duty military receive free general admission at the ticket desk. Baylor home-football Saturdays, major holidays and inclement weather can affect access, especially the Historic Village, so confirm the official visit page before traveling.",
+    highlights: ["Hall of Natural History", "Jeanes Discovery Center", "Cultural Crossroads", "Governor Bill and Vara Daniel Historic Village", "SpaceX and hands-on science", "Changing traveling exhibitions"],
     body: [
       "The Mayborn Museum is one of Waco's strongest all-ages museums because it combines several kinds of visit in a single complex. Natural-history galleries interpret Central Texas landscapes, fossils, wildlife and geology, while discovery spaces give children room for hands-on experimentation. The result is broader than a conventional science museum and more substantial than a children's play space, with collections and interpretation that can hold the attention of adults traveling with younger visitors.",
       "Outside the main galleries, the Governor Bill and Vara Daniel Historic Village adds a different layer of Texas history. Nine relocated wood-frame buildings evoke a late-nineteenth-century community and let visitors move physically through domestic, commercial and community spaces rather than seeing the period only through cases of artifacts. Because this portion is outdoors, weather can affect access even when the main museum remains open.",
@@ -94,7 +94,7 @@ export const wacoMuseumDestinations: Destination[] = [
     officialUrl: "https://mayborn.web.baylor.edu/visit",
     managingAuthority: "Baylor University",
     address: "1300 S University Parks Dr, Waco, TX 76706",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-05",
   },
   {
     id: "museum-expansion-armstrong-browning-waco",
