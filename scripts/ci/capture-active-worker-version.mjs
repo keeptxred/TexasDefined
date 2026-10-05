@@ -10,8 +10,8 @@ const runId = process.env.GITHUB_RUN_ID || null;
 const stateDirectory = '.artifacts';
 const statePath = `${stateDirectory}/worker-version-capture-state.json`;
 const defaultWranglerOutputPath = resolve(stateDirectory, 'wrangler-production-output.jsonl');
-const wranglerOutputPath = process.env.WRANGLER_OUTPUT_FILE?.trim()
-  ? resolve(process.env.WRANGLER_OUTPUT_FILE.trim())
+const wranglerOutputPath = process.env.WRANGLER_OUTPUT_FILE_PATH?.trim()
+  ? resolve(process.env.WRANGLER_OUTPUT_FILE_PATH.trim())
   : defaultWranglerOutputPath;
 const maxAttempts = 12;
 const retryDelayMs = 5_000;
@@ -49,7 +49,7 @@ function prepareWranglerDeployOutputCapture() {
     return;
   }
 
-  appendFileSync(envPath, `WRANGLER_OUTPUT_FILE=${wranglerOutputPath}\n`);
+  appendFileSync(envPath, `WRANGLER_OUTPUT_FILE_PATH=${wranglerOutputPath}\n`);
 }
 
 export function parseWranglerDeployOutput(text, expectedWorkerName = workerName) {
