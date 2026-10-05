@@ -1,0 +1,92 @@
+name: Recover stale TexasDefined production deploy
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: texasdefined-stale-production-recovery
+  cancel-in-progress: true
+
+jobs:
+  recover-current-main:
+    if: ${{ github.event.workflow_run.head_branch == 'main' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Compare completed deploy with current main
+        id: freshness
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+
+          CURRENT_SHA="$(curl --fail-with-body --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/ref/heads/main" \
+            | jq -r '.object.sha')"
+
+          if [[ -z "${CURRENT_SHA}" || "${CURRENT_SHA}" == 'null' ]]; then
+            echo '::error title=Unable to resolve current main::Refusing to guess whether the completed production deployment is current.'
+            exit 1
+          fi
+
+          echo "source_sha=${SOURCE_SHA}" >> "${GITHUB_OUTPUT}"
+          echo "current_sha=${CURRENT_SHA}" >> "${GITHUB_OUTPUT}"
+
+          if [[ "${SOURCE_SHA}" == "${CURRENT_SHA}" ]]; then
+            echo 'stale=false' >> "${GITHUB_OUTPUT}"
+            echo "Production workflow ${SOURCE_RUN_ID} completed from current main ${CURRENT_SHA}; no recovery dispatch is needed."
+          else
+            echo 'stale=true' >> "${GITHUB_OUTPUT}"
+            echo "::warning title=Stale production workflow detected::run=${SOURCE_RUN_ID}, deployed-source=${SOURCE_SHA}, current-main=${CURRENT_SHA}. Current main will be redeployed."
+          fi
+
+      - name: Dispatch current main production recovery
+        if: ${{ steps.freshness.outputs.stale == 'true' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ steps.freshness.outputs.source_sha }}
+          CURRENT_SHA: ${{ steps.freshness.outputs.current_sha }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+
+          HTTP_STATUS="$(curl --silent --show-error \
+            --output /tmp/dispatch-response.txt \
+            --write-out '%{http_code}' \
+            --request POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-production.yml/dispatches" \
+            -d '{"ref":"main"}')"
+
+          if [[ "${HTTP_STATUS}" != '204' ]]; then
+            echo "::error title=Current-main recovery dispatch failed::GitHub returned HTTP ${HTTP_STATUS}."
+            cat /tmp/dispatch-response.txt || true
+            exit 1
+          fi
+
+          {
+            echo '## Stale production deployment recovered'
+            echo
+            echo "Historical production run \`${SOURCE_RUN_ID}\` completed from stale SHA \`${SOURCE_SHA}\`."
+            echo "Current main is \`${CURRENT_SHA}\`."
+            echo
+            echo 'A fresh `Deploy TexasDefined production` workflow was dispatched from `main`. The production workflow remains responsible for build, SSR smoke, Cloudflare deployment, rollback, and live verification.'
+          } >> "${GITHUB_STEP_SUMMARY}"
