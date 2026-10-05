@@ -6,6 +6,7 @@ const title = "Texas Homecoming Mums: History, Meaning, Colors & Traditions | Te
 const description = "Texas homecoming mums explained: history, colors, senior traditions, garters, costs, DIY construction, preservation, etiquette and modern school customs.";
 const image = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Goldthwaite_High_School_Homecoming_Mum.jpg?width=1400";
 
+// This authority page pins its own metadata so the shared technical SEO override cannot replace topic-specific search copy.
 export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: [
