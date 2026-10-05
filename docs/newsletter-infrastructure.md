@@ -80,11 +80,37 @@ Two independent rollout switches remain off by default:
 
 Having provider credentials alone does **not** arm public signup or bulk sending.
 
+### Safe test delivery
+
+`newsletter-test-send.server.ts` provides a separate, fail-closed test-delivery path for validating the real rendered newsletter and sending identity before bulk sending is armed.
+
+It requires all three of the following before it can send a test message:
+
+- `NEWSLETTER_TEST_SENDS_ENABLED=true`
+- `NEWSLETTER_TEST_RECIPIENTS` containing a comma-separated exact allowlist of approved test addresses
+- the transactional Resend requirements `RESEND_API_KEY` and `NEWSLETTER_FROM_EMAIL`
+
+The test path is available only through the authenticated newsletter operator server boundary. The requested address must exactly match the normalized allowlist; the allowlist itself is never returned to the browser, only a recipient count and readiness state.
+
+A test delivery:
+
+- uses Resend's transactional `/emails` endpoint rather than Broadcasts;
+- prefixes the subject with `[TEST]`;
+- includes a visible test banner in HTML and text;
+- replaces the production Broadcast unsubscribe placeholder with a harmless test-only fallback;
+- applies a five-minute idempotency window to prevent accidental duplicate clicks;
+- does **not** create or modify subscriber rows;
+- does **not** modify issue lifecycle state;
+- does **not** create delivery-ledger rows;
+- does **not** require or bypass `NEWSLETTER_SENDING_ENABLED`.
+
+This makes sender/domain validation possible without putting any real subscriber at risk or silently arming the marketing send path.
+
 ### Runtime readiness
 
-`getNewsletterRuntimeReadiness()` reports operational readiness without returning secret values. It reports public-signup state, bulk-sending state, double-opt-in state, confirmation readiness, Resend marketing readiness, `missingRuntimeBindings`, and `activationBlocked`.
+`getNewsletterRuntimeReadiness()` reports operational readiness without returning secret values. It reports public-signup state, bulk-sending state, double-opt-in state, confirmation readiness, Resend marketing readiness, safe test-delivery readiness, `missingRuntimeBindings`, and `activationBlocked`.
 
-The missing runtime bindings list is diagnostic and fail-closed. Bulk sending is blocked when the full Resend marketing configuration is incomplete. Public signup is reported blocked when double opt-in is enabled but confirmation delivery is not configured.
+The missing runtime bindings list is diagnostic and fail-closed. Bulk sending is blocked when the full Resend marketing configuration is incomplete. Public signup is reported blocked when double opt-in is enabled but confirmation delivery is not configured. Safe test delivery has its own independent `NEWSLETTER_TEST_SENDS_ENABLED` flag and test-recipient allowlist and is not treated as permission to send a Broadcast.
 
 ### Sending domain
 
@@ -138,7 +164,7 @@ Access-key comparison hashes both values with Web Crypto SHA-256 and performs a 
 
 Every authenticated newsletter server function returns `Cache-Control: private, no-store`, `CDN-Cache-Control: no-store`, `Vary: Cookie`, and `X-Robots-Tag: noindex, nofollow` so private operator responses are not shared by a browser/CDN cache or indexed.
 
-The authenticated boundary exposes server functions for session login/logout/status, dashboard statistics, issue list/detail, draft preview/save, marking ready, local scheduling, cancellation, Resend audience synchronization, provider staging, and send-or-schedule. The final send-or-schedule function still independently fails closed unless `NEWSLETTER_SENDING_ENABLED=true` inside the provider adapter.
+The authenticated boundary exposes server functions for session login/logout/status, dashboard statistics, issue list/detail, draft preview/save, marking ready, local scheduling, cancellation, Resend audience synchronization, provider staging, allowlisted test delivery, and send-or-schedule. The final send-or-schedule function still independently fails closed unless `NEWSLETTER_SENDING_ENABLED=true` inside the provider adapter.
 
 ## Protected newsletter operations panel
 
@@ -150,7 +176,7 @@ The panel can:
 
 - show active and pending subscriber totals plus suppression counts;
 - show draft and queued-delivery counts;
-- report public-signup, bulk-send, confirmation, double-opt-in, Resend, and runtime-binding readiness;
+- report public-signup, bulk-send, confirmation, double-opt-in, Resend, test-delivery, and runtime-binding readiness;
 - list recent newsletter issues and provider-event totals;
 - review one issue and its delivery-state totals;
 - preview rendered newsletter HTML inside a sandboxed iframe;
@@ -160,7 +186,7 @@ The panel can:
 - schedule an eligible issue for a future time;
 - cancel an eligible issue.
 
-The panel deliberately exposes **no send-now control**. Provider staging and scheduling do not bypass `NEWSLETTER_SENDING_ENABLED`; the server-side sending kill switch remains authoritative.
+The panel deliberately exposes **no send-now control**. Provider staging and scheduling do not bypass `NEWSLETTER_SENDING_ENABLED`; the server-side sending kill switch remains authoritative. The backend has an authenticated, allowlisted test-delivery function, but adding or exposing a corresponding panel control should not weaken the separate test-send kill switch or allowlist.
 
 ## Resend issue lifecycle
 
@@ -194,6 +220,7 @@ The older provider-neutral `NewsletterTransport`/atomic claim infrastructure rem
 - The protected newsletter operations panel is admin-only and remains unusable until both newsletter admin secrets are configured.
 - `NEWSLETTER_SIGNUPS_ENABLED` remains off until signup UI and provider configuration are approved.
 - `NEWSLETTER_SENDING_ENABLED` remains off until the sender/domain/list are approved.
+- `NEWSLETTER_TEST_SENDS_ENABLED` remains off until a verified Resend sender and explicit `NEWSLETTER_TEST_RECIPIENTS` allowlist are configured.
 - Resend credentials/domain/segment/webhook still require provider-side setup.
 - The protected panel has no send-now control and does not arm sending.
 - No newsletter will send merely because these files are deployed.

@@ -21,6 +21,10 @@ const scheduleSchema = z.object({
   issueId: z.string().uuid(),
   scheduledFor: z.string().datetime({ offset: true }),
 });
+const testSendSchema = z.object({
+  issueId: z.string().uuid(),
+  recipient: z.string().trim().email().max(320),
+});
 
 function privateNoStore() {
   setResponseHeaders(new Headers({
@@ -134,6 +138,14 @@ export const stageNewsletterAdminIssueInResend = createServerFn({ method: 'POST'
     await authorize();
     const { publishNewsletterIssueToResend } = await import('./newsletter-resend.server');
     return publishNewsletterIssueToResend(data.issueId, { send: false });
+  });
+
+export const sendNewsletterAdminTestIssue = createServerFn({ method: 'POST' })
+  .inputValidator(testSendSchema)
+  .handler(async ({ data }) => {
+    await authorize();
+    const { sendNewsletterTestIssue } = await import('./newsletter-test-send.server');
+    return sendNewsletterTestIssue(data.issueId, data.recipient);
   });
 
 export const sendOrScheduleNewsletterAdminIssue = createServerFn({ method: 'POST' })
