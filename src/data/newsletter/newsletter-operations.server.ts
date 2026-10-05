@@ -1,6 +1,7 @@
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { resendNewsletterConfirmationConfigured } from './newsletter-confirmation.server';
 import { getNewsletterInfrastructureStats } from './newsletter.server';
+import { getNewsletterTestDeliveryReadiness } from './newsletter-test-send.server';
 
 type NewsletterClient = {
   from: (table: string) => any;
@@ -38,6 +39,7 @@ export function getNewsletterRuntimeReadiness() {
   const doubleOptInReady = !doubleOptIn || confirmationConfigured;
   const missingRuntimeBindings = requiredNewsletterRuntimeBindings.filter((key) => !process.env[key]?.trim());
   const resendConfigured = missingRuntimeBindings.length === 0;
+  const testDelivery = getNewsletterTestDeliveryReadiness();
 
   return {
     signupsEnabled,
@@ -47,6 +49,7 @@ export function getNewsletterRuntimeReadiness() {
     doubleOptInReady,
     resendConfigured,
     missingRuntimeBindings,
+    testDelivery,
     activationBlocked:
       (sendingEnabled && !resendConfigured)
       || (signupsEnabled && !doubleOptInReady),
