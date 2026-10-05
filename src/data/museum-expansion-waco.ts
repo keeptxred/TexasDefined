@@ -94,7 +94,7 @@ export const wacoMuseumDestinations: Destination[] = [
     officialUrl: "https://mayborn.web.baylor.edu/visit",
     managingAuthority: "Baylor University",
     address: "1300 S University Parks Dr, Waco, TX 76706",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-05",
   },
   {
     id: "museum-expansion-armstrong-browning-waco",
