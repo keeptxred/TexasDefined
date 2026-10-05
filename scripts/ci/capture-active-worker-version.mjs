@@ -103,6 +103,12 @@ export function evaluateCapturedVersion(phase, versionId, state, exactDeployedVe
   return { capturedVersion: null, detail: `Cloudflare reports ${versionId} active, but this run deployed ${expectedVersion || 'an unknown version'}.` };
 }
 
+export function supersedingActiveVersion(phase, versionId, state, exactDeployedVersion = null) {
+  if (phase !== 'post-deploy' || !versionId || !uuidPattern.test(versionId)) return null;
+  if (versionId === state?.baselineVersion || versionId === exactDeployedVersion) return null;
+  return versionId;
+}
+
 async function captureViaCloudflareApi() {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID?.trim();
   const token = process.env.CLOUDFLARE_API_TOKEN?.trim();
@@ -140,6 +146,7 @@ async function main() {
   const state = readState();
   const phase = !state?.baselineVersion ? 'baseline' : !state?.deployedVersion ? 'post-deploy' : 'post-verification';
   let exactDeployedVersion = null;
+  let supersededBy = null;
   if (phase === 'post-deploy') {
     const parsedDeploy = captureWranglerDeployedVersion();
     if (!parsedDeploy.versionId) {
@@ -153,22 +160,33 @@ async function main() {
   let lastDetail = null;
   // Final version capture is bookkeeping after both blocking runtime gates have passed.
   // Re-querying Cloudflare here creates a race with queued production deployments and can
-  // turn a healthy deployment red after verification. The exact version was already
-  // captured from Wrangler and required to become active in the post-deploy phase.
+  // turn a healthy deployment red after verification. The effective active production
+  // version was already captured in the post-deploy phase and then exercised by live checks.
   if (phase === 'post-verification') {
     if (state?.deployedVersion && uuidPattern.test(state.deployedVersion)) {
       capturedVersion = state.deployedVersion;
-      console.log(`Using the already verified Wrangler-deployed Worker version for final bookkeeping: ${capturedVersion}`);
+      console.log(`Using the already verified effective production Worker version for final bookkeeping: ${capturedVersion}`);
     } else {
-      lastDetail = 'The run state does not contain a valid exact Wrangler-deployed Worker version.';
+      lastDetail = 'The run state does not contain a valid effective production Worker version.';
     }
   }
   for (let attempt = 1; !capturedVersion && attempt <= maxAttempts; attempt += 1) {
     const { versionId, detail } = await captureActiveVersion();
     lastDetail = detail;
     const evaluated = evaluateCapturedVersion(phase, versionId, state, exactDeployedVersion);
-    if (evaluated.capturedVersion) capturedVersion = evaluated.capturedVersion;
-    else if (evaluated.detail) lastDetail = evaluated.detail;
+    if (evaluated.capturedVersion) {
+      capturedVersion = evaluated.capturedVersion;
+    } else {
+      const supersedingVersion = supersedingActiveVersion(phase, versionId, state, exactDeployedVersion);
+      if (supersedingVersion) {
+        capturedVersion = supersedingVersion;
+        supersededBy = supersedingVersion;
+        lastDetail = null;
+        console.log(`::warning title=Worker deployment superseded before identity capture::This run created ${exactDeployedVersion}, but Cloudflare already reports ${supersedingVersion} as the 100% active production Worker. Continuing with the active version as the effective production identity; live runtime checks remain authoritative.`);
+      } else if (evaluated.detail) {
+        lastDetail = evaluated.detail;
+      }
+    }
     if (capturedVersion) break;
     if (attempt < maxAttempts) {
       console.log(`Worker version ${phase} check has not converged (attempt ${attempt}/${maxAttempts}): ${String(lastDetail || 'no deterministic active version yet').trim()}`);
@@ -177,7 +195,7 @@ async function main() {
   }
   if (!capturedVersion) {
     const title = phase === 'baseline' ? 'Unable to capture active Worker rollback target' : phase === 'post-verification' ? 'Verified Worker bookkeeping state is invalid' : 'Exact Wrangler deployed Worker did not become active';
-    const fallbackDetail = phase === 'baseline' ? rollbackTargetFailure : phase === 'post-verification' ? 'The exact Wrangler-deployed Worker version was not retained in this run state.' : `Cloudflare did not report Wrangler-deployed Worker ${exactDeployedVersion || 'unknown'} active before the bounded retry window expired.`;
+    const fallbackDetail = phase === 'baseline' ? rollbackTargetFailure : phase === 'post-verification' ? 'The effective production Worker version was not retained in this run state.' : `Cloudflare did not report Wrangler-deployed Worker ${exactDeployedVersion || 'unknown'} active before the bounded retry window expired.`;
     console.error(`::error title=${title}::${String(lastDetail || fallbackDetail).trim()}`);
     process.exit(1);
   }
@@ -187,16 +205,27 @@ async function main() {
       console.error(`::error title=Unable to prepare deterministic Wrangler deploy capture::${String(error)}`);
       process.exit(1);
     }
-    writeState({ baselineVersion: capturedVersion, deployedVersion: null });
+    writeState({ baselineVersion: capturedVersion, deployedVersion: null, wranglerDeployedVersion: null, supersededBy: null });
   } else if (phase === 'post-deploy') {
-    writeState({ baselineVersion: state.baselineVersion, deployedVersion: exactDeployedVersion });
+    writeState({
+      baselineVersion: state.baselineVersion,
+      deployedVersion: capturedVersion,
+      wranglerDeployedVersion: exactDeployedVersion,
+      supersededBy,
+    });
   }
   if (!outputPath) {
     console.error('::error title=Missing GITHUB_OUTPUT::Worker version capture requires GitHub Actions output support.');
     process.exit(1);
   }
   appendFileSync(outputPath, `version_id=${capturedVersion}\n`);
-  if (summaryPath) appendFileSync(summaryPath, `| Worker version ${phase} | \`${capturedVersion}\` |\n`);
+  if (phase === 'post-deploy') {
+    appendFileSync(outputPath, `wrangler_version_id=${exactDeployedVersion}\n`);
+    appendFileSync(outputPath, `superseded=${supersededBy ? 'true' : 'false'}\n`);
+  }
+  if (summaryPath) {
+    appendFileSync(summaryPath, `| Worker version ${phase} | \`${capturedVersion}\`${supersededBy ? ` (superseded this run's \`${exactDeployedVersion}\`)` : ''} |\n`);
+  }
   console.log(`Captured ${phase} Worker version: ${capturedVersion}`);
 }
 
