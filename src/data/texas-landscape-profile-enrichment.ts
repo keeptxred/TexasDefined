@@ -214,6 +214,10 @@ const enhancements: Record<string, LandscapeProfileEnhancement> = {
     sourceLinks: [
       { label: "Texas Water Development Board — River Basins & Reservoirs", href: TWDB_RIVERS_RESERVOIRS },
       { label: "Texas Water Development Board — Texas water conditions", href: TWDB_WATER_CONDITIONS },
+      { label: "Texas Parks & Wildlife — River habitats", href: "https://tpwd.texas.gov/landwater/water/habitats/rivers/" },
+      { label: "USGS — Texas real-time water data", href: "https://waterdata.usgs.gov/tx/nwis/rt" },
+      { label: "USGS Water Science School — Rivers, streams and creeks", href: "https://www.usgs.gov/special-topics/water-science-school/science/rivers-streams-and-creeks" },
+      { label: "National Park Service — Rio Grande Wild & Scenic River", href: "https://www.nps.gov/rigr/index.htm" },
     ],
   },
   "lakes-and-reservoirs": {
