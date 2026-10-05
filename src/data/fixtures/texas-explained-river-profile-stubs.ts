@@ -7,6 +7,7 @@ const riverStub = (
   hero: Article["hero"],
   sourceUrl: string,
   tags: string[],
+  readingMinutes: number,
 ): Article => ({
   id: `evergreen-${slug}`,
   brandId: "texasdefined",
@@ -17,7 +18,8 @@ const riverStub = (
   hero,
   authorId: "a-marisol",
   publishedAt: "2026-08-16",
-  readingMinutes: 10,
+  updatedAt: "2026-10-05",
+  readingMinutes,
   tags,
   featured: false,
   sourceName: "Texas Water Development Board",
@@ -29,38 +31,42 @@ const riverStub = (
 
 export const texasBrazosRiverGuideStub = riverStub(
   "texas-brazos-river-guide",
-  "The Brazos River Explained: The Texas Basin With the Biggest Flow",
-  "The Brazos crosses an enormous slice of Texas from the Rolling Plains to the Gulf. Its tributaries, reservoirs and changing water demands help explain farming, cities, floodplains and the state's surface-water map.",
+  "Brazos River Guide: History, Reservoirs, Fishing & Places to Visit",
+  "Follow the Brazos from its West Texas forks to the Gulf, with major reservoirs, tributaries, wildlife, history, recreation, floodplain geography and the best places to experience the river.",
   { src: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg", alt: "Open water and wooded shoreline in the Brazos River basin", width: 1600, height: 1067 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/brazos/index.asp",
   ["Brazos River", "Brazos River basin", "Texas rivers", "Texas water", "Texas geography", "TWDB"],
+  22,
 );
 
 export const texasColoradoRiverGuideStub = riverStub(
   "texas-colorado-river-guide",
-  "The Colorado River Explained: The Texas River That Runs Through Austin",
-  "Texas' Colorado River begins far west of Austin and runs entirely within the state to Matagorda Bay. Its long, relatively dry basin and chain of reservoirs show why river length and water yield are not the same thing.",
+  "Texas Colorado River Guide: Highland Lakes, Austin, History & Things to Do",
+  "Follow Texas' Colorado River from West Texas through the Highland Lakes and Austin to Matagorda Bay, with reservoirs, tributaries, recreation, ecology, flood history and places to visit.",
   { src: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg", alt: "Limestone river channel and flowing water in the Colorado River basin", width: 1600, height: 1067 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/colorado/",
   ["Colorado River Texas", "Colorado River basin", "Highland Lakes", "Texas rivers", "Austin water", "TWDB"],
+  20,
 );
 
 export const texasGuadalupeRiverGuideStub = riverStub(
   "texas-guadalupe-river-guide",
-  "The Guadalupe River Explained: Springs, Canyon Lake and a Hill Country River",
-  "The Guadalupe begins in the Hill Country, receives important spring-fed tributaries and flows toward San Antonio Bay. Its basin makes the groundwater-surface-water connection unusually easy to see.",
+  "Guadalupe River Guide: Hill Country, Canyon Lake, Tubing, Fishing & History",
+  "Follow the Guadalupe from Kerr County springs and cypress-lined Hill Country reaches through Canyon Lake, New Braunfels, Seguin and the coastal plain to San Antonio Bay.",
   { src: "/images/editorial/texas-guadalupe-river.jpg", alt: "Clear Guadalupe River flowing beneath mature cypress trees", width: 1600, height: 1115 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/guadalupe/index.asp",
   ["Guadalupe River", "Guadalupe River basin", "Canyon Lake", "Texas Hill Country", "Texas springs", "TWDB"],
+  20,
 );
 
 export const texasTrinityRiverGuideStub = riverStub(
   "texas-trinity-river-guide",
-  "The Trinity River Explained: The River System Behind Dallas-Fort Worth",
-  "The Trinity River basin is entirely inside Texas and sits beneath much of Dallas-Fort Worth's water story. Its forks, reservoirs and downstream exports connect a major metro area with the Gulf Coast.",
+  "Trinity River Guide: Dallas-Fort Worth, Reservoirs, Wildlife & Gulf Coast",
+  "Follow the Trinity River system from its North Texas forks through Dallas-Fort Worth, East Texas reservoirs and bottomland forests to Trinity Bay, with water supply, flooding, recreation and history.",
   { src: "/images/editorial/texas-trinity-river.jpg", alt: "Reservoir shoreline and open water in the upper Trinity River basin", width: 1600, height: 1067 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/trinity/index.asp",
   ["Trinity River", "Trinity River basin", "Dallas Fort Worth water", "Texas rivers", "Texas reservoirs", "TWDB"],
+  20,
 );
 
 export const texasRioGrandeGuideStub = riverStub(
@@ -70,6 +76,7 @@ export const texasRioGrandeGuideStub = riverStub(
   { src: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg", alt: "Blue reservoir water and arid canyon landscape in the Rio Grande basin", width: 1600, height: 1067 },
   "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/riogrande/",
   ["Rio Grande", "Rio Grande Texas", "Big Bend", "Amistad Reservoir", "Falcon Reservoir", "Lower Rio Grande Valley", "Texas rivers", "Texas borderlands"],
+  24,
 );
 
 export const texasExplainedRiverProfileStubs: Article[] = [
