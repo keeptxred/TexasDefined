@@ -12,39 +12,209 @@ const reservoirsLink = { href: "/article/texas-lakes-reservoirs-explained", labe
 
 export const texasBrazosRiverGuideArticle: Article = {
   id: "evergreen-texas-brazos-river-guide", brandId: "texasdefined", slug: "texas-brazos-river-guide",
-  title: "The Brazos River Explained: The Texas Basin With the Biggest Flow",
-  dek: "The Brazos crosses an enormous slice of Texas from the Rolling Plains to the Gulf. Its tributaries, reservoirs and changing water demands help explain farming, cities, floodplains and the state's surface-water map.",
+  title: "Brazos River Guide: History, Reservoirs, Fishing & Places to Visit",
+  dek: "Follow the Brazos from its West Texas forks to the Gulf, with major reservoirs, tributaries, wildlife, history, recreation, floodplain geography and the best places to experience the river.",
   category: "lakes-rivers",
   hero: { src: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg", alt: "Open water and wooded shoreline in the Brazos River basin", width: 1600, height: 1067 },
-  authorId: "a-marisol", publishedAt: "2026-08-16", readingMinutes: 10,
-  tags: ["Brazos River", "Brazos River basin", "Texas rivers", "Texas water", "Texas geography", "TWDB"], featured: false,
+  authorId: "a-marisol", publishedAt: "2026-08-16", updatedAt: "2026-10-05", readingMinutes: 22,
+  tags: ["Brazos River", "Brazos River basin", "Texas rivers", "Texas water", "Texas geography", "Brazos history", "Brazos fishing", "Brazos reservoirs", "TWDB"], featured: false,
   sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/brazos/index.asp",
-  internalLinks: [riversLink, basinsLink, reservoirsLink, aquifersLink, collectionLink,
+  internalLinks: [
+    riversLink, basinsLink, reservoirsLink, aquifersLink, collectionLink,
+    { href: "/article/possum-kingdom-water-system-guide", label: "Possum Kingdom water system", description: "See how one of the Brazos' best-known reservoirs fits into the larger river system." },
+    { href: "/article/lake-whitney-water-system-guide", label: "Lake Whitney water system", description: "Follow the Brazos through one of its major Central Texas reservoirs." },
+    { href: "/state-park/brazos-bend-state-park", label: "Brazos Bend State Park", description: "Explore lower-basin wetlands, wildlife and floodplain habitat near Houston." },
+    { href: "/state-park/lake-whitney-state-park", label: "Lake Whitney State Park", description: "Plan a visit to limestone shoreline and open water on the middle Brazos." },
+    { href: "/state-park/lake-somerville-birch-creek-unit-state-park", label: "Lake Somerville State Park", description: "Camp, hike and paddle around a major reservoir in the Brazos basin." },
     { href: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/brazos/index.asp", label: "TWDB Brazos River Basin", description: "Official Texas Water Development Board basin overview, tributaries, reservoirs and water-supply context." },
-  ], relatedCollections: [], relatedDestinations: [],
+    { href: "https://www.brazos.org/", label: "Brazos River Authority", description: "Current basin operations, reservoirs, water-supply information and river-management resources." },
+    { href: "https://waterdata.usgs.gov/tx/nwis/rt", label: "USGS Texas water data", description: "Current river-stage and streamflow observations for gauges across Texas." },
+  ], relatedCollections: [], relatedDestinations: ["brazos-bend-state-park", "lake-somerville-birch-creek-unit-state-park", "lake-whitney-state-park"],
   body: [
-    p("The Brazos is one of the rivers that makes Texas look simple on a map and complicated on the ground. It begins where the Salt Fork and Double Mountain Fork meet in Stonewall County, then runs across a huge cross-section of the state before reaching the Gulf of Mexico. Along the way, the basin ties together dry western headwaters, farm country, fast-growing cities, major reservoirs and broad lower-river floodplains."),
-    h("Why the Brazos is such a big Texas river"),
-    p("The Texas Water Development Board identifies the Brazos as the second-largest river basin by area within Texas. The river itself is the state's third longest, and TWDB lists it as having the largest average annual flow volume of any Texas river. Those facts matter because length, drainage area and flow are three different ways to describe a river—and the Brazos is unusually important by all three."),
-    p("The basin is not just the main stem. It includes the Salt, Double Mountain and Clear forks, along with the Little, Leon, Navasota, Paluxy, Nolan, Lampasas and other rivers and creeks. Rain falling far from the Brazos itself can still become Brazos water if it falls inside that watershed."),
-    h("The upper basin and the groundwater connection"),
-    p("TWDB highlights a major pressure in the upper basin: increasing demand for surface water as groundwater supplies decline, particularly where the Ogallala Aquifer historically supplied much of the water. That is an important reminder that surface water and groundwater planning are not separate stories. When one source becomes less dependable, pressure can shift to another."),
-    h("Reservoirs turned the Brazos into a managed water system"),
-    p("The Brazos basin contains a long list of reservoirs, including Possum Kingdom Lake, Lake Whitney, Lake Waco, Lake Granbury, Lake Somerville and many others. They do not make the river artificial, but they do change how water is stored, released and used. Flood control, municipal supply, recreation and downstream needs all become part of the basin's modern operating system."),
-    p("That is why the Brazos is best understood as more than a scenic river corridor. The river connects infrastructure and communities across hundreds of miles. A reservoir in one part of the basin, a groundwater decline in another and urban demand somewhere downstream can all belong to the same statewide water story."),
-    h("What changes as the river crosses Texas"),
+    p("The Brazos is one of the best rivers for understanding Texas as a connected landscape. It begins at the confluence of the Salt Fork and Double Mountain Fork in Stonewall County, then crosses a huge sweep of the state before reaching the Gulf of Mexico near Freeport. Between those points, the Brazos links dry headwaters, working ranch country, reservoir chains, prairie, limestone country, college towns, historic settlements, broad floodplains and the humid coastal plain."),
+    p("A road map makes the Brazos look like one blue line. In reality, it is a basin: thousands of tributaries, lakes, flood-control structures, farms, cities, wetlands and groundwater systems that all influence the same river. To understand the Brazos, it helps to follow the river from upstream to downstream and notice how the landscape changes around it."),
+
+    h("Brazos River at a glance"),
     list(
-      "The western and upper basin is generally drier and more water-constrained than the lower basin.",
-      "Tributaries expand the drainage network long before water reaches the lower Brazos.",
-      "Reservoirs store water and alter the timing of downstream flows.",
-      "Agriculture, towns and metropolitan growth create different kinds of demand in different reaches.",
-      "The lower river eventually carries the basin's water toward the Gulf of Mexico."
+      "Source: the confluence of the Salt Fork and Double Mountain Fork in Stonewall County.",
+      "Mouth: the Gulf of Mexico on the upper Texas coast near Freeport.",
+      "Scale: one of Texas' largest river basins and one of the state's longest major rivers.",
+      "Major tributaries: Salt Fork, Double Mountain Fork, Clear Fork, Leon, Little, Lampasas, Navasota, Paluxy and Nolan, among many others.",
+      "Major reservoirs: Possum Kingdom, Granbury, Whitney, Waco and Somerville, plus many smaller impoundments across the basin.",
+      "Major landscapes: Rolling Plains, Cross Timbers, Central Texas limestone country, Blackland Prairie, Post Oak country and Gulf Coastal Plain.",
+      "Major uses: municipal water, agriculture, industry, flood management, recreation, fishing, wildlife habitat and historical settlement."
     ),
-    h("How to read the Brazos basin on a Texas map"),
-    p("A useful way to read the Brazos is to trace the tributaries first and the main stem second. The upper forks collect water across the western part of the basin, while rivers such as the Leon, Lampasas and Navasota expand the network farther east and south. Reservoirs then mark places where Texas has deliberately stored part of that moving water. Following those connections makes the basin easier to understand than treating each named river or lake as a separate feature."),
-    h("Why the Brazos matters beyond the riverbank"),
-    p("The Brazos helps explain why Texas water policy follows basins rather than political boundaries. It also shows why a river's identity is not one landscape. The same basin can include High Plains water concerns, Central Texas reservoirs and humid lower-river country."),
-    p("If you want to understand Texas as a connected physical system, the Brazos is one of the best examples. It takes water from a vast interior watershed and gathers tributaries, reservoirs, cities and farms into one route to the Gulf. The river is not just a line across Texas; it is an organizing system beneath a large part of the state."),
+
+    h("Why the Brazos matters so much"),
+    p("The Texas Water Development Board identifies the Brazos as the second-largest river basin by area within Texas. It is also one of the state's longest rivers and, by TWDB's long-term basin statistics, carries the largest average annual flow volume of any Texas river. Those measurements are not interchangeable. A river can be long but dry, or drain a large area without producing much runoff. The Brazos stands out because it ranks near the top by several measures at once."),
+    p("The Brazos also matters because it crosses so many different kinds of Texas. Conditions that affect the basin in the west are not the same as conditions near Waco, the Brazos Valley or the Gulf. Drought, groundwater decline, reservoir operations, urban growth and coastal flooding all belong to the same river system, even when they occur hundreds of miles apart."),
+
+    h("Where the Brazos begins"),
+    p("The modern main stem begins where the Salt Fork and Double Mountain Fork meet in Stonewall County. Those forks gather runoff from a broad, relatively dry part of northwest and west-central Texas. The upper basin receives less reliable rainfall than the lower basin, so water supply there depends heavily on the timing of storms, reservoir storage and the relationship between surface water and groundwater."),
+    p("This is also where the Brazos story connects to the Ogallala Aquifer and other groundwater systems. TWDB has long noted that declining groundwater availability can increase pressure on surface-water supplies. The practical lesson is simple: rivers and aquifers cannot be planned as completely separate resources. When groundwater becomes harder or more expensive to use, communities may look toward the river system for more supply."),
+
+    h("The upper Brazos: drier country and big distances"),
+    p("Upstream of the Cross Timbers, the basin feels different from the Brazos most people picture near College Station or Richmond. Rainfall is lower, tributaries can be intermittent or flashy, and long stretches of ranch and farm country dominate the watershed. The channel can widen into sandy reaches, then tighten where geology changes."),
+    p("Floods still matter here. Dry-country rivers can rise quickly when intense thunderstorms hit the right part of a watershed. Because the upper basin is large, a storm far from the main river can send water downstream through a fork or tributary before communities on the main stem see the rise."),
+
+    h("Possum Kingdom: the Brazos becomes a reservoir landscape"),
+    p("Possum Kingdom Lake is one of the Brazos' most recognizable transformations. The reservoir sits behind Morris Sheppard Dam in a rugged section of the river west of Mineral Wells. Steep limestone and sandstone country, cliffs, coves and deep open water make the landscape look very different from the sandy upper river."),
+    p("For recreation, Possum Kingdom is known for boating, fishing, camping and dramatic shoreline scenery. For the river system, it is storage and infrastructure: water held behind a dam, released according to operating needs and passed downstream into the next reaches of the Brazos."),
+    { type: "image", image: { src: "/images/state-parks/lake-mineral-wells-state-park.jpg", alt: "Rocky Cross Timbers landscape near the middle-upper Brazos basin", width: 1600, height: 900, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" }, caption: "The Brazos crosses rugged Cross Timbers country before continuing toward the larger Central Texas reservoir system." },
+
+    h("Lake Granbury and the growing middle basin"),
+    p("Farther downstream, Lake Granbury creates another major reservoir reach. Around Granbury, the Brazos is part water-supply system, part recreation corridor and part real-estate landscape. Homes, marinas and local tourism sit directly beside infrastructure that also helps regulate water in the basin."),
+    p("This section demonstrates a recurring Brazos pattern: the river often becomes most visible to the public where it has been impounded. The named lake may feel like a separate destination, but hydrologically it remains part of the same river moving toward the Gulf."),
+
+    h("Lake Whitney: limestone country on the Brazos"),
+    p("Lake Whitney is one of the major Central Texas reservoirs on the Brazos. Limestone bluffs, broad water and state-park access make it one of the easiest places to see the river as both a natural corridor and a managed reservoir."),
+    p("Lake Whitney State Park provides camping, shoreline access, swimming areas when conditions allow, paddling and fishing opportunities. Visitors should still check current park notices, lake levels, weather and water conditions rather than assuming every shoreline area is open or safe year-round."),
+    { type: "image", image: { src: "/images/state-parks/lake-whitney-state-park.jpg", alt: "Lake Whitney shoreline and open water on the Brazos River", width: 1600, height: 900, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" }, caption: "At Lake Whitney, the Brazos becomes broad reservoir water framed by Central Texas limestone country." },
+
+    h("Waco: where the Brazos becomes an urban river"),
+    p("At Waco, the Brazos moves through one of the river's best-known urban reaches. Bridges, trails, parks and the confluence area with the Bosque system make the river a visible part of the city instead of a distant boundary or reservoir shoreline."),
+    p("The Waco reach also shows why river cities are shaped by both access and risk. The river supported settlement, movement and commerce, but the same floodplain that creates fertile land can become dangerous during major rises. Modern levees, dams, forecasts and reservoir operations reduce some risks, but no infrastructure removes flood risk completely."),
+
+    h("The Little, Leon and Lampasas systems enlarge the basin"),
+    p("The middle Brazos is fed by major tributary networks that drain large parts of Central Texas. The Leon and Lampasas combine through the Little River system, connecting the Brazos to landscapes around Temple, Belton, Killeen and the surrounding counties. These tributaries matter for water supply, flood behavior, habitat and reservoir operations."),
+    p("Following tributaries on a map makes the basin easier to understand. Water that enters the Little River far from the Brazos main stem can eventually reach the same channel downstream. That is why watershed boundaries matter more than county lines when talking about river management."),
+
+    h("The Navasota River and Lake Somerville"),
+    p("Farther southeast, the Navasota River joins the Brazos after draining a broad part of east-central Texas. Lake Somerville sits within this larger tributary network and is one of the basin's major recreation and storage landscapes."),
+    p("Lake Somerville State Park's Birch Creek and Nails Creek units give visitors access to camping, hiking, horseback riding, paddling, fishing and shoreline habitat. The lake is especially useful for understanding that the Brazos basin is not just the main river: tributary reservoirs can be central parts of the same water system."),
+    { type: "image", image: { src: "/images/state-parks/lake-somerville-birch-creek-unit-state-park.jpg", alt: "Lake Somerville shoreline and woodland in the Brazos River basin", width: 1600, height: 900, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" }, caption: "Lake Somerville sits on a Brazos tributary system and shows how reservoirs throughout the watershed are connected to the main river." },
+
+    h("College Station, Bryan and the Brazos Valley"),
+    p("The phrase Brazos Valley usually refers to the region around Bryan, College Station and nearby counties where the river is a defining geographic feature even when it does not run through the middle of every community. Here the basin shifts into a greener landscape with more reliable rainfall, larger tributaries and a long history of agriculture and settlement."),
+    p("The river's broad floodplain becomes more visible in this part of Texas. Flat land near the channel can be productive, but it is also land the river may reclaim during major floods. That tension—fertile floodplain versus flood exposure—is part of the Brazos story all the way to the coast."),
+
+    h("Washington-on-the-Brazos and the river's historical importance"),
+    p("The Brazos is inseparable from the story of early Anglo-American settlement and the Republic of Texas. Washington-on-the-Brazos, where the Texas Declaration of Independence was adopted in 1836, sits near the river. The river corridor also connected farms, plantations, ferries, towns and trade routes through the nineteenth century."),
+    p("Long before those events, Indigenous peoples lived, traveled and traded through the basin. The Brazos name itself is tied to Spanish colonial-era naming, and the river became a geographic reference point on maps long before modern dams or highways existed."),
+    p("A useful way to read Brazos history is to avoid treating the river as background scenery. It was transportation, boundary, water source, flood hazard and settlement corridor. Communities grew where crossings, ferries and fertile land made the river useful, even though floods regularly reminded settlers that the channel could not be controlled."),
+
+    h("The plantation and cotton era changed the lower Brazos"),
+    p("In the nineteenth century, the lower Brazos became one of the most important agricultural corridors in Texas. Enslaved labor supported cotton and sugar production on plantations across parts of the lower valley, especially where fertile alluvial soils made large-scale agriculture profitable."),
+    p("That history remains important to understanding the landscape. Broad floodplains, old settlement patterns, historic plantation sites and transportation routes are all connected to the river's economic role. A complete Brazos guide should acknowledge that prosperity along the lower river was often built through slavery and later systems of unequal labor and land ownership."),
+
+    h("Why the Brazos floods"),
+    p("The Brazos drains an enormous area, and the basin can receive very different weather at the same time. Multi-day rain across Central and Southeast Texas, tropical systems near the coast, or concentrated storms over tributaries can all raise the river."),
+    p("Flooding becomes especially serious on the broad lower floodplain, where the channel has room to spread beyond its banks. Reservoirs and flood-control projects can reduce some peaks, but they do not make the river flood-proof. Anyone living, camping or traveling near the Brazos should use current National Weather Service forecasts, local emergency information and USGS river gauges during wet weather."),
+
+    h("The lower Brazos: wider, slower and more coastal"),
+    p("Below the Brazos Valley, the river crosses a lower, flatter landscape toward Richmond, Rosenberg and Fort Bend County before continuing to the Gulf. Here the river is wider, the floodplain broadens and the surrounding environment becomes more humid."),
+    p("Levees, agriculture, suburban growth, roads and industry all compete for space near the lower river. The river still carries sediment, shifts within its floodplain over long periods and responds to major storms. Development can make the landscape look fixed, but the underlying river system remains dynamic."),
+
+    h("Brazos Bend State Park: lower-basin wildlife without standing on the main channel"),
+    p("Brazos Bend State Park protects wetlands, lakes, bottomland forest and prairie near the lower Brazos. The park is famous for alligators and birdlife, but its real value in this guide is ecological: it shows the kind of wetland and floodplain habitat associated with the lower basin."),
+    p("Visitors should not confuse the park's lakes with the Brazos main stem. The park sits within the larger lower-basin landscape and provides an accessible way to see floodplain ecology, especially for travelers coming from Houston."),
+    { type: "image", image: { src: "/images/state-parks/brazos-bend-state-park.jpg", alt: "Wetland habitat at Brazos Bend State Park in the lower Brazos basin", width: 1600, height: 1280, credit: "Mike Fisher · CC BY 2.0 · Wikimedia Commons" }, caption: "The lower Brazos basin supports wetlands and bottomland habitat that look nothing like the drier upper reaches." },
+
+    h("Where the Brazos reaches the Gulf"),
+    p("The Brazos reaches the Gulf of Mexico near Freeport on the upper Texas coast. By this point, water from a vast interior basin has passed through forks, tributaries, reservoirs, cities, farms and floodplains before entering a coastal environment shaped by tides, sediment, storms and industry."),
+    p("The mouth is not just an endpoint on a map. It is where the river's sediment, freshwater and nutrients meet the coastal system. Changes far upstream can therefore have downstream consequences for estuarine and Gulf environments."),
+
+    h("Why the Brazos looks brown"),
+    p("River color changes with flow, sediment, algae, depth, wind and recent rainfall. The Brazos often carries suspended sediment, especially during or after runoff events, which can give the water a tan or brown appearance. That does not automatically mean the water is polluted."),
+    p("At the same time, color alone cannot tell you whether water is safe for swimming or drinking. Bacteria, contaminants, harmful algal blooms and other hazards are not reliably visible. Use local health advisories and current agency information before making water-contact decisions."),
+
+    h("Can you swim in the Brazos?"),
+    p("There is no single yes-or-no answer for the entire river. Some reservoir parks maintain designated swimming areas when conditions permit. Other reaches may have strong current, submerged debris, steep banks, private property, poor access, bacterial concerns or rapidly changing water levels."),
+    p("The safest approach is to treat swimming as a site-specific decision. Use designated public access where possible, obey posted warnings, avoid flood conditions and never assume that a calm-looking main-stem reach is safe simply because the surface appears smooth."),
+
+    h("Can you kayak or canoe the Brazos?"),
+    p("Yes, many stretches of the Brazos and its reservoirs are paddled, but conditions vary enormously. Reservoir shorelines can be exposed to wind and boat traffic, while river reaches may contain low-water hazards, snags, strong current or difficult access."),
+    p("Texas public-water law can be complicated, and access points matter. Do not assume that every bridge crossing or riverbank provides lawful public entry. Plan around established public parks, paddling access, marinas and other clearly authorized locations, and check current flow before launching."),
+
+    h("Fishing the Brazos"),
+    p("Fishing opportunities change by reach. Reservoirs such as Possum Kingdom, Whitney, Waco and Somerville support established recreational fisheries, while the river itself contains channel catfish, flathead catfish, gar, freshwater drum, sunfish and other species depending on location and habitat."),
+    p("Species regulations, bag limits, consumption advisories and access rules can change. Use current Texas Parks and Wildlife information for the specific lake or river reach you plan to fish rather than relying on a statewide summary."),
+
+    h("Wildlife along the Brazos"),
+    p("The basin is too large for a single wildlife list. Upper reaches support species associated with open ranch country and drier grasslands. Central reaches add Cross Timbers and prairie habitat. Lower reaches support bottomland forest, wetlands, alligators, wading birds and migratory species."),
+    list(
+      "Birds: herons, egrets, kingfishers, raptors, waterfowl and seasonal migrants.",
+      "Mammals: white-tailed deer, raccoons, bobcats, coyotes, beavers and river otters in suitable habitat.",
+      "Reptiles: turtles, snakes and American alligators in the lower basin.",
+      "Fish: catfish, gar, drum, sunfish and reservoir sport fish depending on the reach.",
+      "Floodplain habitat: oxbows, wetlands, riparian woodland and sandbars that change as water levels rise and fall."
+    ),
+
+    h("Best places to experience the Brazos basin"),
+    list(
+      "Possum Kingdom Lake — best for dramatic reservoir scenery, boating and understanding the river in rugged Cross Timbers country.",
+      "Lake Whitney State Park — best for a public campground-and-lake experience on the middle Brazos.",
+      "Waco — best for seeing the Brazos as an urban river with bridges, parks and trails.",
+      "Washington-on-the-Brazos — best for connecting the river to Texas independence history.",
+      "Lake Somerville State Park — best for seeing a major tributary reservoir within the larger Brazos system.",
+      "Brazos Bend State Park — best for lower-basin wetlands, alligators and birding near Houston.",
+      "Richmond and Fort Bend County — best for seeing how the lower river meets one of Texas' fastest-growing suburban regions.",
+      "Freeport area — best for understanding where the river completes its trip to the Gulf."
+    ),
+
+    h("A three-day Brazos road-trip idea"),
+    p("Day one: start around Possum Kingdom or Mineral Wells to see the rugged upper-middle basin. Spend time on overlooks, reservoir shoreline and the Cross Timbers landscape."),
+    p("Day two: continue toward Lake Whitney and Waco. Visit Lake Whitney State Park, then follow the Brazos into Waco for an urban-river contrast. If time allows, continue southeast toward the Brazos Valley."),
+    p("Day three: visit Washington-on-the-Brazos, then continue toward the lower basin. For wildlife, detour to Brazos Bend State Park; for the river's final chapter, continue toward Fort Bend County and the coast near Freeport. This is a long route, so it works best as a sampler rather than an attempt to trace every mile."),
+
+    h("When to visit"),
+    list(
+      "Spring: green landscapes, active wildlife and generally comfortable temperatures, but thunderstorms can raise river levels quickly.",
+      "Summer: best for lake recreation when heat is manageable, but midday temperatures can be dangerous and open-water storms can build fast.",
+      "Fall: often one of the best all-around seasons for camping, hiking and paddling because temperatures are lower and weather can be more stable.",
+      "Winter: good for birding and quieter parks, though cold fronts and strong winds can make reservoir conditions rough."
+    ),
+
+    h("What to check before a river trip"),
+    list(
+      "USGS gauges for current river stage and streamflow.",
+      "National Weather Service forecasts and flood warnings.",
+      "Texas Parks and Wildlife park closures, fishing rules and water-contact notices where applicable.",
+      "Reservoir operators for lake levels, releases and access changes.",
+      "Local public-access rules before launching, swimming or entering riverbanks.",
+      "Heat, lightning and wind forecasts; Texas river trips can become dangerous even when water levels look normal."
+    ),
+
+    h("Brazos River history in a short timeline"),
+    list(
+      "Before European colonization: Indigenous peoples live, travel, hunt and trade throughout the watershed.",
+      "Spanish colonial period: the river appears in exploration, mission and mapping records and acquires the name Brazos.",
+      "1820s–1830s: Anglo-American settlement expands along the lower river and tributaries.",
+      "1836: delegates at Washington-on-the-Brazos declare Texas independence.",
+      "1800s: ferries, plantations, farms and towns develop along the river corridor; slavery is central to the lower-basin cotton and sugar economy.",
+      "1900s: major dams and reservoirs increasingly turn the river into a managed water-supply and flood-control system.",
+      "Today: the basin supports millions of people, major cities, agriculture, industry, recreation and critical wildlife habitat while facing drought, flood and growth pressures."
+    ),
+
+    h("How the Brazos compares with other Texas rivers"),
+    p("Compared with the Colorado, the Brazos drains a larger and generally wetter basin and carries more average annual flow. Compared with the Trinity, it crosses a broader slice of the state and reaches farther into drier western country. Compared with the Rio Grande, the Brazos is not an international boundary and receives more runoff from humid parts of Texas."),
+    p("Those comparisons are useful because they show why Texas rivers cannot be ranked by a single number. Length, basin area, water yield, reservoir storage, ecological value and population served all tell different stories."),
+
+    h("Frequently asked questions about the Brazos River"),
+    h("Where does the Brazos River start?"),
+    p("The main Brazos begins at the confluence of the Salt Fork and Double Mountain Fork in Stonewall County. Those forks drain a broad area of northwest and west-central Texas."),
+    h("Where does the Brazos River end?"),
+    p("The Brazos reaches the Gulf of Mexico near Freeport on the upper Texas coast."),
+    h("Why is the Brazos River brown?"),
+    p("Suspended sediment often gives the Brazos a tan or brown appearance, especially after runoff. Color by itself does not tell you whether the water is safe or polluted."),
+    h("Can you swim in the Brazos River?"),
+    p("Swimming safety depends on the exact location, current, access, recent weather and water-quality conditions. Use designated public swimming areas where available and obey current advisories."),
+    h("Can you kayak the Brazos River?"),
+    p("Yes, many reaches are paddled, but access, flow, hazards and distance between take-outs vary. Check river gauges and use established public access points."),
+    h("What are the biggest lakes on the Brazos?"),
+    p("Possum Kingdom, Granbury, Whitney, Waco and Somerville are among the best-known major reservoirs in the Brazos basin, along with numerous additional lakes on tributaries."),
+    h("What cities are on or near the Brazos?"),
+    p("Waco, the Bryan–College Station region, Richmond, Rosenberg and communities near the lower river are among the best-known population centers connected to the Brazos. Many other towns sit on tributaries or reservoirs within the basin."),
+    h("Does the Brazos River flood?"),
+    p("Yes. The Brazos has a long flood history, especially across the broad lower floodplain. Reservoirs and levees reduce some risks but do not eliminate flooding."),
+    h("What fish live in the Brazos?"),
+    p("Catfish, gar, freshwater drum, sunfish and many other species occur in the river, while reservoirs support additional sport fisheries. Species mix changes by reach."),
+    h("What is the best place to see the Brazos?"),
+    p("For scenery, Possum Kingdom and Lake Whitney are strong choices. For history, Washington-on-the-Brazos is hard to beat. For wildlife near Houston, Brazos Bend State Park is one of the most accessible lower-basin destinations."),
+
+    h("The central Brazos lesson"),
+    p("The Brazos is not one landscape and not one kind of river. It is a dry-country headwater system, a chain of reservoirs, an urban river, a historic settlement corridor, an agricultural floodplain and a Gulf-bound coastal river at different points along the same route."),
+    p("That is what makes the Brazos one of the best geographic guides to Texas. Follow it from the western forks to the coast and you move through several different Texases while staying inside one watershed. The river connects them all."),
   ],
 };
 
