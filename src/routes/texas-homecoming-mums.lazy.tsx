@@ -1,12 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-import { TexasEvergreenGuide } from "@/components/editorial/TexasEvergreenGuide";
+import { TexasHomecomingMumsGuide } from "@/components/editorial/TexasHomecomingMumsGuide";
 
 export const Route = createLazyFileRoute("/texas-homecoming-mums")({
-  component: GuidePage,
+  component: TexasHomecomingMumsGuide,
 });
-
-function GuidePage() {
-  const guide = Route.useLoaderData();
-  return <TexasEvergreenGuide guide={guide} />;
-}
