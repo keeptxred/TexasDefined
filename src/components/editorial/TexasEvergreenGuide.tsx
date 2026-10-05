@@ -205,6 +205,37 @@ const guideSources: Partial<Record<string, { label: string; href: string; note: 
   ],
 };
 
+const homecomingMumGradeCards = [
+  { grade: "Freshman", note: "Usually school colors", detail: "Often a simpler single-flower design with shorter streamers and the school's normal palette." },
+  { grade: "Sophomore", note: "More personalization", detail: "Names, activities, charms and decorative ribbon work commonly become more prominent." },
+  { grade: "Junior", note: "Often more elaborate", detail: "Larger flowers, longer ribbons and denser activity details are common, while school colors still anchor the design." },
+  { grade: "Senior", note: "Often white + metallic", detail: "White with gold or silver is common at many schools, but it is a local tradition rather than a statewide rule." },
+];
+
+const homecomingMumFormats = [
+  { title: "Single mum", text: "One main flower with ribbons and personalized decorations." },
+  { title: "Double or triple", text: "Two or three flowers create a wider centerpiece and more room for braids, names and themed sections." },
+  { title: "Senior mum", text: "A class-year treatment, often using white with gold or silver accents depending on local custom." },
+  { title: "Garter", text: "An arm-worn counterpart that can use the same ribbons, names, charms and school-spirit details." },
+];
+
+const homecomingMumFaqs = [
+  ["What is a Texas homecoming mum?", "A decorated chrysanthemum-style centerpiece surrounded by ribbons, braids, bells, charms, names and school-spirit details, usually worn during high-school homecoming week."],
+  ["Why are Texas homecoming mums so big?", "The tradition evolved from simple corsages into highly personalized displays. Artificial materials, school-spirit culture and maker creativity made larger designs practical."],
+  ["Why are senior mums often white?", "Many Texas schools use white with gold or silver accents for seniors. It is common, not universal, and local school custom should control."],
+  ["What is the difference between a mum and a garter?", "A mum is usually worn from the shoulder or chest, while a garter is usually worn on the arm. Both can carry the same decorative language."],
+  ["Who buys a homecoming mum?", "There is no single modern rule. Dates, families and friends may order them, and many students or parents make their own."],
+  ["When do students wear homecoming mums?", "Usually during homecoming week, especially on the school day connected to the homecoming game, pep rally or spirit activities."],
+  ["Do girls have to wear mums and boys garters?", "No. That is an older convention, not a requirement. Modern practice is more flexible."],
+  ["How much does a homecoming mum cost?", "Cost varies widely. DIY materials may cost only tens of dollars, while custom designs can exceed $100 and elaborate pieces can cost several hundred dollars or more."],
+  ["How long does a homecoming mum take to make?", "A simple design can be assembled relatively quickly, while elaborate custom mums with braids, lettering, lights and layered decorations can take many hours."],
+  ["What do the ribbons and charms mean?", "They often represent school colors, class year, names, sports, band, cheer, drill team, clubs, mascots and personal interests. There is no statewide code."],
+  ["Can you make a homecoming mum yourself?", "Yes. DIY mum-making is a major part of the tradition. Start with a strong backing and flower, then add ribbons, braids, names and balanced decorations."],
+  ["How should a homecoming mum be stored?", "Keep it dry, support the backing, avoid crushing the ribbons, remove removable batteries and use a large box or shadow box for long-term preservation."],
+  ["Are giant homecoming mums only a Texas tradition?", "Homecoming corsages exist elsewhere, but the oversized ribbon-heavy mum is especially associated with Texas high-school culture."],
+  ["Do colleges use homecoming mums?", "The oversized tradition is most strongly associated with Texas high schools. College communities may reference it, but it is less standardized and widespread."],
+] as const;
+
 export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData }) {
   const canonicalUrl = `${siteUrl}/${guide.slug}`;
   const image = guideImages[guide.slug];
@@ -240,6 +271,7 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         articleSection: isFoodHistoryChild ? "Texas Food History" : "Things That Define Texas",
         ...(isMusicChild ? { articleSection: "Texas Music" } : {}),
         image: imageUrl,
+        ...(hasHomecomingMumSupplies ? { dateModified: "2026-10-05" } : {}),
         citation: sources.length ? sources.map((source) => source.href) : undefined,
         ...(isFoodHistoryChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-food-history#page`, name: "Texas Food History", url: `${siteUrl}/texas-food-history` } } : {}),
         ...(isMusicChild ? { isPartOf: { "@type": "CollectionPage", "@id": `${siteUrl}/texas-music#collection`, name: "Texas Music", url: `${siteUrl}/texas-music` } } : {}),
@@ -273,6 +305,15 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         "@id": `${canonicalUrl}#breadcrumb`,
         itemListElement: breadcrumbItems,
       },
+      ...(hasHomecomingMumSupplies ? [{
+        "@type": "FAQPage",
+        "@id": `${canonicalUrl}#faq`,
+        mainEntity: homecomingMumFaqs.map(([question, answer]) => ({
+          "@type": "Question",
+          name: question,
+          acceptedAnswer: { "@type": "Answer", text: answer },
+        })),
+      }] : []),
     ],
   };
 
@@ -322,6 +363,26 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
           <p className="mt-4 max-w-4xl text-base leading-8">{guide.quickAnswer}</p>
         </section>
 
+        {hasHomecomingMumSupplies ? <section className="border-b border-border py-10" aria-labelledby="mum-grade-guide">
+          <p className="eyebrow text-primary">At a glance</p>
+          <h2 id="mum-grade-guide" className="mt-2 font-display text-4xl">Grade-level traditions</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are common patterns, not statewide rules. Recent examples from the actual school should control color and size decisions.</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {homecomingMumGradeCards.map((card) => <div key={card.grade} className="border border-border p-5">
+              <p className="eyebrow text-primary">{card.note}</p>
+              <h3 className="mt-2 font-display text-2xl">{card.grade}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{card.detail}</p>
+            </div>)}
+          </div>
+          <h3 className="mt-8 font-display text-3xl">Mum or garter?</h3>
+          <div className="mt-4 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+            {homecomingMumFormats.map((format) => <div key={format.title} className="bg-background p-5">
+              <strong className="font-display text-2xl">{format.title}</strong>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{format.text}</p>
+            </div>)}
+          </div>
+        </section> : null}
+
         <div>
           {guide.sections.map((section, index) => <section key={section.heading} id={`${guide.slug}-section-${index + 1}`} className="scroll-mt-24 grid gap-6 border-b border-border py-10 lg:grid-cols-[12rem_minmax(0,1fr)]">
             <div>
@@ -341,6 +402,18 @@ export function TexasEvergreenGuide({ guide }: { guide: TexasEvergreenGuideData 
         </div>
         </div>
         {hasHomecomingMumSupplies ? <SchoolSupplyPartners className="homecoming-supply-bottom" context="homecoming" /> : null}
+
+        {hasHomecomingMumSupplies ? <section className="border-b border-border py-10" aria-labelledby="homecoming-mum-faq">
+          <p className="eyebrow text-primary">FAQ</p>
+          <h2 id="homecoming-mum-faq" className="mt-2 font-display text-4xl">Texas homecoming mum questions</h2>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Short answers to the questions that usually come up when someone encounters the tradition for the first time.</p>
+          <div className="mt-6 divide-y divide-border border-y border-border">
+            {homecomingMumFaqs.map(([question, answer]) => <details key={question} className="py-5">
+              <summary className="cursor-pointer list-none pr-8 font-display text-2xl leading-tight">{question}</summary>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{answer}</p>
+            </details>)}
+          </div>
+        </section> : null}
 
         {sources.length ? <section className="border-b border-border py-10" aria-labelledby="source-notes">
           <p className="eyebrow text-primary">Sources</p>

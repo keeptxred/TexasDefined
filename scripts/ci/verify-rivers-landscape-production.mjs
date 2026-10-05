@@ -3,7 +3,9 @@ const path = '/explore/landscapes/rivers-and-river-valleys';
 const requiredNeedles = [
   'Texas Rivers, Region by Region',
   'Spring-fed vs. runoff-driven rivers',
-  'Four river-valley features worth knowing',
+  'Thirteen rivers that explain Texas',
+  'Texas river valleys FAQ',
+  'Six river-valley features worth knowing',
 ];
 const forbiddenNeedles = [
   'Rock, water and living cover',

@@ -67,8 +67,14 @@ function buildHubHead() {
 function buildLandscapePageHead(item: (typeof enrichedTexasLandscapeProfiles)[number] | (typeof enrichedTexasLandscapeGuides)[number]) {
   const path = `/explore/landscapes/${item.slug}`;
   const isLandscape = 'name' in item;
-  const title = isLandscape ? `${item.name}: Texas Landscape Guide` : item.title;
-  const description = item.dek;
+  const title = isLandscape
+    ? item.slug === 'rivers-and-river-valleys'
+      ? 'Texas Rivers & River Valleys: Map, Basins & Geography'
+      : `${item.name}: Texas Landscape Guide`
+    : item.title;
+  const description = isLandscape && item.slug === 'rivers-and-river-valleys'
+    ? 'Explore Texas river basins, valleys, springs, floodplains, reservoirs, major river systems and the geology that shapes waterways from headwaters to the Gulf.'
+    : item.dek;
   const readyForIndexing = isTexasLandscapeIndexReady(item);
 
   return {

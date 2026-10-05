@@ -69,77 +69,159 @@ export const TEXAS_EVERGREEN_GUIDES_BATCH2: Record<string, TexasEvergreenGuide> 
   },
   "texas-homecoming-mums": {
     slug: "texas-homecoming-mums",
-    eyebrow: "Ribbon, bells and high-school tradition",
-    title: "Texas Homecoming Mums Explained: How a Small Flower Became Huge",
-    dek: "Texas homecoming mums grew from simple chrysanthemum corsages into elaborate wearable displays of school spirit, relationships, clubs, sports and local identity.",
-    quickAnswer: "A Texas homecoming mum is a decorated chrysanthemum-style centerpiece surrounded by ribbons, braids, bells, charms, lights and school colors, usually worn during high-school homecoming week. The tradition became especially elaborate in Texas, where modern mums can extend from shoulder to knee or beyond and act as personalized records of a student's activities and relationships.",
+    eyebrow: "Ribbon, bells and Texas school tradition",
+    title: "Texas Homecoming Mums",
+    dek: "How a chrysanthemum corsage became a giant wearable scrapbook of school colors, friendships, activities, class year and Texas homecoming culture.",
+    quickAnswer: "A Texas homecoming mum is a decorated chrysanthemum-style centerpiece surrounded by ribbons, braids, bells, charms, names and school-spirit details. It grew from a much smaller flower corsage into an elaborate keepsake, usually worn during high-school homecoming week. A related arm-worn version is called a garter. Traditions vary by school, so senior colors, size and exchange customs are conventions rather than statewide rules.",
     sections: [
       {
-        heading: "From flower to wearable scrapbook",
+        heading: "From flower corsage to wearable scrapbook",
         body: [
-          "The tradition began with a much simpler idea: a chrysanthemum corsage for homecoming. Over time, ribbons, streamers and decorative elements became more important than the live flower itself, and artificial flowers made it possible to build much larger designs.",
-          "Today's mum often functions like a wearable scrapbook. Names, jersey numbers, class year, clubs, activities and inside jokes can all appear in the same piece."
+          "Homecoming mums began as comparatively simple chrysanthemum corsages. Over time, ribbons, streamers and personalized decorations became as important as the flower, and artificial chrysanthemums made it practical to build larger pieces that could survive a full school day and be kept afterward.",
+          "The modern mum works less like a corsage and more like a wearable scrapbook. Names, jersey numbers, class year, clubs, band, cheer, drill team, sports, mascots, friendships and private jokes can all appear in one piece."
         ]
       },
       {
         heading: "Why Texas took the tradition so far",
         body: [
-          "Homecoming already sits at the intersection of football, school identity, marching bands, alumni traditions and social life. Texas high-school culture gives all of those things unusual visibility, so the mum had room to grow into something bigger and more personalized.",
-          "Its scale is part celebration and part friendly competition. Bigger does not automatically mean better, but the visual excess is now part of what makes the tradition recognizable."
+          "Homecoming already brings together football, marching band, cheer, drill team, alumni, pep rallies and school identity. In many Texas communities those activities occupy a large public role, giving the mum a natural place to become more visible and personalized.",
+          "Artificial flowers and craft materials removed the practical limits of a live corsage. Once the flower no longer had to survive as a flower, makers could add longer ribbons, multiple rosettes, stuffed mascots, lights, bells, lettering and entire themed sections."
         ],
-        links: [{ href: "/sports-venues/high-school-football", label: "Texas high-school football" }]
-      },
-      {
-        heading: "What all the ribbons and charms mean",
-        body: [
-          "There is no statewide code, but many designs use school colors, metallic accents and personalized ribbons to represent the wearer. Charms may reference sports, band, cheer, drill team, clubs, graduation year or a relationship.",
-          "Because each school develops its own habits, a mum can look immediately familiar to one Texas community and strangely different in another. That local variation is part of the tradition rather than a flaw in it."
+        links: [
+          { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined" },
+          { href: "/sports-venues/high-school-football", label: "Texas high-school football" }
         ]
       },
       {
-        heading: "Mums and garters",
+        heading: "Freshman, sophomore, junior and senior traditions",
         body: [
-          "The shoulder or chest-worn mum is the most famous form, while garters are traditionally worn on the arm and often associated with boys, though modern practice is much more flexible than older conventions.",
-          "Both forms can range from restrained to spectacular. A simple design may use a few ribbons and charms; elaborate versions can include multiple flowers, braided ribbons, stuffed mascots and electronic lights."
+          "Many Texas schools develop class-year customs around color and scale, but there is no statewide rulebook. Freshman, sophomore and junior mums commonly stay close to school colors, while senior mums at many schools shift toward white with gold or silver metallic accents.",
+          "That senior-color convention is widespread but not universal. Before ordering an expensive custom mum, use recent examples from the actual school and ask students, parents or the maker what the local tradition is."
+        ],
+        bullets: [
+          "Freshman: often a simpler single-flower design in school colors.",
+          "Sophomore: commonly adds more personalization, names, charms and decorative ribbon work.",
+          "Junior: often larger or more elaborate while still centered on school colors.",
+          "Senior: white with gold or silver accents is common in many communities, but local custom controls."
         ]
       },
       {
-        heading: "A real local craft economy",
+        heading: "What all the parts are doing",
         body: [
-          "The tradition supports florists, craft sellers, custom mum makers and families who build them at home. Materials are often purchased weeks in advance, and experienced makers develop recognizable techniques for braids, lettering, layering and balancing the finished piece.",
-          "That makes homecoming mums more than school merchandise. They are also a seasonal Texas craft tradition with a strong do-it-yourself culture."
+          "The flower is only the visual center. The backing carries the load, ribbons create the color field, braids add craft detail, and charms turn the piece into a record of the wearer’s school life.",
+          "Bells, stuffed mascots and lights add movement and spectacle, but they also add weight. Good construction is as much about balance and attachment as decoration."
+        ],
+        bullets: [
+          "Backing: the structural base that carries the flower, ribbons and hardware.",
+          "Flower or rosette: the chrysanthemum-style visual center.",
+          "Ribbons: school colors, metallic accents, names, class year and messages.",
+          "Braids: woven or looped ribbon work that adds texture and maker style.",
+          "Charms: sports, clubs, band, cheer, drill team, mascots, graduation year and hobbies.",
+          "Bells, mascots and lights: movement, sound and themed personalization."
+        ]
+      },
+      {
+        heading: "Single, double, triple, senior mum or garter",
+        body: [
+          "A single mum is built around one main flower; double and triple designs expand the centerpiece and create more room for braids, names and themed sections. A senior mum describes the class-year treatment rather than a specific number of flowers.",
+          "A garter is the arm-worn counterpart to the shoulder or chest-worn mum. Older customs often associated mums with girls and garters with boys, but modern practice is more flexible and students can follow personal preference and local school tradition."
+        ]
+      },
+      {
+        heading: "What colors, ribbons and charms mean",
+        body: [
+          "There is no statewide symbolic code. School colors usually establish the base palette, while names, metallics, activity ribbons, jersey numbers and charms make the piece personal.",
+          "A football charm may identify a player or simply school spirit; a band or cheer charm may mark an activity; a graduation-year ribbon may identify the class. Meaning comes from the student and school context, not from a universal Texas dictionary."
+        ]
+      },
+      {
+        heading: "How much a homecoming mum can cost",
+        body: [
+          "There is no standard price because size, materials and labor vary enormously. A simple do-it-yourself mum can use only tens of dollars in materials, while custom designs commonly move above $100 and highly elaborate pieces can reach several hundred dollars or more.",
+          "Labor is a major part of the price. Experienced makers may spend hours cutting and layering ribbon, building braids, lettering names, balancing weight and assembling a piece that can survive a full day at school."
+        ],
+        bullets: [
+          "For a useful quote, give the maker the school, grade, colors, deadline, wearer’s name, activities, preferred size and budget.",
+          "Do not assume the largest option is the best option; comfort and school rules matter.",
+          "Order early during homecoming season because experienced makers can fill their calendars."
+        ]
+      },
+      {
+        heading: "Who gives whom a mum today",
+        body: [
+          "Older descriptions often reduce the tradition to a boy giving a mum to a girl and receiving a garter in return. That still happens, but it is not a complete description of modern Texas homecoming.",
+          "Families order mums, students make their own, friends exchange them, dates exchange them and some students simply choose the format they prefer. Most are worn during homecoming week, especially on the school day tied to the game, pep rally or spirit activities."
+        ]
+      },
+      {
+        heading: "How to build a homecoming mum",
+        body: [
+          "The easiest way to understand a mum is as a load-bearing craft project: build a strong center first, then add decoration without making the finished piece impossible to wear.",
+          "A practical build starts with a sturdy backing and securely mounted flower, then adds the main ribbon field, decorative braids, names, class year, activities and charms. Heavy objects should be distributed so the mum does not twist sharply to one side."
+        ],
+        bullets: [
+          "Start with a firm backing and secure attachment points.",
+          "Mount the flower before adding substantial ribbon weight.",
+          "Layer plain ribbon, school colors and metallic accents for depth.",
+          "Add braids and specialty pieces as accents rather than equal-weight clutter.",
+          "Add names, class year, activities, bells, mascots or lights last.",
+          "Test the finished mum while standing, walking and sitting before homecoming day."
+        ]
+      },
+      {
+        heading: "Weight, comfort and school rules",
+        body: [
+          "Very large mums can become heavy and awkward. The backing and attachment should spread the load, and the finished piece should not interfere with walking, stairs, classroom seating or visibility.",
+          "Some schools may restrict extremely large designs, noisy accessories or lights. Check current campus guidance instead of assuming last year’s rules still apply. If a mum is uncomfortable during a test fitting, reduce weight or change the attachment."
+        ]
+      },
+      {
+        heading: "How to preserve a mum after homecoming",
+        body: [
+          "Modern artificial mums last far longer than the original flower corsages, which is why many families keep them for years. The main risks are crushed ribbons, dust, moisture and battery leakage from lighted accessories.",
+          "Let the piece dry fully before storage, support the backing instead of leaving all the weight on one loop, and use a shallow box large enough that the ribbons do not need to be tightly folded. A deep shadow box can turn a favorite mum into a display piece."
+        ],
+        bullets: [
+          "Remove batteries from removable light modules before long-term storage.",
+          "Keep the mum dry and away from direct sunlight where possible.",
+          "Photograph the front and small details before storage in case pieces shift over time."
+        ]
+      },
+      {
+        heading: "There is no statewide homecoming-mum rulebook",
+        body: [
+          "One of the easiest mistakes in explaining Texas mums is turning a local custom into a statewide law. Schools differ on colors, senior conventions, size, exchange customs and what students consider traditional.",
+          "That variation is part of the culture. A mum is supposed to look specific to a student and school, not like a standardized product issued across Texas. Recent local examples should control style questions, and the school itself should control campus-rule questions."
         ]
       },
       {
         heading: "Spring's Mum Queen: Elizabeth Cleaver",
         body: [
-          "One of the best-known professional makers in the Texas homecoming-mum world is Elizabeth Cleaver of Spring, better known as The Mum Queen. Cleaver says she has been creating mums and garters for more than 35 years, turning a family-and-friends craft into a seasonal business whose work has been featured by Houston media and national outlets.",
-          "Her influence reaches beyond the finished mums. Cleaver runs the Homecoming Mum Inspiration community, where she mentors hundreds of other makers, and she has helped popularize elaborate details such as layered specialty ribbon work, personalized bling and the white-and-gold senior mum. Houston Chronicle reporting has documented the scale of her seasonal work and how a once-simple corsage became a serious Texas craft industry.",
-          "Cleaver's Spring studio also shows how multigenerational the tradition has become: some customers who wore her mums as students now return for mums for their own children. That continuity is part of why the Texas mum is more than a novelty—it is a living local tradition passed from one homecoming generation to the next."
+          "One of the best-known professional makers in the Texas homecoming-mum world is Elizabeth Cleaver of Spring, better known as The Mum Queen. Cleaver says she has been creating mums and garters for more than 35 years, turning a family-and-friends craft into a seasonal business with multigenerational customers.",
+          "Her work shows that the tradition is not only about the finished object. It supports a network of makers, craft suppliers, family techniques and mentoring communities that pass construction methods from one homecoming season to the next.",
+          "Cleaver's Spring studio also illustrates how long the tradition can stay inside one family: customers who wore her work as students can return years later for their own children."
         ],
         links: [
-          { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "Order from The Mum Queen in Spring" },
-          { href: "/county/harris", label: "Explore Harris County" },
-          { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined" }
+          { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "The Mum Queen in Spring" },
+          { href: "/county/harris", label: "Explore Harris County" }
         ]
       },
       {
         heading: "How outsiders should read the tradition",
         body: [
-          "To someone seeing a Texas mum for the first time, the scale can look absurd. That reaction misses why students keep the tradition alive. The point is not botanical authenticity; it is participation, memory and belonging.",
+          "To someone seeing a giant Texas mum for the first time, the scale can look absurd. That reaction misses why students keep the tradition alive. The point is not botanical authenticity; it is participation, memory and belonging.",
           "Like a decorated graduation cap or a letter jacket, the mum compresses a school year and a social network into something visible. Texas simply made that object much larger."
         ],
         links: [{ href: "/things-unique-to-texas/culture-music", label: "More Texas traditions" }]
       }
     ],
     related: [
-      { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "The Mum Queen in Spring", description: "Use the practical maker guide for ordering timelines, consultations, custom mums and garters." },
-      { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "Connect homecoming mums to the broader Texas high-school football traditions, game-night culture and season arc." },
-      { href: "/sports-venues/high-school-football", label: "Texas high-school football", description: "The Friday-night culture that provides the backdrop for homecoming." },
-      { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions", description: "Rodeos, music, school rituals and community customs." },
-      { href: "/texas-slang-explained", label: "Texas slang explained", description: "Another guide to the everyday customs outsiders notice first." },
-      { href: "/article/unusual-texas-businesses-services", label: "Unusual Texas businesses & services", description: "See how specialized makers and niche businesses—from The Mum Queen to pet preservation—become part of local Texas culture." },
-      { href: "/county/harris", label: "Harris County", description: "Connect the Spring-area mum tradition to the broader Houston-region county guide, schools, communities and local culture." }
+      { href: "/article/mum-queen-spring-texas-homecoming-mums", label: "The Mum Queen in Spring", description: "A practical maker guide to custom mums, garters, ordering and the Spring-area craft business." },
+      { href: "/sports/friday-night-lights", label: "Friday Night Lights, Defined", description: "The game-night culture, marching bands, school identity and season rituals surrounding Texas high-school football." },
+      { href: "/sports-venues/high-school-football", label: "Texas high-school football", description: "Explore the stadiums and Friday-night settings that form the backdrop for homecoming." },
+      { href: "/article/texas-high-school-football-newcomers", label: "High-school football for newcomers", description: "Understand classifications, game-night culture and what to expect if Texas school traditions are new to you." },
+      { href: "/things-unique-to-texas/culture-music", label: "Texas cultural traditions", description: "Browse school rituals, music, rodeos and community customs that define everyday Texas culture." },
+      { href: "/county/harris", label: "Harris County", description: "Connect the Spring-area mum tradition to the larger Houston-region county guide." }
     ]
   },
   "texas-natural-wonders-bucket-list": {
