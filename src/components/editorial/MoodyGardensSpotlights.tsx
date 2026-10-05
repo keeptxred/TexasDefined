@@ -111,7 +111,7 @@ export function MoodyGardensSpotlights() {
 
     <Section className="py-10 sm:py-12 lg:py-14">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">Ticket decision</p>
             <h2 className="mt-3 font-display text-3xl sm:text-4xl">Single attraction or combination pass?</h2>
@@ -130,9 +130,9 @@ export function MoodyGardensSpotlights() {
           <div>
             <p className="eyebrow text-primary">Choose by time</p>
             <div className="mt-4 divide-y divide-border border-y border-border">
-              {itineraries.map((item) => <article key={item.time} className="grid gap-3 py-5 sm:grid-cols-[9rem_1fr]">
+              {itineraries.map((item) => <article key={item.time} className="py-5">
                 <p className="eyebrow text-primary">{item.time}</p>
-                <div>
+                <div className="mt-2">
                   <h3 className="font-display text-2xl">{item.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.copy}</p>
                 </div>
