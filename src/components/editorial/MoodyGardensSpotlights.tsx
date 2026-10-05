@@ -79,7 +79,7 @@ export function MoodyGardensSpotlights() {
         <SectionHeader
           eyebrow="Plan the day"
           title="How to visit Moody Gardens without wasting time or ticket money"
-          description="For a first visit, make the Aquarium and Rainforest Pyramids the core of the day. Add theaters, seasonal attractions or an overnight stay only when the schedule has room for them."
+          description="Start with the Aquarium and Rainforest Pyramids. Add theaters, seasonal attractions or a hotel stay only when the schedule has room."
         />
 
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -116,11 +116,11 @@ export function MoodyGardensSpotlights() {
             <p className="eyebrow text-primary">Ticket decision</p>
             <h2 className="mt-3 font-display text-3xl sm:text-4xl">Single attraction or combination pass?</h2>
             <p className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground">
-              Buy for the itinerary you will actually complete. A single-attraction ticket is usually the cleaner choice for a short stop. A combination package becomes more useful when you have enough time for multiple included attractions and have checked that each one is operating on your visit date.
+              Buy for the itinerary you will actually complete. Choose a single-attraction ticket for a short stop; consider a combination package only when you have time for several operating attractions.
             </p>
             <div className="mt-6 border-l-2 border-primary pl-5">
               <strong className="font-display text-xl">Best first-time default</strong>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan the Aquarium + Rainforest first. Then compare the official package price with separate admission only after you know whether you are adding a theater or seasonal attraction.</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Plan Aquarium + Rainforest first, then compare package pricing only if you are adding a theater or seasonal attraction.</p>
             </div>
             <a href="https://www.moodygardens.com/visitor-info/hours" target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">
               Check today’s official hours and admission
@@ -156,7 +156,7 @@ export function MoodyGardensSpotlights() {
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Pleasure Pier</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Pair indoor pyramids with rides, games and the Seawall when you want a very different second stop.</p>
           </Link>
-          <Link to="/state-park/galveston-island-state-park" className="group border-t border-border pt-5">
+          <Link to="/destination/$slug" params={{ slug: "galveston-island-state-park" }} className="group border-t border-border pt-5">
             <p className="eyebrow text-primary">Quieter coast</p>
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Galveston Island State Park</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Best add-on when you want beach, bay, paddling or nature instead of another built attraction.</p>
