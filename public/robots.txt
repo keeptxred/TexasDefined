@@ -7,30 +7,34 @@ User-agent: Bingbot
 Allow: /
 Disallow: /admin
 
-# AI search, assistant, training and indexing crawlers checked by GEO readiness tools.
-# These agents were already allowed by the wildcard policy in this group; listing
-# them explicitly makes the site's existing access policy unambiguous to parsers.
-User-agent: GPTBot
+# Public search/discovery crawlers. These agents may fetch public indexable pages.
 User-agent: OAI-SearchBot
 User-agent: ChatGPT-User
-User-agent: ClaudeBot
+User-agent: Applebot
+User-agent: DuckDuckBot
 User-agent: Claude-SearchBot
-User-agent: Claude-User
 User-agent: PerplexityBot
 User-agent: Perplexity-User
+Allow: /
+Disallow: /admin
+
+# Training/extended-use crawler policy is separate from search discovery.
+# Existing permissions are preserved; future training changes do not implicitly
+# change OAI-SearchBot or other public search crawler access.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Claude-User
 User-agent: Google-Extended
 User-agent: Applebot-Extended
 User-agent: Amazonbot
 User-agent: Meta-ExternalAgent
 User-agent: CCBot
+Allow: /
+Disallow: /admin
+
+# General and social-preview crawlers share the same public-page policy.
 User-agent: *
-Allow: /
-Disallow: /admin
-
 User-agent: Twitterbot
-Allow: /
-Disallow: /admin
-
 User-agent: facebookexternalhit
 Allow: /
 Disallow: /admin
