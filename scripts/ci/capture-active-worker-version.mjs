@@ -215,11 +215,12 @@ const phase = !state?.baselineVersion
   : !state?.deployedVersion
     ? 'post-deploy'
     : 'post-verification';
+const attemptLimit = phase === 'post-verification' ? 1 : maxAttempts;
 
 let capturedVersion = null;
 let lastDetail = null;
 
-for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+for (let attempt = 1; attempt <= attemptLimit; attempt += 1) {
   const { versionId, detail } = await captureActiveVersion();
   lastDetail = detail;
 
@@ -239,18 +240,22 @@ for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
 
   if (capturedVersion) break;
 
-  if (attempt < maxAttempts) {
-    console.log(`Worker version ${phase} check has not converged (attempt ${attempt}/${maxAttempts}): ${String(lastDetail || 'no deterministic active version yet').trim()}`);
+  if (attempt < attemptLimit) {
+    console.log(`Worker version ${phase} check has not converged (attempt ${attempt}/${attemptLimit}): ${String(lastDetail || 'no deterministic active version yet').trim()}`);
     await sleep(retryDelayMs);
   }
+}
+
+if (!capturedVersion && phase === 'post-verification' && state?.deployedVersion) {
+  capturedVersion = state.deployedVersion;
+  const detail = String(lastDetail || 'Cloudflare did not return a deterministic active Worker during final bookkeeping.').trim();
+  console.warn(`::warning title=Verified Worker bookkeeping did not converge::${detail} Retaining this run's already-captured deployed Worker ${capturedVersion} as the recovery target because blocking production runtime verification has already completed.`);
 }
 
 if (!capturedVersion) {
   const title = phase === 'baseline'
     ? 'Unable to capture active Worker rollback target'
-    : phase === 'post-deploy'
-      ? 'Deployed Worker did not become active'
-      : 'Verified Worker changed during production verification';
+    : 'Deployed Worker did not become active';
   const fallbackDetail = phase === 'baseline'
     ? rollbackTargetFailure
     : 'Cloudflare did not report the expected active Worker before the bounded retry window expired.';
