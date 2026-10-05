@@ -173,20 +173,20 @@ async function captureActiveVersion() {
 
 async function captureServingWorkerVersion(attempt) {
   const url = new URL('/', directWorkerOrigin);
-  url.searchParams.set('worker_version_check', `${runId || 'local'}-${attempt}-${Date.now()}`);
+  url.searchParams.set('__worker_version_probe', `${runId || 'local'}-${attempt}-${Date.now()}`);
   try {
     const response = await fetch(url, {
       redirect: 'manual',
       cache: 'no-store',
-      headers: { 'cache-control': 'no-cache, no-store, max-age=0', pragma: 'no-cache', 'user-agent': 'TexasDefined-CI-Worker-Version/1.0' },
+      headers: { 'cache-control': 'no-cache, no-store, max-age=0', pragma: 'no-cache', 'user-agent': 'TexasDefined-CI-Worker-Version/2.0' },
       signal: AbortSignal.timeout(15_000),
     });
     const versionId = response.headers.get(workerVersionHeader)?.trim() || '';
-    if (response.status !== 200) return { versionId: null, detail: `Direct Worker version probe returned HTTP ${response.status}.` };
-    if (!uuidPattern.test(versionId)) return { versionId: null, detail: `Direct Worker response did not contain a valid ${workerVersionHeader} UUID.` };
+    if (response.status !== 204) return { versionId: null, detail: `Direct Worker identity probe returned HTTP ${response.status}; expected 204.` };
+    if (!uuidPattern.test(versionId)) return { versionId: null, detail: `Direct Worker identity probe did not contain a valid ${workerVersionHeader} UUID.` };
     return { versionId, detail: null };
   } catch (error) {
-    return { versionId: null, detail: `Direct Worker version probe failed: ${String(error)}` };
+    return { versionId: null, detail: `Direct Worker identity probe failed: ${String(error)}` };
   }
 }
 
