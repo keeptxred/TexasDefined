@@ -23,7 +23,7 @@ if (source.includes('hero: museumPlaceholder("My Story Museum")')) {
 if (!relationships.includes('"my-story-museum-crystal-city"')) {
   failures.push('My Story Museum is missing from the destination authority-guide rendering allowlist.');
 }
-for (const marker of ['preservedExploreDestinations', 'auditDestination(destination).readyForIndexing', '`/destination/${destination.slug}`']) {
+for (const marker of ['preservedExploreDestinations', 'auditDestination(destination).readyForIndexing', '`${siteUrl}/destination/${destination.slug}`']) {
   if (!sitemap.includes(marker)) failures.push(`Explore sitemap contract is missing: ${marker}`);
 }
 
