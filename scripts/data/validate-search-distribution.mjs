@@ -32,7 +32,7 @@ for (const expected of [
 ]) requireText(robots, expected, `robots.txt is missing required search policy: ${expected}`);
 for (const expected of [
   "const origin = 'https://texasdefined.com';", `const key = '${key}';`, 'INDEXNOW_URLS', 'INDEXNOW_FULL',
-  'INDEXNOW_FRESHNESS_HOURS', "process.env.PUBLIC_INDEXING_ENABLED === 'false'",
+  'INDEXNOW_FRESHNESS_HOURS', "process.env.PUBLIC_INDEXING_ENABLED === 'true'",
   'cosmetic deployment produced no notification', 'submitIndexNowSafely', 'verifyIndexNowKey',
 ]) requireText(submitter, expected, `IndexNow submitter is missing required contract: ${expected}`);
 for (const expected of [
