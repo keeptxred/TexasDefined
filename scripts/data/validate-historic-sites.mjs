@@ -151,12 +151,16 @@ if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verif
 
 const maybornDataMarkers = [
   'slug: "mayborn-museum-waco"',
+  'summary: "Plan a Mayborn Museum visit in Waco with current hours, ticket prices, major exhibits, family activities, accessibility, Baylor game closures and Historic Village tips."',
   'sourceCheckedAt: "2026-10-05"',
   'Museums for All',
   'Hall of Natural History',
   'Jeanes Discovery Center',
   'Cultural Crossroads',
   'SpaceX and hands-on science',
+  'directions: "The Mayborn Museum is on Baylor University',
+  'accessibilityNotes: "Accessible parking is at the front of the lot.',
+  '254-710-1110',
   'https://mayborn.web.baylor.edu/visit',
 ];
 for (const marker of maybornDataMarkers) if (!maybornData.includes(marker)) failures.push(`Mayborn destination data contract missing: ${marker}`);
@@ -196,4 +200,4 @@ for (const marker of [
 ]) if (!cachePurge.includes(marker)) failures.push(`Mayborn production cache-verification contract missing: ${marker}`);
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/search-planning/current visitor guidance/post-purge regression contract is protected.`);
