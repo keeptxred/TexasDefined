@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, type ReactNode, useState } from 'react';
 
 import {
   previewNewsletterAdminDraft,
@@ -20,6 +20,7 @@ type Props = {
   onSaved?: () => void | Promise<void>;
 };
 
+const FIELD_CLASS = 'min-h-11 w-full border border-border bg-background px-3 py-2 font-normal';
 const emptyStory = (): StoryDraft => ({
   title: '',
   summary: '',
@@ -122,18 +123,18 @@ export function NewsletterDraftComposerPanel({ authorized, onSaved }: Props) {
 
     <form onSubmit={saveDraft} className="mt-7 grid gap-6">
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="Issue slug"><input required value={slug} onChange={(event) => setSlug(event.target.value)} placeholder="weekend-guide-october-9" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxLength={120} className="field" /></Field>
-        <Field label="Issue label"><input required value={issueLabel} onChange={(event) => setIssueLabel(event.target.value)} maxLength={120} className="field" /></Field>
-        <Field label="Email subject"><input required value={subject} onChange={(event) => setSubject(event.target.value)} maxLength={180} className="field" /></Field>
-        <Field label="Preheader"><input value={preheader} onChange={(event) => setPreheader(event.target.value)} maxLength={240} className="field" /></Field>
+        <Field label="Issue slug"><input required value={slug} onChange={(event) => setSlug(event.target.value)} placeholder="weekend-guide-october-9" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" maxLength={120} className={FIELD_CLASS} /></Field>
+        <Field label="Issue label"><input required value={issueLabel} onChange={(event) => setIssueLabel(event.target.value)} maxLength={120} className={FIELD_CLASS} /></Field>
+        <Field label="Email subject"><input required value={subject} onChange={(event) => setSubject(event.target.value)} maxLength={180} className={FIELD_CLASS} /></Field>
+        <Field label="Preheader"><input value={preheader} onChange={(event) => setPreheader(event.target.value)} maxLength={240} className={FIELD_CLASS} /></Field>
       </div>
 
-      <Field label="Headline"><input required value={headline} onChange={(event) => setHeadline(event.target.value)} maxLength={180} className="field" /></Field>
-      <Field label="Introduction"><textarea required value={intro} onChange={(event) => setIntro(event.target.value)} maxLength={1000} rows={4} className="field" /></Field>
+      <Field label="Headline"><input required value={headline} onChange={(event) => setHeadline(event.target.value)} maxLength={180} className={FIELD_CLASS} /></Field>
+      <Field label="Introduction"><textarea required value={intro} onChange={(event) => setIntro(event.target.value)} maxLength={1000} rows={4} className={FIELD_CLASS} /></Field>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <Field label="From name"><input value={fromName} onChange={(event) => setFromName(event.target.value)} maxLength={120} className="field" /></Field>
-        <Field label="Reply-to email"><input type="email" value={replyTo} onChange={(event) => setReplyTo(event.target.value)} className="field" /></Field>
+        <Field label="From name"><input value={fromName} onChange={(event) => setFromName(event.target.value)} maxLength={120} className={FIELD_CLASS} /></Field>
+        <Field label="Reply-to email"><input type="email" value={replyTo} onChange={(event) => setReplyTo(event.target.value)} className={FIELD_CLASS} /></Field>
       </div>
 
       <div>
@@ -145,17 +146,17 @@ export function NewsletterDraftComposerPanel({ authorized, onSaved }: Props) {
           {stories.map((story, index) => <article key={index} className="border border-border p-5">
             <div className="flex items-center justify-between gap-3"><strong>Story {index + 1}</strong><button type="button" onClick={() => removeStory(index)} disabled={busy || stories.length <= 1} className="text-sm font-semibold text-destructive disabled:opacity-40">Remove</button></div>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
-              <Field label="Kicker"><input value={story.kicker} onChange={(event) => updateStory(index, 'kicker', event.target.value)} maxLength={80} className="field" /></Field>
-              <Field label="Story URL"><input required type="url" value={story.url} onChange={(event) => updateStory(index, 'url', event.target.value)} maxLength={2000} className="field" /></Field>
+              <Field label="Kicker"><input value={story.kicker} onChange={(event) => updateStory(index, 'kicker', event.target.value)} maxLength={80} className={FIELD_CLASS} /></Field>
+              <Field label="Story URL"><input required type="url" value={story.url} onChange={(event) => updateStory(index, 'url', event.target.value)} maxLength={2000} className={FIELD_CLASS} /></Field>
             </div>
-            <div className="mt-4"><Field label="Title"><input required value={story.title} onChange={(event) => updateStory(index, 'title', event.target.value)} maxLength={180} className="field" /></Field></div>
-            <div className="mt-4"><Field label="Summary"><textarea required value={story.summary} onChange={(event) => updateStory(index, 'summary', event.target.value)} maxLength={600} rows={3} className="field" /></Field></div>
-            <div className="mt-4"><Field label="Image URL"><input type="url" value={story.imageUrl} onChange={(event) => updateStory(index, 'imageUrl', event.target.value)} maxLength={2000} className="field" /></Field></div>
+            <div className="mt-4"><Field label="Title"><input required value={story.title} onChange={(event) => updateStory(index, 'title', event.target.value)} maxLength={180} className={FIELD_CLASS} /></Field></div>
+            <div className="mt-4"><Field label="Summary"><textarea required value={story.summary} onChange={(event) => updateStory(index, 'summary', event.target.value)} maxLength={600} rows={3} className={FIELD_CLASS} /></Field></div>
+            <div className="mt-4"><Field label="Image URL"><input type="url" value={story.imageUrl} onChange={(event) => updateStory(index, 'imageUrl', event.target.value)} maxLength={2000} className={FIELD_CLASS} /></Field></div>
           </article>)}
         </div>
       </div>
 
-      <Field label="Closing"><textarea value={closing} onChange={(event) => setClosing(event.target.value)} maxLength={600} rows={3} className="field" /></Field>
+      <Field label="Closing"><textarea value={closing} onChange={(event) => setClosing(event.target.value)} maxLength={600} rows={3} className={FIELD_CLASS} /></Field>
 
       <div className="flex flex-wrap gap-3">
         <button type="button" onClick={() => void runPreview()} disabled={busy} className="min-h-11 border border-border px-5 py-3 text-sm font-semibold disabled:opacity-50">Preview without saving</button>
@@ -174,6 +175,6 @@ export function NewsletterDraftComposerPanel({ authorized, onSaved }: Props) {
   </section>;
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children }: { label: string; children: ReactNode }) {
   return <label className="grid gap-2 text-sm font-semibold">{label}{children}</label>;
 }
