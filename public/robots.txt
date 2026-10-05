@@ -33,9 +33,9 @@ Allow: /
 Disallow: /admin
 
 # General and social-preview crawlers share the same public-page policy.
-User-agent: *
 User-agent: Twitterbot
 User-agent: facebookexternalhit
+User-agent: *
 Allow: /
 Disallow: /admin
 
