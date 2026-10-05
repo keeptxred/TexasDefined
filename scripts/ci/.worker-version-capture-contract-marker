@@ -1,1 +1,0 @@
-Exact production Worker identity is anchored to Wrangler's structured deploy output and verified against active Cloudflare traffic before and after runtime checks.
