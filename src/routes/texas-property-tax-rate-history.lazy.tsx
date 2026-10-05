@@ -1,8 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { TaxingUnitSearch } from '@/components/property/TaxingUnitSearch';
 import { Container } from '@/components/layout/Container';
 import type { TexasTaxRateRecord } from '@/data/property/texas-tax-rates.generated';
+
+type StatewideInsights = {
+  year: number;
+  counts: Record<'county' | 'city' | 'school-district' | 'special-district', number>;
+  lowest: TexasTaxRateRecord[];
+  highest: TexasTaxRateRecord[];
+};
+
+type RecentUnit = Pick<TexasTaxRateRecord, 'name' | 'slug' | 'type' | 'countySlugs'>;
 
 export const Route = createLazyFileRoute('/texas-property-tax-rate-history')({ component: Page });
 
@@ -20,19 +29,80 @@ function Page() {
   const [selected, setSelected] = useState<TexasTaxRateRecord | null>(null);
   const [history, setHistory] = useState<TexasTaxRateRecord[]>([]);
   const [status, setStatus] = useState('');
+  const [comparisonSelected, setComparisonSelected] = useState<TexasTaxRateRecord | null>(null);
+  const [comparisonHistory, setComparisonHistory] = useState<TexasTaxRateRecord[]>([]);
+  const [comparisonStatus, setComparisonStatus] = useState('');
+  const [statewide, setStatewide] = useState<StatewideInsights | null>(null);
+  const [recentUnits, setRecentUnits] = useState<RecentUnit[]>([]);
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('td-property-tax-recent-units') || '[]') as RecentUnit[];
+      if (Array.isArray(saved)) setRecentUnits(saved.slice(0, 6));
+    } catch {
+      setRecentUnits([]);
+    }
+    const controller = new AbortController();
+    fetch('/api/property-tax-rates?insights=statewide', { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) throw new Error('Statewide context unavailable');
+        return response.json() as Promise<{ statewide?: StatewideInsights }>;
+      })
+      .then((body) => setStatewide(body.statewide ?? null))
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+
+  async function loadHistory(record: TexasTaxRateRecord) {
+    const response = await fetch(`/api/property-tax-rates?unit=${encodeURIComponent(record.slug)}&type=${encodeURIComponent(record.type)}`);
+    const body = await response.json() as { history?: TexasTaxRateRecord[]; error?: string };
+    if (!response.ok) throw new Error(body.error || `History lookup failed (${response.status})`);
+    return body.history ?? [];
+  }
+
+  function remember(record: TexasTaxRateRecord) {
+    const next = [{ name: record.name, slug: record.slug, type: record.type, countySlugs: record.countySlugs }, ...recentUnits.filter((item) => !(item.slug === record.slug && item.type === record.type))].slice(0, 6);
+    setRecentUnits(next);
+    try { localStorage.setItem('td-property-tax-recent-units', JSON.stringify(next)); } catch {}
+  }
 
   async function choose(record: TexasTaxRateRecord) {
     setSelected(record);
     setStatus('Loading rate history…');
     try {
-      const response = await fetch(`/api/property-tax-rates?unit=${encodeURIComponent(record.slug)}&type=${encodeURIComponent(record.type)}`);
-      const body = await response.json() as { history?: TexasTaxRateRecord[]; error?: string };
-      if (!response.ok) throw new Error(body.error || `History lookup failed (${response.status})`);
-      setHistory(body.history ?? []);
+      setHistory(await loadHistory(record));
+      remember(record);
       setStatus('');
     } catch (error) {
       setHistory([]);
       setStatus(error instanceof Error ? error.message : 'History lookup failed.');
+    }
+  }
+
+  async function chooseComparison(record: TexasTaxRateRecord) {
+    setComparisonSelected(record);
+    setComparisonStatus('Loading comparison history…');
+    try {
+      setComparisonHistory(await loadHistory(record));
+      remember(record);
+      setComparisonStatus('');
+    } catch (error) {
+      setComparisonHistory([]);
+      setComparisonStatus(error instanceof Error ? error.message : 'Comparison history lookup failed.');
+    }
+  }
+
+  async function quickLookup(query: string) {
+    setStatus(`Finding ${query}…`);
+    try {
+      const response = await fetch(`/api/property-tax-rates?q=${encodeURIComponent(query)}`);
+      const body = await response.json() as { results?: TexasTaxRateRecord[]; message?: string };
+      if (!response.ok) throw new Error(body.message || 'Search failed');
+      const record = (body.results ?? []).find((item) => item.name.toLowerCase() === query.toLowerCase()) ?? body.results?.[0];
+      if (!record) throw new Error('No matching taxing unit found.');
+      await choose(record);
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : 'Quick lookup failed.');
     }
   }
 
@@ -88,6 +158,10 @@ function Page() {
           </div>
           <div>
             <TaxingUnitSearch allowVariableSelection onSelect={(record) => void choose(record)} />
+            <div className="mt-5 flex flex-wrap gap-2">
+              {['Harris County', 'Dallas County', 'Travis County', 'Bexar County', 'Fort Bend County', 'Katy ISD'].map((name) => <button key={name} type="button" onClick={() => void quickLookup(name)} className="border border-border px-3 py-2 text-xs font-semibold hover:border-primary hover:text-primary">{name}</button>)}
+            </div>
+            {recentUnits.length ? <div className="mt-5"><p className="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Recently viewed</p><div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">{recentUnits.map((item) => <button key={`${item.type}-${item.slug}`} type="button" onClick={() => void quickLookup(item.name)} className="text-sm font-semibold text-primary hover:underline">{item.name}</button>)}</div></div> : null}
             {selected ? <p className="mt-4 text-sm"><strong>{selected.name}</strong> · {selected.type.replaceAll('-', ' ')}</p> : null}
             {status ? <p className="mt-3 text-sm text-muted-foreground">{status}</p> : null}
           </div>
@@ -136,6 +210,47 @@ function Page() {
             <thead><tr className="border-b border-border"><th className="py-3">Year</th><th>Tax rate</th><th>Operations (M&O)</th><th>Debt service (I&S)</th><th>Status</th><th>Reported levy</th></tr></thead>
             <tbody>{history.map((item) => <tr key={`${item.id}-row`} className="border-b border-border"><td className="py-3">{item.year}</td><td>{displayRate(item)}</td><td>{item.maintenanceOperationsRate?.toFixed(6) ?? '—'}</td><td>{item.debtServiceRate?.toFixed(6) ?? '—'}</td><td>{item.sourceStatus.replaceAll('-', ' ')}</td><td>{item.levy != null ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.levy) : '—'}</td></tr>)}</tbody>
           </table>
+        </div>
+      </section> : null}
+
+      {selected ? <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
+        <div><p className="eyebrow text-primary">Texas context</p><h2 className="mt-2 font-display text-4xl">Where this taxing unit sits</h2></div>
+        <div className="grid gap-6 md:grid-cols-[16rem_1fr]">
+          <TexasContextMap />
+          <div>
+            <p className="text-sm leading-7 text-muted-foreground">The statewide rate file associates <strong className="text-foreground">{selected.name}</strong> with the following county context. County association is useful for orientation but does not prove that every parcel in a county belongs to this taxing unit.</p>
+            <div className="mt-4 flex flex-wrap gap-2">{selected.countySlugs.length ? selected.countySlugs.map((slug) => <a key={slug} href={`/property-tax/county/${slug}`} className="border border-border px-3 py-2 text-sm font-semibold hover:border-primary">{titleCase(slug)} County</a>) : <span className="text-sm text-muted-foreground">No county association is available in this record.</span>}</div>
+          </div>
+        </div>
+      </section> : null}
+
+      {selected ? <section className="border-b border-border py-12">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Compare</p><h2 className="mt-2 font-display text-4xl">Put two taxing units side by side</h2></div>
+          <div>
+            <TaxingUnitSearch label="Choose a second taxing unit" allowVariableSelection onSelect={(record) => void chooseComparison(record)} placeholder="Search a second county, city, ISD or special district" />
+            {comparisonStatus ? <p className="mt-3 text-sm text-muted-foreground">{comparisonStatus}</p> : null}
+            {comparisonSelected && comparisonHistory.length ? <ComparisonTable firstName={selected.name} firstHistory={history} secondName={comparisonSelected.name} secondHistory={comparisonHistory} /> : null}
+          </div>
+        </div>
+      </section> : null}
+
+      {statewide ? <section className="border-b border-border py-12">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Statewide snapshot</p><h2 className="mt-2 font-display text-4xl">{statewide.year} reported-rate context</h2></div>
+          <div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <MiniFact label="Counties" value={String(statewide.counts.county)} />
+              <MiniFact label="Cities" value={String(statewide.counts.city)} />
+              <MiniFact label="School districts" value={String(statewide.counts['school-district'])} />
+              <MiniFact label="Special districts" value={String(statewide.counts['special-district'])} />
+            </div>
+            <div className="mt-8 grid gap-8 md:grid-cols-2">
+              <InsightList title="Lowest reported fixed rates" records={statewide.lowest} />
+              <InsightList title="Highest reported fixed rates" records={statewide.highest} />
+            </div>
+            <p className="mt-5 text-xs leading-5 text-muted-foreground">These are latest-year fixed total rates in the statewide dataset, not rankings of tax burden. Different unit types fund different services and should not be treated as directly interchangeable.</p>
+          </div>
         </div>
       </section> : null}
 
@@ -254,6 +369,23 @@ function RateTrendChart({ records }: { records: TexasTaxRateRecord[] }) {
     </div>
   </div>;
 }
+
+function ComparisonTable({ firstName, firstHistory, secondName, secondHistory }: { firstName: string; firstHistory: TexasTaxRateRecord[]; secondName: string; secondHistory: TexasTaxRateRecord[] }) {
+  const years = [...new Set([...firstHistory.map((item) => item.year), ...secondHistory.map((item) => item.year)])].sort((a, b) => b - a);
+  const firstByYear = new Map(firstHistory.map((item) => [item.year, item]));
+  const secondByYear = new Map(secondHistory.map((item) => [item.year, item]));
+  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-[40rem] text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${diff.toFixed(6)}`}</td></tr>; })}</tbody></table></div>;
+}
+
+function InsightList({ title, records }: { title: string; records: TexasTaxRateRecord[] }) {
+  return <div><h3 className="font-display text-2xl">{title}</h3><div className="mt-3 divide-y divide-border border-y border-border">{records.map((record) => <a key={record.id} href={`/property-tax/taxing-unit/${record.slug}`} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span><strong className="block">{record.name}</strong><span className="text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')}</span></span><strong>{record.totalRate?.toFixed(6) ?? '—'}</strong></a>)}</div></div>;
+}
+
+function TexasContextMap() {
+  return <div className="border border-border bg-muted/20 p-4"><svg viewBox="0 0 240 220" role="img" aria-label="Texas context map illustration" className="mx-auto h-auto w-full max-w-[14rem]"><path d="M28 18h97v34l25 15 14 29 39 24-18 33-28 5-17 44-28-24-20 19-18-41-35-20 12-46-23-26z" fill="none" stroke="currentColor" strokeWidth="4" className="text-primary"/><text x="118" y="112" textAnchor="middle" className="fill-foreground text-[18px] font-semibold">TEXAS</text></svg><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">County associations are listed beside the map; exact district boundaries require local parcel records.</p></div>;
+}
+
+function titleCase(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (char) => char.toUpperCase()); }
 
 function Fact({ label, value }: { label: string; value: string }) {
   return <div className="border-t border-border pt-3"><span className="text-xs uppercase tracking-[.12em] text-muted-foreground">{label}</span><strong className="mt-1 block font-display text-2xl">{value}</strong></div>;
