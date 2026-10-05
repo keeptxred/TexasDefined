@@ -390,8 +390,8 @@ const citiesArticle: Article = {
   id: "evergreen-texas-major-cities-regional-differences",
   brandId: "texasdefined",
   slug: "texas-major-cities-regional-differences",
-  title: "Texas Cities and Regions: How Houston, DFW, Austin, San Antonio and the Rest Really Differ",
-  dek: "The state is too large for one Texas lifestyle. Compare the major metros, Hill Country, Rio Grande Valley, Panhandle, Piney Woods, Gulf Coast and West Texas before deciding where you fit.",
+  title: "Major Texas Cities Compared: Houston, DFW, Austin & San Antonio",
+  dek: "Compare Houston, Dallas-Fort Worth, Austin, San Antonio and El Paso by jobs, climate, commuting and daily life, then see how the Hill Country, Rio Grande Valley, Panhandle, Gulf Coast, Piney Woods and West Texas differ.",
   category: "moving-to-texas",
   hero: {
     src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Houston_texas_usa_skyline.jpg/1280px-Houston_texas_usa_skyline.jpg",
@@ -405,8 +405,8 @@ const citiesArticle: Article = {
   readingMinutes: 13,
   tags: ["texas cities", "houston vs dallas vs austin", "moving to texas", "texas regions", "san antonio", "el paso", "rio grande valley", "west texas"],
   featured: true,
-  sourceName: "TexasDefined regional desk",
-  sourceUrl: "https://texasdefined.com/article/texas-regions-explained",
+  sourceName: "U.S. Census Bureau - QuickFacts",
+  sourceUrl: "https://www.census.gov/quickfacts/",
   internalLinks: [
     { href: "/article/texas-regions-explained", label: "Texas regions explained", description: "Start with the physical geography behind the cultural and climate differences." },
     { href: "/browse/cities", label: "Browse Texas cities", description: "Research individual cities after narrowing the region." },
@@ -489,7 +489,7 @@ const citiesArticle: Article = {
     p("Texas voting patterns vary sharply among urban cores, suburbs, exurbs and rural counties, and those patterns continue to change as populations move. A simplified 'cities blue, rural red' rule can describe a broad tendency without predicting every neighborhood, suburb or election."),
     p("TexasDefined treats voting patterns only as local context; election coverage and political analysis are outside this site's scope."),
 
-    h("The best fit starts with four maps"),
+    h("After the comparison table, the best fit still starts with four address-level checks"),
     list(
       "Job map: where are the actual employers in your field?",
       "Commute map: how long is the drive at the hour you will actually travel?",
