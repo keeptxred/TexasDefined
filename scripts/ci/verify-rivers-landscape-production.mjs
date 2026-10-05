@@ -6,6 +6,12 @@ const requiredNeedles = [
   'Thirteen rivers that explain Texas',
   'Texas river valleys FAQ',
   'Six river-valley features worth knowing',
+  'All 15 major basins',
+  'How the major Texas rivers differ',
+  'Best places to experience Texas river landscapes',
+  'Texas Water Development Board — Sabine Basin',
+  'Pecos River',
+  'Canadian River',
 ];
 const forbiddenNeedles = [
   'Rock, water and living cover',
