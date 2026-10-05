@@ -17,6 +17,10 @@ const runtime = fs.readFileSync('src/data/destination-query-runtime.ts', 'utf8')
 const preserved = fs.readFileSync('src/data/destination-preserved-catalog.ts', 'utf8');
 const history = readRouteSurface('src/routes/texas-history.tsx');
 const county = fs.readFileSync('src/components/content/CountyHistoricSites.tsx', 'utf8');
+const maybornData = fs.readFileSync('src/data/museum-expansion-waco.ts', 'utf8');
+const maybornAuthority = fs.readFileSync('src/components/editorial/MaybornMuseumAuthority.tsx', 'utf8');
+const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+const cachePurge = fs.readFileSync('scripts/ci/purge-cloudflare-cache.mjs', 'utf8');
 const failures = [];
 
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
@@ -118,12 +122,12 @@ const verifiedRemoteHeroes = [
   ['palmito-ranch-battlefield', 'CC BY-SA 3.0'],
   ['port-isabel-lighthouse', 'CC BY-SA 4.0'],
   ['presidio-la-bahia', 'CC BY-SA 4.0'],
-  ['sabine-pass-battleground', 'CC BY-SA 4.0'],
+  ['sabine-pass-battleground', 'CC BY-SA 3.0'],
   ['sam-bell-maxey-house', 'CC BY-SA 3.0'],
   ['sam-rayburn-house', 'CC BY 2.0'],
   ['san-felipe-de-austin', 'CC BY 4.0'],
   ['slaton-harvey-house', 'CC0'],
-  ['star-of-the-republic-museum', 'CC BY 4.0'],
+  ['star-of-the-republic-museum', 'CC BY-SA 4.0'],
   ['starr-family-home', 'CC BY 2.0'],
   ['stephen-f-austin-memorial', 'CC0'],
   ['varner-hogg-plantation', 'CC BY 2.0'],
@@ -145,5 +149,51 @@ for (const [slug, license] of verifiedRemoteHeroes) {
 }
 if (!remoteHeroes.includes('enrichHistoricSiteRemoteHero')) failures.push('Verified historic remote heroes are not exposed through the runtime enrichment function.');
 
+const maybornDataMarkers = [
+  'slug: "mayborn-museum-waco"',
+  'sourceCheckedAt: "2026-10-05"',
+  'Museums for All',
+  'Hall of Natural History',
+  'Jeanes Discovery Center',
+  'Cultural Crossroads',
+  'SpaceX and hands-on science',
+  'https://mayborn.web.baylor.edu/visit',
+];
+for (const marker of maybornDataMarkers) if (!maybornData.includes(marker)) failures.push(`Mayborn destination data contract missing: ${marker}`);
+
+const maybornAuthorityMarkers = [
+  'Play Waco',
+  'Simple Machines',
+  'SpaceX',
+  'Backyard Ecology',
+  'Cretaceous Sea',
+  'Attack of the Bloodsuckers!',
+  'Monday Storytime',
+  'Village Wednesday',
+  'Fossil Friday',
+  'Accessibility & sensory planning',
+  'Museums for All',
+  'https://mayborn.web.baylor.edu/visit/accessibility',
+  'https://mayborn.web.baylor.edu/visit/discounts',
+  'https://mayborn.web.baylor.edu/events',
+  'Verified October 5, 2026',
+];
+for (const marker of maybornAuthorityMarkers) if (!maybornAuthority.includes(marker)) failures.push(`Mayborn authority-page contract missing: ${marker}`);
+
+for (const marker of [
+  'const MaybornMuseumAuthority = lazy(() =>',
+  'destination.slug === "mayborn-museum-waco"',
+  'Mayborn Museum Waco: Hours, Tickets & Exhibits',
+]) if (!destinationRoute.includes(marker)) failures.push(`Mayborn dedicated destination-route contract missing: ${marker}`);
+
+for (const marker of [
+  'maybornAuthorityUrl',
+  'Mayborn Museum in Waco',
+  'Attack of the Bloodsuckers!',
+  'Tours and experiences near Mayborn Museum',
+  'Mayborn Museum | Texas Historic Site Guide',
+  'Mayborn authority verification passed after targeted purge',
+]) if (!cachePurge.includes(marker)) failures.push(`Mayborn production cache-verification contract missing: ${marker}`);
+
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
-console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces.`);
+console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);
