@@ -151,7 +151,7 @@ export function MoodyGardensSpotlights() {
           description="Keep the pairings intentional: beach and amusement activity to the east, nature farther west, or historic Galveston on a second half-day."
         />
         <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <Link to="/destination/pleasure-pier" className="group border-t border-border pt-5">
+          <Link to="/destination/$slug" params={{ slug: "pleasure-pier" }} className="group border-t border-border pt-5">
             <p className="eyebrow text-primary">Gulf-front energy</p>
             <h3 className="mt-2 font-display text-2xl group-hover:text-primary">Pleasure Pier</h3>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">Pair indoor pyramids with rides, games and the Seawall when you want a very different second stop.</p>
