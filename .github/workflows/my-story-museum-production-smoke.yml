@@ -1,0 +1,53 @@
+name: My Story Museum production smoke
+
+on:
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+concurrency:
+  group: texasdefined-my-story-museum-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Publish My Story Museum smoke pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-my-story-museum pending "Verifying cache-busted My Story Museum production HTML, sitemap and hero"
+
+      - name: Verify My Story Museum production authority page
+        id: my_story_museum_smoke
+        env:
+          MY_STORY_MUSEUM_PRODUCTION_ORIGIN: https://texasdefined.com
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-my-story-museum-production.mjs
+
+      - name: Publish My Story Museum smoke result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          STAGE_OUTCOME: ${{ steps.my_story_museum_smoke.outcome }}
+        run: node scripts/ci/publish-github-status.mjs texasdefined-my-story-museum "$STAGE_OUTCOME" "My Story Museum production authority page passed" "My Story Museum production authority verification failed"
