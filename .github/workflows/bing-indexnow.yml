@@ -60,8 +60,8 @@ jobs:
           {
             echo '## Bing / IndexNow'
             echo
-            echo 'Runs hourly for sitemap URLs with recent lastmod values; cosmetic deployments are ignored.'
+            echo 'Scheduled runs notify only sitemap URLs with recent lastmod values; cosmetic deployments are ignored.'
+            echo 'Manual-only full refreshes and explicit publish/delete/redirect submissions remain gated behind workflow_dispatch.'
+            echo 'Every submission path requires PUBLIC_INDEXING_ENABLED=true; otherwise no URLs are submitted.'
             echo 'Googlebot, Bingbot, Applebot, DuckDuckBot, OAI-SearchBot and anonymous crawler access is checked against production before notification.'
-            echo 'Manual runs can submit clean former URLs for deletion/redirect recrawls or request a full canonical refresh.'
-            echo 'PUBLIC_INDEXING_ENABLED=false remains an emergency kill switch.'
           } >> "$GITHUB_STEP_SUMMARY"
