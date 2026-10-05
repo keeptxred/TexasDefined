@@ -7,6 +7,7 @@ const officialExhibitsUrl = "https://mayborn.web.baylor.edu/exhibits/natural-and
 const discoveryCenterUrl = "https://mayborn.web.baylor.edu/exhibits/jeanes-discovery-center";
 const culturalCrossroadsUrl = "https://mayborn.web.baylor.edu/exhibits-events/cultural-crossroads-exhibits-page";
 const bloodsuckersUrl = "https://mayborn.web.baylor.edu/exhibits-events/attack-bloodsuckers";
+const eventsUrl = "https://mayborn.web.baylor.edu/events";
 const accessibilityUrl = "https://mayborn.web.baylor.edu/visit/accessibility";
 const discountsUrl = "https://mayborn.web.baylor.edu/visit/discounts";
 
@@ -158,6 +159,15 @@ export default function MaybornMuseumAuthority() {
         </section>
 
         <section className="mt-16 border-t border-border pt-8">
+          <p className="eyebrow text-primary">Programs on the calendar</p>
+          <h2 className="mt-3 font-display text-4xl">Check what is happening on the day you visit</h2>
+          <p className="mt-5 max-w-4xl leading-8 text-muted-foreground">
+            The fall 2026 calendar currently includes recurring Monday Storytime, Village Wednesday and Fossil Friday programs alongside workshops, lectures and seasonal events. Program dates and themes change, so use Baylor’s live calendar rather than planning around a recurring program without checking the specific date.
+          </p>
+          <a href={eventsUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">See the official Mayborn calendar</a>
+        </section>
+
+        <section className="mt-16 border-t border-border pt-8">
           <p className="eyebrow text-primary">Before you go</p>
           <h2 className="mt-3 font-display text-4xl">Plan the visit</h2>
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
@@ -216,11 +226,12 @@ export default function MaybornMuseumAuthority() {
           <aside className="border-t border-border pt-8">
             <p className="eyebrow text-primary">Source notes</p>
             <h2 className="mt-3 font-display text-3xl">Verified October 5, 2026</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">Hours, admission, closure dates, permanent exhibits, accessibility, discount programs, Cultural Crossroads and the current temporary exhibition were checked against Baylor University’s Mayborn Museum pages. Prices, programs and closures can change, so use the official museum site for final trip-day confirmation.</p>
+            <p className="mt-4 leading-7 text-muted-foreground">Hours, admission, closure dates, permanent exhibits, accessibility, discount programs, Cultural Crossroads, current programming and the temporary exhibition were checked against Baylor University’s Mayborn Museum pages. Prices, programs and closures can change, so use the official museum site for final trip-day confirmation.</p>
             <div className="mt-7 grid gap-6">
               <a href={officialVisitUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visit information</a>
               <a href={officialExhibitsUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official permanent exhibits</a>
               <a href={discoveryCenterUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official Discovery Center page</a>
+              <a href={eventsUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official events calendar</a>
               <a href={accessibilityUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official accessibility page</a>
               <a href={discountsUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official discounts page</a>
               <a href={culturalCrossroadsUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official Cultural Crossroads page</a>
