@@ -6,7 +6,6 @@ import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
-import { TexasLoopsSpursVisualGuide } from "@/components/content/TexasLoopsSpursVisualGuide";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { articleInternalLinks } from "@/data/article-internal-links";
@@ -37,6 +36,9 @@ const TexasRiversAfterArticle = lazy(() =>
 );
 const TexasRiverBasinReference = lazy(() =>
   import("@/components/content/TexasRiverBasinReference").then((module) => ({ default: module.TexasRiverBasinReference })),
+);
+const TexasLoopsSpursVisualGuide = lazy(() =>
+  import("@/components/content/TexasLoopsSpursVisualGuide").then((module) => ({ default: module.TexasLoopsSpursVisualGuide })),
 );
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -468,7 +470,7 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
-      {article.slug === "texas-loops-spurs-explained" ? <TexasLoopsSpursVisualGuide /> : null}
+      {article.slug === "texas-loops-spurs-explained" ? <Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "24rem" }} aria-label="Loading Loop and Spur visual guide" />}><TexasLoopsSpursVisualGuide /></Suspense> : null}
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
         {isTexasRiversArticle ? <>
