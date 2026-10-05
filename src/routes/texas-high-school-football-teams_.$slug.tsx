@@ -14,7 +14,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification } = loaderData;
+    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, editorial } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
@@ -57,6 +57,18 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
               } : undefined,
             },
           },
+          ...(editorial?.faq?.length ? [{
+            '@type': 'FAQPage',
+            '@id': `${url}#faq`,
+            mainEntity: editorial.faq.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
+              },
+            })),
+          }] : []),
           {
             '@type': 'BreadcrumbList',
             '@id': `${url}#breadcrumbs`,
