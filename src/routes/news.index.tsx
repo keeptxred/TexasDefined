@@ -18,7 +18,7 @@ export const Route = createFileRoute("/news/")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: "Texas Life & Culture News",
-        description: "Fresh Texas stories about places, culture, history, outdoors and people across the state.",
+        description: "Fresh Texas stories about places, culture, history and people statewide.",
         canonicalPath: "/news",
         robots: hasStories ? undefined : "noindex, follow",
       }),
