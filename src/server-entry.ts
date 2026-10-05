@@ -12,6 +12,7 @@ const WORKER_VERSION_HEADER = "x-texasdefined-worker-version";
 const SEO_CANONICAL_REDIRECTS: Record<string, string> = {
   "/texas-vs/california": "/article/texas-vs-california-differences",
   "/texas-vs/florida": "/article/texas-vs-florida-differences",
+  "/article/texas-lake-reservoirs-explained": "/article/texas-lakes-reservoirs-explained",
   [`/article/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH,
   [`/news/${LEGACY_PITMASTERS_SLUG}`]: PITMASTERS_CANONICAL_PATH,
 };
