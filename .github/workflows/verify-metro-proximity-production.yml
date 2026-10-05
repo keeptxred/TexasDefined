@@ -1,0 +1,30 @@
+name: Verify metro proximity production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/metro-proximity*'
+      - 'src/routes/explore.near.*'
+      - 'src/components/explore/MetroProximityHubPage.tsx'
+      - 'scripts/ci/purge-cloudflare-cache.mjs'
+      - 'scripts/ci/verify-metro-ring-production.mjs'
+      - '.github/workflows/verify-metro-proximity-production.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify canonical and direct Worker metro-ring production
+        run: node scripts/ci/verify-metro-ring-production.mjs
