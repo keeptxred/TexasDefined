@@ -135,7 +135,7 @@ function Page() {
         <Link to="/property">Property</Link><span className="mx-2">/</span><Link to="/property-tax-calculators">Calculators</Link><span className="mx-2">/</span>Rate history
       </nav>
 
-      <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[1fr_22rem] lg:items-end">
+      <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-2 lg:items-end">
         <div>
           <p className="eyebrow text-primary">Historical tax data</p>
           <h1 className="mt-3 font-display text-5xl sm:text-7xl">Texas property tax rate history explorer</h1>
@@ -185,7 +185,7 @@ function Page() {
           <Fact label="Comparable years" value={String(comparable.length)} />
         </div>
 
-        {comparable.length ? <div className="mt-10 grid gap-8 xl:grid-cols-[1.5fr_1fr]">
+        {comparable.length ? <div className="mt-10 grid gap-8 xl:grid-cols-2">
           <div className="border border-border p-5 sm:p-7">
             <div className="mb-5 flex items-center justify-between gap-4">
               <div>
@@ -215,7 +215,7 @@ function Page() {
 
       {selected ? <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]">
         <div><p className="eyebrow text-primary">Texas context</p><h2 className="mt-2 font-display text-4xl">Where this taxing unit sits</h2></div>
-        <div className="grid gap-6 md:grid-cols-[16rem_1fr]">
+        <div className="grid gap-6 md:grid-cols-2">
           <TexasContextMap />
           <div>
             <p className="text-sm leading-7 text-muted-foreground">The statewide rate file associates <strong className="text-foreground">{selected.name}</strong> with the following county context. County association is useful for orientation but does not prove that every parcel in a county belongs to this taxing unit.</p>
@@ -372,7 +372,7 @@ function RateTrendChart({ records }: { records: TexasTaxRateRecord[] }) {
       {points.length > 1 ? <polyline points={polyline} fill="none" stroke="currentColor" className="text-primary" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" /> : null}
       {points.map(({ x, y, record }) => <g key={record.id}>
         <circle cx={x} cy={y} r="7" fill="currentColor" className="text-primary" />
-        <text x={x} y={height - 10} textAnchor="middle" className="fill-muted-foreground text-[22px]">{record.year}</text>
+        <text x={x} y={height - 10} textAnchor="middle" className="fill-muted-foreground text-xl">{record.year}</text>
       </g>)}
     </svg>
     <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
@@ -386,7 +386,7 @@ function ComparisonTable({ firstName, firstHistory, secondName, secondHistory }:
   const years = [...new Set([...firstHistory.map((item) => item.year), ...secondHistory.map((item) => item.year)])].sort((a, b) => b - a);
   const firstByYear = new Map(firstHistory.map((item) => [item.year, item]));
   const secondByYear = new Map(secondHistory.map((item) => [item.year, item]));
-  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-[40rem] text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${diff.toFixed(6)}`}</td></tr>; })}</tbody></table></div>;
+  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${diff.toFixed(6)}`}</td></tr>; })}</tbody></table></div>;
 }
 
 function InsightList({ title, records }: { title: string; records: TexasTaxRateRecord[] }) {
@@ -394,7 +394,7 @@ function InsightList({ title, records }: { title: string; records: TexasTaxRateR
 }
 
 function TexasContextMap() {
-  return <div className="border border-border bg-muted/20 p-4"><svg viewBox="0 0 240 220" role="img" aria-label="Texas context map illustration" className="mx-auto h-auto w-full max-w-[14rem]"><path d="M28 18h97v34l25 15 14 29 39 24-18 33-28 5-17 44-28-24-20 19-18-41-35-20 12-46-23-26z" fill="none" stroke="currentColor" strokeWidth="4" className="text-primary"/><text x="118" y="112" textAnchor="middle" className="fill-foreground text-[18px] font-semibold">TEXAS</text></svg><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">County associations are listed beside the map; exact district boundaries require local parcel records.</p></div>;
+  return <div className="border border-border bg-muted/20 p-4"><svg viewBox="0 0 240 220" role="img" aria-label="Texas context map illustration" className="mx-auto h-auto w-full max-w-xs"><path d="M28 18h97v34l25 15 14 29 39 24-18 33-28 5-17 44-28-24-20 19-18-41-35-20 12-46-23-26z" fill="none" stroke="currentColor" strokeWidth="4" className="text-primary"/><text x="118" y="112" textAnchor="middle" className="fill-foreground text-lg font-semibold">TEXAS</text></svg><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">County associations are listed beside the map; exact district boundaries require local parcel records.</p></div>;
 }
 
 function titleCase(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (char) => char.toUpperCase()); }
