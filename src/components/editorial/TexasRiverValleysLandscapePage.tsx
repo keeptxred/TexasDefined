@@ -5,23 +5,24 @@ import { Section, SectionHeader } from '@/components/editorial/SectionHeader';
 import { Container } from '@/components/layout/Container';
 import type { LandscapeCatalogItem } from '@/data/texas-landscape-catalog';
 import type { EnrichedLandscapeRecord } from '@/data/texas-landscape-profile-enrichment';
+import { texasMajorRiverBasins, texasRiverComparison, texasRiverValleysFaq } from '@/data/texas-river-valleys-authority';
 
 const TWDB_BASIN_MAP = 'https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf';
 
 const rivers = [
   { name: 'Rio Grande', region: 'West Texas & the border', href: '/article/texas-rio-grande-river-guide', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', description: 'Texas’s great border river crosses desert basins, cuts spectacular canyons and ties mountain runoff, springs, reservoirs and irrigated valleys into one international system.' },
-  { name: 'Pecos River', region: 'Far West Texas', href: '/explore/landscapes/trans-pecos-far-west-texas', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', description: 'A desert river whose flow, salinity and broad valley show how scarce water behaves in the Trans-Pecos before joining the Rio Grande.' },
+  { name: 'Pecos River', region: 'Far West Texas', href: '/article/texas-pecos-river-guide', image: '/images/explore/historic-sites/seminole-canyon-state-park.jpg', description: 'A desert river whose flow, salinity and canyon country show how scarce water behaves in the Trans-Pecos before joining the Rio Grande.' },
   { name: 'Brazos River', region: 'Plains to Gulf Coast', href: '/article/texas-brazos-river-guide', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'One of the state’s longest rivers, linking High Plains tributaries, prairie country, reservoirs, agricultural bottomlands and a broad lower coastal valley.' },
   { name: 'Colorado River', region: 'West & Central Texas', href: '/article/texas-colorado-river-guide', image: '/images/explore/lakes-rivers/pedernales-falls-state-park.jpg', description: 'The Texas Colorado crosses limestone country, the Highland Lakes and Austin before flattening into a lower coastal river on its way to Matagorda Bay.' },
   { name: 'Guadalupe River', region: 'Hill Country to coast', href: '/article/texas-guadalupe-river-guide', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Spring-influenced Hill Country water, limestone channels and cypress-lined banks give way downstream to wider floodplain country and the Guadalupe estuary.' },
   { name: 'Trinity River', region: 'North Texas to Trinity Bay', href: '/article/texas-trinity-river-guide', image: '/images/editorial/texas-trinity-river.jpg', description: 'A major urban and water-supply system that drains Dallas–Fort Worth, crosses East Texas bottomlands and reaches the Galveston Bay system.' },
-  { name: 'Sabine River', region: 'East Texas', href: '/explore/landscapes/piney-woods', image: '/images/editorial/texas-trinity-river.jpg', description: 'A humid, forested East Texas river with broad bottomlands, reservoirs and a lower valley influenced by Gulf Coast wetlands.' },
-  { name: 'Neches River', region: 'Piney Woods', href: '/explore/landscapes/piney-woods', image: '/images/editorial/texas-trinity-river.jpg', description: 'Forested floodplains, sloughs and bottomland hardwoods make the Neches one of the clearest examples of an East Texas river landscape.' },
-  { name: 'Nueces River', region: 'Edwards Plateau to South Texas', href: '/explore/lakes-rivers', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Clear upper reaches in limestone country transition toward drier South Texas landscapes and a much broader lower basin.' },
-  { name: 'Frio River', region: 'Hill Country', href: '/explore/lakes-rivers', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'Cold, clear water, limestone gravel and bald-cypress corridors make the Frio a classic spring-influenced Hill Country river.' },
-  { name: 'San Antonio River', region: 'Central & South Texas', href: '/explore/lakes-rivers', image: '/images/editorial/texas-guadalupe-river.jpg', description: 'A spring-origin river whose upper urban reach gives way to a larger watershed that joins the Guadalupe system downstream.' },
-  { name: 'Red River', region: 'North Texas', href: '/explore/landscapes/prairies-and-grasslands', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'A sediment-rich northern boundary river shaped by plains runoff, wide valleys, tributaries and major reservoirs.' },
-  { name: 'Canadian River', region: 'Texas Panhandle', href: '/explore/landscapes/texas-panhandle', image: '/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg', description: 'A High Plains and Panhandle river that cuts into canyon and breaks country, showing how streams dissect the edge of the plateau.' },
+  { name: 'Sabine River', region: 'East Texas', href: '/article/texas-sabine-river-guide', image: '/images/state-parks/lake-tawakoni-state-park.jpg', description: 'A humid, high-flow East Texas river with reservoirs, forested bottomlands and a long Texas-Louisiana boundary reach.' },
+  { name: 'Neches River', region: 'Piney Woods', href: '/article/texas-neches-river-guide', image: '/images/state-parks/village-creek-state-park.jpg', description: 'Forested floodplains, sloughs and bottomland hardwoods make the Neches one of the clearest examples of an East Texas river landscape.' },
+  { name: 'Nueces River', region: 'Edwards Plateau to South Texas', href: '/article/texas-nueces-river-guide', image: '/images/state-parks/choke-canyon-calliham-unit-state-park.jpg', description: 'Clear upper reaches in limestone country transition toward drier South Texas landscapes, major reservoirs and the Coastal Bend.' },
+  { name: 'Frio River', region: 'Hill Country', href: '/article/texas-frio-river-guide', image: '/images/state-parks/garner-state-park.jpg', description: 'Cold, clear water, limestone gravel and bald-cypress corridors make the Frio a classic spring-influenced Hill Country river.' },
+  { name: 'San Antonio River', region: 'Central & South Texas', href: '/article/texas-san-antonio-river-guide', image: '/images/editorial/moving/san-antonio.jpg', description: 'A spring-origin river whose famous urban reach gives way to missions, farms and a larger watershed that joins the Guadalupe downstream.' },
+  { name: 'Red River', region: 'North Texas', href: '/article/texas-red-river-guide', image: '/images/state-parks/copper-breaks-state-park.jpg', description: 'A sediment-rich northern boundary river shaped by plains runoff, wide valleys, interstate water management and major reservoirs.' },
+  { name: 'Canadian River', region: 'Texas Panhandle', href: '/article/texas-canadian-river-guide', image: '/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg', description: 'A High Plains and Panhandle river that cuts into canyon and breaks country, showing how streams dissect the edge of the plateau.' },
 ] as const;
 
 const regions = [
@@ -48,14 +49,16 @@ const riverJourney = [
   { step: '5', title: 'Bay, estuary or Gulf', body: 'Lower rivers slow further as they approach sea level. Freshwater, sediment and nutrients enter bays and coastal wetlands, connecting inland watersheds to the Gulf.' },
 ] as const;
 
-const faq = [
-  { q: 'How many major river basins are in Texas?', a: 'The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. Basin boundaries follow drainage divides, not county or city lines.' },
-  { q: 'Why are some Texas rivers clear and others muddy?', a: 'Water clarity reflects geology, sediment, rainfall, groundwater input, vegetation, channel type and recent flow conditions. Spring-fed limestone rivers can be exceptionally clear, while long prairie rivers often carry more suspended sediment.' },
-  { q: 'Why do Texas rivers flood so quickly?', a: 'Parts of Central and West Texas combine intense thunderstorms, thin soils, steep or rocky watersheds and narrow valleys. Water can reach channels rapidly, causing dangerous flash floods even when skies are clear at the river itself.' },
-  { q: 'What is the difference between a river and a river valley?', a: 'The river is the flowing channel. The river valley is the larger landform built and cut by the river over time, including floodplains, terraces, bottomlands, abandoned channels and valley walls.' },
-  { q: 'Are Texas rivers natural if they contain reservoirs?', a: 'Yes, but most major systems are now strongly modified. Dams alter flow timing, sediment movement, temperature and aquatic habitat, while the underlying river valley remains part of the original drainage system.' },
-  { q: 'Which Texas rivers are spring-fed?', a: 'Many Central Texas rivers receive important groundwater and spring contributions, especially in limestone and karst country. The Comal, San Marcos, upper Guadalupe, Frio, Nueces and Devils systems are among the best-known examples.' },
+const riverPlaces = [
+  { name: 'Garner State Park', river: 'Frio River', href: '/destination/garner-state-park', image: '/images/state-parks/garner-state-park.jpg', note: 'Clear water, bald cypress and one of the best public introductions to a Hill Country river valley.' },
+  { name: 'Guadalupe River State Park', river: 'Guadalupe River', href: '/destination/guadalupe-river-state-park', image: '/images/explore/lakes-rivers/guadalupe-river-state-park.jpg', note: 'Limestone, cypress and public river access on a classic spring-influenced Central Texas corridor.' },
+  { name: 'Village Creek State Park', river: 'Neches basin', href: '/destination/village-creek-state-park', image: '/images/state-parks/village-creek-state-park.jpg', note: 'Piney Woods tributary scenery, sandbars and forested floodplain character tied to the Neches system.' },
+  { name: 'Lake Meredith NRA', river: 'Canadian River', href: '/destination/lake-meredith-national-recreation-area', image: '/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg', note: 'A Panhandle reservoir set inside the deeply cut Canadian River breaks.' },
+  { name: 'Amistad NRA', river: 'Rio Grande & Pecos', href: '/destination/amistad-national-recreation-area', image: '/images/explore/lakes-rivers/amistad-national-recreation-area.jpg', note: 'Desert water, canyon country and the confluence zone of two major West Texas river systems.' },
+  { name: 'San Antonio Missions', river: 'San Antonio River', href: '/destination/san-antonio-missions-national-historical-park', image: '/images/explore/historic-sites/san-antonio-missions-national-historical-park.jpg', note: 'A restored river corridor where water, acequias, settlement and mission history meet.' },
 ] as const;
+
+
 
 function RiverMap() {
   return <figure className="overflow-hidden rounded-sm border border-border bg-surface">
