@@ -148,6 +148,10 @@ for (const marker of [
 for (const marker of [
   'data-event-date-confidence="recurrence-derived"',
   'Planning dates, not yet year-specific.',
+  'data-event-date-confidence="expired-confirmed"',
+  'Latest confirmed occurrence has ended.',
+  'hasExpiredConfirmedEventOccurrence(event)',
+  'Last confirmed occurrence',
   'legacyCountyHref',
   'data-major-event-hero="true"',
   'sourceReviewMarkup',
