@@ -152,3 +152,42 @@ export async function getTaxRateDatasetCountServer() {
   if (error) throw error;
   return count ?? 0;
 }
+
+
+export async function getStatewideTaxRateInsightsServer(year: number) {
+  const base = () => db
+    .from('texas_property_tax_rates')
+    .select('*')
+    .eq('year', year)
+    .eq('variable_rate', false)
+    .eq('rate_unavailable', false)
+    .not('total_rate', 'is', null)
+    .gt('total_rate', 0);
+
+  const [{ data: lowestData, error: lowestError }, { data: highestData, error: highestError }] = await Promise.all([
+    base().order('total_rate', { ascending: true }).limit(5),
+    base().order('total_rate', { ascending: false }).limit(5),
+  ]);
+  if (lowestError) throw lowestError;
+  if (highestError) throw highestError;
+
+  const countResults = await Promise.all(
+    (['county', 'city', 'school-district', 'special-district'] as TexasTaxingUnitType[]).map(async (type) => {
+      const { count, error } = await db
+        .from('texas_property_tax_rates')
+        .select('id', { count: 'exact', head: true })
+        .eq('year', year)
+        .eq('type', type);
+      if (error) throw error;
+      return [type, count ?? 0] as const;
+    }),
+  );
+
+  return {
+    year,
+    counts: Object.fromEntries(countResults) as Record<TexasTaxingUnitType, number>,
+    lowest: ((lowestData ?? []) as TaxRateRow[]).map(mapTaxRateRow),
+    highest: ((highestData ?? []) as TaxRateRow[]).map(mapTaxRateRow),
+    generatedAt: ((lowestData ?? [])[0] as TaxRateRow | undefined)?.imported_at ?? ((highestData ?? [])[0] as TaxRateRow | undefined)?.imported_at ?? null,
+  };
+}

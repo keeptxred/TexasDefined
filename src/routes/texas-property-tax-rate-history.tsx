@@ -12,13 +12,18 @@ export const Route = createFileRoute('/texas-property-tax-rate-history')({
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       '@context': 'https://schema.org',
-      '@type': 'WebApplication',
-      '@id': `${pageUrl}#tool`,
-      name: 'Texas Property Tax Rate History Explorer',
-      description,
-      url: pageUrl,
-      applicationCategory: 'FinanceApplication',
-      operatingSystem: 'Any',
+      '@graph': [
+        {
+          '@type': 'WebApplication',
+          name: 'Texas Property Tax Rate History Explorer',
+          description,
+          url: pageUrl,
+        },
+        {
+          '@type': 'Dataset',
+          name: 'Texas local property-tax rate history',
+        },
+      ],
     })],
   }),
 });
