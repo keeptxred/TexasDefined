@@ -53,7 +53,7 @@ function MetroProximityCollectionPage() {
             ? "Use College Station as a launch point for Texas-history sites, small towns, lake days and full-day city trips across the Brazos Valley and Central Texas. Start with the curated picks below, then use the complete distance-sorted inventory when you want more options."
             : presentation.summary}</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm">
-            <p><span className="eyebrow mr-2 text-muted-foreground">{isCollegeStationDayTrips ? "Trip inventory" : "Source-backed options"}</span>{optionCount}</p>
+            <p><span className="eyebrow mr-2 text-muted-foreground">{isCollegeStationDayTrips ? "Curated trip inventory" : "Source-backed options"}</span>{optionCount}</p>
             <p><span className="eyebrow mr-2 text-muted-foreground">Distance window</span>{distanceWindow}</p>
             {!isCollegeStationDayTrips && <p><span className="eyebrow mr-2 text-muted-foreground">Ordering</span>Geographic distance</p>}
             {presentation.tripFit && <p><span className="eyebrow mr-2 text-muted-foreground">Trip fit</span>{presentation.tripFit}</p>}
