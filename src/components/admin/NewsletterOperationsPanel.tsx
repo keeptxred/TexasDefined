@@ -9,6 +9,7 @@ import {
   newsletterAdminLogin,
   newsletterAdminLogout,
   scheduleNewsletterAdminIssue,
+  sendNewsletterAdminTestIssue,
   stageNewsletterAdminIssueInResend,
   syncNewsletterAdminAudience,
 } from '@/data/newsletter/newsletter-admin.functions';
@@ -27,6 +28,7 @@ export function NewsletterOperationsPanel() {
   const [dashboard, setDashboard] = useState<Dashboard | null>(null);
   const [detail, setDetail] = useState<IssueDetail | null>(null);
   const [scheduleValue, setScheduleValue] = useState('');
+  const [testRecipient, setTestRecipient] = useState('');
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -84,6 +86,7 @@ export function NewsletterOperationsPanel() {
       setDashboard(null);
       setDetail(null);
       setScheduleValue('');
+      setTestRecipient('');
       setMessage('Newsletter operations locked.');
     } catch (cause) {
       console.error('Newsletter admin logout failed', cause);
@@ -109,6 +112,7 @@ export function NewsletterOperationsPanel() {
     try {
       const result = await getNewsletterAdminIssue({ data: { issueId } });
       setDetail(result);
+      setTestRecipient('');
       if (!result) setError('That newsletter issue no longer exists.');
     } catch (cause) {
       console.error('Newsletter issue load failed', cause);
@@ -151,6 +155,29 @@ export function NewsletterOperationsPanel() {
     }
   }
 
+  async function sendTestIssue() {
+    if (!detail) return;
+    const recipient = testRecipient.trim().toLowerCase();
+    if (!recipient) {
+      setError('Enter an allowlisted test recipient.');
+      return;
+    }
+    setBusy(true);
+    setError('');
+    setMessage('');
+    try {
+      const result = await sendNewsletterAdminTestIssue({
+        data: { issueId: String(detail.issue.id), recipient },
+      });
+      setMessage(`Test delivery sent to ${result.recipient}${result.messageId ? ` (Resend ${result.messageId})` : ''}. No subscriber, issue, or delivery state was changed.`);
+    } catch (cause) {
+      console.error('Newsletter test delivery failed', cause);
+      setError(cause instanceof Error ? cause.message : 'Newsletter test delivery failed.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function syncAudience() {
     setBusy(true);
     setError('');
@@ -172,7 +199,7 @@ export function NewsletterOperationsPanel() {
       <div>
         <p className="eyebrow text-primary">Newsletter infrastructure</p>
         <h2 id="newsletter-operations-heading" className="mt-2 font-display text-3xl sm:text-4xl">Newsletter Operations</h2>
-        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Protected controls for readiness, issue review, provider staging and lifecycle operations. This panel intentionally has no send-now control; public signup and bulk sending remain governed by server-side kill switches.</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Protected controls for readiness, issue review, provider staging, safe test delivery and lifecycle operations. This panel intentionally has no send-now control for bulk delivery; public signup and bulk sending remain governed by server-side kill switches.</p>
       </div>
       {session?.authorized ? <button type="button" onClick={() => void lock()} disabled={busy} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary disabled:opacity-60">Lock</button> : null}
     </div>
@@ -201,16 +228,17 @@ export function NewsletterOperationsPanel() {
         <Metric label="Draft issues" value={dashboard.infrastructure.draftIssues} />
         <Metric label="Queued deliveries" value={dashboard.infrastructure.queuedDeliveries} />
       </div>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <State label="Public signups" value={dashboard.rollout.signupsEnabled ? 'Enabled' : 'Off'} good={!dashboard.rollout.signupsEnabled} />
         <State label="Bulk sending" value={dashboard.rollout.sendingEnabled ? 'Enabled' : 'Off'} good={!dashboard.rollout.sendingEnabled} />
         <State label="Confirmation email" value={dashboard.rollout.confirmationConfigured ? 'Configured' : 'Not configured'} good={dashboard.rollout.confirmationConfigured} />
         <State label="Double opt-in" value={dashboard.rollout.doubleOptInReady ? 'Ready' : 'Blocked'} good={dashboard.rollout.doubleOptInReady} />
         <State label="Resend broadcast" value={dashboard.rollout.resendConfigured ? 'Configured' : 'Not configured'} good={dashboard.rollout.resendConfigured} />
+        <State label="Safe test delivery" value={dashboard.rollout.testDelivery.ready ? 'Ready' : dashboard.rollout.testDelivery.enabled ? 'Blocked' : 'Off'} good={dashboard.rollout.testDelivery.ready} />
       </div>
-      {'activationBlocked' in dashboard.rollout && dashboard.rollout.activationBlocked ? <p className="mt-4 border-l-2 border-destructive pl-4 text-sm font-semibold text-destructive">Activation is blocked until the missing runtime configuration is fixed.</p> : null}
-      {'missingRuntimeBindings' in dashboard.rollout && dashboard.rollout.missingRuntimeBindings.length ? <p className="mt-3 text-xs text-muted-foreground">Missing runtime bindings: {dashboard.rollout.missingRuntimeBindings.join(', ')}</p> : null}
-      <p className="mt-3 text-xs text-muted-foreground">Suppressed: {dashboard.infrastructure.subscribers.unsubscribed} unsubscribed · {dashboard.infrastructure.subscribers.bounced} bounced · {dashboard.infrastructure.subscribers.complained} complained.</p>
+      {dashboard.rollout.activationBlocked ? <p className="mt-4 border-l-2 border-destructive pl-4 text-sm font-semibold text-destructive">Activation is blocked until the missing runtime configuration is fixed.</p> : null}
+      {dashboard.rollout.missingRuntimeBindings.length ? <p className="mt-3 text-xs text-muted-foreground">Missing runtime bindings: {dashboard.rollout.missingRuntimeBindings.join(', ')}</p> : null}
+      <p className="mt-3 text-xs text-muted-foreground">Suppressed: {dashboard.infrastructure.subscribers.unsubscribed} unsubscribed · {dashboard.infrastructure.subscribers.bounced} bounced · {dashboard.infrastructure.subscribers.complained} complained. Safe-test allowlist: {dashboard.rollout.testDelivery.recipientCount} recipient{dashboard.rollout.testDelivery.recipientCount === 1 ? '' : 's'}.</p>
 
       <div className="mt-6 flex flex-wrap gap-3">
         <button type="button" disabled={busy || !dashboard.rollout.resendConfigured} onClick={() => void syncAudience()} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold hover:border-primary hover:text-primary disabled:opacity-50">Sync audience to Resend</button>
@@ -230,17 +258,35 @@ export function NewsletterOperationsPanel() {
         <div><h3 className="font-display text-2xl">Recent provider events</h3><div className="mt-3 border-t border-border">{Object.entries(dashboard.recentEventCounts).length ? Object.entries(dashboard.recentEventCounts).sort((a, b) => b[1] - a[1]).map(([event, count]) => <div key={event} className="flex justify-between gap-4 border-b border-border py-3 text-sm"><span>{label(event)}</span><strong>{count}</strong></div>) : <p className="py-5 text-sm text-muted-foreground">No provider events recorded yet.</p>}</div></div>
       </div>
 
-      {detail ? <IssueReview detail={detail} busy={busy} canStage={dashboard.rollout.resendConfigured} scheduleValue={scheduleValue} setScheduleValue={setScheduleValue} runIssueAction={runIssueAction} close={() => setDetail(null)} /> : null}
+      {detail ? <IssueReview
+        detail={detail}
+        busy={busy}
+        canStage={dashboard.rollout.resendConfigured}
+        testDeliveryReady={dashboard.rollout.testDelivery.ready}
+        testRecipientCount={dashboard.rollout.testDelivery.recipientCount}
+        testRecipient={testRecipient}
+        setTestRecipient={setTestRecipient}
+        sendTestIssue={sendTestIssue}
+        scheduleValue={scheduleValue}
+        setScheduleValue={setScheduleValue}
+        runIssueAction={runIssueAction}
+        close={() => setDetail(null)}
+      /> : null}
     </> : null}
     {error ? <p className="mt-5 text-sm font-semibold text-destructive" role="alert">{error}</p> : null}
     {message ? <p className="mt-5 border-l-2 border-primary pl-4 text-sm font-semibold" role="status">{message}</p> : null}
   </section>;
 }
 
-function IssueReview({ detail, busy, canStage, scheduleValue, setScheduleValue, runIssueAction, close }: {
+function IssueReview({ detail, busy, canStage, testDeliveryReady, testRecipientCount, testRecipient, setTestRecipient, sendTestIssue, scheduleValue, setScheduleValue, runIssueAction, close }: {
   detail: IssueDetail;
   busy: boolean;
   canStage: boolean;
+  testDeliveryReady: boolean;
+  testRecipientCount: number;
+  testRecipient: string;
+  setTestRecipient: (value: string) => void;
+  sendTestIssue: () => Promise<void>;
   scheduleValue: string;
   setScheduleValue: (value: string) => void;
   runIssueAction: (action: 'ready' | 'schedule' | 'cancel' | 'stage') => Promise<void>;
@@ -256,6 +302,17 @@ function IssueReview({ detail, busy, canStage, scheduleValue, setScheduleValue, 
       <div>
         <h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Delivery state</h4>
         <div className="mt-3 border-t border-border">{Object.entries(detail.deliveryCounts).length ? Object.entries(detail.deliveryCounts).map(([state, count]) => <div key={state} className="flex justify-between border-b border-border py-3 text-sm"><span>{label(state)}</span><strong>{count}</strong></div>) : <p className="py-4 text-sm text-muted-foreground">No deliveries queued.</p>}</div>
+
+        <div className="mt-6 border border-border p-4">
+          <h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Safe test delivery</h4>
+          <p className="mt-2 text-xs leading-5 text-muted-foreground">Sends the rendered issue only to an address already present in NEWSLETTER_TEST_RECIPIENTS. This does not create subscriber rows, delivery rows, or change issue status.</p>
+          <label className="mt-4 grid gap-2 text-sm font-semibold" htmlFor="newsletterTestRecipient">Allowlisted test recipient
+            <input id="newsletterTestRecipient" type="email" autoComplete="email" value={testRecipient} onChange={(event) => setTestRecipient(event.target.value)} placeholder="you@example.com" className="min-h-11 border border-border bg-background px-3 py-2 font-normal" maxLength={320} />
+          </label>
+          <button type="button" disabled={busy || !testDeliveryReady || !testRecipient.trim()} onClick={() => void sendTestIssue()} className="mt-3 min-h-11 border border-primary px-4 py-2 text-sm font-semibold text-primary disabled:opacity-50">Send safe test</button>
+          <p className="mt-2 text-xs text-muted-foreground">Test delivery is {testDeliveryReady ? 'ready' : 'off or not fully configured'} · {testRecipientCount} allowlisted recipient{testRecipientCount === 1 ? '' : 's'}.</p>
+        </div>
+
         {eligible ? <div className="mt-6 grid gap-3">
           <button type="button" disabled={busy} onClick={() => void runIssueAction('ready')} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold disabled:opacity-60">Mark ready</button>
           <button type="button" disabled={busy || !canStage} onClick={() => void runIssueAction('stage')} className="min-h-11 border border-border px-4 py-2 text-sm font-semibold disabled:opacity-60">Stage in Resend</button>
@@ -263,7 +320,7 @@ function IssueReview({ detail, busy, canStage, scheduleValue, setScheduleValue, 
           <button type="button" disabled={busy || !scheduleValue} onClick={() => void runIssueAction('schedule')} className="min-h-11 bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60">Schedule issue</button>
           <button type="button" disabled={busy} onClick={() => void runIssueAction('cancel')} className="min-h-11 border border-destructive/40 px-4 py-2 text-sm font-semibold text-destructive disabled:opacity-60">Cancel issue</button>
         </div> : null}
-        <p className="mt-4 text-xs leading-5 text-muted-foreground">No send-now action is exposed here. Provider staging and scheduling do not bypass NEWSLETTER_SENDING_ENABLED.</p>
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">No send-now control is exposed here for bulk delivery. Test delivery has its own independent kill switch and allowlist. Provider staging and scheduling do not bypass NEWSLETTER_SENDING_ENABLED.</p>
       </div>
       <div><h4 className="text-sm font-semibold uppercase tracking-[0.12em]">Rendered preview</h4>{html ? <iframe title="Newsletter issue preview" sandbox="" srcDoc={html} style={{ minHeight: 720, backgroundColor: '#fff' }} className="mt-3 w-full border border-border" /> : <pre style={{ maxHeight: 720 }} className="mt-3 overflow-auto whitespace-pre-wrap border border-border bg-muted/20 p-5 text-xs leading-6">{String(issue.text_body || 'No rendered body is available.')}</pre>}</div>
     </div>
