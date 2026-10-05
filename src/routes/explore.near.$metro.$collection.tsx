@@ -25,9 +25,7 @@ function MetroProximityCollectionPage() {
   const pageData = Route.useLoaderData();
   const { metro, collection, townReferences, optionCount, indexReady, presentation } = pageData;
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
-  const distanceWindow = collection.minimumMiles > 0
-    ? `${collection.minimumMiles}–${collection.radiusMiles} straight-line miles`
-    : `Up to ${collection.radiusMiles} straight-line miles`;
+  const isSmallTownRing = presentation.usesGeographicRing;
   const heroSummary = isAustinTwoHourGuide
     ? "These are the longer small-town day trips worth leaving Austin for: Hill Country wine stops, historic courthouse squares, Texas Revolution sites, river towns and heritage routes. Use the live route links for current traffic and drive times."
     : presentation.summary;
@@ -55,19 +53,16 @@ function MetroProximityCollectionPage() {
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{heroSummary}</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm">
             <p><span className="eyebrow mr-2 text-muted-foreground">Source-backed options</span>{optionCount}</p>
-            {isAustinTwoHourGuide ? <>
-              <p><span className="eyebrow mr-2 text-muted-foreground">Best for</span>Full-day outings</p>
+            {isSmallTownRing ? <>
+              {presentation.tripFit && <p><span className="eyebrow mr-2 text-muted-foreground">Trip fit</span>{presentation.tripFit}</p>}
               <p><span className="eyebrow mr-2 text-muted-foreground">Plan around</span>Current traffic + opening hours</p>
             </> : <>
-              <p><span className="eyebrow mr-2 text-muted-foreground">Distance window</span>{distanceWindow}</p>
               <p><span className="eyebrow mr-2 text-muted-foreground">Ordering</span>Geographic distance</p>
-              {presentation.tripFit && <p><span className="eyebrow mr-2 text-muted-foreground">Trip fit</span>{presentation.tripFit}</p>}
             </>}
           </div>
-          {isAustinTwoHourGuide ? <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground"><strong>Drive-time note:</strong> Austin traffic can change these trips substantially. The ranges below are planning estimates, not promises; open the live route for the town you choose before leaving.</p> : <>
-            <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links in the map and guide sections below for current Google Maps routing, road mileage and travel-time estimates.</p>
-            {presentation.usesGeographicRing && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not treat these geographic rings as literal one-, two- or three-hour drives. Texas road networks vary too much for a straight-line radius to make that claim reliably.</p>}
-          </>}
+          {isSmallTownRing
+            ? <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground"><strong>Drive-time note:</strong> These pages use geography to build a useful shortlist, not to promise a literal one-, two- or three-hour drive. Open the live route for current road mileage, traffic and travel time before choosing a town.</p>
+            : <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links in the map and guide sections below for current Google Maps routing, road mileage and travel-time estimates.</p>}
           {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until its source-backed inventory reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
         </div>
       </section>
