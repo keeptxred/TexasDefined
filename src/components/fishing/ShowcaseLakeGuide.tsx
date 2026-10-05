@@ -101,7 +101,57 @@ function Fish({ pageData }: { pageData: PageData }) { return <section><p classNa
 
 function Access({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Fishing access</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Boat Ramps and Fishing Access</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Facilities are drawn from official access inventories. Private fees, closures and water-level usability can change, so verify the operating source before travel.</p><div className="mt-9 grid gap-x-8 border-t border-border md:grid-cols-2">{pageData.access.map((item) => <article key={item.name} className="border-b border-border py-7"><p className="eyebrow text-primary">{item.operator}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><dl className="mt-4 space-y-2 text-sm leading-6"><div><dt className="inline text-muted-foreground">Launch: </dt><dd className="inline">{item.launch}</dd></div><div><dt className="inline text-muted-foreground">Fee: </dt><dd className="inline">{item.fee}</dd></div><div><dt className="inline text-muted-foreground">Availability: </dt><dd className="inline">{item.availability}</dd></div></dl></article>)}</div><a href={pageData.sources.tpwdAccess.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Verify all access with TPWD →</a></section>; }
 
-function Boating({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Before you launch</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Boating Conditions and Rules</h2><div className="mt-8 grid gap-5 sm:grid-cols-2">{pageData.boatingNotes.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}</div><div className="mt-10 flex flex-wrap gap-5"><a href={pageData.sources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">{isLiveLakeLevelSource(pageData.sources.liveLevel.url) ? "Check live lake level →" : "Check official current conditions →"}</a><a href={showcaseLakeCanonicalPath(pageData.slug, "access")} className="eyebrow border-b border-primary pb-1 text-primary">Compare access →</a></div></section>; }
+function Boating({ pageData }: { pageData: PageData }) {
+  const o = pageData.overview;
+  const lakeImage = getFishingLakeImage(pageData.slug);
+  const primaryRamp = pageData.access[0];
+  const statusSource = pageData.sources.parkAlerts ?? pageData.sources.tpwdAccess;
+  const statusLabel = pageData.sources.parkAlerts ? "Check current park & ramp alerts →" : "Verify current ramp status →";
+
+  return <div className="space-y-14">
+    <section className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+      <div>
+        <p className="eyebrow text-primary">Before you launch</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Boating {o.name}</h2>
+        <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Water level, ramp depth and navigation hazards can change the practical boating experience on a reservoir long before a facility is formally closed. Use the live lake-level source and the operating agency's current access notices immediately before towing.</p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">{pageData.boatingNotes.map((item) => <p key={item} className="border-t border-border pt-5 text-sm leading-7 text-muted-foreground">{item}</p>)}</div>
+      </div>
+      <aside className="border-t-2 border-foreground pt-5">
+        <p className="eyebrow text-primary">Map & current conditions</p>
+        {lakeImage ? <FishingPhoto image={lakeImage} showCredit={false} className="mt-4" imageClassName="aspect-[4/3] w-full object-cover" /> : null}
+        <div className={lakeImage ? "mt-5 aspect-[4/3] overflow-hidden border border-border bg-muted" : "mt-4 aspect-[4/3] overflow-hidden border border-border bg-muted"}><iframe title={`Boating map of ${o.name}`} src={`https://www.google.com/maps?q=${encodeURIComponent(o.mapQuery)}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-full w-full" /></div>
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3"><a href={pageData.sources.liveLevel.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">{isLiveLakeLevelSource(pageData.sources.liveLevel.url) ? "Live lake level →" : "Official current conditions →"}</a><a href={statusSource.url} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">{statusLabel}</a></div>
+        {pageData.liveDataNote ? <p className="mt-5 text-xs leading-6 text-muted-foreground">{pageData.liveDataNote}</p> : null}
+      </aside>
+    </section>
+
+    <section aria-labelledby="boating-launch-access" className="border-t border-border pt-9">
+      <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Launch access</p><h2 id="boating-launch-access" className="mt-3 font-display text-3xl sm:text-4xl">Boat Ramps and Launch Planning</h2></div><a href={showcaseLakeCanonicalPath(pageData.slug, "access")} className="eyebrow border-b border-primary pb-1 text-primary">Full access guide →</a></div>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">An official listing is not a guarantee that the water reaches the end of a ramp today. Confirm both facility status and lake level before departure.</p>
+      <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">{pageData.access.map((item) => <article key={item.name} className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">{item.kind.replace("-", " ")}</p><h3 className="mt-2 font-display text-2xl">{item.name}</h3><dl className="mt-4 space-y-2 text-sm leading-6"><div><dt className="inline text-muted-foreground">Launch: </dt><dd className="inline">{item.launch}</dd></div><div><dt className="inline text-muted-foreground">Fee: </dt><dd className="inline">{item.fee}</dd></div><div><dt className="inline text-muted-foreground">Status: </dt><dd className="inline">{item.availability}</dd></div></dl></article>)}</div>
+    </section>
+
+    <section className="border-t border-border pt-9">
+      <p className="eyebrow text-primary">Launch-day checklist</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Know Before You Tow</h2>
+      <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <QuickAnswer question="Which ramp should I use?" answer={primaryRamp ? `Start with ${primaryRamp.name}, then compare every listed facility against today's water level and operator notices.` : "Compare the official access inventory against today's water level and operator notices."} />
+        <QuickAnswer question="What changes first at low water?" answer="Usable ramp depth, exposed shoreline and submerged or newly exposed hazards can change before a lake-wide closure is posted." />
+        <QuickAnswer question="What should I verify?" answer="Ramp status, lake level, wind and storms, required safety gear, invasive-species rules and any park or WMA access restrictions." />
+        <QuickAnswer question="Where are the official updates?" answer="Use the live water-data link plus the managing agency's access or alert page linked on this page immediately before departure." />
+      </div>
+    </section>
+
+    <section className="border-t border-border pt-9">
+      <p className="eyebrow text-primary">Safety & navigation</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Plan for Changing Water, Weather and Cover</h2>
+      <div className="mt-6 grid gap-6 md:grid-cols-3"><div><h3 className="font-display text-xl">Water level</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Reservoir elevation changes shoreline geometry, ramp reach and the location of shallow hazards. Do not navigate from an old shoreline assumption alone.</p></div><div><h3 className="font-display text-xl">Wind & storms</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Open water can build rough conditions quickly. Check the local forecast and radar close to launch time, not only when the trip is planned.</p></div><div><h3 className="font-display text-xl">Timber & structure</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">Flooded timber, brush, points, roadbeds and other structure may be productive fishing cover and a navigation concern, especially when water levels shift.</p></div></div>
+    </section>
+
+    <section className="border-t border-border pt-9">
+      <p className="eyebrow text-primary">Build the rest of the trip</p><h2 className="mt-3 font-display text-3xl sm:text-4xl">Camping, Fishing and Nearby Places</h2>
+      <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3"><a href={showcaseLakeCanonicalPath(pageData.slug)} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{o.name} overview →</a><a href={showcaseLakeCanonicalPath(pageData.slug, "fish")} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Fish species →</a><a href={showcaseLakeCanonicalPath(pageData.slug, "camping")} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Camping →</a><a href={showcaseLakeCanonicalPath(pageData.slug, "nearby")} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Nearby places →</a><a href={showcaseLakeCanonicalPath(pageData.slug, "regulations")} className="border-b border-primary pb-1 text-sm font-semibold text-primary">Fishing regulations →</a></div>
+    </section>
+  </div>;
+}
 
 function Regulations({ pageData }: { pageData: PageData }) { return <section><p className="eyebrow text-primary">Rules planning</p><h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Current Fishing Regulations</h2><p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">This page was source-checked {formatDate(pageData.verifiedAt)}. It summarizes the issues an angler should know to check, but deliberately avoids hard-coding changeable bag and length limits.</p><div className="mt-9 border-t border-border">{pageData.regulations.map((row) => <div key={row.label} className="grid gap-2 border-b border-border py-5 sm:grid-cols-[0.3fr_0.7fr]"><h3 className="font-display text-xl">{row.label}</h3><p className="text-sm leading-6 text-muted-foreground">{row.text}</p></div>)}</div><a href={pageData.sources.tpwdRegulations.url} target="_blank" rel="noreferrer noopener" className="eyebrow mt-7 inline-block border-b border-primary pb-1 text-primary">Open current TPWD regulations →</a></section>; }
 
