@@ -162,12 +162,17 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
-  const title = presentation.usesGeographicRing
-    ? `${presentation.titlePrefix} ${metro.name}, Texas`
-    : metroProximityTitle(metro, collection);
-  const description = presentation.usesGeographicRing
-    ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
-    : metroProximityDescription(metro, collection, optionCount);
+  const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
+  const title = isTexarkanaRoadTrips
+    ? "Best Road Trips From Texarkana, Texas"
+    : presentation.usesGeographicRing
+      ? `${presentation.titlePrefix} ${metro.name}, Texas`
+      : metroProximityTitle(metro, collection);
+  const description = isTexarkanaRoadTrips
+    ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
+    : presentation.usesGeographicRing
+      ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
+      : metroProximityDescription(metro, collection, optionCount);
   const reviewedAt = latestReview([
     ...results.map((row) => row.destination.sourceCheckedAt),
     ...townReferences.map((row) => row.town.sourceCheckedAt),
