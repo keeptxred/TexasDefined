@@ -16,6 +16,7 @@ const PRIORITY_PATHS = [
   /^\/explore\/(?:state-parks|lakes-rivers|small-towns|road-trips|painted-churches)(?:\/|$)/,
   /^\/texas-state-fair(?:\/|$)/,
 ];
+const SITEMAP_PATHS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-events.xml'];
 
 const FORBIDDEN_IMAGE_RE = /(?:placeholder|photo[-_ ]?unavailable|image[-_ ]?unavailable|fallback(?:[-_ ]?image)?|favicon|logo|icon[-_.])/i;
 const FALLBACK_COPY_RE = /Photo unavailable|Photograph unavailable|image unavailable|texasdefined-destination-placeholder\.svg/i;
@@ -60,7 +61,7 @@ async function fetchWithTimeout(url, options = {}) {
     return await fetch(url, {
       redirect: 'follow',
       ...options,
-      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.2 (+https://texasdefined.com)', ...(options.headers || {}) },
+      headers: { 'user-agent': 'TexasDefinedImageDiscoverAudit/1.3 (+https://texasdefined.com)', ...(options.headers || {}) },
       signal: controller.signal,
     });
   } finally { clearTimeout(id); }
@@ -130,11 +131,30 @@ function discoverGeometry(width, height) {
 }
 
 async function loadPriorityUrls() {
-  const sitemapUrl = `${BASE_URL}/sitemap.xml`;
-  const { response, text } = await fetchText(sitemapUrl);
-  if (!response.ok) throw new Error(`Sitemap request failed: ${response.status} ${sitemapUrl}`);
-  const urls = [...text.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => absolute(match[1])).filter(Boolean);
-  return [...new Set(urls)].filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname)));
+  const urls = [];
+  const sitemapFailures = [];
+  let successfulSitemaps = 0;
+  for (const path of SITEMAP_PATHS) {
+    const sitemapUrl = `${BASE_URL}${path}`;
+    try {
+      const { response, text } = await fetchText(sitemapUrl);
+      if (!response.ok) {
+        sitemapFailures.push(`${response.status} ${sitemapUrl}`);
+        continue;
+      }
+      successfulSitemaps += 1;
+      urls.push(...[...text.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => absolute(match[1])).filter(Boolean));
+    } catch (error) {
+      sitemapFailures.push(`${error instanceof Error ? error.message : String(error)} ${sitemapUrl}`);
+    }
+  }
+  if (!successfulSitemaps) throw new Error(`All sitemap requests failed: ${sitemapFailures.join('; ')}`);
+  if (sitemapFailures.length) console.warn(`Image/Discover audit continuing with healthy sitemap surfaces; unavailable sitemap(s): ${sitemapFailures.join('; ')}`);
+  return {
+    urls: [...new Set(urls)].filter((url) => PRIORITY_PATHS.some((pattern) => pattern.test(new URL(url).pathname))),
+    sitemapFailures,
+    successfulSitemaps,
+  };
 }
 
 async function auditPage(url) {
@@ -168,7 +188,8 @@ async function mapConcurrent(items, worker, concurrency) {
   return results;
 }
 
-const urls = await loadPriorityUrls();
+const discovery = await loadPriorityUrls();
+const urls = discovery.urls;
 const pages = await mapConcurrent(urls, auditPage, CONCURRENCY);
 const uniqueImageUrls = [...new Set(pages.filter((page) => page.indexable && page.image?.url).map((page) => page.image.url))];
 const imageChecks = new Map();
@@ -201,6 +222,7 @@ const warningPages = pages.filter((page) => page.warnings.length > 0);
 const noindex = pages.filter((page) => !page.indexable);
 const report = {
   generatedAt: new Date().toISOString(), baseUrl: BASE_URL,
+  sitemapDiscovery: { configured: SITEMAP_PATHS, successful: discovery.successfulSitemaps, failures: discovery.sitemapFailures },
   googleDiscoverContract: { minWidth: MIN_DISCOVER_WIDTH, minPixels: MIN_DISCOVER_PIXELS, requiresLargeImagePreview: true, requiresRepresentativePreferredImage: true },
   summary: { auditedPriorityPages: pages.length, indexablePages: pages.length - noindex.length, noindexPages: noindex.length, uniquePreferredImages: uniqueImageUrls.length, failingPages: failing.length, warningPages: warningPages.length, suspiciousReusedImages: suspiciousReuse.length },
   suspiciousReuse, failing,
@@ -209,6 +231,7 @@ const report = {
 };
 fs.writeFileSync(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`);
 console.log(JSON.stringify(report.summary, null, 2));
+if (discovery.sitemapFailures.length) console.warn(`Image/Discover production audit used partial sitemap discovery because ${discovery.sitemapFailures.length} sitemap surface(s) were unavailable.`);
 if (warningPages.length) console.warn(`Image/Discover production audit found ${warningPages.length} priority page(s) with non-blocking metadata, fallback-copy, upstream rate-limit, or reuse warnings.`);
 if (failing.length) {
   console.error(`Image/Discover production audit found ${failing.length} priority page(s) with blocking issues.`);
