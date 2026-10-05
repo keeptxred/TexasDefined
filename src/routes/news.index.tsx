@@ -7,7 +7,7 @@ import { buildMeta, canonicalLink } from "@/lib/seo";
 
 export const newsQuery = {
   queryKey: ["texasdefined-live-news"] as const,
-  queryFn: async () => (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 })).filter(isArticleIndexReady),
+  queryFn: async () => (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 }).catch(() => [])).filter(isArticleIndexReady),
   staleTime: 5 * 60 * 1000,
 };
 
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/news/")({
     return {
       meta: buildMeta(texasDefinedBrand, {
         title: "Texas Life & Culture News",
-        description: "Fresh Texas stories about places, culture, history, outdoors and the people who make the state distinctive.",
+        description: "Fresh Texas stories about places, culture, history and people in Texas.",
         canonicalPath: "/news",
         robots: hasStories ? undefined : "noindex, follow",
       }),
