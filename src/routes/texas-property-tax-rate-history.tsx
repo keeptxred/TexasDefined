@@ -22,8 +22,6 @@ export const Route = createFileRoute('/texas-property-tax-rate-history')({
         {
           '@type': 'Dataset',
           name: 'Texas local property-tax rate history',
-          description,
-          url: pageUrl,
         },
       ],
     })],
