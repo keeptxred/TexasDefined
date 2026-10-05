@@ -5,9 +5,18 @@ import { fetchPublishedTexasDefinedNewsArticles } from "@/data/articles-remote";
 import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { buildMeta, canonicalLink } from "@/lib/seo";
 
+async function fetchNewsSafely() {
+  try {
+    return (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 })).filter(isArticleIndexReady);
+  } catch (error) {
+    console.error("TexasDefined news index remote fetch failed; serving an empty noindex index instead.", error);
+    return [];
+  }
+}
+
 export const newsQuery = {
   queryKey: ["texasdefined-live-news"] as const,
-  queryFn: async () => (await fetchPublishedTexasDefinedNewsArticles({ limit: 60 })).filter(isArticleIndexReady),
+  queryFn: fetchNewsSafely,
   staleTime: 5 * 60 * 1000,
 };
 
