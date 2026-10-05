@@ -39,6 +39,10 @@ const ShinerBreweryAuthority = lazy(() =>
   import("@/components/editorial/ShinerBreweryAuthority")
 );
 
+const MaybornMuseumAuthority = lazy(() =>
+  import("@/components/editorial/MaybornMuseumAuthority")
+);
+
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -143,7 +147,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const breadcrumbSchema = { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` }, { "@type": "ListItem", position: 2, name: "Explore", item: `${siteUrl}/explore` }, { "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}${categoryPath}` }, { "@type": "ListItem", position: 4, name: destination.name, item: url }] };
     return {
       meta: buildMeta(texasDefinedBrand, {
-        title: destinationSeoTitle(destination.name, categoryName),
+        title: destination.slug === "mayborn-museum-waco" ? "Mayborn Museum Waco: Hours, Tickets & Exhibits" : destinationSeoTitle(destination.name, categoryName),
         description: destination.summary,
         canonicalPath,
         robots: indexable ? undefined : "noindex, follow",
@@ -159,6 +163,9 @@ export const Route = createFileRoute("/destination/$slug")({
 
 function DestinationPage() {
   const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
+
+  if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
+
   const region = regions.find((item) => item.id === destination.region);
   const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
   const excludedEntityIds = [`${destination.category}:${destination.slug}`, `attraction:${destination.slug}`];
