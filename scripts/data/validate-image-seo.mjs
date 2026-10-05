@@ -29,6 +29,7 @@ const fishingLakeRoute = read('src/routes/fishing.lakes.$slug.tsx');
 const eventImagePolicy = read('src/data/major-event-schema-enrichment.server.ts');
 const eventAuthority = read('src/data/major-event-authority.ts');
 const eventRoute = read('src/routes/event.$slug.tsx');
+const eventPage = read('src/data/major-event-page.server.ts');
 const eventImageAudit = read('scripts/data/audit-event-schema-enrichment.mjs');
 const mergeGate = read('.github/workflows/merge-gate.yml');
 const premergeRunner = read('scripts/ci/run-premerge-validation.mjs');
@@ -78,6 +79,11 @@ for (const forbidden of ['from "@/data/fishing/image-library"', 'from "@/data/fi
 for (const marker of ['export function isCompliantMajorEventImage', 'export function hasCompliantMajorEventImageServer', 'approvedForCommercialUse === true', 'typeof image.exactLocation === "boolean"', 'image.sourceType === "ai-generated"', 'image.aiGenerated === true', 'image.exactLocation !== true', 'image.sourceType === "wikimedia"', 'image.sourceType === "flickr-cc"', 'validHttpsUrl(image.licenseUrl)']) if (!eventImagePolicy.includes(marker)) errors.push(`Major-event image compliance policy missing: ${marker}`);
 for (const forbidden of ['if (sourceHost === "commons.wikimedia.org") return true;', 'if (sourceHost === "texasdefined.com" && /\\bAI[- ]generated\\b/i.test(image.alt)) return true;']) if (eventImagePolicy.includes(forbidden)) errors.push(`Major-event image compliance must not trust source host or alt text without structured provenance: ${forbidden}`);
 if (!eventAuthority.includes('imageCompliant: hasCompliantMajorEventImageServer(data.slug)')) errors.push('Major-event authority must expose hero-image compliance.');
+for (const marker of [
+  'isCompliantMajorEventImage(schemaEnrichment?.image)',
+  'const displayImage =',
+  'const heroImageMarkup = displayImage',
+]) if (!eventPage.includes(marker)) errors.push(`Major-event visible hero must use governed image compliance: ${marker}`);
 if (!eventRoute.includes('robots: page.imageCompliant ? undefined : "noindex, follow, max-image-preview:large"')) errors.push('Major-event route must noindex image-incomplete guides.');
 for (const marker of ['hasCompliantMajorEventImageServer', '.filter((event) => hasCompliantMajorEventImageServer(event.slug))', 'slug ? hasCompliantMajorEventImageServer(slug) : true']) if (!sitemap.includes(marker)) errors.push(`Event sitemap must exclude image-incomplete guides: ${marker}`);
 for (const marker of ['major-event-schema-enrichment-overrides.server.ts', 'const effectiveBySlug = new Map(batchBySlug)', 'duplicate batch enrichment slugs', 'duplicate override enrichment slugs', 'imageMetadataIncomplete', 'approvedForCommercialUse:true', 'exactLocation:true for real image', 'provenanceCompleteImages', 'imageRemediationPending', 'imageCoverageComplete']) if (!eventImageAudit.includes(marker)) errors.push(`Major-event effective image audit guard missing: ${marker}`);
