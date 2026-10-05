@@ -70,7 +70,7 @@ export const wacoMuseumDestinations: Destination[] = [
     brandId: "texasdefined",
     slug: "mayborn-museum-waco",
     name: "Mayborn Museum",
-    summary: "Baylor University's Mayborn Museum is a large natural-science and cultural-history complex on the Brazos River, combining Central Texas geology and paleontology, hands-on discovery galleries, changing exhibitions and a nine-building historic village.",
+    summary: "Plan a Mayborn Museum visit in Waco with current hours, ticket prices, major exhibits, family activities, accessibility, Baylor game closures and Historic Village tips.",
     category: "historic-sites",
     region: "prairies-lakes",
     nearestTown: "Waco",
@@ -84,7 +84,7 @@ export const wacoMuseumDestinations: Destination[] = [
       credit: "Michael Barera · Wikimedia Commons · CC BY-SA 4.0",
     },
     bestSeason: "Year-round museum; fall through spring is most comfortable for spending additional time in the outdoor Historic Village along the Brazos River.",
-    entryNote: "Hours are Monday-Saturday 10 a.m.-5 p.m. and Sunday 1-5 p.m. General admission is currently $12 adults, $10 children ages 2-15 and $11 seniors 65+. Qualifying EBT households can use Museums for All for $1 admission per person; active Baylor, TSTC and MCC students and active-duty military receive free general admission at the ticket desk. Baylor home-football Saturdays, major holidays and inclement weather can affect access, especially the Historic Village, so confirm the official visit page before traveling.",
+    entryNote: "Hours are Monday-Saturday 10 a.m.-5 p.m. and Sunday 1-5 p.m. General admission is currently $12 adults, $10 children ages 2-15 and $11 seniors 65+. Qualifying EBT households can use Museums for All for $1 admission per person; active Baylor, TSTC and MCC students and active-duty military receive free general admission at the ticket desk. Baylor home-football Saturdays, major holidays and inclement weather can affect access, especially the Historic Village. For Historic Village weather status, call 254-710-1110, and confirm the official visit page before traveling.",
     highlights: ["Hall of Natural History", "Jeanes Discovery Center", "Cultural Crossroads", "Governor Bill and Vara Daniel Historic Village", "SpaceX and hands-on science", "Changing traveling exhibitions"],
     body: [
       "The Mayborn Museum is one of Waco's strongest all-ages museums because it combines several kinds of visit in a single complex. Natural-history galleries interpret Central Texas landscapes, fossils, wildlife and geology, while discovery spaces give children room for hands-on experimentation. The result is broader than a conventional science museum and more substantial than a children's play space, with collections and interpretation that can hold the attention of adults traveling with younger visitors.",
@@ -94,6 +94,8 @@ export const wacoMuseumDestinations: Destination[] = [
     officialUrl: "https://mayborn.web.baylor.edu/visit",
     managingAuthority: "Baylor University",
     address: "1300 S University Parks Dr, Waco, TX 76706",
+    directions: "The Mayborn Museum is on Baylor University's campus at 1300 S University Parks Drive near I-35 and the Brazos River. Accessible spaces are at the front of the lot; overflow parking is available at the Ferrell Center and McLane Stadium. Baylor publishes a current museum map from its official visit page.",
+    accessibilityNotes: "Accessible parking is at the front of the lot. The museum has front and back entrance ramps, elevators to second-floor exhibits, automatic doors, wheelchair-friendly exhibits and ramps at all Historic Village buildings. Limited loaner wheelchairs and complimentary sensory backpacks are available at the front desk.",
     sourceCheckedAt: "2026-10-05",
   },
   {
