@@ -154,7 +154,8 @@ async function captureViaCloudflareApi() {
     return { versionId: null, detail: `Cloudflare deployment lookup failed with HTTP ${response.status}${messages ? `: ${messages}` : ''}.`, mayFallback: true };
   }
 
-  return { ...activeDeploymentFromPayload(payload), mayFallback: false };
+  const parsed = activeDeploymentFromPayload(payload);
+  return { ...parsed, mayFallback: !parsed.versionId };
 }
 
 function captureViaWrangler() {
@@ -166,7 +167,7 @@ function captureViaWrangler() {
 async function captureActiveVersion() {
   const apiResult = await captureViaCloudflareApi();
   if (apiResult.versionId || !apiResult.mayFallback) return apiResult;
-  console.log(`Direct Cloudflare deployment lookup unavailable; using Wrangler fallback: ${apiResult.detail}`);
+  console.log(`Direct Cloudflare deployment lookup unavailable or ambiguous; using Wrangler fallback: ${apiResult.detail}`);
   const wranglerResult = captureViaWrangler();
   return wranglerResult.versionId ? wranglerResult : { versionId: null, detail: `${apiResult.detail} Wrangler fallback also failed: ${wranglerResult.detail}` };
 }
