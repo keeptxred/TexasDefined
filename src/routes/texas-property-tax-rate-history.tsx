@@ -19,8 +19,6 @@ export const Route = createFileRoute('/texas-property-tax-rate-history')({
           name: 'Texas Property Tax Rate History Explorer',
           description,
           url: pageUrl,
-          applicationCategory: 'FinanceApplication',
-          operatingSystem: 'Any',
         },
         {
           '@type': 'Dataset',
