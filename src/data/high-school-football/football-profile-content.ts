@@ -66,7 +66,7 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
       : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
-    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach} This page ties the current UIL placement to school, district, venue, history and schedule sources without treating classification as a quality ranking.`;
+    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {
