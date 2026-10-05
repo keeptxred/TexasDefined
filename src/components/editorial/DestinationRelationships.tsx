@@ -120,7 +120,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
-    <DestinationAreaGuideSection destination={destination} />
+    {destination.slug !== "moody-gardens" ? <DestinationAreaGuideSection destination={destination} /> : null}
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
