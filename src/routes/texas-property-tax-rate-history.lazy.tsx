@@ -226,6 +226,18 @@ function Page() {
 
       {selected ? <section className="border-b border-border py-12">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Related exploration</p><h2 className="mt-2 font-display text-4xl">Keep following the tax story</h2></div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <RelatedLink href={`/property-tax/taxing-unit/${selected.slug}`} title={`${selected.name} detail page`}>Open the dedicated taxing-unit page with source and county context.</RelatedLink>
+            <RelatedLink href="/texas-property-tax-estimator" title="Estimate a bill">Use a taxable-value scenario with the rates that actually apply to a parcel.</RelatedLink>
+            <RelatedLink href="/texas-property-tax-bill-breakdown" title="Break down the bill">See how county, city, school and special-district rates stack together.</RelatedLink>
+            {selected.countySlugs.slice(0, 3).map((slug) => <RelatedLink key={slug} href={`/property-tax/county/${slug}`} title={`${titleCase(slug)} County taxes`}>Open the county guide and related local taxing units.</RelatedLink>)}
+          </div>
+        </div>
+      </section> : null}
+
+      {selected ? <section className="border-b border-border py-12">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Compare</p><h2 className="mt-2 font-display text-4xl">Put two taxing units side by side</h2></div>
           <div>
             <TaxingUnitSearch label="Choose a second taxing unit" allowVariableSelection onSelect={(record) => void chooseComparison(record)} placeholder="Search a second county, city, ISD or special district" />
@@ -386,6 +398,10 @@ function TexasContextMap() {
 }
 
 function titleCase(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (char) => char.toUpperCase()); }
+
+function RelatedLink({ href, title, children }: { href: string; title: string; children: React.ReactNode }) {
+  return <a href={href} className="border border-border p-4 hover:border-primary"><strong className="font-display text-xl">{title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{children}</span></a>;
+}
 
 function Fact({ label, value }: { label: string; value: string }) {
   return <div className="border-t border-border pt-3"><span className="text-xs uppercase tracking-[.12em] text-muted-foreground">{label}</span><strong className="mt-1 block font-display text-2xl">{value}</strong></div>;
