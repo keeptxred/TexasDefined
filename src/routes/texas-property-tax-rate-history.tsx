@@ -15,14 +15,12 @@ export const Route = createFileRoute('/texas-property-tax-rate-history')({
       '@graph': [
         {
           '@type': 'WebApplication',
-          '@id': `${pageUrl}#tool`,
           name: 'Texas Property Tax Rate History Explorer',
           description,
           url: pageUrl,
         },
         {
           '@type': 'Dataset',
-          '@id': `${pageUrl}#dataset`,
           name: 'Texas local property-tax rate history',
           description,
           url: pageUrl,
