@@ -27,6 +27,7 @@ function Page() {
     governingBodyHint,
     associationClassification,
     associationSourceUrl,
+    editorial,
   } = Route.useLoaderData();
   const schoolName = displayName;
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
@@ -66,8 +67,32 @@ function Page() {
           {program?.uilEnrollment && <Fact label="UIL enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
           {!program && privateAlignment?.districtLabel && <Fact label="Football district" value={privateAlignment.districtLabel} />}
           <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
+          {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
       </header>
+
+      {editorial && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Program overview</p>
+          <h2 className="mt-2 font-display text-3xl">{footballName} in 2026</h2>
+        </div>
+        <div>
+          <div className="space-y-4">
+            {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
+          </div>
+          <dl className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+            {editorial.coach && <Snapshot label="Head coach" value={editorial.coach.name} />}
+            {editorial.campus && <Snapshot label="Campus" value={editorial.campus.address} />}
+            {editorial.venue && <Snapshot label="District football venue" value={editorial.venue.name} />}
+          </dl>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            {editorial.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.coach.sourceLabel} ↗</a>}
+            {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
+            {editorial.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.campus.sourceLabel} ↗</a>}
+          </div>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Program-specific facts shown here were checked against school or district sources on 2026-10-05. Current rosters, schedules, staffing and venue assignments can change during the school year.</p>
+        </div>
+      </section>}
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
@@ -178,6 +203,34 @@ function Page() {
         </div>
       </section>}
 
+      {editorial?.venue && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">District venue context</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial.venue.name}</h2>
+        </div>
+        <div>
+          <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
+            <Snapshot label="Venue" value={editorial.venue.name} />
+            <Snapshot label="Address" value={editorial.venue.address} />
+          </dl>
+          <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.venue.note}</p>
+          <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.venue.sourceLabel} ↗</a>
+          <p className="mt-3 text-xs text-muted-foreground">Venue relationship reviewed {editorial.venue.verifiedAt}.</p>
+        </div>
+      </section>}
+
+      {editorial?.development && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Campus development</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial.development.title}</h2>
+        </div>
+        <div>
+          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.development.body}</p>
+          <a href={editorial.development.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.development.sourceLabel} ↗</a>
+          <p className="mt-3 text-xs text-muted-foreground">Project context reviewed {editorial.development.verifiedAt}.</p>
+        </div>
+      </section>}
+
       {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">School enrollment</p>
@@ -258,6 +311,7 @@ function Page() {
           <p className="max-w-4xl text-sm leading-7 text-muted-foreground">For {footballName}, use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; UIL says completeness depends on school and coach submissions, and it is not an official district-standings table.</p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
+            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
             {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school athletics / website ↗</a>}
             <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
             <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
@@ -279,6 +333,19 @@ function Page() {
           <ResearchCard title="Transfers and eligibility" body="Ask the school about enrollment and transfer rules, then separately verify the athletic eligibility consequences with the governing association." />
         </div>
       </section>
+
+      {editorial?.faq?.length ? <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Frequently asked questions</p>
+          <h2 className="mt-2 font-display text-3xl">{displayName} football FAQ</h2>
+        </div>
+        <div className="divide-y divide-border border-y border-border">
+          {editorial.faq.map((item) => <article key={item.question} className="py-5">
+            <h3 className="font-display text-2xl">{item.question}</h3>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{item.answer}</p>
+          </article>)}
+        </div>
+      </section> : null}
 
       <section className="py-10">
         <p className="eyebrow text-primary">Keep researching</p>
