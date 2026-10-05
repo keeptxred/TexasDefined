@@ -9,6 +9,7 @@ const requireText = (source, needle, label) => {
 const resend = read('src/data/newsletter/newsletter-resend.server.ts');
 const confirmation = read('src/data/newsletter/newsletter-confirmation.server.ts');
 const subscription = read('src/data/newsletter/newsletter-subscription.server.ts');
+const testSend = read('src/data/newsletter/newsletter-test-send.server.ts');
 const functions = read('src/data/newsletter/newsletter.functions.ts');
 const adminAuth = read('src/data/newsletter/newsletter-admin-auth.server.ts');
 const adminFunctions = read('src/data/newsletter/newsletter-admin.functions.ts');
@@ -50,6 +51,19 @@ for (const marker of [
   'Confirm your subscription',
   'resendNewsletterConfirmationConfigured',
 ]) requireText(confirmation, marker, 'Newsletter confirmation transport');
+
+for (const marker of [
+  'NEWSLETTER_TEST_SENDS_ENABLED',
+  'NEWSLETTER_TEST_RECIPIENTS',
+  'getNewsletterTestDeliveryReadiness',
+  'sendNewsletterTestIssue',
+  "fetch(`${RESEND_API}/emails`",
+  "'idempotency-key'",
+  '[TEST]',
+  'TEST_IDEMPOTENCY_WINDOW_MS',
+  'allowlist.includes(recipient)',
+  'no subscriber, issue, or delivery state will be changed',
+]) requireText(testSend, marker, 'Newsletter safe test delivery');
 
 for (const marker of [
   'CONFIRMATION_COOLDOWN_MS',
@@ -98,6 +112,9 @@ for (const marker of [
   'cancelNewsletterAdminIssue',
   'syncNewsletterAdminAudience',
   'stageNewsletterAdminIssueInResend',
+  'sendNewsletterAdminTestIssue',
+  'testSendSchema',
+  'sendNewsletterTestIssue',
   'sendOrScheduleNewsletterAdminIssue',
   'NEWSLETTER_SENDING_ENABLED',
 ]) requireText(adminFunctions, marker, 'Newsletter authenticated operator functions');
@@ -159,6 +176,8 @@ for (const marker of [
   'getNewsletterOperatorDashboard',
   'getNewsletterRuntimeReadiness',
   'getNewsletterInfrastructureStats',
+  'getNewsletterTestDeliveryReadiness',
+  'testDelivery',
   'deliveryCounts',
   'recentEventCounts',
   'signupsEnabled',
@@ -204,6 +223,9 @@ for (const marker of [
   'Resend Broadcasts',
   'NEWSLETTER_SIGNUPS_ENABLED=true',
   'NEWSLETTER_SENDING_ENABLED=true',
+  'NEWSLETTER_TEST_SENDS_ENABLED=true',
+  'NEWSLETTER_TEST_RECIPIENTS',
+  'Safe test delivery',
   'news.texasdefined.com',
   'Cloudflare Email Service is not the newsletter transport',
   'Double opt-in and confirmation delivery',
