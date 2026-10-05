@@ -162,10 +162,11 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
-  const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
+  const isRoadTrips = collection.slug === "road-trips";
+  const isTexarkanaRoadTrips = metro.slug === "texarkana" && isRoadTrips;
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
-  const title = isTexarkanaRoadTrips
-    ? "Best Road Trips From Texarkana, Texas"
+  const title = isRoadTrips
+    ? `Best Road Trips From ${metro.name}, Texas`
     : isAustinTwoHourGuide
       ? `${optionCount} Small Towns About 1–2 Hours From Austin, Texas`
       : presentation.usesGeographicRing
@@ -173,11 +174,13 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
         : metroProximityTitle(metro, collection);
   const description = isTexarkanaRoadTrips
     ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
-    : isAustinTwoHourGuide
-      ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
-      : presentation.usesGeographicRing
-        ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
-        : metroProximityDescription(metro, collection, optionCount);
+    : isRoadTrips
+      ? `Plan multi-stop road trips from ${metro.name}, Texas with source-backed route anchors, live driving links, seasonal guidance, half-day and full-day planning, and longer weekend options.`
+      : isAustinTwoHourGuide
+        ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
+        : presentation.usesGeographicRing
+          ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
+          : metroProximityDescription(metro, collection, optionCount);
   const reviewedAt = latestReview([
     ...results.map((row) => row.destination.sourceCheckedAt),
     ...townReferences.map((row) => row.town.sourceCheckedAt),
