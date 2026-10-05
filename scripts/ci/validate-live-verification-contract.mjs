@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
+const viatorProduction = fs.readFileSync('scripts/ci/verify-viator-production.mjs', 'utf8');
+const sanAngeloProduction = fs.readFileSync('scripts/ci/verify-san-angelo-proximity-production.mjs', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
 const stateFairLazyRoute = fs.readFileSync('src/routes/texas-state-fair.lazy.tsx', 'utf8');
 const stateFairEnhancements = fs.readFileSync('src/components/editorial/StateFairGuideEnhancements.tsx', 'utf8');
@@ -36,12 +38,25 @@ for (const { label, needle } of stateFairChecks) {
 }
 if (stateFairChecks.length !== labels.size) failures.push('State Fair production surface checks must not contain duplicate labels.');
 
+const sanAngeloProof = 'San Angelo town-reference proof: Christoval, Mertzon, Robert Lee, Bronte, Paint Rock, Ballinger';
 for (const marker of [
   'data-proximity-town-references={metro.slug}',
   'data-town-reference-count={townReferences.length}',
-  'San Angelo town-reference proof: Christoval, Mertzon, Robert Lee, Bronte, Paint Rock, Ballinger',
+  sanAngeloProof,
 ]) {
   if (!proximityCollectionRoute.includes(marker)) failures.push(`San Angelo proximity production-proof marker is missing: ${marker}`);
+}
+if (!viatorProduction.includes("await import('./verify-san-angelo-proximity-production.mjs');")) {
+  failures.push('Base production verification must execute the San Angelo proximity live verifier.');
+}
+for (const marker of [
+  '/explore/near/san-angelo/small-towns',
+  '/explore/near/san-angelo/small-towns-1-hour',
+  sanAngeloProof,
+  "cache: 'no-store'",
+  "'cache-control': 'no-cache'",
+]) {
+  if (!sanAngeloProduction.includes(marker)) failures.push(`San Angelo proximity live verifier is missing required cache-busted production assertion: ${marker}`);
 }
 
 const blockingLiveSteps = [
@@ -110,4 +125,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Live verification contract passed: ${stateFairChecks.length} State Fair production needles match page source; ${blockingLiveSteps.length} runtime checks are blocking and ${advisoryLiveSteps.length} quality checks plus IndexNow remain advisory.`);
+console.log(`Live verification contract passed: ${stateFairChecks.length} State Fair production needles match page source; San Angelo close-town live proof is wired; ${blockingLiveSteps.length} runtime checks are blocking and ${advisoryLiveSteps.length} quality checks plus IndexNow remain advisory.`);
