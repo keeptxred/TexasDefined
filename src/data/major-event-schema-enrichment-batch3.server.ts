@@ -46,11 +46,25 @@ export const majorEventSchemaEnrichmentBatch3: MajorEventSchemaEnrichment[] = [
   {
     slug: "schulenburg-festival",
     organizer: organization("Schulenburg Festival Association, Inc.", "https://www.schulenburgfestival.org/"),
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Main%20street%20schulenburg%202012.jpg?width=1600",
+      alt: "Historic Main Street buildings in downtown Schulenburg, Texas",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Main_street_schulenburg_2012.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+      rightsNote: "Larry D. Moore; reused under CC BY 4.0 as a Schulenburg destination image, not as a depiction of the festival itself.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Schulenburg Festival Association official site", url: "https://www.schulenburgfestival.org/" },
       { label: "Schulenburg Festival official schedule", url: "https://www.schulenburgfestival.org/schedule" },
+      { label: "Schulenburg Festival official admission and ticket information", url: "https://www.schulenburgfestival.org/tickets" },
+      { label: "Schulenburg Festival official parade information", url: "https://www.schulenburgfestival.org/parade" },
+      { label: "Wikimedia Commons — Main street Schulenburg 2012", url: "https://commons.wikimedia.org/wiki/File:Main_street_schulenburg_2012.jpg" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-05",
   },
   {
     slug: "westfest",
