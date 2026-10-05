@@ -54,7 +54,7 @@ export const majorEventSchemaEnrichmentBatch3: MajorEventSchemaEnrichment[] = [
       licenseName: "CC BY 4.0",
       licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
       rightsNote: "Larry D. Moore; reused under CC BY 4.0 as a Schulenburg destination image, not as a depiction of the festival itself.",
-      exactLocation: true,
+      exactLocation: false,
       approvedForCommercialUse: true,
     },
     sources: [
