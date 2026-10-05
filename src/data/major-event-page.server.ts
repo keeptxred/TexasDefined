@@ -1,6 +1,7 @@
 import { formatDateRange } from "@/domain/utils/format";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
+import { hasExpiredConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { loadTicketmasterEventsServer } from "./events/ticketmaster-events.server";
 import { resolveEventTicketCta } from "./events/ticketing";
 import { getMajorEventAuthorityServer } from "./major-event-authority.server";
@@ -232,14 +233,17 @@ export function loadMajorEventPageServer(slug: string) {
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const recurrenceDerived = isRecurrenceDerivedMajorEventSlug(event.slug);
+  const expiredConfirmedOccurrence = hasExpiredConfirmedEventOccurrence(event);
   const dateConfidenceMarkup = recurrenceDerived
     ? `<div data-event-date-confidence="recurrence-derived" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Planning dates, not yet year-specific.</strong> This date window is derived from the organizer's published recurrence pattern. Confirm the official year-specific schedule before booking nonrefundable travel.</div>`
-    : "";
+    : expiredConfirmedOccurrence
+      ? `<div data-event-date-confidence="expired-confirmed" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Latest confirmed occurrence has ended.</strong> These are the most recent organizer-confirmed dates on file. Do not assume the next annual occurrence until the organizer publishes it.</div>`
+      : "";
   const snapshotMarkup = `<section data-major-event-snapshot="true" class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Dates</p><p class="mt-2 font-semibold">${esc(dateLabel)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Venue</p><p class="mt-2 font-semibold">${esc(event.venue || event.city)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Location</p><p class="mt-2 font-semibold">${esc(placeLine)}</p></div>
-    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${recurrenceDerived ? "Projected from organizer recurrence" : "Published event window"}</p></div>
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
   </section>`;
   const planning = event.planningSections.map((item) => {
     const supplement = event.slug === "chappell-hill-bluebonnet-festival"
@@ -379,10 +383,14 @@ export function loadMajorEventPageServer(slug: string) {
     city: event.city,
     title: recurrenceDerived
       ? `${event.name} ${eventYear}: Projected Dates & Texas Travel Guide`
-      : `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
+      : expiredConfirmedOccurrence
+        ? `${event.name}: Dates & Texas Travel Guide`
+        : `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
     description: recurrenceDerived
       ? `${event.name} ${eventYear} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
-      : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
+      : expiredConfirmedOccurrence
+        ? `${event.name} in ${event.city}, Texas: latest confirmed dates, official sources and practical planning while the next occurrence is pending.`
+        : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
     html,
     jsonLd,
   };
