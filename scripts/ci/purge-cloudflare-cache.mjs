@@ -198,3 +198,66 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
 if (!maybornVerified) {
   throw new Error(`Mayborn authority page did not verify after targeted cache purge: ${maybornReason}`);
 }
+
+if (purgeMetroProximity) {
+  const cachedSurfaceChecks = [
+    {
+      label: 'Abilene metro hub',
+      url: `https://${zoneName}/explore/near/abilene`,
+      required: ['Nearby places worth opening first', 'Frontier Texas!'],
+      orderedBefore: ['Frontier Texas!', 'National WASP WWII Museum'],
+    },
+    {
+      label: 'Abilene state parks',
+      url: `https://${zoneName}/explore/near/abilene/state-parks`,
+      required: ['Abilene State Park'],
+    },
+    {
+      label: 'Abilene historic sites',
+      url: `https://${zoneName}/explore/near/abilene/historic-sites`,
+      required: ['Buffalo Gap Historic Village', 'Fort Phantom Hill'],
+    },
+  ];
+
+  for (const check of cachedSurfaceChecks) {
+    let verified = false;
+    let reason = 'no response';
+    for (let attempt = 1; attempt <= 6; attempt += 1) {
+      try {
+        const response = await fetch(check.url, {
+          redirect: 'follow',
+          signal: AbortSignal.timeout(30_000),
+          headers: {
+            'user-agent': 'Mozilla/5.0 (compatible; TexasDefined-Public-Cache-Verification/1.0)',
+            accept: 'text/html,application/xhtml+xml',
+          },
+        });
+        const body = await response.text();
+        const missing = check.required.filter((marker) => !body.includes(marker));
+        let orderProblem = '';
+        if (check.orderedBefore) {
+          const [firstMarker, secondMarker] = check.orderedBefore;
+          const firstIndex = body.indexOf(firstMarker);
+          const secondIndex = body.indexOf(secondMarker);
+          if (firstIndex < 0 || (secondIndex >= 0 && firstIndex > secondIndex)) {
+            orderProblem = `${firstMarker} does not precede ${secondMarker}`;
+          }
+        }
+        if (response.ok && missing.length === 0 && !orderProblem) {
+          verified = true;
+          console.log(`${check.label} public-cache verification passed after targeted purge (attempt ${attempt}).`);
+          break;
+        }
+        reason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; order=${orderProblem || 'ok'}`;
+      } catch (error) {
+        reason = error instanceof Error ? error.message : String(error);
+      }
+
+      if (attempt < 6) await new Promise((resolve) => setTimeout(resolve, 5_000));
+    }
+
+    if (!verified) {
+      throw new Error(`${check.label} did not verify through the normal public cache after targeted purge: ${reason}`);
+    }
+  }
+}
