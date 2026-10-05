@@ -143,7 +143,7 @@ function Page() {
             Search a county, city, school district, MUD or other special district and see how its reported property-tax rate changed across available annual statewide records.
           </p>
         </div>
-        <div className="border-l-4 border-primary bg-muted/40 p-5">
+        <div className="border-l-4 border-primary p-5">
           <p className="text-xs font-semibold uppercase tracking-[.14em] text-primary">Start here</p>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">Enter a taxing unit below. The explorer then shows the history, trend, rate components and reported levy without guessing through missing or variable data.</p>
         </div>
@@ -367,7 +367,7 @@ function RateTrendChart({ records }: { records: TexasTaxRateRecord[] }) {
   const polyline = points.map((point) => `${point.x},${point.y}`).join(' ');
 
   return <div>
-    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Historical property tax rate trend" className="h-auto w-full overflow-visible">
+    <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Historical property tax rate trend" className="h-auto w-full">
       <line x1={left} y1={top + chartHeight} x2={width - right} y2={top + chartHeight} stroke="currentColor" className="text-border" strokeWidth="2" />
       {points.length > 1 ? <polyline points={polyline} fill="none" stroke="currentColor" className="text-primary" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" /> : null}
       {points.map(({ x, y, record }) => <g key={record.id}>
@@ -394,7 +394,7 @@ function InsightList({ title, records }: { title: string; records: TexasTaxRateR
 }
 
 function TexasContextMap() {
-  return <div className="border border-border bg-muted/20 p-4"><svg viewBox="0 0 240 220" role="img" aria-label="Texas context map illustration" className="mx-auto h-auto w-full max-w-xs"><path d="M28 18h97v34l25 15 14 29 39 24-18 33-28 5-17 44-28-24-20 19-18-41-35-20 12-46-23-26z" fill="none" stroke="currentColor" strokeWidth="4" className="text-primary"/><text x="118" y="112" textAnchor="middle" className="fill-foreground text-lg font-semibold">TEXAS</text></svg><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">County associations are listed beside the map; exact district boundaries require local parcel records.</p></div>;
+  return <div className="border border-border p-4"><svg viewBox="0 0 240 220" role="img" aria-label="Texas context map illustration" className="mx-auto h-auto w-full max-w-xs"><path d="M28 18h97v34l25 15 14 29 39 24-18 33-28 5-17 44-28-24-20 19-18-41-35-20 12-46-23-26z" fill="none" stroke="currentColor" strokeWidth="4" className="text-primary"/><text x="118" y="112" textAnchor="middle" className="fill-foreground text-lg font-semibold">TEXAS</text></svg><p className="mt-3 text-center text-xs leading-5 text-muted-foreground">County associations are listed beside the map; exact district boundaries require local parcel records.</p></div>;
 }
 
 function titleCase(value: string) { return value.replaceAll('-', ' ').replace(/\b\w/g, (char) => char.toUpperCase()); }
