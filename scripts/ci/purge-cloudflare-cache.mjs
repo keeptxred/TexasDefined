@@ -205,7 +205,9 @@ if (purgeMetroProximity) {
       label: 'Abilene metro hub',
       url: `https://${zoneName}/explore/near/abilene`,
       required: ['Nearby places worth opening first', 'Frontier Texas!'],
-      orderedBefore: ['Frontier Texas!', 'National WASP WWII Museum'],
+      sectionStart: 'Nearby places worth opening first',
+      sectionEnd: 'How to use this guide',
+      firstDestinationHref: '/destination/frontier-texas',
     },
     {
       label: 'Abilene state parks',
@@ -234,21 +236,31 @@ if (purgeMetroProximity) {
         });
         const body = await response.text();
         const missing = check.required.filter((marker) => !body.includes(marker));
-        let orderProblem = '';
-        if (check.orderedBefore) {
-          const [firstMarker, secondMarker] = check.orderedBefore;
-          const firstIndex = body.indexOf(firstMarker);
-          const secondIndex = body.indexOf(secondMarker);
-          if (firstIndex < 0 || (secondIndex >= 0 && firstIndex > secondIndex)) {
-            orderProblem = `${firstMarker} does not precede ${secondMarker}`;
+        let sectionProblem = '';
+        if (check.sectionStart && check.firstDestinationHref) {
+          const sectionStartIndex = body.indexOf(check.sectionStart);
+          const sectionEndIndex = sectionStartIndex >= 0 && check.sectionEnd
+            ? body.indexOf(check.sectionEnd, sectionStartIndex + check.sectionStart.length)
+            : -1;
+          const section = sectionStartIndex >= 0
+            ? body.slice(sectionStartIndex, sectionEndIndex > sectionStartIndex ? sectionEndIndex : undefined)
+            : '';
+          const firstDestinationIndex = section.indexOf('/destination/');
+          const expectedDestinationIndex = section.indexOf(check.firstDestinationHref);
+          if (sectionStartIndex < 0) {
+            sectionProblem = `section start ${check.sectionStart} is missing`;
+          } else if (expectedDestinationIndex < 0) {
+            sectionProblem = `${check.firstDestinationHref} is missing from the rendered nearby section`;
+          } else if (firstDestinationIndex !== expectedDestinationIndex) {
+            sectionProblem = `${check.firstDestinationHref} is not the first rendered destination card`;
           }
         }
-        if (response.ok && missing.length === 0 && !orderProblem) {
+        if (response.ok && missing.length === 0 && !sectionProblem) {
           verified = true;
           console.log(`${check.label} public-cache verification passed after targeted purge (attempt ${attempt}).`);
           break;
         }
-        reason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; order=${orderProblem || 'ok'}`;
+        reason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; section=${sectionProblem || 'ok'}`;
       } catch (error) {
         reason = error instanceof Error ? error.message : String(error);
       }
