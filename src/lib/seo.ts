@@ -509,8 +509,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "The Lone Star Cowboy Poetry Gathering returns to Bastrop Sept. 3-4, 2027. Find venue, schedule, ticket and official planning links.",
   },
   "/event/schulenburg-festival": {
-    title: "Schulenburg Festival 2027: Dates, Schedule & Visitor Guide",
-    description: "Schulenburg Festival runs Aug. 5-8, 2027. Find schedule, entertainment, event, official-source and Fayette County visitor-planning information.",
+    title: "Schulenburg Festival 2027: Projected Dates & Visitor Guide",
+    description: "Plan the Schulenburg Festival with projected Aug. 5-8, 2027 dates, recent schedule patterns, rodeo, parade, admission, family activities and Fayette County trip ideas.",
   },
   "/event/terlingua-international-chili-championship": {
     title: "Terlingua International Chili Championship: Dates & Visitor Guide",
