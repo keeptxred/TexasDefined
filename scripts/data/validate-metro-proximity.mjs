@@ -121,9 +121,9 @@ for (const token of [
 ]) requireText(files.hubComponent, token, `metro hub lazy presentation missing ${token}`);
 
 for (const token of [
-  "component: MetroProximityCollectionPage", "Distance window", "not road miles or drive-time promises",
+  "component: MetroProximityCollectionPage", "Plan around", "Drive-time note:",
   "Closest towns first", "Official local source", "Check current drive", "Source-backed options",
-  "MetroProximityCollectionRich",
+  "MetroProximityCollectionRich", "isSmallTownRing",
 ]) requireText(files.collectionRoute, token, `metro collection SSR shell missing ${token}`);
 
 for (const token of [
@@ -138,6 +138,11 @@ for (const token of [
   "Three ways to turn the list into an actual Austin day trip",
   "Painted Churches authority guide",
 ]) requireText(files.collectionUi, token, `Austin two-hour small-town editorial layer missing ${token}`);
+for (const token of [
+  "smallTownDecisionCopy", "Which close-in small town near",
+  "Which farther small-town escape from", "Why go", "Shortlist distance",
+  "genericSmallTownRows", "Planning shortlist",
+]) requireText(files.collectionUi, token, `shared small-town editorial layer missing ${token}`);
 for (const token of [
   'metro.slug === "austin" && collection.slug === "small-towns-2-hours"',
   "Small Towns About 1–2 Hours From Austin, Texas",
