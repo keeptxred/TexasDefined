@@ -161,7 +161,8 @@ export async function getStatewideTaxRateInsightsServer(year: number) {
     .eq('year', year)
     .eq('variable_rate', false)
     .eq('rate_unavailable', false)
-    .not('total_rate', 'is', null);
+    .not('total_rate', 'is', null)
+    .gt('total_rate', 0);
 
   const [{ data: lowestData, error: lowestError }, { data: highestData, error: highestError }] = await Promise.all([
     base().order('total_rate', { ascending: true }).limit(5),
