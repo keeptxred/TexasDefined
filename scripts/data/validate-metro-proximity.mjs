@@ -132,6 +132,18 @@ for (const token of [
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
+for (const token of [
+  "AUSTIN_TWO_HOUR_EDITORIAL", "Choose the trip, not the radius",
+  "Which Austin small-town day trip fits your day?", "Planning drive",
+  "Three ways to turn the list into an actual Austin day trip",
+  "Painted Churches authority guide",
+]) requireText(files.collectionUi, token, `Austin two-hour small-town editorial layer missing ${token}`);
+for (const token of [
+  'metro.slug === "austin" && collection.slug === "small-towns-2-hours"',
+  "Small Towns About 1–2 Hours From Austin, Texas",
+  "worthwhile small-town day trips from Austin",
+]) requireText(files.pageData, token, `Austin two-hour small-town SEO layer missing ${token}`);
+
 if (files.exploreRoute.includes("@/data/metro-proximity")) fail("Explore head route must not eagerly import metro proximity catalog");
 for (const token of [
   "METRO_PROXIMITY_METROS", "Explore from a Texas metro", 'to="/explore/near/$metro"',
