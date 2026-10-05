@@ -402,7 +402,8 @@ const citiesArticle: Article = {
   },
   authorId: "a-dell",
   publishedAt: "2026-08-19",
-  readingMinutes: 13,
+  updatedAt: "2026-10-05",
+  readingMinutes: 15,
   tags: ["texas cities", "houston vs dallas vs austin", "moving to texas", "texas regions", "san antonio", "el paso", "rio grande valley", "west texas"],
   featured: true,
   sourceName: "U.S. Census Bureau - QuickFacts",
@@ -484,10 +485,6 @@ const citiesArticle: Article = {
 
     h("The geographic center is near Brady—and that explains something"),
     p("Texas's geographic center is commonly placed in McCulloch County near Brady. It is nowhere near the center of the state's population or largest metros. That mismatch helps explain why statewide driving distances surprise newcomers: the places where most Texans live are concentrated east of the physical center."),
-
-    h("Politics changes by geography too"),
-    p("Texas voting patterns vary sharply among urban cores, suburbs, exurbs and rural counties, and those patterns continue to change as populations move. A simplified 'cities blue, rural red' rule can describe a broad tendency without predicting every neighborhood, suburb or election."),
-    p("TexasDefined treats voting patterns only as local context; election coverage and political analysis are outside this site's scope."),
 
     h("After the comparison table, the best fit still starts with four address-level checks"),
     list(
