@@ -124,7 +124,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The statewide location directory is a geographic distribution of the verified church collection. Map searches use a verified address when available and otherwise the named church and community; the directory does not infer public access from map presence.',
-    lastVerified: 'Regional grouping, church identity and location-link logic reviewed August 18, 2026.',
+    lastVerified: 'Regional grouping, church identity, coordinate provenance and map interaction reviewed October 6, 2026.',
   },
   '/learn/property-taxes': {
     title: 'Texas property-tax explainer sources',
