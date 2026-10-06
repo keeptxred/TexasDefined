@@ -23,14 +23,16 @@ function mentioned(text: string, entity: TexasEntityRecord) {
  * actually occur in the page text. Keep this path entirely local so ordinary
  * article/destination requests never hydrate the remote 500-row Explore graph.
  */
-export function loadTexasKnowledgeGraphLinkCandidates(text: string): TexasEntityRecord[] {
-  if (!text.trim()) return [];
-
+export function loadLocalTexasKnowledgeGraph(): TexasEntityRecord[] {
   const merged = new Map<string, TexasEntityRecord>();
   for (const entity of TEXAS_ENTITY_REGISTRY) merged.set(entity.id, currentEntity(entity));
   for (const entity of TEXAS_WILDLIFE_SPECIES) merged.set(entity.id, entity);
   for (const entity of PUBLIC_CAVERN_ENTITIES) merged.set(entity.id, entity);
   for (const entity of cityMetroAuthoritySeedEntities()) merged.set(entity.id, entity);
+  return [...merged.values()];
+}
 
-  return [...merged.values()].filter((entity) => mentioned(text, entity));
+export function loadTexasKnowledgeGraphLinkCandidates(text: string): TexasEntityRecord[] {
+  if (!text.trim()) return [];
+  return loadLocalTexasKnowledgeGraph().filter((entity) => mentioned(text, entity));
 }
