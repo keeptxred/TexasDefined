@@ -85,8 +85,9 @@ export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
     .filter((row) => row.indexReady);
   const ready = collections.length >= 4;
   const highlights = collections
-    .flatMap((row) => row.results.slice(0, 3))
+    .flatMap((row) => row.results)
     .filter((row, index, all) => all.findIndex((candidate) => candidate.destination.slug === row.destination.slug) === index)
+    .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
     .slice(0, 12);
   const canonicalPath = metroProximityCanonicalPath(metro.slug);
   const title = `Day Trips & Things to Do Near ${metro.name}`;
