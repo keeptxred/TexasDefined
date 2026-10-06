@@ -26,6 +26,8 @@ async function loadLegacyAuthorityDetail(slug: Slug): Promise<Article | null> {
   return loadLegacyAuthorityArticle(scope.brandId, slug);
 }
 
+const loadRemoteEvergreenDetail = (slug: Slug) => fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
+
 export const articlesQuery = (params: Omit<ArticleQuery, "brandId"> = {}) => queryOptions({
   queryKey: ["articles", scope.brandId, params],
   queryFn: async () => {
@@ -45,7 +47,7 @@ export const articleQuery = (slug: Slug) => queryOptions({
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
       if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);
-      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+      const remoteSourceArticle = await loadRemoteEvergreenDetail(slug);
       const sourceHydratedLocalArticle = remoteSourceArticle
         ? {
             ...localArticle,
@@ -55,7 +57,7 @@ export const articleQuery = (slug: Slug) => queryOptions({
         : localArticle;
       return prepareArticleDetail(sourceHydratedLocalArticle);
     }
-    const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+    const remoteArticle = await loadRemoteEvergreenDetail(slug);
     return remoteArticle ? prepareArticleDetail(remoteArticle) : null;
   },
 });
@@ -178,8 +180,5 @@ export const authorsQuery = () => queryOptions({
 */
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
-  queryFn: async () => {
-    const { buildSearchDocuments } = await import("./search-documents-runtime");
-    return buildSearchDocuments();
-  },
+  queryFn: async () => (await import("./search-documents-runtime")).buildSearchDocuments(),
 });
