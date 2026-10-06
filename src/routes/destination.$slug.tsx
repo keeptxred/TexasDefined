@@ -16,7 +16,7 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { distanceMiles } from "@/data/destination-relationships";
 import { getDestinationRelationshipGroups } from "@/data/destination-relationships.functions";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
@@ -63,7 +63,7 @@ function checkedDate(value?: string) {
 
 function destinationAutoLinkGraph(
   destination: { nearestTown: string; body: string[] },
-  graph: Awaited<ReturnType<typeof loadTexasKnowledgeGraph>>,
+  graph: TexasEntityRecord[],
 ) {
   const text = [destination.nearestTown, ...destination.body].join("\n");
   if (!text.trim()) return [];
@@ -116,14 +116,17 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
     }
-    const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
-      loadTexasKnowledgeGraph(),
+    const linkText = [destination.nearestTown, ...destination.body].join("\n");
+    const [linkCandidates, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
+      import("@/data/knowledge-graph/link-candidates.server").then(({ loadTexasKnowledgeGraphLinkCandidates }) =>
+        loadTexasKnowledgeGraphLinkCandidates(linkText),
+      ),
       context.queryClient.ensureQueryData(categoriesQuery()),
       getDestinationRelationshipGroups({ data: { slug: params.slug } }),
       context.queryClient.ensureQueryData(regionsQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: destination.category, limit: 3 })),
     ]);
-    const graph = destinationAutoLinkGraph(destination, completeGraph);
+    const graph = destinationAutoLinkGraph(destination, linkCandidates);
     return { destination, graph, categories, regions, relatedArticles, relationshipGroups };
   },
   head: ({ loaderData, params }) => {
