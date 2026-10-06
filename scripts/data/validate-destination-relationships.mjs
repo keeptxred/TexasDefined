@@ -60,7 +60,7 @@ requireFeatures(serverBoundary, [
 if (route.includes('destinationsQuery({ limit: 5000 })')) {
   errors.push('Destination relationship route must not hydrate the full 5,000-item catalog into the browser.');
 }
-if (serverBoundary.includes('listResolvedDestinations({ limit: 5000 })')) {
+if (serverBoundary.includes('await listResolvedDestinations({ limit: 5000 })')) {
   errors.push('Destination relationship server boundary must not fan each detail request into a full remote destination catalog scan.');
 }
 if (serverBoundary.includes('queryClient')) {
