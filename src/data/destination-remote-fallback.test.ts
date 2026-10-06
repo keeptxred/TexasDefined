@@ -1,0 +1,13 @@
+import { readFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+
+const runtime = readFileSync(new URL('./destination-query-runtime.ts', import.meta.url), 'utf8');
+
+describe('destination remote failover pressure', () => {
+  it('uses the core/public catalog only after an actual enriched-source failure', () => {
+    expect(runtime).toContain('const core = enrichedResult.failed ? await loadCoreCatalog(options, params) : []');
+    expect(runtime).toContain('let enrichedFailed = false');
+    expect(runtime).toContain('const core = enrichedFailed');
+    expect(runtime).not.toContain('const core = enriched.length ? []');
+  });
+});
