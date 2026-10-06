@@ -91,9 +91,11 @@ const FAQ_ARTICLE_SLUGS = new Set([
   MOVING_TO_TEXAS_PILLAR_SLUG,
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
+  "texas-loops-spurs-explained",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
+  "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
