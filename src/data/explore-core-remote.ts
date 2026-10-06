@@ -1,5 +1,6 @@
 import type { CategorySlug, Destination, TexasRegion } from "./types";
-import { DESTINATION_FALLBACK_IMAGE, hasExploreRemoteData } from "./explore-remote";
+import { DESTINATION_FALLBACK_IMAGE } from "./explore-remote";
+import { hasExploreRemoteData } from "./explore-remote-policy";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
