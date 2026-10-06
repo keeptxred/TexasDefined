@@ -5,6 +5,7 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { METRO_PROXIMITY_METROS } from "@/data/metro-proximity";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -121,6 +122,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
     "/explore",
+    `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
     "/explore/beaches-coast",
     "/explore/trip-planner",
     "/explore/attractions-comparison",
@@ -136,6 +138,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/route-66/texas-road-trip",
     "/explore/landscapes",
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
+    ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
   const entries = [...new Set(fallbackPaths)]
     .map((path) => entry(path))
