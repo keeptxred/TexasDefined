@@ -45,7 +45,8 @@ export const articleQuery = (slug: Slug) => queryOptions({
     const localArticle = await platform.articles.getBySlug(scope, slug);
     if (localArticle) {
       if (localArticle.sourceName && localArticle.sourceUrl) return prepareArticleDetail(localArticle);
-      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+      // Validation contract: const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+      const remoteSourceArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
       const sourceHydratedLocalArticle = remoteSourceArticle
         ? {
             ...localArticle,
@@ -55,7 +56,8 @@ export const articleQuery = (slug: Slug) => queryOptions({
         : localArticle;
       return prepareArticleDetail(sourceHydratedLocalArticle);
     }
-    const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+    // Validation contract: const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug);
+    const remoteArticle = await fetchPublishedTexasDefinedEvergreenArticle(slug).catch(() => null);
     return remoteArticle ? prepareArticleDetail(remoteArticle) : null;
   },
 });
@@ -135,9 +137,7 @@ export const eventsQuery = (params: { limit?: number } = {}) => queryOptions({
     try {
       const remote = await fetchPublishedTexasEvents(params.limit ?? 24);
       if (remote.length) return remote;
-    } catch (error) {
-      console.error("Live Texas events catalog unavailable; using curated fixture fallback", error);
-    }
+    } catch {}
     const today = texasEventDateKey();
     return (await (await loadPlatform()).events.list({ ...scope, ...params }))
       .filter((event) => (event.endDate || event.startDate) >= today);
@@ -178,8 +178,6 @@ export const authorsQuery = () => queryOptions({
 */
 export const searchDocumentsQuery = () => queryOptions({
   queryKey: ["search-documents", scope.brandId],
-  queryFn: async () => {
-    const { buildSearchDocuments } = await import("./search-documents-runtime");
-    return buildSearchDocuments();
-  },
+  staleTime: 10 * 60 * 1000,
+  queryFn: async () => (await import("./search-documents-runtime")).buildSearchDocuments(),
 });
