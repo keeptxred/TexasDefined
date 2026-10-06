@@ -91,9 +91,11 @@ const FAQ_ARTICLE_SLUGS = new Set([
   MOVING_TO_TEXAS_PILLAR_SLUG,
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
+  "texas-loops-spurs-explained",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
+  "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
@@ -287,234 +289,162 @@ export const Route = createFileRoute("/article/$slug")({
       ...(relatedDestinations.length ? {
         hasPart: relatedDestinations.map((destination) => ({
           "@type": "TouristAttraction",
-          "@id": `${siteUrl}/destination/${destination.slug}#attraction`,
+          "@id": `${siteUrl}/destination/${destination.slug}#place`,
           name: destination.name,
           url: `${siteUrl}/destination/${destination.slug}`,
         })),
       } : {}),
     };
-    const breadcrumbItems = [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-      ...(isTexasExplainedCollectionArticle
-        ? [{ "@type": "ListItem", position: 2, name: "Texas Explained", item: `${siteUrl}/texas-explained` }]
-        : [
-            { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
-            ...(department.usesExploreCategory ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }] : []),
-          ]),
-      { "@type": "ListItem", position: isTexasExplainedCollectionArticle ? 3 : department.usesExploreCategory ? 4 : 3, name: article.title, item: articleUrl },
-    ];
     const breadcrumbSchema = {
       "@type": "BreadcrumbList",
       "@id": `${articleUrl}#breadcrumbs`,
-      itemListElement: breadcrumbItems,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+        { "@type": "ListItem", position: 2, name: department.name, item: `${siteUrl}${department.path}` },
+        ...(department.usesExploreCategory
+          ? [{ "@type": "ListItem", position: 3, name: categoryName, item: `${siteUrl}/explore/${article.category}` }]
+          : []),
+        ...(isTexasExplainedCollectionArticle
+          ? [{ "@type": "ListItem", position: department.usesExploreCategory ? 4 : 3, name: "Texas Explained", item: `${siteUrl}/texas-explained` }]
+          : []),
+        {
+          "@type": "ListItem",
+          position: (department.usesExploreCategory ? 3 : 2) + (isTexasExplainedCollectionArticle ? 1 : 0) + 1,
+          name: article.title,
+          item: articleUrl,
+        },
+      ],
     };
     const faqSchema = faqEntries ? {
       "@type": "FAQPage",
       "@id": `${articleUrl}#faq`,
-      mainEntity: faqEntries.map(({ question, answer }) => ({
+      mainEntity: faqEntries.map((entry) => ({
         "@type": "Question",
-        name: question,
-        acceptedAnswer: { "@type": "Answer", text: answer },
+        name: entry.question,
+        acceptedAnswer: { "@type": "Answer", text: entry.answer },
       })),
     } : null;
-    const schemaGraph = [
-      webPageSchema,
-      imageSchema,
-      ...(authorSchema ? [authorSchema] : []),
-      articleSchema,
-      breadcrumbSchema,
-      ...(faqSchema ? [faqSchema] : []),
-    ];
-
+    const collectionSchema = isTexasExplainedCollectionArticle ? {
+      "@type": "CollectionPage",
+      "@id": `${siteUrl}/texas-explained#collection`,
+      name: "Texas Explained",
+      url: `${siteUrl}/texas-explained`,
+      hasPart: { "@id": `${articleUrl}#article` },
+    } : null;
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@graph": [webPageSchema, imageSchema, articleSchema, breadcrumbSchema, ...(authorSchema ? [authorSchema] : []), ...(faqSchema ? [faqSchema] : []), ...(collectionSchema ? [collectionSchema] : [])],
+    };
+    const shouldNoindex = shouldNoindexTexasGatewayArticle(article.slug);
     return {
-      meta: buildMeta(texasDefinedBrand, {
-        title: article.title,
-        description: article.dek,
-        type: "article",
-        canonicalPath,
-        image: article.hero.src,
-        imageAlt: article.hero.alt,
-        imageWidth: article.hero.width,
-        imageHeight: article.hero.height,
-        publishedTime: article.publishedAt,
-        modifiedTime: article.updatedAt ?? article.publishedAt,
-        robots: shouldNoindexTexasGatewayArticle(article) ? "noindex, follow, max-image-preview:large" : undefined,
-      }),
-      links: [
-        canonicalLink(texasDefinedBrand, canonicalPath),
-        ...(article.hero.width >= DISCOVER_MIN_IMAGE_WIDTH ? [{ rel: "preload", as: "image", href: article.hero.src, fetchPriority: "high" as const }] : []),
+      meta: [
+        ...buildMeta(texasDefinedBrand, { title: article.title, description: article.dek, image: article.hero.src, imageAlt: article.hero.alt, type: "article" }),
+        { name: "article:published_time", content: article.publishedAt },
+        { name: "article:modified_time", content: article.updatedAt ?? article.publishedAt },
+        { name: "article:section", content: categoryName },
+        { name: "article:author", content: author?.name ?? "Texas Defined Editorial Desk" },
+        { name: "article:publisher", content: texasDefinedBrand.identity.name },
+        { name: "author", content: author?.name ?? "Texas Defined Editorial Desk" },
+        { name: "robots", content: shouldNoindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+        { "script:ld+json": structuredData },
       ],
-      scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph }) }],
+      links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Story unavailable</p><h1 className="mt-3 font-display text-4xl">This story is no longer available</h1><p className="mt-4 max-w-xl text-sm leading-7 text-muted-foreground">Browse current stories and field guides in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
   component: ArticlePage,
 });
 
 function ArticlePage() {
-  const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  const { article, authors, categories, related, destinations, graph } = Route.useLoaderData();
+  const author = authors.find((a) => a.id === article.authorId);
+  const category = categories.find((c) => c.slug === article.category);
+  const imageRights = imageRightsFor(article.hero.src);
+  const internalLinks = articleInternalLinks[article.slug] ?? article.internalLinks ?? [];
   const primarySource = articlePrimarySource(article);
   const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
-  const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
-  const author = authors.find((item) => item.id === article.authorId) ?? null;
-  const categoryName = categories.find((category) => category.slug === article.category)?.name
-    ?? article.category.replace(/-/g, " ");
+  const isTexasExplainedCollectionArticle = texasExplainedCollectionSlugs.has(article.slug);
+  const isTexasRiversExplainer = article.slug === "texas-rivers-explained";
+  const isTexasCitiesRegionalDifferences = article.slug === "texas-major-cities-regional-differences";
+  const isTexasRiverBasinReference = article.slug === "texas-river-basins-guide";
+  const isMovingToTexasPillar = article.slug === MOVING_TO_TEXAS_PILLAR_SLUG;
+  const articleLinks = isTexasExplainedCollectionArticle
+    ? internalLinks.filter((link) => link.href !== "/texas-explained")
+    : internalLinks;
   const department = articleDepartment(article.category);
-  const texasExplainedPillarPosition = texasExplainedPillarOrder.findIndex((pillarSlug) => pillarSlug === article.slug);
-  const isTexasExplainedPillar = texasExplainedPillarPosition >= 0;
-  const isTexasExplainedSupport = texasExplainedSupportSlugs.has(article.slug);
-  const isTexasExplainedCollectionArticle = isTexasExplainedPillar || isTexasExplainedSupport;
-  const texasExplainedQuickAnswer = isTexasExplainedPillar ? article.dek.trim() : null;
-  const previousTexasExplainedSlug = texasExplainedPillarPosition > 0
-    ? texasExplainedPillarOrder[texasExplainedPillarPosition - 1]
+  const categoryName = category?.name ?? article.category.replace(/-/g, " ");
+  const hasInlineSources = hasSourcesAndFurtherReading(article.body);
+  const texasExplainedArticles = isTexasExplainedCollectionArticle
+    ? articlesQuery
     : null;
-  const nextTexasExplainedSlug = texasExplainedPillarPosition >= 0 && texasExplainedPillarPosition < texasExplainedPillarOrder.length - 1
-    ? texasExplainedPillarOrder[texasExplainedPillarPosition + 1]
-    : null;
-  const embeddedInternalLinks = article.internalLinks ?? [];
-  const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
-  const internalLinks = [
-    ...embeddedInternalLinks,
-    ...supplementalInternalLinks.filter(
-      (link) => !embeddedInternalLinks.some((existing) => existing.href === link.href),
-    ),
-  ];
-  const relatedDestinations = article.relatedDestinations
-    .map((destinationSlug) => destinations.find((destination) => destination.slug === destinationSlug))
-    .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
-    .slice(0, 6);
+  const texasExplainedOrder = isTexasExplainedCollectionArticle
+    ? [...texasExplainedPillarOrder, ...texasExplainedSupportOrder].filter((slug) => slug !== article.slug)
+    : [];
+  const texasExplainedMap = isTexasExplainedCollectionArticle
+    ? new Map(related.map((item) => [item.slug, item]))
+    : new Map();
+  const relatedArticles = isTexasExplainedCollectionArticle
+    ? texasExplainedOrder.map((slug) => texasExplainedMap.get(slug)).filter((item): item is NonNullable<typeof item> => Boolean(item)).slice(0, 4)
+    : related.filter((item) => item.slug !== article.slug).slice(0, 3);
+  const autoLinkEntities = graph.slice(0, 8);
+  const unusualBusinessAttrs = unusualBusinessAnalyticsAttributes({
+    articleSlug: article.slug,
+    articleTags: article.tags,
+    categorySlug: article.category,
+    section: "article_page",
+  });
 
-  const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
-  const isTexasRiversArticle = article.slug === "texas-rivers-explained";
-  const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
-  const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
-  const riverBasinHeadingIndex = isTexasRiversArticle
-    ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
-    : -1;
-  const riverBasinInsertIndex = riverBasinHeadingIndex >= 0
-    ? article.body.findIndex((block, index) => index > riverBasinHeadingIndex && block.type === "heading")
-    : -1;
-  const riverBodyBeforeBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(0, riverBasinInsertIndex) : article.body;
-  const riverBodyAfterBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(riverBasinInsertIndex) : [];
-  const waterTopic = article.slug === "texas-river-basins-guide" ? "basins" : null;
-
-  return <article>
-    <Container className="pt-8 sm:pt-12">
-      <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground">
-        <ol className="flex flex-wrap items-center gap-2">
-          <li><Link to="/" className="py-1 hover:text-foreground">Front page</Link></li><li aria-hidden="true">·</li>
-          {isTexasExplainedCollectionArticle ? <>
-            <li><Link to="/texas-explained" className="py-1 hover:text-foreground">Texas Explained</Link></li>
-          </> : <>
-            <li><Link to={department.path} className="py-1 hover:text-foreground">{department.name}</Link></li>
-            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link></li></>}
-          </>}
-          <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{articleDisplayTitle}</li>
-        </ol>
-      </nav>
-    </Container>
-    <section className="relative isolate mt-4 overflow-hidden bg-ink text-ink-foreground">
-      <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} fetchPriority="high" decoding="async" className="absolute inset-0 size-full object-cover opacity-60" onError={(event) => recoverOrHideImage(event.currentTarget)} />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/25" />
-      <Container className="relative flex flex-col justify-end pb-10 pt-24 sm:pb-14 sm:pt-28" style={{ minHeight: "clamp(24rem, 48vw, 34rem)" }}>
-        <p className="eyebrow text-ink-foreground/80">{isTexasExplainedCollectionArticle ? "Texas Explained" : categoryName}</p>
-        <h1 className="mt-4 max-w-4xl font-display text-4xl leading-[1] sm:text-6xl lg:text-7xl">{articleDisplayTitle}</h1>
-        {!isTexasExplainedPillar && <p className="mt-5 max-w-2xl text-base leading-7 text-ink-foreground/86 sm:mt-6 sm:text-lg sm:leading-8">{article.dek}</p>}
-      </Container>
-    </section>
-    <Container className="relative max-w-3xl py-10 sm:py-16">
-      {isTexasRiversArticle ? (
-        <div className="flex flex-wrap items-center gap-2 border-b border-border pb-5 text-sm text-muted-foreground">
-          {author && <span className="text-foreground">By <Link to="/authors/$author" params={{ author: author.id }} className="font-semibold underline decoration-border underline-offset-4 transition-colors hover:text-primary">{author.name}</Link></span>}
-          {author && <span aria-hidden="true">·</span>}
-          <span>{article.updatedAt ? `Updated ${formatDate(article.updatedAt)}` : formatDate(article.publishedAt)}</span>
-          <span aria-hidden="true">·</span>
-          <span>{formatReadingTime(article.readingMinutes)}</span>
-        </div>
-      ) : <Byline author={author} meta={`${formatDate(article.publishedAt)}${article.updatedAt && article.updatedAt !== article.publishedAt ? ` · Updated ${formatDate(article.updatedAt)}` : ""} · ${formatReadingTime(article.readingMinutes)}`} />}
-      {hasSchoolSupplyRail ? <><style>{`.school-supply-rail{display:none}@media (min-width:1536px){.school-supply-rail{display:block}.school-supply-bottom{display:none}}`}</style><aside className="school-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2.5rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" /></div></aside></> : null}
-      {!isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
-        <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
-        <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
-        <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
-      </nav>}
-      {isTexasExplainedPillar && (isTexasRiversArticle ? <aside className="mt-6 border-y border-border py-4" aria-label="Texas Explained series">
-        <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-          <p className="font-semibold text-foreground">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
-          <nav aria-label="Texas Explained guide navigation" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.1em]">
-            <Link to="/texas-explained" className="text-primary">All 10 guides</Link>
-            {nextTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: nextTexasExplainedSlug }} className="text-foreground transition-colors hover:text-primary">Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →</Link> : null}
+  return (
+    <main>
+      <Container className="py-10 sm:py-14 lg:py-16">
+        <div className="mx-auto max-w-4xl">
+          <nav aria-label="Breadcrumb" className="mb-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            <Link to="/" className="hover:text-foreground">Home</Link><span aria-hidden="true">/</span>
+            <Link to={department.path} className="hover:text-foreground">{department.name}</Link><span aria-hidden="true">/</span>
+            {department.usesExploreCategory ? <><Link to="/explore/$category" params={{ category: article.category }} className="hover:text-foreground">{categoryName}</Link><span aria-hidden="true">/</span></> : null}
+            {isTexasExplainedCollectionArticle ? <><Link to="/texas-explained" className="hover:text-foreground">Texas Explained</Link><span aria-hidden="true">/</span></> : null}
+            <span className="normal-case tracking-normal text-foreground/80" aria-current="page">{article.title}</span>
           </nav>
+          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            <span>{categoryName}</span><span aria-hidden="true">·</span><span>{formatReadingTime(article.readingMinutes)}</span>
+          </div>
+          <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl">{article.title}</h1>
+          <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-xl">{article.dek}</p>
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">
+            {author ? <Byline author={author} /> : <span>Texas Defined Editorial Desk</span>}
+            <span aria-hidden="true">·</span><time dateTime={article.updatedAt ?? article.publishedAt}>Updated {formatDate(article.updatedAt ?? article.publishedAt)}</time>
+          </div>
         </div>
-      </aside> : <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained series">
-        <p className="eyebrow text-primary">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
-        <p className="mt-2 text-sm leading-7 text-muted-foreground">Part of our 10-guide series on the systems, landscapes and people that explain how Texas works. <Link to="/texas-explained" className="border-b border-primary py-1 text-foreground transition-colors hover:text-primary">See all 10 guides →</Link></p>
-        <nav aria-label="Texas Explained guide navigation" className="mt-5 grid grid-cols-2 gap-3 border-t border-border pt-4 text-xs font-semibold uppercase tracking-[0.12em] sm:grid-cols-[1fr_auto_1fr] sm:items-center">
-          <Link to="/texas-explained" className="col-span-2 text-center text-primary sm:col-span-1 sm:col-start-2 sm:row-start-1">All 10 guides</Link>
-          <div className="sm:col-start-1 sm:row-start-1">{previousTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: previousTexasExplainedSlug }} className="inline-block py-2 text-foreground transition-colors hover:text-primary">← Guide {texasExplainedPillarPosition} of {texasExplainedPillarOrder.length}</Link> : null}</div>
-          <div className="text-right sm:col-start-3 sm:row-start-1">{nextTexasExplainedSlug ? <Link to="/article/$slug" params={{ slug: nextTexasExplainedSlug }} className="inline-block py-2 text-foreground transition-colors hover:text-primary">Guide {texasExplainedPillarPosition + 2} of {texasExplainedPillarOrder.length} →</Link> : null}</div>
-        </nav>
-      </aside>)}
-      {isTexasExplainedSupport && <aside className="mt-8 border-l-2 border-primary pl-5" aria-label="Texas Explained supporting explainer">
-        <p className="eyebrow text-primary">Texas Explained · Supporting explainer</p>
-        <p className="mt-2 text-sm leading-7 text-muted-foreground">This focused guide extends one of the collection's core topics. <Link to="/texas-explained" className="border-b border-primary py-1 text-foreground transition-colors hover:text-primary">Browse the full Texas Explained collection →</Link></p>
-      </aside>}
-      {texasExplainedQuickAnswer && !isTexasRiversArticle && <section className="mt-8 rounded-sm border border-border bg-surface p-6 sm:p-7" aria-labelledby="texas-explained-quick-answer">
-        <p className="eyebrow text-primary">Quick answer</p>
-        <h2 id="texas-explained-quick-answer" className="mt-3 font-display text-2xl">The short version</h2>
-        <p className="mt-3 text-base leading-8 text-foreground/85">{texasExplainedQuickAnswer}</p>
-        <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
-      </section>}
-      {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
-      {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
-      <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
-        {isTexasRiversArticle ? <>
-          <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
-          <Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>
-          {riverBodyAfterBasinReference.length > 0 ? <ArticleBody blocks={riverBodyAfterBasinReference} entities={graph} /> : null}
-        </> : <ArticleBody blocks={article.body} entities={graph} />}
-      </div>
-      {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
-      {waterTopic ? (
-        <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
-          <TexasWaterSearchResource active={waterTopic} />
-        </Suspense>
-      ) : null}
-      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
-      {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
-      {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
-        <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
-        <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
-        <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
-      </nav>}
-      {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
-        <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
-        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{authoritySources.map((source) => <li key={source.url}>
-          <a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{source.label} ↗</a>
-          <span className="block">{source.scope}</span>
-        </li>)}</ul>
-      </section>}
-      {!isTexasRiversArticle && internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
-        <p className="eyebrow text-primary">Related reading</p>
-        <ul className="mt-5 divide-y divide-border">{internalLinks.map((item) => <li key={item.href} className="py-4 first:pt-0 last:pb-0">
-          <a href={item.href} {...unusualBusinessAnalyticsAttributes(item.href, `article-related:${article.slug}`)} className="group block py-1">
-            <span className="font-display text-xl group-hover:text-primary">{item.label}</span>
-            {item.description && <span className="mt-1 block text-sm leading-7 text-muted-foreground">{item.description}</span>}
-          </a>
-        </li>)}</ul>
-      </aside>}
-      {!isTexasRiversArticle && article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
-    </Container>
-    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : "Plan Your Visit"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
-  ? <article className="border-t border-border pt-5">
-      <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
-      <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
-      <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
-      {destination.bestSeason && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
-      <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
-    </article>
-  : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
-    {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
-  </article>;
+      </Container>
+
+      <Container>
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border bg-muted/30">
+          <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} className="aspect-[16/9] w-full object-cover" loading="eager" fetchPriority="high" onError={recoverOrHideImage} />
+        </div>
+      </Container>
+
+      <Container className="py-10 sm:py-14">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+          <article className="min-w-0">
+            <ArticleBody blocks={article.body} />
+            {isTexasRiversExplainer ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
+          </article>
+          <aside className="space-y-8 lg:sticky lg:top-24 lg:self-start">
+            {primarySource ? <div className="rounded-xl border border-border bg-muted/20 p-5"><p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Primary source</p><a href={primarySource.url} className="mt-2 block text-sm font-semibold text-primary hover:underline" target="_blank" rel="noopener noreferrer">{primarySource.label}</a></div> : null}
+            {articleLinks.length ? <div><h2 className="font-serif text-xl font-semibold">Keep exploring</h2><div className="mt-4 space-y-3">{articleLinks.slice(0, 6).map((link) => <Link key={link.href} to={link.href} className="block rounded-lg border border-border p-3 text-sm font-semibold hover:border-primary/50">{link.label}</Link>)}</div></div> : null}
+          </aside>
+        </div>
+      </Container>
+
+      {isTexasCitiesRegionalDifferences ? <TexasCitiesComparison /> : null}
+      {isTexasRiversExplainer ? <Suspense fallback={null}><TexasRiversAuthorityHub /></Suspense> : null}
+      {isTexasRiverBasinReference ? <Suspense fallback={null}><TexasRiverBasinReference /></Suspense> : null}
+      {article.slug === "texas-water-data-guide" ? <Suspense fallback={null}><TexasWaterSearchResource /></Suspense> : null}
+      {schoolSupplyArticleSlugs.has(article.slug) ? <SchoolSupplyPartners /> : null}
+
+      {authoritySources.length && !hasInlineSources ? <Section><SectionHeader eyebrow="Sources" title="Sources and further reading" /><div className="grid gap-3 sm:grid-cols-2">{authoritySources.slice(0, 8).map((source) => <a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer" className="rounded-xl border border-border p-4 text-sm hover:border-primary/50"><span className="font-semibold">{source.label}</span></a>)}</div></Section> : null}
+
+      {relatedArticles.length ? <Section><SectionHeader eyebrow="Keep exploring" title="Related Texas stories" /><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{relatedArticles.map((item) => <ArticleCard key={item.slug} article={item} />)}</div></Section> : null}
+      {destinations.length ? <Section><SectionHeader eyebrow="Go deeper" title="Places connected to this story" /><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">{destinations.slice(0, 4).map((destination) => <DestinationCard key={destination.slug} destination={destination} />)}</div></Section> : null}
+    </main>
+  );
 }
