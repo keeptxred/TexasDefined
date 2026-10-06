@@ -719,10 +719,17 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
-  const image = page.image
-    ? { src: page.image, alt: page.imageAlt, type: page.imageType }
-    : fallbackImage;
+  const discoverImage = brand.identity.id === "texasdefined" && page.canonicalPath
+    ? TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]
+    : undefined;
+  const image = discoverImage
+    ? { src: discoverImage.src, alt: page.imageAlt, type: discoverImage.type }
+    : page.image
+      ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+      : fallbackImage;
   const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
+  const imageWidth = discoverImage?.width ?? page.imageWidth;
+  const imageHeight = discoverImage?.height ?? page.imageHeight;
   const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
@@ -744,8 +751,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       { name: "twitter:image", content: imageUrl },
     );
     if (image?.alt) meta.push({ property: "og:image:alt", content: cleanMetaText(image.alt) }, { name: "twitter:image:alt", content: cleanMetaText(image.alt) });
-    if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });
-    if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });
+    if (imageWidth) meta.push({ property: "og:image:width", content: String(imageWidth) });
+    if (imageHeight) meta.push({ property: "og:image:height", content: String(imageHeight) });
     if (image?.type) meta.push({ property: "og:image:type", content: image.type });
   }
   if (robots) meta.push({ name: "robots", content: robots }, { name: "googlebot", content: robots });
