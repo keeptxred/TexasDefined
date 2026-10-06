@@ -26,6 +26,16 @@ const countySeriesProfiles = [
   ...COUNTY_SERIES_PROFILES,
 ];
 
+const COUNTY_HERO_OVERRIDES: Readonly<Record<string, Article["hero"]>> = {
+  williamson: {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Williamson%20County%20Courthouse%20(1%20of%201).jpg?width=1600",
+    alt: "Williamson County Courthouse in Georgetown, Texas",
+    width: 1600,
+    height: 1067,
+    credit: "Renelibrary / Wikimedia Commons (CC BY-SA 4.0)",
+  },
+};
+
 export function hasCountySeriesProfileServer(countySlug: string) {
   return countySeriesProfiles.some((item) => item.countySlug === countySlug);
 }
@@ -35,7 +45,8 @@ export function loadCountySeriesArticleServer(countySlug: string): Promise<Artic
   if (cached) return cached;
 
   const countyProfile = countySeriesProfiles.find((item) => item.countySlug === countySlug);
-  const promise = countyProfile?.loadArticle() ?? Promise.resolve(null);
+  const heroOverride = COUNTY_HERO_OVERRIDES[countySlug];
+  const promise = countyProfile?.loadArticle().then((article) => article && heroOverride ? { ...article, hero: heroOverride } : article) ?? Promise.resolve(null);
   articlePromiseCache.set(countySlug, promise);
   return promise;
 }
