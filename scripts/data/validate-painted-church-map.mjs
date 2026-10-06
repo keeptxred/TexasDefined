@@ -33,6 +33,7 @@ if (!mapRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) fai
 if (!compareRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Comparison freshness metadata must follow the canonical authority expansion date.');
 if (!authoritySources.includes('export const paintedChurchAuthorityExpansionDate = "2026-09-25"')) failures.push('Canonical Painted Churches authority expansion date is missing.');
 if (!trustRouter.includes("Regional grouping, church identity, coordinate provenance and map interaction reviewed October 6, 2026.")) failures.push('Painted Churches map trust note must reflect the current review date and scope.');
+if (!trustRouter.includes("Comparison labels, 28-record collection coverage and freshness metadata reviewed October 6, 2026.")) failures.push('Painted Churches comparison trust note must reflect current coverage and freshness review.');
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
 }
