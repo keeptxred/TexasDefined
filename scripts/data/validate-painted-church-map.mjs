@@ -4,6 +4,8 @@ const failures = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
 const points = read('src/data/painted-church-map-points.ts');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
+const compareRoute = read('src/routes/explore.painted-churches.compare.tsx');
+const authoritySources = read('src/data/painted-church-authority-sources.ts');
 const expanded = read('src/data/painted-churches-expanded.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
 const llms = read('src/routes/llms[.]txt.ts');
@@ -20,6 +22,15 @@ for (const field of ['precision:', 'sourceUrl:', 'sourceLabel:', 'exact-property
 if (!mapRoute.includes('useState') || !mapRoute.includes('aria-pressed') || !mapRoute.includes('setSelectedSlug')) failures.push('Map must remain interactive with accessible filters and pin selection.');
 if (!mapRoute.includes('GeoCoordinates') || !mapRoute.includes('paintedChurchMapPoints')) failures.push('Map must publish sourced GeoCoordinates data.');
 if (!mapRoute.includes('Coordinate methodology') || !mapRoute.includes('precisionLabel')) failures.push('Map must visibly explain coordinate precision.');
+for (const token of ['effectiveSelectedSlug', 'onFocus={() => setSelectedSlug', 'openstreetmap.org/export/embed.html', 'Search these results', 'viewBoxForBounds']) {
+  if (!mapRoute.includes(token)) failures.push(`Map UX regression: missing ${token}.`);
+}
+if (!mapRoute.includes('hasPart: paintedChurchMapPoints.map')) failures.push('Map coordinate Dataset must model church locations with hasPart.');
+if (!mapRoute.includes('DataDownload')) failures.push('Map coordinate Dataset must expose CSV/JSON downloads as distributions.');
+if (mapRoute.includes('distribution: paintedChurchMapPoints.map')) failures.push('Map must not model Place records as Dataset distributions.');
+if (!mapRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Map freshness metadata must follow the canonical authority expansion date.');
+if (!compareRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Comparison freshness metadata must follow the canonical authority expansion date.');
+if (!authoritySources.includes('export const paintedChurchAuthorityExpansionDate = "2026-09-25"')) failures.push('Canonical Painted Churches authority expansion date is missing.');
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
 }
@@ -39,4 +50,4 @@ if (failures.length) {
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log('Painted Churches map protected: 28 sourced pins, precision provenance, interactive filters, GeoCoordinates, archival comparison, public routes, llms guidance and citation manifest.');
+console.log('Painted Churches map protected: 28 sourced pins, synchronized selection, regional zoom, live street-map context, searchable directory, precision provenance, correct Dataset modeling, canonical freshness metadata, public routes, llms guidance and citation manifest.');
