@@ -7,6 +7,8 @@ const PAGE_SIZE = 500;
 const MAX_REMOTE_DESTINATIONS = 5000;
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+type ExploreRow = Record<string, unknown>;
+
 function headers(): HeadersInit {
   return {
     apikey: supabaseKey,
@@ -62,12 +64,12 @@ function regionFromCoordinates(lat: number, lng: number): TexasRegion | undefine
   return "prairies-lakes";
 }
 
-function entityType(row: Record<string, unknown>): string {
+function entityType(row: ExploreRow): string {
   const relation = record(row.explore_entity_types);
   return String(relation.key || row.entity_type_key || row.entity_type || row.type || "");
 }
 
-function readableType(row: Record<string, unknown>): string {
+function readableType(row: ExploreRow): string {
   const relation = record(row.explore_entity_types);
   const label = cleanText(relation.name);
   if (label) return label;
@@ -91,7 +93,7 @@ function category(value: unknown): CategorySlug {
   return "outdoors";
 }
 
-function matchesCategory(row: Record<string, unknown>, requested?: CategorySlug): boolean {
+function matchesCategory(row: ExploreRow, requested?: CategorySlug): boolean {
   return !requested || category(entityType(row)) === requested;
 }
 
@@ -113,7 +115,7 @@ function destinationImage(value: unknown): string {
   return DESTINATION_FALLBACK_IMAGE;
 }
 
-function destinationMediaImage(media: Record<string, unknown>, row: Record<string, unknown>): string {
+function destinationMediaImage(media: Record<string, unknown>, row: ExploreRow): string {
   const external = destinationImage(media.external_url);
   if (external !== DESTINATION_FALLBACK_IMAGE) return external;
   const stored = storagePublicUrl(media.storage_bucket, media.storage_path);
@@ -121,7 +123,7 @@ function destinationMediaImage(media: Record<string, unknown>, row: Record<strin
   return destinationImage(row.hero_image_url || row.image_url);
 }
 
-function mediaFor(row: Record<string, unknown>): Record<string, unknown> {
+function mediaFor(row: ExploreRow): Record<string, unknown> {
   const links = records(row.explore_entity_media)
     .filter((link) => cleanText(link.role) === "hero" || cleanText(link.role) === "thumbnail" || Boolean(link.is_primary))
     .sort((left, right) => {
@@ -140,7 +142,7 @@ function relatedNames(rows: unknown, relationKey: string, allowedStates: string[
     .filter(Boolean));
 }
 
-function bestSeasonFromActivities(row: Record<string, unknown>): string {
+function bestSeasonFromActivities(row: ExploreRow): string {
   const months = unique(records(row.explore_entity_activities)
     .flatMap((activity) => Array.isArray(activity.best_months) ? activity.best_months.map(Number) : [])
     .filter((month) => month >= 1 && month <= 12)
@@ -189,14 +191,14 @@ function profileHighlights(park: Record<string, unknown>, lake: Record<string, u
   return items;
 }
 
-function sourceDetails(row: Record<string, unknown>): { officialUrl?: string; sourceCheckedAt?: string } {
+function sourceDetails(row: ExploreRow): { officialUrl?: string; sourceCheckedAt?: string } {
   const source = records(row.explore_entity_sources)[0] ?? {};
   const officialUrl = cleanText(source.source_url) || undefined;
   const checked = cleanText(source.verified_at || source.retrieved_at);
   return { officialUrl, sourceCheckedAt: checked || undefined };
 }
 
-function mapRow(row: Record<string, unknown>): Destination {
+function mapRow(row: ExploreRow): Destination {
   const place = record(row.explore_locations);
   const park = record(row.explore_park_profiles);
   const lake = record(row.explore_lake_profiles);
@@ -275,14 +277,31 @@ const EXPLORE_SELECT = [
   "explore_entity_sources(source_url,retrieved_at,verified_at,confidence)",
 ].join(",");
 
-async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<Record<string, unknown>[]> {
+async function requestExploreRows(params: URLSearchParams): Promise<ExploreRow[]> {
+  const url = `${supabaseUrl}/rest/v1/explore_entities?${params}`;
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_entities",
+      url,
+      headers: headers(),
+      timeoutMs: 2500,
+      errorLabel: "Explore remote read",
+    });
+  }
+
+  const response = await fetch(url, { headers: headers() });
+  if (!response.ok) throw new Error(`Explore request failed: ${response.status}`);
+  const value = await response.json();
+  return Array.isArray(value) ? value : [];
+}
+
+async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<ExploreRow[]> {
   const pageParams = new URLSearchParams(params);
   pageParams.set("offset", String(offset));
   pageParams.set("limit", String(limit));
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, { headers: headers() });
-  if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) ? rows : [];
+  return requestExploreRows(pageParams);
 }
 
 export async function fetchExploreDestinations(
@@ -303,7 +322,7 @@ export async function fetchExploreDestinations(
     params.set("or", `(name.ilike.*${clean}*,slug.ilike.*${clean}*,short_description.ilike.*${clean}*,long_description.ilike.*${clean}*)`);
   }
 
-  const rows: Record<string, unknown>[] = [];
+  const rows: ExploreRow[] = [];
   for (let offset = 0; offset < scanLimit; offset += PAGE_SIZE) {
     const page = await fetchExplorePage(params, offset, Math.min(PAGE_SIZE, scanLimit - offset));
     rows.push(...page);
@@ -322,8 +341,6 @@ export async function fetchExploreDestination(slug: string): Promise<Destination
     status: "in.(published,verified)",
     limit: "1",
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
-  if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
+  const rows = await requestExploreRows(params);
+  return rows[0] ? mapRow(rows[0]) : null;
 }
