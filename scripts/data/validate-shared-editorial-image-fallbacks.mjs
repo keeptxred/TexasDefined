@@ -202,7 +202,9 @@ for (const marker of [
 
 for (const marker of [
   'data-major-event-enrichment-image="true"',
-  'schemaEnrichment.image.url',
+  'isCompliantMajorEventImage(schemaEnrichment?.image)',
+  'const displayImage =',
+  'displayImage.url',
   'Image source ↗',
 ]) requireMarker('major event enrichment image', marker);
 

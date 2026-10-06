@@ -59,8 +59,8 @@ const experiments = [
   },
   {
     path: '/event/westfest',
-    title: 'Westfest Texas: Dates, Parade, Schedule & Hours',
-    description: 'Plan Westfest in West, Texas with the current date guidance',
+    title: 'Westfest Texas: Projected Dates, Parade & Visitor Guide',
+    description: 'Plan Westfest in West, Texas with projected date guidance',
   },
   {
     path: '/article/texas-river-basins-guide',
@@ -94,8 +94,8 @@ const experiments = [
   },
   {
     path: '/event/sweetwater-rattlesnake-roundup',
-    title: 'Sweetwater Rattlesnake Roundup 2027: Dates & Visitor Guide',
-    description: 'Sweetwater Rattlesnake Roundup 2027 planning window: March 12-14',
+    title: 'Sweetwater Rattlesnake Roundup 2027: Projected Dates & Guide',
+    description: 'Sweetwater Rattlesnake Roundup 2027 projected planning window: March 12-14',
   },
   {
     path: '/article/texas-school-districts-explained',
@@ -155,7 +155,7 @@ const experiments = [
 ];
 
 const secondWave = [
-  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Date, Route & Planning Guide', description: 'Dallas Holiday Parade 2026 planning date: Dec. 5' },
+  { path: '/event/dallas-holiday-parade', title: 'Dallas Holiday Parade 2026: Projected Date, Route & Guide', description: 'Dallas Holiday Parade 2026 projected planning date: Dec. 5' },
   { path: '/event/houston-thanksgiving-day-parade', title: 'Houston Thanksgiving Parade 2026: Date, Time & Route', description: "Houston's H-E-B Thanksgiving Day Parade is Nov. 26, 2026 at 9 a.m. downtown" },
   { path: '/event/texas-rose-festival', title: 'Texas Rose Festival 2026: Tyler Dates, Parade & Schedule', description: 'Plan the 2026 Texas Rose Festival in Tyler with official dates' },
   { path: '/event/larry-joe-taylor-texas-music-festival', title: 'Larry Joe Taylor Festival 2027: Dates, Tickets & Camping', description: 'LJT Fest returns to Stephenville April 19-24, 2027' },
@@ -250,7 +250,7 @@ if (sixthWave.length !== 20) {
 }
 
 const seventhWave = [
-  { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest 2026: Dates, Hours, Tickets & Parking", description: "Addison Oktoberfest runs Sept. 17-20, 2026" },
+  { path: "/event/addison-oktoberfest", title: "Addison Oktoberfest: Dates, Hours, Tickets & Parking", description: "latest confirmed dates" },
   { path: "/texas-state-fair", title: "State Fair of Texas 2026: Dates, Hours, Schedule & Tickets", description: "The State Fair of Texas runs Sept. 25-Oct. 18, 2026" },
   { path: "/article/el-paso-county-missions-rio-grande-texas", title: "El Paso County Missions & Rio Grande: Borderlands History Guide", description: "Explore El Paso County through the Rio Grande, Ysleta Mission" },
   { path: "/article/texas-barbecue-styles-explained", title: "Texas Barbecue Styles: Central, East, South & West Texas BBQ", description: "Compare Texas barbecue styles by region" },
@@ -259,7 +259,7 @@ const seventhWave = [
   { path: "/things-unique-to-texas", title: "What Is Texas Known For? Iconic Foods, Places & Traditions", description: "Explore things strongly associated with Texas" },
   { path: "/destination/natural-bridge-wildlife-ranch", title: "Natural Bridge Wildlife Ranch: Tickets, Hours & Visitor Guide", description: "Plan a Natural Bridge Wildlife Ranch visit near San Antonio" },
   { path: "/event/lone-star-cowboy-poetry-gathering-bastrop", title: "Lone Star Cowboy Poetry Gathering 2027: Bastrop Dates & Guide", description: "returns to Bastrop Sept. 3-4, 2027" },
-  { path: "/event/schulenburg-festival", title: "Schulenburg Festival 2027: Dates, Schedule & Visitor Guide", description: "Schulenburg Festival runs Aug. 5-8, 2027" },
+  { path: "/event/schulenburg-festival", title: "Schulenburg Festival 2027: Projected Dates & Visitor Guide", description: "projected Aug. 5-8, 2027 dates" },
   { path: "/event/terlingua-international-chili-championship", title: "Terlingua International Chili Championship: Dates & Visitor Guide", description: "Plan the Terlingua International Chili Championship" },
   { path: "/sports-venue/cotton-bowl-stadium", title: "Cotton Bowl Stadium Dallas: Parking, Map & Events", description: "Plan a Cotton Bowl Stadium visit at Fair Park in Dallas" },
   { path: "/sports-venue/datcu-stadium", title: "DATCU Stadium Denton: Parking, Map & North Texas Football", description: "Plan a DATCU Stadium visit in Denton" },
