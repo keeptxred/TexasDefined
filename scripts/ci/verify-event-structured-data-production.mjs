@@ -340,14 +340,30 @@ async function verifyFreeOfferLeaf() {
 
 async function verifyPaidOfferAndPerformersLeaf() {
   const path = '/event/fort-bend-county-fair-rodeo';
+  const endDate = '2026-10-04';
   const html = await fetchProduction(path, 'fort-bend-county-fair-rodeo');
   assert(canonicalHref(html) === `${origin}${path}`, `Fort Bend County Fair canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Fort Bend visible page must expose the verified organizer');
   assert(html.includes('Tickets and admission'), 'Fort Bend visible page must expose verified admission');
   assert(html.includes('Announced performers'), 'Fort Bend visible page must expose announced performers');
 
-  const event = eventNodes(html)[0];
-  assert(event, 'Fort Bend County Fair leaf must expose Event schema');
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Fort Bend County Fair leaf must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+  const today = currentEventDateKey();
+
+  if (today > endDate) {
+    assert(nodes.some((node) => hasType(node, 'WebPage')), 'Fort Bend County Fair expired leaf must expose WebPage schema');
+    assert(nodes.some((node) => hasType(node, 'Thing')), 'Fort Bend County Fair expired leaf must remain described as a Thing');
+    assert(!nodes.some((node) => hasType(node, 'Event')), 'Fort Bend County Fair expired leaf must suppress stale scheduled Event markup');
+    assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'Fort Bend County Fair expired leaf must suppress EventScheduled markup');
+    assert(nodes.every((node) => !Object.hasOwn(node, 'startDate') && !Object.hasOwn(node, 'endDate')), 'Fort Bend County Fair expired JSON-LD must not publish stale occurrence dates');
+    console.log(`[fort-bend-county-fair-rodeo] expired confirmed occurrence schema suppression verified for ${today}`);
+    return;
+  }
+
+  const event = nodes.find((node) => hasType(node, 'Event'));
+  assert(event, 'Fort Bend County Fair leaf must expose Event schema while its confirmed occurrence is upcoming or active');
   assert(hasType(event.organizer, 'Organization'), 'Fort Bend County Fair must expose its verified organizer');
   const offers = asArray(event.offers);
   assert(offers.length >= 1, 'Fort Bend County Fair must expose a verified paid Offer');
