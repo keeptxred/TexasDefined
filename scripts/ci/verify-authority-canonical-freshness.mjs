@@ -17,6 +17,20 @@ const pages = [
     ],
   },
   {
+    label: 'Major Texas cities',
+    url: 'https://texasdefined.com/article/texas-major-cities-regional-differences',
+    required: [
+      'Major Texas Cities Compared: Houston, DFW, Austin & San Antonio',
+      'Texas cities compared at a glance',
+      'U.S. Census Bureau, 2020 Decennial Census',
+      'Use current official data for a final move decision.',
+    ],
+    forbidden: [
+      'Politics changes by geography too',
+      'Texas Cities and Regions: How Houston, DFW, Austin, San Antonio and the Rest Really Differ',
+    ],
+  },
+  {
     label: 'Hill Country geology',
     url: 'https://texasdefined.com/explore/landscapes/why-is-the-texas-hill-country-so-hilly',
     required: [
