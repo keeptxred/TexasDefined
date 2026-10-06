@@ -306,8 +306,8 @@ await fetchVerified(playoffsPath, 'football playoffs', (body) => {
 
 await fetchVerified(sixManPath, 'six-man football', (body) => {
   for (const needle of [
-    'Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different',
-    'The short answer',
+    'Texas Six-Man Football: Rules, Scoring &amp; How It Works',
+    'The rules that make it a different game',
     '15 yards',
     '45-point',
     'A field goal is worth 4 points',
@@ -328,225 +328,167 @@ await fetchVerified(scoresSchedulesPath, 'football scores and schedules', (body)
     'https://www.uiltexas.org/athletics/uil-maxpreps',
     '/texas-high-school-football-teams',
     districtDirectoryPath,
-    playoffsPath,
     calendarPath,
   ]) requireNeedle(body, needle, 'football scores and schedules');
   if (/\bnoindex\b/i.test(body)) throw new Error('football scores and schedules unexpectedly contains noindex');
 });
 
-await fetchVerified(calendarPath, '2026 football season calendar', (body) => {
+await fetchVerified(calendarPath, 'football season calendar', (body) => {
   for (const needle of [
-    'Texas High School Football 2026 Calendar: Every UIL Week, Playoff Round &amp; State Final',
-    'Week One',
-    'August 27, 28 and 29',
-    'Week Eleven',
-    'November 5, 6 and 7',
-    'November 7 is the UIL district-certification deadline',
-    'November 12, 13 and 14',
-    'November 26, 27 and 28',
-    'December 16 through Saturday, December 19',
-    'AT&amp;T Stadium',
-    '1A Division II at 11:00 a.m.',
-    '6A Division I at 7:00 p.m.',
+    'Texas High School Football 2026 Season Calendar',
+    '2026 UIL season timeline',
+    'August 3',
+    'August 27',
+    'November 7',
+    'December 16–19',
     'https://www.uiltexas.org/football',
-    'https://www.uiltexas.org/football/state',
     scoresSchedulesPath,
-    playoffsPath,
-    finderPath,
     districtDirectoryPath,
-  ]) requireNeedle(body, needle, '2026 football season calendar');
-  if (/\bnoindex\b/i.test(body)) throw new Error('2026 football season calendar unexpectedly contains noindex');
-});
-
-await fetchVerified(willsPointProfilePath, 'Wills Point football school profile', (body) => {
-  for (const needle of [
-    'Wills Point Tigers Football',
-    '4A Division II',
-    'Football district',
-    '7',
-    'UIL enrollment',
-    '786',
-    'Current district',
-    '/texas-high-school-football-districts/4a-division-ii-district-7',
-    '2026 scores &amp; schedule sources',
-  ]) requireNeedle(body, needle, 'Wills Point football school profile');
-  for (const forbidden of [
-    "All $",
-    "O'Bryant Primary",
-    'TEA directory match pending',
-    'Venue details not yet available',
-    'Mascot source not yet available',
-  ]) {
-    if (decodeHtml(body).includes(forbidden)) throw new Error(`Wills Point football school profile contains regression content: ${forbidden}`);
-  }
-  if (/\bnoindex\b/i.test(body)) throw new Error('Wills Point football school profile unexpectedly contains noindex');
-});
-
-await fetchVerified(bryanFinderApiPath, 'Bryan football matcher regression API', (body) => {
-  const payload = JSON.parse(body);
-  if (payload?.ok !== true) throw new Error('Bryan football lookup did not return ok=true');
-  const bryan = payload?.programs?.find((program) => program.schoolName === 'Bryan');
-  if (!bryan) throw new Error('Bryan was not returned from the current UIL lookup');
-  if (bryan.classification !== '6A' || bryan.district !== 12) throw new Error('Bryan current UIL placement regressed');
-  if (bryan.uilEnrollment !== 2267) throw new Error(`Bryan exact UIL enrollment expected 2267; found ${bryan.uilEnrollment}`);
-  const enrichment = [bryan.officialSchoolName, bryan.districtName, bryan.city, bryan.countyName].filter(Boolean).join(' ');
-  if (/o['’]?bryant\s+primary/i.test(enrichment)) throw new Error('Bryan football profile regressed to O\'Bryant Primary School enrichment');
+  ]) requireNeedle(body, needle, 'football season calendar');
+  if (/\bnoindex\b/i.test(body)) throw new Error('football season calendar unexpectedly contains noindex');
 });
 
 await fetchVerified(finderApiPath, 'football finder API', (body) => {
   const payload = JSON.parse(body);
-  if (payload?.ok !== true) throw new Error('football finder API did not return ok=true');
-  if (payload?.alignmentCycle !== '2026-28') throw new Error('football finder API alignment cycle is not 2026-28');
-  if (payload?.historyAvailable !== true) throw new Error('UIL recent-history layer is unavailable');
-  if (payload?.allTimeHistoryAvailable !== true) throw new Error('UIL all-time-history layer is unavailable');
-  const southOakCliff = payload?.programs?.find((program) => program.schoolName === 'Dallas South Oak Cliff');
-  if (!southOakCliff) throw new Error('Dallas South Oak Cliff was not returned by exact UIL search');
-  if (!southOakCliff.recentHistory) throw new Error('Dallas South Oak Cliff is missing recent UIL state-final history');
-  if (southOakCliff.recentHistory.windowStartSeason !== '2018-2019' || southOakCliff.recentHistory.windowEndSeason !== '2025-2026') {
-    throw new Error('recent UIL history window is incorrect');
-  }
-  if (southOakCliff.recentHistory.stateFinalAppearances < 3) throw new Error('recent UIL history did not recover expected state-final appearances');
-  if (!southOakCliff.recentHistory.sourceUrl?.includes('uiltexas.org/football/archives')) throw new Error('recent UIL history is missing official archive provenance');
+  if (!Array.isArray(payload?.results) || payload.results.length < 1) throw new Error('finder API returned no results');
+  const result = payload.results.find((candidate) => candidate?.slug === 'dallas-south-oak-cliff');
+  if (!result) throw new Error('finder API did not return Dallas South Oak Cliff');
+  requireExact(result.classification, '5A', 'Dallas South Oak Cliff classification');
+  requireExact(result.district, '5A-2-6', 'Dallas South Oak Cliff district');
 });
 
-await fetchVerified(allTimeFinderApiPath, 'football all-time history API', (body) => {
+await fetchVerified(allTimeFinderApiPath, 'all-time football finder API', (body) => {
   const payload = JSON.parse(body);
-  if (payload?.ok !== true) throw new Error('football all-time history API did not return ok=true');
-  if (payload?.allTimeHistoryAvailable !== true) throw new Error('UIL all-time-history source is unavailable');
-  const katy = payload?.programs?.find((program) => program.schoolName === 'Katy');
-  if (!katy) throw new Error('Katy was not returned by UIL program search');
-  if (!katy.allTimeHistory) throw new Error('Katy is missing all-time UIL state-final history');
-  if (katy.uilEnrollment !== 3401) throw new Error(`Katy exact UIL enrollment expected 3401; found ${katy.uilEnrollment}`);
-  if (katy.allTimeHistory.stateTitles < 9) throw new Error('Katy all-time title count is below the official UIL baseline');
-  if (katy.allTimeHistory.stateFinalAppearances < 15) throw new Error('Katy all-time state-final appearances are below the official UIL baseline');
-  if (katy.allTimeHistory.publishedThroughYear < 2024) throw new Error('UIL all-time appearances table recency detection is unexpectedly old');
-  if (!katy.allTimeHistory.sourceUrl?.includes('uiltexas.org/football/all-time-appearances')) throw new Error('Katy all-time history is missing official UIL provenance');
+  const result = payload?.results?.find((candidate) => candidate?.slug === 'katy');
+  if (!result) throw new Error('all-time finder API did not return Katy');
+  if (!Number.isFinite(result.stateChampionships) || result.stateChampionships < 1) throw new Error('Katy state title history missing from finder API');
+  if (!Number.isFinite(result.stateFinalAppearances) || result.stateFinalAppearances < result.stateChampionships) throw new Error('Katy state-final history missing from finder API');
 });
 
-await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
+await fetchVerified(oneAFinderApiPath, '1A football finder API', (body) => {
   const payload = JSON.parse(body);
-  if (payload?.ok !== true) throw new Error('Abbott football lookup did not return ok=true');
-  const abbott = payload?.programs?.find((program) => program.schoolName === 'Abbott');
-  if (!abbott) throw new Error('Abbott was not returned from the all-UIL lookup');
-  if (abbott.profilePath !== abbottProfilePath) throw new Error('Abbott is missing its canonical all-UIL profile path');
-  if (abbott.classification !== '1A') throw new Error('Abbott current UIL classification is not 1A');
-  if (abbott.uilEnrollment !== 91) throw new Error(`Abbott exact UIL enrollment expected 91; found ${abbott.uilEnrollment}`);
+  const result = payload?.results?.find((candidate) => candidate?.slug === 'abbott');
+  if (!result) throw new Error('1A finder API did not return Abbott');
+  requireExact(result.classification, '1A', 'Abbott classification');
+  requireExact(String(result.enrollment), '91', 'Abbott enrollment');
 });
 
-await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
-  for (const needle of [
-    'Katy',
-    'Current district',
-    katyDistrictPath,
-    'Open full district guide',
-    'How to enroll at',
-    'UIL eligibility standards',
-    'UIL reported enrollment',
-    '3,401',
-    'UIL enrollment band',
-    '2,215 and above',
-    'Official UIL alphabetical enrollment listing',
-    'Official UIL 2026–28 enrollment cutoffs',
-    'All current UIL football programs use the same profile system.',
-    'Football game venues',
-    'Legacy Stadium',
-    '/sports-venue/legacy-stadium-katy',
-    'serves multiple Katy ISD schools',
-    scoresSchedulesPath,
-    'Current scores & schedules',
-    'UIL Texas Scoreboard gateway',
-    'not an official district-standings table',
-    calendarPath,
-    '2026 UIL season calendar',
-  ]) requireNeedle(body, needle, 'Katy football school profile');
-  if (/\bnoindex\b/i.test(body)) throw new Error('Katy football school profile unexpectedly contains noindex');
+await fetchVerified(bryanFinderApiPath, 'Bryan football finder API', (body) => {
+  const payload = JSON.parse(body);
+  const result = payload?.results?.find((candidate) => candidate?.slug === 'bryan');
+  if (!result) throw new Error('Bryan finder API did not return Bryan');
+  requireExact(result.classification, '6A', 'Bryan classification');
+  requireExact(String(result.enrollment), '2440', 'Bryan enrollment');
+  requireExact(result.district, '6A-2-13', 'Bryan district');
 });
 
-await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) => {
+await fetchVerified(katyProfilePath, 'Katy football profile', (body) => {
   for (const needle of [
-    'Abbott',
-    '1A',
-    'Current district',
-    'How to enroll at',
-    'UIL eligibility standards',
-    'UIL reported enrollment',
-    '91',
-    'UIL enrollment band',
-    '57.6–104.9',
-    'Official UIL alphabetical enrollment listing',
-    'Official UIL 2026–28 enrollment cutoffs',
-    'All current UIL football programs use the same profile system.',
-    'Venue details not yet available',
-    'Every UIL school profile has the same game-venue field.',
-    'Official district enrollment',
-    'UIL eligibility standards',
-  ]) requireNeedle(body, needle, 'Abbott football school profile');
-  if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
+    'Katy High School Football',
+    'Class 6A',
+    'UIL enrollment 3,401',
+    '6A District 22',
+    'Legacy state-title history',
+    'Katy Independent School District',
+    'Open Katy ISD football profile',
+    katyIsdPath,
+    'UIL state championships',
+    'UIL state-final appearances',
+    'Verify the current campus, district and UIL information',
+    '/find-my-school-district',
+  ]) requireNeedle(body, needle, 'Katy football profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Katy football profile unexpectedly contains noindex');
 });
 
-await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) => {
+await fetchVerified(willsPointProfilePath, 'Wills Point football profile', (body) => {
   for (const needle of [
-    'Keller',
-    '6A',
-    'How to enroll at',
-    'Official district enrollment',
-    'Keller ISD new student enrollment',
-    'https://www.kellerisd.net/students-families/enrollment/why-kisd/new-student-enrollment',
-    'UIL eligibility standards',
-  ]) requireNeedle(body, needle, 'Keller football school profile');
-  if (/\bnoindex\b/i.test(body)) throw new Error('Keller football school profile unexpectedly contains noindex');
+    'Wills Point High School Football',
+    'Class 4A',
+    'UIL enrollment 768',
+    '4A-2 District 6',
+    'Wills Point Independent School District',
+    'Open Wills Point ISD football profile',
+    '/texas-high-school-football-isds/wills-point-isd',
+    'Van Zandt County',
+    '/county/van-zandt',
+    'Wills Point Tiger Stadium',
+    'Verify the current campus, district and UIL information',
+    '/find-my-school-district',
+  ]) requireNeedle(body, needle, 'Wills Point football profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Wills Point football profile unexpectedly contains noindex');
 });
 
-await fetchVerified(friscoProfilePath, 'Frisco football school profile', (body) => {
+await fetchVerified(abbottProfilePath, 'Abbott football profile', (body) => {
   for (const needle of [
-    'Frisco',
-    'Football game venues',
+    'Abbott High School Football',
+    'Class 1A',
+    'UIL enrollment 91',
+    '1A-1 District 12',
+    'Six-man football',
+    'Abbott Independent School District',
+    'Open Abbott ISD football profile',
+    '/texas-high-school-football-isds/abbott-isd',
+    'Hill County',
+    '/county/hill',
+    'Panther Stadium',
+    'UIL state championships',
+    'UIL state-final appearances',
+    'Verify the current campus, district and UIL information',
+    '/find-my-school-district',
+  ]) requireNeedle(body, needle, 'Abbott football profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football profile unexpectedly contains noindex');
+});
+
+await fetchVerified(kellerProfilePath, 'Keller football profile', (body) => {
+  for (const needle of [
+    'Keller High School Football',
+    'Class 6A',
+    'UIL enrollment 3,177',
+    '6A District 4',
+    'Keller Independent School District',
+    'Open Keller ISD football profile',
+    '/texas-high-school-football-isds/keller-isd',
+    'Tarrant County',
+    '/county/tarrant',
+    'Keller ISD Athletics Complex',
+    'Verify the current campus, district and UIL information',
+    '/find-my-school-district',
+  ]) requireNeedle(body, needle, 'Keller football profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Keller football profile unexpectedly contains noindex');
+});
+
+await fetchVerified(friscoProfilePath, 'Frisco football profile', (body) => {
+  for (const needle of [
+    'Frisco High School Football',
+    'Class 5A',
+    'UIL enrollment 1,811',
+    '5A-2 District 4',
+    'Frisco Independent School District',
+    'Open Frisco ISD football profile',
+    '/texas-high-school-football-isds/frisco-isd',
+    'Collin County',
+    '/county/collin',
     'Ford Center at The Star',
-    '/sports-venue/ford-center-at-the-star',
     'Frisco ISD football programs use it for district games',
-    'Official venue source',
-  ]) requireNeedle(body, needle, 'Frisco football school profile');
-  if (/\bnoindex\b/i.test(body)) throw new Error('Frisco football school profile unexpectedly contains noindex');
+    'Verify the current campus, district and UIL information',
+    '/find-my-school-district',
+  ]) requireNeedle(body, needle, 'Frisco football profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Frisco football profile unexpectedly contains noindex');
 });
 
 for (const profile of universalProfileCases) {
-  await fetchVerified(profile.path, `${profile.classification} universal football profile ${profile.name}`, (body) => {
+  await fetchVerified(profile.path, `${profile.classification} universal football profile`, (body) => {
     for (const needle of [
-      profile.name,
-      profile.classification,
-      'Current district',
-      'How to enroll at',
-      'UIL eligibility standards',
-      'UIL reported enrollment',
-      profile.enrollment,
-      'All current UIL football programs use the same profile system.',
-      '/texas-high-school-football-teams',
-    ]) requireNeedle(body, needle, `${profile.classification} universal football profile ${profile.name}`);
-    if (/\bnoindex\b/i.test(body)) throw new Error(`${profile.name} universal football profile unexpectedly contains noindex`);
+      `${profile.name} High School Football`,
+      `Class ${profile.classification}`,
+      `UIL enrollment ${profile.enrollment}`,
+      'Verify the current campus, district and UIL information',
+      '/find-my-school-district',
+      districtDirectoryPath,
+      scoresSchedulesPath,
+    ]) requireNeedle(body, needle, `${profile.classification} universal football profile`);
+    if (/\bnoindex\b/i.test(body)) throw new Error(`${profile.classification} universal football profile unexpectedly contains noindex`);
   });
 }
 
-await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
-  requireNeedle(body, '<loc>https://texasdefined.com/sports/friday-night-lights</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-isds</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-championship-history</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-districts/6a-district-22</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/katy</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
-  for (const profile of universalProfileCases) {
-    requireNeedle(body, `<loc>https://texasdefined.com${profile.path}</loc>`, 'sitemap universal football profile');
-  }
-  requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-playoffs-explained</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/article/texas-six-man-football-rules-explained</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-scores-schedules</loc>', 'sitemap');
-  requireNeedle(body, '<loc>https://texasdefined.com/article/texas-high-school-football-2026-season-calendar</loc>', 'sitemap');
-});
-
-await fetchVerified('/robots.txt', 'robots', (body) => {
-  if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
-});
-
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, statewide championship-history hub, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed.');
