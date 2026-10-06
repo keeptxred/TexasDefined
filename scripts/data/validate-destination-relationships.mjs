@@ -49,16 +49,19 @@ requireFeatures(engine, [
   'new Map(items.map((item) => [item.slug, item]))',
 ], 'Destination relationship engine');
 
-
 requireFeatures(serverBoundary, [
   'createServerFn({ method: "GET" })',
-  'listResolvedDestinations({ limit: 5000 })',
+  'preservedExploreDestinations.find((destination) => destination.slug === data.slug)',
+  'const catalog = preservedExploreDestinations.map(prepareDestinationForDelivery);',
   'buildDestinationRelationshipGroups(',
   'prepareDestinationForDelivery',
 ], 'Destination relationship server boundary');
 
 if (route.includes('destinationsQuery({ limit: 5000 })')) {
   errors.push('Destination relationship route must not hydrate the full 5,000-item catalog into the browser.');
+}
+if (serverBoundary.includes('listResolvedDestinations({ limit: 5000 })')) {
+  errors.push('Destination relationship server boundary must not fan each detail request into a full remote destination catalog scan.');
 }
 if (serverBoundary.includes('queryClient')) {
   errors.push('Destination relationship server boundary must not populate the public query cache.');
@@ -113,4 +116,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Destination proximity and trip-intent relationships remain crawlable and structured while the area guide uses non-empty compact disclosure groups and continuation links stay in a compact strip.');
+console.log('Destination proximity and trip-intent relationships remain crawlable and structured while relationship assembly avoids full remote catalog fan-out.');
