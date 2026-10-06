@@ -5,22 +5,9 @@ const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || imp
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
 const PAGE_SIZE = 500;
 const MAX_REMOTE_DESTINATIONS = 5000;
-const REMOTE_READ_TTL_MS = 5 * 60 * 1000;
-const REMOTE_STALE_TTL_MS = 30 * 60 * 1000;
-const REMOTE_FAILURE_BACKOFF_MS = 30 * 1000;
-const MAX_REMOTE_READ_CACHE_ENTRIES = 256;
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 type ExploreRow = Record<string, unknown>;
-type ExploreRowCacheEntry = {
-  value?: ExploreRow[];
-  expiresAt: number;
-  staleUntil: number;
-  retryAfter: number;
-  pending?: Promise<ExploreRow[]>;
-};
-
-const exploreRowCache = new Map<string, ExploreRowCacheEntry>();
 
 function headers(): HeadersInit {
   return {
@@ -290,54 +277,24 @@ const EXPLORE_SELECT = [
   "explore_entity_sources(source_url,retrieved_at,verified_at,confidence)",
 ].join(",");
 
-function trimExploreRowCache() {
-  while (exploreRowCache.size >= MAX_REMOTE_READ_CACHE_ENTRIES) {
-    const oldest = exploreRowCache.keys().next().value as string | undefined;
-    if (!oldest) break;
-    exploreRowCache.delete(oldest);
-  }
-}
-
 async function requestExploreRows(params: URLSearchParams): Promise<ExploreRow[]> {
-  const key = params.toString();
-  const now = Date.now();
-  const existing = exploreRowCache.get(key);
-  if (existing?.value && existing.expiresAt > now) return existing.value;
-  if (existing?.pending) return existing.pending;
-  if (existing && existing.retryAfter > now) {
-    if (existing.value && existing.staleUntil > now) return existing.value;
-    throw new Error("Explore remote read is temporarily backed off after an upstream failure");
+  const url = `${supabaseUrl}/rest/v1/explore_entities?${params}`;
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_entities",
+      url,
+      headers: headers(),
+      timeoutMs: 2500,
+      errorLabel: "Explore remote read",
+    });
   }
 
-  const entry: ExploreRowCacheEntry = existing ?? { expiresAt: 0, staleUntil: 0, retryAfter: 0 };
-  const pending = fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, {
-    headers: headers(),
-    signal: AbortSignal.timeout(2500),
-  })
-    .then(async (response) => {
-      if (!response.ok) throw new Error(`Explore request failed: ${response.status}`);
-      const value = await response.json();
-      const rows: ExploreRow[] = Array.isArray(value) ? value : [];
-      const completedAt = Date.now();
-      entry.value = rows;
-      entry.expiresAt = completedAt + REMOTE_READ_TTL_MS;
-      entry.staleUntil = completedAt + REMOTE_STALE_TTL_MS;
-      entry.retryAfter = 0;
-      return rows;
-    })
-    .catch((error) => {
-      entry.retryAfter = Date.now() + REMOTE_FAILURE_BACKOFF_MS;
-      if (entry.value && entry.staleUntil > Date.now()) return entry.value;
-      throw error;
-    })
-    .finally(() => {
-      entry.pending = undefined;
-    });
-
-  entry.pending = pending;
-  if (!existing) trimExploreRowCache();
-  exploreRowCache.set(key, entry);
-  return pending;
+  const response = await fetch(url, { headers: headers() });
+  if (!response.ok) throw new Error(`Explore request failed: ${response.status}`);
+  const value = await response.json();
+  return Array.isArray(value) ? value : [];
 }
 
 async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<ExploreRow[]> {
