@@ -16,7 +16,7 @@ const PRIORITY_PATHS = [
   /^\/explore\/(?:state-parks|lakes-rivers|small-towns|road-trips|painted-churches)(?:\/|$)/,
   /^\/texas-state-fair(?:\/|$)/,
 ];
-const SITEMAP_PATHS = ['/sitemap.xml', '/sitemap-explore.xml', '/sitemap-events.xml'];
+const SITEMAP_PATHS = ['/sitemap.xml', '/sitemap-explore.xml'];
 
 const FORBIDDEN_IMAGE_RE = /(?:placeholder|photo[-_ ]?unavailable|image[-_ ]?unavailable|fallback(?:[-_ ]?image)?|favicon|logo|icon[-_.])/i;
 const FALLBACK_COPY_RE = /Photo unavailable|Photograph unavailable|image unavailable|texasdefined-destination-placeholder\.svg/i;
