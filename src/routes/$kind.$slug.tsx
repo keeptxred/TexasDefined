@@ -14,10 +14,9 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
     const { findCompleteTexasEntity, loadTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
-    const graph = await loadTexasKnowledgeGraph();
-    const graphEntity = graph.find((candidate) => candidate.kind === params.kind && candidate.slug === params.slug);
-    const entity = graphEntity ?? await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
+    const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
+    const graph = await loadTexasKnowledgeGraph({ query: entity.name, limit: 100 });
     const related = rankRelatedEntities(entity, graph, 12);
     const countySportsVenues = entity.kind === 'county'
       ? graph
