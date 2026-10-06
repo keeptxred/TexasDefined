@@ -120,8 +120,9 @@ if (queriesText.includes('await import("./remote-evergreen-authority-sources")')
 
 for (const marker of [
   'import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";',
-  'const [authors, categories, related, destinations, completeGraph] = await Promise.all([',
-  'const graph = articleAutoLinkGraph(article, completeGraph);',
+  'const [authors, categories, related, destinations, linkCandidates] = await Promise.all([',
+  'knowledge-graph/link-candidates.server',
+  'const graph = articleAutoLinkGraph(article, linkCandidates);',
   'return { article, authors, categories, related, destinations, graph };',
   'const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();',
   'const primarySource = articlePrimarySource(article);',
