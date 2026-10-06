@@ -108,7 +108,7 @@ async function requestRows(params: URLSearchParams): Promise<Record<string, unkn
   if (!supabaseUrl || !supabaseKey) return [];
   const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, {
     headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
-    signal: AbortSignal.timeout(8e3),
+    signal: AbortSignal.timeout(2500),
   });
   if (!response.ok) throw Error(String(response.status));
   const value = await response.json();
