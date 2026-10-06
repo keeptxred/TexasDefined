@@ -101,11 +101,9 @@ export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
     ...highlights.map((row) => row.destination.sourceCheckedAt),
     ...collections.flatMap((row) => row.townReferences.map((item) => item.town.sourceCheckedAt)),
   ]);
+  const robots = ready ? "index, follow, max-image-preview:large" : "noindex, follow";
   const head = {
-    meta: [
-      ...buildMeta(texasDefinedBrand, { canonicalPath, title, description, image: image?.src, imageAlt: image?.alt }),
-      { name: "robots", content: ready ? "index, follow, max-image-preview:large" : "noindex, follow" },
-    ],
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description, image: image?.src, imageAlt: image?.alt, robots }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{
       type: "application/ld+json",
@@ -188,11 +186,9 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
     ...results.map((row) => ({ distanceMiles: row.distanceMiles, schema: destinationSchema(row) })),
     ...townReferences.map((row) => ({ distanceMiles: row.distanceMiles, schema: townSchema(row, pageUrl) })),
   ].sort((left, right) => left.distanceMiles - right.distanceMiles);
+  const robots = indexReady ? "index, follow, max-image-preview:large" : "noindex, follow";
   const head = {
-    meta: [
-      ...buildMeta(texasDefinedBrand, { canonicalPath, title, description, image: image?.src, imageAlt: image?.alt }),
-      { name: "robots", content: indexReady ? "index, follow, max-image-preview:large" : "noindex, follow" },
-    ],
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title, description, image: image?.src, imageAlt: image?.alt, robots }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [{
       type: "application/ld+json",
