@@ -186,9 +186,12 @@ const fixtureListIndex = destinationRuntime.indexOf('platform.destinations.list'
 if (!(enrichedListIndex >= 0 && coreListIndex > enrichedListIndex && fixtureListIndex > coreListIndex)) errors.push('Destination list fallback order must be enriched remote → core remote → fixtures.');
 
 const enrichedDetailIndex = destinationRuntime.indexOf('fetchExploreDestination(slug)');
-const coreDetailIndex = destinationRuntime.indexOf('fetchCoreExploreDestination(slug)');
 const fixtureDetailIndex = destinationRuntime.indexOf('platform.destinations.getBySlug');
-if (!(enrichedDetailIndex >= 0 && coreDetailIndex > enrichedDetailIndex && fixtureDetailIndex > coreDetailIndex)) errors.push('Destination detail fallback order must be enriched remote → core remote → fixture.');
+const detailFailureGateIndex = destinationRuntime.indexOf('if (enrichedFailed) {');
+const coreDetailIndex = destinationRuntime.indexOf('fetchCoreExploreDestination(slug)');
+if (!(enrichedDetailIndex >= 0 && fixtureDetailIndex > enrichedDetailIndex && detailFailureGateIndex > fixtureDetailIndex && coreDetailIndex > detailFailureGateIndex)) {
+  errors.push('Destination detail fallback must prefer local/preserved sources and use core remote only after an actual enriched-source failure.');
+}
 
 if (!remote.includes('visibility: "eq.public"') || !remote.includes('status: "in.(published,verified)"')) errors.push('Enriched remote Explore publication filters are missing.');
 if (route.includes('destinationsQuery({ category: destination.category, limit: 16 })')) errors.push('Destination profile enrichment regressed to a duplicate same-category recommendation query.');
