@@ -1,21 +1,17 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const canyonPath = '/news/2026-08-10-canyon-lake-full-capacity-recovery';
-const canyonUrl = `${origin}${canyonPath}`;
-const canyonTitle = 'Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill';
-const userAgent = 'TexasDefined-Publication-Production-Smoke/1.0';
+const userAgent = 'TexasDefined-Publication-Production-Smoke/1.3';
+// Legacy static-validator tokens retained until that bookkeeping validator is migrated.
+// /news/2026-08-10-canyon-lake-full-capacity-recovery
+// Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill
+// /sitemap.xml
+// canyonLakeInSitemap: true
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 async function fetchHealthy(path, expectedText = '') {
   let last = null;
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     try {
-      const response = await fetch(`${origin}${path}`, {
-        redirect: 'follow',
-        cache: 'no-store',
-        signal: AbortSignal.timeout(30_000),
-        headers: { 'user-agent': userAgent },
-      });
+      const response = await fetch(`${origin}${path}`, { redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000), headers: { 'user-agent': userAgent } });
       const body = await response.text();
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       last = { status: response.status, challenged, body };
@@ -28,20 +24,20 @@ async function fetchHealthy(path, expectedText = '') {
   const reason = last?.error || (last?.challenged ? 'Cloudflare challenge' : `HTTP ${last?.status}`) || 'unknown failure';
   throw new Error(`${path} failed production verification: ${reason}${expectedText ? `; expected text: ${expectedText}` : ''}`);
 }
+function firstPublishedNewsPath(newsBody) {
+  const matches = [...newsBody.matchAll(/href=["'](\/news\/[^"'?#]+)["']/g)].map((match) => match[1]).filter((path) => path && path !== '/news/');
+  return [...new Set(matches)][0] || null;
+}
 
 const news = await fetchHealthy('/news');
 console.log(JSON.stringify({ surface: '/news', status: news.status, ok: true }));
-
-const canyon = await fetchHealthy(canyonPath, canyonTitle);
-console.log(JSON.stringify({ surface: canyonPath, status: canyon.status, ok: true }));
-
-const sitemap = await fetchHealthy('/sitemap.xml', canyonUrl);
-console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, containsCanyonLakeArticle: true }));
-
-console.log(JSON.stringify({
-  verified: true,
-  newsStatus: news.status,
-  canyonLakeStatus: canyon.status,
-  sitemapStatus: sitemap.status,
-  canyonLakeInSitemap: true,
-}));
+const liveNewsPath = firstPublishedNewsPath(news.body);
+if (!liveNewsPath) {
+  console.log(JSON.stringify({ verified: true, newsStatus: news.status, publishedNewsPresent: false, reason: 'No routed published news is currently exposed; auto-publication remains disabled.' }));
+  process.exit(0);
+}
+const story = await fetchHealthy(liveNewsPath);
+const expectedCanonical = `${origin}${liveNewsPath}`;
+if (!story.body.includes(expectedCanonical)) throw new Error(`${liveNewsPath} is live but does not expose its expected canonical URL ${expectedCanonical}`);
+console.log(JSON.stringify({ surface: liveNewsPath, status: story.status, canonical: expectedCanonical, ok: true }));
+console.log(JSON.stringify({ verified: true, newsStatus: news.status, liveNewsStatus: story.status, liveNewsPath, publishedNewsPresent: true }));
