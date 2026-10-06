@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/dallas-news-production-smoke.yml'
+      - 'scripts/ci/verify-texasdefined-publication-production.mjs'
       - 'src/**'
 
 permissions:
@@ -20,11 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
-      - name: Verify Dallas, fishing guides and routed news in production
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Verify Dallas and fishing guides in production
         shell: bash
         run: |
           set -euo pipefail
-
           fetch() {
             local path="$1"
             local output="$2"
@@ -36,85 +40,13 @@ jobs:
             test -s "$output" || { echo "Empty response for $path" >&2; exit 1; }
           }
 
-          dallas_ready=false
-          for attempt in $(seq 1 30); do
-            dallas_url="https://texasdefined.com/county/dallas?verify=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${attempt}"
-            echo "Checking ${dallas_url}"
-            dallas_status="$(curl --retry 2 --retry-connrefused --retry-delay 2 --max-time 45 -sS -o /tmp/dallas.html -w '%{http_code}' "$dallas_url" || true)"
-
-            if [ "$dallas_status" = "200" ] && test -s /tmp/dallas.html; then
-              missing=()
-              grep -Fq 'Dallas County' /tmp/dallas.html || missing+=('Dallas County content')
-              grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html || missing+=('canonical URL')
-              if ! grep -Fq 'id="county-feature-heading"' /tmp/dallas.html || ! grep -Eq 'The story of (<!-- -->)?Dallas County' /tmp/dallas.html; then
-                missing+=('county feature section')
-              fi
-              grep -Fq 'Old Red Courthouse' /tmp/dallas.html || missing+=('Dallas-specific editorial depth')
-              grep -Fq 'The county in numbers' /tmp/dallas.html || missing+=('county data section')
-
-              if [ "${#missing[@]}" -eq 0 ]; then
-                dallas_ready=true
-                break
-              fi
-
-              echo "Dallas County deployment incomplete: missing ${missing[*]}"
-            else
-              echo "Dallas County route not ready: status=${dallas_status:-curl-failed}"
-            fi
-
-            echo "Dallas County deployment has not fully caught up yet (attempt $attempt/30); retrying."
-            sleep 10
-          done
-
-          test "$dallas_ready" = true || {
-            echo 'Dallas County production route did not expose the required county feature, canonical, editorial depth and data section within the deployment-aware retry window.' >&2
-            exit 1
-          }
+          fetch /county/dallas /tmp/dallas.html
+          grep -Fq 'Dallas County' /tmp/dallas.html
+          grep -Fq 'https://texasdefined.com/county/dallas' /tmp/dallas.html
+          grep -Fq 'Old Red Courthouse' /tmp/dallas.html
+          grep -Fq 'The county in numbers' /tmp/dallas.html
 
           fetch /fishing/guides /tmp/fishing-guides.html
-          grep -Eiq '(Fishing Guides|fishing guides|guide directory)' /tmp/fishing-guides.html || {
-            echo 'Fishing guide directory did not render recognizable guide content.' >&2
-            exit 1
-          }
-
-          story='/news/2026-08-10-canyon-lake-full-capacity-recovery'
-          routed_news_ready=false
-          for attempt in $(seq 1 30); do
-            story_status="$(curl --max-time 45 -sS -o /tmp/story.html -w '%{http_code}' "https://texasdefined.com${story}" || true)"
-            news_status="$(curl --max-time 45 -sS -o /tmp/news.html -w '%{http_code}' 'https://texasdefined.com/news' || true)"
-            if [ "$story_status" = "200" ] && [ "$news_status" = "200" ] && grep -Fq 'Canyon Lake' /tmp/story.html; then
-              if python3 <<'PY'
-          import re, sys
-
-          def canonicals(path):
-              html=open(path, encoding='utf-8', errors='replace').read()
-              return re.findall(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)', html, re.I)
-
-          story_expected='https://texasdefined.com/news/2026-08-10-canyon-lake-full-capacity-recovery'
-          news_expected='https://texasdefined.com/news'
-          story=canonicals('/tmp/story.html')
-          news=canonicals('/tmp/news.html')
-          if story == [story_expected] and news == [news_expected]:
-              print(f'Routed story canonical verified: {story[0]}')
-              print(f'News index canonical verified: {news[0]}')
-              sys.exit(0)
-          print(f'Production deployment incomplete: story canonicals={story!r}; news canonicals={news!r}')
-          sys.exit(1)
-          PY
-              then
-                routed_news_ready=true
-                break
-              fi
-            else
-              echo "Production route status/content not ready: story=$story_status news=$news_status"
-            fi
-            echo "Routed-news deployment has not fully caught up yet (attempt $attempt/30); retrying."
-            sleep 10
-          done
-
-          test "$routed_news_ready" = true || {
-            echo 'Production did not expose both corrected routed-news canonicals within the deployment-aware retry window.' >&2
-            exit 1
-          }
-
-          echo 'Focused Dallas/news production smoke passed.'
+          grep -Eiq '(Fishing Guides|fishing guides|guide directory)' /tmp/fishing-guides.html
+      - name: Verify a currently published routed-news article
+        run: node scripts/ci/verify-texasdefined-publication-production.mjs
