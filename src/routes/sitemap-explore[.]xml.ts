@@ -5,6 +5,7 @@ import { isPrimaryTripPlannerDestination } from "@/data/destination-availability
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
+import { METRO_PROXIMITY_METROS } from "@/data/metro-proximity";
 import type { Destination } from "@/data/types";
 import { isExploreSitemapOwnedPath, isIndexablePublicPath, normalizePublicPath } from "@/lib/public-routes";
 
@@ -136,6 +137,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/route-66/texas-road-trip",
     "/explore/landscapes",
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
+    ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
   const entries = [...new Set(fallbackPaths)]
     .map((path) => entry(path))
