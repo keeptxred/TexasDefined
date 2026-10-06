@@ -1,4 +1,4 @@
-import { hasExploreRemoteData } from '../explore-remote';
+import { hasExploreRemoteData } from '../explore-remote-policy';
 import type { TexasEntityKind, TexasEntityRecord, TexasEntityStatus } from './types';
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || '').replace(/\/$/, '');
