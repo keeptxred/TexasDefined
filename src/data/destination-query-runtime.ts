@@ -254,8 +254,10 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 
 export async function getResolvedDestination(slug: Slug) {
   const weakCandidates: Destination[] = [];
+  let enrichedFailed = false;
   const enriched = await withDestinationRemoteTimeout("Explore destination enrichment", fetchExploreDestination(slug))
     .catch((error) => {
+      enrichedFailed = true;
       console.error("Explore destination enrichment unavailable; checking other destination sources", error);
       return null;
     });
@@ -266,17 +268,6 @@ export async function getResolvedDestination(slug: Slug) {
   const explicitAbileneFallback = abileneAreaDestinationFallbacks.find((destination) => destination.slug === slug);
   const readyAbileneFallback = resolveSeoReadyDestination(explicitAbileneFallback);
   if (readyAbileneFallback) return readyAbileneFallback;
-
-  // Only ask the core/public view when the richer source could not produce a
-  // publishable destination. This removes the former duplicate Supabase lookup.
-  const core = await withDestinationRemoteTimeout("Core Explore destination", fetchCoreExploreDestination(slug))
-    .catch((error) => {
-      console.error("Core Explore remote destination unavailable; checking preserved catalog", error);
-      return null;
-    });
-  const readyCore = resolveSeoReadyDestination(core);
-  if (readyCore) return readyCore;
-  if (core) weakCandidates.push(core);
 
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
@@ -297,6 +288,20 @@ export async function getResolvedDestination(slug: Slug) {
   const local = await platform.destinations.getBySlug(scope, slug);
   const readyLocal = resolveSeoReadyDestination(local);
   if (readyLocal) return readyLocal;
+
+  // The core/public view is an outage fallback. Do not duplicate a successful
+  // empty rich lookup, and prefer local/preserved sources before retrying the
+  // same shared Supabase project during an outage.
+  if (enrichedFailed) {
+    const core = await withDestinationRemoteTimeout("Core Explore destination", fetchCoreExploreDestination(slug))
+      .catch((error) => {
+        console.error("Core Explore remote destination unavailable; retaining local fallbacks", error);
+        return null;
+      });
+    const readyCore = resolveSeoReadyDestination(core);
+    if (readyCore) return readyCore;
+    if (core) weakCandidates.push(core);
+  }
 
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
   if (fallback) return applyResolvedHero(fallback);
