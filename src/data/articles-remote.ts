@@ -8,6 +8,21 @@ const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
 const ROUTE_REMOTE_TIMEOUT_MS = 2500;
 const SITEMAP_REMOTE_TIMEOUT_MS = 8000;
+const REMOTE_READ_TTL_MS = 5 * 60 * 1000;
+const REMOTE_STALE_TTL_MS = 30 * 60 * 1000;
+const REMOTE_FAILURE_BACKOFF_MS = 30 * 1000;
+const MAX_REMOTE_READ_CACHE_ENTRIES = 256;
+
+type RemoteRow = Record<string, unknown>;
+type RemoteRowCacheEntry = {
+  value?: RemoteRow[];
+  expiresAt: number;
+  staleUntil: number;
+  retryAfter: number;
+  pending?: Promise<RemoteRow[]>;
+};
+
+const remoteRowCache = new Map<string, RemoteRowCacheEntry>();
 
 const REMOTE_INTERNAL_LINK_CANONICALS: Readonly<Record<string, string>> = {
   "/article/texas-chili-beans-history": "/texas-chili-con-carne-history",
@@ -76,7 +91,7 @@ function body(value: unknown): ArticleBlock[] {
   });
 }
 
-function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEvergreenInternalLinks): Article | null {
+function mapRow(row: RemoteRow, evergreenInternalLinks: RemoteEvergreenInternalLinks): Article | null {
   const slug = text(row.slug);
   const title = text(row.title);
   const heroUrl = text(row.hero_url);
@@ -106,7 +121,15 @@ function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEver
   };
 }
 
-async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIMEOUT_MS): Promise<Record<string, unknown>[]> {
+function trimRemoteRowCache() {
+  while (remoteRowCache.size >= MAX_REMOTE_READ_CACHE_ENTRIES) {
+    const oldest = remoteRowCache.keys().next().value as string | undefined;
+    if (!oldest) break;
+    remoteRowCache.delete(oldest);
+  }
+}
+
+async function requestRowsUncached(params: URLSearchParams, timeoutMs: number): Promise<RemoteRow[]> {
   if (!supabaseUrl || !supabaseKey) return [];
   const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, {
     headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
@@ -117,7 +140,43 @@ async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIM
   return Array.isArray(value) ? value : [];
 }
 
-function mapRows(rows: Record<string, unknown>[], evergreenInternalLinks: RemoteEvergreenInternalLinks): Article[] {
+async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIMEOUT_MS): Promise<RemoteRow[]> {
+  const key = `${timeoutMs}:${params.toString()}`;
+  const now = Date.now();
+  const existing = remoteRowCache.get(key);
+  if (existing?.value && existing.expiresAt > now) return existing.value;
+  if (existing?.pending) return existing.pending;
+  if (existing && existing.retryAfter > now) {
+    if (existing.value && existing.staleUntil > now) return existing.value;
+    throw new Error("TexasDefined remote article read is temporarily backed off after an upstream failure");
+  }
+
+  const entry: RemoteRowCacheEntry = existing ?? { expiresAt: 0, staleUntil: 0, retryAfter: 0 };
+  const pending = requestRowsUncached(params, timeoutMs)
+    .then((rows) => {
+      const completedAt = Date.now();
+      entry.value = rows;
+      entry.expiresAt = completedAt + REMOTE_READ_TTL_MS;
+      entry.staleUntil = completedAt + REMOTE_STALE_TTL_MS;
+      entry.retryAfter = 0;
+      return rows;
+    })
+    .catch((error) => {
+      entry.retryAfter = Date.now() + REMOTE_FAILURE_BACKOFF_MS;
+      if (entry.value && entry.staleUntil > Date.now()) return entry.value;
+      throw error;
+    })
+    .finally(() => {
+      entry.pending = undefined;
+    });
+
+  entry.pending = pending;
+  if (!existing) trimRemoteRowCache();
+  remoteRowCache.set(key, entry);
+  return pending;
+}
+
+function mapRows(rows: RemoteRow[], evergreenInternalLinks: RemoteEvergreenInternalLinks): Article[] {
   return rows.map((row) => mapRow(row, evergreenInternalLinks)).filter((row): row is Article => Boolean(row));
 }
 
