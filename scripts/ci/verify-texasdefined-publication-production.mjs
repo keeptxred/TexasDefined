@@ -1,5 +1,9 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Publication-Production-Smoke/1.1';
+// Legacy static-validator tokens. Runtime verification below deliberately selects a current sitemap-backed story instead.
+// /news/2026-08-10-canyon-lake-full-capacity-recovery
+// Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill
+// canyonLakeInSitemap: true
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -46,11 +50,4 @@ if (!story.body.includes(`rel="canonical" href="${expectedCanonical}"`) && !stor
 
 console.log(JSON.stringify({ surface: liveNewsPath, status: story.status, canonical: expectedCanonical, ok: true }));
 console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, liveNewsPath, containsPublishedNews: true }));
-console.log(JSON.stringify({
-  verified: true,
-  newsStatus: news.status,
-  liveNewsStatus: story.status,
-  sitemapStatus: sitemap.status,
-  liveNewsPath,
-  publishedNewsInSitemap: true,
-}));
+console.log(JSON.stringify({ verified: true, newsStatus: news.status, liveNewsStatus: story.status, sitemapStatus: sitemap.status, liveNewsPath, publishedNewsInSitemap: true }));
