@@ -1,5 +1,5 @@
 import type { CategorySlug, Destination, TexasRegion } from "./types";
-import { DESTINATION_FALLBACK_IMAGE } from "./explore-remote";
+import { DESTINATION_FALLBACK_IMAGE, hasExploreRemoteData } from "./explore-remote";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
@@ -103,7 +103,7 @@ function baseParams(): URLSearchParams {
 }
 
 export async function fetchCoreExploreDestinations(options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {}): Promise<Destination[]> {
-  if (!supabaseUrl || !supabaseKey) return [];
+  if (!hasExploreRemoteData()) return [];
   const limit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
   const params = baseParams();
   if (options.featured) params.set("is_featured", "eq.true");
@@ -127,7 +127,7 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
 }
 
 export async function fetchCoreExploreDestination(slug: string): Promise<Destination | null> {
-  if (!supabaseUrl || !supabaseKey) return null;
+  if (!hasExploreRemoteData()) return null;
   const params = baseParams();
   params.set("slug", `eq.${slug}`);
   params.set("limit", "1");
