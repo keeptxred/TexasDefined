@@ -116,7 +116,7 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
     const pageParams = new URLSearchParams(params);
     pageParams.set("offset", String(offset));
     pageParams.set("limit", String(PAGE_SIZE));
-    const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${pageParams}`, {\n      headers: headers(),\n      signal: import.meta.env.SSR ? AbortSignal.timeout(2_500) : undefined,\n    });
+    const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${pageParams}`, import.meta.env.SSR\n      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }\n      : { headers: headers() });
     if (!response.ok) throw new Error(`Core Explore catalog request failed: ${response.status}`);
     const page = await response.json();
     if (!Array.isArray(page)) break;
@@ -131,7 +131,7 @@ export async function fetchCoreExploreDestination(slug: string): Promise<Destina
   const params = baseParams();
   params.set("slug", `eq.${slug}`);
   params.set("limit", "1");
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, {\n    headers: headers(),\n    signal: import.meta.env.SSR ? AbortSignal.timeout(2_500) : undefined,\n  });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, import.meta.env.SSR\n    ? { headers: headers(), signal: AbortSignal.timeout(2_500) }\n    : { headers: headers() });
   if (!response.ok) throw new Error(`Core Explore destination request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
