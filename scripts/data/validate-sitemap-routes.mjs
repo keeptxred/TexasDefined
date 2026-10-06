@@ -116,6 +116,8 @@ for (const feature of [
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
   'if (remoteConfigured)',
+  'if (enrichedFailed || enrichedDestinations.length === 0)',
+  '"Explore sitemap core fallback catalog"',
   'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
   'const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0',
   'const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations',
@@ -130,7 +132,8 @@ for (const lowValueDependency of ['fetchExploreDestinations', 'fetchCoreExploreD
   if (sitemap.includes(lowValueDependency)) failures.push(`Primary sitemap must not load Explore-only dependency: ${lowValueDependency}.`);
 }
 if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
-if (!exploreSitemap.includes('"Cache-Control": "no-store"')) failures.push('Explore sitemap cache policy must disable edge storage while crawl consistency is protected.');
+if (!exploreSitemap.includes('"Cache-Control": "public, max-age=0, s-maxage=300"')) failures.push('Explore sitemap must edge-cache successful responses for five minutes to absorb crawler bursts.');
+if (!exploreSitemap.includes('"X-TexasDefined-Sitemap-Fallback": "1"') || !exploreSitemap.includes('"Cache-Control": "no-store"')) failures.push('Explore sitemap emergency fallback must remain explicitly marked and uncached.');
 if (exploreSitemap.includes('stale-while-revalidate=')) failures.push('Explore sitemap must not permit stale-while-revalidate while regional stale variants are a GSC risk.');
 
 for (const [filename, legacyPrefix, targetPrefix] of legacyExploreRedirects) {
