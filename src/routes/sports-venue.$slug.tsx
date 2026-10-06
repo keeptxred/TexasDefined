@@ -142,17 +142,19 @@ function countyVisitorPlaces(venue: TexasEntityRecord, graph: TexasEntityRecord[
 export const Route = createFileRoute('/sports-venue/$slug')({
   loader: async ({ params }) => {
     const [
-      { findCompleteTexasEntity, loadTexasKnowledgeGraph },
+      { findCompleteTexasEntity },
+      { loadLocalTexasKnowledgeGraph },
       { getSportsVenueEnrichmentAll, sportsVenueMapUrl },
       { getSportsVenuePhoto },
       { getSportsVenueParkingMap },
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
+      import('@/data/knowledge-graph/link-candidates.server'),
       import('@/data/sports-venue-enrichment-all'),
       import('@/data/sports-venue-images-all'),
       import('@/data/parking-maps.functions'),
     ]);
-    const graph = await loadTexasKnowledgeGraph();
+    const graph = loadLocalTexasKnowledgeGraph();
     const entity = await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== 'sports-venue') throw notFound();
     const canonicalPath = canonicalEntityPath(entity);
