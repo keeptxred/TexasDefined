@@ -6,6 +6,7 @@ const points = read('src/data/painted-church-map-points.ts');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
 const compareRoute = read('src/routes/explore.painted-churches.compare.tsx');
 const authoritySources = read('src/data/painted-church-authority-sources.ts');
+const trustRouter = read('src/components/authority/CitationCollectionTrustRouter.tsx');
 const expanded = read('src/data/painted-churches-expanded.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
 const llms = read('src/routes/llms[.]txt.ts');
@@ -31,6 +32,7 @@ if (mapRoute.includes('distribution: paintedChurchMapPoints.map')) failures.push
 if (!mapRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Map freshness metadata must follow the canonical authority expansion date.');
 if (!compareRoute.includes('dateModified: paintedChurchAuthorityExpansionDate')) failures.push('Comparison freshness metadata must follow the canonical authority expansion date.');
 if (!authoritySources.includes('export const paintedChurchAuthorityExpansionDate = "2026-09-25"')) failures.push('Canonical Painted Churches authority expansion date is missing.');
+if (!trustRouter.includes("Regional grouping, church identity, coordinate provenance and map interaction reviewed October 6, 2026.")) failures.push('Painted Churches map trust note must reflect the current review date and scope.');
 for (const slug of ['corpus-christi-sacred-heart-catholic-church','san-antonio-st-joseph-catholic-church','anderson-st-stanislaus-kostka','castroville-st-louis-catholic-church','lacoste-our-lady-of-grace']) {
   if (!expanded.includes(slug)) failures.push(`Canonical collection must retain verified promotion ${slug}.`);
 }
