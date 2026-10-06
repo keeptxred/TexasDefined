@@ -9,7 +9,8 @@ export const Route = createFileRoute("/news/$slug")({
   beforeLoad: async ({ params }) => {
     const { migratedEditorialSlugs } = await import("@/data/fixtures/lazy-migrated-editorial");
     if (migratedEditorialSlugs.includes(params.slug)) throw redirect({ href: `/article/${params.slug}`, statusCode: 301 });
-    const article = await fetchPublishedTexasDefinedNewsArticle(params.slug);
+
+    const article = await fetchPublishedTexasDefinedNewsArticle(params.slug).catch(() => null);
     if (!article) throw notFound();
     return { liveArticle: article };
   },
