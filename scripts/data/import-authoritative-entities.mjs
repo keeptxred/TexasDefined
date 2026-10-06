@@ -10,7 +10,7 @@ const adapters = {
   census: {
     url: 'https://api.census.gov/data/2020/dec/pl?get=NAME&for=place:*&in=state:48',
     sourceId: 'census-places',
-    transform: (rows) => rows.slice(1).map(([name, stateFips, placeFips]) => ({ externalId: `census-place:${stateFips}${placeFips}`, kind: 'city', name, slug: slug(name.replace(/ city| town| village| CDP/gi, '')), sourceId: 'census-places', sourceConfidence: 'official', status: 'pending-source-verification' })),
+    transform: (body) => censusRows(body).slice(1).map(([name, stateFips, placeFips]) => ({ externalId: `census-place:${stateFips}${placeFips}`, kind: 'city', name, slug: slug(name.replace(/ city| town| village| CDP/gi, '')), sourceId: 'census-places', sourceConfidence: 'official', status: 'pending-source-verification' })),
   },
   usgs: {
     url: 'https://carto.nationalmap.gov/arcgis/rest/services/structures/MapServer?f=pjson',
@@ -33,9 +33,9 @@ const adapters = {
     transform: (html) => extractLinks(html, /historic-sites\//).map(({ label, href }) => ({ externalId: `thc:${slug(label)}`, kind: 'historic-site', name: label, slug: slug(label), officialUrl: absolute(href, 'https://thc.texas.gov'), sourceId: 'official-destination-sites', sourceConfidence: 'official', status: 'pending-source-verification' })),
   },
   txdot: {
-    url: 'https://www.txdot.gov/discover/scenic-drives.html',
+    url: 'https://www.txdot.gov/projects/projects-studies/austin/loop-360.html',
     sourceId: 'official-destination-sites',
-    transform: (html) => extractHeadings(html).map((name) => ({ externalId: `txdot-scenic:${slug(name)}`, kind: 'scenic-drive', name, slug: slug(name), officialUrl: 'https://www.txdot.gov/discover/scenic-drives.html', sourceId: 'official-destination-sites', sourceConfidence: 'official', status: 'pending-source-verification' })),
+    transform: (html) => /Loop 360/i.test(String(html)) ? [{ externalId: 'txdot-scenic:loop-360-capital-of-texas-highway', kind: 'scenic-drive', name: 'Loop 360 - Capital of Texas Highway', slug: 'loop-360-capital-of-texas-highway', officialUrl: 'https://www.txdot.gov/projects/projects-studies/austin/loop-360.html', sourceId: 'official-destination-sites', sourceConfidence: 'official', status: 'pending-source-verification' }] : [],
   },
 };
 
@@ -73,6 +73,14 @@ await fs.writeFile(summaryPath, `${JSON.stringify({ generatedAt: new Date().toIS
 if (write) console.log(`Staged ${staged} records. No production graph files were modified; run prepare-entity-promotion.mjs for governed review.`);
 if (results.some((result) => !result.valid)) process.exitCode = 1;
 
+function censusRows(body) {
+  if (Array.isArray(body)) return body;
+  if (typeof body === 'string') {
+    const parsed = JSON.parse(body);
+    if (Array.isArray(parsed)) return parsed;
+  }
+  throw new Error('Census response is not the expected row-array payload');
+}
 function normalizeRecord(record) {
   const checked = new Date().toISOString();
   return {
@@ -100,6 +108,5 @@ function slug(value) { return String(value).toLowerCase().replace(/&amp;/g, 'and
 function absolute(href, origin) { try { return new URL(href, origin).toString(); } catch { return origin; } }
 function strip(value) { return String(value).replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ').replace(/\s+/g, ' ').trim(); }
 function extractLinks(html, hrefPattern) { return [...String(html).matchAll(/<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)].map(([, href, label]) => ({ href, label: strip(label) })).filter((item) => item.label.length > 3 && hrefPattern.test(item.href)); }
-function extractHeadings(html) { return [...String(html).matchAll(/<h[2-4][^>]*>([\s\S]*?)<\/h[2-4]>/gi)].map(([, heading]) => strip(heading)).filter((heading) => /trail|drive|highway|loop|route/i.test(heading)); }
 function dedupe(records) { const map = new Map(); for (const record of records) if (record?.externalId) map.set(record.externalId, record); return [...map.values()]; }
 function validRecord(record) { return Boolean(record && record.externalId && record.kind && record.name && record.slug && record.sourceId && record.sourceConfidence); }
