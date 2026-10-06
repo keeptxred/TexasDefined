@@ -279,7 +279,12 @@ async function fetchExplorePage(params: URLSearchParams, offset: number, limit: 
   const pageParams = new URLSearchParams(params);
   pageParams.set("offset", String(offset));
   pageParams.set("limit", String(limit));
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, { headers: headers() });
+  const response = await fetch(
+    `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`,
+    import.meta.env.SSR
+      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
+      : { headers: headers() },
+  );
   if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) ? rows : [];
@@ -322,7 +327,12 @@ export async function fetchExploreDestination(slug: string): Promise<Destination
     status: "in.(published,verified)",
     limit: "1",
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, { headers: headers() });
+  const response = await fetch(
+    `${supabaseUrl}/rest/v1/explore_entities?${params}`,
+    import.meta.env.SSR
+      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
+      : { headers: headers() },
+  );
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
