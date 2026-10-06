@@ -38,6 +38,7 @@ test("Abilene proximity starts with real Abilene-area anchors instead of 40-plus
   const stateParks = selectMetroProximityDestinations(catalog, abilene, getMetroProximityCollection("state-parks")!);
 
   assert.ok(thingsToDo.length >= 5);
+  assert.equal(thingsToDo[0]?.destination.slug, "frontier-texas");
   assert.ok(thingsToDo[0].distanceMiles < 2, `closest result was ${thingsToDo[0].distanceMiles.toFixed(1)} miles away`);
   assert.ok(historicSites.some((row) => row.destination.slug === "frontier-texas"));
   assert.ok(historicSites.some((row) => row.destination.slug === "grace-museum-abilene"));

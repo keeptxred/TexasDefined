@@ -199,3 +199,79 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
 if (!maybornVerified) {
   throw new Error(`Mayborn authority page did not verify after targeted cache purge: ${maybornReason}`);
 }
+
+
+if (purgeMetroProximity) {
+  const cachedSurfaceChecks = [
+    {
+      label: 'Abilene metro hub',
+      url: `https://${zoneName}/explore/near/abilene`,
+      required: ['Nearby places worth opening first', 'Frontier Texas!'],
+      sectionStart: 'Nearby places worth opening first',
+      sectionEnd: 'How to use this guide',
+      firstDestinationHref: '/destination/frontier-texas',
+    },
+    {
+      label: 'Abilene state parks',
+      url: `https://${zoneName}/explore/near/abilene/state-parks`,
+      required: ['Abilene State Park'],
+    },
+    {
+      label: 'Abilene historic sites',
+      url: `https://${zoneName}/explore/near/abilene/historic-sites`,
+      required: ['Buffalo Gap Historic Village', 'Fort Phantom Hill'],
+    },
+  ];
+
+  for (const check of cachedSurfaceChecks) {
+    let verified = false;
+    let reason = 'no response';
+    for (let attempt = 1; attempt <= 6; attempt += 1) {
+      try {
+        const response = await fetch(check.url, {
+          redirect: 'follow',
+          signal: AbortSignal.timeout(30_000),
+          headers: {
+            'user-agent': 'Mozilla/5.0 (compatible; TexasDefined-Public-Cache-Verification/1.0)',
+            accept: 'text/html,application/xhtml+xml',
+          },
+        });
+        const body = await response.text();
+        const missing = check.required.filter((marker) => !body.includes(marker));
+        let sectionProblem = '';
+        if (check.sectionStart && check.firstDestinationHref) {
+          const sectionStartIndex = body.indexOf(check.sectionStart);
+          const sectionEndIndex = sectionStartIndex >= 0 && check.sectionEnd
+            ? body.indexOf(check.sectionEnd, sectionStartIndex + check.sectionStart.length)
+            : -1;
+          const section = sectionStartIndex >= 0
+            ? body.slice(sectionStartIndex, sectionEndIndex > sectionStartIndex ? sectionEndIndex : undefined)
+            : '';
+          const firstDestinationIndex = section.indexOf('/destination/');
+          const expectedDestinationIndex = section.indexOf(check.firstDestinationHref);
+          if (sectionStartIndex < 0) {
+            sectionProblem = `section start ${check.sectionStart} is missing`;
+          } else if (expectedDestinationIndex < 0) {
+            sectionProblem = `${check.firstDestinationHref} is missing from the rendered nearby section`;
+          } else if (firstDestinationIndex !== expectedDestinationIndex) {
+            sectionProblem = `${check.firstDestinationHref} is not the first rendered destination card`;
+          }
+        }
+        if (response.ok && missing.length === 0 && !sectionProblem) {
+          verified = true;
+          console.log(`${check.label} public-cache verification passed after targeted purge (attempt ${attempt}).`);
+          break;
+        }
+        reason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; section=${sectionProblem || 'ok'}`;
+      } catch (error) {
+        reason = error instanceof Error ? error.message : String(error);
+      }
+
+      if (attempt < 6) await new Promise((resolve) => setTimeout(resolve, 5_000));
+    }
+
+    if (!verified) {
+      throw new Error(`${check.label} did not verify through the normal public cache after targeted purge: ${reason}`);
+    }
+  }
+}
