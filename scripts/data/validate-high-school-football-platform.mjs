@@ -36,6 +36,8 @@ const footballProgramIndexPath = 'src/data/high-school-football/football-program
 const footballSitemapPath = 'src/data/high-school-football/football-sitemap.server.ts';
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
+const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
+const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
@@ -86,6 +88,8 @@ for (const file of [
   footballSitemapPath,
   footballVenueLinksPath,
   programProfileFunctionsPath,
+  footballProfileContentPath,
+  footballProgramEditorialPath,
   uilDirectoryComponentPath,
   enrollmentBandsPath,
   exactEnrollmentsPath,
@@ -127,6 +131,8 @@ if (!errors.length) {
   const relocationFinder = read(files[9]);
   const entityPage = read(files[10]);
   const footballHub = read(files[11]);
+  const footballProfileContent = read(footballProfileContentPath);
+  const footballProgramEditorial = read(footballProgramEditorialPath);
   const publicRoutes = read(files[12]);
   const dataSources = read(files[13]);
   const newcomerGuide = read(authorityFiles[0]);
@@ -171,7 +177,7 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: `${teamName} Football: 2026 District, Enrollment & Team Guide`",
+    "title: `${teamName} Football: 2026 District, Schedule & Team Guide`",
     "const description = `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
@@ -821,7 +827,7 @@ if (!errors.length) {
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
   requireText(programProfileServer, 'getVerifiedFootballSchoolIdentity(canonicalSlug)', 'Canonical UIL identity precedence');
-  requireText(programProfileServer, 'identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null', 'Canonical UIL identity ownership');
+  requireText(programProfileServer, 'const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null', 'Canonical UIL identity ownership');
 
 
   for (const marker of [
@@ -986,8 +992,10 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: 2026 District, Enrollment & Team Guide',
+    'Football: 2026 District, Schedule & Team Guide',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
+  requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
+  requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
@@ -1030,6 +1038,12 @@ if (!errors.length) {
     'UIL reported enrollment',
     'program.uilEnrollment',
     'Official UIL alphabetical enrollment listing ↗',
+    'Quick answers',
+    'Source trail',
+    'Football FAQ',
+    'profileSummary',
+    'quickFacts',
+    'faq',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
     'All ${program.districtName} football programs →',
@@ -1054,6 +1068,24 @@ if (!errors.length) {
   }
   requireText(featuredProfilePage, '/article/texas-high-school-football-2026-season-calendar', 'Football school profile calendar discovery');
   requireText(featuredProfilePage, '2026 UIL season calendar →', 'Football school profile calendar discovery');
+
+  for (const marker of [
+    'buildFootballProfileSummary',
+    'buildFootballProfileQuickFacts',
+    'buildFootballProfileFaq',
+    'Classification is not a quality ranking.',
+  ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
+  for (const marker of [
+    'profileSummary: buildFootballProfileSummary',
+    'quickFacts: buildFootballProfileQuickFacts',
+    'faq: buildFootballProfileFaq',
+  ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
+  for (const marker of [
+    "slug: 'spring'",
+    "name: 'KaRon Coleman Sr.'",
+    "name: 'Planet Ford Stadium'",
+    "label: '2026–27 football schedule'",
+  ]) requireText(footballProgramEditorial, marker, 'Spring High football editorial');
 
   requireText(finder, 'uilEnrollment', 'Football finder exact enrollment');
   requireText(finder, 'UIL enrollment', 'Football finder exact enrollment');
