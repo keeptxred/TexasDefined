@@ -4,6 +4,8 @@ const BASE_URL = process.env.TEXASDEFINED_BASE_URL || 'https://texasdefined.com'
 const STRICT = process.env.IMAGE_AUDIT_STRICT === '1';
 const CONCURRENCY = Math.max(1, Math.min(20, Number(process.env.IMAGE_AUDIT_CONCURRENCY || 8)));
 const REQUEST_TIMEOUT_MS = Math.max(5_000, Number(process.env.IMAGE_AUDIT_TIMEOUT_MS || 20_000));
+const REQUEST_RETRIES = Math.max(1, Math.min(5, Number(process.env.IMAGE_AUDIT_RETRIES || 3)));
+const RETRY_DELAY_MS = Math.max(100, Number(process.env.IMAGE_AUDIT_RETRY_DELAY_MS || 750));
 const REPORT_PATH = process.env.IMAGE_AUDIT_REPORT || 'image-discover-production-report.json';
 
 const PRIORITY_PATHS = [
@@ -67,8 +69,35 @@ async function fetchWithTimeout(url, options = {}) {
   } finally { clearTimeout(id); }
 }
 
+function transientFetchError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return error?.name === 'AbortError'
+    || /fetch failed|socket|ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|UND_ERR/i.test(message);
+}
+
+function fetchErrorLabel(error) {
+  if (error?.name === 'AbortError') return `timeout-after-${REQUEST_TIMEOUT_MS}ms`;
+  return error instanceof Error ? error.message : String(error);
+}
+
+async function fetchWithRetry(url, options = {}) {
+  let lastError;
+  for (let attempt = 1; attempt <= REQUEST_RETRIES; attempt += 1) {
+    try {
+      return await fetchWithTimeout(url, options);
+    } catch (error) {
+      lastError = error;
+      if (!transientFetchError(error) || attempt === REQUEST_RETRIES) throw error;
+      const delay = RETRY_DELAY_MS * attempt;
+      console.warn(`Transient fetch failure (${attempt}/${REQUEST_RETRIES}) for ${url}: ${fetchErrorLabel(error)}. Retrying in ${delay}ms.`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw lastError;
+}
+
 async function fetchText(url) {
-  const response = await fetchWithTimeout(url);
+  const response = await fetchWithRetry(url);
   return { response, text: await response.text() };
 }
 
@@ -110,7 +139,7 @@ function imageDimensions(bytes, type) {
 }
 
 async function inspectImageAttempt(url, headers = {}) {
-  const response = await fetchWithTimeout(url, { method: 'GET', headers });
+  const response = await fetchWithRetry(url, { method: 'GET', headers });
   const type = (response.headers.get('content-type') || '').split(';')[0].toLowerCase();
   const length = Number(response.headers.get('content-length') || 0);
   const bytes = new Uint8Array(await response.arrayBuffer());

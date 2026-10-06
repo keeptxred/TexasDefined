@@ -2,13 +2,41 @@ name: Validate event occurrence lifecycle
 
 on:
   pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/validate-event-occurrence-lifecycle.yml'
+      - 'scripts/data/validate-event-occurrence-lifecycle.mjs'
+      - 'scripts/data/validate-google-event-rich-results.mjs'
+      - 'src/data/event-*.ts'
+      - 'src/data/event-*.server.ts'
+      - 'src/data/events/**'
+      - 'src/data/major-event-*.ts'
+      - 'src/data/major-event-*.server.ts'
+      - 'src/routes/event.*'
+      - 'src/routes/events*'
+      - 'src/lib/seo.ts'
   push:
-    branches:
-      - main
+    branches: [main]
+    paths:
+      - '.github/workflows/validate-event-occurrence-lifecycle.yml'
+      - 'scripts/data/validate-event-occurrence-lifecycle.mjs'
+      - 'scripts/data/validate-google-event-rich-results.mjs'
+      - 'src/data/event-*.ts'
+      - 'src/data/event-*.server.ts'
+      - 'src/data/events/**'
+      - 'src/data/major-event-*.ts'
+      - 'src/data/major-event-*.server.ts'
+      - 'src/routes/event.*'
+      - 'src/routes/events*'
+      - 'src/lib/seo.ts'
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: event-occurrence-lifecycle-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate:

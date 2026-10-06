@@ -1,5 +1,7 @@
 import { formatDateRange } from "@/domain/utils/format";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
+import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
+import { hasExpiredConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { loadTicketmasterEventsServer } from "./events/ticketmaster-events.server";
 import { resolveEventTicketCta } from "./events/ticketing";
 import { getMajorEventAuthorityServer } from "./major-event-authority.server";
@@ -54,6 +56,7 @@ import {
   eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
+  isCompliantMajorEventImage,
 } from "./major-event-schema-enrichment.server";
 
 const siteUrl = "https://texasdefined.com";
@@ -229,6 +232,19 @@ export function loadMajorEventPageServer(slug: string) {
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
+  const recurrenceDerived = isRecurrenceDerivedMajorEventSlug(event.slug);
+  const expiredConfirmedOccurrence = hasExpiredConfirmedEventOccurrence(event);
+  const dateConfidenceMarkup = recurrenceDerived
+    ? `<div data-event-date-confidence="recurrence-derived" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Planning dates, not yet year-specific.</strong> This date window is derived from the organizer's published recurrence pattern. Confirm the official year-specific schedule before booking nonrefundable travel.</div>`
+    : expiredConfirmedOccurrence
+      ? `<div data-event-date-confidence="expired-confirmed" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Latest confirmed occurrence has ended.</strong> These are the most recent organizer-confirmed dates on file. Do not assume the next annual occurrence until the organizer publishes it.</div>`
+      : "";
+  const snapshotMarkup = `<section data-major-event-snapshot="true" class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Dates</p><p class="mt-2 font-semibold">${esc(dateLabel)}</p></div>
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Venue</p><p class="mt-2 font-semibold">${esc(event.venue || event.city)}</p></div>
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Location</p><p class="mt-2 font-semibold">${esc(placeLine)}</p></div>
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
+  </section>`;
   const planning = event.planningSections.map((item) => {
     const supplement = event.slug === "chappell-hill-bluebonnet-festival"
       && item.title === CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE
@@ -237,12 +253,17 @@ export function loadMajorEventPageServer(slug: string) {
     return `<section class="mt-8"><h2 class="font-display text-2xl">${esc(item.title)}</h2><p class="mt-3 leading-7 text-muted-foreground">${esc(item.body)}</p>${supplement}</section>`;
   }).join("");
   const countyHref = event.countySlug ? `/county/${event.countySlug}` : null;
-  const relatedItems = countyHref && !event.relatedLinks.some((item) => item.href === countyHref)
-    ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...event.relatedLinks]
-    : event.relatedLinks;
+  const legacyCountyHref = event.countySlug ? `/browse/counties#county-${event.countySlug}` : null;
+  const normalizedRelatedItems = event.relatedLinks
+    .filter((item) => item.href !== legacyCountyHref)
+    .filter((item, index, items) => items.findIndex((candidate) => candidate.href === item.href) === index);
+  const relatedItems = countyHref
+    ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...normalizedRelatedItems.filter((item) => item.href !== countyHref)]
+    : normalizedRelatedItems;
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
-  const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging for the event weekend before rooms tighten up. Texas Defined will show reviewed nearby hotel options here when available.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${HOTELS_COM_AFFILIATE_URL}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">Search hotels on Hotels.com →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
+  const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging early for major event weekends, when the closest rooms can fill quickly. Check in-town options first, then widen the search to nearby communities if your preferred dates or price range are unavailable.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${HOTELS_COM_AFFILIATE_URL}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">Search hotels on Hotels.com →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
   const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
+  const displayImage = isCompliantMajorEventImage(schemaEnrichment?.image) ? schemaEnrichment.image : undefined;
   const displayOffers = [
     ...(schemaEnrichment?.offers ?? []),
     ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.offers ?? []),
@@ -260,8 +281,16 @@ export function loadMajorEventPageServer(slug: string) {
   const performersMarkup = displayPerformers.length
     ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
     : "";
-  const imageMarkup = schemaEnrichment?.image
-    ? `<figure><img data-major-event-enrichment-image="true" class="w-full rounded-xl" src="${esc(schemaEnrichment.image.url)}" alt="${esc(schemaEnrichment.image.alt)}" loading="lazy" decoding="async" /><figcaption class="mt-2 text-sm text-muted-foreground"><a class="underline" href="${esc(schemaEnrichment.image.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
+  const heroImageAttribution = displayImage
+    ? [
+        displayImage.rightsNote ? esc(displayImage.rightsNote) : "",
+        displayImage.licenseName && displayImage.licenseUrl
+          ? `<a class="underline" href="${esc(displayImage.licenseUrl)}" target="_blank" rel="noreferrer noopener">${esc(displayImage.licenseName)} ↗</a>`
+          : "",
+      ].filter(Boolean).join(" · ")
+    : "";
+  const heroImageMarkup = displayImage
+    ? `<figure data-major-event-hero="true" class="mt-8"><div class="aspect-[16/9] overflow-hidden rounded-2xl bg-muted"><img data-major-event-enrichment-image="true" class="h-full w-full object-cover" src="${esc(displayImage.url)}" alt="${esc(displayImage.alt)}" loading="eager" decoding="async" /></div><figcaption class="mt-2 text-xs leading-5 text-muted-foreground">${heroImageAttribution ? `${heroImageAttribution} · ` : ""}<a class="underline" href="${esc(displayImage.sourceUrl)}" target="_blank" rel="noreferrer noopener">Image source ↗</a></figcaption></figure>`
     : "";
   const lifecycleRows = occurrenceWindows.flatMap((window) => {
     const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label)?.lifecycle;
@@ -281,12 +310,15 @@ export function loadMajorEventPageServer(slug: string) {
     ? `<div data-event-lifecycle-status="true"><h3 class="font-display text-xl">Schedule status</h3><ul class="mt-2 space-y-2">${lifecycleRows.join("")}</ul></div>`
     : "";
   const enrichmentMarkup = schemaEnrichment
-    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${imageMarkup}${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
+    ? `<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Event details</h2><div class="mt-4 space-y-5">${lifecycleMarkup}${organizerMarkup}${offersMarkup}${performersMarkup}<p class="text-sm text-muted-foreground">Last reviewed ${esc(schemaEnrichment.verifiedAt)}. Ticket prices and lineups can change; confirm the linked official source before purchasing or traveling.</p></div></section>`
     : "";
   const mergedSources = [...event.sources, ...(schemaEnrichment?.sources ?? [])]
     .filter((source, index, sources) => sources.findIndex((candidate) => candidate.url === source.url) === index);
   const sources = mergedSources.map((source) => `<li><a class="font-semibold text-primary underline" href="${esc(source.url)}" target="_blank" rel="noreferrer noopener">${esc(source.label)} ↗</a></li>`).join("");
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul></section>`;
+  const sourceReviewMarkup = event.sourceCheckedAt
+    ? `<p class="mt-4 text-xs text-muted-foreground">Event facts last source-checked ${esc(event.sourceCheckedAt)}. Recheck the official organizer before traveling because dates, prices, access rules and lineups can change.</p>`
+    : "";
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
@@ -349,8 +381,16 @@ export function loadMajorEventPageServer(slug: string) {
     slug: event.slug,
     name: event.name,
     city: event.city,
-    title: `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
-    description: `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
+    title: recurrenceDerived
+      ? `${event.name} ${eventYear}: Projected Dates & Texas Travel Guide`
+      : expiredConfirmedOccurrence
+        ? `${event.name}: Dates & Texas Travel Guide`
+        : `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
+    description: recurrenceDerived
+      ? `${event.name} ${eventYear} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
+      : expiredConfirmedOccurrence
+        ? `${event.name} in ${event.city}, Texas: latest confirmed dates, official sources and practical planning while the next occurrence is pending.`
+        : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
     html,
     jsonLd,
   };

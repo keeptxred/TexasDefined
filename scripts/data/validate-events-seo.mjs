@@ -29,6 +29,31 @@ const eventIndex = fs.readFileSync(path.join(root, 'src/data/major-event-index.t
 const supplementalRegistry = fs.readFileSync(path.join(root, 'src/data/major-event-supplemental-registry.server.ts'), 'utf8');
 const wrapper = fs.readFileSync(path.join(root, 'src/data/major-event-directory.ts'), 'utf8');
 const errors = [];
+const majorEventAuthorityFiles = fs.readdirSync(path.join(root, 'src/data'))
+  .filter((name) => /^major-event-expanded-authority(?:-tranche\d+)?\.server\.ts$/.test(name))
+  .sort();
+for (const name of majorEventAuthorityFiles) {
+  const source = fs.readFileSync(path.join(root, 'src/data', name), 'utf8');
+  const records = [...source.matchAll(/\n\s*\{\n\s*slug:\s*"([^"]+)"/g)];
+  for (let index = 0; index < records.length; index += 1) {
+    const slug = records[index][1];
+    const start = records[index].index;
+    const nextRecord = index + 1 < records.length ? records[index + 1].index : -1;
+    const arrayEnd = source.indexOf('\n];', start);
+    const end = nextRecord >= 0 ? nextRecord : arrayEnd > start ? arrayEnd : source.length;
+    const record = source.slice(start, end);
+    const planningStart = record.indexOf('planningSections:');
+    const relatedStart = record.indexOf('relatedLinks:');
+    const planningBlock = planningStart >= 0
+      ? record.slice(planningStart, relatedStart > planningStart ? relatedStart : record.length)
+      : '';
+    const planningSectionCount = (planningBlock.match(/\{\s*title:/g) ?? []).length;
+    if (planningSectionCount < 3) {
+      errors.push(`Major-event authority guide too thin: ${slug} in ${name} has ${planningSectionCount} planning sections; require at least 3.`);
+    }
+  }
+}
+
 
 if (!layoutRoute.includes('createFileRoute("/events")')) errors.push('Events layout route must remain the /events parent.');
 if (layoutRoute.includes('loader:') || layoutRoute.includes('head:')) errors.push('Events layout route must not own landing loader/head state.');
@@ -120,6 +145,25 @@ for (const marker of [
   if (!eventLeafRoute.includes(marker)) errors.push(`Major-event Open Graph/Twitter metadata wiring missing: ${marker}.`);
 }
 
+for (const marker of [
+  'data-event-date-confidence="recurrence-derived"',
+  'Planning dates, not yet year-specific.',
+  'data-event-date-confidence="expired-confirmed"',
+  'Latest confirmed occurrence has ended.',
+  'hasExpiredConfirmedEventOccurrence(event)',
+  'Last confirmed occurrence',
+  'legacyCountyHref',
+  'data-major-event-hero="true"',
+  'sourceReviewMarkup',
+  'Projected Dates & Texas Travel Guide',
+  'projected planning dates, official sources and practical trip planning',
+]) {
+  if (!eventLeaf.includes(marker)) errors.push(`Shared major-event authority UX missing: ${marker}.`);
+}
+if (eventLeaf.includes('Texas Defined will show reviewed nearby hotel options here when available')) {
+  errors.push('Major-event pages must not advertise unfinished lodging inventory.');
+}
+
 const recurrenceDerivedDateSlugs = [
   'dallas-holiday-parade',
   'schulenburg-festival',
@@ -128,7 +172,6 @@ const recurrenceDerivedDateSlugs = [
   'national-polka-festival',
   'sweetwater-rattlesnake-roundup',
   'granbury-founders-day-jubilee',
-  'come-and-take-it-celebration',
   'hopkins-county-stew-contest',
   'texas-state-championship-fiddlers-frolics',
 ];

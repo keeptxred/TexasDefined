@@ -46,11 +46,25 @@ export const majorEventSchemaEnrichmentBatch3: MajorEventSchemaEnrichment[] = [
   {
     slug: "schulenburg-festival",
     organizer: organization("Schulenburg Festival Association, Inc.", "https://www.schulenburgfestival.org/"),
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mulberry%20Creek%20Bridge.jpg?width=1600",
+      alt: "Mulberry Creek Bridge in Wolters Park in Schulenburg, Texas",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Mulberry_Creek_Bridge.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      rightsNote: "Mary E. McCabe; photograph taken in Wolters Park and reused under CC BY-SA 3.0 with attribution.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Schulenburg Festival Association official site", url: "https://www.schulenburgfestival.org/" },
       { label: "Schulenburg Festival official schedule", url: "https://www.schulenburgfestival.org/schedule" },
+      { label: "Schulenburg Festival official admission and ticket information", url: "https://www.schulenburgfestival.org/tickets" },
+      { label: "Schulenburg Festival official parade information", url: "https://www.schulenburgfestival.org/parade" },
+      { label: "Wikimedia Commons — Mulberry Creek Bridge in Wolters Park", url: "https://commons.wikimedia.org/wiki/File:Mulberry_Creek_Bridge.jpg" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-05",
   },
   {
     slug: "westfest",

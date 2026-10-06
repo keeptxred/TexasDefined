@@ -6,7 +6,6 @@ export const recurrenceDerivedMajorEventSlugs = new Set([
   "national-polka-festival",
   "sweetwater-rattlesnake-roundup",
   "granbury-founders-day-jubilee",
-  "come-and-take-it-celebration",
   "hopkins-county-stew-contest",
   "texas-state-championship-fiddlers-frolics",
 ]);
