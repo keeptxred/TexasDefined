@@ -55,4 +55,17 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
-        run: node scripts/monetization/sync-shop-funnel-analytics.mjs
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4; do
+            if node scripts/monetization/sync-shop-funnel-analytics.mjs; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 4 ]; then
+              echo "Shop funnel analytics sync failed after $attempt attempts." >&2
+              exit 1
+            fi
+            delay=$((attempt * 15))
+            echo "Transient analytics sync failure; retrying in ${delay}s (attempt $((attempt + 1))/4)." >&2
+            sleep "$delay"
+          done
