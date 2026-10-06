@@ -1,6 +1,6 @@
 import type { Destination } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-09";
+const SOURCE_CHECKED_AT = "2026-10-06";
 
 /**
  * Durable TexasDefined destinations promoted from reviewed Viator inventory
