@@ -59,47 +59,52 @@ for (const marker of [
   if (!sanAngeloProduction.includes(marker)) failures.push(`San Angelo proximity live verifier is missing required cache-busted production assertion: ${marker}`);
 }
 
-const requiredLiveSteps = [
-  ['Verify direct Worker health', 'live_direct_health', 'DIRECT_HEALTH_OUTCOME'],
-  ['Verify canonical production health', 'live_canonical_health', 'CANONICAL_HEALTH_OUTCOME'],
-  ['Verify direct Worker discovery', 'live_direct_worker', 'DIRECT_WORKER_OUTCOME'],
-  ['Verify base production surfaces', 'live_base', 'BASE_OUTCOME'],
-  ['Verify Event structured-data production', 'live_events', 'EVENT_OUTCOME'],
-  ['Verify local financial production', 'live_local_financial', 'LOCAL_FINANCIAL_OUTCOME'],
-  ['Verify statewide financial discovery', 'live_statewide_financial', 'STATEWIDE_FINANCIAL_OUTCOME'],
-  ['Verify advertiser production', 'live_advertiser', 'ADVERTISER_OUTCOME'],
+const failClosedLiveSteps = [
+  ['Verify canonical production health', 'live_canonical_health'],
+  ['Verify direct Worker discovery', 'live_direct_worker'],
+  ['Verify base production surfaces', 'live_base'],
+  ['Verify Event structured-data production', 'live_events'],
+  ['Verify local financial production', 'live_local_financial'],
+  ['Verify statewide financial discovery', 'live_statewide_financial'],
+  ['Verify advertiser production', 'live_advertiser'],
 ];
 
-const gateName = '- name: Enforce aggregate live verification gate';
-const gateStart = workflow.indexOf(gateName);
-const gateEnd = gateStart >= 0 ? workflow.indexOf('\n      - name:', gateStart + gateName.length) : -1;
-const gateBlock = gateStart >= 0 ? workflow.slice(gateStart, gateEnd > gateStart ? gateEnd : workflow.length) : '';
-if (!gateBlock) failures.push('Production workflow must retain the fail-closed aggregate live verification gate.');
-if (workflow.includes('- name: Enforce blocking live runtime gate and summarize advisory checks')) {
-  failures.push('The weakened runtime-only/advisory live gate must not replace the fail-closed aggregate gate.');
-}
-
-for (const [name, id, envName] of requiredLiveSteps) {
-  const stepStart = workflow.indexOf(`- name: ${name}`);
+function workflowStepBlock(name) {
+  const marker = `- name: ${name}`;
+  const stepStart = workflow.indexOf(marker);
   const stepEnd = stepStart >= 0 ? workflow.indexOf('\n      - name:', stepStart + 1) : -1;
-  const stepBlock = stepStart >= 0 ? workflow.slice(stepStart, stepEnd > stepStart ? stepEnd : workflow.length) : '';
-  if (!stepBlock.includes(`id: ${id}`)) failures.push(`${name} must keep step id ${id}.`);
-  if (!stepBlock.includes('continue-on-error: true')) failures.push(`${name} must collect its raw outcome for the aggregate gate.`);
-  const outcomeMapping = `${envName}: \${{ steps.${id}.outcome }}`;
-  if (!gateBlock.includes(outcomeMapping)) failures.push(`Aggregate live gate must map ${envName} from steps.${id}.outcome.`);
-  if (!gateBlock.includes(`"$${envName}" != 'success'`)) failures.push(`Aggregate live gate must fail when ${envName} is not success.`);
+  return stepStart >= 0 ? workflow.slice(stepStart, stepEnd > stepStart ? stepEnd : workflow.length) : '';
 }
 
-if (/steps\.[A-Za-z0-9_-]+\.conclusion/.test(gateBlock)) failures.push('Aggregate live gate must use raw step outcome, not conclusion, for continue-on-error verifiers.');
-if (!gateBlock.includes('Every raw child verifier outcome is blocking.')) {
-  failures.push('Aggregate live gate must explicitly document that every raw child verifier is blocking.');
+const directHealthBlock = workflowStepBlock('Verify direct Worker health');
+if (!directHealthBlock.includes('id: live_direct_health')) failures.push('Direct Worker health must keep step id live_direct_health.');
+if (!directHealthBlock.includes('continue-on-error: true')) failures.push('Direct Worker health must retain raw-outcome collection so rollback can run before certification fails.');
+
+const directHealthGate = workflowStepBlock('Enforce deployed Worker health');
+for (const marker of [
+  'id: live_direct_health_gate',
+  'DIRECT_HEALTH_OUTCOME: ${{ steps.live_direct_health.outcome }}',
+  'ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}',
+  'ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}',
+  'The failed release was not certified.',
+]) {
+  if (!directHealthGate.includes(marker)) failures.push(`Dedicated deployed-Worker health enforcement is missing: ${marker}`);
 }
-if (!gateBlock.includes('All production verification stages passed.')) failures.push('Aggregate live gate must state when every production verification stage passes.');
-if (gateBlock.includes('advisory_failures=()') || gateBlock.includes('Non-blocking production quality checks need attention')) {
-  failures.push('Aggregate live gate must not mask failed raw child outcomes as advisory warnings.');
+
+for (const [name, id] of failClosedLiveSteps) {
+  const stepBlock = workflowStepBlock(name);
+  if (!stepBlock.includes(`id: ${id}`)) failures.push(`${name} must keep step id ${id}.`);
+  if (stepBlock.includes('continue-on-error: true')) failures.push(`${name} must fail closed directly instead of relying on aggregate bookkeeping.`);
 }
-if (gateBlock.includes('ROLLBACK_OUTCOME" != \'success\'') || gateBlock.includes('ROLLBACK_HEALTH_OUTCOME" != \'success\'')) {
-  failures.push('Intentionally skipped rollback/recovery steps must not be required to succeed in the live aggregate gate.');
+
+if (workflow.includes('- name: Enforce aggregate live verification gate')) {
+  failures.push('The obsolete all-or-nothing aggregate live verification gate must not return.');
+}
+if (workflow.includes('- name: Enforce blocking live runtime gate and summarize advisory checks')) {
+  failures.push('Production verification must not revert to a runtime-only gate with advisory quality checks.');
+}
+if (!workflow.includes('STAGE_OUTCOME: ${{ job.status }}')) {
+  failures.push('Live production status publishing must reflect the job status after direct fail-closed verifiers.');
 }
 
 const indexNowName = '- name: Run guarded IndexNow step';
@@ -120,4 +125,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Live verification contract passed: ${stateFairChecks.length} State Fair production needles match page source; San Angelo close-town live proof is wired; all ${requiredLiveSteps.length} raw live verifier outcomes and IndexNow remain fail-closed.`);
+console.log(`Live verification contract passed: ${stateFairChecks.length} State Fair production needles match page source; San Angelo close-town live proof is wired; direct Worker rollback enforcement plus ${failClosedLiveSteps.length} direct fail-closed live verifiers and guarded IndexNow are protected without an aggregate live gate.`);
