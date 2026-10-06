@@ -27,6 +27,11 @@ const RV_COLLECTION = "rv-parks";
 const CAVERN_COLLECTION = "caverns";
 const REMOTE_DESTINATION_TIMEOUT_MS = 3_000;
 
+type RemoteCatalogResult = {
+  destinations: Destination[];
+  failed: boolean;
+};
+
 async function withDestinationRemoteTimeout<T>(label: string, operation: Promise<T>): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
@@ -116,17 +121,17 @@ async function cavernPreservedFor(query: Omit<DestinationQuery, "brandId">): Pro
 async function loadEnrichedCatalog(
   options: { featured?: boolean; category?: DestinationQuery["category"]; limit?: number },
   params: Omit<DestinationQuery, "brandId">,
-): Promise<Destination[]> {
+): Promise<RemoteCatalogResult> {
   try {
-    let enriched = await withDestinationRemoteTimeout("Explore enrichment", fetchExploreDestinations(options));
-    if (params.featured && !enriched.length) {
+    let destinations = await withDestinationRemoteTimeout("Explore enrichment", fetchExploreDestinations(options));
+    if (params.featured && !destinations.length) {
       const catalog = await withDestinationRemoteTimeout("Explore featured fallback catalog", fetchExploreDestinations({ category: params.category, limit: 5000 }));
-      enriched = featuredFallback(catalog, params.limit ?? 6);
+      destinations = featuredFallback(catalog, params.limit ?? 6);
     }
-    return enriched;
+    return { destinations, failed: false };
   } catch (error) {
     console.error("Explore enrichment unavailable; merging core and preserved catalogs", error);
-    return [];
+    return { destinations: [], failed: true };
   }
 }
 
@@ -215,13 +220,14 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   }
 
   const options = { featured: params.featured, category: params.category, limit: params.limit };
-  const [enriched, cavernPreserved] = await Promise.all([
+  const [enrichedResult, cavernPreserved] = await Promise.all([
     loadEnrichedCatalog(options, params),
     cavernPreservedFor(params),
   ]);
-  // The enriched Explore source is authoritative. The public/core view exists as
-  // an outage fallback, not a second mandatory read for every page request.
-  const core = enriched.length ? [] : await loadCoreCatalog(options, params);
+  const enriched = enrichedResult.destinations;
+  // The enriched Explore source is authoritative. A successful empty response is
+  // still authoritative; only an actual request failure activates the core view.
+  const core = enrichedResult.failed ? await loadCoreCatalog(options, params) : [];
   const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
   const abilenePreserved = abilenePreservedFor(params);
@@ -248,8 +254,10 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 
 export async function getResolvedDestination(slug: Slug) {
   const weakCandidates: Destination[] = [];
+  let enrichedFailed = false;
   const enriched = await withDestinationRemoteTimeout("Explore destination enrichment", fetchExploreDestination(slug))
     .catch((error) => {
+      enrichedFailed = true;
       console.error("Explore destination enrichment unavailable; checking other destination sources", error);
       return null;
     });
@@ -260,17 +268,6 @@ export async function getResolvedDestination(slug: Slug) {
   const explicitAbileneFallback = abileneAreaDestinationFallbacks.find((destination) => destination.slug === slug);
   const readyAbileneFallback = resolveSeoReadyDestination(explicitAbileneFallback);
   if (readyAbileneFallback) return readyAbileneFallback;
-
-  // Only ask the core/public view when the richer source could not produce a
-  // publishable destination. This removes the former duplicate Supabase lookup.
-  const core = await withDestinationRemoteTimeout("Core Explore destination", fetchCoreExploreDestination(slug))
-    .catch((error) => {
-      console.error("Core Explore remote destination unavailable; checking preserved catalog", error);
-      return null;
-    });
-  const readyCore = resolveSeoReadyDestination(core);
-  if (readyCore) return readyCore;
-  if (core) weakCandidates.push(core);
 
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
@@ -292,6 +289,20 @@ export async function getResolvedDestination(slug: Slug) {
   const readyLocal = resolveSeoReadyDestination(local);
   if (readyLocal) return readyLocal;
 
+  // The core/public view is an outage fallback. Do not duplicate a successful
+  // empty rich lookup, and prefer local/preserved sources before retrying the
+  // same shared Supabase project during an outage.
+  if (enrichedFailed) {
+    const core = await withDestinationRemoteTimeout("Core Explore destination", fetchCoreExploreDestination(slug))
+      .catch((error) => {
+        console.error("Core Explore remote destination unavailable; retaining local fallbacks", error);
+        return null;
+      });
+    const readyCore = resolveSeoReadyDestination(core);
+    if (readyCore) return readyCore;
+    if (core) weakCandidates.push(core);
+  }
+
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
   if (fallback) return applyResolvedHero(fallback);
   if (!local && weakCandidates.length) return applyResolvedHero(weakCandidates[0]);
@@ -299,22 +310,24 @@ export async function getResolvedDestination(slug: Slug) {
 }
 
 export async function listResolvedDestinationSearchCatalog() {
+  let enrichedFailed = false;
   const [enriched, cavernFallbacks, cityPassFallbacks] = await Promise.all([
     withDestinationRemoteTimeout("Explore destination search catalog", fetchExploreDestinations({ limit: 5000 }))
       .catch((error) => {
+        enrichedFailed = true;
         console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error);
         return [] as Destination[];
       }),
     loadPublicCavernDestinationFallbacks(),
     loadCityPassDestinationExpansion(),
   ]);
-  const core = enriched.length
-    ? []
-    : await withDestinationRemoteTimeout("Core destination search catalog", fetchCoreExploreDestinations({ limit: 5000 }))
+  const core = enrichedFailed
+    ? await withDestinationRemoteTimeout("Core destination search catalog", fetchCoreExploreDestinations({ limit: 5000 }))
       .catch((error) => {
         console.error("Core remote destination search index unavailable; retaining preserved destinations", error);
         return [] as Destination[];
-      });
+      })
+    : [];
   const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     preservedSearchCatalog,
