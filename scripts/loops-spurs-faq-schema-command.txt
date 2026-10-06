@@ -1,0 +1,1 @@
+node scripts/loops-spurs-faq-schema.apply.mjs
