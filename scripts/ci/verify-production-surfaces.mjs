@@ -8,7 +8,7 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 const surfaces = [
   ['metro-houston-hub', '/explore/near/houston', 'Explore by trip type'],
   ['metro-houston-weekend-trips', '/explore/near/houston/weekend-trips', 'Weekend Trips From Houston, Texas'],
-  ['metro-dallas-small-towns-2-hours', '/explore/near/dallas/small-towns-2-hours', 'Small Towns About 2 Hours From Dallas, Texas'],
+  ['metro-dallas-small-towns-2-hours', '/explore/near/dallas/small-towns-2-hours', 'Small-Town Day Trips From Dallas, Texas'],
   ['metro-austin-small-towns-2-hours', '/explore/near/austin/small-towns-2-hours', 'Small Towns About 1–2 Hours From Austin, Texas'],
   ['metro-austin-small-towns-editorial', '/explore/near/austin/small-towns-2-hours', 'Which Austin small-town day trip fits your day?'],
   ['metro-austin-swimming-holes', '/explore/near/austin/swimming-holes', 'Swimming Holes Near Austin, Texas'],
