@@ -14,7 +14,7 @@ import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-
 import { imageRightsFor } from "@/data/image-rights";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
 import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
-import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
+import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import { localArticleAuthoritySources } from "@/data/local-article-authority-sources";
 import { remoteEvergreenAuthoritySources } from "@/data/remote-evergreen-authority-sources";
@@ -140,7 +140,7 @@ function articleText(article: { title: string; dek: string; body: Array<{ type: 
 }
 function articleAutoLinkGraph(
   article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> },
-  graph: Awaited<ReturnType<typeof loadTexasKnowledgeGraph>>,
+  graph: TexasEntityRecord[],
 ) {
   const text = articleText(article);
   if (!text.trim()) return [];
@@ -179,14 +179,17 @@ export const Route = createFileRoute("/article/$slug")({
   loader: async ({ context, params }) => {
     const article = await context.queryClient.ensureQueryData(articleQuery(params.slug));
     if (!article) throw notFound();
-    const [authors, categories, related, destinations, completeGraph] = await Promise.all([
+    const linkText = articleText(article);
+    const [authors, categories, related, destinations, linkCandidates] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
       context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
       getDestinationsBySlugs({ data: { slugs: article.relatedDestinations.slice(0, 8) } }),
-      loadTexasKnowledgeGraph(),
+      import("@/data/knowledge-graph/link-candidates.server").then(({ loadTexasKnowledgeGraphLinkCandidates }) =>
+        loadTexasKnowledgeGraphLinkCandidates(linkText),
+      ),
     ]);
-    const graph = articleAutoLinkGraph(article, completeGraph);
+    const graph = articleAutoLinkGraph(article, linkCandidates);
     return { article, authors, categories, related, destinations, graph };
   },
   head: ({ loaderData, params }) => {
