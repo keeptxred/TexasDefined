@@ -100,7 +100,7 @@ for (const marker of [
   'Zavala County veterans',
   '224 E Zavala St',
   'Crystal City Pilgrimage Committee',
-  'Sources and verification',
+  'Sources used for this guide',
 ]) {
   requireCondition(page.includes(marker), `My Story Museum production HTML is missing authority marker: ${marker}`);
 }
