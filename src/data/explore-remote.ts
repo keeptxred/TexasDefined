@@ -283,7 +283,7 @@ async function fetchExplorePage(params: URLSearchParams, offset: number, limit: 
   const pageParams = new URLSearchParams(params);
   pageParams.set("offset", String(offset));
   pageParams.set("limit", String(limit));
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, {\n    headers: headers(),\n    signal: import.meta.env.SSR ? AbortSignal.timeout(2_500) : undefined,\n  });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${pageParams}`, import.meta.env.SSR\n    ? { headers: headers(), signal: AbortSignal.timeout(2_500) }\n    : { headers: headers() });
   if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) ? rows : [];
@@ -326,7 +326,7 @@ export async function fetchExploreDestination(slug: string): Promise<Destination
     status: "in.(published,verified)",
     limit: "1",
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, {\n    headers: headers(),\n    signal: import.meta.env.SSR ? AbortSignal.timeout(2_500) : undefined,\n  });
+  const response = await fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, import.meta.env.SSR\n    ? { headers: headers(), signal: AbortSignal.timeout(2_500) }\n    : { headers: headers() });
   if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
