@@ -1,18 +1,11 @@
 import type { CategorySlug, Destination, TexasRegion } from "./types";
+import { hasExploreRemoteData } from "./explore-remote-policy";
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
-const remoteExploreEnabled = ["1", "true", "yes"].includes(
-  String(import.meta.env.VITE_TEXASDEFINED_REMOTE_EXPLORE_ENABLED || "").trim().toLowerCase(),
-);
-
 const PAGE_SIZE = 500;
 const MAX_REMOTE_DESTINATIONS = 5000;
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-export function hasExploreRemoteData(): boolean {
-  return remoteExploreEnabled && Boolean(supabaseUrl && supabaseKey);
-}
 
 function headers(): HeadersInit {
   return {
