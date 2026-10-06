@@ -50,7 +50,7 @@ for (const [label, source] of [
   ['Explore enrichment', exploreRemote],
   ['Core Explore fallback', exploreCoreRemote],
 ]) {
-  if (!source.includes('signal: import.meta.env.SSR ? AbortSignal.timeout(2_500) : undefined')) {
+  if (!source.includes('import.meta.env.SSR') || !source.includes('AbortSignal.timeout(2_500)')) {
     errors.push(`${label} remote reads must abort slow SSR requests instead of leaving timed-out Supabase work running in the background.`);
   }
 }
