@@ -41,19 +41,19 @@ export function PullQuote({ text, attribution, entities = [] }: { text: string; 
 }
 
 function LoopsSpursVisual() {
-  return <figure className="my-10 rounded-2xl border border-border bg-muted/20 p-5 sm:p-7" aria-labelledby="loops-spurs-visual-title">
+  return <figure className="my-10 rounded-xl border border-border bg-muted/20 p-5" aria-labelledby="loops-spurs-visual-title">
     <figcaption id="loops-spurs-visual-title" className="font-display text-2xl font-semibold">Loop vs. Spur: read the network, not the shape</figcaption>
-    <p className="mt-2 text-sm leading-6 text-muted-foreground">A Texas Loop usually carries traffic around a place and reconnects with the highway network. A Spur usually branches away to a local road or destination. Neither name guarantees what the road looks like today.</p>
+    <p className="mt-2 text-sm text-muted-foreground">A Texas Loop usually carries traffic around a place and reconnects with the highway network. A Spur usually branches away to a local road or destination. Neither name guarantees what the road looks like today.</p>
     <div className="mt-6 grid gap-4 sm:grid-cols-2">
-      <div className="rounded-xl border border-border bg-background p-4">
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Loop</p>
+      <div className="rounded-xl border border-border p-4">
+        <p className="text-xs font-bold uppercase text-primary">Loop</p>
         <div className="mt-4 flex items-center gap-2" aria-hidden="true"><span className="h-3 w-3 rounded-full bg-foreground"/><span className="h-1 flex-1 rounded bg-border"/><span className="rounded-full border-2 border-primary px-5 py-3 font-bold">bypass</span><span className="h-1 flex-1 rounded bg-border"/><span className="h-3 w-3 rounded-full bg-foreground"/></div>
-        <p className="mt-4 text-sm leading-6">Typically connects with another state highway at both ends. It does <strong>not</strong> have to make a complete circle.</p>
+        <p className="mt-4 text-sm">Typically connects with another state highway at both ends. It does <strong>not</strong> have to make a complete circle.</p>
       </div>
-      <div className="rounded-xl border border-border bg-background p-4">
-        <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">Spur</p>
-        <div className="mt-4 flex items-center gap-2" aria-hidden="true"><span className="h-3 w-3 rounded-full bg-foreground"/><span className="h-1 flex-1 rounded bg-border"/><span className="h-1 w-12 -rotate-45 rounded bg-primary"/><span className="rounded-md border-2 border-primary px-3 py-2 font-bold">destination</span></div>
-        <p className="mt-4 text-sm leading-6">Typically branches from a state highway and ends on an off-system road rather than returning to the parent corridor.</p>
+      <div className="rounded-xl border border-border p-4">
+        <p className="text-xs font-bold uppercase text-primary">Spur</p>
+        <div className="mt-4 flex items-center gap-2" aria-hidden="true"><span className="h-3 w-3 rounded-full bg-foreground"/><span className="h-1 flex-1 rounded bg-border"/><span className="h-1 w-12 rounded bg-primary"/><span className="rounded-xl border-2 border-primary px-3 py-2 font-bold">destination</span></div>
+        <p className="mt-4 text-sm">Typically branches from a state highway and ends on an off-system road rather than returning to the parent corridor.</p>
       </div>
     </div>
   </figure>;
