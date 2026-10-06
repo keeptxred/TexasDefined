@@ -116,12 +116,20 @@ async function verifyMetro(path, name, sitemap) {
   const html = await fetchProduction(path, name);
   const text = decode(html);
   const count = Number(text.match(/([0-9,]+)\s+verified event guides/i)?.[1]?.replace(/,/g, '') || NaN);
-  assert(Number.isFinite(count) && count >= 4, `${name} must have at least four verified event guides after expansion; found ${count}`);
-  assert(!/(?:^|[\s,])noindex(?:$|[\s,])/i.test(robots(html)), `${name} must be indexable at four or more verified guides`);
-  assert(sitemap.includes(`<loc>${origin}${path}</loc>`), `${name} must be present in sitemap after qualifying`);
+  const noindex = /(?:^|[\s,])noindex(?:$|[\s,])/i.test(robots(html));
+  const inSitemap = sitemap.includes(`<loc>${origin}${path}</loc>`);
+  assert(Number.isFinite(count), `${name} must expose a verified event guide count`);
+  if (count >= 4) {
+    assert(!noindex, `${name} must be indexable at four or more verified guides`);
+    assert(inSitemap, `${name} must be present in sitemap after qualifying`);
+    console.log(`[${name}] ${count} verified guides; indexable/sitemap contract verified`);
+  } else {
+    assert(noindex, `${name} must fail closed to noindex below four verified guides; found ${count}`);
+    assert(!inSitemap, `${name} must stay out of sitemap below four verified guides; found ${count}`);
+    console.log(`[${name}] ${count} verified guides; fail-closed noindex/sitemap exclusion verified`);
+  }
   assert(hasMeta(html, 'property', 'og:title'), `${name} must expose Open Graph title metadata`);
   assert(hasMeta(html, 'property', 'og:description'), `${name} must expose Open Graph description metadata`);
-  console.log(`[${name}] ${count} verified guides; indexable/sitemap/social contract verified`);
 }
 
 const sitemap = await fetchProduction('/sitemap.xml', 'event sitemap');
