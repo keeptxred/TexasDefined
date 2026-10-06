@@ -827,7 +827,7 @@ if (!errors.length) {
     'UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[program.sourceSchoolName]',
   ]) requireText(programProfileServer, marker, 'Football profile exact enrollment integration');
   requireText(programProfileServer, 'getVerifiedFootballSchoolIdentity(canonicalSlug)', 'Canonical UIL identity precedence');
-  requireText(programProfileServer, 'identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null', 'Canonical UIL identity ownership');
+  requireText(programProfileServer, 'const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null', 'Canonical UIL identity ownership');
 
 
   for (const marker of [
