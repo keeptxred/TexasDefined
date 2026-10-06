@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
+import { preservedExploreDestinations } from "./destination-preserved-catalog";
 import type { DestinationRelationshipGroup } from "./destination-relationships";
 
 export const getDestinationRelationshipGroups = createServerFn({ method: "GET" })
@@ -10,7 +11,7 @@ export const getDestinationRelationshipGroups = createServerFn({ method: "GET" }
     if (!data.slug) return [];
 
     const [
-      { listResolvedDestinations, getResolvedDestination },
+      { getResolvedDestination },
       { buildDestinationRelationshipGroups },
       { prepareDestinationForDelivery },
     ] = await Promise.all([
@@ -19,15 +20,15 @@ export const getDestinationRelationshipGroups = createServerFn({ method: "GET" }
       import("@/lib/editorial-image-delivery"),
     ]);
 
-    const destination = await getResolvedDestination(data.slug);
+    // Relationship discovery must never fan one destination pageview into a
+    // statewide remote-catalog scan. Prefer the preserved catalog for both the
+    // origin and related-place candidates; only resolve the origin remotely when
+    // it is not present in the preserved catalog.
+    const preservedDestination = preservedExploreDestinations.find((destination) => destination.slug === data.slug);
+    const destination = preservedDestination ?? await getResolvedDestination(data.slug);
     if (!destination) return [];
 
-    // Keep the complete relationship catalog on the server. Query-caching this
-    // 5,000-item collection in a public route causes TanStack Query to dehydrate
-    // the entire catalog into the browser even though the page only renders a
-    // small relationship set.
-    const catalog = (await listResolvedDestinations({ limit: 5000 }))
-      .map(prepareDestinationForDelivery);
+    const catalog = preservedExploreDestinations.map(prepareDestinationForDelivery);
 
     return buildDestinationRelationshipGroups(
       prepareDestinationForDelivery(destination),
