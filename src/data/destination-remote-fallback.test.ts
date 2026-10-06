@@ -10,4 +10,11 @@ describe('destination remote failover pressure', () => {
     expect(runtime).toContain('const core = enrichedFailed');
     expect(runtime).not.toContain('const core = enriched.length ? []');
   });
+
+  it('does not duplicate successful empty slug lookups and prefers local fallbacks during outages', () => {
+    expect(runtime).toContain('enrichedFailed = true');
+    expect(runtime).toContain('if (enrichedFailed) {');
+    expect(runtime.indexOf('const preserved = preservedExploreDestinations.find')).toBeLessThan(runtime.indexOf('if (enrichedFailed) {'));
+    expect(runtime.indexOf('const local = await platform.destinations.getBySlug')).toBeLessThan(runtime.indexOf('if (enrichedFailed) {'));
+  });
 });
