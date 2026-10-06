@@ -204,18 +204,26 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
               "Explore sitemap enriched catalog",
               fetchExploreDestinations({ limit: 5000 }),
             );
+            coreFailed = false;
           } catch (error) {
             enrichedFailed = true;
             console.error("Explore sitemap enriched catalog unavailable", error);
           }
-          try {
-            coreDestinations = await withSitemapRemoteTimeout(
-              "Explore sitemap core catalog",
-              fetchCoreExploreDestinations({ limit: 5000 }),
-            );
-          } catch (error) {
-            coreFailed = true;
-            console.error("Explore sitemap core catalog unavailable", error);
+
+          // The richer Explore source is authoritative. Only query the core/public
+          // view when enrichment is unavailable or empty; fetching both on every
+          // sitemap request doubled database work during crawler/audit bursts.
+          if (enrichedFailed || enrichedDestinations.length === 0) {
+            try {
+              coreDestinations = await withSitemapRemoteTimeout(
+                "Explore sitemap core fallback catalog",
+                fetchCoreExploreDestinations({ limit: 5000 }),
+              );
+              coreFailed = false;
+            } catch (error) {
+              coreFailed = true;
+              console.error("Explore sitemap core fallback catalog unavailable", error);
+            }
           }
         }
 
@@ -320,7 +328,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         return new Response(xml, {
           headers: {
             "Content-Type": "application/xml; charset=utf-8",
-            "Cache-Control": "no-store",
+            "Cache-Control": "public, max-age=0, s-maxage=300",
           },
         });
         } catch (error) {
