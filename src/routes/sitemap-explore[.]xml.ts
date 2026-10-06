@@ -121,6 +121,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
     "/explore",
+    `/explore/${SWIMMING_HOLES_RIVER_TUBING_SLUG}`,
     "/explore/beaches-coast",
     "/explore/trip-planner",
     "/explore/attractions-comparison",
