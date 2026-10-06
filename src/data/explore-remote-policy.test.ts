@@ -7,23 +7,18 @@ const coreSource = readFileSync(new URL("./explore-core-remote.ts", import.meta.
 const graphSource = readFileSync(new URL("./knowledge-graph/explore-adapter.ts", import.meta.url), "utf8");
 
 describe("remote Explore read policy", () => {
-  it("keeps remote Explore disabled unless explicitly enabled", () => {
-    for (const source of [exploreSource, policySource]) {
-      expect(source).toContain("VITE_TEXASDEFINED_REMOTE_EXPLORE_ENABLED");
-      expect(source).toContain('String(import.meta.env.VITE_TEXASDEFINED_REMOTE_EXPLORE_ENABLED || "")');
-      expect(source).toContain("return remoteExploreEnabled && Boolean(supabaseUrl && supabaseKey);");
-    }
+  it("requires an explicit true opt-in and Supabase credentials", () => {
+    expect(policySource).toContain('VITE_TEXASDEFINED_REMOTE_EXPLORE_ENABLED === "true"');
+    expect(policySource).toContain("VITE_TEXASDEFINED_SUPABASE_URL");
+    expect(policySource).toContain("VITE_TEXASDEFINED_SUPABASE_ANON_KEY");
   });
 
-  it("applies the same opt-in to the core/public fallback", () => {
-    expect(coreSource).toContain('DESTINATION_FALLBACK_IMAGE, hasExploreRemoteData');
+  it("shares the same policy across rich, core, and graph readers", () => {
+    expect(exploreSource).toContain('import { hasExploreRemoteData } from "./explore-remote-policy";');
+    expect(coreSource).toContain('import { hasExploreRemoteData } from "./explore-remote-policy";');
+    expect(graphSource).toContain("import { hasExploreRemoteData } from '../explore-remote-policy';");
     expect(coreSource.match(/if \(!hasExploreRemoteData\(\)\) return \[\];/g)).toHaveLength(1);
     expect(coreSource.match(/if \(!hasExploreRemoteData\(\)\) return null;/g)).toHaveLength(1);
-  });
-
-  it("prevents the knowledge graph from importing the rich Explore runtime for policy", () => {
-    expect(graphSource).toContain("import { hasExploreRemoteData } from '../explore-remote-policy';");
-    expect(graphSource).not.toContain("from '../explore-remote';");
     expect(graphSource).toContain("return hasExploreRemoteData();");
   });
 });
