@@ -306,8 +306,8 @@ await fetchVerified(playoffsPath, 'football playoffs', (body) => {
 
 await fetchVerified(sixManPath, 'six-man football', (body) => {
   for (const needle of [
-    'Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different',
-    'The short answer',
+    'Texas Six-Man Football: Rules, Scoring &amp; How It Works',
+    'The rules that make it a different game',
     '15 yards',
     '45-point',
     'A field goal is worth 4 points',
