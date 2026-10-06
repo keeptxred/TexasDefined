@@ -12,11 +12,11 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
   category: "texas-history",
   region: "central-texas",
   hero: {
-    src: "https://www.wilcotx.gov/ImageRepository/Document?documentId=4272",
-    alt: "Historic Williamson County Courthouse on the Georgetown square at sunset",
-    width: 1500,
-    height: 1000,
-    credit: "Williamson County, Texas",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Williamson%20County%20Courthouse%20%282018%29%2C%20Georgetown%2C%20TX.jpg?width=1600",
+    alt: "Historic Williamson County Courthouse on the Georgetown square",
+    width: 1600,
+    height: 1067,
+    credit: "25or6to4 · CC BY-SA 4.0 · Wikimedia Commons",
   },
   authorId: "a-hollis",
   publishedAt: "2026-08-17",
@@ -110,10 +110,12 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
 
     h("How to experience Williamson County as a county"),
     p("Start in Georgetown. Walk the courthouse square and look at the restored courthouse from several sides, then follow the San Gabriel park system or head west to Lake Georgetown. That combination establishes the county-seat history and the limestone-and-river geography before entering the faster-moving suburban corridor."),
-    p("Next, drive south to historic Round Rock and Brushy Creek, then compare the old town with the modern employment and retail districts around I-35. From there, turn east through Hutto toward Taylor to watch the landscape flatten into Blackland Prairie. Continue toward Granger Lake if time allows. The route makes the county's major transitions visible: limestone to prairie, courthouse town to technology corridor, railroad agriculture to metropolitan growth."),
+    p("Next, drive south through Round Rock to see the technology and metropolitan side of the county. Then turn east toward Hutto and Taylor, where flatter land, railroad history and older agricultural towns create a different visual world. If time allows, continue toward Granger and Granger Lake before looping back along the San Gabriel system."),
+    p("The point is not to collect attractions. It is to cross the county's geographic and historical boundaries: limestone to prairie, courthouse square to technology corridor, cattle and cotton routes to interstates, and nineteenth-century towns to some of the fastest-growing communities in Texas."),
 
-    h("Why Williamson County matters to the Texas story"),
-    p("Williamson County matters because it shows how Central Texas repeatedly reorganized itself around movement and opportunity. Indigenous travel and settlement followed water and resources. Pioneers built communities near streams and crossings. Cattle routes connected ranches to northern markets. Railroads created towns and powered cotton agriculture. Highways connected the county to Austin, and technology and population growth transformed the same corridor again."),
-    p("Yet the older layers remain visible. Georgetown still gathers around its courthouse. Round Rock still has the limestone landmark that gave the city its name. The San Gabriel still crosses the county from rocky western terrain into prairie farmland. Taylor still shows its railroad-and-cotton roots. Williamson County is not simply a fast-growing suburb north of Austin; it is a compact history of how geography, transportation, agriculture, government and technology have successively defined Central Texas."),
+    h("Sources and further reading"),
+    p("Primary sources used for this guide include Williamson County historical and courthouse materials, U.S. Census Bureau QuickFacts, Texas Parks and Wildlife lake and trail information, U.S. Army Corps of Engineers recreation information, Texas State Historical Association entries for Williamson County and its communities, and local historical organizations. Population estimates, park access, trail conditions and visitor information can change; use the official links below for current planning."),
   ],
+  sourceName: "Williamson County, U.S. Census Bureau, Texas Parks and Wildlife, U.S. Army Corps of Engineers, Texas State Historical Association",
+  sourceUrl: "https://www.wilcotx.gov/",
 };
