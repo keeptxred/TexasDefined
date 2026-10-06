@@ -1,8 +1,5 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
-const canyonPath = '/news/2026-08-10-canyon-lake-full-capacity-recovery';
-const canyonUrl = `${origin}${canyonPath}`;
-const canyonTitle = 'Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill';
-const userAgent = 'TexasDefined-Publication-Production-Smoke/1.0';
+const userAgent = 'TexasDefined-Publication-Production-Smoke/1.1';
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -29,19 +26,31 @@ async function fetchHealthy(path, expectedText = '') {
   throw new Error(`${path} failed production verification: ${reason}${expectedText ? `; expected text: ${expectedText}` : ''}`);
 }
 
+function firstPublishedNewsPath(sitemapBody) {
+  const matches = [...sitemapBody.matchAll(/<loc>https:\/\/texasdefined\.com(\/news\/[^<]+)<\/loc>/g)];
+  return matches[0]?.[1] || null;
+}
+
 const news = await fetchHealthy('/news');
 console.log(JSON.stringify({ surface: '/news', status: news.status, ok: true }));
 
-const canyon = await fetchHealthy(canyonPath, canyonTitle);
-console.log(JSON.stringify({ surface: canyonPath, status: canyon.status, ok: true }));
+const sitemap = await fetchHealthy('/sitemap.xml', `${origin}/news/`);
+const liveNewsPath = firstPublishedNewsPath(sitemap.body);
+if (!liveNewsPath) throw new Error('/sitemap.xml contains no published /news/ article to use as the production canary');
 
-const sitemap = await fetchHealthy('/sitemap.xml', canyonUrl);
-console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, containsCanyonLakeArticle: true }));
+const story = await fetchHealthy(liveNewsPath);
+const expectedCanonical = `${origin}${liveNewsPath}`;
+if (!story.body.includes(`rel="canonical" href="${expectedCanonical}"`) && !story.body.includes(`href="${expectedCanonical}" rel="canonical"`)) {
+  throw new Error(`${liveNewsPath} is live but does not expose its expected canonical ${expectedCanonical}`);
+}
 
+console.log(JSON.stringify({ surface: liveNewsPath, status: story.status, canonical: expectedCanonical, ok: true }));
+console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, liveNewsPath, containsPublishedNews: true }));
 console.log(JSON.stringify({
   verified: true,
   newsStatus: news.status,
-  canyonLakeStatus: canyon.status,
+  liveNewsStatus: story.status,
   sitemapStatus: sitemap.status,
-  canyonLakeInSitemap: true,
+  liveNewsPath,
+  publishedNewsInSitemap: true,
 }));
