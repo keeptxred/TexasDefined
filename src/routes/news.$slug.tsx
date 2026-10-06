@@ -10,13 +10,7 @@ export const Route = createFileRoute("/news/$slug")({
     const { migratedEditorialSlugs } = await import("@/data/fixtures/lazy-migrated-editorial");
     if (migratedEditorialSlugs.includes(params.slug)) throw redirect({ href: `/article/${params.slug}`, statusCode: 301 });
 
-    // A remote publication backend outage must not escape this route as an SSR/gateway 5xx.
-    // Missing stories and temporarily unreachable remote stories both fail closed here; the
-    // news index already uses the same resilient remote-fetch boundary.
-    const article = await fetchPublishedTexasDefinedNewsArticle(params.slug).catch((error) => {
-      console.error(`[news/$slug] Remote article lookup failed for ${params.slug}`, error);
-      return null;
-    });
+    const article = await fetchPublishedTexasDefinedNewsArticle(params.slug).catch(() => null);
     if (!article) throw notFound();
     return { liveArticle: article };
   },
