@@ -57,13 +57,14 @@ if (destination.includes('destinationsQuery({ limit: 5000 })')) {
 
 for (const feature of [
   'function destinationAutoLinkGraph(',
-  'const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([',
-  'const graph = destinationAutoLinkGraph(destination, completeGraph);',
+  'const [linkCandidates, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([',
+  'knowledge-graph/link-candidates.server',
+  'const graph = destinationAutoLinkGraph(destination, linkCandidates);',
 ]) {
   if (!destination.includes(feature)) errors.push(`Destination knowledge-graph hydration bound missing: ${feature}`);
 }
-if (destination.includes('const [graph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([')) {
-  errors.push('Destination detail routes must not return the complete Texas knowledge graph to the browser.');
+if (destination.includes('loadTexasKnowledgeGraph()')) {
+  errors.push('Destination detail routes must not hydrate the complete remote Texas knowledge graph.');
 }
 for (const feature of [
   'getDestinationRelationshipGroups({ data: { slug: params.slug } })',
@@ -89,14 +90,15 @@ if (article.includes('destinationsQuery({ limit: 5000 })')) {
 }
 for (const feature of [
   'function articleAutoLinkGraph(',
-  'const [authors, categories, related, destinations, completeGraph] = await Promise.all([',
+  'const [authors, categories, related, destinations, linkCandidates] = await Promise.all([',
   'getDestinationsBySlugs({ data: { slugs: article.relatedDestinations.slice(0, 8) } })',
-  'const graph = articleAutoLinkGraph(article, completeGraph);',
+  'knowledge-graph/link-candidates.server',
+  'const graph = articleAutoLinkGraph(article, linkCandidates);',
 ]) {
   if (!article.includes(feature)) errors.push(`Article hydration bound missing: ${feature}`);
 }
-if (article.includes('const [authors, categories, related, destinations, graph] = await Promise.all([')) {
-  errors.push('Article detail routes must not return the complete Texas knowledge graph to the browser.');
+if (article.includes('loadTexasKnowledgeGraph()')) {
+  errors.push('Article detail routes must not hydrate the complete remote Texas knowledge graph.');
 }
 
 for (const feature of [
