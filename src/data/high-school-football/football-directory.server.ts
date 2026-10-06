@@ -255,6 +255,7 @@ type TeaDirectoryMatcher = {
   byDistrictSchool: Map<string, PreparedTeaDirectoryRecord[]>;
   byCitySchool: Map<string, PreparedTeaDirectoryRecord[]>;
   bySchool: Map<string, PreparedTeaDirectoryRecord[]>;
+  bySchoolToken: Map<string, PreparedTeaDirectoryRecord[]>;
 };
 
 function addDirectoryIndex(
@@ -285,14 +286,18 @@ function buildDirectoryMatcher(rows: TeaSchoolDirectoryRecord[]): TeaDirectoryMa
   const byDistrictSchool = new Map<string, PreparedTeaDirectoryRecord[]>();
   const byCitySchool = new Map<string, PreparedTeaDirectoryRecord[]>();
   const bySchool = new Map<string, PreparedTeaDirectoryRecord[]>();
+  const bySchoolToken = new Map<string, PreparedTeaDirectoryRecord[]>();
 
   for (const row of prepared) {
     addDirectoryIndex(byDistrictSchool, row.districtSchool, row);
     addDirectoryIndex(byCitySchool, row.citySchool, row);
     addDirectoryIndex(bySchool, row.schoolKey, row);
+    for (const token of new Set(meaningfulTokens(row.record.schoolName))) {
+      addDirectoryIndex(bySchoolToken, token, row);
+    }
   }
 
-  return { rows: prepared, byDistrictSchool, byCitySchool, bySchool };
+  return { rows: prepared, byDistrictSchool, byCitySchool, bySchool, bySchoolToken };
 }
 
 function contextualMatchScore(program: UilFootballProgram, row: PreparedTeaDirectoryRecord) {
@@ -331,7 +336,12 @@ function bestDirectoryMatch(program: UilFootballProgram, matcher: TeaDirectoryMa
   if (schoolExact?.length === 1) return schoolExact[0].record;
   if ((schoolExact?.length ?? 0) > 1) return null;
 
-  const ranked = matcher.rows
+  const candidateRows = new Set<PreparedTeaDirectoryRecord>();
+  for (const token of programKey.split(' ').filter(Boolean)) {
+    for (const row of matcher.bySchoolToken.get(token) ?? []) candidateRows.add(row);
+  }
+
+  const ranked = [...candidateRows]
     .map((row) => ({ row, score: contextualMatchScore(program, row) }))
     .filter((candidate) => candidate.score >= 90)
     .sort((left, right) => right.score - left.score);
