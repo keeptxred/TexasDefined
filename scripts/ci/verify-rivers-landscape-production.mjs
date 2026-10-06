@@ -6,6 +6,11 @@ const requiredNeedles = [
   'Thirteen rivers that explain Texas',
   'Texas river valleys FAQ',
   'Six river-valley features worth knowing',
+  'Texas river comparison',
+  'Best places to experience Texas river landscapes',
+  'Texas Water Development Board — Groundwater',
+  'Bureau of Economic Geology — Texas geology',
+  '"@type":"FAQPage"',
 ];
 const forbiddenNeedles = [
   'Rock, water and living cover',
