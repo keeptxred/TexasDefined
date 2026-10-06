@@ -6,6 +6,8 @@ const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY |
 const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
 const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
+const ROUTE_REMOTE_TIMEOUT_MS = 2500;
+const SITEMAP_REMOTE_TIMEOUT_MS = 8000;
 
 const REMOTE_INTERNAL_LINK_CANONICALS: Readonly<Record<string, string>> = {
   "/article/texas-chili-beans-history": "/texas-chili-con-carne-history",
@@ -104,11 +106,11 @@ function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEver
   };
 }
 
-async function requestRows(params: URLSearchParams): Promise<Record<string, unknown>[]> {
+async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIMEOUT_MS): Promise<Record<string, unknown>[]> {
   if (!supabaseUrl || !supabaseKey) return [];
   const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, {
     headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
-    signal: AbortSignal.timeout(2500),
+    signal: AbortSignal.timeout(timeoutMs),
   });
   if (!response.ok) throw Error(String(response.status));
   const value = await response.json();
@@ -131,7 +133,7 @@ async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]>
     const pageParams = new URLSearchParams(params);
     pageParams.set("limit", String(SITEMAP_PAGE_SIZE));
     pageParams.set("offset", String(offset));
-    const rows = await requestRows(pageParams);
+    const rows = await requestRows(pageParams, SITEMAP_REMOTE_TIMEOUT_MS);
     articles.push(...mapRows(rows, evergreenInternalLinks));
     if (rows.length < SITEMAP_PAGE_SIZE) return articles;
   }
