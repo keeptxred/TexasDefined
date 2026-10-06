@@ -6,6 +6,7 @@ const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || imp
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
 const PAGE_SIZE = 500;
 const MAX_REMOTE_DESTINATIONS = 5000;
+type CoreRow = Record<string, unknown>;
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
@@ -56,7 +57,7 @@ function category(value: unknown): CategorySlug {
   return "outdoors";
 }
 
-function mapRow(row: Record<string, unknown>): Destination {
+function mapRow(row: CoreRow): Destination {
   const name = clean(row.name) || "Texas destination";
   const town = clean(row.city || row.nearest_town || row.county) || "Texas";
   const county = clean(row.county) || undefined;
@@ -103,6 +104,26 @@ function baseParams(): URLSearchParams {
   });
 }
 
+async function requestCoreRows(params: URLSearchParams): Promise<CoreRow[]> {
+  const url = `${supabaseUrl}/rest/v1/explore_public_entities?${params}`;
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_public_entities",
+      url,
+      headers: headers(),
+      timeoutMs: 2500,
+      errorLabel: "Core Explore remote read",
+    });
+  }
+
+  const response = await fetch(url, { headers: headers() });
+  if (!response.ok) throw new Error(`Core Explore request failed: ${response.status}`);
+  const value = await response.json();
+  return Array.isArray(value) ? value : [];
+}
+
 export async function fetchCoreExploreDestinations(options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {}): Promise<Destination[]> {
   if (!hasExploreRemoteData()) return [];
   const limit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
@@ -112,15 +133,12 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
     const query = options.query.trim().replace(/[%_,()]/g, "");
     params.set("or", `(name.ilike.*${query}*,slug.ilike.*${query}*,summary.ilike.*${query}*,description.ilike.*${query}*)`);
   }
-  const rows: Record<string, unknown>[] = [];
+  const rows: CoreRow[] = [];
   for (let offset = 0; offset < MAX_REMOTE_DESTINATIONS; offset += PAGE_SIZE) {
     const pageParams = new URLSearchParams(params);
     pageParams.set("offset", String(offset));
     pageParams.set("limit", String(PAGE_SIZE));
-    const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${pageParams}`, { headers: headers() });
-    if (!response.ok) throw new Error(`Core Explore catalog request failed: ${response.status}`);
-    const page = await response.json();
-    if (!Array.isArray(page)) break;
+    const page = await requestCoreRows(pageParams);
     rows.push(...page);
     if (page.length < PAGE_SIZE) break;
   }
@@ -132,8 +150,6 @@ export async function fetchCoreExploreDestination(slug: string): Promise<Destina
   const params = baseParams();
   params.set("slug", `eq.${slug}`);
   params.set("limit", "1");
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_public_entities?${params}`, { headers: headers() });
-  if (!response.ok) throw new Error(`Core Explore destination request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
+  const rows = await requestCoreRows(params);
+  return rows[0] ? mapRow(rows[0]) : null;
 }
