@@ -1,0 +1,1 @@
+This branch intentionally avoids a full-file replacement of src/routes/article.$slug.tsx. The current main route contains concurrent work that must be preserved. Apply the included anchor-guarded transformer to produce only the two required FAQ registration lines.
