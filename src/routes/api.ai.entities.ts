@@ -15,7 +15,7 @@ const publicHeaders = {
 
 export const Route = createFileRoute('/api/ai/entities')({
   server: { handlers: { GET: async ({ request }) => {
-    const { findCompleteTexasEntity, loadTexasKnowledgeGraph, searchCompleteTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
+    const { findCompleteTexasEntity, loadTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
     const url = new URL(request.url);
     const id = url.searchParams.get('id')?.trim();
     const q = url.searchParams.get('q')?.trim() ?? '';
@@ -53,11 +53,11 @@ export const Route = createFileRoute('/api/ai/entities')({
       });
     }
 
-    const entities = (q
-      ? await searchCompleteTexasKnowledgeGraph(q, limit)
-      : await loadTexasKnowledgeGraph({ limit }))
-      .map(applyCurrentEntityCorrections)
-      .slice(0, limit);
+    const graph = (await loadTexasKnowledgeGraph(q
+      ? { query: q, limit: Math.max(limit * 4, 100) }
+      : { limit }))
+      .map(applyCurrentEntityCorrections);
+    const entities = q ? searchCorrectedGraph(graph, q, limit) : graph.slice(0, limit);
     return json({
       '@context': 'https://schema.org',
       '@type': 'ItemList',
@@ -70,6 +70,27 @@ export const Route = createFileRoute('/api/ai/entities')({
     });
   } } },
 });
+
+function searchCorrectedGraph(graph: TexasEntityRecord[], query: string, limit: number) {
+  const normalized = query.trim().toLowerCase();
+  const tokens = normalized.split(/\s+/).filter(Boolean);
+  if (!tokens.length) return [];
+  return graph
+    .map((entity) => {
+      const haystack = [entity.name, entity.slug, ...entity.aliases, entity.kind, entity.countySlug, entity.region, ...(entity.tags ?? [])]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+      const score = tokens.reduce((total, token) => total + (haystack.includes(token) ? 1 : 0), 0)
+        + (entity.name.toLowerCase() === normalized ? 5 : 0)
+        + (entity.aliases.some((alias) => alias.toLowerCase() === normalized) ? 4 : 0);
+      return { entity, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((left, right) => right.score - left.score || left.entity.name.localeCompare(right.entity.name))
+    .slice(0, limit)
+    .map(({ entity }) => entity);
+}
 
 function provenanceProperties(entity: TexasEntityRecord) {
   return [
