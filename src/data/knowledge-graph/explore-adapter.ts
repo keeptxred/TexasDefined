@@ -5,8 +5,21 @@ const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || imp
 const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '');
 const PAGE_SIZE = 500;
 const MAX_GRAPH_ENTITIES = 5000;
+const REMOTE_READ_TTL_MS = 5 * 60 * 1000;
+const REMOTE_STALE_TTL_MS = 30 * 60 * 1000;
+const REMOTE_FAILURE_BACKOFF_MS = 30 * 1000;
+const MAX_REMOTE_READ_CACHE_ENTRIES = 256;
 
 export type ExploreGraphRow = Record<string, unknown>;
+type ExploreGraphCacheEntry = {
+  value?: ExploreGraphRow[];
+  expiresAt: number;
+  staleUntil: number;
+  retryAfter: number;
+  pending?: Promise<ExploreGraphRow[]>;
+};
+
+const exploreGraphCache = new Map<string, ExploreGraphCacheEntry>();
 
 function headers(): HeadersInit {
   return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: 'application/json' };
@@ -133,19 +146,61 @@ export function hasRemoteExploreGraph(): boolean {
   return hasExploreRemoteData();
 }
 
+function trimExploreGraphCache() {
+  while (exploreGraphCache.size >= MAX_REMOTE_READ_CACHE_ENTRIES) {
+    const oldest = exploreGraphCache.keys().next().value as string | undefined;
+    if (!oldest) break;
+    exploreGraphCache.delete(oldest);
+  }
+}
+
+async function requestExploreGraphRows(params: URLSearchParams): Promise<ExploreGraphRow[]> {
+  const key = params.toString();
+  const now = Date.now();
+  const existing = exploreGraphCache.get(key);
+  if (existing?.value && existing.expiresAt > now) return existing.value;
+  if (existing?.pending) return existing.pending;
+  if (existing && existing.retryAfter > now) {
+    if (existing.value && existing.staleUntil > now) return existing.value;
+    throw new Error('Explore knowledge graph is temporarily backed off after an upstream failure');
+  }
+
+  const entry: ExploreGraphCacheEntry = existing ?? { expiresAt: 0, staleUntil: 0, retryAfter: 0 };
+  const requestInit: RequestInit = import.meta.env.SSR
+    ? { headers: headers(), signal: AbortSignal.timeout(4_000) }
+    : { headers: headers() };
+  const pending = fetch(`${supabaseUrl}/rest/v1/explore_entities?${params}`, requestInit)
+    .then(async (response) => {
+      if (!response.ok) throw new Error(`Explore knowledge-graph request failed: ${response.status}`);
+      const value = await response.json();
+      const rows: ExploreGraphRow[] = Array.isArray(value) ? value : [];
+      const completedAt = Date.now();
+      entry.value = rows;
+      entry.expiresAt = completedAt + REMOTE_READ_TTL_MS;
+      entry.staleUntil = completedAt + REMOTE_STALE_TTL_MS;
+      entry.retryAfter = 0;
+      return rows;
+    })
+    .catch((error) => {
+      entry.retryAfter = Date.now() + REMOTE_FAILURE_BACKOFF_MS;
+      if (entry.value && entry.staleUntil > Date.now()) return entry.value;
+      throw error;
+    })
+    .finally(() => {
+      entry.pending = undefined;
+    });
+
+  entry.pending = pending;
+  if (!existing) trimExploreGraphCache();
+  exploreGraphCache.set(key, entry);
+  return pending;
+}
+
 async function fetchExploreGraphPage(params: URLSearchParams, offset: number, limit: number): Promise<ExploreGraphRow[]> {
   const pageParams = new URLSearchParams(params);
   pageParams.set('offset', String(offset));
   pageParams.set('limit', String(limit));
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(4_000) }
-      : { headers: headers() },
-  );
-  if (!response.ok) throw new Error(`Explore knowledge-graph request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) ? rows : [];
+  return requestExploreGraphRows(pageParams);
 }
 
 export async function fetchExploreGraphEntities(options: { query?: string; limit?: number } = {}): Promise<TexasEntityRecord[]> {
