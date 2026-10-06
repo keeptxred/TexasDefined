@@ -432,7 +432,7 @@ jobs:
           REVISION: ${{ github.sha }}
         run: node scripts/ci/verify-advertiser-production.mjs
 
-      - name: Enforce blocking live runtime gate and summarize advisory checks
+      - name: Enforce aggregate live verification gate
         id: live
         if: ${{ always() && steps.cloudflare.outcome == 'success' }}
         shell: bash
@@ -451,62 +451,48 @@ jobs:
           {
             echo '## Live production verification detail'
             echo
-            echo 'Direct Worker health and canonical-domain health are blocking. Discovery, content/SEO, structured-data, financial and advertiser checks are advisory and remain visible here.'
+            echo 'Every raw child verifier outcome is blocking. The aggregate gate fails closed when any child verifier does not report success.'
             echo
-            echo '| Verification | Class | Outcome |'
-            echo '|---|---|---|'
-            echo "| Direct Worker health | blocking | ${DIRECT_HEALTH_OUTCOME:-not-run} |"
-            echo "| Canonical domain health | blocking | ${CANONICAL_HEALTH_OUTCOME:-not-run} |"
-            echo "| Automatic rollback | recovery | ${ROLLBACK_OUTCOME:-not-run} |"
-            echo "| Rollback health | recovery | ${ROLLBACK_HEALTH_OUTCOME:-not-run} |"
-            echo "| Direct Worker discovery | advisory | ${DIRECT_WORKER_OUTCOME:-not-run} |"
-            echo "| Base production surfaces | advisory | ${BASE_OUTCOME:-not-run} |"
-            echo "| Event structured data | advisory | ${EVENT_OUTCOME:-not-run} |"
-            echo "| Local financial production | advisory | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
-            echo "| Statewide financial discovery | advisory | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
-            echo "| Advertiser production surfaces | advisory | ${ADVERTISER_OUTCOME:-not-run} |"
+            echo '| Verification | Outcome |'
+            echo '|---|---|'
+            echo "| Direct Worker health | ${DIRECT_HEALTH_OUTCOME:-not-run} |"
+            echo "| Canonical domain health | ${CANONICAL_HEALTH_OUTCOME:-not-run} |"
+            echo "| Automatic rollback | ${ROLLBACK_OUTCOME:-not-run} |"
+            echo "| Rollback health | ${ROLLBACK_HEALTH_OUTCOME:-not-run} |"
+            echo "| Direct Worker discovery | ${DIRECT_WORKER_OUTCOME:-not-run} |"
+            echo "| Base production surfaces | ${BASE_OUTCOME:-not-run} |"
+            echo "| Event structured data | ${EVENT_OUTCOME:-not-run} |"
+            echo "| Local financial production | ${LOCAL_FINANCIAL_OUTCOME:-not-run} |"
+            echo "| Statewide financial discovery | ${STATEWIDE_FINANCIAL_OUTCOME:-not-run} |"
+            echo "| Advertiser production surfaces | ${ADVERTISER_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [[ "$DIRECT_HEALTH_OUTCOME" != 'success' || "$CANONICAL_HEALTH_OUTCOME" != 'success' ]]; then
-            echo "::error title=Blocking production runtime verification failed::direct-health=${DIRECT_HEALTH_OUTCOME:-not-run}, canonical-health=${CANONICAL_HEALTH_OUTCOME:-not-run}, rollback=${ROLLBACK_OUTCOME:-not-run}, rollback-health=${ROLLBACK_HEALTH_OUTCOME:-not-run}"
+          if [[ "$DIRECT_HEALTH_OUTCOME" != 'success' || "$CANONICAL_HEALTH_OUTCOME" != 'success' || "$DIRECT_WORKER_OUTCOME" != 'success' || "$BASE_OUTCOME" != 'success' || "$EVENT_OUTCOME" != 'success' || "$LOCAL_FINANCIAL_OUTCOME" != 'success' || "$STATEWIDE_FINANCIAL_OUTCOME" != 'success' || "$ADVERTISER_OUTCOME" != 'success' ]]; then
+            echo "::error title=Live production verification failed::direct-health=${DIRECT_HEALTH_OUTCOME:-not-run}, canonical-health=${CANONICAL_HEALTH_OUTCOME:-not-run}, direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}, base=${BASE_OUTCOME:-not-run}, event=${EVENT_OUTCOME:-not-run}, local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}, statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}, advertiser=${ADVERTISER_OUTCOME:-not-run}, rollback=${ROLLBACK_OUTCOME:-not-run}, rollback-health=${ROLLBACK_HEALTH_OUTCOME:-not-run}"
             exit 1
           fi
 
-          advisory_failures=()
-          [[ "$DIRECT_WORKER_OUTCOME" == 'success' ]] || advisory_failures+=("direct-worker=${DIRECT_WORKER_OUTCOME:-not-run}")
-          [[ "$BASE_OUTCOME" == 'success' ]] || advisory_failures+=("base=${BASE_OUTCOME:-not-run}")
-          [[ "$EVENT_OUTCOME" == 'success' ]] || advisory_failures+=("event=${EVENT_OUTCOME:-not-run}")
-          [[ "$LOCAL_FINANCIAL_OUTCOME" == 'success' ]] || advisory_failures+=("local-financial=${LOCAL_FINANCIAL_OUTCOME:-not-run}")
-          [[ "$STATEWIDE_FINANCIAL_OUTCOME" == 'success' ]] || advisory_failures+=("statewide-financial=${STATEWIDE_FINANCIAL_OUTCOME:-not-run}")
-          [[ "$ADVERTISER_OUTCOME" == 'success' ]] || advisory_failures+=("advertiser=${ADVERTISER_OUTCOME:-not-run}")
-
-          if (( ${#advisory_failures[@]} > 0 )); then
-            joined=$(IFS=', '; echo "${advisory_failures[*]}")
-            echo "::warning title=Non-blocking production quality checks need attention::${joined}. Deployment remains healthy because blocking runtime checks passed."
-          fi
-
-          echo 'Blocking production runtime checks passed.'
+          echo 'All production verification stages passed.'
 
       - name: Publish live verification result
         if: always()
         env:
           STAGE_OUTCOME: ${{ steps.live.outcome }}
-        run: node scripts/ci/publish-github-status.mjs texasdefined-live "$STAGE_OUTCOME" "Blocking production runtime health passed" "Blocking production runtime health failed"
+        run: node scripts/ci/publish-github-status.mjs texasdefined-live "$STAGE_OUTCOME" "Production surface verification passed" "Production surface verification failed"
 
-      - name: Publish IndexNow advisory pending
+      - name: Publish IndexNow gate pending
         if: success()
-        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow pending "Running non-blocking IndexNow submission"
+        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow pending "Checking IndexNow approval gate"
 
-      - name: Run advisory IndexNow step
+      - name: Run guarded IndexNow step
         id: indexnow
-        continue-on-error: true
         run: node scripts/seo/submit-indexnow.mjs
 
       - name: Publish IndexNow advisory result
         if: always()
         env:
           STAGE_OUTCOME: ${{ steps.indexnow.outcome }}
-        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow "$STAGE_OUTCOME" "IndexNow advisory completed" "IndexNow advisory failed; production remains deployed"
+        run: node scripts/ci/publish-github-status.mjs texasdefined-indexnow "$STAGE_OUTCOME" "IndexNow gate completed" "IndexNow gate or submission failed"
 
       - name: Capture fully verified Worker version
         id: verified_worker_version
@@ -562,8 +548,8 @@ jobs:
             echo "| Built Worker SSR smoke | RUNTIME / SSR | ${RUNTIME_SMOKE_OUTCOME:-not-run} |"
             echo "| Current production health | PREDEPLOY / RECOVERY | ${PREDEPLOY_HEALTH_OUTCOME:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
-            echo "| Blocking live runtime verification | LIVE PRODUCTION / RUNTIME | ${LIVE_OUTCOME:-not-run} |"
-            echo "| IndexNow submission | INDEXING / ADVISORY | ${INDEXNOW_OUTCOME:-not-run} |"
+            echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
+            echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
             echo "| Verified Worker recovery ledger | RECOVERY / STATE | ${RECOVERY_LEDGER_OUTCOME:-not-run} |"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -582,11 +568,11 @@ jobs:
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" == 'failure' ]]; then
-            echo '::error title=Pipeline failure class: LIVE PRODUCTION / RUNTIME::Cloudflare deployment passed, but the direct Worker or canonical domain failed blocking runtime health verification.'
+            echo '::error title=Pipeline failure class: LIVE PRODUCTION::Cloudflare deployment passed; a raw production verifier failed. The exact child outcome is listed above.'
           elif [[ "$RECOVERY_LEDGER_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: RECOVERY / STATE::Production passed blocking runtime verification, but the immutable verified-Worker recovery ledger could not be advanced.'
           elif [[ "$INDEXNOW_OUTCOME" == 'failure' ]]; then
-            echo '::warning title=Non-blocking IndexNow advisory failed::Production deployment and runtime verification passed; IndexNow can be retried independently.'
+            echo '::error title=Pipeline failure class: INDEXING / EXTERNAL::Production verification passed; the guarded IndexNow stage failed.'
           fi
 
       - name: Publish final production status
