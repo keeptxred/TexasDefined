@@ -12,6 +12,14 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'spring',
+    mascot: 'Lions',
+    colors: 'Green and White',
+    sourceUrl: 'https://www.springisd.org/o/shs',
+    sourceLabel: 'Spring High School',
+    verifiedAt: '2026-10-05',
+  },
+  {
     slug: 'wills-point',
     mascot: 'Tigers',
     sourceUrl: 'https://wpisd.com/',

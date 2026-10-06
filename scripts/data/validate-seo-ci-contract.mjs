@@ -81,11 +81,17 @@ for (const marker of [
   if (!sitemapIndexabilityAudit.includes(marker)) errors.push(`Sitemap indexability audit crawl-graph contract missing: ${marker}`);
 }
 for (const marker of [
-  'ref: main',
+  'workflow_run:',
+  'Deploy TexasDefined production',
+  "github.event.workflow_run.conclusion == 'success'",
+  'github.event.workflow_run.head_sha',
   'node scripts/ci/audit-sitemap-page-indexability.mjs',
   'AUDIT_OUTPUT: tmp/sitemap-page-indexability-audit.json',
 ]) {
   if (!sitemapIndexabilityWorkflow.includes(marker)) errors.push(`Scheduled sitemap indexability workflow contract missing: ${marker}`);
+}
+if (sitemapIndexabilityWorkflow.includes('push:\n    branches:\n      - main')) {
+  errors.push('Sitemap indexability audit must not race production from a direct main-push trigger.');
 }
 
 for (const validator of protectedValidators) {
