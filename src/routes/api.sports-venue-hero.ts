@@ -41,10 +41,6 @@ export const Route = createFileRoute('/api/sports-venue-hero')({
           return new Response('Not found', { status: 404, headers: missingHeroHeaders });
         }
 
-        if (lookupSlug === 'xtreme-raceway-park') {
-          photo.imageUrl = '/images/sports-venues/xtreme-raceway-park-v2.jpg';
-        }
-
         return new Response(null, {
           status: 302,
           headers: { ...photoRedirectHeaders, location: photo.imageUrl },
