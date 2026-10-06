@@ -4,6 +4,8 @@ import path from 'node:path';
 const root = process.cwd();
 const repositories = fs.readFileSync(path.join(root, 'src/data/fixtures/repositories.ts'), 'utf8');
 const exploreSitemap = fs.readFileSync(path.join(root, 'src/routes/sitemap-explore[.]xml.ts'), 'utf8');
+const exploreRemote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
+const exploreCoreRemote = fs.readFileSync(path.join(root, 'src/data/explore-core-remote.ts'), 'utf8');
 const errors = [];
 
 for (const feature of [
@@ -42,6 +44,15 @@ if (exploreSitemap.includes('import { applyAllCuratedDestinations } from "@/data
 }
 if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) {
   errors.push('Explore sitemap must not use the obsolete single-source outage fallback.');
+}
+
+for (const [label, source] of [
+  ['Explore enrichment', exploreRemote],
+  ['Core Explore fallback', exploreCoreRemote],
+]) {
+  if (!source.includes('signal: import.meta.env.SSR ? AbortSignal.timeout(2_500) : undefined')) {
+    errors.push(`${label} remote reads must abort slow SSR requests instead of leaving timed-out Supabase work running in the background.`);
+  }
 }
 
 if (errors.length) {
