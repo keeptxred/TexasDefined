@@ -37,20 +37,22 @@ function countyVisitorPlaces(venue: TexasEntityRecord, graph: TexasEntityRecord[
 export const Route = createFileRoute('/sports-venue/jones-att-stadium')({
   loader: async () => {
     const [
-      { findCompleteTexasEntity, loadTexasKnowledgeGraph },
+      { findCompleteTexasEntity },
+      { loadLocalTexasKnowledgeGraph },
       { getSportsVenueUpcomingEvents },
       { getSportsVenuePhoto },
       { getSportsVenueParkingMap },
       sponsorPlacement,
     ] = await Promise.all([
       import('@/data/knowledge-graph'),
+      import('@/data/knowledge-graph/link-candidates.server'),
       import('@/data/sports-venue-events.functions'),
       import('@/data/sports-venue-images-all'),
       import('@/data/parking-maps.functions'),
       getActiveSportsSponsorPlacement({ data: { surfacePath: canonicalPath } }),
     ]);
-    const [graph, entity, guideEvents, parkingMap] = await Promise.all([
-      loadTexasKnowledgeGraph(),
+    const graph = loadLocalTexasKnowledgeGraph();
+    const [entity, guideEvents, parkingMap] = await Promise.all([
       findCompleteTexasEntity(stableSlug),
       getSportsVenueUpcomingEvents({ data: { slug: stableSlug } }),
       getSportsVenueParkingMap(stableSlug),
