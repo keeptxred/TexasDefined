@@ -1,3 +1,4 @@
+import { hasExploreRemoteData } from '../explore-remote-policy';
 import type { TexasEntityKind, TexasEntityRecord, TexasEntityStatus } from './types';
 
 const supabaseUrl = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL || '').replace(/\/$/, '');
@@ -129,7 +130,7 @@ export function mapExploreRowToGraphEntity(row: ExploreGraphRow): TexasEntityRec
 }
 
 export function hasRemoteExploreGraph(): boolean {
-  return Boolean(supabaseUrl && supabaseKey);
+  return hasExploreRemoteData();
 }
 
 async function fetchExploreGraphPage(params: URLSearchParams, offset: number, limit: number): Promise<ExploreGraphRow[]> {
