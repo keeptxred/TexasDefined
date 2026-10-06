@@ -9,6 +9,7 @@ const stateFairLazyRoute = fs.readFileSync('src/routes/texas-state-fair.lazy.tsx
 const stateFairEnhancements = fs.readFileSync('src/components/editorial/StateFairGuideEnhancements.tsx', 'utf8');
 const stateFairHighlights = fs.readFileSync('src/components/editorial/StateFairCurrentHighlights.tsx', 'utf8');
 const proximityCollectionRoute = fs.readFileSync('src/routes/explore.near.$metro.$collection.tsx', 'utf8');
+const proximityPresentation = fs.readFileSync('src/data/metro-proximity-presentation.ts', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 
 const failures = [];
@@ -46,6 +47,14 @@ for (const marker of [
 ]) {
   if (!proximityCollectionRoute.includes(marker)) failures.push(`San Angelo proximity production-proof marker is missing: ${marker}`);
 }
+const dallasTwoHourTitle = 'Small-Town Day Trips From Dallas, Texas';
+if (!proximityPresentation.includes('titlePrefix: "Small-Town Day Trips From"')) {
+  failures.push('Metro proximity presentation must retain the shared Small-Town Day Trips From title contract for two-hour small-town pages.');
+}
+if (!productionSurfaces.includes(`['metro-dallas-small-towns-2-hours', '/explore/near/dallas/small-towns-2-hours', '${dallasTwoHourTitle}']`)) {
+  failures.push(`Dallas two-hour small-town live verifier drift: expected current canonical presentation title ${dallasTwoHourTitle}.`);
+}
+
 if (!viatorProduction.includes("await import('./verify-san-angelo-proximity-production.mjs');")) {
   failures.push('Base production verification must execute the San Angelo proximity live verifier.');
 }
