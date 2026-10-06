@@ -13,8 +13,11 @@ import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
   loader: async ({ params }) => {
-    const { findCompleteTexasEntity, loadTexasKnowledgeGraph } = await import('@/data/knowledge-graph');
-    const graph = await loadTexasKnowledgeGraph();
+    const [{ findCompleteTexasEntity }, { loadLocalTexasKnowledgeGraph }] = await Promise.all([
+      import('@/data/knowledge-graph'),
+      import('@/data/knowledge-graph/link-candidates.server'),
+    ]);
+    const graph = loadLocalTexasKnowledgeGraph();
     const graphEntity = graph.find((candidate) => candidate.kind === params.kind && candidate.slug === params.slug);
     const entity = graphEntity ?? await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
