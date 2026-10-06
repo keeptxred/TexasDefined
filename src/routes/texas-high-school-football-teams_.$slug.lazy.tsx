@@ -27,6 +27,10 @@ function Page() {
     governingBodyHint,
     associationClassification,
     associationSourceUrl,
+    editorial,
+    profileSummary,
+    quickFacts,
+    faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
@@ -54,9 +58,7 @@ function Page() {
         <div>
           <p className="eyebrow text-primary">2026 Texas high school football</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
-          <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">
-            Current football placement, UIL realignment enrollment, district opponents, verified school identity and game-venue information where sourced, plus official score and schedule resources.
-          </p>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{profileSummary}</p>
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
           <Fact label="Governing body" value={associationLabel} />
@@ -66,8 +68,37 @@ function Page() {
           {program?.uilEnrollment && <Fact label="UIL enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
           {!program && privateAlignment?.districtLabel && <Fact label="Football district" value={privateAlignment.districtLabel} />}
           <Fact label="Format" value={program?.footballType || privateAlignment?.footballType} />
+          {editorial?.coach && <Fact label="Head coach" value={editorial.coach.name} />}
         </dl>
       </header>
+
+      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Quick answers</p>
+          <h2 className="mt-2 font-display text-3xl">{displayName} football at a glance</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">These answers come from the same UIL, TEA, school, association and verified venue data used throughout this profile.</p>
+        </div>
+        <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {quickFacts.map((fact) => <Snapshot key={`${fact.label}:${fact.value}`} label={fact.label} value={fact.value} />)}
+        </dl>
+      </section>
+
+      {editorial && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Program overview</p>
+          <h2 className="mt-2 font-display text-3xl">{footballName} in 2026</h2>
+        </div>
+        <div>
+          <div className="space-y-4">
+            {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
+          </div>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            {editorial.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.coach.sourceLabel} ↗</a>}
+            {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
+            {editorial.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.campus.sourceLabel} ↗</a>}
+          </div>
+        </div>
+      </section>}
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
@@ -178,6 +209,34 @@ function Page() {
         </div>
       </section>}
 
+      {editorial?.venue && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">District venue context</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial.venue.name}</h2>
+        </div>
+        <div>
+          <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
+            <Snapshot label="Venue" value={editorial.venue.name} />
+            <Snapshot label="Address" value={editorial.venue.address} />
+          </dl>
+          <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.venue.note}</p>
+          <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.venue.sourceLabel} ↗</a>
+          <p className="mt-3 text-xs text-muted-foreground">Venue relationship reviewed {editorial.venue.verifiedAt}.</p>
+        </div>
+      </section>}
+
+      {editorial?.development && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Campus development</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial.development.title}</h2>
+        </div>
+        <div>
+          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.development.body}</p>
+          <a href={editorial.development.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.development.sourceLabel} ↗</a>
+          <p className="mt-3 text-xs text-muted-foreground">Project context reviewed {editorial.development.verifiedAt}.</p>
+        </div>
+      </section>}
+
       {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">School enrollment</p>
@@ -258,6 +317,7 @@ function Page() {
           <p className="max-w-4xl text-sm leading-7 text-muted-foreground">For {footballName}, use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; UIL says completeness depends on school and coach submissions, and it is not an official district-standings table.</p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
+            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
             {program.schoolWebsite && <a href={program.schoolWebsite} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official school athletics / website ↗</a>}
             <a href="/article/texas-high-school-football-scores-schedules" className="text-primary underline underline-offset-4">How to verify scores, schedules & standings →</a>
             <a href="/article/texas-high-school-football-2026-season-calendar" className="text-primary underline underline-offset-4">2026 UIL season calendar →</a>
@@ -277,6 +337,39 @@ function Page() {
           <ResearchCard title="Academics and daily fit" body="Football is one piece of a four-year school experience. Compare academics, programs, commute, campus culture and student support alongside the football program." />
           <ResearchCard title="Facilities and stadium" body="Some teams play on campus and others use shared district stadiums. Confirm practice facilities, game venue, parking and game-night logistics." />
           <ResearchCard title="Transfers and eligibility" body="Ask the school about enrollment and transfer rules, then separately verify the athletic eligibility consequences with the governing association." />
+        </div>
+      </section>
+
+      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Football FAQ</p>
+          <h2 className="mt-2 font-display text-3xl">{displayName} football questions</h2>
+        </div>
+        <div className="divide-y divide-border border-y border-border">
+          {faq.map((item) => <article key={item.question} className="py-5">
+            <h3 className="font-display text-2xl">{item.question}</h3>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{item.answer}</p>
+          </article>)}
+        </div>
+      </section>
+
+      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Source trail</p>
+          <h2 className="mt-2 font-display text-3xl">Where this profile gets its facts</h2>
+        </div>
+        <div>
+          <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined separates current competition data from school identity, enrollment, venue and live-season sources so one stale source cannot silently control the whole profile.</p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL alignment source ↗</a>}
+            {program?.teaSchoolProfileUrl && <a href={program.teaSchoolProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA school profile ↗</a>}
+            {program?.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
+            {identity && <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School identity source ↗</a>}
+            {privateAlignment && <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Association alignment source ↗</a>}
+            {venueLinks.map((venue) => <a key={venue.officialUrl} href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{venue.venueName} source ↗</a>)}
+            <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard ↗</a>
+          </div>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Schedules, coaching staffs, attendance boundaries and venue assignments can change within a season. Use the dated school or district source when a decision depends on current information.</p>
         </div>
       </section>
 

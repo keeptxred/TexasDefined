@@ -1,0 +1,10 @@
+[x] Identify missing FAQ schema registration
+[x] Confirm visible FAQ heading text
+[x] Preserve current main as source of truth
+[x] Avoid stale full-route replacement
+[x] Add idempotent anchor-guarded transformer
+[x] Add verifier
+[x] Add regression test
+[ ] Apply two-line transformation to route
+[ ] Run repository merge gate
+[ ] Merge and verify production JSON-LD

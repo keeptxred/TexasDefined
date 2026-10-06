@@ -84,8 +84,10 @@ jobs:
 
           fetch_assert lighthouse-hub '/explore/lighthouses' 'Texas Lighthouses'
           fetch_assert lighthouse-photo-hub-heading '/explore/lighthouses' 'Meet the lights along the Gulf Coast.'
-          fetch_assert lighthouse-photo-hub-port-isabel '/explore/lighthouses' 'Photo: Billy D. Wagner · CC BY-SA 4.0 · Wikimedia Commons'
-          fetch_assert lighthouse-photo-hub-sabine '/explore/lighthouses' 'Photo: Jessica Kemm / National Park Service · Public domain · Wikimedia Commons'
+          fetch_assert lighthouse-photo-hub-port-isabel-creator '/explore/lighthouses' 'Billy D. Wagner'
+          fetch_assert lighthouse-photo-hub-port-isabel-license '/explore/lighthouses' 'CC BY-SA 4.0'
+          fetch_assert lighthouse-photo-hub-sabine-creator '/explore/lighthouses' 'Jessica Kemm / National Park Service'
+          fetch_assert lighthouse-photo-hub-sabine-license '/explore/lighthouses' 'Public domain'
           fetch_assert_absent lighthouse-retired-map '/explore/lighthouses' 'Sourced lighthouse map'
           fetch_assert lighthouse-visitability '/explore/lighthouses' 'Visitability at a glance'
           fetch_assert lighthouse-faq '/explore/lighthouses' 'Which Texas lighthouse can you climb?'

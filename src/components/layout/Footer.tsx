@@ -51,7 +51,7 @@ export function Footer() {
             <div>
               <p>© {year} {brand.identity.wordmark}</p>
               <p className="mt-2 max-w-xl normal-case leading-5 tracking-normal">
-                Some imagery on this site may be AI-generated or AI-enhanced. See our <a href="/editorial-policy" className="underline underline-offset-2 transition-colors hover:text-primary">Editorial Policy</a> for details.
+                AI imagery may be generated or enhanced. <a href="/editorial-policy" className="underline underline-offset-2 transition-colors hover:text-primary">Editorial Policy</a>.
               </p>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end">

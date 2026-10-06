@@ -6,6 +6,8 @@ const supabaseKey = String(import.meta.env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY |
 const ARTICLE_SELECT = "id,slug,title,dek,category,region,hero_url,hero_alt,hero_credit,author_id,published_at,tags,body_json,related_collections,related_destinations,source_name,source_url";
 const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
+const ROUTE_REMOTE_TIMEOUT_MS = 2500;
+const SITEMAP_REMOTE_TIMEOUT_MS = 8000;
 
 const REMOTE_INTERNAL_LINK_CANONICALS: Readonly<Record<string, string>> = {
   "/article/texas-chili-beans-history": "/texas-chili-con-carne-history",
@@ -25,10 +27,6 @@ type RemoteInternalLink = NonNullable<Article["internalLinks"]>[number];
 function canonicalRemoteInternalLink(link: RemoteInternalLink): RemoteInternalLink {
   const href = REMOTE_INTERNAL_LINK_CANONICALS[link.href] ?? link.href;
   return href === link.href ? link : { ...link, href };
-}
-
-function headers(): HeadersInit {
-  return { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, Accept: "application/json" };
 }
 
 const VALID_CATEGORIES = new Set<CategorySlug>([
@@ -108,13 +106,15 @@ function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEver
   };
 }
 
-async function requestRows(params: URLSearchParams): Promise<Record<string, unknown>[]> {
+async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIMEOUT_MS): Promise<Record<string, unknown>[]> {
   if (!supabaseUrl || !supabaseKey) return [];
-  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, { headers: headers() });
-  if (!response.ok) throw new Error(`TexasDefined articles request failed: ${response.status}`);
+  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, {
+    headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+  if (!response.ok) throw Error(String(response.status));
   const value = await response.json();
-  if (!Array.isArray(value)) return [];
-  return value.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === "object");
+  return Array.isArray(value) ? value : [];
 }
 
 function mapRows(rows: Record<string, unknown>[], evergreenInternalLinks: RemoteEvergreenInternalLinks): Article[] {
@@ -122,10 +122,7 @@ function mapRows(rows: Record<string, unknown>[], evergreenInternalLinks: Remote
 }
 
 async function request(params: URLSearchParams): Promise<Article[]> {
-  const [rows, evergreenInternalLinks] = await Promise.all([
-    requestRows(params),
-    loadRemoteEvergreenInternalLinks(),
-  ]);
+  const [rows, evergreenInternalLinks] = await Promise.all([requestRows(params), loadRemoteEvergreenInternalLinks()]);
   return mapRows(rows, evergreenInternalLinks);
 }
 
@@ -136,7 +133,7 @@ async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]>
     const pageParams = new URLSearchParams(params);
     pageParams.set("limit", String(SITEMAP_PAGE_SIZE));
     pageParams.set("offset", String(offset));
-    const rows = await requestRows(pageParams);
+    const rows = await requestRows(pageParams, SITEMAP_REMOTE_TIMEOUT_MS);
     articles.push(...mapRows(rows, evergreenInternalLinks));
     if (rows.length < SITEMAP_PAGE_SIZE) return articles;
   }
@@ -144,12 +141,7 @@ async function requestAllForSitemap(params: URLSearchParams): Promise<Article[]>
 }
 
 function publishedParams(options: { category?: string; limit?: number } = {}, kind: RemoteArticleKind = "all") {
-  const params = new URLSearchParams({
-    select: ARTICLE_SELECT,
-    status: "eq.published",
-    order: "published_at.desc",
-    limit: String(Math.max(1, Math.min(options.limit ?? 100, 200))),
-  });
+  const params = new URLSearchParams({ select: ARTICLE_SELECT, status: "eq.published", order: "published_at.desc", limit: String(Math.max(1, Math.min(options.limit ?? 100, 200))) });
   if (options.category) params.set("category", `eq.${options.category}`);
   if (kind === "evergreen") params.set("source_feed_id", "is.null");
   if (kind === "news") params.set("source_feed_id", "not.is.null");
@@ -157,45 +149,17 @@ function publishedParams(options: { category?: string; limit?: number } = {}, ki
 }
 
 function publishedSlugParams(slug: string, kind: RemoteArticleKind = "all") {
-  const params = new URLSearchParams({
-    select: ARTICLE_SELECT,
-    status: "eq.published",
-    slug: `eq.${slug}`,
-    limit: "1",
-  });
+  const params = new URLSearchParams({ select: ARTICLE_SELECT, status: "eq.published", slug: `eq.${slug}`, limit: "1" });
   if (kind === "evergreen") params.set("source_feed_id", "is.null");
   if (kind === "news") params.set("source_feed_id", "not.is.null");
   return params;
 }
 
-export async function fetchPublishedTexasDefinedArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
-  return request(publishedParams(options));
-}
-
-export async function fetchPublishedTexasDefinedArticle(slug: string): Promise<Article | null> {
-  return (await request(publishedSlugParams(slug)))[0] ?? null;
-}
-
-export async function fetchPublishedTexasDefinedEvergreenArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
-  return request(publishedParams(options, "evergreen"));
-}
-
-export async function fetchPublishedTexasDefinedEvergreenArticle(slug: string): Promise<Article | null> {
-  return (await request(publishedSlugParams(slug, "evergreen")))[0] ?? null;
-}
-
-export async function fetchPublishedTexasDefinedNewsArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> {
-  return request(publishedParams(options, "news"));
-}
-
-export async function fetchPublishedTexasDefinedNewsArticle(slug: string): Promise<Article | null> {
-  return (await request(publishedSlugParams(slug, "news")))[0] ?? null;
-}
-
-export async function fetchPublishedTexasDefinedEvergreenArticlesForSitemap(): Promise<Article[]> {
-  return requestAllForSitemap(publishedParams({}, "evergreen"));
-}
-
-export async function fetchPublishedTexasDefinedNewsArticlesForSitemap(): Promise<Article[]> {
-  return requestAllForSitemap(publishedParams({}, "news"));
-}
+export async function fetchPublishedTexasDefinedArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> { return request(publishedParams(options)); }
+export async function fetchPublishedTexasDefinedArticle(slug: string): Promise<Article | null> { return (await request(publishedSlugParams(slug)))[0] ?? null; }
+export async function fetchPublishedTexasDefinedEvergreenArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> { return request(publishedParams(options, "evergreen")); }
+export async function fetchPublishedTexasDefinedEvergreenArticle(slug: string): Promise<Article | null> { return (await request(publishedSlugParams(slug, "evergreen")))[0] ?? null; }
+export async function fetchPublishedTexasDefinedNewsArticles(options: { category?: string; limit?: number } = {}): Promise<Article[]> { return request(publishedParams(options, "news")); }
+export async function fetchPublishedTexasDefinedNewsArticle(slug: string): Promise<Article | null> { return (await request(publishedSlugParams(slug, "news")))[0] ?? null; }
+export async function fetchPublishedTexasDefinedEvergreenArticlesForSitemap(): Promise<Article[]> { return requestAllForSitemap(publishedParams({}, "evergreen")); }
+export async function fetchPublishedTexasDefinedNewsArticlesForSitemap(): Promise<Article[]> { return requestAllForSitemap(publishedParams({}, "news")); }

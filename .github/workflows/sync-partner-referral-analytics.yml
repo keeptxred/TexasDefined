@@ -51,4 +51,17 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
           PARTNER_REFERRAL_SYNC_IF_STALE_MINUTES: ${{ github.event_name == 'workflow_run' && '70' || (github.event_name == 'schedule' && github.event.schedule == '47 * * * *' && '70' || '') }}
-        run: node scripts/monetization/sync-partner-referral-analytics.mjs
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4; do
+            if node scripts/monetization/sync-partner-referral-analytics.mjs; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 4 ]; then
+              echo "Partner referral analytics sync failed after $attempt attempts." >&2
+              exit 1
+            fi
+            delay=$((attempt * 15))
+            echo "Transient analytics sync failure; retrying in ${delay}s (attempt $((attempt + 1))/4)." >&2
+            sleep "$delay"
+          done

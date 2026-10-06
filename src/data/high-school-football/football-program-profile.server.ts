@@ -13,6 +13,8 @@ import type { VerifiedPrivateSchoolAdmissions } from './private-school-admission
 import { footballClassificationRank, footballProgramProfilePath, footballProgramSlug } from './program-slugs';
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
+import { getFootballProgramEditorial } from './program-editorial';
+import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
   UIL_FOOTBALL_PROGRAMS_2026,
@@ -42,6 +44,10 @@ export type FootballProgramProfile = {
   associationSourceUrl?: string;
   privateAlignment: VerifiedPrivateFootballAlignment | null;
   privateAdmissions: VerifiedPrivateSchoolAdmissions | null;
+  editorial: ReturnType<typeof getFootballProgramEditorial>;
+  profileSummary: string;
+  quickFacts: ReturnType<typeof buildFootballProfileQuickFacts>;
+  faq: ReturnType<typeof buildFootballProfileFaq>;
 };
 
 export type FootballProgramDirectoryEntry = {
@@ -122,6 +128,15 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   if (!seed) {
     const legacy = await getFeaturedFootballProgramProfile(slug);
     if (!legacy) return null;
+    const editorial = getFootballProgramEditorial(legacy.featured.slug);
+    const profileContent = {
+      displayName: legacy.featured.displayName,
+      program: legacy.program,
+      identity: legacy.identity,
+      privateAlignment: legacy.privateAlignment,
+      venueLinks: [],
+      editorial,
+    };
     return {
       slug: legacy.featured.slug,
       displayName: legacy.featured.displayName,
@@ -136,6 +151,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
       associationSourceUrl: legacy.featured.associationSourceUrl,
       privateAlignment: legacy.privateAlignment,
       privateAdmissions: legacy.privateAdmissions,
+      editorial,
+      profileSummary: buildFootballProfileSummary(profileContent),
+      quickFacts: buildFootballProfileQuickFacts(profileContent),
+      faq: buildFootballProfileFaq(profileContent),
     };
   }
 
@@ -152,21 +171,37 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const canonicalSlug = footballProgramSlug(seed.schoolName);
   const displayName = seed.schoolName;
 
+  const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null;
+  const venueLinks = getVerifiedFootballVenueLinks({
+    schoolName: program.schoolName,
+    officialSchoolName: program.officialSchoolName,
+    districtName: program.districtName,
+  });
+  const editorial = getFootballProgramEditorial(canonicalSlug);
+  const profileContent = {
+    displayName,
+    program,
+    identity,
+    privateAlignment: null,
+    venueLinks,
+    editorial,
+  };
+
   return {
     slug: canonicalSlug,
     displayName,
     program,
-    identity: getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null,
+    identity,
     enrollmentLink: getOfficialFootballEnrollmentLink(program.districtName) ?? null,
     districtPeers: districtPeers(seed),
     districtPath: footballDistrictProfilePath(seed.classification, seed.division, seed.district),
-    venueLinks: getVerifiedFootballVenueLinks({
-      schoolName: program.schoolName,
-      officialSchoolName: program.officialSchoolName,
-      districtName: program.districtName,
-    }),
+    venueLinks,
     privateAlignment: null,
     privateAdmissions: null,
+    editorial,
+    profileSummary: buildFootballProfileSummary(profileContent),
+    quickFacts: buildFootballProfileQuickFacts(profileContent),
+    faq: buildFootballProfileFaq(profileContent),
   };
 }
 
