@@ -20,6 +20,7 @@ const metroRelocationGuidePaths = new Set([
   "/article/moving-to-el-paso-guide",
 ]);
 const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
+const LOOPS_SPURS_PATH = "/article/texas-loops-spurs-explained";
 
 export function articleHeadingId(text: string) {
   return text
@@ -39,6 +40,25 @@ export function PullQuote({ text, attribution, entities = [] }: { text: string; 
   );
 }
 
+function LoopsSpursVisual() {
+  return <figure className="my-10 rounded-xl border border-border bg-muted/20 p-5" aria-labelledby="loops-spurs-visual-title">
+    <figcaption id="loops-spurs-visual-title" className="font-display text-2xl font-semibold">Loop vs. Spur: read the network, not the shape</figcaption>
+    <p className="mt-2 text-sm text-muted-foreground">A Texas Loop usually carries traffic around a place and reconnects with the highway network. A Spur usually branches away to a local road or destination. Neither name guarantees what the road looks like today.</p>
+    <div className="mt-6 grid gap-4 sm:grid-cols-2">
+      <div className="rounded-xl border border-border p-4">
+        <p className="text-xs font-bold uppercase text-primary">Loop</p>
+        <div className="mt-4 flex items-center gap-2" aria-hidden="true"><span className="h-3 w-3 rounded-full bg-foreground"/><span className="h-1 flex-1 rounded bg-border"/><span className="rounded-full border-2 border-primary px-5 py-3 font-bold">bypass</span><span className="h-1 flex-1 rounded bg-border"/><span className="h-3 w-3 rounded-full bg-foreground"/></div>
+        <p className="mt-4 text-sm">Typically connects with another state highway at both ends. It does <strong>not</strong> have to make a complete circle.</p>
+      </div>
+      <div className="rounded-xl border border-border p-4">
+        <p className="text-xs font-bold uppercase text-primary">Spur</p>
+        <div className="mt-4 flex items-center gap-2" aria-hidden="true"><span className="h-3 w-3 rounded-full bg-foreground"/><span className="h-1 flex-1 rounded bg-border"/><span className="h-1 w-12 rounded bg-primary"/><span className="rounded-xl border-2 border-primary px-3 py-2 font-bold">destination</span></div>
+        <p className="mt-4 text-sm">Typically branches from a state highway and ends on an off-system road rather than returning to the parent corridor.</p>
+      </div>
+    </div>
+  </figure>;
+}
+
 export function Byline({ author, meta }: { author: Author | null; meta: string }) {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
@@ -54,6 +74,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const articleSlug = pathname.startsWith("/article/") ? pathname.slice("/article/".length).split("/")[0] : "";
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
   const showSixManFootballAuthority = pathname === SIX_MAN_FOOTBALL_PATH;
+  const showLoopsSpursVisual = pathname === LOOPS_SPURS_PATH;
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -77,6 +98,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   return <div className="editorial-body text-foreground/92">
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
     {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
+    {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
         case "heading": return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
