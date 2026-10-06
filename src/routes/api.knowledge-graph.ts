@@ -59,8 +59,6 @@ export const Route = createFileRoute('/api/knowledge-graph')({
         const requestedLimit = Number(url.searchParams.get('limit') ?? 25);
         const limit = Number.isFinite(requestedLimit) ? Math.min(Math.max(Math.trunc(requestedLimit), 1), 100) : 25;
 
-        const graph = await loadTexasKnowledgeGraph();
-
         if (id) {
           const entity = await findCompleteTexasEntity(id);
           if (!entity) return json({ error: 'Entity not found' }, { status: 404, cacheControl: 'no-store' });
@@ -80,7 +78,7 @@ export const Route = createFileRoute('/api/knowledge-graph')({
 
         let entities = query
           ? await searchCompleteTexasKnowledgeGraph(query, limit)
-          : graph;
+          : await loadTexasKnowledgeGraph();
 
         if (kind) entities = entities.filter((entity) => entity.kind === kind);
         if (county) entities = entities.filter((entity) => entity.countySlug === county || entity.relationships.some((relationship) => relationship.targetId === `county:${county}`));
