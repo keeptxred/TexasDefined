@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
 import { canonicalPaintedChurchProfileBySlug } from "@/data/painted-church-profile-index";
 import { paintedChurchPeople } from "@/data/painted-church-people";
 import { paintedChurchSymbols } from "@/data/painted-church-symbols";
@@ -33,7 +34,7 @@ export const Route = createFileRoute(canonicalPath)({
           name: "Texas Painted Churches verified comparison dataset",
           description,
           url: absoluteUrl(texasDefinedBrand, canonicalPath),
-          dateModified: "2026-08-18",
+          dateModified: paintedChurchAuthorityExpansionDate,
           creator: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` },
           isBasedOn: absoluteUrl(texasDefinedBrand, "/explore/painted-churches"),
           variableMeasured: [
