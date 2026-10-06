@@ -115,7 +115,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The comparison table is generated from the same verified church records as the collection hub. It preserves county, denomination and designation flags without filling missing fields or converting broader-tradition churches into formal National Register members.',
-    lastVerified: 'Comparison labels and verified collection coverage reviewed August 18, 2026.',
+    lastVerified: 'Comparison labels, 28-record collection coverage and freshness metadata reviewed October 6, 2026.',
   },
   '/explore/painted-churches/map': {
     title: 'Painted Churches map sources',
