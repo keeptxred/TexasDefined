@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -14,12 +15,12 @@ export const Route = createFileRoute(canonicalPath)({
   head: () => {
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "How Many Painted Churches Are in Texas? Why Counts Differ", description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "How Many Painted Churches Are in Texas? Why Counts Differ", description, modifiedTime: `${paintedChurchAuthorityExpansionDate}T12:00:00-05:00` }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
         "@context": "https://schema.org",
         "@graph": [
-          { "@type": "WebPage", "@id": `${url}#page`, url, name: "How Many Painted Churches Are in Texas? Why Counts Differ", description, isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/painted-churches")}#collection` }, publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
+          { "@type": "WebPage", "@id": `${url}#page`, url, name: "How Many Painted Churches Are in Texas? Why Counts Differ", description, dateModified: paintedChurchAuthorityExpansionDate, isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#website` }, about: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/painted-churches")}#collection` }, publisher: { "@id": `${absoluteUrl(texasDefinedBrand, "/")}#organization` } },
           { "@type": "BreadcrumbList", "@id": `${url}#breadcrumbs`, itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
             { "@type": "ListItem", position: 2, name: "Painted Churches", item: absoluteUrl(texasDefinedBrand, "/explore/painted-churches") },
