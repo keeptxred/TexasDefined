@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import type { GeoPoint } from "@/data/types";
 
 export type FishingMapResult = {
@@ -55,7 +56,7 @@ export function FishingResultsMap({ rows }: { rows: FishingMapResult[] }) {
 
   return <div className="mt-7 grid gap-8 lg:grid-cols-2">
     <div className="overflow-hidden border border-border bg-surface p-2 sm:p-5">
-      <svg viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="fishing-map-title fishing-map-desc" className="h-auto w-full">
+      <svg id="texas-fishing-lakes-results-graphic" viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="fishing-map-title fishing-map-desc" className="h-auto w-full">
         <title id="fishing-map-title">Map of matching Texas fishing lakes</title>
         <desc id="fishing-map-desc">A simplified Texas outline with matching fishing lakes positioned from published latitude and longitude records. Select a lake pin to inspect the result.</desc>
         <rect x="0" y="0" width={mapWidth} height={mapHeight} className="fill-background" />
@@ -93,6 +94,14 @@ export function FishingResultsMap({ rows }: { rows: FishingMapResult[] }) {
         })}
       </svg>
       <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is simplified for orientation. Lake pins use representative published reservoir locations from the TexasDefined fishing catalog; they are not shoreline-access coordinates or geometric lake centroids.</p>
+      <PublishableGraphic
+        targetId="texas-fishing-lakes-results-graphic"
+        filename="texas-fishing-lakes-map"
+        title="Texas fishing lakes map"
+        methodologyHref="/sourcing-methodology"
+        sourceNote={`This download contains the ${visible.length} lake locations currently shown by your fishing filters. Coordinates are representative reservoir locations, not boat-ramp or shoreline-access points.`}
+        compact
+      />
     </div>
 
     <aside className="border-t-2 border-foreground pt-6">
