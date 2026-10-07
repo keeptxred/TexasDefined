@@ -20,8 +20,11 @@ async function readPaintedChurchGuideSlugs() {
   return [...new Set(slugs)];
 }
 
-const paintedChurchGuideUrls = (await readPaintedChurchGuideSlugs())
-  .map((slug) => `https://${zoneName}/explore/painted-churches/guides/${slug}`);
+const paintedChurchGuideUrls = [
+  `https://${zoneName}/explore/painted-churches/guides`,
+  `https://${zoneName}/explore/painted-churches/routes`,
+  ...(await readPaintedChurchGuideSlugs()).map((slug) => `https://${zoneName}/explore/painted-churches/guides/${slug}`),
+];
 
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
