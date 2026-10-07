@@ -53,6 +53,7 @@ for (const marker of [
   "entity.kind === 'sports-venue' ? applyCurrentEntityCorrections(entity) : entity",
   '.map(currentStaticEntity)',
   'merged.set(entity.id, currentStaticEntity(entity))',
+  "combined.kind === 'sports-venue' ? applyCurrentEntityCorrections(combined) : combined",
   'getSportsVenueEditorialDescriptions({ data: { ids: sportsVenueIds } })',
   'sportsVenueEditorialDescriptions[entity.id]',
   "if (entity.kind !== 'sports-venue') continue;",
