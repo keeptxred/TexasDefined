@@ -18,6 +18,8 @@ export type SportsVenueGuidePilot = {
   stadiumMapUrl?: string;
   bagPolicy?: string;
   accessibility?: string;
+  cashlessPolicy?: string;
+  faqs?: readonly { question: string; answer: string }[];
   nearbyPlaces?: readonly { label: string; detail: string; href: string }[];
   gallery?: readonly {
     imageUrl: string;
@@ -140,6 +142,13 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
     stadiumMapUrl: "https://www.choctawstadium.com/stadium-map/",
     bagPolicy: "Soft-sided bags and purses may not exceed 16 × 16 × 8 inches. Standard backpacks are prohibited; a qualifying single-compartment drawstring bag is allowed. Medical bags and manufactured diaper bags accompanying children have exceptions. All bags are subject to search.",
     accessibility: "Accessible seating and companion seats are available in each price level, with wheelchair assistance on request. Accessible parking is in Lot E on a first-come, first-served basis. Contact venue Guest Services before your visit for specific accommodations.",
+    cashlessPolicy: "Choctaw Stadium is cashless: parking, tickets and concessions accept debit or credit cards. Re-entry rules can differ by event.",
+    faqs: [
+      { question: "Was Choctaw Stadium the Texas Rangers' former home?", answer: "Yes. The Rangers played here from 1994 through 2019, when it was known by names including The Ballpark in Arlington and Globe Life Park. Their current home is Globe Life Field across the street." },
+      { question: "Where should I park for Choctaw Stadium?", answer: "The venue identifies Lots E and L off Road to Six Flags as its primary lots. Accessible parking is in Lot E, first come first served. Availability and price vary by event." },
+      { question: "Can I bring a backpack to Choctaw Stadium?", answer: "Standard backpacks are not permitted. Soft-sided bags measuring no more than 16 by 16 by 8 inches are generally allowed, with specified drawstring, medical and diaper-bag exceptions; all bags are searched." },
+      { question: "Does Choctaw Stadium take cash?", answer: "No. The official guide states the stadium is cashless for parking, ticketing and concessions. Use a debit or credit card." },
+    ],
     nearbyPlaces: [
       { label: "Globe Life Field", detail: "The Texas Rangers’ current ballpark, across the street", href: "/sports-venue/globe-life-field" },
       { label: "AT&T Stadium", detail: "Dallas Cowboys stadium and tours in the entertainment district", href: "/sports-venue/att-stadium" },
@@ -172,6 +181,7 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
       { label: "Choctaw Stadium event schedule", href: "https://www.choctawstadium.com/stadium-events/" },
       { label: "Choctaw Stadium parking", href: "https://www.choctawstadium.com/parking/" },
       { label: "Choctaw Stadium bag policy", href: "https://www.choctawstadium.com/bag-policy/" },
+      { label: "Choctaw Stadium A-to-Z guest guide", href: "https://www.choctawstadium.com/a-to-z-guide/" },
       { label: "Choctaw Stadium accessibility", href: "https://www.choctawstadium.com/accessibility/" },
       { label: "Choctaw Stadium map", href: "https://www.choctawstadium.com/stadium-map/" },
       { label: "Arlington Sports Commission — venue specifications", href: "https://www.arlingtonsportscommission.org/venues/choctaw-stadium" },
