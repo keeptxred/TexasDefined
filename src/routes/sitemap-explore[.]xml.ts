@@ -232,8 +232,10 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
         const resolvedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
-        const postCityPassSlugs = new Set(rawDestinations.map((destination) => destination.slug));
-        rawDestinations.push(...whirlyballHurstDestinations.filter((destination) => destination.slug && !postCityPassSlugs.has(destination.slug)));
+        // WhirlyBall has a canonical checked-in authority record. Let it override
+        // any stale remote record with the same slug before indexability auditing.
+        const whirlyballReconciledDestinations = mergeDestinationSources(rawDestinations, whirlyballHurstDestinations);
+        rawDestinations.splice(0, rawDestinations.length, ...whirlyballReconciledDestinations);
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
         const destinations = await resolveDestinationCatalog(rawDestinations);
