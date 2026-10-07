@@ -287,7 +287,8 @@ async function verifyExpiredConfirmedLeaf() {
   const html = await fetchProduction(path, 'bandera-round-up-cattle-drive');
   assert(canonicalHref(html) === `${origin}${path}`, `Bandera Round-Up canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Bandera Round-Up visible page must expose the verified organizer');
-  assert(html.includes('Tickets and admission'), 'Bandera Round-Up visible page must retain its reviewed admission evidence');
+  assert(html.includes('Latest confirmed occurrence has ended.'), 'Bandera Round-Up visible page must expose the expired-occurrence warning');
+  assert(!html.includes('Tickets and admission'), 'Bandera Round-Up expired page must suppress stale ticket pricing');
 
   const blocks = extractJsonLd(html);
   assert(blocks.length > 0, 'Bandera Round-Up expired leaf must expose JSON-LD');
