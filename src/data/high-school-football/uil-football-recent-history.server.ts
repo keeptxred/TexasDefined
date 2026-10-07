@@ -102,8 +102,9 @@ async function fetchArchivePage(offset: number) {
     try {
       const response = await fetch(url, {
         headers: {
-          accept: 'text/html,application/xhtml+xml',
-          'user-agent': 'TexasDefined-Football-Research/1.0',
+          accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.9',
+          'user-agent': 'Mozilla/5.0 (compatible; TexasDefined/1.0; +https://texasdefined.com/about)',
         },
         redirect: 'follow',
         signal: controller.signal,
@@ -184,7 +185,15 @@ export async function loadUilRecentFootballHistory() {
     return recentHistoryCache;
   }
 
-  const pages = await Promise.all(ARCHIVE_PAGE_OFFSETS.map(fetchArchivePage));
+  // UIL's archive is a public research source, but four simultaneous page
+  // requests can trip upstream rate limiting from a shared Worker egress IP.
+  // Fetch the small four-page window sequentially so one user lookup creates
+  // at most one in-flight UIL request while preserving the same completeness
+  // checks and 12-hour in-isolate cache.
+  const pages: UilRecentFootballFinal[][] = [];
+  for (const offset of ARCHIVE_PAGE_OFFSETS) {
+    pages.push(await fetchArchivePage(offset));
+  }
   const finals = pages
     .flat()
     .filter((row) => seasonInWindow(row.season))
