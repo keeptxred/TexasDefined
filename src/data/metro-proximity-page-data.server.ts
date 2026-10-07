@@ -1,4 +1,6 @@
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { auditDestination } from "@/data/destination-audit";
 import { listResolvedDestinations } from "@/data/destination-query-runtime";
 import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -20,6 +22,10 @@ import {
 } from "./metro-proximity-town-references";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
+
+function metroIndexableDestinations(destinations: Destination[]) {
+  return destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+}
 
 function latestReview(values: Array<string | undefined>) {
   return values.filter((value): value is string => Boolean(value)).sort().at(-1);
@@ -69,7 +75,7 @@ function townSchema(row: MetroProximityTownResult, pageUrl: string) {
 export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
   const metro = getMetroProximityMetro(metroSlug);
   if (!metro) return null;
-  const destinations = await listResolvedDestinations({ limit: 5000 });
+  const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
   const collections = METRO_PROXIMITY_COLLECTIONS
     .map((collection) => {
       const results = selectMetroProximityDestinations(destinations, metro, collection);
@@ -154,7 +160,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const metro = getMetroProximityMetro(metroSlug);
   const collection = getMetroProximityCollection(collectionSlug);
   if (!metro || !collection) return null;
-  const destinations = await listResolvedDestinations({ limit: 5000 });
+  const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
   const results = selectMetroProximityDestinations(destinations, metro, collection);
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;

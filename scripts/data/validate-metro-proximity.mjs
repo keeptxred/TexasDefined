@@ -78,9 +78,10 @@ for (const token of [
 ]) requireText(files.test, token, `metro proximity regression test missing ${token}`);
 
 for (const token of [
-  "listResolvedDestinations", "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer",
+  "listResolvedDestinations", "isPrimaryTripPlannerDestination", "auditDestination", "metroIndexableDestinations",
+  "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer",
   "isMetroProximityCollectionIndexReadyWithTownReferences", "selectMetroProximityTownReferences",
-  "selectMetroProximityDestinations", "optionCount", '"@type": "CollectionPage"', '"@type": "ItemList"',
+  "selectMetroProximityDestinations", "destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)", "optionCount", '"@type": "CollectionPage"', '"@type": "ItemList"',
   '"@type": "BreadcrumbList"', '"@type": "City"', '"index, follow, max-image-preview:large"',
   '"noindex, follow"', "buildMeta", "canonicalLink", "metroProximityCollectionPresentation",
 ]) requireText(files.pageData, token, `server page-data layer missing ${token}`);
