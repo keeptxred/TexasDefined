@@ -38,7 +38,7 @@ const records: MajorEventAuthorityRecord[] = [
     relatedLinks: [
       { href: "/county/hidalgo", label: "Explore Hidalgo County", description: "Plan more of the Rio Grande Valley around Hidalgo, McAllen, Edinburg and Mission." },
       { href: "/article/hidalgo-county-edinburg-mcallen-mission-rio-grande-valley-texas", label: "Hidalgo County and the Rio Grande Valley", description: "Understand the region's cities, history, border setting and travel context." },
-      { href: "/state-park/bentsen-rio-grande-valley", label: "Bentsen-Rio Grande Valley State Park", description: "Add a birding and subtropical-wildlife stop to a BorderFest weekend." },
+      { href: "/destination/bentsen-rio-grande-valley-state-park", label: "Bentsen-Rio Grande Valley State Park", description: "Add a birding and subtropical-wildlife stop to a BorderFest weekend." },
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas cultural festivals and current event dates." }
     ],
     sources: [
