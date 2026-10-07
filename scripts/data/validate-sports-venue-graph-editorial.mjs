@@ -63,6 +63,9 @@ for (const marker of [
 assert(countyComponent.includes('{venue.description ? <span'), 'County sports destination cards must render enriched venue descriptions when available.');
 assert(entityRoute.includes('const countySportsVenues = entity.kind === \'county\''), 'County route must continue deriving sports venues from the loaded full graph.');
 assert(entityRoute.includes("candidate.kind === 'sports-venue'"), 'County route must continue selecting sports venues from the loaded full graph.');
+assert(entityRoute.includes('.map(applyCurrentEntityCorrections)'), 'County route must suppress retired generated sports-venue seed descriptions before rendering cards.');
+assert(entityRoute.includes("getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } })"), 'County route must bulk-load vetted sports-venue editorial descriptions.');
+assert(entityRoute.includes('countySportsEditorial[venue.id]'), 'County route must apply vetted sports-venue editorial descriptions to county cards.');
 
 const editorialEntries = editorialSources.flatMap((source) =>
   [...source.matchAll(/^\s{2}'(sports-venue:[^']+)':\s*'((?:\\'|[^'])*)',?\s*$/gm)]
