@@ -3,7 +3,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
 import type { DestinationRelationshipGroup } from "./destination-relationships";
 
-// Validation-visible retired anti-pattern: listResolvedDestinations({ limit: 5000 }) must not be restored to this request path.
 export const getDestinationRelationshipGroups = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => ({
     slug: String(data.slug ?? "").trim().slice(0, 180),
