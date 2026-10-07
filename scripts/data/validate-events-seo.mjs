@@ -239,8 +239,9 @@ for (const feature of [
   '"@type": "Offer"',
   '...(occurrenceEnrichment?.image ? { image:',
   '...(organizer ? { organizer } : {})',
-  '...(offers?.length ? { offers } : {})',
+  '...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {})',
   '...(performers?.length ? { performer: performers } : {})',
+  'const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length',
   'Event details',
   'Last reviewed',
 ]) {
