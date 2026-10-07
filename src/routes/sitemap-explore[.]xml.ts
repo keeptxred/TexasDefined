@@ -131,6 +131,7 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/rv-parks",
     "/explore/wildlife",
     "/explore/water-towers",
+    "/destination/whirlyball-hurst",
     ...PAINTED_CHURCH_STATIC_PATHS,
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
