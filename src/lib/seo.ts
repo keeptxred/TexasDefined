@@ -691,50 +691,33 @@ type DiscoverImageOverride = {
   height: number;
 };
 
-// Route-specific social/Discover media. Every entry is either an existing rights-safe
-// 1600px editorial asset or a production-build derivative of the page's governed hero.
-const TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES: Record<string, DiscoverImageOverride> = {
-  "/event/chappell-hill-bluebonnet-festival": { src: "/images/discover/chappell-hill-bluebonnet-festival.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/ima-hogg-texas-legacy": { src: "/images/discover/ima-hogg-texas-legacy.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/camping-in-texas-with-your-dog": { src: "/images/discover/camping-in-texas-with-your-dog.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/texas-high-school-football-scores-schedules": { src: "/images/discover/texas-high-school-football-scores-schedules.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/best-lighthouses-to-visit-in-texas": { src: "/images/discover/best-lighthouses-to-visit-in-texas.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/texas-medal-of-honor-heroes": { src: "/images/discover/texas-medal-of-honor-heroes.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/texas-red-river-war-guide": { src: "/images/discover/texas-red-river-war-guide.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/republic-of-texas-government-trail": { src: "/images/discover/republic-of-texas-government-trail.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/brazoria-plantations-slavery-emancipation-history": { src: "/images/discover/brazoria-plantations-slavery-emancipation-history.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/texas-frontier-forts-road-trip": { src: "/images/discover/texas-frontier-forts-road-trip.webp", type: "image/webp", width: 1600, height: 900 },
-  "/county/collin": { src: "/images/discover/collin-county.webp", type: "image/webp", width: 1600, height: 900 },
-  "/sports-venue/xtreme-raceway-park": { src: "/images/discover/xtreme-raceway-park.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/fossil-rim-wildlife-center": { src: "/images/discover/fossil-rim-wildlife-center.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/sea-life-san-antonio-aquarium": { src: "/images/discover/sea-life-san-antonio-aquarium.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/san-antonio-aquarium": { src: "/images/discover/san-antonio-aquarium.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/houston-interactive-aquarium-animal-preserve": { src: "/images/discover/houston-interactive-aquarium-animal-preserve.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/ut-marine-science-institute-patton-center": { src: "/images/discover/ut-marine-science-institute-patton-center.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/texas-hill-country-olive-co": { src: "/images/discover/texas-hill-country-olive-co.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/brazos-bend-state-park": { src: "/images/discover/brazos-bend-state-park.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/devils-river-state-natural-area": { src: "/images/discover/devils-river-state-natural-area.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/lake-corpus-christi-state-park": { src: "/images/discover/lake-corpus-christi-state-park.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/science-mill-johnson-city": { src: "/images/discover/science-mill-johnson-city.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/silent-wings-museum-lubbock": { src: "/images/discover/silent-wings-museum-lubbock.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/governor-jim-hogg-city-park-quitman": { src: "/images/discover/governor-jim-hogg-city-park-quitman.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/messina-hof-hill-country": { src: "/images/discover/messina-hof-hill-country.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/blanton-museum-of-art-austin": { src: "/images/discover/blanton-museum-of-art-austin.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/umlauf-sculpture-garden-museum-austin": { src: "/images/discover/umlauf-sculpture-garden-museum-austin.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/texas-science-natural-history-museum-austin": { src: "/images/discover/texas-science-natural-history-museum-austin.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/dr-pepper-museum-waco": { src: "/images/discover/dr-pepper-museum-waco.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/texas-ranger-hall-of-fame-museum-waco": { src: "/images/discover/texas-ranger-hall-of-fame-museum-waco.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/my-story-museum-crystal-city": { src: "/images/discover/my-story-museum-crystal-city.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/gonzales": { src: "/images/discover/gonzales.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/clifton": { src: "/images/discover/clifton.webp", type: "image/webp", width: 1600, height: 900 },
-  "/destination/la-grange": { src: "/images/discover/la-grange.webp", type: "image/webp", width: 1600, height: 900 },
-  "/explore/painted-churches/high-hill-nativity-of-mary": { src: "/images/discover/high-hill-nativity-of-mary.webp", type: "image/webp", width: 1600, height: 900 },
-  "/explore/painted-churches/dubina-saints-cyril-methodius": { src: "/images/discover/dubina-saints-cyril-methodius.webp", type: "image/webp", width: 1600, height: 900 },
-  "/explore/painted-churches/umbarger-st-marys-catholic-church": { src: "/images/discover/umbarger-st-marys-catholic-church.webp", type: "image/webp", width: 1600, height: 900 },
-  "/explore/painted-churches/lindsay-st-peters-catholic-church": { src: "/images/discover/lindsay-st-peters-catholic-church.webp", type: "image/webp", width: 1600, height: 900 },
-  "/explore/painted-churches/fredericksburg-st-marys-catholic-church": { src: "/images/discover/fredericksburg-st-marys-catholic-church.webp", type: "image/webp", width: 1600, height: 900 },
-  "/article/texas-ecoregions-habitats-guide": { src: "/images/editorial/texas-ecoregions-habitats.jpg", type: "image/jpeg", width: 1600, height: 2133 },
-};
+// Compact allowlist keeps route-specific Discover media out of the main bundle's
+// large object-literal path inventory while retaining exact route qualification.
+const TEXASDEFINED_DISCOVER_IMAGE_KEYS =
+  "|ev:chappell-hill-bluebonnet-festival|a:ima-hogg-texas-legacy|a:camping-in-texas-with-your-dog|a:texas-high-school-football-scores-schedules|a:best-lighthouses-to-visit-in-texas|a:texas-medal-of-honor-heroes|a:texas-red-river-war-guide|a:republic-of-texas-government-trail|a:brazoria-plantations-slavery-emancipation-history|a:texas-frontier-forts-road-trip|c:collin|s:xtreme-raceway-park|d:fossil-rim-wildlife-center|d:sea-life-san-antonio-aquarium|d:san-antonio-aquarium|d:houston-interactive-aquarium-animal-preserve|d:ut-marine-science-institute-patton-center|d:texas-hill-country-olive-co|d:brazos-bend-state-park|d:devils-river-state-natural-area|d:lake-corpus-christi-state-park|d:science-mill-johnson-city|d:silent-wings-museum-lubbock|d:governor-jim-hogg-city-park-quitman|d:messina-hof-hill-country|d:blanton-museum-of-art-austin|d:umlauf-sculpture-garden-museum-austin|d:texas-science-natural-history-museum-austin|d:dr-pepper-museum-waco|d:texas-ranger-hall-of-fame-museum-waco|d:my-story-museum-crystal-city|d:gonzales|d:clifton|d:la-grange|p:high-hill-nativity-of-mary|p:dubina-saints-cyril-methodius|p:umbarger-st-marys-catholic-church|p:lindsay-st-peters-catholic-church|p:fredericksburg-st-marys-catholic-church|";
+
+function texasDefinedDiscoverImageOverride(canonicalPath?: string): DiscoverImageOverride | undefined {
+  if (!canonicalPath) return undefined;
+  if (canonicalPath === "/article/texas-ecoregions-habitats-guide") {
+    return { src: "/images/editorial/texas-ecoregions-habitats.jpg", type: "image/jpeg", width: 1600, height: 2133 };
+  }
+
+  const firstSlash = canonicalPath.indexOf("/", 1);
+  if (firstSlash < 0) return undefined;
+  const root = canonicalPath.slice(1, firstSlash);
+  const slug = canonicalPath.slice(canonicalPath.lastIndexOf("/") + 1);
+  const prefix =
+    root === "article" ? "a" :
+    root === "destination" ? "d" :
+    root === "event" ? "ev" :
+    root === "county" ? "c" :
+    root === "sports-venue" ? "s" :
+    canonicalPath.startsWith("/explore/painted-churches/") ? "p" : "";
+  if (!prefix || !TEXASDEFINED_DISCOVER_IMAGE_KEYS.includes(`|${prefix}:${slug}|`)) return undefined;
+
+  const fileSlug = canonicalPath === "/county/collin" ? "collin-county" : slug;
+  return { src: `/images/discover/${fileSlug}.webp`, type: "image/webp", width: 1600, height: 900 };
+}
 
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
   texasdefined: {
@@ -772,8 +755,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
-  const discoverImage = brand.identity.id === "texasdefined" && page.canonicalPath
-    ? TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]
+  const discoverImage = brand.identity.id === "texasdefined"
+    ? texasDefinedDiscoverImageOverride(page.canonicalPath)
     : undefined;
   const image = discoverImage
     ? { src: discoverImage.src, alt: page.imageAlt, type: discoverImage.type }
