@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
+import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
@@ -16,9 +17,10 @@ export const Route = createFileRoute('/$kind/$slug')({
     const { findCompleteTexasEntity, TEXAS_ENTITY_REGISTRY } = await import('@/data/knowledge-graph');
     const entity = await findCompleteTexasEntity(`${params.kind}:${params.slug}`) ?? await findCompleteTexasEntity(params.slug);
     if (!entity || entity.kind !== params.kind) throw notFound();
-    const graph = TEXAS_ENTITY_REGISTRY.some((candidate) => candidate.id === entity.id)
+    const graph = (TEXAS_ENTITY_REGISTRY.some((candidate) => candidate.id === entity.id)
       ? TEXAS_ENTITY_REGISTRY.map((candidate) => candidate.id === entity.id ? entity : candidate)
-      : [...TEXAS_ENTITY_REGISTRY, entity];
+      : [...TEXAS_ENTITY_REGISTRY, entity])
+      .map((candidate) => candidate.kind === 'sports-venue' ? applyCurrentEntityCorrections(candidate) : candidate);
     const related = rankRelatedEntities(entity, graph, 12);
     const countySportsVenues = entity.kind === 'county'
       ? graph
