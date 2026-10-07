@@ -50,3 +50,13 @@ export function uilFootballEnrollmentBand(
 export function uilFootballConferenceBand(classification: UilFootballClassification) {
   return UIL_FOOTBALL_CONFERENCE_BANDS_2026_28[classification];
 }
+
+export function uilFootballEnrollmentIncludes(
+  band: UilFootballEnrollmentBand | null,
+  enrollment: number | null | undefined,
+) {
+  if (!band || enrollment == null) return null;
+  if (band.minEnrollment != null && enrollment < band.minEnrollment) return false;
+  if (band.maxEnrollment != null && enrollment > band.maxEnrollment) return false;
+  return true;
+}
