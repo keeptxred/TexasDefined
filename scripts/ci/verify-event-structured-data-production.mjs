@@ -301,6 +301,29 @@ async function verifyExpiredConfirmedLeaf() {
   console.log('[bandera-round-up-cattle-drive] expired confirmed occurrence schema suppression verified');
 }
 
+async function verifyHidalgoBorderFestLeaf() {
+  const path = '/event/hidalgo-borderfest';
+  const html = await fetchProduction(path, 'hidalgo-borderfest');
+  assert(canonicalHref(html) === `${origin}${path}`, `Hidalgo BorderFest canonical must be ${origin}${path}`);
+  assert(html.includes('Latest confirmed occurrence has ended.'), 'Hidalgo BorderFest must expose the expired-occurrence warning');
+  assert(html.includes('The next BorderFest dates are not confirmed yet'), 'Hidalgo BorderFest must expose the current next-date guidance');
+  assert(html.includes('Families have more than carnival rides'), 'Hidalgo BorderFest must expose the expanded family-planning section');
+  assert(html.includes('Turn BorderFest into a Rio Grande Valley weekend'), 'Hidalgo BorderFest must expose the expanded regional trip-planning section');
+  assert(html.includes('Event facts last source-checked 2026-10-07'), 'Hidalgo BorderFest must expose the current source-review date');
+  assert(html.includes('Payne_Arena_Hidalgo_Texas_2021.jpg'), 'Hidalgo BorderFest must render the licensed Payne Arena hero');
+  assert(!html.includes('Tickets and admission'), 'Hidalgo BorderFest expired page must suppress stale ticket pricing');
+  assert(!html.includes('Sunday adult one-day admission'), 'Hidalgo BorderFest expired page must not expose the stale 2026 admission offer');
+
+  const blocks = extractJsonLd(html);
+  assert(blocks.length > 0, 'Hidalgo BorderFest leaf must expose JSON-LD');
+  const nodes = blocks.flatMap((block) => collectTypedNodes(block));
+  assert(nodes.some((node) => hasType(node, 'WebPage')), 'Hidalgo BorderFest expired leaf must expose WebPage schema');
+  assert(nodes.some((node) => hasType(node, 'Thing')), 'Hidalgo BorderFest expired leaf must remain described as a Thing');
+  assert(!nodes.some((node) => hasType(node, 'Event')), 'Hidalgo BorderFest expired leaf must suppress stale Event markup');
+  assert(!nodes.some((node) => hasType(node, 'EventScheduled')), 'Hidalgo BorderFest expired leaf must suppress EventScheduled markup');
+  console.log('[hidalgo-borderfest] expanded guide, licensed hero and expired-offer suppression verified');
+}
+
 async function verifyFreeOfferLeaf() {
   const path = '/event/mckinney-oktoberfest';
   const startDate = '2026-09-25';
@@ -405,6 +428,7 @@ try {
   await verifyRecurrenceDerivedLeaves();
   await verifyFiestaLeaf();
   await verifyExpiredConfirmedLeaf();
+  await verifyHidalgoBorderFestLeaf();
   await verifyFreeOfferLeaf();
   await verifyPaidOfferAndPerformersLeaf();
   await verifyRecurringLeaf();
