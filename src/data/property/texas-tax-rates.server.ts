@@ -45,6 +45,20 @@ function numeric(value: number | string | null | undefined) {
 }
 
 export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
+  const totalRate = numeric(row.total_rate);
+  let maintenanceOperationsRate = numeric(row.maintenance_operations_rate);
+  let debtServiceRate = numeric(row.debt_service_rate);
+
+  // Some source/import rows use zero as a placeholder when the component split is
+  // absent even though a non-zero total rate was reported. Rendering both components
+  // as 0.000000 is mathematically impossible and falsely implies an official zero.
+  // Preserve genuine single-component zeroes, but treat the impossible paired-zero
+  // case as "not separately reported" until an authoritative component source exists.
+  if (totalRate != null && totalRate > 0 && maintenanceOperationsRate === 0 && debtServiceRate === 0) {
+    maintenanceOperationsRate = null;
+    debtServiceRate = null;
+  }
+
   return {
     id: row.id,
     year: row.year,
@@ -52,9 +66,9 @@ export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
     name: row.name,
     slug: row.slug,
     countySlugs: row.county_slugs ?? [],
-    totalRate: numeric(row.total_rate),
-    maintenanceOperationsRate: numeric(row.maintenance_operations_rate),
-    debtServiceRate: numeric(row.debt_service_rate),
+    totalRate,
+    maintenanceOperationsRate,
+    debtServiceRate,
     levy: numeric(row.levy),
     sourceUrl: row.source_url,
     sourceStatus: row.source_status as TexasTaxRateSourceStatus,
