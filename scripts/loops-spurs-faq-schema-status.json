@@ -1,9 +1,0 @@
-{
-  "target": "src/routes/article.$slug.tsx",
-  "slug": "texas-loops-spurs-explained",
-  "faqHeading": "Frequently asked questions about Texas Loops and Spurs",
-  "requiredEdits": 2,
-  "transformer": "scripts/enable-loops-spurs-faq-schema.mjs",
-  "verifier": "scripts/verify-loops-spurs-faq-schema.mjs",
-  "safeAgainstStaleFullFileReplacement": true
-}
