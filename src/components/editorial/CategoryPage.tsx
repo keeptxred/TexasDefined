@@ -98,21 +98,21 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
           </div>
           <img src={image.src} alt={image.alt} width={image.width} height={image.height} className="absolute inset-0 size-full object-cover opacity-52" onError={(event) => recoverOrHideImage(event.currentTarget)} />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/68 to-ink/28" />
-          <Container className="relative flex min-h-[480px] flex-col justify-end py-14 sm:min-h-[540px] sm:py-20">
+          <Container className="relative flex min-h-[480px] flex-col justify-end py-14 sm:min-h-[540px] sm:py-20 lg:min-h-[600px]">
             <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} inverse />
             <p className="eyebrow mt-10 text-ink-foreground/75">{eyebrow}</p>
-            <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
-            <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-ink-foreground/82">{intro}</p>
+            <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl xl:text-8xl">{title}</h1>
+            <p className="mt-6 max-w-3xl text-[1.05rem] leading-8 text-ink-foreground/82 xl:text-lg">{intro}</p>
           </Container>
         </section>
       ) : (
         <section className="border-b border-border">
           <Container className="pb-12 pt-16 sm:pb-14 sm:pt-24">
             <CategoryBreadcrumb belongsToExplore={belongsToExplore} belongsToTexasLife={belongsToTexasLife} current={eyebrow} />
-            <div className="mt-10 max-w-5xl border-t border-border pt-8">
+            <div className="mt-10 max-w-6xl border-t border-border pt-8">
               <p className="eyebrow text-primary">{eyebrow}</p>
-              <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
-              <p className="mt-6 max-w-2xl text-[1.05rem] leading-8 text-muted-foreground">{intro}</p>
+              <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl xl:text-8xl">{title}</h1>
+              <p className="mt-6 max-w-3xl text-[1.05rem] leading-8 text-muted-foreground xl:text-lg">{intro}</p>
             </div>
           </Container>
         </section>
@@ -136,7 +136,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         <Section>
           <Container>
             <SectionHeader eyebrow="Featured story" title="This month’s selection" description="A closer look at one story from this section, selected by Texas Defined." />
-            <div className="mt-10 max-w-5xl"><ArticleCard article={lead} size="feature" /></div>
+            <div className="mt-10 max-w-6xl"><ArticleCard article={lead} size="feature" /></div>
           </Container>
         </Section>
       )}
@@ -154,7 +154,7 @@ export function CategoryPage({ category, eyebrow, title, intro, image, authority
         <Section>
           <Container>
             <SectionHeader eyebrow="More from this section" title="Stories, notes and dispatches" />
-            <ul className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
               {others.map((article) => <li key={article.id}><ArticleCard article={article} /></li>)}
             </ul>
           </Container>
