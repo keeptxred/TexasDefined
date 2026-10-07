@@ -103,6 +103,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
         <h2 id="fishing-resources" className="mt-3 font-display text-4xl">More Texas Fishing Resources</h2>
         <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <Resource href="/fishing/compare" title="Compare fishing lakes" copy="Put up to three lake guides side by side." />
+          <Resource href="/texas-data/lake-game-fish-diversity" title="Lake game-fish diversity research" copy="See TexasDefined's original comparison of documented fishing targets across verified lake profiles, with a downloadable dataset." />
           <Resource href="/fishing/seasons" title="Fishing seasons" copy="Understand durable seasonal patterns without confusing them with today's bite." />
           <Resource href="/fishing/techniques" title="Fishing techniques" copy="Browse source-backed methods connected to Texas lakes and species." />
           <Resource href="/fishing/structure" title="Structure & cover" copy="Learn how points, ledges, channels, brush, timber and docks create fishing targets." />
