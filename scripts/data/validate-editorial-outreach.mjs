@@ -66,6 +66,14 @@ for (const marker of [
   "loadUpcomingTexasEventRecordsServer",
   "eventIntake.slice(0, 40)",
   'contentKind: "event"',
+  'event.guidePath.startsWith("/events?")',
+  "relatedProspectResearch",
+  'kind: "organizer"',
+  'kind: "venue"',
+  'kind: "tourism-cvb"',
+  'kind: "chamber"',
+  'kind: "local-community"',
+  "deduplicate",
   "platform.articles.list(scope)",
   "isArticleIndexReady(article)",
   "authoritySourceIntake.slice(0, 40)",
@@ -93,6 +101,9 @@ for (const marker of [
   "New authority pages needing contact research",
   "Pages that should be improved first",
   "Upcoming event guides needing organizer contact research",
+  "Related prospect research",
+  "Research only; nothing is sent or added to the command center automatically.",
+  "deduplicate before promotion",
   "Published articles with named source relationships to evaluate",
   "A citation does not mean",
   "We are not asking for paid placement or a reciprocal-link arrangement.",
@@ -125,4 +136,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, transparent six-factor relationship-first prioritization, quality-gated destination intake, verified event-organizer intake, conservative authority-source research, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
+console.log("Editorial outreach validation passed: ten verified relationship targets, protected admin access, transparent six-factor relationship-first prioritization, quality-gated destination intake, permanent-guide event organizer intake with venue/CVB/chamber/community research lanes and explicit deduplication, conservative authority-source research, improve-before-outreach separation, optional-reference framing and no paid/reciprocal link scheme.");
