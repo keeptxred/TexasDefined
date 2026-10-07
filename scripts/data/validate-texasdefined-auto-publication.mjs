@@ -26,7 +26,7 @@ for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLIS
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
-for (const token of ['pull_request:', 'push:', 'flyover-scheduled-publish-bridge.yml', 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, Canyon Lake article and sitemap membership', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+for (const token of ['workflow_run:', "workflows: ['Deploy TexasDefined production']", "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, Canyon Lake article and sitemap membership', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
 for (const token of ['/news', '/news/2026-08-10-canyon-lake-full-capacity-recovery', 'Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill', '/sitemap.xml', 'canyonLakeInSitemap: true']) {
