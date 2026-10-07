@@ -543,14 +543,17 @@ export function metroProximityHubReady(destinations: Destination[], metro: Metro
   return METRO_PROXIMITY_COLLECTIONS.filter((collection) => isMetroProximityCollectionIndexReady(destinations, metro, collection)).length >= 4;
 }
 
-export function metroProximitySitemapEntries(destinations: Destination[]) {
+export function metroProximitySitemapEntries(
+  destinations: Destination[],
+  isCollectionIndexReady: (destinations: Destination[], metro: MetroProximityMetro, collection: MetroProximityCollection) => boolean = isMetroProximityCollectionIndexReady,
+) {
   const entries: { path: string; lastmod: string }[] = [];
   for (const metro of METRO_PROXIMITY_METROS) {
-    if (metroProximityHubReady(destinations, metro)) {
+    const readyCollections = METRO_PROXIMITY_COLLECTIONS.filter((collection) => isCollectionIndexReady(destinations, metro, collection));
+    if (readyCollections.length >= 4) {
       entries.push({ path: metroProximityCanonicalPath(metro.slug), lastmod: METRO_PROXIMITY_VERIFIED_AT });
     }
-    for (const collection of METRO_PROXIMITY_COLLECTIONS) {
-      if (!isMetroProximityCollectionIndexReady(destinations, metro, collection)) continue;
+    for (const collection of readyCollections) {
       entries.push({ path: metroProximityCanonicalPath(metro.slug, collection.slug), lastmod: METRO_PROXIMITY_VERIFIED_AT });
     }
   }
