@@ -74,10 +74,6 @@ for (const [needle, label] of [
   ['id: live_canonical_health', 'canonical domain health step'],
   ['PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com', 'canonical health origin'],
   ["steps.live_direct_health.outcome == 'success'", 'canonical health direct-Worker dependency'],
-  ['DIRECT_HEALTH_OUTCOME: ${{ steps.live_direct_health.outcome }}', 'aggregate direct-health outcome'],
-  ['CANONICAL_HEALTH_OUTCOME: ${{ steps.live_canonical_health.outcome }}', 'aggregate canonical-health outcome'],
-  ['ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}', 'aggregate rollback outcome'],
-  ['ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}', 'aggregate rollback-health outcome'],
   ['id: predeploy_direct_health', 'predeploy direct Worker health step'],
   ['PRODUCTION_HEALTH_LABEL: predeploy-current-direct-worker', 'predeploy direct Worker health label'],
   ['id: predeploy_canonical_health', 'predeploy canonical-domain health step'],
@@ -103,6 +99,22 @@ for (const [needle, label] of [
   ["env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true'", 'cache-purge step env-flag condition'],
 ]) requireText(workflow, needle, label);
 
+for (const [name, id] of [
+  ['Verify direct Worker health', 'live_direct_health'],
+  ['Verify canonical production health', 'live_canonical_health'],
+]) {
+  const start = workflow.indexOf(`- name: ${name}`);
+  const end = start >= 0 ? workflow.indexOf('\n      - name:', start + 1) : -1;
+  const block = start >= 0 ? workflow.slice(start, end > start ? end : workflow.length) : '';
+  if (!block.includes(`id: ${id}`)) failures.push(`${name} deployment-safety step is missing id ${id}.`);
+  if (block.includes('continue-on-error: true')) failures.push(`${name} must fail closed natively; aggregate outcome bookkeeping must not be restored.`);
+}
+if (workflow.includes('DIRECT_HEALTH_OUTCOME: ${{ steps.live_direct_health.outcome }}') ||
+    workflow.includes('CANONICAL_HEALTH_OUTCOME: ${{ steps.live_canonical_health.outcome }}') ||
+    workflow.includes('ROLLBACK_OUTCOME: ${{ steps.rollback.outcome }}') ||
+    workflow.includes('ROLLBACK_HEALTH_OUTCOME: ${{ steps.rollback_health.outcome }}')) {
+  failures.push('Retired aggregate live-verification outcome bookkeeping must not be restored.');
+}
 for (const [needle, label] of [
   ["CLOUDFLARE_WORKERS_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}", 'Cloudflare smoke dedicated Workers credential fallback'],
   ['Verify Cloudflare Workers, public DNS and production AI binding', 'Cloudflare smoke least-privilege capability label'],
