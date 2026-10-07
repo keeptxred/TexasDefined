@@ -79,7 +79,7 @@ function PaintedChurchSearchGuidePage() {
               return <article key={church.slug} className="bg-background">
                 {image ? <figure>
                   <Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="block overflow-hidden bg-surface">
-                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[4/3] h-auto w-full object-cover transition-transform duration-300 hover:scale-[1.02]" />
+                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[4/3] h-auto w-full object-cover" />
                   </Link>
                   <figcaption className="px-6 pt-3 text-xs leading-5 text-muted-foreground">{image.credit} · {image.license}</figcaption>
                 </figure> : null}
