@@ -9,6 +9,10 @@ export type CityAuthorityFeature = {
   summary: string;
   href: string;
   eyebrow?: string;
+  image?: {
+    src: string;
+    alt: string;
+  };
 };
 
 export type CityAuthorityProfile = {
@@ -122,10 +126,10 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'TCU, Zoo & Clearfork', summary: 'Southwest Fort Worth combines Texas Christian University, the Fort Worth Zoo, Trinity River access, shopping and residential districts that feel distinct from downtown.' },
     ],
     featured: [
-      { eyebrow: 'Western heritage', title: 'Fort Worth Stockyards', summary: 'Start with the city’s signature cattle, rail and Western-history district, then use the destination guide for current planning details.', href: '/destination/fort-worth-stockyards' },
-      { eyebrow: 'Art & architecture', title: 'Kimbell Art Museum', summary: 'Connect the city page directly to one of the Cultural District’s nationally significant museums and architectural landmarks.', href: '/destination/kimbell-art-museum' },
-      { eyebrow: 'Family', title: 'Fort Worth Zoo', summary: 'Use the dedicated zoo guide for a major family attraction south of downtown.', href: '/destination/fort-worth-zoo' },
-      { eyebrow: 'Events & sports', title: 'Dickies Arena', summary: 'Plan around rodeos, concerts, sports and major touring events in the Cultural District.', href: '/sports-venue/dickies-arena' },
+      { eyebrow: 'Western heritage', title: 'Fort Worth Stockyards', summary: 'Start with the city’s signature cattle, rail and Western-history district, then use the destination guide for current planning details.', href: '/destination/fort-worth-stockyards', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1200', alt: 'Fort Worth Stockyards entrance and historic district' } },
+      { eyebrow: 'Art & architecture', title: 'Kimbell Art Museum', summary: 'Connect the city page directly to one of the Cultural District’s nationally significant museums and architectural landmarks.', href: '/destination/kimbell-art-museum', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Kimbell_Art_Museum_Fort_Worth_01.jpg?width=1200', alt: 'Kimbell Art Museum in Fort Worth' } },
+      { eyebrow: 'Family', title: 'Fort Worth Zoo', summary: 'Use the dedicated zoo guide for a major family attraction south of downtown.', href: '/destination/fort-worth-zoo', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum%20of%20Living%20Art%20Fort%20Worth%20Zoo%2C%20March%202026.jpg?width=1200', alt: 'Fort Worth Zoo habitat complex' } },
+      { eyebrow: 'Events & sports', title: 'Dickies Arena', summary: 'Plan around rodeos, concerts, sports and major touring events in the Cultural District.', href: '/sports-venue/dickies-arena', image: { src: '/api/sports-venue-hero?slug=dickies-arena', alt: 'Dickies Arena in Fort Worth' } },
       { eyebrow: 'Nearby trips', title: 'Explore near Fort Worth', summary: 'Continue into lakes, small towns, road trips and other day-trip ideas around the western side of the Metroplex.', href: '/explore/near/fort-worth' },
     ],
     systems: [
