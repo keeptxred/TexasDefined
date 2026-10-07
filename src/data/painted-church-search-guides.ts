@@ -391,7 +391,8 @@ export const paintedChurchSearchGuides: PaintedChurchSearchGuide[] = [
       { question: "Do I need to verify hours?", answer: "Yes. These are active congregations, and worship, weddings, funerals and parish events can change sightseeing access." },
       { question: "How long should I allow at each church?", answer: "Roughly 30–45 minutes is a useful planning range for a first trip, with additional buffer for rural driving and access changes." },
     ],
-  }  {
+  },
+  {
     slug: "painted-churches-from-houston",
     group: "planning",
     title: "Houston to the Painted Churches: One-Day and Overnight Guide",
@@ -432,7 +433,8 @@ export const paintedChurchSearchGuides: PaintedChurchSearchGuide[] = [
       { question: "What is the best overnight extension?", answer: "Add Lavaca County churches such as Shiner, Sweet Home and Moravia on a second day." },
       { question: "Should I call ahead?", answer: "Yes when a specific church is essential. Active worship and private events can change access." },
     ],
-  }  {
+  },
+  {
     slug: "painted-churches-from-san-antonio",
     group: "planning",
     title: "San Antonio to the Painted Churches: Complete One-Day Driving Guide",
@@ -478,7 +480,8 @@ export const paintedChurchSearchGuides: PaintedChurchSearchGuide[] = [
       { question: "Can I take photographs?", answer: "Often yes, but rules can change by church or event. Follow posted guidance and current parish or Chamber instructions, especially for tripods, flash or organized photography." },
       { question: "Should I add Panna Maria to the same day?", answer: "Not to a first four-church day. Panna Maria is a separate South Texas heritage extension and is better given its own time." },
     ],
-  }  {
+  },
+  {
     slug: "painted-churches-weekend-hours",
     group: "planning",
     title: "Are the Texas Painted Churches Open on Weekends?",
