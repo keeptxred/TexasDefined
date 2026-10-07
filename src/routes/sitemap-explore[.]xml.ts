@@ -166,6 +166,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment");
         const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { whirlyballHurstDestinations } = await import("@/data/whirlyball-hurst-destination");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
         const { paintedChurchGlossary } = await import("@/data/painted-church-glossary");
@@ -231,6 +232,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
         const resolvedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
+        const postCityPassSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+        rawDestinations.push(...whirlyballHurstDestinations.filter((destination) => destination.slug && !postCityPassSlugs.has(destination.slug)));
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
         const destinations = await resolveDestinationCatalog(rawDestinations);
