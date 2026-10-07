@@ -5,6 +5,7 @@ import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
+  uilFootballEnrollmentIncludes,
 } from '@/data/high-school-football/enrollment-bands';
 
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
@@ -44,6 +45,21 @@ function Page() {
   const conferenceBand = program
     ? uilFootballConferenceBand(program.classification)
     : null;
+  const enrollmentFitsPlacementBand = program?.uilEnrollment != null
+    ? uilFootballEnrollmentIncludes(enrollmentBand, program.uilEnrollment)
+    : null;
+  const hasEnrollmentPlacementException = enrollmentFitsPlacementBand === false;
+  const latestSourceReview = [
+    identity?.verifiedAt,
+    enrollmentLink?.verifiedAt,
+    editorial?.coach?.verifiedAt,
+    editorial?.campus?.verifiedAt,
+    editorial?.schedule?.verifiedAt,
+    editorial?.venue?.verifiedAt,
+    editorial?.development?.verifiedAt,
+    editorial?.seasonSnapshot?.verifiedAt,
+    ...venueLinks.map((venue) => venue.verifiedAt),
+  ].filter((value): value is string => Boolean(value)).sort().at(-1);
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
@@ -59,6 +75,7 @@ function Page() {
           <p className="eyebrow text-primary">2026 Texas high school football</p>
           <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">{profileSummary}</p>
+          {latestSourceReview && <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">School-specific sources reviewed through {latestSourceReview}</p>}
         </div>
         <dl className="border-y border-border py-3 text-sm lg:border-y-0 lg:border-l lg:pl-6">
           <Fact label="Governing body" value={associationLabel} />
@@ -100,6 +117,36 @@ function Page() {
         </div>
       </section>}
 
+      {editorial?.seasonSnapshot && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Current season</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial.seasonSnapshot.seasonLabel}</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">A dated snapshot of results and upcoming games. Use the official school schedule for late changes to kickoff time, opponent or venue.</p>
+        </div>
+        <div>
+          <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {editorial.seasonSnapshot.overallRecord && <Snapshot label="Overall record" value={editorial.seasonSnapshot.overallRecord} />}
+            {editorial.seasonSnapshot.districtRecord && <Snapshot label="District record" value={editorial.seasonSnapshot.districtRecord} />}
+            {editorial.seasonSnapshot.nextGame && <Snapshot label="Next game" value={`${editorial.seasonSnapshot.nextGame.dateLabel} · ${editorial.seasonSnapshot.nextGame.site} vs. ${editorial.seasonSnapshot.nextGame.opponent}${editorial.seasonSnapshot.nextGame.district ? ' · District' : ''}`} />}
+            <Snapshot label="Snapshot verified" value={editorial.seasonSnapshot.verifiedAt} />
+          </dl>
+          <div className="mt-6 divide-y divide-border border-y border-border">
+            {editorial.seasonSnapshot.games.map((game) => <div key={`${game.dateLabel}-${game.opponent}`} className="grid gap-1 py-4 text-sm sm:grid-cols-[7rem_1fr_8rem_7rem]">
+              <span className="font-semibold">{game.dateLabel}</span>
+              <span>{game.opponent}{game.district ? ' *' : ''}</span>
+              <span className="text-muted-foreground">{game.site}</span>
+              <span className={game.result ? 'font-semibold text-foreground' : 'text-muted-foreground'}>{game.result || 'Scheduled'}</span>
+            </div>)}
+          </div>
+          <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. Record and results are a dated snapshot, not a live scoreboard.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            <a href={editorial.seasonSnapshot.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.seasonSnapshot.sourceLabel} ↗</a>
+            {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.sourceLabel} ↗</a>}
+            <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard ↗</a>
+          </div>
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">School snapshot</p>
@@ -114,13 +161,15 @@ function Page() {
               <Snapshot label="UIL classification" value={program.classification} />
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
               {program.uilEnrollment && <Snapshot label="UIL reported enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
-              <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />
+              <Snapshot label={hasEnrollmentPlacementException ? 'Standard final-placement band' : 'UIL enrollment band'} value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
+            {hasEnrollmentPlacementException ? <p className="mt-4 text-sm leading-7 text-muted-foreground">
+              UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment?.toLocaleString('en-US')}</strong>, which falls outside the standard <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong> band for this program’s final football placement. UIL’s alphabetical listing separately records a submitted conference of <strong className="text-foreground">{program.uilSubmittedConference || 'not shown'}</strong> and a football format of <strong className="text-foreground">{program.footballType || 'not shown'}</strong>. TexasDefined therefore treats the final 2026–28 football alignment ({alignmentLabel(program)}) as authoritative for competition and does not imply that the reported enrollment itself falls inside the standard placement band.
+            </p> : <p className="mt-4 text-sm leading-7 text-muted-foreground">
               TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. For the 2026–28 cycle, this program’s final football classification{program.division ? ' and football division' : ''} corresponds to an enrollment band of <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>{program.uilEnrollment ? <> and UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment.toLocaleString('en-US')}</strong></> : null}. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
-            </p>
-            {program.uilSubmittedConference && program.uilSubmittedConference !== program.classification && <p className="mt-2 text-xs leading-6 text-muted-foreground">UIL’s alphabetical enrollment listing records a submitted conference of {program.uilSubmittedConference}; TexasDefined uses the final 2026–28 football alignment ({program.classification}) for competition placement.</p>}
+            </p>}
+            {!hasEnrollmentPlacementException && program.uilSubmittedConference && program.uilSubmittedConference !== program.classification && <p className="mt-2 text-xs leading-6 text-muted-foreground">UIL’s alphabetical enrollment listing records a submitted conference of {program.uilSubmittedConference}; TexasDefined uses the final 2026–28 football alignment ({program.classification}) for competition placement.</p>}
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
               <a href={UIL_EXACT_ENROLLMENT_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alphabetical enrollment listing ↗</a>
               <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
@@ -308,7 +357,7 @@ function Page() {
         </div>
       </section>}
 
-      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {program && !editorial?.seasonSnapshot && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">2026 scores & schedule sources</h2>
@@ -366,6 +415,8 @@ function Page() {
             {program?.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
             {identity && <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School identity source ↗</a>}
             {privateAlignment && <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Association alignment source ↗</a>}
+            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.sourceLabel} ↗</a>}
+            {editorial?.seasonSnapshot && <a href={editorial.seasonSnapshot.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.seasonSnapshot.sourceLabel} ↗</a>}
             {venueLinks.map((venue) => <a key={venue.officialUrl} href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{venue.venueName} source ↗</a>)}
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard ↗</a>
           </div>
