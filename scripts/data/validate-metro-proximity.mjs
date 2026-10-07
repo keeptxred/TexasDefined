@@ -151,9 +151,14 @@ for (const token of [
 ]) requireText(files.exploreUi, token, `Explore internal discovery missing ${token}`);
 
 for (const token of [
-  'await import("@/data/metro-proximity")', "metroProximitySitemapEntries(indexableDestinations)",
+  'await import("@/data/metro-proximity")', "await metroProximitySitemapEntries(indexableDestinations)",
   "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+for (const token of [
+  'await import("./metro-proximity-town-references")',
+  "isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection)",
+  "const readyCollections = METRO_PROXIMITY_COLLECTIONS.filter",
+]) requireText(files.data, token, `Metro sitemap/page readiness parity missing ${token}`);
 
 for (const token of [
   "applyMetroProximityEdgeCachePolicy", 'url.pathname.startsWith("/explore/near/")',
