@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabaseAdmin as supabase } from "@/integrations/supabase/client.server";
 import {
   texasBrandLocatorLabel,
   texasBrandLocatorOfficialUrl,
