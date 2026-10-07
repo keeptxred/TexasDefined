@@ -203,6 +203,19 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
+          {guide.faqs?.length ? (
+            <EditorialSection eyebrow="Visitor questions" title={`Questions about ${entity.name}`}>
+              <dl className="grid gap-6 md:grid-cols-2">
+                {guide.faqs.map(({ question, answer }) => (
+                  <div key={question} className="border-t border-border pt-4">
+                    <dt className="font-display text-xl leading-snug">{question}</dt>
+                    <dd className="mt-3 text-sm leading-7 text-muted-foreground">{answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </EditorialSection>
+          ) : null}
+
           {guide.nearbyPlaces?.length ? (
             <NearbyPlacesSection items={guide.nearbyPlaces} />
           ) : attractions.length >= 2 ? (
@@ -325,6 +338,7 @@ function KnowBeforeYouGo({
         <GuideItem title="Arrival" body={arrival} />
         {guide.bagPolicy ? <GuideItem title="Bags and security" body={guide.bagPolicy} /> : null}
         {guide.accessibility ? <GuideItem title="Accessibility" body={guide.accessibility} /> : null}
+        {guide.cashlessPolicy ? <GuideItem title="Payments and re-entry" body={guide.cashlessPolicy} /> : null}
       </div>
       {guide.stadiumMapUrl ? (
         <a className="mt-6 inline-flex min-h-11 items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary"
