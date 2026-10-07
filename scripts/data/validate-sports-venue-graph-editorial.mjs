@@ -65,9 +65,7 @@ assert(countyComponent.includes('{venue.description ? <span'), 'County sports de
 assert(entityRoute.includes("const countySportsCandidates = entity.kind === 'county'"), 'County route must continue deriving sports venues from the loaded full graph.');
 assert(entityRoute.includes("candidate.kind === 'sports-venue'"), 'County route must continue selecting sports venues from the loaded full graph.');
 assert(entityRoute.includes('.map(applyCurrentEntityCorrections)'), 'County route must suppress retired generated sports-venue seed descriptions before rendering cards.');
-assert(entityRoute.includes("await import('@/data/sports-venue-editorial.server')"), 'County SSR route must load vetted sports-venue editorial directly from the server-only registry.');
-assert(entityRoute.includes('getSportsVenueEditorialDescriptionServer(venue.id)'), 'County SSR route must resolve each displayed venue from the vetted server-only editorial registry.');
-assert(!entityRoute.includes("await import('@/data/sports-venue-editorial.functions')"), 'County SSR route must not call its own createServerFn bridge while rendering county cards.');
+assert(entityRoute.includes("getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } })"), 'County route must bulk-load vetted sports-venue editorial descriptions.');
 assert(entityRoute.includes('countySportsEditorial[venue.id]'), 'County route must apply vetted sports-venue editorial descriptions to county cards.');
 
 const editorialEntries = editorialSources.flatMap((source) =>
