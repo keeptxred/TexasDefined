@@ -21,4 +21,12 @@ describe("remote Explore read policy", () => {
     expect(coreSource.match(/if \(!hasExploreRemoteData\(\)\) return null;/g)).toHaveLength(1);
     expect(graphSource).toContain("return hasExploreRemoteData();");
   });
+
+  it("preserves the dynamic sitemap policy API and aborts slow server reads", () => {
+    expect(exploreSource).toContain("export { hasExploreRemoteData };");
+    expect(exploreSource.match(/AbortSignal\.timeout\(2_500\)/g)).toHaveLength(2);
+    expect(coreSource.match(/AbortSignal\.timeout\(2_500\)/g)).toHaveLength(2);
+    expect(exploreSource.match(/import\.meta\.env\.SSR/g)?.length).toBeGreaterThanOrEqual(2);
+    expect(coreSource.match(/import\.meta\.env\.SSR/g)?.length).toBeGreaterThanOrEqual(2);
+  });
 });
