@@ -1,5 +1,0 @@
-FAQ_ARTICLE_SLUGS must include:
-  "texas-loops-spurs-explained",
-
-FAQ_START_HEADING_BY_SLUG must include:
-  "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
