@@ -54,6 +54,18 @@ const entries = [
     "/images/sports-venues/xtreme-raceway-park.jpg"
   ],
   [
+    "freeman-coliseum",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Carnival_scene_outside_the_San_Antonio_Stock_Show_and_Rodeo_on_the_grounds_of_the_Freeman_Coliseum,_San_Antonio,_Texas_LCCN2014631343.tif?width=1600"
+  ],
+  [
+    "eagle-stadium-allen",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Eagle_Stadium.jpg?width=1600"
+  ],
+  [
+    "mesquite-memorial-stadium",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mesquite_Memorial_Stadium_from_End_Zone.jpg?width=1600"
+  ],
+  [
     "fossil-rim-wildlife-center",
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fossil_Rim_Wildlife_Center_(49193476352).jpg"
   ],
