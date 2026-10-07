@@ -1165,7 +1165,7 @@ if (!errors.length) {
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
   for (const marker of [
-    'Texas High School Football Scores & Schedules: How to Follow the 2026 Season',
+    'Texas High School Football Scores 2026: Schedules & UIL Scoreboard',
     'https://www.uiltexas.org/athletics/uil-maxpreps',
     'UIL Texas Scoreboard',
     'scores and weekly schedules',
