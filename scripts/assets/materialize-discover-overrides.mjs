@@ -184,7 +184,7 @@ if (!command) throw new Error("ImageMagick is required to materialize governed D
 
 const REMOTE_SOURCE_ATTEMPTS = 5;
 const RETRYABLE_SOURCE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
-const MIN_REMOTE_FETCH_INTERVAL_MS = 1250;
+// Wikimedia throttles shared GitHub-hosted runner IPs aggressively. Keep the\n// governed materializer below that threshold; deploys favor reliability over\n// shaving a few minutes off remote image preparation.\nconst MIN_REMOTE_FETCH_INTERVAL_MS = 10_000;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 let lastRemoteFetchAt = 0;
