@@ -1,58 +1,38 @@
 import { Container } from "@/components/layout/Container";
 
-const STATE_ABBREVIATIONS: Record<string, string> = {
-  Alabama: "AL", Alaska: "AK", Arizona: "AZ", Arkansas: "AR", California: "CA", Colorado: "CO",
-  Connecticut: "CT", Delaware: "DE", Florida: "FL", Georgia: "GA", Hawaii: "HI", Idaho: "ID",
-  Illinois: "IL", Indiana: "IN", Iowa: "IA", Kansas: "KS", Kentucky: "KY", Louisiana: "LA",
-  Maine: "ME", Maryland: "MD", Massachusetts: "MA", Michigan: "MI", Minnesota: "MN", Mississippi: "MS",
-  Missouri: "MO", Montana: "MT", Nebraska: "NE", Nevada: "NV", "New Hampshire": "NH", "New Jersey": "NJ",
-  "New Mexico": "NM", "New York": "NY", "North Carolina": "NC", "North Dakota": "ND", Ohio: "OH",
-  Oklahoma: "OK", Oregon: "OR", Pennsylvania: "PA", "Rhode Island": "RI", "South Carolina": "SC",
-  "South Dakota": "SD", Tennessee: "TN", Texas: "TX", Utah: "UT", Vermont: "VT", Virginia: "VA",
-  Washington: "WA", "West Virginia": "WV", Wisconsin: "WI", Wyoming: "WY",
-};
-
-// MIT-licensed state artwork from coryetzkorn/state-svg-defs, pinned to a fixed revision.
-const STATE_IMAGE_ROOT =
-  "https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/SVG";
+const STATE_NAMES = [
+  "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+  "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+  "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+  "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+  "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+  "West Virginia", "Wisconsin", "Wyoming",
+];
+const STATE_CODES = "ALAKAZARCACOCTDEFLGAHIIDILINIAKSKYLAMEMDMAMIMNMSMOMTNENVNHNJNMNYNCNDOHOKORPARISCSDTNTXUTVTVAWAWVWIWY";
+const STATE_SPRITE_PATH = `/media/remote?url=${encodeURIComponent("https://cdn.jsdelivr.net/gh/coryetzkorn/state-svg-defs@5e5141e6117c793abf1892d0e4c8a4ebb76b032a/state-svg-defs.svg")}`;
 
 function StateOutline({ state }: { state: string }) {
-  const abbreviation = STATE_ABBREVIATIONS[state];
-  if (!abbreviation) return null;
-
-  const filterId = `texas-compared-outline-${abbreviation}`;
+  const index = STATE_NAMES.indexOf(state);
+  if (index < 0) return null;
+  const abbreviation = STATE_CODES.slice(index * 2, index * 2 + 2);
 
   return (
     <svg
       viewBox="0 0 100 80"
-      aria-hidden="true"
-      focusable="false"
       style={{
         display: "block",
         width: "100%",
         height: "clamp(8rem, 18vw, 16rem)",
-        overflow: "visible",
-        color: "currentColor",
         opacity: 0.72,
       }}
     >
-      <defs>
-        <filter id={filterId} x="-12%" y="-12%" width="124%" height="124%" colorInterpolationFilters="sRGB">
-          <feMorphology in="SourceAlpha" operator="dilate" radius="0.65" result="outer" />
-          <feMorphology in="SourceAlpha" operator="erode" radius="0.65" result="inner" />
-          <feComposite in="outer" in2="inner" operator="out" result="edge" />
-          <feFlood floodColor="currentColor" result="ink" />
-          <feComposite in="ink" in2="edge" operator="in" />
-        </filter>
-      </defs>
-      <image
-        href={`${STATE_IMAGE_ROOT}/${abbreviation}.svg`}
-        x="0"
-        y="0"
+      <use
+        href={`${STATE_SPRITE_PATH}#icon-state-${abbreviation}`}
         width="100"
         height="80"
-        preserveAspectRatio="xMidYMid meet"
-        filter={`url(#${filterId})`}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="0.8"
       />
     </svg>
   );
