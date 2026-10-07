@@ -72,14 +72,12 @@ export const majorEventSchemaEnrichmentBatch5: MajorEventSchemaEnrichment[] = [
   {
     slug: "hidalgo-borderfest",
     organizer: organization("City of Hidalgo", "https://www.hidalgoborderfest.com/"),
-    offers: [
-      usdOffer("Sunday adult one-day admission", 18, "https://tickets.hidalgoborderfest.com/p/tickets"),
-    ],
     sources: [
       { label: "Hidalgo BorderFest official About page — staged by the City of Hidalgo", url: "https://www.hidalgoborderfest.com/aboutborderfest" },
-      { label: "Hidalgo BorderFest official 2026 ticket portal", url: "https://tickets.hidalgoborderfest.com/p/tickets" },
+      { label: "Hidalgo BorderFest official 2026 ticket portal and festival hours", url: "https://tickets.hidalgoborderfest.com/p/tickets" },
+      { label: "Hidalgo BorderFest official 2026 ticket terms and admission distinctions", url: "https://www.hidalgoborderfest.com/borderfestticketinformation" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-07",
   },
   {
     slug: "austin-reggae-festival",
