@@ -32,7 +32,7 @@ permissions:
 
 concurrency:
   group: texasdefined-production
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -72,8 +72,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends imagemagick
+          if command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1; then
+            exit 0
+          fi
+          timeout 180s sudo apt-get update -qq
+          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick
           command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1
 
       - name: Report Cloudflare deployment credential source
