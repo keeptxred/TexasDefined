@@ -3,8 +3,8 @@ import type { ArticleInternalLink } from "../types";
 
 const mapLink: ArticleInternalLink = {
   href: "/explore/lighthouses",
-  label: "Explore the Texas lighthouse map",
-  description: "Compare surviving, relocated and border lights along the Gulf Coast and jump into the relevant county stories.",
+  label: "Explore the Texas lighthouse guide",
+  description: "Compare surviving, relocated and border lights through photo guides, access notes and the relevant county stories.",
 };
 
 const completeGuide: ArticleInternalLink = {
