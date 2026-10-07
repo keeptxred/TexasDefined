@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { Container } from "@/components/layout/Container";
 import { paintedChurchMapPointBySlug, paintedChurchMapPoints } from "@/data/painted-church-map-points";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
@@ -131,7 +132,7 @@ function PaintedChurchMapDirectory() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(280px,.55fr)]">
           <div className="overflow-hidden border border-border bg-surface p-2 sm:p-5">
-            <svg viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="painted-map-title painted-map-desc" className="h-auto w-full">
+            <svg id="painted-churches-statewide-graphic" viewBox={`0 0 ${mapWidth} ${mapHeight}`} role="img" aria-labelledby="painted-map-title painted-map-desc" className="h-auto w-full">
               <title id="painted-map-title">Interactive map of verified Texas Painted Churches</title>
               <desc id="painted-map-desc">A simplified Texas outline with church pins positioned from sourced latitude and longitude coordinates. Use the filter buttons above or the accessible church directory below.</desc>
               <rect x="0" y="0" width={mapWidth} height={mapHeight} className="fill-background" />
@@ -150,6 +151,14 @@ function PaintedChurchMapDirectory() {
               })}
             </svg>
             <p className="border-t border-border px-2 pt-4 text-xs leading-6 text-muted-foreground">The Texas outline is deliberately simplified for orientation. Pin coordinates are independently sourced. “Near-property” usually reflects a geotagged photograph or closely mapped feature; “community” is intentionally less precise and is never presented as an exact church entrance.</p>
+            <PublishableGraphic
+              targetId="painted-churches-statewide-graphic"
+              filename={`painted-churches-texas-map-${filter}`}
+              title="Painted Churches of Texas statewide map"
+              methodologyHref="/explore/painted-churches/methodology"
+              sourceNote={`The downloaded graphic reflects the current “${filters.find((item) => item.id === filter)?.label ?? "All verified"}” filter and uses the same sourced coordinates shown on this page.`}
+              compact
+            />
           </div>
 
           <aside className="border-t-2 border-foreground pt-6">
