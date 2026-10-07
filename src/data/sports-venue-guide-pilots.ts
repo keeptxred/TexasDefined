@@ -19,6 +19,15 @@ export type SportsVenueGuidePilot = {
   bagPolicy?: string;
   accessibility?: string;
   nearbyPlaces?: readonly { label: string; detail: string; href: string }[];
+  gallery?: readonly {
+    imageUrl: string;
+    alt: string;
+    caption: string;
+    sourceUrl: string;
+    credit: string;
+    license: string;
+    licenseUrl: string;
+  }[];
   reviewedAt?: string;
   sources: readonly SportsVenueGuideSource[];
 };
@@ -136,6 +145,26 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
       { label: "AT&T Stadium", detail: "Dallas Cowboys stadium and tours in the entertainment district", href: "/sports-venue/att-stadium" },
       { label: "Texas Live!", detail: "Dining and entertainment close to the ballparks", href: "https://texas-live.com/" },
       { label: "Explore Arlington", detail: "More attractions and practical city information", href: "/city/arlington" },
+    ],
+    gallery: [
+      {
+        imageUrl: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Globe_Life_Park_Final_Game%2C_Arlington%2C_Texas_%2848823213363%29.jpg?width=1200",
+        alt: "Crowd at Globe Life Park for one of the Texas Rangers' final 2019 games at the ballpark",
+        caption: "Rangers-era view from 2019, before the move to Globe Life Field.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Globe_Life_Park_Final_Game,_Arlington,_Texas_(48823213363).jpg",
+        credit: "Nicolas Henderson",
+        license: "CC BY 2.0",
+        licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      },
+      {
+        imageUrl: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Richard_Greene_Linear_Park_June_2020_20_%28Globe_Life_Park_in_Arlington%29.jpg?width=1200",
+        alt: "Globe Life Park's red-brick exterior seen from Richard Greene Linear Park in June 2020",
+        caption: "The historic ballpark exterior during the 2020 transition.",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Richard_Greene_Linear_Park_June_2020_20_(Globe_Life_Park_in_Arlington).jpg",
+        credit: "Michael Barera",
+        license: "CC BY-SA 4.0",
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      },
     ],
     reviewedAt: "2026-10-07",
     sources: [
