@@ -72,8 +72,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends imagemagick
+          if command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1; then
+            echo 'ImageMagick already available on runner.'
+          else
+            for attempt in 1 2 3; do
+              if sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends imagemagick; then
+                break
+              fi
+              if [[ "$attempt" == '3' ]]; then
+                echo '::error title=ImageMagick install failed::Runner package mirrors did not provide the governed image build dependency after 3 attempts.'
+                exit 1
+              fi
+              sleep $((attempt * 5))
+            done
+          fi
           command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1
 
       - name: Report Cloudflare deployment credential source
