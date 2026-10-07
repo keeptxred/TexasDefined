@@ -52,6 +52,9 @@ export function SportsVenueGuidePage({
   const officialUrl = guide.officialUrl ?? entity.officialUrl;
   const directionsUrl = buildDirectionsUrl(entity, guide);
   const reviewedAt = guide.reviewedAt ?? enrichment?.verifiedAt ?? entity.sourceCheckedAt;
+  const officialEventCalendarUrl = guide.eventScheduleUrl
+    ?? guide.sources.find((source) => /event|calendar|schedule/i.test(source.label))?.href
+    ?? enrichment?.planningLinks.find((link) => /event|calendar|schedule/i.test(link.label))?.url;
   // A city in the same county is not necessarily a nearby attraction.
   const attractions = nearbyAttractions.filter((item) => item.kind !== "city").slice(0, 4);
   const schemaType = sportsVenueSchemaType(entity);
@@ -146,14 +149,14 @@ export function SportsVenueGuidePage({
             emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
           />
 
-          {guide.eventScheduleUrl ? (
+          {officialEventCalendarUrl ? (
             <div className="border-b border-border pb-7">
               <p className="max-w-4xl text-sm leading-7 text-muted-foreground">
                 Our event listings are a dated, source-verified selection, not a live mirror of every event or ticket change.
                 Confirm dates and admission on the venue's official calendar.
               </p>
               <a className="mt-3 inline-block text-sm font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary"
-                href={guide.eventScheduleUrl} target="_blank" rel="noopener noreferrer">See the complete official event schedule ↗</a>
+                href={officialEventCalendarUrl} target="_blank" rel="noopener noreferrer">See the complete official event schedule ↗</a>
             </div>
           ) : null}
 
