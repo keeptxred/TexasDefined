@@ -111,13 +111,13 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   for (const entity of cityMetroAuthority?.cityMetroAuthoritySeedEntities() ?? []) merged.set(entity.id, entity);
   for (const entity of remote) {
     const existing = merged.get(entity.id);
-    merged.set(entity.id, existing ? {
+    merged.set(entity.id, currentStaticEntity(existing ? {
       ...existing,
       ...entity,
       aliases: [...new Set([...existing.aliases, ...entity.aliases])],
       relationships: [...existing.relationships, ...entity.relationships.filter((relationship) => !existing.relationships.some((item) => item.type === relationship.type && item.targetId === relationship.targetId))],
       tags: [...new Set([...(existing.tags ?? []), ...(entity.tags ?? [])])],
-    } : entity);
+    } : entity));
   }
 
   const graph = [...merged.values()];
