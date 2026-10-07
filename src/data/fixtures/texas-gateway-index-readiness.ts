@@ -41,6 +41,10 @@ export const ARTICLE_INDEX_MIN_BODY_WORDS = 600;
 export const SEASONAL_INTENT_INDEX_MIN_BODY_WORDS = 400;
 export const ARTICLE_INDEX_MIN_DEK_CHARS = 80;
 export const ARTICLE_DISCOVERY_MIN_READING_MINUTES = 4;
+const ARTICLE_INDEX_MIN_HEADINGS = 2;
+const ARTICLE_INDEX_MIN_DISCOVERY_LINKS = 2;
+const ARTICLE_INDEX_MIN_HERO_WIDTH = 600;
+const ARTICLE_INDEX_MIN_HERO_HEIGHT = 315;
 
 export function isTexasGatewayArticle(article: Pick<Article, "brandId" | "id">): boolean {
   return article.brandId === "texasdefined" && article.id.startsWith("gateway-");
@@ -70,14 +74,55 @@ export function articleBodyWordCount(article: Pick<Article, "body">): number {
 function hasValidOptionalSource(article: Pick<Article, "sourceName" | "sourceUrl">): boolean {
   const name = article.sourceName?.trim() ?? "";
   const url = article.sourceUrl?.trim() ?? "";
-  if (!name && !url) return true;
-  if (!name || !url) return false;
+  if (!name || !url) return name === url;
   try {
-    const parsed = new URL(url);
-    return parsed.protocol === "https:" || parsed.protocol === "http:";
+    return /^https?:$/.test(new URL(url).protocol);
   } catch {
     return false;
   }
+}
+
+function hasSaneArticleTitle(title: string): boolean {
+  const value = title.trim();
+  return value.length >= 20
+    && value.length <= 110
+    && !/\s{2,}|[!?.,:;\-–—]{3,}|\|\s*Texas\s*Defined\s*$/i.test(value);
+}
+
+function hasUsefulHero(article: Pick<Article, "hero">): boolean {
+  const hero = article.hero;
+  return Boolean(
+    hero?.src?.trim()
+    && hero.alt?.trim().length >= 20
+    && Number.isFinite(hero.width)
+    && Number.isFinite(hero.height)
+    && hero.width >= ARTICLE_INDEX_MIN_HERO_WIDTH
+    && hero.height >= ARTICLE_INDEX_MIN_HERO_HEIGHT,
+  );
+}
+
+function hasUsefulEditorialStructure(article: Pick<Article, "body">): boolean {
+  if (article.body.length === 0) return true;
+  let headings = 0;
+  let paragraphs = 0;
+  for (const block of article.body) {
+    if (block.type === "heading") {
+      const length = block.text.trim().length;
+      if (length < 8 || length > 100) return false;
+      headings += 1;
+    } else if (block.type === "paragraph" && block.text.trim()) {
+      paragraphs += 1;
+    }
+  }
+  return headings >= ARTICLE_INDEX_MIN_HEADINGS && paragraphs >= 3;
+}
+
+function hasDiscoveryLinks(article: Pick<Article, "internalLinks" | "relatedDestinations" | "relatedCollections">): boolean {
+  const internal = article.internalLinks?.filter((link) => {
+    const href = link.href.trim();
+    return href.startsWith("/") && !href.startsWith("//") && link.label.trim().length >= 3;
+  }).length ?? 0;
+  return internal + article.relatedDestinations.length + article.relatedCollections.length >= ARTICLE_INDEX_MIN_DISCOVERY_LINKS;
 }
 
 function hasArticleReadinessMetadata(article: Article): boolean {
@@ -85,6 +130,11 @@ function hasArticleReadinessMetadata(article: Article): boolean {
   if (!article.title.trim() || article.dek.trim().length < ARTICLE_INDEX_MIN_DEK_CHARS) return false;
   if (!article.authorId.trim()) return false;
   if (!article.hero?.src?.trim() || !article.hero?.alt?.trim()) return false;
+  if (import.meta.env.SSR && (
+    !hasSaneArticleTitle(article.title)
+    || !hasUsefulHero(article)
+    || !hasDiscoveryLinks(article)
+  )) return false;
   return hasValidOptionalSource(article);
 }
 
@@ -97,7 +147,12 @@ function meetsArticleIndexBodyFloor(article: Article): boolean {
 /**
  * Strict route-level boundary for a fully loaded editorial article. Direct URLs
  * remain usable for QA/history, but a full article must carry substantive body
- * depth before it can be indexed.
+ * depth, useful editorial structure, valid media and crawlable internal discovery
+ * before it can be indexed.
+ *
+ * The strict structural/media/discovery checks are server-only because they
+ * govern indexability, sitemap publication and SSR metadata rather than browser
+ * interaction. Vite can therefore remove that policy code from the client bundle.
  *
  * The explicit seasonal intent family uses a 400-word body floor because those
  * pages answer narrow planning questions and already carry source, author, hero,
@@ -105,7 +160,9 @@ function meetsArticleIndexBodyFloor(article: Article): boolean {
  * for every other article family.
  */
 export function isArticleIndexReady(article: Article): boolean {
-  return hasArticleReadinessMetadata(article) && meetsArticleIndexBodyFloor(article);
+  return hasArticleReadinessMetadata(article)
+    && (!import.meta.env.SSR || hasUsefulEditorialStructure(article))
+    && meetsArticleIndexBodyFloor(article);
 }
 
 /**
@@ -120,7 +177,9 @@ export function isArticleIndexReady(article: Article): boolean {
  */
 export function isArticleDiscoveryReady(article: Article): boolean {
   if (!hasArticleReadinessMetadata(article)) return false;
-  if (meetsArticleIndexBodyFloor(article)) return true;
+  if (meetsArticleIndexBodyFloor(article)) {
+    return !import.meta.env.SSR || hasUsefulEditorialStructure(article);
+  }
   return article.body.length === 0
     && article.readingMinutes >= ARTICLE_DISCOVERY_MIN_READING_MINUTES;
 }
