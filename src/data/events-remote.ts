@@ -68,12 +68,28 @@ export async function fetchPublishedTexasEvents(limit = 24): Promise<TexasEvent[
     order: "start_date.asc,editorial_score.desc,confidence_score.desc",
     limit: String(Math.max(1, Math.min(limit, 100))),
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/texas_events?${params}`, {
-    headers: headers(),
-    signal: AbortSignal.timeout(REMOTE_EVENT_TIMEOUT_MS),
-  });
-  if (!response.ok) throw new Error(`Texas events request failed: ${response.status}`);
-  const value = await response.json();
-  if (!Array.isArray(value)) return [];
-  return value.map((row) => mapRow(row as Record<string, unknown>)).filter((event) => event.name && event.startDate);
+  const url = `${supabaseUrl}/rest/v1/texas_events?${params}`;
+  const requestHeaders = headers();
+  let rows: Record<string, unknown>[];
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    rows = await fetchCachedRemoteJsonRows({
+      cacheKey: "texas_events",
+      url,
+      headers: requestHeaders,
+      timeoutMs: REMOTE_EVENT_TIMEOUT_MS,
+      errorLabel: "Texas events remote read",
+    });
+  } else {
+    const response = await fetch(url, {
+      headers: requestHeaders,
+      signal: AbortSignal.timeout(REMOTE_EVENT_TIMEOUT_MS),
+    });
+    if (!response.ok) throw new Error(`Texas events request failed: ${response.status}`);
+    const value = await response.json();
+    rows = Array.isArray(value) ? value : [];
+  }
+
+  return rows.map((row) => mapRow(row)).filter((event) => event.name && event.startDate);
 }
