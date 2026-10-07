@@ -477,8 +477,8 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Official UIL alphabetical enrollment listing',
     'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
-    'Venue details not yet available',
-    'Every UIL school profile has the same game-venue field.',
+    'Texas football stadiums',
+    'Browse venue guides and game-day planning information.',
     'Official district enrollment',
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
