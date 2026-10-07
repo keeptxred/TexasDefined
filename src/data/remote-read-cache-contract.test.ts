@@ -2,13 +2,22 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const articlesSource = readFileSync(new URL("./articles-remote.ts", import.meta.url), "utf8");
+const exploreSource = readFileSync(new URL("./explore-remote.ts", import.meta.url), "utf8");
+const coreExploreSource = readFileSync(new URL("./explore-core-remote.ts", import.meta.url), "utf8");
+const graphSource = readFileSync(new URL("./knowledge-graph/explore-adapter.ts", import.meta.url), "utf8");
 const cacheSource = readFileSync(new URL("./remote-read-cache.server.ts", import.meta.url), "utf8");
 
-describe("remote article read protection", () => {
-  it("keeps the cache server-only and leaves the browser on direct bounded fetches", () => {
-    expect(articlesSource).toContain("if (import.meta.env.SSR)");
-    expect(articlesSource).toContain('await import("./remote-read-cache.server")');
+describe("shared remote read protection", () => {
+  it("keeps the cache server-only and routes all high-volume SSR readers through it", () => {
+    for (const source of [articlesSource, exploreSource, coreExploreSource, graphSource]) {
+      expect(source).toContain("if (import.meta.env.SSR)");
+      expect(source).toContain("fetchCachedRemoteJsonRows");
+    }
+
     expect(articlesSource).toContain('cacheKey: "texasdefined_articles"');
+    expect(exploreSource).toContain('cacheKey: "explore_entities"');
+    expect(coreExploreSource).toContain('cacheKey: "explore_public_entities"');
+    expect(graphSource).toContain("cacheKey: 'explore_graph_entities'");
     expect(articlesSource).toContain("signal: AbortSignal.timeout(timeoutMs)");
   });
 
