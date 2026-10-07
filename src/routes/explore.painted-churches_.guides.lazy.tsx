@@ -24,25 +24,25 @@ function PaintedChurchSearchGuideHub() {
     <section className="border-b border-border bg-ink text-ink-foreground">
       <Container className="py-16 sm:py-24">
         <nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-ink-foreground/60">
-          <ol className="flex flex-wrap items-center gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches">Painted Churches</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-white">Search guide</li></ol>
+          <ol className="flex flex-wrap items-center gap-2"><li><Link to="/">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore/painted-churches">Painted Churches</Link></li><li aria-hidden>·</li><li aria-current="page" className="text-white">Guide library</li></ol>
         </nav>
-        <p className="eyebrow mt-10 text-ink-foreground/65">Search-intent atlas · {coverage.length} queries</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Every major Painted Churches question has somewhere useful to land.</h1>
-        <p className="mt-6 max-w-4xl text-lg leading-8 text-ink-foreground/80">This index connects the most common Texas Painted Churches searches to the strongest answer on Texas Defined. Existing church, map, people, heritage and technique pages stay in place when they already answer the question well; {dedicated} additional guides fill the remaining gaps without creating duplicate pages.</p>
+        <p className="eyebrow mt-10 text-ink-foreground/65">Painted Churches guide library</p>
+        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">Plan a visit, identify a church, or dig deeper into the Painted Churches.</h1>
+        <p className="mt-6 max-w-4xl text-lg leading-8 text-ink-foreground/80">Use this library to move from practical trip questions to verified church profiles, maps, people, heritage, architecture and decorative-art research. {dedicated} focused guides cover questions that need more explanation, while the rest point directly to the strongest existing Texas Defined resource.</p>
       </Container>
     </section>
 
     <Container className="py-14 sm:py-18">
       <section className="grid gap-px border border-border bg-border sm:grid-cols-3">
-        <div className="bg-background p-6"><p className="eyebrow text-muted-foreground">Searches covered</p><p className="mt-3 font-display text-5xl">{coverage.length}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Churches, places, trip planning and history.</p></div>
-        <div className="bg-background p-6"><p className="eyebrow text-muted-foreground">Dedicated new guides</p><p className="mt-3 font-display text-5xl">{dedicated}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Built only where an existing canonical page was not strong enough.</p></div>
-        <div className="bg-background p-6"><p className="eyebrow text-muted-foreground">Existing strong answers</p><p className="mt-3 font-display text-5xl">{existing}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Church profiles, map, planner, people, heritage, techniques and timeline.</p></div>
+        <div className="bg-background p-6"><p className="eyebrow text-muted-foreground">Topics covered</p><p className="mt-3 font-display text-5xl">{coverage.length}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Churches, places, trip planning and history.</p></div>
+        <div className="bg-background p-6"><p className="eyebrow text-muted-foreground">Focused guides</p><p className="mt-3 font-display text-5xl">{dedicated}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Detailed answers for planning, identification and interpretation.</p></div>
+        <div className="bg-background p-6"><p className="eyebrow text-muted-foreground">Connected resources</p><p className="mt-3 font-display text-5xl">{existing}</p><p className="mt-3 text-sm leading-6 text-muted-foreground">Church profiles, map, planner, people, heritage, techniques and timeline.</p></div>
       </section>
 
       {groupOrder.map((group) => {
         const items = coverage.filter((item) => item.group === group);
         return <section key={group} className="mt-16 border-t-2 border-foreground pt-8">
-          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Query group</p><h2 className="mt-3 font-display text-4xl sm:text-5xl">{groupLabels[group]}</h2></div><p className="text-sm text-muted-foreground">{items.length} search intents</p></div>
+          <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Browse by topic</p><h2 className="mt-3 font-display text-4xl sm:text-5xl">{groupLabels[group]}</h2></div><p className="text-sm text-muted-foreground">{items.length} topics</p></div>
           <div className="mt-8 grid gap-px border border-border bg-border md:grid-cols-2">
             {items.map((item) => <a key={item.query} href={item.canonicalPath} className="group bg-background p-6 hover:bg-surface">
               <p className="eyebrow text-muted-foreground">{item.coverage === "search-guide" ? "Dedicated guide" : item.coverage === "church-profile" ? "Church profile" : "Existing guide"}</p>
@@ -62,7 +62,7 @@ function PaintedChurchSearchGuideHub() {
           <Link to="/explore/painted-churches-plan" className="border-b border-primary text-primary">Self-guided planner</Link>
           <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Research methodology</Link>
         </div>
-        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">The coverage registry contains {guideCount} dedicated search guides. When a popular query is ambiguous or points at an unverified church identity, the guide says so explicitly and directs readers to verified records instead of manufacturing certainty.</p>
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">The coverage registry contains {guideCount} dedicated search guides. When a church name or location is ambiguous, the guide says so explicitly and directs readers to verified records rather than manufacturing certainty.</p>
       </section>
     </Container>
   </main>;
