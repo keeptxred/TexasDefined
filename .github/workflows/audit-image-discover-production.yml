@@ -4,18 +4,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '17 9 * * 2,5'
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/components/editorial/**'
-      - 'src/components/sports/**'
-      - 'src/data/**/*image*'
-      - 'src/lib/image-fallback.ts'
-      - 'src/lib/seo.ts'
-      - 'src/routes/**'
-      - 'scripts/ci/verify-image-discover-production.mjs'
-      - '.github/workflows/audit-image-discover-production.yml'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
 
 permissions:
   contents: read
@@ -27,10 +20,13 @@ concurrency:
 jobs:
   audit:
     name: Crawl priority public pages for image and Discover readiness
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'

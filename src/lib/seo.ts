@@ -683,6 +683,42 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   },
 } : {};
 
+
+type DiscoverImageOverride = {
+  src: string;
+  type: string;
+  width: number;
+  height: number;
+};
+
+// Compact allowlist keeps route-specific Discover media out of the main bundle's
+// large object-literal path inventory while retaining exact route qualification.
+const TEXASDEFINED_DISCOVER_IMAGE_KEYS =
+  "|ev:chappell-hill-bluebonnet-festival|a:ima-hogg-texas-legacy|a:camping-in-texas-with-your-dog|a:texas-high-school-football-scores-schedules|a:best-lighthouses-to-visit-in-texas|a:texas-medal-of-honor-heroes|a:texas-red-river-war-guide|a:republic-of-texas-government-trail|a:brazoria-plantations-slavery-emancipation-history|a:texas-frontier-forts-road-trip|c:collin|s:xtreme-raceway-park|s:freeman-coliseum|s:eagle-stadium-allen|s:mesquite-memorial-stadium|d:fossil-rim-wildlife-center|d:sea-life-san-antonio-aquarium|d:san-antonio-aquarium|d:houston-interactive-aquarium-animal-preserve|d:ut-marine-science-institute-patton-center|d:texas-hill-country-olive-co|d:brazos-bend-state-park|d:devils-river-state-natural-area|d:lake-corpus-christi-state-park|d:science-mill-johnson-city|d:silent-wings-museum-lubbock|d:governor-jim-hogg-city-park-quitman|d:messina-hof-hill-country|d:blanton-museum-of-art-austin|d:umlauf-sculpture-garden-museum-austin|d:texas-science-natural-history-museum-austin|d:dr-pepper-museum-waco|d:texas-ranger-hall-of-fame-museum-waco|d:my-story-museum-crystal-city|d:gonzales|d:clifton|d:la-grange|p:high-hill-nativity-of-mary|p:dubina-saints-cyril-methodius|p:umbarger-st-marys-catholic-church|p:lindsay-st-peters-catholic-church|p:fredericksburg-st-marys-catholic-church|";
+
+function texasDefinedDiscoverImageOverride(canonicalPath?: string): DiscoverImageOverride | undefined {
+  if (!canonicalPath) return undefined;
+  if (canonicalPath === "/article/texas-ecoregions-habitats-guide") {
+    return { src: "/images/editorial/texas-ecoregions-habitats.jpg", type: "image/jpeg", width: 1600, height: 2133 };
+  }
+
+  const firstSlash = canonicalPath.indexOf("/", 1);
+  if (firstSlash < 0) return undefined;
+  const root = canonicalPath.slice(1, firstSlash);
+  const slug = canonicalPath.slice(canonicalPath.lastIndexOf("/") + 1);
+  const prefix =
+    root === "article" ? "a" :
+    root === "destination" ? "d" :
+    root === "event" ? "ev" :
+    root === "county" ? "c" :
+    root === "sports-venue" ? "s" :
+    canonicalPath.startsWith("/explore/painted-churches/") ? "p" : "";
+  if (!prefix || !TEXASDEFINED_DISCOVER_IMAGE_KEYS.includes(`|${prefix}:${slug}|`)) return undefined;
+
+  const fileSlug = canonicalPath === "/county/collin" ? "collin-county" : slug;
+  return { src: `/images/discover/${fileSlug}.webp`, type: "image/webp", width: 1600, height: 900 };
+}
+
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
   texasdefined: {
     src: "/images/state-parks/palo-duro-canyon-state-park.jpg",
@@ -719,10 +755,17 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
-  const image = page.image
-    ? { src: page.image, alt: page.imageAlt, type: page.imageType }
-    : fallbackImage;
+  const discoverImage = brand.identity.id === "texasdefined"
+    ? texasDefinedDiscoverImageOverride(page.canonicalPath)
+    : undefined;
+  const image = discoverImage
+    ? { src: discoverImage.src, alt: page.imageAlt, type: discoverImage.type }
+    : page.image
+      ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+      : fallbackImage;
   const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
+  const imageWidth = discoverImage?.width ?? page.imageWidth;
+  const imageHeight = discoverImage?.height ?? page.imageHeight;
   const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
@@ -744,8 +787,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       { name: "twitter:image", content: imageUrl },
     );
     if (image?.alt) meta.push({ property: "og:image:alt", content: cleanMetaText(image.alt) }, { name: "twitter:image:alt", content: cleanMetaText(image.alt) });
-    if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });
-    if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });
+    if (imageWidth) meta.push({ property: "og:image:width", content: String(imageWidth) });
+    if (imageHeight) meta.push({ property: "og:image:height", content: String(imageHeight) });
     if (image?.type) meta.push({ property: "og:image:type", content: image.type });
   }
   if (robots) meta.push({ name: "robots", content: robots }, { name: "googlebot", content: robots });
