@@ -28,12 +28,8 @@ export const Route = createFileRoute('/$kind/$slug')({
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     const countySportsEditorial = countySportsCandidates.length
-      ? await import('@/data/sports-venue-editorial.server').then(({ getSportsVenueEditorialDescriptionServer }) =>
-          Object.fromEntries(
-            countySportsCandidates
-              .map((venue) => [venue.id, getSportsVenueEditorialDescriptionServer(venue.id)] as const)
-              .filter((entry): entry is readonly [string, string] => Boolean(entry[1])),
-          ),
+      ? await import('@/data/sports-venue-editorial.functions').then(({ getSportsVenueEditorialDescriptions }) =>
+          getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } }),
         )
       : {};
     const countySportsVenues = countySportsCandidates.map((venue) => {
