@@ -276,19 +276,35 @@ const EXPLORE_SELECT = [
   "explore_entity_sources(source_url,retrieved_at,verified_at,confidence)",
 ].join(",");
 
+async function requestExploreRows(params: URLSearchParams): Promise<Record<string, unknown>[]> {
+  const url = `${supabaseUrl}/rest/v1/explore_entities?${params}`;
+  const requestHeaders = headers();
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_entities",
+      url,
+      headers: requestHeaders,
+      timeoutMs: 2_500,
+      errorLabel: "Explore remote read",
+    });
+  }
+
+  const response = await fetch(url, {
+    headers: requestHeaders,
+    signal: AbortSignal.timeout(2_500),
+  });
+  if (!response.ok) throw new Error(`Explore request failed: ${response.status}`);
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
 async function fetchExplorePage(params: URLSearchParams, offset: number, limit: number): Promise<Record<string, unknown>[]> {
   const pageParams = new URLSearchParams(params);
   pageParams.set("offset", String(offset));
   pageParams.set("limit", String(limit));
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
-      : { headers: headers() },
-  );
-  if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) ? rows : [];
+  return requestExploreRows(pageParams);
 }
 
 export async function fetchExploreDestinations(
@@ -328,13 +344,6 @@ export async function fetchExploreDestination(slug: string): Promise<Destination
     status: "in.(published,verified)",
     limit: "1",
   });
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${params}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
-      : { headers: headers() },
-  );
-  if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
+  const rows = await requestExploreRows(params);
+  return rows[0] ? mapRow(rows[0]) : null;
 }
