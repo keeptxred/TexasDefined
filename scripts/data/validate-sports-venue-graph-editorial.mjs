@@ -63,6 +63,8 @@ for (const marker of [
 assert(countyComponent.includes('{venue.description ? <span'), 'County sports destination cards must render enriched venue descriptions when available.');
 assert(entityRoute.includes('const countySportsVenues = entity.kind === \'county\''), 'County route must continue deriving sports venues from the loaded full graph.');
 assert(entityRoute.includes("candidate.kind === 'sports-venue'"), 'County route must continue selecting sports venues from the loaded full graph.');
+assert(entityRoute.includes("import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';"), 'County route must import the governed sports-venue correction layer.');
+assert(entityRoute.includes("candidate.kind === 'sports-venue' ? applyCurrentEntityCorrections(candidate) : candidate"), 'County route must apply governed sports-venue corrections before rendering county venue cards.');
 
 const editorialEntries = editorialSources.flatMap((source) =>
   [...source.matchAll(/^\s{2}'(sports-venue:[^']+)':\s*'((?:\\'|[^'])*)',?\s*$/gm)]
