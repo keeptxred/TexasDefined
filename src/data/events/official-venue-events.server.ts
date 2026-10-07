@@ -37,7 +37,7 @@ const choctawGames = [
 ] as const;
 
 export function getOfficialVenueEventSnapshots(): TexasEventRecord[] {
-  return choctawGames.map(([startDate, title, sourceSlug]) => {
+  return choctawGames.map(([startDate, title, sourceSlug]): TexasEventRecord => {
     const url = `https://www.choctawstadium.com/event/${sourceSlug}/`;
     return {
       id: `official-venue:choctaw-stadium:${startDate}`,
