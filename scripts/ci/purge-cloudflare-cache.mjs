@@ -102,15 +102,41 @@ const headers = {
   'content-type': 'application/json',
 };
 
-const zonesResponse = await fetch(
-  `https://api.cloudflare.com/client/v4/zones?name=${encodeURIComponent(zoneName)}&status=active&per_page=50`,
-  { headers, signal: AbortSignal.timeout(20_000) },
-);
-const zonesPayload = await zonesResponse.json();
-
-if (!zonesResponse.ok || zonesPayload?.success !== true) {
-  throw new Error(`Cloudflare zone lookup failed with HTTP ${zonesResponse.status}.`);
+async function fetchCloudflareJson(url, options, label) {
+  let lastError;
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    try {
+      const response = await fetch(url, { ...options, signal: AbortSignal.timeout(20_000) });
+      const body = await response.text();
+      let payload;
+      try {
+        payload = JSON.parse(body);
+      } catch {
+        const preview = body.replace(/\\s+/g, ' ').trim().slice(0, 160);
+        throw new Error(`${label} returned non-JSON HTTP ${response.status}${preview ? `: ${preview}` : ''}`);
+      }
+      if (response.ok && payload?.success === true) return { response, payload };
+      const messages = [
+        ...(Array.isArray(payload?.errors) ? payload.errors : []),
+        ...(Array.isArray(payload?.messages) ? payload.messages : []),
+      ].map((item) => item?.message).filter(Boolean).join(' | ');
+      throw new Error(`${label} failed with HTTP ${response.status}${messages ? `: ${messages}` : ''}`);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      if (attempt < 4) {
+        console.warn(`${label} attempt ${attempt}/4 failed: ${lastError.message}; retrying.`);
+        await new Promise((resolve) => setTimeout(resolve, attempt * 2_000));
+      }
+    }
+  }
+  throw lastError || new Error(`${label} failed without a response.`);
 }
+
+const { payload: zonesPayload } = await fetchCloudflareJson(
+  `https://api.cloudflare.com/client/v4/zones?name=${encodeURIComponent(zoneName)}&status=active&per_page=50`,
+  { headers },
+  'Cloudflare zone lookup',
+);
 
 const zones = Array.isArray(zonesPayload.result) ? zonesPayload.result : [];
 const exactZone = zones.find((zone) => zone?.name === zoneName);
@@ -126,29 +152,15 @@ for (let index = 0; index < urls.length; index += chunkSize) {
 
 for (let index = 0; index < chunks.length; index += 1) {
   const chunk = chunks[index];
-  const purgeResponse = await fetch(
+  await fetchCloudflareJson(
     `https://api.cloudflare.com/client/v4/zones/${exactZone.id}/purge_cache`,
     {
       method: 'POST',
       headers,
       body: JSON.stringify({ files: chunk }),
-      signal: AbortSignal.timeout(20_000),
     },
+    `Cloudflare targeted purge batch ${index + 1}/${chunks.length}`,
   );
-  const purgePayload = await purgeResponse.json();
-
-  if (!purgeResponse.ok || purgePayload?.success !== true) {
-    const messages = [
-      ...(Array.isArray(purgePayload?.errors) ? purgePayload.errors : []),
-      ...(Array.isArray(purgePayload?.messages) ? purgePayload.messages : []),
-    ]
-      .map((item) => item?.message)
-      .filter(Boolean)
-      .join(' | ');
-    throw new Error(
-      `Cloudflare targeted purge batch ${index + 1}/${chunks.length} failed with HTTP ${purgeResponse.status}${messages ? `: ${messages}` : ''}.`,
-    );
-  }
 
   console.log(`Cloudflare accepted targeted purge batch ${index + 1}/${chunks.length} for ${chunk.length} URL(s).`);
 }
