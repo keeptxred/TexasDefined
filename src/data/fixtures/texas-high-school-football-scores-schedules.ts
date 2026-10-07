@@ -8,8 +8,8 @@ export const texasHighSchoolFootballScoresSchedulesArticle: Article = {
   id: "evergreen-texas-high-school-football-scores-schedules",
   brandId: "texasdefined",
   slug: "texas-high-school-football-scores-schedules",
-  title: "Texas High School Football Scores & Schedules: How to Follow the 2026 Season",
-  dek: "Use the UIL Texas Scoreboard, school sources and the official playoff brackets to follow current Texas high school football schedules and results without mistaking incomplete score submissions for official district standings.",
+  title: "Texas High School Football Scores 2026: Schedules & UIL Scoreboard",
+  dek: "Find 2026 Texas high school football scores and weekly schedules through the UIL Texas Scoreboard, then verify kickoff times, venues and playoff results with the official sources that control them.",
   category: "sports",
   hero: {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Eagle_Stadium.jpg?width=1600",

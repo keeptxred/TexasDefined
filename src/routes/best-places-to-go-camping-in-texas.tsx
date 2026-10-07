@@ -4,8 +4,8 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { hasCampingDestinationGuide } from "@/data/camping/destination-guides";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
-const title = "Best Places to Go Camping in Texas | RV, Tent & Primitive Camping";
-const description = "Compare standout Texas camping destinations, then search verified public campgrounds by RV, tent, primitive, beach, cabins, full hookups, water access, region and official reservation source.";
+const title = "Best Places to Go Camping in Texas | Parks, Beaches & Campgrounds";
+const description = "Find the best places to go camping in Texas, from Hill Country rivers and Gulf beaches to canyon, forest and desert campsites. Compare verified campgrounds, camping styles, facilities and official reservation sources.";
 const canonicalPath = "/best-places-to-go-camping-in-texas";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 
