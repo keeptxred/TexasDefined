@@ -543,14 +543,21 @@ export function metroProximityHubReady(destinations: Destination[], metro: Metro
   return METRO_PROXIMITY_COLLECTIONS.filter((collection) => isMetroProximityCollectionIndexReady(destinations, metro, collection)).length >= 4;
 }
 
-export function metroProximitySitemapEntries(destinations: Destination[]) {
+export async function metroProximitySitemapEntries(destinations: Destination[]) {
+  // Keep sitemap eligibility identical to the page renderer. Small-town
+  // collections can qualify with governed town references as well as destination
+  // rows; using the destination-only predicate here can submit a URL that the
+  // live page correctly marks noindex.
+  const { isMetroProximityCollectionIndexReadyWithTownReferences } = await import("./metro-proximity-town-references");
   const entries: { path: string; lastmod: string }[] = [];
   for (const metro of METRO_PROXIMITY_METROS) {
-    if (metroProximityHubReady(destinations, metro)) {
+    const readyCollections = METRO_PROXIMITY_COLLECTIONS.filter((collection) =>
+      isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection),
+    );
+    if (readyCollections.length >= 4) {
       entries.push({ path: metroProximityCanonicalPath(metro.slug), lastmod: METRO_PROXIMITY_VERIFIED_AT });
     }
-    for (const collection of METRO_PROXIMITY_COLLECTIONS) {
-      if (!isMetroProximityCollectionIndexReady(destinations, metro, collection)) continue;
+    for (const collection of readyCollections) {
       entries.push({ path: metroProximityCanonicalPath(metro.slug, collection.slug), lastmod: METRO_PROXIMITY_VERIFIED_AT });
     }
   }
