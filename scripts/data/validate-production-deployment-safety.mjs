@@ -55,6 +55,10 @@ const requireText = (source, needle, label) => {
 };
 
 for (const [needle, label] of [
+  ['group: texasdefined-production', 'serialized production deployment concurrency group'],
+  ['cancel-in-progress: false', 'production deployment serialization must not cancel an active Worker replacement'],
+  ['timeout 180s sudo apt-get update -qq', 'bounded ImageMagick apt metadata refresh'],
+  ['timeout 180s sudo apt-get install -y --no-install-recommends imagemagick', 'bounded ImageMagick package install'],
   ['id: runtime_smoke', 'predeploy built Worker SSR smoke step'],
   ['node scripts/ci/verify-built-worker-ssr.mjs', 'predeploy built Worker SSR smoke command'],
   ['id: live_direct_health', 'direct Worker health step'],
