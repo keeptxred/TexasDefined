@@ -8,6 +8,7 @@ const SITEMAP_PAGE_SIZE = 200;
 const SITEMAP_MAX_ROWS = 10_000;
 const ROUTE_REMOTE_TIMEOUT_MS = 2500;
 const SITEMAP_REMOTE_TIMEOUT_MS = 8000;
+type RemoteRow = Record<string, unknown>;
 
 const REMOTE_INTERNAL_LINK_CANONICALS: Readonly<Record<string, string>> = {
   "/article/texas-chili-beans-history": "/texas-chili-con-carne-history",
@@ -76,7 +77,7 @@ function body(value: unknown): ArticleBlock[] {
   });
 }
 
-function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEvergreenInternalLinks): Article | null {
+function mapRow(row: RemoteRow, evergreenInternalLinks: RemoteEvergreenInternalLinks): Article | null {
   const slug = text(row.slug);
   const title = text(row.title);
   const heroUrl = text(row.hero_url);
@@ -106,10 +107,24 @@ function mapRow(row: Record<string, unknown>, evergreenInternalLinks: RemoteEver
   };
 }
 
-async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIMEOUT_MS): Promise<Record<string, unknown>[]> {
+async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIMEOUT_MS): Promise<RemoteRow[]> {
   if (!supabaseUrl || !supabaseKey) return [];
-  const response = await fetch(`${supabaseUrl}/rest/v1/texasdefined_articles?${params}`, {
-    headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` },
+  const url = `${supabaseUrl}/rest/v1/texasdefined_articles?${params}`;
+  const requestHeaders = { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` };
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "texasdefined_articles",
+      url,
+      headers: requestHeaders,
+      timeoutMs,
+      errorLabel: "TexasDefined remote article read",
+    });
+  }
+
+  const response = await fetch(url, {
+    headers: requestHeaders,
     signal: AbortSignal.timeout(timeoutMs),
   });
   if (!response.ok) throw Error(String(response.status));
@@ -117,7 +132,7 @@ async function requestRows(params: URLSearchParams, timeoutMs = ROUTE_REMOTE_TIM
   return Array.isArray(value) ? value : [];
 }
 
-function mapRows(rows: Record<string, unknown>[], evergreenInternalLinks: RemoteEvergreenInternalLinks): Article[] {
+function mapRows(rows: RemoteRow[], evergreenInternalLinks: RemoteEvergreenInternalLinks): Article[] {
   return rows.map((row) => mapRow(row, evergreenInternalLinks)).filter((row): row is Article => Boolean(row));
 }
 
