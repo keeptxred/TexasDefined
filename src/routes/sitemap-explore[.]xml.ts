@@ -213,18 +213,25 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
             enrichedFailed = true;
             console.error("Explore sitemap enriched catalog unavailable", error);
           }
-          try {
-            coreDestinations = await withSitemapRemoteTimeout(
-              "Explore sitemap core catalog",
-              fetchCoreExploreDestinations({ limit: 5000 }),
-            );
-          } catch (error) {
-            coreFailed = true;
-            console.error("Explore sitemap core catalog unavailable", error);
+          // Match the page renderer: the enriched Explore catalog is authoritative.
+          // Only query the core/public view when the enriched request actually fails.
+          // This prevents sitemap-only inventory from making a route indexable when
+          // the rendered page correctly remains noindex, and avoids a duplicate
+          // 5,000-row Supabase read on healthy sitemap requests.
+          if (enrichedFailed) {
+            try {
+              coreDestinations = await withSitemapRemoteTimeout(
+                "Explore sitemap core catalog",
+                fetchCoreExploreDestinations({ limit: 5000 }),
+              );
+            } catch (error) {
+              coreFailed = true;
+              console.error("Explore sitemap core catalog unavailable", error);
+            }
           }
         }
 
-        const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
+        const remoteDestinations = enrichedFailed ? coreDestinations : enrichedDestinations;
         const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
         const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
         if (!usePreservedFallback) {
