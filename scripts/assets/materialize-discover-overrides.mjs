@@ -115,7 +115,7 @@ const entries = [
   ],
   [
     "messina-hof-hill-country",
-    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Messina_Hof_Vineyard.jpg?width=1200"
+    "/images/destinations/flat-creek-estate-ai-illustration.webp"
   ],
   [
     "blanton-museum-of-art-austin",
