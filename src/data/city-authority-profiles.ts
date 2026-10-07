@@ -4,9 +4,32 @@ export type CityAuthoritySystem = {
   links: ReadonlyArray<{ label: string; href: string }>;
 };
 
+export type CityAuthorityFeature = {
+  title: string;
+  summary: string;
+  href: string;
+  eyebrow?: string;
+};
+
 export type CityAuthorityProfile = {
   population2020: number;
   censusUrl: string;
+  populationEstimate?: {
+    value: number;
+    year: number;
+    asOf: string;
+  };
+  jurisdiction?: {
+    primaryCounty: string;
+    counties: ReadonlyArray<string>;
+    note: string;
+    sourceUrl?: string;
+  };
+  districts?: ReadonlyArray<{
+    name: string;
+    summary: string;
+  }>;
+  featured?: ReadonlyArray<CityAuthorityFeature>;
   systems: ReadonlyArray<CityAuthoritySystem>;
 };
 
@@ -66,6 +89,31 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'fort-worth': {
     population2020: 918_915,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/fortworthcitytexas/PST045225',
+    populationEstimate: {
+      value: 1_028_117,
+      year: 2025,
+      asOf: 'July 1, 2025',
+    },
+    jurisdiction: {
+      primaryCounty: 'Tarrant County',
+      counties: ['Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'],
+      note: 'Most of Fort Worth is in Tarrant County, but the incorporated city also extends into Denton, Parker, Johnson and Wise counties. Property taxes, appraisal districts, schools, records and some services therefore depend on the exact address rather than the city name alone.',
+      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
+    },
+    districts: [
+      { name: 'Fort Worth Stockyards', summary: 'The city’s best-known Western-heritage district, built around livestock history, the cattle-drive tradition, museums, music, rodeo culture and visitor attractions.' },
+      { name: 'Downtown & Sundance Square', summary: 'The central business, hotel, theater and dining district, useful as a city-center base between the Stockyards and the Cultural District.' },
+      { name: 'Cultural District', summary: 'A museum-rich district anchored by the Kimbell Art Museum, Amon Carter Museum of American Art, Modern Art Museum of Fort Worth and nearby family attractions.' },
+      { name: 'Near Southside', summary: 'A close-in district south of downtown known for independent restaurants, creative businesses, neighborhood nightlife and the Magnolia Avenue corridor.' },
+      { name: 'TCU, Zoo & Clearfork', summary: 'Southwest Fort Worth combines Texas Christian University, the Fort Worth Zoo, Trinity River access, shopping and residential districts that feel distinct from downtown.' },
+    ],
+    featured: [
+      { eyebrow: 'Western heritage', title: 'Fort Worth Stockyards', summary: 'Start with the city’s signature cattle, rail and Western-history district, then use the destination guide for current planning details.', href: '/destination/fort-worth-stockyards' },
+      { eyebrow: 'Art & architecture', title: 'Kimbell Art Museum', summary: 'Connect the city page directly to one of the Cultural District’s nationally significant museums and architectural landmarks.', href: '/destination/kimbell-art-museum' },
+      { eyebrow: 'Family', title: 'Fort Worth Zoo', summary: 'Use the dedicated zoo guide for a major family attraction south of downtown.', href: '/destination/fort-worth-zoo' },
+      { eyebrow: 'Events & sports', title: 'Dickies Arena', summary: 'Plan around rodeos, concerts, sports and major touring events in the Cultural District.', href: '/sports-venue/dickies-arena' },
+      { eyebrow: 'Nearby trips', title: 'Explore near Fort Worth', summary: 'Continue into lakes, small towns, road trips and other day-trip ideas around the western side of the Metroplex.', href: '/explore/near/fort-worth' },
+    ],
     systems: [
       {
         title: 'Water & city utilities',
