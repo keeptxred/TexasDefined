@@ -31,8 +31,8 @@ const generatedMarkers = [
   'Texas Defined includes it in the statewide venue guide to connect the sporting experience with practical trip planning and the surrounding county and region.',
 ];
 
-assert(majorSeeds.includes(generatedMarkers[0]), 'Major sports seed generator no longer matches the governed generated-copy marker; update the suppression rule before publishing changed template prose.');
-assert(tier2Seeds.includes(generatedMarkers[1]), 'Tier-2 sports seed generator no longer matches the governed generated-copy marker; update the suppression rule before publishing changed template prose.');
+assert(!majorSeeds.includes(generatedMarkers[0]), 'Major sports seed generator must not emit retired generated-copy boilerplate.');
+assert(!tier2Seeds.includes(generatedMarkers[1]), 'Tier-2 sports seed generator must not emit retired generated-copy boilerplate.');
 for (const marker of generatedMarkers) {
   assert(corrections.includes(marker), `Current sports-venue corrections must suppress generated marker: ${marker}`);
 }
@@ -81,4 +81,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports venue graph editorial validation passed: generated seed prose is suppressed before publication, 84/84 vetted editorial descriptions are available through the bulk server bridge, and county/full-graph surfaces are wired to receive differentiated copy.');
+console.log('Sports venue graph editorial validation passed: new seed prose excludes retired boilerplate, legacy suppression remains in place, 84/84 vetted editorial descriptions are available through the bulk server bridge, and county/full-graph surfaces are wired to receive differentiated copy.');
