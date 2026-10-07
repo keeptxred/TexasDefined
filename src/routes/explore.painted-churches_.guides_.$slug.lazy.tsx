@@ -87,7 +87,7 @@ function PaintedChurchSearchGuidePage() {
                   <p className="eyebrow text-muted-foreground">{church.city} · {church.county} County</p>
                   <h3 className="mt-2 font-display text-2xl leading-tight"><Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="hover:text-primary">{church.shortName}</Link></h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">{church.summary}</p>
-                  <Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="mt-4 inline-block border-b border-primary text-sm text-primary">Open church profile</Link>
+                  <Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="mt-4 inline-block border-b border-primary text-sm text-primary">Open verified profile</Link>
                 </div>
               </article>;
             })}
