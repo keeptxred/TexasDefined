@@ -14,7 +14,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, faq } = loaderData;
+    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, editorial, faq } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
@@ -26,14 +26,18 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     const seoName = program?.schoolName || displayName;
     const teamName = identity?.mascot ? `${seoName} ${identity.mascot}` : seoName;
     const enrollment = program?.uilEnrollment ? `, UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}` : '';
-    const description = `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`;
+    const description = `${teamName} football: ${classification}${enrollment}. See 2026 district opponents${editorial?.seasonSnapshot ? ', current record and dated schedule results' : editorial?.schedule ? ', a verified school schedule source' : ''}, verified school and venue links where available, UIL history and score sources.`;
     const url = `${siteUrl}${canonicalPath}`;
     const sportsTeamName = identity?.mascot ? `${seoName} ${identity.mascot}` : `${seoName} Football`;
+    const hasVerifiedSchedule = Boolean(editorial?.seasonSnapshot || editorial?.schedule);
+    const titleDetail = hasVerifiedSchedule
+      ? '2026 District, Schedule & Team Guide'
+      : '2026 District & Team Guide';
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: `${teamName} Football: 2026 District, Schedule & Team Guide`,
+        title: `${teamName} Football: ${titleDetail}`,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
