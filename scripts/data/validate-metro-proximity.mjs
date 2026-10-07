@@ -152,8 +152,9 @@ for (const token of [
 
 for (const token of [
   'await import("@/data/metro-proximity")', 'await import("@/data/metro-proximity-town-references")',
+  'await import("@/data/destination-query-runtime")', "listResolvedDestinations({ limit: 5000 })",
   "isMetroProximityCollectionIndexReadyWithTownReferences",
-  "metroProximitySitemapEntries(indexableDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
+  "metroProximitySitemapEntries(proximityDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
   "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
 
