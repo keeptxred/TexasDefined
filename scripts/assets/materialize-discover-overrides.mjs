@@ -210,6 +210,12 @@ function wikimediaDirectOriginalSource(source) {
     if (url.hostname !== "commons.wikimedia.org" || markerIndex === -1) return null;
 
     const filename = decodeURIComponent(url.pathname.slice(markerIndex + marker.length)).replace(/ /g, "_");
+    // Direct originals avoid Commons thumbnail rate limits for normal web raster
+    // formats. Keep TIFF on the governed Commons thumbnail path because the
+    // original Library of Congress TIFF is too large/unsupported for the
+    // production ImageMagick runner, while Commons provides a bounded raster
+    // derivative for that source.
+    if (!/\.(?:jpe?g|png|webp)$/i.test(filename)) return null;
     const hash = createHash("md5").update(filename).digest("hex");
     return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash.slice(0, 2)}/${encodeURIComponent(filename)}`;
   } catch {
