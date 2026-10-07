@@ -111,13 +111,17 @@ export async function loadTexasKnowledgeGraph(options: { query?: string; limit?:
   for (const entity of cityMetroAuthority?.cityMetroAuthoritySeedEntities() ?? []) merged.set(entity.id, entity);
   for (const entity of remote) {
     const existing = merged.get(entity.id);
-    merged.set(entity.id, existing ? {
+    const combined = existing ? {
       ...existing,
       ...entity,
       aliases: [...new Set([...existing.aliases, ...entity.aliases])],
       relationships: [...existing.relationships, ...entity.relationships.filter((relationship) => !existing.relationships.some((item) => item.type === relationship.type && item.targetId === relationship.targetId))],
       tags: [...new Set([...(existing.tags ?? []), ...(entity.tags ?? [])])],
-    } : entity);
+    } : entity;
+    // Remote graph rows can lag checked-in editorial remediation. Reapply the
+    // current sports-venue corrections after merging so stale generated copy
+    // cannot re-enter county cards while editorial enrichment is unavailable.
+    merged.set(entity.id, combined.kind === 'sports-venue' ? applyCurrentEntityCorrections(combined) : combined);
   }
 
   const graph = [...merged.values()];
