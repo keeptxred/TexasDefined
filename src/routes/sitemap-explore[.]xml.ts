@@ -303,7 +303,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .filter((item): item is string => Boolean(item));
         const { metroProximitySitemapEntries } = await import("@/data/metro-proximity");
         const { isMetroProximityCollectionIndexReadyWithTownReferences } = await import("@/data/metro-proximity-town-references");
-        const proximityEntries = metroProximitySitemapEntries(indexableDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)
+        const { listResolvedDestinations } = await import("@/data/destination-query-runtime");
+        // Proximity pages compute indexability from listResolvedDestinations at request time.
+        // Use that same resolved catalog here so the sitemap cannot submit a proximity URL
+        // that the live route correctly marks noindex because the two catalogs diverged.
+        const proximityDestinations = await listResolvedDestinations({ limit: 5000 });
+        const proximityEntries = metroProximitySitemapEntries(proximityDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)
           .map((item) => entry(item.path, item.lastmod))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
