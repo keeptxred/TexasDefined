@@ -280,12 +280,21 @@ async function fetchExplorePage(params: URLSearchParams, offset: number, limit: 
   const pageParams = new URLSearchParams(params);
   pageParams.set("offset", String(offset));
   pageParams.set("limit", String(limit));
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
-      : { headers: headers() },
-  );
+  const url = `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`;
+  const requestHeaders = headers();
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_entities",
+      url,
+      headers: requestHeaders,
+      timeoutMs: 2_500,
+      errorLabel: "Explore catalog request",
+    });
+  }
+
+  const response = await fetch(url, { headers: requestHeaders });
   if (!response.ok) throw new Error(`Explore catalog request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) ? rows : [];
@@ -328,13 +337,6 @@ export async function fetchExploreDestination(slug: string): Promise<Destination
     status: "in.(published,verified)",
     limit: "1",
   });
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${params}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
-      : { headers: headers() },
-  );
-  if (!response.ok) throw new Error(`Explore destination request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
+  const rows = await fetchExplorePage(params, 0, 1);
+  return rows[0] ? mapRow(rows[0]) : null;
 }
