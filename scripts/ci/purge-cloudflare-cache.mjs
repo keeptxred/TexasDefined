@@ -39,6 +39,9 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/texas-rock-climbing-bouldering-guide`,
   maybornAuthorityUrl,
   borderfestAuthorityUrl,
+  `https://${zoneName}/county/tarrant`,
+  `https://${zoneName}/county/harris`,
+  `https://${zoneName}/texas-high-school-football-teams/abbott`,
   ...paintedChurchGuideUrls,
 ];
 
@@ -356,7 +359,8 @@ const requiredPaintedChurchMarkers = [
   'San Antonio to the Painted Churches: Complete One-Day Driving Guide',
   'Trip at a glance',
   'A route you can actually use',
-  'Visitor information checked October 7, 2026',
+  'Visitor information checked',
+  'October 7, 2026',
 ];
 const retiredPaintedChurchMarkers = [
   'Question this page answers',
