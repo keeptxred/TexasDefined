@@ -116,7 +116,7 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     if (program.uilEnrollment) {
       items.push({
         question: `What enrollment does UIL list for ${displayName}?`,
-        answer: `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students for this program. That figure is used for classification and is not a live daily campus enrollment count.`,
+        answer: `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students for this program. It is not a live daily campus count, and the final football alignment shown on this page is the authoritative competition placement when that placement differs from the standard enrollment band.`,
       });
     }
     if (program.districtName) {

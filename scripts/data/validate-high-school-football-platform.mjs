@@ -177,7 +177,8 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: `${teamName} Football: 2026 District, Schedule & Team Guide`",
+    "const hasVerifiedSchedule = Boolean(editorial?.seasonSnapshot || editorial?.schedule)",
+    "title: `${teamName} Football: ${titleDetail}`",
     "const description = `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
@@ -209,6 +210,10 @@ if (!errors.length) {
   for (const marker of [
     "const willsPointProfilePath = '/texas-high-school-football-teams/wills-point'",
     "await fetchVerified(willsPointProfilePath, 'Wills Point football school profile'",
+    "const shamrockProfilePath = '/texas-high-school-football-teams/shamrock'",
+    "await fetchVerified(shamrockProfilePath, 'Shamrock football school profile'",
+    "'Standard final-placement band'",
+    "'Shamrock Fighting Irish Football'",
     "'Wills Point Tigers Football'",
     "'4A Division II'",
     "'786'",
@@ -347,6 +352,7 @@ if (!errors.length) {
 
   for (const marker of [
     'VERIFIED_FOOTBALL_SCHOOL_IDENTITIES',
+    "slug: 'shamrock'",
     "slug: 'galena-park-north-shore'",
     "slug: 'cyp-ranch'",
     "slug: 'dallas-south-oak-cliff'",
