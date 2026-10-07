@@ -44,6 +44,14 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
   const relatedItems = related.slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
   const cityIndustryPaths = entity.kind === 'city' ? getCityIndustryPaths(entity.slug) : [];
+  const cityDiscoveryItems = entity.kind === 'city'
+    ? related.filter(({ entity: candidate }) =>
+        candidate.kind !== 'city'
+        && candidate.kind !== 'county'
+        && candidate.kind !== 'metro-area'
+        && !governmentKinds.has(candidate.kind),
+      ).slice(0, 6)
+    : [];
   const cityRelocationHref = entity.kind === 'city' && cityProfile
     ? `/moving-to-texas?saveCity=${encodeURIComponent(entity.name)}#my-texas-move`
     : null;
@@ -68,13 +76,30 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           <h2 id="city-systems-heading" className="mt-2 font-display text-4xl">{entity.name} systems at a glance</h2>
         </div>
         <div>
-          <div className="border-y border-border py-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">2020 Census population</p>
-            <div className="mt-2 flex flex-wrap items-baseline justify-between gap-4">
-              <strong className="font-display text-4xl">{cityProfile.population2020.toLocaleString('en-US')}</strong>
-              <a className="text-sm font-semibold text-primary underline underline-offset-4" href={cityProfile.censusUrl} target="_blank" rel="noreferrer noopener">U.S. Census Bureau source ↗</a>
+          {cityProfile.hero ? <figure className="mb-8 overflow-hidden border border-border bg-muted/20">
+            <img src={cityProfile.hero.src} alt={cityProfile.hero.alt} className="aspect-[16/7] w-full object-cover" loading="lazy" decoding="async" />
+            {(cityProfile.hero.credit || cityProfile.hero.sourceUrl) ? <figcaption className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-xs leading-5 text-muted-foreground">
+              <span>{cityProfile.hero.alt}</span>
+              {cityProfile.hero.sourceUrl ? <a href={cityProfile.hero.sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">{cityProfile.hero.credit ?? 'Image source'} ↗</a> : cityProfile.hero.credit}
+            </figcaption> : null}
+          </figure> : null}
+          <div className="grid gap-px border-y border-border bg-border sm:grid-cols-2">
+            <div className="bg-background py-5 pr-5 sm:pr-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">2020 Census population</p>
+              <strong className="mt-2 block font-display text-4xl">{cityProfile.population2020.toLocaleString('en-US')}</strong>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Official decennial Census count, kept as the stable baseline for long-term comparisons.</p>
             </div>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">TexasDefined uses the completed 2020 Census count here as a stable reference point instead of presenting a moving population estimate as a permanent city fact.</p>
+            <div className="bg-background py-5 sm:pl-6">
+              {cityProfile.populationEstimate ? <>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{cityProfile.populationEstimate.year} Census estimate</p>
+                <strong className="mt-2 block font-display text-4xl">{cityProfile.populationEstimate.value.toLocaleString('en-US')}</strong>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">Population estimate as of {cityProfile.populationEstimate.asOf}; estimates are distinct from the decennial Census count.</p>
+              </> : <>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Current population</p>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">Use the Census source for the newest published estimate. This page does not invent a current number when a newer estimate has not been verified in the city profile.</p>
+              </>}
+              <a className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4" href={cityProfile.censusUrl} target="_blank" rel="noreferrer noopener">U.S. Census Bureau source ↗</a>
+            </div>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {cityProfile.systems.map((system) => <article key={system.title} className="border border-border p-5">
@@ -86,6 +111,70 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
                   : <a key={link.href} className="text-sm font-semibold text-primary underline underline-offset-4" href={link.href} target="_blank" rel="noreferrer noopener">{link.label} ↗</a>)}
               </div>
             </article>)}
+          </div>
+        </div>
+      </div>
+    </section> : null}
+
+    {entity.kind === 'city' ? <section className="border-b border-border py-12" aria-labelledby="city-jurisdiction-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">County & jurisdiction</p>
+          <h2 id="city-jurisdiction-heading" className="mt-2 font-display text-4xl">Know which local government applies</h2>
+        </div>
+        <div className="max-w-3xl">
+          {cityProfile?.jurisdiction ? <>
+            <p className="text-base leading-7 text-muted-foreground">{cityProfile.jurisdiction.note}</p>
+            <div className="mt-5 flex flex-wrap gap-2" aria-label={`Counties containing parts of ${entity.name}`}>
+              {cityProfile.jurisdiction.counties.map((county) => <span key={county} className="border border-border px-3 py-2 text-sm font-medium">{county}</span>)}
+            </div>
+            {cityProfile.jurisdiction.sourceUrl ? <a className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4" href={cityProfile.jurisdiction.sourceUrl} target="_blank" rel="noreferrer noopener">Official jurisdiction source ↗</a> : null}
+          </> : <p className="text-base leading-7 text-muted-foreground">
+            {countyName ? `${countyName} is the primary county context stored for this city page, but a city name or mailing address should not be treated as proof of county, school-district, appraisal-district or utility jurisdiction. Verify the exact address before using a local office, tax record, school boundary or service provider.` : `City, county, school-district, appraisal-district and utility boundaries are separate systems. Verify the exact address before relying on a local jurisdiction or service provider.`}
+          </p>}
+        </div>
+      </div>
+    </section> : null}
+
+    {cityProfile?.districts?.length ? <section className="border-b border-border py-12" aria-labelledby="city-districts-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Neighborhoods & districts</p>
+          <h2 id="city-districts-heading" className="mt-2 font-display text-4xl">How to read {entity.name}</h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {cityProfile.districts.map((district) => <article key={district.name} className="border border-border p-5"><h3 className="font-display text-2xl leading-tight">{district.name}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{district.summary}</p></article>)}
+        </div>
+      </div>
+    </section> : null}
+
+    {cityProfile?.featured?.length ? <section className="border-b border-border py-12" aria-labelledby="city-featured-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Start here</p>
+          <h2 id="city-featured-heading" className="mt-2 font-display text-4xl">Best first stops and planning guides</h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {cityProfile.featured.map((feature) => <a key={feature.href} href={feature.href} className="border border-border p-5 hover:border-primary/60">
+            {feature.eyebrow ? <span className="eyebrow text-primary">{feature.eyebrow}</span> : null}
+            <strong className="mt-2 block font-display text-2xl leading-tight">{feature.title}</strong>
+            <span className="mt-3 block text-sm leading-6 text-muted-foreground">{feature.summary}</span>
+            <span className="mt-4 block text-sm font-semibold text-primary">Open guide →</span>
+          </a>)}
+        </div>
+      </div>
+    </section> : null}
+
+    {cityDiscoveryItems.length ? <section className="border-b border-border py-12" aria-labelledby="city-discovery-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Explore nearby</p>
+          <h2 id="city-discovery-heading" className="mt-2 font-display text-4xl">Places connected to {entity.name}</h2>
+        </div>
+        <div>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">Use these place and attraction guides to turn the city page into an actual itinerary. The list favors verified nearby entities instead of unrelated statewide links.</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {cityDiscoveryItems.map(({ entity: candidate }) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className="border border-border p-5 hover:border-primary/60"><span className="eyebrow text-primary">{title(candidate.kind)}</span><strong className="mt-2 block font-display text-xl leading-tight">{candidate.name}</strong><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>)}
           </div>
         </div>
       </div>
@@ -153,7 +242,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           <h2 id="city-resource-heading" className="mt-2 font-display text-4xl">Useful TexasDefined tools for {entity.name}</h2>
         </div>
         <div>
-          <p className="max-w-3xl text-base leading-7 text-muted-foreground">A city page should be a doorway into the practical systems readers use next. These links connect {entity.name} to TexasDefined's relocation, property, school, driving and trip-planning coverage without duplicating those statewide guides here.</p>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">Use these tools when your question shifts from “What is {entity.name} like?” to a concrete decision about moving, housing costs, schools, driving or a trip. Address-level tools matter because city names do not determine every local jurisdiction or service boundary.</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {CITY_RESOURCE_LINKS.map((resource) => <a key={resource.href} href={resource.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{resource.label}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{resource.copy}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>)}
           </div>
@@ -180,7 +269,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           <h2 id="entity-connections-heading" className="mt-2 font-display text-4xl">Related TexasDefined references</h2>
         </div>
         <div>
-          <p className="max-w-3xl text-base leading-7 text-muted-foreground">A useful Texas guide should connect the place, office or subject to the county, region and nearby resources that help explain it. These links are selected from the TexasDefined knowledge graph rather than added as unrelated filler.</p>
+          <p className="max-w-3xl text-base leading-7 text-muted-foreground">Continue with the county, region, nearby places and subject guides that add useful context to {entity.name}. These are supporting references for the next question, not a generic list of links.</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedItems.map(({ entity: candidate }) => <a key={candidate.id} href={canonicalEntityPath(candidate)} className="border border-border p-5 hover:border-primary/60"><span className="eyebrow text-primary">{title(candidate.kind)}</span><strong className="mt-2 block font-display text-xl leading-tight">{candidate.name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Open the related guide →</span></a>)}
           </div>
