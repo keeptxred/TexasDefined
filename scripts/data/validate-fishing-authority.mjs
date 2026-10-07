@@ -18,7 +18,7 @@ const [llms, citationGuide, citationManifestSource, rootRoute, hub, lakesRoute, 
 const errors = [];
 const assert = (condition, message) => { if (!condition) errors.push(message); };
 
-const completeLakeGuides = [
+const historicalCitationLakeGuides = [
   ["Lake Conroe", "lake-conroe"],
   ["Lake Fork", "lake-fork"],
   ["Sam Rayburn Reservoir", "sam-rayburn-reservoir"],
@@ -45,15 +45,24 @@ function parseSlugArray(source, name) {
   return [...match[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
 }
 
-const canonicalCompleteSlugs = [
+const historicalCanonicalSlugs = [
   ...parseSlugArray(slugsSource, "BASE_COMPLETE_FISHING_LAKE_SLUGS"),
   ...parseSlugArray(slugsSource, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
-const authoritySlugs = completeLakeGuides.map(([, slug]) => slug);
-assert(new Set(authoritySlugs).size === completeLakeGuides.length, "Fishing citation authority lake list contains duplicate slugs.");
-assert(canonicalCompleteSlugs.length === authoritySlugs.length, `Fishing citation authority must cover every complete lake guide; canonical registry has ${canonicalCompleteSlugs.length}, authority list has ${authoritySlugs.length}.`);
-for (const slug of canonicalCompleteSlugs) assert(authoritySlugs.includes(slug), `Fishing citation authority is missing canonical complete lake ${slug}.`);
-for (const slug of authoritySlugs) assert(canonicalCompleteSlugs.includes(slug), `Fishing citation authority contains non-canonical complete lake ${slug}.`);
+const currentCompleteSlugs = [
+  ...historicalCanonicalSlugs,
+  ...parseSlugArray(slugsSource, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
+];
+const historicalAuthoritySlugs = historicalCitationLakeGuides.map(([, slug]) => slug);
+assert(new Set(historicalAuthoritySlugs).size === historicalCitationLakeGuides.length, "Historical fishing citation cohort contains duplicate slugs.");
+assert(historicalCanonicalSlugs.length === historicalAuthoritySlugs.length, `Historical fishing citation cohort must retain the original 15 complete lake guides; registry has ${historicalCanonicalSlugs.length}, citation cohort has ${historicalAuthoritySlugs.length}.`);
+for (const slug of historicalCanonicalSlugs) assert(historicalAuthoritySlugs.includes(slug), `Historical fishing citation cohort is missing original complete lake ${slug}.`);
+for (const slug of historicalAuthoritySlugs) assert(historicalCanonicalSlugs.includes(slug), `Historical fishing citation cohort contains non-historical lake ${slug}.`);
+assert(new Set(currentCompleteSlugs).size === 41, `Current complete-lake registry must expose 41 unique guides; found ${new Set(currentCompleteSlugs).size}.`);
+for (const source of [llms, citationGuide]) {
+  assert(source.includes("COMPLETE_FISHING_LAKE_SLUGS"), "Public fishing citation surfaces must derive the current complete-lake count from the authoritative registry.");
+  assert(source.includes("completeFishingLakeGuideCount"), "Public fishing citation surfaces must render the authoritative complete-lake count dynamically.");
+}
 
 for (const marker of [
   "## Texas fishing",
@@ -67,7 +76,7 @@ for (const marker of [
   "do not infer a current bite, stocking status, lake level, ramp condition, closure or regulation",
 ]) assert(llms.includes(marker), `llms.txt is missing fishing retrieval/source-precedence marker: ${marker}.`);
 
-for (const [name, slug] of completeLakeGuides) {
+for (const [name, slug] of historicalCitationLakeGuides) {
   const marker = `${name} fishing guide: https://texasdefined.com/fishing/lakes/${slug}`;
   assert(llms.includes(marker), `llms.txt is missing complete fishing lake citation target: ${marker}.`);
 }
@@ -78,11 +87,11 @@ for (const marker of [
   "['Compare complete fishing lakes', '/fishing/lakes']",
   "['Texas freshwater fish species', '/fishing/species']",
   "['Largemouth bass fishing', '/fishing/species/largemouth-bass']",
-  "15 complete lake guides",
+  "completeFishingLakeGuideCount",
   "current rules, water levels, ramp conditions and the current bite",
 ]) assert(citationGuide.includes(marker), `Human citation guide is missing fishing authority/source-precedence marker: ${marker}.`);
 
-for (const [name, slug] of completeLakeGuides) {
+for (const [name, slug] of historicalCitationLakeGuides) {
   const marker = `['${name} fishing', '/fishing/lakes/${slug}']`;
   assert(citationGuide.includes(marker), `Human citation guide is missing complete fishing lake link: ${marker}.`);
 }
@@ -100,7 +109,7 @@ if (manifest) {
     ["https://texasdefined.com/fishing/lakes", "fishing-lake-comparison"],
     ["https://texasdefined.com/fishing/species", "fishing-species-directory"],
     ["https://texasdefined.com/fishing/species/largemouth-bass", "fishing-species-reference"],
-    ...completeLakeGuides.map(([, slug]) => [`https://texasdefined.com/fishing/lakes/${slug}`, "fishing-lake-reference"]),
+    ...historicalCitationLakeGuides.map(([, slug]) => [`https://texasdefined.com/fishing/lakes/${slug}`, "fishing-lake-reference"]),
   ];
   for (const [url, type] of expected) {
     const resource = (manifest.resources ?? []).find((row) => row.url === url);
