@@ -213,18 +213,23 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
             enrichedFailed = true;
             console.error("Explore sitemap enriched catalog unavailable", error);
           }
-          try {
-            coreDestinations = await withSitemapRemoteTimeout(
-              "Explore sitemap core catalog",
-              fetchCoreExploreDestinations({ limit: 5000 }),
-            );
-          } catch (error) {
-            coreFailed = true;
-            console.error("Explore sitemap core catalog unavailable", error);
+          // Match the page renderer: the enriched Explore catalog is authoritative.
+          // Only query the core/public view when the enriched request actually fails.
+          // This avoids a duplicate 5,000-row Supabase read on healthy sitemap requests.
+          if (enrichedFailed) {
+            try {
+              coreDestinations = await withSitemapRemoteTimeout(
+                "Explore sitemap core catalog",
+                fetchCoreExploreDestinations({ limit: 5000 }),
+              );
+            } catch (error) {
+              coreFailed = true;
+              console.error("Explore sitemap core catalog unavailable", error);
+            }
           }
         }
 
-        const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations);
+        const remoteDestinations = enrichedFailed ? coreDestinations : enrichedDestinations;
         const usePreservedFallback = (enrichedFailed && coreFailed) || remoteDestinations.length === 0;
         const rawDestinations = usePreservedFallback ? preservedExploreDestinations : remoteDestinations;
         if (!usePreservedFallback) {
@@ -302,13 +307,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         const { metroProximitySitemapEntries } = await import("@/data/metro-proximity");
-        const { isMetroProximityCollectionIndexReadyWithTownReferences } = await import("@/data/metro-proximity-town-references");
-        const { listResolvedDestinations } = await import("@/data/destination-query-runtime");
-        // Proximity pages compute indexability from listResolvedDestinations at request time.
-        // Use that same resolved catalog here so the sitemap cannot submit a proximity URL
-        // that the live route correctly marks noindex because the two catalogs diverged.
-        const proximityDestinations = await listResolvedDestinations({ limit: 5000 });
-        const proximityEntries = metroProximitySitemapEntries(proximityDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)
+        const proximityEntries = metroProximitySitemapEntries(indexableDestinations)
           .map((item) => entry(item.path, item.lastmod))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
