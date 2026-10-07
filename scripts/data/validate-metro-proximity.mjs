@@ -151,7 +151,7 @@ for (const token of [
 ]) requireText(files.exploreUi, token, `Explore internal discovery missing ${token}`);
 
 for (const token of [
-  'await import("@/data/metro-proximity")', "metroProximitySitemapEntries(indexableDestinations)",
+  'await import("@/data/metro-proximity")', "listResolvedDestinations({ limit: 5000 })", "metroProximitySitemapEntries(proximityDestinations)",
   "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
 
