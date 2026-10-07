@@ -237,7 +237,7 @@ function Page() {
         </div>
       </section>}
 
-      {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {(program || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">School enrollment</p>
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
@@ -416,9 +416,8 @@ function PublicEnrollmentSteps({
     ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
     ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
   ];
-  if (!enrollmentLink) return null;
   return <>
-    <div className="mb-6 border border-border p-5">
+    {enrollmentLink && <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
         District enrollment source last reviewed {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
@@ -426,7 +425,7 @@ function PublicEnrollmentSteps({
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
       </a>
-    </div>
+    </div>}
     <StepList steps={steps} />
   </>;
 }
