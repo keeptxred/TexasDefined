@@ -23,6 +23,26 @@ export const generatedTexasEvents = [
     "autoPublish": true
   },
   {
+    "id": "official:wurstfest:2026-11-06",
+    "brandId": "texasdefined",
+    "slug": "wurstfest-2026-11-06",
+    "name": "Wurstfest",
+    "blurb": "Wurstfest is the kind of Texas gathering built around food, local tradition and a reason to make the drive to New Braunfels.",
+    "city": "New Braunfels",
+    "region": "hill-country",
+    "startDate": "2026-11-06",
+    "endDate": "2026-11-15",
+    "category": "food",
+    "venue": "New Braunfels",
+    "officialUrl": "https://wurstfest.com/",
+    "sourceName": "Wurstfest",
+    "sourceCheckedAt": "2026-10-07T17:50:39.028Z",
+    "confidenceScore": 94,
+    "editorialScore": 94,
+    "status": "published",
+    "autoPublish": true
+  },
+  {
     "id": "official:houston-livestock-show-and-rodeo:2027-03-02",
     "brandId": "texasdefined",
     "slug": "houston-livestock-show-and-rodeo-2027-03-02",
