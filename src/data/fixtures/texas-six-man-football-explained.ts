@@ -3,14 +3,7 @@ import type { Article, ArticleBlock } from "../types";
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
-const image = (src: string, alt: string, width: number, height: number, credit: string, caption: string): ArticleBlock => ({
-  type: "image",
-  image: { src, alt, width, height, credit },
-  caption,
-});
 
-// Legacy validation marker retained for the production smoke contract while the visible title stays concise:
-// Texas Six-Man Football Explained: Rules, Scoring and Why It Looks So Different
 export const texasSixManFootballExplainedArticle: Article = {
   id: "evergreen-texas-six-man-football-explained",
   brandId: "texasdefined",
@@ -19,16 +12,16 @@ export const texasSixManFootballExplainedArticle: Article = {
   dek: "A visual guide to Texas six-man football: the 80-yard field, 15-yard first downs, exchange rule, scoring, 45-point rule, UIL divisions and where to find a team.",
   category: "sports",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bart_Coan_Field_from_west.jpg?width=1600",
+    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/1280px-Bart_Coan_Field_from_west.jpg",
     alt: "Six-man football game at Bart Coan Field on the Fort Davis High School campus in Fort Davis, Texas",
-    width: 1600,
-    height: 1200,
+    width: 1280,
+    height: 960,
     credit: "Fortguy · CC BY-SA 4.0 · Wikimedia Commons",
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-19",
-  updatedAt: "2026-10-02",
-  readingMinutes: 11,
+  updatedAt: "2026-10-03",
+  readingMinutes: 8,
   tags: ["texas six-man football", "six player football rules", "1A football Texas", "45 point rule", "UIL football", "small town Texas football"],
   featured: false,
   sourceName: "University Interscholastic League",
@@ -46,70 +39,40 @@ export const texasSixManFootballExplainedArticle: Article = {
   relatedCollections: [],
   relatedDestinations: [],
   body: [
-    p("Six-man football can look familiar for about three seconds. There is a snap, blocking, backfield action, receivers and a goal line. Then the field opens up, nearly every player becomes a receiving threat and one missed tackle can turn into a sprint to the end zone."),
-    p("Texas six-man football starts with the NCAA football rule framework used by UIL and then applies six-player exceptions that change the field, first-down distance, scoring values, player eligibility and how the offense may advance the ball. The visual guide above gives you the differences first; the sections below explain why they matter."),
+    p("Six-man football looks familiar until the field suddenly opens. There is a snap, blocking, backfield action and a goal line, but with only six players per side every matchup carries more space. One missed tackle can become a touchdown before the defense has time to recover."),
+    p("The visual guide above shows the rule changes first: six players, an 80-by-40-yard field, 15 yards for a first down, different kicking values, the exchange rule and the 45-point ending rule. The rest of this guide explains what those rules do to the game and why six-man football became such a durable part of small-town Texas."),
 
     h("Who plays six-man football in Texas?"),
-    p("UIL six-man football is the football format associated with Conference 1A. For the 2026–28 alignment, 1A includes schools with 104.9 students or fewer in grades 9–12 for classification purposes. UIL lists 159 football schools in 1A for the current alignment."),
-    p("Small schools are not automatically locked into six-man football. UIL realignment policy allows qualifying 1A schools to choose 1A six-man football or participate in 2A eleven-man football while remaining 1A for other applicable activities. That is why the current UIL alignment or the TexasDefined team finder is the right place to confirm what a particular school actually plays."),
+    p("UIL six-man football is associated with Conference 1A. For the 2026–28 alignment, 1A includes schools with 104.9 students or fewer in grades 9–12 for classification purposes, and UIL lists 159 football schools in 1A for the current alignment."),
+    p("A small school is not automatically locked into six-man football. UIL realignment policy allows qualifying 1A schools to choose 1A six-man football or participate in 2A eleven-man football while remaining 1A for other applicable activities. Use the current UIL alignment or the TexasDefined team finder to confirm what a particular school actually plays."),
 
-    h("Why the smaller field still creates so much space"),
-    p("The standard six-man field is 80 yards long by 40 yards wide, with the 40-yard line serving as midfield. With only six defenders, however, each player has much more ground and responsibility than the smaller dimensions might suggest. Open-field tackling, pursuit angles and recovery after misdirection become unusually visible."),
-    p("UIL six-man goal posts are also different: the uprights are 25 feet apart and the crossbar is 9 feet above the ground."),
+    h("What the rules change on Friday night"),
+    p("The smaller field does not make six-man football feel cramped. Removing five defenders creates far more open grass per player, so pursuit angles and open-field tackling become unusually important. Offenses can use the space horizontally, force defenders into isolated choices and turn a small mistake into a long scoring play."),
+    p("The exchange rule is one of the biggest adjustments for an eleven-man fan. On most running plays, the player who receives the snap cannot simply carry the ball beyond the neutral zone. The ball must first be exchanged with another offensive player, such as by handoff or backward pass. The original snap receiver can get the ball back after the exchange, which encourages motion and misdirection."),
+    p("Six-player eligibility also changes the defense's pre-snap assumptions. All players may become receiving threats under the six-man exceptions, including the snapper in qualifying situations. Combine that with the extra space and the result is an offense in which defenders have fewer safe clues about where the ball is going."),
 
-    h("First down takes 15 yards"),
-    p("The offense still gets four downs and must advance 15 yards for a new first down rather than 10. That extra distance suits a game in which explosive plays are common and prevents the smaller field from simply becoming a compressed version of eleven-man football."),
-
-    h("The exchange rule changes what happens after the snap"),
-    p("Unless the play is a kick or forward pass, the ball generally may not be advanced beyond the neutral zone until an exchange has occurred between the receiver of the snap and another player. A handoff or backward pass can complete that exchange."),
-    p("The original snap receiver is not removed from the play. The ball can come back after the exchange, which is why six-man offenses can use motion, handoffs, backward passes and misdirection in combinations that initially look strange to an eleven-man fan."),
-
-    h("Everyone can become a receiving threat"),
-    p("UIL six-player rules make all players eligible to catch a forward pass, subject to the six-man exceptions. Even the snapper can receive a forward pass, although a pass thrown to the snapper must travel at least one yard in flight. Defenders therefore cannot make the same pre-snap assumptions about eligible receivers that they make in standard formations."),
-
-    image(
-      "https://commons.wikimedia.org/wiki/Special:Redirect/file/Six-man_football_battle.jpg?width=1600",
-      "Players competing for the ball during a six-man football game",
-      1600,
-      1067,
-      "KaleenaBurt · CC BY-SA 4.0 · Wikimedia Commons",
-      "With only six players per side, one matchup or missed tackle can open a large amount of field."
-    ),
-
-    h("Scoring rewards the kicking game"),
-    p("A touchdown is still worth 6 points, but the kicking values are different. A field goal is worth 4 points. After a touchdown, a successful place kick or drop kick is worth 2 points, while a successful run or pass try is worth 1."),
-    p("That reverses the familiar extra-point incentive. A team with a dependable kicker can change late-game strategy because the kick is the higher-value conversion."),
-
-    h("The 45-point rule is an ending rule, not a running clock"),
-    p("This is the 45-point ending rule: if one team leads by 45 or more points at the end of the first half, the game ends. If a team reaches a 45-point lead during the second half, the contest ends at that point. The rule does not merely speed up the clock and it does not require a coach to concede."),
-
-    h("Quarters are 10 minutes"),
-    p("UIL six-player games use 10-minute quarters. The standard intermission between the first and second quarters and between the third and fourth quarters is two minutes, while halftime is 15 minutes. State championship halftime can be extended to a maximum of 20 minutes with the coaches' concurrence."),
-
-    h("A team can continue with fewer than six players"),
-    p("Six is the maximum number of players each team may have on the field, but a team needs only four players to start and may continue with five or four. Fewer than four available players results in suspension of the contest. The rule reflects the reality of the very small schools the format is designed to serve."),
+    h("Scoring changes strategy"),
+    p("A touchdown remains worth 6 points, but the kicking values are reversed from what most eleven-man fans expect. A field goal is worth 4 points. After a touchdown, a successful place kick or drop kick is worth 2 points, while a successful run or pass try is worth 1. A dependable kicker can therefore change the arithmetic of a close six-man game."),
+    p("Games also use 10-minute quarters. If one team leads by 45 or more points at halftime, the game ends; if the margin reaches 45 during the second half, the contest ends at that point. It is an ending rule, not simply a running-clock rule."),
 
     h("Why six-man is so closely tied to small-town Texas"),
-    p("Six-man football solves a practical problem: how does a high school with only a few dozen students field a viable football team? Reducing the number of players preserves football for communities that could not maintain an eleven-man roster with comparable depth."),
-    p("That adaptation developed its own culture. In many 1A communities, the roster represents a meaningful share of the high-school population, and the same students may also participate in other sports, agriculture programs, band, academics and community activities."),
+    p("Six-man football solves a practical roster problem. A high school with only a few dozen students may not be able to sustain an eleven-man team with enough depth to practice and compete safely. Six-man preserves football for communities where a conventional roster would be unrealistic."),
+    p("That practical adaptation developed its own culture. In many 1A communities, the football roster represents a meaningful share of the high-school population, and the same students may also participate in other sports, agriculture programs, band, academics and community activities. The game is not a miniature version of big-school football; it is a format built around the scale of the community."),
 
-    h("How Division I and Division II work"),
-    p("For the 2026–28 alignment, 1A Division I covers enrollment from 57.6 through 104.9 and Division II covers 57.5 and below. The division is known before the season begins."),
-    p("The top two teams from each 1A six-man district advance to the playoffs. Division I and Division II have separate brackets and each crowns its own state champion."),
+    h("Division I, Division II and the playoffs"),
+    p("For the 2026–28 alignment, 1A Division I covers enrollment from 57.6 through 104.9 and Division II covers 57.5 and below. The division is established before the season begins."),
+    p("The top two teams from each 1A six-man district advance to the playoffs. Division I and Division II use separate brackets and each crowns its own state champion."),
 
     h("Where to watch six-man football in Texas"),
-    p("The best way to understand six-man football is to see it in person. Start with the TexasDefined team finder to locate 1A programs and district pages, then use school schedules or the UIL playoff brackets to find a game. Regular-season games are concentrated in the fall, with the postseason leading to separate Division I and Division II state championships."),
+    p("The fastest way to understand six-man football is to see it in person. Start with the TexasDefined team finder to locate 1A programs and district pages, then confirm the current schedule through the school or UIL before traveling."),
     list(
       "Use the TexasDefined team finder to identify current 1A programs.",
-      "Open a team or district page to understand the school, classification and local context.",
-      "Check the school's current schedule before traveling; dates, sites and kickoff times can change.",
+      "Open a team or district page for the school, classification and local context.",
+      "Confirm the school's current schedule before traveling; dates, sites and kickoff times can change.",
       "During the postseason, use the official UIL bracket pages to confirm matchups and advancement."
     ),
 
-    h("What does not change"),
-    p("Six-man is still tackle football. Blocking, tackling, passing, rushing, turnovers, downs, penalties, touchdowns and field position still matter. The easiest way to learn it is not to memorize a separate sport from scratch: learn the handful of six-player rules that change space, advancement and scoring, then watch how those differences reshape everything else."),
-
     h("Official rules used for this guide"),
-    p("TexasDefined checks this guide against the current UIL football rules and guidelines, UIL six-player exceptions, conference cutoff numbers and UIL playoff information. Because UIL updates rules and alignments over time, the official UIL pages linked below remain the controlling source for current competition rules."),
+    p("TexasDefined checks this guide against the current UIL football rules and guidelines, UIL six-player exceptions, conference cutoff numbers and UIL playoff information. UIL updates rules and alignments over time, so the official UIL sources linked below remain the controlling references for current competition rules."),
   ],
 };
