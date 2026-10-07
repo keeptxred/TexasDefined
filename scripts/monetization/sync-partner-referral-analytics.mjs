@@ -70,6 +70,7 @@ async function queryCloudflare(accountId, apiToken) {
     blob7 AS placement,
     blob11 AS pagePath,
     blob6 AS destinationUrl,
+    blob13 AS acquisitionSource,
     SUM(_sample_interval) AS eventCount
   FROM ${DATASET}
   WHERE timestamp > NOW() - INTERVAL '${WINDOW_DAYS}' DAY
@@ -81,7 +82,7 @@ async function queryCloudflare(accountId, apiToken) {
     AND blob2 != ''
     AND blob6 != ''
     AND blob11 != ''
-  GROUP BY metricDate, eventName, partner, placement, pagePath, destinationUrl
+  GROUP BY metricDate, eventName, partner, placement, pagePath, destinationUrl, acquisitionSource
   ORDER BY metricDate ASC
   LIMIT ${MAX_ROWS}
   FORMAT JSON`;
@@ -115,13 +116,14 @@ function normalizeRows(rows) {
     const placement = clean(row.placement || 'unspecified', 160) || 'unspecified';
     const pagePath = validPath(row.pagePath);
     const destinationUrl = validHttps(row.destinationUrl);
+    const acquisitionSource = clean(row.acquisitionSource || 'unknown', 80).toLowerCase().replace(/[^a-z0-9._-]/g, '') || 'unknown';
     const eventCount = asCount(row.eventCount);
     const supportedEvent = ['partner_referral_clicked', 'partner_referral_shown'].includes(eventName)
       || (eventName === 'next_step_selected' && partner === 'expedia-search');
     if (!metricDate || !supportedEvent || !partner || !pagePath || !destinationUrl || eventCount <= 0) continue;
 
     const destinationHash = hash(destinationUrl);
-    const key = [metricDate, partner, placement, pagePath, destinationHash].join('\u0000');
+    const key = [metricDate, partner, placement, pagePath, destinationHash, acquisitionSource].join('\u0000');
     const existing = normalized.get(key) ?? {
       metric_date: metricDate,
       partner,
@@ -129,6 +131,7 @@ function normalizeRows(rows) {
       page_path: pagePath,
       destination_url: destinationUrl,
       destination_hash: destinationHash,
+      acquisition_source: acquisitionSource,
       click_count: 0,
       impression_count: 0,
       synced_at: syncedAt,
@@ -151,6 +154,7 @@ function heartbeatRow() {
     page_path: HEARTBEAT_PAGE_PATH,
     destination_url: HEARTBEAT_DESTINATION,
     destination_hash: hash(HEARTBEAT_DESTINATION),
+    acquisition_source: 'internal',
     click_count: 0,
     impression_count: 0,
     synced_at: syncedAt,
@@ -191,7 +195,7 @@ async function latestHeartbeatAgeMinutes(supabaseUrl, serviceRoleKey) {
 async function upsertRows(supabaseUrl, serviceRoleKey, rows) {
   if (!rows.length) return;
   const endpoint = new URL(`/rest/v1/${TABLE}`, supabaseUrl);
-  endpoint.searchParams.set('on_conflict', 'metric_date,partner,placement,page_path,destination_hash');
+  endpoint.searchParams.set('on_conflict', 'metric_date,partner,placement,page_path,destination_hash,acquisition_source');
 
   for (let start = 0; start < rows.length; start += UPSERT_CHUNK_SIZE) {
     const chunk = rows.slice(start, start + UPSERT_CHUNK_SIZE);
