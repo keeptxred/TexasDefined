@@ -5,7 +5,7 @@ import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/guides";
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
-const description = "Texas Painted Churches search guide covering 50 high-interest church, town, route, visitor and history questions with a dedicated answer for each major visitor or research question.";
+const description = "Browse Texas Painted Churches guides for trip planning, church identification, history, architecture, routes and verified visitor information.";
 
 export const Route = createFileRoute(canonicalPath)({
   loader: async () => {
@@ -15,7 +15,7 @@ export const Route = createFileRoute(canonicalPath)({
   head: ({ loaderData }) => ({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
-      title: "Texas Painted Churches Search Guide | 50 Popular Questions",
+      title: "Texas Painted Churches Guide Library | Texas Defined",
       description,
       modifiedTime: "2026-08-18T23:30:00-05:00",
     }),
@@ -27,7 +27,7 @@ export const Route = createFileRoute(canonicalPath)({
           "@type": "CollectionPage",
           "@id": `${pageUrl}#collection`,
           url: pageUrl,
-          name: "Texas Painted Churches Search Guide",
+          name: "Texas Painted Churches Guide Library",
           description,
           dateModified: "2026-08-18",
           mainEntity: { "@id": `${pageUrl}#queries` },
@@ -48,7 +48,7 @@ export const Route = createFileRoute(canonicalPath)({
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl(texasDefinedBrand, "/") },
             { "@type": "ListItem", position: 2, name: "Painted Churches", item: absoluteUrl(texasDefinedBrand, "/explore/painted-churches") },
-            { "@type": "ListItem", position: 3, name: "Search Guide", item: pageUrl },
+            { "@type": "ListItem", position: 3, name: "Guide Library", item: pageUrl },
           ],
         },
       ],
