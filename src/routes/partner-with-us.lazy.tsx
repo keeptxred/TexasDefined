@@ -101,7 +101,7 @@ function PartnerWithUsPage() {
   }
 
   return <>
-    <DepartmentHero current="Advertise & Partner" eyebrow="Texas Defined commercial partnerships" title="Reach Texans when they are deciding where to go, stay, move, buy and explore" description={description} tone="surface" />
+    <DepartmentHero current="Advertise & Partner" eyebrow="Texas Defined commercial partnerships" title="Advertise and partner with Texas Defined to reach Texans making travel and moving decisions" description={description} tone="surface" />
 
     <Container className="py-12 sm:py-16">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
