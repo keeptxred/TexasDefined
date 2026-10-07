@@ -275,8 +275,8 @@ export function loadMajorEventPageServer(slug: string) {
   const organizerMarkup = schemaEnrichment?.organizer
     ? `<p><strong>Organizer:</strong> <a class="font-semibold text-primary underline" href="${esc(schemaEnrichment.organizer.url)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.organizer.name)} ↗</a></p>`
     : "";
-  const offersMarkup = displayOffers.length
-    ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — $${offer.price.toFixed(2)} ${offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
+  const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length
+    ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — ${offer.price.toFixed(2)} ${offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
     : "";
   const performersMarkup = displayPerformers.length
     ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
@@ -370,7 +370,7 @@ export function loadMajorEventPageServer(slug: string) {
       location,
       ...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {}),
       ...(organizer ? { organizer } : {}),
-      ...(offers?.length ? { offers } : {}),
+      ...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {}),
       ...(performers?.length ? { performer: performers } : {}),
     };
   });
