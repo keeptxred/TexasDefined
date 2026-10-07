@@ -477,12 +477,18 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Official UIL alphabetical enrollment listing',
     'Official UIL 2026–28 enrollment cutoffs',
     'All current UIL football programs use the same profile system.',
-    'Venue details not yet available',
-    'Every UIL school profile has the same game-venue field.',
+    'Football eligibility is a separate question from school admission.',
+    scoresSchedulesPath,
     'Official district enrollment',
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
+  for (const forbidden of [
+    'Venue details not yet available',
+    'Every UIL school profile has the same game-venue field.',
+  ]) {
+    if (decodeHtml(body).includes(forbidden)) throw new Error(`Abbott football school profile contains retired fallback content: ${forbidden}`);
+  }
 });
 
 await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) => {
