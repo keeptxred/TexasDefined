@@ -45,7 +45,8 @@ for (const [source, legacyPath, canonicalPath] of [
 
 for (const marker of [
   'function mergeDestinationSources',
-  'const remoteDestinations = mergeDestinationSources(coreDestinations, enrichedDestinations)',
+  'if (enrichedFailed)',
+  'const remoteDestinations = enrichedFailed ? coreDestinations : enrichedDestinations',
   'const remoteConfigured = hasExploreRemoteData()',
   'let enrichedFailed = !remoteConfigured',
   'let coreFailed = !remoteConfigured',
