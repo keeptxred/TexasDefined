@@ -76,7 +76,9 @@ for (const id of [233, 234, 235]) {
 }
 if (!hub.includes('to="/texas-blue-norther-weather-guide"')) failures.push('Things That Define Texas hub must link the Texas weather guide.');
 if (!category.includes('{ href: "/texas-blue-norther-weather-guide", label: "Texas Blue Northers & Spring Storms"')) failures.push('Slang/Folklore chapter must feature the Texas weather guide.');
-if (!texasLife.includes("['/texas-blue-norther-weather-guide', 'Texas Blue Northers & Spring Storms'")) failures.push('Texas Life must retain an inbound link to the Texas weather guide.');
+for (const token of ['actionTo="/things-unique-to-texas"', 'the full culture library lives in Things That Define Texas']) {
+  if (!texasLife.includes(token)) failures.push(`Texas Living must hand deeper culture discovery to Things That Define Texas: ${token}`);
+}
 if (!llms.includes('https://texasdefined.com/texas-blue-norther-weather-guide')) failures.push('llms.txt must advertise the Texas weather guide.');
 if (!publicRoutes.includes('"/texas-blue-norther-weather-guide"')) failures.push('Texas weather guide must remain governed as an indexable public route.');
 for (const token of [
@@ -120,4 +122,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Texas weather authority validation passed: ${sectionCount} substantive sections, sourced JSON-LD citations, three icon mappings, Texas Life and machine discovery, human source precedence, citation trust and 91-link/23-route production smoke are protected.`);
+console.log(`Texas weather authority validation passed: ${sectionCount} substantive sections, sourced JSON-LD citations, three icon mappings, focused Texas Living culture-hub handoff and machine discovery, human source precedence, citation trust and 91-link/23-route production smoke are protected.`);
