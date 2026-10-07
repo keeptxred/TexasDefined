@@ -52,7 +52,11 @@ export function SportsVenueGuidePage({
   const officialUrl = guide.officialUrl ?? entity.officialUrl;
   const directionsUrl = buildDirectionsUrl(entity, guide);
   const reviewedAt = guide.reviewedAt ?? enrichment?.verifiedAt ?? entity.sourceCheckedAt;
-  const attractions = nearbyAttractions.slice(0, 4);
+  const officialEventCalendarUrl = guide.eventScheduleUrl
+    ?? guide.sources.find((source) => /event|calendar|schedule/i.test(source.label))?.href
+    ?? enrichment?.planningLinks.find((link) => /event|calendar|schedule/i.test(link.label))?.url;
+  // A city in the same county is not necessarily a nearby attraction.
+  const attractions = nearbyAttractions.filter((item) => item.kind !== "city").slice(0, 4);
   const schemaType = sportsVenueSchemaType(entity);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -128,7 +132,7 @@ export function SportsVenueGuidePage({
 
           <div className="grid items-start gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <VenuePhoto photo={photo} venueName={entity.name} />
-            <QuickFacts guide={guide} directionsUrl={directionsUrl} officialUrl={officialUrl} />
+            <QuickFacts guide={guide} capacity={guide.capacity ?? enrichment?.capacity} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
 
           {sponsorPlacement ? (
@@ -142,8 +146,19 @@ export function SportsVenueGuidePage({
             eyebrow="Upcoming events"
             title={`What’s happening at ${entity.name}`}
             viewAllHref={eventCalendarHref}
-            emptyMessage={`No upcoming events with current source details are currently listed for ${entity.name}. Use the statewide calendar to explore other Texas events.`}
+            emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
           />
+
+          {officialEventCalendarUrl ? (
+            <div className="border-b border-border pb-7">
+              <p className="max-w-4xl text-sm leading-7 text-muted-foreground">
+                Our event listings are a dated, source-verified selection, not a live mirror of every event or ticket change.
+                Confirm dates and admission on the venue's official calendar.
+              </p>
+              <a className="mt-3 inline-block text-sm font-semibold underline decoration-primary/50 underline-offset-4 hover:text-primary"
+                href={officialEventCalendarUrl} target="_blank" rel="noopener noreferrer">See the complete official event schedule ↗</a>
+            </div>
+          ) : null}
 
           {enrichment ? (
             <KnowBeforeYouGo
@@ -151,7 +166,31 @@ export function SportsVenueGuidePage({
               parking={enrichment.parking}
               arrival={enrichment.arrival}
               parkingMap={parkingMap}
+              guide={guide}
+              planningLinks={enrichment.planningLinks}
             />
+          ) : null}
+
+          {guide.gallery?.length ? (
+            <EditorialSection eyebrow="Venue photo gallery" title={`${entity.name} in pictures`}>
+              <p className="mb-6 max-w-3xl text-sm leading-7 text-muted-foreground">
+                Historical photographs are labeled by date and should not be mistaken for the current field or seating configuration.
+              </p>
+              <div className="grid gap-6 md:grid-cols-2">
+                {guide.gallery.map((image) => (
+                  <figure key={image.sourceUrl} className="min-w-0">
+                    <a href={image.sourceUrl} target="_blank" rel="noopener noreferrer">
+                      <img src={image.imageUrl} alt={image.alt} loading="lazy" decoding="async"
+                        className="aspect-[4/3] w-full border border-border bg-muted object-cover" />
+                    </a>
+                    <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+                      {image.caption} Photo: <a href={image.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{image.credit}</a>
+                      {" · "}<a href={image.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{image.license}</a>.
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </EditorialSection>
           ) : null}
 
           <div data-stay-nearby-slot />
@@ -164,7 +203,24 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
-          {attractions.length >= 2 ? <NearbyAttractionsSection items={attractions} /> : null}
+          {guide.faqs?.length ? (
+            <EditorialSection eyebrow="Visitor questions" title={`Questions about ${entity.name}`}>
+              <dl className="grid gap-6 md:grid-cols-2">
+                {guide.faqs.map(({ question, answer }) => (
+                  <div key={question} className="border-t border-border pt-4">
+                    <dt className="font-display text-xl leading-snug">{question}</dt>
+                    <dd className="mt-3 text-sm leading-7 text-muted-foreground">{answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </EditorialSection>
+          ) : null}
+
+          {guide.nearbyPlaces?.length ? (
+            <NearbyPlacesSection items={guide.nearbyPlaces} />
+          ) : attractions.length >= 2 ? (
+            <NearbyAttractionsSection items={attractions} />
+          ) : null}
 
           <SourcesSection
             entity={entity}
@@ -229,7 +285,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   );
 }
 
-function QuickFacts({ guide, directionsUrl, officialUrl }: { guide: SportsVenueGuidePilot; directionsUrl: string; officialUrl?: string }) {
+function QuickFacts({ guide, capacity, directionsUrl, officialUrl }: { guide: SportsVenueGuidePilot; capacity?: string; directionsUrl: string; officialUrl?: string }) {
   return (
     <aside className="flex h-full flex-col border border-border px-5 py-5 sm:px-6" aria-labelledby="venue-quick-facts-heading">
       <div>
@@ -237,7 +293,7 @@ function QuickFacts({ guide, directionsUrl, officialUrl }: { guide: SportsVenueG
         <h2 id="venue-quick-facts-heading" className="mt-2 font-display text-3xl">At the venue</h2>
       </div>
       <dl className="mt-5 text-sm">
-        <Fact label="Capacity" value={guide.capacity} />
+        <Fact label="Capacity" value={capacity} />
         <Fact label="Venue type" value={guide.venueType} />
         <Fact label="Home team" value={guide.homeTeam} />
         <Fact label="Playing surface" value={guide.playingSurface} />
@@ -259,26 +315,76 @@ function KnowBeforeYouGo({
   parking,
   arrival,
   parkingMap,
+  guide,
+  planningLinks,
 }: {
   venueName: string;
   parking: string;
   arrival: string;
   parkingMap?: ParkingMapAsset;
+  guide: SportsVenueGuidePilot;
+  planningLinks: readonly { label: string; url: string }[];
 }) {
+  // Only display venue-specific policy claims where a vetted source supplied
+  // them. For every other venue, link out instead of inventing rules.
+  const policyLinks = planningLinks.filter((link) =>
+    /bag|accessib|guest|fan guide|a.to.z|polic|seat|gate|entrance|parking|map/i.test(link.label));
+  const sourcedGuideLinks = guide.sources.filter((link) =>
+    /bag|accessib|guide|polic|seat|map|guest|entry/i.test(link.label));
   return (
     <EditorialSection eyebrow="Know before you go" title={`Planning your visit to ${venueName}`}>
       <div className="grid gap-x-10 gap-y-7 md:grid-cols-2">
         <GuideItem title="Parking" body={parking} />
         <GuideItem title="Arrival" body={arrival} />
+        {guide.bagPolicy ? <GuideItem title="Bags and security" body={guide.bagPolicy} /> : null}
+        {guide.accessibility ? <GuideItem title="Accessibility" body={guide.accessibility} /> : null}
+        {guide.cashlessPolicy ? <GuideItem title="Payments and re-entry" body={guide.cashlessPolicy} /> : null}
       </div>
+      {guide.stadiumMapUrl ? (
+        <a className="mt-6 inline-flex min-h-11 items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary"
+          href={guide.stadiumMapUrl} target="_blank" rel="noopener noreferrer">Official stadium and seating map ↗</a>
+      ) : null}
+      {!guide.bagPolicy || !guide.accessibility ? (
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">
+          Security screening, bag sizes, accessibility services, seating layouts and permitted items vary by venue and event.
+          Check the official venue and event-specific guest guide before traveling; this page does not assume universal policies.
+        </p>
+      ) : null}
+      {policyLinks.length || sourcedGuideLinks.length ? (
+        <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+          {dedupeLinks([
+            ...sourcedGuideLinks,
+            ...policyLinks.map((link) => ({ label: link.label, href: link.url })),
+          ]).slice(0, 5).map((link) => (
+            <li key={link.href}><a href={link.href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-primary">{link.label} ↗</a></li>
+          ))}
+        </ul>
+      ) : null}
       <ParkingMapPanel map={parkingMap} contextName={venueName} />
+    </EditorialSection>
+  );
+}
+
+function NearbyPlacesSection({ items }: { items: NonNullable<SportsVenueGuidePilot["nearbyPlaces"]> }) {
+  return (
+    <EditorialSection eyebrow="Around the venue" title="Nearby places worth pairing with a visit">
+      <div className="grid gap-4 sm:grid-cols-2">
+        {items.map((item) => (
+          <a key={item.href} href={item.href} className="group border border-border p-5 hover:border-primary"
+            {...(item.href.startsWith("https://") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+            <strong className="block font-display text-2xl group-hover:text-primary">{item.label}</strong>
+            <span className="mt-2 block text-sm leading-7 text-muted-foreground">{item.detail}</span>
+          </a>
+        ))}
+      </div>
     </EditorialSection>
   );
 }
 
 function NearbyAttractionsSection({ items }: { items: readonly TexasEntityRecord[] }) {
   return (
-    <EditorialSection eyebrow="Nearby attractions" title="More to do around the venue">
+    <EditorialSection eyebrow="Nearby attractions in the county" title="More visitor places to explore in the same county">
+      <p className="mb-5 max-w-3xl text-sm leading-7 text-muted-foreground">These places share the venue's county, but may not be immediately adjacent. Check travel times before planning an event-day visit.</p>
       <div className="grid gap-x-8 border-t border-border sm:grid-cols-2">
         {items.map((item) => (
           <a key={item.id} href={canonicalEntityPath(item)} className="group border-b border-border py-5">

@@ -124,7 +124,7 @@ const visitorKindPriority: Partial<Record<TexasEntityKind, number>> = {
   river: 11,
   fairground: 12,
   university: 13,
-  city: 14,
+  // City reference hubs are not attractions adjacent to a sports venue.
 };
 
 function countyVisitorPlaces(venue: TexasEntityRecord, graph: TexasEntityRecord[]) {
@@ -311,6 +311,7 @@ function LegacySportsVenuePage() {
           {entity.officialUrl && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={entity.officialUrl} target="_blank" rel="noreferrer">Official venue information ↗</a>}
           <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={mapUrl} target="_blank" rel="noreferrer">Open in maps ↗</a>
           {entity.countySlug && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`/county/${entity.countySlug}`}>Explore {countyName} →</a>}
+          <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href="/events#calendar">Texas events calendar →</a>
           <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href="/sports-venues">All Texas sports venues →</a>
         </div>
 
@@ -341,6 +342,7 @@ function LegacySportsVenuePage() {
                 <ParkingMapPanel map={parkingMap} contextName={entity.name} />
               </div>
               <GuideCard title="When to arrive" body={enrichment.arrival} />
+              <GuideCard title="Bags, accessibility and venue rules" body="Bag sizes, permitted items, security screening, accessible routes, parking and seat configurations differ by venue and event. Consult the venue’s official guest guide or contact the operator for current event-specific restrictions and accommodations. Never assume another stadium’s rules apply." />
               <GuideCard title="Main sports and events" body={`The verified venue profile currently highlights ${formatList(enrichment.primaryEvents.slice(0, 3))}. Check the official calendar for the exact event date, start time and ticket requirements.`} />
               {enrichment.capacity ? <GuideCard title="Capacity and configuration" body={`${entity.name}'s verified profile lists ${enrichment.capacity}. Seating or event configurations can change for concerts, tournaments and special events, so use the official event page for the final layout.`} /> : null}
             </div>
