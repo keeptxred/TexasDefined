@@ -55,7 +55,9 @@ function EntityPage() {
         url: canonicalUrl,
         sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
         geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
-        containedInPlace: entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
+        containedInPlace: entity.kind === 'city'
+          ? entity.region ? { '@type': 'AdministrativeArea', name: `${title(entity.region)} Texas` } : undefined
+          : entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
         ...(entity.kind === 'county' && countyProfile ? {
           additionalProperty: [
             countyProfile.countySeat ? { '@type': 'PropertyValue', name: 'County seat', value: countyProfile.countySeat } : undefined,
@@ -97,7 +99,7 @@ function EntityPage() {
             </p>
           </div>
           <dl className="border-y border-border py-4 text-sm lg:border-y-0 lg:border-l lg:py-0 lg:pl-6">
-            <Fact label={entity.kind === 'county' ? 'Guide type' : 'County'} value={entity.kind === 'county' ? 'Texas county guide' : entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
+            <Fact label={entity.kind === 'county' ? 'Guide type' : entity.kind === 'city' ? 'Primary county context' : 'County'} value={entity.kind === 'county' ? 'Texas county guide' : entity.countySlug ? `${title(entity.countySlug)} County` : undefined} />
             {entity.kind === 'county' && countyProfile?.countySeat && <Fact label="County seat" value={countyProfile.countySeat} />}
             <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
             <Fact label="Source check" value={sourceStatus(entity)} />
