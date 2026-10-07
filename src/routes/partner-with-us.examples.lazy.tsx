@@ -27,7 +27,7 @@ function AdvertisingExamplesPage() {
   return <main>
     <Container className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Placement examples</p>
-      <h1 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">See what a Texas Defined partnership can look like before you buy.</h1>
+      <h1 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Advertising placement examples for Texas Defined partnerships.</h1>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Every business shown below is fictional. These are SAMPLE / DEMONSTRATION placements using Texas Defined layout conventions so prospects can understand the treatment without implying that Texas Defined already has these advertisers.</p>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-2">
