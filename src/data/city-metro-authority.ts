@@ -47,17 +47,20 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
     'Dallas is a North Texas city built around a major corporate and transportation center, with downtown and the Arts District, established neighborhoods, large employment corridors, professional sports nearby and regional connections across the wider Metroplex. The useful way to plan Dallas is to distinguish the city from the rest of Dallas–Fort Worth and then verify the exact county, school district, tax jurisdiction, transit access and commute tied to an address.',
     'https://dallascityhall.com/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metro-core', 'airports', 'finance', 'professional-services', 'technology'],
   ),
-  'fort-worth': city(
-    'Fort Worth is the western anchor of Dallas–Fort Worth, pairing Stockyards cattle and rail history with a nationally significant Cultural District, downtown and Sundance Square, major aviation and defense employment, the Trinity River and a fast-growing urban footprint. Tarrant County is the city’s primary county context, but Fort Worth’s incorporated limits also extend into Denton, Parker, Johnson and Wise counties, so taxes, schools, records and services must be verified by exact address.',
-    'https://www.fortworthtexas.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metro-core', 'airports', 'aviation', 'aerospace', 'manufacturing', 'logistics'],
-    [
-      { type: 'jurisdiction-overlap', targetId: 'county:tarrant' },
-      { type: 'jurisdiction-overlap', targetId: 'county:denton' },
-      { type: 'jurisdiction-overlap', targetId: 'county:parker' },
-      { type: 'jurisdiction-overlap', targetId: 'county:johnson' },
-      { type: 'jurisdiction-overlap', targetId: 'county:wise' },
-    ],
-  ),
+  'fort-worth': {
+    ...city(
+      'Fort Worth is the western anchor of Dallas–Fort Worth, pairing Stockyards cattle and rail history with a nationally significant Cultural District, downtown and Sundance Square, major aviation and defense employment, the Trinity River and a fast-growing urban footprint. Tarrant County is the city’s primary county context, but Fort Worth’s incorporated limits also extend into Denton, Parker, Johnson and Wise counties, so taxes, schools, records and services must be verified by exact address.',
+      'https://www.fortworthtexas.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metro-core', 'airports', 'aviation', 'aerospace', 'manufacturing', 'logistics'],
+      [
+        { type: 'jurisdiction-overlap', targetId: 'county:tarrant' },
+        { type: 'jurisdiction-overlap', targetId: 'county:denton' },
+        { type: 'jurisdiction-overlap', targetId: 'county:parker' },
+        { type: 'jurisdiction-overlap', targetId: 'county:johnson' },
+        { type: 'jurisdiction-overlap', targetId: 'county:wise' },
+      ],
+    ),
+    sourceCheckedAt: '2026-10-07',
+  },
   austin: city(
     'Austin is the Texas capital on the Colorado River, where state government, the University of Texas, technology and semiconductor employers, live music and outdoor recreation meet at the eastern edge of the Hill Country. Downtown is only one part of the city: neighborhoods, employment centers and fast-growing suburban corridors spread across Central Texas, making commute, school, utility and tax questions dependent on the exact address.',
     'https://www.austintexas.gov/', 'central-texas', 'metro-area:greater-austin', ['major-city', 'state-capital', 'metro-core', 'airport', 'technology', 'semiconductors', 'government', 'higher-education'],
