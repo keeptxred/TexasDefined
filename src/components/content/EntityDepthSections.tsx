@@ -239,7 +239,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Plan, move & live</p>
-          <h2 id="city-resource-heading" className="mt-2 font-display text-4xl">Useful TexasDefined tools for {entity.name}</h2>
+          <h2 id="city-resource-heading" className="mt-2 font-display text-4xl">Plan a move, home search or trip in {entity.name}</h2>
         </div>
         <div>
           <p className="max-w-3xl text-base leading-7 text-muted-foreground">Use these tools when your question shifts from “What is {entity.name} like?” to a concrete decision about moving, housing costs, schools, driving or a trip. Address-level tools matter because city names do not determine every local jurisdiction or service boundary.</p>
@@ -266,7 +266,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Build the picture</p>
-          <h2 id="entity-connections-heading" className="mt-2 font-display text-4xl">Related TexasDefined references</h2>
+          <h2 id="entity-connections-heading" className="mt-2 font-display text-4xl">Related guides and places</h2>
         </div>
         <div>
           <p className="max-w-3xl text-base leading-7 text-muted-foreground">Continue with the county, region, nearby places and subject guides that add useful context to {entity.name}. These are supporting references for the next question, not a generic list of links.</p>
@@ -338,9 +338,9 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (entity.kind === 'city') {
     return [
-      `${entity.name} is a TexasDefined city reference built to connect the city with its county, region, nearby destinations and practical Texas-living guides. It is not intended to be a generic encyclopedia entry.`,
-      countyName ? `${entity.name} is associated with ${countyName}. County boundaries matter for property records, courts, elections, appraisal districts and other local-government services even when a mailing address uses the city name.` : `City and county boundaries do not always align with mailing addresses, so verify the county when property, elections or local-government services are involved.`,
-      `Use the related guides to move from the city overview into nearby places, property information, outdoor destinations and other TexasDefined coverage that is specific to the area.`,
+      `${entity.name} is best understood through its own neighborhoods, major destinations, employment centers and regional setting rather than as a generic point inside a metro area. Use this guide to connect those parts of the city with practical trip and relocation decisions.`,
+      countyName ? `${countyName} is the primary county context stored for ${entity.name}, but a city name is not proof that every address lies in that county. Municipal limits, county lines, school districts, appraisal districts and utility territories can cross or diverge, so verify the exact address before relying on a local jurisdiction.` : `City and county boundaries do not always align with mailing addresses, so verify the exact county, school district, appraisal district and utility territory when those systems matter.`,
+      `Start with the city-specific places and local systems below, then use nearby destination, housing, school, tax and trip-planning links for the decision you are actually making.`,
     ];
   }
 
@@ -396,11 +396,17 @@ function practicalChecklist(entity: TexasEntityRecord) {
 }
 
 function quickAnswers(entity: TexasEntityRecord, countyName: string | null, regionName: string | null) {
-  const locationAnswer = countyName
-    ? `${entity.name} is associated with ${countyName}${regionName ? ` in the ${regionName} region` : ''}. Use the map link and official source for the exact entrance, office or service location when that matters.`
-    : regionName
-      ? `${entity.name} is associated with the ${regionName} region of Texas. Use the map link and official source for exact location details.`
-      : `Use the map link or official source on this page for the exact location or service area.`;
+  const locationAnswer = entity.kind === 'city'
+    ? countyName
+      ? `${entity.name} is in ${regionName ? `the ${regionName} region of Texas` : 'Texas'}, with ${countyName} used here as the primary county context. Some Texas cities cross county lines, so use the exact address when county jurisdiction matters.`
+      : regionName
+        ? `${entity.name} is in the ${regionName} region of Texas. Verify the exact county and local jurisdiction for an address when that matters.`
+        : `${entity.name} is in Texas. Verify the exact county and local jurisdiction for an address when property, schools, elections or services are involved.`
+    : countyName
+      ? `${entity.name} is associated with ${countyName}${regionName ? ` in the ${regionName} region` : ''}. Use the map link and official source for the exact entrance, office or service location when that matters.`
+      : regionName
+        ? `${entity.name} is associated with the ${regionName} region of Texas. Use the map link and official source for exact location details.`
+        : `Use the map link or official source on this page for the exact location or service area.`;
 
   const answers = [
     { question: `Where is ${entity.name}?`, answer: locationAnswer },
@@ -411,10 +417,16 @@ function quickAnswers(entity: TexasEntityRecord, countyName: string | null, regi
     answer: `Use the official website linked on this page for current schedules, fees, forms, rules, hours or operational notices. TexasDefined is an independent guide and does not replace the responsible agency, venue, park, office or organizer.`,
   });
 
-  if (entity.kind === 'city') answers.push({
-    question: `Where should I start if I am considering a move to ${entity.name}?`,
-    answer: `Start with the TexasDefined Moving to Texas guide and checklist linked above, then verify the exact county, school district, utility service area, property-tax jurisdictions and commute pattern for the address you are considering. The city name alone does not determine every local system that applies.`,
-  });
+  if (entity.kind === 'city') {
+    if (entity.description) answers.push({
+      question: `What is ${entity.name} known for?`,
+      answer: entity.description,
+    });
+    answers.push({
+      question: `Where should I start if I am considering a move to ${entity.name}?`,
+      answer: `Start with the moving, housing and address-level tools linked above, then verify the exact county, school district, utility service area, property-tax jurisdictions and commute pattern for the address you are considering. The city name alone does not determine every local system that applies.`,
+    });
+  }
 
   if (governmentKinds.has(entity.kind)) answers.push({
     question: `Is TexasDefined the official website for ${entity.name}?`,
