@@ -299,6 +299,16 @@ if (purgeMetroProximity) {
       url: `https://${zoneName}/explore/near/abilene/historic-sites`,
       required: ['Buffalo Gap Historic Village', 'Fort Phantom Hill'],
     },
+    {
+      label: 'Abilene day trips',
+      url: `https://${zoneName}/explore/near/abilene/day-trips`,
+      required: ['Day Trips'],
+    },
+    {
+      label: 'Abilene small towns',
+      url: `https://${zoneName}/explore/near/abilene/small-towns`,
+      required: ['Small Towns'],
+    },
   ];
 
   for (const check of cachedSurfaceChecks) {
