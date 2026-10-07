@@ -152,11 +152,16 @@ for (const token of [
 
 for (const token of [
   'await import("@/data/metro-proximity")', 'await import("@/data/metro-proximity-town-references")',
-  'await import("@/data/destination-query-runtime")', "listResolvedDestinations({ limit: 5000 })",
   "isMetroProximityCollectionIndexReadyWithTownReferences",
-  "metroProximitySitemapEntries(proximityDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
+  "metroProximitySitemapEntries(indexableDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
   "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+for (const forbidden of [
+  'await import("@/data/destination-query-runtime")',
+  "listResolvedDestinations({ limit: 5000 })",
+]) {
+  if (files.sitemap.includes(forbidden)) fail(`Explore sitemap must reuse its resolved destination catalog instead of restoring duplicate remote fan-out: ${forbidden}`);
+}
 
 for (const token of [
   "applyMetroProximityEdgeCachePolicy", 'url.pathname.startsWith("/explore/near/")',
