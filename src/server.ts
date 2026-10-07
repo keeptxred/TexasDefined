@@ -355,8 +355,27 @@ function applyMetroProximityEdgeCachePolicy(request: Request, response: Response
   });
 }
 
+function applyTexasRiversAuthorityEdgeCachePolicy(request: Request, response: Response): Response {
+  const url = new URL(request.url);
+  if (request.method !== "GET" && request.method !== "HEAD") return response;
+  if (url.pathname !== "/article/texas-rivers-explained") return response;
+
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("CDN-Cache-Control", "no-store");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.delete("age");
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
-  const cacheSafeResponse = applyMetroProximityEdgeCachePolicy(request, response);
+  const metroCacheSafeResponse = applyMetroProximityEdgeCachePolicy(request, response);
+  const cacheSafeResponse = applyTexasRiversAuthorityEdgeCachePolicy(request, metroCacheSafeResponse);
   const url = new URL(request.url);
   if (request.method !== "GET" || url.pathname !== "/") return cacheSafeResponse;
   const contentType = cacheSafeResponse.headers.get("content-type") ?? "";
