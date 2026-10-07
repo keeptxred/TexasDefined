@@ -4,21 +4,9 @@ const checkedAt = '2026-08-13';
 type VenueSeed = readonly [name: string, slug: string, countySlug: string, region: string, officialUrl: string, aliases: readonly string[], tags: readonly string[], city: string, draw: string];
 
 function venue([name, slug, countySlug, region, officialUrl, aliases, tags, city, draw]: VenueSeed): TexasEntityRecord {
-  const tagSet = new Set(tags);
-  const visitorContext = tagSet.has('motorsports')
-    ? 'It belongs in a statewide Texas motorsports itinerary and is a destination people often plan a full race weekend around.'
-    : tagSet.has('horse-racing')
-      ? "It is one of the state's established racing destinations and can anchor a day trip or weekend built around live racing and nearby attractions."
-      : tagSet.has('rodeo') || tagSet.has('equestrian') || tagSet.has('western-sports')
-        ? 'Its calendar ties directly into Texas rodeo, livestock, equestrian and Western-sport tourism, making the venue itself part of the travel experience.'
-        : tagSet.has('minor-league')
-          ? 'Its smaller scale and local setting make it especially useful for family trips, regional sports weekends and pairing a game with nearby food and attractions.'
-          : tagSet.has('college')
-            ? 'Game days draw alumni and visiting fans from across Texas, making the surrounding campus, tailgating traditions and nearby districts part of the destination.'
-            : 'The venue draws traveling fans for marquee games and events and is a natural anchor for nearby hotels, restaurants, attractions and event-weekend planning.';
   return {
     id: `sports-venue:${slug}`, kind: 'sports-venue', name, slug, aliases: [...aliases],
-    description: `${name} in ${city} is a major Texas sports and event destination centered on ${draw}. ${visitorContext}`,
+    description: `${name} in ${city} hosts ${draw}.`,
     countySlug, region, officialUrl, sourceId: 'official-destination-sites', sourceConfidence: 'official', sourceCheckedAt: checkedAt, status: 'active',
     relationships: [{ type: 'located-in-county', targetId: `county:${countySlug}` }], tags: ['sports-venue', ...tags],
   };
