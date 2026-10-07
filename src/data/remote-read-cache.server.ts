@@ -11,7 +11,7 @@ type RemoteReadCacheEntry = {
 const REMOTE_READ_TTL_MS = 5 * 60 * 1000;
 const REMOTE_STALE_TTL_MS = 30 * 60 * 1000;
 const REMOTE_FAILURE_BACKOFF_MS = 30 * 1000;
-const MAX_REMOTE_READ_CACHE_ENTRIES = 256;
+const MAX_REMOTE_READ_CACHE_ENTRIES = 64;
 
 const remoteReadCache = new Map<string, RemoteReadCacheEntry>();
 
