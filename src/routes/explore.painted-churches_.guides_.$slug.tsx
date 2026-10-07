@@ -23,7 +23,7 @@ export const Route = createFileRoute("/explore/painted-churches/guides/$slug")({
         canonicalPath,
         title: guide.title,
         description: guide.description,
-        modifiedTime: "2026-08-18T23:30:00-05:00",
+        modifiedTime: "2026-10-07T09:18:00-05:00",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
       scripts: [jsonLd({
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/explore/painted-churches/guides/$slug")({
             url: pageUrl,
             headline: guide.title,
             description: guide.description,
-            dateModified: "2026-08-18",
+            dateModified: "2026-10-07",
             mainEntityOfPage: pageUrl,
             isPartOf: { "@id": `${absoluteUrl(texasDefinedBrand, "/explore/painted-churches/guides")}#collection` },
             publisher: { "@id": `${siteUrl}/#organization` },
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/explore/painted-churches/guides/$slug")({
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
               { "@type": "ListItem", position: 2, name: "Painted Churches", item: `${siteUrl}/explore/painted-churches` },
-              { "@type": "ListItem", position: 3, name: "Search Guide", item: `${siteUrl}/explore/painted-churches/guides` },
+              { "@type": "ListItem", position: 3, name: "Guides", item: `${siteUrl}/explore/painted-churches/guides` },
               { "@type": "ListItem", position: 4, name: guide.searchIntent, item: pageUrl },
             ],
           },
@@ -63,5 +63,5 @@ export const Route = createFileRoute("/explore/painted-churches/guides/$slug")({
       })],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Painted Churches search guide</p><h1 className="mt-3 font-display text-4xl">That guide isn’t available.</h1><p className="mt-4 text-muted-foreground"><Link to="/explore/painted-churches/guides" className="border-b border-primary text-primary">Browse all popular Painted Churches searches.</Link></p></Container>,
+  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Painted Churches guide</p><h1 className="mt-3 font-display text-4xl">That guide isn’t available.</h1><p className="mt-4 text-muted-foreground"><Link to="/explore/painted-churches/guides" className="border-b border-primary text-primary">Browse the Painted Churches guide library.</Link></p></Container>,
 });
