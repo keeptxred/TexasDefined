@@ -187,12 +187,25 @@ async function sourceFile(slug, source) {
     if (!fsSync.existsSync(local)) throw new Error(`Missing governed local source for ${slug}: ${local}`);
     return local;
   }
-  const response = await fetch(source, {
-    redirect: "follow",
-    headers: { "user-agent": "TexasDefined-Discover-Materializer/1.0", accept: "image/*,*/*;q=0.8" },
-    signal: AbortSignal.timeout(45_000),
-  });
-  if (!response.ok) throw new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${source}`);
+  let response;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    response = await fetch(source, {
+      redirect: "follow",
+      headers: { "user-agent": "TexasDefined-Discover-Materializer/1.0", accept: "image/*,*/*;q=0.8" },
+      signal: AbortSignal.timeout(45_000),
+    });
+    if (response.ok) break;
+    const retryable = response.status === 429 || response.status >= 500;
+    if (!retryable || attempt === 3) {
+      throw new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${source}`);
+    }
+    const retryAfterSeconds = Number(response.headers.get("retry-after"));
+    const delayMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+      ? Math.min(retryAfterSeconds * 1000, 15_000)
+      : attempt * 2000;
+    console.warn(`Retrying governed source for ${slug} after HTTP ${response.status} (attempt ${attempt}/3).`);
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+  }
   const type = response.headers.get("content-type") ?? "";
   if (!type.toLowerCase().startsWith("image/")) throw new Error(`Governed source is not an image for ${slug}: ${type}`);
   const input = path.join(tmpDir, `${slug}.source`);
