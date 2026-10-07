@@ -96,6 +96,34 @@ function normalizeSharedTrip(row: JsonRecord): LegacySharedTrip {
   };
 }
 
+async function requestLegacySharedTripRows(params: URLSearchParams): Promise<JsonRecord[]> {
+  const url = `${supabaseUrl}/rest/v1/explore_trips?${params.toString()}`;
+  const requestHeaders = {
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`,
+    Accept: "application/json",
+  };
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("@/data/remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_trips",
+      url,
+      headers: requestHeaders,
+      timeoutMs: 2_500,
+      errorLabel: "Shared itinerary lookup",
+    });
+  }
+
+  const response = await fetch(url, {
+    headers: requestHeaders,
+    signal: AbortSignal.timeout(2_500),
+  });
+  if (!response.ok) throw new Error(`Shared itinerary lookup failed: ${response.status}`);
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
 async function getLegacySharedTrip(token: string): Promise<LegacySharedTrip | null> {
   if (token.length < 24 || token.length > 128 || !supabaseUrl || !supabaseKey) return null;
 
@@ -105,16 +133,8 @@ async function getLegacySharedTrip(token: string): Promise<LegacySharedTrip | nu
     is_public: "eq.true",
     limit: "1",
   });
-  const response = await fetch(`${supabaseUrl}/rest/v1/explore_trips?${params.toString()}`, {
-    headers: {
-      apikey: supabaseKey,
-      Authorization: `Bearer ${supabaseKey}`,
-      Accept: "application/json",
-    },
-  });
-  if (!response.ok) throw new Error(`Shared itinerary lookup failed: ${response.status}`);
-  const rows = await response.json();
-  if (!Array.isArray(rows) || !rows.length) return null;
+  const rows = await requestLegacySharedTripRows(params);
+  if (!rows.length) return null;
   return normalizeSharedTrip(record(rows[0]));
 }
 
