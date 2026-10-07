@@ -10,6 +10,7 @@ if (!token) {
 }
 
 const maybornAuthorityUrl = `https://${zoneName}/destination/mayborn-museum-waco`;
+const borderfestAuthorityUrl = `https://${zoneName}/event/hidalgo-borderfest`;
 
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
@@ -23,6 +24,7 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/texas-paddling-guide`,
   `https://${zoneName}/texas-rock-climbing-bouldering-guide`,
   maybornAuthorityUrl,
+  borderfestAuthorityUrl,
 ];
 
 const weekendEventUrls = [
@@ -210,6 +212,52 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
 
 if (!maybornVerified) {
   throw new Error(`Mayborn authority page did not verify after targeted cache purge: ${maybornReason}`);
+}
+
+const requiredBorderfestMarkers = [
+  'The next BorderFest dates are not confirmed yet',
+  'Families have more than carnival rides',
+  'Turn BorderFest into a Rio Grande Valley weekend',
+  'Event facts last source-checked 2026-10-07',
+];
+const retiredBorderfestMarkers = [
+  'Sunday adult one-day admission — $18.00 USD',
+  'Use the latest confirmed four-day schedule',
+  'Event facts last source-checked 2026-08-27',
+];
+let borderfestVerified = false;
+let borderfestReason = 'no response';
+
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  try {
+    const response = await fetch(borderfestAuthorityUrl, {
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: {
+        'user-agent': 'TexasDefined-CI-BorderFest-Authority/1.0',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+      },
+    });
+    const body = await response.text();
+    const missing = requiredBorderfestMarkers.filter((marker) => !body.includes(marker));
+    const retired = retiredBorderfestMarkers.filter((marker) => body.includes(marker));
+    if (response.ok && missing.length === 0 && retired.length === 0) {
+      borderfestVerified = true;
+      console.log(`BorderFest authority public-cache verification passed after targeted purge (attempt ${attempt}).`);
+      break;
+    }
+    borderfestReason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; retired=${retired.join(' | ') || 'none'}`;
+  } catch (error) {
+    borderfestReason = error instanceof Error ? error.message : String(error);
+  }
+
+  if (attempt < 6) await new Promise((resolve) => setTimeout(resolve, 5_000));
+}
+
+if (!borderfestVerified) {
+  throw new Error(`BorderFest authority page did not verify after targeted cache purge: ${borderfestReason}`);
 }
 
 
