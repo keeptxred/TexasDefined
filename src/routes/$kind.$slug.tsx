@@ -8,6 +8,7 @@ import {
   rankRelatedEntities,
 } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
+import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
@@ -20,11 +21,21 @@ export const Route = createFileRoute('/$kind/$slug')({
       ? TEXAS_ENTITY_REGISTRY.map((candidate) => candidate.id === entity.id ? entity : candidate)
       : [...TEXAS_ENTITY_REGISTRY, entity];
     const related = rankRelatedEntities(entity, graph, 12);
-    const countySportsVenues = entity.kind === 'county'
+    const countySportsCandidates = entity.kind === 'county'
       ? graph
         .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
+        .map(applyCurrentEntityCorrections)
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
+    const countySportsEditorial = countySportsCandidates.length
+      ? await import('@/data/sports-venue-editorial.functions').then(({ getSportsVenueEditorialDescriptions }) =>
+          getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } }),
+        )
+      : {};
+    const countySportsVenues = countySportsCandidates.map((venue) => {
+      const description = countySportsEditorial[venue.id];
+      return description ? { ...venue, description } : venue;
+    });
     const foodDestinationsPromise = entity.kind === 'county' || entity.kind === 'city'
       ? import('@/data/food-destination-entity-index').then(({ loadEntityFoodDestinations }) => loadEntityFoodDestinations(entity.kind, entity.slug))
       : Promise.resolve([]);
