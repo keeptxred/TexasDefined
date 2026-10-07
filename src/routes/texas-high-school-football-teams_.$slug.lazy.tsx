@@ -425,7 +425,10 @@ function PublicEnrollmentSteps({
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
       </a>
-    </div>
+    </div>}
+    {!enrollmentLink && <div className="mb-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
+      <strong className="text-foreground">Start with the district.</strong> TexasDefined has not yet verified a dedicated current enrollment URL for this district, so use the school district’s official site or registrar rather than a third-party enrollment directory.
+    </div>}
     <StepList steps={steps} />
   </>;
 }
