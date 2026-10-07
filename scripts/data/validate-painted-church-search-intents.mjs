@@ -96,8 +96,11 @@ if (failures.length === 0) {
     if (!schulenburgGuideBlock.includes(token)) failures.push(`Schulenburg guide reciprocity missing ${token}.`);
   }
 
-  for (const token of ["50 Popular Questions", "paintedChurchSearchCoverage", "ItemList", "Open the answer"]) {
-    if (!hub.includes(token)) failures.push(`Search guide hub missing ${token}.`);
+  for (const token of ["Texas Painted Churches Guide Library", "paintedChurchSearchCoverage", "ItemList", "Open the answer"]) {
+    if (!hub.includes(token)) failures.push(`Painted Churches guide hub missing ${token}.`);
+  }
+  for (const retiredReaderFacingPhrase of ["50 Popular Questions", "Search-intent atlas", "dedicated search guides"]) {
+    if (hub.includes(retiredReaderFacingPhrase)) failures.push(`Painted Churches guide hub still exposes retired SEO-production wording: ${retiredReaderFacingPhrase}.`);
   }
   for (const token of ["FAQPage", '"@type": "Article"', "relatedChurchSlugs", "Primary sources", "Open verified profile"]) {
     if (!detail.includes(token)) failures.push(`Search guide detail route missing ${token}.`);
