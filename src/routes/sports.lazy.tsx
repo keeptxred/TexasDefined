@@ -16,7 +16,7 @@ function SportsRoute() {
 
 function SportsPage() {
   return <>
-    <CategoryPage category="sports" eyebrow="Texas Sports" title="The games, rituals and rivalries that matter here" intro={description} />
+    <CategoryPage category="sports" eyebrow="Texas Sports" title="Texas sports: the games, rituals and rivalries that matter here" intro={description} />
     <Container className="pb-16 sm:pb-24">
       <div className="mx-auto max-w-6xl">
         <section className="border-t border-border pt-10" aria-labelledby="sports-culture-reading">
