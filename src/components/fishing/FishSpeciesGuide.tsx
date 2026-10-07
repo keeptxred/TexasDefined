@@ -8,7 +8,7 @@ type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
 const seasonLabel: Record<string, string> = { spring: "Spring", summer: "Summer", fall: "Fall", winter: "Winter" };
 
 export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
-  const { species, profile, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
+  const { species, profile, heroImage, rankedLakes, recommendedTechniques, relatedSpecies, verifiedGuides, sponsoredPlacements, regions } = pageData;
 
   return (
     <>
@@ -31,6 +31,24 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <p className="eyebrow text-ink-foreground/70">Texas species fishing guide</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Largemouth Bass Fishing in Texas</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">{species.summary}</p>
+          {heroImage && (
+            <figure className="mt-10 max-w-4xl overflow-hidden border border-ink-foreground/20 bg-black/20">
+              <img
+                src={heroImage.src}
+                alt={heroImage.alt}
+                width={heroImage.width}
+                height={heroImage.height}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="aspect-[3/2] w-full object-cover"
+              />
+              <figcaption className="border-t border-ink-foreground/15 px-4 py-3 text-xs leading-5 text-ink-foreground/65">
+                {heroImage.credit}
+                {heroImage.sourceUrl && <> · <a href={heroImage.sourceUrl} target="_blank" rel="noreferrer noopener" className="underline decoration-ink-foreground/35 underline-offset-4 hover:text-ink-foreground">Source ↗</a></>}
+              </figcaption>
+            </figure>
+          )}
           <dl className="mt-8 grid max-w-4xl gap-5 border-t border-ink-foreground/20 pt-6 text-sm sm:grid-cols-3">
             <div><dt className="eyebrow text-ink-foreground/55">Scientific name</dt><dd className="mt-2 text-ink-foreground">{species.scientificName}</dd></div>
             <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map((row) => row.replaceAll("-", " ")).join(", ") : "Statewide"}</dd></div>
