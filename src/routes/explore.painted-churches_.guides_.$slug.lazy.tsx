@@ -45,8 +45,8 @@ function PaintedChurchSearchGuidePage() {
             <p className="eyebrow text-primary">Suggested sequence</p>
             <h2 id="route-heading" className="mt-3 font-display text-4xl">A route you can actually use</h2>
             <div className="mt-8 divide-y divide-border border-y border-border">
-              {guide.tripPlan.stops.map((stop, index) => <article key={stop.name} className="grid gap-3 py-6 sm:grid-cols-[3rem_minmax(0,1fr)]">
-                <div className="font-display text-3xl text-primary">{String(index + 1).padStart(2, "0")}</div>
+              {guide.tripPlan.stops.map((stop, index) => <article key={stop.name} className="flex gap-4 py-6">
+                <div className="w-10 shrink-0 font-display text-3xl text-primary">{String(index + 1).padStart(2, "0")}</div>
                 <div>
                   <p className="eyebrow text-muted-foreground">{stop.timing}</p>
                   <h3 className="mt-1 font-display text-2xl leading-tight">
