@@ -78,11 +78,13 @@ for (const feature of [
 
 for (const feature of [
   'createServerFn({ method: "GET" })',
-  'listResolvedDestinations({ limit: 5000 })',
+  'preservedExploreDestinations.find((destination) => destination.slug === data.slug)',
+  'const catalog = preservedExploreDestinations.map(prepareDestinationForDelivery);',
   'buildDestinationRelationshipGroups(',
   'prepareDestinationForDelivery',
 ]) if (!relationshipServer.includes(feature)) errors.push(`Destination relationship server boundary feature missing: ${feature}`);
 if (route.includes('destinationsQuery({ limit: 5000 })')) errors.push('Destination detail route must not hydrate the complete destination catalog into the browser.');
+if (relationshipServer.includes('await listResolvedDestinations({ limit: 5000 })')) errors.push('Destination relationship server boundary must not restore full remote catalog fan-out.');
 if (relationshipServer.includes('queryClient')) errors.push('Destination relationship server boundary must not populate the public query cache.');
 
 for (const feature of [

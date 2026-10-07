@@ -73,11 +73,15 @@ for (const feature of [
 }
 for (const feature of [
   'createServerFn({ method: "GET" })',
-  'listResolvedDestinations({ limit: 5000 })',
+  'preservedExploreDestinations.find((destination) => destination.slug === data.slug)',
+  'const catalog = preservedExploreDestinations.map(prepareDestinationForDelivery);',
   'buildDestinationRelationshipGroups(',
   'prepareDestinationForDelivery',
 ]) {
   if (!destinationRelationshipsServer.includes(feature)) errors.push(`Server-only destination relationship contract missing: ${feature}`);
+}
+if (destinationRelationshipsServer.includes('await listResolvedDestinations({ limit: 5000 })')) {
+  errors.push('Server-only destination relationship assembly must not restore full remote catalog fan-out.');
 }
 if (destinationRelationshipsServer.includes('queryClient')) {
   errors.push('Server-only destination relationship assembly must not populate the client query cache.');
