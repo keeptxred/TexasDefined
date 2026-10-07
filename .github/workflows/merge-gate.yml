@@ -107,3 +107,16 @@ jobs:
     steps:
       - name: Confirm canonical merge gate passed
         run: echo "Canonical Required merge gate completed successfully."
+
+      - name: Publish protected merge status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          gh api --method POST \
+            -H "Accept: application/vnd.github+json" \
+            "repos/${GITHUB_REPOSITORY}/statuses/${VALIDATED_SHA}" \
+            -f state='success' \
+            -f context='Required merge gate' \
+            -f description='Canonical pre-merge validation passed' \
+            -f target_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >/dev/null
