@@ -344,7 +344,7 @@ function NearbyPlacesSection({ items }: { items: NonNullable<SportsVenueGuidePil
 
 function NearbyAttractionsSection({ items }: { items: readonly TexasEntityRecord[] }) {
   return (
-    <EditorialSection eyebrow="Nearby in the county" title="More visitor places to explore in the same county">
+    <EditorialSection eyebrow="Nearby attractions in the county" title="More visitor places to explore in the same county">
       <p className="mb-5 max-w-3xl text-sm leading-7 text-muted-foreground">These places share the venue's county, but may not be immediately adjacent. Check travel times before planning an event-day visit.</p>
       <div className="grid gap-x-8 border-t border-border sm:grid-cols-2">
         {items.map((item) => (
