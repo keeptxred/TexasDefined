@@ -11,6 +11,17 @@ if (!token) {
 
 const maybornAuthorityUrl = `https://${zoneName}/destination/mayborn-museum-waco`;
 const borderfestAuthorityUrl = `https://${zoneName}/event/hidalgo-borderfest`;
+const paintedChurchSanAntonioUrl = `https://${zoneName}/explore/painted-churches/guides/painted-churches-from-san-antonio`;
+
+async function readPaintedChurchGuideSlugs() {
+  const source = await readFile(new URL('../../src/data/painted-church-search-guides.ts', import.meta.url), 'utf8');
+  const slugs = [...source.matchAll(/\bslug:\s*"([^"]+)"/g)].map((match) => match[1]);
+  if (slugs.length === 0) throw new Error('No Painted Churches guide slugs were found for cache purge.');
+  return [...new Set(slugs)];
+}
+
+const paintedChurchGuideUrls = (await readPaintedChurchGuideSlugs())
+  .map((slug) => `https://${zoneName}/explore/painted-churches/guides/${slug}`);
 
 const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-rivers-explained`,
@@ -25,6 +36,7 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/texas-rock-climbing-bouldering-guide`,
   maybornAuthorityUrl,
   borderfestAuthorityUrl,
+  ...paintedChurchGuideUrls,
 ];
 
 const weekendEventUrls = [
@@ -334,4 +346,50 @@ if (purgeMetroProximity) {
       throw new Error(`${check.label} did not verify through the normal public cache after targeted purge: ${reason}`);
     }
   }
+}
+
+
+const requiredPaintedChurchMarkers = [
+  'San Antonio to the Painted Churches: Complete One-Day Driving Guide',
+  'Trip at a glance',
+  'A route you can actually use',
+  'Visitor information checked October 7, 2026',
+];
+const retiredPaintedChurchMarkers = [
+  'Question this page answers',
+  'All 50 searches',
+  'Browse the full search-intent atlas',
+];
+let paintedChurchVerified = false;
+let paintedChurchReason = 'no response';
+
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  try {
+    const response = await fetch(paintedChurchSanAntonioUrl, {
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: {
+        'user-agent': 'TexasDefined-CI-Painted-Churches-Authority/1.0',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+      },
+    });
+    const body = await response.text();
+    const missing = requiredPaintedChurchMarkers.filter((marker) => !body.includes(marker));
+    const retired = retiredPaintedChurchMarkers.filter((marker) => body.includes(marker));
+    if (response.ok && missing.length === 0 && retired.length === 0) {
+      paintedChurchVerified = true;
+      console.log(`Painted Churches San Antonio verification passed after targeted purge (attempt ${attempt}).`);
+      break;
+    }
+    paintedChurchReason = `HTTP ${response.status}; missing=${missing.join(' | ') || 'none'}; retired=${retired.join(' | ') || 'none'}`;
+  } catch (error) {
+    paintedChurchReason = error instanceof Error ? error.message : String(error);
+  }
+  if (attempt < 6) await new Promise((resolve) => setTimeout(resolve, 5_000));
+}
+
+if (!paintedChurchVerified) {
+  throw new Error(`Painted Churches San Antonio page did not verify after targeted cache purge: ${paintedChurchReason}`);
 }
