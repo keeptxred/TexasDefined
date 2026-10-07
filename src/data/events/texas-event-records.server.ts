@@ -1,5 +1,6 @@
 import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
+import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
 import { getMajorEventRecordServer } from "../major-event-page.server";
 import {
@@ -175,6 +176,18 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       sourceCheckedAt: authority?.sourceCheckedAt ?? guide.sourceCheckedAt,
     }, guide);
     if (record) records.push(record);
+  }
+
+  // Curated primary-source event snapshots fill documented gaps in the
+  // statewide registry. Avoid duplicates when other ingestion catches up.
+  const knownEvents = new Set(records.map((record) =>
+    `${record.venueId ?? ""}:${record.startDate}:${record.title.toLowerCase()}`));
+  for (const snapshot of getOfficialVenueEventSnapshots()) {
+    const key = `${snapshot.venueId ?? ""}:${snapshot.startDate}:${snapshot.title.toLowerCase()}`;
+    if (!knownEvents.has(key)) {
+      records.push(snapshot);
+      knownEvents.add(key);
+    }
   }
 
   // Preserve the reviewed editorial record when Ticketmaster has the same event,
