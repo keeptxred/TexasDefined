@@ -152,11 +152,17 @@ for (const token of [
 
 for (const token of [
   'await import("@/data/metro-proximity")', 'await import("@/data/metro-proximity-town-references")',
-  'await import("@/data/destination-query-runtime")', "listResolvedDestinations({ limit: 5000 })",
   "isMetroProximityCollectionIndexReadyWithTownReferences",
-  "metroProximitySitemapEntries(proximityDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
+  "metroProximitySitemapEntries(indexableDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
   "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+for (const retired of [
+  'await import("@/data/destination-query-runtime")',
+  "listResolvedDestinations({ limit: 5000 })",
+  "metroProximitySitemapEntries(proximityDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
+]) {
+  if (files.sitemap.includes(retired)) fail(`Explore sitemap still performs retired proximity fan-out: ${retired}`);
+}
 
 for (const token of [
   "applyMetroProximityEdgeCachePolicy", 'url.pathname.startsWith("/explore/near/")',
