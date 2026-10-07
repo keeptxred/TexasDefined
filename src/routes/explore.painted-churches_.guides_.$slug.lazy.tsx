@@ -79,7 +79,7 @@ function PaintedChurchSearchGuidePage() {
               return <article key={church.slug} className="bg-background">
                 {image ? <figure>
                   <Link to="/explore/painted-churches/$slug" params={{ slug: church.slug }} className="block overflow-hidden bg-surface">
-                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="aspect-[4/3] h-auto w-full object-cover" />
+                    <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" className="h-auto w-full object-cover" />
                   </Link>
                   <figcaption className="px-6 pt-3 text-xs leading-5 text-muted-foreground">{image.credit} · {image.license}</figcaption>
                 </figure> : null}
@@ -97,7 +97,7 @@ function PaintedChurchSearchGuidePage() {
         <section className="mt-14 border-t border-border pt-8">
           <p className="eyebrow text-primary">Common questions</p>
           <h2 className="mt-3 font-display text-4xl">Before you go</h2>
-          <div className="mt-8 divide-y divide-border border-y border-border">{guide.faqs.map((item) => <details key={item.question} className="group py-6"><summary className="cursor-pointer list-none pr-8 font-display text-2xl marker:hidden">{item.question}<span aria-hidden className="float-right text-primary transition-transform group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}</div>
+          <div className="mt-8 divide-y divide-border border-y border-border">{guide.faqs.map((item) => <details key={item.question} className="group py-6"><summary className="cursor-pointer list-none pr-8 font-display text-2xl marker:hidden">{item.question}<span aria-hidden className="float-right text-primary">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}</div>
         </section>
       </div>
 
