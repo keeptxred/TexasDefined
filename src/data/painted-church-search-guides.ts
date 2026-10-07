@@ -11,6 +11,14 @@ export type PaintedChurchSearchGuide = {
   relatedChurchSlugs: string[];
   relatedPaths: Array<{ label: string; path: string }>;
   sources?: Array<{ label: string; url: string }>;
+  verifiedAt?: string;
+  tripPlan?: {
+    facts: Array<{ label: string; value: string }>;
+    stops: Array<{ name: string; timing: string; note: string; churchSlug?: string }>;
+    accessNote: string;
+    lunchNote?: string;
+    extensionNote?: string;
+  };
   faqs: Array<{ question: string; answer: string }>;
 };
 
@@ -28,6 +36,7 @@ const ST_JOHN = "https://www.stjohntexas.org/";
 const ST_STAN = "https://saintstans.org/church-history";
 const TSHA_HOLMAN = "https://www.tshaonline.org/handbook/entries/holman-tx";
 const TEXAS_TIME_TRAVEL = "https://texastimetravel.com/directory/painted-churches/";
+const PRAHA_TOURS = "https://stmaryspraha.org/news/praha-church-tours-pilgramages";
 
 export const paintedChurchSearchGuides: PaintedChurchSearchGuide[] = [
   {
@@ -345,61 +354,131 @@ export const paintedChurchSearchGuides: PaintedChurchSearchGuide[] = [
   {
     slug: "painted-churches-from-austin",
     group: "planning",
-    title: "Painted Churches Tour from Austin: Best Route, Timing and Stops",
+    title: "Austin to the Painted Churches: One-Day Driving Guide",
     searchIntent: "Painted churches tour from Austin",
-    description: "A practical Austin-to-Schulenburg Painted Churches day trip with route choices, a classic four-church plan and options for an overnight or heritage extension.",
-    quickAnswer: "From Austin, the strongest first Painted Churches day is to drive southeast toward the Schulenburg cluster and focus on Dubina, Ammannsville, High Hill and Praha. That keeps the church portion coherent and avoids turning the day into a mileage contest. Add the full six-church circuit only if you have an early start and verified access.",
+    description: "A practical Austin-to-Schulenburg Painted Churches day trip with a four-church route, access checks, realistic pacing and an overnight option.",
+    quickAnswer: "From Austin, plan on a long day rather than a quick outing. The strongest first trip is the compact Schulenburg-area four: Dubina, Ammannsville, High Hill and Praha. Start with current access information, allow roughly 30–45 minutes at each church, and leave enough margin for rural driving, lunch and an unexpected parish event.",
+    verifiedAt: "October 7, 2026",
+    tripPlan: {
+      facts: [
+        { label: "Best first trip", value: "Classic four churches" },
+        { label: "Day length", value: "Plan roughly 8–10 hours door to door" },
+        { label: "Best touring days", value: "Monday–Saturday; verify before leaving" },
+        { label: "Access reality", value: "Self-guided visitors normally see 4 of the 6 local churches" },
+      ],
+      stops: [
+        { name: "Dubina — Saints Cyril and Methodius", timing: "Stop 1 · 30–45 min", note: "Begin with one of the most recognizable restored blue interiors.", churchSlug: "dubina-saints-cyril-methodius" },
+        { name: "Ammannsville — St. John the Baptist", timing: "Stop 2 · 30–45 min", note: "Continue through the compact rural cluster without adding a distant detour.", churchSlug: "ammannsville-st-john-the-baptist" },
+        { name: "High Hill — Nativity of Mary", timing: "Stop 3 · 30–45 min", note: "Give the Dielmann architecture and painted Gothic illusion enough time to register.", churchSlug: "high-hill-nativity-of-mary" },
+        { name: "Praha — St. Mary’s Assumption", timing: "Stop 4 · 30–45 min", note: "Finish on the western side of the cluster for the return toward Austin.", churchSlug: "praha-st-marys-assumption" },
+      ],
+      accessNote: "The Schulenburg Chamber says the churches are active congregations, recommends Monday–Saturday touring, and notes that self-guided visitors normally can see four of the six local churches. Services, funerals, weddings and other events can override sightseeing access.",
+      lunchNote: "Use Schulenburg or La Grange as the practical meal break instead of squeezing food between rural church stops.",
+      extensionNote: "For all six local churches, Shiner, Moravia or a slower architecture-focused visit, make it an overnight rather than turning the first day into a mileage contest.",
+    },
     sections: [
-      { heading: "Why the classic four works from Austin", paragraphs: ["Austin is close enough for a day trip but far enough that overloading the route can make the visit feel rushed. The classic four concentrates the most recognizable stops and leaves time to compare interiors rather than simply collecting exterior photographs.", "La Grange can provide a useful meal or heritage break, while Schulenburg remains the practical base for current local tour information."] },
+      { heading: "Why the classic four works from Austin", paragraphs: ["Austin is close enough for a day trip but far enough that overloading the route can make the visit feel rushed. The classic four concentrates the most recognizable stops and leaves time to compare interiors rather than simply collecting exterior photographs.", "Treat the church sequence as flexible. Current access should determine the exact order, not an old blog itinerary or a fixed map screenshot."] },
+      { heading: "What the painted interiors are showing you", paragraphs: ["The churches combine immigrant community history, Gothic Revival or related architecture, stenciling, murals, faux marble, wood graining and trompe-l’oeil effects. The visual point is not simply that the interiors are colorful; paint was used to make modest rural buildings feel monumental and sacred.", "Use the individual church profiles after the trip to go deeper into artists, restoration, architectural history and evidence trails without overloading the driving guide."] },
       { heading: "When to make it an overnight", paragraphs: ["Stay overnight if you want all six local churches, Shiner or Moravia, or a deeper Czech-German heritage trip. An overnight also gives you flexibility when an active church is temporarily unavailable for a service or private event."] },
     ],
     relatedChurchSlugs: ["dubina-saints-cyril-methodius", "ammannsville-st-john-the-baptist", "high-hill-nativity-of-mary", "praha-st-marys-assumption"],
-    relatedPaths: [{ label: "Classic four route", path: "/explore/painted-churches/routes/classic-four" }, { label: "One-day planner", path: "/explore/painted-churches-plan" }],
+    relatedPaths: [{ label: "Classic four route", path: "/explore/painted-churches/routes/classic-four" }, { label: "Painted Churches map", path: "/explore/painted-churches/map" }, { label: "One-day planner", path: "/explore/painted-churches-plan" }],
+    sources: [{ label: "Greater Schulenburg Chamber — Painted Churches", url: CHAMBER }],
     faqs: [
-      { question: "Can I visit the Painted Churches from Austin in one day?", answer: "Yes. A focused four-church Schulenburg-area route is the best first-day strategy." },
+      { question: "Can I visit the Painted Churches from Austin in one day?", answer: "Yes. A focused four-church Schulenburg-area route is the strongest first-day strategy. Build the order around current access and allow a full day." },
+      { question: "Can I see all six churches without a guide?", answer: "The Schulenburg Chamber currently says self-guided visitors normally can see four of the six local churches. Guided tours can cover more by arrangement." },
       { question: "Should I add Fredericksburg?", answer: "Not to the same day. Fredericksburg is in the opposite direction and works better as a separate Hill Country church trip." },
-      { question: "Where should I check access?", answer: "Use the current Chamber and parish sources linked from each church profile." },
+      { question: "Do I need to verify hours?", answer: "Yes. These are active congregations, and worship, weddings, funerals and parish events can change sightseeing access." },
+      { question: "How long should I allow at each church?", answer: "Roughly 30–45 minutes is a useful planning range for a first trip, with additional buffer for rural driving and access changes." },
     ],
-  },
-  {
+  }  {
     slug: "painted-churches-from-houston",
     group: "planning",
-    title: "Painted Churches Tour from Houston: A One-Day and Overnight Plan",
+    title: "Houston to the Painted Churches: One-Day and Overnight Guide",
     searchIntent: "Painted churches tour from Houston",
-    description: "Plan a Houston-to-Schulenburg Painted Churches trip with the best first-day cluster, optional Wallis stop and a two-day Fayette-Lavaca extension.",
-    quickAnswer: "From Houston, Schulenburg is a practical westbound gateway to the classic Painted Churches. For a one-day trip, prioritize the four-church core around Dubina, Ammannsville, High Hill and Praha. For an overnight, add Moravia, St. John, Shiner or Sweet Home rather than forcing every stop into one day.",
+    description: "A Houston-to-Schulenburg Painted Churches trip with a realistic four-church first day, access checks, optional Wallis stop and a two-day Fayette-Lavaca extension.",
+    quickAnswer: "From Houston, Schulenburg is the practical gateway to the classic Painted Churches cluster. For a first day, concentrate on Dubina, Ammannsville, High Hill and Praha. A second day is the better place for Moravia, St. John, Shiner, Sweet Home or a separate Wallis stop.",
+    verifiedAt: "October 7, 2026",
+    tripPlan: {
+      facts: [
+        { label: "Best first trip", value: "Classic four churches" },
+        { label: "Day length", value: "Plan roughly 8–10 hours door to door" },
+        { label: "Best touring days", value: "Monday–Saturday; verify before leaving" },
+        { label: "Access reality", value: "Self-guided visitors normally see 4 of the 6 local churches" },
+      ],
+      stops: [
+        { name: "Schulenburg — verify the day", timing: "Start · 10–15 min", note: "Use current Chamber guidance before committing to the sequence." },
+        { name: "High Hill — Nativity of Mary", timing: "Stop 1 · 30–45 min", note: "A strong architectural introduction to the circuit.", churchSlug: "high-hill-nativity-of-mary" },
+        { name: "Dubina — Saints Cyril and Methodius", timing: "Stop 2 · 30–45 min", note: "Compare the restored blue decorative program with High Hill.", churchSlug: "dubina-saints-cyril-methodius" },
+        { name: "Ammannsville — St. John the Baptist", timing: "Stop 3 · 30–45 min", note: "Keep the middle of the day geographically compact.", churchSlug: "ammannsville-st-john-the-baptist" },
+        { name: "Praha — St. Mary’s Assumption", timing: "Stop 4 · 30–45 min", note: "Finish with one of the most important painted interiors in the region.", churchSlug: "praha-st-marys-assumption" },
+      ],
+      accessNote: "The Schulenburg Chamber says the churches are active congregations, typically available for touring Monday–Saturday, and that self-guided visitors normally can see four of the six local churches. Call ahead when a particular interior is essential to the trip.",
+      lunchNote: "Schulenburg is the easiest place to build in lunch without sacrificing a church access window.",
+      extensionNote: "Wallis is a legitimate historic painted-church stop, but adding it to a first Schulenburg day changes the route. Save it for a broader east-to-west heritage trip or a second outing.",
+    },
     sections: [
-      { heading: "The efficient Houston strategy", paragraphs: ["Houston visitors have the advantage of approaching through the eastern side of the region. Resist the temptation to add every historic church between Houston and Schulenburg; your best first trip still comes from concentrating on the classic cluster.", "Wallis can become a separate thematic stop for serious enthusiasts because Guardian Angel belongs to the formal decorative-interior National Register group, but it changes the shape of a simple Schulenburg day."] },
+      { heading: "The efficient Houston strategy", paragraphs: ["Houston visitors approach the region from the east, but the best first trip is still a concentrated church circuit rather than a chain of every historic church on the highway. The goal is enough time inside the sanctuaries to compare decoration, architecture and preservation.", "Wallis can become a separate thematic stop for serious enthusiasts because Guardian Angel belongs to the formal decorative-interior National Register group, but it changes the shape of a simple Schulenburg day."] },
+      { heading: "What to notice inside", paragraphs: ["Look past the label “Painted Churches” and compare how each congregation used painted vaults, stenciling, faux materials, murals and architectural illusion. The churches are related by immigrant and religious history, but they are not interchangeable interiors.", "The individual Texas Defined profiles hold the deeper artist, architect, restoration and source material so this page can stay focused on actually taking the trip."] },
       { heading: "Turn the drive into a two-day heritage trip", paragraphs: ["An overnight allows the first day to focus on Fayette County and the second on Lavaca County. That creates natural room for Shiner, Sweet Home and Moravia and makes access disruptions much easier to absorb."] },
     ],
     relatedChurchSlugs: ["dubina-saints-cyril-methodius", "ammannsville-st-john-the-baptist", "high-hill-nativity-of-mary", "praha-st-marys-assumption", "wallis-guardian-angel"],
-    relatedPaths: [{ label: "Classic four route", path: "/explore/painted-churches/routes/classic-four" }, { label: "Fayette-Lavaca weekend", path: "/explore/painted-churches/routes/fayette-lavaca-weekend" }],
+    relatedPaths: [{ label: "Classic four route", path: "/explore/painted-churches/routes/classic-four" }, { label: "Painted Churches map", path: "/explore/painted-churches/map" }, { label: "Fayette-Lavaca weekend", path: "/explore/painted-churches/routes/fayette-lavaca-weekend" }],
+    sources: [{ label: "Greater Schulenburg Chamber — Painted Churches", url: CHAMBER }],
     faqs: [
-      { question: "Can Houston visitors do the churches in a day?", answer: "Yes. Keep the church itinerary focused on the classic four rather than trying to cover the whole statewide collection." },
-      { question: "Is Wallis on the way?", answer: "It can be worked into a broader east-to-west heritage trip, but it is not part of the compact Schulenburg core." },
+      { question: "Can Houston visitors do the Painted Churches in a day?", answer: "Yes. Keep the church itinerary focused on the classic four and allow a full day rather than trying to cover the whole statewide collection." },
+      { question: "Can self-guided visitors see all six Schulenburg-area churches?", answer: "The Chamber currently says self-guided visitors normally can see four of the six. Guided tours can cover additional churches by arrangement." },
+      { question: "Is Wallis on the way?", answer: "It can fit a broader east-to-west heritage trip, but it is not part of the compact Schulenburg core and adds time to a first-day itinerary." },
       { question: "What is the best overnight extension?", answer: "Add Lavaca County churches such as Shiner, Sweet Home and Moravia on a second day." },
+      { question: "Should I call ahead?", answer: "Yes when a specific church is essential. Active worship and private events can change access." },
     ],
-  },
-  {
+  }  {
     slug: "painted-churches-from-san-antonio",
     group: "planning",
-    title: "Painted Churches Tour from San Antonio: I-10 Route and Best Stops",
+    title: "San Antonio to the Painted Churches: Complete One-Day Driving Guide",
     searchIntent: "Painted churches tour from San Antonio",
-    description: "A San Antonio-to-Praha and Schulenburg itinerary with a focused one-day route and optional Panna Maria or Hill Country extensions for a longer trip.",
-    quickAnswer: "From San Antonio, approach the classic Painted Churches corridor east on I-10 and use Flatonia/Praha as the first major heritage stop before working toward Schulenburg. A focused day can cover Praha, High Hill, Dubina and Ammannsville; a longer trip can add Moravia or continue into Lavaca County.",
+    description: "A practical San Antonio-to-Praha and Schulenburg driving guide with a stop-by-stop one-day route, access checks, current primary sources and optional two-day extensions.",
+    quickAnswer: "From San Antonio, drive east on I-10 and treat Praha as the western gateway to the classic Painted Churches cluster. A realistic first day is Praha, High Hill, Dubina and Ammannsville, with the exact order adjusted for current access. The broader six-church circuit, Moravia and South Texas heritage stops are better as an overnight extension.",
+    verifiedAt: "October 7, 2026",
+    tripPlan: {
+      facts: [
+        { label: "Best first trip", value: "Praha + High Hill + Dubina + Ammannsville" },
+        { label: "Day length", value: "Plan roughly 8–10 hours door to door" },
+        { label: "Recommended start", value: "Leave San Antonio early enough to reach the cluster during daytime access" },
+        { label: "Access reality", value: "Self-guided visitors normally see 4 of the 6 local churches" },
+      ],
+      stops: [
+        { name: "Praha — St. Mary’s Assumption", timing: "Stop 1 · 30–45 min", note: "Natural first stop from I-10. Praha publishes its own visitor hours, so check the parish before relying on a regional schedule.", churchSlug: "praha-st-marys-assumption" },
+        { name: "High Hill — Nativity of Mary", timing: "Stop 2 · 30–45 min", note: "Compare Dielmann’s church architecture with the later painted Gothic illusion inside.", churchSlug: "high-hill-nativity-of-mary" },
+        { name: "Schulenburg — lunch / access check", timing: "Midday · 45–60 min", note: "Use town as the practical reset point for food, restrooms and any last-minute access changes." },
+        { name: "Dubina — Saints Cyril and Methodius", timing: "Stop 3 · 30–45 min", note: "The blue restored interior makes the contrast with High Hill especially clear.", churchSlug: "dubina-saints-cyril-methodius" },
+        { name: "Ammannsville — St. John the Baptist", timing: "Stop 4 · 30–45 min", note: "Finish the core circuit without stretching the day into distant Lavaca or South Texas stops.", churchSlug: "ammannsville-st-john-the-baptist" },
+      ],
+      accessNote: "The Greater Schulenburg Chamber says the six local churches are active congregations. Its current guidance allows touring Monday–Saturday, says self-guided visitors normally can see four of the six, and recommends calling ahead because services and private events can affect access. Praha also publishes parish-controlled self-guided hours and asks for at least 24 hours’ notice for a guided visit.",
+      lunchNote: "Schulenburg is the easiest midpoint for lunch and a practical place to re-check the afternoon sequence.",
+      extensionNote: "Moravia and St. John belong to the six-church regional cluster and are the logical additions for a guided or overnight trip. Panna Maria is a separate South Texas Polish-Silesian heritage extension and should not be presented as part of the compact Schulenburg circuit.",
+    },
     sections: [
-      { heading: "Start on the western side of the classic route", paragraphs: ["Praha is a natural first church for San Antonio travelers because of its location near the I-10 corridor. From there, work north and east through the classic cluster rather than zigzagging between distant statewide churches.", "The sequence can be reversed depending on access windows, but the key is to keep the churches geographically grouped."] },
-      { heading: "Separate the South Texas heritage extensions", paragraphs: ["Panna Maria is a major Polish-Silesian heritage church and deserves its own time. It is not part of the compact Schulenburg route, so combine it with San Antonio only when you are deliberately building a longer South Texas church-history trip."] },
+      { heading: "Route at a glance: San Antonio → Praha → High Hill → Schulenburg → Dubina → Ammannsville", paragraphs: ["This sequence keeps the day geographically coherent from west to east and then into the compact rural cluster. It is a planning framework, not a promise that every door will be open in that exact order.", "If current access requires it, reverse or reshuffle the church sequence. The controlling parish or local tour authority should win over an old itinerary."] },
+      { heading: "Guided versus self-guided changes the trip", paragraphs: ["The Schulenburg Chamber currently says self-guided visitors normally can see four of the six local churches. Guided tours typically cover four, with five or six possible by special request. That difference is why a page promising an “all six” self-guided day would be misleading.", "For a guided tour, the Chamber recommends starting a four-church tour between 9:15 and 11:00 a.m. and a five- or six-church tour no later than 10:00 a.m."] },
+      { heading: "Why these churches are painted", paragraphs: ["Central Texas immigrant congregations used murals, stenciling, faux marble, wood graining and architectural illusion to make modest rural churches feel richer, more monumental and more connected to European sacred traditions. The decorative programs also carried religious symbolism and community identity.", "The result is not one standardized style. Praha, High Hill, Dubina and Ammannsville are worth seeing together precisely because their interiors solve similar cultural and visual problems in different ways."] },
+      { heading: "What the four-stop route leaves out", paragraphs: ["Moravia and St. John are part of the six-community Schulenburg-area Painted Churches cluster promoted by the Chamber. Add them when you have a guided arrangement, verified access or an overnight schedule.", "Panna Maria is historically important but geographically separate. Treat it as a dedicated South Texas extension rather than placing it beside the four core stops as though it were around the corner."] },
+      { heading: "Practical visitor etiquette", paragraphs: ["These are active worship spaces, not museums. If a Mass, funeral, wedding, prayer service or parish event is underway, sightseeing waits. Follow posted rules, avoid altar and choir-loft areas unless explicitly permitted, do not bring food or drinks inside, and never touch decorative surfaces.", "Photography rules can vary. Check the current church or tour guidance before setting up tripods, flashes or group photography."] },
     ],
-    relatedChurchSlugs: ["praha-st-marys-assumption", "high-hill-nativity-of-mary", "dubina-saints-cyril-methodius", "ammannsville-st-john-the-baptist", "panna-maria-immaculate-conception"],
-    relatedPaths: [{ label: "Classic four route", path: "/explore/painted-churches/routes/classic-four" }, { label: "Polish and Silesian route", path: "/explore/painted-churches/routes/polish-silesian-heritage" }],
+    relatedChurchSlugs: ["praha-st-marys-assumption", "high-hill-nativity-of-mary", "dubina-saints-cyril-methodius", "ammannsville-st-john-the-baptist", "moravia-ascension-of-our-lord", "st-john-texas-st-john-the-baptist"],
+    relatedPaths: [{ label: "Painted Churches map", path: "/explore/painted-churches/map" }, { label: "Classic four route", path: "/explore/painted-churches/routes/classic-four" }, { label: "All six Schulenburg-area churches", path: "/explore/painted-churches/routes/all-six-schulenburg" }, { label: "Polish and Silesian heritage route", path: "/explore/painted-churches/routes/polish-silesian-heritage" }],
+    sources: [{ label: "Greater Schulenburg Chamber — Painted Churches", url: CHAMBER }, { label: "St. Mary’s Praha — current tour hours", url: PRAHA_TOURS }],
     faqs: [
-      { question: "What should I visit first from San Antonio?", answer: "Praha is a logical first major Painted Church stop when approaching east on I-10." },
-      { question: "Can I add Panna Maria?", answer: "Yes, but treat it as a separate South Texas heritage extension rather than part of the compact Schulenburg loop." },
-      { question: "Is this a day trip?", answer: "The classic four can work as a long day; broader heritage additions are better with an overnight." },
+      { question: "What should I visit first from San Antonio?", answer: "Praha is the logical western gateway when approaching east on I-10, but current church access should determine the final sequence." },
+      { question: "Can I see all six churches on my own?", answer: "The Schulenburg Chamber currently says self-guided visitors normally can see four of the six local churches. A guided arrangement is the better path if seeing five or six is important." },
+      { question: "How long should I allow at each church?", answer: "Roughly 30–45 minutes per church is a useful first-trip planning range, plus driving, lunch and buffer time for access changes." },
+      { question: "Are the churches open on Sundays?", answer: "The Chamber does not offer guided tours on Sundays because these are active churches. Praha publishes its own Sunday visitor hours, but worship and parish activity always take priority." },
+      { question: "Do I need reservations?", answer: "Not every self-guided visit requires a reservation, but call ahead when a particular church is essential. Guided Chamber tours require advance booking, and Praha asks for at least 24 hours’ notice for a guided visit." },
+      { question: "Is there one admission ticket?", answer: "No. These are independent active congregations, not a single museum system. Guided-tour fees and donations are separate matters." },
+      { question: "Can I take photographs?", answer: "Often yes, but rules can change by church or event. Follow posted guidance and current parish or Chamber instructions, especially for tripods, flash or organized photography." },
+      { question: "Should I add Panna Maria to the same day?", answer: "Not to a first four-church day. Panna Maria is a separate South Texas heritage extension and is better given its own time." },
     ],
-  },
-  {
+  }  {
     slug: "painted-churches-weekend-hours",
     group: "planning",
     title: "Are the Texas Painted Churches Open on Weekends?",
