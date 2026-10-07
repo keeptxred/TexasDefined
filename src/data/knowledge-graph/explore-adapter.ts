@@ -137,12 +137,21 @@ async function fetchExploreGraphPage(params: URLSearchParams, offset: number, li
   const pageParams = new URLSearchParams(params);
   pageParams.set('offset', String(offset));
   pageParams.set('limit', String(limit));
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(4_000) }
-      : { headers: headers() },
-  );
+  const url = `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`;
+  const requestHeaders = headers();
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import('../remote-read-cache.server');
+    return fetchCachedRemoteJsonRows({
+      cacheKey: 'explore_graph_entities',
+      url,
+      headers: requestHeaders,
+      timeoutMs: 4_000,
+      errorLabel: 'Explore knowledge-graph request',
+    });
+  }
+
+  const response = await fetch(url, { headers: requestHeaders });
   if (!response.ok) throw new Error(`Explore knowledge-graph request failed: ${response.status}`);
   const rows = await response.json();
   return Array.isArray(rows) ? rows : [];
