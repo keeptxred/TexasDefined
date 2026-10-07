@@ -168,6 +168,28 @@ export function SportsVenueGuidePage({
             />
           ) : null}
 
+          {guide.gallery?.length ? (
+            <EditorialSection eyebrow="Venue photo gallery" title={`${entity.name} in pictures`}>
+              <p className="mb-6 max-w-3xl text-sm leading-7 text-muted-foreground">
+                Historical photographs are labeled by date and should not be mistaken for the current field or seating configuration.
+              </p>
+              <div className="grid gap-6 md:grid-cols-2">
+                {guide.gallery.map((image) => (
+                  <figure key={image.sourceUrl} className="min-w-0">
+                    <a href={image.sourceUrl} target="_blank" rel="noopener noreferrer">
+                      <img src={image.imageUrl} alt={image.alt} loading="lazy" decoding="async"
+                        className="aspect-[4/3] w-full border border-border bg-muted object-cover" />
+                    </a>
+                    <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+                      {image.caption} Photo: <a href={image.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{image.credit}</a>
+                      {" · "}<a href={image.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{image.license}</a>.
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </EditorialSection>
+          ) : null}
+
           <div data-stay-nearby-slot />
 
           {enrichment?.history ? (
