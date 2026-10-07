@@ -43,6 +43,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   houston: {
     population2020: 2_304_580,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/houstoncitytexas/PST045225',
+    populationEstimate: { value: 2_397_315, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -69,6 +70,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   dallas: {
     population2020: 1_304_379,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/dallascitytexas/PST045225',
+    populationEstimate: { value: 1_329_491, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -152,6 +154,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   austin: {
     population2020: 961_855,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/austincitytexas/PST045225',
+    populationEstimate: { value: 1_002_632, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & electric utilities',
@@ -178,6 +181,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'san-antonio': {
     population2020: 1_434_625,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/sanantoniocitytexas/PST045225',
+    populationEstimate: { value: 1_548_422, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water, electric & gas utilities',
@@ -204,6 +208,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'el-paso': {
     population2020: 678_815,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/elpasocitytexas/PST045225',
+    populationEstimate: { value: 683_012, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -230,6 +235,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   arlington: {
     population2020: 394_266,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/arlingtoncitytexas/PST045225',
+    populationEstimate: { value: 402_134, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -256,6 +262,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   hurst: {
     population2020: 40_413,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/hurstcitytexas/PST045225',
+    populationEstimate: { value: 38_974, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city services',
@@ -287,6 +294,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'corpus-christi': {
     population2020: 317_863,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/corpuschristicitytexas/PST045225',
+    populationEstimate: { value: 317_247, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -313,6 +321,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   plano: {
     population2020: 285_494,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/planocitytexas/PST045225',
+    populationEstimate: { value: 293_028, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -339,6 +348,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   lubbock: {
     population2020: 257_141,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/lubbockcitytexas/PST045225',
+    populationEstimate: { value: 273_071, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'City utilities',
