@@ -127,6 +127,11 @@ for (const staleCityCopy of [
 ]) {
   if (entityDepth.includes(staleCityCopy)) errors.push(`Template-heavy city copy must not return: ${staleCityCopy}`);
 }
+const cityPopulationEstimateCount = (cityAuthorityProfiles.match(/populationEstimate:/g) ?? []).length;
+if (cityPopulationEstimateCount < 11) {
+  errors.push(`All published city authority profiles must carry the current verified Census estimate; found ${cityPopulationEstimateCount}, expected at least 11`);
+}
+
 for (const feature of [
   'value: 1_028_117',
   "'Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'",
