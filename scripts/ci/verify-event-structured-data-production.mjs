@@ -287,7 +287,7 @@ async function verifyExpiredConfirmedLeaf() {
   const html = await fetchProduction(path, 'bandera-round-up-cattle-drive');
   assert(canonicalHref(html) === `${origin}${path}`, `Bandera Round-Up canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Bandera Round-Up visible page must expose the verified organizer');
-  assert(html.includes('Tickets and admission'), 'Bandera Round-Up visible page must retain its reviewed admission evidence');
+  assert(!html.includes('Tickets and admission'), 'Bandera Round-Up expired page must suppress stale admission pricing');
 
   const blocks = extractJsonLd(html);
   assert(blocks.length > 0, 'Bandera Round-Up expired leaf must expose JSON-LD');
@@ -307,14 +307,13 @@ async function verifyFreeOfferLeaf() {
   const html = await fetchProduction(path, 'mckinney-oktoberfest');
   assert(canonicalHref(html) === `${origin}${path}`, `McKinney Oktoberfest canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'McKinney Oktoberfest visible page must expose the verified organizer');
-  assert(html.includes('Tickets and admission'), 'McKinney Oktoberfest visible page must expose verified free admission');
-
   const blocks = extractJsonLd(html);
   assert(blocks.length > 0, 'McKinney Oktoberfest leaf must expose JSON-LD');
   const nodes = blocks.flatMap((block) => collectTypedNodes(block));
   const today = currentEventDateKey();
 
   if (today <= endDate) {
+    assert(html.includes('Tickets and admission'), 'McKinney Oktoberfest visible page must expose verified free admission while the occurrence is current');
     const events = nodes.filter((node) => hasType(node, 'Event'));
     assert(events.length >= 1, 'McKinney Oktoberfest leaf must expose Event schema while its confirmed occurrence is upcoming or active');
     const event = events.find((node) => node.name === 'McKinney Oktoberfest') ?? events[0];
@@ -330,6 +329,7 @@ async function verifyFreeOfferLeaf() {
     return;
   }
 
+  assert(!html.includes('Tickets and admission'), 'McKinney Oktoberfest expired page must suppress stale free-admission pricing');
   assert(nodes.some((node) => hasType(node, 'WebPage')), 'McKinney Oktoberfest expired leaf must expose WebPage schema');
   assert(nodes.some((node) => hasType(node, 'Thing')), 'McKinney Oktoberfest expired leaf must remain described as a Thing');
   assert(!nodes.some((node) => hasType(node, 'Event')), 'McKinney Oktoberfest expired leaf must suppress stale scheduled Event markup');
@@ -344,7 +344,6 @@ async function verifyPaidOfferAndPerformersLeaf() {
   const html = await fetchProduction(path, 'fort-bend-county-fair-rodeo');
   assert(canonicalHref(html) === `${origin}${path}`, `Fort Bend County Fair canonical must be ${origin}${path}`);
   assert(html.includes('Organizer:'), 'Fort Bend visible page must expose the verified organizer');
-  assert(html.includes('Tickets and admission'), 'Fort Bend visible page must expose verified admission');
   assert(html.includes('Announced performers'), 'Fort Bend visible page must expose announced performers');
 
   const blocks = extractJsonLd(html);
@@ -353,6 +352,7 @@ async function verifyPaidOfferAndPerformersLeaf() {
   const today = currentEventDateKey();
 
   if (today > endDate) {
+    assert(!html.includes('Tickets and admission'), 'Fort Bend County Fair expired page must suppress stale admission pricing');
     assert(nodes.some((node) => hasType(node, 'WebPage')), 'Fort Bend County Fair expired leaf must expose WebPage schema');
     assert(nodes.some((node) => hasType(node, 'Thing')), 'Fort Bend County Fair expired leaf must remain described as a Thing');
     assert(!nodes.some((node) => hasType(node, 'Event')), 'Fort Bend County Fair expired leaf must suppress stale scheduled Event markup');
@@ -362,6 +362,7 @@ async function verifyPaidOfferAndPerformersLeaf() {
     return;
   }
 
+  assert(html.includes('Tickets and admission'), 'Fort Bend visible page must expose verified admission while the occurrence is current');
   const event = nodes.find((node) => hasType(node, 'Event'));
   assert(event, 'Fort Bend County Fair leaf must expose Event schema while its confirmed occurrence is upcoming or active');
   assert(hasType(event.organizer, 'Organization'), 'Fort Bend County Fair must expose its verified organizer');
