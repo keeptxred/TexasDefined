@@ -210,6 +210,10 @@ if (!errors.length) {
   for (const marker of [
     "const willsPointProfilePath = '/texas-high-school-football-teams/wills-point'",
     "await fetchVerified(willsPointProfilePath, 'Wills Point football school profile'",
+    "const shamrockProfilePath = '/texas-high-school-football-teams/shamrock'",
+    "await fetchVerified(shamrockProfilePath, 'Shamrock football school profile'",
+    "'Standard final-placement band'",
+    "'Shamrock Fighting Irish Football'",
     "'Wills Point Tigers Football'",
     "'4A Division II'",
     "'786'",
