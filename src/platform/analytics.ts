@@ -45,6 +45,7 @@ export type TexasDefinedAnalyticsPayload = {
   sourcePlatform?: string;
   referrerHost?: string;
   detection?: string;
+  acquisitionSource?: string;
   occurredAt: string;
   path: string;
   sessionId: string;
@@ -53,6 +54,7 @@ export type TexasDefinedAnalyticsPayload = {
 const SESSION_KEY = 'texasdefined:analytics-session';
 const QUEUE_KEY = 'texasdefined:analytics-queue';
 const AI_REFERRAL_SESSION_KEY = 'texasdefined:ai-referral-recorded';
+const ACQUISITION_SOURCE_KEY = 'texasdefined:acquisition-source';
 const MAX_QUEUE = 100;
 const ANALYTICS_ENDPOINT = (import.meta.env.VITE_ANALYTICS_ENDPOINT as string | undefined)?.trim() || '/api/analytics';
 const AUTOMATED_ANALYTICS_USER_AGENT = /(?:HeadlessChrome|Chrome-Lighthouse|Lighthouse|PageSpeed|Googlebot|bingbot|DuckDuckBot|Baiduspider|YandexBot|facebookexternalhit|Twitterbot|LinkedInBot|Slackbot|Discordbot|GPTBot|OAI-SearchBot|OAI-AdsBot|ClaudeBot|PerplexityBot)/i;
@@ -74,6 +76,30 @@ function safeStorage(): Storage | undefined {
 
 function safeSessionStorage(): Storage | undefined {
   try { return window.sessionStorage; } catch { return undefined; }
+}
+
+function classifyAcquisitionSource() {
+  const ai = classifyAIReferral(document.referrer, window.location.search);
+  if (ai) return ai.platform;
+  const utm = new URLSearchParams(window.location.search).get('utm_source')?.trim().toLowerCase() || '';
+  const host = (() => { try { return new URL(document.referrer).hostname.toLowerCase().replace(/^www\./, ''); } catch { return ''; } })();
+  if (/(^|\.)google\./.test(host) || utm === 'google') return 'google';
+  if (/(^|\.)bing\.com$/.test(host) || utm === 'bing') return 'bing';
+  if (/(^|\.)search\.yahoo\.com$/.test(host) || utm === 'yahoo') return 'yahoo';
+  if (host === 'duckduckgo.com' || utm === 'duckduckgo') return 'duckduckgo';
+  if (host === 'ecosia.org' || host.endsWith('.ecosia.org') || utm === 'ecosia') return 'ecosia';
+  if (host === 'search.brave.com' || utm === 'brave') return 'brave';
+  return '';
+}
+
+function acquisitionSource() {
+  const storage = safeSessionStorage();
+  const detected = classifyAcquisitionSource();
+  if (detected) {
+    storage?.setItem(ACQUISITION_SOURCE_KEY, detected);
+    return detected;
+  }
+  return storage?.getItem(ACQUISITION_SOURCE_KEY) || '';
 }
 
 function sessionId() {
@@ -108,6 +134,7 @@ export function trackTexasDefinedOutcome(
   const payload: TexasDefinedAnalyticsPayload = {
     event,
     ...details,
+    acquisitionSource: details.acquisitionSource || acquisitionSource() || undefined,
     occurredAt: new Date().toISOString(),
     path: window.location.pathname + window.location.search,
     sessionId: sessionId(),
