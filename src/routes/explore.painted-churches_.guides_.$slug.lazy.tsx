@@ -97,7 +97,7 @@ function PaintedChurchSearchGuidePage() {
         <section className="mt-14 border-t border-border pt-8">
           <p className="eyebrow text-primary">Common questions</p>
           <h2 className="mt-3 font-display text-4xl">Before you go</h2>
-          <div className="mt-8 divide-y divide-border border-y border-border">{guide.faqs.map((item) => <details key={item.question} className="group py-6"><summary className="cursor-pointer list-none pr-8 font-display text-2xl">{item.question}<span aria-hidden className="text-primary">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}</div>
+          <div className="mt-8 divide-y divide-border border-y border-border">{guide.faqs.map((item) => <details key={item.question} className="py-6"><summary className="font-display text-2xl">{item.question}<span aria-hidden className="text-primary">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}</div>
         </section>
       </div>
 
