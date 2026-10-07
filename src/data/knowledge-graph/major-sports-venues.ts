@@ -18,7 +18,7 @@ function venue([name, slug, countySlug, region, officialUrl, aliases, tags, city
             : 'The venue draws traveling fans for marquee games and events and is a natural anchor for nearby hotels, restaurants, attractions and event-weekend planning.';
   return {
     id: `sports-venue:${slug}`, kind: 'sports-venue', name, slug, aliases: [...aliases],
-    description: `${name} in ${city} is a major Texas sports and event destination centered on ${draw}. ${visitorContext} Texas Defined tracks it as a visitor-facing venue so readers can connect the event experience with the surrounding city and county.`,
+    description: `${name} in ${city} is a major Texas sports and event destination centered on ${draw}. ${visitorContext}`,
     countySlug, region, officialUrl, sourceId: 'official-destination-sites', sourceConfidence: 'official', sourceCheckedAt: checkedAt, status: 'active',
     relationships: [{ type: 'located-in-county', targetId: `county:${countySlug}` }], tags: ['sports-venue', ...tags],
   };
