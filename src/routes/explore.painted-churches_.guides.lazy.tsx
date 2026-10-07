@@ -62,7 +62,7 @@ function PaintedChurchSearchGuideHub() {
           <Link to="/explore/painted-churches-plan" className="border-b border-primary text-primary">Self-guided planner</Link>
           <Link to="/explore/painted-churches/methodology" className="border-b border-primary text-primary">Research methodology</Link>
         </div>
-        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">The coverage registry contains {guideCount} dedicated search guides. When a church name or location is ambiguous, the guide says so explicitly and directs readers to verified records rather than manufacturing certainty.</p>
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">This library includes {guideCount} focused guides. When a church name or location is ambiguous, the guide says so explicitly and directs readers to verified records rather than manufacturing certainty.</p>
       </section>
     </Container>
   </main>;
