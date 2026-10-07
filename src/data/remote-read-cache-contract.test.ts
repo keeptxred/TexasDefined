@@ -17,6 +17,7 @@ describe("remote article read protection", () => {
     expect(cacheSource).toContain("REMOTE_READ_TTL_MS = 5 * 60 * 1000");
     expect(cacheSource).toContain("REMOTE_STALE_TTL_MS = 30 * 60 * 1000");
     expect(cacheSource).toContain("REMOTE_FAILURE_BACKOFF_MS = 30 * 1000");
+    expect(cacheSource).toContain("MAX_REMOTE_READ_CACHE_ENTRIES = 64");
     expect(cacheSource).toContain("if (entry.value && entry.staleUntil > Date.now()) return entry.value");
     expect(cacheSource).toContain("signal: AbortSignal.timeout(options.timeoutMs)");
   });
