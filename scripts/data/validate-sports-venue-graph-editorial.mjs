@@ -39,6 +39,17 @@ for (const marker of generatedMarkers) {
 assert(corrections.includes('generatedSportsVenueMarkers.some'), 'Sports-venue correction layer must test all governed generated-copy markers.');
 assert(corrections.includes('return undefined;'), 'Generated sports-venue seed descriptions must be removed, not shortened and republished.');
 assert(!corrections.includes('firstSentenceEnd'), 'Sports-venue correction layer must not fall back to the old first-sentence generated description.');
+for (const marker of [
+  "'sports-venue:att-stadium'",
+  'AT&T Stadium is the Dallas Cowboys’ home in Arlington',
+  "'sports-venue:globe-life-field'",
+  'Globe Life Field opened in 2020 as the Texas Rangers’ third Arlington home',
+  "'sports-venue:amon-g-carter-stadium'",
+  'Amon G. Carter Stadium has been TCU football’s home since 1930',
+  "'sports-venue:colonial-country-club'",
+  'Colonial Country Club opened in 1936 from Marvin Leonard’s championship-golf vision',
+]) assert(corrections.includes(marker), `Current sports-venue corrections must preserve core Tarrant editorial fallback: ${marker}`);
+
 
 for (const marker of [
   'getSportsVenueEditorialDescriptions',
