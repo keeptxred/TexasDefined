@@ -50,6 +50,7 @@ type OutcomeEvent = {
   sourcePlatform?: string;
   referrerHost?: string;
   detection?: string;
+  acquisitionSource?: string;
   occurredAt?: string;
   path?: string;
   sessionId?: string;
@@ -178,6 +179,7 @@ function normalizeEvent(value: unknown): OutcomeEvent | null {
     sourcePlatform: cleanString(Reflect.get(value, "sourcePlatform"), 120),
     referrerHost: cleanString(Reflect.get(value, "referrerHost"), 240),
     detection: cleanString(Reflect.get(value, "detection"), 120),
+    acquisitionSource: cleanString(Reflect.get(value, "acquisitionSource"), 80).toLowerCase().replace(/[^a-z0-9._-]/g, ""),
     occurredAt: sanitizeOccurredAt(Reflect.get(value, "occurredAt")),
     path: sanitizePath(Reflect.get(value, "path")),
   };
@@ -200,6 +202,7 @@ function writeEvent(dataset: AnalyticsDataset, event: OutcomeEvent) {
       event.detection || "",
       event.path || "",
       event.occurredAt || "",
+      event.acquisitionSource || "",
     ],
     doubles: [1, event.score || 0],
     indexes: [analyticsIndex(event.event, resourceId, entityKind)],
