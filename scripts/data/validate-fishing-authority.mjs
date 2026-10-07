@@ -149,4 +149,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Fishing authority validated: all ${completeLakeGuides.length} complete lake guides are represented in llms.txt, the human citation guide and the machine citation manifest with official-source precedence and live-condition caveats.`);
+console.log(`Fishing authority validated: the current ${currentCompleteSlugs.length}-guide registry drives public complete-lake totals, while the historical ${historicalCitationLakeGuides.length}-guide citation spotlight remains represented in llms.txt, the human citation guide and the machine citation manifest with official-source precedence and live-condition caveats.`);
