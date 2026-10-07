@@ -14,6 +14,11 @@ export type SportsVenueGuidePilot = {
   opened?: string;
   address?: string;
   officialUrl?: string;
+  eventScheduleUrl?: string;
+  stadiumMapUrl?: string;
+  bagPolicy?: string;
+  accessibility?: string;
+  nearbyPlaces?: readonly { label: string; detail: string; href: string }[];
   reviewedAt?: string;
   sources: readonly SportsVenueGuideSource[];
 };
@@ -116,16 +121,31 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
   "choctaw-stadium": {
     canonicalPath: "/sports-venue/choctaw-stadium",
     city: "Arlington",
-    subtitle: "Arlington Entertainment District · Former Rangers ballpark adapted for football, soccer and events",
-    venueType: "Multipurpose stadium in a former Major League Baseball ballpark",
-    opened: "1994",
+    subtitle: "Arlington Entertainment District · Former Texas Rangers ballpark, now used for football, soccer and special events",
+    venueType: "Multipurpose stadium converted from a Major League Baseball ballpark",
+    capacity: "40,000 historic capacity; event configurations vary",
+    opened: "1994; major conversion in 2020",
     address: "1000 Ballpark Way, Arlington, TX 76011",
-    officialUrl: "https://globelifefield.com/choctaw-stadium/",
-    reviewedAt: "2026-09-10",
+    officialUrl: "https://www.choctawstadium.com/",
+    eventScheduleUrl: "https://www.choctawstadium.com/stadium-events/",
+    stadiumMapUrl: "https://www.choctawstadium.com/stadium-map/",
+    bagPolicy: "Soft-sided bags and purses may not exceed 16 × 16 × 8 inches. Standard backpacks are prohibited; a qualifying single-compartment drawstring bag is allowed. Medical bags and manufactured diaper bags accompanying children have exceptions. All bags are subject to search.",
+    accessibility: "Accessible seating and companion seats are available in each price level, with wheelchair assistance on request. Accessible parking is in Lot E on a first-come, first-served basis. Contact venue Guest Services before your visit for specific accommodations.",
+    nearbyPlaces: [
+      { label: "Globe Life Field", detail: "The Texas Rangers’ current ballpark, across the street", href: "/sports-venue/globe-life-field" },
+      { label: "AT&T Stadium", detail: "Dallas Cowboys stadium and tours in the entertainment district", href: "/sports-venue/att-stadium" },
+      { label: "Texas Live!", detail: "Dining and entertainment close to the ballparks", href: "https://texas-live.com/" },
+      { label: "Explore Arlington", detail: "More attractions and practical city information", href: "/city/arlington" },
+    ],
+    reviewedAt: "2026-10-07",
     sources: [
-      { label: "Choctaw Stadium official venue page", href: "https://globelifefield.com/choctaw-stadium/" },
-      { label: "Choctaw Stadium history and current use", href: "https://globelifefield.com/choctaw-stadium-former-rangers-home/" },
-      { label: "Globe Life Field and Choctaw Stadium tours", href: "https://globelifefield.com/tours-experiences/" },
+      { label: "Choctaw Stadium official site", href: "https://www.choctawstadium.com/" },
+      { label: "Choctaw Stadium event schedule", href: "https://www.choctawstadium.com/stadium-events/" },
+      { label: "Choctaw Stadium parking", href: "https://www.choctawstadium.com/parking/" },
+      { label: "Choctaw Stadium bag policy", href: "https://www.choctawstadium.com/bag-policy/" },
+      { label: "Choctaw Stadium accessibility", href: "https://www.choctawstadium.com/accessibility/" },
+      { label: "Choctaw Stadium map", href: "https://www.choctawstadium.com/stadium-map/" },
+      { label: "Arlington Sports Commission — venue specifications", href: "https://www.arlingtonsportscommission.org/venues/choctaw-stadium" },
     ],
   },
   "ford-center-at-the-star": {
