@@ -4,23 +4,25 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
+export const description = 'Texas Defined’s maintained data and reference library: sourced Texas datasets, directories, comparison tables and downloadable records built for research, reporting, planning and citation.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
+export const dataHubNavigationPaths = {
+  counties: '/browse/counties',
+  cities: '/browse/cities',
+  explore: '/explore',
+  resources: '/texas-resources',
+  industries: '/texas-industries',
+  countyGrowth: '/texas-data/county-growth',
+  cityCountyRelationships: '/texas-data/city-county-relationships',
+} as const;
+export const countyHousingNextStop = ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'] as const;
 
-export const nextStops = [
-  ['Plan a move to Texas', '/moving-to-texas', 'Use the relocation research center for metro guides, city matching, address-level source checks, moving tasks and cost tools.'],
-  ['Texas industries', '/texas-industries', 'Connect statewide economic data with sourced sector guides, regional industry hubs and county pathways.'],
-  ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
-  ['County population growth', '/texas-data/county-growth', 'Compare Census Vintage 2025 county population change from the 2020 estimates base to July 1, 2025.'],
-  ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'],
-  ['Compare sports venues', sportsComparisonPath, 'Compare 84 verified Texas sports venue guides by location, type, capacity and opening information where available.'],
-  ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
-  ['City-to-county relationships', '/texas-data/city-county-relationships', 'See the current Texas Defined city directory mapped to counties and regions.'],
-  ['Explore Texas', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
-  ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
-  ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
-  ['Texas resources', '/texas-resources', 'Find official contacts, local information and practical guides.'],
+const referenceDatasets = [
+  ['Texas Lighthouse Database', '/explore/lighthouses', '/texas-lighthouses.csv', null],
+  ['Texas Painted Churches Directory', '/explore/painted-churches', '/painted-churches.csv', '/painted-churches.json'],
+  ['Texas Fishing Species & Lake Reference Matrix', '/fishing/species', '/fishing-lake-species.csv', null],
+  ['Texas UIL Football District Reference', '/texas-high-school-football-districts', '/texas-high-school-football-districts.csv', null],
 ] as const;
 
 export const Route = createFileRoute('/texas-data')({
@@ -29,16 +31,27 @@ export const Route = createFileRoute('/texas-data')({
     const pageUrl = absoluteUrl(texasDefinedBrand, '/texas-data');
     const datasets = loaderData?.datasets ?? [];
     return {
-      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Facts and Figures', description }),
+      meta: buildMeta(texasDefinedBrand, { canonicalPath: '/texas-data', title: 'Texas Data & Reference Library', description }),
       links: [canonicalLink(texasDefinedBrand, '/texas-data')],
       scripts: [jsonLd({
         '@context': 'https://schema.org',
         '@graph': [
           {
-            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Facts and Figures', description,
+            '@type': ['CollectionPage', 'DataCatalog'], '@id': `${pageUrl}#page`, url: pageUrl, name: 'Texas Data & Reference Library', description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` }, isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
             dataset: [
               ...datasets.map((dataset) => ({ '@type': 'Dataset', '@id': `${absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`)}#dataset`, name: dataset.title, description: dataset.description, url: absoluteUrl(texasDefinedBrand, `/texas-data/${dataset.slug}`), dateModified: dataset.updated, temporalCoverage: String(dataset.year) })),
+              ...referenceDatasets.map(([name, href, csvHref, jsonHref]) => ({
+                '@type': 'Dataset',
+                '@id': `${absoluteUrl(texasDefinedBrand, href)}#dataset`,
+                name,
+                url: absoluteUrl(texasDefinedBrand, href),
+                spatialCoverage: { '@type': 'State', name: 'Texas' },
+                distribution: [
+                  { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, csvHref) },
+                  ...(jsonHref ? [{ '@type': 'DataDownload', encodingFormat: 'application/json', contentUrl: absoluteUrl(texasDefinedBrand, jsonHref) }] : []),
+                ],
+              })),
               {
                 '@type': 'Dataset',
                 '@id': `${absoluteUrl(texasDefinedBrand, sportsComparisonPath)}#dataset`,
