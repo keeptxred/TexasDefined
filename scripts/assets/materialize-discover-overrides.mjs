@@ -3,6 +3,7 @@ import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 
 const entries = [
   [
@@ -196,18 +197,35 @@ async function paceRemoteFetch() {
 
 function retryDelayMs(response, attempt) {
   const retryAfter = Number(response.headers.get("retry-after"));
-  if (Number.isFinite(retryAfter) && retryAfter > 0) return Math.max(1000, retryAfter * 1000);
-  if (response.status === 429) return 5000 * attempt;
-  return 1000 * attempt;
+  if (Number.isFinite(retryAfter) && retryAfter > 0) return Math.min(15_000, Math.max(1000, retryAfter * 1000));
+  if (response.status === 429) return Math.min(15_000, 3000 * attempt);
+  return Math.min(10_000, 1000 * attempt);
+}
+
+function wikimediaDirectOriginalSource(source) {
+  try {
+    const url = new URL(source);
+    const marker = "/wiki/Special:Redirect/file/";
+    const markerIndex = url.pathname.indexOf(marker);
+    if (url.hostname !== "commons.wikimedia.org" || markerIndex === -1) return null;
+
+    const filename = decodeURIComponent(url.pathname.slice(markerIndex + marker.length)).replace(/ /g, "_");
+    const hash = createHash("md5").update(filename).digest("hex");
+    return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash.slice(0, 2)}/${encodeURIComponent(filename)}`;
+  } catch {
+    return null;
+  }
 }
 
 async function fetchRemoteSource(slug, source) {
   let lastError;
+  const directWikimediaSource = wikimediaDirectOriginalSource(source);
+  let requestSource = directWikimediaSource ?? source;
   for (let attempt = 1; attempt <= REMOTE_SOURCE_ATTEMPTS; attempt += 1) {
     let response;
     try {
       await paceRemoteFetch();
-      response = await fetch(source, {
+      response = await fetch(requestSource, {
         redirect: "follow",
         headers: { "user-agent": "TexasDefined-Discover-Materializer/1.0", accept: "image/*,*/*;q=0.8" },
         signal: AbortSignal.timeout(45_000),
@@ -222,9 +240,10 @@ async function fetchRemoteSource(slug, source) {
 
     if (response.ok) return response;
 
-    const error = new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${source}`);
+    const error = new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${requestSource}`);
     if (!RETRYABLE_SOURCE_STATUSES.has(response.status) || attempt === REMOTE_SOURCE_ATTEMPTS) throw error;
     lastError = error;
+
     const delayMs = retryDelayMs(response, attempt);
     console.warn(`Remote Discover source returned retryable HTTP ${response.status} for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying in ${delayMs}ms.`);
     await sleep(delayMs);
