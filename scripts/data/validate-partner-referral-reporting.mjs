@@ -27,7 +27,8 @@ for (const [needle, label] of [
   ['revoke all on table public.texasdefined_partner_referral_daily from public, anon, authenticated', 'public-role revocation'],
   ['grant select, insert, update, delete on table public.texasdefined_partner_referral_daily to service_role', 'service-role access'],
   ['destination_hash text not null', 'destination identity key'],
-  ['primary key (metric_date, partner, placement, page_path, destination_hash)', 'idempotent aggregate key'],
+  ["acquisition_source text not null default 'unknown'", 'privacy-safe acquisition source'],
+  ['primary key (metric_date, partner, placement, page_path, destination_hash, acquisition_source)', 'source-aware idempotent aggregate key'],
 ]) expect(migration, needle, label);
 
 for (const [needle, label] of [
@@ -50,6 +51,9 @@ for (const [needle, label] of [
   ['searchStarts', 'Expedia search-start sync total'],
   ["blob10 != 'ci-probe'", 'CI probe exclusion'],
   ["const TABLE = 'texasdefined_partner_referral_daily'", 'private aggregate target'],
+  ['blob13 AS acquisitionSource', 'Analytics Engine acquisition source'],
+  ['acquisition_source: acquisitionSource', 'Supabase acquisition source'],
+  ["metric_date,partner,placement,page_path,destination_hash,acquisition_source", 'source-aware upsert key'],
   ["createHash('sha256')", 'destination hash'],
   ["Prefer: 'resolution=merge-duplicates,return=minimal'", 'idempotent upsert'],
   ["const RETENTION_DAYS = 90", 'bounded aggregate retention'],
