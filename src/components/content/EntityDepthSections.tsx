@@ -155,11 +155,14 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           <h2 id="city-featured-heading" className="mt-2 font-display text-4xl">Best first stops and planning guides</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cityProfile.featured.map((feature) => <a key={feature.href} href={feature.href} className="border border-border p-5 hover:border-primary/60">
-            {feature.eyebrow ? <span className="eyebrow text-primary">{feature.eyebrow}</span> : null}
-            <strong className="mt-2 block font-display text-2xl leading-tight">{feature.title}</strong>
-            <span className="mt-3 block text-sm leading-6 text-muted-foreground">{feature.summary}</span>
-            <span className="mt-4 block text-sm font-semibold text-primary">Open guide →</span>
+          {cityProfile.featured.map((feature) => <a key={feature.href} href={feature.href} className="overflow-hidden border border-border hover:border-primary/60">
+            {feature.image ? <img src={feature.image.src} alt={feature.image.alt} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" /> : null}
+            <span className="block p-5">
+              {feature.eyebrow ? <span className="eyebrow text-primary">{feature.eyebrow}</span> : null}
+              <strong className="mt-2 block font-display text-2xl leading-tight">{feature.title}</strong>
+              <span className="mt-3 block text-sm leading-6 text-muted-foreground">{feature.summary}</span>
+              <span className="mt-4 block text-sm font-semibold text-primary">Open guide →</span>
+            </span>
           </a>)}
         </div>
       </div>
