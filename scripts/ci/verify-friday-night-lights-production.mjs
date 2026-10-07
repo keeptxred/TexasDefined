@@ -21,6 +21,7 @@ const abbottProfilePath = '/texas-high-school-football-teams/abbott';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const springProfilePath = '/texas-high-school-football-teams/spring';
+const shamrockProfilePath = '/texas-high-school-football-teams/shamrock';
 const universalProfileCases = [
   { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
   { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
@@ -523,6 +524,26 @@ await fetchVerified(springProfilePath, 'Spring football school profile', (body) 
   if (/\bnoindex\b/i.test(body)) throw new Error('Spring football school profile unexpectedly contains noindex');
 });
 
+await fetchVerified(shamrockProfilePath, 'Shamrock football school profile', (body) => {
+  for (const needle of [
+    'Shamrock Fighting Irish Football',
+    '2A Division II',
+    'UIL enrollment',
+    '100.5',
+    'Standard final-placement band',
+    '105–175.5',
+    'Nate Skelton',
+    'El Paso Field',
+    '2026 varsity football',
+    'Overall record',
+    '1–4',
+    'Oct. 9, 2026',
+    'Wellington',
+    'Shamrock ISD Athletic Schedules',
+  ]) requireNeedle(body, needle, 'Shamrock football school profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Shamrock football school profile unexpectedly contains noindex');
+});
+
 for (const profile of universalProfileCases) {
   await fetchVerified(profile.path, `${profile.classification} universal football profile ${profile.name}`, (body) => {
     for (const needle of [
@@ -551,6 +572,7 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/spring</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/shamrock</loc>', 'sitemap');
   for (const profile of universalProfileCases) {
     requireNeedle(body, `<loc>https://texasdefined.com${profile.path}</loc>`, 'sitemap universal football profile');
   }
