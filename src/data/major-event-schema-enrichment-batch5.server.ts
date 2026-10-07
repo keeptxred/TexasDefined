@@ -72,14 +72,23 @@ export const majorEventSchemaEnrichmentBatch5: MajorEventSchemaEnrichment[] = [
   {
     slug: "hidalgo-borderfest",
     organizer: organization("City of Hidalgo", "https://www.hidalgoborderfest.com/"),
-    offers: [
-      usdOffer("Sunday adult one-day admission", 18, "https://tickets.hidalgoborderfest.com/p/tickets"),
-    ],
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Payne_Arena_Hidalgo_Texas_2021.jpg",
+      alt: "Payne Arena in Hidalgo, Texas, photographed in 2021",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Payne_Arena_Hidalgo_Texas_2021.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+      rightsNote: "Photograph by Larry D. Moore (Nv8200pa), licensed CC BY 4.0 via Wikimedia Commons.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Hidalgo BorderFest official About page — staged by the City of Hidalgo", url: "https://www.hidalgoborderfest.com/aboutborderfest" },
-      { label: "Hidalgo BorderFest official 2026 ticket portal", url: "https://tickets.hidalgoborderfest.com/p/tickets" },
+      { label: "Hidalgo BorderFest official 2026 ticket portal and festival hours", url: "https://tickets.hidalgoborderfest.com/p/tickets" },
+      { label: "Hidalgo BorderFest official 2026 ticket terms and admission distinctions", url: "https://www.hidalgoborderfest.com/borderfestticketinformation" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-07",
   },
   {
     slug: "austin-reggae-festival",
