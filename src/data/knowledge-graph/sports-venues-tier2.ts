@@ -36,7 +36,7 @@ function venue([name, slug, countySlug, region, officialUrl, aliases, tags, city
     name,
     slug,
     aliases: [...aliases],
-    description: `${name} in ${city} is a Texas sports destination centered on ${draw}. ${context} Texas Defined includes it in the statewide venue guide to connect the sporting experience with practical trip planning and the surrounding county and region.`,
+    description: `${name} in ${city} is a Texas sports destination centered on ${draw}. ${context}`,
     countySlug,
     region,
     officialUrl,
