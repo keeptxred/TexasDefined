@@ -133,19 +133,35 @@ export function hasRemoteExploreGraph(): boolean {
   return hasExploreRemoteData();
 }
 
+async function requestExploreGraphRows(params: URLSearchParams): Promise<ExploreGraphRow[]> {
+  const url = `${supabaseUrl}/rest/v1/explore_entities?${params}`;
+  const requestHeaders = headers();
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("../remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_knowledge_graph",
+      url,
+      headers: requestHeaders,
+      timeoutMs: 4_000,
+      errorLabel: "Explore knowledge-graph read",
+    });
+  }
+
+  const response = await fetch(url, {
+    headers: requestHeaders,
+    signal: AbortSignal.timeout(4_000),
+  });
+  if (!response.ok) throw new Error(`Explore knowledge-graph request failed: ${response.status}`);
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
 async function fetchExploreGraphPage(params: URLSearchParams, offset: number, limit: number): Promise<ExploreGraphRow[]> {
   const pageParams = new URLSearchParams(params);
   pageParams.set('offset', String(offset));
   pageParams.set('limit', String(limit));
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_entities?${pageParams}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(4_000) }
-      : { headers: headers() },
-  );
-  if (!response.ok) throw new Error(`Explore knowledge-graph request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) ? rows : [];
+  return requestExploreGraphRows(pageParams);
 }
 
 export async function fetchExploreGraphEntities(options: { query?: string; limit?: number } = {}): Promise<TexasEntityRecord[]> {

@@ -103,6 +103,30 @@ function baseParams(): URLSearchParams {
   });
 }
 
+async function requestCoreRows(params: URLSearchParams): Promise<Record<string, unknown>[]> {
+  const url = `${supabaseUrl}/rest/v1/explore_public_entities?${params}`;
+  const requestHeaders = headers();
+
+  if (import.meta.env.SSR) {
+    const { fetchCachedRemoteJsonRows } = await import("./remote-read-cache.server");
+    return fetchCachedRemoteJsonRows({
+      cacheKey: "explore_public_entities",
+      url,
+      headers: requestHeaders,
+      timeoutMs: 2_500,
+      errorLabel: "Core Explore remote read",
+    });
+  }
+
+  const response = await fetch(url, {
+    headers: requestHeaders,
+    signal: AbortSignal.timeout(2_500),
+  });
+  if (!response.ok) throw new Error(`Core Explore request failed: ${response.status}`);
+  const rows = await response.json();
+  return Array.isArray(rows) ? rows : [];
+}
+
 export async function fetchCoreExploreDestinations(options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {}): Promise<Destination[]> {
   if (!hasExploreRemoteData()) return [];
   const limit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
@@ -117,15 +141,7 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
     const pageParams = new URLSearchParams(params);
     pageParams.set("offset", String(offset));
     pageParams.set("limit", String(PAGE_SIZE));
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/explore_public_entities?${pageParams}`,
-      import.meta.env.SSR
-        ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
-        : { headers: headers() },
-    );
-    if (!response.ok) throw new Error(`Core Explore catalog request failed: ${response.status}`);
-    const page = await response.json();
-    if (!Array.isArray(page)) break;
+    const page = await requestCoreRows(pageParams);
     rows.push(...page);
     if (page.length < PAGE_SIZE) break;
   }
@@ -137,13 +153,6 @@ export async function fetchCoreExploreDestination(slug: string): Promise<Destina
   const params = baseParams();
   params.set("slug", `eq.${slug}`);
   params.set("limit", "1");
-  const response = await fetch(
-    `${supabaseUrl}/rest/v1/explore_public_entities?${params}`,
-    import.meta.env.SSR
-      ? { headers: headers(), signal: AbortSignal.timeout(2_500) }
-      : { headers: headers() },
-  );
-  if (!response.ok) throw new Error(`Core Explore destination request failed: ${response.status}`);
-  const rows = await response.json();
-  return Array.isArray(rows) && rows[0] ? mapRow(rows[0]) : null;
+  const rows = await requestCoreRows(params);
+  return rows[0] ? mapRow(rows[0]) : null;
 }
