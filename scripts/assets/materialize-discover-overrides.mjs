@@ -181,18 +181,47 @@ const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "td-discover-"));
 const command = ["magick", "convert"].find((candidate) => spawnSync(candidate, ["-version"], { stdio: "ignore" }).status === 0);
 if (!command) throw new Error("ImageMagick is required to materialize governed Discover derivatives.");
 
+const REMOTE_SOURCE_ATTEMPTS = 3;
+const RETRYABLE_SOURCE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchRemoteSource(slug, source) {
+  let lastError;
+  for (let attempt = 1; attempt <= REMOTE_SOURCE_ATTEMPTS; attempt += 1) {
+    let response;
+    try {
+      response = await fetch(source, {
+        redirect: "follow",
+        headers: { "user-agent": "TexasDefined-Discover-Materializer/1.0", accept: "image/*,*/*;q=0.8" },
+        signal: AbortSignal.timeout(45_000),
+      });
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      if (attempt === REMOTE_SOURCE_ATTEMPTS) throw lastError;
+      console.warn(`Remote Discover source fetch failed for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying: ${lastError.message}`);
+      await sleep(750 * attempt);
+      continue;
+    }
+
+    if (response.ok) return response;
+
+    const error = new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${source}`);
+    if (!RETRYABLE_SOURCE_STATUSES.has(response.status) || attempt === REMOTE_SOURCE_ATTEMPTS) throw error;
+    lastError = error;
+    console.warn(`Remote Discover source returned retryable HTTP ${response.status} for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying.`);
+    await sleep(750 * attempt);
+  }
+  throw lastError ?? new Error(`Unable to fetch governed source for ${slug}: ${source}`);
+}
+
 async function sourceFile(slug, source) {
   if (source.startsWith("/")) {
     const local = path.resolve("public", source.slice(1));
     if (!fsSync.existsSync(local)) throw new Error(`Missing governed local source for ${slug}: ${local}`);
     return local;
   }
-  const response = await fetch(source, {
-    redirect: "follow",
-    headers: { "user-agent": "TexasDefined-Discover-Materializer/1.0", accept: "image/*,*/*;q=0.8" },
-    signal: AbortSignal.timeout(45_000),
-  });
-  if (!response.ok) throw new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${source}`);
+  const response = await fetchRemoteSource(slug, source);
   const type = response.headers.get("content-type") ?? "";
   if (!type.toLowerCase().startsWith("image/")) throw new Error(`Governed source is not an image for ${slug}: ${type}`);
   const input = path.join(tmpDir, `${slug}.source`);
