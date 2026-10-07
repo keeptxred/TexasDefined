@@ -36,10 +36,11 @@ for (const [needle, message] of [
   ['addressCountry: "US"', 'Event location must include addressCountry.'],
   ['...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {})', 'Event image must come only from governed occurrence enrichment.'],
   ['...(organizer ? { organizer } : {})', 'Verified organizers must be emitted when available.'],
-  ['...(offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted when available.'],
+  ['...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted only for non-expired occurrences.'],
   ['...(performers?.length ? { performer: performers } : {})', 'Verified performers must be emitted when available.'],
 ]) requireText(eventPage, needle, message);
 
+requireText(eventPage, 'const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length', 'Expired event pages must suppress stale ticket-price UI.');
 requireText(eventPage, 'previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate', 'Rescheduled Event JSON-LD must support previousStartDate.');
 requireText(eventPage, 'occurrenceEnrichment?.lifecycle?.status === "rescheduled"', 'previousStartDate must be gated to rescheduled events.');
 
