@@ -3,6 +3,7 @@ import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 
 const entries = [
   [
@@ -201,12 +202,16 @@ function retryDelayMs(response, attempt) {
   return Math.min(10_000, 1000 * attempt);
 }
 
-function wikimediaOriginalSource(source) {
+function wikimediaDirectOriginalSource(source) {
   try {
     const url = new URL(source);
-    if (url.hostname !== "commons.wikimedia.org" || !url.pathname.includes("/wiki/Special:Redirect/file/") || !url.searchParams.has("width")) return null;
-    url.search = "";
-    return url.toString();
+    const marker = "/wiki/Special:Redirect/file/";
+    const markerIndex = url.pathname.indexOf(marker);
+    if (url.hostname !== "commons.wikimedia.org" || markerIndex === -1) return null;
+
+    const filename = decodeURIComponent(url.pathname.slice(markerIndex + marker.length)).replace(/ /g, "_");
+    const hash = createHash("md5").update(filename).digest("hex");
+    return `https://upload.wikimedia.org/wikipedia/commons/${hash[0]}/${hash.slice(0, 2)}/${encodeURIComponent(filename)}`;
   } catch {
     return null;
   }
@@ -214,8 +219,8 @@ function wikimediaOriginalSource(source) {
 
 async function fetchRemoteSource(slug, source) {
   let lastError;
-  let requestSource = source;
-  const originalSource = wikimediaOriginalSource(source);
+  const directWikimediaSource = wikimediaDirectOriginalSource(source);
+  let requestSource = directWikimediaSource ?? source;
   for (let attempt = 1; attempt <= REMOTE_SOURCE_ATTEMPTS; attempt += 1) {
     let response;
     try {
@@ -238,13 +243,6 @@ async function fetchRemoteSource(slug, source) {
     const error = new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${requestSource}`);
     if (!RETRYABLE_SOURCE_STATUSES.has(response.status) || attempt === REMOTE_SOURCE_ATTEMPTS) throw error;
     lastError = error;
-
-    if (response.status === 429 && originalSource && requestSource !== originalSource) {
-      requestSource = originalSource;
-      console.warn(`Wikimedia thumbnail rate-limited for ${slug}; retrying against the original file source.`);
-      await sleep(1000);
-      continue;
-    }
 
     const delayMs = retryDelayMs(response, attempt);
     console.warn(`Remote Discover source returned retryable HTTP ${response.status} for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying in ${delayMs}ms.`);
