@@ -69,6 +69,7 @@ test("writes sanitized partner-referral telemetry without persisting session IDs
       destination: "https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/",
       path: "/sports-venue/globe-life-field?private=value",
       occurredAt: "2026-09-15T20:00:00-05:00",
+      acquisitionSource: "BING<script>",
       sessionId: "raw-session-id-must-not-persist",
     }),
     env(points),
@@ -81,6 +82,7 @@ test("writes sanitized partner-referral telemetry without persisting session IDs
   assert.equal(points[0]?.blobs?.[1], "hotels.com");
   assert.equal(points[0]?.blobs?.[6], "stay-nearby-card-exact");
   assert.equal(points[0]?.blobs?.[10], "/sports-venue/globe-life-field");
+  assert.equal(points[0]?.blobs?.[12], "bingscript");
   assert.match(points[0]?.blobs?.[4] || "", /\[email\]/);
   assert.match(points[0]?.blobs?.[4] || "", /\[phone\]/);
   assert.match(points[0]?.blobs?.[4] || "", /\[address\]/);
