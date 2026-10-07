@@ -216,8 +216,8 @@ for (const token of [
   "title: `Texas Fishing Lakes — Compare ${completeLakeCount} Complete Lake Guides`",
   "isCompleteFishingLakeSlug(lake.slug)",
   "numberOfItems: rows.length",
-]) requireText(files.directoryRoute, token, `fifteen-lake directory SEO/data contract missing ${token}`);
-for (const token of ["rows.length} complete Texas fishing lake guides are published", "Check Current Lake Conditions Before You Go", "unfinished lake records are not exposed here as thin pages"]) requireText(files.directoryUi, token, `fifteen-lake directory UI integrity contract missing ${token}`);
+]) requireText(files.directoryRoute, token, `complete-lake directory SEO/data contract missing ${token}`);
+for (const token of ["rows.length} complete Texas fishing lake guides are published", "Check Current Lake Conditions Before You Go", "unfinished lake records are not exposed here as thin pages"]) requireText(files.directoryUi, token, `complete-lake directory UI integrity contract missing ${token}`);
 for (const token of ["const featuredLakes = lakes.slice(0, 6)", "Featured Texas Fishing Lakes", "Browse fishing lakes →", 'fishingFoundationAnchor("lake", lake.slug)', 'isCompleteFishingLakeSlug(lake.slug) ? "Full fishing guide" : "Lake profile"']) requireText(files.hub, token, `statewide hub expansion/discovery missing ${token}`);
 for (const token of ["EXPANDED_SHOWCASE_LAKE_SLUGS", "WAVE2_SHOWCASE_LAKE_SLUGS", "ALL_SHOWCASE_LAKE_SLUGS", "showcaseLakeCanonicalPath(slug, section)"]) requireText(files.sitemap, token, `expanded lake sitemap publication missing ${token}`);
 
@@ -234,4 +234,4 @@ for (const phrase of ["guaranteed catch", "today's best lake", "sponsored rankin
 
 requireText(pkg.scripts["fishing:validate"], "validate-fishing-lake-expansion.mjs", "Batch 15 validator not wired into fishing:validate");
 
-console.log("Fishing Batch 15 lake-expansion validation passed: fifteen complete lake guides, fifteen Water Data for Texas live-level sources, recent-conditions-first resilient fetching with shared cache and CSV/HTML fallbacks, single-lake SSR snapshots bounded to 1.5 seconds while protected all-lake verification retains the full resilient fetcher, page-open client refresh through the safe server function, graceful live UI fallback, verified species/technique depth, reusable dynamic routes, live-condition separation, fifteen-lake directory discovery and sitemap publication are protected.");
+console.log("Fishing Batch 15 lake-expansion validation passed: the historical original 15-lake cohort and its fifteen Water Data for Texas live-level sources remain protected while the current expanded complete-lake directory derives its public total from the authoritative registry; resilient fetching, bounded SSR snapshots, graceful live fallback, species/technique depth, reusable routes, live-condition separation, discovery and sitemap publication remain protected.");
