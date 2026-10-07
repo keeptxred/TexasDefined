@@ -56,7 +56,7 @@ function EntityPage() {
         sameAs: entity.officialUrl ? [entity.officialUrl] : undefined,
         geo: entity.coordinates ? { '@type': 'GeoCoordinates', latitude: entity.coordinates.latitude, longitude: entity.coordinates.longitude } : undefined,
         containedInPlace: entity.kind === 'city'
-          ? entity.region ? { '@type': 'AdministrativeArea', name: `${title(entity.region)} Texas` } : undefined
+          ? entity.region ? { '@type': 'AdministrativeArea', name: title(entity.region) } : undefined
           : entity.countySlug ? { '@type': 'AdministrativeArea', name: `${title(entity.countySlug)} County` } : entity.region ? { '@type': 'Place', name: title(entity.region) } : undefined,
         ...(entity.kind === 'county' && countyProfile ? {
           additionalProperty: [
