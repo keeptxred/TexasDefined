@@ -5,6 +5,7 @@ const articlesSource = readFileSync(new URL("./articles-remote.ts", import.meta.
 const exploreSource = readFileSync(new URL("./explore-remote.ts", import.meta.url), "utf8");
 const exploreCoreSource = readFileSync(new URL("./explore-core-remote.ts", import.meta.url), "utf8");
 const exploreGraphSource = readFileSync(new URL("./knowledge-graph/explore-adapter.ts", import.meta.url), "utf8");
+const sharedTripSource = readFileSync(new URL("../routes/explore.trip.$token.tsx", import.meta.url), "utf8");
 const cacheSource = readFileSync(new URL("./remote-read-cache.server.ts", import.meta.url), "utf8");
 
 describe("remote article read protection", () => {
@@ -37,5 +38,11 @@ describe("remote article read protection", () => {
     expect(exploreGraphSource).toContain('await import("../remote-read-cache.server")');
     expect(exploreGraphSource).toContain('cacheKey: "explore_knowledge_graph"');
     expect(exploreGraphSource).toContain("signal: AbortSignal.timeout(4_000)");
+  });
+
+  it("protects legacy shared-trip reads with the same bounded server cache", () => {
+    expect(sharedTripSource).toContain('await import("@/data/remote-read-cache.server")');
+    expect(sharedTripSource).toContain('cacheKey: "explore_trips"');
+    expect(sharedTripSource).toContain("signal: AbortSignal.timeout(2_500)");
   });
 });
