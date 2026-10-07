@@ -181,16 +181,32 @@ const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "td-discover-"));
 const command = ["magick", "convert"].find((candidate) => spawnSync(candidate, ["-version"], { stdio: "ignore" }).status === 0);
 if (!command) throw new Error("ImageMagick is required to materialize governed Discover derivatives.");
 
-const REMOTE_SOURCE_ATTEMPTS = 3;
+const REMOTE_SOURCE_ATTEMPTS = 5;
 const RETRYABLE_SOURCE_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
+const MIN_REMOTE_FETCH_INTERVAL_MS = 1250;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+let lastRemoteFetchAt = 0;
+
+async function paceRemoteFetch() {
+  const elapsed = Date.now() - lastRemoteFetchAt;
+  if (elapsed < MIN_REMOTE_FETCH_INTERVAL_MS) await sleep(MIN_REMOTE_FETCH_INTERVAL_MS - elapsed);
+  lastRemoteFetchAt = Date.now();
+}
+
+function retryDelayMs(response, attempt) {
+  const retryAfter = Number(response.headers.get("retry-after"));
+  if (Number.isFinite(retryAfter) && retryAfter > 0) return Math.max(1000, retryAfter * 1000);
+  if (response.status === 429) return 5000 * attempt;
+  return 1000 * attempt;
+}
 
 async function fetchRemoteSource(slug, source) {
   let lastError;
   for (let attempt = 1; attempt <= REMOTE_SOURCE_ATTEMPTS; attempt += 1) {
     let response;
     try {
+      await paceRemoteFetch();
       response = await fetch(source, {
         redirect: "follow",
         headers: { "user-agent": "TexasDefined-Discover-Materializer/1.0", accept: "image/*,*/*;q=0.8" },
@@ -200,7 +216,7 @@ async function fetchRemoteSource(slug, source) {
       lastError = error instanceof Error ? error : new Error(String(error));
       if (attempt === REMOTE_SOURCE_ATTEMPTS) throw lastError;
       console.warn(`Remote Discover source fetch failed for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying: ${lastError.message}`);
-      await sleep(750 * attempt);
+      await sleep(1000 * attempt);
       continue;
     }
 
@@ -209,8 +225,9 @@ async function fetchRemoteSource(slug, source) {
     const error = new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${source}`);
     if (!RETRYABLE_SOURCE_STATUSES.has(response.status) || attempt === REMOTE_SOURCE_ATTEMPTS) throw error;
     lastError = error;
-    console.warn(`Remote Discover source returned retryable HTTP ${response.status} for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying.`);
-    await sleep(750 * attempt);
+    const delayMs = retryDelayMs(response, attempt);
+    console.warn(`Remote Discover source returned retryable HTTP ${response.status} for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying in ${delayMs}ms.`);
+    await sleep(delayMs);
   }
   throw lastError ?? new Error(`Unable to fetch governed source for ${slug}: ${source}`);
 }
