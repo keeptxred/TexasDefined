@@ -5,6 +5,7 @@ import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
+  uilFootballEnrollmentIncludes,
 } from '@/data/high-school-football/enrollment-bands';
 
 export const Route = createLazyFileRoute('/texas-high-school-football-districts/$slug')({ component: Page });
@@ -18,6 +19,9 @@ function Page() {
   const reportedEnrollments = district.programs.map((program) => program.uilEnrollment);
   const enrollmentLow = Math.min(...reportedEnrollments);
   const enrollmentHigh = Math.max(...reportedEnrollments);
+  const placementExceptions = district.programs.filter((program) =>
+    uilFootballEnrollmentIncludes(enrollmentBand, program.uilEnrollment) === false,
+  );
   const formatEnrollment = (value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 1 });
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -39,7 +43,7 @@ function Page() {
           <Fact label="Classification" value={district.classification} />
           <Fact label="Division" value={district.division ? `Division ${district.division === 1 ? 'I' : 'II'}` : '6A postseason split'} />
           <Fact label="UIL district" value={String(district.district)} />
-          <Fact label="Enrollment band" value={enrollmentBand?.label || conferenceBand} />
+          <Fact label="Standard placement band" value={enrollmentBand?.label || conferenceBand} />
           <Fact label="Reported enrollment range" value={`${formatEnrollment(enrollmentLow)}–${formatEnrollment(enrollmentHigh)}`} />
           <Fact label="Format" value={district.footballType} />
           <Fact label="Programs" value={String(district.programCount)} />
@@ -76,7 +80,8 @@ function Page() {
           {district.classification === '6A'
             ? <p>In 6A, schools are not pre-assigned to Division I or Division II for football. After four teams qualify from the district, the two larger-enrollment qualifiers enter Division I and the two smaller-enrollment qualifiers enter Division II.</p>
             : <p>For {district.classification}, Division {district.division === 1 ? 'I' : 'II'} is assigned before the season as part of realignment, so every school on this page competes in the same classification and football division.</p>}
-          <p>For the 2026–28 cycle, this district’s classification{district.division ? ' and football division' : ''} corresponds to an enrollment band of <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>. UIL realignment runs on a two-year cycle, so this page should not be used as a historical district list.</p>
+          <p>For the 2026–28 cycle, the standard enrollment band associated with this district’s classification{district.division ? ' and football division' : ''} is <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>. UIL realignment runs on a two-year cycle, so this page should not be used as a historical district list.</p>
+          {placementExceptions.length > 0 && <p><strong className="text-foreground">{placementExceptions.map((program) => program.schoolName).join(', ')}</strong> {placementExceptions.length === 1 ? 'has' : 'have'} a UIL-reported enrollment outside that standard band. The final UIL football alignment remains the authoritative competition placement, so TexasDefined shows the exception instead of forcing the reported enrollment to appear inside the cutoff range.</p>}
           <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="inline-block font-semibold text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
         </div>
       </section>
