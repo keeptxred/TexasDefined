@@ -100,7 +100,7 @@ const experiments = [
   {
     path: '/article/texas-school-districts-explained',
     title: 'What Does ISD Stand For in Texas? School District Guide',
-    description: 'city limits and ZIP codes do not determine school districts',
+    description: 'find your ISD by address',
   },
   {
     path: '/texas-symbols',

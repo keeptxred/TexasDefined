@@ -152,7 +152,7 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   },
   "/article/texas-school-districts-explained": {
     title: "What Does ISD Stand For in Texas? School District Guide",
-    description: "ISD means Independent School District. Learn why city limits and ZIP codes do not determine school districts, campus zones or local school taxes.",
+    description: "ISD stands for Independent School District in Texas. See why city limits and ZIP codes do not control school boundaries—and how to find your ISD by address.",
   },
   "/article/texas-settlement-patterns-explained": {
     title: "Texas Settlement Patterns: How Geography Shaped Towns",
