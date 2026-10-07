@@ -719,7 +719,7 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const titleTemplateOverhead = cleanMetaText(brand.seo.titleTemplate.replace("%s", "")).length;
   const maxPageTitleLength = brand.identity.id === "texasdefined" ? Math.max(24, 90 - titleTemplateOverhead) : Number.POSITIVE_INFINITY;
   const budgetedPageTitle = pageTitle.length > maxPageTitleLength
-    ? pageTitle.slice(0, maxPageTitleLength + 1).replace(/\\s+\\S*$/, "").trim()
+    ? pageTitle.slice(0, maxPageTitleLength + 1).replace(/\s+\S*$/, "").trim()
     : pageTitle;
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", budgetedPageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
