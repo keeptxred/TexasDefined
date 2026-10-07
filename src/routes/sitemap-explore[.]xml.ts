@@ -168,6 +168,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
+        const { whirlyballHurstDestinations } = await import("@/data/whirlyball-hurst-destination");
         const { paintedChurchGlossary } = await import("@/data/painted-church-glossary");
         const { paintedChurchSearchGuides } = await import("@/data/painted-church-search-guides");
         const { loadRvParkDestinationsServer } = await import("@/data/rv-parks/registry.server");
@@ -233,6 +234,16 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
+
+        // WhirlyBall Hurst is a hand-curated canonical guide. A stale or thinner
+        // remote row with the same slug must not shadow the checked-in record and
+        // make the canonical page disappear from the Explore sitemap.
+        for (const canonicalDestination of whirlyballHurstDestinations) {
+          const existingIndex = rawDestinations.findIndex((destination) => destination.slug === canonicalDestination.slug);
+          if (existingIndex >= 0) rawDestinations[existingIndex] = canonicalDestination;
+          else rawDestinations.push(canonicalDestination);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
