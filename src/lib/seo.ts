@@ -683,6 +683,59 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
   },
 } : {};
 
+
+type DiscoverImageOverride = {
+  src: string;
+  type: string;
+  width: number;
+  height: number;
+};
+
+// Route-specific social/Discover media. Every entry is either an existing rights-safe
+// 1600px editorial asset or a production-build derivative of the page's governed hero.
+const TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES: Record<string, DiscoverImageOverride> = {
+  "/event/chappell-hill-bluebonnet-festival": { src: "/images/discover/chappell-hill-bluebonnet-festival.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/ima-hogg-texas-legacy": { src: "/images/discover/ima-hogg-texas-legacy.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/camping-in-texas-with-your-dog": { src: "/images/discover/camping-in-texas-with-your-dog.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/texas-high-school-football-scores-schedules": { src: "/images/discover/texas-high-school-football-scores-schedules.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/best-lighthouses-to-visit-in-texas": { src: "/images/discover/best-lighthouses-to-visit-in-texas.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/texas-medal-of-honor-heroes": { src: "/images/discover/texas-medal-of-honor-heroes.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/texas-red-river-war-guide": { src: "/images/discover/texas-red-river-war-guide.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/republic-of-texas-government-trail": { src: "/images/discover/republic-of-texas-government-trail.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/brazoria-plantations-slavery-emancipation-history": { src: "/images/discover/brazoria-plantations-slavery-emancipation-history.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/texas-frontier-forts-road-trip": { src: "/images/discover/texas-frontier-forts-road-trip.webp", type: "image/webp", width: 1600, height: 900 },
+  "/county/collin": { src: "/images/discover/collin-county.webp", type: "image/webp", width: 1600, height: 900 },
+  "/sports-venue/xtreme-raceway-park": { src: "/images/discover/xtreme-raceway-park.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/fossil-rim-wildlife-center": { src: "/images/discover/fossil-rim-wildlife-center.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/sea-life-san-antonio-aquarium": { src: "/images/discover/sea-life-san-antonio-aquarium.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/san-antonio-aquarium": { src: "/images/discover/san-antonio-aquarium.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/houston-interactive-aquarium-animal-preserve": { src: "/images/discover/houston-interactive-aquarium-animal-preserve.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/ut-marine-science-institute-patton-center": { src: "/images/discover/ut-marine-science-institute-patton-center.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/texas-hill-country-olive-co": { src: "/images/discover/texas-hill-country-olive-co.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/brazos-bend-state-park": { src: "/images/discover/brazos-bend-state-park.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/devils-river-state-natural-area": { src: "/images/discover/devils-river-state-natural-area.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/lake-corpus-christi-state-park": { src: "/images/discover/lake-corpus-christi-state-park.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/science-mill-johnson-city": { src: "/images/discover/science-mill-johnson-city.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/silent-wings-museum-lubbock": { src: "/images/discover/silent-wings-museum-lubbock.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/governor-jim-hogg-city-park-quitman": { src: "/images/discover/governor-jim-hogg-city-park-quitman.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/messina-hof-hill-country": { src: "/images/discover/messina-hof-hill-country.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/blanton-museum-of-art-austin": { src: "/images/discover/blanton-museum-of-art-austin.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/umlauf-sculpture-garden-museum-austin": { src: "/images/discover/umlauf-sculpture-garden-museum-austin.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/texas-science-natural-history-museum-austin": { src: "/images/discover/texas-science-natural-history-museum-austin.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/dr-pepper-museum-waco": { src: "/images/discover/dr-pepper-museum-waco.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/texas-ranger-hall-of-fame-museum-waco": { src: "/images/discover/texas-ranger-hall-of-fame-museum-waco.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/my-story-museum-crystal-city": { src: "/images/discover/my-story-museum-crystal-city.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/gonzales": { src: "/images/discover/gonzales.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/clifton": { src: "/images/discover/clifton.webp", type: "image/webp", width: 1600, height: 900 },
+  "/destination/la-grange": { src: "/images/discover/la-grange.webp", type: "image/webp", width: 1600, height: 900 },
+  "/explore/painted-churches/high-hill-nativity-of-mary": { src: "/images/discover/high-hill-nativity-of-mary.webp", type: "image/webp", width: 1600, height: 900 },
+  "/explore/painted-churches/dubina-saints-cyril-methodius": { src: "/images/discover/dubina-saints-cyril-methodius.webp", type: "image/webp", width: 1600, height: 900 },
+  "/explore/painted-churches/umbarger-st-marys-catholic-church": { src: "/images/discover/umbarger-st-marys-catholic-church.webp", type: "image/webp", width: 1600, height: 900 },
+  "/explore/painted-churches/lindsay-st-peters-catholic-church": { src: "/images/discover/lindsay-st-peters-catholic-church.webp", type: "image/webp", width: 1600, height: 900 },
+  "/explore/painted-churches/fredericksburg-st-marys-catholic-church": { src: "/images/discover/fredericksburg-st-marys-catholic-church.webp", type: "image/webp", width: 1600, height: 900 },
+  "/article/texas-ecoregions-habitats-guide": { src: "/images/editorial/texas-ecoregions-habitats.jpg", type: "image/jpeg", width: 1600, height: 2133 },
+};
+
 const SOCIAL_IMAGE_FALLBACKS: Partial<Record<BrandConfig["identity"]["id"], { src: string; alt: string; type: string }>> = {
   texasdefined: {
     src: "/images/state-parks/palo-duro-canyon-state-park.jpg",
@@ -719,10 +772,17 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
   const fullTitle = cleanMetaText(brand.seo.titleTemplate.replace("%s", pageTitle));
   const canonicalUrl = page.canonicalPath ? absoluteUrl(brand, page.canonicalPath) : undefined;
   const fallbackImage = SOCIAL_IMAGE_FALLBACKS[brand.identity.id];
-  const image = page.image
-    ? { src: page.image, alt: page.imageAlt, type: page.imageType }
-    : fallbackImage;
+  const discoverImage = brand.identity.id === "texasdefined" && page.canonicalPath
+    ? TEXASDEFINED_DISCOVER_IMAGE_OVERRIDES[page.canonicalPath]
+    : undefined;
+  const image = discoverImage
+    ? { src: discoverImage.src, alt: page.imageAlt, type: discoverImage.type }
+    : page.image
+      ? { src: page.image, alt: page.imageAlt, type: page.imageType }
+      : fallbackImage;
   const imageUrl = image ? absoluteUrl(brand, image.src) : undefined;
+  const imageWidth = discoverImage?.width ?? page.imageWidth;
+  const imageHeight = discoverImage?.height ?? page.imageHeight;
   const robots = page.robots ?? (page.canonicalPath ? DEFAULT_INDEX_ROBOTS : undefined);
   const meta: Array<Record<string, string>> = [
     { title: fullTitle },
@@ -744,8 +804,8 @@ export function buildMeta(brand: BrandConfig, page: PageSeo) {
       { name: "twitter:image", content: imageUrl },
     );
     if (image?.alt) meta.push({ property: "og:image:alt", content: cleanMetaText(image.alt) }, { name: "twitter:image:alt", content: cleanMetaText(image.alt) });
-    if (page.imageWidth) meta.push({ property: "og:image:width", content: String(page.imageWidth) });
-    if (page.imageHeight) meta.push({ property: "og:image:height", content: String(page.imageHeight) });
+    if (imageWidth) meta.push({ property: "og:image:width", content: String(imageWidth) });
+    if (imageHeight) meta.push({ property: "og:image:height", content: String(imageHeight) });
     if (image?.type) meta.push({ property: "og:image:type", content: image.type });
   }
   if (robots) meta.push({ name: "robots", content: robots }, { name: "googlebot", content: robots });
