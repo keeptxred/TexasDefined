@@ -87,7 +87,7 @@ const entries = [
   ],
   [
     "texas-hill-country-olive-co",
-    "/images/viator-destinations/texas-hill-country-olive-co-ai.webp"
+    "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg"
   ],
   [
     "brazos-bend-state-park",
