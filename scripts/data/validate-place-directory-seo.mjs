@@ -16,6 +16,7 @@ const cityAuthorityIndex = read('src/data/city-authority-index.ts');
 const cityMetroAuthority = read('src/data/city-metro-authority.ts');
 const cityAuthorityProfiles = read('src/data/city-authority-profiles.ts');
 const whirlyballHurst = read('src/data/whirlyball-hurst-destination.ts');
+const exploreSitemapRoute = read('src/routes/sitemap-explore[.]xml.ts');
 const hurstWhirlyballProductionVerifier = read('scripts/ci/verify-hurst-whirlyball-production.mjs');
 const hurstWhirlyballProductionWorkflow = read('.github/workflows/hurst-whirlyball-production-smoke.yml');
 const productionSurfaces = read('scripts/ci/verify-production-surfaces.mjs');
@@ -59,6 +60,7 @@ const checks = [
   [whirlyballHurst, 'href: "/city/hurst"', 'WhirlyBall Hurst must retain a reciprocal link to the verified Hurst city authority page'],
   [whirlyballHurst, 'href: "/county/tarrant"', 'WhirlyBall Hurst must retain broader Tarrant County context alongside the city link'],
   [whirlyballHurst, 'https://upload.wikimedia.org/wikipedia/commons/5/52/Whirlyball.jpg', 'WhirlyBall Hurst must use the stable direct Wikimedia file URL for its hero image'],
+  [exploreSitemapRoute, '"/destination/whirlyball-hurst"', 'Explore sitemap emergency fallback must preserve the canonical WhirlyBall Hurst destination URL'],
   [hurstWhirlyballProductionWorkflow, 'workflow_run:', 'Hurst/WhirlyBall production smoke must run after production deployments'],
   [hurstWhirlyballProductionWorkflow, 'workflows: ["Deploy TexasDefined production"]', 'Hurst/WhirlyBall production smoke must follow the canonical production deployment'],
   [hurstWhirlyballProductionWorkflow, "github.event.workflow_run.conclusion == 'success'", 'Hurst/WhirlyBall production smoke must run only after successful production deployment'],
