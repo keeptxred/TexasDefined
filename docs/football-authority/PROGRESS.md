@@ -2,52 +2,52 @@
 
 Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 
-## Canonical initial inventory
-- 1,268 unique 2026–28 UIL program slugs from committed alignment data, and 24 additional featured/non-UIL slugs in the site's sitemap-generation logic: **1,292 source-declared canonical profile URLs**.
-- This is a source-code inventory; live sitemap and all 1,292 live production URLs have **not** yet been verified independently.
-- Private vs public classification, city/county, images, sources, and quality status remain unknown on most entries; do not populate by guess.
+## Canonical inventory
+- **1,292 source-declared existing profiles:** 1,268 UIL 2026–28 alignment slugs and 24 other featured/non-UIL profile slugs.
+- This is a deterministic repository inventory; it is **not** proof that all 1,292 live URLs were individually crawled. Do not auto-create more pages or confuse reported UIL alignment with a played season.
+- Unresearched school identity, images, venues and private classifications remain unknown rather than guessed.
 
-## Batch 001 (assigned school cap 5)
-1. `wills-point` — researched from Wills Point ISD / Wills Point High School and UIL (individual audit notes recorded).
-2. `abbott` — researched from Abbott ISD and UIL (individual audit notes recorded).
-3. `katy` — researched from Katy ISD, Katy Athletic Booster Club and UIL (individual audit notes recorded).
-4. `fort-davis` — individually audited and implemented on branch; 2026 season cancellation prominently disclosed.
-5. `southlake-carroll` — individually audited and implemented on branch; 8-title correction and 2026 coach documented.
+## Batch 001 — five schools, no new assignments
+1. **Wills Point:** 1965 championship, coach James Boxley, Ken Autry Davis Field; blue/white editorial milestone visuals. Licensed school/stadium photography remains unavailable.
+2. **Abbott:** 2015 six-man title, 2012/2022 finals and 2024 semifinal, plus authentic public-domain circa-1950 photo and documented Abbott football alumnus Willie Nelson. Archival photo intentionally remains small.
+3. **Katy:** nine state titles, Mike Johnston/Gary Joseph, Red Sea and official 2026 schedule/venue links; public-domain archival school photograph.
+4. **Fort Davis:** district announced cancellation of its **2026 football season**; UIL 2026–28 classification does not establish games. Includes 2003 state-final story and licensed historic Bart Coan Field photo.
+5. **Southlake Carroll:** eight actual titles, not nine; UIL 2003 recap confirms 16–15 loss to Katy. Current 2026 coach Lee Munn, source-backed schedule, Dragon Stadium and Dragons identity; licensed authentic photo remains unresolved.
 
-## Pull request, CI and remaining acceptance
-- Core PR: [#4330](https://github.com/keeptxred/TexasDefined/pull/4330) — merged 2026-10-08 at `7ec7444474dde1db49bfe50219f5ca013b3aff49`, protected checks passed.
-- Licensed Katy/Fort Davis photo and smoke follow-up: [#4331](https://github.com/keeptxred/TexasDefined/pull/4331) — merged 2026-10-08 at `ad0cf18ab922c4832740c0cb969ec429a0eebb73`.
-- Football team finder now includes five context-specific inbound links to these individual researched school pages.
-- CI is required; live profile/mobile checks and photography licenses are still unresolved; do not mark VERIFIED based on code alone.
+Each school has an individual documented audit in `docs/football-authority/schools/`. Program-specific research and design must not be treated as a generic template update.
 
-## Current counts after protected merge
-- Inventory: **1,292**; individually researched: **5**; implemented and merged: **5**; **0 fully VERIFIED**.
-- Actual rendered *post-deployment* live page audits: **0**; **merged: 5**, **production verified: 0**. Production deployment and acceptance remain outstanding.
-- No school may advance to VERIFIED until **actual post-deployment inspection**.
+## Merger, deployment and current status
+- **#4330**: original five researched profiles and permanent registry merged at `7ec7444474dde1db49bfe50219f5ca013b3aff49`.
+- **#4331**: Katy/Fort Davis licensed historical imagery and enhanced football live assertions merged at `ad0cf18ab922c4832740c0cb969ec429a0eebb73`.
+- **#4332**: public-domain Abbott archival football photo and corrected high-school portrait sizing, plus prior checkpoint, merged at `e21c9b0ed61b850cf800484ba0f1ad5c49409c0c`. Required Merge Gate, Site Quality Watchdog and orphan-link workflows succeeded.
+- **Cloudflare production and live deployment checks succeeded for #4332's merge commit:** GitHub combined statuses `texasdefined-cloudflare`, `texasdefined-live` and `texasdefined-production` are success. This confirms a production deployment pipeline pass for the merged content—not independent rendered mobile or desktop certification of every school.
+- The first #4330 deployment attempt ([run 37785976546](https://github.com/keeptxred/TexasDefined/actions/runs/37785976546)) failed during unrelated pre-existing Wikimedia Commons Gonzales Discover derivative generation (HTTP 429). Its later attempt completed successfully: logged cloudflare, blocking live checks, IndexNow and recovery ledger all succeeded.
+- The dedicated Friday Night Lights production smoke `friday-night-lights-production-smoke.yml` is separately triggered after deployment. **Its latest post-#4332 outcome has not been independently retrieved in this chat.** Do not infer it solely from the general `texasdefined-live` status.
+- Five schools are **DEPLOYED; zero are VERIFIED**. No individual real-browser desktop/mobile accessibility and image rendering passes have been observed here. The research browser could not access these five live URLs. Manual QA must not be backfilled from a successful CI job.
 
-## Implemented branch records
-- Wills Point: 1965 UIL title, James Boxley, Ken Autry Davis Field, source-backed 2026 district and individual blue/white graphics.
-- Abbott: Panthers/old gold identity, 2012/2015/2022 state finals, 2024 semifinal and current six-man alignment.
-- Katy: nine title years, Mike Johnston/Gary Joseph, Red Sea, current official team schedule and source-linked red/white milestones.
-- Shared supporting code changes are conditional on school-specific editorial; this is **not** a universal template substitution for per-school research.
-- Code commits: `8031522d`, `4f0d07d4`, `78a25a72`, `d7286a43`. Registry implementation checkpoint `738119a6`.
-- Still pending: image-rights investigation for Wills Point, Abbott and Southlake Carroll; individual inbound link audit; successful production deployment and live mobile/desktop checks. Both Batch 001 PRs are merged.
+## Counts
+| Metric | Current |
+|---|---:|
+| Existing source-declared profiles | 1,292 |
+| Individually researched | 5 |
+| Implemented | 5 |
+| Merged | 5 |
+| Deployed (GitHub production pipeline verified) | 5 |
+| Independently VERIFIED against all applicable acceptance criteria | 0 |
+| Schools not individually VERIFIED | 1,292 |
 
-- Fort Davis 2026 cancellation: directly cited district superintendent announcement, 2003 title-game appearance, school colors; added top-page notice.
-- Southlake Carroll: eight genuine titles per district and UIL 2003 recap, 2003 runner-up rather than erroneous UIL ninth title, new 2026 coach Lee Munn, official schedule sources and distinct school timeline.
-- Changed all-time UIL data adapter only for a demonstrably erroneous Carroll 2003 mark; if upstream corrects it, special case automatically ceases.
+## Open acceptance work, confined to these five schools
+- Visually review real production at mobile and desktop widths; verify imagery actually loads, captions/rights, title/H1, canonical, navigation, contrast, layout, official resource links and schema.
+- Complete school-specific contextual **incoming** link audits from existing city/county and venue pages, not only the team finder. Add only accurate directly related links and record where added.
+- Wills Point and Southlake Carroll: no independently confirmed reuse rights for the actual football/stadium photos found on school, booster, contractor and publisher sites. Do not copy or imply search-result visibility gives permission. Their original sourced graphics remain appropriate alternatives.
+- Confirm school-specific coaching/schedule and game-day details that are still unsupported: Abbott 2026 head coach/stadium policy; Wills Point parking/tickets; Carroll tickets/parking; game-specific Katy venues. No fabricated facts.
+- Inspect the independent dedicated football production smoke result and investigate any actual failures.
+- Keep first five assigned until all applicable evidence and links are finished or limitations are documented. Do not claim Batch 002 in this execution chat.
 
-## Production deployment status (2026-10-08)
-- The initial production deployment for core PR #4330 **failed before Cloudflare Worker deployment**: [Actions run 37785976546](https://github.com/keeptxred/TexasDefined/actions/runs/37785976546) reached governed Discover derivative generation, but Wikimedia Commons returned HTTP **429** for pre-existing `gonzales` asset. The dependency is not one of the five schools.
-- Existing GitHub Actions artifact restore also failed to list the derivative cache (`unexpected end of JSON input`); subsequent remote requests were throttled. A **single failed-jobs rerun** of run 37785976546, attempt 2, was requested; its outcome must be observed, not presumed.
-- Core PR #4330 and photo follow-up #4331 are **MERGED, not DEPLOYED or VERIFIED**. A later successful deploy and individual live checks remain required. Do not mark a school VERIFIED solely because CI or PR merge passed.
+## This continuation branch
+- Adds explicit **per-school production SEO contracts** for these five profiles (unique SSR title, meaningful description, exact canonical, SportsTeam and breadcrumb schema) to the existing Friday Night Lights live smoke, and Abbott's photo license rendering assertion.
+- Registry status accurately advances from MERGED to DEPLOYED, **not** VERIFIED, based on observed success statuses. Leave `actualProductionVerified=false` until real rendered manual review.
+- Branch: `football-authority-batch-001-production-acceptance-20261008`. Merge only with standard required CI and current-main reconciliation.
 
-## Current blockers and honest limitations
-- Live school page URLs returned an access error in the current research browser; live HTML, photo presentation, mobile and production SEO cannot yet be certified.
-- Discoverable Wills Point photographs on booster, contractor and third-party websites are not verified as reusable; do not copy them.
-
-## Next actions
-- Source-backed original histories, school-specific metadata, verified colors/mascots, sourced milestone graphics and individual FAQs now implemented for Wills Point, Abbott and Katy. Run CI and address outstanding acceptance items.
-- Both PRs are merged. Verify a successful deploy and then inspect all five live pages, including historic licensed photos on Katy and Fort Davis, if the live browser permits.
-- Fort Davis and Southlake Carroll individual source edits and enhanced production assertions have merged. Confirm production, review mobile/desktop and individual inbound linking, and do not assign a sixth school in this batch.
-- Update registry with exact PR references, test outcomes and verification. Begin batch 002 only after batch 001 is resolved or a genuine blocker is recorded.
+## Handoff
+Refresh latest `main`, read `MASTER.md`, `REGISTRY.json` and this ledger. Inspect/finish the above PR and required CI without lowering protections. Confirm the separate football smoke, run real deployed mobile/desktop checks for only these five, close school-specific gaps and update ledger truthfully. Do not start a sixth school during this batch.
