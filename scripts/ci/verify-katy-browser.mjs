@@ -22,7 +22,21 @@ async function checkSchool(page, viewport) {
   await page.evaluate(() => document.fonts?.ready);
   const historicalPhoto = page.locator('img[alt*="Home of Champions"]').first();
   await historicalPhoto.scrollIntoViewIfNeeded({ timeout: 12_000 });
-  await page.waitForTimeout(800);
+  // The archival image is intentionally lazy-loaded below the overview. An
+  // arbitrary 800ms delay can see currentSrc='' before Chrome starts decoding,
+  // particularly after hydration and on mobile. Wait for actual image bytes,
+  // not for a clock interval; the strict natural-width assertion below remains.
+  let imageLoadDiagnostic = '';
+  try {
+    await page.waitForFunction(() => {
+      const img = document.querySelector('img[alt*="Home of Champions"]');
+      return Boolean(img && img.complete && img.naturalWidth >= 500);
+    }, null, { timeout: 15_000, polling: 250 });
+  } catch (error) {
+    // Continue collecting the complete screenshot and JSON evidence. The
+    // original loaded-image assertion below still fails a missing photograph.
+    imageLoadDiagnostic = error instanceof Error ? error.message : String(error);
+  }
   const data = await page.evaluate(() => {
     const visible = (el) => {
       const rect = el.getBoundingClientRect();
@@ -76,7 +90,7 @@ async function checkSchool(page, viewport) {
   verify(data.documentWidth <= data.viewportWidth + 10, viewport + ': horizontal overflow ' + data.documentWidth);
   verify(!data.missingImageAlts.length && !data.brokenVisibleImages.length, viewport + ': broken/unnamed imagery');
   verify(data.historicalPhoto && data.historicalPhoto.complete && data.historicalPhoto.naturalWidth >= 500 && data.historicalPhoto.renderedWidth <= 900,
-    viewport + ': public-domain Katy High School archival photo missing or oversized: ' + JSON.stringify(data.historicalPhoto));
+    viewport + ': public-domain Katy High School archival photo missing or oversized: ' + JSON.stringify(data.historicalPhoto) + (imageLoadDiagnostic ? ' / decode wait: ' + imageLoadDiagnostic : ''));
   return { http: data.http, title: data.title, h1s: data.h1s, canonical: data.canonical, viewportWidth: data.viewportWidth, documentWidth: data.documentWidth,
     sourceLinks: data.links.length, historicalPhoto: data.historicalPhoto };
 }
