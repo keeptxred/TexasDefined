@@ -1,5 +1,7 @@
-const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives';
-const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives';
+// The UIL archive's canonical landing URL requires a trailing slash; the
+// slashless form can redirect in a loop from edge runtimes.
+const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives/';
+const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives/';
 const HISTORY_START_SEASON = '2018-2019';
 const HISTORY_END_SEASON = '2025-2026';
 const HISTORY_CACHE_TTL_MS = 12 * 60 * 60 * 1000;
@@ -97,7 +99,8 @@ async function fetchArchivePage(offset: number) {
   for (const baseUrl of [UIL_FOOTBALL_ARCHIVE_URL, UIL_FOOTBALL_ARCHIVE_FALLBACK_URL]) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 6_000);
-    const url = offset ? `${baseUrl}/P${offset}` : baseUrl;
+    // An explicit /P{offset} path (without a double slash) preserves UIL pagination.
+    const url = offset ? `${baseUrl.replace(/\/$/, '')}/P${offset}` : baseUrl;
 
     try {
       const response = await fetch(url, {
