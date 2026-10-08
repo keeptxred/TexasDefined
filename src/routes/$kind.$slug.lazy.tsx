@@ -71,11 +71,11 @@ export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage
 
 function EntityPage() {
   const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
-  // The verified Wills Point/Van Zandt and Abbott/Hill reciprocal guides
+  // The verified Wills Point/Van Zandt and Abbott/Hill guides, plus Katy/Fort Bend
   // receive third-party-style first-party lodging DOM inserts. Defer those
-  // inserts until React has hydrated each of these two county route trees.
+  // inserts until React has hydrated each protected county route tree.
   useEffect(() => {
-    if (entity.kind !== 'county' || (entity.slug !== 'van-zandt' && entity.slug !== 'hill')) return;
+    if (entity.kind !== 'county' || (entity.slug !== 'van-zandt' && entity.slug !== 'hill' && entity.slug !== 'fort-bend')) return;
     document.documentElement.dataset.tdFootballCountyHydrated = '1';
     window.dispatchEvent(new Event('texasdefined:county-hydrated'));
     return () => { delete document.documentElement.dataset.tdFootballCountyHydrated; };

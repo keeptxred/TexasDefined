@@ -492,11 +492,11 @@
     main.appendChild(createOwnerReferral());
   }
 
-  // Preserve the linked Van Zandt and Hill County React trees during hydration.
-  // Both county pages signal readiness before first-party affiliate DOM writes.
+  // Preserve the linked Van Zandt, Hill and Fort Bend County React trees during hydration.
+  // The named county pages signal readiness before first-party affiliate DOM writes.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill")
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend")
       && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 

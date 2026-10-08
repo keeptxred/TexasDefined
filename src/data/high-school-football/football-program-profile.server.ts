@@ -160,7 +160,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
 
   const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
   const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.sourceSchoolName];
-  const program: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
+  const matchedProgram: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
     ...seed,
     profilePath: footballProgramProfilePath(seed.schoolName),
     ...(exactEnrollment ? {
@@ -169,6 +169,13 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     } : {}),
   };
   const canonicalSlug = footballProgramSlug(seed.schoolName);
+  // Katy High's campus is in Fort Bend County (NCES campus ID 482517002809).
+  // The optional TEA/UIL name join can return Harris County because Katy ISD
+  // serves both counties. Correct this individual school without changing the
+  // county attribution of any other Katy ISD program or the general matcher.
+  const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
+    ? { ...matchedProgram, countyName: 'Fort Bend County' }
+    : matchedProgram;
   const displayName = seed.schoolName;
 
   const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null;
