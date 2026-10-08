@@ -11,6 +11,7 @@ import {
   getMetroProximityMetro,
   metroProximityCanonicalPath,
   metroProximityDescription,
+  metroProximitySitemapEntries,
   metroProximityTitle,
   selectMetroProximityDestinations,
 } from "./metro-proximity";
@@ -25,6 +26,11 @@ const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function metroIndexableDestinations(destinations: Destination[]) {
   return destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+}
+
+export async function loadMetroProximitySitemapEntriesServer() {
+  const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
+  return metroProximitySitemapEntries(destinations, isMetroProximityCollectionIndexReadyWithTownReferences);
 }
 
 function latestReview(values: Array<string | undefined>) {
