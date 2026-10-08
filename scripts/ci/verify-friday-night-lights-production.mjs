@@ -361,7 +361,22 @@ await fetchVerified(calendarPath, '2026 football season calendar', (body) => {
   if (/\bnoindex\b/i.test(body)) throw new Error('2026 football season calendar unexpectedly contains noindex');
 });
 
+// These five title/canonical checks are school-specific acceptance contracts, not a substitute for a visual QA pass.
+function verifyBatch001SchoolSeo(html, path, expectedTitle) {
+  const titleMatch = html.match(/<title(?:\s[^>]*)?>([\s\S]*?)<\/title>/i);
+  const actualTitle = titleMatch ? decodeHtml(titleMatch[1]).trim() : '';
+  if (!actualTitle.includes(expectedTitle)) throw new Error(`${path}: expected school-specific title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(actualTitle)}`);
+  const metaTags = (html.match(/<meta\b[^>]*>/gi) ?? []).map(parseAttributes);
+  const description = metaTags.find((attributes) => attributes.name?.toLowerCase() === 'description')?.content ?? '';
+  if (description.length < 80 || !/football/i.test(description)) throw new Error(`${path}: missing meaningful school-specific SSR meta description`);
+  const canonicalTag = (html.match(/<link\b[^>]*>/gi) ?? []).map(parseAttributes).find((attributes) => attributes.rel?.toLowerCase().split(/\s+/).includes('canonical'));
+  requireExact(canonicalTag?.href ?? '', `${origin}${path}`, `${path} canonical`);
+  requireNeedle(html, 'SportsTeam', `${path} SportsTeam structured data`);
+  requireNeedle(html, 'BreadcrumbList', `${path} breadcrumb structured data`);
+}
+
 await fetchVerified(willsPointProfilePath, 'Wills Point football school profile', (body) => {
+  verifyBatch001SchoolSeo(body, willsPointProfilePath, 'Wills Point Tigers Football: 1965 State Title');
   for (const needle of [
     'Wills Point Tigers Football',
     '4A Division II',
@@ -437,6 +452,7 @@ await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
 });
 
 await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
+  verifyBatch001SchoolSeo(body, katyProfilePath, 'Katy Tigers Football: Nine Texas State Titles');
   for (const needle of [
     'Katy',
     'Current district',
@@ -466,10 +482,12 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
 });
 
 await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) => {
+  verifyBatch001SchoolSeo(body, abbottProfilePath, 'Abbott Panthers Six-Man Football: 2015 Title');
   for (const needle of [
     'Abbott',
     'Willie Nelson',
     'Willie-Nelson-Highschool.jpg',
+    'U.S. public domain (published without copyright notice)',
     'Abbott High School football halfback',
     '1A',
     'Current district',
@@ -491,6 +509,7 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
 });
 
 await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched football profile', (body) => {
+  verifyBatch001SchoolSeo(body, fortDavisProfilePath, 'Fort Davis Indians Football: 2026 Season Canceled');
   for (const needle of [
     'Fort Davis Indians Football',
     'Fort Davis ISD canceled the 2026 football season',
@@ -506,6 +525,7 @@ await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched fo
 });
 
 await fetchVerified(southlakeCarrollProfilePath, 'Southlake Carroll individually researched football profile', (body) => {
+  verifyBatch001SchoolSeo(body, southlakeCarrollProfilePath, 'Southlake Carroll Dragons Football: 8 State Titles');
   for (const needle of [
     'Southlake Carroll Dragons Football',
     'eight Texas football state championships',
