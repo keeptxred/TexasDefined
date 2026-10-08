@@ -100,6 +100,23 @@ function Page() {
         </div>
       </section>}
 
+      {editorial?.milestones && editorial.milestones.length > 0 && <section aria-label={`${displayName} verified football milestones`} className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">The program story</p>
+          <h2 className="mt-2 font-display text-3xl">Milestones that shaped {displayName} football</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Every moment is linked to its supporting source. Historical classifications, championship years and coaching records are separate from the current UIL alignment.</p>
+          {editorial.theme && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}. This is an original editorial graphic—not official team artwork.</p>}
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
+            <p className="font-display text-2xl font-semibold" style={{ color: editorial.theme?.accentHex }}>{milestone.date}</p>
+            <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.body}</p>
+            <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a>
+          </article>)}
+        </div>
+      </section>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">School snapshot</p>
