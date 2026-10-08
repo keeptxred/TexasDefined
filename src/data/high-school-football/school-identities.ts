@@ -12,6 +12,14 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'abbott',
+    mascot: 'Panthers',
+    colors: 'Black and Old Gold',
+    sourceUrl: 'https://www.uiltexas.org/football/state-team/abbott-2022-2023-boys-football',
+    sourceLabel: 'UIL Abbott 2022–23 football state-team record',
+    verifiedAt: '2026-10-08',
+  },
+  {
     slug: 'spring',
     mascot: 'Lions',
     colors: 'Green and White',
@@ -22,6 +30,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'wills-point',
     mascot: 'Tigers',
+    colors: 'Blue and White',
     sourceUrl: 'https://wpisd.com/',
     sourceLabel: 'Wills Point ISD — Home of the Tigers',
     verifiedAt: '2026-09-29',
