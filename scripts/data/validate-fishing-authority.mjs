@@ -45,15 +45,25 @@ function parseSlugArray(source, name) {
   return [...match[1].matchAll(/"([^"]+)"/g)].map((row) => row[1]);
 }
 
-const canonicalCompleteSlugs = [
+const canonicalCitationSpotlightSlugs = [
   ...parseSlugArray(slugsSource, "BASE_COMPLETE_FISHING_LAKE_SLUGS"),
   ...parseSlugArray(slugsSource, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
+const currentCompleteSlugs = [
+  ...canonicalCitationSpotlightSlugs,
+  ...parseSlugArray(slugsSource, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
+];
 const authoritySlugs = completeLakeGuides.map(([, slug]) => slug);
 assert(new Set(authoritySlugs).size === completeLakeGuides.length, "Fishing citation authority lake list contains duplicate slugs.");
-assert(canonicalCompleteSlugs.length === authoritySlugs.length, `Fishing citation authority must cover every complete lake guide; canonical registry has ${canonicalCompleteSlugs.length}, authority list has ${authoritySlugs.length}.`);
-for (const slug of canonicalCompleteSlugs) assert(authoritySlugs.includes(slug), `Fishing citation authority is missing canonical complete lake ${slug}.`);
-for (const slug of authoritySlugs) assert(canonicalCompleteSlugs.includes(slug), `Fishing citation authority contains non-canonical complete lake ${slug}.`);
+assert(canonicalCitationSpotlightSlugs.length === authoritySlugs.length, `Fishing citation spotlight must retain the original ${canonicalCitationSpotlightSlugs.length} complete-lake cohort; authority list has ${authoritySlugs.length}.`);
+for (const slug of canonicalCitationSpotlightSlugs) assert(authoritySlugs.includes(slug), `Fishing citation spotlight is missing original complete lake ${slug}.`);
+for (const slug of authoritySlugs) assert(canonicalCitationSpotlightSlugs.includes(slug), `Fishing citation spotlight contains a lake outside the original cohort: ${slug}.`);
+assert(new Set(currentCompleteSlugs).size === 41, `Current complete-lake registry must expose 41 unique guides; found ${new Set(currentCompleteSlugs).size}.`);
+for (const source of [llms, citationGuide]) {
+  assert(source.includes("COMPLETE_FISHING_LAKE_SLUGS"), "Public fishing citation surfaces must derive the current complete-lake total from the authoritative registry.");
+  assert(source.includes("completeFishingLakeGuideCount"), "Public fishing citation surfaces must render the authoritative complete-lake total dynamically.");
+  assert(source.includes("citation spotlight"), "Public fishing citation surfaces must label the original individual-lake list as a citation spotlight rather than the full directory.");
+}
 
 for (const marker of [
   "## Texas fishing",
@@ -78,7 +88,8 @@ for (const marker of [
   "['Compare complete fishing lakes', '/fishing/lakes']",
   "['Texas freshwater fish species', '/fishing/species']",
   "['Largemouth bass fishing', '/fishing/species/largemouth-bass']",
-  "15 complete lake guides",
+  "completeFishingLakeGuideCount",
+  "citation spotlight",
   "current rules, water levels, ramp conditions and the current bite",
 ]) assert(citationGuide.includes(marker), `Human citation guide is missing fishing authority/source-precedence marker: ${marker}.`);
 
@@ -140,4 +151,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Fishing authority validated: all ${completeLakeGuides.length} complete lake guides are represented in llms.txt, the human citation guide and the machine citation manifest with official-source precedence and live-condition caveats.`);
+console.log(`Fishing authority validated: the current ${currentCompleteSlugs.length}-guide registry drives public totals, while the original ${completeLakeGuides.length}-guide citation spotlight remains represented in llms.txt, the human citation guide and the machine citation manifest with official-source precedence and live-condition caveats.`);
