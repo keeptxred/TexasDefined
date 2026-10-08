@@ -499,7 +499,7 @@ await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched fo
     'CC BY-SA 4.0',
   ]) requireNeedle(body, needle, 'Fort Davis individual authority profile');
   if (decodeHtml(body).includes('2026 scores & schedule sources')) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
-  if (/\\bnoindex\\b/i.test(body)) throw new Error('Fort Davis authority profile unexpectedly contains noindex');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Fort Davis authority profile unexpectedly contains noindex');
 });
 
 await fetchVerified(southlakeCarrollProfilePath, 'Southlake Carroll individually researched football profile', (body) => {
@@ -512,7 +512,7 @@ await fetchVerified(southlakeCarrollProfilePath, 'Southlake Carroll individually
     'Dragon Stadium',
     'Championship source correction',
   ]) requireNeedle(body, needle, 'Southlake Carroll individual authority profile');
-  if (/\\bnoindex\\b/i.test(body)) throw new Error('Southlake Carroll authority profile unexpectedly contains noindex');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Southlake Carroll authority profile unexpectedly contains noindex');
 });
 
 await fetchVerified(katyProfilePath, 'Katy licensed historical image profile', (body) => {
