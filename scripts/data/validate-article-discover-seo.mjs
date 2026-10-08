@@ -3,6 +3,7 @@ import fs from 'node:fs';
 const failures = [];
 const route = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 const seo = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const discoverMaterializer = fs.readFileSync('scripts/assets/materialize-discover-overrides.mjs', 'utf8');
 
 for (const feature of [
   'DISCOVER_MIN_IMAGE_WIDTH = 1200',
@@ -31,6 +32,24 @@ for (const feature of [
   'og:image:height',
 ]) {
   if (!seo.includes(feature)) failures.push(`Shared SEO Discover contract missing: ${feature}`);
+}
+
+for (const feature of [
+  '|c:crockett|',
+  '|c:dickens|',
+  '|d:zapata-county-museum-history|',
+]) {
+  if (!seo.includes(feature)) failures.push(`Shared SEO governed Discover route missing: ${feature}`);
+}
+
+for (const [slug, source] of [
+  ['crockett', 'Crockett_county_courthouse_2009.jpg?width=1600'],
+  ['dickens', 'Dickens02_courthouse.jpg?width=1600'],
+  ['zapata-county-museum-history', '/images/zapata-county-museum-history-editorial.svg'],
+]) {
+  if (!discoverMaterializer.includes(`"${slug}"`) || !discoverMaterializer.includes(source)) {
+    failures.push(`Governed Discover materializer source missing for ${slug}.`);
+  }
 }
 
 if (route.includes('destinationsQuery({ limit: 5000 })')) {
