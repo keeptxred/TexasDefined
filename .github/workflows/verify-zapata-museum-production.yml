@@ -1,0 +1,28 @@
+name: Verify Zapata museum production
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zapata-museum-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  museum:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out current certified source
+        uses: actions/checkout@v4
+
+      - name: Verify deployed Zapata County Museum authority page
+        run: node scripts/ci/verify-zapata-museum-production.mjs
