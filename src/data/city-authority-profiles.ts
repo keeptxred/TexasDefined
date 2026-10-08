@@ -346,7 +346,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Bexar County',
       counties: ['Bexar County', 'Comal County', 'Medina County'],
       note: 'San Antonio is primarily in Bexar County, with incorporated portions reaching into Comal and Medina counties. Verify the exact address before relying on county, school, appraisal, election or service boundaries.',
-      sourceUrl: 'https://www.sa.gov/Directory/Departments/Planning/Regional-Center-Plans/UTSA-Area',
+      sourceUrl: 'https://www.sa.gov/files/assets/main/v/1/planning/documents/adopted-plans/utsa-area-regional-center-plan-2019.pdf',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Skyline_2026.jpg?width=1600',
