@@ -348,6 +348,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "First Alert 7 reporting Fort Davis ISD's August 20 announcement",
       "verifiedAt": "2026-10-08"
     },
+    "venue": {
+      "name": "Bart Coan Field (historical Fort Davis home football venue)",
+      "address": "Fort Davis ISD campus area, Fort Davis — confirm access with the district; no 2026 football games scheduled",
+      "sourceUrl": "https://www.fdisd.com/article/239245",
+      "sourceLabel": "Fort Davis ISD's 2020 Bart Coan Football Field announcement",
+      "verifiedAt": "2026-10-08",
+      "note": "Fort Davis ISD itself called the facility Bart Coan Football Field in its May 2020 recognition announcement. The image in this article shows a 2020 football game, NOT current play. The school canceled the entire 2026 football season; field visitor entrance, parking, admission, accessible access and any future games are unverified. Contact Fort Davis ISD before traveling."
+    },
     "photo": {
           "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/960px-Bart_Coan_Field_from_west.jpg",
           "width": 960,

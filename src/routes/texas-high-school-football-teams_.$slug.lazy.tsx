@@ -41,7 +41,9 @@ function Page() {
     ? '/county/hill'
     : schoolName === 'Katy'
       ? '/county/fort-bend'
-      : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+      : schoolName === 'Fort Davis'
+        ? '/county/jeff-davis'
+        : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
@@ -110,7 +112,7 @@ function Page() {
             {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
           </div>
           {editorial.photo && <figure className="mt-7 overflow-hidden border border-border bg-surface">
-            <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading={schoolName === 'Katy' ? 'eager' : 'lazy'} decoding="async" className={editorial.photo.width < 400 ? "mx-auto block h-auto w-auto max-w-full object-contain" : "block h-auto w-full object-cover"} />
+            <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading={schoolName === 'Katy' || schoolName === 'Fort Davis' ? 'eager' : 'lazy'} decoding="async" className={editorial.photo.width < 400 ? "mx-auto block h-auto w-auto max-w-full object-contain" : "block h-auto w-full object-cover"} />
             <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
               {editorial.photo.caption}{' '}Photo by <a href={editorial.photo.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.credit}</a>.{' '}
               <a href={editorial.photo.licenseUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.license}</a>.
