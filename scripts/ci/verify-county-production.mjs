@@ -31,6 +31,9 @@ async function verifyCountyHub() {
 
   const markers = [
     'Discover all 254 Texas counties',
+    'Every Texas county has a story worth exploring',
+    'Search Texas counties',
+    'Find DMV and county vehicle offices',
     '/images/texas-county-map-red.svg',
     'Search counties by city',
     'Search counties by ZIP code',
@@ -39,6 +42,14 @@ async function verifyCountyHub() {
   ];
   for (const marker of markers) {
     if (!body.includes(marker)) fail(`GET ${url} is missing required marker: ${marker}`);
+  }
+  const introduction = body.indexOf('Every Texas county has a story worth exploring');
+  const searchHeading = body.indexOf('Search Texas counties');
+  if (introduction >= 0 && searchHeading >= 0 && introduction >= searchHeading) {
+    fail('County guide introduction must appear before the county search section.');
+  }
+  if (body.includes('Find the county from what you already know')) {
+    fail('County hub must not display the retired county-finder heading.');
   }
 }
 
