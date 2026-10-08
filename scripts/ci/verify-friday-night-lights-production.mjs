@@ -363,13 +363,13 @@ await fetchVerified(calendarPath, '2026 football season calendar', (body) => {
 
 // These five title/canonical checks are school-specific acceptance contracts, not a substitute for a visual QA pass.
 function verifyBatch001SchoolSeo(html, path, expectedTitle) {
-  const titleMatch = html.match(/<title(?:\\s[^>]*)?>([\\s\\S]*?)<\\/title>/i);
+  const titleMatch = html.match(/<title(?:\s[^>]*)?>([\s\S]*?)<\/title>/i);
   const actualTitle = titleMatch ? decodeHtml(titleMatch[1]).trim() : '';
   if (!actualTitle.includes(expectedTitle)) throw new Error(`${path}: expected school-specific title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(actualTitle)}`);
-  const metaTags = (html.match(/<meta\\b[^>]*>/gi) ?? []).map(parseAttributes);
+  const metaTags = (html.match(/<meta\b[^>]*>/gi) ?? []).map(parseAttributes);
   const description = metaTags.find((attributes) => attributes.name?.toLowerCase() === 'description')?.content ?? '';
   if (description.length < 80 || !/football/i.test(description)) throw new Error(`${path}: missing meaningful school-specific SSR meta description`);
-  const canonicalTag = (html.match(/<link\\b[^>]*>/gi) ?? []).map(parseAttributes).find((attributes) => attributes.rel?.toLowerCase().split(/\\s+/).includes('canonical'));
+  const canonicalTag = (html.match(/<link\b[^>]*>/gi) ?? []).map(parseAttributes).find((attributes) => attributes.rel?.toLowerCase().split(/\s+/).includes('canonical'));
   requireExact(canonicalTag?.href ?? '', `${origin}${path}`, `${path} canonical`);
   requireNeedle(html, 'SportsTeam', `${path} SportsTeam structured data`);
   requireNeedle(html, 'BreadcrumbList', `${path} breadcrumb structured data`);
