@@ -101,7 +101,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "faq": [
       {
         "question": "Did Wills Point ever win a state football title?",
-        "answer": "Yes. Yes. UIL's 1965–66 football state archive identifies Wills Point as the Class 1A champion, with a 14–0 victory over White Deer."
+        "answer": "Yes. UIL's 1965–66 football state archive identifies Wills Point as the Class 1A champion, with a 14–0 victory over White Deer."
       },
       {
         "question": "Who coaches Wills Point football?",
