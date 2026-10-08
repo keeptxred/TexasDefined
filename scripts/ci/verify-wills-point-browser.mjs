@@ -104,11 +104,57 @@ async function inspectCounty(page, viewport) {
   return { viewport, countyHttp: response.status(), screenshotHeight, ...county };
 }
 
+
+async function captureCountyHydrationDifference(page, viewport, width, height, isMobile) {
+  const describe = async (candidate) => candidate.evaluate(() => {
+    const element = document.querySelector('main article') || document.querySelector('article') || document.body;
+    return {
+      heading: element.querySelector('h1')?.textContent?.trim() || '',
+      textLength: element.textContent?.length || 0,
+      sectionOutlines: Array.from(element.querySelectorAll('section')).slice(0, 85).map((section, index) => ({
+        index,
+        heading: section.querySelector('h2,h3')?.textContent?.trim() || '',
+        characters: section.textContent?.length || 0,
+        links: section.querySelectorAll('a').length,
+        children: section.children.length,
+      })),
+    };
+  });
+  const hydrated = await describe(page);
+  const noJsContext = await browser.newContext({
+    viewport: { width, height }, deviceScaleFactor: 1, isMobile, hasTouch: isMobile,
+    javaScriptEnabled: false,
+  });
+  let snapshot;
+  try {
+    const ssrPage = await noJsContext.newPage();
+    const response = await ssrPage.goto(origin + countyPath + cacheBust(), { waitUntil: 'domcontentloaded', timeout: 50_000 });
+    snapshot = { status: response?.status(), ...await describe(ssrPage) };
+  } finally {
+    await noJsContext.close();
+  }
+  const mismatches = [];
+  for (let index = 0; index < Math.max(snapshot.sectionOutlines.length, hydrated.sectionOutlines.length); index += 1) {
+    const ssr = snapshot.sectionOutlines[index];
+    const client = hydrated.sectionOutlines[index];
+    if (JSON.stringify(ssr) !== JSON.stringify(client)) mismatches.push({ index, ssr, client });
+  }
+  const details = {
+    viewport, testedAt: new Date().toISOString(), source: origin + countyPath,
+    serverWithoutJavaScript: snapshot, hydratedBrowser: hydrated, mismatches: mismatches.slice(0, 35),
+    note: 'Exploratory source-vs-hydrated DOM outline; client-only sections may add content normally. Do not treat differences alone as proof of an SSR bug.',
+  };
+  await writeFile(dir + '/' + viewport + '-county-hydration-diagnostic.json', JSON.stringify(details, null, 2) + '\n');
+  console.log('COUNTY HYDRATION DIAGNOSTIC ' + viewport + ' SSR/client differing section outlines: ' + mismatches.length);
+  return { sectionDifferences: mismatches.length, ssrSectionCount: snapshot.sectionOutlines.length, hydratedSectionCount: hydrated.sectionOutlines.length };
+}
+
 try {
   browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-dev-shm-usage'] });
   for (const [name, width, height, isMobile] of [
+    ['desktop-first', 1366, 900, false],
     ['mobile', 390, 844, true],
-    ['desktop', 1366, 900, false],
+    ['desktop-repeat', 1366, 900, false],
   ]) {
     const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, isMobile, hasTouch: isMobile });
     const schoolPage = await context.newPage();
@@ -122,10 +168,23 @@ try {
       const county = await inspectCounty(countyPage, name);
       results.push({ ...school, ...county, schoolRuntimeErrors: schoolErrors, countyRuntimeErrors: countyErrors });
       if (schoolErrors.length) warnings.push(name + ' SCHOOL: ' + schoolErrors.slice(0, 3).join('; '));
-      if (countyErrors.length) warnings.push(name + ' COUNTY: ' + countyErrors.slice(0, 3).join('; '));
+      if (countyErrors.length) {
+        warnings.push(name + ' COUNTY: ' + countyErrors.slice(0, 3).join('; '));
+        try {
+          const diagnostic = await captureCountyHydrationDifference(countyPage, name, width, height, isMobile);
+          results.push({ viewport: name, ...diagnostic });
+        } catch (error) {
+          warnings.push(name + ' county hydration diagnostic unable to compare SSR: ' + String(error));
+        }
+      }
       check(schoolErrors.length === 0, name + ': Wills Point school hydration/runtime errors ' + schoolErrors.join('; '));
       check(countyErrors.length === 0, name + ': Van Zandt county hydration/runtime errors ' + countyErrors.join('; '));
       console.log('PASS ' + name + ' Wills Point and Van Zandt reciprocal route (including hydration)');
+    } catch (error) {
+      const message = error instanceof Error ? error.stack || error.message : String(error);
+      results.push({ viewportFailed: name, failure: message });
+      console.error('FAIL ' + name + ' Wills Point browser acceptance:', message);
+      process.exitCode = 1;
     } finally {
       await context.close();
     }
