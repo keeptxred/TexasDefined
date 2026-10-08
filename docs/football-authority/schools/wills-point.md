@@ -35,3 +35,8 @@ URL: https://texasdefined.com/texas-high-school-football-teams/wills-point
 - **Implementation commit:** `134d2f584489ff1783fb4ae791d8602a03484a83` on `football-authority-wills-point-1965-1a-20261008`.
 - **Acceptance still open:** Protected CI and merge; post-merge deployment; direct Wills Point page and Van Zandt county reciprocal-link inspection; mobile and desktop layout/accessibility; licensed authentic school/stadium images or explicitly original graphics; verify venue policies, tickets, parking and current athletic notices.
 - **Evidence distinction:** External browsing returned an access error for this page, so this audit verifies a repository editorial bug and UIL sources, **not** newly rendered production acceptance. Leave `actualProductionVerified=false` and **do not** mark VERIFIED.
+
+### Previously unknown Friday Night Lights production smoke evidence
+- Retrieved [GitHub Actions run 37801357647](https://github.com/keeptxred/TexasDefined/actions/runs/37801357647), for previously deployed `4fcbd31fa6618c9b6150d868d6afdc38a73c831b`. The automated workflow **FAILED**, not passed.
+- Logs show the Wills Point live profile test began at 15:35:59Z and proceeded without any Wills Point contract error, then eventually halted on a *different* school's missing `Official district enrollment` text (Abbott, after 12 attempts, HTTP 200). That school is **not** being modified during the one-school Wills Point checkpoint.
+- Interpretation: Wills Point's older deployed HTTP/SSR content satisfied its script contract at that time, but the overall smoke failed; neither this nor that old deployment checks the pending 1965 correction, real-browser layout, photos, or accessibility. Preserve visual acceptance blockers.
