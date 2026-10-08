@@ -55,12 +55,12 @@ export function WildlifeRangeGraphic({ slug, speciesName }: { slug: string; spec
   const gap = 8;
 
   return <section className="border-b border-border py-12" aria-labelledby={`${slug}-range-graphic-heading`}>
-    <div className="grid gap-8 lg:grid-cols-4">
+    <div className="grid gap-8 md:grid-cols-3">
       <div>
         <p className="eyebrow text-primary">Range graphic</p>
         <h2 id={`${slug}-range-graphic-heading`} className="mt-2 font-display text-4xl">{speciesName} range at a glance</h2>
       </div>
-      <figure className="max-w-4xl overflow-hidden border border-border bg-surface p-3 sm:p-6 lg:col-span-3">
+      <figure className="max-w-4xl overflow-hidden border border-border bg-surface p-3 sm:p-6 md:col-span-2">
         <svg id={`${slug}-texas-range-graphic`} viewBox={`0 0 ${width} ${height}`} role="img" aria-labelledby={`${slug}-range-title ${slug}-range-desc`} className="h-auto w-full">
           <title id={`${slug}-range-title`}>{speciesName} broad Texas range by region</title>
           <desc id={`${slug}-range-desc`}>{range.qualifier} Highlighted cells show broad regions associated with established or important range, not exact distribution boundaries.</desc>
