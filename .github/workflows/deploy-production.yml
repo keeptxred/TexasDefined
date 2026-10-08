@@ -26,6 +26,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   deployments: write
   statuses: write
@@ -107,6 +108,27 @@ jobs:
       - name: Publish build pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-build pending "Building the production bundle"
+
+      - name: Restore previously materialized governed Discover derivatives
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p public/images/discover
+          artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100")"
+          artifact_id="$(jq -r '[.artifacts[] | select(.expired == false and (.name | startswith("governed-discover-derivatives-")))] | sort_by(.created_at) | last | .id // empty' <<<"$artifact_json")"
+          if [[ -z "$artifact_id" ]]; then
+            echo "No prior governed Discover derivative artifact is available; materializing from governed sources."
+            exit 0
+          fi
+          archive_url="$(jq -r --argjson id "$artifact_id" '.artifacts[] | select(.id == $id) | .archive_download_url' <<<"$artifact_json")"
+          curl --fail --location --retry 3 --retry-all-errors \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "$archive_url" -o /tmp/governed-discover-derivatives.zip
+          unzip -j -o /tmp/governed-discover-derivatives.zip -d public/images/discover >/dev/null
+          restored_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
+          echo "Restored $restored_count governed Discover derivatives from artifact $artifact_id."
 
       - name: Build production bundle
         id: build
