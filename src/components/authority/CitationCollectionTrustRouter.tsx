@@ -106,7 +106,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The count explainer treats the Schulenburg cluster, formal National Register decorative-interior group and broader statewide tradition as distinct definitions. It reports the TexasDefined verified collection count without claiming that every historical or tourism source uses the same scope.',
-    lastVerified: 'Collection counts and definition labels reviewed August 18, 2026.',
+    lastVerified: `Collection counts and definition labels reviewed ${paintedChurchAuthorityExpansionDateLabel}; the main collection controls the current verified count.`,
   },
   '/explore/painted-churches/compare': {
     title: 'Painted Churches comparison sources',
@@ -115,7 +115,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The comparison table is generated from the same verified church records as the collection hub. It preserves county, denomination and designation flags without filling missing fields or converting broader-tradition churches into formal National Register members.',
-    lastVerified: 'Comparison labels and verified collection coverage reviewed August 18, 2026.',
+    lastVerified: 'Comparison labels, 28-record collection coverage and freshness metadata reviewed October 6, 2026.',
   },
   '/explore/painted-churches/map': {
     title: 'Painted Churches map sources',
@@ -124,7 +124,7 @@ const TRUST_BY_PATH: Record<string, TrustConfig> = {
       { name: 'Painted Churches methodology', url: 'https://texasdefined.com/explore/painted-churches/methodology' },
     ],
     methodology: 'The statewide location directory is a geographic distribution of the verified church collection. Map searches use a verified address when available and otherwise the named church and community; the directory does not infer public access from map presence.',
-    lastVerified: 'Regional grouping, church identity and location-link logic reviewed August 18, 2026.',
+    lastVerified: 'Regional grouping, church identity, coordinate provenance and map interaction reviewed October 6, 2026.',
   },
   '/learn/property-taxes': {
     title: 'Texas property-tax explainer sources',
