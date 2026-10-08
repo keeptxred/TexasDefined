@@ -336,7 +336,7 @@ function Page() {
         </div>
       </section>}
 
-      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {program && !editorial?.notice && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">2026 scores & schedule sources</h2>
