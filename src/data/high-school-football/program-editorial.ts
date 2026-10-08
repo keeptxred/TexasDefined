@@ -207,7 +207,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "width": 800,
           "height": 614,
           "alt": "Katy High School entrance sign reading Home of Champions in an archival photograph",
-          "caption": "Katy High School’s “Home of Champions” entrance sign, photographed in 2009. Archival image, not a current game photo.",
+          "caption": "Katy High School’s “Home of Champions” sign, shown in a historic image uploaded in 2009. This is not a current game photograph.",
           "credit": "Sskiles22",
           "sourceUrl": "https://commons.wikimedia.org/wiki/File:KatyHighSchool.JPG",
           "license": "Public domain (uploader dedication)",
