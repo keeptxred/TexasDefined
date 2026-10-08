@@ -502,7 +502,13 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'All current UIL football programs use the same profile system.',
     'Texas football stadiums',
     'Browse venue guides and game-day planning information.',
-    'Official district enrollment',
+    // Abbott ISD's live site provides a 2026–27 transfer packet and registrar,
+    // but no verified general new-student registration URL. The school page
+    // deliberately renders the truthful no-verified-link guidance instead of
+    // inventing a registration destination. Keep that explicit fallback tested.
+    'Start with the district.',
+    'TexasDefined has not yet verified a dedicated current enrollment URL',
+    'district’s official site or registrar',
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
