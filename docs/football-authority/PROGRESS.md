@@ -38,13 +38,14 @@ Each school has an individual documented audit in `docs/football-authority/schoo
 
 ## Open acceptance work, confined to these five schools
 - Visually review real production at mobile and desktop widths; verify imagery actually loads, captions/rights, title/H1, canonical, navigation, contrast, layout, official resource links and schema.
-- Complete school-specific contextual **incoming** link audits from existing city/county and venue pages, not only the team finder. Add only accurate directly related links and record where added.
+- Five targeted, SSR-visible **incoming county links** are now implemented on this PR branch but still require merge/live verification: Wills Point from Van Zandt, Abbott from Hill, Katy from Fort Bend, Fort Davis from Jeff Davis, and Southlake Carroll from Tarrant. The campus-county relationship was researched from federal public-school records (for example, Katy High is **Fort Bend**, not automatically Harris because of the city name). Independently review any remaining city/venue inbound links without adding unrelated site changes.
 - Wills Point and Southlake Carroll: no independently confirmed reuse rights for the actual football/stadium photos found on school, booster, contractor and publisher sites. Do not copy or imply search-result visibility gives permission. Their original sourced graphics remain appropriate alternatives.
 - Confirm school-specific coaching/schedule and game-day details that are still unsupported: Abbott 2026 head coach/stadium policy; Wills Point parking/tickets; Carroll tickets/parking; game-specific Katy venues. No fabricated facts.
-- Inspect the independent dedicated football production smoke result and investigate any actual failures.
+- After merging this branch, inspect actual county-to-team link renderings and the independent dedicated football production smoke result; investigate any actual failures.
 - Keep first five assigned until all applicable evidence and links are finished or limitations are documented. Do not claim Batch 002 in this execution chat.
 
 ## This continuation branch
+- Adds five factual county-to-football-profile links plus federal campus-county citations; these are **pending merge** and therefore do not yet count as deployed.
 - Adds explicit **per-school production SEO contracts** for these five profiles (unique SSR title, meaningful description, exact canonical, SportsTeam and breadcrumb schema) to the existing Friday Night Lights live smoke, and Abbott's photo license rendering assertion.
 - Registry status accurately advances from MERGED to DEPLOYED, **not** VERIFIED, based on observed success statuses. Leave `actualProductionVerified=false` until real rendered manual review.
 - Branch: `football-authority-batch-001-production-acceptance-20261008`. Merge only with standard required CI and current-main reconciliation.
