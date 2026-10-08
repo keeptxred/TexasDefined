@@ -73,12 +73,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1; then
+          # Discover materialization handles governed local SVG editorial assets as well
+          # as raster images. ImageMagick's SVG delegate uses rsvg-convert; a runner
+          # with convert already installed is not necessarily SVG-capable.
+          if (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1) && command -v rsvg-convert >/dev/null 2>&1; then
             exit 0
           fi
           timeout 180s sudo apt-get update -qq
-          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick
-          command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1
+          timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+          (command -v magick >/dev/null 2>&1 || command -v convert >/dev/null 2>&1)
+          command -v rsvg-convert >/dev/null 2>&1
 
       - name: Report Cloudflare deployment credential source
         shell: bash
