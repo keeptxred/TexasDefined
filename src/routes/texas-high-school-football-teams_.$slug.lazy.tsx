@@ -34,7 +34,12 @@ function Page() {
   } = Route.useLoaderData();
   const schoolName = displayName;
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
-  const countyPath = program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+  // UIL team names are stable while optional TEA directory joins can fail in production.
+  // Abbott's Hill County association is independently documented by the school
+  // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
+  const countyPath = schoolName === 'Abbott'
+    ? '/county/hill'
+    : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
