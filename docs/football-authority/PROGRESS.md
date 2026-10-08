@@ -139,3 +139,8 @@ Refresh latest `main`, read `MASTER.md`, `REGISTRY.json` and this ledger, and re
 - Status **Wills Point VERIFIED; Abbott DEPLOYED with open mobile county hydration issue; Katy, Fort Davis, Southlake Carroll DEPLOYED, not yet individually checked in this continuation.** No additional school assignments; existing Batch 001 only.
 
 - **Exact scoped hydration PR:** [#4347](https://github.com/keeptxred/TexasDefined/pull/4347). Candidate fix for Hill County mobile React #418 after Abbott school/county reciprocal links and historical photo passed. It extends the Van Zandt proven post-hydration guard to Hill and verifies lodging is retained; still unverified on production at this checkpoint. No new school assigned.
+
+## Abbott individual verification — 2026-10-08
+- PR #4347 merge ed1bfc59 deployed successfully in [run 37836868347](https://github.com/keeptxred/TexasDefined/actions/runs/37836868347). Actual [Abbott/Hill Chrome 37837471884](https://github.com/keeptxred/TexasDefined/actions/runs/37837471884) SUCCEEDED; [artifact 11576800286](https://github.com/keeptxred/TexasDefined/actions/runs/37837471884/artifacts/11576800286) confirms mobile+desktop school/county HTTP, sources, schema/canonical, mutual links, public-domain historic photo at 134px and zero browser errors. Screenshots reviewed.
+- Abbott school individually VERIFIED with openly disclosed limits on unverified game-night details and image rights. The shared UIL recent-history finder API smoke remains failed and separate.
+- Batch 001: Wills Point and Abbott VERIFIED; Katy, Fort Davis, Southlake Carroll DEPLOYED awaiting school-by-school acceptance. 1,287 NOT_REVIEWED; total 1,292 unchanged. **Completion-only chat: no new schools assigned.**
