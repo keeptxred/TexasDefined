@@ -24,12 +24,12 @@ type AddressLookupResponse = AddressLookupSuccess | LookupFailure;
 type PlaceLookupResponse = PlaceLookupSuccess | LookupFailure;
 
 const guideFeatures = [
-  ["County basics", "County seat, population, land area, geography and communities connected to the county."],
-  ["Places & context", "Cities, towns, landmarks and the local identity that helps explain how the county fits into Texas."],
-  ["History", "County formation, settlement, economic history and locally important people or events where sourced coverage is available."],
-  ["Local government", "Orientation and links for county government, records, elections and other official local resources."],
-  ["Property & taxes", "Connections to appraisal-district, tax-office and property-tax guidance where local sources have been verified."],
-  ["Related guides", "Useful TexasDefined coverage for nearby places, practical tools and official state or federal sources."],
+  ["Know the county", "See the county seat, communities, population, geography and the characteristics that set this part of Texas apart."],
+  ["Discover places to go", "Find local history, historic sites, landmarks, outdoor destinations and nearby attractions where we have verified coverage."],
+  ["Find local government", "Use county-specific information and available official links for county government, clerks, records, elections and public services."],
+  ["DMV and vehicle services", "Understand where to go for vehicle registration and titles through county tax offices, and why DPS handles driver licenses."],
+  ["Property and taxes", "Research appraisal districts, property-tax information and other homeowner resources, with verified local links where available."],
+  ["Explore a possible move", "Compare county facts, towns, neighboring communities and practical resources before deciding where you might want to live."],
 ] as const;
 
 export const Route = createLazyFileRoute("/county")({ component: CountyIndexPage });
@@ -136,26 +136,56 @@ function CountyIndexPage() {
   return (
     <Container width="wide" className="pb-20 pt-10 sm:pb-24 sm:pt-14">
       <article className="mx-auto max-w-[86rem]">
-        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.6fr)] lg:items-end">
+        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="eyebrow text-primary">Texas county guides</p>
-            <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">A guide to every Texas county</h1>
-            <p className="mt-6 max-w-4xl text-lg leading-8 text-muted-foreground sm:text-xl">TexasDefined has a guide for all 254 Texas counties. Find the right county by county name, city, ZIP code or exact street address, then open its guide for local facts, communities, history, government resources, property information and related coverage.</p>
+            <p className="eyebrow text-primary">Explore Texas · 254 county guides</p>
+            <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-6xl xl:text-7xl">Discover all 254 Texas counties</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">From the Panhandle to the Gulf Coast, find your county and discover its communities, history, places to visit, local government, and useful property resources.</p>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <a href="#finder-heading" className="inline-flex min-h-12 items-center justify-center bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors">Find your county <span className="ml-2" aria-hidden="true">→</span></a>
+              <a href="#county-directory" className="inline-flex min-h-12 items-center justify-center border border-border bg-background px-6 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Browse counties A–Z <span className="ml-2" aria-hidden="true">↓</span></a>
+            </div>
           </div>
-          <div className="border-l border-border pl-6 text-sm leading-7 text-muted-foreground"><strong className="block text-foreground">Not sure which county you need?</strong>City limits and ZIP areas can cross county lines. City and ZIP searches show every Texas county boundary the Census geography intersects; use a full street address when you need the county for one property.</div>
+          <figure className="overflow-hidden border border-border bg-card p-3 sm:p-5">
+            <img src="/images/texas-county-map-red.svg" alt="Map of Texas showing the boundaries of all 254 counties in varying shades of red" width={1000} height={780} loading="eager" decoding="async" className="mx-auto block h-auto w-full max-w-xl" />
+            <figcaption className="mx-auto max-w-xl px-2 pb-2 text-center text-xs leading-5 text-muted-foreground">All 254 Texas counties · Red shades are illustrative, not political or demographic data.</figcaption>
+          </figure>
         </header>
+        <aside className="border-b border-border py-5 text-sm leading-7 text-muted-foreground" aria-label="How county boundaries work">
+          <strong className="mr-2 text-foreground">Not sure which county you need?</strong>
+          City limits and ZIP areas can cross county lines. Search by county name, city or ZIP code below; for an exact property, use the complete street address finder.
+        </aside>
 
         <section className="border-b border-border py-10" aria-labelledby="inside-guide-heading">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
-            <div><p className="eyebrow text-primary">What is in a guide?</p><h2 id="inside-guide-heading" className="mt-2 font-display text-3xl">One starting point for the whole county</h2></div>
-            <div><p className="max-w-4xl text-base leading-8 text-muted-foreground">County pages are practical reference guides, not just directory entries. Source depth varies by county, so TexasDefined shows verified local information when available and keeps official sources close to the facts they support.</p><div className="mt-7 grid sm:grid-cols-2 xl:grid-cols-3">{guideFeatures.map(([title, body]) => <div key={title} className="border-t border-border py-5 sm:px-5"><h3 className="font-display text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p></div>)}</div></div>
+            <div>
+              <p className="eyebrow text-primary">Why explore by county?</p>
+              <h2 id="inside-guide-heading" className="mt-2 font-display text-3xl">Every Texas county has a story worth exploring</h2>
+            </div>
+            <div>
+              <p className="max-w-4xl text-base leading-8 text-muted-foreground">TexasDefined has a dedicated guide for <strong className="text-foreground">all 254 Texas counties</strong>—not just a list of names on a map. Go deeper into the places that make each county different: its towns, county seat, landscape, history and things to see. Each guide also connects you with practical local information for living, owning property or taking care of business in that county.</p>
+              <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">Planning a weekend trip? Comparing communities before moving? Looking for your county tax office, property records or other government services? Start with your home county, explore a neighboring one, or discover a part of Texas you have never visited. Coverage varies by county, and we prioritize sourced facts and verified local resources over guesswork.</p>
+              <div className="mt-7 grid sm:grid-cols-2 xl:grid-cols-3">
+                {guideFeatures.map(([title, body]) => <div key={title} className="border-t border-border py-5 sm:px-5"><h3 className="font-display text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p></div>)}
+              </div>
+              <div className="mt-7 border-t border-border pt-5">
+                <h3 className="font-display text-xl">Find the right local office and resources</h3>
+                <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">For most vehicle titles and registration transactions, start with the <strong className="text-foreground">county tax assessor-collector</strong>. Texas driver licenses and state IDs are handled by <strong className="text-foreground">DPS</strong>, not the county vehicle office. Our practical guides can help you find the correct office and continue your research.</p>
+                <nav aria-label="County-related services and tools" className="mt-5 grid sm:grid-cols-2">
+                  <ResourceLink to="/find-my-dmv" title="Find DMV and county vehicle offices" body="Vehicle registration, titles and driver-license office guidance." />
+                  <ResourceLink to="/property-tax/counties" title="Research county property taxes" body="Appraisal districts, tax offices and verified county resources." />
+                  <ResourceLink to="/find-my-school-district" title="Find your school district" body="Research school-district assignments using address-level tools." />
+                  <ResourceLink to="/find-my-county" title="Find your county by address" body="Use an exact street address to identify the correct county." />
+                </nav>
+              </div>
+            </div>
           </div>
         </section>
 
         <section className="border-b border-border py-10" aria-labelledby="finder-heading">
           <p className="eyebrow text-primary">County finder</p>
-          <h2 id="finder-heading" className="mt-2 max-w-4xl font-display text-4xl sm:text-5xl">Find the county from what you already know</h2>
-          <p className="mt-4 max-w-4xl text-base leading-7 text-muted-foreground">Search all 254 county guides by name, check which counties a Texas city or ZIP area crosses, or use a complete street address to identify the county for a specific property.</p>
+          <h2 id="finder-heading" className="mt-2 max-w-4xl font-display text-4xl sm:text-5xl">Search Texas counties</h2>
+          <p className="mt-4 max-w-4xl text-base leading-7 text-muted-foreground">Choose a county you want to explore, or start with a Texas city, ZIP code or full street address to discover which county guides match. Cities and ZIP areas can span county lines; an exact address helps locate the county for a particular property.</p>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <FinderCard eyebrow="By county" title="Search by county name" description="Know the county already? Search all 254 guides and jump straight to it.">
               <label htmlFor="county-search" className="sr-only">County name</label><input id="county-search" value={countyQuery} onChange={(event) => setCountyQuery(event.target.value)} placeholder="Try Harris, Travis or Brewster" className="min-h-12 w-full border border-border bg-background px-4" />
@@ -174,7 +204,7 @@ function CountyIndexPage() {
           </div>
         </section>
 
-        <section className="border-b border-border py-10">
+        <section id="county-directory" className="scroll-mt-24 border-b border-border py-10">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Browse</p><h2 className="mt-2 font-display text-3xl">All 254 Texas county guides</h2></div><div><p className="max-w-3xl text-sm leading-7 text-muted-foreground">Prefer to browse? Every Texas county is linked below in alphabetical order.</p><nav aria-label="Jump to county letter" className="mt-5 flex flex-wrap gap-2">{groupedCounties.map(([letter]) => <a key={letter} href={`#county-${letter}`} className="inline-flex h-11 w-11 items-center justify-center border border-border text-sm font-semibold hover:border-primary hover:text-primary">{letter}</a>)}</nav></div></div>
           <div className="mt-8 space-y-8">{groupedCounties.map(([letter, letterCounties]) => <div key={letter} id={`county-${letter}`} className="grid scroll-mt-24 gap-4 border-t border-border pt-5 lg:grid-cols-[5rem_1fr]"><h3 className="font-display text-4xl text-primary">{letter}</h3><div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">{letterCounties.map((county) => <Link key={county.slug} to="/$kind/$slug" params={{ kind: "county", slug: county.slug }} className="group flex min-h-12 items-center border-b border-border py-3 pr-4 text-sm font-semibold hover:text-primary">{county.name}<span className="ml-2" aria-hidden="true">→</span></Link>)}</div></div>)}</div>
         </section>

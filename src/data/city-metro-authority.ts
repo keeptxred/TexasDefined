@@ -2,7 +2,7 @@ import type { TexasEntityRecord } from './knowledge-graph/types';
 
 const checkedAt = '2026-09-01';
 const wave2CheckedAt = '2026-09-02';
-const wave3CheckedAt = '2026-09-19';
+const cityAuthorityCheckedAt = '2026-10-08';
 
 type AuthorityOverride = Partial<Pick<TexasEntityRecord,
   'aliases' | 'description' | 'countySlug' | 'region' | 'coordinates' | 'officialUrl' | 'sourceId' | 'sourceConfidence' | 'sourceCheckedAt' | 'status' | 'relationships' | 'tags'
@@ -27,7 +27,7 @@ const city = (
   officialUrl,
   region,
   sourceConfidence: 'official',
-  sourceCheckedAt: checkedAt,
+  sourceCheckedAt: cityAuthorityCheckedAt,
   status: 'active',
   relationships: [
     { type: 'located-in-region', targetId: `region:${region}` },
@@ -42,10 +42,23 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
   houston: city(
     'Houston is a Gulf Coast metropolis shaped by bayous, the Houston Ship Channel, energy, medicine, aerospace, international trade and one of the country’s most diverse food and cultural landscapes. Downtown, the Museum District, the Texas Medical Center, neighborhoods inside the Loop and far-reaching suburban corridors make Houston a collection of distinct activity centers rather than a single compact core; local taxes, schools, flood exposure, utilities and services still depend on the exact address.',
     'https://www.houstontx.gov/', 'gulf-coast', 'metro-area:greater-houston', ['major-city', 'metro-core', 'airports', 'energy', 'port-logistics', 'aerospace'],
+    [
+      { type: 'jurisdiction-overlap', targetId: 'county:harris' },
+      { type: 'jurisdiction-overlap', targetId: 'county:fort-bend' },
+      { type: 'jurisdiction-overlap', targetId: 'county:montgomery' },
+      { type: 'jurisdiction-overlap', targetId: 'county:waller' },
+    ],
   ),
   dallas: city(
     'Dallas is a North Texas city built around a major corporate and transportation center, with downtown and the Arts District, established neighborhoods, large employment corridors, professional sports nearby and regional connections across the wider Metroplex. The useful way to plan Dallas is to distinguish the city from the rest of Dallas–Fort Worth and then verify the exact county, school district, tax jurisdiction, transit access and commute tied to an address.',
     'https://dallascityhall.com/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metro-core', 'airports', 'finance', 'professional-services', 'technology'],
+    [
+      { type: 'jurisdiction-overlap', targetId: 'county:dallas' },
+      { type: 'jurisdiction-overlap', targetId: 'county:collin' },
+      { type: 'jurisdiction-overlap', targetId: 'county:denton' },
+      { type: 'jurisdiction-overlap', targetId: 'county:kaufman' },
+      { type: 'jurisdiction-overlap', targetId: 'county:rockwall' },
+    ],
   ),
   'fort-worth': {
     ...city(
@@ -59,15 +72,25 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
         { type: 'jurisdiction-overlap', targetId: 'county:wise' },
       ],
     ),
-    sourceCheckedAt: '2026-10-07',
+    sourceCheckedAt: cityAuthorityCheckedAt,
   },
   austin: city(
     'Austin is the Texas capital on the Colorado River, where state government, the University of Texas, technology and semiconductor employers, live music and outdoor recreation meet at the eastern edge of the Hill Country. Downtown is only one part of the city: neighborhoods, employment centers and fast-growing suburban corridors spread across Central Texas, making commute, school, utility and tax questions dependent on the exact address.',
     'https://www.austintexas.gov/', 'central-texas', 'metro-area:greater-austin', ['major-city', 'state-capital', 'metro-core', 'airport', 'technology', 'semiconductors', 'government', 'higher-education'],
+    [
+      { type: 'jurisdiction-overlap', targetId: 'county:travis' },
+      { type: 'jurisdiction-overlap', targetId: 'county:williamson' },
+      { type: 'jurisdiction-overlap', targetId: 'county:hays' },
+    ],
   ),
   'san-antonio': city(
     'San Antonio is a South Texas city whose identity spans the Alamo and Spanish colonial missions, the River Walk, Tejano culture, military installations, major health-care and cybersecurity employers and a large network of distinct neighborhoods. Visitors can build a history-and-food trip around the urban core, while residents and movers need address-level checks for schools, taxes, utilities and rapidly changing outer growth corridors.',
     'https://www.sa.gov/', 'south-texas', 'metro-area:greater-san-antonio', ['major-city', 'metro-core', 'airport', 'texas-history', 'military', 'cybersecurity', 'tourism'],
+    [
+      { type: 'jurisdiction-overlap', targetId: 'county:bexar' },
+      { type: 'jurisdiction-overlap', targetId: 'county:comal' },
+      { type: 'jurisdiction-overlap', targetId: 'county:medina' },
+    ],
   ),
   'el-paso': city(
     'El Paso is a Far West Texas border city framed by the Franklin Mountains, the Rio Grande and a binational relationship with Ciudad Juárez. Its geography shapes nearly everything: neighborhoods stretch along mountain passes and east-west corridors, Fort Bliss is a major presence, desert recreation sits close to the city and the Mountain Time setting distinguishes El Paso from most of Texas; practical services still depend on the exact address and jurisdiction.',
@@ -82,15 +105,25 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
       'Hurst is a compact Mid-Cities community in Tarrant County between Fort Worth, Arlington and the DFW Airport corridor. Its practical strengths are regional access, established neighborhoods, parks and recreation, nearby employment and shopping, plus Trinity Railway Express access at Bell Station; school-district boundaries, utilities and property-tax jurisdictions should still be checked for the exact address.',
       'https://www.hursttx.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['mid-cities', 'metroplex', 'family-recreation', 'regional-rail', 'suburban'],
     ),
-    sourceCheckedAt: wave3CheckedAt,
+    sourceCheckedAt: cityAuthorityCheckedAt,
   },
   'corpus-christi': city(
     'Corpus Christi is a Coastal Bend city on Corpus Christi Bay where port activity, energy, the Gulf Coast, beaches, fishing, naval aviation and family attractions all shape daily life and travel. Downtown, North Beach, Padre Island access and inland neighborhoods create very different trip and housing contexts, while storm exposure, school districts, utilities and taxes need to be checked at the address level.',
     'https://www.corpuschristitx.gov/', 'gulf-coast', 'metro-area:corpus-christi-metro', ['major-city', 'coast', 'beaches', 'port', 'energy', 'tourism', 'fishing'],
+    [
+      { type: 'jurisdiction-overlap', targetId: 'county:nueces' },
+      { type: 'jurisdiction-overlap', targetId: 'county:san-patricio' },
+      { type: 'jurisdiction-overlap', targetId: 'county:kleberg' },
+      { type: 'jurisdiction-overlap', targetId: 'county:aransas' },
+    ],
   ),
   plano: city(
     'Plano is a major North Texas employment and residential center north of Dallas, with corporate campuses, established neighborhoods, parks and trails, DART connections and dense mixed-use districts such as Legacy. Most of Plano is in Collin County and part extends into Denton County, so property taxes, appraisal records, schools and other local systems should be verified against the exact address rather than the city name alone.',
     'https://www.plano.gov/', 'north-texas', 'metro-area:dallas-fort-worth', ['major-city', 'metroplex', 'corporate-employment', 'technology', 'suburban'],
+    [
+      { type: 'jurisdiction-overlap', targetId: 'county:collin' },
+      { type: 'jurisdiction-overlap', targetId: 'county:denton' },
+    ],
   ),
   lubbock: city(
     'Lubbock is the South Plains’ primary urban hub, shaped by Texas Tech University, health care, agriculture, cotton, music history and a regional role that reaches far beyond the city limits. The broad street grid and surrounding plains make travel patterns different from Texas’s larger metros, while schools, utilities, property taxes and other household decisions still require address-level verification.',
