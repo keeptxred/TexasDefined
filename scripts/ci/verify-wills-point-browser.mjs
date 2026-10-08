@@ -49,6 +49,7 @@ async function inspectPage(page, viewport) {
   const response = await page.goto(origin + schoolPath + cacheBust(), { waitUntil: 'domcontentloaded', timeout: 50_000 });
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
   await page.evaluate(() => document.fonts?.ready);
+  await page.waitForTimeout(750); // Give client hydration time to report route-specific errors before acceptance.
   const data = await page.evaluate(() => {
     const visible = element => {
       const rect = element.getBoundingClientRect();
@@ -83,14 +84,22 @@ async function inspectPage(page, viewport) {
 async function inspectCounty(page, viewport) {
   const response = await page.goto(origin + countyPath + cacheBust(), { waitUntil: 'domcontentloaded', timeout: 50_000 });
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
+  await page.evaluate(() => document.fonts?.ready);
+  await page.waitForTimeout(750);
+  await page.evaluate(() => window.scrollTo(0, 0));
   const county = await page.evaluate((schoolPath) => {
     const link = Array.from(document.querySelectorAll('a[href]')).find(el => new URL(el.href).pathname === schoolPath && (el.innerText || '').includes('Wills Point'));
-    return { linkFound: Boolean(link), linkText: link?.innerText || '', visible: Boolean(link && link.getBoundingClientRect().width > 0) };
+    return { linkFound: Boolean(link), linkText: link?.innerText || '', visible: Boolean(link && link.getBoundingClientRect().width > 0), h1: document.querySelector('h1')?.innerText || '', canonical: document.querySelector('link[rel=canonical]')?.href || '', documentHeight: document.documentElement.scrollHeight, scrollTop: window.scrollY };
   }, schoolPath);
-  await page.screenshot({ path: dir + '/' + viewport + '-county.png', fullPage: true, animations: 'disabled' });
+  await page.screenshot({ path: dir + '/' + viewport + '-county-top.png', fullPage: false, animations: 'disabled' });
+  const screenshot = await page.screenshot({ path: dir + '/' + viewport + '-county.png', fullPage: true, animations: 'disabled' });
+  const screenshotHeight = screenshot.readUInt32BE(20); // PNG IHDR physical pixel height, DPR=1.
   check(response?.status() === 200, viewport + ': county HTTP ' + response?.status());
+  check(/Van Zandt/i.test(county.h1), viewport + ': wrong county H1 ' + county.h1);
+  check(county.canonical === origin + countyPath, viewport + ': wrong county canonical ' + county.canonical);
+  check(screenshotHeight >= county.documentHeight * 0.75, viewport + ': county screenshot incomplete (' + screenshotHeight + 'px vs document ' + county.documentHeight + 'px)');
   check(county.linkFound && county.visible, viewport + ': Wills Point reciprocal link absent or hidden on Van Zandt County page');
-  return { viewport, countyHttp: response.status(), ...county };
+  return { viewport, countyHttp: response.status(), screenshotHeight, ...county };
 }
 
 try {
@@ -100,15 +109,21 @@ try {
     ['desktop', 1366, 900, false],
   ]) {
     const context = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, isMobile, hasTouch: isMobile });
-    const page = await context.newPage();
-    const browserErrors = [];
-    page.on('pageerror', e => browserErrors.push(e.message));
+    const schoolPage = await context.newPage();
+    const schoolErrors = [];
+    schoolPage.on('pageerror', e => schoolErrors.push(e.message));
     try {
-      const school = await inspectPage(page, name);
-      const county = await inspectCounty(page, name);
-      results.push({ ...school, ...county, runtimeErrors: browserErrors });
-      if (browserErrors.length) warnings.push(name + ': browser runtime errors: ' + browserErrors.slice(0, 3).join('; '));
-      console.log('PASS ' + name + ' Wills Point and Van Zandt reciprocal route');
+      const school = await inspectPage(schoolPage, name);
+      const countyPage = await context.newPage(); // Fresh navigation avoids reusing the tall mobile school page scroll state.
+      const countyErrors = [];
+      countyPage.on('pageerror', e => countyErrors.push(e.message));
+      const county = await inspectCounty(countyPage, name);
+      results.push({ ...school, ...county, schoolRuntimeErrors: schoolErrors, countyRuntimeErrors: countyErrors });
+      if (schoolErrors.length) warnings.push(name + ' SCHOOL: ' + schoolErrors.slice(0, 3).join('; '));
+      if (countyErrors.length) warnings.push(name + ' COUNTY: ' + countyErrors.slice(0, 3).join('; '));
+      check(schoolErrors.length === 0, name + ': Wills Point school hydration/runtime errors ' + schoolErrors.join('; '));
+      check(countyErrors.length === 0, name + ': Van Zandt county hydration/runtime errors ' + countyErrors.join('; '));
+      console.log('PASS ' + name + ' Wills Point and Van Zandt reciprocal route (including hydration)');
     } finally {
       await context.close();
     }
