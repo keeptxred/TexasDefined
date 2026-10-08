@@ -6,7 +6,7 @@ import type { TexasEventRecord } from "./texas-event-record";
  * automatically mirror the venue calendar. Expired records naturally vanish
  * from upcoming queries. A separate official-calendar link always remains.
  *
- * Source: https://www.choctawstadium.com/stadium-events/ (checked 2026-10-07).
+ * Source: https://www.choctawstadium.com/stadium-events/ (checked 2026-10-08).
  */
 const choctawGames = [
   [
@@ -44,7 +44,7 @@ export function getOfficialVenueEventSnapshots(): TexasEventRecord[] {
       slug: sourceSlug,
       title,
       summary: "Arlington-area high-school football at Choctaw Stadium. Verify the schedule, admission and any changes with the stadium before traveling.",
-      guidePath: url,
+      guidePath: `/events?venue=sports-venue%3Achoctaw-stadium&start=${startDate}&end=${startDate}#calendar`,
       startDate,
       startTime: "7:00 PM",
       venueId: "sports-venue:choctaw-stadium",
@@ -56,9 +56,20 @@ export function getOfficialVenueEventSnapshots(): TexasEventRecord[] {
       region: "prairies-lakes",
       category: "sport",
       officialEventUrl: url,
+      ticketing: {
+        links: [{
+          provider: "official",
+          officialTicketUrl: "https://gofan.co/app/school/TX11743?activity=Football&gender=Boys&level=Varsity",
+          saleStatus: "unknown",
+          source: { kind: "official-venue", name: "Choctaw Stadium official event page", url },
+          lastVerifiedAt: "2026-10-08",
+          priority: 0,
+        }],
+        offers: [],
+      },
       status: "scheduled",
-      lastVerifiedAt: "2026-10-07",
-      lastUpdatedAt: "2026-10-07",
+      lastVerifiedAt: "2026-10-08",
+      lastUpdatedAt: "2026-10-08",
       sourceName: "Choctaw Stadium official event calendar",
     };
   });
