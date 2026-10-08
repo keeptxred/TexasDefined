@@ -81,7 +81,7 @@ for (const forbiddenCopy of ['A closer look at ${entity.name}, where to find it,
 }
 
 for (const feature of [
-  'const relatedItems = related.slice(0, 6)',
+  "const relatedItems = (entity.kind === 'city' ? cityRelatedItems : related).slice(0, 6)",
   'Related guides and places',
   'relatedItems.map(({ entity: candidate })',
 ]) {
@@ -104,6 +104,10 @@ for (const feature of [
   if (!entityRoute.includes(feature)) errors.push(`Shared city route authority contract missing: ${feature}`);
 }
 for (const feature of [
+  "related.filter((item) => isLocalCityRelationship(item)",
+  "reason === 'same county'",
+  "reason === 'within 75 miles'",
+  "regionName.endsWith('Texas')",
   'cityProfile.populationEstimate',
   'Know which local government applies',
   'cityProfile?.jurisdiction',
