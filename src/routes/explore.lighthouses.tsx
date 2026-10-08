@@ -172,7 +172,7 @@ function TexasLighthousesHub() {
       <section className="border-t-2 border-foreground pt-8">
         <p className="eyebrow text-primary">Original TexasDefined map</p>
         <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Texas lighthouse locations</h2>
-        <p className="mt-4 mb-7 max-w-3xl text-sm leading-7 text-muted-foreground">Six sourced lighthouse points show the surviving and relocated lights in the current TexasDefined collection, including Sabine Pass on the Louisiana side of the border approach.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Six sourced lighthouse points show the surviving and relocated lights in the current TexasDefined collection, including Sabine Pass on the Louisiana side of the border approach.</p>
         <TexasPointMapGraphic
           id="texas-lighthouse-locations-graphic"
           title="Texas lighthouse locations"
