@@ -36,6 +36,7 @@ export type FootballProgramEditorial = {
     sourceLabel: string;
     verifiedAt: string;
   };
+  photo?: { src: string; width: number; height: number; alt: string; caption: string; credit: string; sourceUrl: string; license: string; licenseUrl: string };
   theme?: { accentHex: string; label: string };
   seo?: { title: string; description: string };
   milestones?: Array<{ date: string; title: string; body: string; sourceUrl: string; sourceLabel: string }>;
@@ -201,6 +202,17 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Katy Football team schedule",
       "verifiedAt": "2026-10-08"
     },
+    "photo": {
+          "src": "https://upload.wikimedia.org/wikipedia/commons/6/62/KatyHighSchool.JPG",
+          "width": 800,
+          "height": 614,
+          "alt": "Katy High School entrance sign reading Home of Champions in an archival photograph",
+          "caption": "Katy High School’s “Home of Champions” entrance sign, photographed in 2009. Archival image, not a current game photo.",
+          "credit": "Sskiles22",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:KatyHighSchool.JPG",
+          "license": "Public domain (uploader dedication)",
+          "licenseUrl": "https://commons.wikimedia.org/wiki/File:KatyHighSchool.JPG#Licensing"
+    },
     "overview": [
       "Nine state championships distinguish the Katy Tigers: 1959, 1997, 2000, 2003, 2007, 2008, 2012, 2015 and 2020. Those seasons are recorded in the Katy Athletic Booster Club's published football record book and tracked in UIL's state-final archive.",
       "The City of Katy's February 2026 proclamation credits Mike Johnston with 200 wins and three state titles during his 1982–2003 tenure as head coach. Katy's current booster club coaching directory lists Gary Joseph as head coach.",
@@ -267,6 +279,17 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.firstalert7.com/2026/08/20/fort-davis-cancels-2026-football-season/",
       "sourceLabel": "First Alert 7 reporting Fort Davis ISD's August 20 announcement",
       "verifiedAt": "2026-10-08"
+    },
+    "photo": {
+          "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Bart_Coan_Field_from_west.jpg/960px-Bart_Coan_Field_from_west.jpg",
+          "width": 960,
+          "height": 720,
+          "alt": "Bart Coan Field in Fort Davis viewed from the west stands during the September 2020 Balmorhea game",
+          "caption": "Bart Coan Field during the September 4, 2020 Fort Davis–Balmorhea game. Historical photograph; Fort Davis canceled its 2026 football season.",
+          "credit": "Fortguy",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bart_Coan_Field_from_west.jpg",
+          "license": "CC BY-SA 4.0; displayed at reduced size without editorial alterations",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
     },
     "overview": [
       "Fort Davis' Indians are a Jeff Davis County six-man football program with a documented UIL state-finals appearance in 2003. The UIL all-time register credits the team with one championship-game appearance and no state football title.",

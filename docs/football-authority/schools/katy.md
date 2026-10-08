@@ -25,3 +25,6 @@ URL: https://texasdefined.com/texas-high-school-football-teams/katy
 - School-color-accented editorial graphics and verified outbound links added without republishing unlicensed photos.
 - Individual search title and description, distinct school FAQs and relevant coach/stadium/schedule links implemented where supported.
 - Current status: IMPLEMENTED on GitHub branch, **not** production-verified. Required next: complete CI/protected merge, authentic image rights, inbound link inspection, actual mobile/desktop route verification.
+
+## Licensed authentic image found (2026-10-08)
+- Historic Katy High School “Home of Champions” entrance sign, original photo by Sskiles22; explicitly dedicated to the public domain by the uploader: https://commons.wikimedia.org/wiki/File:KatyHighSchool.JPG . Render as an archival school image with 2009 date, not current-game footage. Unlicensed sports photos remain excluded.

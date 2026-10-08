@@ -102,6 +102,13 @@ function Page() {
           <div className="space-y-4">
             {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
           </div>
+          {editorial.photo && <figure className="mt-7 overflow-hidden border border-border bg-surface">
+            <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading="lazy" decoding="async" className="block h-auto w-full object-cover" />
+            <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
+              {editorial.photo.caption}{' '}Photo by <a href={editorial.photo.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.credit}</a>.{' '}
+              <a href={editorial.photo.licenseUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.license}</a>.
+            </figcaption>
+          </figure>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             {editorial.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.coach.sourceLabel} ↗</a>}
             {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
