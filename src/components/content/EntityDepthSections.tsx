@@ -171,6 +171,41 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
       </div>
     </section> : null}
 
+    {cityProfile?.tripPlanning ? <section className="border-b border-border py-12" aria-labelledby="city-trip-planning-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Plan your visit</p>
+          <h2 id="city-trip-planning-heading" className="mt-2 font-display text-4xl">Build a better {entity.name} trip</h2>
+        </div>
+        <div className="space-y-10">
+          <div>
+            <h3 className="font-display text-2xl">First-time plan</h3>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.firstTime.map((item) => item.href
+                ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
+                : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Where to stay</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">Choose an area around the places you will actually visit instead of choosing a hotel by city name alone. These are planning areas, not hotel rankings.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.stayAreas.map((item) => <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Free things to do</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">These public spaces and self-guided ideas can keep a city day inexpensive. Parking, special events, rentals or adjacent attractions can still carry fees.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.freeThings.map((item) => item.href
+                ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
+                : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> : null}
+
     {cityDiscoveryItems.length ? <section className="border-b border-border py-12" aria-labelledby="city-discovery-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
