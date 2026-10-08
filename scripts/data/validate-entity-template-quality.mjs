@@ -14,6 +14,7 @@ const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
 const entityDepth = read('src/components/content/EntityDepthSections.tsx');
 const cityAuthorityProfiles = read('src/data/city-authority-profiles.ts');
 const cityMetroAuthority = read('src/data/city-metro-authority.ts');
+const citySocialImages = read('src/data/city-social-images.ts');
 const entityFoodDestinations = read('src/components/content/EntityFoodDestinations.tsx');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
@@ -116,6 +117,10 @@ for (const feature of [
   'cityProfile?.jurisdiction',
   'cityProfile?.districts?.length',
   'cityProfile?.featured?.length',
+  'cityProfile?.tripPlanning',
+  'First-time plan',
+  'Where to stay',
+  'Free things to do',
   'cityDiscoveryItems',
   'Best first stops and planning guides',
   'Places connected to {entity.name}',
@@ -139,6 +144,38 @@ const cityPopulationEstimateCount = (cityAuthorityProfiles.match(/populationEsti
 if (cityPopulationEstimateCount < 11) {
   errors.push(`All published city authority profiles must carry the current verified Census estimate; found ${cityPopulationEstimateCount}, expected at least 11`);
 }
+for (const [label, pattern] of [
+  ['jurisdiction', /jurisdiction:/g],
+  ['hero', /hero:/g],
+  ['districts', /districts:/g],
+  ['featured', /featured:/g],
+  ['tripPlanning', /tripPlanning:/g],
+]) {
+  const count = (cityAuthorityProfiles.match(pattern) ?? []).length;
+  if (count < 11) errors.push(`Every published city authority profile must carry ${label}; found ${count}, expected at least 11`);
+}
+for (const feature of [
+  'getCitySocialImage',
+  "loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined",
+  'countySeriesArticle?.hero.src ?? citySocialImage?.src',
+  'countySeriesArticle?.hero.alt ?? citySocialImage?.alt',
+]) {
+  if (!entityRoute.includes(feature)) errors.push(`City social preview contract missing: ${feature}`);
+}
+for (const slug of ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock']) {
+  if (!citySocialImages.includes(`${slug}:`) && !citySocialImages.includes(`'${slug}':`)) errors.push(`City social image metadata missing for ${slug}`);
+}
+for (const feature of [
+  "cityAuthorityCheckedAt = '2026-10-08'",
+  "targetId: 'county:fort-bend'",
+  "targetId: 'county:rockwall'",
+  "targetId: 'county:williamson'",
+  "targetId: 'county:comal'",
+  "targetId: 'county:san-patricio'",
+  "targetId: 'county:denton'",
+]) {
+  if (!cityMetroAuthority.includes(feature)) errors.push(`Current city jurisdiction/review contract missing: ${feature}`);
+}
 
 for (const feature of [
   'value: 1_028_117',
@@ -148,6 +185,9 @@ for (const feature of [
   'Fort Worth Zoo',
   'Dickies Arena',
   'Near Southside',
+  'West 7th',
+  'Camp Bowie',
+  'Panther Island & Trinity River',
 ]) {
   if (!cityAuthorityProfiles.includes(feature)) errors.push(`Fort Worth city authority remediation missing: ${feature}`);
 }
