@@ -136,19 +136,19 @@ function CountyIndexPage() {
   return (
     <Container width="wide" className="pb-20 pt-10 sm:pb-24 sm:pt-14">
       <article className="mx-auto max-w-[86rem]">
-        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] lg:items-center lg:gap-12">
+        <header className="grid gap-8 border-b border-border pb-10 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="eyebrow text-primary">Explore Texas · 254 county guides</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-6xl xl:text-7xl">Discover all 254 Texas counties</h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">From the Panhandle to the Gulf Coast, find your county and discover its communities, history, places to visit, local government, and useful property resources.</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <a href="#finder-heading" className="inline-flex min-h-12 items-center justify-center bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90">Find your county <span className="ml-2" aria-hidden="true">→</span></a>
+              <a href="#finder-heading" className="inline-flex min-h-12 items-center justify-center bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors">Find your county <span className="ml-2" aria-hidden="true">→</span></a>
               <a href="#county-directory" className="inline-flex min-h-12 items-center justify-center border border-border bg-background px-6 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">Browse counties A–Z <span className="ml-2" aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <figure className="overflow-hidden border border-border bg-[#fff9f7] p-3 sm:p-5">
-            <img src="/images/texas-county-map-red.svg" alt="Map of Texas showing the boundaries of all 254 counties in varying shades of red" width={1000} height={780} loading="eager" decoding="async" className="mx-auto block h-auto w-full max-w-[38rem]" />
-            <figcaption className="mx-auto max-w-[36rem] px-2 pb-2 text-center text-xs leading-5 text-muted-foreground">All 254 Texas counties · Red shades are illustrative, not political or demographic data.</figcaption>
+          <figure className="overflow-hidden border border-border bg-card p-3 sm:p-5">
+            <img src="/images/texas-county-map-red.svg" alt="Map of Texas showing the boundaries of all 254 counties in varying shades of red" width={1000} height={780} loading="eager" decoding="async" className="mx-auto block h-auto w-full max-w-xl" />
+            <figcaption className="mx-auto max-w-xl px-2 pb-2 text-center text-xs leading-5 text-muted-foreground">All 254 Texas counties · Red shades are illustrative, not political or demographic data.</figcaption>
           </figure>
         </header>
         <aside className="border-b border-border py-5 text-sm leading-7 text-muted-foreground" aria-label="How county boundaries work">
