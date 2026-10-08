@@ -71,7 +71,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "note": "The booster club identifies Ken Autry Davis Field as the Tigers' dedicated football stadium. Verify the current game venue, parking and ticket instructions with the school before traveling."
     },
     "overview": [
-      "Wills Point's football story includes a state championship: the UIL all-time appearances archive lists the Tigers as 1965 state champions, in the historical 3A classification. That achievement is separate from the 2026 competition assignment.",
+      "Wills Point's football story includes a state championship: the UIL all-time appearances archive lists the Tigers as 1965 Class 1A state champions. The official 1965–66 UIL football archive records a 14–0 state-final win over White Deer. The 1965 1A designation must not be confused with Wills Point's 2026–28 4A Division II placement.",
       "For the 2026–28 realignment, Wills Point is a 4A Division II, District 7 team. The district opponents shown elsewhere on this profile reflect that cycle rather than an all-time rivals list.",
       "The high school identifies James Boxley as its athletic director and head football coach, a position he assumed in February 2023. For fans visiting Ken Autry Davis Field, the booster club documents the facility while the school remains the current source for game-specific details."
     ],
@@ -79,9 +79,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "1965",
         "title": "A UIL football championship",
-        "body": "The UIL all-time football records recognize Wills Point as a state champion in the historical 3A classification.",
-        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
-        "sourceLabel": "UIL all-time appearances"
+        "body": "The UIL 1965–66 championship archive records Wills Point winning the Class 1A state final over White Deer by 14–0.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P528",
+        "sourceLabel": "UIL official football state archives"
       },
       {
         "date": "2023",
@@ -101,7 +101,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "faq": [
       {
         "question": "Did Wills Point ever win a state football title?",
-        "answer": "Yes. The UIL's historical archive lists Wills Point as a 1965 state football champion under the old 3A classification."
+        "answer": "Yes. Yes. UIL's 1965–66 football state archive identifies Wills Point as the Class 1A champion, with a 14–0 victory over White Deer."
       },
       {
         "question": "Who coaches Wills Point football?",
