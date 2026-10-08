@@ -56,16 +56,16 @@ const sources = [
 export default function ZapataCountyMuseumAuthority() {
   return <main>
     <Container className="pt-9 sm:pt-12">
-      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs uppercase text-muted-foreground">
         <Link to="/">Texas Defined</Link><span aria-hidden>·</span>
         <Link to="/explore/museums">Texas museums</Link><span aria-hidden>·</span>
         <span aria-current="page">Zapata County Museum of History</span>
       </nav>
     </Container>
     <section className="relative mt-6 overflow-hidden bg-ink text-ink-foreground">
-      <img src="/images/zapata-county-museum-history-editorial.svg" alt="Original illustration about Old Zapata, Falcon Reservoir and the museum; not a photograph or precise geographic map" width={1600} height={900} decoding="async" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover opacity-75" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/15" />
-      <Container className="relative flex flex-col justify-end pb-12 pt-28" style={{ minHeight: "clamp(24rem, 52vw, 32rem)" }}>
+      <img src="/images/zapata-county-museum-history-editorial.svg" alt="Original illustration about Old Zapata, Falcon Reservoir and the museum; not a photograph or precise geographic map" width={1600} height={900} decoding="async" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover opacity-65" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
+      <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 52vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/80">South Texas · Zapata County · Museum</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Zapata County Museum of History</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/88">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
@@ -89,8 +89,8 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Hours and admission last checked October 8, 2026 against the museum’s published visitor information. Confirm before travel, especially around holidays.</p>
     </Container>
 
-    <section className="border-y border-border py-14 sm:py-20">
-      <Container className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(250px,.85fr)]">
+    <section className="border-y border-border py-14 sm:py-16">
+      <Container className="grid gap-10 lg:grid-cols-2">
         <div>
           <p className="eyebrow text-primary">The defining story</p>
           <h2 className="mt-3 max-w-2xl font-display text-4xl">Why Old Zapata matters</h2>
@@ -110,11 +110,11 @@ export default function ZapataCountyMuseumAuthority() {
       </Container>
     </section>
 
-    <Container className="py-14 sm:py-20">
+    <Container className="py-14 sm:py-16">
       <p className="eyebrow text-primary">Collections and exhibits</p>
       <h2 className="mt-3 font-display text-4xl">What you can explore inside</h2>
       <p className="mt-5 max-w-3xl leading-8">The museum combines community-history objects with broader natural and cultural history. The subjects below come from its published exhibit descriptions; installations may change.</p>
-      <div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {galleries.map((item, index) => <article key={item.title} className="border border-border p-6">
           <p className="eyebrow text-primary">Exhibit {String(index + 1).padStart(2, "0")}</p>
           <h3 className="mt-4 font-display text-2xl">{item.title}</h3>
@@ -124,7 +124,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="mt-6 text-sm leading-7 text-muted-foreground">For authentic exterior and exhibit photography, view the <a className="text-primary underline underline-offset-4" href={heritageUrl} target="_blank" rel="noopener noreferrer">Texas Historical Commission’s museum listing and images</a> or the <a className="text-primary underline underline-offset-4" href="https://zapatamuseum.com/index.php/photo-gallery" target="_blank" rel="noopener noreferrer">museum’s own photo gallery</a>. Images are not copied here without reuse permission.</p>
     </Container>
 
-    <section className="border-y border-border py-14 sm:py-20">
+    <section className="border-y border-border py-14 sm:py-16">
       <Container className="grid gap-12 lg:grid-cols-2">
         <div>
           <p className="eyebrow text-primary">Planning your visit</p>
@@ -146,7 +146,7 @@ export default function ZapataCountyMuseumAuthority() {
       </Container>
     </section>
 
-    <Container className="py-14 sm:py-20">
+    <Container className="py-14 sm:py-16">
       <p className="eyebrow text-primary">Make it a South Texas history day</p>
       <h2 className="mt-3 font-display text-4xl">Explore beyond the museum</h2>
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
