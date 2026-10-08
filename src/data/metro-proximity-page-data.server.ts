@@ -28,8 +28,10 @@ function metroIndexableDestinations(destinations: Destination[]) {
   return destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
 }
 
-export async function loadMetroProximitySitemapEntriesServer() {
-  const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
+export async function loadMetroProximitySitemapEntriesServer(resolvedDestinations?: Destination[]) {
+  const destinations = metroIndexableDestinations(
+    resolvedDestinations ?? await listResolvedDestinations({ limit: 5000 }),
+  );
   return metroProximitySitemapEntries(destinations, isMetroProximityCollectionIndexReadyWithTownReferences);
 }
 
