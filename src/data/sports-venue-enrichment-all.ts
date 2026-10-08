@@ -1,12 +1,12 @@
-import { getSportsVenueContentRemediation } from './sports-venue-content-remediation';
-import { getSportsVenueContentRemediationWave2 } from './sports-venue-content-remediation-wave2';
-import { getSportsVenueContentRemediationWave3 } from './sports-venue-content-remediation-wave3';
-import { getSportsVenueContentRemediationWave4 } from './sports-venue-content-remediation-wave4';
-import { getSportsVenueContentRemediationWave5 } from './sports-venue-content-remediation-wave5';
-import { getSportsVenueContentRemediationWave6 } from './sports-venue-content-remediation-wave6';
-import { getSportsVenueContentRemediationWave7 } from './sports-venue-content-remediation-wave7';
-import { getSportsVenueContentRemediationWave8 } from './sports-venue-content-remediation-wave8';
-import { getSportsVenueContentRemediationWave9 } from './sports-venue-content-remediation-wave9';
+import { getSportsVenueContentRemediation, getSportsVenueQualityProfile } from './sports-venue-content-remediation';
+import { getSportsVenueContentRemediationWave2, getSportsVenueQualityProfileWave2 } from './sports-venue-content-remediation-wave2';
+import { getSportsVenueContentRemediationWave3, getSportsVenueQualityProfileWave3 } from './sports-venue-content-remediation-wave3';
+import { getSportsVenueContentRemediationWave4, getSportsVenueQualityProfileWave4 } from './sports-venue-content-remediation-wave4';
+import { getSportsVenueContentRemediationWave5, getSportsVenueQualityProfileWave5 } from './sports-venue-content-remediation-wave5';
+import { getSportsVenueContentRemediationWave6, getSportsVenueQualityProfileWave6 } from './sports-venue-content-remediation-wave6';
+import { getSportsVenueContentRemediationWave7, getSportsVenueQualityProfileWave7 } from './sports-venue-content-remediation-wave7';
+import { getSportsVenueContentRemediationWave8, getSportsVenueQualityProfileWave8 } from './sports-venue-content-remediation-wave8';
+import { getSportsVenueContentRemediationWave9, getSportsVenueQualityProfileWave9 } from './sports-venue-content-remediation-wave9';
 import { getSportsVenueEnrichment, sportsVenueMapUrl } from './sports-venue-enrichment';
 import { getSportsVenueEnrichmentBatch2 } from './sports-venue-enrichment-batch2';
 import { getSportsVenueEnrichmentBatch3 } from './sports-venue-enrichment-batch3';
@@ -20,6 +20,19 @@ import { getSportsVenueHistoryCompletion } from './sports-venue-history-completi
 import { applySportsVenueMaintenance } from './sports-venue-maintenance';
 
 export { sportsVenueMapUrl };
+
+export function getSportsVenueQualityProfileAll(slug: string) {
+  const lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug;
+  return getSportsVenueQualityProfile(lookupSlug)
+    ?? getSportsVenueQualityProfileWave2(lookupSlug)
+    ?? getSportsVenueQualityProfileWave3(lookupSlug)
+    ?? getSportsVenueQualityProfileWave4(lookupSlug)
+    ?? getSportsVenueQualityProfileWave5(lookupSlug)
+    ?? getSportsVenueQualityProfileWave6(lookupSlug)
+    ?? getSportsVenueQualityProfileWave7(lookupSlug)
+    ?? getSportsVenueQualityProfileWave8(lookupSlug)
+    ?? getSportsVenueQualityProfileWave9(lookupSlug);
+}
 
 export function getSportsVenueEnrichmentAll(slug: string) {
   const lookupSlug = slug === 'galaxy-stadium' ? 'jones-att-stadium' : slug;
