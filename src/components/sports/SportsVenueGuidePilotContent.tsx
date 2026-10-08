@@ -4,7 +4,7 @@ import type { TexasEventCarouselItem } from "@/components/editorial/TexasEventCa
 import { canonicalImageReference, imageReferencesMatch } from "@/data/image-reference-identity";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
 import type { ParkingMapAsset } from "@/data/parking-map-model";
-import { getSportsVenueEnrichmentAll } from "@/data/sports-venue-enrichment-all";
+import { getSportsVenueEnrichmentAll, getSportsVenueQualityProfileAll } from "@/data/sports-venue-enrichment-all";
 import { getSportsVenueGuideGalaxy } from "@/data/sports-venue-guide-galaxy";
 import { getSportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { getSportsVenueGuideWave4 } from "@/data/sports-venue-guide-wave4";
@@ -50,18 +50,35 @@ export function SportsVenueGuidePilotContent({
 
   if (!guide) return null;
 
+  const qualityProfile = getSportsVenueQualityProfileAll(slug);
+  const visitorFacts = qualityProfile?.visitorFacts;
+  const effectiveGuide = {
+    ...guide,
+    address: guide.address ?? visitorFacts?.address,
+    capacity: guide.capacity ?? visitorFacts?.capacity,
+    opened: guide.opened ?? visitorFacts?.opened,
+    homeTeam: guide.homeTeam ?? (visitorFacts?.homeTeams.length ? visitorFacts.homeTeams.join(" · ") : undefined),
+    playingSurface: guide.playingSurface ?? visitorFacts?.playingSurface,
+    leagueOrConference: guide.leagueOrConference ?? visitorFacts?.leagueOrConference,
+    accessibility: guide.accessibility ?? visitorFacts?.accessibility,
+    bagPolicy: guide.bagPolicy ?? visitorFacts?.bagAndEntry,
+    reviewedAt: guide.reviewedAt ?? qualityProfile?.sourceReview.reviewedAt,
+  };
   const rawEnrichment = getSportsVenueEnrichmentAll(slug);
+  const qualitySources = qualityProfile?.sourceReview.authoritativeSources ?? [];
   const enrichment = rawEnrichment
     ? {
         ...rawEnrichment,
-        planningLinks: rawEnrichment.planningLinks.filter(
-          (link) => !/facility (?:facts|page)/i.test(link.label) || link.url === guide.officialUrl,
-        ),
+        planningLinks: [...rawEnrichment.planningLinks, ...qualitySources]
+          .filter((link, index, links) => links.findIndex((candidate) => candidate.url === link.url) === index)
+          .filter(
+            (link) => !/facility (?:facts|page)/i.test(link.label) || link.url === effectiveGuide.officialUrl,
+          ),
       }
     : undefined;
   const verifiedEntity =
-    guide.officialUrl && entity.officialUrl !== guide.officialUrl
-      ? { ...entity, officialUrl: guide.officialUrl }
+    effectiveGuide.officialUrl && entity.officialUrl !== effectiveGuide.officialUrl
+      ? { ...entity, officialUrl: effectiveGuide.officialUrl }
       : entity;
   const photo = getSportsVenuePhoto(slug);
   const renderedPhoto = photo
@@ -98,7 +115,7 @@ export function SportsVenueGuidePilotContent({
   return (
     <SportsVenueGuidePage
       entity={verifiedEntity}
-      guide={guide}
+      guide={effectiveGuide}
       enrichment={enrichment}
       photo={renderedPhoto}
       parkingMap={parkingMap}
