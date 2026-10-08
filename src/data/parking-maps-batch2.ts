@@ -6,8 +6,8 @@ export const VENUE_PARKING_MAPS_BATCH_2: Record<string, ParkingMapAsset> = {
     alt: 'Verified TexasDefined parking orientation diagram for Choctaw Stadium showing primary Lots E and L, Toyota Lot D and major east-side access roads',
     origin: 'ai-generated', rightsStatus: 'generated-owned', displayAllowed: true, reuseSearchStatus: 'no-suitable-reusable-map-found',
     reuseSearchNotes: ['Choctaw Stadium publishes current parking guidance and map imagery, but no reusable publication license was documented for the official artwork reviewed.', 'Open-license searches surfaced Arlington-area and stadium photography but no current reusable Choctaw Stadium parking map with the required lot detail.'],
-    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-09-11',
-    verificationSources: [{ label: 'Choctaw Stadium — official parking guidance', url: 'https://www.choctawstadium.com/parking/', checkedAt: '2026-09-11', role: 'accuracy' }, { label: 'Choctaw Stadium — A-to-Z parking guidance', url: 'https://www.choctawstadium.com/a-to-z-guide/', checkedAt: '2026-09-11', role: 'accuracy' }],
+    verificationStatus: 'verified', verifiedAgainstRealMap: true, verifiedAt: '2026-10-08',
+    verificationSources: [{ label: 'Choctaw Stadium — official parking guidance', url: 'https://www.choctawstadium.com/parking/', checkedAt: '2026-10-08', role: 'accuracy' }, { label: 'Choctaw Stadium — A-to-Z parking guidance', url: 'https://www.choctawstadium.com/a-to-z-guide/', checkedAt: '2026-10-08', role: 'accuracy' }],
     accuracyNotes: ['Primary Lots E and L were verified as east-side parking accessed from Road to Six Flags.', 'Toyota Lot D and entrance D7 off Arlington Downs were verified for RV and bus parking.', 'Accessible parking in Lot E was verified against current venue guidance.', 'The schematic omits changing prices and event-specific overflow assignments.'],
   },
   'comerica-center': {
