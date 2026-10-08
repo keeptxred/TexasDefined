@@ -18,6 +18,8 @@ const bryanFinderApiPath = '/api/high-school-football?q=Bryan&limit=25';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
 const willsPointProfilePath = '/texas-high-school-football-teams/wills-point';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
+const fortDavisProfilePath = '/texas-high-school-football-teams/fort-davis';
+const southlakeCarrollProfilePath = '/texas-high-school-football-teams/southlake-carroll';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const springProfilePath = '/texas-high-school-football-teams/spring';
@@ -483,6 +485,39 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
+});
+
+await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched football profile', (body) => {
+  for (const needle of [
+    'Fort Davis Indians Football',
+    'Fort Davis ISD canceled the 2026 football season',
+    'The 2003 championship game was unusually close',
+    '67–62',
+    'These schools share the published 2026–28 UIL district alignment',
+    'Bart_Coan_Field_from_west.jpg',
+    'Fortguy',
+    'CC BY-SA 4.0',
+  ]) requireNeedle(body, needle, 'Fort Davis individual authority profile');
+  if (decodeHtml(body).includes('2026 scores & schedule sources')) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
+  if (/\\bnoindex\\b/i.test(body)) throw new Error('Fort Davis authority profile unexpectedly contains noindex');
+});
+
+await fetchVerified(southlakeCarrollProfilePath, 'Southlake Carroll individually researched football profile', (body) => {
+  for (const needle of [
+    'Southlake Carroll Dragons Football',
+    'eight Texas football state championships',
+    'Lee Munn',
+    '2003 state final is a historic near miss',
+    '16–15',
+    'Dragon Stadium',
+    'Championship source correction',
+  ]) requireNeedle(body, needle, 'Southlake Carroll individual authority profile');
+  if (/\\bnoindex\\b/i.test(body)) throw new Error('Southlake Carroll authority profile unexpectedly contains noindex');
+});
+
+await fetchVerified(katyProfilePath, 'Katy licensed historical image profile', (body) => {
+  for (const needle of ['KatyHighSchool.JPG', 'Sskiles22', 'Public domain (uploader dedication)'])
+    requireNeedle(body, needle, 'Katy licensed authentic image');
 });
 
 await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) => {
