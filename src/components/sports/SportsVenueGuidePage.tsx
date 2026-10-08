@@ -296,6 +296,7 @@ function QuickFacts({ guide, capacity, directionsUrl, officialUrl }: { guide: Sp
         <Fact label="Capacity" value={capacity} />
         <Fact label="Venue type" value={guide.venueType} />
         <Fact label="Home team" value={guide.homeTeam} />
+        <Fact label="League / conference" value={guide.leagueOrConference} />
         <Fact label="Playing surface" value={guide.playingSurface} />
         <Fact label="Opened" value={guide.opened} />
         <Fact label="Address" value={guide.address} />
