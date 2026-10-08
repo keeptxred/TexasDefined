@@ -4,9 +4,42 @@ export type CityAuthoritySystem = {
   links: ReadonlyArray<{ label: string; href: string }>;
 };
 
+export type CityAuthorityFeature = {
+  title: string;
+  summary: string;
+  href: string;
+  eyebrow?: string;
+  image?: {
+    src: string;
+    alt: string;
+  };
+};
+
 export type CityAuthorityProfile = {
   population2020: number;
   censusUrl: string;
+  populationEstimate?: {
+    value: number;
+    year: number;
+    asOf: string;
+  };
+  jurisdiction?: {
+    primaryCounty: string;
+    counties: ReadonlyArray<string>;
+    note: string;
+    sourceUrl?: string;
+  };
+  hero?: {
+    src: string;
+    alt: string;
+    sourceUrl?: string;
+    credit?: string;
+  };
+  districts?: ReadonlyArray<{
+    name: string;
+    summary: string;
+  }>;
+  featured?: ReadonlyArray<CityAuthorityFeature>;
   systems: ReadonlyArray<CityAuthoritySystem>;
 };
 
@@ -14,6 +47,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   houston: {
     population2020: 2_304_580,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/houstoncitytexas/PST045225',
+    populationEstimate: { value: 2_397_315, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -40,6 +74,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   dallas: {
     population2020: 1_304_379,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/dallascitytexas/PST045225',
+    populationEstimate: { value: 1_329_491, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -66,6 +101,37 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'fort-worth': {
     population2020: 918_915,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/fortworthcitytexas/PST045225',
+    populationEstimate: {
+      value: 1_028_117,
+      year: 2025,
+      asOf: 'July 1, 2025',
+    },
+    jurisdiction: {
+      primaryCounty: 'Tarrant County',
+      counties: ['Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'],
+      note: 'Most of Fort Worth is in Tarrant County, but the incorporated city also extends into Denton, Parker, Johnson and Wise counties. Property taxes, appraisal districts, schools, records and some services therefore depend on the exact address rather than the city name alone.',
+      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
+    },
+    hero: {
+      src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600',
+      alt: 'Entrance sign and historic buildings in the Fort Worth Stockyards',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg',
+      credit: 'Wikimedia Commons',
+    },
+    districts: [
+      { name: 'Fort Worth Stockyards', summary: 'The city’s best-known Western-heritage district, built around livestock history, the cattle-drive tradition, museums, music, rodeo culture and visitor attractions.' },
+      { name: 'Downtown & Sundance Square', summary: 'The central business, hotel, theater and dining district, useful as a city-center base between the Stockyards and the Cultural District.' },
+      { name: 'Cultural District', summary: 'A museum-rich district anchored by the Kimbell Art Museum, Amon Carter Museum of American Art, Modern Art Museum of Fort Worth and nearby family attractions.' },
+      { name: 'Near Southside', summary: 'A close-in district south of downtown known for independent restaurants, creative businesses, neighborhood nightlife and the Magnolia Avenue corridor.' },
+      { name: 'TCU, Zoo & Clearfork', summary: 'Southwest Fort Worth combines Texas Christian University, the Fort Worth Zoo, Trinity River access, shopping and residential districts that feel distinct from downtown.' },
+    ],
+    featured: [
+      { eyebrow: 'Western heritage', title: 'Fort Worth Stockyards', summary: 'Start with the city’s signature cattle, rail and Western-history district, then use the destination guide for current planning details.', href: '/destination/fort-worth-stockyards', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1200', alt: 'Fort Worth Stockyards entrance and historic district' } },
+      { eyebrow: 'Art & architecture', title: 'Kimbell Art Museum', summary: 'Connect the city page directly to one of the Cultural District’s nationally significant museums and architectural landmarks.', href: '/destination/kimbell-art-museum', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Kimbell_Art_Museum_Fort_Worth_01.jpg?width=1200', alt: 'Kimbell Art Museum in Fort Worth' } },
+      { eyebrow: 'Family', title: 'Fort Worth Zoo', summary: 'Use the dedicated zoo guide for a major family attraction south of downtown.', href: '/destination/fort-worth-zoo', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum%20of%20Living%20Art%20Fort%20Worth%20Zoo%2C%20March%202026.jpg?width=1200', alt: 'Fort Worth Zoo habitat complex' } },
+      { eyebrow: 'Events & sports', title: 'Dickies Arena', summary: 'Plan around rodeos, concerts, sports and major touring events in the Cultural District.', href: '/sports-venue/dickies-arena', image: { src: '/api/sports-venue-hero?slug=dickies-arena', alt: 'Dickies Arena in Fort Worth' } },
+      { eyebrow: 'Nearby trips', title: 'Explore near Fort Worth', summary: 'Continue into lakes, small towns, road trips and other day-trip ideas around the western side of the Metroplex.', href: '/explore/near/fort-worth' },
+    ],
     systems: [
       {
         title: 'Water & city utilities',
@@ -92,6 +158,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   austin: {
     population2020: 961_855,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/austincitytexas/PST045225',
+    populationEstimate: { value: 1_002_632, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & electric utilities',
@@ -118,6 +185,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'san-antonio': {
     population2020: 1_434_625,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/sanantoniocitytexas/PST045225',
+    populationEstimate: { value: 1_548_422, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water, electric & gas utilities',
@@ -144,6 +212,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'el-paso': {
     population2020: 678_815,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/elpasocitytexas/PST045225',
+    populationEstimate: { value: 683_012, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -170,6 +239,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   arlington: {
     population2020: 394_266,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/arlingtoncitytexas/PST045225',
+    populationEstimate: { value: 402_134, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -196,6 +266,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   hurst: {
     population2020: 40_413,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/hurstcitytexas/PST045225',
+    populationEstimate: { value: 38_974, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city services',
@@ -227,6 +298,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   'corpus-christi': {
     population2020: 317_863,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/corpuschristicitytexas/PST045225',
+    populationEstimate: { value: 317_247, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -253,6 +325,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   plano: {
     population2020: 285_494,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/planocitytexas/PST045225',
+    populationEstimate: { value: 293_028, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'Water & city utilities',
@@ -279,6 +352,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
   lubbock: {
     population2020: 257_141,
     censusUrl: 'https://www.census.gov/quickfacts/fact/table/lubbockcitytexas/PST045225',
+    populationEstimate: { value: 273_071, year: 2025, asOf: 'July 1, 2025' },
     systems: [
       {
         title: 'City utilities',
