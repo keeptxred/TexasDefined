@@ -308,6 +308,7 @@ function Page() {
             <Snapshot label="UIL table through" value={String(program.allTimeHistory.publishedThroughYear)} />
           </dl>
           {program.allTimeHistory.appearanceYears && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">State-final appearance years:</strong> {program.allTimeHistory.appearanceYears}</p>}
+          {program.allTimeHistory.documentedCorrection && <p className="mt-3 border-l-4 border-foreground bg-surface p-4 text-sm leading-7 text-foreground"><strong>Championship source correction:</strong> {program.allTimeHistory.documentedCorrection.note} <a href={program.allTimeHistory.documentedCorrection.sourceUrl} className="font-semibold text-primary underline underline-offset-4" target="_blank" rel="noreferrer noopener">Read the official 2003 game recap ↗</a></p>}
           {program.allTimeHistory.supplementedFinals.length > 0 && <p className="mt-3 text-xs leading-6 text-muted-foreground">TexasDefined supplements UIL’s published all-time table with {program.allTimeHistory.supplementedFinals.length} newer completed {program.allTimeHistory.supplementedFinals.length === 1 ? 'state final' : 'state finals'} from the official UIL state archive.</p>}
           <a href={program.allTimeHistory.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">UIL all-time appearances ↗</a>
         </div>
