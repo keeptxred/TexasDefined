@@ -311,7 +311,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         // readiness gate as the canonical page head. A broader sitemap-only
         // catalog can otherwise publish a URL whose own page correctly says
         // noindex, creating an invalid sitemap/indexability contradiction.
-        const proximityEntries = (await loadMetroProximitySitemapEntriesServer())
+        const proximityEntries = (await loadMetroProximitySitemapEntriesServer(indexableDestinations))
           .map((item) => entry(item.path, item.lastmod))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches

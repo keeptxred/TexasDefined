@@ -154,7 +154,7 @@ for (const token of [
 for (const token of [
   'await import("@/data/metro-proximity-page-data.server")',
   "loadMetroProximitySitemapEntriesServer",
-  "await loadMetroProximitySitemapEntriesServer()",
+  "await loadMetroProximitySitemapEntriesServer(indexableDestinations)",
   "const proximityEntries", "...proximityEntries",
 ]) requireText(files.sitemap, token, `Explore sitemap missing shared page/sitemap readiness contract: ${token}`);
 for (const forbidden of [
@@ -165,9 +165,11 @@ for (const forbidden of [
   if (files.sitemap.includes(forbidden)) fail(`Explore sitemap must not independently recompute proximity readiness from a catalog that can diverge from the canonical page: ${forbidden}`);
 }
 for (const token of [
-  "const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));",
+  "export async function loadMetroProximitySitemapEntriesServer(resolvedDestinations?: Destination[])",
+  "resolvedDestinations ?? await listResolvedDestinations({ limit: 5000 })",
   "return metroProximitySitemapEntries(destinations, isMetroProximityCollectionIndexReadyWithTownReferences);",
 ]) requireText(files.pageData, token, `Shared proximity sitemap/page catalog parity missing ${token}`);
+if (files.sitemap.includes("await loadMetroProximitySitemapEntriesServer()")) fail("Explore sitemap must pass its already-resolved destination catalog instead of triggering a second 5,000-row remote read.");
 
 for (const token of [
   "applyMetroProximityEdgeCachePolicy", 'url.pathname.startsWith("/explore/near/")',
