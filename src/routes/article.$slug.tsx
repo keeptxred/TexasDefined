@@ -92,10 +92,12 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
+  "east-texas-fall-colors",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
+  "east-texas-fall-colors": "Frequently asked questions",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
@@ -543,6 +545,11 @@ function ArticlePage() {
         <a href="/article/best-texas-state-parks-for-fall-colors" className="font-semibold text-primary underline underline-offset-4">More fall-color state parks →</a>
       </nav>
     </Container></Section>}
+    {article.slug === "east-texas-fall-colors" && <Section><Container><SectionHeader eyebrow="Keep planning" title="More fall foliage guides" /><div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <a className="border border-border p-5 text-primary hover:underline" href="/article/fall-in-texas-complete-guide">Texas fall season guide →</a>
+      <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
+      <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
+    </div></Container></Section>}
     {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }
