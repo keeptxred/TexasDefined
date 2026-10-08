@@ -562,16 +562,16 @@
     trackSurfaceImpression(surface, placement);
   }
 
-  // The Wills Point county-link landing route must finish React hydration before
-  // lodging cards modify nodes owned by the SSR React tree. Other routes keep
-  // their existing scheduling and affiliate placement behavior.
-  function waitingForVanZandtHydration() {
-    return window.location.pathname.replace(/\/+$/, "") === "/county/van-zandt"
-      && document.documentElement.dataset.tdVanZandtHydrated !== "1";
+  // Preserve React SSR for the two verified reciprocal football county guides.
+  // These paths alone defer the existing lodging cards until route hydration.
+  function waitingForFootballCountyHydration() {
+    const path = window.location.pathname.replace(/\/+$/, "");
+    return (path === "/county/van-zandt" || path === "/county/hill")
+      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
   async function syncSurface() {
-    if (waitingForVanZandtHydration()) return;
+    if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
 
