@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 
 const visitorUrl = "https://zapatamuseum.com/index.php/visit-us/visitors-information";
+const aboutUrl = "https://www.zapatamuseum.com/index.php/about-us";
 const exhibitsUrl = "https://www.zapatamuseum.com/index.php/exhibits";
 const schoolUrl = "https://zapatamuseum.com/index.php/visit-us/educational-programs";
 const countyUrl = "https://www.co.zapata.tx.us/page/zapata.county.museum";
@@ -47,6 +48,7 @@ const galleries = [
 
 const sources = [
   { label: "Museum: visitor hours and admission", href: visitorUrl },
+  { label: "Museum: eight-minute introductory film and tour layout", href: aboutUrl },
   { label: "Museum: current exhibit descriptions", href: exhibitsUrl },
   { label: "Museum: school and group tour policies", href: schoolUrl },
   { label: "Zapata County: museum address and contact", href: countyUrl },
@@ -114,6 +116,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="eyebrow text-primary">Collections and exhibits</p>
       <h2 className="mt-3 font-display text-4xl">What you can explore inside</h2>
       <p className="mt-5 max-w-3xl leading-8">The museum combines community-history objects with broader natural and cultural history. The subjects below come from its published exhibit descriptions; installations may change.</p>
+      <p className="mt-5 max-w-3xl leading-8"><strong>Start with the introduction:</strong> The museum says escorted visitors begin in a theater near the entrance with an eight-minute film spanning the region’s geologic origins through the present. Ask staff how this presentation fits your visit, particularly if you have limited time. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum tour overview ↗</a></p>
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {galleries.map((item, index) => <article key={item.title} className="border border-border p-6">
           <p className="eyebrow text-primary">Exhibit {String(index + 1).padStart(2, "0")}</p>
@@ -150,7 +153,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="eyebrow text-primary">Make it a South Texas history day</p>
       <h2 className="mt-3 font-display text-4xl">Explore beyond the museum</h2>
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">Zapata County and Falcon Reservoir</h3><p className="mt-3 leading-7 text-muted-foreground">Use the museum to understand the communities transformed by Falcon Dam, then explore the modern lakeshore and wider county geography.</p><Link to="/$kind/$slug" params={{ kind: "county", slug: "zapata" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore Zapata County →</Link></div>
+        <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">Zapata County and Falcon Reservoir</h3><p className="mt-3 leading-7 text-muted-foreground">Use the museum to understand the communities transformed by Falcon Dam, then explore the modern lakeshore and wider county geography.</p><Link to="/$kind/$slug" params={{ kind: "county", slug: "zapata" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore Zapata County →</Link><p className="mt-4 text-sm">For the reservoir today, see <Link to="/fishing/lakes/falcon-international-reservoir" className="text-primary underline underline-offset-4">TexasDefined’s Falcon International Reservoir guide</Link>.</p></div>
         <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">San Ygnacio Historic District</h3><p className="mt-3 leading-7 text-muted-foreground">Continue north on U.S. 83 to experience the surviving sandstone architecture and borderlands heritage of historic San Ygnacio.</p><a href={sanYgnacioUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Historical site visitor details ↗</a></div>
       </div>
     </Container>
