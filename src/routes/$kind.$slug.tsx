@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { getCityAuthorityProfile } from '@/data/city-authority-profiles';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import {
@@ -60,6 +61,7 @@ export const Route = createFileRoute('/$kind/$slug')({
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
+    const cityProfile = loaderData.entity.kind === 'city' ? getCityAuthorityProfile(loaderData.entity.slug) : undefined;
     let description = searchSnippetDescription(loaderData.entity);
     if (loaderData.entity.kind === 'county' && countySeriesArticle?.dek) description = countySeriesArticle.dek;
     const indexable = isIndexableEntityPage(loaderData.entity);
@@ -68,8 +70,8 @@ export const Route = createFileRoute('/$kind/$slug')({
         canonicalPath,
         title: searchIntentTitle(loaderData.entity),
         description,
-        image: countySeriesArticle?.hero.src,
-        imageAlt: countySeriesArticle?.hero.alt,
+        image: countySeriesArticle?.hero.src ?? cityProfile?.hero?.src,
+        imageAlt: countySeriesArticle?.hero.alt ?? cityProfile?.hero?.alt,
         imageWidth: countySeriesArticle?.hero.width,
         imageHeight: countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
@@ -96,6 +98,7 @@ function searchIntentTitle(entity: TexasEntityRecord) {
   if (entity.kind === 'appraisal-district' && entity.countySlug) return `${title(entity.countySlug)} County Appraisal District`;
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
   if (entity.kind === 'agency') return `${entity.name}: Services`;
+  if (entity.kind === 'city') return `${entity.name}, Texas: City Guide & Things to Do`;
   return entity.name;
 }
 
