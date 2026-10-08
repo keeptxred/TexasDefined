@@ -169,7 +169,9 @@ try {
       const countyErrors = [];
       countyPage.on('pageerror', e => countyErrors.push(e.message));
       const county = await inspectCounty(countyPage, name);
-      results.push({ ...school, ...county, schoolRuntimeErrors: schoolErrors, countyRuntimeErrors: countyErrors });
+      // Keep route facts separate: flattening county after school would overwrite the
+      // school H1/canonical in the acceptance artifact despite valid assertions.
+      results.push({ viewport: name, school, county, schoolRuntimeErrors: schoolErrors, countyRuntimeErrors: countyErrors });
       if (schoolErrors.length) warnings.push(name + ' SCHOOL: ' + schoolErrors.slice(0, 3).join('; '));
       if (countyErrors.length) {
         warnings.push(name + ' COUNTY: ' + countyErrors.slice(0, 3).join('; '));
