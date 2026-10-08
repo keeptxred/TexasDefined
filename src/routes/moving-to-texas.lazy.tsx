@@ -7,6 +7,7 @@ import { TexasCountyComparisonTable } from "@/components/counties/TexasCountyCom
 import { CategoryPage } from "@/components/editorial/CategoryPage";
 import { Container } from "@/components/layout/Container";
 import { CITY_AUTHORITY_INDEX, cityAuthorityPath } from "@/data/city-authority-index";
+import { cityMetroAuthoritySeedEntities } from "@/data/city-metro-authority-seeds";
 import { RELOCATION_CITY_PAIRS, relocationCityPairPath } from "@/data/relocation-city-pairs";
 
 const RelocationAuthorityLab = lazy(() => import("@/components/relocation/RelocationAuthorityLab").then((module) => ({ default: module.RelocationAuthorityLab })));
@@ -60,6 +61,8 @@ const industryResearchLinks = [
   ["Made in Texas", "/made-in-texas", "See companies, products and operating relationships tied to Texas communities without treating a headquarters as proof of local manufacturing."],
   ["Salary comparison by city", "/texas-salary-comparison-by-city", "Compare salary-planning tools after you identify the cities where your industry is strongest."],
 ] as const;
+const metroAuthorityGuides = cityMetroAuthoritySeedEntities();
+
 const priorityOriginStates = [
   ["California", "/texas-vs/california"],
   ["New York", "/texas-vs/new-york"],
@@ -110,6 +113,12 @@ function MovingToTexasPage() {
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The six permanent comparison pages focus on household budget, commute, county and taxing-unit context, insurance, utilities, schools and official-source verification. They do not assign a subjective winner.</p>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{RELOCATION_CITY_PAIRS.map((pair) => <a key={pair.slug} href={relocationCityPairPath(pair.slug)} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">{pair.cityA} vs {pair.cityB} →</a>)}</div>
       </section>
+      <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-metro-guides">
+        <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">Metro-area research</p><h2 id="moving-texas-metro-guides" className="mt-2 font-display text-3xl">Understand the wider metro before choosing a suburb</h2></div><Link to="/browse/cities" className="text-sm font-semibold text-primary">Browse Texas cities & suburbs →</Link></div>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Metro guides explain the regional frame around the core city: neighboring counties and cities, transportation geography and official planning context. Use them before narrowing a move to a specific city, school district or address.</p>
+        <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{metroAuthorityGuides.map((metro) => <a key={metro.slug} href={`/metro-area/${metro.slug}`} className="group bg-background p-5"><strong className="font-display text-2xl group-hover:text-primary">{metro.name}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Open metro-area guide →</span></a>)}</div>
+      </section>
+
       <section className="mb-12 border-b border-border pb-10" aria-labelledby="moving-texas-priority-guides">
         <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow text-primary">High-intent relocation guides</p><h2 id="moving-texas-priority-guides" className="mt-2 font-display text-3xl">Go from statewide research to the decision you need to make next</h2></div><Link to="/moving-to-texas/tools" className="text-sm font-semibold text-primary">Open all relocation tools →</Link></div>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These guides fill the practical gaps between choosing Texas and signing for a specific address: commuting, renter decisions, mover verification, health coverage, military PCS planning, new-resident property taxes and employer or employee relocation. Each one links back into the city, county, cost, utility and checklist system rather than ending as a standalone article.</p>
