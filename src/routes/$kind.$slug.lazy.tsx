@@ -71,9 +71,9 @@ export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage
 
 function EntityPage() {
   const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
-  // The verified Wills Point/Van Zandt and Abbott/Hill guides, plus Katy/Fort Bend
-  // receive third-party-style first-party lodging DOM inserts. Defer those
-  // inserts until React has hydrated each protected county route tree.
+  // Individually audited football-linked Van Zandt, Hill, Fort Bend and Jeff Davis
+  // county pages defer first-party lodging inserts until React route hydration.
+  // Do not suppress those panels once their React tree is ready.
   useEffect(() => {
     if (entity.kind !== 'county' || (entity.slug !== 'van-zandt' && entity.slug !== 'hill' && entity.slug !== 'fort-bend' && entity.slug !== 'jeff-davis')) return;
     document.documentElement.dataset.tdFootballCountyHydrated = '1';
