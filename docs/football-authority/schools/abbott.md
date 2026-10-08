@@ -25,3 +25,8 @@ URL: https://texasdefined.com/texas-high-school-football-teams/abbott
 - School-color-accented editorial graphics and verified outbound links added without republishing unlicensed photos.
 - Individual search title and description, distinct school FAQs and relevant coach/stadium/schedule links implemented where supported.
 - Current status: IMPLEMENTED on GitHub branch, **not** production-verified. Required next: complete CI/protected merge, authentic image rights, inbound link inspection, actual mobile/desktop route verification.
+
+## Historically authentic school football photo and alumnus research (2026-10-08)
+- Willie Nelson played Abbott High School football as a halfback: PBS documentary biography https://www.pbs.org/kenburns/country-music/willie-nelson-biography ; separate KWTX interview with former teammate's son describes their six-man team and Nelson at left halfback: https://www.kwtx.com/content/news/Willie-Nelson-signs-late-Central-Texas-classmates-1948-yearbook-559401821.html .
+- Archival Abbott High School football portrait circa 1950 by Abbott High School, hosted on Wikimedia Commons as **U.S. public domain** from publication without a copyright notice: https://commons.wikimedia.org/wiki/File:Willie-Nelson-Highschool.jpg . The photo is low-resolution (134x200) and should not be upscaled as a full-width image; describe it as historic, not a 2026 team photograph.
+- Added a program-specific alumni paragraph, historical milestone, original school-specific FAQ and photo metadata with rights, source and alt text. This does not suggest Willie Nelson played on the modern championship team.
