@@ -177,8 +177,8 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: `${teamName} Football: 2026 District, Schedule & Team Guide`",
-    "const description = `${teamName} football:",
+    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District, Schedule & Team Guide`",
+    "const description = editorial?.seo?.description ?? `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
   for (const marker of [
