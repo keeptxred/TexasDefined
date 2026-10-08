@@ -14,6 +14,11 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 4. `fort-davis` — individually audited and implemented on branch; 2026 season cancellation prominently disclosed.
 5. `southlake-carroll` — individually audited and implemented on branch; 8-title correction and 2026 coach documented.
 
+## Pull request, CI and remaining acceptance
+- PR: [#4330](https://github.com/keeptxred/TexasDefined/pull/4330) — open, originally reported mergeable by GitHub.
+- Football team finder now includes five context-specific inbound links to these individual researched school pages.
+- CI is required; live profile/mobile checks and photography licenses are still unresolved; do not mark VERIFIED based on code alone.
+
 ## Current counts, after implementing three school profiles on the branch
 - Inventory: **1,292**; researched: **5**; implemented on branch: **5**; **0 fully VERIFIED**.
 - Actual rendered live page audits: 0; **merged: 0**, **production verified: 0**. CI and safe merge remain outstanding.
