@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
@@ -71,6 +71,15 @@ export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage
 
 function EntityPage() {
   const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
+  // The Van Zandt guide has a Wills Point football inbound link and receives a
+  // first-party lodging widget. Do not let that external DOM writer change React's
+  // server-rendered county tree until this route has committed client hydration.
+  useEffect(() => {
+    if (entity.kind !== 'county' || entity.slug !== 'van-zandt') return;
+    document.documentElement.dataset.tdVanZandtHydrated = '1';
+    window.dispatchEvent(new Event('texasdefined:county-hydrated'));
+    return () => { delete document.documentElement.dataset.tdVanZandtHydrated; };
+  }, [entity.kind, entity.slug]);
   const visibleRelated = relatedForDisplay(entity, related);
   const batch001FootballLink = entity.kind === 'county' ? batch001FootballCountyLinks[entity.slug] : undefined;
   const relatedEntities = visibleRelated.map((item) => item.entity);
