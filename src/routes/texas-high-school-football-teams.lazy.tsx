@@ -3,8 +3,20 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import { HighSchoolFootballLookup } from '@/components/sports/HighSchoolFootballLookup';
 import { UilFootballProgramDirectory } from '@/components/sports/UilFootballProgramDirectory';
+import { FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS } from '@/data/high-school-football/featured-programs';
 
 export const Route = createLazyFileRoute('/texas-high-school-football-teams')({ component: Page });
+
+const supplementalProfileSlugs = new Set([
+  'liberty-christian-argyle', 'fort-bend-christian', 'oakridge-arlington', 'kinkaid',
+  'texas-wind-waco', 'harvest-christian-bartonville', 'grace-academy-georgetown',
+  'parish-episcopal', 'all-saints-fort-worth', 'lubbock-christian', 'first-baptist-dallas',
+  'st-joseph-victoria', 'utopia', 'san-antonio-central-catholic', 'san-antonio-antonian',
+  'san-antonio-holy-cross', 'tmi-episcopal', 'san-antonio-christian', 'cornerstone-christian',
+  'geneva-boerne', 'schertz-john-paul-ii', 'new-braunfels-christian', 'castle-hills',
+  'san-antonio-legacy',
+]);
+const supplementalProfiles = FEATURED_HIGH_SCHOOL_FOOTBALL_PROGRAMS.filter((program) => supplementalProfileSlugs.has(program.slug));
 
 const comparisonPoints = [
   {
@@ -43,6 +55,21 @@ function Page() {
       <HighSchoolFootballLookup initialQuery={q} />
 
       <UilFootballProgramDirectory programs={programs} />
+
+      <section className="border-b border-border py-12" aria-labelledby="supplemental-football-profiles">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Additional researched programs</p><h2 id="supplemental-football-profiles" className="mt-2 font-display text-3xl leading-tight">Open source-backed profiles outside the current UIL directory list</h2></div>
+          <div>
+            <p className="max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined also maintains a small supplemental profile set carried forward from the original research catalog. These links keep those published guides crawlable without mixing them into the authoritative 1,268-program UIL alignment.</p>
+            <div className="mt-6 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+              {supplementalProfiles.map((program) => <a key={program.slug} href={`/texas-high-school-football-teams/${program.slug}`} className="group bg-background p-4">
+                <strong className="font-display text-xl group-hover:text-primary">{program.displayName}</strong>
+                <span className="mt-2 block text-xs uppercase tracking-[0.08em] text-muted-foreground">Team profile →</span>
+              </a>)}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="border-b border-border py-12">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
