@@ -306,12 +306,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinationEntries = sitemapIndexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
-        const { metroProximitySitemapEntries } = await import("@/data/metro-proximity");
-        const { isMetroProximityCollectionIndexReadyWithTownReferences } = await import("@/data/metro-proximity-town-references");
-        // Reuse the governed catalog already resolved above. Supplemental town
-        // references still participate in the same indexability gate without a
-        // second 5,000-row remote catalog request.
-        const proximityEntries = metroProximitySitemapEntries(indexableDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)
+        const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
+        // Proximity sitemap eligibility must use the same resolved catalog and
+        // readiness gate as the canonical page head. A broader sitemap-only
+        // catalog can otherwise publish a URL whose own page correctly says
+        // noindex, creating an invalid sitemap/indexability contradiction.
+        const proximityEntries = (await loadMetroProximitySitemapEntriesServer())
           .map((item) => entry(item.path, item.lastmod))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches

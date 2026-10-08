@@ -79,8 +79,8 @@ for (const token of [
 
 for (const token of [
   "listResolvedDestinations", "isPrimaryTripPlannerDestination", "auditDestination", "metroIndexableDestinations",
-  "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer",
-  "isMetroProximityCollectionIndexReadyWithTownReferences", "selectMetroProximityTownReferences",
+  "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer", "loadMetroProximitySitemapEntriesServer",
+  "isMetroProximityCollectionIndexReadyWithTownReferences", "selectMetroProximityTownReferences", "metroProximitySitemapEntries",
   "selectMetroProximityDestinations", "destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)", "optionCount", '"@type": "CollectionPage"', '"@type": "ItemList"',
   '"@type": "BreadcrumbList"', '"@type": "City"', '"index, follow, max-image-preview:large"',
   '"noindex, follow"', "buildMeta", "canonicalLink", "metroProximityCollectionPresentation",
@@ -152,17 +152,22 @@ for (const token of [
 ]) requireText(files.exploreUi, token, `Explore internal discovery missing ${token}`);
 
 for (const token of [
-  'await import("@/data/metro-proximity")', 'await import("@/data/metro-proximity-town-references")',
-  "isMetroProximityCollectionIndexReadyWithTownReferences",
-  "metroProximitySitemapEntries(indexableDestinations, isMetroProximityCollectionIndexReadyWithTownReferences)",
+  'await import("@/data/metro-proximity-page-data.server")',
+  "loadMetroProximitySitemapEntriesServer",
+  "await loadMetroProximitySitemapEntriesServer()",
   "const proximityEntries", "...proximityEntries",
-]) requireText(files.sitemap, token, `Explore sitemap missing ${token}`);
+]) requireText(files.sitemap, token, `Explore sitemap missing shared page/sitemap readiness contract: ${token}`);
 for (const forbidden of [
+  "metroProximitySitemapEntries(indexableDestinations",
+  "isMetroProximityCollectionIndexReadyWithTownReferences",
   'await import("@/data/destination-query-runtime")',
-  "listResolvedDestinations({ limit: 5000 })",
 ]) {
-  if (files.sitemap.includes(forbidden)) fail(`Explore sitemap must reuse its resolved destination catalog instead of restoring duplicate remote fan-out: ${forbidden}`);
+  if (files.sitemap.includes(forbidden)) fail(`Explore sitemap must not independently recompute proximity readiness from a catalog that can diverge from the canonical page: ${forbidden}`);
 }
+for (const token of [
+  "const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));",
+  "return metroProximitySitemapEntries(destinations, isMetroProximityCollectionIndexReadyWithTownReferences);",
+]) requireText(files.pageData, token, `Shared proximity sitemap/page catalog parity missing ${token}`);
 
 for (const token of [
   "applyMetroProximityEdgeCachePolicy", 'url.pathname.startsWith("/explore/near/")',
