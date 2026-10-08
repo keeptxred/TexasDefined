@@ -62,18 +62,31 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Wills Point High School 2026–27 coaches",
       "verifiedAt": "2026-10-08"
     },
+    "schedule": {
+      "label": "Wills Point ISD calendar — verify 2026 game times",
+      "sourceUrl": "https://wpisd.com/page/page_calendar?calID=122113",
+      "sourceLabel": "Official Wills Point ISD event calendar",
+      "verifiedAt": "2026-10-08"
+    },
+    "campus": {
+      "address": "1800 W South Commerce Street, Wills Point, TX 75169",
+      "phone": "903-873-2371",
+      "sourceUrl": "https://wphs.wpisd.com/3209_3",
+      "sourceLabel": "Official Wills Point High School ticket information and campus contact (2025 prices may be outdated)",
+      "verifiedAt": "2026-10-08"
+    },
     "venue": {
       "name": "Ken Autry Davis Field",
       "address": "785 Wingo Way, Wills Point, TX",
       "sourceUrl": "https://wp-abc.org/pages/our-facilities",
       "sourceLabel": "Wills Point Athletic Booster Club facilities",
       "verifiedAt": "2026-10-08",
-      "note": "The booster club identifies Ken Autry Davis Field at 785 Wingo Way as the Tigers' football stadium and reports seating for 4,047. The school's ticketing page currently contains 2025-specific instructions: verify 2026 tickets, gate policies, accessibility and parking directly with Wills Point High School before traveling."
+      "note": "The booster club identifies Ken Autry Davis Field at 785 Wingo Way as the Tigers' football stadium and reports seating for 4,047 (a separate Texas football reference lists 3,000, so capacity estimates disagree). The official high school ticket page links GoFan but contains 2025-specific dates and prices. Check that page and the current Wills Point ISD event calendar for actual 2026 gate times, admission, accessibility and parking instructions before traveling. The high school campus at 1800 W South Commerce Street is not the field address."
     },
     "overview": [
       "Wills Point's football story includes a state championship: the UIL all-time appearances archive lists the Tigers as 1965 Class 1A state champions. The official 1965–66 UIL football archive records a 14–0 state-final win over White Deer. The 1965 1A designation must not be confused with Wills Point's 2026–28 4A Division II placement.",
       "For the 2026–28 realignment, Wills Point is a 4A Division II, District 7 team. The district opponents shown elsewhere on this profile reflect that cycle rather than an all-time rivals list.",
-      "The high school identifies James Boxley as head football coach, appointed in February 2023; its 2026–27 coaching directory names Steve Oliver as offensive coordinator and Flint Bigham as defensive coordinator. For games at Ken Autry Davis Field, use school ticket and event updates rather than assuming old posted prices or parking policies apply."
+      "The high school identifies James Boxley as head football coach, appointed in February 2023; its 2026–27 coaching directory names Steve Oliver as offensive coordinator and Flint Bigham as defensive coordinator. For games at Ken Autry Davis Field, follow the linked school ticket information and district event calendar rather than assuming old posted prices, kickoffs or parking policies apply."
     ],
     "milestones": [
       {
