@@ -51,6 +51,18 @@ const entries = [
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/Collin_County_Courthouse_%281927%29%2C_McKinney%2C_Texas_%2828181193439%29.jpg?width=1600"
   ],
   [
+    "crockett",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Crockett_county_courthouse_2009.jpg?width=1600"
+  ],
+  [
+    "dickens",
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Dickens02_courthouse.jpg?width=1600"
+  ],
+  [
+    "zapata-county-museum-history",
+    "/images/zapata-county-museum-history-editorial.svg"
+  ],
+  [
     "xtreme-raceway-park",
     "/images/sports-venues/xtreme-raceway-park.jpg"
   ],
