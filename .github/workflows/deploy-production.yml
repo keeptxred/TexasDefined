@@ -113,19 +113,48 @@ jobs:
         if: success()
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
           mkdir -p public/images/discover
-          artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100")"
+
+          if ! artifact_json="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?per_page=100" 2>/tmp/governed-discover-artifact-list.err)"; then
+            echo "::warning title=Discover derivative cache unavailable::GitHub artifact listing failed; continuing with governed source materialization."
+            cat /tmp/governed-discover-artifact-list.err >&2 || true
+            exit 0
+          fi
+
+          if ! jq -e '.artifacts | type == "array"' >/dev/null 2>&1 <<<"$artifact_json"; then
+            echo "::warning title=Discover derivative cache response invalid::GitHub returned an invalid artifact-list payload; continuing with governed source materialization."
+            exit 0
+          fi
+
           artifact_id="$(jq -r '[.artifacts[] | select(.expired == false and (.name | startswith("governed-discover-derivatives-")))] | sort_by(.created_at) | last | .id // empty' <<<"$artifact_json")"
           if [[ -z "$artifact_id" ]]; then
             echo "No prior governed Discover derivative artifact is available; materializing from governed sources."
             exit 0
           fi
-          archive_url="$(jq -r --argjson id "$artifact_id" '.artifacts[] | select(.id == $id) | .archive_download_url' <<<"$artifact_json")"
-          curl --fail --location --retry 3 --retry-all-errors \
+
+          archive_url="$(jq -r --argjson id "$artifact_id" '.artifacts[] | select(.id == $id) | .archive_download_url // empty' <<<"$artifact_json")"
+          if [[ -z "$archive_url" ]]; then
+            echo "::warning title=Discover derivative cache URL missing::Artifact $artifact_id has no download URL; continuing with governed source materialization."
+            exit 0
+          fi
+
+          rm -f /tmp/governed-discover-derivatives.zip
+          if ! curl --fail --location --retry 3 --retry-all-errors \
             -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
-            "$archive_url" -o /tmp/governed-discover-derivatives.zip
+            "$archive_url" -o /tmp/governed-discover-derivatives.zip; then
+            echo "::warning title=Discover derivative cache download failed::Artifact $artifact_id could not be downloaded; continuing with governed source materialization."
+            rm -f /tmp/governed-discover-derivatives.zip
+            exit 0
+          fi
+
+          if ! unzip -tqq /tmp/governed-discover-derivatives.zip >/dev/null 2>&1; then
+            echo "::warning title=Discover derivative cache archive invalid::Artifact $artifact_id is not a valid ZIP; continuing with governed source materialization."
+            rm -f /tmp/governed-discover-derivatives.zip
+            exit 0
+          fi
+
           unzip -j -o /tmp/governed-discover-derivatives.zip -d public/images/discover >/dev/null
           restored_count="$(find public/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
           echo "Restored $restored_count governed Discover derivatives from artifact $artifact_id."
