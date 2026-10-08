@@ -110,16 +110,35 @@ try {
     schoolPage.on('pageerror', e => schoolErrors.push(e.message));
     const result = { viewport: name };
     try {
-      result.school = await checkSchool(schoolPage, name);
+      const failures = [];
+      try {
+        result.school = await checkSchool(schoolPage, name);
+      } catch (error) {
+        const message = error instanceof Error ? error.stack || error.message : String(error);
+        failures.push('School: ' + message);
+      }
+      // Inspect the independently rendered Hill County page even when the
+      // school contract fails. Never let one failure hide a second defect.
       const countyPage = await context.newPage();
       const countyErrors = [];
       countyPage.on('pageerror', e => countyErrors.push(e.message));
-      result.county = await checkCounty(countyPage, name);
+      try {
+        result.county = await checkCounty(countyPage, name);
+      } catch (error) {
+        const message = error instanceof Error ? error.stack || error.message : String(error);
+        failures.push('County: ' + message);
+      }
       result.schoolRuntimeErrors = schoolErrors;
       result.countyRuntimeErrors = countyErrors;
-      verify(!schoolErrors.length, name + ': school runtime/hydration ' + schoolErrors.join('; '));
-      verify(!countyErrors.length, name + ': Hill County runtime/hydration ' + countyErrors.join('; '));
-      console.log('PASS Abbott ' + name + ' school/rights/SEO and Hill County reciprocal browser QA');
+      if (schoolErrors.length) failures.push('School runtime/hydration: ' + schoolErrors.join('; '));
+      if (countyErrors.length) failures.push('County runtime/hydration: ' + countyErrors.join('; '));
+      if (failures.length) {
+        result.failures = failures;
+        process.exitCode = 1;
+        console.error('FAIL Abbott ' + name + ' browser acceptance:\n' + failures.join('\n'));
+      } else {
+        console.log('PASS Abbott ' + name + ' school/rights/SEO and Hill County reciprocal browser QA');
+      }
     } catch (error) {
       result.failure = error instanceof Error ? error.stack || error.message : String(error);
       console.error('FAIL Abbott ' + name + ' browser acceptance: ' + result.failure);
