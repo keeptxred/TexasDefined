@@ -30,3 +30,6 @@ Page: https://texasdefined.com/texas-high-school-football-teams/fort-davis
 - Official mascot/color identity documented and the school-specific design uses original editorial graphics, never unlicensed documentary photos.
 - This school's specific factual correction is implemented in code and clearly attributed; no assertion of production readiness.
 - Status: IMPLEMENTED on GitHub branch only. Still required: CI, merge, production HTML/mobile check, licensed authentic image sourcing and context-appropriate incoming links.
+
+## Licensed authentic image found (2026-10-08)
+- Bart Coan Field photographed during the September 4, 2020 Fort Davis–Balmorhea game by Fortguy, CC BY-SA 4.0: https://commons.wikimedia.org/wiki/File:Bart_Coan_Field_from_west.jpg ; license https://creativecommons.org/licenses/by-sa/4.0/ . Render with photo credit, license link and date, making clear this does NOT represent a game played in the canceled 2026 season.
