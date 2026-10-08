@@ -517,6 +517,32 @@ function ArticlePage() {
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
-    {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
+    {article.slug === "east-texas-fall-colors" && <Section tone="surface"><Container>
+      <SectionHeader eyebrow="Plan your fall trip" title="Six places to compare" />
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are evergreen planning suggestions, not live leaf-color reports. Select a park to see its official alerts, trails and reservation information. Color varies within and between parks.</p>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {([
+          { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/state-park/daingerfield-state-park" },
+          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake" },
+          { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: null },
+          { name: "Tyler State Park", note: "Mixed forest and lakeside trails", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/state-park/tyler-state-park" },
+          { name: "Cooper Lake State Park", note: "Additional northeast Texas lake option", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: null },
+          { name: "Martin Creek Lake State Park", note: "Alternative woodland and lakeshore outing", url: "https://tpwd.texas.gov/state-parks/martin-creek-lake", guide: "/state-park/martin-creek-lake-state-park" },
+        ] as const).map((place) => <article key={place.name} className="border border-border bg-background p-5">
+          <h3 className="font-display text-xl">{place.name}</h3>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">{place.note}</p>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <a href={place.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official park info ↗</a>
+            {place.guide && <a href={place.guide} className="font-semibold text-primary underline underline-offset-4">Texas Defined guide →</a>}
+          </div>
+        </article>)}
+      </div>
+      <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
+        <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
+        <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
+        <a href="/article/best-texas-state-parks-for-fall-colors" className="font-semibold text-primary underline underline-offset-4">More fall-color state parks →</a>
+      </nav>
+    </Container></Section>}
+    {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }
