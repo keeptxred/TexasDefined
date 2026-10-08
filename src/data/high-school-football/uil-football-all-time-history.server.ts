@@ -179,7 +179,7 @@ export function allTimeFootballHistoryFromLoaded(
   // Drop the adjustment automatically if UIL corrects the upstream table.
   const isCarroll2003Typo = normalizeSchoolName(base.schoolName) === 'southlake carroll'
     && base.stateTitles === 9
-    && /(?:^|[,;])03\\*/.test(base.appearanceYears);
+    && /(?:^|[,;])03\*/.test(base.appearanceYears);
   const documentedCorrection = isCarroll2003Typo ? {
     note: "UIL's summary incorrectly marks the 2003 Carroll appearance as a title. UIL's direct game recap says Katy won 16–15; Carroll ISD counts eight actual championships.",
     sourceUrl: 'https://www.uiltexas.org/100/football',
@@ -197,7 +197,7 @@ export function allTimeFootballHistoryFromLoaded(
   return {
     stateTitles: base.stateTitles - (isCarroll2003Typo ? 1 : 0) + supplementedFinals.filter((final) => final.result === 'Champion').length,
     stateFinalAppearances: base.stateFinalAppearances + supplementedFinals.length,
-    appearanceYears: isCarroll2003Typo ? base.appearanceYears.replace(/03\\*/, '03') : base.appearanceYears,
+    appearanceYears: isCarroll2003Typo ? base.appearanceYears.replace(/03\*/, '03') : base.appearanceYears,
     documentedCorrection,
     publishedThroughYear: history.publishedThroughYear,
     supplementedFinals,
