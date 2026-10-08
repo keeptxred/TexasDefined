@@ -149,6 +149,27 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Abbott Independent School District",
       "verifiedAt": "2026-10-08"
     },
+    "coach": {
+      "name": "Kyle Crawford",
+      "title": "Athletic director and head football coach",
+      "sourceUrl": "https://www.abbottisd.org/apps/pages/index.jsp?pREC_ID=623415&type=u&uREC_ID=421837",
+      "sourceLabel": "Abbott ISD — Kyle Crawford official staff profile",
+      "verifiedAt": "2026-10-08"
+    },
+    "schedule": {
+      "label": "Abbott ISD current events and varsity football dates",
+      "sourceUrl": "https://www.abbottisd.org/apps/events/",
+      "sourceLabel": "Abbott ISD official 2026 events calendar",
+      "verifiedAt": "2026-10-08"
+    },
+    "venue": {
+      "name": "Panther Field",
+      "address": "Abbott, Texas — confirm the stadium entry address with Abbott ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/abbott-panthers",
+      "sourceLabel": "Dave Campbell's Texas Football — Abbott venue",
+      "verifiedAt": "2026-10-08",
+      "note": "Dave Campbell's Texas Football calls the Abbott six-man venue Panther Field and lists a reported capacity of 250; neither a current stadium entrance address nor admission/parking/accessibility rules have been independently verified. Abbott ISD's official campus contact is 219 S. First Street, (254) 582-3011, and the Texas licensing registry lists a separate athletic fieldhouse project at 201 3rd Street. Neither fact alone proves the game-night gate address. Verify the current district calendar and call the school before traveling."
+    },
     "photo": {
       "src": "https://upload.wikimedia.org/wikipedia/commons/9/96/Willie-Nelson-Highschool.jpg",
       "width": 134,
@@ -161,9 +182,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "licenseUrl": "https://commons.wikimedia.org/wiki/File:Willie-Nelson-Highschool.jpg#Licensing"
     },
     "overview": [
-      "Abbott is a Hill County six-man program with one state championship, won in 2015. UIL's all-time history also lists the Panthers as finalists in 2012 and 2022, providing a clear timeline of three championship-game appearances.",
-      "UIL's 2022 state-team archive lists Terry J Crawford as head coach that season and shows Abbott entering the championship game against Westbrook. This is historical coaching evidence and should not be described as a current 2026 appointment.",
-      "Abbott reached the 2024 state semifinals, where UIL's Gordon team record documents a 77–36 result. The school competes in Class 1A Division I, District 14 in 2026–28; specific 2026 coaches, tickets and venues should be confirmed from Abbott ISD.",
+      "Abbott is a Hill County six-man program with one state championship, earned in 2015 by defeating Crowell 40–30 in the UIL 1A Six-Man Division I final. The UIL archival finals also record losses to Throckmorton 72–30 in 2012 and Westbrook in 2022. These are three championship-game appearances in different seasons, not three titles.",
+      "Coaching generations matter in Abbott: UIL's 2022 state-team archive lists Terry J Crawford as head coach that season, with Kyle Crawford among the assistants. Abbott ISD now identifies Kyle Crawford as its athletic director and head football coach on his own district staff page. The old 2022 roster and the current district staff page describe different eras; do not conflate them.",
+      "Abbott reached the 2024 state semifinals, where UIL's Gordon team record documents a 77–36 result. In the 2026–28 alignment Abbott competes in Class 1A Division I, District 14. The official district events calendar lists a 2026 varsity home game against Coolidge on October 9 at 7:30 p.m.; this is a dated calendar entry, not a guarantee that kickoff, venue access or ticket arrangements will not change. Use the linked calendar and school contact for confirmation.",
       "Abbott also has a notable football alumnus: future musician Willie Nelson played left halfback for the school in the late 1940s. PBS identifies Nelson as an Abbott football halfback, and a former teammate’s family recalled their six-man playing days in 2019 reporting. His surviving Abbott High School portrait is archival evidence of the earlier era, not evidence of current-team achievements."
     ],
     "milestones": [
@@ -177,16 +198,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2012",
         "title": "A state-final appearance",
-        "body": "Abbott reached the UIL Class 1A Division I championship game.",
-        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
-        "sourceLabel": "UIL all-time state appearances"
+        "body": "Abbott lost the 2012 UIL Class 1A Six-Man Division I championship final to Throckmorton 72–30.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P148",
+        "sourceLabel": "UIL 2012–13 official state championship results"
       },
       {
         "date": "2015",
         "title": "Six-man state champions",
-        "body": "The Panthers' 2015 six-man title is the program's state championship recorded by UIL.",
-        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
-        "sourceLabel": "UIL all-time state appearances"
+        "body": "Abbott defeated Crowell 40–30 in the 2015 UIL Class 1A Six-Man Division I state championship final, its lone UIL football title.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P98",
+        "sourceLabel": "UIL 2015–16 official state championship results"
       },
       {
         "date": "2022",
@@ -217,8 +238,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Abbott is in UIL 1A Division I six-man football, District 14, for the 2026–28 alignment."
       },
       {
-        "question": "Was Terry J Crawford Abbott's head coach?",
-        "answer": "The UIL 2022–23 state-team page names Terry J Crawford as Abbott's coach for that season. That source does not verify the current 2026 head coach."
+        "question": "Who is Abbott's head football coach?",
+        "answer": "Abbott ISD identifies Kyle Crawford as its athletic director and head football coach on his district staff page. UIL lists Terry J Crawford for the historical 2022–23 team, when Kyle was among the assistants. The two records describe different seasons."
+      },
+      {
+        "question": "Where should visiting supporters look for Abbott football games and tickets?",
+        "answer": "Abbott's official district events calendar publishes current varsity dates. Dave Campbell's Texas Football calls the home venue Panther Field, but its stadium entrance address, admission and parking/accessibility policies are not confirmed by the sources reviewed. Contact Abbott ISD at (254) 582-3011 and use the live school calendar before traveling."
       }
     ]
   },
