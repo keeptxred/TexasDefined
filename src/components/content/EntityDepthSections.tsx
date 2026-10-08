@@ -38,18 +38,22 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
 
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : null;
   const regionName = entity.region ? title(entity.region) : null;
+  const regionContextName = regionName ? (regionName.endsWith('Texas') ? regionName : `${regionName} Texas`) : null;
   const contextItems = buildContextItems(entity, countyName, regionName);
   const practicalItems = practicalChecklist(entity);
   const questions = quickAnswers(entity, countyName, regionName);
-  const relatedItems = related.slice(0, 6);
+  const cityRelatedItems = entity.kind === 'city'
+    ? related.filter((item) => isLocalCityRelationship(item) && !governmentKinds.has(item.entity.kind))
+    : [];
+  const relatedItems = (entity.kind === 'city' ? cityRelatedItems : related).slice(0, 6);
   const cityProfile = entity.kind === 'city' ? getCityAuthorityProfile(entity.slug) : undefined;
   const cityIndustryPaths = entity.kind === 'city' ? getCityIndustryPaths(entity.slug) : [];
   const cityDiscoveryItems = entity.kind === 'city'
-    ? related.filter(({ entity: candidate }) =>
+    ? cityRelatedItems.filter(({ entity: candidate }) =>
         candidate.kind !== 'city'
         && candidate.kind !== 'county'
         && candidate.kind !== 'metro-area'
-        && !governmentKinds.has(candidate.kind),
+        && candidate.kind !== 'region',
       ).slice(0, 6)
     : [];
   const cityRelocationHref = entity.kind === 'city' && cityProfile
@@ -228,7 +232,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           <p className="max-w-3xl text-base leading-7 text-muted-foreground">
             Start with {entity.name} as a candidate, then move from city-level context to the exact address before making a housing decision.
             {countyName ? ` Verify ${countyName} and every property-specific jurisdiction for the address.` : ''}
-            {regionName ? ` Use the wider ${regionName} Texas context when comparing work corridors, airports and nearby communities.` : ''}
+            {regionContextName ? ` Use the wider ${regionContextName} context when comparing work corridors, airports and nearby communities.` : ''}
           </p>
           <a href={cityRelocationHref} className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Add {entity.name} to My Texas Move →</a>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -280,6 +284,16 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
       </div>
     </section> : null}
   </>;
+}
+
+function isLocalCityRelationship(item: RankedRelatedEntity) {
+  return item.reasons.some((reason) =>
+    reason === 'direct relationship'
+    || reason === 'incoming relationship'
+    || reason === 'same county'
+    || reason === 'within 25 miles'
+    || reason === 'within 75 miles',
+  );
 }
 
 function buildContextItems(entity: TexasEntityRecord, countyName: string | null, regionName: string | null) {
