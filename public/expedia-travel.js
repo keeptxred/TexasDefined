@@ -566,7 +566,7 @@
   // These narrow county routes defer existing lodging cards until React route hydration.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend")
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis")
       && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
