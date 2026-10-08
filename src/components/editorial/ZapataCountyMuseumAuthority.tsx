@@ -68,7 +68,7 @@ export default function ZapataCountyMuseumAuthority() {
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 52vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/80">South Texas · Zapata County · Museum</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Zapata County Museum of History</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/88">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/85">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
         <p className="mt-5 text-xs text-ink-foreground/80">Original TexasDefined heritage illustration — not an actual museum photograph.</p>
       </Container>
     </section>
