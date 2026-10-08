@@ -12,6 +12,8 @@ const countyRoute = read('src/routes/property-tax.county.$county.tsx');
 const entityRelationships = read('src/data/knowledge-graph/relationships.ts');
 const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
 const entityDepth = read('src/components/content/EntityDepthSections.tsx');
+const cityAuthorityProfiles = read('src/data/city-authority-profiles.ts');
+const cityMetroAuthority = read('src/data/city-metro-authority.ts');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
@@ -80,7 +82,7 @@ for (const forbiddenCopy of ['A closer look at ${entity.name}, where to find it,
 
 for (const feature of [
   'const relatedItems = related.slice(0, 6)',
-  'Related TexasDefined references',
+  'Related guides and places',
   'relatedItems.map(({ entity: candidate })',
 ]) {
   if (!entityDepth.includes(feature)) errors.push(`Generic entity related-reference contract missing: ${feature}`);
@@ -91,6 +93,63 @@ for (const stale of [
   'visibleRelated.map(({ entity: candidate }',
 ]) {
   if (entityRoute.includes(stale)) errors.push(`Generic entity template must not restore duplicate/vague tail content: ${stale}`);
+}
+
+for (const feature of [
+  'Primary county context',
+  "entity.kind === 'city'",
+  "name: title(entity.region)",
+  "${entity.name}, Texas: City Guide & Things to Do",
+]) {
+  if (!entityRoute.includes(feature)) errors.push(`Shared city route authority contract missing: ${feature}`);
+}
+for (const feature of [
+  'cityProfile.populationEstimate',
+  'Know which local government applies',
+  'cityProfile?.jurisdiction',
+  'cityProfile?.districts?.length',
+  'cityProfile?.featured?.length',
+  'cityDiscoveryItems',
+  'Best first stops and planning guides',
+  'Places connected to {entity.name}',
+  'Plan a move, home search or trip in {entity.name}',
+  'Related guides and places',
+  'What is ${entity.name} known for?',
+]) {
+  if (!entityDepth.includes(feature)) errors.push(`Shared city depth contract missing: ${feature}`);
+}
+for (const staleCityCopy of [
+  'is a TexasDefined city reference built to connect',
+  'It is not intended to be a generic encyclopedia entry',
+  'Useful TexasDefined tools for',
+  'Related TexasDefined references',
+]) {
+  if (entityDepth.includes(staleCityCopy)) errors.push(`Template-heavy city copy must not return: ${staleCityCopy}`);
+}
+const cityPopulationEstimateCount = (cityAuthorityProfiles.match(/populationEstimate:/g) ?? []).length;
+if (cityPopulationEstimateCount < 11) {
+  errors.push(`All published city authority profiles must carry the current verified Census estimate; found ${cityPopulationEstimateCount}, expected at least 11`);
+}
+
+for (const feature of [
+  'value: 1_028_117',
+  "'Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'",
+  'Fort Worth Stockyards',
+  'Kimbell Art Museum',
+  'Fort Worth Zoo',
+  'Dickies Arena',
+  'Near Southside',
+]) {
+  if (!cityAuthorityProfiles.includes(feature)) errors.push(`Fort Worth city authority remediation missing: ${feature}`);
+}
+for (const feature of [
+  'Tarrant County is the city’s primary county context',
+  "'jurisdiction-overlap', targetId: 'county:denton'",
+  "'jurisdiction-overlap', targetId: 'county:parker'",
+  "'jurisdiction-overlap', targetId: 'county:johnson'",
+  "'jurisdiction-overlap', targetId: 'county:wise'",
+]) {
+  if (!cityMetroAuthority.includes(feature)) errors.push(`Fort Worth city jurisdiction contract missing: ${feature}`);
 }
 
 for (const feature of [
