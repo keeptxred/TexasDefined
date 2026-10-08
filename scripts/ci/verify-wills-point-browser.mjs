@@ -38,6 +38,8 @@ function inspectSchool(data, viewport) {
   ]) check(data.text.includes(needle), viewport + ': missing ' + label);
   check(data.links.some(l => l.href === 'https://www.uiltexas.org/football/archives/P528'), viewport + ': missing official 1965 UIL archive link');
   check(data.links.some(l => /wphs\.wpisd\.com/.test(l.href)), viewport + ': missing official high-school source');
+  check(data.links.some(l => l.href.includes('wpisd.com/page/page_calendar?calID=122113')), viewport + ': missing live Wills Point ISD events calendar');
+  check(data.links.some(l => l.href === 'https://wphs.wpisd.com/3209_3'), viewport + ': missing official high-school ticket/contact source');
   check(data.links.some(l => new URL(l.href).pathname === countyPath), viewport + ': missing Wills Point → county internal link');
   check(data.jsonLd.includes('"SportsTeam"') && data.jsonLd.includes('"BreadcrumbList"'), viewport + ': SportsTeam or breadcrumb schema missing');
   check(data.documentWidth <= data.viewportWidth + 10, viewport + ': horizontal overflow (' + data.documentWidth + ' > ' + data.viewportWidth + ')');
