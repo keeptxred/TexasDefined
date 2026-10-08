@@ -562,11 +562,11 @@
     trackSurfaceImpression(surface, placement);
   }
 
-  // Preserve React SSR for the linked football county guides with individual Chrome acceptance.
-  // These narrow county routes defer existing lodging cards until React route hydration.
+  // Preserve React SSR for individually audited football-linked counties.
+  // Their lodging cards wait for route hydration; the pages still show eligible cards afterward.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend")
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis")
       && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 

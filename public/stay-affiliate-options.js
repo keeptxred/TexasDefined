@@ -492,11 +492,11 @@
     main.appendChild(createOwnerReferral());
   }
 
-  // Preserve the linked Van Zandt, Hill and Fort Bend County React trees during hydration.
+  // Preserve the linked Van Zandt, Hill, Fort Bend and Jeff Davis County React trees.
   // The named county pages signal readiness before first-party affiliate DOM writes.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend")
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis")
       && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
