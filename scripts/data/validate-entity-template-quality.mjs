@@ -14,6 +14,7 @@ const entityRoute = readRouteSurface('src/routes/$kind.$slug.tsx');
 const entityDepth = read('src/components/content/EntityDepthSections.tsx');
 const cityAuthorityProfiles = read('src/data/city-authority-profiles.ts');
 const cityMetroAuthority = read('src/data/city-metro-authority.ts');
+const entityFoodDestinations = read('src/components/content/EntityFoodDestinations.tsx');
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
@@ -107,7 +108,9 @@ for (const feature of [
   "related.filter((item) => isLocalCityRelationship(item)",
   "reason === 'same county'",
   "reason === 'within 75 miles'",
-  "regionName.endsWith('Texas')",
+  "isNearbyCityRelationship(item)",
+  "reason === 'within 25 miles'",
+  "Use the wider ${regionName} context",
   'cityProfile.populationEstimate',
   'Know which local government applies',
   'cityProfile?.jurisdiction',
@@ -130,6 +133,8 @@ for (const staleCityCopy of [
 ]) {
   if (entityDepth.includes(staleCityCopy)) errors.push(`Template-heavy city copy must not return: ${staleCityCopy}`);
 }
+if (cityAuthorityProfiles.includes('TexasDefined city context')) errors.push('City authority systems must use reader-first labels instead of TexasDefined platform language.');
+if (entityFoodDestinations.includes('TexasDefined currently connects')) errors.push('City/county food modules must use reader-first copy instead of platform narration.');
 const cityPopulationEstimateCount = (cityAuthorityProfiles.match(/populationEstimate:/g) ?? []).length;
 if (cityPopulationEstimateCount < 11) {
   errors.push(`All published city authority profiles must carry the current verified Census estimate; found ${cityPopulationEstimateCount}, expected at least 11`);
