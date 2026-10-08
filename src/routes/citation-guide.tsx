@@ -3,11 +3,13 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
+import { COMPLETE_FISHING_LAKE_SLUGS } from '@/data/fishing/slugs';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/citation-guide';
 const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
 const description = 'How to cite TexasDefined county, property-tax, data, travel and sports reference pages, Painted Churches resources and other maintained guides, including canonical URLs, source precedence, date context and machine-readable resources.';
+const completeFishingLakeGuideCount = COMPLETE_FISHING_LAKE_SLUGS.length;
 
 const GROUPS = [
   {
@@ -57,7 +59,7 @@ const GROUPS = [
   },
   {
     title: 'Fishing & lake references',
-    description: 'Source-backed statewide fishing discovery plus 15 complete lake guides. Durable fishery context is separated from current rules, water levels, ramp conditions and the current bite.',
+    description: `Source-backed statewide fishing discovery plus ${completeFishingLakeGuideCount} complete lake guides. The lake links below are a citation spotlight; use the complete lakes directory for the full published set. Durable fishery context is separated from current rules, water levels, ramp conditions and the current bite.`,
     links: [
       ['Texas fishing guide', '/fishing'],
       ['Compare complete fishing lakes', '/fishing/lakes'],
