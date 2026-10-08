@@ -125,6 +125,15 @@ jobs:
           STAGE_OUTCOME: ${{ steps.build.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-build "$STAGE_OUTCOME" "Production bundle build passed" "Production bundle build failed"
 
+      - name: Capture governed Discover derivatives after failed build
+        if: ${{ always() && steps.build.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: governed-discover-derivatives-${{ github.run_id }}-${{ github.run_attempt }}
+          path: public/images/discover/*.webp
+          if-no-files-found: error
+          retention-days: 1
+
       - name: Publish bundle budget pending
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget pending "Checking client bundle size budget"
