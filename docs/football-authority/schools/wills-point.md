@@ -27,3 +27,11 @@ URL: https://texasdefined.com/texas-high-school-football-teams/wills-point
 - School-color-accented editorial graphics and verified outbound links added without republishing unlicensed photos.
 - Individual search title and description, distinct school FAQs and relevant coach/stadium/schedule links implemented where supported.
 - Current status: IMPLEMENTED on GitHub branch, **not** production-verified. Required next: complete CI/protected merge, authentic image rights, inbound link inspection, actual mobile/desktop route verification.
+
+## Focused source reconciliation — 2026-10-08 (Stage A/B)
+- **Newly identified live-source accuracy regression:** Wills Point's 1965 title was inaccurately called historical **3A** in the deployed program-specific editorial, milestone, and FAQ. This is a factual error, not a modern-classification change.
+- **Primary-source correction:** The UIL's original 1965–66 championship archive records **Class 1A** champion Wills Point over **White Deer 14–0**: https://www.uiltexas.org/football/archives/P528. The UIL historical champions list corroborates the 1965 **1A** final (the champions table may spell the name "Willis Point"): https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html.
+- **Actual code change:** Corrected all three school-specific historical-class references in `src/data/high-school-football/program-editorial.ts` and replaced the historical milestone source URL with the direct UIL archival results page. The separate 2026–28 **4A Division II** classification remains unchanged.
+- **Implementation commit:** `134d2f584489ff1783fb4ae791d8602a03484a83` on `football-authority-wills-point-1965-1a-20261008`.
+- **Acceptance still open:** Protected CI and merge; post-merge deployment; direct Wills Point page and Van Zandt county reciprocal-link inspection; mobile and desktop layout/accessibility; licensed authentic school/stadium images or explicitly original graphics; verify venue policies, tickets, parking and current athletic notices.
+- **Evidence distinction:** External browsing returned an access error for this page, so this audit verifies a repository editorial bug and UIL sources, **not** newly rendered production acceptance. Leave `actualProductionVerified=false` and **do not** mark VERIFIED.
