@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
+import { getCitySocialImage } from '@/data/city-social-images';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
@@ -60,6 +61,7 @@ export const Route = createFileRoute('/$kind/$slug')({
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
+    const citySocialImage = loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined;
     let description = searchSnippetDescription(loaderData.entity);
     if (loaderData.entity.kind === 'county' && countySeriesArticle?.dek) description = countySeriesArticle.dek;
     const indexable = isIndexableEntityPage(loaderData.entity);
@@ -68,8 +70,8 @@ export const Route = createFileRoute('/$kind/$slug')({
         canonicalPath,
         title: searchIntentTitle(loaderData.entity),
         description,
-        image: countySeriesArticle?.hero.src,
-        imageAlt: countySeriesArticle?.hero.alt,
+        image: countySeriesArticle?.hero.src ?? citySocialImage?.src,
+        imageAlt: countySeriesArticle?.hero.alt ?? citySocialImage?.alt,
         imageWidth: countySeriesArticle?.hero.width,
         imageHeight: countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
