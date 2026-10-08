@@ -20,6 +20,14 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-10-08',
   },
   {
+    slug: 'fort-davis',
+    mascot: 'Indians',
+    colors: 'Green and Gold',
+    sourceUrl: 'https://www.fdisd.com/live-feed?page_no=69',
+    sourceLabel: 'Fort Davis ISD school spirit and official team updates',
+    verifiedAt: '2026-10-08',
+  },
+  {
     slug: 'spring',
     mascot: 'Lions',
     colors: 'Green and White',
@@ -548,6 +556,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'southlake-carroll',
     mascot: 'Dragons',
+    colors: 'Green, Black and White',
     sourceUrl: 'https://www.southlakecarroll.edu/district-information/district-departments/athletics',
     sourceLabel: 'Carroll ISD Athletics',
     verifiedAt: '2026-09-19',
