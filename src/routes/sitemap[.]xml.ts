@@ -5,6 +5,23 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 const origin = `https://${texasDefinedBrand.identity.domain}`;
 type SitemapEntry = { path: string; lastmod?: string };
 
+type EdgeCache = {
+  match(request: Request): Promise<Response | undefined>;
+  put(request: Request, response: Response): Promise<void>;
+};
+
+function getPrimarySitemapEdgeCache(): EdgeCache | null {
+  return (globalThis as unknown as { caches?: { default?: EdgeCache } }).caches?.default ?? null;
+}
+
+function primarySitemapCacheRequest(request: Request): Request {
+  const cacheUrl = new URL(request.url);
+  cacheUrl.search = "";
+  cacheUrl.hash = "";
+  return new Request(cacheUrl.toString(), { method: "GET" });
+}
+
+
 const PRIORITY_SEO_LASTMOD = "2026-08-20";
 const AUTHORITY_LASTMOD = "2026-09-01";
 const AUTHORITY_STATIC_PATHS = [
@@ -41,7 +58,18 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
+        const edgeCache = getPrimarySitemapEdgeCache();
+        const cacheRequest = primarySitemapCacheRequest(request);
+        if (edgeCache) {
+          try {
+            const cached = await edgeCache.match(cacheRequest);
+            if (cached) return cached;
+          } catch (error) {
+            console.warn("Primary sitemap edge cache read skipped", error);
+          }
+        }
+
         const {
           getTexasCountyHousingCosts,
           fetchPublishedTexasDefinedEvergreenArticlesForSitemap,
@@ -251,7 +279,20 @@ export const Route = createFileRoute("/sitemap.xml")({
         }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path)).map((entry) => [entry.path, entry])).values()];
 
         const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${uniqueEntries.map(({ path, lastmod }) => `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>`;
-        return new Response(body, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" } });
+        const response = new Response(body, {
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+          },
+        });
+        if (edgeCache) {
+          try {
+            await edgeCache.put(cacheRequest, response.clone());
+          } catch (error) {
+            console.warn("Primary sitemap edge cache write skipped", error);
+          }
+        }
+        return response;
       },
     },
   },
