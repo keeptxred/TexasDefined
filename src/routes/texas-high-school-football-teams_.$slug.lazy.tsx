@@ -198,7 +198,9 @@ function Page() {
         <div>
           <p className="eyebrow text-primary">Current district</p>
           <h2 className="mt-2 font-display text-3xl">{alignmentLabel(program)} · District {program.district}</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">{editorial?.notice
+              ? "These schools share the published 2026–28 UIL district alignment. Because this program announced a 2026 season cancellation, this list is not a schedule of actual opponents or games."
+              : "These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system."}</p>
           {districtPath && <a href={districtPath} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open full district guide →</a>}
         </div>
         <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">

@@ -77,7 +77,9 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
                 addressCountry: 'US',
               },
             } : undefined,
-            description: `${sportsTeamName} competes in ${classification}.`,
+            description: editorial?.notice
+              ? `${sportsTeamName} is assigned to ${classification} but has an announced 2026 football-season cancellation. UIL alignment is not confirmation of games being played.`
+              : `${sportsTeamName} competes in ${classification}.`,
           },
           ...(faq.length ? [{
             '@type': 'FAQPage',
