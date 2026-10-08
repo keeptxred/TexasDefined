@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { TexasPointMapGraphic } from "@/components/editorial/TexasPointMapGraphic";
 import { Container } from "@/components/layout/Container";
 import { lighthouseVisitorPlans } from "@/data/lighthouse-visitor-planning";
 import { texasLighthouseMapPoints, type TexasLighthouseStatus } from "@/data/texas-lighthouse-map-points";
@@ -149,6 +150,7 @@ export const Route = createFileRoute(canonicalPath)({
 });
 
 function TexasLighthousesHub() {
+  const mapPoints = texasLighthouseMapPoints.map((point) => ({ id: point.slug, name: point.name, lat: point.lat, lng: point.lon, detail: `${point.county} · ${statusMeta[point.status].label}` }));
   return <main>
     <section className="border-b border-border bg-surface">
       <Container className="py-16 sm:py-24">
@@ -167,7 +169,22 @@ function TexasLighthousesHub() {
     </section>
 
     <Container className="py-14 sm:py-20">
-      <section>
+      <section className="border-t-2 border-foreground pt-8">
+        <p className="eyebrow text-primary">Original TexasDefined map</p>
+        <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Texas lighthouse locations</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Six sourced lighthouse points show the surviving and relocated lights in the current TexasDefined collection, including Sabine Pass on the Louisiana side of the border approach.</p>
+        <TexasPointMapGraphic
+          id="texas-lighthouse-locations-graphic"
+          title="Texas lighthouse locations"
+          description="Map of six sourced lighthouse locations tied to the Texas Gulf Coast, from Sabine Pass to Port Isabel."
+          points={mapPoints}
+          filename="texas-lighthouse-locations-map"
+          methodologyHref="/sourcing-methodology"
+          sourceNote="Every point comes from the TexasDefined lighthouse coordinate dataset, which preserves a source URL and label for each location. Sabine Pass is plotted on the Louisiana side of the border waterway and is identified as such in the guide."
+        />
+      </section>
+
+      <section className="mt-20">
         <p className="eyebrow text-primary">Texas lighthouse guides</p>
         <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Meet the lights along the Gulf Coast.</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Choose a lighthouse to see its history, public-access reality and trip-planning details. Each card opens the dedicated TexasDefined guide for that light.</p>
