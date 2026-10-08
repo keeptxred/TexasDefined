@@ -165,6 +165,14 @@ jobs:
         run: |
           node scripts/assets/materialize-discover-overrides.mjs
           npm run build
+          mkdir -p dist/client/images/discover
+          cp -f public/images/discover/*.webp dist/client/images/discover/
+          discover_asset_count="$(find dist/client/images/discover -maxdepth 1 -type f -name '*.webp' | wc -l | tr -d ' ')"
+          if [[ "$discover_asset_count" -lt 42 ]]; then
+            echo "::error title=Governed Discover assets missing from client bundle::Expected at least 42 governed Discover derivatives in dist/client/images/discover; found $discover_asset_count."
+            exit 1
+          fi
+          echo "Verified $discover_asset_count governed Discover derivatives in dist/client static assets."
           if ! git diff --exit-code -- src/routeTree.gen.ts; then
             echo '::error title=Generated route tree is stale::The production build changed src/routeTree.gen.ts. Commit the TanStack-generated route tree before deployment.'
             exit 1
