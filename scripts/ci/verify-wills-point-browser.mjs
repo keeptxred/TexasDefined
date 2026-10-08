@@ -32,6 +32,8 @@ function inspectSchool(data, viewport) {
     ['14–0', '1965 final score'],
     ['4A Division II', 'current UIL assignment'],
     ['James Boxley', 'documented coach'],
+    ['Steve Oliver', 'school-listed 2026-27 offensive coordinator'],
+    ['Flint Bigham', 'school-listed 2026-27 defensive coordinator'],
     ['Ken Autry Davis Field', 'stadium'],
   ]) check(data.text.includes(needle), viewport + ': missing ' + label);
   check(data.links.some(l => l.href === 'https://www.uiltexas.org/football/archives/P528'), viewport + ': missing official 1965 UIL archive link');
