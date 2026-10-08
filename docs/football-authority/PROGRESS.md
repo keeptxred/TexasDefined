@@ -92,3 +92,8 @@ Refresh latest `main`, read `MASTER.md`, `REGISTRY.json` and this ledger, and re
 - School-only QA hardening branch `football-authority-wills-point-qa-hardening-20261008` adds per-route hydration failure reporting, fresh county browser navigation, robust full-page screenshot validation and county title/canonical assertions. **Do not infer a pass before its GitHub workflow has actually run.** Resume that PR; once protected/deployed inspect new report and screenshots. Registry remains 5 DEPLOYED / 0 VERIFIED and 1,292 total.
 
 - **Exact PR:** [#4340](https://github.com/keeptxred/TexasDefined/pull/4340) adds the Wills Point-specific QA hardening above; inspect merge/deploy and new production Chrome outcome before claiming it passed. No new school was started in this chat.
+
+## Wills Point visitor-resource improvement — 2026-10-08
+- While PR #4340 stricter browser QA was deploying, separately sourced a missing school-specific visitor need: direct clickable [district 2026 events calendar](https://wpisd.com/page/page_calendar?calID=122113) and [official high school ticket office/GoFan information](https://wphs.wpisd.com/3209_3), explicitly recognizing 2025 prices/deadlines as stale for 2026. Added official high-school campus contact, distinguished it from field address, and documented contradictory stadium capacities (boosters 4,047 vs Dave Campbell 3,000).
+- Scoped Wills Point-only source change `254021e` and stricter responsive browser link assertions `30504bf` on `football-authority-wills-point-game-day-sources-20261008`. Preserve protected CI and deployment gate; no other school edited.
+- Registry status remains 5 DEPLOYED, 0 VERIFIED until stricter Chrome QA and image/visitor acceptance is reconciled. No unassigned school has been started.
