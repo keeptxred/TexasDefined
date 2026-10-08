@@ -229,7 +229,10 @@ function wikimediaDirectOriginalSource(source) {
 async function fetchRemoteSource(slug, source) {
   let lastError;
   const directWikimediaSource = wikimediaDirectOriginalSource(source);
-  let requestSource = directWikimediaSource ?? source;
+  const requestSources = [...new Set([directWikimediaSource, source].filter(Boolean))];
+  let sourceIndex = 0;
+  let requestSource = requestSources[sourceIndex] ?? source;
+
   for (let attempt = 1; attempt <= REMOTE_SOURCE_ATTEMPTS; attempt += 1) {
     let response;
     try {
@@ -252,6 +255,14 @@ async function fetchRemoteSource(slug, source) {
     const error = new Error(`Unable to fetch governed source for ${slug}: ${response.status} ${requestSource}`);
     if (!RETRYABLE_SOURCE_STATUSES.has(response.status) || attempt === REMOTE_SOURCE_ATTEMPTS) throw error;
     lastError = error;
+
+    if (sourceIndex + 1 < requestSources.length && (response.status === 429 || attempt >= 2)) {
+      sourceIndex += 1;
+      requestSource = requestSources[sourceIndex];
+      console.warn(`Remote Discover source returned HTTP ${response.status} for ${slug}; switching to the governed Commons redirect endpoint before the next retry.`);
+      await sleep(1000);
+      continue;
+    }
 
     const delayMs = retryDelayMs(response, attempt);
     console.warn(`Remote Discover source returned retryable HTTP ${response.status} for ${slug} (attempt ${attempt}/${REMOTE_SOURCE_ATTEMPTS}); retrying in ${delayMs}ms.`);
