@@ -230,7 +230,7 @@ function DestinationPage() {
       <Container className="relative flex flex-col justify-end" style={{ minHeight: "clamp(24rem, 52vw, 32rem)", paddingTop: "6rem", paddingBottom: "3rem" }}>
         <p className="eyebrow text-ink-foreground/80">{region?.name ?? "Texas"} · {categoryName}</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{destination.name}</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/88">{destination.summary}</p>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-foreground/85">{destination.summary}</p>
         {destination.hero.credit && <p className="mt-6 text-[0.7rem] uppercase tracking-[0.12em] text-ink-foreground/60">Photography: {destination.hero.credit}</p>}
       </Container>
     </section>
