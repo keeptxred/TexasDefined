@@ -14,6 +14,7 @@ export type FootballProgramEditorial = {
     sourceLabel: string;
     verifiedAt: string;
   };
+  notice?: { title: string; body: string; sourceUrl: string; sourceLabel: string; verifiedAt: string };
   schedule?: {
     label: string;
     sourceUrl: string;
@@ -247,6 +248,148 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Which stadium hosts Katy's 2026 football games?",
         "answer": "The current team schedule assigns games to Legacy Stadium and Rhodes Stadium. Always confirm the specific game's venue and ticket information."
+      }
+    ]
+  },
+  "fort-davis": {
+    "slug": "fort-davis",
+    "theme": {
+      "accentHex": "#407A41",
+      "label": "Green and gold from Fort Davis ISD's published spirit references"
+    },
+    "seo": {
+      "title": "Fort Davis Indians Football: 2026 Season Canceled & 2003 Final",
+      "description": "Fort Davis Indians six-man football: district canceled the 2026 season because of low participation; explore its 2003 state-final run and UIL alignment."
+    },
+    "notice": {
+      "title": "Fort Davis ISD canceled the 2026 football season",
+      "body": "On August 20, 2026, Superintendent Jason Crow announced cancellation of both high-school and middle-school football because too few students could participate. Although UIL's 2026–28 alignment still lists Fort Davis in 1A Division II District 5, that alignment does not mean games are being played in 2026. Check Fort Davis ISD for any future change.",
+      "sourceUrl": "https://www.firstalert7.com/2026/08/20/fort-davis-cancels-2026-football-season/",
+      "sourceLabel": "First Alert 7 reporting Fort Davis ISD's August 20 announcement",
+      "verifiedAt": "2026-10-08"
+    },
+    "overview": [
+      "Fort Davis' Indians are a Jeff Davis County six-man football program with a documented UIL state-finals appearance in 2003. The UIL all-time register credits the team with one championship-game appearance and no state football title.",
+      "The 2003 championship game was unusually close: Fort Davis finished runner-up to Strawn by a score of 67–62. That history gives this small Davis Mountains program a distinct place in Texas six-man football.",
+      "For the 2026–28 alignment, UIL assigned Fort Davis to Class 1A Division II, District 5, alongside Dell City, Marfa and Sierra Blanca. But Fort Davis ISD announced August 20 that the 2026 middle- and high-school football seasons were canceled due to low participation. Do not use the alignment list as a 2026 game schedule.",
+      "Fort Davis ISD's public materials identify its teams as the Indians and promote green-and-gold school spirit. Its staff page currently identifies Gary Beam as athletic director, but that alone does not establish a current head-football-coach assignment."
+    ],
+    "milestones": [
+      {
+        "date": "2003",
+        "title": "Five points from a six-man state crown",
+        "body": "Fort Davis played in the 2003 six-man state championship, losing a 67–62 final to Strawn. UIL lists it as the team's only state-final appearance.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time football appearances"
+      },
+      {
+        "date": "2026–28",
+        "title": "Assigned to UIL District 5",
+        "body": "The official 1A Division II realignment includes Fort Davis, Dell City, Marfa and Sierra Blanca. Alignment does not establish that actual 2026 games will take place.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL football alignment"
+      },
+      {
+        "date": "August 20, 2026",
+        "title": "Football season canceled",
+        "body": "Fort Davis ISD announced that insufficient student participation required canceling the entire 2026 football season for both high school and middle school.",
+        "sourceUrl": "https://www.firstalert7.com/2026/08/20/fort-davis-cancels-2026-football-season/",
+        "sourceLabel": "Local reporting of superintendent's announcement"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Fort Davis playing high school football in 2026?",
+        "answer": "No. According to the Fort Davis ISD superintendent's August 20 announcement, the 2026 football season was canceled for both high school and middle school because of low participation. Verify any subsequent changes with the district."
+      },
+      {
+        "question": "Has Fort Davis won a Texas six-man state championship?",
+        "answer": "UIL's all-time football register credits Fort Davis with one state-final appearance, in 2003, but no state title. It lost that final to Strawn 67–62."
+      },
+      {
+        "question": "What UIL district was Fort Davis assigned for 2026?",
+        "answer": "Fort Davis remains listed in UIL Class 1A Division II, District 5 for the 2026–28 realignment, even though the school canceled its 2026 football season."
+      }
+    ]
+  },
+  "southlake-carroll": {
+    "slug": "southlake-carroll",
+    "theme": {
+      "accentHex": "#176B4A",
+      "label": "Dragon green with white and black, grounded in the team's UIL identity"
+    },
+    "seo": {
+      "title": "Southlake Carroll Dragons Football: 8 State Titles & 2026 Team",
+      "description": "Southlake Carroll Dragons football: eight actual state titles, coach Lee Munn, Dragon Stadium and official 2026 schedule; 2003 runner-up clarified."
+    },
+    "coach": {
+      "name": "Lee Munn",
+      "title": "Head football coach, appointed February 2, 2026",
+      "sourceUrl": "https://www.dragonsportsnetwork.com/news/110554",
+      "sourceLabel": "Carroll ISD official coaching announcement",
+      "verifiedAt": "2026-10-08"
+    },
+    "schedule": {
+      "label": "Official 2026 Carroll varsity football schedule and ticket information",
+      "sourceUrl": "https://www.southlakecarroll.edu/district-information/district-departments/athletics",
+      "sourceLabel": "Carroll ISD Athletics",
+      "verifiedAt": "2026-10-08"
+    },
+    "overview": [
+      "Southlake Carroll's Dragons have won eight Texas football state championships: 1988, 1992, 1993, 2002, 2004, 2005, 2006 and 2011. Carroll ISD explicitly refers to eight titles in its official 2026 football announcement.",
+      "The 2003 state final is a historic near miss, not a ninth title. UIL's own account says Katy defeated the Dragons 16–15. An inconsistent UIL all-time summary currently marks 2003 as a Carroll title, so TexasDefined cross-checks that entry against the direct game record and Carroll ISD rather than copying the erroneous number.",
+      "Carroll ISD named Lee Munn head coach on February 2, 2026 after he had served as associate head coach and defensive coordinator. For the 2026–28 UIL realignment, Southlake Carroll competes in 6A District 4.",
+      "The 2026 varsity schedule assigns home games to Dragon Stadium but also includes away sites and the season-opening Cotton Bowl matchup against Jenks. Fans should confirm the particular stadium, admission rules and kickoff through Carroll ISD Athletics rather than presume every game takes place at Dragon Stadium."
+    ],
+    "milestones": [
+      {
+        "date": "1988–1993",
+        "title": "The first three championship seasons",
+        "body": "The Dragons won state championships in 1988, 1992 and 1993, before the turn-of-century 5A title runs.",
+        "sourceUrl": "https://www.southlakecarroll.edu/district-information/district-departments/athletics/dragon-state-championships",
+        "sourceLabel": "Carroll ISD state championship list"
+      },
+      {
+        "date": "2002–2006",
+        "title": "Four more titles and a 2003 near miss",
+        "body": "Carroll won titles in 2002, 2004, 2005 and 2006. Katy beat Carroll in the 2003 5A Division II final, 16–15; 2003 was not a Dragons championship.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL 100-year football game retrospective"
+      },
+      {
+        "date": "2011",
+        "title": "The eighth state championship",
+        "body": "Carroll ISD lists football among its 2011–12 state championships, bringing the program's recognized total to eight.",
+        "sourceUrl": "https://www.southlakecarroll.edu/district-information/district-departments/athletics/dragon-state-championships",
+        "sourceLabel": "Official Carroll ISD championship history"
+      },
+      {
+        "date": "2024",
+        "title": "Another trip to the state final",
+        "body": "The UIL 2024–25 archive documents Carroll's run to the 6A Division II state championship game under then-coach Riley Dodge.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/southlake-carroll-2024-2025-football",
+        "sourceLabel": "UIL 2024–25 Carroll state-team record"
+      },
+      {
+        "date": "2026",
+        "title": "Lee Munn named head coach",
+        "body": "Carroll ISD appointed Lee Munn as head football coach February 2, 2026 after eight years with the staff.",
+        "sourceUrl": "https://www.dragonsportsnetwork.com/news/110554",
+        "sourceLabel": "Official Carroll athletics news"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many football championships has Southlake Carroll actually won?",
+        "answer": "Eight: 1988, 1992, 1993, 2002, 2004, 2005, 2006 and 2011. An erroneous UIL summary marks 2003 as a ninth win, but UIL's direct 2003 game recap and Carroll ISD confirm Katy won that final."
+      },
+      {
+        "question": "Who coaches Southlake Carroll football in 2026?",
+        "answer": "Carroll ISD named Lee Munn head football coach on February 2, 2026, following his service as associate head coach and defensive coordinator."
+      },
+      {
+        "question": "Where do the Carroll Dragons play home games?",
+        "answer": "The Dragons use Dragon Stadium for listed home dates, but the official 2026 schedule also assigns other venues, including the Cotton Bowl for the August 27 opener. Confirm each game on Carroll ISD Athletics."
       }
     ]
   },
