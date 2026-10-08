@@ -77,7 +77,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
         </div>
         <div>
           {cityProfile.hero ? <figure className="mb-8 overflow-hidden border border-border bg-muted/20">
-            <img src={cityProfile.hero.src} alt={cityProfile.hero.alt} className="aspect-[16/7] w-full object-cover" loading="lazy" decoding="async" />
+            <img src={cityProfile.hero.src} alt={cityProfile.hero.alt} className="aspect-video w-full object-cover" loading="lazy" decoding="async" />
             {(cityProfile.hero.credit || cityProfile.hero.sourceUrl) ? <figcaption className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 text-xs leading-5 text-muted-foreground">
               <span>{cityProfile.hero.alt}</span>
               {cityProfile.hero.sourceUrl ? <a href={cityProfile.hero.sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">{cityProfile.hero.credit ?? 'Image source'} ↗</a> : cityProfile.hero.credit}
