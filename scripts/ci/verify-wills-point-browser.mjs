@@ -88,6 +88,9 @@ async function inspectCounty(page, viewport) {
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
   await page.evaluate(() => document.fonts?.ready);
   await page.waitForTimeout(750);
+  // The Van Zandt after-hydration guard must not silently remove monetization.
+  // It should allow the existing contextual lodging surface once React owns the DOM.
+  await page.locator('#expedia-travel-surface').waitFor({ state: 'attached', timeout: 15_000 });
   await page.evaluate(() => window.scrollTo(0, 0));
   const county = await page.evaluate((schoolPath) => {
     const link = Array.from(document.querySelectorAll('a[href]')).find(el => new URL(el.href).pathname === schoolPath && (el.innerText || '').includes('Wills Point'));

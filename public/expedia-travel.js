@@ -562,7 +562,16 @@
     trackSurfaceImpression(surface, placement);
   }
 
+  // The Wills Point county-link landing route must finish React hydration before
+  // lodging cards modify nodes owned by the SSR React tree. Other routes keep
+  // their existing scheduling and affiliate placement behavior.
+  function waitingForVanZandtHydration() {
+    return window.location.pathname.replace(/\/+$/, "") === "/county/van-zandt"
+      && document.documentElement.dataset.tdVanZandtHydrated !== "1";
+  }
+
   async function syncSurface() {
+    if (waitingForVanZandtHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
 
@@ -627,6 +636,7 @@
     }
 
     window.addEventListener("popstate", scheduleSync);
+    window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {

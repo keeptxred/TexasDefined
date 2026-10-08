@@ -492,8 +492,16 @@
     main.appendChild(createOwnerReferral());
   }
 
+  // Protect the linked Van Zandt County route from early DOM insertions inside
+  // the server-rendered React tree. The route explicitly signals on hydration.
+  function waitingForVanZandtHydration() {
+    return window.location.pathname.replace(/\/+$/, "") === "/county/van-zandt"
+      && document.documentElement.dataset.tdVanZandtHydrated !== "1";
+  }
+
   function sync() {
     scheduled = false;
+    if (waitingForVanZandtHydration()) return;
     addStyles();
     syncBookingChoice();
     syncOwnerReferral();
@@ -511,6 +519,7 @@
     observer = new MutationObserver(scheduleSync);
     observer.observe(main, { childList: true, subtree: true });
     window.addEventListener("popstate", scheduleSync);
+    window.addEventListener("texasdefined:county-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
