@@ -227,9 +227,9 @@ const baseSeasonalIntentArticles: Article[] = [
       { href: "/article/fall-in-texas-complete-guide", label: "Complete Texas fall guide", description: "Compare East Texas with the Hill Country and West Texas." },
       { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color destinations", description: "Rank the parks and landscapes most worth a foliage trip." },
       { href: "/article/caddo-lake-cypress-morning", label: "Caddo Lake at water level", description: "See why paddling changes the experience of East Texas cypress country." },
-      { href: "/state-park/daingerfield-state-park", label: "Daingerfield State Park", description: "Plan a walk around the lake and mixed woodland." },
-      { href: "/state-park/tyler-state-park", label: "Tyler State Park", description: "Explore another East Texas lake and forest setting." },
-      { href: "/state-park/martin-creek-lake-state-park", label: "Martin Creek Lake State Park", description: "Compare a backup East Texas woodland stop." },
+      { href: "/destination/daingerfield-state-park", label: "Daingerfield State Park", description: "Plan a walk around the lake and mixed woodland." },
+      { href: "/destination/tyler-state-park", label: "Tyler State Park", description: "Explore another East Texas lake and forest setting." },
+      { href: "/destination/martin-creek-lake-state-park", label: "Martin Creek Lake State Park", description: "Compare a backup East Texas woodland stop." },
     ],
     body: [
       { type: "paragraph", text: "East Texas foliage is a patchwork: changing sweetgum, oak and hickory among evergreen pines, with bronze bald cypress around lakes and wetlands. The park-by-park guide below explains access, approximate timing and realistic alternatives. Confirm recent dated park reports before traveling." },
