@@ -57,6 +57,9 @@ async function checkSchool(page, viewport) {
   verify(data.h1s.length === 1 && /Katy Tigers Football/i.test(data.h1s[0]), viewport + ': invalid Katy H1 ' + JSON.stringify(data.h1s));
   verify(data.title.includes('Katy Tigers Football: Nine Texas State Titles'), viewport + ': Katy-specific title missing');
   verify(data.description.length >= 80 && /Katy Tigers/i.test(data.description), viewport + ': Katy meta description');
+  // NCES Katy High campus ID 482517002809 is in Fort Bend; Katy ISD also serves Harris.
+  verify(/from KATY, FORT BEND COUNTY/i.test(data.text), viewport + ': Katy campus county must be Fort Bend, not Harris');
+  verify(!/from KATY, HARRIS COUNTY/i.test(data.text), viewport + ': Katy campus misattributed to Harris County');
   verify(data.canonical === origin + schoolPath && !/\bnoindex\b/i.test(data.robots), viewport + ': canonical/indexability');
   for (const label of [
     'Gary Joseph', 'Mike Johnston', 'Red Sea', 'Legacy Stadium', 'Rhodes Stadium',
