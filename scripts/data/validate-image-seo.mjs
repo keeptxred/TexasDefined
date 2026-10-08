@@ -24,6 +24,7 @@ const imageReconciler = read('scripts/data/populate-missing-site-images.mjs');
 const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml');
 const productionImageAudit = read('scripts/ci/verify-image-discover-production.mjs');
 const productionImageWorkflow = read('.github/workflows/audit-image-discover-production.yml');
+const deployWorkflow = read('.github/workflows/deploy-production.yml');
 const discoverMaterializer = read('scripts/assets/materialize-discover-overrides.mjs');
 const fishingImageLibrary = read('src/data/fishing/image-library.ts');
 const fishingLakeRoute = read('src/routes/fishing.lakes.$slug.tsx');
@@ -74,6 +75,12 @@ for (const marker of ['CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID 
 for (const marker of ['const MIN_DISCOVER_WIDTH = 1200;', 'const MIN_DISCOVER_PIXELS = 300_000;', 'max-image-preview:large', "twitterCard !== 'summary_large_image'", 'missing-og-image-alt', 'preferred-image-looks-generic-or-placeholder', 'preferred-image-svg', 'preferred-image-reused-', 'preferred-image-fetch-rate-limited', 'page-contains-image-unavailable-fallback-copy', '/^\\/destination\\//', '/^\\/county\\//', '/^\\/fishing(?:\\/|$)/', '/^\\/event\\//', '/^\\/sports-venue\\//', '/^\\/article\\//', 'const REQUEST_RETRIES =', 'async function fetchWithRetry', 'transientFetchError(error)']) if (!productionImageAudit.includes(marker)) errors.push(`Production image/Discover crawler missing: ${marker}`);
 for (const marker of ['name: Image and Discover production audit', 'schedule:', 'workflow_run:', 'Deploy TexasDefined production', 'types:', 'completed', "github.event.workflow_run.conclusion == 'success'", "github.event.workflow_run.head_sha", "IMAGE_AUDIT_STRICT: '1'", 'node scripts/ci/verify-image-discover-production.mjs', 'image-discover-production-report.json']) if (!productionImageWorkflow.includes(marker)) errors.push(`Production image/Discover workflow missing: ${marker}`);
 for (const retiredTrigger of ['pull_request:', '\\n  push:']) if (productionImageWorkflow.includes(retiredTrigger)) errors.push(`Production image/Discover audit must not crawl live production from retired pre-deploy trigger: ${retiredTrigger.trim()}`);
+for (const marker of [
+  'mkdir -p dist/client/images/discover',
+  'cp -f public/images/discover/*.webp dist/client/images/discover/',
+  'discover_asset_count="$(find dist/client/images/discover',
+  'Expected at least 42 governed Discover derivatives in dist/client/images/discover',
+]) if (!deployWorkflow.includes(marker)) errors.push(`Production deploy must promote generated Discover derivatives into the static client bundle: ${marker}`);
 const messinaDiscoverSource = '"messina-hof-hill-country",\n    "https://upload.wikimedia.org/wikipedia/commons/1/17/Messina_Hof_Vineyard.jpg"';
 if (!discoverMaterializer.includes(messinaDiscoverSource)) errors.push('Messina Hof Discover derivative must use the governed exact-subject Wikimedia vineyard source.');
 if (discoverMaterializer.includes('"messina-hof-hill-country",\n    "/images/destinations/flat-creek-estate-ai-illustration.webp"')) errors.push('Messina Hof Discover derivative must not reuse the unrelated Flat Creek Estate illustration.');
