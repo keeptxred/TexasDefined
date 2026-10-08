@@ -48,6 +48,10 @@ async function checkSchool(page, viewport) {
     };
   });
   data.http = response?.status() || 0;
+  // Restore scroll after exposing the archival photograph; otherwise a sticky
+  // mobile header can be painted at the image offset in a full-page capture.
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(250);
   await page.screenshot({ path: artifacts + '/' + viewport + '-abbott.png', fullPage: true, animations: 'disabled' });
   verify(data.http === 200, viewport + ': Abbott HTTP ' + data.http);
   verify(data.h1s.length === 1 && /Abbott Panthers Football/i.test(data.h1s[0]), viewport + ': invalid Abbott H1 ' + JSON.stringify(data.h1s));
@@ -81,6 +85,9 @@ async function checkCounty(page, viewport) {
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
   await page.evaluate(() => document.fonts?.ready);
   await page.waitForTimeout(750);
+  // Confirm hydration protection does not silently disable the county's
+  // existing lodging/affiliate surface, as well as checking runtime errors.
+  await page.locator('#expedia-travel-surface').waitFor({ state: 'attached', timeout: 15_000 });
   const data = await page.evaluate((school) => {
     const h1 = document.querySelector('h1')?.innerText || '';
     const canonical = document.querySelector('link[rel=canonical]')?.href || '';

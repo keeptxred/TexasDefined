@@ -492,16 +492,17 @@
     main.appendChild(createOwnerReferral());
   }
 
-  // Protect the linked Van Zandt County route from early DOM insertions inside
-  // the server-rendered React tree. The route explicitly signals on hydration.
-  function waitingForVanZandtHydration() {
-    return window.location.pathname.replace(/\/+$/, "") === "/county/van-zandt"
-      && document.documentElement.dataset.tdVanZandtHydrated !== "1";
+  // Preserve the linked Van Zandt and Hill County React trees during hydration.
+  // Both county pages signal readiness before first-party affiliate DOM writes.
+  function waitingForFootballCountyHydration() {
+    const path = window.location.pathname.replace(/\/+$/, "");
+    return (path === "/county/van-zandt" || path === "/county/hill")
+      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
   function sync() {
     scheduled = false;
-    if (waitingForVanZandtHydration()) return;
+    if (waitingForFootballCountyHydration()) return;
     addStyles();
     syncBookingChoice();
     syncOwnerReferral();
