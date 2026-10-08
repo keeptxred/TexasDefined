@@ -170,6 +170,11 @@ function EditorialOutreachAdmin() {
               <div className="flex items-start justify-between gap-4"><div><h3 className="font-display text-2xl">{item.organization}</h3><p className="mt-1 text-xs text-muted-foreground">{item.category} · {item.locationLabel}</p></div><span className="text-xs font-semibold">score {item.score}</span></div>
               <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.reason}</p>
               <ul className="mt-4 space-y-2 text-sm leading-6 text-muted-foreground">{item.suggestedAsks.map((ask) => <li key={ask}>• {ask}</li>)}</ul>
+              {item.relatedProspectResearch?.length ? <div className="mt-5 border-t border-border pt-4">
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">Related prospect research</p>
+                <p className="mt-2 text-xs leading-5 text-muted-foreground">Research only; nothing is sent or added to the command center automatically. Verify the official organization/contact and deduplicate before promotion.</p>
+                <ul className="mt-3 space-y-3 text-xs leading-5 text-muted-foreground">{item.relatedProspectResearch.map((prospect) => <li key={`${prospect.kind}:${prospect.label}`}><span className="font-semibold text-foreground">{prospect.kind.replaceAll("-", " ")} · {prospect.label}</span><br />{prospect.qualification}</li>)}</ul>
+              </div> : null}
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm"><a href={item.pagePath} className="font-semibold text-primary underline underline-offset-4">TexasDefined event guide</a><a href={item.officialUrl} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">Official organizer ↗</a></div>
             </article>)}
           </div>

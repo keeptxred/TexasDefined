@@ -15,6 +15,14 @@ import {
   type EditorialOutreachScorecard,
 } from "./editorial-outreach-scoring";
 
+export type EventProspectResearchKind = "organizer" | "venue" | "tourism-cvb" | "chamber" | "local-community";
+
+export interface EventProspectResearchLane {
+  kind: EventProspectResearchKind;
+  label: string;
+  qualification: string;
+}
+
 export interface EditorialOutreachResearchCandidate {
   id: string;
   contentKind: "destination" | "event" | "article-source";
@@ -28,6 +36,7 @@ export interface EditorialOutreachResearchCandidate {
   status: "contact-research" | "source-research";
   reason: string;
   suggestedAsks: string[];
+  relatedProspectResearch?: EventProspectResearchLane[];
 }
 
 export interface EditorialOutreachNeedsImprovement {
@@ -130,12 +139,51 @@ export async function loadEditorialOutreachDashboard(accessKey: string): Promise
 
   const eventIntake: EditorialOutreachResearchCandidate[] = [];
   for (const event of loadUpcomingTexasEventRecordsServer()) {
-    if (!event.officialEventUrl || !event.lastVerifiedAt || seededPaths.has(event.guidePath)) continue;
+    if (
+      !event.officialEventUrl
+      || !event.lastVerifiedAt
+      || seededPaths.has(event.guidePath)
+      || event.guidePath.startsWith("/events?")
+    ) continue;
+
     const namedSource = event.sourceName && !/^official organizer$/i.test(event.sourceName) ? event.sourceName : null;
+    const organizer = namedSource ?? `${event.title} organizer`;
+    const relatedProspectResearch: EventProspectResearchLane[] = [
+      {
+        kind: "organizer",
+        label: organizer,
+        qualification: "Use the current official organizer URL already attached to the source-qualified event. Before promotion, deduplicate the organization/domain against the Backlink Command Center and verify a current communications or media contact.",
+      },
+    ];
+    if (event.venueName) {
+      relatedProspectResearch.push({
+        kind: "venue",
+        label: event.venueName,
+        qualification: "Research only when the venue is a distinct managing organization and an official venue/contact source can be verified. Deduplicate the organization/domain before promotion.",
+      });
+    }
+    relatedProspectResearch.push(
+      {
+        kind: "tourism-cvb",
+        label: `${event.city} tourism/CVB`,
+        qualification: "Research only an official destination-marketing or visitor organization with a clear visitor-planning relationship to this event. Verify the official domain/contact and deduplicate before promotion.",
+      },
+      {
+        kind: "chamber",
+        label: `${event.city} chamber`,
+        qualification: "Research only a legitimate local chamber when the event materially serves its visitor or community audience. Verify the official domain/contact and deduplicate before promotion.",
+      },
+      {
+        kind: "local-community",
+        label: `${event.city} relevant community/cultural organization`,
+        qualification: "Research only a specific organization with a direct subject-matter, cultural or community relationship to this event. Do not create a generic prospect merely because the event occurs locally.",
+      },
+    );
+
     eventIntake.push({
       id: `event:${event.slug}`,
       contentKind: "event",
-      organization: namedSource ?? `${event.title} organizer`,
+      organization: organizer,
       pagePath: event.guidePath,
       officialUrl: event.officialEventUrl,
       category: `event:${event.category}`,
@@ -143,13 +191,14 @@ export async function loadEditorialOutreachDashboard(accessKey: string): Promise
       sourceCheckedAt: event.lastVerifiedAt,
       score: Math.min(94, 82 + (namedSource ? 5 : 0) + (event.image?.displayAllowed ? 4 : 0)),
       status: "contact-research",
-      reason: "Upcoming source-qualified event with a permanent TexasDefined guide and current official organizer URL. Research the organizer's communications or media contact before outreach.",
+      reason: "Upcoming source-qualified event with a permanent TexasDefined guide and current official organizer URL. Research the organizer first; venue, tourism/CVB, chamber and community lanes are research flags only and must be independently qualified and deduplicated before promotion to the command center.",
       suggestedAsks: [
         "Verify dates, venue and visitor-planning details.",
         "Add TexasDefined to relevant press-release or organizer-update distribution.",
         "Provide approved event photography or media-use guidance.",
         "Establish a recurring update channel for next year's event before the public planning cycle begins.",
       ],
+      relatedProspectResearch,
     });
   }
 

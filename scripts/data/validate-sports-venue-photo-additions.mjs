@@ -21,6 +21,17 @@ if (baseSlugs.length < 25) failures.push(`Expected at least the 25 protected cur
 if (additionSlugs.length !== 34) failures.push(`Expected 34 rights-verified supplemental photo records; found ${additionSlugs.length}.`);
 if (new Set(additionSlugs).size !== additionSlugs.length) failures.push('Photo additions contain duplicate slugs within the supplemental registry.');
 
+const southwestUniversityParkStart = additions.indexOf("  'southwest-university-park': {");
+const southwestUniversityParkEnd = additions.indexOf("\n  '", southwestUniversityParkStart + 1);
+const southwestUniversityParkBlock = additions.slice(southwestUniversityParkStart, southwestUniversityParkEnd === -1 ? additions.indexOf('\n};', southwestUniversityParkStart) : southwestUniversityParkEnd);
+for (const marker of [
+  '2015_Army_Trials_150328-A-XY211-029.jpg?width=1600',
+  "author: 'Sgt. 1st Class Christophe Paul, U.S. Army'",
+  "licenseName: 'Public domain'",
+  'width: 1600',
+  'height: 1067',
+]) requireText(southwestUniversityParkBlock, marker, 'Southwest University Park Discover-ready hero');
+
 for (const slug of additionSlugs) {
   const start = additions.indexOf(`  '${slug}': {`);
   const next = additions.indexOf("\n  '", start + 1);
