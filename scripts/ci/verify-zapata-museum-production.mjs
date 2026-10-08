@@ -58,6 +58,22 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const mime = asset.response.headers.get('content-type') || '';
     if (!mime.includes('image/svg+xml')) throw new Error(`Hero SVG returned unexpected type: ${mime}`);
     if (!asset.content.includes('ORIGINAL EDITORIAL ILLUSTRATION')) throw new Error('Illustration attribution is missing');
+    // The Explore sitemap can temporarily fall back during remote catalog outages;
+    // only a normal healthy sitemap is authoritative for per-destination inclusion.
+    try {
+      const sitemap = await download(`${origin}/sitemap-explore.xml?verification=${nonce}`);
+      const fallback = sitemap.response.headers.get('x-texasdefined-sitemap-fallback') === '1';
+      if (fallback) {
+        console.warn('Explore sitemap was served in governed outage fallback mode: museum inclusion not certified on this run.');
+      } else if (!sitemap.content.includes(`<loc>${canonical}</loc>`)) {
+        throw new Error('Zapata museum is missing from the healthy Explore sitemap');
+      } else {
+        console.log('Explore sitemap contains the canonical Zapata museum URL.');
+      }
+    } catch (sitemapError) {
+      if (sitemapError instanceof Error && sitemapError.message.includes('missing from the healthy Explore sitemap')) throw sitemapError;
+      console.warn(`Explore sitemap unavailable; dedicated page indexability remains verified: ${sitemapError instanceof Error ? sitemapError.message : String(sitemapError)}`);
+    }
     console.log(`PASS: Zapata museum public HTML, canonical, indexability, exhibit content, source link, Museum schema and exact hero (attempt ${attempt}).`);
     process.exit(0);
   } catch (error) {
