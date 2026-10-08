@@ -39,7 +39,9 @@ function Page() {
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
   const countyPath = schoolName === 'Abbott'
     ? '/county/hill'
-    : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+    : schoolName === 'Katy'
+      ? '/county/fort-bend'
+      : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
@@ -199,7 +201,7 @@ function Page() {
             </div>
           </>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
-            {countyPath && <a href={countyPath} className="text-primary">Open {program?.countyName} guide →</a>}
+            {countyPath && <a href={countyPath} className="text-primary">Open {schoolName === 'Katy' ? 'Fort Bend County' : schoolName === 'Abbott' ? 'Hill County' : program?.countyName} guide →</a>}
             {program && <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>}
             {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary">Official UIL alignment ↗</a>}
           </div>

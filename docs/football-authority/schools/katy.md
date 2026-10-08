@@ -28,3 +28,12 @@ URL: https://texasdefined.com/texas-high-school-football-teams/katy
 
 ## Licensed authentic image found (2026-10-08)
 - Historic Katy High School “Home of Champions” entrance sign, original photo by Sskiles22; explicitly dedicated to the public domain by the uploader: https://commons.wikimedia.org/wiki/File:KatyHighSchool.JPG . Render as an archival school image with 2009 date, not current-game footage. Unlicensed sports photos remain excluded.
+
+
+## Focused Katy individual browser acceptance in progress — 2026-10-08
+- **Current main checkpoint:** `89ee67475adced77e87ac62c62a74f3a8cc63bc3`; Wills Point and Abbott are already VERIFIED, and Katy remains DEPLOYED pending its own independent acceptance, not a new school assignment.
+- Official [Katy Tigers team schedule](https://www.katyfb.com/schedule) currently lists both Legacy Stadium and Rhodes Stadium and multiple away assignments; the page must not promise one fixed game venue.
+- Source-backed campus county: [NCES Katy High School record](https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809), Fort Bend County. The production Fort Bend County SSR displays an incoming Katy Tigers profile link; a Katy-only outbound county fallback is implemented on the QA branch to withstand optional TEA directory join outages.
+- Existing public-domain [2009 school entrance photograph](https://commons.wikimedia.org/wiki/File:KatyHighSchool.JPG) must load at desktop and mobile with explicit historic label and credit. It is not a contemporary game photo. Do not use unlicensed team photography.
+- Scoped new files: `scripts/ci/verify-katy-browser.mjs` and `.github/workflows/verify-katy-browser.yml`. Strict browser acceptance tests Katy and Fort Bend County independently at 1366px and 390px, school history/coaching/schedule/SEO/schema, county reciprocity, imagery rights/loading, responsive overflow, runtime errors, and captured real screenshots. No test has passed yet on this new workflow.
+- **Current stage:** protected PR, deployment and browser acceptance pending. Do not mark Katy VERIFIED until the actual deployed run and screenshots pass; preserve other four Batch 001 records.

@@ -256,8 +256,8 @@ if (!errors.length) {
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
-    "const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives'",
-    "const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives'",
+    "const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives/'",
+    "const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives/'",
     "const HISTORY_START_SEASON = '2018-2019'",
     "const HISTORY_END_SEASON = '2025-2026'",
     'ARCHIVE_PAGE_OFFSETS',
