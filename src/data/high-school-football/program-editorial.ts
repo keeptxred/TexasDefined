@@ -58,8 +58,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "coach": {
       "name": "James Boxley",
       "title": "Athletic director and head football coach",
-      "sourceUrl": "https://wphs.wpisd.com/3184_3",
-      "sourceLabel": "Wills Point High School Athletics",
+      "sourceUrl": "https://wphs.wpisd.com/28755_3",
+      "sourceLabel": "Wills Point High School 2026–27 coaches",
       "verifiedAt": "2026-10-08"
     },
     "venue": {
@@ -68,12 +68,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://wp-abc.org/pages/our-facilities",
       "sourceLabel": "Wills Point Athletic Booster Club facilities",
       "verifiedAt": "2026-10-08",
-      "note": "The booster club identifies Ken Autry Davis Field as the Tigers' dedicated football stadium. Verify the current game venue, parking and ticket instructions with the school before traveling."
+      "note": "The booster club identifies Ken Autry Davis Field at 785 Wingo Way as the Tigers' football stadium and reports seating for 4,047. The school's ticketing page currently contains 2025-specific instructions: verify 2026 tickets, gate policies, accessibility and parking directly with Wills Point High School before traveling."
     },
     "overview": [
       "Wills Point's football story includes a state championship: the UIL all-time appearances archive lists the Tigers as 1965 Class 1A state champions. The official 1965–66 UIL football archive records a 14–0 state-final win over White Deer. The 1965 1A designation must not be confused with Wills Point's 2026–28 4A Division II placement.",
       "For the 2026–28 realignment, Wills Point is a 4A Division II, District 7 team. The district opponents shown elsewhere on this profile reflect that cycle rather than an all-time rivals list.",
-      "The high school identifies James Boxley as its athletic director and head football coach, a position he assumed in February 2023. For fans visiting Ken Autry Davis Field, the booster club documents the facility while the school remains the current source for game-specific details."
+      "The high school identifies James Boxley as head football coach, appointed in February 2023; its 2026–27 coaching directory names Steve Oliver as offensive coordinator and Flint Bigham as defensive coordinator. For games at Ken Autry Davis Field, use school ticket and event updates rather than assuming old posted prices or parking policies apply."
     ],
     "milestones": [
       {
@@ -91,6 +91,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "sourceLabel": "Wills Point High School athletics"
       },
       {
+        "date": "2026–27",
+        "title": "The school-listed coaching staff",
+        "body": "Wills Point High School identifies James Boxley as head football coach, Steve Oliver as offensive coordinator and Flint Bigham as defensive coordinator for 2026–27.",
+        "sourceUrl": "https://wphs.wpisd.com/28755_3",
+        "sourceLabel": "Official Wills Point 2026–27 coaches"
+      },
+      {
         "date": "2026–28",
         "title": "The 4A Division II era",
         "body": "The current UIL cycle places Wills Point in Class 4A Division II, District 7.",
@@ -105,7 +112,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who coaches Wills Point football?",
-        "answer": "Wills Point High School identifies James Boxley as its head football coach and athletic director; the school dates the role to February 2023."
+        "answer": "Wills Point High School lists James Boxley as head football coach in its 2026–27 coaches directory, alongside offensive coordinator Steve Oliver and defensive coordinator Flint Bigham. The school dates Boxley’s coaching appointment to February 2023."
       },
       {
         "question": "Where is Wills Point's home football field?",
