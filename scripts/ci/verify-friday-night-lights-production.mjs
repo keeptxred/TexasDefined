@@ -468,6 +468,9 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
 await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) => {
   for (const needle of [
     'Abbott',
+    'Willie Nelson',
+    'Willie-Nelson-Highschool.jpg',
+    'Abbott High School football halfback',
     '1A',
     'Current district',
     'How to enroll at',
