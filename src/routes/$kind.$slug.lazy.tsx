@@ -29,6 +29,40 @@ const CountyHighSchoolFootball = lazy(() =>
   })),
 );
 
+// Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
+const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
+  'van-zandt': {
+    name: 'Wills Point Tigers',
+    href: '/texas-high-school-football-teams/wills-point',
+    description: 'Explore the Tigers’ 1965 state championship, James Boxley coaching record and Ken Autry Davis Field.',
+    campusCountySource: 'https://nces.ed.gov/globallocator/index.asp?CS=2DB804E&College=1&Library=1&PrivSchool=1&School=1&State=&city=&itemname=poi&miles=&search=1&sortby=name&zipcode=',
+  },
+  hill: {
+    name: 'Abbott Panthers',
+    href: '/texas-high-school-football-teams/abbott',
+    description: 'Follow Abbott’s six-man state finals, 2015 championship and the archival football story of alumnus Willie Nelson.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480738000006',
+  },
+  'fort-bend': {
+    name: 'Katy Tigers',
+    href: '/texas-high-school-football-teams/katy',
+    description: 'Katy High School’s campus is in Fort Bend County; explore nine football state titles and verified 2026 team resources.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809',
+  },
+  'jeff-davis': {
+    name: 'Fort Davis Indians',
+    href: '/texas-high-school-football-teams/fort-davis',
+    description: 'Read the 2003 six-man championship-game history and the district’s announced cancellation of its 2026 season.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?DistrictID=4820100&ID=482010001962&Search=1',
+  },
+  tarrant: {
+    name: 'Southlake Carroll Dragons',
+    href: '/texas-high-school-football-teams/southlake-carroll',
+    description: 'Research eight actual state titles, the disputed 2003 UIL summary and the Dragons’ 2026 leadership.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481302000791',
+  },
+};
+
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
 const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
@@ -38,6 +72,7 @@ export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage
 function EntityPage() {
   const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
   const visibleRelated = relatedForDisplay(entity, related);
+  const batch001FootballLink = entity.kind === 'county' ? batch001FootballCountyLinks[entity.slug] : undefined;
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
   const canonicalPath = canonicalEntityPath(entity);
@@ -128,6 +163,17 @@ function EntityPage() {
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
+        {batch001FootballLink ? <section aria-label="Researched high school football history from this county" className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Local football history</p>
+            <h2 className="mt-2 font-display text-3xl">A researched school program</h2>
+          </div>
+          <div className="max-w-3xl">
+            <a href={batch001FootballLink.href} className="text-lg font-semibold text-primary underline underline-offset-4">{batch001FootballLink.name} football profile →</a>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{batch001FootballLink.description}</p>
+            <p className="mt-2 text-xs text-muted-foreground">Campus county checked against <a href={batch001FootballLink.campusCountySource} target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">federal school records ↗</a>. This independent football guide is not an official school website.</p>
+          </div>
+        </section> : null}
         {entity.kind === 'wildlife-species' ? <WildlifeDepthSections entity={entity} related={visibleRelated} /> : entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
 
         {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
