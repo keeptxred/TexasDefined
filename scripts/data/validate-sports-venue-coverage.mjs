@@ -195,6 +195,26 @@ assert(!faqBuilder.includes('verifiedAt'), 'Sports venue quick answers must keep
 assert(!faqBuilder.includes('How current is this ${venueName} visitor guide?'), 'Sports venue quick answers must keep source-review metadata out of consumer FAQ copy.');
 assert(!faqBuilder.includes('formatDate(verifiedAt)'), 'Sports venue quick answers must not transform verification metadata into a consumer FAQ answer.');
 
+for (const marker of [
+  'getSportsVenueQualityProfileAll',
+  'getSportsVenueQualityProfile(lookupSlug)',
+  'getSportsVenueQualityProfileWave5(lookupSlug)',
+  'getSportsVenueQualityProfileWave9(lookupSlug)',
+]) {
+  assert(enrichmentAll.includes(marker), `Combined sports venue quality lookup is missing ${marker}.`);
+}
+for (const marker of [
+  'getSportsVenueQualityProfileAll(slug)',
+  'visitorFacts?.accessibility',
+  'visitorFacts?.bagAndEntry',
+  'visitorFacts?.leagueOrConference',
+  'qualityProfile?.sourceReview.authoritativeSources',
+  'guide={effectiveGuide}',
+]) {
+  assert(sharedGuideContent.includes(marker), `Shared sports venue guide must surface vetted visitor facts: ${marker}.`);
+}
+assert(sharedGuidePage.includes('League / conference'), 'Shared sports venue quick facts must surface sourced league or conference context.');
+
 for (const getter of [
   'getSportsVenueContentRemediation(lookupSlug)',
   'getSportsVenueContentRemediationWave2(lookupSlug)',
