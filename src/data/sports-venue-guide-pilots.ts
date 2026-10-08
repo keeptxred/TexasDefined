@@ -9,6 +9,7 @@ export type SportsVenueGuidePilot = {
   subtitle: string;
   venueType: string;
   homeTeam?: string;
+  leagueOrConference?: string;
   capacity?: string;
   playingSurface?: string;
   opened?: string;
