@@ -165,6 +165,7 @@ for (const feature of [
 for (const slug of ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock']) {
   if (!citySocialImages.includes(`${slug}:`) && !citySocialImages.includes(`'${slug}':`)) errors.push(`City social image metadata missing for ${slug}`);
 }
+if (!citySocialImages.includes('import.meta.env.SSR ? {')) errors.push('City social image registry must remain SSR-only so city OG metadata does not consume the protected main client bundle.');
 for (const feature of [
   "cityAuthorityCheckedAt = '2026-10-08'",
   "targetId: 'county:fort-bend'",
