@@ -31,6 +31,9 @@ async function verifyCountyHub() {
 
   const markers = [
     'Discover all 254 Texas counties',
+    'Every Texas county has a story worth exploring',
+    'Search Texas counties',
+    'Find DMV and county vehicle offices',
     '/images/texas-county-map-red.svg',
     'Search counties by city',
     'Search counties by ZIP code',
