@@ -1,3 +1,4 @@
+import { WildlifeRangeGraphic } from '@/components/content/WildlifeRangeGraphic';
 import { canonicalEntityPath, type RankedRelatedEntity } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { WILDLIFE_CORE_PROFILES } from '@/data/wildlife-authority-core';
@@ -34,6 +35,8 @@ export function WildlifeDepthSections({ entity, related }: { entity: TexasEntity
         </div>
       </div>
     </section>
+
+    <WildlifeRangeGraphic slug={entity.slug} speciesName={entity.name} />
 
     {imageSet ? <WildlifeImageCards images={imageSet.cards} speciesName={entity.name} /> : null}
 
