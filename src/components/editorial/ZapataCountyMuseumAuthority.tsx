@@ -65,20 +65,20 @@ export default function ZapataCountyMuseumAuthority() {
     <section className="relative mt-6 overflow-hidden bg-ink text-ink-foreground">
       <img src="/images/zapata-county-museum-history-editorial.svg" alt="Original illustration about Old Zapata, Falcon Reservoir and the museum; not a photograph or precise geographic map" width={1600} height={900} decoding="async" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover opacity-75" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/15" />
-      <Container className="relative flex min-h-[29rem] flex-col justify-end pb-12 pt-28 sm:min-h-[34rem]">
+      <Container className="relative flex flex-col justify-end pb-12 pt-28" style={{ minHeight: "clamp(24rem, 52vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/80">South Texas · Zapata County · Museum</p>
-        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[1.02] sm:text-7xl">Zapata County Museum of History</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/90">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
-        <p className="mt-5 text-xs text-ink-foreground/70">Original TexasDefined heritage illustration — not an actual museum photograph.</p>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Zapata County Museum of History</h1>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/88">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
+        <p className="mt-5 text-xs text-ink-foreground/80">Original TexasDefined heritage illustration — not an actual museum photograph.</p>
       </Container>
     </section>
 
     <Container className="py-12 sm:py-16">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="border-t-2 border-primary pt-4"><p className="eyebrow text-muted-foreground">Where</p><p className="mt-2 font-semibold">805 N U.S. Highway 83<br />Zapata, TX 78076</p></div>
-        <div className="border-t-2 border-primary pt-4"><p className="eyebrow text-muted-foreground">Public hours</p><p className="mt-2 font-semibold">Tuesday–Friday<br />10 a.m.–4 p.m.</p></div>
-        <div className="border-t-2 border-primary pt-4"><p className="eyebrow text-muted-foreground">Adult admission</p><p className="mt-2 font-semibold">$7</p><p className="text-sm text-muted-foreground">Reduced rates for seniors, students and children</p></div>
-        <div className="border-t-2 border-primary pt-4"><p className="eyebrow text-muted-foreground">Call ahead</p><a className="mt-2 inline-block font-semibold underline decoration-primary underline-offset-4" href="tel:+19567658983">(956) 765-8983</a><p className="text-sm text-muted-foreground">Weekend group tours by prior appointment</p></div>
+        <div className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">Where</p><p className="mt-2 font-semibold">805 N U.S. Highway 83<br />Zapata, TX 78076</p></div>
+        <div className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">Public hours</p><p className="mt-2 font-semibold">Tuesday–Friday<br />10 a.m.–4 p.m.</p></div>
+        <div className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">Adult admission</p><p className="mt-2 font-semibold">$7</p><p className="text-sm text-muted-foreground">Reduced rates for seniors, students and children</p></div>
+        <div className="border-t border-border pt-4"><p className="eyebrow text-muted-foreground">Call ahead</p><a className="mt-2 inline-block font-semibold underline decoration-primary underline-offset-4" href="tel:+19567658983">(956) 765-8983</a><p className="text-sm text-muted-foreground">Weekend group tours by prior appointment</p></div>
       </div>
 
       <div className="mt-8 flex flex-wrap gap-4 text-sm">
@@ -89,7 +89,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Hours and admission last checked October 8, 2026 against the museum’s published visitor information. Confirm before travel, especially around holidays.</p>
     </Container>
 
-    <section className="border-y border-border bg-muted/30 py-14 sm:py-20">
+    <section className="border-y border-border py-14 sm:py-20">
       <Container className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(250px,.85fr)]">
         <div>
           <p className="eyebrow text-primary">The defining story</p>
@@ -98,7 +98,7 @@ export default function ZapataCountyMuseumAuthority() {
           <p className="mt-5 leading-8">Historic photographs and artifacts were saved from Old Zapata. Preserving those materials gave later generations a way to understand the streets, families and institutions that existed before the reservoir. The museum opened in 2011 to interpret that inheritance alongside the much older history of this borderlands region.</p>
           <p className="mt-5 leading-8">This story is more than an account of a dam: it is about the lived experience of relocation, the role of the Rio Grande in cross-border communities, and the continuing importance of memory and place.</p>
         </div>
-        <aside className="border-t-2 border-primary pt-5">
+        <aside className="border-t border-border pt-5">
           <p className="eyebrow text-primary">Historical milestones</p>
           <ol className="mt-6 space-y-6">
             <li><strong className="block">Mid-1700s</strong><span className="text-sm leading-6 text-muted-foreground">Spanish-era settlement shaped communities and institutions along this stretch of the Rio Grande.</span></li>
@@ -115,7 +115,7 @@ export default function ZapataCountyMuseumAuthority() {
       <h2 className="mt-3 font-display text-4xl">What you can explore inside</h2>
       <p className="mt-5 max-w-3xl leading-8">The museum combines community-history objects with broader natural and cultural history. The subjects below come from its published exhibit descriptions; installations may change.</p>
       <div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {galleries.map((item, index) => <article key={item.title} className="rounded-sm border border-border bg-background p-6">
+        {galleries.map((item, index) => <article key={item.title} className="border border-border p-6">
           <p className="eyebrow text-primary">Exhibit {String(index + 1).padStart(2, "0")}</p>
           <h3 className="mt-4 font-display text-2xl">{item.title}</h3>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.detail}</p>
@@ -124,7 +124,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="mt-6 text-sm leading-7 text-muted-foreground">For authentic exterior and exhibit photography, view the <a className="text-primary underline underline-offset-4" href={heritageUrl} target="_blank" rel="noopener noreferrer">Texas Historical Commission’s museum listing and images</a> or the <a className="text-primary underline underline-offset-4" href="https://zapatamuseum.com/index.php/photo-gallery" target="_blank" rel="noopener noreferrer">museum’s own photo gallery</a>. Images are not copied here without reuse permission.</p>
     </Container>
 
-    <section className="border-y border-border bg-muted/30 py-14 sm:py-20">
+    <section className="border-y border-border py-14 sm:py-20">
       <Container className="grid gap-12 lg:grid-cols-2">
         <div>
           <p className="eyebrow text-primary">Planning your visit</p>
@@ -150,8 +150,8 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="eyebrow text-primary">Make it a South Texas history day</p>
       <h2 className="mt-3 font-display text-4xl">Explore beyond the museum</h2>
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="border-t-2 border-primary pt-5"><h3 className="font-display text-2xl">Zapata County and Falcon Reservoir</h3><p className="mt-3 leading-7 text-muted-foreground">Use the museum to understand the communities transformed by Falcon Dam, then explore the modern lakeshore and wider county geography.</p><Link to="/$kind/$slug" params={{ kind: "county", slug: "zapata" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore Zapata County →</Link></div>
-        <div className="border-t-2 border-primary pt-5"><h3 className="font-display text-2xl">San Ygnacio Historic District</h3><p className="mt-3 leading-7 text-muted-foreground">Continue north on U.S. 83 to experience the surviving sandstone architecture and borderlands heritage of historic San Ygnacio.</p><a href={sanYgnacioUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Historical site visitor details ↗</a></div>
+        <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">Zapata County and Falcon Reservoir</h3><p className="mt-3 leading-7 text-muted-foreground">Use the museum to understand the communities transformed by Falcon Dam, then explore the modern lakeshore and wider county geography.</p><Link to="/$kind/$slug" params={{ kind: "county", slug: "zapata" }} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Explore Zapata County →</Link></div>
+        <div className="border-t border-border pt-5"><h3 className="font-display text-2xl">San Ygnacio Historic District</h3><p className="mt-3 leading-7 text-muted-foreground">Continue north on U.S. 83 to experience the surviving sandstone architecture and borderlands heritage of historic San Ygnacio.</p><a href={sanYgnacioUrl} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Historical site visitor details ↗</a></div>
       </div>
     </Container>
 
@@ -161,7 +161,7 @@ export default function ZapataCountyMuseumAuthority() {
         <h2 className="mt-3 font-display text-3xl">How this guide was verified</h2>
         <p className="mt-4 max-w-3xl leading-7">TexasDefined editorial research · Last checked October 8, 2026. Museum hours, admission, tour policies and exhibit topics are attributed to the museum and Zapata County; historical context is cross-checked against the Texas Historical Commission's heritage tourism program. Exhibit availability and operating details can change without notice.</p>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {sources.map((source) => <li key={source.href}><a className="text-sm text-primary underline underline-offset-4" href={source.href} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}
+          {sources.map((source) => <li key={source.href}><a className="text-sm underline text-primary" href={source.href} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}
         </ul>
         <p className="mt-8 text-xs text-muted-foreground">Recommended citation: TexasDefined. “Zapata County Museum of History: Exhibits, Hours &amp; Admission.” Verified October 8, 2026. https://texasdefined.com/destination/zapata-county-museum-history</p>
       </Container>
