@@ -14,17 +14,25 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 4. `fort-davis` — assigned; individual research and audit not yet begun.
 5. `southlake-carroll` — assigned; individual research and audit not yet begun.
 
-## Initial counts, before implementation / deployment
-- Inventory: 1,292; researched: 3; **0 fully VERIFIED**.
-- Audited live production: 0; implemented/merged/deployed: 0, pending implementation/checks.
+## Current counts, after implementing three school profiles on the branch
+- Inventory: **1,292**; researched: **3**; implemented on branch: **3**; **0 fully VERIFIED**.
+- Actual rendered live page audits: 0; **merged: 0**, **production verified: 0**. CI and safe merge remain outstanding.
 - No school may advance to VERIFIED until **actual post-deployment inspection**.
+
+## Implemented branch records
+- Wills Point: 1965 UIL title, James Boxley, Ken Autry Davis Field, source-backed 2026 district and individual blue/white graphics.
+- Abbott: Panthers/old gold identity, 2012/2015/2022 state finals, 2024 semifinal and current six-man alignment.
+- Katy: nine title years, Mike Johnston/Gary Joseph, Red Sea, current official team schedule and source-linked red/white milestones.
+- Shared supporting code changes are conditional on school-specific editorial; this is **not** a universal template substitution for per-school research.
+- Code commits: `8031522d`, `4f0d07d4`, `78a25a72`, `d7286a43`. Registry implementation checkpoint `738119a6`.
+- Still pending: authentic-asset rights, specific inbound contextual link changes, CI, merge, live mobile/desktop checks, and verification in production.
 
 ## Current blockers and honest limitations
 - Live school page URLs returned an access error in the current research browser; live HTML, photo presentation, mobile and production SEO cannot yet be certified.
 - Discoverable Wills Point photographs on booster, contractor and third-party websites are not verified as reusable; do not copy them.
 
 ## Next actions
-- Finish source-backed school-specific content/design/metadata for the three researched schools and run CI.
+- Source-backed original histories, school-specific metadata, verified colors/mascots, sourced milestone graphics and individual FAQs now implemented for Wills Point, Abbott and Katy. Run CI and address outstanding acceptance items.
 - Review PR/merge/current main safely; inspect live page after deployment if reachable.
 - Complete Fort Davis and Southlake Carroll **within this same batch in a subsequent chat if necessary**, not as a sixth school.
 - Update registry with exact PR references, test outcomes and verification. Begin batch 002 only after batch 001 is resolved or a genuine blocker is recorded.
