@@ -56,6 +56,23 @@ function Page() {
 
       <UilFootballProgramDirectory programs={programs} />
 
+      <section className="border-b border-border py-12" aria-labelledby="football-program-stories">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div>
+            <p className="eyebrow text-primary">Individual school research</p>
+            <h2 id="football-program-stories" className="mt-2 font-display text-3xl leading-tight">Five football stories behind the district list</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground">Every team has a different story. Start with these researched examples, and then explore the statewide team finder.</p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <RelatedLink href="/texas-high-school-football-teams/wills-point" title="Wills Point Tigers: The 1965 champions" body="A state-title history, current coach James Boxley and how to find Ken Autry Davis Field." />
+            <RelatedLink href="/texas-high-school-football-teams/abbott" title="Abbott Panthers: A six-man championship tradition" body="The 2015 state title, 2012 and 2022 finals and another deep playoff run in 2024." />
+            <RelatedLink href="/texas-high-school-football-teams/katy" title="Katy Tigers: Nine state crowns" body="The title-winning decades, the Red Sea, major coaching eras and present-day game resources." />
+            <RelatedLink href="/texas-high-school-football-teams/fort-davis" title="Fort Davis: The 2026 season that did not happen" body="Why the school canceled football, how the UIL district listing differs and the 2003 state-final story." />
+            <RelatedLink href="/texas-high-school-football-teams/southlake-carroll" title="Southlake Carroll: Eight titles, not nine" body="A documented 2003 runner-up result, Coach Lee Munn's 2026 appointment and the Dragons' championship legacy." />
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-border py-12" aria-labelledby="supplemental-football-profiles">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Additional researched programs</p><h2 id="supplemental-football-profiles" className="mt-2 font-display text-3xl leading-tight">Open source-backed profiles outside the current UIL directory list</h2></div>

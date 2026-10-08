@@ -29,6 +29,7 @@ export type FootballProfileContentInput = {
     venue?: { name: string; address: string };
     schedule?: { label: string };
     faq?: Array<{ question: string; answer: string }>;
+    notice?: { title: string; body: string };
   } | null;
 };
 
@@ -61,6 +62,9 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
 
   if (program) {
     const alignment = footballProfileAlignmentLabel(input);
+    if (editorial?.notice) {
+      return `${team} is assigned to ${alignment}, but the school announced a 2026 football-season cancellation. ${editorial.notice.body}`;
+    }
     const place = [program.city, program.countyName].filter(Boolean).join(', ');
     const enrollment = program.uilEnrollment
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
@@ -154,12 +158,14 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     });
   }
 
-  items.push({
-    question: `Where can I verify the current ${displayName} football schedule and scores?`,
-    answer: editorial?.schedule
-      ? `Use the school-published ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
-      : 'Use the UIL Texas Scoreboard and the school or district athletics source linked on this page. Game dates, kickoff times and venues can change during the season.',
-  });
+  if (!editorial?.notice) {
+    items.push({
+      question: `Where can I verify the current ${displayName} football schedule and scores?`,
+      answer: editorial?.schedule
+        ? `Use the school-published ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
+        : 'Use the UIL Texas Scoreboard and the school or district athletics source linked on this page. Game dates, kickoff times and venues can change during the season.',
+    });
+  }
 
   const merged = [...(editorial?.faq ?? []), ...items];
   const seen = new Set<string>();

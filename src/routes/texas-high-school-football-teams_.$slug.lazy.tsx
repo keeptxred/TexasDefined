@@ -72,6 +72,16 @@ function Page() {
         </dl>
       </header>
 
+      {editorial?.notice && <aside aria-label="Current school football season status" className="border-b border-border py-7">
+        <div className="border-l-4 border-foreground bg-surface p-5 sm:p-7">
+          <p className="eyebrow text-primary">Important 2026 program update</p>
+          <h2 className="mt-2 font-display text-3xl">{editorial.notice.title}</h2>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-foreground">{editorial.notice.body}</p>
+          <a href={editorial.notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.notice.sourceLabel} ↗</a>
+          <p className="mt-2 text-xs text-muted-foreground">Reporting checked {editorial.notice.verifiedAt}; consult the district for later changes.</p>
+        </div>
+      </aside>}
+
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Quick answers</p>
@@ -97,6 +107,23 @@ function Page() {
             {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
             {editorial.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.campus.sourceLabel} ↗</a>}
           </div>
+        </div>
+      </section>}
+
+      {editorial?.milestones && editorial.milestones.length > 0 && <section aria-label={`${displayName} verified football milestones`} className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">The program story</p>
+          <h2 className="mt-2 font-display text-3xl">Milestones that shaped {displayName} football</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">Every moment is linked to its supporting source. Historical classifications, championship years and coaching records are separate from the current UIL alignment.</p>
+          {editorial.theme && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}. This is an original editorial graphic—not official team artwork.</p>}
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
+            <p className="font-display text-2xl font-semibold" style={{ color: editorial.theme?.accentHex }}>{milestone.date}</p>
+            <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.body}</p>
+            <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{milestone.sourceLabel} ↗</a>
+          </article>)}
         </div>
       </section>}
 
@@ -171,7 +198,9 @@ function Page() {
         <div>
           <p className="eyebrow text-primary">Current district</p>
           <h2 className="mt-2 font-display text-3xl">{alignmentLabel(program)} · District {program.district}</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system.</p>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">{editorial?.notice
+              ? "These schools share the published 2026–28 UIL district alignment. Because this program announced a 2026 season cancellation, this list is not a schedule of actual opponents or games."
+              : "These are the other schools in the same 2026–28 UIL football district. Every opponent links to the same school-profile system."}</p>
           {districtPath && <a href={districtPath} className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open full district guide →</a>}
         </div>
         <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
@@ -281,6 +310,7 @@ function Page() {
             <Snapshot label="UIL table through" value={String(program.allTimeHistory.publishedThroughYear)} />
           </dl>
           {program.allTimeHistory.appearanceYears && <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">State-final appearance years:</strong> {program.allTimeHistory.appearanceYears}</p>}
+          {program.allTimeHistory.documentedCorrection && <p className="mt-3 border-l-4 border-foreground bg-surface p-4 text-sm leading-7 text-foreground"><strong>Championship source correction:</strong> {program.allTimeHistory.documentedCorrection.note} <a href={program.allTimeHistory.documentedCorrection.sourceUrl} className="font-semibold text-primary underline underline-offset-4" target="_blank" rel="noreferrer noopener">Read the official 2003 game recap ↗</a></p>}
           {program.allTimeHistory.supplementedFinals.length > 0 && <p className="mt-3 text-xs leading-6 text-muted-foreground">TexasDefined supplements UIL’s published all-time table with {program.allTimeHistory.supplementedFinals.length} newer completed {program.allTimeHistory.supplementedFinals.length === 1 ? 'state final' : 'state finals'} from the official UIL state archive.</p>}
           <a href={program.allTimeHistory.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">UIL all-time appearances ↗</a>
         </div>
@@ -308,7 +338,7 @@ function Page() {
         </div>
       </section>}
 
-      {program && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {program && !editorial?.notice && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">2026 scores & schedule sources</h2>
