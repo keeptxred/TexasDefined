@@ -15,13 +15,14 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 5. `southlake-carroll` — individually audited and implemented on branch; 8-title correction and 2026 coach documented.
 
 ## Pull request, CI and remaining acceptance
-- PR: [#4330](https://github.com/keeptxred/TexasDefined/pull/4330) — open, originally reported mergeable by GitHub.
+- Core PR: [#4330](https://github.com/keeptxred/TexasDefined/pull/4330) — merged 2026-10-08 at `7ec7444474dde1db49bfe50219f5ca013b3aff49`, protected checks passed.
+- Licensed Katy/Fort Davis photo and smoke follow-up: [#4331](https://github.com/keeptxred/TexasDefined/pull/4331) — merged 2026-10-08 at `ad0cf18ab922c4832740c0cb969ec429a0eebb73`.
 - Football team finder now includes five context-specific inbound links to these individual researched school pages.
 - CI is required; live profile/mobile checks and photography licenses are still unresolved; do not mark VERIFIED based on code alone.
 
-## Current counts, after implementing three school profiles on the branch
-- Inventory: **1,292**; researched: **5**; implemented on branch: **5**; **0 fully VERIFIED**.
-- Actual rendered live page audits: 0; **merged: 0**, **production verified: 0**. CI and safe merge remain outstanding.
+## Current counts after protected merge
+- Inventory: **1,292**; individually researched: **5**; implemented and merged: **5**; **0 fully VERIFIED**.
+- Actual rendered *post-deployment* live page audits: **0**; **merged: 5**, **production verified: 0**. Production deployment and acceptance remain outstanding.
 - No school may advance to VERIFIED until **actual post-deployment inspection**.
 
 ## Implemented branch records
@@ -30,11 +31,16 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 - Katy: nine title years, Mike Johnston/Gary Joseph, Red Sea, current official team schedule and source-linked red/white milestones.
 - Shared supporting code changes are conditional on school-specific editorial; this is **not** a universal template substitution for per-school research.
 - Code commits: `8031522d`, `4f0d07d4`, `78a25a72`, `d7286a43`. Registry implementation checkpoint `738119a6`.
-- Still pending: authentic-asset rights, specific inbound contextual link changes, CI, merge, live mobile/desktop checks, and verification in production.
+- Still pending: image-rights investigation for Wills Point, Abbott and Southlake Carroll; individual inbound link audit; successful production deployment and live mobile/desktop checks. Both Batch 001 PRs are merged.
 
 - Fort Davis 2026 cancellation: directly cited district superintendent announcement, 2003 title-game appearance, school colors; added top-page notice.
 - Southlake Carroll: eight genuine titles per district and UIL 2003 recap, 2003 runner-up rather than erroneous UIL ninth title, new 2026 coach Lee Munn, official schedule sources and distinct school timeline.
 - Changed all-time UIL data adapter only for a demonstrably erroneous Carroll 2003 mark; if upstream corrects it, special case automatically ceases.
+
+## Production deployment status (2026-10-08)
+- The initial production deployment for core PR #4330 **failed before Cloudflare Worker deployment**: [Actions run 37785976546](https://github.com/keeptxred/TexasDefined/actions/runs/37785976546) reached governed Discover derivative generation, but Wikimedia Commons returned HTTP **429** for pre-existing `gonzales` asset. The dependency is not one of the five schools.
+- Existing GitHub Actions artifact restore also failed to list the derivative cache (`unexpected end of JSON input`); subsequent remote requests were throttled. A **single failed-jobs rerun** of run 37785976546, attempt 2, was requested; its outcome must be observed, not presumed.
+- Core PR #4330 and photo follow-up #4331 are **MERGED, not DEPLOYED or VERIFIED**. A later successful deploy and individual live checks remain required. Do not mark a school VERIFIED solely because CI or PR merge passed.
 
 ## Current blockers and honest limitations
 - Live school page URLs returned an access error in the current research browser; live HTML, photo presentation, mobile and production SEO cannot yet be certified.
@@ -42,6 +48,6 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 
 ## Next actions
 - Source-backed original histories, school-specific metadata, verified colors/mascots, sourced milestone graphics and individual FAQs now implemented for Wills Point, Abbott and Katy. Run CI and address outstanding acceptance items.
-- Review PR/merge/current main safely; inspect live page after deployment if reachable.
-- Fort Davis and Southlake Carroll audits and source edits are implemented. Finalize quality/PR, then confirm production or document the exact blocker; do not assign a sixth school this chat.
+- Both PRs are merged. Verify a successful deploy and then inspect all five live pages, including historic licensed photos on Katy and Fort Davis, if the live browser permits.
+- Fort Davis and Southlake Carroll individual source edits and enhanced production assertions have merged. Confirm production, review mobile/desktop and individual inbound linking, and do not assign a sixth school in this batch.
 - Update registry with exact PR references, test outcomes and verification. Begin batch 002 only after batch 001 is resolved or a genuine blocker is recorded.

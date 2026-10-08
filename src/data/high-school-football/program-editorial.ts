@@ -121,7 +121,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Abbott Panthers Six-Man Football: 2015 Title & Finals History",
-      "description": "Abbott Panthers six-man football history: 2015 UIL title, 2012 and 2022 finals, a 2024 semifinal and current 1A Division I opponents."
+      "description": "Abbott Panthers six-man football: 2015 state champions, three finals appearances, historical halfback Willie Nelson and the 2026 UIL alignment."
     },
     "campus": {
       "address": "219 S. First Street, Abbott, TX 76621",
@@ -129,12 +129,31 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Abbott Independent School District",
       "verifiedAt": "2026-10-08"
     },
+    "photo": {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/9/96/Willie-Nelson-Highschool.jpg",
+      "width": 134,
+      "height": 200,
+      "alt": "Archival Abbott High School football portrait of Willie Nelson wearing football headgear, labeled Left Halfback",
+      "caption": "Abbott High School football halfback Willie Nelson, circa 1950. An authentic archival portrait—not an image of the modern Panthers program.",
+      "credit": "Abbott High School",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Willie-Nelson-Highschool.jpg",
+      "license": "U.S. public domain (published without copyright notice)",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/File:Willie-Nelson-Highschool.jpg#Licensing"
+    },
     "overview": [
       "Abbott is a Hill County six-man program with one state championship, won in 2015. UIL's all-time history also lists the Panthers as finalists in 2012 and 2022, providing a clear timeline of three championship-game appearances.",
       "UIL's 2022 state-team archive lists Terry J Crawford as head coach that season and shows Abbott entering the championship game against Westbrook. This is historical coaching evidence and should not be described as a current 2026 appointment.",
-      "Abbott reached the 2024 state semifinals, where UIL's Gordon team record documents a 77–36 result. The school competes in Class 1A Division I, District 14 in 2026–28; specific 2026 coaches, tickets and venues should be confirmed from Abbott ISD."
+      "Abbott reached the 2024 state semifinals, where UIL's Gordon team record documents a 77–36 result. The school competes in Class 1A Division I, District 14 in 2026–28; specific 2026 coaches, tickets and venues should be confirmed from Abbott ISD.",
+      "Abbott also has a notable football alumnus: future musician Willie Nelson played left halfback for the school in the late 1940s. PBS identifies Nelson as an Abbott football halfback, and a former teammate’s family recalled their six-man playing days in 2019 reporting. His surviving Abbott High School portrait is archival evidence of the earlier era, not evidence of current-team achievements."
     ],
     "milestones": [
+      {
+        "date": "Circa 1950",
+        "title": "Willie Nelson played halfback for Abbott",
+        "body": "Before his country-music career, Willie Nelson played Abbott High School football as a halfback. A contemporary teammate’s family specifically recalls the six-man team; PBS also documents his position.",
+        "sourceUrl": "https://www.pbs.org/kenburns/country-music/willie-nelson-biography",
+        "sourceLabel": "PBS Country Music biography; see also KWTX 2019 teammate recollections"
+      },
       {
         "date": "2012",
         "title": "A state-final appearance",
@@ -165,6 +184,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "faq": [
+      {
+        "question": "Did Willie Nelson play football for Abbott High School?",
+        "answer": "Yes. PBS identifies Willie Nelson as an Abbott High School football halfback, and KWTX recorded a former teammate’s family describing their small six-man team. An Abbott High School football portrait of Nelson from about 1950 is preserved on Wikimedia Commons."
+      },
       {
         "question": "How many football state titles has Abbott won?",
         "answer": "The UIL all-time record lists one Abbott title (2015), plus state-final appearances in 2012 and 2022."
