@@ -135,6 +135,7 @@ function articleDepartment(category: string): ArticleDepartment {
   const livingHere = new Set(["moving-to-texas", "home-garden", "real-estate"]);
   if (livingHere.has(category)) return { name: "Texas Life", path: "/texas-living", usesExploreCategory: false };
   if (category === "sports") return { name: "Sports", path: "/sports", usesExploreCategory: false };
+  if (category === "guides") return { name: "Guides", path: "/guides", usesExploreCategory: false };
   if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history", usesExploreCategory: false };
   return { name: "Explore", path: "/explore", usesExploreCategory: true };
 }
