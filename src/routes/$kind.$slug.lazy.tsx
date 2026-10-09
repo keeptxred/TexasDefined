@@ -62,7 +62,13 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
   'nueces': {
-    name: 'Agua Dulce Longhorns',  parker: {
+    name: 'Agua Dulce Longhorns',  'jim-wells': {
+    name: 'Alice Coyotes',
+    href: '/texas-high-school-football-teams/alice',
+    description: 'Explore Alice’s new September 2026 Memorial Stadium, coach Joe Castellano, consecutive district titles and current 4A Division I opponents.',
+    campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898',
+  },
+  parker: {
     name: 'Aledo Bearcats',
     href: '/texas-high-school-football-teams/aledo',
     description: 'Discover Aledo’s 12 UIL football titles, 2026 Class 6A transition, head coach Robby Jones, historic district streak and Tim Buchanan Stadium.',
