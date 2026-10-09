@@ -19,6 +19,52 @@ const dynamicRoute = read('src/routes/sports-venue.$slug.tsx');
 const staticRoute = read('src/routes/sports-venue.jones-att-stadium.tsx');
 const combined = read('src/data/sports-venue-images-all.ts');
 
+function jpegStructureLooksValid(filePath) {
+  const bytes = fs.readFileSync(filePath);
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) return false;
+
+  let offset = 2;
+  let inScan = false;
+  while (offset < bytes.length) {
+    if (inScan) {
+      const markerStart = bytes.indexOf(0xff, offset);
+      if (markerStart < 0) return false;
+
+      let markerOffset = markerStart + 1;
+      while (markerOffset < bytes.length && bytes[markerOffset] === 0xff) markerOffset += 1;
+      if (markerOffset >= bytes.length) return false;
+
+      const marker = bytes[markerOffset];
+      if (marker === 0x00 || (marker >= 0xd0 && marker <= 0xd7)) {
+        offset = markerOffset + 1;
+        continue;
+      }
+      if (marker === 0xd9) return true;
+
+      offset = markerStart;
+      inScan = false;
+      continue;
+    }
+
+    if (bytes[offset] !== 0xff) return false;
+    while (offset < bytes.length && bytes[offset] === 0xff) offset += 1;
+    if (offset >= bytes.length) return false;
+
+    const marker = bytes[offset++];
+    if (marker === 0xd9) return true;
+    if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue;
+    if (marker < 0xc0 || marker > 0xfe || marker === 0xd8) return false;
+    if (offset + 1 >= bytes.length) return false;
+
+    const segmentLength = (bytes[offset] << 8) | bytes[offset + 1];
+    if (segmentLength < 2 || offset + segmentLength > bytes.length) return false;
+    if (marker === 0xda) inScan = true;
+    offset += segmentLength;
+  }
+
+  return false;
+}
+
 function decodeTsString(value) {
   return value
     .replace(/\\'/g, "'")
@@ -115,7 +161,12 @@ for (const [file, entries] of entriesByFile) {
     if (entry.imageUrl.startsWith('/')) {
       const assetPath = path.join('public', entry.imageUrl.slice(1));
       if (!fs.existsSync(assetPath)) failures.push(`${file}: ${entry.key} local asset missing: ${assetPath}.`);
-      else if (fs.statSync(assetPath).size < 10_000) failures.push(`${file}: ${entry.key} local asset is suspiciously small.`);
+      else {
+        if (fs.statSync(assetPath).size < 10_000) failures.push(`${file}: ${entry.key} local asset is suspiciously small.`);
+        if (/\.jpe?g$/i.test(assetPath) && !jpegStructureLooksValid(assetPath)) {
+          failures.push(`${file}: ${entry.key} local JPEG is structurally invalid or corrupt: ${assetPath}.`);
+        }
+      }
     }
   }
 }
