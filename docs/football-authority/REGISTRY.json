@@ -751,7 +751,7 @@
         "f53ae27b8d6984764ce8851868beaac65e5bd3cf",
         "fd77e1ff1671bffa7af9b7a72b2b27df79de10da"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Protected parent and continuation merges",
         "Production deployment",
@@ -806,7 +806,7 @@
       "commits": [
         "ba647f975a649548bcb84e61265a96d782236ff6"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Protected merges and deployment",
         "Individual rendered production acceptance",
@@ -860,7 +860,7 @@
       "commits": [
         "0005a98da25da7446159103c129f330cd5fd891b"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Protected merge/deploy",
         "Real desktop/mobile QA and links",
@@ -915,7 +915,7 @@
       "commits": [
         "1d4644337713c0242fa525c940be462583c9c34a"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Protected merges and deploy",
         "Actual mobile/desktop acceptance",
@@ -966,7 +966,7 @@
       "commits": [
         "d72985a15713e97b21b04859b371758c7cc439a8"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Protected merges and deployment",
         "Current verified coach appointment",
@@ -1018,7 +1018,7 @@
       "commits": [
         "ab4473f6ca2059aaa392df8d8aeb1b25de4fbdd6"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Verify current head coach official",
         "Image rights and stadium gate",
@@ -1068,7 +1068,7 @@
       "commits": [
         "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "2026 official head coach",
         "Historical title-game opponent/date",
@@ -1117,7 +1117,7 @@
       "commits": [
         "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Current coach not verified",
         "Venue gate and authentic photo rights",
@@ -1163,7 +1163,7 @@
       "commits": [
         "7ce33de147d516ee9a5118109c12b946122aec41"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Freedom Field gate and unreliable capacity",
         "Current official coaching confirmation",
@@ -1212,7 +1212,7 @@
       "commits": [
         "f7ee89c1257d5291593aa3c79452fff545203bc1"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Current official 2026 coach",
         "Freedom Field spectator gate and image rights",
@@ -1261,7 +1261,7 @@
       "commits": [
         "f0b9df005078020fb4f1a3ae6b13fcd6146bd2a1"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Stadium game-night gate",
         "Independently verify 2026 head coach",
@@ -1310,7 +1310,7 @@
       "commits": [
         "9d2486f78770fd313955e5f6c8142a64ebf40e69"
       ],
-      "productionVerification": null,
+      "productionVerification": "NOT_PERFORMED",
       "blockers": [
         "Confirm official current coach and stadium ticket policy",
         "Photo rights and city/county links",
