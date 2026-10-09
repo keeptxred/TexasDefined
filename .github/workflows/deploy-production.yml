@@ -377,6 +377,7 @@ jobs:
             https://texasdefined.com/moving-to-texas-checklist
             https://texasdefined.com/article/best-houston-suburbs-for-commuters
             https://texasdefined.com/article/best-dallas-suburbs-for-commuters
+            https://texasdefined.com/article/east-texas-fall-colors
             https://texasdefined.com/article/texas-property-taxes-for-new-residents
             https://texasdefined.com/article/corporate-relocation-to-texas
             https://texasdefined.com/article/employee-relocation-guide-to-texas
@@ -442,6 +443,41 @@ jobs:
           PRODUCTION_HEALTH_ORIGIN: https://texasdefined.com
           PRODUCTION_HEALTH_LABEL: canonical-domain
         run: node scripts/ci/verify-production-health.mjs
+
+      - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
+        id: live_east_texas_foliage
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts
+          marker='Quick answer: when and where to go'
+          for origin in 'https://texasdefined-site.freddy-coppola.workers.dev' 'https://texasdefined.com'; do
+            label='direct-worker'
+            if [[ "$origin" == 'https://texasdefined.com' ]]; then label='canonical-domain'; fi
+            output=".artifacts/east-texas-foliage-${label}.html"
+            passed=0
+            for attempt in 1 2 3 4; do
+              curl --fail-with-body --silent --show-error --location --max-time 30 \
+                "$origin/article/east-texas-fall-colors?deploy_verify=${GITHUB_SHA}-${GITHUB_RUN_ID}-${attempt}" -o "$output" || true
+              if grep -Fq "$marker" "$output" 2>/dev/null; then passed=1; break; fi
+              sleep 5
+            done
+            if [[ "$passed" != 1 ]]; then
+              echo "::error title=East Texas foliage stale on ${label}::Deployed article lacks the new seasonal planning content at ${origin}. Check Worker route, stale edge cache or an old deployment. Do not certify this deployment."
+              exit 1
+            fi
+            echo "East Texas foliage authority content verified on ${label}."
+          done
+
+      - name: Upload East Texas foliage freshness diagnostics
+        if: ${{ always() && steps.live_east_texas_foliage.outcome == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: east-texas-foliage-freshness-${{ github.run_id }}
+          path: .artifacts/east-texas-foliage-*.html
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Verify direct Worker discovery
         id: live_direct_worker
@@ -528,7 +564,7 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        if: ${{ success() && steps.cloudflare.outcome == 'success' }}
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()
