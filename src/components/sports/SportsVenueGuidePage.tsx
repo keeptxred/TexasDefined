@@ -7,6 +7,7 @@ import {
 import { Container } from "@/components/layout/Container";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { MSRHoustonAuthoritySections, MSRHoustonStatusNotice } from "@/components/sports/MSRHoustonAuthoritySections";
+import { MSRHoustonEventsFallback } from "@/components/sports/MSRHoustonEventsFallback";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -184,13 +185,15 @@ export function SportsVenueGuidePage({
             </div>
           ) : null}
 
-          <TexasEventCarousel
-            events={upcomingEvents}
-            eyebrow="Upcoming events"
-            title={`What’s happening at ${entity.name}`}
-            viewAllHref={eventCalendarHref}
-            emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
-          />
+          {guide.canonicalPath === "/sports-venue/msr-houston" && upcomingEvents.length === 0
+            ? <MSRHoustonEventsFallback />
+            : <TexasEventCarousel
+              events={upcomingEvents}
+              eyebrow="Upcoming events"
+              title={`What’s happening at ${entity.name}`}
+              viewAllHref={eventCalendarHref}
+              emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
+            />}
 
           {officialEventCalendarUrl ? (
             <div className="border-b border-border pb-7">
