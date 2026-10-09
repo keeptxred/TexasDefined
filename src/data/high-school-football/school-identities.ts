@@ -19,6 +19,14 @@ export type VerifiedFootballSchoolIdentity = {
   },
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'alba-golden',
+    mascot: 'Panthers',
+    colors: 'Red, Blue and White',
+    sourceUrl: 'https://www.kltv.com/2022/05/25/alba-golden-panthers/',
+    sourceLabel: 'KLTV 2026 Alba-Golden school colors and Panthers football identity',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'ackerly-sands',
     mascot: 'Mustangs',
     colors: 'Brown and White',
