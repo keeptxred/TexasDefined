@@ -4,25 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'wrangler.jsonc'
-      - 'vite.config.*'
-      - 'tsconfig*.json'
-      - 'scripts/ci/**'
-      - 'scripts/assets/materialize-discover-overrides.mjs'
-      - 'scripts/data/validate-public-route-governance.mjs'
-      - 'scripts/data/validate-production-deployment-safety.mjs'
-      - 'scripts/data/validate-sitemap-routes.mjs'
-      - 'scripts/data/validate-painted-church*.mjs'
-      - 'scripts/data/validate-texas-flag-authority.mjs'
-      - 'scripts/data/validate-military-history-expansion.mjs'
-      - 'scripts/data/validate-national-cemetery-authority.mjs'
-      - 'scripts/seo/submit-indexnow.mjs'
-      - '.github/workflows/deploy-production.yml'
   workflow_dispatch:
 
 permissions:
@@ -311,6 +292,13 @@ jobs:
         env:
           STAGE_OUTCOME: ${{ steps.predeploy_health.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-predeploy-health "$STAGE_OUTCOME" "Current production is healthy; deploy may proceed" "Current production health failed; deploy blocked"
+
+      - name: Wait for Cloudflare Git build to settle
+        id: cloudflare_git_build
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/ci/wait-for-cloudflare-git-build.mjs
 
       - name: Capture active Worker rollback target
         id: rollback_target
@@ -632,6 +620,7 @@ jobs:
           BUDGET_OUTCOME: ${{ steps.budget.outcome }}
           RUNTIME_SMOKE_OUTCOME: ${{ steps.runtime_smoke.outcome }}
           PREDEPLOY_HEALTH_OUTCOME: ${{ steps.predeploy_health.outcome }}
+          CLOUDFLARE_GIT_BUILD_OUTCOME: ${{ steps.cloudflare_git_build.outcome }}
           CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
           LIVE_OUTCOME: ${{ steps.live.outcome }}
           INDEXNOW_OUTCOME: ${{ steps.indexnow.outcome }}
@@ -648,6 +637,7 @@ jobs:
             echo "| Client bundle budget | BUNDLE BUDGET | ${BUDGET_OUTCOME:-not-run} |"
             echo "| Built Worker SSR smoke | RUNTIME / SSR | ${RUNTIME_SMOKE_OUTCOME:-not-run} |"
             echo "| Current production health | PREDEPLOY / RECOVERY | ${PREDEPLOY_HEALTH_OUTCOME:-not-run} |"
+            echo "| Cloudflare Git-build serialization | DEPLOYMENT / CONCURRENCY | ${CLOUDFLARE_GIT_BUILD_OUTCOME:-not-run} |"
             echo "| Cloudflare Worker deploy | CLOUDFLARE / DEPLOYMENT | ${CLOUDFLARE_OUTCOME:-not-run} |"
             echo "| Live production verification | LIVE PRODUCTION | ${LIVE_OUTCOME:-not-run} |"
             echo "| IndexNow approval gate | INDEXING / EXTERNAL | ${INDEXNOW_OUTCOME:-not-run} |"
@@ -666,6 +656,8 @@ jobs:
             echo '::error title=Pipeline failure class: RUNTIME / SSR::The production bundle built, but the generated Worker failed local SSR smoke before Cloudflare deployment.'
           elif [[ "$PREDEPLOY_HEALTH_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: PREDEPLOY / RECOVERY::Current production was unhealthy, so the workflow failed closed before replacing the Worker.'
+          elif [[ "$CLOUDFLARE_GIT_BUILD_OUTCOME" == 'failure' ]]; then
+            echo '::error title=Pipeline failure class: DEPLOYMENT / CONCURRENCY::The Cloudflare Git integration did not settle before the protected deployment deadline; no verified replacement was attempted.'
           elif [[ "$CLOUDFLARE_OUTCOME" == 'failure' ]]; then
             echo '::error title=Pipeline failure class: CLOUDFLARE / DEPLOYMENT::Code validation, build and bundle budget passed; Cloudflare deployment failed.'
           elif [[ "$LIVE_OUTCOME" != 'success' ]]; then
