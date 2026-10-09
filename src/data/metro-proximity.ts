@@ -229,7 +229,7 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minCategories: 3,
     categories: CORE_TRAVEL_CATEGORIES,
     matchTerms: [] as const,
-    summary: "Destinations far enough from the city core to feel like a real outing, but close enough to consider for a single-day trip.",
+    summary: "An intentionally varied geographic shortlist of parks, towns, history and outdoor trips. Some farther results are long driving days or better as overnights; compare real road times before choosing.",
     searchIntent: "day trips and weekend drives",
   },
   {
@@ -520,8 +520,8 @@ function selectMcAllenDayTrips(rows: Array<{ destination: Destination; distanceM
 
 // Nearby-trip pages should offer distinct places and experiences rather than
 // letting 30 attractions in a single tourist town crowd out other towns.
-// Preserve the full candidate count (and existing index-readiness thresholds)
-// by relaxing diversity limits only when the catalog lacks alternatives.
+// Preserve existing index-readiness thresholds, but show fewer better choices
+// rather than padding the page with multiple attractions in the same town.
 function selectDiverseDayTrips(rows: Array<{ destination: Destination; distanceMiles: number }>, collection: MetroProximityCollection) {
   const sorted = [...rows].sort((left, right) =>
     left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
