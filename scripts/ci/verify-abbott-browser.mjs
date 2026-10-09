@@ -22,7 +22,11 @@ async function checkSchool(page, viewport) {
   await page.evaluate(() => document.fonts?.ready);
   const historicalPhoto = page.locator('img[alt*="Willie Nelson"]').first();
   await historicalPhoto.scrollIntoViewIfNeeded({ timeout: 12_000 });
-  await page.waitForTimeout(800);
+  await page.waitForFunction(() => {
+    const picture = document.querySelector('img[alt*="Willie Nelson"]');
+    return Boolean(picture?.complete && picture.naturalWidth > 0 && picture.currentSrc);
+  }, undefined, { timeout: 15_000 });
+  await page.waitForTimeout(250);
   const data = await page.evaluate(() => {
     const visible = (el) => {
       const rect = el.getBoundingClientRect();
