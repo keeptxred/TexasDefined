@@ -25,6 +25,7 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
   tags: ["El Paso County", "El Paso", "Ysleta Mission", "Ysleta del Sur Pueblo", "Franklin Mountains", "Fort Bliss", "Chamizal", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso", label: "Ysleta del Sur Pueblo Cultural Center Museum", description: "The Tigua people's Pueblo-operated museum offers a first-person account of living heritage, distinct from the Ysleta Mission church." },
     { href: "/county/hudspeth", label: "Explore neighboring Hudspeth County", description: "Continue east through Sierra Blanca, Rio Grande farming communities and the salt-flat country." },
     { href: "/county/culberson", label: "Continue into Culberson County", description: "Follow Far West Texas toward Van Horn, Guadalupe Peak and the Salt Basin." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
@@ -47,6 +48,7 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
     p("The mission is more than an old building. It remains the spiritual center of Ysleta del Sur Pueblo, the only federally recognized Pueblo tribe in Texas. Native motifs inside the church sit alongside Catholic imagery, reflecting more than three centuries of cultural continuity and adaptation."),
     p("The National Park Service describes Ysleta as one of the longest continually occupied religious sites in the United States. That makes El Paso County a useful corrective to the idea that Texas history begins with Anglo settlement. Some of the state's oldest continuously rooted communities are here in the far west."),
 
+    p("For a Pueblo-led interpretation, the Ysleta del Sur Pueblo Cultural Center Museum at 305 Yaya Lane presents Tigua history, photographs, art and education. The museum is distinct from the active Ysleta Mission church; check the Pueblo's visitor hours and program access before visiting."),
     h("The Mission Trail is a borderlands history lesson you can drive"),
     p("Ysleta is part of a larger string of historic sites along the El Paso Mission Trail. Socorro Mission and the San Elizario presidio chapel extend the story eastward through communities shaped by Indigenous, Spanish, Mexican and later American life."),
     p("The route follows a landscape that was once organized around the Rio Grande rather than an international boundary. Floods repeatedly shifted the river channel, and political lines changed around communities that had existed long before modern borders."),
