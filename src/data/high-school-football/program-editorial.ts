@@ -58,6 +58,127 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "albany": {
+    "slug": "albany",
+    "theme": {
+      "accentHex": "#B52C32",
+      "label": "Original red-and-white editorial timeline cards from UIL's recorded Albany Lions school colors; not a team crest, official artwork or documentary photo"
+    },
+    "seo": {
+      "title": "Albany Lions Football: Four State Titles, Denney Faith & Stadium",
+      "description": "Albany Lions football: state titles in 1960, 1961, 2022 and 2023, coach Denney Faith, 2026 UIL District 7 and historic Robert Nail Memorial Stadium."
+    },
+    "coach": {
+      "name": "Denney Faith",
+      "title": "Current Albany Lions head football coach",
+      "sourceUrl": "https://www.albanyisd.net/apps/pages/index.jsp?type=d&uREC_ID=582174",
+      "sourceLabel": "Albany ISD 2026–27 official athletics and varsity schedule directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "501 East South First Street, Albany, TX 76430",
+      "phone": "325-762-3974",
+      "sourceUrl": "https://albanyisd.net/",
+      "sourceLabel": "Albany ISD official Albany Junior/Senior High School campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Albany ISD 2026 football schedule and broadcast resources",
+      "sourceUrl": "https://albanyisd.net/apps/pages/index.jsp?pREC_ID=1155137&type=d&uREC_ID=582174",
+      "sourceLabel": "Albany ISD official football athletics page",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Robert Nail Memorial Stadium — Denney Faith Field",
+      "address": "Historic gate near Central Street and North Walnut Street, Albany, Texas; confirm official game entrance and parking",
+      "sourceUrl": "https://www.hmdb.org/m.asp?m=85275",
+      "sourceLabel": "Texas historical marker at Albany's first public school and stadium gateway",
+      "verifiedAt": "2026-10-09",
+      "note": "Robert Nail Memorial Stadium incorporates the stone arches of Albany's historic first public school gateway near Central Street and North Walnut Street. Independent stadium guides call the playing surface Denney Faith Field and report historic stone terrace seating; third-party seat counts and accessibility descriptions may be outdated. The Albany Junior/Senior High campus's postal address (501 East South 1st) is not a verified spectator entrance. Confirm assigned game stadium, current ticketing, ADA seating, access path and parking with Albany ISD football at 325-762-3974."
+    },
+    "overview": [
+      "Albany's Lions are one of the distinctive small-town programs in Texas football history, with **four confirmed UIL state championships** across two eras: Class 1A titles in 1960 and 1961, then Class 2A Division II victories in 2022 and 2023. The UIL championship ledger records the early finals and modern team archives document the consecutive Mart games. Those eras' classifications should not be confused with the 2026–28 2A Division II district.",
+      "In 1960 Albany shut out Crosby **20–0** to win its first Class 1A title; a year later it defeated **Hull-Daisetta 18–12** for another championship. These were more than 60 years before the Lions' next state crown. Official historical archives preserve the records, including older spellings of school names. This page reports the actual opponent and result without attributing the games to today's coaching staff.",
+      "The third championship came in December 2022, when Albany upset perennial power **Mart 41–21** in the 2A Division II final. Dave Campbell's account names Coy Lefevre, Wyatt Windham and Tye Edgar as key figures, with coach **Denney Faith** earning his first state football title. It was not an undefeated Albany season; the final record was 14–2 according to contemporary game reporting.",
+      "Albany completed the back-to-back modern run with a **28–10 win over Mart in December 2023**. The Lions finished **16–0**, according to championship-day reporting, and the victory was built around a defense that generated three turnovers. The official UIL pre-final team listing shows a **15–0** entering-final record, so these numbers describe two different points of the same season rather than conflicting championships.",
+      "Faith remains Albany's school-listed head coach in the **2026–27 Albany ISD athletics directory**. That directory also links the varsity, JV and junior-high football schedules and an Albany ISD broadcast channel. The Lions are now in **Class 2A Division II, District 7**, competing against Cross Plains, Goldthwaite, Hamlin, Miles, Stamford and Winters. These are present-cycle district opponents, and historic games with rival towns require separate dated evidence.",
+      "Albany's home-ground experience is unusual: **Robert Nail Memorial Stadium**, with its old stone school gateway embedded in the grounds, relates physically to the town's first public school built in 1884. A local historical marker documents the original arches and their relocation. Independent stadium descriptions call the playing surface **Denney Faith Field**. The venue's historic identity is worth studying, but publicly visible stadium photographs from commercial travel sites cannot be republished without a license, and families should contact the district for accessible gates, tickets and parking."
+    ],
+    "milestones": [
+      {
+        "date": "1960",
+        "title": "The first Albany state football crown",
+        "body": "Official UIL archives list Albany beating Crosby 20–0 in the 1960 Class 1A state championship final.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical football champions"
+      },
+      {
+        "date": "1961",
+        "title": "A second 1A title in succession",
+        "body": "The UIL championship results name Albany 18, Hull-Daisetta 12, for the 1961 Class 1A football crown.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P576",
+        "sourceLabel": "UIL 1961–62 football state archive"
+      },
+      {
+        "date": "2022",
+        "title": "Albany ends a 61-year wait",
+        "body": "Denney Faith's Lions defeated Mart 41–21 for the 2022 2A Division II state championship, ending a title drought since 1961.",
+        "sourceUrl": "https://www.texasfootball.com/article/2022/12/14/albany-mart-state",
+        "sourceLabel": "Dave Campbell's 2022 championship recap"
+      },
+      {
+        "date": "2023",
+        "title": "The Lions repeat with an undefeated season",
+        "body": "Albany beat Mart 28–10 in the 2A Division II final to finish 16–0, completing back-to-back state championship seasons.",
+        "sourceUrl": "https://www.houstonchronicle.com/texas-sports-nation/hs-sports/football/article/uil-state-football-championships-recaps-18553887.php",
+        "sourceLabel": "2023 championship report and official UIL state team archive"
+      },
+      {
+        "date": "Historic grounds",
+        "title": "An 1884 school gateway survives by the field",
+        "body": "A historical marker at Robert Nail Memorial Stadium preserves archways from Albany's early public-school buildings, tying today's football entry to the town's educational history.",
+        "sourceUrl": "https://www.hmdb.org/m.asp?m=85275",
+        "sourceLabel": "Albany's first public school historical marker"
+      },
+      {
+        "date": "2026–28",
+        "title": "Denney Faith leads Albany in District 7",
+        "body": "Albany ISD currently identifies Faith as football head coach; UIL places the Lions in 2A Division II, District 7 with Cross Plains, Goldthwaite, Hamlin, Miles, Stamford and Winters.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 football district alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many Texas football state championships has Albany won?",
+        "answer": "Four UIL football championships: 1960 over Crosby (20–0), 1961 over Hull-Daisetta (18–12), 2022 over Mart (41–21), and 2023 over Mart (28–10). The first pair were historical Class 1A and the modern pair were 2A Division II."
+      },
+      {
+        "question": "Who coaches Albany football in 2026?",
+        "answer": "Albany ISD's current athletics directory lists Denney Faith as head football coach and provides the varsity, junior varsity and junior-high schedules along with the football office phone, 325-762-3974."
+      },
+      {
+        "question": "Did Albany finish the 2023 season unbeaten?",
+        "answer": "Yes. Albany entered the December 2023 final at 15–0 according to UIL's state-team profile, then beat Mart 28–10 to finish 16–0. These figures reflect before and after the final, not a disagreement about which team won."
+      },
+      {
+        "question": "Where do the Albany Lions play home games?",
+        "answer": "Robert Nail Memorial Stadium in Albany, with the playing field called Denney Faith Field in independent stadium accounts. The historic stone arch entrance near Central and North Walnut marks part of the old first-school site; contact Albany ISD for the current entrance, accessible seating and parking."
+      },
+      {
+        "question": "What is special about the stadium entrance?",
+        "answer": "A local historical marker identifies surviving stone arches from Albany's first public-school buildings, some on their original site and some repositioned. This distinguishes the stadium from a generic newly constructed football facility."
+      },
+      {
+        "question": "What UIL district does Albany play in for 2026–28?",
+        "answer": "Class 2A Division II, District 7, alongside Cross Plains, Goldthwaite, Hamlin, Miles, Stamford and Winters. Those are current football district peers, not a blanket claim about historic rivalries."
+      },
+      {
+        "question": "Where do I find current Albany Lions football scores and tickets?",
+        "answer": "Albany ISD provides official varsity, JV and junior-high football schedules and broadcasts. The UIL scoreboard can provide coach-submitted results; confirm the assigned stadium, updated kickoff, ticket rules and accessibility directly with the district."
+      }
+    ]
+  },
   "alba-golden": {
     "slug": "alba-golden",
     "theme": {
