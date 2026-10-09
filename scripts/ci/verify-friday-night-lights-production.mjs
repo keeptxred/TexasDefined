@@ -387,7 +387,7 @@ await fetchVerified(willsPointProfilePath, 'Wills Point football school profile'
     '786',
     'Current district',
     '/texas-high-school-football-districts/4a-division-ii-district-7',
-    '2026 scores &amp; schedule sources',
+    '2026 schedule &amp; results sources',
   ]) requireNeedle(body, needle, 'Wills Point football school profile');
   for (const forbidden of [
     "All $",
@@ -527,7 +527,7 @@ await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched fo
     'Fortguy',
     'CC BY-SA 4.0',
   ]) requireNeedle(body, needle, 'Fort Davis individual authority profile');
-  if (decodeHtml(body).includes('2026 scores & schedule sources')) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
+  if (decodeHtml(body).includes('2026 schedule & results sources')) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
   if (/\bnoindex\b/i.test(body)) throw new Error('Fort Davis authority profile unexpectedly contains noindex');
 });
 
