@@ -12,6 +12,14 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'ackerly-sands',
+    mascot: 'Mustangs',
+    colors: 'Brown and White',
+    sourceUrl: 'https://sands.esc17.net/page/Alma_Mater',
+    sourceLabel: 'Sands CISD official alma mater — Mustangs and brown/white',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abilene-wylie',
     mascot: 'Bulldogs',
     colors: 'Purple and Gold',
