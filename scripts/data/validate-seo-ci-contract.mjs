@@ -37,6 +37,7 @@ const directValidators = [
   'validate-sitemap-routes.mjs',
   'validate-internal-link-discovery.mjs',
   'validate-search-intent-ctr.mjs',
+  'validate-gsc-page-one-ctr.mjs',
 ];
 
 const delegatedValidators = [
