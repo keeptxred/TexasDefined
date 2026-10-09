@@ -433,6 +433,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'Upper Valley', summary: 'The Rio Grande, irrigated land and lower-density neighborhoods give northwest El Paso a different landscape from the desert east side.' },
     ],
     featured: [
+      { eyebrow: 'Living Tigua history', title: 'Ysleta del Sur Pueblo Cultural Center Museum', summary: 'Visit the Pueblo-operated museum for Tigua history and culture before following the nearby Mission Trail; check museum hours and public programs directly.', href: '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso' },
       { eyebrow: 'Outdoors', title: 'Franklin Mountains State Park', summary: 'Use the mountain park to understand the geography that physically divides and defines El Paso.', href: '/destination/franklin-mountains-state-park' },
       { eyebrow: 'Nearby trips', title: 'Explore near El Paso', summary: 'Build desert, mountain, history and weekend-trip ideas around Far West Texas.', href: '/explore/near/el-paso' },
       { eyebrow: 'Road trips', title: 'Road trips from El Paso', summary: 'Build longer Far West Texas drives around desert scenery, mountain corridors, historic stops and realistic distances from El Paso.', href: '/explore/near/el-paso/road-trips' },
