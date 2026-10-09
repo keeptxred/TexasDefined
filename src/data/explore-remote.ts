@@ -325,14 +325,17 @@ export async function fetchExploreDestinations(
     params.set("or", `(name.ilike.*${clean}*,slug.ilike.*${clean}*,short_description.ilike.*${clean}*,long_description.ilike.*${clean}*)`);
   }
 
-  const rows: Record<string, unknown>[] = [];
-  for (let offset = 0; offset < scanLimit; offset += PAGE_SIZE) {
-    const page = await fetchExplorePage(params, offset, Math.min(PAGE_SIZE, scanLimit - offset));
-    rows.push(...page);
-    if (page.length < PAGE_SIZE) break;
+  // Category filtering happens after retrieval, so retain ordered pages while
+  // stopping as soon as enough matching public destinations have been found.
+  const matchingRows: Record<string, unknown>[] = [];
+  for (let offset = 0; offset < scanLimit && matchingRows.length < resultLimit; offset += PAGE_SIZE) {
+    const pageSize = Math.min(PAGE_SIZE, scanLimit - offset);
+    const page = await fetchExplorePage(params, offset, pageSize);
+    matchingRows.push(...page.filter((row) => matchesCategory(row, options.category)));
+    if (page.length < pageSize) break;
   }
 
-  return rows.filter((row) => matchesCategory(row, options.category)).map(mapRow).slice(0, resultLimit);
+  return matchingRows.map(mapRow).slice(0, resultLimit);
 }
 
 export async function fetchExploreDestination(slug: string): Promise<Destination | null> {

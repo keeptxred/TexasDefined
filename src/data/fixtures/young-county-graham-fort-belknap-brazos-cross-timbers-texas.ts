@@ -35,6 +35,9 @@ export const youngCountyGrahamFortBelknapBrazosCrossTimbersTexasArticle: Article
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/young-county-museum-of-history-and-culture", label: "Young County Museum of History & Culture", description: "Visit Graham's county-history museum for archives, photographs, Indigenous and frontier history, ranching and oil interpretation." },
+    { href: "/destination/old-post-office-museum-art-center-graham", label: "The Old Post in Graham", description: "See the 1936 post-office building, historic mural and rotating art exhibitions." },
+    { href: "/destination/graham", label: "Explore Graham", description: "Plan a courthouse-square and local-history visit in the Young County seat." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
     { href: "/county/jack", label: "Explore Jack County", description: "Continue east toward Jacksboro, Fort Richardson and the West Fork of the Trinity River." },
     { href: "/county/palo-pinto", label: "Explore Palo Pinto County", description: "Head southeast toward Mineral Wells, Possum Kingdom and the Brazos breaks." },
@@ -115,6 +118,9 @@ export const youngCountyGrahamFortBelknapBrazosCrossTimbersTexasArticle: Article
     h("Highways make Graham a modern regional crossroads"),
     p("U.S. Highway 380 crosses Young County and links Graham east toward Jacksboro and the Dallas-Fort Worth region and west toward the Rolling Plains. State highways connect Graham with Olney, Newcastle, Possum Kingdom and surrounding counties. Those routes turned a once-isolated frontier district into an easy North Texas road-trip destination."),
     p("The road network also reveals the county's internal geography. Routes from Graham to Newcastle cross ranch country and lead toward Fort Belknap. Roads toward Olney move into more open agricultural land, while southeastern drives descend toward the Brazos breaks and Possum Kingdom. The county changes character quickly enough that a full loop can feel like several different regions in one day."),
+
+    h("Begin with the Young County Museum of History & Culture"),
+    p("Before exploring the frontier landscape, visit the Young County Museum of History & Culture at 609 Fourth Street in downtown Graham. The museum brings together artifacts, historic maps, photographs, oral histories and research records connecting Indigenous communities and the Brazos reservation with Fort Belknap, cattle, oil and county-seat development. Its current public hours are Wednesday through Saturday, 10 a.m. to 4 p.m.; the museum encourages advance calls for group visits, guided interpretation and archive access. TexasDefined also maintains a dedicated museum authority guide covering exhibits, visitor planning, research links, the timeline and surrounding sites."),
 
     h("How to explore Young County"),
     p("Start in Graham at the courthouse square, then drive northwest toward Newcastle and Fort Belknap. That route connects the county's modern civic center with its first county seat and most important frontier site. A second leg toward Olney shows the agricultural and small-city side of the county, while a drive southeast toward the Brazos and Possum Kingdom reveals rougher terrain and recreation country."),
