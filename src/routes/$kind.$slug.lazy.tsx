@@ -235,6 +235,11 @@ function EntityPage() {
             <a href={batch001FootballLink.href} className="text-lg font-semibold text-primary underline underline-offset-4">{batch001FootballLink.name} football profile →</a>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{batch001FootballLink.description}</p>
             <p className="mt-2 text-xs text-muted-foreground">Campus county checked against <a href={batch001FootballLink.campusCountySource} target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">federal school records ↗</a>. This independent football guide is not an official school website.</p>
+            {entity.kind === 'county' && entity.slug === 'harris' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/alief-hastings" className="text-lg font-semibold text-primary underline underline-offset-4">Alief Hastings Fighting Bears football history →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Explore Hastings’ documented 1997 5A Division II state-final appearance, coach Michael Carter, 2026 District 20 and Crump Stadium visitor resources.</p>
+              <p className="mt-2 text-xs text-muted-foreground">Separate Alief ISD program from neighboring Alief Elsik and Alief Taylor. <a className="underline underline-offset-4" href="https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html" target="_blank" rel="noreferrer noopener">UIL final record ↗</a></p>
+            </div>}
             {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
               <a href="/texas-high-school-football-teams/abilene-wylie" className="text-lg font-semibold text-primary underline underline-offset-4">Abilene Wylie Bulldogs football profile →</a>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">Follow the Bulldogs' 2004 football state title, four UIL title-game appearances, Clay Martin and Hugh Sandifer Stadium at the Wylie High campus.</p>
