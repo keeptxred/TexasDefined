@@ -59,6 +59,185 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alto",
+    "theme": {
+      "accentHex": "#8C9E16",
+      "label": "Original yellow-green Jackets milestone accent, not licensed school artwork"
+    },
+    "seo": {
+      "title": "Alto Yellowjackets Football: 2006–07 State Titles, 2026 & Cam'Ron Matthews Field",
+      "description": "Alto Yellowjackets football: 2006 and 2007 UIL state championships, 2026 District 11 scores, 40 playoff appearances and Cam'Ron Matthews Field."
+    },
+    "campus": {
+      "address": "248 County Road 2429, Alto, TX 75925",
+      "sourceUrl": "https://www.maxpreps.com/tx/alto/alto-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps UIL partner Alto High School directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alto Yellowjackets 2026 varsity schedule and verified results",
+      "sourceUrl": "https://www.maxpreps.com/tx/alto/alto-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps, updated October 8, 2026",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–5 through Oct. 2, 2026 (district 0–2)",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/alto/alto-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps published completed Alto games, October 8 update",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Groveton",
+          "site": "Away",
+          "result": "L 30–32"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "West Sabine",
+          "site": "Home",
+          "result": "L 20–60"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Normangee",
+          "site": "Away",
+          "result": "W 38–9"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Corrigan-Camden",
+          "site": "Home",
+          "result": "L 7–34"
+        },
+        {
+          "date": "Sept. 26",
+          "opponent": "Overton",
+          "site": "Home",
+          "district": true,
+          "result": "L 19–35"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Grapeland",
+          "site": "Away",
+          "district": true,
+          "result": "L 21–28"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Mount Enterprise",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Cushing",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Tenaha",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Cross Roads",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cam'Ron Matthews Field",
+      "address": "Alto, Cherokee County, Texas — football spectator gate not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/alto-yellowjackets",
+      "sourceLabel": "Dave Campbell's Alto Yellowjackets program history and venue",
+      "verifiedAt": "2026-10-09",
+      "note": "Dave Campbell's directory lists Cam'Ron Matthews Field and a 1,770 historical seating estimate, but does not establish this season's ticket-scanning gate, parking, accessible arrival route, admission rules or stadium capacity certification. The high school school-address directory is not necessarily the spectator entrance. Confirm a particular match's gate and game-day rules with Alto ISD."
+    },
+    "overview": [
+      "Alto High School's Yellowjackets own one of East Texas' clearest consecutive-championship stories. The University Interscholastic League archive identifies Alto as the 2006 Class 1A Division I football champion, beating McCamey 42–13, followed by the 2007 Class 1A Division II title over Seymour, 22–0. Those historical classifications do not match the Jackets' 2026 position in 2A Division II.",
+      "The UIL results distinguish the two championships by division and opponent, both important details in a program often summarized as merely 'two-time champions.' Dave Campbell's current Alto team directory reports two state titles, three state-final appearances and 40 playoff appearances overall. The third final came in a different season; without validating its opponent and year here, this page does not invent an additional title-game result.",
+      "The 2026–28 UIL alignment places Alto in Class 2A Division II District 11. Its current rivals on the league schedule include Overton, Grapeland, Mount Enterprise, Cushing, Tenaha and Cross Roads. These are district opponents; long-term series histories and special rivalry trophies should be described only when documented by original school or game sources.",
+      "The current Yellowjackets began 2026 with a narrow 32–30 loss at Groveton, a 60–20 defeat by West Sabine, a 38–9 road win at Normangee and losses to Corrigan-Camden, Overton and Grapeland. The MaxPreps schedule published October 8 records Alto at 1–5 through the October 2 Grapeland result. The October 9 Mount Enterprise contest had no verified final at this research cutoff.",
+      "Alto's recent seasons include an 11–1 2019 team and a 4–6 2025 finish in Dave Campbell's historical season table. Those figures show competitive swings since the title years without artificially adding state championships or assuming the 2019 record implies a state final.",
+      "The current football venue is listed as Cam'Ron Matthews Field. A third-party estimated capacity of 1,770 is context rather than a validated ticket supply or accessibility guarantee; actual gates, parking and school announcements should come from Alto ISD. A 2026 head-coach name is intentionally omitted pending a reliable current official or roster citation rather than recycling an older appointment."
+    ],
+    "milestones": [
+      {
+        "date": "2006",
+        "title": "First consecutive state championship",
+        "body": "Alto defeated McCamey 42–13 for the UIL Class 1A Division I championship.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL football 2006 championship results"
+      },
+      {
+        "date": "2007",
+        "title": "Repeat in a different 1A division",
+        "body": "The Jackets beat Seymour 22–0 for the UIL 1A Division II title, the second championship in consecutive seasons.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P208",
+        "sourceLabel": "UIL 2007–08 official football archive"
+      },
+      {
+        "date": "2019",
+        "title": "Eleven-win modern benchmark",
+        "body": "The Dave Campbell program history lists Alto at 11–1 in 2019, a strong later-era season separate from the 2006–07 championship runs.",
+        "sourceUrl": "https://www.texasfootball.com/team/alto-yellowjackets",
+        "sourceLabel": "Dave Campbell's past season archive"
+      },
+      {
+        "date": "2025",
+        "title": "Four-win season before current realignment",
+        "body": "The program archive reports a 4–6 2025 campaign. That prior year should not be confused with the 2026 six-game snapshot.",
+        "sourceUrl": "https://www.texasfootball.com/team/alto-yellowjackets",
+        "sourceLabel": "Team history archive"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "Yellowjackets win at Normangee",
+        "body": "Alto's only win in the first six completed games was 38–9 at Normangee, according to the dated current varsity schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alto/alto-yellowjackets/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 game results"
+      },
+      {
+        "date": "2026–28",
+        "title": "2A Division II District 11 slate",
+        "body": "UIL aligns Alto in District 11; its 2026 remaining schedule lists Mount Enterprise, Cushing, Tenaha and Cross Roads after October 2.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "Official UIL football realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many state football titles has Alto won?",
+        "answer": "Two. Alto beat McCamey 42–13 in the 2006 1A Division I final and Seymour 22–0 in the 2007 1A Division II final, according to UIL's official championship archive."
+      },
+      {
+        "question": "What is Alto's 2026 UIL classification?",
+        "answer": "Class 2A Division II, District 11. The program's historical 2006–07 1A divisions are not its 2026 alignment."
+      },
+      {
+        "question": "Where do Alto Yellowjackets play?",
+        "answer": "Dave Campbell's directory lists Cam'Ron Matthews Field in Alto, with a historical 1,770 seating estimate. Visitors should confirm current stadium entry, tickets, parking and accessibility with Alto ISD."
+      },
+      {
+        "question": "How many times has Alto reached the state football final?",
+        "answer": "The Texas Football program history reports three title-game appearances, two of them victories in 2006 and 2007. A third specific final year is not asserted here without corroboration."
+      },
+      {
+        "question": "What was Alto's 2026 record through October 2?",
+        "answer": "The October 8 MaxPreps snapshot showed one win and five losses following a 21–28 loss at Grapeland. October 9 and later game scores were not yet confirmed."
+      },
+      {
+        "question": "Who is Alto's head football coach in 2026?",
+        "answer": "A sufficiently current official appointment or independently corroborated 2026 staff record was not established in this review. Contact Alto ISD athletics for its current varsity head coach rather than relying on an undated past-season listing."
+      }
+    ]
+  },
+  {
     "slug": "altair-rice",
     "theme": {
       "accentHex": "#7C322A",
