@@ -10,6 +10,8 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 - Next: individually audit and research Abernathy, then Abilene, then Abilene Cooper; commit each school's evidence, implementation and actual stage changes. Preserve partial work if production/CI is blocked. Batch 001's independent acceptance run artifacts remain the evidence of its completion.
 - Process change approved by user on 2026-10-09: up to 25 per batch (not a new data system); preserve school-by-school acceptance and checkpoint frequently. The older three-per-chat language is superseded.
 
+- **Abernathy individual checkpoint (2026-10-09):** factual audit/research and program-specific editorial committed on branch `football-authority-batch-002-25-20261009`; official source-documented district championships and 2016 42–7 UIL semifinal, 2026 coach update, independent original milestone graphics, NCES Hale County two-way link, unique SEO and venue/rights caveats. [Individual audit](schools/abernathy.md). Exact school commits: `b02f02a`, `42d6ff0`, `739c67c`, `bbf3277`; audit `4e6d52a6e`. **Status IMPLEMENTED only; not merged, deployed or verified.** School photos remain rights-blocked; actual browser cannot access the live URL through research tool. Next: protected PR, CI, merge, deploy and actual responsive school/Hale county verification; then start next assigned Abilene. No additional school was started.
+
 ## Canonical inventory
 - **1,292 source-declared existing profiles:** 1,268 UIL 2026–28 alignment slugs and 24 other featured/non-UIL profile slugs.
 - This is a deterministic repository inventory; it is **not** proof that all 1,292 live URLs were individually crawled. Do not auto-create more pages or confuse reported UIL alignment with a played season.
