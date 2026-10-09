@@ -7,6 +7,9 @@ on:
       - '.github/workflows/verify-southlake-carroll-browser.yml'
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
       - 'src/data/high-school-football/football-program-profile.server.ts'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'public/expedia-travel.js'
+      - 'public/stay-affiliate-options.js'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
