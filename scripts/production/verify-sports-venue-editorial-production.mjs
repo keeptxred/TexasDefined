@@ -1,5 +1,10 @@
 const baseUrl = (process.env.TEXASDEFINED_BASE_URL ?? 'https://texasdefined.com').replace(/\/$/, '');
-const verifyToken = process.env.GITHUB_SHA ?? Date.now().toString();
+const verifyToken = [
+  process.env.GITHUB_SHA || 'local',
+  process.env.GITHUB_RUN_ID || 'run',
+  process.env.GITHUB_RUN_ATTEMPT || 'attempt',
+  Date.now().toString(),
+].join('-');
 const banned = [
   'Texas Defined tracks it as a visitor-facing venue',
   'Texas Defined includes it in the statewide venue guide to connect the sporting experience with practical trip planning and the surrounding county and region.',
@@ -20,6 +25,8 @@ async function fetchText(pathname) {
   const separator = pathname.includes('?') ? '&' : '?';
   const url = `${baseUrl}${pathname}${separator}td_verify=${encodeURIComponent(verifyToken)}`;
   const response = await fetch(url, {
+    cache: 'no-store',
+    signal: AbortSignal.timeout(30_000),
     headers: {
       'cache-control': 'no-cache',
       pragma: 'no-cache',
