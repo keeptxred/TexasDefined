@@ -6,6 +6,7 @@ on:
       - '.github/workflows/audit-all-editorial-production.yml'
       - 'scripts/data/inventory-county-series.mjs'
       - 'scripts/data/sync-county-property-data.mjs'
+      - 'scripts/data/audit-county-history-references.mjs'
       - 'src/data/types.ts'
       - 'src/components/content/CountyGuideSections.tsx'
       - 'src/components/content/CountyIdentitySection.tsx'
@@ -89,6 +90,30 @@ jobs:
           path: |
             /tmp/county-government-links-audit.json
             /tmp/county-government-links-audit.tsv
+          if-no-files-found: warn
+
+  audit-county-historical-references:
+    name: Verify all 254 Handbook county history references
+    needs: validate-county-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.AUDIT_REF }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Probe independently published Texas county histories
+        run: node scripts/data/audit-county-history-references.mjs
+      - name: Upload 254-county history reference evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: county-history-reference-audit
+          path: |
+            /tmp/county-history-reference-audit.json
+            /tmp/county-history-reference-audit.tsv
           if-no-files-found: warn
 
   verify-county-production:

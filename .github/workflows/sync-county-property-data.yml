@@ -1,6 +1,13 @@
 name: Refresh county property data
 
 on:
+  # Refresh after a substantive change to the official-directory parser,
+  # instead of waiting for the next weekly schedule.
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/data/sync-county-property-data.mjs'
   workflow_dispatch:
     inputs:
       county:
