@@ -45,6 +45,127 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "abilene": {
+    "slug": "abilene",
+    "theme": {
+      "accentHex": "#9B741F",
+      "label": "Original black-and-gold editorial history accents based on Abilene High's documented school colors; no district trademark reproduced"
+    },
+    "seo": {
+      "title": "Abilene High Eagles Football: Seven Titles, 49 Wins & 2026",
+      "description": "Explore Abilene High Eagles football: seven UIL state titles, the historic 49-game streak, Chuck Moser, Steve Warren, Mike Fullen and Shotwell Stadium."
+    },
+    "coach": {
+      "name": "Michael Fullen",
+      "title": "Head football coach and high-school athletic coordinator (listed as Mike Fullen in sports coverage)",
+      "sourceUrl": "https://www.abileneisd.org/o/ahs/staff?page_no=3",
+      "sourceLabel": "Abilene High School official staff directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "2800 North 6th Street, Abilene, TX 79603",
+      "phone": "325-677-1731",
+      "sourceUrl": "https://www.abileneisd.org/o/ahs",
+      "sourceLabel": "Abilene High School official campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Abilene ISD tickets, game-day policy and athletics updates",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD 2026 football ticketing and clear-bag policy",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Shotwell Stadium",
+      "address": "Abilene, Texas — confirm the specific event's stadium entrance with Abilene ISD",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD 2026 Shotwell Stadium and Annex notice",
+      "verifiedAt": "2026-10-09",
+      "note": "Abilene ISD's May 2026 football announcement confirms district games at Shotwell Stadium and Shotwell Annex and a clear-bag-only spectator rule. The district used HomeTown Ticketing for 2026 season-ticket sales, but the published August 6 season-ticket deadline has already passed and those old $35 offers must NOT be treated as available on October 9. For current single-game admission, assigned venue, parking and ADA gates, confirm through the district athletic office at 325-677-1444 ext. 3013. Abilene High's 2800 N. 6th campus is not the Shotwell gate address."
+    },
+    "overview": [
+      "Abilene High School's Eagles—historically nicknamed the Warbirds—belong to one of the oldest and most successful football stories in Texas. UIL's official all-time appearances table credits Abilene with seven championship seasons (1923, 1928, 1931, 1954, 1955, 1956 and 2009) in nine state-final appearances. The 1922 and 1927 championship-game losses count as appearances, not titles.",
+      "The first three championships stretched across the early decades of UIL football: a 3–0 win over Waco in 1923, a 38–0 win over Port Arthur in 1928 and a 13–0 win over Beaumont in 1931. The 1928 undefeated 12–0–1 season under Dewey Mayhew is documented in UIL's century team archives. The 1923 team played under P. E. Shotwell, the coach whose name survives on Abilene's modern district stadium.",
+      "Chuck Moser's 1954–56 dynasty turned the Eagles into a statewide phenomenon, winning three consecutive 4A titles. The Handbook of Texas documents a 49-game winning streak lasting from 1954 through the 1957 semifinal, amid city growth and the opening of Dyess Air Force Base. Its details include a chartered train carrying some 700 Eagle supporters to Odessa for a 1954 game. These are documented episodes of local football culture, not generic claims about any current season.",
+      "The 49-game run ended in the 1957 playoffs in an unusual way: Abilene and Highland Park finished tied 20–20, but Highland Park advanced by the period's tie-breaking penetration rule. Abilene's historic school nickname Warbirds and high-school football museum are documented by the Texas State Historical Association; visiting families should check the current school directly before assuming museum hours or public access.",
+      "In 2009 Steve Warren coached Abilene to a 15–0 UIL Class 5A Division II state championship, beating Katy 28–17. UIL's centennial record names Drew Carroll, Herschel Sims and championship-game MVP Ronnell Sims among contributors; these are players from that 2009 team, not a current roster. UIL's contemporary 2026–28 alignment places today's Eagles in Class 5A Division I, District 2, which must not be confused with their 2009 division.",
+      "Abilene High School now lists Michael (Mike) Fullen as its head football coach and athletic coordinator. The annual Abilene High–Cooper matchup reflects the two-school community that emerged after Cooper opened toward the end of the 1950s; UIL's 2009 Abilene season record also documents an Abilene–Cooper meeting. Treat historic results as dated, not current 2026 game scores. The district's live stadium and ticketing sources are essential because the May 2026 season-ticket window ended in August."
+    ],
+    "milestones": [
+      {
+        "date": "1923",
+        "title": "The Eagles' first state championship",
+        "body": "Under P. E. Shotwell, Abilene defeated Waco 3–0 to win its first title. The later AISD football stadium bears Shotwell's name.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL all-time championship game results"
+      },
+      {
+        "date": "1928 / 1931",
+        "title": "Two more early crowns",
+        "body": "Dewey Mayhew's 1928 Eagles beat Port Arthur 38–0 after a 12–0–1 season; in 1931 Abilene defeated Beaumont 13–0.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL centennial 1928 championship team; see UIL winners archive"
+      },
+      {
+        "date": "1954–1956",
+        "title": "Chuck Moser's three straight state titles",
+        "body": "Official finals: 1954 Houston S. F. Austin 14–7, 1955 Tyler 33–13, and 1956 Corpus Christi Ray 14–0. Moser coached all three.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL football championship scores"
+      },
+      {
+        "date": "1954–1957",
+        "title": "Forty-nine straight victories",
+        "body": "The Handbook of Texas traces a 49-game Eagles winning streak over three-plus seasons, ending when a tied 1957 semifinal advanced Highland Park under the old penetration tie-break.",
+        "sourceUrl": "https://www.tshaonline.org/handbook/entries/abilene-high-eagles-19541957",
+        "sourceLabel": "Texas State Historical Association: Abilene High Eagles"
+      },
+      {
+        "date": "2009",
+        "title": "Fifteen wins and a seventh state crown",
+        "body": "UIL's centennial team history names coach Steve Warren and lists Abilene at 15–0, culminating in the 28–17 5A Division II championship win over Katy.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL centennial 2009 Abilene championship team"
+      },
+      {
+        "date": "2026",
+        "title": "Mike Fullen and current UIL realignment",
+        "body": "Abilene High's official staff directory lists Michael Fullen as its head football coach and athletic coordinator. For the 2026–28 alignment the Eagles are UIL 5A Division I, District 2; consult the district for current kickoffs.",
+        "sourceUrl": "https://www.abileneisd.org/o/ahs/staff?page_no=3",
+        "sourceLabel": "Abilene High School current staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many football state championships has Abilene High won?",
+        "answer": "Seven UIL titles: 1923, 1928, 1931, 1954, 1955, 1956 and 2009. The UIL lists nine state-final appearances, including runner-up years 1922 and 1927."
+      },
+      {
+        "question": "How long was the Abilene Eagles' famous winning streak?",
+        "answer": "The Texas State Historical Association documents 49 straight wins from 1954 to 1957 under Chuck Moser's era. The streak ended at the 1957 semifinal when Highland Park advanced after a 20–20 tie under the old penetration tie-break."
+      },
+      {
+        "question": "Who is Abilene High's head football coach in 2026?",
+        "answer": "The school's current staff directory names Michael Fullen (often called Mike Fullen) as head football coach and athletic coordinator."
+      },
+      {
+        "question": "Did Abilene High beat Katy in a state championship?",
+        "answer": "Yes. Steve Warren's 15–0 2009 team defeated Katy 28–17 for the UIL Class 5A Division II crown. That historical classification is not Abilene's 2026–28 division."
+      },
+      {
+        "question": "Where does Abilene High play, and how do I buy tickets?",
+        "answer": "Abilene ISD uses Shotwell Stadium and its Annex for district football and states that clear bags are required. Its 2026 season-ticket window ended August 6. For game-specific venue, single-game ticketing, parking and accessible entrances, use current district athletics guidance at 325-677-1444 ext. 3013."
+      },
+      {
+        "question": "What is the Abilene–Cooper football connection?",
+        "answer": "Both schools belong to Abilene ISD; Cooper's arrival near the end of the 1950s changed Abilene's previously unified football culture. The UIL also documents their 2009 matchup. Current games and scores must be confirmed against current school sources."
+      },
+      {
+        "question": "What were the Abilene Eagles called historically?",
+        "answer": "The Texas State Historical Association refers to Abilene High's Eagles as the Warbirds when discussing the 1950s championship teams. The page uses the official present-day Eagles identity."
+      }
+    ]
+  },
   "abernathy": {
     "slug": "abernathy",
     "theme": {
