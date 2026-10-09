@@ -102,6 +102,17 @@ export function SportsVenueGuidePage({
           { "@type": "ListItem", position: 4, name: entity.name, item: canonicalUrl },
         ],
       },
+      ...(guide.faqs?.length
+        ? [{
+            "@type": "FAQPage",
+            "@id": `${canonicalUrl}#faq`,
+            mainEntity: guide.faqs.map(({ question, answer }) => ({
+              "@type": "Question",
+              name: question,
+              acceptedAnswer: { "@type": "Answer", text: answer },
+            })),
+          }]
+        : []),
     ],
   };
 
