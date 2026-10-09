@@ -24,6 +24,20 @@ assert.deepEqual(registry.batch.slugs, roster.map(([slug]) => slug));
 const bySlug = new Map(registry.schoolRecords.filter(x => x.batch === 2).map(x => [x.slug, x]));
 assert.equal(bySlug.size, 25);
 await mkdir(output, { recursive: true });
+// Confirm actual production sitemap membership, not only repository URL generation.
+// A temporary 503 must fail acceptance rather than falsely promote profiles.
+const sitemapChecks = [];
+try {
+  const response = await fetch(origin + '/sitemap.xml?batch002_acceptance=' + Date.now(), { signal: AbortSignal.timeout(90000) });
+  const xml = await response.text();
+  const locations = new Set([...xml.matchAll(/<loc>\\s*([^<]+)\\s*<\\/loc>/gi)].map(match => match[1].replace(/&amp;/g, '&').trim()));
+  for (const [slug] of roster) {
+    const target = origin + '/texas-high-school-football-teams/' + slug;
+    sitemapChecks.push({ slug, present: response.ok && locations.has(target), http: response.status });
+  }
+} catch (error) {
+  for (const [slug] of roster) sitemapChecks.push({ slug, present: false, error: String(error) });
+}
 const results = [];
 const contexts = [];
 const browser = await chromium.launch({
@@ -114,12 +128,13 @@ try {
   }
 } finally { await browser.close(); }
 const fails=results.filter(x=>!x.passed);
+const sitemapFailures=sitemapChecks.filter(x=>!x.present);
 const summary={date:new Date().toISOString(),testedCommit:process.env.ACCEPTANCE_SHA || null,assigned:25,
   schoolChecks:results.filter(x=>x.id.startsWith('school-')).length,
   countyChecks:results.filter(x=>x.id.startsWith('county-')).length,
-  passedChecks:results.length-fails.length,failedChecks:fails.length,results};
+  passedChecks:results.length-fails.length,failedChecks:fails.length,sitemapChecks,sitemapFailures,results};
 await writeFile(output+'/report.json',JSON.stringify(summary,null,2)+'\n');
 console.log(JSON.stringify({testedCommit:summary.testedCommit,schoolChecks:summary.schoolChecks,
- countyChecks:summary.countyChecks,passed:summary.passedChecks,failed:summary.failedChecks,
+ countyChecks:summary.countyChecks,sitemapPassed:sitemapChecks.length-sitemapFailures.length,sitemapFailed:sitemapFailures.length,passed:summary.passedChecks,failed:summary.failedChecks,
  failures:fails.map(x=>({viewport:x.viewport,id:x.id,errors:x.errors}))},null,2));
-if(fails.length) process.exitCode=1;
+if(fails.length || sitemapFailures.length) process.exitCode=1;
