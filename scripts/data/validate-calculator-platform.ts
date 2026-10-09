@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { calculateAffordability } from '../../src/lib/financial/affordability.ts';
-import { calculateHouseholdBudget, createBudgetDefaults, migrateLegacyBudget, sanitizeBudget } from '../../src/lib/financial/budget-planner.ts';
+import { calculateHouseholdBudget, createBudgetDefaults, migrateLegacyBudget, sanitizeBudget, createBudgetCsv, createBudgetShareQuery } from '../../src/lib/financial/budget-planner.ts';
 import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts';
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
@@ -161,5 +161,24 @@ close(oldTotals.savings, 500, .001, 'legacy savings migration');
 close(oldTotals.remaining, 750, .001, 'legacy remaining migration');
 assert.ok(fs.readFileSync('src/components/calculators/TexasBudgetPlanner.tsx', 'utf8').includes('shareApproved'), 'budget share URL requires explicit acknowledgement');
 assert.ok(fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8').includes('TexasBudgetPlanner'), 'budget route must use detailed planner');
+
+
+const budgetUxSource = fs.readFileSync('src/components/calculators/TexasBudgetPlanner.tsx', 'utf8');
+assert.ok(budgetUxSource.includes("setBudget(sanitizeBudget(JSON.parse(readSaved(BUDGET_STORAGE_KEY)!)))"), 'saved v3 budget auto-restores after a reload');
+assert.ok(budgetUxSource.includes('print:block'), 'itemized entries must be visible on printed budget');
+assert.ok(budgetUxSource.includes('Detailed monthly budget'), 'print view must include detailed entries');
+assert.ok(budgetUxSource.includes('createBudgetCsv(budget)'), 'CSV download must use tested serializer');
+assert.ok(budgetUxSource.includes('createBudgetShareQuery(budget)'), 'share action must use tested serializer');
+const sampleBudget = createBudgetDefaults();
+const sampleCsv = createBudgetCsv(sampleBudget);
+assert.ok(sampleCsv.startsWith('"Category","Item","Entered USD","Period","Monthly USD"\\r\\n'.replace(/\\\\r/g, '\\r').replace(/\\\\n/g, '\\n')), 'CSV must contain quoted headers and CRLF line endings');
+assert.ok(sampleCsv.includes('"Total","Monthly expenses and bill reserves","","monthly","5250.00"'), 'CSV must distinguish expenses from savings');
+assert.ok(sampleCsv.includes('"Total","Monthly savings allocations","","monthly","700.00"'), 'CSV must include savings as a separate total');
+assert.ok(sampleCsv.includes('"Total","Remaining after allocations","","monthly","1050.00"'), 'CSV remaining must agree with calculator');
+const annualCsv = createBudgetCsv(sanitizeBudget({ annualTravel: 1200 }));
+assert.ok(annualCsv.includes('"Travel, gifts and seasonal spending","1200","annual","100.00"'), 'annual CSV entries must be converted to monthly reserves');
+const shareQuery = createBudgetShareQuery({ ...sampleBudget, secretNote: 'DO_NOT_EXPORT' } as typeof sampleBudget);
+assert.ok(!shareQuery.includes('DO_NOT_EXPORT') && !shareQuery.includes('secretNote'), 'shared budget must whitelist financial field keys');
+assert.deepEqual(sanitizeBudget(JSON.parse(new URLSearchParams(shareQuery).get('b3') ?? '{}')), sampleBudget, 'shared URL must round trip the budget without changing entries');
 
 console.log('Calculator platform validation passed: golden math, edge cases, cross-calculator consistency, universal actions, and shared breakdown components.');
