@@ -10,7 +10,7 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
   slug: "texas-ecoregions-habitats-guide",
   title: "Texas Ecoregions: Complete Map & Guide to All 10 Natural Regions",
   dek: "A map-first guide to all 10 major Texas natural regions, from Piney Woods and coastal marshes to Blackland Prairie, Hill Country, High Plains and the Trans-Pecos, with landscapes, vegetation, wildlife and places to experience each one.",
-  category: "guides",
+  category: "outdoors",
   hero: {
     src: "/images/editorial/texas-ecoregions-map.svg",
     alt: "Simplified orientation map showing the 10 major Texas natural regions from the Trans-Pecos in far West Texas to the Piney Woods in East Texas and Gulf Prairies and Marshes along the coast",
