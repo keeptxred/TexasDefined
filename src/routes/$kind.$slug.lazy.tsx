@@ -117,6 +117,25 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
   },
 };
 
+// Additional independently researched Batch 002 school links. Lists retain
+// multiple teams in the same county rather than replacing an existing card.
+const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
+  tarrant: [{ name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' }],
+  collin: [{ name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' }],
+  brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
+  colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
+  cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' }],
+  johnson: [{ name: 'Alvarado Indians', slug: 'alvarado', context: '2024 and 2025 playoff seasons and current District 4 football' }],
+  brazoria: [
+    { name: 'Alvin Yellowjackets', slug: 'alvin', context: 'Alvin High football history and 2026 Class 6A District 19' },
+    { name: 'Iowa Colony Pioneers', slug: 'alvin-iowa-colony', context: 'Three consecutive twelve-win seasons from 2023 to 2025' },
+    { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
+  ],
+  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }],
+  randall: [{ name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' }],
+};
+
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
 const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
@@ -226,6 +245,17 @@ function EntityPage() {
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
+        {entity.kind === 'county' && batch002FootballCountyLinks[entity.slug] ? <section aria-label="Independent football histories from this county" className="border-b border-border py-9">
+          <p className="eyebrow text-primary">Researched local football programs</p>
+          <h2 className="mt-2 font-display text-3xl">Football history connected to {entity.name}</h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {batch002FootballCountyLinks[entity.slug].map((school) => <li key={school.slug} className="rounded-lg border border-border p-4">
+              <a className="font-semibold text-primary underline underline-offset-4" href={`/texas-high-school-football-teams/${school.slug}`}>{school.name} football authority guide →</a>
+              <p className="mt-2 text-sm text-muted-foreground">{school.context}</p>
+            </li>)}
+          </ul>
+          <p className="mt-4 text-xs text-muted-foreground">Independent editorial guides. Game sites and district boundaries may span county lines; each listed school is linked by its campus county.</p>
+        </section> : null}
         {batch001FootballLink ? <section aria-label="Researched high school football history from this county" className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">Local football history</p>
