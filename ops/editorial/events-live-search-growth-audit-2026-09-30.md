@@ -5,6 +5,19 @@ Scope: Events only
 
 This audit replaces the older repository-only Events search snapshot with live connected Google Search Console and GA4 evidence. It is intentionally conservative: early impressions are used to identify opportunities, not as permission to churn titles, create thin pages or weaken current indexability safeguards.
 
+## 2026-10-08 CTR feedback-loop status
+
+The follow-up measurement pass was attempted before making any additional search-title changes.
+
+- The HYPD Google Search Console connection currently returns no accessible Search Console properties.
+- Windsor currently lists `sc-domain:texasdefined.com`, but Search Console metric reads are paused because the connected-account count exceeds the active Free-plan allowance.
+- The repository's persisted `gsc_page_daily_metrics` table is documented and populated for KeepTXRed URLs, not TexasDefined, so it is not a substitute for this measurement.
+- Because current TexasDefined clicks, impressions, CTR and average position cannot be read reliably, no page is classified as a winner or loser from fabricated or stale numbers, and no additional title/meta rewrite is authorized by this review.
+- The existing server-rendered CTR experiments remain protected by `scripts/data/validate-gsc-page-one-ctr.mjs`. Resume the page/query comparison when finalized TexasDefined Search Console metrics are readable again, and evaluate ranking-position change alongside CTR before changing a snippet.
+
+**Classification:** COMPLETE — awaiting measurement. The repository-side experiment protections and queue remain intact; the only open dependency is access to current TexasDefined Search Console metrics.
+
+
 ## Data windows and caveats
 
 - Google Search Console account: `sc-domain:texasdefined.com`
