@@ -68,7 +68,7 @@ export default function YsletaDelSurMuseumAuthority() {
       </Container>
     </section>
 
-    <Container className="py-11 sm:py-14">
+    <Container className="py-11 sm:py-16">
       <p className="eyebrow text-primary">Last fact-checked October 9, 2026</p>
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum location</p><p className="mt-2 font-semibold">305 Yaya Lane<br />El Paso, TX 79907</p></div>
@@ -84,8 +84,8 @@ export default function YsletaDelSurMuseumAuthority() {
       </div>
     </Container>
 
-    <section className="border-y border-border bg-muted/30 py-12 sm:py-16">
-      <Container className="grid gap-10 lg:grid-cols-[1.3fr_.7fr]">
+    <section className="border-y border-border py-12 sm:py-16">
+      <Container className="grid gap-10 lg:grid-cols-2">
         <div><p className="eyebrow text-primary">What makes this place important</p>
           <h2 className="mt-3 font-display text-4xl">A museum about a people who are still here</h2>
           <p className="mt-5 leading-8">Ysleta del Sur Pueblo is the only federally recognized Pueblo in Texas. The Tigua community's history in the El Paso Valley reaches back to the aftermath of the 1680 Pueblo Revolt, but its story is not confined to the past. Tribal citizens continue to sustain their government, cultural identity, arts and community institutions.</p>
@@ -158,7 +158,7 @@ export default function YsletaDelSurMuseumAuthority() {
       <div className="mt-7 flex flex-wrap gap-6"><Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className={anchorStyle}>Explore El Paso County →</Link><Link to="/article/$slug" params={{ slug: "el-paso-county-missions-rio-grande-texas" }} className={anchorStyle}>Understand the El Paso Mission Trail →</Link><Link to="/article/$slug" params={{ slug: "indigenous-texas-history-native-nations" }} className={anchorStyle}>Indigenous Texas history →</Link></div>
     </Container>
 
-    <section className="border-t border-border bg-muted/30 py-14 sm:py-16">
+    <section className="border-t border-border py-14 sm:py-16">
       <Container>
         <p className="eyebrow text-primary">Answered before you travel</p><h2 className="mt-3 font-display text-4xl">Frequently asked questions</h2>
         <dl className="mt-8 grid gap-x-12 md:grid-cols-2">
