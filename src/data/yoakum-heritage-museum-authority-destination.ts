@@ -12,9 +12,9 @@ export const yoakumHeritageMuseumDestinations: Destination[] = [{
   brandId: "texasdefined",
   slug: "yoakum-heritage-museum",
   name: "Yoakum Heritage Museum",
-  summary: "Discover Yoakum's railroad beginnings, Tex-Tan leather industry, tomato-shipping history and the 1912 Elkins–Browning house at a volunteer-founded museum with an unusually rich local archive.",
+  summary: "Discover Yoakum's railroads, Tex-Tan leather industry, tomato-shipping history and the 1912 Elkins–Browning house.",
   category: "historic-sites",
-  region: "south-texas",
+  region: "gulf-coast",
   nearestTown: "Yoakum",
   county: "Lavaca County",
   // Approximate Yoakum town-center point for regional discovery; directions
@@ -25,9 +25,9 @@ export const yoakumHeritageMuseumDestinations: Destination[] = [{
     alt: "Original illustrated editorial graphic about Yoakum railroads, saddlery and local history; not a photograph of the museum",
     width: 1600,
     height: 900,
-    credit: "TexasDefined original conceptual editorial graphic; not a photograph of the museum or a representation of its historic architecture",
+    credit: "TexasDefined original graphic, not a photograph of the museum",
   },
-  bestSeason: "Year-round indoor heritage visit. Ask about the museum's changing exhibitions and special seasonal events, including its reported Christmas Tree Forest.",
+  bestSeason: "Year-round indoor visit. Ask about exhibitions and the Christmas Tree Forest.",
   entryNote: "Public hours and admission require confirmation. A Texas Historical Commission directory record last updated August 8, 2021 lists Sunday, Tuesday and Thursday 1–4 p.m. and Friday 10 a.m.–4 p.m. Call (361) 293-7022 before traveling; do not assume those hours or donation policies remain unchanged.",
   highlights: [
     "1912 Elkins–Browning historic home",
