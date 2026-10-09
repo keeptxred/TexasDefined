@@ -64,7 +64,7 @@ const entries = [
   ],
   [
     "xtreme-raceway-park",
-    "/images/sports-venues/xtreme-raceway-park.jpg"
+    "/images/sports-venues/xtreme-raceway-park-discover-source.webp"
   ],
   [
     "freeman-coliseum",
