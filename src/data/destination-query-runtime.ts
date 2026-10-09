@@ -32,13 +32,23 @@ type RemoteCatalogResult = {
   failed: boolean;
 };
 
-async function withDestinationRemoteTimeout<T>(label: string, operation: Promise<T>): Promise<T> {
+async function withDestinationRemoteTimeout<T>(
+  label: string,
+  operation: Promise<T> | ((signal: AbortSignal) => Promise<T>),
+): Promise<T> {
+  const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([
-      operation,
+      typeof operation === "function" ? operation(controller.signal) : operation,
       new Promise<T>((_resolve, reject) => {
-        timer = setTimeout(() => reject(new Error(`${label} timed out after ${REMOTE_DESTINATION_TIMEOUT_MS}ms`)), REMOTE_DESTINATION_TIMEOUT_MS);
+        timer = setTimeout(() => {
+          // Multi-page callers must stop scheduling additional remote reads
+          // once the caller has fallen back. Each in-flight fetch retains
+          // its own shorter AbortSignal.timeout transport limit.
+          controller.abort();
+          reject(new Error(`${label} timed out after ${REMOTE_DESTINATION_TIMEOUT_MS}ms`));
+        }, REMOTE_DESTINATION_TIMEOUT_MS);
       }),
     ]);
   } finally {
@@ -123,9 +133,9 @@ async function loadEnrichedCatalog(
   params: Omit<DestinationQuery, "brandId">,
 ): Promise<RemoteCatalogResult> {
   try {
-    let destinations = await withDestinationRemoteTimeout("Explore enrichment", fetchExploreDestinations(options));
+    let destinations = await withDestinationRemoteTimeout("Explore enrichment", (signal) => fetchExploreDestinations({ ...options, signal }));
     if (params.featured && !destinations.length) {
-      const catalog = await withDestinationRemoteTimeout("Explore featured fallback catalog", fetchExploreDestinations({ category: params.category, limit: 5000 }));
+      const catalog = await withDestinationRemoteTimeout("Explore featured fallback catalog", (signal) => fetchExploreDestinations({ category: params.category, limit: 5000, signal }));
       destinations = featuredFallback(catalog, params.limit ?? 6);
     }
     return { destinations, failed: false };
@@ -140,9 +150,9 @@ async function loadCoreCatalog(
   params: Omit<DestinationQuery, "brandId">,
 ): Promise<Destination[]> {
   try {
-    let core = await withDestinationRemoteTimeout("Core Explore catalog", fetchCoreExploreDestinations(options));
+    let core = await withDestinationRemoteTimeout("Core Explore catalog", (signal) => fetchCoreExploreDestinations({ ...options, signal }));
     if (params.featured && !core.length) {
-      const catalog = await withDestinationRemoteTimeout("Core Explore featured fallback catalog", fetchCoreExploreDestinations({ category: params.category, limit: 5000 }));
+      const catalog = await withDestinationRemoteTimeout("Core Explore featured fallback catalog", (signal) => fetchCoreExploreDestinations({ category: params.category, limit: 5000, signal }));
       core = featuredFallback(catalog, params.limit ?? 6);
     }
     return core;
@@ -312,7 +322,7 @@ export async function getResolvedDestination(slug: Slug) {
 export async function listResolvedDestinationSearchCatalog() {
   let enrichedFailed = false;
   const [enriched, cavernFallbacks, cityPassFallbacks] = await Promise.all([
-    withDestinationRemoteTimeout("Explore destination search catalog", fetchExploreDestinations({ limit: 5000 }))
+    withDestinationRemoteTimeout("Explore destination search catalog", (signal) => fetchExploreDestinations({ limit: 5000, signal }))
       .catch((error) => {
         enrichedFailed = true;
         console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error);
@@ -322,7 +332,7 @@ export async function listResolvedDestinationSearchCatalog() {
     loadCityPassDestinationExpansion(),
   ]);
   const core = enrichedFailed
-    ? await withDestinationRemoteTimeout("Core destination search catalog", fetchCoreExploreDestinations({ limit: 5000 }))
+    ? await withDestinationRemoteTimeout("Core destination search catalog", (signal) => fetchCoreExploreDestinations({ limit: 5000, signal }))
       .catch((error) => {
         console.error("Core remote destination search index unavailable; retaining preserved destinations", error);
         return [] as Destination[];
