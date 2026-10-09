@@ -127,3 +127,64 @@ test("launch registry includes requested trip-intent expansions", () => {
   const slugs = new Set(METRO_PROXIMITY_COLLECTIONS.map((collection) => collection.slug));
   for (const slug of ["weekend-trips", "road-trips", "small-towns-1-hour", "small-towns-2-hours", "small-towns-3-hours", "lakes", "swimming-holes"]) assert.ok(slugs.has(slug as never), `missing ${slug}`);
 });
+
+test("McAllen day trips prioritize regional wildlife, allow local outings and drop unreachable coastal shortcuts", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const candidates = [
+    destination(1, "state-parks", {
+      slug: "bentsen-rio-grande-valley-state-park", nearestTown: "Mission", county: "Hidalgo",
+      coordinates: { lat: 26.187, lng: -98.381 },
+    }),
+    destination(2, "outdoors", {
+      slug: "santa-ana-national-wildlife-refuge", nearestTown: "Alamo", county: "Hidalgo",
+      coordinates: { lat: 26.083, lng: -98.145 },
+    }),
+    destination(3, "beaches-coast", {
+      slug: "yarborough-pass", nearestTown: "Padre Island", county: "Kleberg",
+      coordinates: { lat: 27.20434, lng: -97.38929 },
+    }),
+    destination(4, "beaches-coast", {
+      slug: "south-padre-island-beaches", nearestTown: "South Padre Island", county: "Cameron",
+      coordinates: { lat: 26.113528, lng: -97.164556 },
+    }),
+    destination(5, "beaches-coast", {
+      slug: "port-aransas-beach", nearestTown: "Port Aransas", county: "Nueces",
+      coordinates: { lat: 27.82247, lng: -97.0592 },
+    }),
+    destination(6, "beaches-coast", {
+      slug: "padre-island-national-seashore-backcountry", nearestTown: "Padre Island", county: "Kleberg",
+      coordinates: { lat: 27.41533, lng: -97.30151 },
+    }),
+  ];
+  const slugs = new Set(selectMetroProximityDestinations(candidates, metro, collection).map((row) => row.destination.slug));
+  assert.ok(slugs.has("bentsen-rio-grande-valley-state-park"), "local Bentsen park should qualify");
+  assert.ok(slugs.has("santa-ana-national-wildlife-refuge"), "Santa Ana belongs in the regional trip list");
+  assert.ok(slugs.has("south-padre-island-beaches"), "reachable South Padre coast remains an option");
+  assert.ok(!slugs.has("yarborough-pass"), "high-clearance 4WD Yarborough Pass is not an ordinary day trip");
+  assert.ok(!slugs.has("padre-island-national-seashore-backcountry"), "remote Padre Island backcountry is excluded");
+  assert.ok(!slugs.has("port-aransas-beach"), "distant Coastal Bend beach should not take a Valley day-trip slot");
+});
+
+test("McAllen day trips cap repetitive town clusters while preserving nearby variety", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const rows = Array.from({ length: 12 }, (_, index) => destination(index + 1, index % 2 ? "historic-sites" : "beaches-coast", {
+    nearestTown: index < 8 ? "South Padre Island" : "Weslaco",
+    county: index < 8 ? "Cameron" : "Hidalgo",
+    coordinates: { lat: 26.11 + index * 0.003, lng: -97.16 - index * 0.07 },
+  }));
+  const selected = selectMetroProximityDestinations(rows, metro, collection);
+  assert.ok(selected.filter((row) => row.destination.nearestTown === "South Padre Island").length <= 2);
+  assert.ok(selected.filter((row) => row.destination.nearestTown === "Weslaco").length <= 2);
+  assert.ok(selected.some((row) => row.destination.nearestTown === "Weslaco"));
+  assert.ok(selected.every((row, i) => i === 0 || row.distanceMiles >= selected[i - 1].distanceMiles));
+});
+
+test("McAllen editorial changes do not alter the standard geographic selector in other metros", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const tooClose = destination(1, "state-parks", { nearestTown: "Houston", coordinates: { lat: 29.762, lng: -95.371 } });
+  const ordinary = destination(2, "state-parks", { nearestTown: "Richmond", coordinates: { lat: 29.58, lng: -95.76 } });
+  assert.deepEqual(selectMetroProximityDestinations([tooClose, ordinary], metro, collection).map((row) => row.destination.slug), [ordinary.slug]);
+});

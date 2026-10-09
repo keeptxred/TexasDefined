@@ -468,6 +468,55 @@ function distanceBand(miles: number): MetroProximityResult["distanceBand"] {
   return "longer-day-trip";
 }
 
+// McAllen's wildlife refuges, museums and South Padre day trips must not
+// disappear behind a generic 18-mile minimum or distant Coastal Bend beaches.
+// These are editorial priorities, NOT driving-distance estimates.
+const MCALLEN_DAY_TRIP_PRIORITY = [
+  "bentsen-rio-grande-valley-state-park",
+  "santa-ana-national-wildlife-refuge",
+  "estero-llano-grande-state-park",
+  "museum-of-south-texas-history-edinburg",
+  "resaca-de-la-palma-state-park",
+  "laguna-atascosa-national-wildlife-refuge",
+  "port-isabel-lighthouse",
+  "south-padre-island-beaches",
+  "isla-blanca-park",
+] as const;
+
+// Remote beach-access points can appear close on a straight-line map while
+// requiring long detours, permits or high-clearance 4WD. Keep them out of the
+// ordinary McAllen day-trip shortlist; their destination guides remain intact.
+const MCALLEN_REMOTE_DAY_TRIP_EXCLUSIONS = new Set([
+  "yarborough-pass",
+  "padre-island-national-seashore-backcountry",
+]);
+
+function selectMcAllenDayTrips(rows: Array<{ destination: Destination; distanceMiles: number }>, maxResults: number) {
+  const rank = (slug: string) => {
+    const position = (MCALLEN_DAY_TRIP_PRIORITY as readonly string[]).indexOf(slug);
+    return position < 0 ? MCALLEN_DAY_TRIP_PRIORITY.length : position;
+  };
+  const sorted = [...rows].sort((left, right) =>
+    rank(left.destination.slug) - rank(right.destination.slug)
+    || left.distanceMiles - right.distanceMiles
+    || left.destination.name.localeCompare(right.destination.name),
+  );
+  const townCounts = new Map<string, number>();
+  const selected: typeof rows = [];
+  for (const row of sorted) {
+    const town = row.destination.nearestTown.trim().toLowerCase() || row.destination.slug;
+    if ((townCounts.get(town) ?? 0) >= 2) continue;
+    selected.push(row);
+    townCounts.set(town, (townCounts.get(town) ?? 0) + 1);
+    if (selected.length === maxResults) break;
+  }
+  // Keep results ordered by geographic distance inside the final diversified
+  // set so the shared distance-band headings and ItemList remain coherent.
+  return selected.sort((left, right) =>
+    left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
+  );
+}
+
 function destinationSearchText(destination: Destination) {
   return [
     destination.name,
@@ -491,15 +540,22 @@ export function selectMetroProximityDestinations(
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
 ): MetroProximityResult[] {
+  const mcallenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  const minimumMiles = mcallenDayTrips ? 0 : collection.minimumMiles;
+  const radiusMiles = mcallenDayTrips ? 108 : collection.radiusMiles;
   const seen = new Set<string>();
-  const rows = destinations
+  const candidates = destinations
     .filter((destination) => destination.slug && !seen.has(destination.slug) && (seen.add(destination.slug), true))
     .filter((destination) => categoryMatches(destination, collection))
+    .filter((destination) => !mcallenDayTrips || !MCALLEN_REMOTE_DAY_TRIP_EXCLUSIONS.has(destination.slug))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
-    .filter((row) => (collection.minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > collection.minimumMiles) && row.distanceMiles <= collection.radiusMiles)
-    .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
-    .slice(0, collection.maxResults);
+    .filter((row) => (minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > minimumMiles) && row.distanceMiles <= radiusMiles);
+  const rows = mcallenDayTrips
+    ? selectMcAllenDayTrips(candidates, collection.maxResults)
+    : candidates
+      .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
+      .slice(0, collection.maxResults);
 
   return rows.map((row) => ({
     ...row,
