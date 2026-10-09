@@ -37,7 +37,9 @@ function Page() {
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
-  const countyPath = schoolName === 'Abilene Texas Leadership'
+  const countyPath = schoolName === 'Abilene Wylie'
+    ? '/county/taylor'
+    : schoolName === 'Abilene Texas Leadership'
     ? '/county/taylor'
     : schoolName === 'Abilene Cooper'
     ? '/county/taylor'
@@ -121,6 +123,13 @@ function Page() {
           <div className="space-y-4">
             {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
           </div>
+          {schoolName === 'Abilene Wylie' && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
+            <p className="font-display text-xl text-foreground">Which Wylie Bulldogs?</p>
+            <p className="mt-2 text-muted-foreground">This is the Wylie High School program in Abilene, Taylor County—not the Wylie Pirates near Dallas or an Abilene ISD team. Wylie and Abilene Cooper are documented competitors in UIL 5A Division II District 2 for 2026–28.</p>
+            <a href="/texas-high-school-football-teams/abilene-cooper" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">Explore district opponent Abilene Cooper →</a>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <a href="https://www.wyliebulldogathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Official Sandifer Stadium directions ↗</a>
+          </div>}
           {schoolName === 'Abilene Texas Leadership' && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
             <p className="font-display text-xl text-foreground">Which Abilene football team?</p>
             <p className="mt-2 text-muted-foreground">Texas Leadership of Abilene is a tuition-free public-charter school and a separate UIL team from Abilene High and Abilene Cooper. Its district office in San Angelo is not the Abilene secondary campus or home football stadium.</p>
