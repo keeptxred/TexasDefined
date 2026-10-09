@@ -59,6 +59,193 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alvin-iowa-colony",
+    "theme": {
+      "accentHex": "#287B71",
+      "label": "Original teal Pioneers editorial accent, not licensed uniform artwork"
+    },
+    "seo": {
+      "title": "Iowa Colony Pioneers Football: Ray Garza, Three 12-Win Years & 2026",
+      "description": "Iowa Colony Pioneers football: Ray Garza and three 12-win 2023–25 seasons, 2026 UIL 5A District 11 scores and Freedom Field visitor advice."
+    },
+    "coach": {
+      "name": "Ray Garza",
+      "title": "Head coach attributed to 2026–27 varsity season roster",
+      "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/history/",
+      "sourceLabel": "MaxPreps 2026 Iowa Colony coach and past-season listings",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3700 Davenport Parkway, Iowa Colony, TX 77583",
+      "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+      "sourceLabel": "MaxPreps Iowa Colony High School campus directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Iowa Colony Pioneers 2026 varsity schedule and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 team schedule snapshot, last updated Sept. 26",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 through September 25, 2026; later October finals not verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 completed varsity scores",
+      "games": [
+        {
+          "date": "Aug. 27",
+          "opponent": "The Woodlands College Park",
+          "site": "Home",
+          "result": "L 10–38"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Manvel",
+          "site": "Home",
+          "result": "L 7–37"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Pasadena",
+          "site": "Home",
+          "district": true,
+          "result": "W 62–0"
+        },
+        {
+          "date": "Sept. 17",
+          "opponent": "Katy Freeman",
+          "site": "Away",
+          "district": true,
+          "result": "W 31–16"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Angleton",
+          "site": "Home",
+          "district": true,
+          "result": "L 24–34"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Friendswood",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Richmond Randle",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Victoria East",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Fort Bend Dulles",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "South Houston",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Freedom Field — listed district venue",
+      "address": "Iowa Colony/Alvin ISD district athletic facilities; confirm field and ticket gate for each home game",
+      "sourceUrl": "https://www.texasfootball.com/team/iowa-colony-pioneers",
+      "sourceLabel": "Dave Campbell's Iowa Colony team stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "Texas Football lists Freedom Field for the Pioneers and displays '10' as its stadium capacity, clearly not a safe independently verified stadium seating figure. Do not publish that number as capacity. The school campus address at 3700 Davenport Parkway is NOT proof of Freedom Field's visitor entrance. Confirm the actual assigned stadium, gate, parking, ADA facilities and tickets with Alvin ISD."
+    },
+    "overview": [
+      "Iowa Colony High School's Pioneers are a rapidly developing Alvin ISD football program, distinct from the district's original Alvin Yellowjackets and neighboring Shadow Creek Sharks. The published varsity history begins in 2022 with a 2–7 season; the program's later results show a notably rapid rise without a state championship.",
+      "MaxPreps records three consecutive twelve-win seasons: 12–1 in 2023, then 12–2 in both 2024 and 2025. The 2026 coach listing names Ray Garza. These are independently useful year-by-year milestones, not a vague assertion of long-standing tradition or a claim of winning a UIL state title.",
+      "The Dave Campbell team archive reports three playoff appearances and zero championship-game appearances or state championships, consistent with the three recent postseason teams. Its displayed Freedom Field capacity reads '10', which is obviously not a plausible public spectator capacity and is deliberately excluded from this page.",
+      "The 2026–28 UIL alignment places Iowa Colony in Class 5A Division I District 11. The Pioneers' 2026 early slate included defeats to College Park and Manvel, a 62–0 league win over Pasadena, a 31–16 victory at Katy Freeman and a 34–24 loss to Angleton. The last cross-checked five-game snapshot is 2–3 through September 25; Friendswood on October 2 must be verified before revising that record.",
+      "The October 9 fixture with Richmond Randle is another significant current district game, but the program's 2025 Randle defeat (49–42) should not be transposed to 2026. The opponent list also includes Victoria East, Dulles and South Houston.",
+      "The program is officially named for Iowa Colony, Brazoria County, despite the site registry's longer 'alvin-iowa-colony' slug. Use the correct locality on maps, SEO and reciprocal pages. Alvin ISD operates district athletic facilities; the high school's mailing address is not the verified Freedom Field football ticket gate."
+    ],
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "A new program's opening record",
+        "body": "The available Iowa Colony football history records a 2–7 2022 season, followed by substantial improvement.",
+        "sourceUrl": "https://www.texasfootball.com/team/iowa-colony-pioneers",
+        "sourceLabel": "Dave Campbell's Pioneers past seasons"
+      },
+      {
+        "date": "2023",
+        "title": "Twelve wins in second published season",
+        "body": "The Pioneers finished 12–1 in 2023 in both the Dave Campbell and MaxPreps archives.",
+        "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/history/",
+        "sourceLabel": "MaxPreps football past-season history"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two more twelve-win campaigns",
+        "body": "Iowa Colony reached 12–2 in each of the 2024 and 2025 seasons, giving the program three consecutive twelve-win years.",
+        "sourceUrl": "https://www.texasfootball.com/team/iowa-colony-pioneers",
+        "sourceLabel": "Dave Campbell's program record"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "Shutout start to district play",
+        "body": "The Pioneers beat Pasadena 62–0 in a documented Class 5A District 11 league game.",
+        "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+        "sourceLabel": "MaxPreps current varsity results"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Angleton ends two-game winning sequence",
+        "body": "Angleton defeated Iowa Colony 34–24, bringing the known five-game season snapshot to 2–3.",
+        "sourceUrl": "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+        "sourceLabel": "MaxPreps Angleton final"
+      },
+      {
+        "date": "2026–28",
+        "title": "5A Division I District 11",
+        "body": "The published UIL alignment and game list include Pasadena, Freeman, Angleton, Friendswood, Randle, Victoria East, Dulles and South Houston.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Iowa Colony the same team as Alvin Yellowjackets?",
+        "answer": "No. Iowa Colony High School fields the Pioneers, a separate Alvin ISD high-school team located in Iowa Colony, Brazoria County."
+      },
+      {
+        "question": "Who coaches Iowa Colony football in 2026?",
+        "answer": "The MaxPreps 2026–27 program history identifies Ray Garza as head football coach; verify any subsequent district appointments directly with Alvin ISD."
+      },
+      {
+        "question": "How many consecutive 12-win football years has Iowa Colony had?",
+        "answer": "Three: 2023 was 12–1, and both 2024 and 2025 finished 12–2 in the historical team results."
+      },
+      {
+        "question": "Does Iowa Colony have a football state title?",
+        "answer": "No title-game appearance or state championship is reported in Dave Campbell's current Iowa Colony program history."
+      },
+      {
+        "question": "Where does Iowa Colony play home football?",
+        "answer": "The team directory lists Freedom Field. The source's capacity field shows '10', which cannot be treated as verified spectator capacity. Confirm actual game stadium and entrance with Alvin ISD."
+      },
+      {
+        "question": "What is Iowa Colony's 2026 football district?",
+        "answer": "UIL Class 5A Division I, District 11 for the 2026–28 realignment cycle. Scores here are dated through September 25, not a live standings feed."
+      }
+    ]
+  },
+  {
     "slug": "alvin",
     "theme": {
       "accentHex": "#BB9B35",
