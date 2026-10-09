@@ -151,6 +151,12 @@ for (const token of [
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
+// The McAllen lighthouse editorial card must link to the actual canonical
+// destination slug, not a non-existent historic-site alias.
+requireText(files.collectionUi, 'slug: "port-isabel-lighthouse"', "McAllen Port Isabel Lighthouse link must use the canonical destination slug");
+if (files.collectionUi.includes('slug: "port-isabel-lighthouse-state-historic-site"')) fail("McAllen card uses a nonexistent Port Isabel Lighthouse destination slug");
+requireText(files.test, 'slugs.has("port-isabel-lighthouse")', "McAllen lighthouse selection test missing");
+
 for (const token of [
   "AUSTIN_TWO_HOUR_EDITORIAL", "Choose the trip, not the radius",
   "Which Austin small-town day trip fits your day?", "Planning drive",
