@@ -37,7 +37,6 @@ const directValidators = [
   'validate-sitemap-routes.mjs',
   'validate-internal-link-discovery.mjs',
   'validate-search-intent-ctr.mjs',
-  'validate-gsc-page-one-ctr.mjs',
 ];
 
 const delegatedValidators = [
@@ -52,7 +51,7 @@ const delegatedValidators = [
   'validate-knowledge-graph-platform.mjs', 'validate-internal-linking.mjs',
   'validate-internal-link-policy-release.mjs', 'validate-internal-link-golden-corpus.mjs',
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
-  'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
+  'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs', 'validate-gsc-page-one-ctr.mjs',
   'validate-expedia-affiliate.mjs', 'validate-rv-parks-authority.mjs',
 ];
 
