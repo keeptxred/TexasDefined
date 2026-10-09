@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 3,
+    "partiallyCompleted": 4,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "abilene-cooper",
-    "nextSchool": "abilene-texas-leadership",
-    "implementedOnBranch": 3
+    "currentSchool": "abilene-texas-leadership",
+    "nextSchool": "abilene-wylie",
+    "implementedOnBranch": 4
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -303,8 +303,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-texas-leadership",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/abilene-texas-leadership.md",
+      "evidenceSources": [
+        "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+        "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf",
+        "https://varsitypreview.net/tlca-anson-cisco-hawley-football-season-outlook-2026/",
+        "https://www.texasleadershipabilene.com/campus/secondary-campus",
+        "https://www.texasleadership.net/family-resources/enroll"
+      ],
+      "implementationCommits": [
+        "73d0066772c9eea259b814a3938ac71bc94aee82",
+        "696353123a4147e3b9ba1dd45cd739f661c3e04b",
+        "5eab523ce245487969fdda8233007d80bdad88d8",
+        "70328bf8c0d21427ebc29d7dcfaccaba06e3fb30",
+        "6fbd111287cbd5a106843f91b30be73504abfc80"
+      ],
+      "imageStatus": "Source-labeled original timeline/milestone graphic only; licensing real TLCA images unverified",
+      "internalLinkStatus": "Taylor County and related Abilene school links coded; no production verification",
+      "seoStatus": "Unique original title/description and Eagles identity coded; CI/production pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected PR checks and merge",
+        "Deployment and exact commit reconciliation",
+        "Desktop/mobile real school and Taylor County link/browser checks",
+        "Official stadium entry, ADA, parking, ticketing",
+        "Rights to authentic sports image"
+      ]
     },
     {
       "id": "uil:abilene-wylie",
