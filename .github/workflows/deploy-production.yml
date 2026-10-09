@@ -113,6 +113,10 @@ jobs:
         if: success()
         run: node scripts/ci/publish-github-status.mjs texasdefined-build pending "Building the production bundle"
 
+      - name: Fingerprint governed Discover source registry
+        id: discover_fingerprint
+        run: echo "sha=$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+
       - name: Restore previously materialized governed Discover derivatives
         if: success()
         shell: bash
@@ -131,7 +135,9 @@ jobs:
             exit 0
           fi
 
-          artifact_id="$(jq -r '[.artifacts[] | select(.expired == false and (.name | startswith("governed-discover-derivatives-")))] | sort_by(.created_at) | last | .id // empty' <<<"$artifact_json")"
+          source_fingerprint="$(sha256sum scripts/assets/materialize-discover-overrides.mjs | cut -d' ' -f1)"
+          artifact_prefix="governed-discover-derivatives-${source_fingerprint}-"
+          artifact_id="$(jq -r --arg prefix "$artifact_prefix" '[.artifacts[] | select(.expired == false and (.name | startswith($prefix)))] | sort_by(.created_at) | last | .id // empty' <<<"$artifact_json")"
           if [[ -z "$artifact_id" ]]; then
             echo "No prior governed Discover derivative artifact is available; materializing from governed sources."
             exit 0
@@ -192,7 +198,16 @@ jobs:
         if: ${{ always() && steps.build.outcome == 'failure' }}
         uses: actions/upload-artifact@v4
         with:
-          name: governed-discover-derivatives-${{ github.run_id }}-${{ github.run_attempt }}
+          name: governed-discover-derivatives-${{ steps.discover_fingerprint.outputs.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: public/images/discover/*.webp
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Preserve verified governed Discover derivatives for the next build
+        if: ${{ success() && steps.build.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: governed-discover-derivatives-${{ steps.discover_fingerprint.outputs.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: public/images/discover/*.webp
           if-no-files-found: error
           retention-days: 1
