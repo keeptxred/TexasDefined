@@ -45,6 +45,122 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "abernathy": {
+    "slug": "abernathy",
+    "theme": {
+      "accentHex": "#742A3F",
+      "label": "Original maroon-and-white editorial milestone accents based on the Antelopes' documented school colors; not an official logo"
+    },
+    "seo": {
+      "title": "Abernathy Antelopes Football: 2016 Semifinal & 2026 Guide",
+      "description": "Abernathy Antelopes football history: the 2016 state semifinal, district titles, coach Keith Bloskas, 2026–28 UIL District 3 and official game-day resources."
+    },
+    "coach": {
+      "name": "Keith Bloskas",
+      "title": "2026 athletic director and head football coach",
+      "sourceUrl": "https://www.abernathyisd.com/131047_3",
+      "sourceLabel": "Abernathy ISD Athletics (current leadership)",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "505 7th Street, Abernathy, TX 79311",
+      "phone": "806-298-2563",
+      "sourceUrl": "https://www.abernathyisd.com/",
+      "sourceLabel": "Abernathy ISD official campus contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Abernathy ISD 2026 varsity football dates and changes",
+      "sourceUrl": "https://www.abernathyisd.com/page/page_calendar?calID=138964",
+      "sourceLabel": "Abernathy ISD official athletics events calendar",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Abernathy ISD football stadium",
+      "address": "Abernathy, Texas — verify the game-day stadium gate with Abernathy ISD",
+      "sourceUrl": "https://www.southernbleacher.com/listing/abernathy-independent-school-district/214/",
+      "sourceLabel": "Southern Bleacher — Abernathy ISD stadium seating installation",
+      "verifiedAt": "2026-10-09",
+      "note": "Southern Bleacher documents an Abernathy ISD football-stadium bleacher project with 1,679 spectator seats in that installation. This is a contractor's project figure, not independently confirmed total current stadium capacity or a ticket inventory. School campus address (505 7th Street) is not a verified stadium entry gate. Check the assigned venue for the specific game and ask Abernathy ISD about entrance, parking, accessible seating and ticketing; no 2026 admission or parking policy was independently confirmed."
+    },
+    "overview": [
+      "The Antelopes have a documented West Texas football history spanning multiple generations. Abernathy ISD's own football archive identifies district-title seasons beginning in 1951 and lists 2016 as the program's state-semifinal year. It also records quarterfinal appearances in 1951, 1985, 1987, 2014, 2016, 2018 and 2019; these are playoff milestones, not seven state championships.",
+      "That 2016 run ended against Crawford in the UIL Class 2A Division I semifinals. Crawford's official 2016–17 UIL state-team playoff listing records a 42–7 win over Abernathy. This specific state-semifinal result explains the team's deep playoff era without inventing a championship or an unverified program-wide record.",
+      "Abernathy ISD's public April 2026 announcement named Keith Bloskas its new athletic director and head football coach, replacing the earlier Justin Wiley-era listing still visible in an older high-school staff directory. The district's current athletics home also identifies Bloskas as athletic director. Fans seeking this season's staff and game updates should prioritize the newer district announcement and current official athletics resources rather than the legacy directory.",
+      "The 2026–28 UIL alignment places Abernathy in Class 2A Division I, District 3 alongside New Deal, New Home, Post and Sundown. Those are present-cycle district opponents, not a claim that all four are historic rivals. The official district calendar lists 2026 varsity games and is preferable to an undated screenshot of the 2023 schedule still associated with the school football page.",
+      "Antelope football is part of a town-wide school culture: the district advertised a 2026 homecoming 'Lighting of the A' and homecoming-court parade on September 30. Treat this as a documented school tradition and dated event, not evidence about any unverified rivalry series or football final. The Abernathy district covers parts of both Hale and Lubbock counties; visitors should confirm current school and stadium locations rather than assuming every address shown for the ISD is a field entrance."
+    ],
+    "milestones": [
+      {
+        "date": "1951",
+        "title": "Early district crown and quarterfinal",
+        "body": "Abernathy ISD's historical football accolades begin the documented list of district champions in 1951 and also identify a 1951 state-quarterfinal appearance.",
+        "sourceUrl": "https://www.abernathyisd.com/131089_3",
+        "sourceLabel": "Abernathy ISD football history"
+      },
+      {
+        "date": "1984–1988",
+        "title": "Five successive district-title seasons",
+        "body": "The district's official history lists football district championships in 1984, 1985, 1986, 1987 and 1988, with quarterfinal trips in 1985 and 1987.",
+        "sourceUrl": "https://www.abernathyisd.com/131089_3",
+        "sourceLabel": "Abernathy ISD football honors archive"
+      },
+      {
+        "date": "2016",
+        "title": "The state-semifinal season",
+        "body": "Abernathy's deepest postseason advancement in the district's recorded list was the 2016 state semifinal. Crawford's UIL state-team archive shows the semifinal ended 42–7 in Crawford's favor.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/crawford-2016-2017-football",
+        "sourceLabel": "UIL official 2016–17 Crawford playoff results"
+      },
+      {
+        "date": "2018–2019",
+        "title": "Back-to-back quarterfinal runs",
+        "body": "Abernathy ISD records state-quarterfinal appearances in both 2018 and 2019 and district championships in those same seasons.",
+        "sourceUrl": "https://www.abernathyisd.com/131089_3",
+        "sourceLabel": "Abernathy ISD football accolades"
+      },
+      {
+        "date": "April 2026",
+        "title": "A new football leadership chapter",
+        "body": "Abernathy ISD publicly announced Keith Bloskas as its next athletic director and head football coach. The current district athletics page identifies him in athletic leadership; an older subsite directory still mentions Justin Wiley.",
+        "sourceUrl": "https://www.abernathyisd.com/60549",
+        "sourceLabel": "Abernathy ISD April 2026 athletics hiring announcement"
+      },
+      {
+        "date": "2026–28",
+        "title": "New District 3 competitors",
+        "body": "UIL placed Abernathy in 2A Division I District 3 with New Deal, New Home, Post and Sundown for this alignment cycle; 2026 fixture times come from the district calendar, not the alignment list.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 2A Division I alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who is the Abernathy Antelopes head football coach in 2026?",
+        "answer": "The district's April 2026 announcement named Keith Bloskas as the incoming athletic director and head football coach. Its current athletics home lists him as athletic director. An older high-school staff directory still names Justin Wiley, so the newer school district information takes precedence."
+      },
+      {
+        "question": "Has Abernathy reached the Texas football state semifinals?",
+        "answer": "Yes. Abernathy ISD lists 2016 as a state-semifinal season. The UIL's Crawford record documents a 42–7 semifinal loss for the Antelopes. The school archive does not describe 2016 as a state-title year."
+      },
+      {
+        "question": "What district is Abernathy football in for 2026–28?",
+        "answer": "UIL Class 2A Division I, District 3, with New Deal, New Home, Post and Sundown. Those are classification-cycle opponents rather than a verified list of historic rivalries."
+      },
+      {
+        "question": "Where can I find the 2026 Abernathy football schedule?",
+        "answer": "Use the Abernathy ISD athletics/events calendar for varsity dates, changes and school contacts. The district football page contains an older 2023 schedule image, so a dated image by itself is not the most reliable 2026 source."
+      },
+      {
+        "question": "Where do fans park and buy tickets at Abernathy's stadium?",
+        "answer": "The district calendar and athletics contact are the most dependable current resources. A stadium-seating contractor confirms an Abernathy ISD football facility but not its current entrance, accessible gates, parking rules or 2026 ticket policy. Verify the assigned game's venue directly with Abernathy ISD at 806-298-2563."
+      },
+      {
+        "question": "What is the 'Lighting of the A' homecoming tradition?",
+        "answer": "Abernathy ISD promoted a homecoming Lighting of the A and homecoming-court parade scheduled for September 30, 2026. This is a documented school-spirit event, not a claim that any specific historic rivalry game took place."
+      }
+    ]
+  },
   "wills-point": {
     "slug": "wills-point",
     "theme": {
