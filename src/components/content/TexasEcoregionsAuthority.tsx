@@ -7,8 +7,8 @@ type RegionReference = {
   terrain: string;
   vegetation: string;
   water: string;
-  wildlife?: string;
-  communities?: string;
+  wildlife: string;
+  communities: string;
   pressure: string;
   placeLabel: string;
   placeHref: string;
@@ -273,8 +273,11 @@ export function TexasEcoregionsAuthority() {
               <dl className="mt-4 space-y-3 text-sm leading-6">
                 <div><dt className="font-semibold text-foreground">Vegetation</dt><dd className="text-muted-foreground">{region.vegetation}</dd></div>
                 <div><dt className="font-semibold text-foreground">Water</dt><dd className="text-muted-foreground">{region.water}</dd></div>
+                <div><dt className="font-semibold text-foreground">Wildlife</dt><dd className="text-muted-foreground">{region.wildlife}</dd></div>
+                <div><dt className="font-semibold text-foreground">Major communities</dt><dd className="text-muted-foreground">{region.communities}</dd></div>
                 <div><dt className="font-semibold text-foreground">Management pressures</dt><dd className="text-muted-foreground">{region.pressure}</dd></div>
               </dl>
+              <p className="mt-4 text-xs leading-5 text-muted-foreground">Region data: <a href={frameworkSources[0].href} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">TPWD 10-region overview</a></p>
               <a href={region.placeHref} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">
                 Experience it: {region.placeLabel} →
               </a>
