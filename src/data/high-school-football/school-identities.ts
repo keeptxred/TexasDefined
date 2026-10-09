@@ -12,6 +12,14 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'abernathy',
+    mascot: 'Antelopes',
+    colors: 'Maroon and White',
+    sourceUrl: 'https://www.abernathyisd.com/131089_3',
+    sourceLabel: 'Abernathy ISD official Antelope football page',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abbott',
     mascot: 'Panthers',
     colors: 'Black and Old Gold',
