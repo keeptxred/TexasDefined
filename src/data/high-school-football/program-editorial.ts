@@ -59,6 +59,148 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alpine",
+    "theme": {
+      "accentHex": "#6A3B24",
+      "label": "Original desert-rust Bucks editorial accent, not official team branding"
+    },
+    "seo": {
+      "title": "Alpine Bucks Football: 2026 Coach, District, Buck Stadium & History",
+      "description": "Alpine Bucks football guide: 2026 coach Jerry Dominguez, 3A Division II district opponents, playoff history, Buck Stadium and official school visitor resources."
+    },
+    "coach": {
+      "name": "Jerry Dominguez",
+      "title": "Athletic director (official Alpine ISD) and 2026 head football coach (MaxPreps attribution)",
+      "sourceUrl": "https://alpine.esc18.net/staff-directory",
+      "sourceLabel": "Official Alpine ISD current staff directory (athletic director)",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "300 East Hendryx Avenue, Alpine, TX 79830",
+      "phone": "432-837-7710",
+      "sourceUrl": "https://alpine.esc18.net/high-school",
+      "sourceLabel": "Alpine High School official contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alpine Bucks 2026 varsity schedule and scores",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
+      "sourceLabel": "Dave Campbell's Texas Football season snapshot",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–3 through September 18, 2026; newer district-game finals not independently checked",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
+      "sourceLabel": "Dave Campbell's 2026 Alpine season listing",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "McCamey",
+          "site": "Home",
+          "result": "L 0–51"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Fabens",
+          "site": "Away",
+          "result": "W 19–16"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Clint Mountain View",
+          "site": "Home",
+          "result": "L 9–34"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Kermit",
+          "site": "Away",
+          "result": "L 14–34"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Buck Stadium",
+      "address": "Alpine, Texas — stadium spectator entrance and parking address unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
+      "sourceLabel": "Dave Campbell's Alpine Bucks venue and program record",
+      "verifiedAt": "2026-10-09",
+      "note": "The football program directory identifies Buck Stadium and reports a 2,000-seat historical estimate. That estimate is not a current accessibility certification or verified sellable inventory. Alpine High School's 300 East Hendryx Avenue campus and the district office at 704 West Sul Ross Avenue are separate addresses; neither should be promoted as the stadium game-night entrance without the school's event directions. Obtain current stadium entrance, visitor parking, ticket and accessible route directions directly from Alpine ISD."
+    },
+    "overview": [
+      "Alpine Bucks football reflects a Big Bend-area high-school program with a substantial playoff history but without a verified state championship. Dave Campbell's historical profile documents 44 playoff appearances, zero championship-game appearances and zero state football titles. Those are cumulative reported milestones, not an invitation to claim a semifinal or state final that lacks a dated source.",
+      "The current 2026 school athletics directory identifies Jerry Dominguez as Alpine ISD's athletic director; the 2026 MaxPreps team staff lists Dominguez as football head coach. An official November 2025 board record also recognizes the athletic director and identifies Brylon Lawson-Young in the coaching program. Older athletic staff references can lag a coaching transition, so this page distinguishes which job title was independently established by the district and which came from a third-party season roster.",
+      "Alpine football is aligned for the 2026–28 UIL cycle in Class 3A Division II District 3. This placement is not determined by whether opponents are geographically close to the Big Bend; consult UIL's current alignment and the school for the official district slate. The program's documented 2025 record was 2–9, a distinct prior season and not an estimate of 2026 results.",
+      "The early 2026 score ledger shows a 19–16 road victory over Fabens, sandwiched between losses to McCamey, Clint Mountain View and Kermit. The four-game snapshot stood at 1–3 through September 18; later Van Horn and Coahoma fixture results are deliberately not inferred from old schedules. Fans should use team and district updates for current standings, travel details and kickoff changes.",
+      "Buck Stadium is the locally listed football home for the Bucks, but its reported seating estimate and the official high-school mailing address do not independently establish which gate, ticketing rules, parking surface or wheelchair-accessible entrance is in use for a specific contest. For out-of-town visitors travelling across Brewster County, that distinction is consequential.",
+      "The Alpine football program is connected to the city's outdoor-sports and Big Bend regional culture, but the team is neither Sul Ross State University's Lobos nor a college football program. The high school and its opponents deserve independent sourcing, not borrowed college venue information."
+    ],
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "More than forty reported playoff appearances",
+        "body": "Dave Campbell's school directory lists 44 postseason appearances but no football state-final appearances or state championships for the Bucks.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
+        "sourceLabel": "Dave Campbell's Alpine Bucks history"
+      },
+      {
+        "date": "2025",
+        "title": "Two-win prior campaign",
+        "body": "The archived school season summary records Alpine at 2–9 for 2025; this does not establish the 2026 record.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
+        "sourceLabel": "Program season archive"
+      },
+      {
+        "date": "Nov. 2025",
+        "title": "Athletic department continuity documented",
+        "body": "The school board's November 2025 minutes name athletic director Jerry Dominguez and recognize Brylon Lawson-Young for work in football coaching.",
+        "sourceUrl": "https://static1.squarespace.com/static/5df26417b47f8d120024c8f5/t/69655a9c8345875a67f15fca/1768250012439/Boardmin%2B11.19.2025%2B-%2BRegular%2BMeeting.pdf",
+        "sourceLabel": "Alpine ISD board minutes"
+      },
+      {
+        "date": "Sept. 4, 2026",
+        "title": "Fabens road win",
+        "body": "The Alpine 2026 ledger lists a 19–16 win at Fabens during the non-district opening weeks.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
+        "sourceLabel": "Dave Campbell's score ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "Current UIL realignment cycle",
+        "body": "Alpine competes in 3A Division II District 3 for the 2026–28 cycle; consult UIL for the published opponent set.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Alpine won a UIL state football championship?",
+        "answer": "The historical Alpine Bucks program directory reports no state football final appearances or championships, while listing 44 playoff appearances. An ordinary playoff berth is not a state title."
+      },
+      {
+        "question": "Who leads Alpine football in 2026?",
+        "answer": "Alpine ISD's official current staff directory identifies Jerry Dominguez as athletic director; the 2026 MaxPreps staff directory identifies him as head football coach. School staff changes should be checked against Alpine ISD."
+      },
+      {
+        "question": "Where do Alpine Bucks home games take place?",
+        "answer": "The football program reference lists Buck Stadium in Alpine. The stadium entry gate, ticket office, visitor parking and accessible routes were not confirmed from that source, and should be checked with Alpine ISD."
+      },
+      {
+        "question": "What district does Alpine play in for 2026?",
+        "answer": "UIL Class 3A Division II District 3 for the 2026–28 realignment period."
+      },
+      {
+        "question": "Is Alpine High School the same as Sul Ross State?",
+        "answer": "No. Alpine High School fields the Bucks; Sul Ross State University is a different school and football program, so its venues and schedules do not apply."
+      },
+      {
+        "question": "What is Alpine's verified 2026 start?",
+        "answer": "A dated four-game snapshot through September 18 shows a 1–3 record including a 19–16 win at Fabens. Later results and schedules need a fresher source."
+      }
+    ]
+  },
+  {
     "slug": "allen",
     "theme": {
       "accentHex": "#103F79",
