@@ -12,6 +12,13 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'abilene-texas-leadership',
+    mascot: 'Eagles',
+    sourceUrl: 'https://www.texasleadershipabilene.com/',
+    sourceLabel: 'Texas Leadership of Abilene official school home and Eagles athletics',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abilene-cooper',
     mascot: 'Cougars',
     sourceUrl: 'https://www.abileneisd.org/o/chs/article/2937582',
