@@ -61,6 +61,12 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     description: 'Explore Abilene High’s seven state football titles, historic 49-game winning streak and Shotwell Stadium visitor information.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
+  dawson: {
+    name: 'Ackerly Sands Mustangs',
+    href: '/texas-high-school-football-teams/ackerly-sands',
+    description: 'Discover the Ackerly Sands six-man tradition, 2025 area-round heartbreak, 2026 Billy Grumbles coaching change and UIL Division I opponents.',
+    campusCountySource: 'https://nces.ed.gov/ccd/districtsearch/district_detail.asp?ID2=4839120&Miles=20&Search=1&Zip=79749',
+  },
   hale: {
     name: 'Abernathy Antelopes',
     href: '/texas-high-school-football-teams/abernathy',
