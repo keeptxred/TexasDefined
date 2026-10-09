@@ -76,6 +76,33 @@ function austinEditorial(slug: string) {
 
 const MCALLEN_EDITORIAL_TRIPS = [
   {
+    slug: "quinta-mazatlan",
+    title: "Quinta Mazatlán",
+    label: "McAllen · Urban nature and birding",
+    plan: "Local morning or relaxed half day",
+    why: "Explore a city nature sanctuary without a highway trip, with native habitat, wildlife interpretation and seasonal educational programming.",
+    caution: "At 600 Sunset Drive, parking is limited during expansion work. Closed Sundays and Mondays; consult current hours, admission and construction notices.",
+    official: "https://quintamazatlan.com/visit-explore/park-hours-admission",
+  },
+  {
+    slug: "old-hidalgo-pumphouse-museum",
+    title: "Old Hidalgo Pumphouse Museum & World Birding Center",
+    label: "Hidalgo · Irrigation history and wildlife",
+    plan: "Short museum stop or culture-and-birding half day",
+    why: "Connect the Valley's irrigated-agriculture history with museum exhibits, birding habitat and walking or cycling routes in a historic pump station setting.",
+    caution: "The City of Hidalgo lists regular weekday operating hours; guided tours and other activities may follow different schedules. Confirm availability before leaving.",
+    official: "https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center",
+  },
+  {
+    slug: "sabal-palm-sanctuary",
+    title: "Sabal Palm Sanctuary & Historic Rabb Plantation",
+    label: "Brownsville · Rio Grande forest",
+    plan: "Longer wildlife-focused day",
+    why: "Walk more than three miles of trails through rare native palm forest, with the historic Rabb Plantation house as the visitor center.",
+    caution: "The sanctuary is closed Wednesdays and lists daily admission charges. Check the operator's current schedule, trail conditions and border-area access directions.",
+    official: "https://www.sabalpalmsanctuary.org/",
+  },
+  {
     slug: "bentsen-rio-grande-valley-state-park",
     title: "Bentsen-Rio Grande Valley State Park",
     label: "Western Valley · Birding",
@@ -183,6 +210,7 @@ function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }
       </div>
       <div className="mt-10 border-t border-border pt-7">
         <h3 className="font-display text-2xl">How the recommendations work</h3>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">For a shorter day, Quinta Mazatlán and the Old Hidalgo Pumphouse offer local alternatives to the coast. Sabal Palm Sanctuary is a farther Brownsville-area outing. Each operator controls current access; use the official visitor links rather than treating the geographic shortlist as a road-time promise.</p>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">The curated trips above are based on official state, federal and museum visitor information, checked October 2026. The geographic catalog below is screened within approximately 108 straight-line miles of McAllen and limited to two attractions per named town; it does not calculate road miles, account for every detour or guarantee opening hours. A smaller trip is not automatically less worthwhile. Open each destination's live driving route and official site before departure. Remote four-wheel-drive beach routes are not ordinary day-trip recommendations.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
           <Link to="/explore/near/$metro" params={{ metro: "mcallen" }} className="eyebrow border-b border-primary pb-1 text-primary">Explore all trips near McAllen →</Link>

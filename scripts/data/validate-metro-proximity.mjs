@@ -207,6 +207,15 @@ for (const token of [
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
+for (const marker of [
+  'title: "Quinta Mazatlán"',
+  'title: "Old Hidalgo Pumphouse Museum & World Birding Center"',
+  'title: "Sabal Palm Sanctuary & Historic Rabb Plantation"',
+  'https://quintamazatlan.com/visit-explore/park-hours-admission',
+  'https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center',
+  'https://www.sabalpalmsanctuary.org/',
+]) requireText(files.collectionUi, marker, `McAllen local day-trip operator choice missing ${marker}`);
+
 // The McAllen lighthouse editorial card must link to the actual canonical
 // destination slug, not a non-existent historic-site alias.
 requireText(files.collectionUi, 'slug: "port-isabel-lighthouse"', "McAllen Port Isabel Lighthouse link must use the canonical destination slug");
