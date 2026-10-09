@@ -62,7 +62,13 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
   'nueces': {
-    name: 'Agua Dulce Longhorns',  wood: {
+    name: 'Agua Dulce Longhorns',  shackelford: {
+    name: 'Albany Lions',
+    href: '/texas-high-school-football-teams/albany',
+    description: 'Discover the Lions four state football championships, coach Denney Faith, 2026 UIL district and the historic Robert Nail Stadium gateway.',
+    campusCountySource: 'https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2026&dds_report=D9&id=209901001&lev=C&prgopt=reports%2Facct%2Fdistinctions.sas',
+  },
+  wood: {
     name: 'Alba-Golden Panthers',
     href: '/texas-high-school-football-teams/alba-golden',
     description: 'Explore the Panthers’ 2023 seven-win season, 2025 rebuilding year, Drew Webster and 2026 UIL District 10 opponents.',
