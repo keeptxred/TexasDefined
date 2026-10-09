@@ -59,7 +59,9 @@ async function schoolCheck(page, viewport) {
   ]) check(d.links.some(x => x.href === target), viewport + ': missing official research link ' + target);
   check(d.links.some(x => new URL(x.href).pathname === countyPath), viewport + ': missing school to Tarrant County link');
   check(d.jsonLd.includes('"SportsTeam"') && d.jsonLd.includes('"BreadcrumbList"'), viewport + ': school structured data absent');
-  check(d.titleSnapshots.every(value => value === '8'), viewport + ': incorrect dynamic all-time title snapshot ' + JSON.stringify(d.titleSnapshots));
+  // A missing "All-time state titles" card must fail; Array.every([]) otherwise passes.
+  // The documented 2003 UIL record correction must render an actual "8" value.
+  check(d.titleSnapshots.length > 0 && d.titleSnapshots.every(value => value === '8'), viewport + ': missing or incorrect dynamic all-time title snapshot ' + JSON.stringify(d.titleSnapshots));
   check(d.documentWidth <= d.viewport + 10, viewport + ': school horizontal overflow ' + d.documentWidth);
   check(d.badImages.length === 0, viewport + ': invalid visible images ' + JSON.stringify(d.badImages));
   return { http: d.http, h1: d.h1s[0], title: d.title, canonical: d.canonical, width: d.documentWidth, viewport: d.viewport, officialLinks: d.links.length, allTimeTitles: d.titleSnapshots, visibleImages: d.badImages.length };
