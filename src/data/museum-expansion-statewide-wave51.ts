@@ -1,16 +1,6 @@
-import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
-import type { Destination, ImageRef } from "./types";
+import type { Destination } from "./types";
 
-const SOURCE_CHECKED_AT = "2026-09-19";
-
-function museumPlaceholder(name: string): ImageRef {
-  return {
-    src: DESTINATION_PHOTO_PLACEHOLDER,
-    alt: `${name} — destination-specific photograph not yet available`,
-    width: 1600,
-    height: 1067,
-  };
-}
+const SOURCE_CHECKED_AT = "2026-10-09";
 
 /**
  * Fifty-first statewide museum wave. This Graham record adds the active Old
@@ -30,7 +20,13 @@ export const statewideMuseumExpansionWave51Destinations: Destination[] = [
     nearestTown: "Graham",
     county: "Young County",
     coordinates: { lat: 33.10558, lng: -98.59071 },
-    hero: museumPlaceholder("The Old Post"),
+    hero: {
+      src: "https://upload.wikimedia.org/wikipedia/commons/4/47/United_States_Post_Office_Graham_Wiki_%281_of_1%29.jpg",
+      alt: "The Old Post Museum and Art Center in Graham's historic United States Post Office building at 510 Third Street",
+      width: 1800,
+      height: 1200,
+      credit: "Renelibrary · Wikimedia Commons · CC BY-SA 4.0 (photographed 2017)",
+    },
     bestSeason: "Year-round for indoor exhibits and programs; fall through spring is especially comfortable for combining downtown Graham with nearby Possum Kingdom Lake and other North Texas heritage stops.",
     entryNote: "The museum currently publishes Tuesday-Saturday hours from 10 a.m. to 4 p.m. and is closed Sundays and Mondays. Check the current exhibition and event calendar before a dedicated trip because gallery installations, programs and holiday schedules can change.",
     highlights: [
