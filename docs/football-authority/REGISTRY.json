@@ -2079,7 +2079,6 @@
       ],
       "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Official 2026 coach confirmation",
         "Photo rights and stadium gate"
       ],
       "schoolNote": "docs/football-authority/schools/alto.md",
@@ -2093,7 +2092,6 @@
       "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
       "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Official 2026 coach confirmation",
         "Photo rights and stadium gate"
       ],
       "evidenceSources": [
@@ -2101,7 +2099,8 @@
         "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
         "https://www.uiltexas.org/football/archives/P208",
         "https://www.texasfootball.com/team/alto-yellowjackets",
-        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf"
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "https://www.alto.esc7.net/staff?page_no=5"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -2162,7 +2161,13 @@
         "Image rights and stadium gate",
         "Actual production mobile/desktop review",
         "Protected merges and deploy"
-      ]
+      ],
+      "coachVerification": {
+        "name": "Scott Ponder",
+        "role": "Alto ISD athletic director and head football coach, confirmed in current official staff directory",
+        "primarySourceUrl": "https://www.alto.esc7.net/staff?page_no=5",
+        "verifiedAt": "2026-10-09"
+      }
     },
     {
       "id": "uil:alvarado",
@@ -2185,7 +2190,6 @@
       ],
       "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Official 2026 head coach",
         "Historic title game opponent/date verification",
         "Photo rights and stadium gate"
       ],
@@ -2200,7 +2204,6 @@
       "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
       "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Official 2026 head coach",
         "Historic title game opponent/date verification",
         "Photo rights and stadium gate"
       ],
@@ -2208,7 +2211,8 @@
         "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
         "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
         "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/history/",
-        "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf"
+        "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
+        "https://ahs.alvaradoisd.net/about/leadership"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -2269,7 +2273,13 @@
         "Historical title-game opponent/date",
         "Photo rights and stadium gate",
         "Protected merges and deployed browser acceptance"
-      ]
+      ],
+      "coachVerification": {
+        "name": "Aubrey Sims",
+        "role": "Alvarado High athletic director and head football coach, current official school leadership",
+        "primarySourceUrl": "https://ahs.alvaradoisd.net/about/leadership",
+        "verifiedAt": "2026-10-09"
+      }
     },
     {
       "id": "uil:alvin",
@@ -2292,7 +2302,6 @@
       ],
       "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Current official coach",
         "Venue gate and photo rights"
       ],
       "schoolNote": "docs/football-authority/schools/alvin.md",
@@ -2306,13 +2315,13 @@
       "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
       "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Current official coach",
         "Venue gate and photo rights"
       ],
       "evidenceSources": [
         "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
         "https://www.texasfootball.com/team/alvin-yellowjackets",
-        "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/"
+        "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+        "https://www.alvinisd.net/o/ahs/staff"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -2372,7 +2381,13 @@
         "Current coach not verified",
         "Venue gate and authentic photo rights",
         "Protected merges/deploy and actual browser acceptance"
-      ]
+      ],
+      "coachVerification": {
+        "name": "Matthew Bass",
+        "role": "Alvin High assistant athletic director and head football coach, official school staff",
+        "primarySourceUrl": "https://www.alvinisd.net/o/ahs/staff",
+        "verifiedAt": "2026-10-09"
+      }
     },
     {
       "id": "uil:alvin-iowa-colony",
@@ -2715,7 +2730,7 @@
       ],
       "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Current official coach and tickets",
+        "Official stadium tickets, entrance and accessible arrival",
         "Photo rights"
       ],
       "schoolNote": "docs/football-authority/schools/amarillo.md",
@@ -2729,7 +2744,7 @@
       "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
       "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Current official coach and tickets",
+        "Official stadium tickets, entrance and accessible arrival",
         "Photo rights"
       ],
       "evidenceSources": [
@@ -2739,7 +2754,8 @@
         "https://www.texasfootball.com/hof-blair-cherry",
         "https://www.texasfootball.com/article/2025/03/05/texas-high-school-football-program-spotlight-amarillo-sandies",
         "https://txprepfootball.com/schools/amarillo-sandies/",
-        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf"
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "https://www.sandiesfootball.com/contact"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -2800,7 +2816,13 @@
         "Photo rights and city/county links",
         "Protected parent and continuation merges",
         "Deployed interactive mobile/desktop acceptance"
-      ]
+      ],
+      "coachVerification": {
+        "name": "Chad Dunnam",
+        "role": "Amarillo High head football coach, confirmed by program coaching roster",
+        "primarySourceUrl": "https://www.sandiesfootball.com/contact",
+        "verifiedAt": "2026-10-09"
+      }
     },
     {
       "id": "uil:amarillo-caprock",
