@@ -220,6 +220,23 @@ if (!errors.length) {
     "/o['’]?bryant\\s+primary/i",
   ]) requireText(productionSmoke, marker, 'Wills Point and Bryan football production regression protection');
 
+
+  for (const marker of [
+    "const shamrockProfilePath = '/texas-high-school-football-teams/shamrock'",
+    "await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile'",
+    "'Shamrock Fighting Irish Football'",
+    "'Nate Skelton'",
+    "'100.5'",
+    "'Enrollment and football placement are different here.'",
+    "'Final football placement'",
+    "'2026 results &amp; schedule'",
+    "'Record when checked'",
+    "'1–4'",
+    "'El Paso Field'",
+    "'Shamrock ISD 2026 football schedule'",
+    "texas-high-school-football-teams/shamrock</loc>",
+  ]) requireText(productionSmoke, marker, 'Shamrock football live production contract');
+
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
     "'1A': 159",
@@ -1086,6 +1103,15 @@ if (!errors.length) {
     "name: 'Planet Ford Stadium'",
     "label: '2026–27 football schedule'",
   ]) requireText(footballProgramEditorial, marker, 'Spring High football editorial');
+
+
+  for (const marker of [
+    '"shamrock": {',
+    '"name": "Nate Skelton"',
+    '"record": "1–4"',
+    '"name": "El Paso Field"',
+    '"question": "Why is Shamrock in 2A Division II with a UIL enrollment of 100.5?"',
+  ]) requireText(footballProgramEditorial, marker, 'Shamrock football authority editorial');
 
   requireText(finder, 'uilEnrollment', 'Football finder exact enrollment');
   requireText(finder, 'UIL enrollment', 'Football finder exact enrollment');

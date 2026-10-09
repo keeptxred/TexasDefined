@@ -72,7 +72,7 @@ async function checkSchool(page, viewport) {
   verify(data.title.includes('Fort Davis Indians Football: 2026 Season Canceled'), viewport + ': Fort Davis-specific title missing');
   verify(data.description.length >= 80 && /Fort Davis Indians/i.test(data.description), viewport + ': Fort Davis meta description');
   verify(/Jeff Davis County/i.test(data.text), viewport + ': Jeff Davis County context missing');
-  verify(!/2026 scores & schedule sources/i.test(data.text), viewport + ': canceled 2026 season falsely presented as active');
+  verify(!/2026 schedule & results sources/i.test(data.text), viewport + ': canceled 2026 season falsely presented as active');
   verify(data.canonical === origin + schoolPath && !/\bnoindex\b/i.test(data.robots), viewport + ': canonical/indexability');
   for (const label of [
     'Fort Davis ISD canceled the 2026 football season', 'Strawn', '67–62', '2003',
