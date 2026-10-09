@@ -36,9 +36,11 @@ for (let index = 0; index < selected.length; index += CONCURRENCY) {
       const html = await fetchText(county.url);
       const appraisal = parseOfficeSection(html, 'Appraisal District', 'Tax Assessor/Collector');
       const taxOffice = parseOfficeSection(html, 'Tax Assessor/Collector');
+      const parsed = parseCountyPage(html, county.url);
+      const enrichment = AUDIT_ONLY ? parsed : await secureOfficeLinks(parsed);
       return {
         county, fetched: true,
-        enrichment: parseCountyPage(html, county.url),
+        enrichment,
         audit: {
           appraisalUrl: appraisal.websiteUrl ?? null,
           appraisalSourceUpdated: appraisal.lastUpdated ?? null,
@@ -113,6 +115,50 @@ const refreshed = results.filter((item) => item.enrichment).length;
 const withdrawn = results.filter((item) => item.fetched && !item.enrichment).length;
 console.log(`County property snapshot now contains ${nextCount} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
 } // End update-only branch; --audit-only never alters checked-in source data.
+
+async function secureOfficeLinks(record) {
+  if (!record) return null;
+  const [appraisalUrl, taxUrl] = await Promise.all([
+    secureOfficeUrl(record.appraisalDistrict.websiteUrl),
+    secureOfficeUrl(record.taxOffice.websiteUrl),
+  ]);
+  if (!appraisalUrl || !taxUrl) return null;
+  return {
+    ...record,
+    appraisalDistrict: { ...record.appraisalDistrict, websiteUrl: appraisalUrl },
+    taxOffice: { ...record.taxOffice, websiteUrl: taxUrl },
+    links: { ...record.links, appraisalDistrictUrl: appraisalUrl, taxOfficeUrl: taxUrl },
+    sourceUrls: [record.sourceUrls[0], appraisalUrl, taxUrl],
+  };
+}
+
+async function secureOfficeUrl(raw) {
+  if (!raw) return null;
+  let url;
+  try {
+    url = new URL(raw);
+    if (!['http:', 'https:'].includes(url.protocol) || !url.hostname
+      || /^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.0\.0\.0|::1)/i.test(url.hostname)) return null;
+    if (url.protocol === 'https:') return url.toString();
+    url.protocol = 'https:';
+  } catch { return null; }
+  // The directory sometimes advertises HTTP even when the office's secure
+  // website works. Do not upgrade blindly or publish an insecure link.
+  const options = {
+    redirect: 'follow',
+    signal: AbortSignal.timeout(8500),
+    headers: { 'user-agent': USER_AGENT, accept: 'text/html' },
+  };
+  try {
+    let response = await fetch(url.toString(), { ...options, method: 'HEAD' });
+    if (response.status === 405 || response.status === 501) {
+      response = await fetch(url.toString(), { ...options, method: 'GET' });
+      if (response.body) await response.body.cancel();
+    }
+    const resolved = new URL(response.url);
+    return response.ok && resolved.protocol === 'https:' ? resolved.toString() : null;
+  } catch { return null; }
+}
 
 function parseCountyDirectory(html) {
   const items = [];
