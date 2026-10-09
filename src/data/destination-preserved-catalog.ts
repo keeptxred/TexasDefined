@@ -1,6 +1,7 @@
 import { animalSanctuaryDestinations } from "./animal-sanctuary-destinations";
 import { aquariumMarineDestinations } from "./aquarium-marine-destinations";
 import { coastalDestinations } from "./coastal-destinations";
+import { esteroLlanoGrandePreservedDestinations } from "./estero-llano-grande-preserved-destination";
 import { topAttractionDestinations } from "./destination-curation-top-attractions";
 import { topAttractionExpansionDestinations } from "./destination-curation-top-attractions-fallbacks";
 import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
@@ -216,6 +217,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   whirlyballHurstDestinations,
   legacyExploreDestinations,
   legacyLakeDestinations,
+  esteroLlanoGrandePreservedDestinations,
   johnsonCityAuthorityDestinations,
   johnsonCityWildlifeDestinations,
   lbjBoyhoodHomeDestinations,
