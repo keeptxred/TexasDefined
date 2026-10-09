@@ -148,7 +148,7 @@ function EntityPage() {
   // county pages defer first-party lodging inserts until React route hydration.
   // Do not suppress those panels once their React tree is ready.
   useEffect(() => {
-    if (entity.kind !== 'county' || (entity.slug !== 'van-zandt' && entity.slug !== 'hill' && entity.slug !== 'fort-bend' && entity.slug !== 'jeff-davis' && entity.slug !== 'tarrant')) return;
+    if (entity.kind !== 'county') return;
     document.documentElement.dataset.tdFootballCountyHydrated = '1';
     window.dispatchEvent(new Event('texasdefined:county-hydrated'));
     return () => { delete document.documentElement.dataset.tdFootballCountyHydrated; };
