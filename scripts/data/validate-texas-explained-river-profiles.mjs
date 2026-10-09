@@ -97,8 +97,12 @@ for (const marker of [
   'texasExplainedQuickAnswer && !isTexasRiversArticle',
   '!isTexasRiversArticle && internalLinks.length > 0',
   '!isTexasRiversArticle && article.tags.length > 0',
-  '!isTexasRiversArticle && <Section tone="surface">',
 ]) if (!articleRoute.includes(marker)) errors.push(`Texas rivers simplified presentation contract missing: ${marker}`);
+
+if (!articleRoute.includes('!isTexasRiversArticle && <Section tone="surface">')
+  && !articleRoute.includes('!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface">')) {
+  errors.push('Texas rivers simplified presentation contract missing: rivers must remain excluded from the generic related-story rail.');
+}
 
 for (const marker of [
   'const riversLink = { href: "/article/texas-rivers-explained"',

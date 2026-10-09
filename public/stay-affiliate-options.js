@@ -496,8 +496,10 @@
   // The named county pages signal readiness before first-party affiliate DOM writes.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis" || path === "/county/tarrant")
-      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+    // All county and city authority routes have a React hydration readiness
+    // signal; defer affiliate DOM changes until their route mounts.
+    const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
+    return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
   function sync() {

@@ -2,12 +2,10 @@ name: Dallas and routed news production smoke
 
 on:
   workflow_dispatch:
-  push:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
     branches: [main]
-    paths:
-      - '.github/workflows/dallas-news-production-smoke.yml'
-      - 'scripts/ci/verify-texasdefined-publication-production.mjs'
-      - 'src/**'
 
 permissions:
   contents: read
@@ -18,10 +16,15 @@ concurrency:
 
 jobs:
   smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v5
+        with:
+          # workflow_run uses the default branch as GITHUB_SHA; pin the checkout to
+          # the exact commit that the completed production workflow deployed.
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v5
         with:
           node-version: 24

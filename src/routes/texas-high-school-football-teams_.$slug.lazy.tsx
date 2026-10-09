@@ -38,7 +38,60 @@ function Page() {
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
-  const countyPath = schoolName === 'Abbott'
+  // Campus-county mapping for individually sourced Batch 002 profiles;
+  // city names and district service areas are not dependable campus-county proxies.
+  const researchedCampusCounty: Record<string, string> = {
+    'alief-taylor': 'harris',
+    'all-saints-fort-worth': 'tarrant',
+    allen: 'collin',
+    alpine: 'brewster',
+    'altair-rice': 'colorado',
+    alto: 'cherokee',
+    alvarado: 'johnson',
+    alvin: 'brazoria',
+    'alvin-iowa-colony': 'brazoria',
+    'alvin-shadow-creek': 'brazoria',
+    alvord: 'wise',
+    amarillo: 'randall',
+  };
+  // Link only the Batch 002 campuses with documented city location and an
+  // existing canonical city guide; a school-district service area is not enough.
+  const batch002CityGuide: Record<string, { slug: string; name: string }> = {
+    'alief-elsik': { slug: 'houston', name: 'Houston' },
+    'alief-hastings': { slug: 'houston', name: 'Houston' },
+    'alief-taylor': { slug: 'houston', name: 'Houston' },
+    'all-saints-fort-worth': { slug: 'fort-worth', name: 'Fort Worth' },
+  };
+  const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
+  const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
+  const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
+    : schoolName === 'Alief Hastings'
+    ? '/county/harris'
+    : schoolName === 'Alief Elsik'
+    ? '/county/harris'
+    : schoolName === 'Alice'
+    ? '/county/jim-wells'
+    : schoolName === 'Aledo'
+    ? '/county/parker'
+    : schoolName === 'Albany'
+    ? '/county/shackelford'
+    : schoolName === 'Alba-Golden'
+    ? '/county/wood'
+    : schoolName === 'Agua Dulce'
+    ? '/county/nueces'
+    : schoolName === 'Ackerly Sands'
+    ? '/county/dawson'
+    : schoolName === 'Abilene Wylie'
+    ? '/county/taylor'
+    : schoolName === 'Abilene Texas Leadership'
+    ? '/county/taylor'
+    : schoolName === 'Abilene Cooper'
+    ? '/county/taylor'
+    : schoolName === 'Abilene'
+    ? '/county/taylor'
+    : schoolName === 'Abernathy'
+    ? '/county/hale'
+    : schoolName === 'Abbott'
     ? '/county/hill'
     : schoolName === 'Katy'
       ? '/county/fort-bend'
@@ -120,6 +173,27 @@ function Page() {
           <div className="space-y-4">
             {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
           </div>
+          {schoolName === 'Abilene Wylie' && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
+            <p className="font-display text-xl text-foreground">Which Wylie Bulldogs?</p>
+            <p className="mt-2 text-muted-foreground">This is the Wylie High School program in Abilene, Taylor County—not the Wylie Pirates near Dallas or an Abilene ISD team. Wylie and Abilene Cooper are documented competitors in UIL 5A Division II District 2 for 2026–28.</p>
+            <a href="/texas-high-school-football-teams/abilene-cooper" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">Explore district opponent Abilene Cooper →</a>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <a href="https://www.wyliebulldogathletics.com/facilities" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Official Sandifer Stadium directions ↗</a>
+          </div>}
+          {schoolName === 'Abilene Texas Leadership' && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
+            <p className="font-display text-xl text-foreground">Which Abilene football team?</p>
+            <p className="mt-2 text-muted-foreground">Texas Leadership of Abilene is a tuition-free public-charter school and a separate UIL team from Abilene High and Abilene Cooper. Its district office in San Angelo is not the Abilene secondary campus or home football stadium.</p>
+            <a href="/texas-high-school-football-teams/abilene" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">Abilene High Eagles guide →</a>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <a href="https://www.texasleadership.net/family-resources/enroll" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Official TLCA enrollment ↗</a>
+          </div>}
+          {(schoolName === 'Abilene' || schoolName === 'Abilene Cooper') && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
+            <p className="font-display text-xl text-foreground">The Crosstown Showdown</p>
+            <p className="mt-2 text-muted-foreground">Abilene ISD documents the Abilene High–Cooper football series beginning in 1961. These two school histories are different, and the teams are assigned to different 2026–28 UIL divisions.</p>
+            <a href={schoolName === 'Abilene' ? '/texas-high-school-football-teams/abilene-cooper' : '/texas-high-school-football-teams/abilene'} className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">{schoolName === 'Abilene' ? 'Explore Cooper Cougars football history →' : 'Explore Abilene High Eagles football history →'}</a>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <a href="https://www.abileneisd.org/article/1525088" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">District's historical rivalry results ↗</a>
+          </div>}
           {editorial.photo && <figure className="mt-7 overflow-hidden border border-border bg-surface">
             <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading={schoolName === 'Katy' || schoolName === 'Fort Davis' ? 'eager' : 'lazy'} decoding="async" className={editorial.photo.width < 400 ? "mx-auto block h-auto w-auto max-w-full object-contain" : "block h-auto w-full object-cover"} />
             <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
@@ -217,6 +291,7 @@ function Page() {
           </>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             {countyPath && <a href={countyPath} className="text-primary">Open {schoolName === 'Katy' ? 'Fort Bend County' : schoolName === 'Abbott' ? 'Hill County' : program?.countyName} guide →</a>}
+            {cityGuide && <a href={`/city/${cityGuide.slug}`} className="text-primary">Explore {cityGuide.name} city guide →</a>}
             {program && <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>}
             {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary">Official UIL alignment ↗</a>}
           </div>

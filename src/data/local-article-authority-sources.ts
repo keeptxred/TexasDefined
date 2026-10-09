@@ -115,4 +115,31 @@ export const localArticleAuthoritySources: Readonly<Record<string, readonly Loca
       scope: "The disputed Nueces Strip, the 1846 war and the postwar Rio Grande boundary context following annexation.",
     },
   ],
+  "texas-ecoregions-habitats-guide": [
+    {
+      label: "Texas Parks & Wildlife — Texas Ecoregions",
+      url: "https://tpwd.texas.gov/education/hunter-education/online-course/wildlife-conservation/texas-ecoregions",
+      scope: "Controlling 10-region Texas natural-region framework and statewide descriptions of climate, soils, vegetation and habitat.",
+    },
+    {
+      label: "Texas Parks & Wildlife — Ecoregion GIS data",
+      url: "https://tpwd.texas.gov/gis/programs/landscape-ecology/by-ecoregion-vector",
+      scope: "Official TPWD ecoregion GIS reference for users who need more exact mapped boundaries than the simplified TexasDefined orientation graphic.",
+    },
+    {
+      label: "Texas Water Development Board — Texas Aquifers",
+      url: "https://www.twdb.texas.gov/groundwater/aquifer/",
+      scope: "Official statewide groundwater and aquifer context supporting the guide's discussion of geology, recharge and regional water systems.",
+    },
+    {
+      label: "National Park Service — Big Thicket ecosystems",
+      url: "https://www.nps.gov/bith/learn/nature/naturalfeaturesandecosystems.htm",
+      scope: "Protected-area ecosystem context where Piney Woods and coastal ecological influences meet in southeast Texas.",
+    },
+    {
+      label: "National Park Service — Big Bend ecosystems",
+      url: "https://www.nps.gov/bibe/learn/nature/ecosystems.htm",
+      scope: "Protected-area context for Chihuahuan Desert, Rio Grande and elevation-driven mountain ecosystems in the Trans-Pecos.",
+    },
+  ],
 };
