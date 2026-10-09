@@ -55,6 +55,7 @@ const prebuildChecks = [
   ['CI/DEPLOYMENT', 'Validate provenance-scoped Discover build cache', 'node', ['scripts/data/validate-discover-build-cache.mjs']],
   ['CI/DEPLOYMENT', 'Validate production rollback safety', 'node', ['scripts/data/validate-production-deployment-safety.mjs']],
   ['CI/DEPLOYMENT', 'Validate live verification contract', 'node', ['scripts/ci/validate-live-verification-contract.mjs']],
+  ['CI/DEPLOYMENT', 'Validate post-deploy verifier safety', 'node', ['scripts/ci/validate-post-deploy-verifier-safety.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate permanent SEO content quality governance', 'node', ['scripts/data/validate-content-quality-governance.mjs']],
   ['UX/LAYOUT', 'Validate sitewide dead-space safeguards', 'node', ['scripts/data/validate-layout-dead-space.mjs']],
   ['CONTENT/GOVERNANCE', 'Validate 250 Texas Stories source backlog', 'node', ['scripts/data/validate-250-texas-stories-backlog.mjs']],
