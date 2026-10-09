@@ -7,6 +7,9 @@ const sources = [
   { name: "Museum visitor information", url: official, note: "Hours, location, appointment policy and field trips" },
   { name: "Permanent exhibits", url: "https://ycmohc.com/exhibitions/", note: "The museum's stated collection areas and virtual exhibit photographs" },
   { name: "Virtual archives and library", url: "https://ycmohc.com/archives/", note: "Historical subjects and research-appointment policy" },
+  { name: "Brazos River Indian Reservations", url: "https://ycmohc.com/brazos-rez/", note: "Local-history source on reservation land, violence, Native communities and forced relocation; compare with other scholarship" },
+  { name: "Warren Wagon Train Raid", url: "https://ycmohc.com/warren-wagon-train-massacre/", note: "Museum account of the 1871 attack and its aftermath; check details against independent historians" },
+  { name: "Satanta of the Kiowa Nation", url: "https://ycmohc.com/satanta/", note: "The museum's biographical interpretation of a Kiowa leader; consult Indigenous perspectives as well" },
   { name: "Museum historical timeline", url: "https://ycmohc.com/timeline/", note: "Exhibit chronology extending through the 1960s; compare interpretations with independent sources" },
   { name: "Historic-map directory", url: "https://ycmohc.com/maps/", note: "GLO maps, Sanborn maps and its historic-site driving map" },
   { name: "Museum institutional information", url: "https://ycmohc.com/about-us/", note: "Present collection building and proposed Goodyear relocation" },
@@ -73,7 +76,7 @@ const deeperQuestions = [
 
 const related = [
   { label: "Young County guide", href: "/county/young", note: "Geography, history, census context and additional attractions" },
-  { label: "Young County frontier history", href: "/article/young-county-graham-fort-belknap-brazos-cross-timbers-texas", note: "The long-form county chronology and changing landscape" },
+  { label: "Texas Old West context", href: "/texas-old-west", note: "Frontier forts, cattle, Native history and the longer context beyond Graham" },
   { label: "The Old Post Museum & Art Center", href: "/destination/old-post-office-museum-art-center-graham", note: "A different Graham museum focused on civic art and local history" },
   { label: "Graham destination guide", href: "/destination/graham", note: "The courthouse square and surrounding small-town experiences" },
   { label: "Texas museums directory", href: "/explore/museums", note: "More source-checked museum guides statewide" },
@@ -175,6 +178,22 @@ export default function YoungCountyMuseumAuthority() {
             <a href="https://ycmohc.com/maps/" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border-b border-primary pb-1 font-semibold text-primary">Open historic maps and touring map ↗</a>
           </div>
         </div>
+        <section className="mt-10 border-t border-border pt-8" aria-labelledby="young-county-original-records">
+          <p className="eyebrow text-primary">Read the actual county histories</p>
+          <h3 id="young-county-original-records" className="mt-3 font-display text-2xl">Three research paths through the museum's archives</h3>
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">These first-party articles are useful local-history documents, but they are interpretations rather than original nineteenth-century records. Pay particular attention to when a narrator uses settler-era terminology or describes Native communities without Indigenous testimony. Compare important claims with the Handbook of Texas and primary documents.</p>
+          <ul className="mt-7 grid gap-6 md:grid-cols-3">
+            {[
+              { title: "Brazos Indian Reservations", url: "https://ycmohc.com/brazos-rez/", detail: "Understand federal reservation policy, communities living along the Brazos, the violence of 1858–59 and their removal." },
+              { title: "Warren Wagon Train Raid", url: "https://ycmohc.com/warren-wagon-train-massacre/", detail: "Follow the May 1871 attack, the political consequences and its connections to Fort Richardson and Jacksboro." },
+              { title: "Satanta and Kiowa history", url: "https://ycmohc.com/satanta/", detail: "Read the museum's biographical account, then compare its framing with other Kiowa and scholarly perspectives." },
+            ].map(({ title, url, detail }) => <li key={url} className="border-t border-border pt-4">
+              <a href={url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{title} ↗</a>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">{detail}</p>
+            </li>)}
+          </ul>
+        </section>
+        
         <div className="mt-10 border-t border-border pt-8">
           <h3 className="font-display text-2xl">Four questions worth asking on site</h3>
           <ul className="mt-5 grid gap-4 text-sm leading-7 sm:grid-cols-2">
