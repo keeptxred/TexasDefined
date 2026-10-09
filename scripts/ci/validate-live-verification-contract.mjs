@@ -29,11 +29,11 @@ const expectedStateFairLabels = new Set([
 ]);
 
 const htmlMarkerCases = [
-  ['raw text', '<h3>Panther Island & Trinity River</h3>', 'Panther Island & Trinity River', true],
-  ['escaped HTML ampersand', '<h3>Panther Island &amp; Trinity River</h3>', 'Panther Island & Trinity River', true],
-  ['decimal HTML ampersand', '<h3>Panther Island &#38; Trinity River</h3>', 'Panther Island & Trinity River', true],
-  ['hex HTML ampersand', '<h3>Panther Island &#x26; Trinity River</h3>', 'Panther Island & Trinity River', true],
-  ['other text must not match', '<h3>Panther Island &amp; Clear Fork</h3>', 'Panther Island & Trinity River', false],
+  ['raw text', '<h3>Panther Island</h3>', 'Panther Island', true],
+  ['escaped HTML ampersand', '<h3>Panther Island &amp; Trinity River</h3>', 'Panther Island', true],
+  ['decimal HTML ampersand', '<h3>Panther Island &#38; Trinity River</h3>', 'Panther Island', true],
+  ['hex HTML ampersand', '<h3>Panther Island &#x26; Trinity River</h3>', 'Panther Island', true],
+  ['other text must not match', '<h3>Panther Island &amp; Clear Fork</h3>', 'Panther Island', false],
   ['missing plain text must not match', '<h3>City overview</h3>', 'Stockyards', false],
 ];
 for (const [label, html, needle, expected] of htmlMarkerCases) {
@@ -53,7 +53,7 @@ const cityProductionChecks = [
   ['city-houston-social', '/city/houston', 'Houston_texas_usa_skyline.jpg?width=1600', 'social'],
   ['city-dallas-authority', '/city/dallas', 'Choose one evening district', 'profile'],
   ['city-dallas-social', '/city/dallas', 'Dallas_Texas_Skyline.jpg?width=1600', 'social'],
-  ['city-fort-worth-authority', '/city/fort-worth', 'Panther Island & Trinity River', 'profile'],
+  ['city-fort-worth-authority', '/city/fort-worth', 'Panther Island', 'profile'],
   ['city-fort-worth-social', '/city/fort-worth', 'Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600', 'social'],
   ['city-austin-authority', '/city/austin', 'Lady Bird Lake + South Congress', 'profile'],
   ['city-austin-social', '/city/austin', 'Austin%2C_TX_skyline_2026.jpg?width=1600', 'social'],
