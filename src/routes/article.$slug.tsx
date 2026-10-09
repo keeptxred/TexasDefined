@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
@@ -355,6 +355,30 @@ export const Route = createFileRoute("/article/$slug")({
   component: ArticlePage,
 });
 
+function EastTexasFoliageParkMap() {
+  const parks = [
+    { name: "Daingerfield", lat: 33.025, lon: -94.725 },
+    { name: "Caddo Lake", lat: 32.690, lon: -94.174 },
+    { name: "Lake Bob Sandlin", lat: 33.063, lon: -95.058 },
+    { name: "Tyler", lat: 32.479, lon: -95.292 },
+    { name: "Cooper Lake", lat: 33.321, lon: -95.663 },
+    { name: "Martin Creek Lake", lat: 32.274, lon: -94.580 },
+  ] as const;
+  const [selected, setSelected] = useState(0);
+  const park = parks[selected];
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${park.lon - 0.10}%2C${park.lat - 0.075}%2C${park.lon + 0.10}%2C${park.lat + 0.075}&layer=mapnik&marker=${park.lat}%2C${park.lon}`;
+  return <div className="mt-8 border border-border bg-background p-4 sm:p-6">
+    <h3 className="font-display text-2xl">Explore the parks on a map</h3>
+    <p className="mt-2 text-sm leading-7 text-muted-foreground">Choose a park to center the interactive OpenStreetMap view. Pins are approximate park locations for trip orientation, not entrance or navigation coordinates. Confirm the official entrance before driving.</p>
+    <div role="group" aria-label="Choose park to locate on map" className="my-4 flex flex-wrap gap-2">
+      {parks.map((item, index) => <button type="button" key={item.name} aria-pressed={selected === index} onClick={() => setSelected(index)} className={`border px-3 py-2 text-sm transition-colors ${selected === index ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary"}`}>{item.name}</button>)}
+    </div>
+    <iframe key={park.name} src={mapUrl} title={`Interactive map around ${park.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-[360px] w-full border border-border sm:h-[440px]" />
+    <a href={`https://www.openstreetmap.org/?mlat=${park.lat}&mlon=${park.lon}#map=11/${park.lat}/${park.lon}`} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open larger map for {park.name} ↗</a>
+    <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors.</p>
+  </div>;
+}
+
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
   const primarySource = articlePrimarySource(article);
@@ -539,6 +563,7 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
+      <EastTexasFoliageParkMap />
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
@@ -550,6 +575,6 @@ function ArticlePage() {
       <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
       <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
     </div></Container></Section>}
-    {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
+    {!isTexasRiversArticle && article.slug !== "east-texas-fall-colors" && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }
