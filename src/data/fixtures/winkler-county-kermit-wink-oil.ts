@@ -25,8 +25,8 @@ export const winklerCountyKermitWinkOilArticle: Article = {
   tags: ["Winkler County", "Kermit", "Wink", "Hendrick Field", "Roy Orbison", "Permian Basin", "Sand Hills", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/ward-county-monahans-sandhills-texas", label: "Explore neighboring Ward County", description: "Follow the sandhills south toward Monahans and the oil roads of Ward County." },
-    { href: "/article/reeves-county-pecos-balmorhea-texas", label: "Continue west through Reeves County", description: "Explore Pecos, Balmorhea and the springs-and-railroad story farther south." },
+    { href: "/county/ward", label: "Explore neighboring Ward County", description: "Follow the sandhills south toward Monahans and the oil roads of Ward County." },
+    { href: "/county/reeves", label: "Continue west through Reeves County", description: "Explore Pecos, Balmorhea and the springs-and-railroad story farther south." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/texas-history", label: "More Texas history", description: "Stories that explain the people and places behind modern Texas." },
