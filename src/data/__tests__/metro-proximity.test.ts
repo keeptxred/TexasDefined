@@ -188,3 +188,76 @@ test("McAllen editorial changes do not alter the standard geographic selector in
   const ordinary = destination(2, "state-parks", { nearestTown: "Richmond", coordinates: { lat: 29.58, lng: -95.76 } });
   assert.deepEqual(selectMetroProximityDestinations([tooClose, ordinary], metro, collection).map((row) => row.destination.slug), [ordinary.slug]);
 });
+
+test("generic metro day trips keep geographic variety instead of filling 30 slots from one town", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const repeated = Array.from({ length: 25 }, (_, index) => destination(index + 200, "beaches-coast", {
+    nearestTown: "Overrepresented Beach Town",
+    county: "County A",
+    coordinates: { lat: 30.20 + index * 0.001, lng: -95.3698 },
+  }));
+  const categories: CategorySlug[] = ["state-parks", "lakes-rivers", "historic-sites", "small-towns"];
+  const otherTowns = Array.from({ length: 12 }, (_, index) => destination(index + 300, categories[index % categories.length], {
+    nearestTown: `Distinct Town ${index}`,
+    county: `County ${index % 5}`,
+    coordinates: { lat: 30.48 + index * 0.005, lng: -95.3698 },
+  }));
+  const selected = selectMetroProximityDestinations([...repeated, ...otherTowns], metro, collection);
+  assert.equal(selected.filter((row) => row.destination.nearestTown === "Overrepresented Beach Town").length, 2);
+  assert.equal(selected.length, 14, "use a useful diverse shortlist; do not add 16 redundant beach cards just to reach 30");
+  assert.ok(new Set(selected.map((row) => row.destination.nearestTown)).size >= 10);
+  assert.ok(new Set(selected.map((row) => row.destination.category)).size >= collection.minCategories);
+  assert.ok(selected.every((row, i) => i === 0 || row.distanceMiles >= selected[i - 1].distanceMiles));
+  assert.equal(isMetroProximityCollectionIndexReady([...repeated, ...otherTowns], metro, collection), true);
+  assert.deepEqual(
+    selectMetroProximityDestinations([...otherTowns, ...repeated].reverse(), metro, collection).map((row) => row.destination.slug),
+    selected.map((row) => row.destination.slug),
+    "catalog input order must not affect day-trip picks",
+  );
+});
+
+test("sparse day-trip inventory only relaxes the town cap to meet the existing minimum", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const oneTown = Array.from({ length: 18 }, (_, index) => destination(index + 400, "state-parks", {
+    nearestTown: "Single Town",
+    county: "Single County",
+    coordinates: { lat: 30.25 + index * 0.005, lng: -95.3698 },
+  }));
+  const selected = selectMetroProximityDestinations(oneTown, metro, collection);
+  assert.equal(selected.length, collection.minResults);
+  assert.equal(isMetroProximityCollectionIndexReady(oneTown, metro, collection), false, "weak geographic diversity must remain noindex");
+});
+
+test("remote backcountry shortcuts are excluded for all day-trip metros but not erased from other collections", () => {
+  const metro = getMetroProximityMetro("corpus-christi")!;
+  const dayTrips = getMetroProximityCollection("day-trips")!;
+  const thingsToDo = getMetroProximityCollection("things-to-do")!;
+  const remote = destination(501, "beaches-coast", {
+    slug: "yarborough-pass", nearestTown: "Padre Island", county: "Kleberg",
+    coordinates: { lat: 27.20434, lng: -97.38929 },
+  });
+  const accessible = destination(502, "state-parks", {
+    slug: "ordinary-park", nearestTown: "Coastal Bend", county: "Nueces",
+    coordinates: { lat: 27.45, lng: -97.39 },
+  });
+  assert.deepEqual(
+    selectMetroProximityDestinations([remote, accessible], metro, dayTrips).map((row) => row.destination.slug),
+    [accessible.slug],
+  );
+  assert.ok(
+    selectMetroProximityDestinations([remote], metro, thingsToDo).some((row) => row.destination.slug === remote.slug),
+    "other collections and destination detail should not silently lose a researched place",
+  );
+});
+
+test("non-day-trip proximity collections retain their existing geographic ordering and breadth", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("things-to-do")!;
+  const sameTown = Array.from({ length: 16 }, (_, index) => destination(index + 600, "state-parks", {
+    nearestTown: "Repeated Town", county: "County A", coordinates: { lat: 29.91 + index * 0.01, lng: -95.3698 },
+  }));
+  const selected = selectMetroProximityDestinations(sameTown, metro, collection);
+  assert.equal(selected.length, sameTown.length, "do not silently constrain other collection families");
+});

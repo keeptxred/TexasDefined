@@ -69,6 +69,21 @@ for (const token of [
 ]) requireText(files.townReferences, token, `supplemental town-reference layer missing ${token}`);
 
 for (const token of [
+  "selectDiverseDayTrips", "REMOTE_DAY_TRIP_EXCLUSIONS",
+  'collection.slug === "day-trips"', "categoryLimit", "collection.minResults",
+]) requireText(files.data, token, `shared day-trip quality model missing ${token}`);
+for (const token of [
+  "generic metro day trips keep geographic variety",
+  "sparse day-trip inventory only relaxes the town cap",
+  "remote backcountry shortcuts are excluded for all day-trip metros",
+  "non-day-trip proximity collections retain their existing",
+]) requireText(files.test, token, `shared day-trip selection regression missing ${token}`);
+for (const token of [
+  "Closer geographic choices", "Middle-distance choices · check the road route",
+  "Farther geographic choices · check if an overnight fits better",
+]) requireText(files.collectionUi, token, `truthful day-trip range label missing ${token}`);
+
+for (const token of [
   "unknown metro and collection slugs fail closed", "small-town hour-intent rings are non-overlapping",
   "duplicate destination slugs cannot inflate collection inventory", "swimming-hole intent requires water-use language",
   "thin or geographically narrow collections remain noindex", "substantive, diverse inventory can clear the index gate",
