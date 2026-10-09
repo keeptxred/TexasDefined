@@ -8,6 +8,8 @@ const puebloUrl = "https://www.ysletadelsurpueblo.org/about-us";
 const commissionUrl = "https://atlas.thc.texas.gov/details/4200001263";
 const texasHistoryUrl = "https://www.tshaonline.org/handbook/entries/ysleta-del-sur-pueblo-museum";
 const missionUrl = "https://www.nps.gov/places/ysleta-mission.htm";
+const missionTrailUrl = "https://visitelpaso.com/epmissiontrail";
+const visitElPasoCulturalUrl = "https://visitelpaso.com/places/tigua-indian-cultural-center";
 const photoUrl = "https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center.jpg";
 const panoramaUrl = "https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center_2.jpg";
 const sourceList = [
@@ -18,6 +20,8 @@ const sourceList = [
   { label: "Texas Historical Commission — museum atlas #4200001263", url: commissionUrl, note: "Independent museum directory: address, telephone, email and hours; revised September 27, 2026." },
   { label: "Texas State Historical Association — Handbook of Texas", url: texasHistoryUrl, note: "Historic museum timeline, including the 1975 opening and the 1992 fire; not a current operating-hours source." },
   { label: "National Park Service — Ysleta Mission", url: missionUrl, note: "Documentary history of the separate mission church and Pueblo Revolt-era borderlands." },
+  { label: "Visit El Paso — Mission Trail", url: missionTrailUrl, note: "Official regional visitor explanation of the Ysleta–Socorro–San Elizario heritage corridor." },
+  { label: "Visit El Paso — Pueblo Cultural Center", url: visitElPasoCulturalUrl, note: "Secondary visitor listing for demonstrations and activities; confirm public access and timing with the Pueblo." },
 ];
 const museumTopics = [
   { title: "Tigua history, in the Pueblo's own voice", text: "The museum is operated by the Pueblo itself. Its interpretation centers the community's experience across centuries instead of treating Indigenous people as a chapter that ended with Spanish settlement. Look for explanations of continuity, political sovereignty, family histories and the adversity residents have faced." },
@@ -40,7 +44,7 @@ const questions = [
   { q: "What days is the museum open?", a: "The Pueblo's specific museum page and the Texas Historical Commission currently list Wednesday through Sunday, 10 a.m.–4 p.m. Other Cultural Center and gift-shop listings show different days; call the museum before making a special trip." },
   { q: "How much does admission cost?", a: "A dependable current public admission rate was not identified in the official museum listing reviewed October 9, 2026. Call the Cultural Center to confirm admission, accepted payment and any group pricing." },
   { q: "Can children or school groups visit?", a: "Yes. The museum specifically offers tours for school trips and larger groups. Contact staff ahead of time to discuss group size, educational goals, supervision and available tour dates." },
-  { q: "Are there dances and bread-making demonstrations every day?", a: "No daily performance schedule was verified. Cultural events and artists' visits vary; some classes and demonstrations serve tribal members only. Ask what is open to the public on your date." },
+  { q: "Are there dances and bread-making demonstrations every day?", a: "No. Visit El Paso advertises traditional baking on second and fourth Saturdays, but individual demonstrations and public access can change. Other cultural classes and programs are for tribal members only. Confirm what is open to the public on your date with Pueblo staff." },
   { q: "Is it accessible?", a: "Public source pages did not establish a full, current accessibility inventory. Ask staff about step-free routes, accessible restrooms, seating, mobility needs and any accommodations before visiting." },
   { q: "How much time should I allow?", a: "For planning, allow roughly 45–90 minutes for a self-guided museum visit; this is a TexasDefined estimate, not a museum-issued tour duration. Allow more time if a confirmed public program is scheduled." },
   { q: "May I photograph exhibits or ceremonies?", a: "Do not assume photography or video is permitted, especially during dances, ceremonies or presentations involving community members. Ask staff for permission and respect posted restrictions." },
@@ -73,7 +77,7 @@ export default function YsletaDelSurMuseumAuthority() {
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum location</p><p className="mt-2 font-semibold">305 Yaya Lane<br />El Paso, TX 79907</p></div>
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum-listed hours</p><p className="mt-2 font-semibold">Wednesday–Sunday<br />10 a.m.–4 p.m.</p></div>
-        <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum contact</p><a href="tel:+19158597700" className={anchorStyle+" mt-2 inline-block"}>(915) 859-7700</a><a href="mailto:culturalcenter@ydsp-nsn.gov" className="mt-1 block text-xs text-primary underline">culturalcenter@ydsp-nsn.gov</a></div>
+        <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum contact</p><a href="tel:+19158597700" className={anchorStyle+" mt-2 inline-block"}>(915) 859-7700</a><a href="mailto:culturalcenter@ydsp-nsn.gov" className="mt-1 block text-xs text-primary underline" style={{ overflowWrap: "anywhere" }}>culturalcenter@ydsp-nsn.gov</a></div>
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Admission and programs</p><p className="mt-2 font-semibold">Confirm directly</p><p className="mt-1 text-sm text-muted-foreground">A current entry price and daily performance calendar were not verified.</p></div>
       </div>
       <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Important hours discrepancy:</strong> the Pueblo's museum-specific page and the Texas Historical Commission record both say Wednesday–Sunday, 10 a.m.–4 p.m. A separate cultural-center gift-shop website advertises daily hours. Those may reflect different facilities or updated schedules. Before traveling, call the museum to confirm museum access, tours, holiday hours and pricing.</p>
@@ -155,7 +159,12 @@ export default function YsletaDelSurMuseumAuthority() {
           <p className="mt-3 text-sm leading-7">Ask permission before photographing people, ceremonies or exhibits. Stay in public visitor areas. No full current accessibility inventory was identified in the reviewed public sources; call ahead about accessible entrances, restrooms, seating, service animals and sensory accommodations.</p>
         </div>
       </div>
-      <div className="mt-7 flex flex-wrap gap-6"><Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className={anchorStyle}>Explore El Paso County →</Link><Link to="/article/$slug" params={{ slug: "el-paso-county-missions-rio-grande-texas" }} className={anchorStyle}>Understand the El Paso Mission Trail →</Link><Link to="/article/$slug" params={{ slug: "indigenous-texas-history-native-nations" }} className={anchorStyle}>Indigenous Texas history →</Link></div>
+      <nav aria-label="Continue exploring El Paso heritage" className="mt-7 flex flex-wrap gap-6">
+        <Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className={anchorStyle}>Explore El Paso County →</Link>
+        <Link to="/article/$slug" params={{ slug: "texas-borderlands-historic-sites-guide" }} className={anchorStyle}>Texas borderlands and mission history →</Link>
+        <Link to="/article/$slug" params={{ slug: "indigenous-texas-history-native-nations" }} className={anchorStyle}>Indigenous Texas history →</Link>
+        <a href={missionTrailUrl} className={anchorStyle} target="_blank" rel="noopener noreferrer">Official El Paso Mission Trail visitor guide ↗</a>
+      </nav>
     </Container>
 
     <section className="border-t border-border py-14 sm:py-16">
@@ -170,7 +179,7 @@ export default function YsletaDelSurMuseumAuthority() {
     <Container className="py-14 sm:py-16">
       <p className="eyebrow text-primary">Editorial transparency</p>
       <h2 className="mt-3 font-display text-4xl">Primary sources, verification and image credits</h2>
-      <p className="mt-5 max-w-4xl leading-8">TexasDefined Editorial Desk · Last verified October 9, 2026. The Pueblo's own sources control its identity, history and current museum guidance. The Texas Historical Commission supplies cross-checks for museum contacts and hours. The Handbook of Texas supplies historical museum milestones. The National Park Service supports facts about the separate mission. We do not present tribal-member-only activities as public programming, nor treat estimates as confirmed admission policies.</p>
+      <p className="mt-5 max-w-4xl leading-8">TexasDefined Editorial Desk · Last verified October 9, 2026. The Pueblo's own sources control its identity, history and current museum guidance. The Texas Historical Commission supplies cross-checks for museum contacts and hours; Visit El Paso provides contextual visitor information that should be reconfirmed with the Pueblo. The Handbook of Texas supplies historical museum milestones. The National Park Service supports facts about the separate mission. We do not present tribal-member-only activities as public programming, nor treat estimates as confirmed admission policies.</p>
       <ol className="mt-7 grid gap-5 sm:grid-cols-2">{sourceList.map((source,index)=><li key={source.url} className="border-t border-border pt-4"><p className="eyebrow text-primary">Source {index+1}</p><a className={anchorStyle+" mt-2 inline-block"} href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a><p className="mt-2 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ol>
       <p className="mt-7 text-xs leading-6 text-muted-foreground">Image attribution: both photographs by Sue Barnum (2020), licensed CC BY-SA 4.0 through Wikimedia Commons. They are photographs of this Cultural Center, not generic museum substitutes. <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Hero image license and source</a> · <a href={panoramaUrl} className="underline" target="_blank" rel="noopener noreferrer">Panorama license and source</a>.</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Suggested citation: TexasDefined Editorial Desk. “Ysleta del Sur Pueblo Cultural Center Museum: Tigua History, Exhibits & Visitor Guide.” TexasDefined, verified October 9, 2026. https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso</p>
