@@ -188,7 +188,7 @@ The TWDB numbers describe three distinct questions: area drained within Texas, m
         </div>
       </section>
 
-      <details className="mt-7 border border-border">
+      <details className="mt-5 border border-border">
         <summary className="px-4 py-3 font-semibold text-foreground">
           Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">area, Texas river miles and average annual flow</span>
         </summary>
