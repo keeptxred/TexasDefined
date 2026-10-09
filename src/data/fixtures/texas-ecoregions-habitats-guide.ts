@@ -18,7 +18,7 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
     height: 1000,
     credit: "TexasDefined · simplified from the Texas Parks and Wildlife natural-region framework",
   },
-  authorId: "a-marisol",
+  authorId: "a-dell",
   publishedAt: "2026-08-16",
   updatedAt: "2026-10-09",
   readingMinutes: 18,
@@ -140,7 +140,7 @@ export const texasEcoregionsHabitatsGuideArticle: Article = {
     h("Methodology, sources and citation"),
     p("TexasDefined uses the Texas Parks and Wildlife Department's 10-region natural-region framework as the controlling statewide classification for this page. We use TPWD and other public-agency material to describe broad landscape, vegetation and wildlife patterns, then connect those regions editorially to TexasDefined's destination, wildlife, river and land guides. The map on this page is an original simplified orientation graphic; it generalizes boundaries and is not a substitute for TPWD's official map."),
     p("Last verified: October 9, 2026. Stable URL: https://texasdefined.com/article/texas-ecoregions-habitats-guide"),
-    p("Recommended citation: Texas Defined Editorial Desk. “Texas Ecoregions: Complete Map & Guide to All 10 Natural Regions.” TexasDefined.com. Last verified October 9, 2026. https://texasdefined.com/article/texas-ecoregions-habitats-guide"),
+    p("Recommended citation: Texas Defined Travel & Outdoors Desk. “Texas Ecoregions: Complete Map & Guide to All 10 Natural Regions.” TexasDefined.com. Last verified October 9, 2026. https://texasdefined.com/article/texas-ecoregions-habitats-guide"),
     list(
       "Primary source: Texas Parks and Wildlife Department — Texas Ecoregions.",
       "Supporting context: TPWD regional habitat and wildlife guidance, Texas Water Development Board groundwater and surface-water references, and National Park Service landscape information for protected areas.",
