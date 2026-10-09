@@ -30,6 +30,8 @@ Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 
 - **Aledo individual checkpoint (2026-10-09):** twelve UIL state titles through 2023, explicit 2026 first Class 6A District 3 move, historical 136-game district win streak ended by Arlington Martin Sept 25, official coach Robby Jones and detailed Tim Buchanan Stadium 12×6×12 clear-bag rules, independent orange/black championship cards and Parker County reciprocal links. See [Aledo school research](schools/aledo.md). Commits `3a992ad`, `3d10764`, `937c156`, `5260f90`, audit `77c5bd3`. **IMPLEMENTED on continuation branch, never VERIFIED without post-deployment Chrome.** Batch 002 now 10 of 25 researched and implemented; 15 remain NOT_REVIEWED. Next Alice.
 
+- **Alice individual checkpoint (2026-10-09):** restored 2026 Memorial Stadium at 212 N Stadium Road and 2025 temporary venue context, official coach Joe Castellano, 2023/2024 district championships, UIL 4A Division I District 16 and Jim Wells County reciprocal links. [Individual school audit](schools/alice.md); implementation `b3dce29`, `b77a811`, `d9ed2cd`, `a846f94`. **IMPLEMENTED only, not merged or production VERIFIED.** 11/25 implemented, 14 assigned schools remain NOT_REVIEWED. Next Alief Elsik.
+
 ## Canonical inventory
 - **1,292 source-declared existing profiles:** 1,268 UIL 2026–28 alignment slugs and 24 other featured/non-UIL profile slugs.
 - This is a deterministic repository inventory; it is **not** proof that all 1,292 live URLs were individually crawled. Do not auto-create more pages or confuse reported UIL alignment with a played season.
