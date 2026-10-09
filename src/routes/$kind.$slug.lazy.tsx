@@ -61,41 +61,41 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     description: 'Explore Abilene High’s seven state football titles, historic 49-game winning streak and Shotwell Stadium visitor information.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
-  'nueces': {
-    name: 'Agua Dulce Longhorns',  harris: {
+  nueces: {
+    name: 'Agua Dulce Longhorns',
+    href: '/texas-high-school-football-teams/agua-dulce',
+    description: 'Read the Longhorns’ 2026 coaching, recent playoffs and state-registered football-field improvement research before planning a game-day visit.',
+    campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320',
+  },
+  harris: {
     name: 'Alief Elsik Rams',
     href: '/texas-high-school-football-teams/alief-elsik',
-    description: 'Explore Elsik’s 1990s UIL regional and quarterfinal football history, 2026 coaching sources and Houston-area district play.',
+    description: 'Explore Elsik’s 1990s UIL postseason record, 2026 coaching research and Alief district football.',
     campusCountySource: 'https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/',
   },
   'jim-wells': {
     name: 'Alice Coyotes',
     href: '/texas-high-school-football-teams/alice',
-    description: 'Explore Alice’s new September 2026 Memorial Stadium, coach Joe Castellano, consecutive district titles and current 4A Division I opponents.',
+    description: 'Explore Alice’s September 2026 Memorial Stadium, Joe Castellano and current district competition.',
     campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898',
   },
   parker: {
     name: 'Aledo Bearcats',
     href: '/texas-high-school-football-teams/aledo',
-    description: 'Discover Aledo’s 12 UIL football titles, 2026 Class 6A transition, head coach Robby Jones, historic district streak and Tim Buchanan Stadium.',
+    description: 'Discover twelve UIL titles, the 2026 Class 6A transition and Tim Buchanan Stadium.',
     campusCountySource: 'https://ahs.aledoisd.org/parents-students/aledo-high-school-graduation-information/class-of-2026-graduation',
   },
   shackelford: {
     name: 'Albany Lions',
     href: '/texas-high-school-football-teams/albany',
-    description: 'Discover the Lions four state football championships, coach Denney Faith, 2026 UIL district and the historic Robert Nail Stadium gateway.',
+    description: 'Research Albany’s four championships, coach Denney Faith and Robert Nail Stadium.',
     campusCountySource: 'https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2026&dds_report=D9&id=209901001&lev=C&prgopt=reports%2Facct%2Fdistinctions.sas',
   },
   wood: {
     name: 'Alba-Golden Panthers',
     href: '/texas-high-school-football-teams/alba-golden',
-    description: 'Explore the Panthers’ 2023 seven-win season, 2025 rebuilding year, Drew Webster and 2026 UIL District 10 opponents.',
+    description: 'Read about the Panthers’ 2023 seven-win season, Drew Webster and 2026 district.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Wood+County&ID=480765000053&Search=1&State=48',
-  },
-
-    href: '/texas-high-school-football-teams/agua-dulce',
-    description: 'Read the Longhorns 2026 coaching, recent playoffs and state-registered football-field improvement research before planning a game-day visit.',
-    campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320',
   },
   dawson: {
     name: 'Ackerly Sands Mustangs',
