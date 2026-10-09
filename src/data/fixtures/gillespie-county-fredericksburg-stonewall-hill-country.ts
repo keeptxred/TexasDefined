@@ -33,6 +33,8 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/county/llano", label: "Explore Llano County", description: "Follow the granite country and Llano River north of Fredericksburg." },
+    { href: "/county/kerr", label: "Explore Kerr County", description: "Explore Kerrville and the Guadalupe River to the southwest." },
     {
       href: "/destination/fredericksburg",
       label: "Fredericksburg travel guide",
