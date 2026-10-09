@@ -10,6 +10,7 @@ export type VerifiedFootballSchoolIdentity = {
 // Enrichment policy: the authoritative universe is all 1,268 current UIL football programs.
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
+export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
     slug: 'agua-dulce',
     mascot: 'Longhorns',
@@ -17,7 +18,6 @@ export type VerifiedFootballSchoolIdentity = {
     sourceLabel: 'Agua Dulce ISD official Longhorns school and athletics identification',
     verifiedAt: '2026-10-09',
   },
-export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
     slug: 'alice',
     mascot: 'Coyotes',
