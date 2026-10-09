@@ -59,6 +59,192 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "all-saints-fort-worth",
+    "theme": {
+      "accentHex": "#4E3C79",
+      "label": "Original purple Saints editorial accent; not official school artwork or confirmed uniform-color palette"
+    },
+    "seo": {
+      "title": "Fort Worth All Saints Football: 2024–25 TAPPS Titles, Aaron Beck & 2026",
+      "description": "All Saints’ Episcopal School Fort Worth football: undefeated 2024 and 2025 TAPPS Division II titles, coach Aaron Beck, 2026 schedule and McNair Stadium visitor guide."
+    },
+    "coach": {
+      "name": "Aaron Beck",
+      "title": "Head football coach and school athletic director",
+      "sourceUrl": "https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall",
+      "sourceLabel": "All Saints' Episcopal School official 2025 football championship announcement",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "9700 Saints Circle, Fort Worth, TX 76108",
+      "phone": "817-560-5700",
+      "sourceUrl": "https://www.aseschool.org/about/campus-map",
+      "sourceLabel": "All Saints' Episcopal School official campus map and contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "All Saints 2026 varsity game results and upcoming TAPPS fixtures",
+      "sourceUrl": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/",
+      "sourceLabel": "MaxPreps football team results, reviewed Oct. 9, 2026",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "5–2 (October 2 result included; later games pending)",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/",
+      "sourceLabel": "2026 MaxPreps varsity match results with Oct. 2 Fort Worth Christian final",
+      "games": [
+        {
+          "date": "Aug. 21",
+          "opponent": "Parish Episcopal",
+          "site": "Home",
+          "result": "W 31–11"
+        },
+        {
+          "date": "Aug. 28",
+          "opponent": "Liberty Christian",
+          "site": "Home",
+          "result": "L 35–38"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "The Woodlands John Cooper",
+          "site": "Away",
+          "result": "W 44–7"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Prestonwood Christian",
+          "site": "Away",
+          "result": "W 42–14"
+        },
+        {
+          "date": "Sept. 17",
+          "opponent": "Lovejoy",
+          "site": "Home",
+          "result": "L 28–30"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Gunter",
+          "site": "Away",
+          "result": "W 25–9"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Fort Worth Christian",
+          "site": "Home",
+          "district": true,
+          "result": "W 37–7"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Fort Worth Southwest Christian",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Grapevine Faith Christian",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Midland Christian",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "McNair Stadium — school campus athletic venue",
+      "address": "9700 Saints Circle, Fort Worth, TX 76108 (school campus; verify stadium entrance separately)",
+      "sourceUrl": "https://www.aseschool.org/about/campus-map",
+      "sourceLabel": "Official All Saints campus map identifies McNair Stadium",
+      "verifiedAt": "2026-10-09",
+      "note": "All Saints' official map places McNair Stadium among its campus athletics facilities and distinguishes Normandale Street main entrance from Longvue Avenue west entrance. That map does not designate either as the correct gate for every football game; ticket instructions should control entrance, accessible access, bag rules and parking. The school's planned Field House and Promenade are fundraising/development proposals, not independently confirmed completed 2026 match-day amenities."
+    },
+    "development": {
+      "title": "Proposed field house and spectator promenade",
+      "body": "The school has promoted a new field house including athletic training, locker rooms, restrooms and a pedestrian connection to outdoor athletic venues. Its capital campaign description should not be read as proof these facilities were finished for the 2026 season.",
+      "sourceUrl": "https://www.aseschool.org/give/saints-elevate/field-house",
+      "sourceLabel": "All Saints' Episcopal School field-house fundraising proposal",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Fort Worth All Saints' Episcopal School has a distinctive championship history in private-school eleven-man football. The school's own December 2025 announcement documents consecutive undefeated TAPPS Division II state titles in 2024 and 2025, each season finishing 14–0. The program's school identity is the Saints, and this Fort Worth campus must not be confused with All Saints schools in Tyler or Lubbock.",
+      "All Saints capped 2025 by defeating Houston Second Baptist 34–16 in the TAPPS Division II title game on December 5. The school described that repeat as the first back-to-back undefeated title run in TAPPS eleven-man history. This is a SCHOOL-sourced association milestone, not a claim that the team holds the all-time UIL winning streak; school coverage also attributes a lengthy streak across its 2024–25 campaigns.",
+      "The official school championship report credits head football coach Aaron Beck and recognizes Hudson Reasor as the offensive MVP and Kingston Beyer as defensive MVP of the 2025 championship game according to TXPS Media. The school leadership roster separately lists Aaron Beck as athletic director and assistant head of school for external operations, grounding his campus role in a current primary source.",
+      "The school plays private-school football in the TAPPS Division II District 1 grouping, not UIL Conference 6A or the independent SPC schedule shown by some stale third-party indexes. The 2026 district slate includes Fort Worth Christian, Southwest Christian, Grapevine Faith Christian and Midland Christian; the private association context matters when comparing their championship records with public UIL programs.",
+      "Through the reported October 2, 2026 result, the Saints stood 5–2: 31–11 over Parish Episcopal; a close 35–38 loss to Liberty Christian; wins at Cooper 44–7 and Prestonwood 42–14; a 28–30 loss to Lovejoy; then victories against Gunter 25–9 and Fort Worth Christian 37–7. This dated snapshot does not include any October 9 game result and should not be presented as live standings.",
+      "The school lists McNair Stadium on its 147-acre Fort Worth campus map, and its 2026 admission page advertised a complimentary-ticket Friday Night Lights visit for the October 2 game. That invitation is date-specific, not proof all games are free or that the school campus postal address identifies the ticket-scanning gate. The announced new field house remains a project until its opening is established."
+    ],
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "First undefeated title in a two-year run",
+        "body": "The school reports a 14–0 TAPPS Division II championship season in 2024, the first of consecutive undefeated title campaigns.",
+        "sourceUrl": "https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall",
+        "sourceLabel": "All Saints' Episcopal School official championship recap"
+      },
+      {
+        "date": "Dec. 5, 2025",
+        "title": "Consecutive TAPPS Division II championships",
+        "body": "All Saints defeated Houston Second Baptist 34–16 for the 2025 TAPPS Division II title, completing another 14–0 season; the school attributes an association-first consecutive undefeated 11-man championship feat.",
+        "sourceUrl": "https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall",
+        "sourceLabel": "School official 2025 football championship account"
+      },
+      {
+        "date": "2025",
+        "title": "Reasor and Beyer recognized in title game",
+        "body": "The school reports TXPS Media naming Hudson Reasor offensive MVP and Kingston Beyer defensive MVP for the December 2025 championship.",
+        "sourceUrl": "https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall",
+        "sourceLabel": "School championship account"
+      },
+      {
+        "date": "Aug.–Sept. 2026",
+        "title": "Early season tests against Liberty and Lovejoy",
+        "body": "The Saints sustained narrow defeats to Liberty Christian (35–38) and Lovejoy (28–30), alongside wins over Parish Episcopal, Cooper, Prestonwood and Gunter.",
+        "sourceUrl": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 varsity results"
+      },
+      {
+        "date": "Oct. 2, 2026",
+        "title": "District-opening win against Fort Worth Christian",
+        "body": "The school's MaxPreps 2026 game record shows a 37–7 result against Fort Worth Christian at All Saints Episcopal's home field.",
+        "sourceUrl": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/",
+        "sourceLabel": "MaxPreps Fort Worth Christian game result"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many straight TAPPS football championships has Fort Worth All Saints won?",
+        "answer": "The school documents consecutive Division II titles in 2024 and 2025, both with 14–0 seasons; the 2025 state final was a 34–16 win against Houston Second Baptist."
+      },
+      {
+        "question": "Who coaches All Saints football?",
+        "answer": "The school's own 2025 football-title announcement names Aaron Beck head football coach, and its leadership page lists him as athletic director and assistant head of school for external operations."
+      },
+      {
+        "question": "Is Fort Worth All Saints in UIL football?",
+        "answer": "No. It competes in private-school TAPPS football (Division II District 1 in the 2025–26 team listings). It should not be assigned a public UIL classification or conflated with Tyler's All Saints Trojans."
+      },
+      {
+        "question": "Where is All Saints' McNair Stadium?",
+        "answer": "The official campus map identifies McNair Stadium at All Saints' Fort Worth campus, 9700 Saints Circle. Check the specific match ticket or the school for which gate, parking zone, accessible entry and bag policy to use."
+      },
+      {
+        "question": "Was the All Saints new field house completed in 2026?",
+        "answer": "The school's field-house page describes a proposed capital improvement with a promenade and new athletic amenities. The source does not establish completion or opening dates, so these are not guaranteed current visitor facilities."
+      },
+      {
+        "question": "What was All Saints' record as of October 2, 2026?",
+        "answer": "The 2026 team ledger showed five wins and two losses after a 37–7 victory over Fort Worth Christian. October 9 and later games must be confirmed from newer results."
+      }
+    ]
+  },
+  {
     "slug": "alief-taylor",
     "theme": {
       "accentHex": "#315F4D",
