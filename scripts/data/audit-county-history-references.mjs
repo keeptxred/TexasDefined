@@ -19,7 +19,8 @@ async function checkHandbook(county) {
     const sameEntry = new URL(response.url).pathname === new URL(url).pathname;
     return {
       county: county.slug, url, http: response.status,
-      state: response.ok && matchesName && sameEntry ? 'found-county-entry'
+      state: response.status === 429 ? 'rate-limited-inconclusive'
+        : response.ok && matchesName && sameEntry ? 'found-county-entry'
         : response.status === 404 ? 'not-found' : 'needs-review',
       reason: !response.ok ? 'HTTP ' + response.status
         : !sameEntry ? 'redirected to ' + response.url
@@ -33,7 +34,22 @@ async function checkHandbook(county) {
 const results = [];
 const concurrency = 12;
 for (let offset = 0; offset < counties.length; offset += concurrency) {
-  results.push(...await Promise.all(counties.slice(offset, offset + concurrency).map(checkHandbook)));
+  const batch = await Promise.all(counties.slice(offset, offset + concurrency).map(checkHandbook));
+  results.push(...batch);
+  // Respect the publisher's 429 response: do not keep sending requests to a
+  // rate-limited service, and do not confuse untested entries with 404s.
+  if (batch.some((row) => row.http === 429)) {
+    for (const county of counties.slice(offset + concurrency)) {
+      results.push({
+        county: county.slug,
+        url: 'https://www.tshaonline.org/handbook/entries/' + county.slug + '-county',
+        http: null,
+        state: 'rate-limited-not-tested',
+        reason: 'Skipped after publisher returned HTTP 429',
+      });
+    }
+    break;
+  }
 }
 const totals = {};
 for (const row of results) totals[row.state] = (totals[row.state] ?? 0) + 1;
