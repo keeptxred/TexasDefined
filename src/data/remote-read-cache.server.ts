@@ -54,7 +54,12 @@ export async function fetchCachedRemoteJsonRows(options: {
     .then(async (response) => {
       if (!response.ok) throw new Error(`${options.errorLabel} failed: ${response.status}`);
       const value = await response.json();
-      const rows: RemoteJsonRow[] = Array.isArray(value) ? value : [];
+      // A successful HTTP response with a malformed body is not a legitimate
+      // empty result. Never cache it as verified public content.
+      if (!Array.isArray(value) || value.some((row) => !row || typeof row !== "object" || Array.isArray(row))) {
+        throw new Error(`${options.errorLabel} returned an invalid row collection`);
+      }
+      const rows: RemoteJsonRow[] = value;
       const completedAt = Date.now();
       entry.value = rows;
       entry.expiresAt = completedAt + REMOTE_READ_TTL_MS;
