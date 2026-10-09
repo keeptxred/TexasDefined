@@ -58,6 +58,133 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "aledo": {
+    "slug": "aledo",
+    "theme": {
+      "accentHex": "#D76619",
+      "label": "Original orange-and-black editorial timeline based on UIL 2023 Aledo championship roster; not the Bearcats official trademark or a photograph"
+    },
+    "seo": {
+      "title": "Aledo Bearcats Football: 12 UIL State Titles & 2026 Class 6A",
+      "description": "Aledo Bearcats football history: 12 championships, 2026 move to UIL 6A District 3, coach Robby Jones, the 136-game district streak and Tim Buchanan Stadium."
+    },
+    "coach": {
+      "name": "Robby Jones",
+      "title": "2026 head football coach",
+      "sourceUrl": "https://www.aledoisdathletics.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Official Aledo ISD Athletics 2026–27 varsity football staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1000 Bailey Ranch Road, Aledo, TX 76008",
+      "sourceUrl": "https://ahs.aledoisd.org/parents-students/aledo-high-school-graduation-information/class-of-2026-graduation",
+      "sourceLabel": "Official Aledo High School campus and stadium event address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official 2026 Aledo football varsity schedule and season information",
+      "sourceUrl": "https://www.aledoisdathletics.com/sport/football/boys?tab=schedule",
+      "sourceLabel": "Aledo ISD Athletics official current football schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Tim Buchanan Stadium",
+      "address": "1000 Bailey Ranch Road, Aledo, TX 76008",
+      "sourceUrl": "https://www.aledoisdathletics.com/buchanan-stadium",
+      "sourceLabel": "Official Aledo Athletics Buchanan Stadium clear-bag policies",
+      "verifiedAt": "2026-10-09",
+      "note": "Aledo ISD identifies Tim Buchanan Stadium at 1000 Bailey Ranch Road as its varsity football ground. The official stadium page sets a clear-bag policy: 12×6×12 inches maximum for transparent bags, one-gallon transparent freezer bags and small clutches subject to current detailed restrictions; medically necessary items may be excepted. Consult that official policy, the assigned game's ticket page and athletics staff for currently available tickets, permitted items, parking and ADA gates. Do not copy high-school graduation's special guest access/ticket rules into a varsity football visit."
+    },
+    "overview": [
+      "Aledo's Bearcats entered fall 2026 with 12 official Texas UIL state football championships, the most recorded for an eleven-man Texas high school program. The winning seasons in the UIL ledger are 1998, 2009, 2010, 2011, 2013, 2014, 2016, 2018, 2019, 2020, 2022 and 2023. This isn't a claim of a new 2024–2026 crown: Aledo was a 2025 state semifinalist, and the school board's 2026 commendation did not award a thirteenth championship.",
+      "The central 2026 program story is not another generic state-title tally; it is Aledo's first season in UIL Class 6A. The official 2026–28 realignment assigns the Bearcats to Region I, District 3 alongside Arlington, Arlington Bowie, Arlington Sam Houston, Arlington Lamar, Arlington Martin, Granbury and Weatherford. Older pages showing 5A Division I are historical and must not be published as Aledo's current 2026 division.",
+      "Robby Jones is the current Aledo ISD-listed head football coach. The athletics department separately lists Brad McCone as assistant head coach/defensive coordinator, Joe Williams as offensive coordinator, Stephen Reves as co-defensive coordinator and Doug Wheeler as co-offensive coordinator. These are current official assignments, unlike historical tenures of dynasty architect Tim Buchanan and successor Steve Wood.",
+      "Aledo's long run of district wins ended September 25, 2026 with a 35–21 home defeat against Arlington Martin. Contemporary local coverage counts 136 consecutive district wins before the loss, a remarkable streak that crossed earlier alignments but is no longer active. The Bearcats had extended it with a 69–0 victory at Granbury a week earlier. It would be inaccurate to keep describing the streak as unbroken or to infer the Arlington Martin game eliminated Aledo from postseason contention.",
+      "In 2023 Robby Jones's 5A Division I Bearcats finished an undefeated championship season after a 16–0 final, as the UIL's pre-final state-team archive records the first 15 victories. Aledo's athletic successes span multiple coaching eras, so the 1998 championship, three straight 2009–11 trophies and later 2018–20 stretch should be credited to the correct periods rather than assumed to belong to the current roster or a single head coach.",
+      "For visiting supporters, Aledo's Tim Buchanan Stadium sits at 1000 Bailey Ranch Road. Aledo ISD's official athletics page specifies clear-bag sizes and prohibited bags, and the official 2026 schedule identifies home and away venues including the October 9 Arlington Bowie matchup. The home ground should not be confused with away sites or a separate middle-school stadium. The available original stadium and athlete photos on school and sports publisher websites are not licensed for TexasDefined republishing; the original year-based championship chronology is a more truthful image-rights alternative."
+    ],
+    "milestones": [
+      {
+        "date": "1998",
+        "title": "The first Bearcats state football championship",
+        "body": "UIL championship history records Aledo's first state title in 1998, launching its modern all-time-title record.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time football championship appearances"
+      },
+      {
+        "date": "2009–2011",
+        "title": "Three successive state crowns",
+        "body": "Aledo won the 2009, 2010 and 2011 state football titles in a three-season sequence, part of its documented 12-championship history.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL official all-time title years"
+      },
+      {
+        "date": "2018–2020",
+        "title": "Another three-year run",
+        "body": "The UIL all-time ledger documents Aledo championships in 2018, 2019 and 2020. The 2020 trophy was described by the local board as the school's tenth state football title.",
+        "sourceUrl": "https://aledoledger.com/answers/bearcats-state-titles/",
+        "sourceLabel": "Aledo Ledger analysis citing school board commendations and UIL history"
+      },
+      {
+        "date": "2022–2023",
+        "title": "Titles eleven and twelve",
+        "body": "Aledo claimed consecutive 2022 and 2023 UIL football crowns; the 2023 championship raised the total to twelve, as reported in December 2023 school-board minutes.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time championship record"
+      },
+      {
+        "date": "Feb. 2026",
+        "title": "Aledo joins 6A football",
+        "body": "The UIL's 2026–28 realignment puts Aledo in Class 6A District 3 for the first time, against six Arlington ISD schools, Granbury and Weatherford.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2026_RR-Packet.pdf",
+        "sourceLabel": "Official UIL 6A realignment"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "The district streak ends at 136",
+        "body": "Arlington Martin beat Aledo 35–21 at Tim Buchanan Stadium, ending the Bearcats' 136-game district winning streak. This is a dated completed game, not an ongoing unbeaten district streak.",
+        "sourceUrl": "https://sports.yahoo.com/articles/down-bearcats-arlington-martin-ends-024149692.html",
+        "sourceLabel": "September 2026 report on Arlington Martin district win"
+      },
+      {
+        "date": "2026",
+        "title": "Robby Jones leads Aledo into a new division",
+        "body": "Aledo ISD's live varsity staff page identifies Robby Jones as head coach, with Brad McCone and Joe Williams in coordinating roles, while the varsity schedule provides current game locations.",
+        "sourceUrl": "https://www.aledoisdathletics.com/sport/football/boys/?tab=staff",
+        "sourceLabel": "Official Aledo 2026 varsity football staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many state football championships has Aledo won?",
+        "answer": "Twelve UIL state football championships through the 2023 season: 1998, 2009, 2010, 2011, 2013, 2014, 2016, 2018, 2019, 2020, 2022 and 2023. Neither the 2024 nor 2025 season added another official football title."
+      },
+      {
+        "question": "Is Aledo football in 5A or 6A for 2026?",
+        "answer": "6A. The official UIL 2026–28 realignment places Aledo in Region I, District 3. Older 5A Division I state-title results describe previous seasons, not 2026 placement."
+      },
+      {
+        "question": "Who is the 2026 Aledo Bearcats football coach?",
+        "answer": "Aledo ISD Athletics identifies Robby Jones as current head coach. Its current staff directory names Brad McCone assistant head coach/defensive coordinator and Joe Williams offensive coordinator, among other assistants."
+      },
+      {
+        "question": "Did Aledo's long district winning streak end?",
+        "answer": "Yes. Arlington Martin beat Aledo 35–21 on September 25, 2026, ending 136 straight Aledo district football victories. It would be misleading to say that streak remains active after that date."
+      },
+      {
+        "question": "Where is Aledo's home football stadium?",
+        "answer": "Tim Buchanan Stadium is at 1000 Bailey Ranch Road, Aledo, TX 76008. The Aledo ISD athletics stadium page publishes current clear-bag restrictions and contact/venue resources."
+      },
+      {
+        "question": "What bags can fans bring into Tim Buchanan Stadium?",
+        "answer": "Aledo ISD requires transparent bags no larger than 12×6×12 inches, permits one-gallon clear freezer bags and certain small clutches, and provides exceptions for medically necessary items. Read the complete official stadium policy before traveling."
+      },
+      {
+        "question": "Who are Aledo's district opponents in 2026–28?",
+        "answer": "Arlington, Arlington Bowie, Arlington Sam Houston, Arlington Lamar, Arlington Martin, Granbury and Weatherford are the UIL 6A District 3 rivals for this current cycle. Dates/times are on Aledo ISD's live varsity schedule."
+      }
+    ]
+  },
   "albany": {
     "slug": "albany",
     "theme": {
