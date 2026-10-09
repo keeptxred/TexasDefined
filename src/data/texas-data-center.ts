@@ -17,7 +17,7 @@ export type TexasDataset = {
 // Sitemap-safe metadata only. The full source-backed registry lives server-side.
 export const TEXAS_DATASETS = [
   { slug: 'county-property-tax-rates', updated: '2026-07-30' },
-  { slug: 'school-district-tax-rates', updated: '2026-07-30' },
+  { slug: 'school-district-tax-rates', updated: '2026-10-04' },
   { slug: 'homestead-exemption-history', updated: '2026-07-30' },
   { slug: 'texas-population-and-migration-2025', updated: '2026-08-27' },
   { slug: 'texas-population-and-migration-2024', updated: '2026-08-27' },
