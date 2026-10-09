@@ -70,6 +70,19 @@ async function collect(page) {
     viewportWidth:window.innerWidth,
   }));
 }
+// A successful SSR H1 is not enough: React may briefly suspend the lazy
+// entity route during hydration. Wait for its post-hydration signal AND all
+// required visible reciprocal links. Missing links still fail closed.
+async function waitForReciprocalAuthority(page, slugs, timeout) {
+  await page.waitForFunction(({ requiredSlugs }) => {
+    if (document.documentElement.dataset.tdFootballCountyHydrated !== '1') return false;
+    if (document.querySelectorAll('h1').length !== 1) return false;
+    const visible = new Set([...document.querySelectorAll('a[href]')]
+      .filter(a => a.getBoundingClientRect().width > 0)
+      .map(a => new URL(a.href).pathname.replace(/\/$/, '')));
+    return requiredSlugs.every(slug => visible.has('/texas-high-school-football-teams/' + slug));
+  }, { requiredSlugs: slugs }, { timeout });
+}
 async function visit(context, viewport, id, path, validate) {
   const page = await context.newPage();
   const errors = [], runtime = [];
@@ -79,7 +92,14 @@ async function visit(context, viewport, id, path, validate) {
     const response = await page.goto(origin + path + '?batch002_qa=' + Date.now(), {waitUntil:'domcontentloaded', timeout:55000});
     status = response?.status() || 0;
     await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
+    const county = id.startsWith('county-') ? id.slice('county-'.length) : null;
+    const city = id.startsWith('city-') ? id.slice('city-'.length) : null;
+    const reciprocalSlugs = county
+      ? roster.filter(([,campusCounty]) => campusCounty === county).map(([slug]) => slug)
+      : city ? (cityRoster.find(x => x.city === city)?.schools ?? []) : null;
+    if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 45000);
     await page.waitForTimeout(900);
+    if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 30000);
     data = await collect(page);
     validate(errors, data, status);
     check(errors, !runtime.length, 'client runtime errors: '+ runtime.join(' | '));
