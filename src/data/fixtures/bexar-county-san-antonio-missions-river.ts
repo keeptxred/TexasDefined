@@ -33,6 +33,8 @@ export const bexarCountySanAntonioMissionsRiverArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/county/comal", label: "Explore Comal County", description: "Continue north toward New Braunfels, Canyon Lake and the Hill Country." },
+    { href: "/county/guadalupe", label: "Explore Guadalupe County", description: "Follow the Guadalupe River toward Seguin and the eastern San Antonio region." },
     {
       href: "/destination/san-antonio-missions-national-historical-park",
       label: "San Antonio Missions National Historical Park",
