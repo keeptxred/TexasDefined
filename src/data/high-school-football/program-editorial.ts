@@ -58,6 +58,613 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "abilene-wylie": {
+    "slug": "abilene-wylie",
+    "theme": {
+      "accentHex": "#5D358A",
+      "label": "Original purple-and-gold research accents reflecting the UIL-documented Bulldog colors; not an official crest or historical photo"
+    },
+    "seo": {
+      "title": "Abilene Wylie Bulldogs Football: 2004 Title, Coach & Stadium",
+      "description": "Abilene Wylie Bulldogs football history: 2004 state title over Cuero, four UIL finals, coach Clay Martin, Hugh Sandifer Stadium and 2026 district schedule."
+    },
+    "coach": {
+      "name": "Clay Martin",
+      "title": "Wylie High School head football coach",
+      "sourceUrl": "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Wylie High official 2026–27 football coaching staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "4502 Antilley Road, Abilene, TX 79606",
+      "phone": "325-255-1908",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484650005293",
+      "sourceLabel": "NCES 2025–26 Abilene Wylie High campus, Taylor County",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Wylie Bulldogs athletics — current 2026 football schedule",
+      "sourceUrl": "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Official Wylie High School varsity football schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Hugh Sandifer Stadium",
+      "address": "4502 Antilley Road, Abilene, TX 79606",
+      "sourceUrl": "https://www.wyliebulldogathletics.com/facilities",
+      "sourceLabel": "Official Wylie Bulldogs Athletics stadium and directions",
+      "verifiedAt": "2026-10-09",
+      "note": "Wylie High School's official facilities directory places Hugh Sandifer Stadium at 4502 Antilley Road and identifies it as the home field for Bulldog football and soccer. The Dog House is a distinct indoor training facility at the same address, not the public stadium seating or ticket entrance. Ticket prices, parking, ADA gates and particular game assignments should be checked through the current school schedule or Wylie athletics office, 325-690-1181. Abilene Wylie's Sandifer Stadium must not be confused with Abilene ISD's Shotwell Stadium."
+    },
+    "overview": [
+      "The Abilene Wylie Bulldogs have one UIL football state championship and three further championship-game appearances, all documented in UIL's all-time finals ledger. The title came in 2004, when Wylie defeated Cuero 17–14 in Class 3A Division I. The state-final seasons of 2000, 2009 and 2016 were runner-up finishes, not additional championships. These historic classifications differ from the school's current 2026–28 5A Division II placement.",
+      "Hugh Sandifer coached the Bulldogs for more than three decades, from 1985 until retirement at the close of the 2019–20 academic year. Wylie school journalism reports his teams made 24 consecutive playoff appearances from 1994 through 2017, compiled an overall 285–127–4 record and reached four championship games. His 2004 team featured future college and NFL quarterback Case Keenum, who engineered a fourth-quarter rally against Cuero. Those details describe Sandifer's era, not the present coaching staff.",
+      "The 2000 championship run ended in a 14–10 loss to Gatesville. Sandifer's Bulldogs returned in 2004 to beat Cuero by a field goal, lost the 2009 final to Gilmer 43–26 and reached the 2016 4A Division I final before losing 31–17 to Carthage. This timeline, supported by UIL championship archives, gives the school's complete title-game record without conflating different divisions or calling four appearances four state titles.",
+      "Wylie's 2016 state-finals roster from UIL lists coach Hugh Sandifer, assistant Clay Martin and school colors purple and gold. Martin appears as head football coach in the **current 2026–27 official Wylie athletics staff directory**, with Jason Meng coordinating offense and Matt Kates coordinating defense. The two sources establish a coaching lineage while keeping historical staff titles separate from today's assignments.",
+      "A dated August 27, 2026 Wylie athletics season preview explains that the 2025 Bulldogs missed the playoffs after finishing 3–3 in district play. It documents close defeats to Palo Duro and Lubbock Cooper and a win over crosstown Abilene Cooper, but these are **2025 results**, not the 2026 season record. Wylie's current official schedule lists 2026 games and should be rechecked close to kickoff for changes, venue and ticket announcements.",
+      "Abilene Wylie High School belongs to its own **Wylie ISD in Abilene**, whose campus is at 4502 Antilley Road, Taylor County—not the separate Wylie ISD northeast of Dallas and not Abilene ISD's Abilene High or Cooper High. The Bulldogs compete in UIL 5A Division II District 2 in 2026–28, a league that includes Abilene Cooper, Amarillo Palo Duro, Lubbock Cooper, Lubbock Coronado and Wichita Falls Legacy and Memorial. Nearby Cooper is an actual recent district opponent, while the state-final history stretches far beyond today's division."
+    ],
+    "milestones": [
+      {
+        "date": "1985",
+        "title": "Hugh Sandifer takes charge",
+        "body": "Wylie school journalism records Hugh Sandifer beginning his long football coaching tenure in 1985. He later led 24 straight playoff appearances beginning in 1994.",
+        "sourceUrl": "https://wyliegrowl.com/sandifers-retire/",
+        "sourceLabel": "Wylie school newspaper — Sandifer retirement history"
+      },
+      {
+        "date": "2000",
+        "title": "First state-final appearance of this era",
+        "body": "UIL's historic final lists Gatesville beating Abilene Wylie 14–10, a runner-up result rather than a title.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL football champions and runners-up"
+      },
+      {
+        "date": "2004",
+        "title": "Bulldogs win the Class 3A Division I title",
+        "body": "Wylie defeated Cuero 17–14 for its only UIL football state championship. Wylie school journalism identifies Case Keenum as quarterback in the fourth-quarter comeback.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P232",
+        "sourceLabel": "Official UIL 2004–05 championship result"
+      },
+      {
+        "date": "2009",
+        "title": "Another state-final run",
+        "body": "Abilene Wylie returned to the UIL 3A Division I final, losing to Gilmer 43–26; the date and score belong to the 2009 championship, not a 2026 fixture.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical final results"
+      },
+      {
+        "date": "2016",
+        "title": "Fourth state-final appearance",
+        "body": "Coach Hugh Sandifer's 12–1 Wylie team reached the 4A Division I title game and lost to Carthage 31–17. UIL identifies assistant Clay Martin on that 2016 team.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/abilene-wylie-2016-2017-football",
+        "sourceLabel": "UIL 2016–17 official Abilene Wylie team record"
+      },
+      {
+        "date": "2026",
+        "title": "Clay Martin's Bulldogs in 5A Division II",
+        "body": "The current Wylie athletics directory lists Clay Martin as head coach and the UIL places Abilene Wylie in 5A Division II, District 2 for the 2026–28 cycle.",
+        "sourceUrl": "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=staff",
+        "sourceLabel": "Official Wylie athletics 2026–27 football staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many state football championships has Abilene Wylie won?",
+        "answer": "One: 2004, when the Bulldogs beat Cuero 17–14 in the UIL Class 3A Division I final. Wylie was a runner-up in 2000, 2009 and 2016, giving the Bulldogs four state-final appearances."
+      },
+      {
+        "question": "Was Case Keenum on Abilene Wylie's state championship team?",
+        "answer": "Yes. Wylie school journalism's history of coach Hugh Sandifer names future quarterback Case Keenum as the 2004 state-title quarterback who led a fourth-quarter rally over Cuero. The UIL officially records Wylie's 17–14 victory."
+      },
+      {
+        "question": "Who is the 2026 Abilene Wylie head coach?",
+        "answer": "Wylie Bulldog Athletics names Clay Martin as head football coach, Jason Meng as offensive coordinator and Matt Kates as defensive coordinator. UIL's 2016 archive also lists Martin as an assistant on that earlier team."
+      },
+      {
+        "question": "Where is Hugh Sandifer Stadium?",
+        "answer": "Wylie High School Athletics lists Hugh Sandifer Stadium at 4502 Antilley Road, Abilene, TX 79606. It is distinct from Abilene ISD's Shotwell Stadium. Check the official schedule for your game's assignment and parking/ticket rules."
+      },
+      {
+        "question": "Is Abilene Wylie the same school as the Wylie Pirates near Dallas?",
+        "answer": "No. Abilene Wylie is the Bulldogs program in Wylie ISD based in Abilene and Taylor County. The other Wylie ISD northeast of Dallas has different campuses and athletic teams."
+      },
+      {
+        "question": "What district is Abilene Wylie in for 2026–28?",
+        "answer": "UIL Class 5A Division II, District 2. Current-cycle district opponents include Abilene Cooper, Amarillo Palo Duro, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial."
+      },
+      {
+        "question": "How do I find Wylie football tickets and current kickoff times?",
+        "answer": "Check the official Wylie Bulldogs Athletics 2026 varsity schedule and contact the athletic department at 325-690-1181 for current admissions, venue assignment, parking and accessible entrances. Do not rely on older ticket or game-date notices."
+      }
+    ]
+  },
+  "abilene-texas-leadership": {
+    "slug": "abilene-texas-leadership",
+    "theme": {
+      "accentHex": "#755B38",
+      "label": "Original neutral bronze research accents for a developing charter-school program; deliberately not presented as verified official school colors or logo"
+    },
+    "seo": {
+      "title": "Abilene Texas Leadership Eagles Football: Webb Murphy & 2026",
+      "description": "TLCA Abilene Eagles football guide: coach Webb Murphy, fifth 11-man season, 2026 UIL 2A Division I District 5, 187 enrollment and charter admissions."
+    },
+    "coach": {
+      "name": "Webb Murphy",
+      "title": "Abilene Texas Leadership athletic director and head football coach",
+      "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+      "sourceLabel": "Official Texas Leadership of Abilene athletics coaching staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3250 State Street, Abilene, TX 79603 (secondary campus)",
+      "phone": "325-480-3500",
+      "sourceUrl": "https://www.texasleadershipabilene.com/campus/secondary-campus",
+      "sourceLabel": "Official TLCA Abilene secondary campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "TLCA Abilene football 2026 schedule and results (coach-submitted results may change)",
+      "sourceUrl": "https://www.maxpreps.com/tx/abilene/texas-leadership-of-abilene-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps UIL partner — Abilene TLCA 2026 schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "TLCA Abilene football — confirm each game's assigned field",
+      "address": "Secondary school: 3250 State Street, Abilene, TX 79603; football field entrance is NOT verified",
+      "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+      "sourceLabel": "Texas Leadership of Abilene official athletics office and coach",
+      "verifiedAt": "2026-10-09",
+      "note": "Texas Leadership publishes a secondary campus at 3250 State Street, but no current primary-source stadium gate, field address, ticketing, parking or ADA access policies could be independently confirmed. The 2026 schedule includes both home and away games; the secondary campus postal address must not be represented as a guaranteed stadium gate. Contact athletic director/head football coach Webb Murphy through the official athletic staff directory (Webb.Murphy@tlca-ab.com) or the school at 325-480-3500 before traveling."
+    },
+    "overview": [
+      "Texas Leadership of Abilene, often shortened to TLCA Abilene, fields the Eagles in eleven-man UIL football while operating as a tuition-free public charter school. This is a separate program from Abilene High Eagles, Abilene Cooper Cougars, Abilene Wylie Bulldogs and the San Angelo campus of the Texas Leadership network. School names should not be merged merely because 'Eagles' or 'Texas Leadership' appears in multiple city listings.",
+      "Unlike Abilene High's century of state championships, the TLCA Abilene 11-man program is relatively new. A local 2026 season preview describes this as the program's fifth 11-man football season; it also reports a winless 2025 campaign and a change in leadership for 2026. With no UIL state-final appearances in the authoritative UIL all-time list, this page focuses on program growth, its current staff and useful family logistics rather than inventing old title traditions.",
+      "The school-published athletics coaching staff names Webb Murphy as athletic director and head football coach. It also lists James Ingram, Rhett May, Dylan Martin, Michael Miller and Toby White with football responsibilities, but does not publish precise 2026 positional assignments for each. A September 2026 MaxPreps roster also names Murphy as head coach. This is stronger than assigning him a role based only on a football results aggregator.",
+      "The 2026–28 UIL realignment places Abilene Texas Leadership in 2A Division I District 5 with Anson, Cisco, De Leon, Hawley and Hico. The official UIL rank file assigns **187 reported enrollment for football realignment**, a value different in purpose from the charter network's larger K–12 campus student population. UIL membership does not establish a school's entire-student-body size or automatically prove any specific future football result.",
+      "MaxPreps lists a 2026 varsity schedule including Hico, Anson, Cisco, De Leon and Hawley as district opponents, plus earlier nondistrict games. Results can change with coach/school submissions. A 2026 local preview described quarterback Tyler Johnston returning, but not a guaranteed current starter or season-long roster; prospective players and fans should review the latest school and official athletic schedule rather than rely on September previews as immutable.",
+      "For families, the school operates a secondary campus at **3250 State Street**, distinct from its elementary campus on North 8th. Texas Leadership's public charter admission page says 2026–27 applications reopened after the lottery, with seats offered subject to availability or a waitlist. Admission to a public charter school does not guarantee UIL football eligibility for any individual; verify association transfer and residence rules separately. No official stadium street/gate location, admission policy or school-owned photo licensing was confirmed during this audit."
+    ],
+    "milestones": [
+      {
+        "date": "2009",
+        "title": "The charter network begins",
+        "body": "Texas Leadership's official Abilene homepage says the wider Texas Leadership public-school network opened its first school in 2009; this is the network's history, not evidence Abilene varsity 11-man football started that year.",
+        "sourceUrl": "https://www.texasleadershipabilene.com/",
+        "sourceLabel": "Official Texas Leadership of Abilene school history"
+      },
+      {
+        "date": "2022–2026",
+        "title": "A developing 11-man program",
+        "body": "A regional 2026 football preview identifies the upcoming season as TLCA Abilene's fifth in eleven-man football. This is a reported program age, not a claim of historical UIL championship success.",
+        "sourceUrl": "https://varsitypreview.net/tlca-anson-cisco-hawley-football-season-outlook-2026/",
+        "sourceLabel": "Varsity Preview 2026 TLCA Abilene program report"
+      },
+      {
+        "date": "2025",
+        "title": "A difficult preceding season",
+        "body": "The regional 2026 preseason preview reports that TLCA Abilene finished 2025 without a win; third-party schedules differ in completeness, so an all-time or official win-loss record is not manufactured here.",
+        "sourceUrl": "https://varsitypreview.net/tlca-anson-cisco-hawley-football-season-outlook-2026/",
+        "sourceLabel": "Varsity Preview — dated 2025 season context"
+      },
+      {
+        "date": "2026",
+        "title": "Webb Murphy leads the Eagles",
+        "body": "The Abilene campus's own athletics coaching page identifies Webb Murphy as athletic director and head football coach and lists other football staff.",
+        "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+        "sourceLabel": "Official TLCA Abilene coaching staff"
+      },
+      {
+        "date": "2026–28",
+        "title": "New UIL 2A Division I District 5",
+        "body": "The UIL's official list puts TLCA Abilene with Anson, Cisco, De Leon, Hawley and Hico and reports 187 enrollment for the realignment cycle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 2A Division I alignment"
+      },
+      {
+        "date": "2026–27",
+        "title": "Tuition-free public-charter enrollment",
+        "body": "The school network says applications have reopened after the 2026–27 lottery; offers and waiting lists depend on available seats, and football eligibility requires a separate UIL review.",
+        "sourceUrl": "https://www.texasleadership.net/family-resources/enroll",
+        "sourceLabel": "Official Texas Leadership 2026–27 enrollment policies"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Abilene Texas Leadership the same team as Abilene High?",
+        "answer": "No. Texas Leadership of Abilene Eagles are a separate public-charter-school football program. Abilene High Eagles have a different campus, UIL classification, staff and history; Abilene Cooper and Abilene Wylie are separate again."
+      },
+      {
+        "question": "Who coaches Texas Leadership of Abilene football in 2026?",
+        "answer": "The school-published athletics staff directory lists Webb Murphy as athletic director and head football coach. The same directory lists James Ingram, Rhett May, Dylan Martin, Michael Miller and Toby White among football staff without reliably specifying each assistant's 2026 football position."
+      },
+      {
+        "question": "What UIL division and district is TLCA Abilene in?",
+        "answer": "For 2026–28, UIL Class 2A Division I, District 5, with Anson, Cisco, De Leon, Hawley and Hico. The UIL's 187 enrollment is a football-alignment count, not the entire K–12 charter network population."
+      },
+      {
+        "question": "Has TLCA Abilene won a UIL football state title?",
+        "answer": "No state-final appearances or state titles are listed for this particular Abilene school in the official UIL all-time appearances table. The 2026 regional preview describes its young 11-man program entering a fifth season."
+      },
+      {
+        "question": "Where is Texas Leadership of Abilene's high school campus?",
+        "answer": "The school lists the secondary campus at 3250 State Street, Abilene, TX 79603 and its telephone as 325-480-3500. This is not a verified 2026 varsity home-stadium gate; confirm each game's venue before visiting."
+      },
+      {
+        "question": "Is Texas Leadership of Abilene a tuition-free public charter school?",
+        "answer": "Yes. Texas Leadership describes its Abilene school as tuition-free and open for 2026–27 applications, subject to available places or a waitlist. Football eligibility is separately subject to UIL rules."
+      },
+      {
+        "question": "Where are TLCA Abilene's football tickets and schedule?",
+        "answer": "The MaxPreps UIL-partner schedule provides current posted game dates, but actual tickets, stadium entrance, parking and accessible seating should be confirmed directly through the school's athletics office; no verified official ticket URL was identified."
+      }
+    ]
+  },
+  "abilene-cooper": {
+    "slug": "abilene-cooper",
+    "theme": {
+      "accentHex": "#2657A7",
+      "label": "Original royal-blue editorial accents referencing Cooper's publicly reported school colors; not an official school seal or unlicensed photograph"
+    },
+    "seo": {
+      "title": "Abilene Cooper Cougars Football: 1967 & 1996 State Finals",
+      "description": "Abilene Cooper Cougars football: 1967 and 1996 UIL title games, Jack Mildren, Randy Allen, 2026 coach Scott Stewart, Shotwell Stadium and district guide."
+    },
+    "coach": {
+      "name": "Scott Stewart",
+      "title": "Head football coach and campus athletic coordinator — appointed May 27, 2026",
+      "sourceUrl": "https://www.abileneisd.org/o/chs/article/2937582",
+      "sourceLabel": "Cooper High School and Abilene ISD 2026 coaching appointment",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3639 Sayles Boulevard, Abilene, TX 79605",
+      "phone": "325-691-1000",
+      "sourceUrl": "https://www.abileneisd.org/o/chs",
+      "sourceLabel": "Official Cooper High School campus and contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Abilene ISD official 2026 football ticket and stadium safety notice",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD 2026 football access update",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Shotwell Stadium / Shotwell Annex game-day district facilities",
+      "address": "Abilene, Texas — current game-specific venue and gate from Abilene ISD",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD Shotwell and Shotwell Annex official event guidance",
+      "verifiedAt": "2026-10-09",
+      "note": "Abilene ISD identifies Shotwell Stadium and Shotwell Annex as its 2026 football event facilities and requires clear bags. Cooper's on-campus multipurpose athletics building is known as 'The Den' but is not a substitute for the game-night venue or a claim every game is at Shotwell. The district's $35 2026 season ticket offer expired August 6; check current HomeTown Ticketing and call the district athletics office (325) 677-1444 ext. 3013 for the scheduled game's stadium, current ticket prices, accessible entries, and parking. The school campus at 3639 Sayles Boulevard is not a confirmed football-gate address."
+    },
+    "overview": [
+      "Abilene Cooper's Cougars have twice reached UIL football state championship games without winning a state title. UIL records place Cooper in the 1967 Class 4A final and the 1996 Class 5A Division II final. This is a distinct history from crosstown Abilene High's seven titles and from the separate Abilene Wylie Bulldogs program.",
+      "Cooper's 1967 run remains one of Texas football's notable near-misses. In the December 16 final at Amon Carter Stadium in Fort Worth, unbeaten Cooper faced unbeaten Austin Reagan. The Cougars led 19–7 at halftime, with quarterback Jack Mildren responsible for two rushing touchdowns and one passing score; Reagan rallied to win 20–19. UIL's centennial game review identifies a dramatic final drive stopped at the goal line. Cooper was the 1967 runner-up, not co-champion.",
+      "In 1996 Cooper returned to the state final under coach Randy Allen. The Cougars lost 55–15 to Austin Westlake, whose UIL centennial record names future NFL quarterback Drew Brees. Abilene ISD also documents Allen's role as a senior running back on Cooper's 1967 runner-up team, head coach in 1991–98, and later Hall-of-Honor recognition. Treat 1967 and 1996 as separate seasons and accomplishments, not two championships.",
+      "The documented Abilene High–Cooper 'Crosstown Showdown' began in 1961. Abilene ISD's published history of the first 62 meetings and its Shotwell Stadium visitor article includes every listed score through 2022; that is an independently sourced rivalry, unlike a generic district-opponents list. The same city rivalry may occur in non-district play: Abilene High plays UIL 5A Division I in 2026–28, while Cooper belongs to UIL 5A Division II, District 2.",
+      "In May 2026 Abilene ISD named Scott Stewart Cooper's head football coach, following Aaron Roan's move to assistant director of athletics. The announcement describes Stewart as Cooper's former defensive coordinator and notes his prior role in 14 consecutive playoff seasons through 2025; it does not retroactively attribute every one of those seasons to him as head coach. Official Cooper High's current staff list separately confirms Stewart's head-coach title.",
+      "The Cooper campus is at 3639 Sayles Boulevard in Taylor County. Its new multipurpose facility is called 'The Den,' according to an Abilene ISD facilities feature, but the district uses Shotwell facilities for varsity events. A 2026 game-day visit should use the current schedule, district stadium guidance and HomeTown Ticketing rather than expired August season-ticket prices. There is no verified 2026 admissions price, ADA gate, parking map or school/stadium photo reuse license recorded for this profile."
+    ],
+    "milestones": [
+      {
+        "date": "1960–1961",
+        "title": "A new Cougars football era and crosstown series",
+        "body": "Cooper opened as Abilene's second traditional high-school football identity, and Abilene ISD's archived Crosstown Showdown chronology begins with an Abilene High–Cooper meeting in 1961.",
+        "sourceUrl": "https://www.abileneisd.org/article/1525088",
+        "sourceLabel": "Abilene ISD official crosstown game history"
+      },
+      {
+        "date": "1967",
+        "title": "One point from the state title",
+        "body": "Unbeaten Cooper fell to Austin Reagan 20–19 in the 4A final. UIL's centennial recap credits Jack Mildren with two rushing touchdowns and one passing touchdown, including a last drive to the Reagan goal line.",
+        "sourceUrl": "https://www.uiltexas.org/100/memorable-games",
+        "sourceLabel": "UIL official 1967 Cooper–Reagan game retrospective"
+      },
+      {
+        "date": "1991–1998",
+        "title": "Randy Allen leads the Cougars",
+        "body": "Abilene ISD documents former 1967 Cooper runner Randy Allen as the Cougars' 1991–98 head coach with a 66–31–2 record before his later Highland Park championship career.",
+        "sourceUrl": "https://www.abileneisd.org/o/aisd/article/1643303",
+        "sourceLabel": "Abilene ISD historical Randy Allen recognition"
+      },
+      {
+        "date": "1996",
+        "title": "The second state championship appearance",
+        "body": "UIL's official 1996–97 final results list Cooper as 5A Division II runner-up, 55–15 behind Austin Westlake and future NFL quarterback Drew Brees.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P312",
+        "sourceLabel": "UIL 1996 football state archives"
+      },
+      {
+        "date": "2024",
+        "title": "The campus adds 'The Den'",
+        "body": "Abilene ISD's campus facilities report distinguishes Cooper's multipurpose activity center, 'The Den,' from Abilene High's 'The Nest.' It is not a verified Shotwell stadium gate.",
+        "sourceUrl": "https://www.abileneisd.org/o/ahs/article/1525931",
+        "sourceLabel": "Abilene ISD campus sports-facilities feature"
+      },
+      {
+        "date": "May 2026",
+        "title": "Scott Stewart named head coach",
+        "body": "Cooper's May 27, 2026 district announcement appoints Scott Stewart, previously defensive coordinator, to succeed Aaron Roan, now in a district athletics leadership role.",
+        "sourceUrl": "https://www.abileneisd.org/o/chs/article/2937582",
+        "sourceLabel": "Cooper High official 2026 hiring announcement"
+      },
+      {
+        "date": "2026–28",
+        "title": "Cooper plays 5A Division II District 2",
+        "body": "The new UIL alignment places the Cougars with Abilene Wylie, Amarillo Palo Duro, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial. Abilene High is in the separate 5A Division I district.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 5A Division II alignments"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Abilene Cooper ever won a football state championship?",
+        "answer": "Not in the official UIL championship records. Cooper reached the 1967 Class 4A final and the 1996 Class 5A Division II final, finishing runner-up in both seasons. Do not count either appearance as a title."
+      },
+      {
+        "question": "What happened to Cooper in the 1967 final?",
+        "answer": "Cooper lost 20–19 to Austin Reagan after leading 19–7 at halftime. UIL records quarterback Jack Mildren scoring on two runs and a pass, with the Cougars' late drive stopping at the Reagan goal line."
+      },
+      {
+        "question": "Who is Cooper's head coach for 2026?",
+        "answer": "Scott Stewart, appointed May 27, 2026 after previously coordinating Cooper's defense. He succeeded Aaron Roan, who became an Abilene ISD assistant director of athletics."
+      },
+      {
+        "question": "Was Randy Allen a Cooper player and coach?",
+        "answer": "Yes. Abilene ISD identifies Allen as a running back on Cooper's 1967 state-final team and later the Cougars' head football coach from 1991 through 1998, including the 1996 state-final appearance."
+      },
+      {
+        "question": "What is the Abilene Crosstown Showdown?",
+        "answer": "The long-running Abilene High Eagles versus Abilene Cooper Cougars football series dates to 1961. Abilene ISD provides a historical game-by-game results table; in the 2026 UIL alignment the two schools are in different divisions."
+      },
+      {
+        "question": "Is Cooper's 'The Den' its football game stadium?",
+        "answer": "No. Abilene ISD describes The Den as Cooper's on-campus multipurpose facility. Its varsity football events use district facilities including Shotwell Stadium and the Annex. Check the individual game assignment and venue gate before visiting."
+      },
+      {
+        "question": "Are Cooper's $35 2026 season tickets still on sale?",
+        "answer": "The district's May 28 offer was available only through August 6, 2026 and should not be shown as current. Look at up-to-date HomeTown Ticketing and the Abilene ISD athletics office for individual-game availability and prices."
+      }
+    ]
+  },
+  "abilene": {
+    "slug": "abilene",
+    "theme": {
+      "accentHex": "#9B741F",
+      "label": "Original black-and-gold editorial history accents based on Abilene High's documented school colors; no district trademark reproduced"
+    },
+    "seo": {
+      "title": "Abilene High Eagles Football: Seven Titles, 49 Wins & 2026",
+      "description": "Explore Abilene High Eagles football: seven UIL state titles, the historic 49-game streak, Chuck Moser, Steve Warren, Mike Fullen and Shotwell Stadium."
+    },
+    "coach": {
+      "name": "Michael Fullen",
+      "title": "Head football coach and high-school athletic coordinator (listed as Mike Fullen in sports coverage)",
+      "sourceUrl": "https://www.abileneisd.org/o/ahs/staff?page_no=3",
+      "sourceLabel": "Abilene High School official staff directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "2800 North 6th Street, Abilene, TX 79603",
+      "phone": "325-677-1731",
+      "sourceUrl": "https://www.abileneisd.org/o/ahs",
+      "sourceLabel": "Abilene High School official campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Abilene ISD tickets, game-day policy and athletics updates",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD 2026 football ticketing and clear-bag policy",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Shotwell Stadium",
+      "address": "Abilene, Texas — confirm the specific event's stadium entrance with Abilene ISD",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD 2026 Shotwell Stadium and Annex notice",
+      "verifiedAt": "2026-10-09",
+      "note": "Abilene ISD's May 2026 football announcement confirms district games at Shotwell Stadium and Shotwell Annex and a clear-bag-only spectator rule. The district used HomeTown Ticketing for 2026 season-ticket sales, but the published August 6 season-ticket deadline has already passed and those old $35 offers must NOT be treated as available on October 9. For current single-game admission, assigned venue, parking and ADA gates, confirm through the district athletic office at 325-677-1444 ext. 3013. Abilene High's 2800 N. 6th campus is not the Shotwell gate address."
+    },
+    "overview": [
+      "Abilene High School's Eagles—historically nicknamed the Warbirds—belong to one of the oldest and most successful football stories in Texas. UIL's official all-time appearances table credits Abilene with seven championship seasons (1923, 1928, 1931, 1954, 1955, 1956 and 2009) in nine state-final appearances. The 1922 and 1927 championship-game losses count as appearances, not titles.",
+      "The first three championships stretched across the early decades of UIL football: a 3–0 win over Waco in 1923, a 38–0 win over Port Arthur in 1928 and a 13–0 win over Beaumont in 1931. The 1928 undefeated 12–0–1 season under Dewey Mayhew is documented in UIL's century team archives. The 1923 team played under P. E. Shotwell, the coach whose name survives on Abilene's modern district stadium.",
+      "Chuck Moser's 1954–56 dynasty turned the Eagles into a statewide phenomenon, winning three consecutive 4A titles. The Handbook of Texas documents a 49-game winning streak lasting from 1954 through the 1957 semifinal, amid city growth and the opening of Dyess Air Force Base. Its details include a chartered train carrying some 700 Eagle supporters to Odessa for a 1954 game. These are documented episodes of local football culture, not generic claims about any current season.",
+      "The 49-game run ended in the 1957 playoffs in an unusual way: Abilene and Highland Park finished tied 20–20, but Highland Park advanced by the period's tie-breaking penetration rule. Abilene's historic school nickname Warbirds and high-school football museum are documented by the Texas State Historical Association; visiting families should check the current school directly before assuming museum hours or public access.",
+      "In 2009 Steve Warren coached Abilene to a 15–0 UIL Class 5A Division II state championship, beating Katy 28–17. UIL's centennial record names Drew Carroll, Herschel Sims and championship-game MVP Ronnell Sims among contributors; these are players from that 2009 team, not a current roster. UIL's contemporary 2026–28 alignment places today's Eagles in Class 5A Division I, District 2, which must not be confused with their 2009 division.",
+      "Abilene High School now lists Michael (Mike) Fullen as its head football coach and athletic coordinator. The annual Abilene High–Cooper matchup reflects the two-school community that emerged after Cooper opened toward the end of the 1950s; UIL's 2009 Abilene season record also documents an Abilene–Cooper meeting. Treat historic results as dated, not current 2026 game scores. The district's live stadium and ticketing sources are essential because the May 2026 season-ticket window ended in August."
+    ],
+    "milestones": [
+      {
+        "date": "1923",
+        "title": "The Eagles' first state championship",
+        "body": "Under P. E. Shotwell, Abilene defeated Waco 3–0 to win its first title. The later AISD football stadium bears Shotwell's name.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL all-time championship game results"
+      },
+      {
+        "date": "1928 / 1931",
+        "title": "Two more early crowns",
+        "body": "Dewey Mayhew's 1928 Eagles beat Port Arthur 38–0 after a 12–0–1 season; in 1931 Abilene defeated Beaumont 13–0.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL centennial 1928 championship team; see UIL winners archive"
+      },
+      {
+        "date": "1954–1956",
+        "title": "Chuck Moser's three straight state titles",
+        "body": "Official finals: 1954 Houston S. F. Austin 14–7, 1955 Tyler 33–13, and 1956 Corpus Christi Ray 14–0. Moser coached all three.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL football championship scores"
+      },
+      {
+        "date": "1954–1957",
+        "title": "Forty-nine straight victories",
+        "body": "The Handbook of Texas traces a 49-game Eagles winning streak over three-plus seasons, ending when a tied 1957 semifinal advanced Highland Park under the old penetration tie-break.",
+        "sourceUrl": "https://www.tshaonline.org/handbook/entries/abilene-high-eagles-19541957",
+        "sourceLabel": "Texas State Historical Association: Abilene High Eagles"
+      },
+      {
+        "date": "2009",
+        "title": "Fifteen wins and a seventh state crown",
+        "body": "UIL's centennial team history names coach Steve Warren and lists Abilene at 15–0, culminating in the 28–17 5A Division II championship win over Katy.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL centennial 2009 Abilene championship team"
+      },
+      {
+        "date": "2026",
+        "title": "Mike Fullen and current UIL realignment",
+        "body": "Abilene High's official staff directory lists Michael Fullen as its head football coach and athletic coordinator. For the 2026–28 alignment the Eagles are UIL 5A Division I, District 2; consult the district for current kickoffs.",
+        "sourceUrl": "https://www.abileneisd.org/o/ahs/staff?page_no=3",
+        "sourceLabel": "Abilene High School current staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many football state championships has Abilene High won?",
+        "answer": "Seven UIL titles: 1923, 1928, 1931, 1954, 1955, 1956 and 2009. The UIL lists nine state-final appearances, including runner-up years 1922 and 1927."
+      },
+      {
+        "question": "How long was the Abilene Eagles' famous winning streak?",
+        "answer": "The Texas State Historical Association documents 49 straight wins from 1954 to 1957 under Chuck Moser's era. The streak ended at the 1957 semifinal when Highland Park advanced after a 20–20 tie under the old penetration tie-break."
+      },
+      {
+        "question": "Who is Abilene High's head football coach in 2026?",
+        "answer": "The school's current staff directory names Michael Fullen (often called Mike Fullen) as head football coach and athletic coordinator."
+      },
+      {
+        "question": "Did Abilene High beat Katy in a state championship?",
+        "answer": "Yes. Steve Warren's 15–0 2009 team defeated Katy 28–17 for the UIL Class 5A Division II crown. That historical classification is not Abilene's 2026–28 division."
+      },
+      {
+        "question": "Where does Abilene High play, and how do I buy tickets?",
+        "answer": "Abilene ISD uses Shotwell Stadium and its Annex for district football and states that clear bags are required. Its 2026 season-ticket window ended August 6. For game-specific venue, single-game ticketing, parking and accessible entrances, use current district athletics guidance at 325-677-1444 ext. 3013."
+      },
+      {
+        "question": "What is the Abilene–Cooper football connection?",
+        "answer": "Both schools belong to Abilene ISD; Cooper's arrival near the end of the 1950s changed Abilene's previously unified football culture. The UIL also documents their 2009 matchup. Current games and scores must be confirmed against current school sources."
+      },
+      {
+        "question": "What were the Abilene Eagles called historically?",
+        "answer": "The Texas State Historical Association refers to Abilene High's Eagles as the Warbirds when discussing the 1950s championship teams. The page uses the official present-day Eagles identity."
+      }
+    ]
+  },
+  "abernathy": {
+    "slug": "abernathy",
+    "theme": {
+      "accentHex": "#742A3F",
+      "label": "Original maroon-and-white editorial milestone accents based on the Antelopes' documented school colors; not an official logo"
+    },
+    "seo": {
+      "title": "Abernathy Antelopes Football: 2016 Semifinal & 2026 Guide",
+      "description": "Abernathy Antelopes football history: the 2016 state semifinal, district titles, coach Keith Bloskas, 2026–28 UIL District 3 and official game-day resources."
+    },
+    "coach": {
+      "name": "Keith Bloskas",
+      "title": "2026 athletic director and head football coach",
+      "sourceUrl": "https://www.abernathyisd.com/131047_3",
+      "sourceLabel": "Abernathy ISD Athletics (current leadership)",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "505 7th Street, Abernathy, TX 79311",
+      "phone": "806-298-2563",
+      "sourceUrl": "https://www.abernathyisd.com/",
+      "sourceLabel": "Abernathy ISD official campus contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Abernathy ISD 2026 varsity football dates and changes",
+      "sourceUrl": "https://www.abernathyisd.com/page/page_calendar?calID=138964",
+      "sourceLabel": "Abernathy ISD official athletics events calendar",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Abernathy ISD football stadium",
+      "address": "Abernathy, Texas — verify the game-day stadium gate with Abernathy ISD",
+      "sourceUrl": "https://www.southernbleacher.com/listing/abernathy-independent-school-district/214/",
+      "sourceLabel": "Southern Bleacher — Abernathy ISD stadium seating installation",
+      "verifiedAt": "2026-10-09",
+      "note": "Southern Bleacher documents an Abernathy ISD football-stadium bleacher project with 1,679 spectator seats in that installation. This is a contractor's project figure, not independently confirmed total current stadium capacity or a ticket inventory. School campus address (505 7th Street) is not a verified stadium entry gate. Check the assigned venue for the specific game and ask Abernathy ISD about entrance, parking, accessible seating and ticketing; no 2026 admission or parking policy was independently confirmed."
+    },
+    "overview": [
+      "The Antelopes have a documented West Texas football history spanning multiple generations. Abernathy ISD's own football archive identifies district-title seasons beginning in 1951 and lists 2016 as the program's state-semifinal year. It also records quarterfinal appearances in 1951, 1985, 1987, 2014, 2016, 2018 and 2019; these are playoff milestones, not seven state championships.",
+      "That 2016 run ended against Crawford in the UIL Class 2A Division I semifinals. Crawford's official 2016–17 UIL state-team playoff listing records a 42–7 win over Abernathy. This specific state-semifinal result explains the team's deep playoff era without inventing a championship or an unverified program-wide record.",
+      "Abernathy ISD's public April 2026 announcement named Keith Bloskas its new athletic director and head football coach, replacing the earlier Justin Wiley-era listing still visible in an older high-school staff directory. The district's current athletics home also identifies Bloskas as athletic director. Fans seeking this season's staff and game updates should prioritize the newer district announcement and current official athletics resources rather than the legacy directory.",
+      "The 2026–28 UIL alignment places Abernathy in Class 2A Division I, District 3 alongside New Deal, New Home, Post and Sundown. Those are present-cycle district opponents, not a claim that all four are historic rivals. The official district calendar lists 2026 varsity games and is preferable to an undated screenshot of the 2023 schedule still associated with the school football page.",
+      "Antelope football is part of a town-wide school culture: the district advertised a 2026 homecoming 'Lighting of the A' and homecoming-court parade on September 30. Treat this as a documented school tradition and dated event, not evidence about any unverified rivalry series or football final. The Abernathy district covers parts of both Hale and Lubbock counties; visitors should confirm current school and stadium locations rather than assuming every address shown for the ISD is a field entrance."
+    ],
+    "milestones": [
+      {
+        "date": "1951",
+        "title": "Early district crown and quarterfinal",
+        "body": "Abernathy ISD's historical football accolades begin the documented list of district champions in 1951 and also identify a 1951 state-quarterfinal appearance.",
+        "sourceUrl": "https://www.abernathyisd.com/131089_3",
+        "sourceLabel": "Abernathy ISD football history"
+      },
+      {
+        "date": "1984–1988",
+        "title": "Five successive district-title seasons",
+        "body": "The district's official history lists football district championships in 1984, 1985, 1986, 1987 and 1988, with quarterfinal trips in 1985 and 1987.",
+        "sourceUrl": "https://www.abernathyisd.com/131089_3",
+        "sourceLabel": "Abernathy ISD football honors archive"
+      },
+      {
+        "date": "2016",
+        "title": "The state-semifinal season",
+        "body": "Abernathy's deepest postseason advancement in the district's recorded list was the 2016 state semifinal. Crawford's UIL state-team archive shows the semifinal ended 42–7 in Crawford's favor.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/crawford-2016-2017-football",
+        "sourceLabel": "UIL official 2016–17 Crawford playoff results"
+      },
+      {
+        "date": "2018–2019",
+        "title": "Back-to-back quarterfinal runs",
+        "body": "Abernathy ISD records state-quarterfinal appearances in both 2018 and 2019 and district championships in those same seasons.",
+        "sourceUrl": "https://www.abernathyisd.com/131089_3",
+        "sourceLabel": "Abernathy ISD football accolades"
+      },
+      {
+        "date": "April 2026",
+        "title": "A new football leadership chapter",
+        "body": "Abernathy ISD publicly announced Keith Bloskas as its next athletic director and head football coach. The current district athletics page identifies him in athletic leadership; an older subsite directory still mentions Justin Wiley.",
+        "sourceUrl": "https://www.abernathyisd.com/60549",
+        "sourceLabel": "Abernathy ISD April 2026 athletics hiring announcement"
+      },
+      {
+        "date": "2026–28",
+        "title": "New District 3 competitors",
+        "body": "UIL placed Abernathy in 2A Division I District 3 with New Deal, New Home, Post and Sundown for this alignment cycle; 2026 fixture times come from the district calendar, not the alignment list.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 2A Division I alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who is the Abernathy Antelopes head football coach in 2026?",
+        "answer": "The district's April 2026 announcement named Keith Bloskas as the incoming athletic director and head football coach. Its current athletics home lists him as athletic director. An older high-school staff directory still names Justin Wiley, so the newer school district information takes precedence."
+      },
+      {
+        "question": "Has Abernathy reached the Texas football state semifinals?",
+        "answer": "Yes. Abernathy ISD lists 2016 as a state-semifinal season. The UIL's Crawford record documents a 42–7 semifinal loss for the Antelopes. The school archive does not describe 2016 as a state-title year."
+      },
+      {
+        "question": "What district is Abernathy football in for 2026–28?",
+        "answer": "UIL Class 2A Division I, District 3, with New Deal, New Home, Post and Sundown. Those are classification-cycle opponents rather than a verified list of historic rivalries."
+      },
+      {
+        "question": "Where can I find the 2026 Abernathy football schedule?",
+        "answer": "Use the Abernathy ISD athletics/events calendar for varsity dates, changes and school contacts. The district football page contains an older 2023 schedule image, so a dated image by itself is not the most reliable 2026 source."
+      },
+      {
+        "question": "Where do fans park and buy tickets at Abernathy's stadium?",
+        "answer": "The district calendar and athletics contact are the most dependable current resources. A stadium-seating contractor confirms an Abernathy ISD football facility but not its current entrance, accessible gates, parking rules or 2026 ticket policy. Verify the assigned game's venue directly with Abernathy ISD at 806-298-2563."
+      },
+      {
+        "question": "What is the 'Lighting of the A' homecoming tradition?",
+        "answer": "Abernathy ISD promoted a homecoming Lighting of the A and homecoming-court parade scheduled for September 30, 2026. This is a documented school-spirit event, not a claim that any specific historic rivalry game took place."
+      }
+    ]
+  },
   "shamrock": {
     "slug": "shamrock",
     "theme": {
