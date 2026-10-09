@@ -52,7 +52,7 @@ for (const expected of [
   'Methodology',
   'Recommended citation',
   'Texas Defined Travel &amp; Outdoors Desk',
-  '/authors/a-dell',
+  'Travel &amp; outdoors desk',
   'Sources and further reading',
   'Texas Water Development Board',
   'National Park Service',
@@ -70,12 +70,13 @@ for (const stale of [
 ]) {
   if (ecoregions.body.includes(stale)) throw new Error(`${ecoregionsPath} still exposes stale production content: ${stale}`);
 }
+const ecoregionsAuthor = await fetchHealthy('/authors/a-dell', 'Texas Defined Travel & Outdoors Desk');
 const ecoregionsMap = await fetchHealthy('/images/editorial/texas-ecoregions-map.svg', 'Texas natural regions');
 const ecoregionsCsv = await fetchHealthy('/data/texas-ecoregions.csv', 'region,orientation,landscape,signature_vegetation,representative_place');
 for (const region of ['Piney Woods','Gulf Prairies and Marshes','Post Oak Savannah','Blackland Prairie','Cross Timbers','South Texas Plains','Edwards Plateau','Rolling Plains','High Plains','Trans-Pecos']) {
   if (!ecoregionsCsv.body.includes(region)) throw new Error(`/data/texas-ecoregions.csv is missing region: ${region}`);
 }
-console.log(JSON.stringify({ surface: ecoregionsPath, status: ecoregions.status, mapStatus: ecoregionsMap.status, csvStatus: ecoregionsCsv.status, ok: true }));
+console.log(JSON.stringify({ surface: ecoregionsPath, status: ecoregions.status, authorStatus: ecoregionsAuthor.status, mapStatus: ecoregionsMap.status, csvStatus: ecoregionsCsv.status, ok: true }));
 
 const liveNewsPath = firstPublishedNewsPath(news.body);
 if (!liveNewsPath) {
