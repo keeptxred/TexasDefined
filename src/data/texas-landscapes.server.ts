@@ -101,6 +101,22 @@ function buildLandscapePageHead(item: (typeof enrichedTexasLandscapeProfiles)[nu
           citation: item.sourceLinks.map((source) => source.href),
           mainEntityOfPage: absoluteUrl(texasDefinedBrand, path),
         },
+        ...(isLandscape && item.slug === 'rivers-and-river-valleys' ? [{
+          '@type': 'FAQPage',
+          '@id': `${absoluteUrl(texasDefinedBrand, path)}#faq`,
+          mainEntity: [
+            ['How many major river basins are in Texas?', 'The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. Basin boundaries follow drainage divides, not county or city lines.'],
+            ['Why are some Texas rivers clear and others muddy?', 'Water clarity reflects geology, sediment, rainfall, groundwater input, vegetation, channel type and recent flow conditions. Spring-fed limestone rivers can be exceptionally clear, while long prairie rivers often carry more suspended sediment.'],
+            ['Why do Texas rivers flood so quickly?', 'Parts of Central and West Texas combine intense thunderstorms, thin soils, steep or rocky watersheds and narrow valleys. Water can reach channels rapidly, causing dangerous flash floods even when skies are clear at the river itself.'],
+            ['What is the difference between a river and a river valley?', 'The river is the flowing channel. The river valley is the larger landform built and cut by the river over time, including floodplains, terraces, bottomlands, abandoned channels and valley walls.'],
+            ['Are Texas rivers natural if they contain reservoirs?', 'Yes, but most major systems are now strongly modified. Dams alter flow timing, sediment movement, temperature and aquatic habitat, while the underlying river valley remains part of the original drainage system.'],
+            ['Which Texas rivers are spring-fed?', 'Many Central Texas rivers receive important groundwater and spring contributions, especially in limestone and karst country. The Comal, San Marcos, upper Guadalupe, Frio, Nueces and Devils systems are among the best-known examples.'],
+          ].map(([name, text]) => ({
+            '@type': 'Question',
+            name,
+            acceptedAnswer: { '@type': 'Answer', text },
+          })),
+        }] : []),
         {
           '@type': 'BreadcrumbList',
           '@id': `${absoluteUrl(texasDefinedBrand, path)}#breadcrumb`,
