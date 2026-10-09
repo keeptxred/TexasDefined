@@ -62,7 +62,13 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
   'nueces': {
-    name: 'Agua Dulce Longhorns',  'jim-wells': {
+    name: 'Agua Dulce Longhorns',  harris: {
+    name: 'Alief Elsik Rams',
+    href: '/texas-high-school-football-teams/alief-elsik',
+    description: 'Explore Elsik’s 1990s UIL regional and quarterfinal football history, 2026 coaching sources and Houston-area district play.',
+    campusCountySource: 'https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/',
+  },
+  'jim-wells': {
     name: 'Alice Coyotes',
     href: '/texas-high-school-football-teams/alice',
     description: 'Explore Alice’s new September 2026 Memorial Stadium, coach Joe Castellano, consecutive district titles and current 4A Division I opponents.',
