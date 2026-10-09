@@ -121,6 +121,12 @@ for (const feature of [
   'First-time plan',
   'Where to stay',
   'Free things to do',
+  'Family-friendly plan',
+  'cityProfile.tripPlanning.family',
+  'Getting around',
+  'cityProfile.tripPlanning.gettingAround',
+  'Shopping & entertainment',
+  'cityProfile.tripPlanning.shoppingEntertainment',
   'cityDiscoveryItems',
   'Best first stops and planning guides',
   'Places connected to {entity.name}',
@@ -150,10 +156,26 @@ for (const [label, pattern] of [
   ['districts', /districts:/g],
   ['featured', /featured:/g],
   ['tripPlanning', /tripPlanning:/g],
+  ['family planning', /\n      family: \[/g],
+  ['getting-around planning', /\n      gettingAround: \[/g],
+  ['shopping/entertainment planning', /\n      shoppingEntertainment: \[/g],
 ]) {
   const count = (cityAuthorityProfiles.match(pattern) ?? []).length;
   if (count < 11) errors.push(`Every published city authority profile must carry ${label}; found ${count}, expected at least 11`);
 }
+for (const feature of [
+  "title: 'Use METRORail for the central corridor'",
+  "title: 'DART works best on rail-connected trips'",
+  "title: 'Walk the downtown core'",
+  "title: 'The mountain shapes every cross-city trip'",
+  "title: 'Plan the last mile before an event'",
+  "title: 'Padre Island is a separate driving block'",
+  "title: 'Legacy West'",
+  "title: 'Depot District'",
+]) {
+  if (!cityAuthorityProfiles.includes(feature)) errors.push(`City visitor-planning modules must stay city-specific: missing ${feature}`);
+}
+
 for (const feature of [
   'getCitySocialImage',
   "loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined",
