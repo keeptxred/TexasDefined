@@ -7,6 +7,8 @@ type RegionReference = {
   terrain: string;
   vegetation: string;
   water: string;
+  wildlife?: string;
+  communities?: string;
   pressure: string;
   placeLabel: string;
   placeHref: string;
@@ -22,6 +24,8 @@ const regionReferences: readonly RegionReference[] = [
     terrain: "Rolling acidic sands and sandy loams with broad river bottomlands.",
     vegetation: "Pine and pine-hardwood forest, bottomland hardwoods and wetlands.",
     water: "Sabine and Neches systems, bayous, sloughs and forested floodplains.",
+    wildlife: "White-tailed deer, eastern wild turkey, woodpeckers and wetland-dependent birds, amphibians and reptiles.",
+    communities: "Tyler, Longview, Lufkin and Nacogdoches.",
     pressure: "Forest fragmentation, development and changes to fire and bottomland hydrology.",
     placeLabel: "Big Thicket National Preserve",
     placeHref: "/destination/big-thicket-national-preserve",
