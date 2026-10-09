@@ -40,7 +40,7 @@
       "alvord",
       "amarillo"
     ],
-    "state": "IMPLEMENTED_PENDING_MERGE_AND_ACCEPTANCE",
+    "state": "DEPLOYED_PENDING_INDIVIDUAL_ACCEPTANCE",
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
@@ -51,14 +51,19 @@
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "All 25 assigned have distinct school editorial objects and audit records saved across existing two PR branches. All 25 are IMPLEMENTED but 0 production VERIFIED. Eleven unkeyed editorial entries corrected at d373055; malformed county reciprocal map repaired at 5624d7a; reciprocal campus-county links added at 2d9376d and 9a19441; Amarillo campus is NCES-confirmed Randall County, not Potter. Protected merge, deployment and individual visual acceptance remain pending.",
+    "notes": "All 25 implemented and merged via PR #4443 (196504b698452cb39c32a9437a128ec4d11b0313); production workflow run 37967100680 succeeded on this exact SHA and verified the live Worker. Browser acceptance remains pending for all 25; PR #4451 adds the real-browser verification job. No Batch 003.",
     "currentSchool": "amarillo",
     "nextSchool": null,
     "implementedOnBranch": 25,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409,
     "remainingToImplement": 0,
-    "remainingToVerify": 25
+    "remainingToVerify": 25,
+    "mergedPr": 4443,
+    "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+    "deploymentRunId": 37967100680,
+    "deploymentStatus": "SUCCESS",
+    "productionAcceptancePr": 4451
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -171,7 +176,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abernathy",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -203,7 +208,15 @@
         "Actual responsive Chrome school and Hale county screenshots / hydration",
         "Image source reuse rights if real program photo desired",
         "2026 venue/ticket/ADA/parking official documentation"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:abilene",
@@ -216,7 +229,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -248,7 +261,15 @@
         "Desktop/mobile school and Taylor County exact H1/canonical/links and hydration checks",
         "Legally cleared real team photograph",
         "Game-specific 2026 ticket/parking/ADA source"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:abilene-cooper",
@@ -261,7 +282,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-cooper",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -294,7 +315,15 @@
         "Real Chrome desktop/mobile school/County Taylor and rival reciprocal test",
         "Legal sports photo license if available",
         "Current ticket/ADA/stadium gate verification"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:abilene-texas-leadership",
@@ -307,7 +336,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-texas-leadership",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -338,7 +367,15 @@
         "Desktop/mobile real school and Taylor County link/browser checks",
         "Official stadium entry, ADA, parking, ticketing",
         "Rights to authentic sports image"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:abilene-wylie",
@@ -351,7 +388,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-wylie",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -384,7 +421,15 @@
         "Actual 390/1366px school/Taylor County link, SEO and hydration browser acceptance",
         "Licensed school photography",
         "Game-specific ticket and ADA/parking policy"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:ackerly-sands",
@@ -397,7 +442,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ackerly-sands",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -429,7 +474,15 @@
         "Production release and mobile/desktop browser acceptance",
         "Precise stadium address, accessible gates, parking and admission",
         "Licensed documentary photograph"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:agua-dulce",
@@ -442,7 +495,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/agua-dulce",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -471,7 +524,15 @@
         "Individual desktop/mobile real production acceptance",
         "TDLR work completion, actual accessible parking/ticketing gate evidence",
         "Documentary image reuse license"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alba-golden",
@@ -484,7 +545,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alba-golden",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -516,7 +577,15 @@
         "Source discrepancy 2024–25 season archive",
         "Official current stadium admission/parking/ADA",
         "Licensed authentic football photography"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:albany",
@@ -529,7 +598,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/albany",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -561,7 +630,15 @@
         "Individual mobile/desktop Chrome acceptance school/county",
         "Commercial stadium photograph reuse rights",
         "Game-specific ADA, parking and ticket confirmation"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:aledo",
@@ -574,7 +651,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aledo",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -605,7 +682,15 @@
         "Actual desktop/mobile Aledo/Parker Chrome QA",
         "Current ticket/parking/accessible stadium gates",
         "Authentic sports photo reuse rights"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alice",
@@ -618,7 +703,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alice",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -647,7 +732,15 @@
         "https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898",
         "https://www.aliceisd.net/en-US/stadium-design-update-b3d3714d",
         "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alief-elsik",
@@ -660,7 +753,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-elsik",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -687,7 +780,15 @@
         "Production deployment and browser QA",
         "Official stadium entrance, ADA/parking and tickets",
         "Authentic school image reuse rights"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alief-hastings",
@@ -700,7 +801,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-hastings",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -729,7 +830,15 @@
         "School/Harris mobile/desktop live checks",
         "Stadium gate/ADA/parking/tickets and press-box completion status",
         "Legally cleared real stadium/team image"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alief-taylor",
@@ -742,7 +851,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-taylor",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alief-taylor.md",
       "researchDate": "2026-10-09",
@@ -785,7 +894,15 @@
         "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/staff/",
         "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
         "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/schedule/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "featured:all-saints-fort-worth",
@@ -798,7 +915,7 @@
       "format": "11-Man",
       "source": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/history/",
       "url": "https://texasdefined.com/texas-high-school-football-teams/all-saints-fort-worth",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/all-saints-fort-worth.md",
       "researchDate": "2026-10-09",
@@ -839,7 +956,15 @@
         "https://www.aseschool.org/admission/admission-events",
         "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/",
         "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/history/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:allen",
@@ -852,7 +977,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/allen",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/allen.md",
       "researchDate": "2026-10-09",
@@ -894,7 +1019,15 @@
         "https://www.alleneaglesfb.com/schedule",
         "https://www.allenisd.org/",
         "https://www.allenisd.org/article/3092730"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alpine",
@@ -907,7 +1040,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alpine",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alpine.md",
       "researchDate": "2026-10-09",
@@ -945,7 +1078,15 @@
         "https://www.maxpreps.com/tx/alpine/alpine-bucks/football/staff/",
         "https://static1.squarespace.com/static/5df26417b47f8d120024c8f5/t/69655a9c8345875a67f15fca/1768250012439/Boardmin%2B11.19.2025%2B-%2BRegular%2BMeeting.pdf",
         "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:altair-rice",
@@ -958,7 +1099,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/altair-rice",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/altair-rice.md",
       "researchDate": "2026-10-09",
@@ -997,7 +1138,15 @@
         "https://www.pigskinprep.com/archive/Schedulespdf/Altair%20Rice%20Consolidated.pdf",
         "https://www.texasfootball.com/team/rice-consolidated-raiders",
         "https://www.maxpreps.com/tx/altair/rice-consolidated-raiders/football/history/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alto",
@@ -1010,7 +1159,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alto",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alto.md",
       "researchDate": "2026-10-09",
@@ -1047,7 +1196,15 @@
         "https://www.uiltexas.org/football/archives/P208",
         "https://www.texasfootball.com/team/alto-yellowjackets",
         "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alvarado",
@@ -1060,7 +1217,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvarado",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvarado.md",
       "researchDate": "2026-10-09",
@@ -1096,7 +1253,15 @@
         "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
         "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/history/",
         "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alvin",
@@ -1109,7 +1274,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvin.md",
       "researchDate": "2026-10-09",
@@ -1142,7 +1307,15 @@
         "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
         "https://www.texasfootball.com/team/alvin-yellowjackets",
         "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alvin-iowa-colony",
@@ -1155,7 +1328,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-iowa-colony",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvin-iowa-colony.md",
       "researchDate": "2026-10-09",
@@ -1191,7 +1364,15 @@
         "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
         "https://www.texasfootball.com/team/iowa-colony-pioneers",
         "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/history/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alvin-shadow-creek",
@@ -1204,7 +1385,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-shadow-creek",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvin-shadow-creek.md",
       "researchDate": "2026-10-09",
@@ -1240,7 +1421,15 @@
         "https://www.maxpreps.com/tx/pearland/shadow-creek-sharks/football/schedule/",
         "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
         "https://www.texasfootball.com/team/alvin-shadow-creek-sharks/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:alvord",
@@ -1253,7 +1442,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvord",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvord.md",
       "researchDate": "2026-10-09",
@@ -1289,7 +1478,15 @@
         "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/schedule/",
         "https://www.alvordisd.net/athletics",
         "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/25-26/schedule/"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:amarillo",
@@ -1302,7 +1499,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 2,
       "audit": "docs/football-authority/schools/amarillo.md",
       "researchDate": "2026-10-09",
@@ -1341,7 +1538,15 @@
         "https://www.texasfootball.com/article/2025/03/05/texas-high-school-football-program-spotlight-amarillo-sandies",
         "https://txprepfootball.com/schools/amarillo-sandies/",
         "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf"
-      ]
+      ],
+      "mergedPr": 4443,
+      "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
+      "deployment": {
+        "githubRunId": 37967100680,
+        "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
+        "conclusion": "success",
+        "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      }
     },
     {
       "id": "uil:amarillo-caprock",
