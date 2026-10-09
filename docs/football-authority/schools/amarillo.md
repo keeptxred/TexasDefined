@@ -4,7 +4,7 @@
 
 **Status: IMPLEMENTED on Batch 002 continuation branch. NOT MERGED, DEPLOYED OR PRODUCTION VERIFIED.**
 
-Amarillo High School, Golden Sandstorm / Sandies, Potter County, Texas. Amarillo High is distinct from Tascosa, despite their documented rivalry. A historical school directory identifies 4225 Danbury Drive as the campus and Dick Bivins Stadium as the football venue; school address is not a certified stadium gate.
+Amarillo High School, Golden Sandstorm / Sandies, Randall County, Texas. Amarillo High's campus county is Randall, confirmed by NCES 2025–26 school record https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000142 . Amarillo High is distinct from Tascosa, despite their documented rivalry. A historical school directory identifies 4225 Danbury Drive as the campus and Dick Bivins Stadium as the football venue; school address is not a certified stadium gate.
 
 ## Distinctive verified history and sources
 - [Official team historical ledger](https://www.sandiesfootball.com/history): football since **1908** except 1917; UIL charter member **1920**; four state crowns **1934, 1935, 1936, 1940**; enumerated district champions; Amarillo–Tascosa historical series 45–21–3 at source snapshot.
