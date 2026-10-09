@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 9,
+    "partiallyCompleted": 10,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "albany",
-    "nextSchool": "aledo",
-    "implementedOnBranch": 9,
+    "currentSchool": "aledo",
+    "nextSchool": "alice",
+    "implementedOnBranch": 10,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -572,8 +572,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aledo",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/aledo.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/football/all-time-appearances",
+        "https://www.uiltexas.org/football/state-team-mp-archive/aledo-2023-2024-football",
+        "https://www.aledoisdathletics.com/sport/football/boys/?tab=staff",
+        "https://realignment.uiltexas.org/alignments/2026/2026_RR-Packet.pdf",
+        "https://www.aledoisdathletics.com/buchanan-stadium",
+        "https://sports.yahoo.com/articles/down-bearcats-arlington-martin-ends-024149692.html",
+        "https://aledoledger.com/answers/bearcats-state-titles/"
+      ],
+      "implementationCommits": [
+        "3a992ade01f4c82cd2481be18b303ff5a59f0ec0",
+        "3d107641d03ebc96f0882b2c01d80bcf22c7132d",
+        "937c15613557a29ed3cce86c404a59004b5161fa",
+        "5260f9080bb8a4a9cc93416aab93b77633ae9818",
+        "77c5bd3895f738f20a01752cf9d705e3d60afa86"
+      ],
+      "imageStatus": "Original championship timeline; authentic school/stadium photos withheld without license",
+      "internalLinkStatus": "Parker County reciprocal link committed in existing school/county architecture, production pending",
+      "seoStatus": "Individual 12-title/6A title/description and verified Bearcats school colors committed",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected parent/continuation merges",
+        "Actual desktop/mobile Aledo/Parker Chrome QA",
+        "Current ticket/parking/accessible stadium gates",
+        "Authentic sports photo reuse rights"
+      ]
     },
     {
       "id": "uil:alice",
