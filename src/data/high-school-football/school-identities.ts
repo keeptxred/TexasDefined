@@ -982,9 +982,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'abilene',
     mascot: 'Eagles',
-    sourceUrl: 'https://www.abileneisd.org/o/ahs/live-feed?page_no=1',
-    sourceLabel: 'Abilene High School',
-    verifiedAt: '2026-09-19',
+    colors: 'Black and Gold',
+    sourceUrl: 'https://www.abileneisd.org/o/ahs',
+    sourceLabel: 'Abilene High School and published campus guide — Eagles, black and gold',
+    verifiedAt: '2026-10-09',
   },
   {
     slug: 'frenship-memorial',
