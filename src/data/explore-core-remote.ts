@@ -136,16 +136,22 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
     const query = options.query.trim().replace(/[%_,()]/g, "");
     params.set("or", `(name.ilike.*${query}*,slug.ilike.*${query}*,summary.ilike.*${query}*,description.ilike.*${query}*)`);
   }
-  const rows: Record<string, unknown>[] = [];
-  for (let offset = 0; offset < MAX_REMOTE_DESTINATIONS; offset += PAGE_SIZE) {
+  // Preserve ordered category results, but stop once the requested number is found.
+  // Non-category callers should not hydrate a 5,000-row catalog for a six-item card.
+  const destinations: Destination[] = [];
+  for (let offset = 0; offset < MAX_REMOTE_DESTINATIONS && destinations.length < limit; offset += PAGE_SIZE) {
+    const pageSize = options.category ? PAGE_SIZE : Math.min(PAGE_SIZE, limit - destinations.length);
     const pageParams = new URLSearchParams(params);
     pageParams.set("offset", String(offset));
-    pageParams.set("limit", String(PAGE_SIZE));
+    pageParams.set("limit", String(pageSize));
     const page = await requestCoreRows(pageParams);
-    rows.push(...page);
-    if (page.length < PAGE_SIZE) break;
+    for (const row of page) {
+      const destination = mapRow(row);
+      if (!options.category || destination.category === options.category) destinations.push(destination);
+    }
+    if (page.length < pageSize) break;
   }
-  return rows.map(mapRow).filter((item) => !options.category || item.category === options.category).slice(0, limit);
+  return destinations.slice(0, limit);
 }
 
 export async function fetchCoreExploreDestination(slug: string): Promise<Destination | null> {
