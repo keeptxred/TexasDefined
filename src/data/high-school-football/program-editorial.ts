@@ -59,6 +59,190 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alvord",
+    "theme": {
+      "accentHex": "#B78C35",
+      "label": "Original warm-gold Bulldogs editorial accent, not an official licensed school mark"
+    },
+    "seo": {
+      "title": "Alvord Bulldogs Football: 2025 District Title, 2026 Scores & Tickets",
+      "description": "Alvord Bulldogs football: 2025 9–3 district undefeated season, Matt Fanning athletics, 2026 2A Division I District 6 results and official cash-ticket guidance."
+    },
+    "coach": {
+      "name": "Matt Fanning",
+      "title": "Official Alvord ISD athletic director; 2025 varsity head coach per historical roster (2026 head-coach confirmation pending)",
+      "sourceUrl": "https://www.alvordisd.net/athletics",
+      "sourceLabel": "Official Alvord ISD Bulldog Athletics leadership and ticket rules",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1049 West Bypass 287, Alvord, TX 76225",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/schedule/",
+      "sourceLabel": "MaxPreps high-school campus directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alvord ISD 2026 varsity and sub-varsity football schedule",
+      "sourceUrl": "https://www.alvordisd.net/athletics",
+      "sourceLabel": "Official Alvord ISD athletics — downloadable master football schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "4–1 through September 25, 2026; district opening October 9",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/schedule/",
+      "sourceLabel": "MaxPreps varsity result ledger through Sept. 25",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Howe",
+          "site": "Home",
+          "result": "W 30–20"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Lindsay",
+          "site": "Away",
+          "result": "W 42–19"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Petrolia",
+          "site": "Away",
+          "result": "W 49–8"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Era",
+          "site": "Home",
+          "result": "W 28–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Collinsville",
+          "site": "Home",
+          "result": "L 35–62"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Olney",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Muenster",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Tioga",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Nocona",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 7",
+          "opponent": "Chico",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Alvord ISD home football field — exact current stadium name/gate not yet corroborated",
+      "address": "Alvord, Wise County — verify entrance directly with school athletics",
+      "sourceUrl": "https://www.alvordisd.net/athletics",
+      "sourceLabel": "Alvord ISD official athletics and football documents",
+      "verifiedAt": "2026-10-09",
+      "note": "Alvord ISD's current athletics page explicitly says home games are cash only, while a third-party October 9 Olney-away schedule displays an online 'buy tickets' link: these refer to different event hosts and are not inherently inconsistent. Check away-game tickets with the host district, and do not assume the school's 1049 West Bypass 287 mailing address is a stadium entrance or ADA route. Official site links its 2026 varsity/master schedule and roster."
+    },
+    "overview": [
+      "The Alvord Bulldogs play a distinctive small-school football schedule in Wise County. UIL places Alvord in Class 2A Division I District 6 for 2026–28, matching a district slate against Olney, Muenster, Tioga, Nocona and Chico. These are current alignment peers, not evidence of a historic named rivalry trophy.",
+      "Alvord's 2025 football season was an important local benchmark: the MaxPreps final history shows 9–3 overall and a perfect 6–0 district record, with head coach Matt Fanning named for that year. In November the Bulldogs beat Hico 51–14 in the playoff opener before falling to Carlisle 41–23, a verified postseason narrative rather than a fabricated state-final appearance.",
+      "The official Alvord ISD athletics page currently names Matt Fanning athletic director, provides the school athletic-office telephone and downloadable 2026 varsity football schedule and roster. Its public leadership listing does not explicitly confirm the 2026 varsity head coach, so this editorial does not conflate his verified 2025 head-coach attribution with a new 2026 appointment.",
+      "Alvord started 2026 by winning 30–20 over Howe, 42–19 at Lindsay, 49–8 at Petrolia and 28–6 over Era. A 62–35 loss to Collinsville September 25 left the Bulldogs 4–1 before district play; an October 9 game at Olney was scheduled but not assigned a result at the October 9 research cutoff.",
+      "For actual game-night planning, Alvord ISD's current athletics notice says home games are cash only. That local rule must not be applied to away contests—MaxPreps links online tickets for the scheduled Olney match, whose host determines admission. School campus mailing information also is not proof of the spectator gate or accessible parking.",
+      "Alvord's 2024 season finished 4–7, and earlier varsity history lists Marcus Grgurich coaching in that year. Distinguishing the 2024, 2025 and 2026 sources avoids silently assigning the wrong staff to this season."
+    ],
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Four-win predecessor season",
+        "body": "MaxPreps 2024 history lists Alvord 4–7 under Marcus Grgurich; this is a dated prior coaching era.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/history/",
+        "sourceLabel": "MaxPreps prior season and staff"
+      },
+      {
+        "date": "2025",
+        "title": "Undefeated district slate",
+        "body": "The 2025 Bulldogs went 6–0 in league play and 9–3 overall, with Matt Fanning named as head coach in that season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps 2025 football standings and playoffs"
+      },
+      {
+        "date": "Nov. 2025",
+        "title": "Hico playoff victory and Carlisle exit",
+        "body": "Alvord beat Hico 51–14, then lost to Carlisle 41–23 in the next playoff contest.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps archived 2025 bracket games"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Four straight wins to open 2026",
+        "body": "A 28–6 victory against Era followed wins over Howe, Lindsay and Petrolia, setting a four-win beginning.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 game results"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Collinsville turns the tide",
+        "body": "Alvord fell 35–62 to Collinsville, making its date-stamped September finish 4–1.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/schedule/",
+        "sourceLabel": "MaxPreps September 25 final"
+      },
+      {
+        "date": "2026–28",
+        "title": "2A Division I District 6 opponents",
+        "body": "Official UIL alignment places Alvord in District 6; the posted schedule names Olney, Muenster, Tioga, Nocona and Chico.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 2A Division I alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What was Alvord's 2025 football record?",
+        "answer": "Nine wins and three losses overall, including an undefeated 6–0 district record. The Bulldogs beat Hico in the playoffs and then lost to Carlisle."
+      },
+      {
+        "question": "Who is Alvord's current athletic director and football coach?",
+        "answer": "Alvord ISD identifies Matt Fanning as athletic director, and the 2025 MaxPreps team history lists him as that season's head football coach. An independently current district 2026 football head-coach appointment still requires confirmation."
+      },
+      {
+        "question": "What is Alvord's 2026 UIL district?",
+        "answer": "Class 2A Division I District 6, with Olney, Muenster, Tioga, Nocona and Chico among its scheduled league opponents."
+      },
+      {
+        "question": "How are Alvord home football tickets sold?",
+        "answer": "Alvord ISD's athletics notice says home games are cash only. Away stadium tickets may be sold differently by the host; for Olney, a third-party schedule provides an online ticket link."
+      },
+      {
+        "question": "Where is Alvord's home football stadium?",
+        "answer": "The exact current stadium name, spectator entrance and accessible parking were not independently established from the district sources reviewed. Call Alvord ISD athletics or follow its varsity match-day information."
+      },
+      {
+        "question": "What was Alvord's 2026 record before league play?",
+        "answer": "Alvord was 4–1 through September 25 with four consecutive opening wins followed by a loss to Collinsville; the October 9 Olney league opener required a new result check."
+      }
+    ]
+  },
+  {
     "slug": "alvin-shadow-creek",
     "theme": {
       "accentHex": "#007C92",
