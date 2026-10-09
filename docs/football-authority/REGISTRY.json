@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 8,
+    "partiallyCompleted": 9,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "alba-golden",
-    "nextSchool": "albany",
-    "implementedOnBranch": 8,
+    "currentSchool": "albany",
+    "nextSchool": "aledo",
+    "implementedOnBranch": 9,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -527,8 +527,39 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/albany",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/albany.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/football/all-time-appearances",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.texasfootball.com/article/2022/12/14/albany-mart-state",
+        "https://www.uiltexas.org/football/state-team-mp-archive/albany-2023-2024-football",
+        "https://www.albanyisd.net/apps/pages/index.jsp?type=d&uREC_ID=582174",
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "https://www.hmdb.org/m.asp?m=85275"
+      ],
+      "implementationCommits": [
+        "660b113000d535879c4990d0cbb6aa7c238bec9c",
+        "b868ca7870fe470cc8cdc3407b0e644425e325a1",
+        "e963868b3e398983238df44e048bbe8feeaa89de",
+        "35d85009a278ac84f080147b53e02b60526b5be7",
+        "8336d3bd43f94e9fdb73ec475004431a01cad8aa",
+        "c6f9ece72c88b28ee3b445780fc69542aea885e2"
+      ],
+      "imageStatus": "Independent documented historic-stadium visual narrative, original source-linked red-white milestone graphics; copyrighted stadium photographs withheld",
+      "internalLinkStatus": "Shackelford County school↔county source code committed; live check not done",
+      "seoStatus": "Albany-specific title/description and Lions identity/FAQ source code committed; production check pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Parent and continuation PR protected merge and deployment",
+        "Individual mobile/desktop Chrome acceptance school/county",
+        "Commercial stadium photograph reuse rights",
+        "Game-specific ADA, parking and ticket confirmation"
+      ]
     },
     {
       "id": "uil:aledo",
