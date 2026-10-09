@@ -243,6 +243,24 @@ function parseExistingSnapshot(text) {
   try { return JSON.parse(jsonLike); } catch { return {}; }
 }
 
+function renderTypescriptValue(value, depth = 0) {
+  if (typeof value === 'string') {
+    return "'" + value.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\r/g, '\\r').replace(/\n/g, '\\n') + "'";
+  }
+  if (Array.isArray(value)) return '[' + value.map(item => renderTypescriptValue(item, depth + 1)).join(', ') + ']';
+  if (value && typeof value === 'object') {
+    const properties = Object.entries(value);
+    const indent = '  '.repeat(depth);
+    if (!properties.length) return '{}';
+    return '{\n' + properties.map(([name, item], index) =>
+      indent + '  ' + name + ': ' + renderTypescriptValue(item, depth + 1) +
+      (index === properties.length - 1 ? '' : ',')
+    ).join('\n') + '\n' + indent + '}';
+  }
+  if (value === undefined) throw new Error('County snapshot cannot serialize an undefined field');
+  return JSON.stringify(value);
+}
+
 function renderSnapshot(records) {
   const lines = [
     "import type { CountyOfficeContact, CountyPropertyLinks } from '@/data/property/county-property-schema';",
@@ -260,7 +278,7 @@ function renderSnapshot(records) {
     'export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment> = {',
   ];
   for (const [slug, record] of Object.entries(records)) {
-    lines.push(`  ${JSON.stringify(slug)}: ${JSON.stringify(record, null, 2).replace(/^/gm, '  ').trimStart()},`);
+    lines.push(`  ${slug}: ${renderTypescriptValue(record, 1)},`);
   }
   lines.push('};', '');
   return lines.join('\n');
