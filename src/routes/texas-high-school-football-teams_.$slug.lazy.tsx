@@ -54,6 +54,15 @@ function Page() {
     alvord: 'wise',
     amarillo: 'randall',
   };
+  // Link only the Batch 002 campuses with documented city location and an
+  // existing canonical city guide; a school-district service area is not enough.
+  const batch002CityGuide: Record<string, { slug: string; name: string }> = {
+    'alief-elsik': { slug: 'houston', name: 'Houston' },
+    'alief-hastings': { slug: 'houston', name: 'Houston' },
+    'alief-taylor': { slug: 'houston', name: 'Houston' },
+    'all-saints-fort-worth': { slug: 'fort-worth', name: 'Fort Worth' },
+  };
+  const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
   const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
   const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
     : schoolName === 'Alief Hastings'
@@ -282,6 +291,7 @@ function Page() {
           </>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             {countyPath && <a href={countyPath} className="text-primary">Open {schoolName === 'Katy' ? 'Fort Bend County' : schoolName === 'Abbott' ? 'Hill County' : program?.countyName} guide →</a>}
+            {cityGuide && <a href={`/city/${cityGuide.slug}`} className="text-primary">Explore {cityGuide.name} city guide →</a>}
             {program && <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>}
             {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary">Official UIL alignment ↗</a>}
           </div>
