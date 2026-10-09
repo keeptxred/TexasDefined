@@ -61,6 +61,12 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     description: 'Explore Abilene High’s seven state football titles, historic 49-game winning streak and Shotwell Stadium visitor information.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
+  'nueces': {
+    name: 'Agua Dulce Longhorns',
+    href: '/texas-high-school-football-teams/agua-dulce',
+    description: 'Read the Longhorns 2026 coaching, recent playoffs and state-registered football-field improvement research before planning a game-day visit.',
+    campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320',
+  },
   dawson: {
     name: 'Ackerly Sands Mustangs',
     href: '/texas-high-school-football-teams/ackerly-sands',
