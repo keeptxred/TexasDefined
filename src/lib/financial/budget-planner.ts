@@ -120,3 +120,29 @@ export function calculateHouseholdBudget(state: BudgetState) {
     largestExpense: groups.filter(group => group.kind === 'expense').sort((a,b) => b.monthly-a.monthly)[0] ?? null,
   };
 }
+
+/** Pure export helpers, shared by browser interactions and regression tests. */
+export function createBudgetShareQuery(state: BudgetState): string {
+  const params = new URLSearchParams();
+  // Sanitize and whitelist keys so unrelated data cannot leak into share links.
+  params.set('b3', JSON.stringify(sanitizeBudget(state)));
+  return params.toString();
+}
+
+export function createBudgetCsv(state: BudgetState): string {
+  const safe = sanitizeBudget(state);
+  const result = calculateHouseholdBudget(safe);
+  const rows: string[][] = [['Category', 'Item', 'Entered USD', 'Period', 'Monthly USD']];
+  for (const group of BUDGET_GROUPS) {
+    for (const field of group.fields) {
+      const annual = 'cadence' in field;
+      rows.push([group.title, field.label, String(safe[field.key]), annual ? 'annual' : 'monthly', (safe[field.key] / (annual ? 12 : 1)).toFixed(2)]);
+    }
+  }
+  rows.push(['Total', 'Monthly income', '', 'monthly', result.income.toFixed(2)]);
+  rows.push(['Total', 'Monthly expenses and bill reserves', '', 'monthly', result.expenses.toFixed(2)]);
+  rows.push(['Total', 'Monthly savings allocations', '', 'monthly', result.savings.toFixed(2)]);
+  rows.push(['Total', 'Remaining after allocations', '', 'monthly', result.remaining.toFixed(2)]);
+  const escapeCsv = (value: string) => `"${value.replace(/"/g, '""')}"`;
+  return rows.map(row => row.map(escapeCsv).join(',')).join('\r\n');
+}
