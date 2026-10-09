@@ -59,6 +59,186 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alvin-shadow-creek",
+    "theme": {
+      "accentHex": "#007C92",
+      "label": "Original ocean-blue Sharks editorial accent; official UIL historical identity includes black, silver and ocean blue, not licensed logo"
+    },
+    "seo": {
+      "title": "Shadow Creek Sharks Football: 2019 State Champions, 2026 Results & Freedom Field",
+      "description": "Shadow Creek Sharks football: 2018 runner-up, 2019 UIL state title over Denton Ryan, 2026 6A District 19 scores, colors and Freedom Field guide."
+    },
+    "campus": {
+      "address": "11850 Broadway, Pearland, TX 77584",
+      "sourceUrl": "https://www.maxpreps.com/tx/pearland/shadow-creek-sharks/football/schedule/",
+      "sourceLabel": "MaxPreps Shadow Creek high-school directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Shadow Creek Sharks 2026 varsity fixtures and dated finals",
+      "sourceUrl": "https://www.maxpreps.com/tx/pearland/shadow-creek-sharks/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 score listing, updated October 4",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "4–1 through October 2, 2026 (3–0 district)",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/pearland/shadow-creek-sharks/football/schedule/",
+      "sourceLabel": "MaxPreps completed varsity scores through Oct. 2",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Humble Summer Creek",
+          "site": "Home",
+          "result": "W 24–14"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Fort Bend Ridge Point",
+          "site": "Away",
+          "result": "L 7–28"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Brazoswood",
+          "site": "Home",
+          "district": true,
+          "result": "W 61–0"
+        },
+        {
+          "date": "Sept. 24",
+          "opponent": "Pasadena Dobie",
+          "site": "Away",
+          "district": true,
+          "result": "W 67–2"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Pearland Dawson",
+          "site": "Home",
+          "district": true,
+          "result": "W 44–7"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Pasadena Memorial",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Manvel",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Alvin",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Pearland",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Pasadena Sam Rayburn",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Freedom Field",
+      "address": "Alvin ISD, Pearland/Iowa Colony-area venue network — confirm game-specific event gate",
+      "sourceUrl": "https://www.texasfootball.com/team/alvin-shadow-creek-sharks/",
+      "sourceLabel": "Dave Campbell's Shadow Creek stadium listing",
+      "verifiedAt": "2026-10-09",
+      "note": "The October 2 Dawson final on MaxPreps identifies Freedom Field for that specific Shadow Creek contest. Dave Campbell also lists it as the program stadium but shows implausible capacity '10', which is deliberately not repeated. Campus address 11850 Broadway does not identify the stadium gate. Alvin ISD and current match tickets should confirm venue, parking, clear-bag and accessible-entrance rules separately."
+    },
+    "overview": [
+      "Shadow Creek's Sharks have one of the most extraordinary modern Texas high-school football opening chapters. The Alvin ISD program reached the Class 5A Division I state final in each of its first two varsity seasons, losing in 2018 to Dallas Highland Park and winning the 2019 title over Denton Ryan, 28–22. Dave Campbell's title-game recap reports a combined 31–1 record through those first two years.",
+      "The official UIL 2019–20 championship archive names Alvin Shadow Creek as champion and Denton Ryan as runner-up with a 28–22 final. Dave Campbell's detailed account recounts a final-play pass breakup by T.J. Marshall to preserve the six-point championship margin. It is a distinctive finish, not a generic football milestone.",
+      "The UIL's historic 2018–19 Shadow Creek team profile verifies the Sharks name and school colors black, silver and ocean blue. That official archive identifies Brad Butler as coach for the historical team; it does NOT independently establish a current 2026 head-coach appointment. Later staffing must be checked against current Alvin ISD athletics.",
+      "Current UIL alignment puts Shadow Creek in Class 6A District 19, a different football classification from its 2019 5A championship. The group includes Alvin High, another distinct Alvin ISD program, while Iowa Colony's Pioneers compete in 5A Division I District 11 and are based in Iowa Colony rather than at Shadow Creek's Pearland campus.",
+      "Through the October 2, 2026 scores, the Sharks stood 4–1, with 24–14 over Summer Creek, a 7–28 loss at Ridge Point, then district wins over Brazoswood 61–0, Dobie 67–2 and Dawson 44–7. The October 9 Pasadena Memorial game remained scheduled as of the October 4 source update and is not represented as a completed win.",
+      "The school and stadium are distinct venues for planning. Shadow Creek High's official school locality is Pearland, and MaxPreps reports its Broadway campus address. An October 2 match was played at Freedom Field, but the team's real game-specific ticket instructions should decide which stadium, entrance and accessible parking families use."
+    ],
+    "milestones": [
+      {
+        "date": "2018",
+        "title": "State runner-up in first varsity season",
+        "body": "Dave Campbell's 2019 championship retrospective records Shadow Creek losing its first varsity-season state final to Dallas Highland Park and then returning to the title game the next year.",
+        "sourceUrl": "https://www.texasfootball.com/article/2019/12/26/alvin-shadow-creek-28-denton-ryan-22-2019-5a-di-texas-high-school-football-championship-recap",
+        "sourceLabel": "Dave Campbell's Shadow Creek first-two-years retrospective"
+      },
+      {
+        "date": "Dec. 2019",
+        "title": "First UIL state championship",
+        "body": "UIL confirms Shadow Creek 28, Denton Ryan 22, for the Class 5A Division I football championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/f6ecdc319151b973627d86e50f92072a/P72",
+        "sourceLabel": "Official UIL 2019–20 championship archive"
+      },
+      {
+        "date": "Dec. 2019",
+        "title": "Final-play goal-line defense",
+        "body": "The championship recap describes T.J. Marshall deflecting Denton Ryan's last-second end-zone attempt to preserve the 28–22 title win.",
+        "sourceUrl": "https://www.texasfootball.com/article/2019/12/26/alvin-shadow-creek-28-denton-ryan-22-2019-5a-di-texas-high-school-football-championship-recap",
+        "sourceLabel": "Dave Campbell's game-ending play report"
+      },
+      {
+        "date": "2022",
+        "title": "Eleven-win 6A-era season",
+        "body": "The school program archive records an 11–1 2022 season, showing strong success after the early 5A title run.",
+        "sourceUrl": "https://www.texasfootball.com/team/alvin-shadow-creek-sharks/",
+        "sourceLabel": "Dave Campbell's past seasons"
+      },
+      {
+        "date": "Oct. 2, 2026",
+        "title": "District-opening three-win sequence",
+        "body": "Shutout over Brazoswood 61–0, win over Dobie 67–2 and Dawson 44–7 brought the Sharks to 3–0 in District 19 and 4–1 overall.",
+        "sourceUrl": "https://www.maxpreps.com/tx/pearland/shadow-creek-sharks/football/schedule/",
+        "sourceLabel": "MaxPreps Oct. 4 score update"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 6A District 19",
+        "body": "The Sharks moved beyond their historical 5A championship classification and are part of the 2026–28 UIL 6A District 19 alignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official UIL alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Shadow Creek win the 2019 Texas state football championship?",
+        "answer": "Yes. The UIL records Alvin Shadow Creek defeating Denton Ryan 28–22 in the 2019 Class 5A Division I title game."
+      },
+      {
+        "question": "Was Shadow Creek a state finalist in 2018 too?",
+        "answer": "Yes. Dave Campbell's 2019 championship recap documents back-to-back final trips in the team's first two varsity seasons; the 2018 first trip ended in a loss to Dallas Highland Park."
+      },
+      {
+        "question": "Is Shadow Creek in Pearland or Alvin?",
+        "answer": "Shadow Creek High School's campus is in Pearland at 11850 Broadway, but the school belongs to Alvin ISD. Its Sharks are separate from the district's Alvin Yellowjackets and Iowa Colony Pioneers."
+      },
+      {
+        "question": "Where do the Shadow Creek Sharks play home games?",
+        "answer": "The current 2026 team listing names Freedom Field, and the October 2 Dawson result identifies it for that match. Confirm every game's actual stadium gate, ticketing, parking and ADA arrival directions with Alvin ISD."
+      },
+      {
+        "question": "What was Shadow Creek's 2026 football record through October 2?",
+        "answer": "Four wins, one loss overall and three wins in district, after wins over Brazoswood, Dobie and Dawson. October 9 and later finals were not verified at this checkpoint."
+      },
+      {
+        "question": "Who coaches the Sharks in 2026?",
+        "answer": "UIL's historical 2018–19 team lists Brad Butler, but that record is not proof of a 2026 appointment. The current head coach requires a dated Alvin ISD staff source."
+      }
+    ]
+  },
+  {
     "slug": "alvin-iowa-colony",
     "theme": {
       "accentHex": "#287B71",
