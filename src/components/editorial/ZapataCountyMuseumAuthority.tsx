@@ -65,13 +65,13 @@ export default function ZapataCountyMuseumAuthority() {
       </nav>
     </Container>
     <section className="relative mt-6 overflow-hidden bg-ink text-ink-foreground">
-      <img src="/images/zapata-county-museum-history-editorial.svg" alt="Original illustration about Old Zapata, Falcon Reservoir and the museum; not a photograph or precise geographic map" width={1600} height={900} decoding="async" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover opacity-65" />
+      <img src="https://www.co.zapata.tx.us/uploadedImages/zapata/Content/Page/zapata.Comm.Court.Project.Gallery/Zapata%20County%20Museum.jpg" alt="Zapata County Museum building exterior photographed for the Zapata County Commissioners Court project gallery" width={1600} height={900} decoding="async" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover opacity-65" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = "/images/zapata-county-museum-history-editorial.svg"; event.currentTarget.alt = "Original TexasDefined illustration of the Zapata County heritage region; not a photograph"; }} />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15" />
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(24rem, 52vw, 32rem)" }}>
         <p className="eyebrow text-ink-foreground/80">South Texas · Zapata County · Museum</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Zapata County Museum of History</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/85">See how the creation of Falcon Reservoir reshaped Old Zapata, and explore the region’s ranching, faith, energy, natural history and Rio Grande heritage.</p>
-        <p className="mt-5 text-xs text-ink-foreground/80">Original TexasDefined heritage illustration — not an actual museum photograph.</p>
+        <p className="mt-5 text-xs text-ink-foreground/80">Museum exterior photo: <a href="https://www.co.zapata.tx.us/page/zapata.comm.court.project.museum" target="_blank" rel="noopener noreferrer" className="underline">Zapata County Commissioners Court project gallery</a>. If unavailable, an original illustration is displayed instead.</p>
       </Container>
     </section>
 
