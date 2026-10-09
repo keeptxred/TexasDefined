@@ -30,7 +30,7 @@ const sitemapChecks = [];
 try {
   const response = await fetch(origin + '/sitemap.xml?batch002_acceptance=' + Date.now(), { signal: AbortSignal.timeout(90000) });
   const xml = await response.text();
-  const locations = new Set([...xml.matchAll(/<loc>\\s*([^<]+)\\s*<\\/loc>/gi)].map(match => match[1].replace(/&amp;/g, '&').trim()));
+  const locations = new Set([...xml.matchAll(new RegExp('<loc>\\s*([^<]+)\\s*</loc>', 'gi'))].map(match => match[1].replace(/&amp;/g, '&').trim()));
   for (const [slug] of roster) {
     const target = origin + '/texas-high-school-football-teams/' + slug;
     sitemapChecks.push({ slug, present: response.ok && locations.has(target), http: response.status });
