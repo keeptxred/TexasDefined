@@ -45,6 +45,127 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "abilene-texas-leadership": {
+    "slug": "abilene-texas-leadership",
+    "theme": {
+      "accentHex": "#755B38",
+      "label": "Original neutral bronze research accents for a developing charter-school program; deliberately not presented as verified official school colors or logo"
+    },
+    "seo": {
+      "title": "Abilene Texas Leadership Eagles Football: Webb Murphy & 2026",
+      "description": "TLCA Abilene Eagles football guide: coach Webb Murphy, fifth 11-man season, 2026 UIL 2A Division I District 5, 187 enrollment and charter admissions."
+    },
+    "coach": {
+      "name": "Webb Murphy",
+      "title": "Abilene Texas Leadership athletic director and head football coach",
+      "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+      "sourceLabel": "Official Texas Leadership of Abilene athletics coaching staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3250 State Street, Abilene, TX 79603 (secondary campus)",
+      "phone": "325-480-3500",
+      "sourceUrl": "https://www.texasleadershipabilene.com/campus/secondary-campus",
+      "sourceLabel": "Official TLCA Abilene secondary campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "TLCA Abilene football 2026 schedule and results (coach-submitted results may change)",
+      "sourceUrl": "https://www.maxpreps.com/tx/abilene/texas-leadership-of-abilene-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps UIL partner — Abilene TLCA 2026 schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "TLCA Abilene football — confirm each game's assigned field",
+      "address": "Secondary school: 3250 State Street, Abilene, TX 79603; football field entrance is NOT verified",
+      "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+      "sourceLabel": "Texas Leadership of Abilene official athletics office and coach",
+      "verifiedAt": "2026-10-09",
+      "note": "Texas Leadership publishes a secondary campus at 3250 State Street, but no current primary-source stadium gate, field address, ticketing, parking or ADA access policies could be independently confirmed. The 2026 schedule includes both home and away games; the secondary campus postal address must not be represented as a guaranteed stadium gate. Contact athletic director/head football coach Webb Murphy through the official athletic staff directory (Webb.Murphy@tlca-ab.com) or the school at 325-480-3500 before traveling."
+    },
+    "overview": [
+      "Texas Leadership of Abilene, often shortened to TLCA Abilene, fields the Eagles in eleven-man UIL football while operating as a tuition-free public charter school. This is a separate program from Abilene High Eagles, Abilene Cooper Cougars, Abilene Wylie Bulldogs and the San Angelo campus of the Texas Leadership network. School names should not be merged merely because 'Eagles' or 'Texas Leadership' appears in multiple city listings.",
+      "Unlike Abilene High's century of state championships, the TLCA Abilene 11-man program is relatively new. A local 2026 season preview describes this as the program's fifth 11-man football season; it also reports a winless 2025 campaign and a change in leadership for 2026. With no UIL state-final appearances in the authoritative UIL all-time list, this page focuses on program growth, its current staff and useful family logistics rather than inventing old title traditions.",
+      "The school-published athletics coaching staff names Webb Murphy as athletic director and head football coach. It also lists James Ingram, Rhett May, Dylan Martin, Michael Miller and Toby White with football responsibilities, but does not publish precise 2026 positional assignments for each. A September 2026 MaxPreps roster also names Murphy as head coach. This is stronger than assigning him a role based only on a football results aggregator.",
+      "The 2026–28 UIL realignment places Abilene Texas Leadership in 2A Division I District 5 with Anson, Cisco, De Leon, Hawley and Hico. The official UIL rank file assigns **187 reported enrollment for football realignment**, a value different in purpose from the charter network's larger K–12 campus student population. UIL membership does not establish a school's entire-student-body size or automatically prove any specific future football result.",
+      "MaxPreps lists a 2026 varsity schedule including Hico, Anson, Cisco, De Leon and Hawley as district opponents, plus earlier nondistrict games. Results can change with coach/school submissions. A 2026 local preview described quarterback Tyler Johnston returning, but not a guaranteed current starter or season-long roster; prospective players and fans should review the latest school and official athletic schedule rather than rely on September previews as immutable.",
+      "For families, the school operates a secondary campus at **3250 State Street**, distinct from its elementary campus on North 8th. Texas Leadership's public charter admission page says 2026–27 applications reopened after the lottery, with seats offered subject to availability or a waitlist. Admission to a public charter school does not guarantee UIL football eligibility for any individual; verify association transfer and residence rules separately. No official stadium street/gate location, admission policy or school-owned photo licensing was confirmed during this audit."
+    ],
+    "milestones": [
+      {
+        "date": "2009",
+        "title": "The charter network begins",
+        "body": "Texas Leadership's official Abilene homepage says the wider Texas Leadership public-school network opened its first school in 2009; this is the network's history, not evidence Abilene varsity 11-man football started that year.",
+        "sourceUrl": "https://www.texasleadershipabilene.com/",
+        "sourceLabel": "Official Texas Leadership of Abilene school history"
+      },
+      {
+        "date": "2022–2026",
+        "title": "A developing 11-man program",
+        "body": "A regional 2026 football preview identifies the upcoming season as TLCA Abilene's fifth in eleven-man football. This is a reported program age, not a claim of historical UIL championship success.",
+        "sourceUrl": "https://varsitypreview.net/tlca-anson-cisco-hawley-football-season-outlook-2026/",
+        "sourceLabel": "Varsity Preview 2026 TLCA Abilene program report"
+      },
+      {
+        "date": "2025",
+        "title": "A difficult preceding season",
+        "body": "The regional 2026 preseason preview reports that TLCA Abilene finished 2025 without a win; third-party schedules differ in completeness, so an all-time or official win-loss record is not manufactured here.",
+        "sourceUrl": "https://varsitypreview.net/tlca-anson-cisco-hawley-football-season-outlook-2026/",
+        "sourceLabel": "Varsity Preview — dated 2025 season context"
+      },
+      {
+        "date": "2026",
+        "title": "Webb Murphy leads the Eagles",
+        "body": "The Abilene campus's own athletics coaching page identifies Webb Murphy as athletic director and head football coach and lists other football staff.",
+        "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
+        "sourceLabel": "Official TLCA Abilene coaching staff"
+      },
+      {
+        "date": "2026–28",
+        "title": "New UIL 2A Division I District 5",
+        "body": "The UIL's official list puts TLCA Abilene with Anson, Cisco, De Leon, Hawley and Hico and reports 187 enrollment for the realignment cycle.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 2A Division I alignment"
+      },
+      {
+        "date": "2026–27",
+        "title": "Tuition-free public-charter enrollment",
+        "body": "The school network says applications have reopened after the 2026–27 lottery; offers and waiting lists depend on available seats, and football eligibility requires a separate UIL review.",
+        "sourceUrl": "https://www.texasleadership.net/family-resources/enroll",
+        "sourceLabel": "Official Texas Leadership 2026–27 enrollment policies"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Abilene Texas Leadership the same team as Abilene High?",
+        "answer": "No. Texas Leadership of Abilene Eagles are a separate public-charter-school football program. Abilene High Eagles have a different campus, UIL classification, staff and history; Abilene Cooper and Abilene Wylie are separate again."
+      },
+      {
+        "question": "Who coaches Texas Leadership of Abilene football in 2026?",
+        "answer": "The school-published athletics staff directory lists Webb Murphy as athletic director and head football coach. The same directory lists James Ingram, Rhett May, Dylan Martin, Michael Miller and Toby White among football staff without reliably specifying each assistant's 2026 football position."
+      },
+      {
+        "question": "What UIL division and district is TLCA Abilene in?",
+        "answer": "For 2026–28, UIL Class 2A Division I, District 5, with Anson, Cisco, De Leon, Hawley and Hico. The UIL's 187 enrollment is a football-alignment count, not the entire K–12 charter network population."
+      },
+      {
+        "question": "Has TLCA Abilene won a UIL football state title?",
+        "answer": "No state-final appearances or state titles are listed for this particular Abilene school in the official UIL all-time appearances table. The 2026 regional preview describes its young 11-man program entering a fifth season."
+      },
+      {
+        "question": "Where is Texas Leadership of Abilene's high school campus?",
+        "answer": "The school lists the secondary campus at 3250 State Street, Abilene, TX 79603 and its telephone as 325-480-3500. This is not a verified 2026 varsity home-stadium gate; confirm each game's venue before visiting."
+      },
+      {
+        "question": "Is Texas Leadership of Abilene a tuition-free public charter school?",
+        "answer": "Yes. Texas Leadership describes its Abilene school as tuition-free and open for 2026–27 applications, subject to available places or a waitlist. Football eligibility is separately subject to UIL rules."
+      },
+      {
+        "question": "Where are TLCA Abilene's football tickets and schedule?",
+        "answer": "The MaxPreps UIL-partner schedule provides current posted game dates, but actual tickets, stadium entrance, parking and accessible seating should be confirmed directly through the school's athletics office; no verified official ticket URL was identified."
+      }
+    ]
+  },
   "abilene-cooper": {
     "slug": "abilene-cooper",
     "theme": {
