@@ -22,7 +22,7 @@ import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
-import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+const TexasCitiesComparison = lazy(() => import("@/components/content/TexasCitiesComparison").then((module) => ({ default: module.TexasCitiesComparison })));
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -470,7 +470,7 @@ function ArticlePage() {
         <a href="#guide-body" className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline">Read the full guide ↓</a>
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
-      {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
+      {article.slug === "texas-major-cities-regional-differences" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" aria-label="Loading Texas city comparison" />}><TexasCitiesComparison /></Suspense> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
         {isTexasRiversArticle ? <>
           <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
