@@ -33,6 +33,9 @@ function verifyMuseumHtml(html) {
     'Museum tour overview',
     'application/ld+json',
   ];
+  if (process.env.ZAPATA_EXPECT_COUNTY_PHOTO !== 'false') {
+    required.push('Zapata%20County%20Museum.jpg', 'Zapata County Commissioners Court project gallery');
+  }
   const missing = required.filter((marker) => !html.includes(marker));
   if (missing.length) throw new Error(`Missing museum HTML markers: ${missing.join('; ')}`);
 
@@ -54,6 +57,7 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const nonce = `museum-live-${Date.now()}-${attempt}`;
     const { content } = await download(`${canonical}?verification=${nonce}`);
     verifyMuseumHtml(content);
+    // The county hosts the primary photograph; we verify the local backup asset independently.
     const asset = await download(`${origin}${imagePath}?verification=${nonce}`);
     const mime = asset.response.headers.get('content-type') || '';
     if (!mime.includes('image/svg+xml')) throw new Error(`Hero SVG returned unexpected type: ${mime}`);
@@ -74,7 +78,7 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
       if (sitemapError instanceof Error && sitemapError.message.includes('missing from the healthy Explore sitemap')) throw sitemapError;
       console.warn(`Explore sitemap unavailable; dedicated page indexability remains verified: ${sitemapError instanceof Error ? sitemapError.message : String(sitemapError)}`);
     }
-    console.log(`PASS: Zapata museum public HTML, canonical, indexability, exhibit content, source link, Museum schema and exact hero (attempt ${attempt}).`);
+    console.log(`PASS: Zapata museum public HTML, official county photo URL and credit, canonical, indexability, exhibit content, Museum schema and backup illustration (attempt ${attempt}).`);
     process.exit(0);
   } catch (error) {
     lastError = error;
