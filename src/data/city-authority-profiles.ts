@@ -435,6 +435,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     featured: [
       { eyebrow: 'Outdoors', title: 'Franklin Mountains State Park', summary: 'Use the mountain park to understand the geography that physically divides and defines El Paso.', href: '/destination/franklin-mountains-state-park' },
       { eyebrow: 'Nearby trips', title: 'Explore near El Paso', summary: 'Build desert, mountain, history and weekend-trip ideas around Far West Texas.', href: '/explore/near/el-paso' },
+      { eyebrow: 'Road trips', title: 'Road trips from El Paso', summary: 'Build longer Far West Texas drives around desert scenery, mountain corridors, historic stops and realistic distances from El Paso.', href: '/explore/near/el-paso/road-trips' },
       { eyebrow: 'Moving', title: 'Moving to El Paso', summary: 'Compare mountain crossings, military access, desert utilities and address-level local systems before choosing a home.', href: '/article/moving-to-el-paso-guide' },
     ],
     tripPlanning: {
