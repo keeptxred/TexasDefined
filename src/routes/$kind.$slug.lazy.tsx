@@ -55,6 +55,12 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     description: 'Read the 2003 six-man championship-game history and the district’s announced cancellation of its 2026 season.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?DistrictID=4820100&ID=482010001962&Search=1',
   },
+  taylor: {
+    name: 'Abilene High Eagles',
+    href: '/texas-high-school-football-teams/abilene',
+    description: 'Explore Abilene High’s seven state football titles, historic 49-game winning streak and Shotwell Stadium visitor information.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
+  },
   hale: {
     name: 'Abernathy Antelopes',
     href: '/texas-high-school-football-teams/abernathy',
