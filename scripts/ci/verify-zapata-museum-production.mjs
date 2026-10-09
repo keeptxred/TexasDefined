@@ -58,7 +58,7 @@ function verifyMuseumHtml(html) {
     'last tour begins at 3:30 p.m.',
     'application/ld+json',
   ];
-  if (!/<img\\b[^>]*\\bsrc=(['"])\\/images\\/zapata-county-museum-history-editorial\\.svg\\1/i.test(html)) {
+  if (!html.includes('src="/images/zapata-county-museum-history-editorial.svg"')) {
     throw new Error('Locally authored illustration is missing from the rendered museum hero');
   }
   if (html.includes('Zapata%20County%20Museum.jpg') || html.includes('uploadedImages/zapata/Content/Page')) {
