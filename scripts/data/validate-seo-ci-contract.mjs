@@ -53,6 +53,7 @@ const delegatedValidators = [
   'validate-knowledge-graph-behavior.mjs', 'validate-citation-magnets.mjs',
   'validate-citation-downloads.mjs', 'validate-gsc-evergreen-recovery.mjs',
   'validate-expedia-affiliate.mjs', 'validate-rv-parks-authority.mjs',
+  'validate-heart-o-texas-2026.mjs',
 ];
 
 const cultureDeployValidators = [
