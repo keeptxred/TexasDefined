@@ -58,6 +58,122 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "alief-hastings": {
+    "slug": "alief-hastings",
+    "theme": {
+      "accentHex": "#73442E",
+      "label": "Original warm-brown Bears editorial accent, not official school artwork or a verified uniform palette"
+    },
+    "seo": {
+      "title": "Alief Hastings Fighting Bears: 1997 State Final & 2026 Guide",
+      "description": "Alief Hastings Fighting Bears football: 1997 UIL state finalist, coach Michael Carter, 2026 District 20, Crump Stadium and current schedule."
+    },
+    "coach": {
+      "name": "Michael Carter",
+      "title": "Head football coach named in 2026–27 team season history (third-party)",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-hastings-fighting-bears/football/history/",
+      "sourceLabel": "MaxPreps current Alief Hastings staff and historical seasons",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "4410 Cook Road, Houston, TX 77072",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-hastings-fighting-bears/football/schedule/",
+      "sourceLabel": "Alief Hastings 2026 football school directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Hastings Fighting Bears 2026 varsity schedule and scores",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-hastings-fighting-bears/football/schedule/",
+      "sourceLabel": "MaxPreps UIL-partner football schedule last updated October 7",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Alief ISD Crump Stadium (confirm each Hastings game location)",
+      "address": "12321 Alief Clodine Road, Houston, TX 77072 — Alief district event address",
+      "sourceUrl": "https://www.aliefisd.net/o/fce/live-feed",
+      "sourceLabel": "Alief ISD official Crump Stadium event announcement for October 2026",
+      "verifiedAt": "2026-10-09",
+      "note": "Alief ISD publicly directs visitors to Crump Stadium at 12321 Alief Clodine Road for an October 2026 event. A separate TDLR project registers press-box reconstruction at 12321 High Star Drive: the different published frontage addresses may describe the same campus complex and should not be used interchangeably as verified admission gates. District athletics and the scheduled game ticket link control current stadium entrance, parking, accessible access, seating and field assignment. The TDLR projected July 2026 press-box completion is not proof of completion."
+    },
+    "overview": [
+      "The Alief Hastings Fighting Bears represent a distinct Houston-area football program whose greatest UIL playoff achievement is documented at the state championship-game level. Hastings reached the 1997 Class 5A Division II state final, losing 59–20 to Lewisville Marcus. UIL records one state-final appearance, zero state championships. This history must not be conflated with nearby Alief Elsik Rams or Alief Taylor Lions.",
+      "The 1997 runner-up campaign is Hastings' strongest documented football milestone. The official championship table identifies opponent and result; it doesn't support describing the Bears as former state champions. The program's longer competitive history includes 16 playoff appearances in Dave Campbell's team archive, but that tally is not a state title count.",
+      "The school is listed in modern sources as the Fighting Bears. Its 2026 MaxPreps history names Michael Carter as head coach, with Carter also associated with 2024 and 2025 campaigns. The coach name is attributed to the third-party current season listing rather than presented as an independently observed 2026 district board announcement.",
+      "The 2026–28 UIL football alignment places Hastings in Class 6A District 20 with neighboring Alief Elsik and Alief Taylor, plus Houston-area schools. The annual district grouping creates relevant links among these teams but does not establish unsupported rivalry trophy traditions.",
+      "The 2025 MaxPreps archive records Hastings at 1–9, including a 47–14 win over Bellaire and a 27–18 loss to Elsik. For 2026, a MaxPreps October 7 snapshot listed a 3–3 team, featuring wins over Cypress Park 23–21, Westside 56–0 and Alief Taylor 27–23, ahead of future games against Heights, Elsik and Bellaire. Because the schedule posted an October 8 Lamar matchup without a final result, no October 9 live record is claimed.",
+      "Dave Campbell's Texas Football lists Crump Stadium as Hastings' home venue and estimates its historic capacity at 8,600. A 2026 Alief ISD family-event notice places Crump Stadium at 12321 Alief Clodine Road, while a separate state press-box renovation filing uses 12321 High Star Drive. These public address differences must be clarified by the district before giving spectators a gate, and construction registration does not certify completed ADA access."
+    ],
+    "milestones": [
+      {
+        "date": "1997",
+        "title": "Fighting Bears reach the state final",
+        "body": "UIL's official 5A Division II final records Lewisville Marcus 59, Alief Hastings 20. It is Hastings' only recorded state football championship-game appearance.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL 1997 football state championship results"
+      },
+      {
+        "date": "2018",
+        "title": "A seven-win modern season",
+        "body": "Dave Campbell's Hastings history records a 7–5 season in 2018, a modern reference point for a program with several postseason appearances.",
+        "sourceUrl": "https://www.texasfootball.com/team/alief-hastings-bears",
+        "sourceLabel": "Dave Campbell's historical season archive"
+      },
+      {
+        "date": "2025",
+        "title": "Program works through a rebuilding year",
+        "body": "The MaxPreps 2025 schedule records Hastings finishing 1–9; its 2026 coach listing still names Michael Carter, distinct from earlier eras.",
+        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-hastings-bears/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps prior varsity season results"
+      },
+      {
+        "date": "2025–26",
+        "title": "Crump Stadium press-box project registered",
+        "body": "TDLR's public architectural-barriers record registers a $10 million estimated press-box rebuilding project with forecast completion in July 2026; registration is not an as-built completion certificate.",
+        "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025021812",
+        "sourceLabel": "Official TDLR Crump press box work"
+      },
+      {
+        "date": "2026",
+        "title": "A competitive opening six games",
+        "body": "MaxPreps' October 7 schedule recorded a 3–3 start including a 27–23 district win over Alief Taylor; October 8 and later results require current confirmation.",
+        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-hastings-fighting-bears/football/schedule/",
+        "sourceLabel": "MaxPreps October 7, 2026 Hastings results"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 6A District 20",
+        "body": "UIL places Hastings in District 20 alongside Alief Elsik, Alief Taylor and other Houston-area competitors in the 2026–28 realignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official UIL 6A district alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Alief Hastings won a state football championship?",
+        "answer": "No. Hastings reached the 1997 UIL 5A Division II state final and lost 59–20 to Lewisville Marcus. Official UIL records list one championship-game appearance and no championship wins."
+      },
+      {
+        "question": "Who is the Hastings Fighting Bears coach for 2026?",
+        "answer": "MaxPreps lists Michael Carter as head football coach for the 2026–27 season. It is a third-party staff record; verify subsequent appointments directly with Alief ISD."
+      },
+      {
+        "question": "Where do Alief Hastings football games take place?",
+        "answer": "Dave Campbell's lists Crump Stadium as the Hastings venue. Alief ISD advertises its Crump event entrance as 12321 Alief Clodine Road, but a separate stadium project filing uses 12321 High Star Drive; confirm game-specific gate/parking with the district."
+      },
+      {
+        "question": "What is the 2026 Hastings football record?",
+        "answer": "The dated MaxPreps October 7 source showed 3–3 after six reported games; it did not provide a final score for October 8. Check the current live team schedule for any newer result."
+      },
+      {
+        "question": "What 2026 UIL district contains Hastings?",
+        "answer": "Hastings plays UIL 6A District 20, alongside fellow Alief programs Elsik and Taylor and other Houston-area teams, for the 2026–28 period."
+      },
+      {
+        "question": "Did the Crump Stadium renovation finish in July 2026?",
+        "answer": "The TDLR filing lists a projected July 2026 completion for the press box. It does not verify actual completion or the state of spectator access, so contact Alief ISD for current conditions."
+      }
+    ]
+  },
   "alief-elsik": {
     "slug": "alief-elsik",
     "theme": {
