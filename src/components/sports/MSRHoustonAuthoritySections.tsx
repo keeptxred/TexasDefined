@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 /**
  * Independent, dated MSR Houston visitor research. The page intentionally keeps
  * changing track schedules, karting operations and access rules separate from
@@ -100,11 +101,11 @@ const checklists = [
   },
 ];
 
-function SourceLink({ href, children }: { href: string; children: React.ReactNode }) {
+function SourceLink({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">{children} ↗</a>;
 }
 
-function SectionHeading({ kicker, title, id, children }: { kicker: string; title: string; id: string; children?: React.ReactNode }) {
+function SectionHeading({ kicker, title, id, children }: { kicker: string; title: string; id: string; children?: ReactNode }) {
   return <header className="mb-7 max-w-4xl">
     <p className="eyebrow text-primary">{kicker}</p>
     <h2 id={id} className="mt-2 font-display text-3xl leading-tight sm:text-4xl">{title}</h2>
@@ -112,9 +113,8 @@ function SectionHeading({ kicker, title, id, children }: { kicker: string; title
   </header>;
 }
 
-/** Render only on /sports-venue/msr-houston; do not add assumptions to other venue types. */
-export function MSRHoustonAuthoritySections() {
-  return <div className="border-b border-border" aria-label="MSR Houston independent motorsports guide">
+export function MSRHoustonStatusNotice() {
+  return <div className="border-b border-border">
     <section aria-labelledby="msr-status" className="border-b border-border py-10">
       <div className="border-l-4 border-amber-600 bg-amber-50/80 px-5 py-5 text-stone-900 dark:bg-amber-950/20 dark:text-foreground">
         <p className="text-xs font-bold uppercase tracking-widest">Operational alert · checked October 9, 2026</p>
@@ -132,6 +132,12 @@ export function MSRHoustonAuthoritySections() {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Independent Texas Defined verification, not an operator notice. Operational status and registration can change; recheck the linked primary sources before travel.</p>
     </section>
 
+  </div>;
+}
+
+/** Render only on /sports-venue/msr-houston; do not add assumptions to other venue types. */
+export function MSRHoustonAuthoritySections() {
+  return <div className="border-b border-border" aria-label="MSR Houston independent motorsports guide">
     <nav aria-label="MSR Houston guide sections" className="flex flex-wrap gap-x-5 gap-y-3 border-b border-border py-6 text-sm font-semibold">
       <a href="#msr-access" className="underline underline-offset-4 hover:text-primary">How to participate</a>
       <a href="#msr-track-facts" className="underline underline-offset-4 hover:text-primary">Track specifications</a>
