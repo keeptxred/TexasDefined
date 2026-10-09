@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 19,
+    "partiallyCompleted": 20,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Sixteen individually implemented Batch 002 profiles on GitHub football branches, zero individually verified live.",
-    "currentSchool": "alto",
-    "nextSchool": "alvarado",
-    "implementedOnBranch": 19,
+    "currentSchool": "alvarado",
+    "nextSchool": "alvin",
+    "implementedOnBranch": 20,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -898,8 +898,21 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvarado",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvarado.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
+      ],
+      "productionVerification": null,
+      "blockers": [
+        "2026 official head coach",
+        "Historical title-game opponent/date",
+        "Photo rights and stadium gate",
+        "Protected merges and deployed browser acceptance"
+      ]
     },
     {
       "id": "uil:alvin",
