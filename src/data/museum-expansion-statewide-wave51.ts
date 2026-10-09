@@ -44,6 +44,18 @@ export const statewideMuseumExpansionWave51Destinations: Destination[] = [
       "A defining feature of the building is Alexandre Hogue's 1939 mural Oil Fields of Graham, which remains in its original lobby location. The museum also presents rotating art exhibitions, historical displays and educational programming rather than functioning as a static local-history archive. Its current 2026 schedule includes changing exhibitions and community programs, reinforcing the institution's role as an active cultural destination in downtown Graham.",
       "The Old Post currently operates Tuesday through Saturday and maintains an active first-party visitor and events program. Texas Time Travel places the museum in the Lakes Trail Region, which TexasDefined maps to its broader Prairies & Lakes Explore region. Using the current The Old Post identity while retaining the full Old Post Office Museum & Art Center context gives Graham and Young County one clear canonical museum authority destination for search, county discovery and internal linking.",
     ],
+    areaGuide: {
+      intro: "The Old Post's art and civic history complements the separate Young County Museum of History & Culture in downtown Graham.",
+      nearbyAttractions: [
+        { name: "Young County Museum of History & Culture", description: "At 609 Fourth Street, the dedicated county-history museum preserves frontier, ranching, oil, map and oral-history collections.", href: "/destination/young-county-museum-of-history-and-culture" },
+        { name: "Young County Courthouse and Square", description: "The downtown civic core puts Graham's changing county-seat history into its modern streetscape.", href: "/destination/graham" },
+      ],
+      foodAndDrink: [{ name: "Downtown Graham", description: "Cafes and local dining choices near the courthouse square." }],
+      lodging: [{ name: "Graham", description: "A practical base for a Young County museum and frontier-history day." }],
+      neighborhoods: [{ name: "Graham courthouse district", description: "Walk the historic downtown core and compare its civic buildings with The Old Post." }],
+      familyStops: [{ name: "Young County Museum of History & Culture", description: "Ask about group and student programs on county history.", href: "/destination/young-county-museum-of-history-and-culture" }],
+      sideTrips: [{ name: "Explore Young County", description: "Continue toward Fort Belknap, Newcastle and the upper Brazos country.", href: "/county/young" }],
+    },
     officialUrl: "https://www.theoldpost.org/",
     managingAuthority: "Old Post Office Museum & Art Center",
     address: "510 Third Street, Graham, TX 76450",
