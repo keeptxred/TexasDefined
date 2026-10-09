@@ -202,6 +202,31 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
                 : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
             </div>
           </div>
+          <div>
+            <h3 className="font-display text-2xl">Family-friendly plan</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">Use these clusters to reduce cross-city driving and balance major attractions with parks, breaks and weather-aware stops. Verify age, height, admission and reservation rules with the attraction itself.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.family.map((item) => item.href
+                ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
+                : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Getting around</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">These are visitor-planning patterns, not live schedules. Recheck transit service, construction, event traffic, parking and road conditions for the day you travel.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.gettingAround.map((item) => <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Shopping & entertainment</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">Choose one district that already fits the rest of the day. This avoids turning dining, shopping or nightlife into another long cross-city transfer.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.shoppingEntertainment.map((item) => item.href
+                ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
+                : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
         </div>
       </div>
     </section> : null}
