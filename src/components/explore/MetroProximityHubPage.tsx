@@ -68,7 +68,10 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
             <p className="mt-3 text-sm font-semibold">{site.fit}</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{site.plan}</p>
             <p className="mt-4 border-l-2 border-border pl-4 text-sm leading-6"><strong>Before you go:</strong> {site.before}</p>
-            <a href={site.official} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary hover:underline">Current official visitor information ↗</a>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              {site.name.startsWith("Old Hidalgo Pumphouse") && <Link to="/destination/$slug" params={{ slug: "old-hidalgo-pumphouse-museum" }} className="border-b border-primary pb-1 text-primary hover:underline">Explore the historic pumphouse guide →</Link>}
+              <a href={site.official} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Current official visitor information ↗</a>
+            </div>
           </article>)}
         </div>
 

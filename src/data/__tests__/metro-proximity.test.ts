@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { hidalgoPumphouseAuthorityDestinations } from "../hidalgo-pumphouse-authority-destination.ts";
+
 import {
   METRO_PROXIMITY_COLLECTIONS,
   getMetroProximityCollection,
@@ -313,4 +315,53 @@ test("four genuinely researched Lower Valley state parks are classified correctl
   const selected = selectMetroProximityDestinations(parks, metro, collection);
   assert.equal(selected.length, 4, "all four belong inside the McAllen state-park geographic radius");
   assert.ok(isMetroProximityCollectionIndexReady(parks, metro, collection), "authentic park choices meet the unchanged town/county/category gates");
+});
+
+
+test("Hidalgo Pumphouse authority record is a source-checked, index-eligible real place", () => {
+  const [site] = hidalgoPumphouseAuthorityDestinations;
+  assert.equal(site.slug, "old-hidalgo-pumphouse-museum");
+  assert.equal(site.category, "historic-sites");
+  assert.equal(site.county, "Hidalgo County");
+  assert.equal(site.nearestTown, "Hidalgo");
+  assert.ok(site.officialUrl?.startsWith("https://cityofhidalgo.net/"));
+  assert.ok(site.authorityGuide?.sources.some((source) => source.url.includes("atlas.thc.texas.gov/")));
+  assert.ok(site.hero.credit?.includes("CC BY-SA 3.0"), "use an attributed exact-site historic photograph");
+  assert.ok(site.body.join(" ").length > 900, "publish genuine visitor planning, not a thin SEO filler");
+  assert.ok(site.summary.trim().length >= 90, "full factual summary is required by the canonical destination audit");
+  assert.ok(site.body.length >= 3 && site.body.join(" ").length >= 450, "require the canonical minimum of substantive body copy");
+  assert.ok(site.highlights.length >= 3, "require useful, specific visitor highlights");
+  assert.ok(site.hero.src.startsWith("https://commons.wikimedia.org/wiki/Special:Redirect/file/"), "exact-site rights-cleared hero rather than a generic image");
+  assert.ok(!/AI-generated representative editorial image/i.test(site.hero.credit ?? ""), "do not use a substitute AI hero");
+  assert.equal(site.sourceCheckedAt, "2026-10-09");
+});
+
+test("a real Hidalgo County heritage destination repairs McAllen historic-site county diversity without relaxing thresholds", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("historic-sites")!;
+  assert.equal(collection.minCounties, 3);
+  const existing = [
+    destination(701, "historic-sites", { slug: "iwo-jima-museum-monument", nearestTown: "Harlingen", county: "Cameron", coordinates: { lat: 26.185, lng: -97.71 } }),
+    destination(702, "historic-sites", { slug: "palo-alto-battlefield-national-historical-park", nearestTown: "Brownsville", county: "Cameron", coordinates: { lat: 25.952, lng: -97.49 } }),
+    destination(703, "historic-sites", { slug: "palmito-ranch-battlefield", nearestTown: "Brownsville", county: "Cameron", coordinates: { lat: 25.943, lng: -97.279 } }),
+    destination(704, "historic-sites", { slug: "port-isabel-lighthouse", nearestTown: "Port Isabel", county: "Cameron", coordinates: { lat: 26.076, lng: -97.208 } }),
+    destination(705, "historic-sites", { slug: "zapata-county-museum-history", nearestTown: "Zapata", county: "Zapata", coordinates: { lat: 26.9, lng: -99.27 } }),
+  ];
+  assert.equal(isMetroProximityCollectionIndexReady(existing, metro, collection), false, "only Cameron and Zapata counties are represented");
+  const rows = [...existing, hidalgoPumphouseAuthorityDestinations[0]];
+  assert.equal(isMetroProximityCollectionIndexReady(rows, metro, collection), true, "Hidalgo County adds genuine independently reviewed historical coverage");
+  const chosen = selectMetroProximityDestinations(rows, metro, collection);
+  assert.ok(chosen.some((row) => row.destination.slug === "old-hidalgo-pumphouse-museum"));
+  assert.equal(new Set(chosen.map((row) => row.destination.county!.replace(/\s+County$/i, "").toLowerCase())).size, 3);
+});
+
+test("McAllen ordinary things-to-do excludes remote off-road beach shortcuts but keeps nearby verified history", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("things-to-do")!;
+  const remote = destination(801, "beaches-coast", {
+    slug: "yarborough-pass", nearestTown: "Corpus Christi", county: "Kleberg",
+    coordinates: { lat: 27.20434, lng: -97.38929 },
+  });
+  const selected = selectMetroProximityDestinations([remote, hidalgoPumphouseAuthorityDestinations[0]], metro, collection);
+  assert.deepEqual(selected.map((row) => row.destination.slug), ["old-hidalgo-pumphouse-museum"]);
 });

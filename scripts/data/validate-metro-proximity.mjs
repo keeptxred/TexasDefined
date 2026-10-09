@@ -5,6 +5,8 @@ const paths = {
   data: "src/data/metro-proximity.ts",
   townReferences: "src/data/metro-proximity-town-references.ts",
   mcallenBirding: "src/data/mcallen-world-birding-center.ts",
+  hidalgoPumphouse: "src/data/hidalgo-pumphouse-authority-destination.ts",
+  preservedDestinations: "src/data/destination-preserved-catalog.ts",
   curationValleyParks: "src/data/destination-curation-batch20.ts",
   curationFalcon: "src/data/destination-curation-batch9.ts",
   test: "src/data/__tests__/metro-proximity.test.ts",
@@ -31,6 +33,34 @@ for (const path of Object.values(paths)) {
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const fail = (message) => { throw new Error(`Metro proximity validation failed: ${message}`); };
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
+
+for (const token of [
+  'slug: "old-hidalgo-pumphouse-museum"',
+  'category: "historic-sites"',
+  'county: "Hidalgo County"',
+  'sourceCheckedAt: "2026-10-09"',
+  'CC BY-SA 3.0',
+  'https://atlas.thc.texas.gov/Details/4200000667',
+  'https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center',
+]) requireText(files.hidalgoPumphouse, token, `Hidalgo pumphouse authority fact/source/rights missing ${token}`);
+for (const token of [
+  'import { hidalgoPumphouseAuthorityDestinations }',
+  '  hidalgoPumphouseAuthorityDestinations,',
+]) requireText(files.preservedDestinations, token, `Hidalgo Pumphouse canonical catalog missing ${token}`);
+for (const token of [
+  '"old-hidalgo-pumphouse-museum"',
+  'metro.slug === "mcallen" && collection.slug === "things-to-do"',
+]) requireText(files.data, token, `McAllen historic-site and off-road exclusion contract missing ${token}`);
+for (const token of [
+  'params={{ slug: "old-hidalgo-pumphouse-museum" }}',
+  'Explore the historic pumphouse guide',
+]) requireText(files.hubComponent, token, `McAllen historical-guide crosslink missing ${token}`);
+requireText(files.collectionUi, 'slug: "old-hidalgo-pumphouse-museum"', "McAllen day-trip editorial card must feature the source-backed Pumphouse");
+for (const token of [
+  'Hidalgo Pumphouse authority record is a source-checked',
+  'a real Hidalgo County heritage destination repairs McAllen historic-site county diversity',
+  'McAllen ordinary things-to-do excludes remote off-road beach shortcuts',
+]) requireText(files.test, token, `Hidalgo historic-site readiness regression missing ${token}`);
 
 const expectedMetroSlugs = [
   "houston", "dallas", "fort-worth", "austin", "san-antonio", "corpus-christi", "waco",

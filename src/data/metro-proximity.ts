@@ -476,6 +476,7 @@ const MCALLEN_DAY_TRIP_PRIORITY = [
   "santa-ana-national-wildlife-refuge",
   "estero-llano-grande-state-park",
   "museum-of-south-texas-history-edinburg",
+  "old-hidalgo-pumphouse-museum",
   "resaca-de-la-palma-state-park",
   "laguna-atascosa-national-wildlife-refuge",
   "port-isabel-lighthouse",
@@ -595,7 +596,7 @@ export function selectMetroProximityDestinations(
   const candidates = destinations
     .filter((destination) => destination.slug && !seen.has(destination.slug) && (seen.add(destination.slug), true))
     .filter((destination) => categoryMatches(destination, collection))
-    .filter((destination) => collection.slug !== "day-trips" || !REMOTE_DAY_TRIP_EXCLUSIONS.has(destination.slug))
+    .filter((destination) => !(collection.slug === "day-trips" || (metro.slug === "mcallen" && collection.slug === "things-to-do")) || !REMOTE_DAY_TRIP_EXCLUSIONS.has(destination.slug))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
     .filter((row) => (minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > minimumMiles) && row.distanceMiles <= radiusMiles);
