@@ -2,6 +2,37 @@
 
 This document defines the operating rules for earned-link acquisition. Private prospect names, email addresses, notes and outreach history **must not** be committed here; those fields live in the protected Supabase table and admin command center.
 
+## Current operational snapshot — 2026-10-08
+
+This snapshot comes from the protected `public.texasdefined_backlink_prospects` command-center table. It is an operational reconciliation point, not a public claim about the entire web.
+
+- 101 tracked outreach targets across 16 campaigns and 99 distinct referring domains.
+- 58 records have a verified contact email; 43 do not.
+- All 43 missing-email records are intentionally in `Researched`, with a next action to verify the current official communications, media or visitor-services contact before any outreach. They are not partially migrated or corrupted rows.
+- 47 targets have been contacted; 46 are awaiting a response; 7 were at least seven days beyond their latest recorded touch at this snapshot.
+- 1 substantive reply is recorded.
+- 0 verified backlinks and 0 verified referring domains are recorded.
+- 0 discovered-but-unverified linking URLs are parked in the tracker.
+- 0 exact `referring_domain + destination_url` duplicates exist.
+- One domain, `nps.gov`, spans two campaigns and is intentionally surfaced for cross-campaign deduplication review.
+
+The earlier contact-backfill timeout is therefore no longer treated as a database/backfill integrity problem. Remaining missing contact information is a research queue and must stay fail-closed: do not infer an email address from a domain pattern.
+
+### Discovery-first citation priorities
+
+Do not respond to a zero-link baseline by increasing outreach volume indiscriminately. The existing citation-magnet scorecard remains the priority order for resources most likely to earn natural references. Strengthen and distribute the resource first, then use relationship outreach only where it improves accuracy, source access, approved media, recurring updates or a genuinely useful reference relationship.
+
+Highest-priority existing surfaces are:
+
+1. Texas Data dataset detail pages (`/texas-data/:datasetSlug`) with source provenance and machine-readable distributions.
+2. Statewide and county property-tax comparison/reference pages.
+3. The appraisal-district and property-tax explainers.
+4. The statewide Texas Data hub.
+5. The DMV lookup after its coverage/source gate.
+6. Painted Churches methodology/census/citation surfaces, Top 25 attractions methodology plus CSV/JSON, and other resources already registered in `public/citation-magnets.json`.
+
+For discovery, favor stable canonical URLs, visible methodology, last-verified context, primary-source links, concise answer/statistic blocks and downloadable data over generic backlink requests.
+
 ## What counts as a legitimate backlink
 
 A backlink counts toward TexasDefined's referring-domain goals when all of the following are true:
