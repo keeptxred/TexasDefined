@@ -276,7 +276,7 @@ const predeployCanonicalIndex = workflow.indexOf('id: predeploy_canonical_health
 const predeployGateIndex = workflow.indexOf('id: predeploy_health');
 const cloudflareGitBuildIndex = workflow.indexOf('id: cloudflare_git_build');
 const captureIndex = workflow.indexOf('id: rollback_target');
-const deployIndex = workflow.indexOf('id: cloudflare');
+const deployIndex = workflow.indexOf('id: cloudflare\n');
 if (
   smokeIndex < 0 ||
   predeployDirectIndex < 0 ||
