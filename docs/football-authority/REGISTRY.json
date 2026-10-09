@@ -45,16 +45,18 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 5,
+    "partiallyCompleted": 6,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "abilene-wylie",
-    "nextSchool": "ackerly-sands",
-    "implementedOnBranch": 5
+    "currentSchool": "ackerly-sands",
+    "nextSchool": "agua-dulce",
+    "implementedOnBranch": 6,
+    "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
+    "parentBatchPr": 4409
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -393,8 +395,39 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ackerly-sands",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/ackerly-sands.md",
+      "evidenceSources": [
+        "https://www.pressreporter.com/issues/2026-06-16/pages/6/",
+        "https://sands.esc17.net/page/Alma_Mater",
+        "https://sands.esc17.net/page/contact",
+        "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "https://realignment.uiltexas.org/alignments/2026/26-28_Rank.pdf",
+        "https://nces.ed.gov/ccd/districtsearch/district_detail.asp?ID2=4839120&Miles=20&Search=1&Zip=79749",
+        "https://www.texasfootball.com/team/sands-mustangs"
+      ],
+      "implementationCommits": [
+        "eae236c962db9f5c7222bae4d4ec22a2431449d3",
+        "2f965fabb878a6c7e265365cfde8b4bde259fac8",
+        "c9961922983f9c8f1fc8f358b8572bc514a236e2",
+        "c04b3cbf751bf463ebfc5b8e1da60b84216dea04",
+        "bc6a9865eb00491a25306805676f32e5bd61c5ba"
+      ],
+      "imageStatus": "Brown/white original documented milestone graphics; no authentic photos with reuse rights; unrelated Fargo stock image discarded",
+      "internalLinkStatus": "Dawson County reciprocal link coded; production unverified",
+      "seoStatus": "Individual meta/H1 from verified Mustangs identity and school-specific source trail; CI pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected merge of prior five schools and reconciliation",
+        "Individual CI and typecheck",
+        "Production release and mobile/desktop browser acceptance",
+        "Precise stadium address, accessible gates, parking and admission",
+        "Licensed documentary photograph"
+      ]
     },
     {
       "id": "uil:agua-dulce",
