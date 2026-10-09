@@ -58,6 +58,127 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "ackerly-sands": {
+    "slug": "ackerly-sands",
+    "theme": {
+      "accentHex": "#71513D",
+      "label": "Original brown-and-white editorial highlights sourced to Sands CISD's own alma mater; no official seal, logo or documentary football image is reproduced"
+    },
+    "seo": {
+      "title": "Ackerly Sands Mustangs Football: Coach, 2026 UIL District & History",
+      "description": "Sands Mustangs six-man football: 2026 coach Billy Grumbles, return to 1A Division I, 2025 playoff near miss, school traditions, current scores and Mustang Field."
+    },
+    "coach": {
+      "name": "Billy Grumbles",
+      "title": "Head football coach — appointed June 2026",
+      "sourceUrl": "https://www.pressreporter.com/issues/2026-06-16/pages/6/",
+      "sourceLabel": "Lamesa Press-Reporter June 16 2026 Sands coaching transition",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "Sands CISD, 201 First Street, Ackerly, TX 79713 (NCES physical district address; district site publishes 501 1st Street)",
+      "phone": "432-217-2637",
+      "sourceUrl": "https://sands.esc17.net/page/contact",
+      "sourceLabel": "Sands CISD official contact — 501 1st St listed; NCES 201 First St differs",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Sands Mustangs 2026 six-man scores and upcoming district fixtures",
+      "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
+      "sourceLabel": "Dave Campbell's Texas Football 2026 schedule and results (dated, third-party)",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Mustang Field (name reported by Texas football reference)",
+      "address": "Ackerly, Dawson County, Texas — confirm actual stadium gate directly with Sands CISD",
+      "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
+      "sourceLabel": "Dave Campbell's Texas Football — Sands Mustang Field venue reference",
+      "verifiedAt": "2026-10-09",
+      "note": "Dave Campbell's identifies Mustang Field and an estimated 150-seat capacity; no dated district stadium entrance address, ADA seating, parking or ticketing policy was independently found. Sands CISD's website says 501 1st Street while the federal NCES district directory reports 201 First Street, so do not assume either postal address is the stadium gate. Call Sands CISD at 432-217-2637 and confirm the actual 2026 scheduled field, kickoff, seating and admission before travel."
+    },
+    "overview": [
+      "The Sands Mustangs are a six-man football program serving tiny Ackerly in Dawson County. Sands Consolidated ISD publishes a distinctive school alma mater honoring its **brown and white** colors; its football culture also features a school-published Sands fight song and Mustangs team identity. Those details are genuine school sources, not an invented mascot or generic small-town football story.",
+      "For the 2026–28 UIL football realignment, Ackerly Sands moved into **Class 1A Division I, District 5**, with Borden County, Ira, Lamesa Klondike, O'Donnell and Westbrook. UIL's enrollment list reports **58** students for football realignment, which is different from the K–12 Sands CISD total published by NCES. In contrast, the Mustangs played in 1A Division II in 2024 and 2025; older schedule and postseason labels should not be silently reused as their current classification.",
+      "The coaching staff underwent an unusually important 2026 transition. A June 16 local newspaper report states former head coach **Jacob Massey resigned**, **Billy Grumbles** was promoted from offensive coordinator to head coach, and longtime Sands coach and current district superintendent **Wayne Henderson** returned to the sidelines as defensive coordinator. Some sports-site season histories still identify Massey as '2026 head coach'; that entry predates the documented district coaching change and is not used as the current official appointment.",
+      "Grumbles' move into football leadership also connects Sands basketball history to its gridiron program. The Lamesa Press-Reporter reports more than 400 boys basketball wins before he stepped away after 2024–25 and describes years of football work under Steve Keith and Jacob Massey. Henderson previously coached Sands football before becoming superintendent. This is a specific multi-generation local coaching story, not a claim that either coach won an unverified football state championship.",
+      "The Mustangs entered this season after consecutive playoff trips. Dave Campbell's program archive reports 8–4 in 2024 and 7–4 in 2025, with zero UIL football state titles or state-championship-game appearances. A 2025 Division II playoff run included an 82–48 win against Whitharral and a narrow **58–57 loss to Miami**, confirmed by contemporary reporting. The one-point exit is a meaningful program milestone, not a state-final loss.",
+      "As of the October 9, 2026 research snapshot, Dave Campbell's Texas Football lists Sands **4–1** before its scheduled district opener at Ira, following a 124–74 opening win over Valley, a 58–0 win over Kress, a 47–89 loss to Water Valley and wins against Garden City and Whitharral. These results are third-party dated scores subject to later correction; use the current score page and Sands CISD contact for today's exact kickoff or ticketing instead of relying on a static 2026 snapshot. The school contact page and NCES directory conflict on whether the physical address is 501 or 201 First Street, so visitor directions must be independently confirmed."
+    ],
+    "milestones": [
+      {
+        "date": "1997–2002",
+        "title": "A notable six-man playoff era",
+        "body": "The independent SixManFootball statistical database reports six consecutive Sands playoff appearances from 1997 through 2002, including an eleven-game streak in 1997. This is a third-party archival summary, not a state-championship claim.",
+        "sourceUrl": "https://sixmanfootball.com/teams/sands-mustangs.1546/",
+        "sourceLabel": "SixManFootball Sands Mustangs historical statistics"
+      },
+      {
+        "date": "2024",
+        "title": "A return to the postseason",
+        "body": "Dave Campbell's Sands archive lists an 8–4 season and a football playoff appearance in 2024 while the Mustangs competed in the lower six-man division.",
+        "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
+        "sourceLabel": "Dave Campbell's Sands past seasons"
+      },
+      {
+        "date": "2025",
+        "title": "An area playoff heartbreak",
+        "body": "Sands defeated Whitharral 82–48 and then fell to Miami 58–57 in the 2025 Division II playoffs; the local June 2026 report also recalls the one-point area-round finish.",
+        "sourceUrl": "https://www.pressreporter.com/issues/2026-06-16/pages/6/",
+        "sourceLabel": "Lamesa Press-Reporter retrospective on the 2025 Sands season"
+      },
+      {
+        "date": "June 2026",
+        "title": "Grumbles promoted; Henderson returns",
+        "body": "The June 16 local report records Billy Grumbles taking the head football role after Jacob Massey's departure, with superintendent and former head coach Wayne Henderson becoming defensive coordinator.",
+        "sourceUrl": "https://www.pressreporter.com/issues/2026-06-16/pages/6/",
+        "sourceLabel": "Lamesa Press-Reporter June 2026 coaching change"
+      },
+      {
+        "date": "2026–28",
+        "title": "The Mustang move to Division I",
+        "body": "UIL placed Ackerly Sands in 1A Six-Man Division I, District 5, with Borden County, Ira, Lamesa Klondike, O'Donnell and Westbrook, and published 58 as realignment enrollment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 six-man Division I realignment"
+      },
+      {
+        "date": "Aug.–Sept. 2026",
+        "title": "A high-scoring start under new leadership",
+        "body": "The Texas Football score archive shows a 124–74 win over Valley and a 4–1 pre-district record through September 25. Date-specific, third-party game data; not a live future win-loss guarantee.",
+        "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
+        "sourceLabel": "Dave Campbell's dated 2026 varsity results"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who is the Sands Mustangs head football coach in 2026?",
+        "answer": "A June 16, 2026 local report says Billy Grumbles succeeded Jacob Massey as head coach, and superintendent/former coach Wayne Henderson returned as defensive coordinator. MaxPreps still carries Massey for the 2026 season, so the documented coaching transition takes precedence; contact Sands CISD for any later change."
+      },
+      {
+        "question": "Does Ackerly Sands play six-man football, and which UIL district?",
+        "answer": "Yes. Ackerly Sands is in UIL 1A Six-Man Division I, District 5 for the 2026–28 realignment, alongside Borden County, Ira, Lamesa Klondike, O'Donnell and Westbrook. It previously played in Division II."
+      },
+      {
+        "question": "Has Sands won a football state championship?",
+        "answer": "The football championship archives and Dave Campbell's program reference do not record a Sands football state title or state title-game appearance. The Mustangs have reached the playoffs repeatedly; the 2025 Division II area loss to Miami was by one point."
+      },
+      {
+        "question": "What are Sands CISD's school colors?",
+        "answer": "Brown and white. The Sands CISD official alma mater explicitly says 'Honor your brown and white,' and refers to the Mustangs. The page uses original brown-and-white editorial accents rather than an unauthorised team logo."
+      },
+      {
+        "question": "Where is the Sands Mustangs football field?",
+        "answer": "Dave Campbell's Texas Football calls the venue Mustang Field in Ackerly and estimates 150 seats, but a precise current stadium gate, ticketing and accessibility map are not verified. School sources disagree on 201 versus 501 First Street, so call Sands CISD at 432-217-2637 before driving."
+      },
+      {
+        "question": "What changed for Sands football after the 2025 season?",
+        "answer": "The 2025 Mustangs lost 58–57 to Miami in the Division II area playoffs. In June 2026 Billy Grumbles was named head coach and Wayne Henderson returned as defensive coordinator; UIL also placed Sands back in six-man Division I for the new cycle."
+      },
+      {
+        "question": "Where can I see the current Sands football schedule?",
+        "answer": "Use Dave Campbell's current Sands page or the UIL partner schedule and confirm kickoff details with Sands CISD. A 4–1 result on October 9 reflects a dated source snapshot, not continuously updated scores or an official game cancellation notice."
+      }
+    ]
+  },
   "abilene-wylie": {
     "slug": "abilene-wylie",
     "theme": {
