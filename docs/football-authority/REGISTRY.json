@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 10,
+    "partiallyCompleted": 11,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "aledo",
-    "nextSchool": "alice",
-    "implementedOnBranch": 10,
+    "currentSchool": "alice",
+    "nextSchool": "alief-elsik",
+    "implementedOnBranch": 11,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -616,8 +616,28 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alice",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/alice.md",
+      "implementationCommits": [
+        "b3dce29cf40263d615800650ae5da5b71bd1a263",
+        "b77a8119844f9200c82d97a4b5630d5ef48dd4d8",
+        "d9ed2cd73815712fb09aeb3eb767bce46a917423",
+        "a846f94ac0c8ad3b7d43551113713bbf4a07fe0c"
+      ],
+      "imageStatus": "School-specific sourced milestone graphics, no cleared documentary photography",
+      "internalLinkStatus": "Jim Wells County reciprocal source code committed, production pending",
+      "seoStatus": "Distinct Alice title, metadata and Coyotes identity coded, not production tested",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected PR merge",
+        "Deployment verification",
+        "Mobile/desktop Alice and Jim Wells QA",
+        "Stadium parking, ticketing, accessible gates and photo license"
+      ]
     },
     {
       "id": "uil:alief-elsik",
