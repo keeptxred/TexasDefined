@@ -41,6 +41,7 @@ export const dewittCountyCueroYorktownGuadalupeRiverArticle: Article = {
     { href: "/county/victoria", label: "Explore Victoria County", description: "Continue southeast toward Victoria and the lower Guadalupe corridor." },
     { href: "/county/goliad", label: "Explore Goliad County", description: "Head south toward Presidio La Bahía and the San Antonio River country." },
     { href: "/county/karnes", label: "Explore Karnes County", description: "Travel west into ranch country, Panna Maria and the Eagle Ford region." },
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Connect DeWitt County\u0027s Yoakum portion with the city\u0027s railroad and leather heritage." },
     { href: "/county/lavaca", label: "Explore Lavaca County", description: "Continue northeast toward Hallettsville, Shiner and Yoakum." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel distance and courthouse access shaped the Texas county map." },
   ],
