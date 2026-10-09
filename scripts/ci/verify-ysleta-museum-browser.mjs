@@ -93,7 +93,7 @@ try {
   for (const [viewport, width, height, mobile] of [['mobile', 390, 844, true], ['desktop', 1366, 900, false]]) {
     const context = await browser.newContext({ viewport: { width, height }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 1 });
     const page = await context.newPage(); const errors = [];
-    page.on('pageerror', e => errors.push(e.message));
+    page.on('pageerror', e => errors.push({ url: page.url(), message: e.message }));
     try {
       out.push(await inspectMuseum(page, viewport));
       for (const path of [links.borderlands, links.city, links.county, links.sacred]) out.push(await inspectInbound(page, path, viewport));
