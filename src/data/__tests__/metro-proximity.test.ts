@@ -349,7 +349,7 @@ test("a real Hidalgo County heritage destination repairs McAllen historic-site c
   assert.equal(isMetroProximityCollectionIndexReady(rows, metro, collection), true, "Hidalgo County adds genuine independently reviewed historical coverage");
   const chosen = selectMetroProximityDestinations(rows, metro, collection);
   assert.ok(chosen.some((row) => row.destination.slug === "old-hidalgo-pumphouse-museum"));
-  assert.equal(new Set(chosen.map((row) => row.destination.county!.replace(/\\s+County$/i, "").toLowerCase())).size, 3);
+  assert.equal(new Set(chosen.map((row) => row.destination.county!.replace(/\s+County$/i, "").toLowerCase())).size, 3);
 });
 
 test("McAllen ordinary things-to-do excludes remote off-road beach shortcuts but keeps nearby verified history", () => {
