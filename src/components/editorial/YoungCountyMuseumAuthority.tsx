@@ -86,7 +86,7 @@ export default function YoungCountyMuseumAuthority() {
       <nav aria-label="Breadcrumb" className="flex flex-wrap gap-2 text-xs uppercase tracking-widest text-muted-foreground">
         <Link to="/">Home</Link><span>·</span><Link to="/explore/museums">Museums</Link><span>·</span><Link to="/county/young">Young County</Link>
       </nav>
-      <header className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,.85fr)] lg:items-end">
+      <header className="mt-10 grid gap-10 lg:grid-cols-2 lg:items-end">
         <div>
           <p className="eyebrow text-primary">Graham · North Texas · Independently researched museum guide</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[1.02] sm:text-6xl">Young County Museum of History &amp; Culture</h1>
