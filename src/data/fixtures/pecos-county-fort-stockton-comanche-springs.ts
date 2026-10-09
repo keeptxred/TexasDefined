@@ -25,8 +25,8 @@ export const pecosCountyFortStocktonComancheSpringsArticle: Article = {
   tags: ["Pecos County", "Fort Stockton", "Comanche Springs", "Fort Stockton history", "West Texas", "Trans-Pecos", "Texas counties", "Texas history", "ranching", "oil and gas"],
   featured: false,
   internalLinks: [
-    { href: "/article/reeves-county-pecos-balmorhea-texas", label: "Explore neighboring Reeves County", description: "Follow the Pecos River north toward Pecos, Balmorhea and San Solomon Springs." },
-    { href: "/article/brewster-county-big-bend-texas", label: "Explore Brewster County", description: "Continue south toward Alpine, Marathon and Big Bend country." },
+    { href: "/county/reeves", label: "Explore neighboring Reeves County", description: "Follow the Pecos River north toward Pecos, Balmorhea and San Solomon Springs." },
+    { href: "/county/brewster", label: "Explore Brewster County", description: "Continue south toward Alpine, Marathon and Big Bend country." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/texas-regions-explained", label: "Understand the Texas regions", description: "See how the Trans-Pecos fits into the larger Texas map." },
