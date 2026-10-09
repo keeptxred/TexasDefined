@@ -13,7 +13,7 @@ const directoryHtml = await fetchText(DIRECTORY_URL);
 const counties = parseCountyDirectory(directoryHtml);
 if (counties.length !== 254) throw new Error(`Expected 254 Comptroller county pages; found ${counties.length}.`);
 const countyCatalog = await fs.readFile('src/data/texas-places.ts', 'utf8');
-const namesLiteral = /const COUNTY_NAMES\\s*=\\s*`([^`]*)`/.exec(countyCatalog)?.[1];
+const namesLiteral = /const COUNTY_NAMES\s*=\s*`([^`]*)`/.exec(countyCatalog)?.[1];
 if (!namesLiteral) throw new Error('Cannot read canonical county names for office crosswalk');
 const canonicalSlugs = new Set(namesLiteral.split('|').map(slugify));
 const directorySlugs = new Set(counties.map((county) => county.slug));
