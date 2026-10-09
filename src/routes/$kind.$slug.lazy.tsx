@@ -62,7 +62,13 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
   'nueces': {
-    name: 'Agua Dulce Longhorns',  shackelford: {
+    name: 'Agua Dulce Longhorns',  parker: {
+    name: 'Aledo Bearcats',
+    href: '/texas-high-school-football-teams/aledo',
+    description: 'Discover Aledo’s 12 UIL football titles, 2026 Class 6A transition, head coach Robby Jones, historic district streak and Tim Buchanan Stadium.',
+    campusCountySource: 'https://ahs.aledoisd.org/parents-students/aledo-high-school-graduation-information/class-of-2026-graduation',
+  },
+  shackelford: {
     name: 'Albany Lions',
     href: '/texas-high-school-football-teams/albany',
     description: 'Discover the Lions four state football championships, coach Denney Faith, 2026 UIL district and the historic Robert Nail Stadium gateway.',
