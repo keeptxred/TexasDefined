@@ -8,6 +8,7 @@ const puebloUrl = "https://www.ysletadelsurpueblo.org/about-us";
 const commissionUrl = "https://atlas.thc.texas.gov/details/4200001263";
 const texasHistoryUrl = "https://www.tshaonline.org/handbook/entries/ysleta-del-sur-pueblo-museum";
 const missionUrl = "https://www.nps.gov/places/ysleta-mission.htm";
+const breadBakingUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/bread-baking";
 const missionTrailUrl = "https://visitelpaso.com/epmissiontrail";
 const visitElPasoCulturalUrl = "https://visitelpaso.com/places/tigua-indian-cultural-center";
 const photoUrl = "https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center.jpg";
@@ -20,6 +21,7 @@ const sourceList = [
   { label: "Texas Historical Commission — museum atlas #4200001263", url: commissionUrl, note: "Independent museum directory: address, telephone, email and hours; revised September 27, 2026." },
   { label: "Texas State Historical Association — Handbook of Texas", url: texasHistoryUrl, note: "Historic museum timeline, including the 1975 opening and the 1992 fire; not a current operating-hours source." },
   { label: "National Park Service — Ysleta Mission", url: missionUrl, note: "Documentary history of the separate mission church and Pueblo Revolt-era borderlands." },
+  { label: "Ysleta del Sur Pueblo — Bread Baking", url: breadBakingUrl, note: "The Pueblo describes a demonstration every other Saturday, which differs from Visit El Paso's second/fourth-Saturday listing; confirm the exact date." },
   { label: "Visit El Paso — Mission Trail", url: missionTrailUrl, note: "Official regional visitor explanation of the Ysleta–Socorro–San Elizario heritage corridor." },
   { label: "Visit El Paso — Pueblo Cultural Center", url: visitElPasoCulturalUrl, note: "Secondary visitor listing for demonstrations and activities; confirm public access and timing with the Pueblo." },
 ];
@@ -44,7 +46,7 @@ const questions = [
   { q: "What days is the museum open?", a: "The Pueblo's specific museum page and the Texas Historical Commission currently list Wednesday through Sunday, 10 a.m.–4 p.m. Other Cultural Center and gift-shop listings show different days; call the museum before making a special trip." },
   { q: "How much does admission cost?", a: "A dependable current public admission rate was not identified in the official museum listing reviewed October 9, 2026. Call the Cultural Center to confirm admission, accepted payment and any group pricing." },
   { q: "Can children or school groups visit?", a: "Yes. The museum specifically offers tours for school trips and larger groups. Contact staff ahead of time to discuss group size, educational goals, supervision and available tour dates." },
-  { q: "Are there dances and bread-making demonstrations every day?", a: "No. Visit El Paso advertises traditional baking on second and fourth Saturdays, but individual demonstrations and public access can change. Other cultural classes and programs are for tribal members only. Confirm what is open to the public on your date with Pueblo staff." },
+  { q: "Are there dances and bread-making demonstrations every day?", a: "No. The Pueblo advertises bread baking every other Saturday; Visit El Paso says second and fourth Saturdays. Those schedules are not necessarily identical, so confirm the exact demonstration date and public access with Pueblo staff. Other cultural classes and programs are for tribal members only." },
   { q: "Is it accessible?", a: "Public source pages did not establish a full, current accessibility inventory. Ask staff about step-free routes, accessible restrooms, seating, mobility needs and any accommodations before visiting." },
   { q: "How much time should I allow?", a: "For planning, allow roughly 45–90 minutes for a self-guided museum visit; this is a TexasDefined estimate, not a museum-issued tour duration. Allow more time if a confirmed public program is scheduled." },
   { q: "May I photograph exhibits or ceremonies?", a: "Do not assume photography or video is permitted, especially during dances, ceremonies or presentations involving community members. Ask staff for permission and respect posted restrictions." },
