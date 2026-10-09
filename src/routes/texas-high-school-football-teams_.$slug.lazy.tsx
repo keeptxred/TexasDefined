@@ -37,7 +37,9 @@ function Page() {
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
-  const countyPath = schoolName === 'Abilene'
+  const countyPath = schoolName === 'Abilene Cooper'
+    ? '/county/taylor'
+    : schoolName === 'Abilene'
     ? '/county/taylor'
     : schoolName === 'Abernathy'
     ? '/county/hale'
@@ -117,6 +119,13 @@ function Page() {
           <div className="space-y-4">
             {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
           </div>
+          {(schoolName === 'Abilene' || schoolName === 'Abilene Cooper') && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
+            <p className="font-display text-xl text-foreground">The Crosstown Showdown</p>
+            <p className="mt-2 text-muted-foreground">Abilene ISD documents the Abilene High–Cooper football series beginning in 1961. These two school histories are different, and the teams are assigned to different 2026–28 UIL divisions.</p>
+            <a href={schoolName === 'Abilene' ? '/texas-high-school-football-teams/abilene-cooper' : '/texas-high-school-football-teams/abilene'} className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">{schoolName === 'Abilene' ? 'Explore Cooper Cougars football history →' : 'Explore Abilene High Eagles football history →'}</a>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <a href="https://www.abileneisd.org/article/1525088" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">District's historical rivalry results ↗</a>
+          </div>}
           {editorial.photo && <figure className="mt-7 overflow-hidden border border-border bg-surface">
             <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading={schoolName === 'Katy' || schoolName === 'Fort Davis' ? 'eager' : 'lazy'} decoding="async" className={editorial.photo.width < 400 ? "mx-auto block h-auto w-auto max-w-full object-contain" : "block h-auto w-full object-cover"} />
             <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
