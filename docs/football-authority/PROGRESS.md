@@ -194,3 +194,7 @@ Refresh latest `main`, read `MASTER.md`, `REGISTRY.json` and this ledger, and re
 ### Batch 002 protected merge revalidation — 2026-10-09
 
 Parent PR #4409 remains open with the first five school-specific implementations; downstream PR #4443 carries the other 20. The previous protected merge attempt returned `Required status check "Required merge gate" is expected` despite a passing earlier PR workflow. This checkpoint commits a new parent PR head to trigger fresh PR merge-ref validation against the updated `main`; it is not merge, deploy, or individual production-acceptance evidence. All 25 Batch 002 schools remain pending production verification. No Batch 003 authorization.
+
+## Batch 002 clean continuation (2026-10-09)
+
+Parent #4409 merged as 429d3d4ed817e8dba03595d3d50e66cee21988a9. The old continuation #4443 became unmergeable after parent main integration. This clean branch was created from then-current main, carries all 20 downstream school research notes and four football page/editorial source files, and reconciles 25 registry records without deleting unrelated entries. These changes are **not** marked production-verified. Confirm canonical build, CI, merge, deployment and each school's responsive live page and county links before marking VERIFIED. No Batch 003.
