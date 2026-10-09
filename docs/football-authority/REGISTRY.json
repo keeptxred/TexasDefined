@@ -12,47 +12,46 @@
     "total": 1292
   },
   "batch": {
-    "number": 1,
+    "number": 2,
     "slugs": [
-      "wills-point",
-      "abbott",
-      "katy",
-      "fort-davis",
-      "southlake-carroll"
+      "abernathy",
+      "abilene",
+      "abilene-cooper",
+      "abilene-texas-leadership",
+      "abilene-wylie",
+      "ackerly-sands",
+      "agua-dulce",
+      "alba-golden",
+      "albany",
+      "aledo",
+      "alice",
+      "alief-elsik",
+      "alief-hastings",
+      "alief-taylor",
+      "all-saints-fort-worth",
+      "allen",
+      "alpine",
+      "altair-rice",
+      "alto",
+      "alvarado",
+      "alvin",
+      "alvin-iowa-colony",
+      "alvin-shadow-creek",
+      "alvord",
+      "amarillo"
     ],
-    "state": "FIVE_SCHOOLS_VERIFIED_BATCH_001_COMPLETE",
-    "prUrl": "https://github.com/keeptxred/TexasDefined/pull/4330",
-    "mergedPrNumber": 4330,
-    "mergedCommit": "7ec7444474dde1db49bfe50219f5ca013b3aff49",
-    "mediaPrNumber": 4331,
-    "mediaMergeCommit": "ad0cf18ab922c4832740c0cb969ec429a0eebb73",
-    "firstDeploymentFailure": {
-      "runId": 37785976546,
-      "attempt": 1,
-      "stage": "BUILD",
-      "cause": "Wikimedia Commons 429 for pre-existing Gonzales Discover derivative source",
-      "firstRetryRequested": true,
-      "resolvedBySuccessfulRetry": true
-    },
-    "abbottMediaAndCheckpointPrNumber": 4332,
-    "latestDeployedCommit": "8c5554d82f93801125bda4bfe73dd85f46438c51",
-    "deploymentStatusContexts": [
-      "texasdefined-cloudflare",
-      "texasdefined-live",
-      "texasdefined-production"
-    ],
-    "dedicatedSchoolSmokeResult": "Individual real Chrome acceptance passed for all five assigned schools; dedicated run IDs 37830846153, 37837471884, 37857587458, 37870328013 and 37870993674. Full separate Friday Night Lights smoke 37856873033 SUCCESS.",
-    "actualManualSchoolVerifications": 5,
-    "acceptanceAndCountyLinksPrNumber": 4333,
-    "acceptanceAndCountyLinksMergeCommit": "4fcbd31fa6618c9b6150d868d6afdc38a73c831b",
-    "nextEligibleUnassignedSlug": "abernathy",
-    "nextEligibleCondition": "Only after incomplete Batch 001 school work is resolved; resume at most three of the five existing assigned schools in any single future chat.",
-    "individuallyVerified": 5,
+    "state": "ASSIGNED_RESEARCH_PENDING",
+    "dateAssigned": "2026-10-09",
+    "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
+    "previousBatchNumber": 1,
+    "individuallyVerified": 0,
     "partiallyCompleted": 0,
-    "unstarted": 1287,
-    "futureSchoolCapPerChat": 3,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-002-25-20261009",
+    "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
+    "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "acceptanceStatus": "Batch 001 complete: Wills Point, Abbott, Katy, Fort Davis and Southlake Carroll individually VERIFIED through real mobile+desktop production Chrome, with exact run and screenshot evidence per school. The unrelated Fort Worth city aggregate live check failure remains separately unresolved and not reported as a pass."
+    "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -166,7 +165,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abernathy",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:abilene",
@@ -180,7 +179,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:abilene-cooper",
@@ -194,7 +193,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-cooper",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:abilene-texas-leadership",
@@ -208,7 +207,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-texas-leadership",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:abilene-wylie",
@@ -222,7 +221,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-wylie",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:ackerly-sands",
@@ -236,7 +235,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ackerly-sands",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:agua-dulce",
@@ -250,7 +249,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/agua-dulce",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alba-golden",
@@ -264,7 +263,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alba-golden",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:albany",
@@ -278,7 +277,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/albany",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:aledo",
@@ -292,7 +291,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aledo",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alice",
@@ -306,7 +305,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alice",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alief-elsik",
@@ -320,7 +319,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-elsik",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alief-hastings",
@@ -334,7 +333,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-hastings",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alief-taylor",
@@ -348,7 +347,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-taylor",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "featured:all-saints-fort-worth",
@@ -362,7 +361,7 @@
       "source": "src/data/high-school-football/featured-programs.ts",
       "url": "https://texasdefined.com/texas-high-school-football-teams/all-saints-fort-worth",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:allen",
@@ -376,7 +375,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/allen",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alpine",
@@ -390,7 +389,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alpine",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:altair-rice",
@@ -404,7 +403,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/altair-rice",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alto",
@@ -418,7 +417,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alto",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alvarado",
@@ -432,7 +431,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvarado",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alvin",
@@ -446,7 +445,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alvin-iowa-colony",
@@ -460,7 +459,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-iowa-colony",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alvin-shadow-creek",
@@ -474,7 +473,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-shadow-creek",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:alvord",
@@ -488,7 +487,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvord",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:amarillo",
@@ -502,7 +501,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 2
     },
     {
       "id": "uil:amarillo-caprock",
@@ -18451,6 +18450,51 @@
       "url": "https://texasdefined.com/texas-high-school-football-teams/zephyr",
       "status": "NOT_REVIEWED",
       "batch": null
+    }
+  ],
+  "completedBatches": [
+    {
+      "number": 1,
+      "slugs": [
+        "wills-point",
+        "abbott",
+        "katy",
+        "fort-davis",
+        "southlake-carroll"
+      ],
+      "state": "FIVE_SCHOOLS_VERIFIED_BATCH_001_COMPLETE",
+      "prUrl": "https://github.com/keeptxred/TexasDefined/pull/4330",
+      "mergedPrNumber": 4330,
+      "mergedCommit": "7ec7444474dde1db49bfe50219f5ca013b3aff49",
+      "mediaPrNumber": 4331,
+      "mediaMergeCommit": "ad0cf18ab922c4832740c0cb969ec429a0eebb73",
+      "firstDeploymentFailure": {
+        "runId": 37785976546,
+        "attempt": 1,
+        "stage": "BUILD",
+        "cause": "Wikimedia Commons 429 for pre-existing Gonzales Discover derivative source",
+        "firstRetryRequested": true,
+        "resolvedBySuccessfulRetry": true
+      },
+      "abbottMediaAndCheckpointPrNumber": 4332,
+      "latestDeployedCommit": "8c5554d82f93801125bda4bfe73dd85f46438c51",
+      "deploymentStatusContexts": [
+        "texasdefined-cloudflare",
+        "texasdefined-live",
+        "texasdefined-production"
+      ],
+      "dedicatedSchoolSmokeResult": "Individual real Chrome acceptance passed for all five assigned schools; dedicated run IDs 37830846153, 37837471884, 37857587458, 37870328013 and 37870993674. Full separate Friday Night Lights smoke 37856873033 SUCCESS.",
+      "actualManualSchoolVerifications": 5,
+      "acceptanceAndCountyLinksPrNumber": 4333,
+      "acceptanceAndCountyLinksMergeCommit": "4fcbd31fa6618c9b6150d868d6afdc38a73c831b",
+      "nextEligibleUnassignedSlug": "abernathy",
+      "nextEligibleCondition": "Only after incomplete Batch 001 school work is resolved; resume at most three of the five existing assigned schools in any single future chat.",
+      "individuallyVerified": 5,
+      "partiallyCompleted": 0,
+      "unstarted": 1287,
+      "futureSchoolCapPerChat": 3,
+      "schoolExecutionConcurrency": 1,
+      "acceptanceStatus": "Batch 001 complete: Wills Point, Abbott, Katy, Fort Davis and Southlake Carroll individually VERIFIED through real mobile+desktop production Chrome, with exact run and screenshot evidence per school. The unrelated Fort Worth city aggregate live check failure remains separately unresolved and not reported as a pass."
     }
   ]
 }
