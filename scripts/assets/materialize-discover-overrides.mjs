@@ -299,7 +299,10 @@ async function sourceFile(slug, source) {
 
 for (const [slug, source] of entries) {
   const output = path.join(outDir, `${slug}.webp`);
-  if (fsSync.existsSync(output)) continue;
+  // Cached remote derivatives are tied to this exact governed source registry.
+  // Local assets can change without changing the registry, so always rebuild
+  // their derivatives from the current checked-in image bytes.
+  if (!source.startsWith("/") && fsSync.existsSync(output)) continue;
   const input = await sourceFile(slug, source);
   const result = spawnSync(command, [
     input,
