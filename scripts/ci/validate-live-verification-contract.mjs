@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { matchesExpectedSurface } from './html-surface-marker.mjs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
@@ -26,6 +27,23 @@ const expectedStateFairLabels = new Set([
   'state-fair-coupons-section',
   'state-fair-ticket-section',
 ]);
+
+const htmlMarkerCases = [
+  ['raw text', '<h3>Panther Island & Trinity River</h3>', 'Panther Island & Trinity River', true],
+  ['escaped HTML ampersand', '<h3>Panther Island &amp; Trinity River</h3>', 'Panther Island & Trinity River', true],
+  ['decimal HTML ampersand', '<h3>Panther Island &#38; Trinity River</h3>', 'Panther Island & Trinity River', true],
+  ['hex HTML ampersand', '<h3>Panther Island &#x26; Trinity River</h3>', 'Panther Island & Trinity River', true],
+  ['other text must not match', '<h3>Panther Island &amp; Clear Fork</h3>', 'Panther Island & Trinity River', false],
+  ['missing plain text must not match', '<h3>City overview</h3>', 'Stockyards', false],
+];
+for (const [label, html, needle, expected] of htmlMarkerCases) {
+  if (matchesExpectedSurface(html, needle) !== expected) {
+    failures.push(`Production HTML marker matcher regression: ${label}`);
+  }
+}
+if (!productionSurfaces.includes('matchesExpectedSurface(lastBody, needle)')) {
+  failures.push('Live production surface verifier must use HTML-entity-aware marker matching.');
+}
 
 const stateFairChecks = [...productionSurfaces.matchAll(/\['(state-fair-[^']+)',\s*'\/texas-state-fair',\s*'([^']+)'\]/g)]
   .map((match) => ({ label: match[1], needle: match[2] }));
