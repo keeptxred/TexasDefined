@@ -496,10 +496,9 @@
   // The named county pages signal readiness before first-party affiliate DOM writes.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    // Houston and Fort Worth now render school reciprocity inside React. As with
-    // counties, affiliate DOM insertion must wait until route hydration completes.
-    const guardedRoute = /^\/county\/[a-z0-9-]+$/.test(path)
-      || /^\/city\/(?:houston|fort-worth)$/.test(path);
+    // All county and city authority routes have a React hydration readiness
+    // signal; defer affiliate DOM changes until their route mounts.
+    const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
