@@ -52,7 +52,7 @@ export default function YsletaDelSurMuseumAuthority() {
     <Container className="pt-10 sm:pt-12">
       <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
         <Link to="/">Texas Defined</Link><span aria-hidden>·</span>
-        <Link to="/explore/historic-sites">Historic sites &amp; museums</Link><span aria-hidden>·</span>
+        <Link to="/explore/$category" params={{ category: "historic-sites" }}>Historic sites &amp; museums</Link><span aria-hidden>·</span>
         <span aria-current="page">Ysleta del Sur Pueblo Cultural Center Museum</span>
       </nav>
     </Container>
@@ -155,7 +155,7 @@ export default function YsletaDelSurMuseumAuthority() {
           <p className="mt-3 text-sm leading-7">Ask permission before photographing people, ceremonies or exhibits. Stay in public visitor areas. No full current accessibility inventory was identified in the reviewed public sources; call ahead about accessible entrances, restrooms, seating, service animals and sensory accommodations.</p>
         </div>
       </div>
-      <div className="mt-7 flex flex-wrap gap-6"><Link to="/county/el-paso" className={anchorStyle}>Explore El Paso County →</Link><Link to="/article/el-paso-county-missions-rio-grande-texas" className={anchorStyle}>Understand the El Paso Mission Trail →</Link><Link to="/article/indigenous-texas-history-native-nations" className={anchorStyle}>Indigenous Texas history →</Link></div>
+      <div className="mt-7 flex flex-wrap gap-6"><Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className={anchorStyle}>Explore El Paso County →</Link><Link to="/article/$slug" params={{ slug: "el-paso-county-missions-rio-grande-texas" }} className={anchorStyle}>Understand the El Paso Mission Trail →</Link><Link to="/article/$slug" params={{ slug: "indigenous-texas-history-native-nations" }} className={anchorStyle}>Indigenous Texas history →</Link></div>
     </Container>
 
     <section className="border-t border-border bg-muted/30 py-14 sm:py-16">
