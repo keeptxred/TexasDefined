@@ -441,6 +441,13 @@ jobs:
           PRODUCTION_HEALTH_LABEL: canonical-domain
         run: node scripts/ci/verify-production-health.mjs
 
+      - name: Verify sports venue editorial production
+        id: live_sports_venue_editorial
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          TEXASDEFINED_BASE_URL: https://texasdefined.com
+        run: node scripts/production/verify-sports-venue-editorial-production.mjs
+
       - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
         id: live_east_texas_foliage
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
