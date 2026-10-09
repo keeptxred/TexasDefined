@@ -59,6 +59,186 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alvin",
+    "theme": {
+      "accentHex": "#BB9B35",
+      "label": "Original Yellowjackets gold editorial accent; not a licensed athletics logo"
+    },
+    "seo": {
+      "title": "Alvin Yellowjackets Football: 2026 Results, District 19 & Memorial Stadium",
+      "description": "Alvin Yellowjackets high-school football: 2026 UIL 6A District 19, dated scores, historical playoff record, Memorial Stadium and Alvin ISD opponents."
+    },
+    "campus": {
+      "address": "802 South Johnson Street, Alvin, TX 77511",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps UIL partner school contact and team schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alvin Yellowjackets 2026 varsity games and score updates",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps varsity season schedule last updated September 26",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "0–5 through Sept. 24, 2026 (0–3 District 19)",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 scored-games snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Fort Bend Clements",
+          "site": "Home",
+          "result": "L 30–48"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Baytown Sterling",
+          "site": "Away",
+          "result": "L 10–41"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Pearland Dawson",
+          "site": "Away",
+          "district": true,
+          "result": "L 17–44"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Pasadena Memorial",
+          "site": "Home",
+          "district": true,
+          "result": "L 41–43"
+        },
+        {
+          "date": "Sept. 24",
+          "opponent": "Manvel",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–53"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Pearland",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Pasadena Sam Rayburn",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Shadow Creek",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Brazoswood",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Pasadena Dobie",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Memorial Stadium (Alvin)",
+      "address": "Alvin, Brazoria County — game-night entry address and parking not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/alvin-yellowjackets",
+      "sourceLabel": "Dave Campbell's Alvin football program venue",
+      "verifiedAt": "2026-10-09",
+      "note": "Alvin's stadium listing names Memorial Stadium and estimates capacity at 7,400; a nearby school campus mailing address is not validated as its ticket-scanning or accessible entrance. This Memorial Stadium must not be confused with similarly named facilities in other cities. Confirm a particular date's venue, gate, parking, ADA access and bag rules through Alvin ISD."
+    },
+    "overview": [
+      "Alvin High School's Yellowjackets are a separate UIL football program from the district's newer Iowa Colony Pioneers and Shadow Creek Sharks. Alvin plays in Class 6A District 19 for the 2026–28 realignment, a school-specific identity important on city, county and district pages that otherwise may collapse the three Alvin ISD names into one team.",
+      "The historical Dave Campbell archive reports eight Alvin football playoff appearances, zero state championship-game appearances and zero football state titles. This is an actual football history, but it does not justify a synthetic state-final milestone or a borrowed Shadow Creek 2019 title.",
+      "The recent program-history table documents 0–10 in 2019, 4–6 in 2022, 2–8 in 2023 and consecutive 3–7 finishes in 2024 and 2025. Those records help explain the current rebuilding context without suggesting that lack of a title means the school lacks local football heritage.",
+      "The first five recorded 2026 varsity contests were losses against Fort Bend Clements, Baytown Sterling, Pearland Dawson, Pasadena Memorial and Manvel. The closest was the September 18 home loss to Pasadena Memorial, 43–41. With no newer cross-checked final in the inspected schedule, Alvin stood 0–5 through September 24, and October 9 Pearland remained a scheduled game.",
+      "The October 23 date against fellow Alvin ISD program Shadow Creek is a particularly meaningful district fixture, but not a verified annual named rivalry or guarantee of this year's game result. The Yellowjackets also face Pearland, Sam Rayburn, Brazoswood and Dobie on the published slate.",
+      "Texas Football identifies Alvin's stadium as Memorial Stadium with an estimated capacity of 7,400. Its location and game-night access requirements should be checked separately from the high-school contact address at 802 South Johnson Street. The real match ticket is the appropriate source for current entry and parking."
+    ],
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "Eight recorded playoff seasons",
+        "body": "Dave Campbell's Alvin directory records eight playoff appearances but no football state-title games or state crowns.",
+        "sourceUrl": "https://www.texasfootball.com/team/alvin-yellowjackets",
+        "sourceLabel": "Dave Campbell's team history"
+      },
+      {
+        "date": "2019",
+        "title": "Winless recorded season",
+        "body": "The recent-history table lists an 0–10 2019 season, a reference point for later improvement, not a claim of the program's entire history.",
+        "sourceUrl": "https://www.texasfootball.com/team/alvin-yellowjackets",
+        "sourceLabel": "Texas Football archived seasons"
+      },
+      {
+        "date": "2024–25",
+        "title": "Consecutive three-win years",
+        "body": "The team's season history records 3–7 finishes in both 2024 and 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/alvin-yellowjackets",
+        "sourceLabel": "Program past-season table"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Two-point district setback",
+        "body": "Alvin's 41–43 loss to Pasadena Memorial was its closest of five finished 2026 games in the dated scorebook.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+        "sourceLabel": "MaxPreps season scores"
+      },
+      {
+        "date": "Oct. 23, 2026",
+        "title": "Scheduled Alvin ISD matchup",
+        "body": "The 2026 schedule lists fellow Alvin ISD school Shadow Creek at Alvin; do not present this scheduled meeting as a completed result.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+        "sourceLabel": "MaxPreps Oct. 23 fixture"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 6A District 19",
+        "body": "UIL places Alvin in District 19 alongside Shadow Creek and other southeast Houston-area programs.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "Official UIL 6A alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Are Alvin Yellowjackets and Shadow Creek the same team?",
+        "answer": "No. Alvin High fields the Yellowjackets; Alvin Shadow Creek High fields the Sharks, and Iowa Colony High fields the Pioneers. These have separate team pages and football histories."
+      },
+      {
+        "question": "How many state football titles has Alvin High won?",
+        "answer": "The Dave Campbell's team history lists no state football championships or championship-game appearances and eight playoff appearances."
+      },
+      {
+        "question": "Where do Alvin Yellowjackets play home games?",
+        "answer": "Texas Football names Memorial Stadium in Alvin. Current spectator gate and accessible parking instructions need confirmation with Alvin ISD; the school address is not automatically the stadium entrance."
+      },
+      {
+        "question": "What UIL district is Alvin in for 2026?",
+        "answer": "Class 6A District 19 in the 2026–28 alignment, including Alvin ISD's Shadow Creek."
+      },
+      {
+        "question": "What happened in Alvin's September 18, 2026 game?",
+        "answer": "Alvin fell 43–41 to Pasadena Memorial in a close district game."
+      },
+      {
+        "question": "Who is Alvin's 2026 head coach?",
+        "answer": "A sufficiently current official Alvin ISD head-coach notice was not established from the cited school and score sources; confirm appointments directly with district athletics rather than relying on historic staff listings."
+      }
+    ]
+  },
+  {
     "slug": "alvarado",
     "theme": {
       "accentHex": "#883E39",
