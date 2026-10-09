@@ -117,11 +117,11 @@ const MCALLEN_EDITORIAL_TRIPS = [
     label: "Cameron County · Longer wildlife day",
     plan: "Full day; leave early",
     why: "Choose this for expansive coastal and wetland wildlife rather than a quick local park: birding, hiking and varied protected habitats.",
-    caution: "Use the actual visitor-center road route, not a straight line across the Laguna Madre. Check refuge alerts and unit closures.",
+    caution: "Follow the official route to the visitor center rather than crossing the Laguna Madre on a map. The refuge currently lists its Bahia Grande unit as closed; check current trail and unit notices before traveling.",
     official: "https://www.fws.gov/refuge/laguna-atascosa/visit-us",
   },
   {
-    slug: "port-isabel-lighthouse-state-historic-site",
+    slug: "port-isabel-lighthouse",
     title: "Port Isabel Lighthouse",
     label: "Port Isabel · Maritime heritage",
     plan: "Longer coastal day paired with South Padre",
