@@ -58,7 +58,7 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
-  {
+  "amarillo": {
     "slug": "amarillo",
     "theme": {
       "accentHex": "#B68D30",
