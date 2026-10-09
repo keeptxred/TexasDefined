@@ -191,8 +191,12 @@ export const Route = createFileRoute('/sports-venue/$slug')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: sportsVenueSearchTitle(entity.name, enrichment?.city),
-        description: sportsVenueSearchDescription(entity, enrichment),
+        title: entity.slug === 'msr-houston'
+          ? 'MSR Houston Track Guide: Karting Status, Track Days, Rules & Calendar'
+          : sportsVenueSearchTitle(entity.name, enrichment?.city),
+        description: entity.slug === 'msr-houston'
+          ? 'Plan an MSR Houston visit: track-day access, temporary karting closure, race calendar, 2.38-mile circuit, driving schools, guest fees, camping and directions.'
+          : sportsVenueSearchDescription(entity, enrichment),
         image: photo?.imageUrl,
         imageAlt: photo?.alt,
         imageWidth: photo?.width,
