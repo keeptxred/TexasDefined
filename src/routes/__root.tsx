@@ -31,18 +31,20 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,d,s,l,i,h){var n=w.navigator||{};if(n.webdriver===true||/(?:HeadlessChrome|Chrome-Lighthouse|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke)/i.test(n.userAgent||''))return;if(!h.includes(w.location.hostname.toLowerCase()))return;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${googleTagManagerId}',${googleTagManagerHosts});`,
+        __html: `(function(w,d,h){var n=w.navigator||{};if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent||'')||!h.includes(w.location.hostname.toLowerCase()))return;w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';d.head.appendChild(j);})(window,document,${googleTagManagerHosts});`,
       }}
     />
   );
 }
 
+const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>;
+
 function NotFoundComponent() {
-  return <Suspense fallback={<div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><NotFoundScreen /></Suspense>;
+  return <Suspense fallback={statusFallback}><NotFoundScreen /></Suspense>;
 }
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
-  return <Suspense fallback={<div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><ErrorScreen {...props} /></Suspense>;
+  return <Suspense fallback={statusFallback}><ErrorScreen {...props} /></Suspense>;
 }
 
 function HeaderFallback() {
@@ -85,7 +87,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: `/favicon.ico?v=${iconVersion}`, sizes: "any" },
       { rel: "icon", href: `/favicon.svg?v=${iconVersion}`, type: "image/svg+xml" },
       { rel: "icon", href: `/favicon.png?v=${iconVersion}`, type: "image/png" },
-      { rel: "shortcut icon", href: `/favicon.ico?v=${iconVersion}` },
       { rel: "apple-touch-icon", href: `/apple-touch-icon.png?v=${iconVersion}`, sizes: "180x180" },
       { rel: "alternate", href: "/rss.xml", type: "application/rss+xml", title: "Texas Defined RSS" },
     ],
@@ -184,20 +185,11 @@ function RootComponent() {
       const destination = anchor.href;
       const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
       if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
+      const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
-        if (shouldRecordImpression) {
-          analytics.trackTexasDefinedOutcome("partner_referral_shown", {
-            resourceId,
-            entityKind,
-            destination,
-          });
-        }
-        analytics.trackTexasDefinedOutcome("partner_referral_clicked", {
-          resourceId,
-          entityKind,
-          destination,
-        });
+        if (shouldRecordImpression) analytics.trackTexasDefinedOutcome("partner_referral_shown", details);
+        analytics.trackTexasDefinedOutcome("partner_referral_clicked", details);
         document.removeEventListener("click", earlyCommercialClick, true);
       });
     };

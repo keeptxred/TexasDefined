@@ -177,7 +177,7 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District, Schedule & Team Guide`",
+    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`",
     "const description = editorial?.seo?.description ?? `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
@@ -992,7 +992,7 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: 2026 District, Schedule & Team Guide',
+    'Football: 2026 District & Team Guide',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');

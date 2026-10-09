@@ -42,6 +42,13 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-10-09',
   },
   {
+    slug: 'shamrock',
+    mascot: 'Fighting Irish',
+    sourceUrl: 'https://www.shamrockisd.net/34144_3',
+    sourceLabel: 'Shamrock ISD Fighting Irish coaching staff',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abbott',
     mascot: 'Panthers',
     colors: 'Black and Old Gold',

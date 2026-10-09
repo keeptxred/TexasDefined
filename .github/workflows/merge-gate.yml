@@ -63,6 +63,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
           VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}
+          MERGE_SHA: ${{ github.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
@@ -76,6 +77,20 @@ jobs:
             -f description='Canonical Required merge gate passed' \
             -f target_url="$RUN_URL" >/dev/null
           echo "Published Required merge gate status for validated PR head $VALIDATED_SHA."
+          # Branch protection may evaluate GitHub's synthetic PR merge commit rather
+          # than the head commit. The canonical validation above runs against the
+          # reconciled PR merge workspace; mark that checked-out merge SHA as well.
+          if [ "$MERGE_SHA" != "$VALIDATED_SHA" ]; then
+            gh api \
+              --method POST \
+              -H "Accept: application/vnd.github+json" \
+              "repos/$REPOSITORY/statuses/$MERGE_SHA" \
+              -f state='success' \
+              -f context='Required merge gate' \
+              -f description='Canonical Required merge gate passed on PR merge ref' \
+              -f target_url="$RUN_URL" >/dev/null
+            echo "Published Required merge gate status for validated PR merge $MERGE_SHA."
+          fi
 
       - name: Capture performance-budget failure details
         if: failure()

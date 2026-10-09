@@ -8,7 +8,7 @@ import { createHash } from "node:crypto";
 const entries = [
   [
     "chappell-hill-bluebonnet-festival",
-    "/images/events/chappell-hill-bluebonnet-festival-20260914.webp"
+    "/images/events/chappell-hill-bluebonnet-festival-discover-source.webp"
   ],
   [
     "ima-hogg-texas-legacy",
@@ -64,7 +64,7 @@ const entries = [
   ],
   [
     "xtreme-raceway-park",
-    "/images/sports-venues/xtreme-raceway-park.jpg"
+    "/images/sports-venues/xtreme-raceway-park-discover-source.webp"
   ],
   [
     "freeman-coliseum",
@@ -297,9 +297,30 @@ async function sourceFile(slug, source) {
   return input;
 }
 
+function verifyDerivative(slug, output) {
+  const identify = spawnSync(command === "magick" ? "magick" : "identify",
+    command === "magick" ? ["identify", "-format", "%wx%h", output] : ["-format", "%wx%h", output],
+    { encoding: "utf8" });
+  if (identify.status !== 0 || identify.stdout.trim() !== "1600x900") {
+    throw new Error(`Discover derivative dimensions invalid for ${slug}: ${identify.stdout.trim() || identify.stderr}`);
+  }
+}
+
 for (const [slug, source] of entries) {
   const output = path.join(outDir, `${slug}.webp`);
-  if (fsSync.existsSync(output)) continue;
+  // Remote derivatives are reusable only with the matching registry fingerprint.
+  // Local source assets are regenerated when available, but some local inputs
+  // are themselves created by the later npm prebuild step. In that case keep
+  // ONLY an existing, dimension-verified governed derivative; missing both
+  // input and output must still fail closed.
+  if (fsSync.existsSync(output)) {
+    const localSource = source.startsWith("/") ? path.resolve("public", source.slice(1)) : null;
+    if (!localSource || !fsSync.existsSync(localSource)) {
+      verifyDerivative(slug, output);
+      if (localSource) console.log(`Retained validated ${slug} derivative; local source is generated later in the build.`);
+      continue;
+    }
+  }
   const input = await sourceFile(slug, source);
   const result = spawnSync(command, [
     input,
@@ -312,12 +333,7 @@ for (const [slug, source] of entries) {
     output,
   ], { encoding: "utf8" });
   if (result.status !== 0) throw new Error(`ImageMagick failed for ${slug}: ${result.stderr || result.stdout}`);
-  const identify = spawnSync(command === "magick" ? "magick" : "identify",
-    command === "magick" ? ["identify", "-format", "%wx%h", output] : ["-format", "%wx%h", output],
-    { encoding: "utf8" });
-  if (identify.status !== 0 || identify.stdout.trim() !== "1600x900") {
-    throw new Error(`Discover derivative dimensions invalid for ${slug}: ${identify.stdout.trim() || identify.stderr}`);
-  }
+  verifyDerivative(slug, output);
   console.log(`Materialized ${slug} from governed source.`);
 }
 await fs.rm(tmpDir, { recursive: true, force: true });

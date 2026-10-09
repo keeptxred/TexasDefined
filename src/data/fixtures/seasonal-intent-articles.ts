@@ -220,22 +220,19 @@ const baseSeasonalIntentArticles: Article[] = [
   },
   {
     id: "si-10", brandId: BRAND, slug: "east-texas-fall-colors", title: "Where to See Fall Colors in East Texas",
-    dek: "A Piney Woods fall guide to Caddo Lake, Daingerfield, Lake Bob Sandlin, Tyler and the hardwoods that bring red, gold and rust to East Texas each autumn.", category: "outdoors", region: "piney-woods", hero: fall, authorId: "a-dell", publishedAt: "2026-08-20", readingMinutes: 8,
+    dek: "Plan East Texas fall foliage trips to Caddo Lake, Daingerfield, Lake Bob Sandlin and Tyler, with a realistic color calendar, park links and route ideas.", category: "outdoors", region: "piney-woods", hero: fall, authorId: "a-dell", publishedAt: "2026-08-20", updatedAt: "2026-10-07", readingMinutes: 8,
     tags: ["East Texas fall colors", "Piney Woods fall foliage", "Caddo Lake fall", "Daingerfield fall colors"], relatedCollections: [], relatedDestinations: ["caddo-lake"],
     sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
     internalLinks: [
       { href: "/article/fall-in-texas-complete-guide", label: "Complete Texas fall guide", description: "Compare East Texas with the Hill Country and West Texas." },
       { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color destinations", description: "Rank the parks and landscapes most worth a foliage trip." },
       { href: "/article/caddo-lake-cypress-morning", label: "Caddo Lake at water level", description: "See why paddling changes the experience of East Texas cypress country." },
+      { href: "/destination/daingerfield-state-park", label: "Daingerfield State Park", description: "Plan a walk around the lake and mixed woodland." },
+      { href: "/destination/tyler-state-park", label: "Tyler State Park", description: "Explore another East Texas lake and forest setting." },
+      { href: "/destination/martin-creek-lake-state-park", label: "Martin Creek Lake State Park", description: "Compare a backup East Texas woodland stop." },
     ],
     body: [
-      { type: "paragraph", text: "East Texas is the part of the state that most closely matches the classic idea of a fall forest. Pines remain green while sweetgum, oak, hickory and cypress add the red, gold and rust that make the Piney Woods feel layered rather than uniformly evergreen." },
-      { type: "heading", text: "Caddo Lake" },
-      { type: "paragraph", text: "Bald cypress and dark bayou water make Caddo visually distinct even before the leaves change. In fall, rusty cypress color and lower-angle light deepen a landscape already defined by reflections and Spanish moss." },
-      { type: "heading", text: "Daingerfield and Lake Bob Sandlin" },
-      { type: "paragraph", text: "Northeast Texas state parks provide easy public access to mixed woodland and lakeshore color. Daingerfield is especially compact and photogenic; Lake Bob Sandlin offers another water-and-hardwood combination nearby." },
-      { type: "heading", text: "Tyler and surrounding forests" },
-      { type: "paragraph", text: "Tyler State Park and the country roads around the city give visitors a convenient East Texas base. Because peak conditions depend on cold fronts and rainfall, current park reports matter more than any fixed November date." },
+      { type: "paragraph", text: "East Texas foliage is a patchwork: changing sweetgum, oak and hickory among evergreen pines, with bronze bald cypress around lakes and wetlands. The park-by-park guide below explains access, approximate timing and realistic alternatives. Confirm recent dated park reports before traveling." },
     ],
   },
   {

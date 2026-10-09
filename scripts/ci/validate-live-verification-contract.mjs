@@ -154,8 +154,25 @@ const liveMarkerEnd = liveMarkerStart >= 0 ? workflow.indexOf('\n      - name:',
 const liveMarkerBlock = liveMarkerStart >= 0 ? workflow.slice(liveMarkerStart, liveMarkerEnd > liveMarkerStart ? liveMarkerEnd : workflow.length) : '';
 if (!liveMarkerBlock) failures.push('Production workflow must retain a post-verifier live-completion marker.');
 if (liveMarkerStart >= 0 && liveMarkerStart <= lastLiveStepStart) failures.push('Live-completion marker must run after every blocking live verifier.');
-for (const marker of ['id: live', "if: ${{ success() && steps.cloudflare.outcome == 'success' }}", "All blocking production verifiers passed natively."]) {
+for (const marker of ['id: live', "All blocking production verifiers passed natively."]) {
   if (!liveMarkerBlock.includes(marker)) failures.push(`Live-completion marker is missing: ${marker}`);
+}
+const baselineCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' }}";
+const strongerFoliageCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}";
+if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion)) {
+  failures.push('Live-completion marker must require successful Cloudflare deployment and all blocking verifiers.');
+}
+if (liveMarkerBlock.includes(strongerFoliageCompletion)) {
+  const proof = '- name: Verify East Texas foliage article freshness on direct Worker and canonical domain';
+  const stepStart = workflow.indexOf(proof);
+  const stepEnd = stepStart >= 0 ? workflow.indexOf('\n      - name:', stepStart + 1) : -1;
+  const block = stepStart >= 0 ? workflow.slice(stepStart, stepEnd > stepStart ? stepEnd : workflow.length) : '';
+  for (const marker of ['id: live_east_texas_foliage', 'https://texasdefined-site.freddy-coppola.workers.dev', 'https://texasdefined.com', '/article/east-texas-fall-colors', 'Quick answer: when and where to go']) {
+    if (!block.includes(marker)) failures.push(`East Texas foliage blocking freshness verifier is missing: ${marker}`);
+  }
+  if (block.includes('continue-on-error: true') || stepStart < 0 || stepStart >= liveMarkerStart) {
+    failures.push('East Texas foliage freshness verifier must execute before live completion and fail closed.');
+  }
 }
 
 const livePublishName = '- name: Publish live verification result';

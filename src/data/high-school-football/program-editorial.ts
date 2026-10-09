@@ -21,6 +21,19 @@ export type FootballProgramEditorial = {
     sourceLabel: string;
     verifiedAt: string;
   };
+  season?: {
+    record: string;
+    verifiedAt: string;
+    sourceUrl: string;
+    sourceLabel: string;
+    games: Array<{
+      date: string;
+      opponent: string;
+      site: 'Home' | 'Away' | 'Neutral';
+      district?: boolean;
+      result?: string;
+    }>;
+  };
   venue?: {
     name: string;
     address: string;
@@ -649,6 +662,101 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What is the 'Lighting of the A' homecoming tradition?",
         "answer": "Abernathy ISD promoted a homecoming Lighting of the A and homecoming-court parade scheduled for September 30, 2026. This is a documented school-spirit event, not a claim that any specific historic rivalry game took place."
+      }
+    ]
+  },
+  "shamrock": {
+    "slug": "shamrock",
+    "theme": {
+      "accentHex": "#1F6B45",
+      "label": "Green editorial accent inspired by Shamrock's Fighting Irish identity; not official team artwork"
+    },
+    "seo": {
+      "title": "Shamrock Fighting Irish Football: 2026 Schedule, Coach & UIL District",
+      "description": "Shamrock Fighting Irish football: Nate Skelton, 2026 results and schedule, 2A Division II District 5 opponents, UIL enrollment context and El Paso Field."
+    },
+    "coach": {
+      "name": "Nate Skelton",
+      "title": "Athletic director and head football coach",
+      "sourceUrl": "https://www.shamrockisd.net/47588_2",
+      "sourceLabel": "Shamrock ISD — Athletic Director",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Shamrock ISD 2026 football schedule",
+      "sourceUrl": "https://www.shamrockisd.net/34143_3",
+      "sourceLabel": "Shamrock ISD official athletic schedules",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/shamrock-irish",
+      "sourceLabel": "Dave Campbell's Texas Football — Shamrock 2026 schedule snapshot",
+      "games": [
+        { "date": "Aug. 27", "opponent": "Winters", "site": "Home", "result": "W 15–8" },
+        { "date": "Sept. 4", "opponent": "Stinnett West Texas", "site": "Home", "result": "L 13–61" },
+        { "date": "Sept. 11", "opponent": "Vega", "site": "Away", "result": "L 20–52" },
+        { "date": "Sept. 18", "opponent": "Seymour", "site": "Home", "result": "L 8–52" },
+        { "date": "Sept. 25", "opponent": "Olton", "site": "Away", "result": "L 0–64" },
+        { "date": "Oct. 9", "opponent": "Wellington", "site": "Away", "district": true },
+        { "date": "Oct. 16", "opponent": "Clarendon", "site": "Away", "district": true },
+        { "date": "Oct. 23", "opponent": "Quanah", "site": "Home", "district": true },
+        { "date": "Nov. 6", "opponent": "Wheeler", "site": "Home", "district": true }
+      ]
+    },
+    "campus": {
+      "address": "100 S Illinois Street, Shamrock, TX 79079",
+      "phone": "806-256-3492",
+      "sourceUrl": "https://www.shamrockisd.net/",
+      "sourceLabel": "Shamrock ISD official site",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "El Paso Field",
+      "address": "Shamrock, Texas — confirm the current entrance and parking instructions with Shamrock ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/shamrock-irish",
+      "sourceLabel": "Dave Campbell's Texas Football — Shamrock program history",
+      "verifiedAt": "2026-10-09",
+      "note": "Dave Campbell's Texas Football identifies El Paso Field as Shamrock's stadium and reports a capacity of 2,500. The source reviewed does not provide a verified gate address, parking map or accessibility instructions, so TexasDefined does not infer those details. Confirm the assigned venue and arrival information with Shamrock ISD before traveling."
+    },
+    "overview": [
+      "Shamrock's team identity is the Fighting Irish. Shamrock ISD's current coaching pages identify Nate Skelton as athletic director and head football coach and list the current football staff, including offensive coordinator Thomas Hays and defensive coordinator Larry McNew.",
+      "For the 2026–28 UIL cycle, Shamrock competes in Class 2A Division II, District 5 with Clarendon, Memphis, Quanah, Wellington and Wheeler. UIL's alphabetical enrollment file reports 100.5 students and a submitted conference of 1A, while the final football alignment places Shamrock in 2A Division II. TexasDefined therefore treats the enrollment figure and final football placement as separate facts rather than incorrectly calling 105–175.5 Shamrock's enrollment band.",
+      "The 2026 season snapshot was checked October 9 with Shamrock at 1–4 before district play. The schedule table on this profile is a dated editorial snapshot; Shamrock ISD's official athletic schedule remains the first place to confirm a changed kickoff or school-issued update."
+    ],
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Nate Skelton leads the program",
+        "body": "Shamrock ISD identifies Nate Skelton as athletic director and head football coach on its current athletics pages.",
+        "sourceUrl": "https://www.shamrockisd.net/47588_2",
+        "sourceLabel": "Shamrock ISD"
+      },
+      {
+        "date": "2026–28",
+        "title": "2A Division II, District 5",
+        "body": "The final UIL football alignment places Shamrock in 2A Division II, District 5 even though the alphabetical enrollment file reports 100.5 and a submitted conference of 1A.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "Official UIL football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What is Shamrock's football team called?",
+        "answer": "Shamrock ISD identifies its athletics program as the Shamrock Fighting Irish."
+      },
+      {
+        "question": "Who is the Shamrock head football coach?",
+        "answer": "Shamrock ISD identifies Nate Skelton as athletic director and head football coach."
+      },
+      {
+        "question": "Why is Shamrock in 2A Division II with a UIL enrollment of 100.5?",
+        "answer": "UIL's alphabetical enrollment file reports 100.5 and a submitted conference of 1A, while the final 2026–28 football alignment places Shamrock in 2A Division II. TexasDefined treats those as separate official facts and uses the final alignment for competition placement instead of pretending the normal 2A Division II cutoff is Shamrock's enrollment band."
+      },
+      {
+        "question": "Where does Shamrock play home football games?",
+        "answer": "Dave Campbell's Texas Football identifies El Paso Field as Shamrock's stadium. Confirm the specific game venue, entrance and parking instructions with Shamrock ISD before travel."
       }
     ]
   },

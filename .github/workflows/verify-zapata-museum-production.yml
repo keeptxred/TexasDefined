@@ -12,6 +12,8 @@ on:
       - '.github/workflows/verify-zapata-museum-production.yml'
       - 'scripts/ci/verify-zapata-museum-production.mjs'
       - 'src/components/editorial/ZapataCountyMuseumAuthority.tsx'
+      - 'src/data/museum-expansion-statewide-wave9.ts'
+      - 'public/images/zapata-county-museum-history-editorial.svg'
 
 permissions:
   contents: read
@@ -21,11 +23,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  source:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out proposed museum code
+        uses: actions/checkout@v4
+
+      - name: Verify rights-safe museum source before merging
+        run: node scripts/ci/verify-zapata-museum-production.mjs --source-only
+
   museum:
-    # An unrelated Fort Worth/live-surface failure must not suppress the
-    # Zapata page's independent verification. A failed deployment is only a
-    # reason to report the current live page state, not to claim this commit deployed.
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure' }}
+    # Production verification is meaningful only after deployment. Do not fail
+    # a PR by asking the still-live old release to satisfy its new page contract.
+    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure') }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -33,6 +45,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Verify current live Zapata County Museum authority page
-        env:
-          ZAPATA_EXPECT_COUNTY_PHOTO: ${{ github.event_name == 'pull_request' && 'false' || 'true' }}
         run: node scripts/ci/verify-zapata-museum-production.mjs
