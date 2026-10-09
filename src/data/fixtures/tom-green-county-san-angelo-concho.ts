@@ -26,8 +26,8 @@ export const tomGreenCountySanAngeloConchoArticle: Article = {
   featured: false,
   internalLinks: [
     { href: "/destination/san-angelo-state-park", label: "Explore San Angelo State Park", description: "See the park, trails, bison, longhorns and O.C. Fisher Reservoir on San Angelo's western edge." },
-    { href: "/article/randall-county-canyon-palo-duro-texas", label: "Continue north to Randall County", description: "Explore Canyon, Palo Duro and the High Plains farther north in West Texas." },
-    { href: "/article/ector-county-odessa-oil-stonehenge-texas", label: "Head west to Ector County", description: "Follow West Texas toward Odessa and the Permian Basin." },
+    { href: "/county/randall", label: "Continue north to Randall County", description: "Explore Canyon, Palo Duro and the High Plains farther north in West Texas." },
+    { href: "/county/ector", label: "Head west to Ector County", description: "Follow West Texas toward Odessa and the Permian Basin." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/texas-history", label: "More Texas history", description: "Stories that explain the people and places behind modern Texas." },

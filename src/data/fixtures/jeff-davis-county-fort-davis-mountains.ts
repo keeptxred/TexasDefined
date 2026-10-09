@@ -26,9 +26,9 @@ export const jeffDavisCountyFortDavisMountainsArticle: Article = {
   tags: ["Jeff Davis County", "Fort Davis", "Davis Mountains", "McDonald Observatory", "Valentine", "Buffalo Soldiers", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Explore neighboring Culberson County", description: "Continue north toward Van Horn, Guadalupe Peak and the Salt Basin." },
-    { href: "/article/presidio-county-marfa-borderlands-texas", label: "Explore neighboring Presidio County", description: "Continue south and west through Marfa, Fort Leaton and the Rio Grande borderlands." },
-    { href: "/article/brewster-county-big-bend-texas", label: "Explore neighboring Brewster County", description: "Continue into Alpine, Terlingua and Big Bend National Park." },
+    { href: "/county/culberson", label: "Explore neighboring Culberson County", description: "Continue north toward Van Horn, Guadalupe Peak and the Salt Basin." },
+    { href: "/county/presidio", label: "Explore neighboring Presidio County", description: "Continue south and west through Marfa, Fort Leaton and the Rio Grande borderlands." },
+    { href: "/county/brewster", label: "Explore neighboring Brewster County", description: "Continue into Alpine, Terlingua and Big Bend National Park." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/explore", label: "Explore Texas", description: "Find parks, towns, landscapes and destinations across the state." },

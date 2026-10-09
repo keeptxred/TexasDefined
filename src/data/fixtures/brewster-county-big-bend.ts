@@ -26,8 +26,8 @@ export const brewsterCountyBigBendArticle: Article = {
   tags: ["Brewster County", "Big Bend", "Alpine", "Terlingua", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/jeff-davis-county-fort-davis-mountains-texas", label: "Explore neighboring Jeff Davis County", description: "Head north into Fort Davis, the Davis Mountains and McDonald Observatory." },
-    { href: "/article/presidio-county-marfa-borderlands-texas", label: "Explore neighboring Presidio County", description: "Continue west through Marfa, Fort Leaton and the Rio Grande borderlands." },
+    { href: "/county/jeff-davis", label: "Explore neighboring Jeff Davis County", description: "Head north into Fort Davis, the Davis Mountains and McDonald Observatory." },
+    { href: "/county/presidio", label: "Explore neighboring Presidio County", description: "Continue west through Marfa, Fort Leaton and the Rio Grande borderlands." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "The history behind the most county-heavy map in America." },
     { href: "/explore", label: "Explore Texas", description: "Find parks, towns, landscapes and destinations across the state." },

@@ -25,8 +25,8 @@ export const elPasoCountyPassMissionsBorderlandsArticle: Article = {
   tags: ["El Paso County", "El Paso", "Ysleta Mission", "Ysleta del Sur Pueblo", "Franklin Mountains", "Fort Bliss", "Chamizal", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/hudspeth-county-sierra-blanca-salt-flats-texas", label: "Explore neighboring Hudspeth County", description: "Continue east through Sierra Blanca, Rio Grande farming communities and the salt-flat country." },
-    { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Continue into Culberson County", description: "Follow Far West Texas toward Van Horn, Guadalupe Peak and the Salt Basin." },
+    { href: "/county/hudspeth", label: "Explore neighboring Hudspeth County", description: "Continue east through Sierra Blanca, Rio Grande farming communities and the salt-flat country." },
+    { href: "/county/culberson", label: "Continue into Culberson County", description: "Follow Far West Texas toward Van Horn, Guadalupe Peak and the Salt Basin." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/explore", label: "Explore Texas", description: "Find parks, towns, landscapes and destinations across the state." },

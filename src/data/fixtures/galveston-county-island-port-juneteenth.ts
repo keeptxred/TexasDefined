@@ -24,6 +24,8 @@ export const galvestonCountyIslandPortJuneteenthArticle: Article = {
   tags: ["Galveston County", "Galveston", "Juneteenth", "Port of Galveston", "Battleship Texas", "Galveston Island State Park", "Texas City"],
   featured: false,
   internalLinks: [
+    { href: "/county/brazoria", label: "Explore Brazoria County", description: "Compare barrier-island landscapes with Surfside and Brazoria County's coastal wetlands." },
+    { href: "/county/chambers", label: "Explore Chambers County", description: "Look across Galveston Bay toward Anahuac and its coastal-prairie heritage." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas: the full history", description: "Follow BB-35 from its 1914 commissioning through both World Wars and the current Galveston restoration." },
     { href: "/destination/battleship-texas", label: "Battleship Texas restoration and visitor status", description: "See the current closure notice, future Pier 15 home and planning guidance." },
     { href: "/destination/galveston-island-state-park", label: "Galveston Island State Park", description: "Beach, prairie and bay wetlands." },
