@@ -376,6 +376,58 @@ if (!canonicalHomepagePassed) {
 appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
 console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
 
+
+/* City sitemap authority: fail closed against actual cache-busted production XML. */
+const citySitemapEntries = [
+  'houston', 'dallas', 'fort-worth', 'austin', 'san-antonio', 'el-paso',
+  'arlington', 'hurst', 'corpus-christi', 'plano', 'lubbock',
+];
+const { readFileSync } = await import('node:fs');
+const cityMetroAuthoritySource = readFileSync('src/data/city-metro-authority.ts', 'utf8');
+const cityAuthorityLastmod = cityMetroAuthoritySource.match(/const cityAuthorityCheckedAt = '(\d{4}-\d{2}-\d{2})'/)?.[1];
+if (!cityAuthorityLastmod) throw new Error('City sitemap authority date is unavailable from current entity source');
+let citySitemapPassed = false;
+let citySitemapFailure = 'unavailable';
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  try {
+    const cacheBust = new URL('/sitemap.xml', origin);
+    cacheBust.searchParams.set('city_authority_verify', [sha, runId, attempt].join('-'));
+    const response = await fetch(cacheBust, {
+      cache: 'no-store',
+      redirect: 'follow',
+      signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'TexasDefined-CI-City-Sitemap/1.0', 'cache-control': 'no-cache, no-store', pragma: 'no-cache' },
+    });
+    if (!response.ok || response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge') {
+      throw new Error('Live sitemap HTTP ' + response.status + ' (challenge=' + response.headers.get('cf-mitigated') + ')');
+    }
+    const xml = await response.text();
+    if (!xml.includes('<urlset') || !xml.includes('</urlset>')) throw new Error('Invalid live primary sitemap XML');
+    const citySitemapMissing = citySitemapEntries.filter((slug) => {
+      const expected = new URL('/city/' + slug, origin).toString();
+      const entries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)];
+      return !entries.some(([, entry]) => {
+        const loc = entry.match(/<loc>([^<]+)<\/loc>/)?.[1]?.replace(/&amp;/g, '&');
+        const lastmod = entry.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
+        return loc === expected && lastmod === cityAuthorityLastmod;
+      });
+    });
+    if (citySitemapMissing.length) throw new Error('Missing/stale city entries: ' + citySitemapMissing.join(', ') + '; expected lastmod ' + cityAuthorityLastmod);
+    citySitemapPassed = true;
+    console.log('[city-sitemap-authority] verified 11 live city URLs with lastmod=' + cityAuthorityLastmod);
+    appendSummary('| ✅ pass | city-sitemap-authority | 200 | ' + attempt + ' | no |\n');
+    break;
+  } catch (error) {
+    citySitemapFailure = error instanceof Error ? error.message : String(error);
+    console.error('[city-sitemap-authority] attempt ' + attempt + ': ' + citySitemapFailure);
+    if (attempt < 6) await sleep(5_000);
+  }
+}
+if (!citySitemapPassed) {
+  appendSummary('| ❌ FAIL | city-sitemap-authority | error | 6 | unknown |\n');
+  throw new Error('LIVE PRODUCTION city sitemap authority failure: ' + citySitemapFailure);
+}
+
 await import('./verify-texas-industries-production.mjs');
 await import('./verify-gaming-production.mjs');
 await import('./verify-hurst-whirlyball-production.mjs');
