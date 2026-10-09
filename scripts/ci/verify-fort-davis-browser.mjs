@@ -100,20 +100,38 @@ async function checkCounty(page, viewport) {
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
   await page.evaluate(() => document.fonts?.ready);
   await page.waitForTimeout(750);
+  // A fully hydrated county must retain the route H1/canonical. Wait only
+  // long enough for legitimate React hydration; never accept a blank shell.
+  let readinessError = '';
+  try {
+    await page.waitForFunction(expected => {
+      const h1s = [...document.querySelectorAll('h1')].map(e => e.textContent || '');
+      const canonical = [...document.querySelectorAll('link[rel="canonical"]')].map(e => e.href);
+      return h1s.length === 1 && /Jeff Davis County/i.test(h1s[0]) && canonical.includes(expected);
+    }, origin + countyPath, { timeout: 15000, polling: 250 });
+  } catch (error) {
+    readinessError = error instanceof Error ? error.message : String(error);
+  }
   // Affiliate panels are optional in Jeff Davis County; React/runtime errors remain hard failures.
   const data = await page.evaluate((school) => {
     const h1 = document.querySelector('h1')?.innerText || '';
     const canonical = document.querySelector('link[rel=canonical]')?.href || '';
     const link = [...document.querySelectorAll('a[href]')].find(el => new URL(el.href).pathname === school && /Fort Davis/i.test(el.innerText));
     return { h1, canonical, linkText: link?.innerText || '', linkVisible: Boolean(link && link.getBoundingClientRect().width > 0),
-      height: document.documentElement.scrollHeight, width: document.documentElement.scrollWidth, viewport: window.innerWidth };
+      height: document.documentElement.scrollHeight, width: document.documentElement.scrollWidth, viewport: window.innerWidth,
+      allH1s: [...document.querySelectorAll('h1')].map(e => e.textContent?.trim()),
+      allCanonicals: [...document.querySelectorAll('link[rel="canonical"]')].map(e => e.href),
+      hydrated: document.documentElement.dataset.tdFootballCountyHydrated || '',
+      mainTextPrefix: (document.getElementById('main')?.innerText || '').slice(0, 350),
+      path: location.pathname, title: document.title };
   }, schoolPath);
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: artifacts + '/' + viewport + '-jeff-davis-county-top.png', fullPage: false, animations: 'disabled' });
   const buffer = await page.screenshot({ path: artifacts + '/' + viewport + '-jeff-davis-county.png', fullPage: true, animations: 'disabled' });
   const screenshotHeight = buffer.readUInt32BE(20);
   verify(response?.status() === 200, viewport + ': Jeff Davis County HTTP ' + response?.status());
-  verify(/Jeff Davis County/i.test(data.h1) && data.canonical === origin + countyPath, viewport + ': wrong county H1/canonical');
+  verify(/Jeff Davis County/i.test(data.h1) && data.canonical === origin + countyPath,
+    viewport + ': wrong county H1/canonical; diagnostics=' + JSON.stringify(data) + (readinessError ? ' readinessTimeout=' + readinessError : ''));
   verify(data.linkVisible, viewport + ': Fort Davis reciprocal Jeff Davis County link missing');
   verify(data.width <= data.viewport + 10, viewport + ': county horizontal overflow');
   verify(screenshotHeight >= data.height * 0.75, viewport + ': incomplete Jeff Davis County screenshot ' + screenshotHeight + '/' + data.height);

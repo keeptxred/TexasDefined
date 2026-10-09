@@ -1,5 +1,13 @@
 name: Verify Fort Davis football production browser
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-fort-davis-browser.mjs'
+      - '.github/workflows/verify-fort-davis-browser.yml'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'public/expedia-travel.js'
+      - 'public/stay-affiliate-options.js'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -16,7 +24,7 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
