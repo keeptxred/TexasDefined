@@ -19,6 +19,14 @@ export type VerifiedFootballSchoolIdentity = {
   },
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'albany',
+    mascot: 'Lions',
+    colors: 'Red and White',
+    sourceUrl: 'https://www.uiltexas.org/football/state-team-mp-archive/albany-2023-2024-football',
+    sourceLabel: 'UIL 2023–24 Albany state championship team identity and school colors',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'alba-golden',
     mascot: 'Panthers',
     colors: 'Red, Blue and White',
