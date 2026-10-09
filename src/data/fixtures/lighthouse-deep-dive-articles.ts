@@ -14,7 +14,7 @@ const portIsabelHero: ImageRef = {
 
 export const lighthouseDeepDiveArticles: Article[] = [
   {
-    id: "lh-1", brandId: BRAND, slug: "point-bolivar-lighthouse-history", title: "Point Bolivar Lighthouse: The Black Tower at Galveston Bay",
+    id: "lh-1", brandId: BRAND, slug: "point-bolivar-lighthouse-history", title: "Point Bolivar Lighthouse: Galveston Bay History and Restoration",
     dek: "The history of the cast-iron lighthouse that guarded the Bolivar side of Galveston Bay, survived catastrophic hurricanes and still stands beside one of Texas' busiest ferry approaches.",
     category: "texas-history", region: "gulf-coast", hero: coastHero, authorId: "a-hollis", publishedAt: "2026-08-20", readingMinutes: 8,
     tags: ["Point Bolivar Lighthouse", "Galveston County", "Bolivar Peninsula", "Galveston Bay", "Texas lighthouses", "1900 hurricane"], relatedCollections: [], relatedDestinations: [],
@@ -25,10 +25,12 @@ export const lighthouseDeepDiveArticles: Article[] = [
       { href: "/county/galveston", label: "Explore Galveston County", description: "Connect the tower with Galveston, the ferry, ports, storms and island history." },
     ],
     body: [
-      { type: "paragraph", text: "Point Bolivar Lighthouse is the dark vertical punctuation mark on the Bolivar side of the Galveston Bay entrance. The present cast-iron tower was first lit in 1873, replacing an earlier station disrupted during the Civil War. Its job was simple to describe and difficult to perform: help ships distinguish the bay entrance and approach one of the most important ports on the Texas coast." },
+      { type: "paragraph", text: "Point Bolivar Lighthouse is a landmark on the Bolivar side of the Galveston Bay entrance, now wearing its historic black-and-white stripes again. The present cast-iron tower was first lit in 1873, replacing an earlier station disrupted during the Civil War. Its job was simple to describe and difficult to perform: help ships distinguish the bay entrance and approach one of the most important ports on the Texas coast." },
       { type: "heading", text: "A lighthouse built for Galveston's rise" },
       { type: "paragraph", text: "The first federal light at Point Bolivar dates to the early 1850s, when Galveston's commercial importance was growing rapidly. The station stood opposite Galveston Island at a passage that concentrated inbound and outbound traffic. A reliable coastal light mattered because the surrounding land was low and visually repetitive, especially at night or in poor weather." },
-      { type: "paragraph", text: "Civil War disruption ended the first tower's service. After the war, the station returned with a stronger cast-iron structure lined with brick. The U.S. Coast Guard's historical record dates the current tower's first lighting to 1873. Its black exterior became one of the most recognizable lighthouse profiles on the Gulf Coast." },
+      { type: "paragraph", text: "Civil War disruption ended the first tower's service. After the war, the station returned with a stronger cast-iron structure lined with brick. The U.S. Coast Guard's historical record dates the current tower's first lighting to 1873. Its formerly dark exterior became one of the most recognizable lighthouse profiles on the Gulf Coast. The Bolivar Point Lighthouse Foundation reports that the exterior has since been repainted in its original black-and-white stripes." },
+      { type: "heading", text: "Restoration and access today" },
+      { type: "paragraph", text: "As of October 9, 2026, the Bolivar Point Lighthouse Foundation reports completed exterior repainting in original black-and-white stripes and stabilization work. Older photographs of the dark tower document its earlier appearance, not its current restored color scheme. Preservation work does not create public tower access; visitors must remain on lawful public property." },
       { type: "heading", text: "The tower became a storm refuge" },
       { type: "paragraph", text: "Point Bolivar's story is inseparable from hurricanes. Texas Historical Commission records note that residents sought shelter in the lighthouse during the devastating 1900 and 1915 storms. That changed the tower's meaning. It was not only a navigational aid seen from offshore; in moments of disaster it became one of the strongest structures available to people on the peninsula." },
       { type: "heading", text: "Why the light went out" },
