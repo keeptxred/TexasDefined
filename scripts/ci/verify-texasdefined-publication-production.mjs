@@ -29,7 +29,7 @@ console.log(JSON.stringify({ surface: '/news', status: news.status, ok: true }))
 // Confirm production serves an actual XML sitemap even when publication is
 // disabled or no individual published news item is currently routed.
 const sitemap = await fetchHealthy('/sitemap.xml');
-if (!/<(?:sitemapindex|urlset)(?:\\s|>)/i.test(sitemap.body)) {
+if (!/<(?:sitemapindex|urlset)(?:\s|>)/i.test(sitemap.body)) {
   throw new Error('/sitemap.xml returned a successful HTTP status without a valid sitemap root');
 }
 console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, ok: true }));
