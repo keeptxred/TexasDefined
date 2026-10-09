@@ -51,6 +51,12 @@ for (const expected of [
   'Trans-Pecos',
   'Methodology',
   'Recommended citation',
+  'Texas Defined Travel &amp; Outdoors Desk',
+  '/authors/a-dell',
+  'Sources and further reading',
+  'Texas Water Development Board',
+  'National Park Service',
+  'Big Thicket National Preserve',
 ]) {
   if (!ecoregions.body.includes(expected)) throw new Error(`${ecoregionsPath} is missing expected authority marker: ${expected}`);
 }
@@ -59,6 +65,8 @@ for (const stale of [
   'Camping in Texas With Your Dog',
   'Hiking Texas Trails With Your Dog',
   'Texas Dogs at Lakes and Rivers',
+  'Food &amp; Culture Desk',
+  'More stories to read next',
 ]) {
   if (ecoregions.body.includes(stale)) throw new Error(`${ecoregionsPath} still exposes stale production content: ${stale}`);
 }
