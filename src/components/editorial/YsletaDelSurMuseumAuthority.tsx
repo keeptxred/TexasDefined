@@ -50,7 +50,7 @@ const anchorStyle = "font-semibold text-primary underline decoration-primary/40 
 export default function YsletaDelSurMuseumAuthority() {
   return <main>
     <Container className="pt-10 sm:pt-12">
-      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted-foreground">
+      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs uppercase text-muted-foreground">
         <Link to="/">Texas Defined</Link><span aria-hidden>·</span>
         <Link to="/explore/$category" params={{ category: "historic-sites" }}>Historic sites &amp; museums</Link><span aria-hidden>·</span>
         <span aria-current="page">Ysleta del Sur Pueblo Cultural Center Museum</span>
@@ -61,10 +61,10 @@ export default function YsletaDelSurMuseumAuthority() {
       <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_Cultural_Center.jpg?width=1600" width={1600} height={1200} fetchPriority="high" decoding="async" alt="Photograph of the actual Tigua Cultural Center at Ysleta del Sur Pueblo in El Paso" className="absolute inset-0 h-full w-full object-cover opacity-65" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/15" />
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(26rem, 54vw, 35rem)" }}>
-        <p className="eyebrow text-ink-foreground/80">El Paso · Indigenous Texas · Tribal museum</p>
-        <h1 className="mt-4 max-w-5xl font-display text-5xl leading-tight sm:text-7xl">Ysleta del Sur Pueblo Cultural Center Museum</h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-foreground/90">A practical visitor guide and researched introduction to more than 300 years of Tigua history, a living Pueblo community, and the cultural institution that tells its story.</p>
-        <p className="mt-6 text-xs leading-5 text-ink-foreground/80">Actual Cultural Center photograph: <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Sue Barnum, 2020</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Photograph displayed without editorial alteration.</p>
+        <p className="eyebrow text-ink-foreground/85">El Paso · Indigenous Texas · Tribal museum</p>
+        <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Ysleta del Sur Pueblo Cultural Center Museum</h1>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-foreground/85">A practical visitor guide and researched introduction to more than 300 years of Tigua history, a living Pueblo community, and the cultural institution that tells its story.</p>
+        <p className="mt-6 text-xs leading-5 text-ink-foreground/85">Actual Cultural Center photograph: <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Sue Barnum, 2020</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Photograph displayed without editorial alteration.</p>
       </Container>
     </section>
 
@@ -73,7 +73,7 @@ export default function YsletaDelSurMuseumAuthority() {
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum location</p><p className="mt-2 font-semibold">305 Yaya Lane<br />El Paso, TX 79907</p></div>
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum-listed hours</p><p className="mt-2 font-semibold">Wednesday–Sunday<br />10 a.m.–4 p.m.</p></div>
-        <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum contact</p><a href="tel:+19158597700" className={anchorStyle+" mt-2 inline-block"}>(915) 859-7700</a><a href="mailto:culturalcenter@ydsp-nsn.gov" className="mt-1 block break-all text-xs text-primary underline">culturalcenter@ydsp-nsn.gov</a></div>
+        <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Museum contact</p><a href="tel:+19158597700" className={anchorStyle+" mt-2 inline-block"}>(915) 859-7700</a><a href="mailto:culturalcenter@ydsp-nsn.gov" className="mt-1 block text-xs text-primary underline">culturalcenter@ydsp-nsn.gov</a></div>
         <div className="border-t-2 border-foreground pt-4"><p className="eyebrow text-muted-foreground">Admission and programs</p><p className="mt-2 font-semibold">Confirm directly</p><p className="mt-1 text-sm text-muted-foreground">A current entry price and daily performance calendar were not verified.</p></div>
       </div>
       <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Important hours discrepancy:</strong> the Pueblo's museum-specific page and the Texas Historical Commission record both say Wednesday–Sunday, 10 a.m.–4 p.m. A separate cultural-center gift-shop website advertises daily hours. Those may reflect different facilities or updated schedules. Before traveling, call the museum to confirm museum access, tours, holiday hours and pricing.</p>
@@ -108,7 +108,7 @@ export default function YsletaDelSurMuseumAuthority() {
       <p className="eyebrow text-primary">Inside the experience</p>
       <h2 className="mt-3 font-display text-4xl">What to look for at the museum</h2>
       <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">These are documented themes and activities, not a guaranteed list of galleries or performances on a particular date. The Pueblo determines the visitor experience.</p>
-      <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {museumTopics.map((item,index)=><article key={item.title} className="border-t-2 border-foreground pt-5">
           <p className="eyebrow text-primary">Explore {String(index+1).padStart(2,"0")}</p>
           <h3 className="mt-3 font-display text-2xl leading-tight">{item.title}</h3>
@@ -116,7 +116,7 @@ export default function YsletaDelSurMuseumAuthority() {
         </article>)}
       </div>
       <figure className="mt-12">
-        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_Cultural_Center_2.jpg?width=1280" width={1280} height={296} alt="Wide panoramic photograph of the Tigua Cultural Center in El Paso, photographed in 2020" loading="lazy" decoding="async" className="h-auto w-full rounded-sm" />
+        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_Cultural_Center_2.jpg?width=1280" width={1280} height={296} alt="Wide panoramic photograph of the Tigua Cultural Center in El Paso, photographed in 2020" loading="lazy" decoding="async" className="h-auto w-full" />
         <figcaption className="mt-3 text-xs text-muted-foreground">A second view of the actual Tigua Cultural Center, Sue Barnum (2020), <a href={panoramaUrl} target="_blank" rel="noopener noreferrer" className="underline">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline">CC BY-SA 4.0</a>. No alterations.</figcaption>
       </figure>
     </Container>
@@ -126,7 +126,7 @@ export default function YsletaDelSurMuseumAuthority() {
         <p className="eyebrow text-primary">Dates with documentary sources</p>
         <h2 className="mt-3 font-display text-4xl">A brief timeline of the Pueblo and its museum</h2>
         <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">The community's history and the museum institution have different timelines. The record below separates the two and flags the historic building's earlier history rather than claiming it is the present-day structure.</p>
-        <ol className="mt-9 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <ol className="mt-9 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[...timeline].sort((a,b)=>Number(a.date)-Number(b.date)).map((item)=><li key={item.date} className="border-t-2 border-foreground pt-5">
             <p className="eyebrow text-primary">{item.date}</p>
             <h3 className="mt-2 font-display text-2xl">{item.title}</h3>
@@ -161,7 +161,7 @@ export default function YsletaDelSurMuseumAuthority() {
     <section className="border-t border-border py-14 sm:py-16">
       <Container>
         <p className="eyebrow text-primary">Answered before you travel</p><h2 className="mt-3 font-display text-4xl">Frequently asked questions</h2>
-        <dl className="mt-8 grid gap-x-12 md:grid-cols-2">
+        <dl className="mt-8 grid gap-x-12 sm:grid-cols-2">
           {questions.map(({q,a})=><div className="border-t border-border py-5" key={q}><dt className="font-display text-2xl leading-tight">{q}</dt><dd className="mt-3 text-sm leading-7 text-muted-foreground">{a}</dd></div>)}
         </dl>
       </Container>
@@ -171,7 +171,7 @@ export default function YsletaDelSurMuseumAuthority() {
       <p className="eyebrow text-primary">Editorial transparency</p>
       <h2 className="mt-3 font-display text-4xl">Primary sources, verification and image credits</h2>
       <p className="mt-5 max-w-4xl leading-8">TexasDefined Editorial Desk · Last verified October 9, 2026. The Pueblo's own sources control its identity, history and current museum guidance. The Texas Historical Commission supplies cross-checks for museum contacts and hours. The Handbook of Texas supplies historical museum milestones. The National Park Service supports facts about the separate mission. We do not present tribal-member-only activities as public programming, nor treat estimates as confirmed admission policies.</p>
-      <ol className="mt-7 grid gap-5 md:grid-cols-2">{sourceList.map((source,index)=><li key={source.url} className="border-t border-border pt-4"><p className="eyebrow text-primary">Source {index+1}</p><a className={anchorStyle+" mt-2 inline-block"} href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a><p className="mt-2 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ol>
+      <ol className="mt-7 grid gap-5 sm:grid-cols-2">{sourceList.map((source,index)=><li key={source.url} className="border-t border-border pt-4"><p className="eyebrow text-primary">Source {index+1}</p><a className={anchorStyle+" mt-2 inline-block"} href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a><p className="mt-2 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ol>
       <p className="mt-7 text-xs leading-6 text-muted-foreground">Image attribution: both photographs by Sue Barnum (2020), licensed CC BY-SA 4.0 through Wikimedia Commons. They are photographs of this Cultural Center, not generic museum substitutes. <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Hero image license and source</a> · <a href={panoramaUrl} className="underline" target="_blank" rel="noopener noreferrer">Panorama license and source</a>.</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Suggested citation: TexasDefined Editorial Desk. “Ysleta del Sur Pueblo Cultural Center Museum: Tigua History, Exhibits & Visitor Guide.” TexasDefined, verified October 9, 2026. https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Information changes: verify museum hours, admission, cultural program access and photography policy with the Pueblo before traveling. This independent guide is not endorsed by or affiliated with the Pueblo.</p>
