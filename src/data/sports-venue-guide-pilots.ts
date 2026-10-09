@@ -9,6 +9,7 @@ export type SportsVenueGuidePilot = {
   subtitle: string;
   venueType: string;
   homeTeam?: string;
+  leagueOrConference?: string;
   capacity?: string;
   playingSurface?: string;
   opened?: string;
@@ -175,7 +176,7 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
         licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       },
     ],
-    reviewedAt: "2026-10-07",
+    reviewedAt: "2026-10-08",
     sources: [
       { label: "Choctaw Stadium official site", href: "https://www.choctawstadium.com/" },
       { label: "Choctaw Stadium event schedule", href: "https://www.choctawstadium.com/stadium-events/" },
