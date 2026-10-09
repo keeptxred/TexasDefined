@@ -47,7 +47,7 @@ for (const marker of [
   'Venue story',
   'Nearby attractions',
   'Sources & review',
-  'Last reviewed',
+  'Latest source verification',
   'StadiumOrArena',
 ]) requireText(guidePage, marker, 'shared venue guide');
 
