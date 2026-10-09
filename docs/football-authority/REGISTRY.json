@@ -20,7 +20,7 @@
       "fort-davis",
       "southlake-carroll"
     ],
-    "state": "FOUR_SCHOOLS_VERIFIED_ONE_DEPLOYED_AWAITING_QA",
+    "state": "BATCH_001_COMPLETE_ALL_FIVE_VERIFIED",
     "prUrl": "https://github.com/keeptxred/TexasDefined/pull/4330",
     "mergedPrNumber": 4330,
     "mergedCommit": "7ec7444474dde1db49bfe50219f5ca013b3aff49",
@@ -35,24 +35,24 @@
       "resolvedBySuccessfulRetry": true
     },
     "abbottMediaAndCheckpointPrNumber": 4332,
-    "latestDeployedCommit": "8c5554d82f93801125bda4bfe73dd85f46438c51",
+    "latestDeployedCommit": "4f744960c12581b21b20c215ea6f1ba2fb70cdc1",
     "deploymentStatusContexts": [
       "texasdefined-cloudflare",
       "texasdefined-live",
       "texasdefined-production"
     ],
-    "dedicatedSchoolSmokeResult": "Wills Point dedicated Chrome PASS (run 37830846153); full Friday Night Lights FAIL on separate shared finder API (run 37830845891).",
-    "actualManualSchoolVerifications": 4,
+    "dedicatedSchoolSmokeResult": "All five individually VERIFIED with successful school+county production Chrome: Wills Point 37830846153, Abbott 37837471884, Katy 37857587458, Fort Davis 37870328013, Southlake Carroll 37870993674. Full shared FNL 37856873033 SUCCESS.",
+    "actualManualSchoolVerifications": 5,
     "acceptanceAndCountyLinksPrNumber": 4333,
     "acceptanceAndCountyLinksMergeCommit": "4fcbd31fa6618c9b6150d868d6afdc38a73c831b",
     "nextEligibleUnassignedSlug": "abernathy",
     "nextEligibleCondition": "Only after incomplete Batch 001 school work is resolved; resume at most three of the five existing assigned schools in any single future chat.",
-    "individuallyVerified": 4,
-    "partiallyCompleted": 1,
+    "individuallyVerified": 5,
+    "partiallyCompleted": 0,
     "unstarted": 1287,
     "futureSchoolCapPerChat": 3,
     "schoolExecutionConcurrency": 1,
-    "acceptanceStatus": "Wills Point, Abbott, Katy and Fort Davis individually VERIFIED by recorded real Chrome production runs. Southlake Carroll remains DEPLOYED pending own browser acceptance. Shared full FNL smoke #37856873033 SUCCESS. Fort Davis individual run #37870328013 PASS; unrelated aggregate city verifier failed."
+    "acceptanceStatus": "Batch 001 COMPLETE: Wills Point, Abbott, Katy, Fort Davis and Southlake Carroll independently VERIFIED on deployed desktop/mobile Chrome. Southlake dedicated Chrome after Tarrant post-hydration guard PASS. 1,287 other programs not reviewed. Latest aggregate production LIVE/FINAL failed on unrelated Fort Worth city marker, not concealed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -16284,11 +16284,11 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/southlake-carroll",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 1,
       "audit": "docs/football-authority/schools/southlake-carroll.md",
       "researchDate": "2026-10-08",
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "implementedOnBranch": "football-authority-batch-001-20261008",
       "verifiedMascot": "Dragons",
       "verifiedColors": "Green, Black and White",
@@ -16305,38 +16305,42 @@
         "fe9ffec7",
         "98b7f91f"
       ],
-      "specificMissing": [
-        "Licensed authentic school/stadium photography",
-        "Rendered live page/mobile verification",
-        "Verify new reciprocal county links are rendered on actual live county pages"
-      ],
+      "specificMissing": [],
       "prNumber": 4330,
       "inboundLinks": [
         "/texas-high-school-football-teams",
         "/county/tarrant"
       ],
-      "productionVerifiedAt": null,
-      "mergedPr": 4330,
-      "mergedAt": "2026-10-08",
-      "mergedCommit": "7ec7444474dde1db49bfe50219f5ca013b3aff49",
+      "productionVerifiedAt": "2026-10-09T01:48:15.140Z",
+      "mergedPr": 4377,
+      "mergedAt": "2026-10-09",
+      "mergedCommit": "4f744960c12581b21b20c215ea6f1ba2fb70cdc1",
       "deployment": {
-        "mergeCommit": "e21c9b0ed61b850cf800484ba0f1ad5c49409c0c",
-        "date": "2026-10-08",
+        "mergeCommit": "4f744960c12581b21b20c215ea6f1ba2fb70cdc1",
+        "date": "2026-10-09",
         "checks": [
-          "texasdefined-cloudflare",
-          "texasdefined-live",
-          "texasdefined-production"
+          "texasdefined-validation",
+          "texasdefined-build",
+          "texasdefined-bundle-budget",
+          "texasdefined-runtime-smoke",
+          "texasdefined-predeploy-health",
+          "texasdefined-cloudflare"
         ],
-        "allChecksReportedSuccess": true,
-        "dedicatedFridayNightLightsSmokeResult": "not separately observed",
-        "manualBrowserQA": false
+        "allChecksReportedSuccess": false,
+        "dedicatedFridayNightLightsSmokeResult": "Earlier fully independent statewide Friday Night Lights production smoke 37856873033 SUCCESS.",
+        "manualBrowserQA": true,
+        "dedicatedBrowserRunId": 37870993674,
+        "dedicatedBrowserResult": "PASS deployed Southlake Carroll school and Tarrant County on desktop 1366/mobile 390: eight actual titles, 2003 runner-up correction, Lee Munn coach and official source links, SEO/H1/canonical/schema, reciprocal school↔Tarrant county, complete county screenshots, zero page errors and horizontal overflow.",
+        "screenshotArtifactId": 11590482823,
+        "aggregateGateCaveat": "Current production deploy pipeline live/final status FAILED only on unrelated Fort Worth city route expected-text marker 'Panther Island & Trinity River'; Cloudflare upload succeeded and exact individual Southlake Chrome site acceptance succeeded."
       },
       "city": "Southlake",
       "county": "Tarrant County",
       "schoolDistrict": "Carroll ISD",
       "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481302000791",
       "publicPrivateStatus": "public",
-      "countyInboundLinkChange": "Merged in PR #4333 at 4fcbd31fa6618c9b6150d868d6afdc38a73c831b; confirm live rendering during individual QA"
+      "countyInboundLinkChange": "Actual 1366px desktop and 390px mobile production Chrome #37870993674 confirmed school↔Tarrant County reciprocal link; full Tarrant screenshots and zero runtime errors after hydration guard.",
+      "imageRightsLimitations": "No licensed current school/team photograph was verified. Authority treatment uses original text-led school-color graphics and cites primary records; never claim permission to republish official team photos."
     },
     {
       "id": "uil:southland",
