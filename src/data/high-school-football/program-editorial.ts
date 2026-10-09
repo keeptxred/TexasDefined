@@ -58,6 +58,115 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "alief-elsik": {
+    "slug": "alief-elsik",
+    "theme": {
+      "accentHex": "#36634A",
+      "label": "Original muted-green football chronology (editorial choice, not a verified school-color assertion or official logo)"
+    },
+    "seo": {
+      "title": "Alief Elsik Rams Football: 1990s Playoffs & 2026 Team Guide",
+      "description": "Alief Elsik Rams football in Houston: coach Shea Rodriguez, 1990s UIL quarterfinal runs, 2026 District 20 opponents, school campus and current game-day links."
+    },
+    "coach": {
+      "name": "Shea Rodriguez",
+      "title": "2026 varsity head football coach as listed on UIL-partner MaxPreps staff",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/staff/",
+      "sourceLabel": "MaxPreps 2026–27 Alief Elsik football staff updated September 4, 2026",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "12601 High Star Drive, Houston, TX 77072 (school postal directory may use 77411-0068)",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity schedule school location; confirm campus visitors with Alief ISD",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alief Elsik 2026 varsity game results and remaining fixtures",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
+      "sourceLabel": "MaxPreps UIL-partner dated schedule updated October 3",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Alief ISD scheduled football facility — verify event-specific stadium",
+      "address": "Houston / Alief ISD, Texas; do not assume school campus is the game venue",
+      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
+      "sourceLabel": "School-linked MaxPreps schedule for home versus away designation",
+      "verifiedAt": "2026-10-09",
+      "note": "A varsity listing may say 'home' without proving the game's spectator-stadium gate is on the high school campus. District football facilities, parking, tickets and accessible entry must be confirmed with Alief ISD athletics for the specific Elsik game. The postal campus listing is not a stadium entrance."
+    },
+    "overview": [
+      "Alief Elsik High School's Rams represent the southwest Houston Alief community. This is a distinct football program from neighboring Alief Hastings Bears and Alief Taylor Lions. Its UIL history is most clearly documented through competitive 1990s playoff runs rather than a nonexistent state football title; the official all-time football championship table does not list an Elsik state crown.",
+      "The UIL's 1990 state bracket documents Elsik beating Houston Madison 28–14 in bi-district play and Houston Milby 24–12 in the area round. Its regional run ended 24–12 against Humble Kingwood. Those results show a real postseason achievement, not a championship-game appearance.",
+      "An independent game-by-game playoff archive records even deeper 1992 and 1993 runs: in 1992 Elsik beat Houston Lamar 27–9 and Jersey Village 12–7 before losing to Aldine Eisenhower 24–16; in 1993 Elsik beat Lamar 24–7 and Cypress Creek 7–3 before losing to Eisenhower 31–12. Such quarterfinal-era games deserve more space than interchangeable descriptions of the Alief district.",
+      "Current program leadership is separately documented: MaxPreps' September 2026 football staff list identifies Shea Rodriguez as head coach with assistant coaches, including James Robinson and Daric Zeno. The source is a UIL-partner roster, not an Alief ISD appointment announcement. Check the district before relying on staffing details for a future season.",
+      "For the 2026–28 UIL alignment Elsik is in 6A District 20; current Houston-region opponents include Alief Hastings and Alief Taylor as well as other Houston-area district schools. This is a modern competitive grouping, not evidence that every present opponent is a centuries-old rivalry.",
+      "The MaxPreps October 3 snapshot showed Elsik 1–5 after an early win against Westside (55–7) and losses to West Fork, Dekaney, Alief Taylor, Lamar and Heights. The remaining scheduled October games included Bellaire, Alief Hastings and Stratford. Results and kickoff times are changeable and must be checked against the live schedule, especially for ticketing, venue and accessibility."
+    ],
+    "milestones": [
+      {
+        "date": "1990",
+        "title": "A UIL regional playoff run",
+        "body": "Elsik beat Houston Madison 28–14 and Houston Milby 24–12 before a 24–12 regional loss to Humble Kingwood.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/90at_bfb.html",
+        "sourceLabel": "UIL official 1990–91 playoff results"
+      },
+      {
+        "date": "1992",
+        "title": "Quarterfinal-era victories",
+        "body": "Independent historical scores record wins over Houston Lamar and Jersey Village before a 24–16 playoff loss to Aldine Eisenhower.",
+        "sourceUrl": "https://www.texashighschoolfootballhistory.com/Playoff%20Scores%20A-B.html",
+        "sourceLabel": "Texas High School Football History game results"
+      },
+      {
+        "date": "1993",
+        "title": "Another deep postseason",
+        "body": "Elsik beat Houston Lamar and Cypress Creek before Eisenhower ended the Rams' run, 31–12, according to the independent archival result list.",
+        "sourceUrl": "https://www.texashighschoolfootballhistory.com/Playoff%20Scores%20A-B.html",
+        "sourceLabel": "Historical independent Elsik playoff archive"
+      },
+      {
+        "date": "2026",
+        "title": "Shea Rodriguez listed as head coach",
+        "body": "The September-updated MaxPreps staff listing identifies Shea Rodriguez as Elsik's 2026 football head coach. It is a third-party staff source, not an official district hiring release.",
+        "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/staff/",
+        "sourceLabel": "MaxPreps UIL-partner 2026 Rams staff"
+      },
+      {
+        "date": "2026–28",
+        "title": "Modern UIL 6A District 20",
+        "body": "UIL aligns Elsik with neighboring Alief and Houston-area programs in Class 6A District 20; this is not a historical title-game qualification.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 6A alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What is Alief Elsik's football team called?",
+        "answer": "The Rams. Elsik is a separate Alief ISD football program from Alief Hastings and Alief Taylor."
+      },
+      {
+        "question": "Who coaches Alief Elsik football in 2026?",
+        "answer": "The UIL-partner MaxPreps staff page lists Shea Rodriguez as the 2026 varsity head coach, dated September 2026. Reconfirm with Alief ISD for later staff changes."
+      },
+      {
+        "question": "Has Elsik reached the UIL football state championship game?",
+        "answer": "The official UIL all-time football finals do not list Elsik as a state title-game participant. The Rams' historical postseason results include deep playoff runs in 1990, 1992 and 1993."
+      },
+      {
+        "question": "How far did Elsik advance in 1990?",
+        "answer": "To the regional round after wins against Houston Madison and Houston Milby. Humble Kingwood defeated Elsik 24–12 in the regional game."
+      },
+      {
+        "question": "Which division does Elsik compete in during 2026?",
+        "answer": "UIL Class 6A, District 20 for the 2026–28 alignment. The individual division split used in some lower classes does not apply here."
+      },
+      {
+        "question": "Where do visiting fans find the Elsik football stadium and tickets?",
+        "answer": "Check the specific game's school/district schedule and Alief ISD athletics. A listing of the school's High Star Drive campus does not establish a game-day stadium entrance, parking plan or ADA gate."
+      }
+    ]
+  },
   "alice": {
     "slug": "alice",
     "theme": {
