@@ -156,11 +156,16 @@ test("McAllen day trips prioritize regional wildlife, allow local outings and dr
       slug: "padre-island-national-seashore-backcountry", nearestTown: "Padre Island", county: "Kleberg",
       coordinates: { lat: 27.41533, lng: -97.30151 },
     }),
+    destination(7, "historic-sites", {
+      slug: "port-isabel-lighthouse", nearestTown: "Port Isabel", county: "Cameron",
+      coordinates: { lat: 26.0764, lng: -97.2086 },
+    }),
   ];
   const slugs = new Set(selectMetroProximityDestinations(candidates, metro, collection).map((row) => row.destination.slug));
   assert.ok(slugs.has("bentsen-rio-grande-valley-state-park"), "local Bentsen park should qualify");
   assert.ok(slugs.has("santa-ana-national-wildlife-refuge"), "Santa Ana belongs in the regional trip list");
   assert.ok(slugs.has("south-padre-island-beaches"), "reachable South Padre coast remains an option");
+  assert.ok(slugs.has("port-isabel-lighthouse"), "the canonical Port Isabel Lighthouse guide must be eligible for the curated day-trip card");
   assert.ok(!slugs.has("yarborough-pass"), "high-clearance 4WD Yarborough Pass is not an ordinary day trip");
   assert.ok(!slugs.has("padre-island-national-seashore-backcountry"), "remote Padre Island backcountry is excluded");
   assert.ok(!slugs.has("port-aransas-beach"), "distant Coastal Bend beach should not take a Valley day-trip slot");
