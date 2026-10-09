@@ -25,6 +25,7 @@ const imageWorkflow = read('.github/workflows/populate-missing-site-images.yml')
 const productionImageAudit = read('scripts/ci/verify-image-discover-production.mjs');
 const productionImageWorkflow = read('.github/workflows/audit-image-discover-production.yml');
 const deployWorkflow = read('.github/workflows/deploy-production.yml');
+const viteConfig = read('vite.config.ts');
 const discoverMaterializer = read('scripts/assets/materialize-discover-overrides.mjs');
 const fishingImageLibrary = read('src/data/fishing/image-library.ts');
 const fishingLakeRoute = read('src/routes/fishing.lakes.$slug.tsx');
@@ -81,6 +82,13 @@ for (const marker of [
   'discover_asset_count="$(find dist/client/images/discover',
   'Expected at least 42 governed Discover derivatives in dist/client/images/discover',
 ]) if (!deployWorkflow.includes(marker)) errors.push(`Production deploy must promote generated Discover derivatives into the static client bundle: ${marker}`);
+for (const marker of [
+  'function governedDiscoverAssetsPlugin(): Plugin',
+  'name: "texasdefined-governed-discover-assets"',
+  'fileName: \`images/discover/\\${name}\\`',
+  'source: fs.readFileSync(path.join(discoverDir, name))',
+  'governedDiscoverAssetsPlugin(),',
+]) if (!viteConfig.includes(marker)) errors.push(`Vite must emit governed Discover derivatives into the client asset manifest: ${marker}`);
 const messinaDiscoverSource = '"messina-hof-hill-country",\n    "https://upload.wikimedia.org/wikipedia/commons/1/17/Messina_Hof_Vineyard.jpg"';
 if (!discoverMaterializer.includes(messinaDiscoverSource)) errors.push('Messina Hof Discover derivative must use the governed exact-subject Wikimedia vineyard source.');
 if (discoverMaterializer.includes('"messina-hof-hill-country",\n    "/images/destinations/flat-creek-estate-ai-illustration.webp"')) errors.push('Messina Hof Discover derivative must not reuse the unrelated Flat Creek Estate illustration.');
