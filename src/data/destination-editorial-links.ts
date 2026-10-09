@@ -5,6 +5,10 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "chisholm-trail-heritage-museum": [
+    { href: "/destination/yoakum-heritage-museum", label: "Compare Yoakum Heritage Museum", description: "Continue from Cuero ranching history to Yoakum railroad shops, leather manufacturing and the Elkins-Browning residence." },
+    { href: "/county/dewitt", label: "Explore DeWitt County", description: "Put Cuero and the wider ranching corridor in regional context." },
+  ],
   "lbj-boyhood-home-johnson-city": [
     {
       href: "/destination/lyndon-b-johnson-national-historical-park",
@@ -567,6 +571,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "shiner": [
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Follow the San Antonio and Aransas Pass Railway story from Shiner to Yoakum and compare the region's leather-making and historic-house heritage." },
     {
       href: "/destination/spoetzl-brewery",
       label: "Plan the K. Spoetzl Brewery visit",
