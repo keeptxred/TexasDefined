@@ -4,6 +4,7 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
   townReferences: "src/data/metro-proximity-town-references.ts",
+  mcallenBirding: "src/data/mcallen-world-birding-center.ts",
   test: "src/data/__tests__/metro-proximity.test.ts",
   pageData: "src/data/metro-proximity-page-data.server.ts",
   functions: "src/data/metro-proximity-page-data.functions.ts",
@@ -133,6 +134,21 @@ if (!files.hubRoute.includes("return isLeaf ? (loaderData?.head ?? {}) : {};")) 
 
 for (const token of ['createLazyFileRoute("/explore/near/$metro")']) requireText(files.hubUi, token, `metro parent lazy route missing ${token}`);
 if (files.hubUi.includes("component:") || files.hubUi.includes("DestinationCard")) fail("metro parent lazy route must stay component-neutral so critical boundary owns hub-vs-child rendering");
+
+for (const token of [
+  "MCALLEN_WBC_SITES", "MCALLEN_WBC_SOURCES",
+  "Roma Bluffs World Birding Center", "Bentsen-Rio Grande Valley State Park",
+  "Quinta Mazatlán", "Old Hidalgo Pumphouse Museum",
+  "Edinburg Scenic Wetlands", "Estero Llano Grande State Park",
+  "Harlingen Arroyo Colorado", "Resaca de la Palma State Park",
+  "South Padre Island Birding", "official:", "before:",
+]) requireText(files.mcallenBirding, token, `McAllen birding source-backed authority missing ${token}`);
+for (const token of [
+  "MCALLEN_WBC_SITES.map", 'metro.slug === "mcallen"',
+  "Nine World Birding Center sites. Nine different ways to explore the Valley.",
+  "October 9, 2026", "MCALLEN_WBC_SOURCES", "Current official visitor information",
+]) requireText(files.hubComponent, token, `McAllen hub visitor authority missing ${token}`);
+requireText(files.test, "McAllen nine-site World Birding Center authority uses unique", "McAllen nine-site birding regression missing");
 
 for (const token of [
   "MetroProximityHubPage", "Explore by trip type", "straight-line geographic estimates", "DestinationCard",
