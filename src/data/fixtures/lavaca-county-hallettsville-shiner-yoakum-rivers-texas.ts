@@ -40,6 +40,7 @@ export const lavacaCountyHallettsvilleShinerYoakumRiversTexasArticle: Article = 
     { href: "/county/colorado", label: "Explore Colorado County", description: "Head northeast toward Columbus, Weimar and Eagle Lake." },
     { href: "/county/jackson", label: "Explore Jackson County", description: "Follow the Navidad and Lavaca watershed south toward Edna, Ganado and Lake Texana." },
     { href: "/county/gonzales", label: "Explore Gonzales County", description: "Continue west toward Gonzales, the Guadalupe River and early Texas history." },
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Trace Yoakum railway workshops, Tex-Tan leather goods and the town\u0027s historic Elkins-Browning museum home." },
     { href: "/destination/shiner", label: "Explore Shiner", description: "Use the town guide to connect the brewery with Saints Cyril and Methodius Church, the Edwin Wolters museum, Green-Dickson Park and the wider Shiner story." },
     { href: "/destination/spoetzl-brewery", label: "Visit K. Spoetzl Brewery", description: "Plan the brewery tour, review the current beer lineup, and see the distillery, barbecue and Rickhouse visitor options in Shiner." },
     { href: "/texas-icons/shiner-bock", label: "Shiner Bock history", description: "Go deeper on the brewery's 1909 roots, Kosmos Spoetzl, Prohibition survival and the beer first brewed in 1913." },
