@@ -6,6 +6,8 @@ import {
 } from "@/components/editorial/TexasEventCarousel";
 import { Container } from "@/components/layout/Container";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
+import { MSRHoustonAuthoritySections, MSRHoustonStatusNotice } from "@/components/sports/MSRHoustonAuthoritySections";
+import { MSRHoustonEventsFallback } from "@/components/sports/MSRHoustonEventsFallback";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -175,19 +177,23 @@ export function SportsVenueGuidePage({
             <QuickFacts guide={guide} capacity={guide.capacity ?? enrichment?.capacity} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
 
+          {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonStatusNotice /> : null}
+
           {sponsorPlacement ? (
             <div className="border-b border-border py-8">
               <SponsoredSportsPlacement placement={sponsorPlacement} />
             </div>
           ) : null}
 
-          <TexasEventCarousel
-            events={upcomingEvents}
-            eyebrow="Upcoming events"
-            title={`What’s happening at ${entity.name}`}
-            viewAllHref={eventCalendarHref}
-            emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
-          />
+          {guide.canonicalPath === "/sports-venue/msr-houston" && upcomingEvents.length === 0
+            ? <MSRHoustonEventsFallback />
+            : <TexasEventCarousel
+              events={upcomingEvents}
+              eyebrow="Upcoming events"
+              title={`What’s happening at ${entity.name}`}
+              viewAllHref={eventCalendarHref}
+              emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
+            />}
 
           {officialEventCalendarUrl ? (
             <div className="border-b border-border pb-7">
@@ -235,7 +241,9 @@ export function SportsVenueGuidePage({
 
           <div data-stay-nearby-slot />
 
-          {enrichment?.history ? (
+          {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}
+
+          {enrichment?.history && guide.canonicalPath !== "/sports-venue/msr-houston" ? (
             <EditorialSection eyebrow="Venue story" title={`The story of ${entity.name}`}>
               <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
                 {enrichment.history}
@@ -336,8 +344,8 @@ function QuickFacts({ guide, capacity, directionsUrl, officialUrl }: { guide: Sp
         <Fact label="Capacity" value={capacity} />
         <Fact label="Venue type" value={guide.venueType} />
         <Fact label="Home team" value={guide.homeTeam} />
-        <Fact label="League / conference" value={guide.leagueOrConference} />
-        <Fact label="Playing surface" value={guide.playingSurface} />
+        <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Track activities" : "League / conference"} value={guide.leagueOrConference} />
+        <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Circuit configuration" : "Playing surface"} value={guide.playingSurface} />
         <Fact label="Opened" value={guide.opened} />
         <Fact label="Address" value={guide.address} />
       </dl>
