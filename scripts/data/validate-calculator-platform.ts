@@ -171,7 +171,7 @@ assert.ok(budgetUxSource.includes('createBudgetCsv(budget)'), 'CSV download must
 assert.ok(budgetUxSource.includes('createBudgetShareQuery(budget)'), 'share action must use tested serializer');
 const sampleBudget = createBudgetDefaults();
 const sampleCsv = createBudgetCsv(sampleBudget);
-assert.ok(sampleCsv.startsWith('"Category","Item","Entered USD","Period","Monthly USD"\\r\\n'.replace(/\\\\r/g, '\\r').replace(/\\\\n/g, '\\n')), 'CSV must contain quoted headers and CRLF line endings');
+assert.ok(sampleCsv.startsWith('"Category","Item","Entered USD","Period","Monthly USD"' + String.fromCharCode(13, 10)), 'CSV must contain quoted headers and CRLF line endings');
 assert.ok(sampleCsv.includes('"Total","Monthly expenses and bill reserves","","monthly","5250.00"'), 'CSV must distinguish expenses from savings');
 assert.ok(sampleCsv.includes('"Total","Monthly savings allocations","","monthly","700.00"'), 'CSV must include savings as a separate total');
 assert.ok(sampleCsv.includes('"Total","Remaining after allocations","","monthly","1050.00"'), 'CSV remaining must agree with calculator');
