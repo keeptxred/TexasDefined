@@ -48,7 +48,7 @@ for (const token of [
   '  hidalgoPumphouseAuthorityDestinations,',
 ]) requireText(files.preservedDestinations, token, `Hidalgo Pumphouse canonical catalog missing ${token}`);
 for (const token of [
-  'slug: "old-hidalgo-pumphouse-museum"',
+  '"old-hidalgo-pumphouse-museum"',
   'metro.slug === "mcallen" && collection.slug === "things-to-do"',
 ]) requireText(files.data, token, `McAllen historic-site and off-road exclusion contract missing ${token}`);
 for (const token of [
