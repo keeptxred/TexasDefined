@@ -566,7 +566,7 @@
   // Their lodging cards wait for route hydration; the pages still show eligible cards afterward.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis")
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis" || path === "/county/tarrant")
       && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
