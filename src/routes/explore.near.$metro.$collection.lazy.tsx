@@ -33,7 +33,12 @@ type CollectionPageData = {
   };
 };
 
-function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip") {
+function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip", collection: MetroProximityCollection) {
+  if (collection.slug === "day-trips") {
+    if (band === "close-in") return "Closer geographic choices";
+    if (band === "easy-day-trip") return "Middle-distance choices · check the road route";
+    return "Farther geographic choices · check if an overnight fits better";
+  }
   if (band === "close-in") return "Close to the metro";
   if (band === "easy-day-trip") return "Easy day-trip range";
   return "Longer day trip";
@@ -537,7 +542,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">{isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band)}</p>
+          <p className="eyebrow text-primary">{isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band, collection)}</p>
           <h2 className="mt-3 font-display text-4xl">{isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
