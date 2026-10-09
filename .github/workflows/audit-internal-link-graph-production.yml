@@ -1,12 +1,6 @@
 name: Audit production internal-link graph
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'scripts/ci/audit-internal-link-graph-production.mjs'
-      - '.github/workflows/audit-internal-link-graph-production.yml'
   workflow_dispatch:
   schedule:
     - cron: '41 10 * * 2,5'
@@ -21,7 +15,8 @@ permissions:
 
 concurrency:
   group: production-internal-link-graph
-  cancel-in-progress: true
+  # Preserve the in-flight crawl/report when another deployment starts.
+  cancel-in-progress: false
 
 jobs:
   audit:
