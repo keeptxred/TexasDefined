@@ -45,6 +45,127 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "abilene-wylie": {
+    "slug": "abilene-wylie",
+    "theme": {
+      "accentHex": "#5D358A",
+      "label": "Original purple-and-gold research accents reflecting the UIL-documented Bulldog colors; not an official crest or historical photo"
+    },
+    "seo": {
+      "title": "Abilene Wylie Bulldogs Football: 2004 Title, Coach & Stadium",
+      "description": "Abilene Wylie Bulldogs football history: 2004 state title over Cuero, four UIL finals, coach Clay Martin, Hugh Sandifer Stadium and 2026 district schedule."
+    },
+    "coach": {
+      "name": "Clay Martin",
+      "title": "Wylie High School head football coach",
+      "sourceUrl": "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Wylie High official 2026–27 football coaching staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "4502 Antilley Road, Abilene, TX 79606",
+      "phone": "325-255-1908",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484650005293",
+      "sourceLabel": "NCES 2025–26 Abilene Wylie High campus, Taylor County",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Wylie Bulldogs athletics — current 2026 football schedule",
+      "sourceUrl": "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Official Wylie High School varsity football schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Hugh Sandifer Stadium",
+      "address": "4502 Antilley Road, Abilene, TX 79606",
+      "sourceUrl": "https://www.wyliebulldogathletics.com/facilities",
+      "sourceLabel": "Official Wylie Bulldogs Athletics stadium and directions",
+      "verifiedAt": "2026-10-09",
+      "note": "Wylie High School's official facilities directory places Hugh Sandifer Stadium at 4502 Antilley Road and identifies it as the home field for Bulldog football and soccer. The Dog House is a distinct indoor training facility at the same address, not the public stadium seating or ticket entrance. Ticket prices, parking, ADA gates and particular game assignments should be checked through the current school schedule or Wylie athletics office, 325-690-1181. Abilene Wylie's Sandifer Stadium must not be confused with Abilene ISD's Shotwell Stadium."
+    },
+    "overview": [
+      "The Abilene Wylie Bulldogs have one UIL football state championship and three further championship-game appearances, all documented in UIL's all-time finals ledger. The title came in 2004, when Wylie defeated Cuero 17–14 in Class 3A Division I. The state-final seasons of 2000, 2009 and 2016 were runner-up finishes, not additional championships. These historic classifications differ from the school's current 2026–28 5A Division II placement.",
+      "Hugh Sandifer coached the Bulldogs for more than three decades, from 1985 until retirement at the close of the 2019–20 academic year. Wylie school journalism reports his teams made 24 consecutive playoff appearances from 1994 through 2017, compiled an overall 285–127–4 record and reached four championship games. His 2004 team featured future college and NFL quarterback Case Keenum, who engineered a fourth-quarter rally against Cuero. Those details describe Sandifer's era, not the present coaching staff.",
+      "The 2000 championship run ended in a 14–10 loss to Gatesville. Sandifer's Bulldogs returned in 2004 to beat Cuero by a field goal, lost the 2009 final to Gilmer 43–26 and reached the 2016 4A Division I final before losing 31–17 to Carthage. This timeline, supported by UIL championship archives, gives the school's complete title-game record without conflating different divisions or calling four appearances four state titles.",
+      "Wylie's 2016 state-finals roster from UIL lists coach Hugh Sandifer, assistant Clay Martin and school colors purple and gold. Martin appears as head football coach in the **current 2026–27 official Wylie athletics staff directory**, with Jason Meng coordinating offense and Matt Kates coordinating defense. The two sources establish a coaching lineage while keeping historical staff titles separate from today's assignments.",
+      "A dated August 27, 2026 Wylie athletics season preview explains that the 2025 Bulldogs missed the playoffs after finishing 3–3 in district play. It documents close defeats to Palo Duro and Lubbock Cooper and a win over crosstown Abilene Cooper, but these are **2025 results**, not the 2026 season record. Wylie's current official schedule lists 2026 games and should be rechecked close to kickoff for changes, venue and ticket announcements.",
+      "Abilene Wylie High School belongs to its own **Wylie ISD in Abilene**, whose campus is at 4502 Antilley Road, Taylor County—not the separate Wylie ISD northeast of Dallas and not Abilene ISD's Abilene High or Cooper High. The Bulldogs compete in UIL 5A Division II District 2 in 2026–28, a league that includes Abilene Cooper, Amarillo Palo Duro, Lubbock Cooper, Lubbock Coronado and Wichita Falls Legacy and Memorial. Nearby Cooper is an actual recent district opponent, while the state-final history stretches far beyond today's division."
+    ],
+    "milestones": [
+      {
+        "date": "1985",
+        "title": "Hugh Sandifer takes charge",
+        "body": "Wylie school journalism records Hugh Sandifer beginning his long football coaching tenure in 1985. He later led 24 straight playoff appearances beginning in 1994.",
+        "sourceUrl": "https://wyliegrowl.com/sandifers-retire/",
+        "sourceLabel": "Wylie school newspaper — Sandifer retirement history"
+      },
+      {
+        "date": "2000",
+        "title": "First state-final appearance of this era",
+        "body": "UIL's historic final lists Gatesville beating Abilene Wylie 14–10, a runner-up result rather than a title.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL football champions and runners-up"
+      },
+      {
+        "date": "2004",
+        "title": "Bulldogs win the Class 3A Division I title",
+        "body": "Wylie defeated Cuero 17–14 for its only UIL football state championship. Wylie school journalism identifies Case Keenum as quarterback in the fourth-quarter comeback.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P232",
+        "sourceLabel": "Official UIL 2004–05 championship result"
+      },
+      {
+        "date": "2009",
+        "title": "Another state-final run",
+        "body": "Abilene Wylie returned to the UIL 3A Division I final, losing to Gilmer 43–26; the date and score belong to the 2009 championship, not a 2026 fixture.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical final results"
+      },
+      {
+        "date": "2016",
+        "title": "Fourth state-final appearance",
+        "body": "Coach Hugh Sandifer's 12–1 Wylie team reached the 4A Division I title game and lost to Carthage 31–17. UIL identifies assistant Clay Martin on that 2016 team.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/abilene-wylie-2016-2017-football",
+        "sourceLabel": "UIL 2016–17 official Abilene Wylie team record"
+      },
+      {
+        "date": "2026",
+        "title": "Clay Martin's Bulldogs in 5A Division II",
+        "body": "The current Wylie athletics directory lists Clay Martin as head coach and the UIL places Abilene Wylie in 5A Division II, District 2 for the 2026–28 cycle.",
+        "sourceUrl": "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=staff",
+        "sourceLabel": "Official Wylie athletics 2026–27 football staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many state football championships has Abilene Wylie won?",
+        "answer": "One: 2004, when the Bulldogs beat Cuero 17–14 in the UIL Class 3A Division I final. Wylie was a runner-up in 2000, 2009 and 2016, giving the Bulldogs four state-final appearances."
+      },
+      {
+        "question": "Was Case Keenum on Abilene Wylie's state championship team?",
+        "answer": "Yes. Wylie school journalism's history of coach Hugh Sandifer names future quarterback Case Keenum as the 2004 state-title quarterback who led a fourth-quarter rally over Cuero. The UIL officially records Wylie's 17–14 victory."
+      },
+      {
+        "question": "Who is the 2026 Abilene Wylie head coach?",
+        "answer": "Wylie Bulldog Athletics names Clay Martin as head football coach, Jason Meng as offensive coordinator and Matt Kates as defensive coordinator. UIL's 2016 archive also lists Martin as an assistant on that earlier team."
+      },
+      {
+        "question": "Where is Hugh Sandifer Stadium?",
+        "answer": "Wylie High School Athletics lists Hugh Sandifer Stadium at 4502 Antilley Road, Abilene, TX 79606. It is distinct from Abilene ISD's Shotwell Stadium. Check the official schedule for your game's assignment and parking/ticket rules."
+      },
+      {
+        "question": "Is Abilene Wylie the same school as the Wylie Pirates near Dallas?",
+        "answer": "No. Abilene Wylie is the Bulldogs program in Wylie ISD based in Abilene and Taylor County. The other Wylie ISD northeast of Dallas has different campuses and athletic teams."
+      },
+      {
+        "question": "What district is Abilene Wylie in for 2026–28?",
+        "answer": "UIL Class 5A Division II, District 2. Current-cycle district opponents include Abilene Cooper, Amarillo Palo Duro, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial."
+      },
+      {
+        "question": "How do I find Wylie football tickets and current kickoff times?",
+        "answer": "Check the official Wylie Bulldogs Athletics 2026 varsity schedule and contact the athletic department at 325-690-1181 for current admissions, venue assignment, parking and accessible entrances. Do not rely on older ticket or game-date notices."
+      }
+    ]
+  },
   "abilene-texas-leadership": {
     "slug": "abilene-texas-leadership",
     "theme": {
