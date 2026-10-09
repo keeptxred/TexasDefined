@@ -25,8 +25,8 @@ export const reevesCountyPecosBalmorheaArticle: Article = {
   tags: ["Reeves County", "Pecos", "Balmorhea", "San Solomon Springs", "Pecos River", "Texas rodeo", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/culberson-county-van-horn-guadalupe-mountains-texas", label: "Explore neighboring Culberson County", description: "Continue west toward Van Horn, Guadalupe Peak and the Salt Basin." },
-    { href: "/article/jeff-davis-county-fort-davis-mountains-texas", label: "Explore neighboring Jeff Davis County", description: "Follow the Davis Mountains south toward Fort Davis and McDonald Observatory country." },
+    { href: "/county/culberson", label: "Explore neighboring Culberson County", description: "Continue west toward Van Horn, Guadalupe Peak and the Salt Basin." },
+    { href: "/county/jeff-davis", label: "Explore neighboring Jeff Davis County", description: "Follow the Davis Mountains south toward Fort Davis and McDonald Observatory country." },
     { href: "/article/texas-caverns-caves-first-timers-guide", label: "Go deeper into West Texas geology", description: "A first-timer's guide to the caves, springs and underground landscapes that shape Texas." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
