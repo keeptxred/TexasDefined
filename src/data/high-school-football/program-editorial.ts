@@ -236,7 +236,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alvord": {
     "slug": "alvord",
     "theme": {
       "accentHex": "#B78C35",
@@ -420,7 +420,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alvin-shadow-creek": {
     "slug": "alvin-shadow-creek",
     "theme": {
       "accentHex": "#007C92",
@@ -600,7 +600,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alvin-iowa-colony": {
     "slug": "alvin-iowa-colony",
     "theme": {
       "accentHex": "#287B71",
@@ -787,7 +787,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alvin": {
     "slug": "alvin",
     "theme": {
       "accentHex": "#BB9B35",
@@ -967,7 +967,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alvarado": {
     "slug": "alvarado",
     "theme": {
       "accentHex": "#883E39",
@@ -1145,7 +1145,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alto": {
     "slug": "alto",
     "theme": {
       "accentHex": "#8C9E16",
@@ -1324,7 +1324,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "altair-rice": {
     "slug": "altair-rice",
     "theme": {
       "accentHex": "#7C322A",
@@ -1509,7 +1509,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alpine": {
     "slug": "alpine",
     "theme": {
       "accentHex": "#6A3B24",
@@ -1651,7 +1651,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "allen": {
     "slug": "allen",
     "theme": {
       "accentHex": "#103F79",
@@ -1844,7 +1844,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "all-saints-fort-worth": {
     "slug": "all-saints-fort-worth",
     "theme": {
       "accentHex": "#4E3C79",
@@ -2030,7 +2030,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ]
   },
-  {
+  "alief-taylor": {
     "slug": "alief-taylor",
     "theme": {
       "accentHex": "#315F4D",
