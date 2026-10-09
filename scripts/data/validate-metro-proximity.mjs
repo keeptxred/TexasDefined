@@ -80,6 +80,9 @@ for (const token of [
 for (const token of [
   "listResolvedDestinations", "isPrimaryTripPlannerDestination", "auditDestination", "metroIndexableDestinations",
   "loadMetroProximityHubPageDataServer", "loadMetroProximityCollectionPageDataServer", "loadMetroProximitySitemapEntriesServer",
+  "loadMetroIndexableDestinationsForHub", "loadMetroIndexableDestinationsForCollection",
+  "METRO_PROXIMITY_DISCOVERY_RETRY_TARGETS", '["amarillo", ["road-trips"]]', '["el-paso", ["road-trips"]]',
+  "const retry = await loadMetroIndexableDestinations()", "retryRequiredReady > firstRequiredReady",
   "isMetroProximityCollectionIndexReadyWithTownReferences", "selectMetroProximityTownReferences", "metroProximitySitemapEntries",
   "selectMetroProximityDestinations", "destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing)", "optionCount", '"@type": "CollectionPage"', '"@type": "ItemList"',
   '"@type": "BreadcrumbList"', '"@type": "City"', '"index, follow, max-image-preview:large"',
