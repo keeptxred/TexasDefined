@@ -58,6 +58,134 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "agua-dulce": {
+    "slug": "agua-dulce",
+    "theme": {
+      "accentHex": "#83384D",
+      "label": "Original editorial maroon accents drawn from commonly published Longhorn school identity; the school has not supplied a current official color code or licensed crest"
+    },
+    "seo": {
+      "title": "Agua Dulce Longhorns Football: 2026 District, Coach & Stadium",
+      "description": "Agua Dulce Longhorns football: Jason Calvez, 2026 UIL 2A Division II District 16, recent playoff seasons, official school contacts and football-field improvements."
+    },
+    "coach": {
+      "name": "Jason Calvez",
+      "title": "School athletic director and reported head football coach in 2026 preseason interview",
+      "sourceUrl": "https://www.kiiitv.com/video/sports/high-school/friday-night-sports-blitz/agua-dulce-full-interview-with-hc-jason-calvez/503-bbadabc4-73fd-47c0-b117-631696795951",
+      "sourceLabel": "KIII 3NEWS 2026 on-camera head coach interview; official Agua Dulce ISD directory verifies athletic director role",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "One Longhorn Drive, Agua Dulce, TX 78330",
+      "phone": "361-998-2542",
+      "sourceUrl": "https://www.adisd.net/directory",
+      "sourceLabel": "Official Agua Dulce ISD directory and campus contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Agua Dulce Longhorns 2026 results and game schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/agua-dulce/agua-dulce-longhorns/football/schedule/",
+      "sourceLabel": "UIL-partner MaxPreps team schedule — verify current changes directly with school",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Agua Dulce ISD football field",
+      "address": "One Longhorn Drive, Agua Dulce, TX 78330; specific game entry and parking rules unverified",
+      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320",
+      "sourceLabel": "Texas Department of Licensing and Regulation football-field bleacher project",
+      "verifiedAt": "2026-10-09",
+      "note": "Texas state architectural-barriers project TABS2026016320 names the Agua Dulce ISD football field at One Longhorn Drive. It registered an estimated $500,000 project to replace existing bleachers with a projected Aug. 31, 2026 completion; registration does not confirm actual completion or ADA certification. Separate state project TABS2026018319 covers west-campus sidewalks and new concession/restroom structures, with a projected Dec. 1, 2026 completion. The school must confirm actual stadium access, completed works, ticketing, parking, accessible seating and the assigned field for the specific game. Contact district athletics at 361-998-2542 ext. 5."
+    },
+    "development": {
+      "title": "Two separate 2026 football-area facility projects",
+      "body": "Texas licensing records distinguish an athletic-field bleacher replacement (registered March 31, planned May–August 2026, estimated $500,000) from broader west-campus athletic work (registered April 22, planned June–December 2026, estimated $1 million). Both records describe intended work and estimated schedules, not independently certified as-built completion or public ADA access. Contact Agua Dulce ISD before arriving at a game for current bleacher/sidewalk/restroom readiness.",
+      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026018319",
+      "sourceLabel": "Texas TDLR west-campus athletics construction record",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Agua Dulce's Longhorns play eleven-man Texas high school football at a rural public school rooted in Nueces County southwest of Corpus Christi. The Longhorns have their own district, campus and traditions and should never be confused with the University of Texas Longhorns. Agua Dulce ISD lists the secondary athletics department on its One Longhorn Drive campus and publishes direct contact details for athletic director Jason Calvez.",
+      "KIII 3NEWS interviewed Jason Calvez as the Longhorns' head football coach entering the 2026 season. Agua Dulce ISD independently lists him as athletic director, and MaxPreps historical rosters place him in the football head-coach role for multiple recent seasons. These sources corroborate current program leadership without assuming a given season's student roster is unchanged.",
+      "The 2026–28 UIL realignment assigns Agua Dulce to **Class 2A Division II, District 16** with Ben Bolt-Palito Blanco, La Villa, Riviera Kaufer, Santa Maria and Woodsboro. For visiting fans, the posted school schedule includes travel to Woodsboro and Ben Bolt and home dates against La Villa, Riviera Kaufer and Santa Maria. These are this cycle's opponents, not claims about a century of historic rivalries or a live scoreboard.",
+      "Recent varsity archives show the Longhorns returned to a consistent postseason conversation: MaxPreps records 7–3 in 2024 and 7–4 in 2025, including a 2025 playoff appearance that ended against Yorktown. Those are historical results from a third-party team-maintained database, not official UIL state championship records. The UIL all-time state-finals table does not list Agua Dulce as a champion or title-game finalist.",
+      "The program also appears in older UIL historical postseason archives, including the late 1980s and mid-1990s when the Longhorns met opponents such as Flatonia, Runge and Menard. The 1996 archive reports a narrow Menard 14–13 result over Agua Dulce; it is a dated historical playoff result, not a 2026 district fixture. These state records provide a useful history trail without inventing program founding years or an unverified district-title total.",
+      "An important game-day change is unfolding on school grounds. Two March–April 2026 TDLR registrations cover replacement football bleachers and additional west-campus athletic construction, including sidewalks and football-field concession/restroom facilities. The filings projected different completion dates, but registration by itself does NOT mean seating and accessible routes are open and usable on October 9. One Longhorn Drive is the site named in state filings; families should call school athletics for gate, parking and access status rather than assume the works are complete."
+    ],
+    "milestones": [
+      {
+        "date": "1988–1996",
+        "title": "Recorded South Texas playoff matchups",
+        "body": "UIL postseason archives list Agua Dulce in 1988 and in the mid-1990s, including games against Flatonia, Runge and Menard. These are specific postseason records, not undocumented state-final appearances.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/96at_bfb.html",
+        "sourceLabel": "UIL 1996–97 official historical bracket results"
+      },
+      {
+        "date": "2024",
+        "title": "Seven-win Longhorns season",
+        "body": "MaxPreps' historical team table records Agua Dulce finishing 7–3 under Jason Calvez, evidence of a recent competitive season rather than a state title.",
+        "sourceUrl": "https://www.maxpreps.com/tx/agua-dulce/agua-dulce-longhorns/football/history/",
+        "sourceLabel": "MaxPreps 2024 Agua Dulce season archive"
+      },
+      {
+        "date": "2025",
+        "title": "Another playoff campaign",
+        "body": "Agua Dulce's 2025 history records a 7–4 season with a postseason meeting against Yorktown, shown in the varsity highlights. These are historical, not 2026 results.",
+        "sourceUrl": "https://www.maxpreps.com/tx/agua-dulce/agua-dulce-longhorns/football/media/videos/",
+        "sourceLabel": "MaxPreps 2025 Longhorn playoff highlight archive"
+      },
+      {
+        "date": "March 2026",
+        "title": "Football bleacher replacement registered",
+        "body": "Texas TDLR registered a public $500,000 bleacher replacement at Agua Dulce ISD's football field at One Longhorn Drive. Projected completion date was August 31; no as-built completion is guaranteed by this record.",
+        "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320",
+        "sourceLabel": "Official TDLR project TABS2026016320"
+      },
+      {
+        "date": "April 2026",
+        "title": "Broader west-campus improvements registered",
+        "body": "A separate estimated $1 million project listed new sidewalks, concession and restroom facilities serving the football field and broader athletic grounds, with estimated December 1 completion.",
+        "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026018319",
+        "sourceLabel": "Official TDLR project TABS2026018319"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 2A Division II District 16",
+        "body": "The official alignment places Agua Dulce with Ben Bolt-Palito Blanco, La Villa, Riviera Kaufer, Santa Maria and Woodsboro for the 2026–28 cycle, independent of prior seasons' classification.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 2A Division II alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who is Agua Dulce's football head coach in 2026?",
+        "answer": "KIII 3NEWS interviewed Jason Calvez as the 2026 Longhorns head football coach. Agua Dulce ISD's official staff directory separately lists him as athletic director and provides the athletics-office extension. Confirm later staff changes with the district."
+      },
+      {
+        "question": "What district do the Agua Dulce Longhorns play in?",
+        "answer": "Class 2A Division II, District 16 for the UIL 2026–28 realignment, with Ben Bolt-Palito Blanco, La Villa, Riviera Kaufer, Santa Maria and Woodsboro."
+      },
+      {
+        "question": "Where is Agua Dulce's football field?",
+        "answer": "A Texas TDLR construction record identifies Agua Dulce ISD's football field at One Longhorn Drive, Agua Dulce, TX 78330. Actual ticket booth, accessible gate and parking arrangements are not supplied by that record; call the school at 361-998-2542 ext. 5."
+      },
+      {
+        "question": "Were the stadium bleachers replaced in 2026?",
+        "answer": "Texas state records show a registered football-field bleacher replacement with estimated completion August 31, 2026, and a separate west-campus athletics project estimated for December 1. Registration and forecast dates do not establish actual completion; verify access with Agua Dulce ISD before attending."
+      },
+      {
+        "question": "Has Agua Dulce won a UIL state football championship?",
+        "answer": "The official UIL football all-time state-final appearances table does not list Agua Dulce among state champions or championship-game finalists. The Longhorns do have documented postseason appearances in older UIL brackets and in recent team archives."
+      },
+      {
+        "question": "Does Agua Dulce High School serve Nueces County?",
+        "answer": "Yes. The district's One Longhorn Drive campus is in Nueces County according to the NCES federal directory and TDLR's athletics-field filing. The wider Agua Dulce district also serves communities beyond the immediate town; do not assume the campus is in Jim Wells County."
+      },
+      {
+        "question": "Where can visiting supporters confirm 2026 kickoff, tickets and stadium access?",
+        "answer": "Use Agua Dulce's athletics office and updated school/team schedule. The district is carrying out registered football-area work, so current entry routes, bleacher access, restrooms and parking must be confirmed, not inferred from planning filings."
+      }
+    ]
+  },
   "ackerly-sands": {
     "slug": "ackerly-sands",
     "theme": {
