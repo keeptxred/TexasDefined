@@ -209,6 +209,21 @@ const surfaces = [
   ['hogg-heritage-trail-sitemap', '/sitemap.xml', '/article/hogg-family-heritage-trail-texas'],
 ];
 
+const citySitemapEntries = [
+  'houston',
+  'dallas',
+  'fort-worth',
+  'austin',
+  'san-antonio',
+  'el-paso',
+  'arlington',
+  'hurst',
+  'corpus-christi',
+  'plano',
+  'lubbock',
+];
+const cityAuthorityLastmod = '2026-10-08';
+
 const canonicalHomepageRequiredNeedles = [
   'Texas Defined',
   'Featured this month on Texas Defined',
@@ -302,6 +317,61 @@ for (const [label, path, needle] of surfaces) {
   await verifyRevisionBoundSurface(label, path, needle);
 }
 
+let citySitemapPassed = false;
+let citySitemapStatus = 'network-error';
+let citySitemapError = '';
+let citySitemapBody = '';
+let citySitemapAttempts = 0;
+let citySitemapMissing = [];
+
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  citySitemapAttempts = attempt;
+  const url = `${origin}/sitemap.xml?verify=${encodeURIComponent(`${sha}-${runId}-city-sitemap-${attempt}`)}`;
+  console.log(`[city-sitemap-authority] attempt ${attempt}: ${url}`);
+  try {
+    const response = await fetch(url, {
+      redirect: 'follow',
+      cache: 'no-store',
+      signal: AbortSignal.timeout(30_000),
+      headers: {
+        'user-agent': 'TexasDefined-CI-Production-Smoke/1.0',
+        'cache-control': 'no-cache',
+        pragma: 'no-cache',
+      },
+    });
+    citySitemapStatus = String(response.status);
+    citySitemapBody = await response.text();
+    citySitemapError = '';
+    citySitemapMissing = citySitemapEntries.filter((slug) => {
+      const expected = `<url><loc>${origin}/city/${slug}</loc><lastmod>${cityAuthorityLastmod}</lastmod></url>`;
+      return !citySitemapBody.includes(expected);
+    });
+    if (response.ok && citySitemapMissing.length === 0) {
+      citySitemapPassed = true;
+      console.log(`[city-sitemap-authority] verified all ${citySitemapEntries.length} city URLs at lastmod ${cityAuthorityLastmod}.`);
+      break;
+    }
+    console.log(response.ok
+      ? `[city-sitemap-authority] missing or stale city entries: ${citySitemapMissing.join(', ')}`
+      : `[city-sitemap-authority] HTTP ${response.status}; waiting for production sitemap.`);
+  } catch (error) {
+    citySitemapError = error instanceof Error ? error.message : String(error);
+    citySitemapStatus = 'network-error';
+    console.log(`[city-sitemap-authority] request failed: ${citySitemapError}`);
+  }
+  if (attempt < 6) await sleep(5_000);
+}
+
+appendSummary(`| ${citySitemapPassed ? '✅ pass' : '❌ FAIL'} | city-sitemap-authority | ${citySitemapStatus} | ${citySitemapAttempts} | no |
+`);
+if (!citySitemapPassed) {
+  const reason = citySitemapError
+    || (citySitemapMissing.length ? `missing/stale city sitemap entries: ${citySitemapMissing.join(', ')}` : `HTTP ${citySitemapStatus}`);
+  console.error(`::error title=LIVE PRODUCTION failure::city sitemap authority verification failed — ${reason}`);
+  if (citySitemapBody) console.error(`[city-sitemap-authority] response sample: ${citySitemapBody.slice(0, 1800).replace(/\s+/g, ' ')}`);
+  process.exit(1);
+}
+
 let canonicalHomepagePassed = false;
 let canonicalHomepageStatus = 'network-error';
 let canonicalHomepageBody = '';
@@ -367,7 +437,7 @@ if (!canonicalHomepagePassed) {
 }
 
 appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
-console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
+console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus city sitemap authority coverage and canonical homepage, no cf-mitigated challenges).`);
 
 await import('./verify-texas-industries-production.mjs');
 await import('./verify-gaming-production.mjs');
