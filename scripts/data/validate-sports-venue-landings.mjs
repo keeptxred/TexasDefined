@@ -191,10 +191,20 @@ for (const marker of [
   "import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations'",
   "candidate.kind === 'sports-venue'",
   'candidate.countySlug === entity.slug',
-  'isIndexableEntityPage(candidate)',
+  '.map(applyCurrentEntityCorrections)',
+  '.filter(isIndexableEntityPage)',
   'sportsVenuePriority(left) - sportsVenuePriority(right)',
   '<CountySportsDestinations county={entity} venues={countySportsVenues} />',
 ]) assert(entityRoute.includes(marker), `County entity route is missing sports-venue graph integration marker: ${marker}.`);
+const countySportsCandidateBlock = entityRoute.slice(
+  entityRoute.indexOf("const countySportsCandidates = entity.kind === 'county'"),
+  entityRoute.indexOf('const countySportsEditorial'),
+);
+assert(
+  countySportsCandidateBlock.indexOf('.map(applyCurrentEntityCorrections)') >= 0
+    && countySportsCandidateBlock.indexOf('.filter(isIndexableEntityPage)') > countySportsCandidateBlock.indexOf('.map(applyCurrentEntityCorrections)'),
+  'County sports discovery must apply current venue corrections before indexability filtering.',
+);
 
 for (const marker of [
   'const sportsTravelPicks = [',
