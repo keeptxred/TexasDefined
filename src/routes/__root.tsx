@@ -37,12 +37,14 @@ function GoogleTagManagerHead() {
   );
 }
 
+const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>;
+
 function NotFoundComponent() {
-  return <Suspense fallback={<div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><NotFoundScreen /></Suspense>;
+  return <Suspense fallback={statusFallback}><NotFoundScreen /></Suspense>;
 }
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
-  return <Suspense fallback={<div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>}><ErrorScreen {...props} /></Suspense>;
+  return <Suspense fallback={statusFallback}><ErrorScreen {...props} /></Suspense>;
 }
 
 function HeaderFallback() {
@@ -85,7 +87,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: `/favicon.ico?v=${iconVersion}`, sizes: "any" },
       { rel: "icon", href: `/favicon.svg?v=${iconVersion}`, type: "image/svg+xml" },
       { rel: "icon", href: `/favicon.png?v=${iconVersion}`, type: "image/png" },
-      { rel: "shortcut icon", href: `/favicon.ico?v=${iconVersion}` },
       { rel: "apple-touch-icon", href: `/apple-touch-icon.png?v=${iconVersion}`, sizes: "180x180" },
       { rel: "alternate", href: "/rss.xml", type: "application/rss+xml", title: "Texas Defined RSS" },
     ],
@@ -184,20 +185,11 @@ function RootComponent() {
       const destination = anchor.href;
       const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
       if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
+      const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
-        if (shouldRecordImpression) {
-          analytics.trackTexasDefinedOutcome("partner_referral_shown", {
-            resourceId,
-            entityKind,
-            destination,
-          });
-        }
-        analytics.trackTexasDefinedOutcome("partner_referral_clicked", {
-          resourceId,
-          entityKind,
-          destination,
-        });
+        if (shouldRecordImpression) analytics.trackTexasDefinedOutcome("partner_referral_shown", details);
+        analytics.trackTexasDefinedOutcome("partner_referral_clicked", details);
         document.removeEventListener("click", earlyCommercialClick, true);
       });
     };
