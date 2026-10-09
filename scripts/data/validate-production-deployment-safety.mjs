@@ -10,6 +10,8 @@ const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
+const sportsVenueProductionSmoke = fs.readFileSync('.github/workflows/verify-sports-venue-editorial-production.yml', 'utf8');
+const sportsVenueProductionVerifier = fs.readFileSync('scripts/production/verify-sports-venue-editorial-production.mjs', 'utf8');
 const failures = [];
 
 const workflowDirectory = '.github/workflows';
@@ -54,6 +56,27 @@ for (const entry of fs.readdirSync(workflowDirectory, { withFileTypes: true })) 
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
+
+for (const [needle, label] of [
+  ['workflow_run:', 'sports venue verifier post-deploy trigger'],
+  ['- Deploy TexasDefined production', 'sports venue verifier production workflow dependency'],
+  ["github.event.workflow_run.conclusion == 'success'", 'sports venue verifier successful-deploy condition'],
+  ["ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}", 'sports venue verifier exact deployed SHA checkout'],
+  ["GITHUB_SHA: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}", 'sports venue verifier deployed SHA probe identity'],
+]) requireText(sportsVenueProductionSmoke, needle, label);
+
+if (sportsVenueProductionSmoke.includes('\n  push:\n')) {
+  failures.push('Sports venue production verification must not run directly on push; it must wait for the protected production workflow to succeed.');
+}
+if (sportsVenueProductionSmoke.includes("if: github.event_name == 'workflow_dispatch'")) {
+  failures.push('Sports venue production verification must not regress to manual-only execution.');
+}
+for (const [needle, label] of [
+  ["process.env.GITHUB_RUN_ID || 'run'", 'sports venue verifier unique run cache key'],
+  ["process.env.GITHUB_RUN_ATTEMPT || 'attempt'", 'sports venue verifier unique rerun cache key'],
+  ["cache: 'no-store'", 'sports venue verifier no-store request'],
+  ['AbortSignal.timeout(30_000)', 'sports venue verifier bounded request timeout'],
+]) requireText(sportsVenueProductionVerifier, needle, label);
 
 const pushTriggerStart = workflow.indexOf('  push:\n');
 const workflowDispatchStart = workflow.indexOf('  workflow_dispatch:', pushTriggerStart);
