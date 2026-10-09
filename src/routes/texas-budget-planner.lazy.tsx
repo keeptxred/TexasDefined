@@ -11,6 +11,15 @@ export const Route = createLazyFileRoute('/texas-budget-planner')({
 
 function TexasBudgetPlannerPage() {
   return <CalculatorPage eyebrow="Where the money goes" title="Texas household budget planner" description={description}>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': 'https://texasdefined.com/texas-budget-planner#faq',
+      mainEntity: budgetPlannerFaqs.map(faq => ({
+        '@type': 'Question', name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    }) }} />
     <BudgetCalculator />
     <section className="mt-14 border-t border-border pt-10" aria-labelledby="budget-structure-heading"><p className="eyebrow text-primary">Make irregular costs monthly</p><h2 id="budget-structure-heading" className="mt-3 font-display text-3xl">A useful budget includes the bills that do not arrive every month</h2><div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground"><p>Start with take-home income and the recurring bills that are easy to see. Then add monthly reserves for predictable but irregular costs such as maintenance, insurance deductibles, vehicle expenses and seasonal utility swings.</p><p>The goal is not to force every household into one percentage formula. It is to make the full set of obligations visible enough that housing, transportation or debt decisions can be tested before they become fixed costs.</p></div></section>
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="budget-links-heading"><p className="eyebrow text-primary">Fill in the biggest assumptions</p><h2 id="budget-links-heading" className="mt-3 font-display text-3xl">Use the other Texas tools to improve the budget inputs</h2><div className="mt-6 grid gap-4 md:grid-cols-3">
