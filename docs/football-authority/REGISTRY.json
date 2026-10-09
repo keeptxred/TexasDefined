@@ -40,21 +40,25 @@
       "alvord",
       "amarillo"
     ],
-    "state": "ASSIGNED_RESEARCH_PENDING",
+    "state": "IMPLEMENTED_PENDING_MERGE_AND_ACCEPTANCE",
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 5,
+    "partiallyCompleted": 25,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "abilene-wylie",
-    "nextSchool": "ackerly-sands",
-    "implementedOnBranch": 5
+    "notes": "All 25 assigned have distinct school editorial objects and audit records saved across existing two PR branches. All 25 are IMPLEMENTED but 0 production VERIFIED. Eleven unkeyed editorial entries corrected at d373055; malformed county reciprocal map repaired at 5624d7a; reciprocal campus-county links added at 2d9376d and 9a19441; Amarillo campus is NCES-confirmed Randall County, not Potter. Protected merge, deployment and individual visual acceptance remain pending.",
+    "currentSchool": "amarillo",
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
+    "parentBatchPr": 4409,
+    "remainingToImplement": 0,
+    "remainingToVerify": 25
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -393,8 +397,39 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ackerly-sands",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/ackerly-sands.md",
+      "evidenceSources": [
+        "https://www.pressreporter.com/issues/2026-06-16/pages/6/",
+        "https://sands.esc17.net/page/Alma_Mater",
+        "https://sands.esc17.net/page/contact",
+        "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "https://realignment.uiltexas.org/alignments/2026/26-28_Rank.pdf",
+        "https://nces.ed.gov/ccd/districtsearch/district_detail.asp?ID2=4839120&Miles=20&Search=1&Zip=79749",
+        "https://www.texasfootball.com/team/sands-mustangs"
+      ],
+      "implementationCommits": [
+        "eae236c962db9f5c7222bae4d4ec22a2431449d3",
+        "2f965fabb878a6c7e265365cfde8b4bde259fac8",
+        "c9961922983f9c8f1fc8f358b8572bc514a236e2",
+        "c04b3cbf751bf463ebfc5b8e1da60b84216dea04",
+        "bc6a9865eb00491a25306805676f32e5bd61c5ba"
+      ],
+      "imageStatus": "Brown/white original documented milestone graphics; no authentic photos with reuse rights; unrelated Fargo stock image discarded",
+      "internalLinkStatus": "Dawson County reciprocal link coded; production unverified",
+      "seoStatus": "Individual meta/H1 from verified Mustangs identity and school-specific source trail; CI pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected merge of prior five schools and reconciliation",
+        "Individual CI and typecheck",
+        "Production release and mobile/desktop browser acceptance",
+        "Precise stadium address, accessible gates, parking and admission",
+        "Licensed documentary photograph"
+      ]
     },
     {
       "id": "uil:agua-dulce",
@@ -407,8 +442,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/agua-dulce",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/agua-dulce.md",
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "https://www.adisd.net/directory",
+        "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320",
+        "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026018319",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/96at_bfb.html"
+      ],
+      "implementationCommits": [
+        "e703d987ccc0a857354670c95bc6e73d508f6465",
+        "decc9693f0bb4b5c9491da6d17159f954bd15afb",
+        "905a72ab824b6a9d9875118bcc6cfbcd5c3cda78",
+        "12cde2cab617151d6b9a9be54d139e373314daad"
+      ],
+      "imageStatus": "Original sourced milestones, no licensed documentary photos available",
+      "internalLinkStatus": "Nueces reciprocal school link committed, production pending",
+      "seoStatus": "Original title/description and verified Longhorn mascot committed, production pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected merge of parent #4409",
+        "Continuation PR CI and merge",
+        "Individual desktop/mobile real production acceptance",
+        "TDLR work completion, actual accessible parking/ticketing gate evidence",
+        "Documentary image reuse license"
+      ]
     },
     {
       "id": "uil:alba-golden",
@@ -421,8 +484,39 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alba-golden",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/alba-golden.md",
+      "evidenceSources": [
+        "https://www.agisd.com/page/athletic",
+        "https://www.agisd.org/",
+        "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Wood+County&ID=480765000053&Search=1&State=48",
+        "https://www.kltv.com/2022/05/25/alba-golden-panthers/",
+        "https://www.texasfootball.com/team/alba-golden-panthers",
+        "https://www.maxpreps.com/tx/alba/alba-golden-panthers/football/history/",
+        "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf"
+      ],
+      "implementationCommits": [
+        "2a788fcace216a1fa133d39b97bb6849fe3e8e94",
+        "66dc5a4ccffb90c6ceee88f33bd2e5bf314a8a9b",
+        "576e9d676a02a09c4173479f31f129271370c625",
+        "f9cf997c87fb76ce6cedb6d488812d53092d1b8c",
+        "e9eb5cb14a780a790feb1960b6b88cabb380f99f"
+      ],
+      "imageStatus": "Custom sourced red milestone cards; no authorized documentary team image and no fake school logo",
+      "internalLinkStatus": "Wood County reciprocal route source code committed; production inspection needed",
+      "seoStatus": "Unique Panthers SEO and identity committed; production checks needed",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Parent and continuation PR protected merges",
+        "Real Chrome mobile/desktop school and Wood County QA",
+        "Source discrepancy 2024–25 season archive",
+        "Official current stadium admission/parking/ADA",
+        "Licensed authentic football photography"
+      ]
     },
     {
       "id": "uil:albany",
@@ -435,8 +529,39 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/albany",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/albany.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/football/all-time-appearances",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.texasfootball.com/article/2022/12/14/albany-mart-state",
+        "https://www.uiltexas.org/football/state-team-mp-archive/albany-2023-2024-football",
+        "https://www.albanyisd.net/apps/pages/index.jsp?type=d&uREC_ID=582174",
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "https://www.hmdb.org/m.asp?m=85275"
+      ],
+      "implementationCommits": [
+        "660b113000d535879c4990d0cbb6aa7c238bec9c",
+        "b868ca7870fe470cc8cdc3407b0e644425e325a1",
+        "e963868b3e398983238df44e048bbe8feeaa89de",
+        "35d85009a278ac84f080147b53e02b60526b5be7",
+        "8336d3bd43f94e9fdb73ec475004431a01cad8aa",
+        "c6f9ece72c88b28ee3b445780fc69542aea885e2"
+      ],
+      "imageStatus": "Independent documented historic-stadium visual narrative, original source-linked red-white milestone graphics; copyrighted stadium photographs withheld",
+      "internalLinkStatus": "Shackelford County school↔county source code committed; live check not done",
+      "seoStatus": "Albany-specific title/description and Lions identity/FAQ source code committed; production check pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Parent and continuation PR protected merge and deployment",
+        "Individual mobile/desktop Chrome acceptance school/county",
+        "Commercial stadium photograph reuse rights",
+        "Game-specific ADA, parking and ticket confirmation"
+      ]
     },
     {
       "id": "uil:aledo",
@@ -449,8 +574,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aledo",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/aledo.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/football/all-time-appearances",
+        "https://www.uiltexas.org/football/state-team-mp-archive/aledo-2023-2024-football",
+        "https://www.aledoisdathletics.com/sport/football/boys/?tab=staff",
+        "https://realignment.uiltexas.org/alignments/2026/2026_RR-Packet.pdf",
+        "https://www.aledoisdathletics.com/buchanan-stadium",
+        "https://sports.yahoo.com/articles/down-bearcats-arlington-martin-ends-024149692.html",
+        "https://aledoledger.com/answers/bearcats-state-titles/"
+      ],
+      "implementationCommits": [
+        "3a992ade01f4c82cd2481be18b303ff5a59f0ec0",
+        "3d107641d03ebc96f0882b2c01d80bcf22c7132d",
+        "937c15613557a29ed3cce86c404a59004b5161fa",
+        "5260f9080bb8a4a9cc93416aab93b77633ae9818",
+        "77c5bd3895f738f20a01752cf9d705e3d60afa86"
+      ],
+      "imageStatus": "Original championship timeline; authentic school/stadium photos withheld without license",
+      "internalLinkStatus": "Parker County reciprocal link committed in existing school/county architecture, production pending",
+      "seoStatus": "Individual 12-title/6A title/description and verified Bearcats school colors committed",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected parent/continuation merges",
+        "Actual desktop/mobile Aledo/Parker Chrome QA",
+        "Current ticket/parking/accessible stadium gates",
+        "Authentic sports photo reuse rights"
+      ]
     },
     {
       "id": "uil:alice",
@@ -463,8 +618,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alice",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/alice.md",
+      "implementationCommits": [
+        "b3dce29cf40263d615800650ae5da5b71bd1a263",
+        "b77a8119844f9200c82d97a4b5630d5ef48dd4d8",
+        "d9ed2cd73815712fb09aeb3eb767bce46a917423",
+        "a846f94ac0c8ad3b7d43551113713bbf4a07fe0c"
+      ],
+      "imageStatus": "School-specific sourced milestone graphics, no cleared documentary photography",
+      "internalLinkStatus": "Jim Wells County reciprocal source code committed, production pending",
+      "seoStatus": "Distinct Alice title, metadata and Coyotes identity coded, not production tested",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected PR merge",
+        "Deployment verification",
+        "Mobile/desktop Alice and Jim Wells QA",
+        "Stadium parking, ticketing, accessible gates and photo license"
+      ],
+      "evidenceSources": [
+        "https://ahs.aliceisd.net/en-US/football-e260d291",
+        "https://www.aliceisd.net/en-US/athletics-640d1b62/coaching-staff-6d5e1b54",
+        "https://ahs.aliceisd.net/en-US/athletics-dc57d034",
+        "https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898",
+        "https://www.aliceisd.net/en-US/stadium-design-update-b3d3714d",
+        "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf"
+      ]
     },
     {
       "id": "uil:alief-elsik",
@@ -477,8 +660,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-elsik",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/alief-elsik.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/90at_bfb.html",
+        "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/staff/",
+        "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf"
+      ],
+      "implementationCommits": [
+        "237b454e53789c2f3e817ac97f8721b0f3ced50e",
+        "8ccdb52c8b983e97518f7b113b8fab7c88ec77cc",
+        "40ab8275548f835c7a8aa206b4ba7ba0c34d9546",
+        "419e6e84e7a81f4f3fa2e81f5d2422deab06b744"
+      ],
+      "imageStatus": "Original sourced milestone graphics; licensed authentic images unavailable",
+      "internalLinkStatus": "Harris County links committed, production pending",
+      "seoStatus": "Individual Elsik editorial and identity metadata coded; validation pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected PR merges",
+        "Production deployment and browser QA",
+        "Official stadium entrance, ADA/parking and tickets",
+        "Authentic school image reuse rights"
+      ]
     },
     {
       "id": "uil:alief-hastings",
@@ -491,8 +700,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-hastings",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/alief-hastings.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.uiltexas.org/football/all-time-appearances",
+        "https://www.texasfootball.com/team/alief-hastings-bears",
+        "https://www.maxpreps.com/tx/houston/alief-hastings-fighting-bears/football/history/",
+        "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025021812",
+        "https://www.aliefisd.net/o/fce/live-feed"
+      ],
+      "implementationCommits": [
+        "0c618509182c448115913b4fce50929c1f148240",
+        "86399decd5ce6540478bfa6ec1c530cd74bf3ae7",
+        "fcc8d8401d341602920f38b1cbd0aa31461f5452",
+        "1f1f847354c3e5c329ab5288b945e9817c12511e"
+      ],
+      "imageStatus": "School-specific sourced milestones, no reuse rights for real photographs",
+      "internalLinkStatus": "Harris County inbound/outbound committed, live QA pending",
+      "seoStatus": "School-specific title/description and real state-final fact coded; QA pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected merges/deploy",
+        "School/Harris mobile/desktop live checks",
+        "Stadium gate/ADA/parking/tickets and press-box completion status",
+        "Legally cleared real stadium/team image"
+      ]
     },
     {
       "id": "uil:alief-taylor",
@@ -505,22 +742,104 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-taylor",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alief-taylor.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "f53ae27b8d6984764ce8851868beaac65e5bd3cf",
+        "fd77e1ff1671bffa7af9b7a72b2b27df79de10da"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Protected parent and continuation merges",
+        "Production deployment",
+        "Rendered mobile/desktop and SEO acceptance",
+        "Unlicensed authentic team/stadium photography",
+        "Primary confirmation of head coach and game-day gate"
+      ],
+      "schoolNote": "docs/football-authority/schools/alief-taylor.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "f53ae27b8d6984764ce8851868beaac65e5bd3cf",
+        "fd77e1ff1671bffa7af9b7a72b2b27df79de10da"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Protected parent and continuation merges",
+        "Production deployment",
+        "Rendered mobile/desktop and SEO acceptance",
+        "Unlicensed authentic team/stadium photography",
+        "Primary confirmation of head coach and game-day gate"
+      ],
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf",
+        "https://www.uiltexas.org/press-releases/detail/2026-2028-uil-reclassification-and-realignment-information",
+        "https://taylor.aliefisd.net/events",
+        "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/",
+        "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/staff/",
+        "https://www.si.com/high-school/stats/texas/football/teams/250856-alief-taylor-lions/games",
+        "https://www.maxpreps.com/tx/houston/alief-taylor-lions/football/schedule/"
+      ]
     },
     {
       "id": "featured:all-saints-fort-worth",
       "name": "All Saints",
       "slug": "all-saints-fort-worth",
-      "association": "NON_UIL_UNVERIFIED",
-      "classification": null,
-      "division": null,
-      "district": null,
-      "format": null,
-      "source": "src/data/high-school-football/featured-programs.ts",
+      "association": "TAPPS",
+      "classification": "Division II",
+      "division": 2,
+      "district": 1,
+      "format": "11-Man",
+      "source": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/history/",
       "url": "https://texasdefined.com/texas-high-school-football-teams/all-saints-fort-worth",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/all-saints-fort-worth.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "ba647f975a649548bcb84e61265a96d782236ff6"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Protected merges and deployment",
+        "Individual rendered production acceptance",
+        "Unlicensed authentic images",
+        "Game-specific stadium entrance and ticket policies",
+        "Coach and schedule future freshness"
+      ],
+      "schoolNote": "docs/football-authority/schools/all-saints-fort-worth.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "ba647f975a649548bcb84e61265a96d782236ff6"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Protected merges and deployment",
+        "Individual rendered production acceptance",
+        "Unlicensed authentic images",
+        "Game-specific stadium entrance and ticket policies",
+        "Coach and schedule future freshness"
+      ],
+      "evidenceSources": [
+        "https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall",
+        "https://www.aseschool.org/about/campus-map",
+        "https://www.aseschool.org/community/leadership",
+        "https://www.aseschool.org/give/saints-elevate/field-house",
+        "https://www.aseschool.org/admission/admission-events",
+        "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/",
+        "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/history/"
+      ]
     },
     {
       "id": "uil:allen",
@@ -533,8 +852,49 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/allen",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/allen.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "0005a98da25da7446159103c129f330cd5fd891b"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Protected merge/deploy",
+        "Real desktop/mobile QA and links",
+        "Unlicensed authentic photos",
+        "Verify live scores after October 9"
+      ],
+      "schoolNote": "docs/football-authority/schools/allen.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "0005a98da25da7446159103c129f330cd5fd891b"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Protected merge/deploy",
+        "Real desktop/mobile QA and links",
+        "Unlicensed authentic photos",
+        "Verify live scores after October 9"
+      ],
+      "evidenceSources": [
+        "https://www.allenisd.org/page/athletics",
+        "https://www.alleneaglesfb.com/protect-the-tradition",
+        "https://www.alleneaglesfb.com/coaching-staff",
+        "https://www.alleneaglesfb.com/coaches/lee-wiginton",
+        "https://www.texasfootball.com/amp/article/2026/05/20/allen-eagles-where-everything-is-bigger-%E2%80%93-and-better",
+        "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
+        "https://www.alleneaglesfb.com/schedule",
+        "https://www.allenisd.org/",
+        "https://www.allenisd.org/article/3092730"
+      ]
     },
     {
       "id": "uil:alpine",
@@ -547,8 +907,45 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alpine",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alpine.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "1d4644337713c0242fa525c940be462583c9c34a"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Protected merges and deploy",
+        "Actual mobile/desktop acceptance",
+        "No verified licensed stadium image",
+        "Stadium gate and updated Oct 2026 results"
+      ],
+      "schoolNote": "docs/football-authority/schools/alpine.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "1d4644337713c0242fa525c940be462583c9c34a"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Protected merges and deploy",
+        "Actual mobile/desktop acceptance",
+        "No verified licensed stadium image",
+        "Stadium gate and updated Oct 2026 results"
+      ],
+      "evidenceSources": [
+        "https://alpine.esc18.net/high-school",
+        "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "https://alpine.esc18.net/staff-directory",
+        "https://www.maxpreps.com/tx/alpine/alpine-bucks/football/staff/",
+        "https://static1.squarespace.com/static/5df26417b47f8d120024c8f5/t/69655a9c8345875a67f15fca/1768250012439/Boardmin%2B11.19.2025%2B-%2BRegular%2BMeeting.pdf",
+        "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks"
+      ]
     },
     {
       "id": "uil:altair-rice",
@@ -561,8 +958,46 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/altair-rice",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/altair-rice.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "d72985a15713e97b21b04859b371758c7cc439a8"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Protected merges and deployment",
+        "Current verified coach appointment",
+        "Finalized October results",
+        "Official stadium entrance and image rights",
+        "Mobile/desktop browser acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/altair-rice.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "d72985a15713e97b21b04859b371758c7cc439a8"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Protected merges and deployment",
+        "Current verified coach appointment",
+        "Finalized October results",
+        "Official stadium entrance and image rights",
+        "Mobile/desktop browser acceptance"
+      ],
+      "evidenceSources": [
+        "https://ricehs.ricecisd.org/athletics",
+        "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "https://www.pigskinprep.com/archive/Schedulespdf/Altair%20Rice%20Consolidated.pdf",
+        "https://www.texasfootball.com/team/rice-consolidated-raiders",
+        "https://www.maxpreps.com/tx/altair/rice-consolidated-raiders/football/history/"
+      ]
     },
     {
       "id": "uil:alto",
@@ -575,8 +1010,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alto",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alto.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "ab4473f6ca2059aaa392df8d8aeb1b25de4fbdd6"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Verify current head coach official",
+        "Image rights and stadium gate",
+        "Actual production mobile/desktop review",
+        "Protected merges and deploy"
+      ],
+      "schoolNote": "docs/football-authority/schools/alto.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "ab4473f6ca2059aaa392df8d8aeb1b25de4fbdd6"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Verify current head coach official",
+        "Image rights and stadium gate",
+        "Actual production mobile/desktop review",
+        "Protected merges and deploy"
+      ],
+      "evidenceSources": [
+        "https://www.maxpreps.com/tx/alto/alto-yellowjackets/football/schedule/",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.uiltexas.org/football/archives/P208",
+        "https://www.texasfootball.com/team/alto-yellowjackets",
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf"
+      ]
     },
     {
       "id": "uil:alvarado",
@@ -589,8 +1060,43 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvarado",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvarado.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "2026 official head coach",
+        "Historical title-game opponent/date",
+        "Photo rights and stadium gate",
+        "Protected merges and deployed browser acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/alvarado.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "2026 official head coach",
+        "Historical title-game opponent/date",
+        "Photo rights and stadium gate",
+        "Protected merges and deployed browser acceptance"
+      ],
+      "evidenceSources": [
+        "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+        "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
+        "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/history/",
+        "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf"
+      ]
     },
     {
       "id": "uil:alvin",
@@ -603,8 +1109,40 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvin.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Current coach not verified",
+        "Venue gate and authentic photo rights",
+        "Protected merges/deploy and actual browser acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/alvin.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Current coach not verified",
+        "Venue gate and authentic photo rights",
+        "Protected merges/deploy and actual browser acceptance"
+      ],
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "https://www.texasfootball.com/team/alvin-yellowjackets",
+        "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/"
+      ]
     },
     {
       "id": "uil:alvin-iowa-colony",
@@ -617,8 +1155,43 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-iowa-colony",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvin-iowa-colony.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "7ce33de147d516ee9a5118109c12b946122aec41"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Freedom Field gate and unreliable capacity",
+        "Current official coaching confirmation",
+        "Authentic image rights",
+        "Merged deployment and mobile desktop acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/alvin-iowa-colony.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "7ce33de147d516ee9a5118109c12b946122aec41"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Freedom Field gate and unreliable capacity",
+        "Current official coaching confirmation",
+        "Authentic image rights",
+        "Merged deployment and mobile desktop acceptance"
+      ],
+      "evidenceSources": [
+        "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "https://www.texasfootball.com/team/iowa-colony-pioneers",
+        "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/history/"
+      ]
     },
     {
       "id": "uil:alvin-shadow-creek",
@@ -631,8 +1204,43 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-shadow-creek",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvin-shadow-creek.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "f7ee89c1257d5291593aa3c79452fff545203bc1"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Current official 2026 coach",
+        "Freedom Field spectator gate and image rights",
+        "Protected merges and production responsive acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/alvin-shadow-creek.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "f7ee89c1257d5291593aa3c79452fff545203bc1"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Current official 2026 coach",
+        "Freedom Field spectator gate and image rights",
+        "Protected merges and production responsive acceptance"
+      ],
+      "evidenceSources": [
+        "https://www.uiltexas.org/football/archives/f6ecdc319151b973627d86e50f92072a/P72",
+        "https://www.texasfootball.com/article/2019/12/26/alvin-shadow-creek-28-denton-ryan-22-2019-5a-di-texas-high-school-football-championship-recap",
+        "https://www.uiltexas.org/football/state-team/alvin-shadow-creek-2018-2019-football",
+        "https://www.maxpreps.com/tx/pearland/shadow-creek-sharks/football/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "https://www.texasfootball.com/team/alvin-shadow-creek-sharks/"
+      ]
     },
     {
       "id": "uil:alvord",
@@ -645,8 +1253,43 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvord",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvord.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "f0b9df005078020fb4f1a3ae6b13fcd6146bd2a1"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Stadium game-night gate",
+        "Independently verify 2026 head coach",
+        "Photo rights",
+        "Merge deploy and individual browser acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/alvord.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "f0b9df005078020fb4f1a3ae6b13fcd6146bd2a1"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Stadium game-night gate",
+        "Independently verify 2026 head coach",
+        "Photo rights",
+        "Merge deploy and individual browser acceptance"
+      ],
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/schedule/",
+        "https://www.alvordisd.net/athletics",
+        "https://www.maxpreps.com/tx/alvord/alvord-bulldogs/football/25-26/schedule/"
+      ]
     },
     {
       "id": "uil:amarillo",
@@ -659,8 +1302,46 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/amarillo.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "9d2486f78770fd313955e5f6c8142a64ebf40e69"
+      ],
+      "productionVerification": "NOT_PERFORMED",
+      "blockers": [
+        "Confirm official current coach and stadium ticket policy",
+        "Photo rights and city/county links",
+        "Protected parent and continuation merges",
+        "Deployed interactive mobile/desktop acceptance"
+      ],
+      "schoolNote": "docs/football-authority/schools/amarillo.md",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "implementationCommits": [
+        "9d2486f78770fd313955e5f6c8142a64ebf40e69"
+      ],
+      "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
+      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
+      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "outstanding": [
+        "Confirm official current coach and stadium ticket policy",
+        "Photo rights and city/county links",
+        "Protected parent and continuation merges",
+        "Deployed interactive mobile/desktop acceptance"
+      ],
+      "evidenceSources": [
+        "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000142",
+        "https://www.sandiesfootball.com/history",
+        "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.texasfootball.com/hof-blair-cherry",
+        "https://www.texasfootball.com/article/2025/03/05/texas-high-school-football-program-spotlight-amarillo-sandies",
+        "https://txprepfootball.com/schools/amarillo-sandies/",
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf"
+      ]
     },
     {
       "id": "uil:amarillo-caprock",

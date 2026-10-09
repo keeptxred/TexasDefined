@@ -38,7 +38,41 @@ function Page() {
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
-  const countyPath = schoolName === 'Abilene Wylie'
+  // Campus-county mapping for individually sourced Batch 002 profiles;
+  // city names and district service areas are not dependable campus-county proxies.
+  const researchedCampusCounty: Record<string, string> = {
+    'alief-taylor': 'harris',
+    'all-saints-fort-worth': 'tarrant',
+    allen: 'collin',
+    alpine: 'brewster',
+    'altair-rice': 'colorado',
+    alto: 'cherokee',
+    alvarado: 'johnson',
+    alvin: 'brazoria',
+    'alvin-iowa-colony': 'brazoria',
+    'alvin-shadow-creek': 'brazoria',
+    alvord: 'wise',
+    amarillo: 'randall',
+  };
+  const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
+  const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
+    : schoolName === 'Alief Hastings'
+    ? '/county/harris'
+    : schoolName === 'Alief Elsik'
+    ? '/county/harris'
+    : schoolName === 'Alice'
+    ? '/county/jim-wells'
+    : schoolName === 'Aledo'
+    ? '/county/parker'
+    : schoolName === 'Albany'
+    ? '/county/shackelford'
+    : schoolName === 'Alba-Golden'
+    ? '/county/wood'
+    : schoolName === 'Agua Dulce'
+    ? '/county/nueces'
+    : schoolName === 'Ackerly Sands'
+    ? '/county/dawson'
+    : schoolName === 'Abilene Wylie'
     ? '/county/taylor'
     : schoolName === 'Abilene Texas Leadership'
     ? '/county/taylor'

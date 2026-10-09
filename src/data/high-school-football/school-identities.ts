@@ -12,6 +12,44 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'agua-dulce',
+    mascot: 'Longhorns',
+    sourceUrl: 'https://www.adisd.net/',
+    sourceLabel: 'Agua Dulce ISD official Longhorns school and athletics identification',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'alice',
+    mascot: 'Coyotes',
+    sourceUrl: 'https://ahs.aliceisd.net/en-US/football-e260d291',
+    sourceLabel: 'Alice High School official Coyotes football program',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'albany',
+    mascot: 'Lions',
+    colors: 'Red and White',
+    sourceUrl: 'https://www.uiltexas.org/football/state-team-mp-archive/albany-2023-2024-football',
+    sourceLabel: 'UIL 2023–24 Albany state championship team identity and school colors',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'alba-golden',
+    mascot: 'Panthers',
+    colors: 'Red, Blue and White',
+    sourceUrl: 'https://www.kltv.com/2022/05/25/alba-golden-panthers/',
+    sourceLabel: 'KLTV 2026 Alba-Golden school colors and Panthers football identity',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'ackerly-sands',
+    mascot: 'Mustangs',
+    colors: 'Brown and White',
+    sourceUrl: 'https://sands.esc17.net/page/Alma_Mater',
+    sourceLabel: 'Sands CISD official alma mater — Mustangs and brown/white',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abilene-wylie',
     mascot: 'Bulldogs',
     colors: 'Purple and Gold',
