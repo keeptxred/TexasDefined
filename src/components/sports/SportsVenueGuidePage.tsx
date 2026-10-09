@@ -51,16 +51,44 @@ export function SportsVenueGuidePage({
   const canonicalUrl = `${siteUrl}${guide.canonicalPath}`;
   const officialUrl = guide.officialUrl ?? entity.officialUrl;
   const directionsUrl = buildDirectionsUrl(entity, guide);
-  const reviewedAt = guide.reviewedAt ?? enrichment?.verifiedAt ?? entity.sourceCheckedAt;
+  const reviewedAt = latestIsoDate([
+    guide.reviewedAt,
+    enrichment?.verifiedAt,
+    entity.sourceCheckedAt,
+    parkingMap?.verifiedAt,
+    ...upcomingEvents.flatMap((event) => [event.lastVerifiedAt, event.lastUpdatedAt]),
+  ]);
   const officialEventCalendarUrl = guide.eventScheduleUrl
     ?? guide.sources.find((source) => /event|calendar|schedule/i.test(source.label))?.href
     ?? enrichment?.planningLinks.find((link) => /event|calendar|schedule/i.test(link.label))?.url;
   // A city in the same county is not necessarily a nearby attraction.
   const attractions = nearbyAttractions.filter((item) => item.kind !== "city").slice(0, 4);
   const schemaType = sportsVenueSchemaType(entity);
+  const eventSchemaNodes = upcomingEvents.slice(0, 6).map((event) => ({
+    "@type": "Event",
+    "@id": `${canonicalUrl}#event-${encodeURIComponent(event.id)}`,
+    name: event.title,
+    description: event.summary || undefined,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    eventStatus: schemaEventStatus(event.status),
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    url: event.officialEventUrl,
+    image: event.image?.displayAllowed ? event.image.url : undefined,
+    location: { "@id": `${canonicalUrl}#venue` },
+  }));
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: `${entity.name} visitor guide`,
+        dateModified: reviewedAt,
+        mainEntity: { "@id": `${canonicalUrl}#venue` },
+        breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
+      },
       {
         "@type": schemaType,
         "@id": `${canonicalUrl}#venue`,
@@ -102,6 +130,7 @@ export function SportsVenueGuidePage({
           { "@type": "ListItem", position: 4, name: entity.name, item: canonicalUrl },
         ],
       },
+      ...eventSchemaNodes,
       ...(guide.faqs?.length
         ? [{
             "@type": "FAQPage",
@@ -424,7 +453,7 @@ function SourcesSection({ entity, guide, enrichment, photo, reviewedAt }: { enti
         <div>
           <p className="eyebrow text-primary">Sources</p>
           <h2 id="venue-sources-heading" className="mt-2 font-display text-3xl">Sources & review</h2>
-          {reviewedAt ? <p className="mt-3 text-sm leading-6 text-muted-foreground">Last reviewed {formatDate(reviewedAt)}.</p> : null}
+          {reviewedAt ? <p className="mt-3 text-sm leading-6 text-muted-foreground">Latest source verification {formatDate(reviewedAt)}.</p> : null}
         </div>
         <div className="min-w-0">
           {sourceLinks.length ? (
@@ -491,6 +520,21 @@ function dedupeLinks(links: readonly SportsVenueGuideLink[]) {
     seen.add(link.href);
     return true;
   });
+}
+
+function latestIsoDate(values: readonly (string | undefined)[]) {
+  return values
+    .map((value) => value?.slice(0, 10))
+    .filter((value): value is string => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value)))
+    .sort()
+    .at(-1);
+}
+
+function schemaEventStatus(status: TexasEventCarouselItem["status"]) {
+  if (status === "cancelled") return "https://schema.org/EventCancelled";
+  if (status === "postponed") return "https://schema.org/EventPostponed";
+  if (status === "rescheduled") return "https://schema.org/EventRescheduled";
+  return "https://schema.org/EventScheduled";
 }
 
 function sportsVenueSchemaType(entity: TexasEntityRecord) {
