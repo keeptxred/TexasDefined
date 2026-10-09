@@ -611,7 +611,7 @@ await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile', 
     'El Paso Field',
     'Shamrock ISD 2026 football schedule',
   ]) requireNeedle(body, needle, 'Shamrock football authority profile');
-  if (decodeHtml(body).includes('UIL enrollment band</dt>') && decodeHtml(body).includes('105–175.5')) {
+  if (/UIL enrollment band<\/dt>[\s\S]{0,300}?105–175\.5/i.test(decodeHtml(body))) {
     throw new Error('Shamrock profile incorrectly labels the normal 2A Division II cutoff as Shamrock’s enrollment band');
   }
   if (/\bnoindex\b/i.test(body)) throw new Error('Shamrock football authority profile unexpectedly contains noindex');
