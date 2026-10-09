@@ -10,6 +10,12 @@ assert.match(workflow, /artifact_prefix="governed-discover-derivatives-\$\{sourc
 assert.match(workflow, /select\(\.expired == false and \(\.name \| startswith\(\$prefix\)\)\)/);
 assert.match(workflow, /- name: Preserve verified governed Discover derivatives for the next build/);
 assert.match(workflow, /- name: Capture governed Discover derivatives after failed build/);
+const explicitPrebuild = workflow.indexOf("npm run prebuild");
+const discoverMaterialize = workflow.indexOf("node scripts/assets/materialize-discover-overrides.mjs");
+const normalBuild = workflow.indexOf("npm run build", explicitPrebuild + 1);
+assert.ok(explicitPrebuild > 0, "production deploy must explicitly generate prebuild-owned local image sources before Discover materialization");
+assert.ok(discoverMaterialize > explicitPrebuild, "Discover materialization must run after explicit prebuild source generation");
+assert.ok(normalBuild > discoverMaterialize, "normal npm build must remain after Discover materialization");
 
 const fingerprintedArtifact = "governed-discover-derivatives-${{ steps.discover_fingerprint.outputs.sha }}-${{ github.run_id }}-${{ github.run_attempt }}";
 assert.equal(workflow.split(fingerprintedArtifact).length - 1, 2, "successful and failed builds must use the same provenance-scoped artifact namespace");
