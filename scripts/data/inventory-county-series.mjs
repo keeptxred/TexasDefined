@@ -12,8 +12,8 @@ const AUTHORITY_MIN_HEADINGS = 7;
 const AUTHORITY_MIN_RESEARCH_SOURCES = 5;
 const AUTHORITY_MIN_PRIMARY_SOURCES = 2;
 const AUTHORITY_MIN_DISTINCT_SOURCE_HOSTS = 3;
-const snapshot = read('src/data/property/county-property-enrichment.generated.ts');
-const localOfficeVerification = read('src/data/property/county-property-local-verification.ts');
+const snapshot = fs.readFileSync('src/data/property/county-property-enrichment.generated.ts', 'utf8');
+const localOfficeVerification = fs.readFileSync('src/data/property/county-property-local-verification.ts', 'utf8');
 const knownSnapshotCounties = new Set([...snapshot.matchAll(/^  ([a-z][a-z-]+): \{/gm)].map((match) => match[1]));
 const locallyCheckedCounties = new Set([...localOfficeVerification.matchAll(/^  ([a-z][a-z-]+): \{/gm)].map((match) => match[1]));
 
@@ -190,9 +190,12 @@ function authorityEvidence(source, county, body) {
       || host === 'www.tshaonline.org' || host.endsWith('.county.org')
       || host.endsWith('tsl.texas.gov');
   });
-  const countyPattern = new RegExp(county.baseName.replace(/[.*+?^${}()|[\]\\]/g, '\\const canonical = counties();'), 'i');
-  const countySpecificSources = uniqueSources.filter((url) => countyPattern.test(decodeURIComponent(url))
-    || url.toLowerCase().includes(county.slug));
+  const countySpecificSources = uniqueSources.filter((url) => {
+    let decoded;
+    try { decoded = decodeURIComponent(url).toLowerCase(); }
+    catch { decoded = url.toLowerCase(); }
+    return decoded.includes(county.slug) || decoded.includes(county.baseName.toLowerCase());
+  });
   const countyInternalLinks = [...new Set([...source.matchAll(/\bhref\s*:\s*["'](\/county\/[^"']+)["']/g)]
     .map((match) => match[1]))].filter((href) => href !== `/county/${county.slug}`);
   const checkedInLocalContacts = knownSnapshotCounties.has(county.slug) || locallyCheckedCounties.has(county.slug);
