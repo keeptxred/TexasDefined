@@ -374,7 +374,7 @@ function EastTexasFoliageParkMap() {
     <div role="group" aria-label="Choose park to locate on map" className="my-4 flex flex-wrap gap-2">
       {parks.map((item, index) => <button type="button" key={item.name} aria-pressed={selected === index} onClick={() => setSelected(index)} className={`border px-3 py-2 text-sm transition-colors ${selected === index ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary"}`}>{item.name}</button>)}
     </div>
-    <iframe key={park.name} src={mapUrl} title={`Interactive map around ${park.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-[360px] w-full border border-border sm:h-[440px]" />
+    <iframe key={park.name} src={mapUrl} title={`Interactive map around ${park.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-96 w-full border border-border" />
     <a href={`https://www.openstreetmap.org/?mlat=${park.lat}&mlon=${park.lon}#map=11/${park.lat}/${park.lon}`} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Open larger map for {park.name} ↗</a>
     <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors.</p>
   </div>;
@@ -572,7 +572,7 @@ function ArticlePage() {
           {(["daingerfield-state-park", "caddo-lake-state-park", "lake-bob-sandlin-state-park", "tyler-state-park", "martin-creek-lake-state-park"] as const).map((slug) => {
             const photo = stateParkHeroMap[slug];
             return photo ? <figure key={slug} className="overflow-hidden border border-border bg-background">
-              <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+              <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" className="aspect-video w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
               <figcaption className="p-3 text-xs leading-5 text-muted-foreground"><span className="font-semibold text-foreground">{slug.replace(/-/g, " ").replace(/\\b\\w/g, (letter) => letter.toUpperCase())}</span><span className="mt-1 block">{photo.credit}</span></figcaption>
             </figure> : null;
           })}
