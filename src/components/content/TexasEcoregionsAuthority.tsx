@@ -39,6 +39,8 @@ const regionReferences: readonly RegionReference[] = [
     terrain: "Nearly level coastal plain with sandy soils, clayey bottoms, bays and barrier islands.",
     vegetation: "Coastal tallgrass prairie, marsh, live-oak mottes and river-bottom woodland.",
     water: "Bays, estuaries, marshes, tidal systems and low-gradient coastal rivers.",
+    wildlife: "Migratory shorebirds and waterfowl, wading birds, alligators and estuary-dependent fish and shellfish.",
+    communities: "Houston coastal edge, Galveston, Victoria and Corpus Christi.",
     pressure: "Wetland and prairie loss, urbanization, subsidence, storm surge and altered freshwater inflows.",
     placeLabel: "Galveston Island State Park",
     placeHref: "/destination/galveston-island-state-park",
