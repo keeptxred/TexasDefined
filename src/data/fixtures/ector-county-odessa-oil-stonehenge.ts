@@ -25,8 +25,8 @@ export const ectorCountyOdessaOilStonehengeArticle: Article = {
   tags: ["Ector County", "Odessa", "Permian Basin", "oil", "Stonehenge", "Odessa Meteor Crater", "White-Pool House", "UT Permian Basin", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/winkler-county-kermit-wink-oil-texas", label: "Explore neighboring Winkler County", description: "Continue west into Kermit, Wink and the Hendrick Field oil-boom story." },
-    { href: "/article/ward-county-monahans-sandhills-texas", label: "Continue south into Ward County", description: "Follow the oil roads toward Monahans Sandhills and the Pecos River country." },
+    { href: "/county/winkler", label: "Explore neighboring Winkler County", description: "Continue west into Kermit, Wink and the Hendrick Field oil-boom story." },
+    { href: "/county/ward", label: "Continue south into Ward County", description: "Follow the oil roads toward Monahans Sandhills and the Pecos River country." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/texas-history", label: "More Texas history", description: "Stories that explain the people and places behind modern Texas." },

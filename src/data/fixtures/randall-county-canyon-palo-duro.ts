@@ -25,6 +25,8 @@ export const randallCountyCanyonPaloDuroArticle: Article = {
   tags: ["Randall County", "Canyon", "Palo Duro Canyon", "Palo Duro Canyon State Park", "West Texas A&M", "Panhandle-Plains Historical Museum", "JA Ranch", "T Anchor Ranch", "Texas counties", "Texas Panhandle", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/county/potter", label: "Explore Potter County", description: "Explore Amarillo's museums and urban history north of Canyon." },
+    { href: "/county/armstrong", label: "Explore Armstrong County", description: "Follow Palo Duro Canyon country east toward Claude." },
     { href: "/destination/palo-duro-canyon-state-park", label: "Explore Palo Duro Canyon State Park", description: "Plan a deeper look at the canyon that defines Randall County's eastern edge." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },

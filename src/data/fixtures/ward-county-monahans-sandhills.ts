@@ -25,8 +25,8 @@ export const wardCountyMonahansSandhillsArticle: Article = {
   tags: ["Ward County", "Monahans", "Monahans Sandhills State Park", "Pyote", "Barstow", "Permian Basin", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/reeves-county-pecos-balmorhea-texas", label: "Explore neighboring Reeves County", description: "Follow the Pecos River south toward Pecos, Balmorhea and San Solomon Springs." },
-    { href: "/article/pecos-county-fort-stockton-comanche-springs-texas", label: "Continue into Pecos County", description: "Explore Fort Stockton, Comanche Springs and another West Texas crossroads." },
+    { href: "/county/reeves", label: "Explore neighboring Reeves County", description: "Follow the Pecos River south toward Pecos, Balmorhea and San Solomon Springs." },
+    { href: "/county/pecos", label: "Continue into Pecos County", description: "Explore Fort Stockton, Comanche Springs and another West Texas crossroads." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/texas-history", label: "More Texas history", description: "Stories that explain the people and places behind modern Texas." },
