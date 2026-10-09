@@ -66,9 +66,9 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
   const propertyGuideHref = propertyGuideReady ? `/property-tax/county/${entity.slug}` : '/property-tax/counties';
   const propertyGuideLabel = propertyGuideReady ? `${entity.name} property-tax guide` : 'Texas property-tax county directory';
   const serviceLinks = [
-    officeListingIsCurrent(localGovernment.appraisalDistrict.lastUpdated) && isVerifiedHttpsUrl(localGovernment.appraisalDistrict.websiteUrl) ? { label: 'Appraisal district', href: localGovernment.appraisalDistrict.websiteUrl! } : null,
-    officeListingIsCurrent(localGovernment.taxOffice.lastUpdated) && isVerifiedHttpsUrl(localGovernment.taxOffice.websiteUrl) ? { label: 'County tax office', href: localGovernment.taxOffice.websiteUrl! } : null,
-    isVerifiedHttpsUrl(localGovernment.countyWebsiteUrl) ? { label: 'County government', href: localGovernment.countyWebsiteUrl! } : null,
+    officeListingIsCurrent(localGovernment.appraisalDistrict.lastUpdated) && isHttpsLink(localGovernment.appraisalDistrict.websiteUrl) ? { label: 'Appraisal district', href: localGovernment.appraisalDistrict.websiteUrl! } : null,
+    officeListingIsCurrent(localGovernment.taxOffice.lastUpdated) && isHttpsLink(localGovernment.taxOffice.websiteUrl) ? { label: 'County tax office', href: localGovernment.taxOffice.websiteUrl! } : null,
+    isHttpsLink(localGovernment.countyWebsiteUrl) ? { label: 'County government', href: localGovernment.countyWebsiteUrl! } : null,
     localGovernment.comptrollerCountyUrl ? { label: 'Texas Comptroller county directory', href: localGovernment.comptrollerCountyUrl } : null,
   ].filter((item): item is { label: string; href: string } => Boolean(item));
   const hasCommunities = profile.countySeat || profile.majorCommunities.length > 0;
@@ -131,7 +131,7 @@ function officeListingIsCurrent(updatedAt?: string) {
   const age = Date.now() - timestamp;
   return Number.isFinite(timestamp) && age >= 0 && age <= 730 * 24 * 60 * 60 * 1000;
 }
-function isVerifiedHttpsUrl(href?: string) {
+function isHttpsLink(href?: string) {
   if (!href) return false;
   try {
     const url = new URL(href);
