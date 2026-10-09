@@ -245,6 +245,11 @@ for (const token of [
 ]) requireText(files.auditRunner, token, `metro readiness audit runner missing ${token}`);
 
 for (const token of [
+  "McAllen authority expansion evidence", "Evidence-backed selected guides",
+  'metro.slug === "mcallen"', "quality-gated source catalog",
+]) requireText(files.audit, token, `McAllen indexing gap diagnostics missing ${token}`);
+
+for (const token of [
   "listResolvedDestinations({ limit: 5000 })", "METRO_PROXIMITY_METROS", "METRO_PROXIMITY_COLLECTIONS",
   "isMetroProximityCollectionIndexReady", "metroProximityHubReady", "sitemap-eligible proximity URLs",
   "Near-ready blocked combinations",
