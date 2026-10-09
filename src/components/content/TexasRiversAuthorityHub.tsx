@@ -63,7 +63,7 @@ function TexasOfficialBasinMap() {
           data={twdbMapUrl}
           type="application/pdf"
           aria-label="Texas Water Development Board map of 15 major and eight coastal river basins"
-          className="h-[28rem] w-full bg-background sm:h-[42rem]"
+          className="w-full bg-background" style={{ height: "min(65vh, 42rem)" }}
         >
           <p className="p-6 text-sm">
             The map preview is not supported in this browser. <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-primary underline">Open the TWDB map PDF directly</a>.
