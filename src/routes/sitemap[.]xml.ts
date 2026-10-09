@@ -53,6 +53,7 @@ const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
   "texas-rivers-explained": "2026-10-03",
+  "texas-ecoregions-habitats-guide": "2026-10-09",
 };
 
 export const Route = createFileRoute("/sitemap.xml")({
