@@ -5,6 +5,7 @@ const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cityAuthorityProfiles = fs.readFileSync('src/data/city-authority-profiles.ts', 'utf8');
 const citySocialImages = fs.readFileSync('src/data/city-social-images.ts', 'utf8');
+const cityMetroAuthority = fs.readFileSync('src/data/city-metro-authority.ts', 'utf8');
 const viatorProduction = fs.readFileSync('scripts/ci/verify-viator-production.mjs', 'utf8');
 const sanAngeloProduction = fs.readFileSync('scripts/ci/verify-san-angelo-proximity-production.mjs', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
@@ -17,6 +18,8 @@ const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8
 
 const failures = [];
 const stateFairSource = [stateFairRoute, stateFairLazyRoute, stateFairEnhancements, stateFairHighlights].join('\n');
+const citySitemapLastmod = cityMetroAuthority.match(/cityAuthorityCheckedAt = '([^']+)'/)?.[1];
+if (!citySitemapLastmod) failures.push('City authority review date could not be resolved for production sitemap verification.');
 
 const expectedStateFairLabels = new Set([
   'state-fair-current-date',
@@ -77,6 +80,28 @@ for (const [label, path, needle, sourceKind] of cityProductionChecks) {
   if (!productionSurfaces.includes(tuple)) failures.push(`Production surface verifier is missing required city check: ${label}`);
   const source = sourceKind === 'profile' ? cityAuthorityProfiles : citySocialImages;
   if (!source.includes(needle)) failures.push(`City production verifier drift: ${label} expects content not present in ${sourceKind} source: ${needle}`);
+}
+
+for (const marker of [
+  'const citySitemapEntries = [',
+  "'houston'",
+  "'dallas'",
+  "'fort-worth'",
+  "'austin'",
+  "'san-antonio'",
+  "'el-paso'",
+  "'arlington'",
+  "'hurst'",
+  "'corpus-christi'",
+  "'plano'",
+  "'lubbock'",
+  'city-sitemap-authority',
+  'citySitemapMissing',
+]) {
+  if (!productionSurfaces.includes(marker)) failures.push(`City sitemap production verifier is missing required marker: ${marker}`);
+}
+if (citySitemapLastmod && !productionSurfaces.includes(`const cityAuthorityLastmod = '${citySitemapLastmod}';`)) {
+  failures.push(`City sitemap production verifier lastmod must match cityAuthorityCheckedAt (${citySitemapLastmod}).`);
 }
 
 const labels = new Set(stateFairChecks.map(({ label }) => label));
