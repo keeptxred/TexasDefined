@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 6,
+    "partiallyCompleted": 7,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "ackerly-sands",
-    "nextSchool": "agua-dulce",
-    "implementedOnBranch": 6,
+    "currentSchool": "agua-dulce",
+    "nextSchool": "alba-golden",
+    "implementedOnBranch": 7,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -440,8 +440,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/agua-dulce",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/agua-dulce.md",
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "https://www.adisd.net/directory",
+        "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320",
+        "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026018319",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/96at_bfb.html"
+      ],
+      "implementationCommits": [
+        "e703d987ccc0a857354670c95bc6e73d508f6465",
+        "decc9693f0bb4b5c9491da6d17159f954bd15afb",
+        "905a72ab824b6a9d9875118bcc6cfbcd5c3cda78",
+        "12cde2cab617151d6b9a9be54d139e373314daad"
+      ],
+      "imageStatus": "Original sourced milestones, no licensed documentary photos available",
+      "internalLinkStatus": "Nueces reciprocal school link committed, production pending",
+      "seoStatus": "Original title/description and verified Longhorn mascot committed, production pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected merge of parent #4409",
+        "Continuation PR CI and merge",
+        "Individual desktop/mobile real production acceptance",
+        "TDLR work completion, actual accessible parking/ticketing gate evidence",
+        "Documentary image reuse license"
+      ]
     },
     {
       "id": "uil:alba-golden",
