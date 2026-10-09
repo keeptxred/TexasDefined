@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 
@@ -42,7 +43,7 @@ const sourceList = [
   { label: "Museum-managed public updates", href: links.museum, note: "Verify current schedules, exhibits and closures directly; this is not a substitute for independent historical research" },
 ];
 
-function External({ href, children }: { href: string; children: React.ReactNode }) {
+function External({ href, children }: { href: string; children: ReactNode }) {
   return <a href={href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/50 underline-offset-4 hover:decoration-primary">{children} ↗</a>;
 }
 
