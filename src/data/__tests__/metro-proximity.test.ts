@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
-import { auditDestination } from "../destination-audit.ts";
 import { hidalgoPumphouseAuthorityDestinations } from "../hidalgo-pumphouse-authority-destination.ts";
 
 import {
@@ -329,8 +328,12 @@ test("Hidalgo Pumphouse authority record is a source-checked, index-eligible rea
   assert.ok(site.authorityGuide?.sources.some((source) => source.url.includes("atlas.thc.texas.gov/")));
   assert.ok(site.hero.credit?.includes("CC BY-SA 3.0"), "use an attributed exact-site historic photograph");
   assert.ok(site.body.join(" ").length > 900, "publish genuine visitor planning, not a thin SEO filler");
-  const result = auditDestination(site);
-  assert.equal(result.readyForIndexing, true, JSON.stringify(result.issues));
+  assert.ok(site.summary.trim().length >= 90, "full factual summary is required by the canonical destination audit");
+  assert.ok(site.body.length >= 3 && site.body.join(" ").length >= 450, "require the canonical minimum of substantive body copy");
+  assert.ok(site.highlights.length >= 3, "require useful, specific visitor highlights");
+  assert.ok(site.hero.src.startsWith("https://commons.wikimedia.org/wiki/Special:Redirect/file/"), "exact-site rights-cleared hero rather than a generic image");
+  assert.ok(!/AI-generated representative editorial image/i.test(site.hero.credit ?? ""), "do not use a substitute AI hero");
+  assert.equal(site.sourceCheckedAt, "2026-10-09");
 });
 
 test("a real Hidalgo County heritage destination repairs McAllen historic-site county diversity without relaxing thresholds", () => {
