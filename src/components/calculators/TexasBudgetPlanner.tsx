@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import {
   BUDGET_GROUPS, BUDGET_STORAGE_KEY, MAX_BUDGET_VALUE, calculateHouseholdBudget,
   createBudgetDefaults, migrateLegacyBudget, normalizeBudgetValue, sanitizeBudget,
+  createBudgetShareQuery, createBudgetCsv,
   type BudgetKey, type BudgetState,
 } from '@/lib/financial/budget-planner';
 import { CurrencyInput, formatMoney } from '@/components/property/PropertyCalculatorFramework';
@@ -94,7 +95,7 @@ export function BudgetCalculator() {
     if (!shareApproved) { setStatus('Read and acknowledge the URL privacy notice before sharing.'); return; }
     const url = new URL(window.location.pathname, window.location.origin);
     // Only user-entered budget amounts, no names or contact fields; URLs can still be recorded.
-    url.searchParams.set('b3', JSON.stringify(budget));
+    url.search = createBudgetShareQuery(budget);
     try {
       await navigator.clipboard.writeText(url.toString());
       setStatus('Budget share URL copied. Anyone with this URL can see the entered amounts.');
@@ -110,18 +111,7 @@ export function BudgetCalculator() {
     catch { setStatus(`Scenario ${label} stored for this page session only.`); }
   };
   const downloadCsv = () => {
-    const rows = [['Category', 'Item', 'Entered USD', 'Period', 'Monthly USD']];
-    for (const group of BUDGET_GROUPS) {
-      for (const field of group.fields) {
-        const annual = 'cadence' in field;
-        rows.push([group.title, field.label, String(budget[field.key]), annual ? 'annual' : 'monthly', (budget[field.key] / (annual ? 12 : 1)).toFixed(2)]);
-      }
-    }
-    rows.push(['Total', 'Monthly income', '', 'monthly', totals.income.toFixed(2)]);
-    rows.push(['Total', 'Monthly expenses and bill reserves', '', 'monthly', totals.expenses.toFixed(2)]);
-    rows.push(['Total', 'Monthly savings allocations', '', 'monthly', totals.savings.toFixed(2)]);
-    rows.push(['Total', 'Remaining after allocations', '', 'monthly', totals.remaining.toFixed(2)]);
-    const csv = rows.map(row => row.map(value => `"${value.replace(/"/g, '""')}"`).join(',')).join('\r\n');
+    const csv = createBudgetCsv(budget);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const element = document.createElement('a');
