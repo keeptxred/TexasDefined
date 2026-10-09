@@ -37,7 +37,9 @@ function Page() {
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
-  const countyPath = schoolName === 'Abilene Cooper'
+  const countyPath = schoolName === 'Abilene Texas Leadership'
+    ? '/county/taylor'
+    : schoolName === 'Abilene Cooper'
     ? '/county/taylor'
     : schoolName === 'Abilene'
     ? '/county/taylor'
@@ -119,6 +121,13 @@ function Page() {
           <div className="space-y-4">
             {editorial.overview.map((paragraph) => <p key={paragraph} className="max-w-4xl text-sm leading-7 text-muted-foreground">{paragraph}</p>)}
           </div>
+          {schoolName === 'Abilene Texas Leadership' && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
+            <p className="font-display text-xl text-foreground">Which Abilene football team?</p>
+            <p className="mt-2 text-muted-foreground">Texas Leadership of Abilene is a tuition-free public-charter school and a separate UIL team from Abilene High and Abilene Cooper. Its district office in San Angelo is not the Abilene secondary campus or home football stadium.</p>
+            <a href="/texas-high-school-football-teams/abilene" className="mt-3 inline-block font-semibold text-primary underline underline-offset-4">Abilene High Eagles guide →</a>
+            <span className="mx-2 text-muted-foreground">·</span>
+            <a href="https://www.texasleadership.net/family-resources/enroll" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Official TLCA enrollment ↗</a>
+          </div>}
           {(schoolName === 'Abilene' || schoolName === 'Abilene Cooper') && <div className="mt-6 border-l-4 border-border bg-surface p-5 text-sm leading-7">
             <p className="font-display text-xl text-foreground">The Crosstown Showdown</p>
             <p className="mt-2 text-muted-foreground">Abilene ISD documents the Abilene High–Cooper football series beginning in 1961. These two school histories are different, and the teams are assigned to different 2026–28 UIL divisions.</p>
