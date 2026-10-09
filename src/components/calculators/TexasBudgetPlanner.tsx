@@ -126,14 +126,14 @@ export function BudgetCalculator() {
   const actionClass = 'inline-flex items-center justify-center border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
   return (
     <div className="mt-8 space-y-9">
-      <section className="border-y border-border bg-surface p-5 sm:p-7" aria-labelledby="budget-start-heading">
+      <section className="border-y border-border bg-surface p-5 sm:p-7 print:hidden" aria-labelledby="budget-start-heading">
         <p className="eyebrow text-primary">Your household, your numbers</p>
         <h2 id="budget-start-heading" className="mt-2 font-display text-3xl">Build a monthly budget</h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The starting values illustrate a hypothetical household, not Texas averages or a recommendation. Replace them with your actual take-home pay and expenses. Every number can be adjusted, and no login is required.</p>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">All fields accept nonnegative dollar amounts, up to {formatMoney(MAX_BUDGET_VALUE)} per field. Annual bill fields are converted to monthly reserves automatically.</p>
       </section>
 
-      <div className="space-y-3">
+      <div className="space-y-3 print:hidden">
         {BUDGET_GROUPS.map(group => {
           const isExpanded = expanded.includes(group.id);
           const subtotal = totals.groups.find(row => row.id === group.id)?.monthly ?? 0;
@@ -193,7 +193,7 @@ export function BudgetCalculator() {
         </div>
       </section>
 
-      <section className="border-t border-border pt-8" aria-labelledby="budget-scenarios-heading">
+      <section className="border-t border-border pt-8 print:hidden" aria-labelledby="budget-scenarios-heading">
         <h2 id="budget-scenarios-heading" className="font-display text-3xl">Compare two scenarios</h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">Save the current budget as A, modify expenses or income, then save as B. Both stay in this browser only; neither is submitted to a server.</p>
         <div className="mt-4 flex flex-wrap gap-3"><button className={actionClass} type="button" onClick={() => saveScenario('A')}>Save current as A</button><button className={actionClass} type="button" onClick={() => saveScenario('B')}>Save current as B</button></div>
@@ -208,7 +208,7 @@ export function BudgetCalculator() {
         </div>}
       </section>
 
-      <section className="border-t border-border pt-8" aria-labelledby="budget-actions-heading">
+      <section className="border-t border-border pt-8 print:hidden" aria-labelledby="budget-actions-heading">
         <h2 id="budget-actions-heading" className="font-display text-3xl">Save, print or export</h2>
         <p className="mt-2 text-sm text-muted-foreground">Saving uses browser-local storage. Clearing browser data may remove saved budgets. Files you export contain financial figures.</p>
         <div className="mt-4 flex flex-wrap gap-3">
