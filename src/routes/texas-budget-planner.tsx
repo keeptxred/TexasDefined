@@ -9,6 +9,6 @@ export const Route = createFileRoute('/texas-budget-planner')({
     canonicalPath: '/texas-budget-planner',
     title: 'Texas Budget Planner | Monthly Household Income & Expenses',
     description,
-    featureList: ['Track take-home household income', 'Break out major monthly costs and annual bill reserves', 'Separate expenses from savings', 'Compare two household scenarios', 'Print, export CSV and save locally'],
+    featureList: ['Take-home income', 'Monthly and annual expenses', 'Separate savings and spending', 'Compare scenarios', 'Save, export and print'],
   }),
 });
