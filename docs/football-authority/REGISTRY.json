@@ -51,7 +51,7 @@
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "All 25 implemented and merged via PR #4443 (196504b698452cb39c32a9437a128ec4d11b0313); production workflow run 37967100680 succeeded on this exact SHA and verified the live Worker. Browser acceptance remains pending for all 25; PR #4451 adds the real-browser verification job. No Batch 003.",
+    "notes": "All 25 implemented and merged via PR #4443 (196504b698452cb39c32a9437a128ec4d11b0313); production workflow run 37967100680 succeeded on this exact SHA and verified the live Worker. Browser acceptance remains pending for all 25; PR #4451 adds the real-browser verification job. No Batch 003. Live Batch 002 Chrome run 37979198239 on deployed Worker commit 7c807f9: 50/50 school and 36/36 county viewport assertions PASS; screenshot artifact 11640167062. Supplemental city reciprocity/live sitemap membership and manual screenshot review not claimed. No Batch 003.",
     "currentSchool": "amarillo",
     "nextSchool": null,
     "implementedOnBranch": 25,
@@ -63,7 +63,21 @@
     "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
     "deploymentRunId": 37967100680,
     "deploymentStatus": "SUCCESS",
-    "productionAcceptancePr": 4451
+    "productionAcceptancePr": 4451,
+    "browserAcceptance": {
+      "runId": 37979198239,
+      "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+      "artifactId": 11640167062,
+      "schoolViewportPassed": 50,
+      "countyViewportPassed": 36,
+      "failed": 0,
+      "completedAt": "2026-10-09T19:22:03Z",
+      "manualScreenshotReview": "NOT_PERFORMED",
+      "supplementalOpen": [
+        "Individually confirm appropriate city reciprocal links",
+        "Individually confirm production sitemap inclusion for all 25"
+      ]
+    }
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -201,7 +215,7 @@
       "imageStatus": "Original source-labeled milestone graphics; school photos withheld for lack of license",
       "internalLinkStatus": "Hale County reciprocal source-code change committed; production pending",
       "seoStatus": "Unique title, description and verified identity coded; validation pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected CI/PR merge",
         "Cloudflare deployed commit verification",
@@ -216,6 +230,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -254,7 +285,7 @@
       "imageStatus": "School-specific sourced original historic milestone graphics; no unlicensed school imagery",
       "internalLinkStatus": "Taylor County reciprocal link implemented, browser acceptance pending",
       "seoStatus": "Individual historical title/description and enriched identity, CI pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Required gate and protected merge",
         "Production Cloudflare and corresponding commit verification",
@@ -269,6 +300,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -308,7 +356,7 @@
       "imageStatus": "Original editorial milestone graphics only; no licensed documentary team photography confirmed",
       "internalLinkStatus": "Taylor County inbound and outbound plus verified Eagles rival reciprocal links implemented; browser QA pending",
       "seoStatus": "School-specific title, description and Cougar identity coded; validation pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected CI and merge",
         "Production deployment verification",
@@ -323,6 +371,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -360,7 +425,7 @@
       "imageStatus": "Source-labeled original timeline/milestone graphic only; licensing real TLCA images unverified",
       "internalLinkStatus": "Taylor County and related Abilene school links coded; no production verification",
       "seoStatus": "Unique original title/description and Eagles identity coded; CI/production pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected PR checks and merge",
         "Deployment and exact commit reconciliation",
@@ -375,6 +440,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -414,7 +496,7 @@
       "imageStatus": "Original source-labeled purple/gold researched milestone graphics only; documentary photo rights unavailable",
       "internalLinkStatus": "Taylor County reciprocal + Abilene Cooper district-opponent link coded; browser QA pending",
       "seoStatus": "Individual title/description/mascot/colors coded, validation pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected gate and merge",
         "Deployed production commit check",
@@ -429,6 +511,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -467,7 +566,7 @@
       "imageStatus": "Brown/white original documented milestone graphics; no authentic photos with reuse rights; unrelated Fargo stock image discarded",
       "internalLinkStatus": "Dawson County reciprocal link coded; production unverified",
       "seoStatus": "Individual meta/H1 from verified Mustangs identity and school-specific source trail; CI pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected merge of prior five schools and reconciliation",
         "Individual CI and typecheck",
@@ -482,6 +581,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -517,7 +633,7 @@
       "imageStatus": "Original sourced milestones, no licensed documentary photos available",
       "internalLinkStatus": "Nueces reciprocal school link committed, production pending",
       "seoStatus": "Original title/description and verified Longhorn mascot committed, production pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected merge of parent #4409",
         "Continuation PR CI and merge",
@@ -532,6 +648,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -570,7 +703,7 @@
       "imageStatus": "Custom sourced red milestone cards; no authorized documentary team image and no fake school logo",
       "internalLinkStatus": "Wood County reciprocal route source code committed; production inspection needed",
       "seoStatus": "Unique Panthers SEO and identity committed; production checks needed",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Parent and continuation PR protected merges",
         "Real Chrome mobile/desktop school and Wood County QA",
@@ -585,6 +718,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -624,7 +774,7 @@
       "imageStatus": "Independent documented historic-stadium visual narrative, original source-linked red-white milestone graphics; copyrighted stadium photographs withheld",
       "internalLinkStatus": "Shackelford County school↔county source code committed; live check not done",
       "seoStatus": "Albany-specific title/description and Lions identity/FAQ source code committed; production check pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Parent and continuation PR protected merge and deployment",
         "Individual mobile/desktop Chrome acceptance school/county",
@@ -638,6 +788,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -676,7 +843,7 @@
       "imageStatus": "Original championship timeline; authentic school/stadium photos withheld without license",
       "internalLinkStatus": "Parker County reciprocal link committed in existing school/county architecture, production pending",
       "seoStatus": "Individual 12-title/6A title/description and verified Bearcats school colors committed",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected parent/continuation merges",
         "Actual desktop/mobile Aledo/Parker Chrome QA",
@@ -690,6 +857,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -718,7 +902,7 @@
       "imageStatus": "School-specific sourced milestone graphics, no cleared documentary photography",
       "internalLinkStatus": "Jim Wells County reciprocal source code committed, production pending",
       "seoStatus": "Distinct Alice title, metadata and Coyotes identity coded, not production tested",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected PR merge",
         "Deployment verification",
@@ -740,6 +924,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -774,7 +975,7 @@
       "imageStatus": "Original sourced milestone graphics; licensed authentic images unavailable",
       "internalLinkStatus": "Harris County links committed, production pending",
       "seoStatus": "Individual Elsik editorial and identity metadata coded; validation pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected PR merges",
         "Production deployment and browser QA",
@@ -788,6 +989,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -824,7 +1042,7 @@
       "imageStatus": "School-specific sourced milestones, no reuse rights for real photographs",
       "internalLinkStatus": "Harris County inbound/outbound committed, live QA pending",
       "seoStatus": "School-specific title/description and real state-final fact coded; QA pending",
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "outstanding": [
         "Protected merges/deploy",
         "School/Harris mobile/desktop live checks",
@@ -838,6 +1056,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -860,7 +1095,7 @@
         "f53ae27b8d6984764ce8851868beaac65e5bd3cf",
         "fd77e1ff1671bffa7af9b7a72b2b27df79de10da"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Protected parent and continuation merges",
         "Production deployment",
@@ -902,6 +1137,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -923,7 +1175,7 @@
       "commits": [
         "ba647f975a649548bcb84e61265a96d782236ff6"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Protected merges and deployment",
         "Individual rendered production acceptance",
@@ -964,6 +1216,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -985,7 +1254,7 @@
       "commits": [
         "0005a98da25da7446159103c129f330cd5fd891b"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Protected merge/deploy",
         "Real desktop/mobile QA and links",
@@ -1027,6 +1296,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1048,7 +1334,7 @@
       "commits": [
         "1d4644337713c0242fa525c940be462583c9c34a"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Protected merges and deploy",
         "Actual mobile/desktop acceptance",
@@ -1086,6 +1372,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1107,7 +1410,7 @@
       "commits": [
         "d72985a15713e97b21b04859b371758c7cc439a8"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Protected merges and deployment",
         "Current verified coach appointment",
@@ -1146,6 +1449,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1167,7 +1487,7 @@
       "commits": [
         "ab4473f6ca2059aaa392df8d8aeb1b25de4fbdd6"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Verify current head coach official",
         "Image rights and stadium gate",
@@ -1204,6 +1524,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1225,7 +1562,7 @@
       "commits": [
         "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "2026 official head coach",
         "Historical title-game opponent/date",
@@ -1261,6 +1598,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1282,7 +1636,7 @@
       "commits": [
         "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Current coach not verified",
         "Venue gate and authentic photo rights",
@@ -1315,6 +1669,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1336,7 +1707,7 @@
       "commits": [
         "7ce33de147d516ee9a5118109c12b946122aec41"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Freedom Field gate and unreliable capacity",
         "Current official coaching confirmation",
@@ -1372,6 +1743,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1393,7 +1781,7 @@
       "commits": [
         "f7ee89c1257d5291593aa3c79452fff545203bc1"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Current official 2026 coach",
         "Freedom Field spectator gate and image rights",
@@ -1429,6 +1817,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1450,7 +1855,7 @@
       "commits": [
         "f0b9df005078020fb4f1a3ae6b13fcd6146bd2a1"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Stadium game-night gate",
         "Independently verify 2026 head coach",
@@ -1486,6 +1891,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
@@ -1507,7 +1929,7 @@
       "commits": [
         "9d2486f78770fd313955e5f6c8142a64ebf40e69"
       ],
-      "productionVerification": "NOT_PERFORMED",
+      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
       "blockers": [
         "Confirm official current coach and stadium ticket policy",
         "Photo rights and city/county links",
@@ -1546,6 +1968,23 @@
         "commit": "196504b698452cb39c32a9437a128ec4d11b0313",
         "conclusion": "success",
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
+      },
+      "productionAcceptance": {
+        "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
+        "runId": 37979198239,
+        "jobId": 113985092932,
+        "artifactId": 11640167062,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37979198239/artifacts/11640167062",
+        "checkedAt": "2026-10-09T19:22:03Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "reciprocalCountyDesktop": "PASS",
+        "reciprocalCountyMobile390": "PASS",
+        "browserRuntime": "PASS",
+        "automatedResult": "PASS",
+        "manualScreenshotReview": "NOT_PERFORMED",
+        "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
       }
     },
     {
