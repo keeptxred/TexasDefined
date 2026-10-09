@@ -58,6 +58,127 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "alba-golden": {
+    "slug": "alba-golden",
+    "theme": {
+      "accentHex": "#BC2938",
+      "label": "Original editorial red accent inspired by KLTV-documented red, blue and white Alba-Golden school colors; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Alba-Golden Panthers Football: 2026 Coach, District & Team History",
+      "description": "Alba-Golden Panthers football in Wood County: 2026 coach Drew Webster, UIL District 10 opponents, recent seasons, campus stadium and official athletics links."
+    },
+    "coach": {
+      "name": "Drew Webster",
+      "title": "Head football coach and athletic director, per May 2026 East Texas news report",
+      "sourceUrl": "https://www.kltv.com/2022/05/25/alba-golden-panthers/",
+      "sourceLabel": "KLTV Alba-Golden 2026 program preview, updated May 27, 2026",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1373 County Road 2377, Alba, TX 75410",
+      "phone": "903-768-2472",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Wood+County&ID=480765000053&Search=1&State=48",
+      "sourceLabel": "NCES 2025–26 Alba-Golden secondary campus, Wood County",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alba-Golden Panthers 2026 fixtures and posted results",
+      "sourceUrl": "https://www.texasfootball.com/team/alba-golden-panthers",
+      "sourceLabel": "Dave Campbell's Texas Football team 2026 schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Alba-Golden Stadium",
+      "address": "1373 County Road 2377, Alba, TX 75410",
+      "sourceUrl": "https://www.kltv.com/2022/05/25/alba-golden-panthers/",
+      "sourceLabel": "KLTV school stadium listing and 2026 program preview",
+      "verifiedAt": "2026-10-09",
+      "note": "KLTV publishes the stadium address as 1373 County Road 2377, the same as the verified Alba-Golden campus; Dave Campbell's lists Alba-Golden Stadium with estimated 400-seat capacity. Neither source confirms current 2026 stadium admission prices, parking arrangements, accessible gates or seating inventory. Check the individual game's site and contact Alba-Golden ISD at 903-768-2472 before travel; do not confuse a directory estimate with certified usable seating."
+    },
+    "overview": [
+      "Alba-Golden's Panthers play eleven-man football for a public school district based along County Road 2377 in Wood County, East Texas. Its local school identity is red, blue and white, and the football program has genuine team photographs on the district athletics site, but those pictures have not been shown to carry a republication license. This independent guide uses the school's real colors only as editorial accents, not a copied paw-print emblem.",
+      "The Panthers have a more recent football story than the state's long-established championship dynasties. Dave Campbell's Texas Football lists **no UIL state football titles or title-game appearances** for Alba-Golden, but reports **eight playoff appearances** across the program's tracked seasons. That makes verified postseason participation and growth more useful subjects than a made-up state championship narrative.",
+      "An independently recorded **7–4 season in 2023** marked one of Alba-Golden's stronger recent campaigns; MaxPreps also records that season as a postseason year. In 2024 the sports archives disagree about the final season total (Dave Campbell's shows 5–4 while MaxPreps lists 5–5), so this profile does not publish a falsely definitive record for that year. Both sources identify a much more difficult **2025** season, with only one win reported and an unusually difficult league slate.",
+      "KLTV's May 27, 2026 season preview names **Drew Webster** head coach and describes the club looking to rebound from **1–9 in 2025**. MaxPreps separately identifies Webster as Alba-Golden's athletic director, but its varsity football staff roster contains only assistant Riley Stack, without a verified current head-coach field. The dated regional report is therefore the identified source for Webster's **football** coaching title; no unverified 2026 assistants or personal details are added.",
+      "The 2026–28 UIL realignment places Alba-Golden in **2A Division I, District 10**, alongside Cayuga, Como-Pickton, Frankston, Hawkins, Kerens and Price Carlisle. This is a different district grouping from the 2025 Panthers' league, so older games against Honey Grove, Rivercrest or Omaha Pewitt must not be presented as this cycle's district fixtures. The 2026 list includes games against Kerens, Frankston, Cayuga, Price Carlisle, Hawkins and Como-Pickton; check school announcements before traveling.",
+      "Dave Campbell's archive showed an early-October 2026 **1–4** snapshot with a 34–8 victory over Detroit and competitive defeats to Linden-Kildare and Cushing among the reported results. The third-party schedule still has some unreported scores for October 2 and later fixtures, so this dated sample is not a current/live standings assertion. Alba-Golden's stadium is listed at the school's 1373 CR 2377 address; venue entrance, parking, available seats and ADA accommodations require direct district confirmation."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "A six-win season in recent program history",
+        "body": "The Texas Football season archive lists Alba-Golden at 6–5 in 2021, providing a recent postseason reference for the Panthers' smaller-school football story.",
+        "sourceUrl": "https://www.texasfootball.com/team/alba-golden-panthers",
+        "sourceLabel": "Dave Campbell's Panthers historical season records"
+      },
+      {
+        "date": "2023",
+        "title": "The Panthers reach seven wins",
+        "body": "Both Dave Campbell's and MaxPreps record a 7–4 season in 2023, with a postseason appearance according to the MaxPreps season record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alba/alba-golden-panthers/football/history/",
+        "sourceLabel": "MaxPreps historical football seasons"
+      },
+      {
+        "date": "2024",
+        "title": "An archive discrepancy worth recording",
+        "body": "Dave Campbell's season index counts five wins and four losses; MaxPreps lists five wins and five losses. The discrepancy remains explicitly unresolved rather than creating a false agreed record.",
+        "sourceUrl": "https://www.texasfootball.com/team/alba-golden-panthers",
+        "sourceLabel": "Dave Campbell's football history (compare MaxPreps 2024 season)"
+      },
+      {
+        "date": "2025",
+        "title": "A one-win rebuilding year",
+        "body": "KLTV's 2026 preseason preview describes Alba-Golden finishing 1–9 in 2025 under Drew Webster; the school returned to practice focused on a rebound.",
+        "sourceUrl": "https://www.kltv.com/2022/05/25/alba-golden-panthers/",
+        "sourceLabel": "KLTV regional 2026 Alba-Golden season preview"
+      },
+      {
+        "date": "2026",
+        "title": "Drew Webster and the next campaign",
+        "body": "The updated May 2026 KLTV report names Drew Webster head football coach and confirms school colors red, blue and white, distinct from the MaxPreps page's assistant-only coach list.",
+        "sourceUrl": "https://www.kltv.com/2022/05/25/alba-golden-panthers/",
+        "sourceLabel": "KLTV high school football preview"
+      },
+      {
+        "date": "2026–28",
+        "title": "A new 2A Division I District 10",
+        "body": "UIL assigned Alba-Golden to District 10 against Cayuga, Como-Pickton, Frankston, Hawkins, Kerens and Price Carlisle; these are the current competitive peers, not necessarily historic rivals.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 2A Division I realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Alba-Golden football in 2026?",
+        "answer": "KLTV's May 2026 football preview identifies Drew Webster as Alba-Golden's head coach. MaxPreps identifies him as athletic director but lists an assistant, Riley Stack, on the separate football staff page. Check the school's athletics department for any staff changes after the May preview."
+      },
+      {
+        "question": "What are Alba-Golden's school mascot and colors?",
+        "answer": "The team is the Panthers, and a May 2026 KLTV preview lists red, blue and white as the school colors. Original editorial highlights use this palette but do not reproduce the school's official paw logo."
+      },
+      {
+        "question": "Does Alba-Golden have a football state championship?",
+        "answer": "Dave Campbell's Texas Football reports no UIL state titles or championship-game appearances for this program but tracks eight playoff appearances. A successful playoff season is not the same as a state-final appearance."
+      },
+      {
+        "question": "What district does Alba-Golden compete in?",
+        "answer": "UIL 2A Division I, District 10 for 2026–28. Opponents are Cayuga, Como-Pickton, Frankston, Hawkins, Kerens and Price Carlisle; older league lists should not be treated as this year's grouping."
+      },
+      {
+        "question": "Where is Alba-Golden Stadium?",
+        "answer": "KLTV lists Alba-Golden's stadium at 1373 County Road 2377 in Alba, Texas, the school's Wood County campus location. Dave Campbell's estimates 400 seats but stadium gate, accessible seating, tickets and parking must be reconfirmed with Alba-Golden ISD."
+      },
+      {
+        "question": "How did Alba-Golden perform in 2025?",
+        "answer": "KLTV's 2026 preseason preview reports a 1–9 campaign in 2025. Different third-party sports archives disagree on the preceding 2024 full record; that discrepancy is explicitly flagged instead of being silently resolved."
+      },
+      {
+        "question": "Can I use a schedule page as proof of a current kickoff?",
+        "answer": "No. Dave Campbell's and MaxPreps are useful dated schedule sources, but a missing result or listed opponent does not guarantee the time, venue, gate or ticket price. Confirm with Alba-Golden ISD athletics before making travel plans."
+      }
+    ]
+  },
   "agua-dulce": {
     "slug": "agua-dulce",
     "theme": {
