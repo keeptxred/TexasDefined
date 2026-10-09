@@ -54,6 +54,8 @@ const regionReferences: readonly RegionReference[] = [
     terrain: "Gently rolling to hilly sandy uplands with loam-to-clay bottomlands.",
     vegetation: "Post oak and blackjack oak savannah interspersed with native grassland.",
     water: "Tributaries crossing toward the Trinity, Brazos and lower Colorado systems.",
+    wildlife: "White-tailed deer, wild turkey, bobwhite and woodland-edge songbirds.",
+    communities: "Bryan-College Station, Bastrop, Palestine and east-central Texas transition communities.",
     pressure: "Prairie conversion, woody thickening, fragmentation and fast-growing metro edges.",
     placeLabel: "Cooper Lake State Park",
     placeHref: "/destination/cooper-lake-south-sulphur-unit-state-park",
