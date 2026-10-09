@@ -25,6 +25,7 @@ export type UilAllTimeFootballHistory = {
   sourceUrl: string;
   recentArchiveSourceUrl?: string;
   matchMethod: 'exact-normalized-uil-name';
+  documentedCorrection?: { note: string; sourceUrl: string };
 };
 
 let allTimeHistoryCache: {
@@ -171,6 +172,19 @@ export function allTimeFootballHistoryFromLoaded(
   }
   if (!base) return null;
 
+  // The UIL's aggregated all-time row currently marks Southlake Carroll's 2003
+  // title-game appearance as a championship. The UIL's own direct 2003 recap
+  // documents Katy 16, Carroll 15, and Carroll ISD confirms eight titles.
+  // This surgical correction changes only the demonstrably disputed row.
+  // Drop the adjustment automatically if UIL corrects the upstream table.
+  const isCarroll2003Typo = normalizeSchoolName(base.schoolName) === 'southlake carroll'
+    && base.stateTitles === 9
+    && /(?:^|[,;])03\*/.test(base.appearanceYears);
+  const documentedCorrection = isCarroll2003Typo ? {
+    note: "UIL's summary incorrectly marks the 2003 Carroll appearance as a title. UIL's direct game recap says Katy won 16–15; Carroll ISD counts eight actual championships.",
+    sourceUrl: 'https://www.uiltexas.org/100/football',
+  } : undefined;
+
   const supplementedFinals = (recentHistory?.finals ?? [])
     .filter((final) => Number.parseInt(final.season.slice(0, 4), 10) > history.publishedThroughYear)
     .map((final) => ({
@@ -181,9 +195,10 @@ export function allTimeFootballHistoryFromLoaded(
     }));
 
   return {
-    stateTitles: base.stateTitles + supplementedFinals.filter((final) => final.result === 'Champion').length,
+    stateTitles: base.stateTitles - (isCarroll2003Typo ? 1 : 0) + supplementedFinals.filter((final) => final.result === 'Champion').length,
     stateFinalAppearances: base.stateFinalAppearances + supplementedFinals.length,
-    appearanceYears: base.appearanceYears,
+    appearanceYears: isCarroll2003Typo ? base.appearanceYears.replace(/03\*/, '03') : base.appearanceYears,
+    documentedCorrection,
     publishedThroughYear: history.publishedThroughYear,
     supplementedFinals,
     sourceUrl: UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL,

@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
+const cityAuthorityProfiles = fs.readFileSync('src/data/city-authority-profiles.ts', 'utf8');
+const citySocialImages = fs.readFileSync('src/data/city-social-images.ts', 'utf8');
 const viatorProduction = fs.readFileSync('scripts/ci/verify-viator-production.mjs', 'utf8');
 const sanAngeloProduction = fs.readFileSync('scripts/ci/verify-san-angelo-proximity-production.mjs', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
@@ -27,6 +29,37 @@ const expectedStateFairLabels = new Set([
 
 const stateFairChecks = [...productionSurfaces.matchAll(/\['(state-fair-[^']+)',\s*'\/texas-state-fair',\s*'([^']+)'\]/g)]
   .map((match) => ({ label: match[1], needle: match[2] }));
+
+const cityProductionChecks = [
+  ['city-houston-authority', '/city/houston', 'Museum District + Hermann Park', 'profile'],
+  ['city-houston-social', '/city/houston', 'Houston_texas_usa_skyline.jpg?width=1600', 'social'],
+  ['city-dallas-authority', '/city/dallas', 'Choose one evening district', 'profile'],
+  ['city-dallas-social', '/city/dallas', 'Dallas_Texas_Skyline.jpg?width=1600', 'social'],
+  ['city-fort-worth-authority', '/city/fort-worth', 'Panther Island & Trinity River', 'profile'],
+  ['city-fort-worth-social', '/city/fort-worth', 'Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600', 'social'],
+  ['city-austin-authority', '/city/austin', 'Lady Bird Lake + South Congress', 'profile'],
+  ['city-austin-social', '/city/austin', 'Austin%2C_TX_skyline_2026.jpg?width=1600', 'social'],
+  ['city-san-antonio-authority', '/city/san-antonio', 'Pearl + Museum Reach', 'profile'],
+  ['city-san-antonio-social', '/city/san-antonio', 'San_Antonio_Skyline_2026.jpg?width=1600', 'social'],
+  ['city-el-paso-authority', '/city/el-paso', 'UTEP campus architecture', 'profile'],
+  ['city-el-paso-social', '/city/el-paso', 'El_Paso_skyline.jpg?width=1600', 'social'],
+  ['city-arlington-authority', '/city/arlington', 'Build around the event calendar', 'profile'],
+  ['city-arlington-social', '/city/arlington', 'Arlington_Texas_Entertainment_District.jpg?width=1600', 'social'],
+  ['city-hurst-authority', '/city/hurst', 'Use Hurst as a Mid-Cities base', 'profile'],
+  ['city-hurst-social', '/city/hurst', 'Cityhallathurst.jpg?width=1600', 'social'],
+  ['city-corpus-christi-authority', '/city/corpus-christi', 'North Beach day', 'profile'],
+  ['city-corpus-christi-social', '/city/corpus-christi', 'Corpus_Christi_skyline.jpg?width=1600', 'social'],
+  ['city-plano-authority', '/city/plano', 'Legacy / Legacy West', 'profile'],
+  ['city-plano-social', '/city/plano', 'Hdr_plano.jpg?width=1600', 'social'],
+  ['city-lubbock-authority', '/city/lubbock', 'Downtown + Buddy Holly corridor', 'profile'],
+  ['city-lubbock-social', '/city/lubbock', 'Lubbock%2C_Texas_skyline.jpg?width=1600', 'social'],
+];
+for (const [label, path, needle, sourceKind] of cityProductionChecks) {
+  const tuple = `['${label}', '${path}', '${needle}']`;
+  if (!productionSurfaces.includes(tuple)) failures.push(`Production surface verifier is missing required city check: ${label}`);
+  const source = sourceKind === 'profile' ? cityAuthorityProfiles : citySocialImages;
+  if (!source.includes(needle)) failures.push(`City production verifier drift: ${label} expects content not present in ${sourceKind} source: ${needle}`);
+}
 
 const labels = new Set(stateFairChecks.map(({ label }) => label));
 for (const label of expectedStateFairLabels) {
@@ -132,4 +165,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Live verification contract passed: ${stateFairChecks.length} State Fair production needles match page source; San Angelo close-town live proof is wired; all ${requiredLiveSteps.length} live verifiers fail closed natively without the retired aggregate gate, and IndexNow remains fail-closed.`);
+console.log(`Live verification contract passed: ${stateFairChecks.length} State Fair production needles and ${cityProductionChecks.length} city authority/social production needles match source; San Angelo close-town live proof is wired; all ${requiredLiveSteps.length} live verifiers fail closed natively without the retired aggregate gate, and IndexNow remains fail-closed.`);

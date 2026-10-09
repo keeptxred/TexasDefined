@@ -5,6 +5,7 @@ import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { nationalWildlifeRefugeDestinations } from "@/data/national-wildlife-refuge-destinations";
+import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
 
 export const Route = createLazyFileRoute("/explore/wildlife")({ component: WildlifeHubPage });
 
@@ -29,6 +30,19 @@ function WildlifeHubPage() {
         </div>
       </header>
     </Container>
+
+    <Section>
+      <Container>
+        <SectionHeader eyebrow="Species field guides" title={`${TEXAS_WILDLIFE_SPECIES.length} Texas wildlife species profiles`} description="Open source-backed species guides for habitat, range, identification, conservation context and current TPWD references. These profiles connect wildlife planning to the animals readers are actually trying to understand." />
+        <div className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {TEXAS_WILDLIFE_SPECIES.map((species) => <a key={species.slug} href={`/wildlife-species/${species.slug}`} className="group bg-background p-5">
+            <h3 className="font-display text-2xl leading-tight group-hover:text-primary">{species.name}</h3>
+            <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{species.description}</p>
+            <span className="eyebrow mt-5 inline-block text-primary">Open species guide →</span>
+          </a>)}
+        </div>
+      </Container>
+    </Section>
 
     <Section>
       <Container>

@@ -130,6 +130,15 @@ if (!exploreSitemap.includes('isPrimaryTripPlannerDestination(destination)') || 
 for (const lowValueDependency of ['fetchExploreDestinations', 'fetchCoreExploreDestinations', 'supplementalExploreCategories', 'platform.destinations.list', 'platform.taxonomy.categories', 'platform.taxonomy.regions']) {
   if (sitemap.includes(lowValueDependency)) failures.push(`Primary sitemap must not load Explore-only dependency: ${lowValueDependency}.`);
 }
+for (const feature of [
+  'getPrimarySitemapEdgeCache',
+  'cacheUrl.search = ""',
+  'primarySitemapCacheRequest(request)',
+  'edgeCache.match(cacheRequest)',
+  'edgeCache.put(cacheRequest, response.clone())',
+]) {
+  if (!sitemap.includes(feature)) failures.push(`Primary sitemap explicit edge-cache contract missing: ${feature}`);
+}
 if (!sitemap.includes('stale-while-revalidate=86400')) failures.push('Primary sitemap cache policy must preserve a stale response while revalidating.');
 if (!exploreSitemap.includes('"Cache-Control": "no-store"')) failures.push('Explore sitemap cache policy must disable edge storage while crawl consistency is protected.');
 if (exploreSitemap.includes('stale-while-revalidate=')) failures.push('Explore sitemap must not permit stale-while-revalidate while regional stale variants are a GSC risk.');

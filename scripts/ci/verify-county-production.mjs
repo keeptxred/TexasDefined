@@ -30,7 +30,11 @@ async function verifyCountyHub() {
   if (!response.ok) return fail(`GET ${url} returned ${response.status}.`);
 
   const markers = [
-    'A guide to every Texas county',
+    'Discover all 254 Texas counties',
+    'Every Texas county has a story worth exploring',
+    'Search Texas counties',
+    'Find DMV and county vehicle offices',
+    '/images/texas-county-map-red.svg',
     'Search counties by city',
     'Search counties by ZIP code',
     'Find a county by exact address',
@@ -39,6 +43,25 @@ async function verifyCountyHub() {
   for (const marker of markers) {
     if (!body.includes(marker)) fail(`GET ${url} is missing required marker: ${marker}`);
   }
+  const introduction = body.indexOf('Every Texas county has a story worth exploring');
+  const searchHeading = body.indexOf('Search Texas counties');
+  if (introduction >= 0 && searchHeading >= 0 && introduction >= searchHeading) {
+    fail('County guide introduction must appear before the county search section.');
+  }
+  if (body.includes('Find the county from what you already know')) {
+    fail('County hub must not display the retired county-finder heading.');
+  }
+}
+
+async function verifyCountyMapAsset() {
+  const { response, url } = await request('/images/texas-county-map-red.svg');
+  if (!response.ok) return fail(`GET ${url} returned ${response.status}.`);
+  const contentType = response.headers.get('content-type') ?? '';
+  const body = await response.text();
+  if (!contentType.includes('svg')) fail(`County map must be served as SVG: ${contentType || 'missing content-type'}.`);
+  if (!body.includes('Map of all 254 Texas counties in red')) fail('County map SVG is missing its descriptive title.');
+  const countyCount = (body.match(/<title>[^<]+County<\/title>/g) ?? []).length;
+  if (countyCount !== 254) fail(`County map expected 254 geographic shapes, found ${countyCount}.`);
 }
 
 async function postLookup(payload) {
@@ -91,6 +114,7 @@ async function verifyAddressLookup() {
 
 try {
   await verifyCountyHub();
+  await verifyCountyMapAsset();
   await verifyCityLookup();
   await verifyZipLookup();
   await verifyAddressLookup();
@@ -99,5 +123,5 @@ try {
 }
 
 if (!process.exitCode) {
-  console.log('County production smoke passed: hub markers, multi-county city lookup, ZIP lookup and exact-address lookup are live.');
+  console.log('County production smoke passed: updated county hub, 254-shape red map, multi-county city lookup, ZIP lookup and exact-address lookup are live.');
 }

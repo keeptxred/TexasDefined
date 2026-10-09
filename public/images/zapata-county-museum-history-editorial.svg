@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Old Zapata, Falcon Reservoir and the Zapata County Museum of History</title>
+<desc id="desc">Original schematic editorial artwork contrasting Old Zapata and the Falcon Reservoir with a stylized modern museum, not a photograph or geographically accurate map.</desc>
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#153b48"/><stop offset="1" stop-color="#32646b"/></linearGradient>
+<linearGradient id="water" x2="0" y2="1"><stop stop-color="#4b8991"/><stop offset="1" stop-color="#1c4f61"/></linearGradient>
+<pattern id="lines" width="45" height="45" patternUnits="userSpaceOnUse"><path d="M0 45 L45 0" stroke="#ffffff" stroke-opacity=".055" stroke-width="2"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/><rect width="1600" height="900" fill="url(#lines)"/>
+<circle cx="1250" cy="145" r="116" fill="#dcb881" opacity=".18"/>
+<path d="M0 610 Q230 480 470 574 T1000 520 Q1260 444 1600 550 V900 H0Z" fill="#c7ad82"/>
+<path d="M0 720 Q300 600 520 730 Q735 805 1000 680 Q1320 562 1600 660 V900 H0Z" fill="#b78c63"/>
+<path d="M-60 784 Q220 624 500 786 T1040 752 Q1320 640 1680 815 L1680 910 H-60Z" fill="url(#water)"/>
+<path d="M0 780 Q250 630 530 792 T1060 756 Q1370 648 1600 817" fill="none" stroke="#b2d5cf" stroke-width="7" stroke-opacity=".65"/>
+<g stroke="#f0dec3" stroke-width="6" stroke-linejoin="round">
+<path d="M170 550 V454 H350 V550 M145 460 L260 365 L374 460 Z" fill="#8c6152"/>
+<path d="M220 545 V477 H270 V545 M301 478 H330 V514 H301" fill="#243e46" stroke-width="3"/>
+<path d="M390 590 V504 H500 V590 M373 508 L445 434 L523 508Z" fill="#a87857"/>
+<path d="M436 588 V544 H468 V588" stroke-width="3" fill="#254551"/>
+</g>
+<g transform="translate(885 295)">
+<rect x="-24" y="194" width="655" height="215" rx="5" fill="#7e7066" opacity=".35"/>
+<path d="M35 125H425L560 186V354H35Z" fill="#e2d6be"/>
+<path d="M35 118L420 108L576 174H180Z" fill="#c6ae8e"/>
+<rect x="65" y="194" width="285" height="139" fill="#567d7f"/>
+<g stroke="#d8ece6" stroke-width="7"><path d="M124 195V333 M185 195V333 M247 195V333 M310 195V333"/></g>
+<path d="M380 187H520V339H380Z" fill="#a37f60"/>
+<rect x="406" y="211" width="77" height="103" fill="#26444d"/>
+<path d="M5 364H600" stroke="#f5e9cd" stroke-width="16"/>
+<path d="M0 385H608" stroke="#95684e" stroke-width="8"/>
+</g>
+<rect x="72" y="68" width="740" height="178" rx="9" fill="#102f3b" opacity=".86"/>
+<text x="106" y="120" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#dfbf93" letter-spacing="4">TEXAS DEFINED  /  HERITAGE</text>
+<text x="104" y="184" font-family="Georgia, 'Times New Roman', serif" font-size="52" fill="#fff9ef">Zapata County Museum</text>
+<text x="108" y="224" font-family="Arial, sans-serif" font-size="26" fill="#d9e7df">Old Zapata · Falcon Reservoir · Rio Grande history</text>
+<g font-family="Arial, sans-serif" font-size="22" fill="#ffffff" stroke="#26434d" stroke-width="0">
+<rect x="72" y="815" width="715" height="57" rx="5" fill="#153b48" opacity=".9"/>
+<text x="94" y="850">ORIGINAL EDITORIAL ILLUSTRATION  •  NOT A PHOTOGRAPH</text>
+</g></svg>

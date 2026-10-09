@@ -18,6 +18,8 @@ const bryanFinderApiPath = '/api/high-school-football?q=Bryan&limit=25';
 const katyProfilePath = '/texas-high-school-football-teams/katy';
 const willsPointProfilePath = '/texas-high-school-football-teams/wills-point';
 const abbottProfilePath = '/texas-high-school-football-teams/abbott';
+const fortDavisProfilePath = '/texas-high-school-football-teams/fort-davis';
+const southlakeCarrollProfilePath = '/texas-high-school-football-teams/southlake-carroll';
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const springProfilePath = '/texas-high-school-football-teams/spring';
@@ -359,7 +361,22 @@ await fetchVerified(calendarPath, '2026 football season calendar', (body) => {
   if (/\bnoindex\b/i.test(body)) throw new Error('2026 football season calendar unexpectedly contains noindex');
 });
 
+// These five title/canonical checks are school-specific acceptance contracts, not a substitute for a visual QA pass.
+function verifyBatch001SchoolSeo(html, path, expectedTitle) {
+  const titleMatch = html.match(/<title(?:\s[^>]*)?>([\s\S]*?)<\/title>/i);
+  const actualTitle = titleMatch ? decodeHtml(titleMatch[1]).trim() : '';
+  if (!actualTitle.includes(expectedTitle)) throw new Error(`${path}: expected school-specific title ${JSON.stringify(expectedTitle)}, got ${JSON.stringify(actualTitle)}`);
+  const metaTags = (html.match(/<meta\b[^>]*>/gi) ?? []).map(parseAttributes);
+  const description = metaTags.find((attributes) => attributes.name?.toLowerCase() === 'description')?.content ?? '';
+  if (description.length < 80 || !/football/i.test(description)) throw new Error(`${path}: missing meaningful school-specific SSR meta description`);
+  const canonicalTag = (html.match(/<link\b[^>]*>/gi) ?? []).map(parseAttributes).find((attributes) => attributes.rel?.toLowerCase().split(/\s+/).includes('canonical'));
+  requireExact(canonicalTag?.href ?? '', `${origin}${path}`, `${path} canonical`);
+  requireNeedle(html, 'SportsTeam', `${path} SportsTeam structured data`);
+  requireNeedle(html, 'BreadcrumbList', `${path} breadcrumb structured data`);
+}
+
 await fetchVerified(willsPointProfilePath, 'Wills Point football school profile', (body) => {
+  verifyBatch001SchoolSeo(body, willsPointProfilePath, 'Wills Point Tigers Football: 1965 State Title');
   for (const needle of [
     'Wills Point Tigers Football',
     '4A Division II',
@@ -435,6 +452,7 @@ await fetchVerified(oneAFinderApiPath, '1A football profile API', (body) => {
 });
 
 await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
+  verifyBatch001SchoolSeo(body, katyProfilePath, 'Katy Tigers Football: Nine Texas State Titles');
   for (const needle of [
     'Katy',
     'Current district',
@@ -464,8 +482,13 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
 });
 
 await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) => {
+  verifyBatch001SchoolSeo(body, abbottProfilePath, 'Abbott Panthers Six-Man Football: 2015 Title');
   for (const needle of [
     'Abbott',
+    'Willie Nelson',
+    'Willie-Nelson-Highschool.jpg',
+    'U.S. public domain (published without copyright notice)',
+    'Abbott High School football halfback',
     '1A',
     'Current district',
     'How to enroll at',
@@ -479,10 +502,51 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'All current UIL football programs use the same profile system.',
     'Texas football stadiums',
     'Browse venue guides and game-day planning information.',
-    'Official district enrollment',
+    // Abbott ISD's live site provides a 2026–27 transfer packet and registrar,
+    // but no verified general new-student registration URL. The school page
+    // deliberately renders the truthful no-verified-link guidance instead of
+    // inventing a registration destination. Keep that explicit fallback tested.
+    'Start with the district.',
+    'TexasDefined has not yet verified a dedicated current enrollment URL',
+    'district’s official site or registrar',
     'UIL eligibility standards',
   ]) requireNeedle(body, needle, 'Abbott football school profile');
   if (/\bnoindex\b/i.test(body)) throw new Error('Abbott football school profile unexpectedly contains noindex');
+});
+
+await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched football profile', (body) => {
+  verifyBatch001SchoolSeo(body, fortDavisProfilePath, 'Fort Davis Indians Football: 2026 Season Canceled');
+  for (const needle of [
+    'Fort Davis Indians Football',
+    'Fort Davis ISD canceled the 2026 football season',
+    'The 2003 championship game was unusually close',
+    '67–62',
+    'These schools share the published 2026–28 UIL district alignment',
+    'Bart_Coan_Field_from_west.jpg',
+    'Fortguy',
+    'CC BY-SA 4.0',
+  ]) requireNeedle(body, needle, 'Fort Davis individual authority profile');
+  if (decodeHtml(body).includes('2026 scores & schedule sources')) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Fort Davis authority profile unexpectedly contains noindex');
+});
+
+await fetchVerified(southlakeCarrollProfilePath, 'Southlake Carroll individually researched football profile', (body) => {
+  verifyBatch001SchoolSeo(body, southlakeCarrollProfilePath, 'Southlake Carroll Dragons Football: 8 State Titles');
+  for (const needle of [
+    'Southlake Carroll Dragons Football',
+    'eight Texas football state championships',
+    'Lee Munn',
+    '2003 state final is a historic near miss',
+    '16–15',
+    'Dragon Stadium',
+    'Championship source correction',
+  ]) requireNeedle(body, needle, 'Southlake Carroll individual authority profile');
+  if (/\bnoindex\b/i.test(body)) throw new Error('Southlake Carroll authority profile unexpectedly contains noindex');
+});
+
+await fetchVerified(katyProfilePath, 'Katy licensed historical image profile', (body) => {
+  for (const needle of ['KatyHighSchool.JPG', 'Sskiles22', 'Public domain (uploader dedication)'])
+    requireNeedle(body, needle, 'Katy licensed authentic image');
 });
 
 await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) => {

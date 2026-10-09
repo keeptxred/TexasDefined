@@ -1,0 +1,36 @@
+name: Verify Zapata museum production
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-zapata-museum-production.yml'
+      - 'scripts/ci/verify-zapata-museum-production.mjs'
+      - 'src/components/editorial/ZapataCountyMuseumAuthority.tsx'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zapata-museum-production-smoke
+  cancel-in-progress: true
+
+jobs:
+  museum:
+    # An unrelated Fort Worth/live-surface failure must not suppress the
+    # Zapata page's independent verification. A failed deployment is only a
+    # reason to report the current live page state, not to claim this commit deployed.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out current certified source
+        uses: actions/checkout@v4
+
+      - name: Verify current live Zapata County Museum authority page
+        run: node scripts/ci/verify-zapata-museum-production.mjs

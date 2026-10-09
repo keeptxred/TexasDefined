@@ -177,8 +177,8 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    "title: `${teamName} Football: 2026 District, Schedule & Team Guide`",
-    "const description = `${teamName} football:",
+    "title: editorial?.seo?.title ?? `${teamName} Football: 2026 District, Schedule & Team Guide`",
+    "const description = editorial?.seo?.description ?? `${teamName} football:",
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
 
   for (const marker of [
@@ -256,8 +256,8 @@ if (!errors.length) {
   ]) requireText(directory, marker, 'Football directory');
 
   for (const marker of [
-    "const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives'",
-    "const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives'",
+    "const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives/'",
+    "const UIL_FOOTBALL_ARCHIVE_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/archives/'",
     "const HISTORY_START_SEASON = '2018-2019'",
     "const HISTORY_END_SEASON = '2025-2026'",
     'ARCHIVE_PAGE_OFFSETS',

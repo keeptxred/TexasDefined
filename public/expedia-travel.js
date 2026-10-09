@@ -562,7 +562,16 @@
     trackSurfaceImpression(surface, placement);
   }
 
+  // Preserve React SSR for individually audited football-linked counties.
+  // Their lodging cards wait for route hydration; the pages still show eligible cards afterward.
+  function waitingForFootballCountyHydration() {
+    const path = window.location.pathname.replace(/\/+$/, "");
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis" || path === "/county/tarrant")
+      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+  }
+
   async function syncSurface() {
+    if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
 
@@ -627,6 +636,7 @@
     }
 
     window.addEventListener("popstate", scheduleSync);
+    window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {

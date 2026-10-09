@@ -492,8 +492,17 @@
     main.appendChild(createOwnerReferral());
   }
 
+  // Preserve the linked Van Zandt, Hill, Fort Bend and Jeff Davis County React trees.
+  // The named county pages signal readiness before first-party affiliate DOM writes.
+  function waitingForFootballCountyHydration() {
+    const path = window.location.pathname.replace(/\/+$/, "");
+    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis" || path === "/county/tarrant")
+      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+  }
+
   function sync() {
     scheduled = false;
+    if (waitingForFootballCountyHydration()) return;
     addStyles();
     syncBookingChoice();
     syncOwnerReferral();
@@ -511,6 +520,7 @@
     observer = new MutationObserver(scheduleSync);
     observer.observe(main, { childList: true, subtree: true });
     window.addEventListener("popstate", scheduleSync);
+    window.addEventListener("texasdefined:county-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
