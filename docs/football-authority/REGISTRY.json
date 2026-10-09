@@ -51,12 +51,14 @@
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "25 school editorials implemented across existing branches; zero individually production VERIFIED. Remaining to implement zero; remaining to verify 25.",
+    "notes": "All 25 assigned have distinct school editorial objects and audit records saved across existing two PR branches. All 25 are IMPLEMENTED but 0 production VERIFIED. Eleven unkeyed editorial entries corrected at d373055; malformed county reciprocal map repaired at 5624d7a; reciprocal campus-county links added at 2d9376d and 9a19441; Amarillo campus is NCES-confirmed Randall County, not Potter. Protected merge, deployment and individual visual acceptance remain pending.",
     "currentSchool": "amarillo",
     "nextSchool": null,
     "implementedOnBranch": 25,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
-    "parentBatchPr": 4409
+    "parentBatchPr": 4409,
+    "remainingToImplement": 0,
+    "remainingToVerify": 25
   },
   "statusValues": [
     "NOT_REVIEWED",
