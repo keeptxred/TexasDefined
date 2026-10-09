@@ -116,7 +116,10 @@ function parseCountyDirectory(html) {
     const indexed = /^(\d{3})\s+(.+)$/.exec(labelText);
     if (!indexed) continue;
     const label = indexed[2].trim();
-    const slug = slugify(label);
+    // Texas Comptroller's 064 entry names this county "Dimmitt" in its
+    // directory even though the legal county name is Dimmit. Do not confuse
+    // it with Dimmitt, the county seat of Castro County.
+    const slug = slugify(label) === 'dimmitt' ? 'dimmit' : slugify(label);
     let url;
     try { url = new URL(match[1], DIRECTORY_URL); }
     catch { continue; }
