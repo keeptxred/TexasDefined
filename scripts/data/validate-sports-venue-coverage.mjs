@@ -214,6 +214,7 @@ for (const marker of [
   assert(sharedGuideContent.includes(marker), `Shared sports venue guide must surface vetted visitor facts: ${marker}.`);
 }
 assert(sharedGuidePage.includes('League / conference'), 'Shared sports venue quick facts must surface sourced league or conference context.');
+assert(sharedGuidePage.includes('"@type": "FAQPage"'), 'Shared sports venue guide must publish FAQ structured data when visible venue FAQs exist.');
 
 for (const getter of [
   'getSportsVenueContentRemediation(lookupSlug)',
