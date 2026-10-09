@@ -183,8 +183,8 @@ for (const forbiddenFeature of [
   'lastmod: toDate(destination.sourceCheckedAt)',
 ]) if (primarySitemap.includes(forbiddenFeature)) errors.push(`Primary sitemap must not own Explore destination work: ${forbiddenFeature}`);
 
-const enrichedListIndex = destinationRuntime.indexOf('fetchExploreDestinations(options)');
-const coreListIndex = destinationRuntime.indexOf('fetchCoreExploreDestinations(options)');
+const enrichedListIndex = destinationRuntime.indexOf('withDestinationRemoteTimeout("Explore enrichment", (signal) => fetchExploreDestinations({ ...options, signal }))');
+const coreListIndex = destinationRuntime.indexOf('withDestinationRemoteTimeout("Core Explore catalog", (signal) => fetchCoreExploreDestinations({ ...options, signal }))');
 const fixtureListIndex = destinationRuntime.indexOf('platform.destinations.list');
 if (!(enrichedListIndex >= 0 && coreListIndex > enrichedListIndex && fixtureListIndex > coreListIndex)) errors.push('Destination list fallback order must be enriched remote → core remote → fixtures.');
 
