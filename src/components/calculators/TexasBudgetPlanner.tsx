@@ -123,7 +123,7 @@ export function BudgetCalculator() {
     setStatus('CSV created on your device. Keep the file private if it contains sensitive financial amounts.');
   };
 
-  const actionClass = 'inline-flex min-h-11 items-center justify-center border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
+  const actionClass = 'inline-flex items-center justify-center border border-border px-4 py-2 text-sm font-semibold transition-colors hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary';
   return (
     <div className="mt-8 space-y-9">
       <section className="border-y border-border bg-surface p-5 sm:p-7" aria-labelledby="budget-start-heading">
@@ -159,7 +159,7 @@ export function BudgetCalculator() {
         })}
       </div>
 
-      <section aria-labelledby="budget-results-heading" className="border-y-2 border-foreground py-8" aria-live="polite">
+      <section aria-labelledby="budget-results-heading" className="border-y border-foreground py-8" aria-live="polite">
         <p className="eyebrow text-primary">Live budget summary</p>
         <h2 id="budget-results-heading" className="mt-2 font-display text-3xl">Where your monthly income goes</h2>
         <div className="mt-6 grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -172,7 +172,7 @@ export function BudgetCalculator() {
         </div>
         <p className="mt-4 text-sm text-muted-foreground">Expenses consume {formatPercent(totals.spendingPercent)} of income; planned savings allocate {formatPercent(totals.savingsPercent)}. These percentages share the same denominator: monthly take-home income.</p>
         <p className="mt-2 text-sm text-muted-foreground">Annualized at unchanged monthly inputs: {formatMoney(totals.annualIncome)} income, {formatMoney(totals.annualExpenses)} expenses, {formatMoney(totals.annualSavings)} saved and {formatMoney(totals.annualRemaining)} remaining. This is a straight 12-month projection, not a growth forecast.</p>
-        <div className={`mt-6 border-l-4 p-4 text-sm leading-6 ${totals.remaining < 0 ? 'border-destructive bg-muted' : 'border-primary bg-surface'}`} role="status">
+        <div className={`mt-6 border-l-2 p-4 text-sm leading-6 ${totals.remaining < 0 ? 'border-destructive bg-muted' : 'border-primary bg-surface'}`} role="status">
           {totals.remaining < 0 ? <><strong>Budget shortfall: {formatMoney(-totals.remaining)} per month.</strong> Your planned expenses plus savings exceed take-home income. Recheck the categories, especially {totals.largestExpense?.title.toLowerCase() ?? 'your largest expenses'}, and consider adjusting amounts or savings timing. No single spending ratio fits every household.</> :
             totals.income === 0 ? <><strong>Enter take-home income to interpret the result.</strong> Expense totals can be reviewed while income is zero, but percentages of income are not meaningful yet.</> :
             <><strong>{formatMoney(totals.remaining)} remains unallocated each month.</strong> This is not automatically free-to-spend money: confirm irregular bills and emergency needs before assigning the rest.</>}
@@ -198,7 +198,7 @@ export function BudgetCalculator() {
         <p className="mt-2 text-sm leading-6 text-muted-foreground">Save the current budget as A, modify expenses or income, then save as B. Both stay in this browser only; neither is submitted to a server.</p>
         <div className="mt-4 flex flex-wrap gap-3"><button className={actionClass} type="button" onClick={() => saveScenario('A')}>Save current as A</button><button className={actionClass} type="button" onClick={() => saveScenario('B')}>Save current as B</button></div>
         {scenarios.length > 0 && <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[26rem] border-collapse text-sm">
+          <table className="w-full min-w-full border-collapse text-sm">
             <caption className="sr-only">Saved budget scenario comparison</caption>
             <thead><tr className="border-b border-border"><th scope="col" className="py-3 text-left">Monthly measure</th>{scenarios.map(row => <th key={row.label} scope="col" className="py-3 text-right">Scenario {row.label}</th>)}</tr></thead>
             <tbody>{([
@@ -222,7 +222,7 @@ export function BudgetCalculator() {
           <h3 className="font-display text-xl">Share a budget link — privacy notice</h3>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">The link will contain every entered financial amount as URL data. Recipients can see the numbers, and the link may appear in browser history, analytics or logs. Do not share private household financial information unless you are comfortable with that exposure. This feature does not encrypt values.</p>
           <label className="mt-4 flex items-start gap-3 text-sm"><input type="checkbox" className="mt-1 h-4 w-4 shrink-0 accent-current" checked={shareApproved} onChange={event => setShareApproved(event.target.checked)} /><span>I understand that the copied URL exposes my budget amounts.</span></label>
-          <button className={`${actionClass} mt-4 disabled:cursor-not-allowed disabled:opacity-50`} disabled={!shareApproved} type="button" onClick={share}>Copy share link</button>
+          <button className={`${actionClass} mt-4 disabled:opacity-50`} disabled={!shareApproved} type="button" onClick={share}>Copy share link</button>
         </div>
         <p className="mt-4 text-sm" aria-live="polite" role="status">{status}</p>
       </section>
