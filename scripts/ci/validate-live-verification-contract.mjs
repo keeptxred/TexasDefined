@@ -15,7 +15,28 @@ const proximityCollectionRoute = fs.readFileSync('src/routes/explore.near.$metro
 const proximityPresentation = fs.readFileSync('src/data/metro-proximity-presentation.ts', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 
+
+const cityMetroAuthority = fs.readFileSync('src/data/city-metro-authority.ts', 'utf8');
+const citySitemapLastmod = cityMetroAuthority.match(/const cityAuthorityCheckedAt = '(\d{4}-\d{2}-\d{2})'/)?.[1];
+if (!citySitemapLastmod) throw new Error('Current city authority source review date missing');
+const citySitemapContractMarkers = [
+  'const citySitemapEntries = [',
+  'citySitemapMissing',
+  'cityAuthorityLastmod',
+  "readFileSync('src/data/city-metro-authority.ts'",
+  "cache: 'no-store'",
+  "'cache-control': 'no-cache, no-store'",
+  "response.ok",
+  '<lastmod>',
+  'city-sitemap-authority',
+  'if (!citySitemapPassed)',
+  ...['houston', 'dallas', 'fort-worth', 'austin', 'san-antonio', 'el-paso', 'arlington', 'hurst', 'corpus-christi', 'plano', 'lubbock'].map((slug) => "'" + slug + "'"),
+];
 const failures = [];
+for (const marker of citySitemapContractMarkers) {
+  if (!productionSurfaces.includes(marker)) failures.push('City live sitemap verification contract missing: ' + marker);
+}
+
 const stateFairSource = [stateFairRoute, stateFairLazyRoute, stateFairEnhancements, stateFairHighlights].join('\n');
 
 const expectedStateFairLabels = new Set([

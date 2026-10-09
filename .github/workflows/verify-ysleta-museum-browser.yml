@@ -1,0 +1,44 @@
+name: Verify Ysleta museum authority browser
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ysleta-museum-browser-production
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out current repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare Chrome without modifying project dependencies
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-ysleta-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Audit Ysleta museum at 390px mobile and 1366px desktop
+        run: node scripts/ci/verify-ysleta-museum-browser.mjs
+      - name: Retain browser screenshots and acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ysleta-museum-browser-acceptance
+          path: artifacts/ysleta-museum-qa/
+          if-no-files-found: warn
+          retention-days: 14

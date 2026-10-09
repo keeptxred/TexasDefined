@@ -707,10 +707,9 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'aledo',
     mascot: 'Bearcats',
-    colors: 'Orange and Black',
-    sourceUrl: 'https://www.uiltexas.org/football/state-team-mp-archive/aledo-2023-2024-football',
-    sourceLabel: 'UIL 2023 Aledo championship team official mascot and school colors',
-    verifiedAt: '2026-10-09',
+    sourceUrl: 'https://ahs.aledoisd.org/',
+    sourceLabel: 'Aledo High School',
+    verifiedAt: '2026-09-19',
   },
   {
     slug: 'carthage',
