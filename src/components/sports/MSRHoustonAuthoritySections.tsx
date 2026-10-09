@@ -184,11 +184,7 @@ export function MSRHoustonAuthoritySections() {
           <dt className="font-semibold">{label}</dt><dd className="max-w-[55%] text-right text-muted-foreground">{value}</dd>
         </div>)}
       </dl>
-      <div className="mt-7 grid gap-5 md:grid-cols-2">
-        <div className="border border-border p-5">
-          <h3 className="font-display text-xl">Track operations, not just a lap count</h3>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">Race control, trackside towers, corner-camera coverage, paved runoff in critical areas and a substantial paddock support organized sessions and testing. The track direction is calendar-dependent: confirm clockwise versus counterclockwise before planning instruction or data comparison.</p>
-        </div>
+      <div className="mt-7">
         <div className="border border-border p-5">
           <h3 className="font-display text-xl">A note about track maps</h3>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">The parking orientation graphic above is deliberately a schematic of arrival and paddock zones—not a driving-line map, scale plan or guaranteed parking assignment. The venue's facility page includes aerial photos; rely on event-issued circuit diagrams and instructor briefings for on-track navigation.</p>
@@ -283,11 +279,6 @@ export function MSRHoustonAuthoritySections() {
           <p className="text-xs font-bold uppercase tracking-wider text-primary">2007</p>
           <h3 className="mt-2 font-display text-xl">Professional-series testing</h3>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">MSR says the facility was sanctioned for Champ Car, Atlantic Championship and Formula BMW testing that year.</p>
-        </li>
-        <li className="border-t border-border pt-4">
-          <p className="text-xs font-bold uppercase tracking-wider text-primary">Today</p>
-          <h3 className="mt-2 font-display text-xl">Multiple motorsports communities</h3>
-          <p className="mt-2 text-sm leading-7 text-muted-foreground">Club driving, motorcycle schools, amateur road racing, competition instruction and private testing use the road course on different calendars.</p>
         </li>
       </ol>
     </section>
