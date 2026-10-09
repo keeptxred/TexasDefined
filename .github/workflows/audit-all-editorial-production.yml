@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/audit-all-editorial-production.yml'
       - 'scripts/data/inventory-county-series.mjs'
+      - 'scripts/data/sync-county-property-data.mjs'
+      - 'src/data/types.ts'
       - 'src/components/content/CountyGuideSections.tsx'
       - 'src/components/content/CountyIdentitySection.tsx'
       - 'src/data/county-profile.ts'
@@ -64,6 +66,30 @@ jobs:
             /tmp/county-profiles.json
             /tmp/county-profiles-authority-backlog.tsv
           if-no-files-found: error
+
+  audit-county-government-links:
+    name: Recheck official appraisal and tax-office records for all 254 counties
+    needs: validate-county-source
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ env.AUDIT_REF }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read-only crawl of all 254 official Comptroller county directories
+        run: node scripts/data/sync-county-property-data.mjs --audit-only
+      - name: Upload dated source-freshness and office URL audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: county-government-source-audit
+          path: |
+            /tmp/county-government-links-audit.json
+            /tmp/county-government-links-audit.tsv
+          if-no-files-found: warn
 
   verify-county-production:
     name: Crawl all 254 canonical county pages on texasdefined.com
