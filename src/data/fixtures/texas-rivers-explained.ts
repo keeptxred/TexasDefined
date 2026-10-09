@@ -10,7 +10,7 @@ export const texasRiversExplainedArticle: Article = {
   id: "evergreen-texas-rivers-explained",
   brandId: "texasdefined",
   slug: "texas-rivers-explained",
-  title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
+  title: "Texas Rivers Explained: Major Rivers, Basins & Map",
   dek: "A practical guide to the major rivers and river basins of Texas, from the Rio Grande, Brazos and Colorado to the Guadalupe, Trinity, Sabine and East Texas systems — and how mountains, plains, aquifers and reservoirs shape where the water flows.",
   category: "lakes-rivers",
   hero: {
@@ -22,8 +22,8 @@ export const texasRiversExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
-  updatedAt: "2026-10-03",
-  readingMinutes: 14,
+  updatedAt: "2026-10-09",
+  readingMinutes: 17,
   tags: [
     "major rivers in texas",
     "texas river basins",
@@ -91,18 +91,46 @@ export const texasRiversExplainedArticle: Article = {
       description: "Limestone, springs and rivers are central to the landscape Texans recognize as the Hill Country.",
     },
     {
+      href: "/county/kerr",
+      label: "Kerr County and the Guadalupe headwaters",
+      description: "Connect the North and South Forks to the Hill Country communities where the river begins.",
+    },
+    {
+      href: "/county/stonewall",
+      label: "Stonewall County and the Brazos forks",
+      description: "Explore the West Texas meeting point of the Salt and Double Mountain Forks.",
+    },
+    {
+      href: "/county/val-verde",
+      label: "Val Verde County and the Rio Grande",
+      description: "Trace the border river, Devils River and Amistad landscape together.",
+    },
+    {
       href: "/article/texas-regions-explained",
       label: "Texas regions explained",
       description: "See how rainfall, geology and geography divide Texas into landscapes that behave very differently around water.",
     },
   ],
-  relatedCollections: [],
+  // County guides connect basin geography with specific Texas places.
+  // Keep these as verified existing county-route patterns rather than inventing river-profile URLs.
+    relatedCollections: [],
   relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park", "caddo-lake", "blue-hole-wimberley", "gruene-historic-district"],
   body: [
     p("You can understand a surprising amount of Texas by following the water. Towns grew where rivers could be crossed. Farms spread across bottomlands where floods left deep soil. Railroads, highways and county seats followed older settlement patterns. Modern cities now depend on reservoirs built into the same river systems, while summer weekends still revolve around stretches of water Texans have floated, fished and swum for generations."),
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
+    h("Texas rivers at a glance: six quick answers"),
+    list(
+      "How many major river basins are in Texas? TWDB recognizes 15 major river basins and eight smaller coastal basins. A basin is a drainage area, not just the visible river channel.",
+      "What is the longest river segment within Texas in TWDB's basin table? The Rio Grande, with 889 river miles in Texas; this is not the river's full international length.",
+      "Which basin is largest inside Texas? The Rio Grande basin, with 49,387 square miles of drainage area on the Texas side.",
+      "Which basin has the highest average annual flow in the TWDB comparison? The Brazos, at 6,074,000 acre-feet per year in the agency's reference table; this is not today's measured discharge.",
+      "Which Texas rivers form borders? The Rio Grande forms the international boundary with Mexico along Texas; the Red River marks much of the Oklahoma boundary, and the Sabine forms much of the Louisiana boundary.",
+      "Do all Texas rivers drain straight to the Gulf? No. The Red, Canadian, Sulphur and Cypress connect through interstate watersheds, while others drain to Texas bays, the Gulf or the Rio Grande system."
+    ),
     h("How a Texas River Is Born"),
-    p("A river makes more sense when you think about all the land that sends water toward it. That area of land is called the river's basin, or watershed. Rain that falls on a pasture, neighborhood, canyon wall or city street can soak into the ground, evaporate or flow downhill into smaller creeks and streams that eventually feed the river."),
+    p("A river starts small. Rainfall and melting precipitation move downhill as runoff, sometimes entering tiny channels called headwaters. Other water soaks underground and may later emerge from springs or seep into a stream as base flow. Gravity carries small creeks toward larger tributaries; where streams join, a larger river forms. There is rarely one magical starting point for every branch of a river system."),
+    p("As moving water erodes rock and soil, it deepens channels and reshapes valleys. Sediment travels downstream and can be deposited on inside bends, floodplains and deltas. Streamflow is never supplied by rain alone: groundwater, springs, tributary inflows and — in managed reaches — reservoir releases all affect what visitors see. The USGS Water Science School explains these processes in its Rivers, Streams and Creeks and Rivers and the Landscape resources."),
+    p("A river makes more sense when you think about all the land that sends water toward it. That area is its drainage basin, or watershed. Rain falling on a pasture, neighborhood, canyon wall or street may infiltrate soil, evaporate or reach creeks that eventually feed the main river. A drainage divide separates the land feeding one watershed from the land feeding another."),
     p("The Texas Water Development Board recognizes 15 major river basins and eight coastal basins. The coastal basins occupy the areas between the larger named river systems and drain directly toward bays and the Gulf. On a map, those basin boundaries create a set of broad natural districts that ignore county lines and city limits."),
     p("That is useful because water does the same thing. A fast-growing suburb can affect a creek that crosses several counties. A reservoir hundreds of miles upstream can influence flows downstream. Heavy rain in one part of a basin can produce flooding somewhere that never saw the storm."),
     quote("Texas rivers are not blue lines laid on top of the state. They are systems that help explain the state itself."),
@@ -127,7 +155,7 @@ export const texasRiversExplainedArticle: Article = {
     p("The basin also includes the Blanco, Comal and San Marcos rivers. Those tributaries show why surface water and groundwater cannot always be treated as separate stories in Central Texas. Springs and aquifers help sustain river flows, and changes underground can show up as changes in swimming holes, spring runs and downstream habitat."),
     p("Canyon Lake is the basin's major reservoir and adds flood control, water supply and recreation to a river already famous for tubing, paddling and fishing. The result is a river that feels natural and heavily managed at the same time, because it is both."),
     h("The Nueces and Frio: clear water in dry country"),
-    image("/images/state-parks/garner-state-park.jpg", "The Frio River corridor at Garner State Park in the Texas Hill Country", 1600, 230, "Garner State Park puts the Frio River at the center of one of Texas's best-known clear-water landscapes."),
+    image("/images/state-parks/garner-state-park.jpg", "The Frio River corridor at Garner State Park in the Texas Hill Country", 1600, 1067, "Garner State Park puts the Frio River at the center of one of Texas's best-known clear-water landscapes."),
     p("The Nueces rises in the Edwards Plateau country of Real and Edwards counties and runs toward Nueces Bay on the Gulf Coast. Its basin includes the Frio, Sabinal, Leona and Atascosa rivers. For many Texans, the Frio is the most familiar part of the system because of Garner State Park, tubing and the cypress-lined reaches around Concan."),
     p("The surprise is how dry the larger basin can be. Clear pools and spring-fed reaches can create an impression of permanent abundance, but the Nueces basin is relatively arid and drought can dramatically change flows. Choke Canyon Reservoir and Lake Corpus Christi help turn the river system into a major water source for the Coastal Bend."),
     h("The San Antonio: a city river with a much longer life"),
@@ -159,6 +187,9 @@ export const texasRiversExplainedArticle: Article = {
     p("Texans often talk about rivers as though one condition is normal and everything else is an exception. The better mental model is variability. Long dry periods can reduce streams to quiet pools, then intense rainfall can send enormous volumes of water through the same channel."),
     p("Hill Country rivers can rise with frightening speed because steep terrain, thin soils and exposed rock shed water quickly. Broad coastal and East Texas rivers can spread across floodplains and remain high longer. Urban watersheds add pavement and rooftops that move rainfall into drainage systems faster than undeveloped land would."),
     p("A dry crossing, gravel bar or low bank is therefore not proof that a river cannot reach it. The shape of a floodplain is evidence of where water has gone before."),
+    h("Before visiting: check river gauges, forecasts and legal access"),
+    p("A basin's long-term average flow cannot tell you whether a particular reach is safe today. Consult current USGS stream gauges, National Weather Service flood warnings and the managing authority's reservoir-release notices. River levels can rise even where the sky is clear because runoff or a dam release originated upstream."),
+    p("In Texas, access to navigable streambeds and crossing onto private land are separate legal questions. Public water does not automatically provide a public way across private property. TPWD's river-navigation guidance and public boater-access directory are better starting points than assumptions based on a map. Local closures, launches, seasonal conditions and property boundaries still need individual confirmation."),
     h("How to read a Texas river when you visit"),
     list(
       "Look upstream on the map. The water in front of you is the result of everything happening in the basin above you.",

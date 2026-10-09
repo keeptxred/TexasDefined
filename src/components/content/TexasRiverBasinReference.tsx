@@ -1,5 +1,5 @@
 const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
-const lastVerified = "2026-10-03";
+const lastVerified = "2026-10-09";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
 
 const majorBasins = [
@@ -29,6 +29,21 @@ const coastalBasins = [
   "Lavaca-Guadalupe",
   "San Antonio-Nueces",
   "Nueces-Rio Grande",
+] as const;
+
+// Keep only verified published profiles here; all other major basins link to TWDB's official directory.
+const researchedProfiles: Record<string, string> = {
+  Brazos: "/article/texas-brazos-river-guide",
+  Colorado: "/article/texas-colorado-river-guide",
+  Guadalupe: "/article/texas-guadalupe-river-guide",
+  Trinity: "/article/texas-trinity-river-guide",
+  "Rio Grande": "/article/texas-rio-grande-river-guide",
+};
+
+const comparisonMetrics = [
+  { label: "Largest watersheds within Texas", column: 1, unit: "sq. mi." },
+  { label: "Longest river reaches within Texas", column: 2, unit: "miles" },
+  { label: "Highest historical average annual flow", column: 3, unit: "acre-feet/year" },
 ] as const;
 
 const basinHighlights = [
@@ -123,7 +138,7 @@ export function TexasRiverBasinReference() {
       </div>
 
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
-        The statewide numbers are useful for comparison, but the full table does not need to dominate the story. Start with three scale markers, then open the complete TWDB reference when you want basin-by-basin detail.
+The TWDB numbers describe three distinct questions: area drained within Texas, miles of the named river inside Texas, and historical average annual water volume. None is a live river-level report. Compare the ranking charts or open the full source table and downloadable dataset.
       </p>
 
       <dl className="mt-5 flex flex-wrap gap-2">
@@ -136,6 +151,43 @@ export function TexasRiverBasinReference() {
         ))}
       </dl>
 
+      <section className="mt-7" aria-labelledby="basin-comparison-charts">
+        <h4 id="basin-comparison-charts" className="font-display text-xl">Compare river systems by three different measures</h4>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          Rankings below use the exact TWDB reference figures, not estimated contemporary flows.
+          A long river need not have a big drainage area or a high average flow.
+        </p>
+        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+          {comparisonMetrics.map((metric) => {
+            const ranked = [...majorBasins]
+              .sort((a, b) => Number(normalizeNumber(b[metric.column])) - Number(normalizeNumber(a[metric.column])))
+              .slice(0, 5);
+            const maximum = Number(normalizeNumber(ranked[0][metric.column]));
+            return (
+              <div key={metric.label} className="rounded-sm border border-border bg-background p-4">
+                <h5 className="text-sm font-semibold text-foreground">{metric.label}</h5>
+                <ol className="mt-4 space-y-3">
+                  {ranked.map(([name, area, miles, flow]) => {
+                    const numeric = Number(normalizeNumber([name, area, miles, flow][metric.column]));
+                    return (
+                      <li key={name}>
+                        <div className="mb-1 flex items-baseline justify-between gap-2 text-xs">
+                          <span className="font-semibold text-foreground">{name}</span>
+                          <span className="text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{numeric.toLocaleString("en-US")} {metric.unit}</span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-sm bg-surface" role="img" aria-label={name + ": " + numeric.toLocaleString("en-US") + " " + metric.unit}>
+                          <div className="h-full bg-primary" style={{ width: `${Math.round((numeric / maximum) * 100)}%` }} />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       <details className="mt-5 border border-border">
         <summary className="px-4 py-3 font-semibold text-foreground">
           Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">area, Texas river miles and average annual flow</span>
@@ -143,7 +195,7 @@ export function TexasRiverBasinReference() {
 
         <div className="px-4 py-3">
           <p className="text-sm leading-7 text-muted-foreground">
-            Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot.
+Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot. TWDB does not state the averaging years in its public summary table, so do not treat these reference values as present-day discharge or compare them as though they share a recent time window.
           </p>
           <div className="mt-5 overflow-x-auto border border-border">
             <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "42rem" }}>
@@ -158,8 +210,10 @@ export function TexasRiverBasinReference() {
               </thead>
               <tbody className="divide-y divide-border">
                 {majorBasins.map(([name, area, miles, flow]) => (
-                  <tr key={name}>
-                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">{name}</th>
+                  <tr key={name} id={`texas-basin-${name.toLowerCase().replaceAll(" ", "-")}`}>
+                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">
+                      {researchedProfiles[name] ? <a className="text-primary underline underline-offset-2" href={researchedProfiles[name]}>{name} <span className="sr-only">independent river profile</span></a> : name}
+                    </th>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{area}</td>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{miles}</td>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{flow}</td>
@@ -171,6 +225,11 @@ export function TexasRiverBasinReference() {
         </div>
       </details>
 
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">
+        Linked river names in the table open existing TexasDefined profiles. Unlinked names still have verified TWDB figures
+        and can be researched through the agency directory above. Data verified {lastVerified}; downloading this reference
+        preserves the source URL and verification date.
+      </p>
       <div className="mt-6">
         <p className="eyebrow text-muted-foreground">Between the major rivers</p>
         <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
