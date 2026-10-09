@@ -62,7 +62,13 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
   },
   'nueces': {
-    name: 'Agua Dulce Longhorns',
+    name: 'Agua Dulce Longhorns',  wood: {
+    name: 'Alba-Golden Panthers',
+    href: '/texas-high-school-football-teams/alba-golden',
+    description: 'Explore the Panthers’ 2023 seven-win season, 2025 rebuilding year, Drew Webster and 2026 UIL District 10 opponents.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Wood+County&ID=480765000053&Search=1&State=48',
+  },
+
     href: '/texas-high-school-football-teams/agua-dulce',
     description: 'Read the Longhorns 2026 coaching, recent playoffs and state-registered football-field improvement research before planning a game-day visit.',
     campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320',
