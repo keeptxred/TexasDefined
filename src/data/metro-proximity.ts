@@ -522,7 +522,7 @@ function selectMcAllenDayTrips(rows: Array<{ destination: Destination; distanceM
 // letting 30 attractions in a single tourist town crowd out other towns.
 // Preserve the full candidate count (and existing index-readiness thresholds)
 // by relaxing diversity limits only when the catalog lacks alternatives.
-function selectDiverseDayTrips(rows: Array<{ destination: Destination; distanceMiles: number }>, maxResults: number) {
+function selectDiverseDayTrips(rows: Array<{ destination: Destination; distanceMiles: number }>, collection: MetroProximityCollection) {
   const sorted = [...rows].sort((left, right) =>
     left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
   );
@@ -530,24 +530,35 @@ function selectDiverseDayTrips(rows: Array<{ destination: Destination; distanceM
   const included = new Set<string>();
   const towns = new Map<string, number>();
   const categories = new Map<CategorySlug, number>();
-  const categoryLimit = Math.max(2, Math.ceil(maxResults * 0.45));
-  for (const [townLimit, categoryCap] of [
-    [2, categoryLimit],
-    [2, Number.POSITIVE_INFINITY],
-    [Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY],
-  ]) {
+  const categoryLimit = Math.max(2, Math.ceil(collection.maxResults * 0.45));
+
+  // First favor a mix of towns and activities, then relax only category
+  // concentration. Do not refill a useful diverse shortlist to an arbitrary
+  // 30 with repeated beaches or attractions from one town.
+  for (const categoryCap of [categoryLimit, Number.POSITIVE_INFINITY]) {
     for (const row of sorted) {
-      if (selected.length === maxResults) break;
+      if (selected.length === collection.maxResults) break;
       if (included.has(row.destination.slug)) continue;
       const town = row.destination.nearestTown.trim().toLowerCase() || row.destination.slug;
       const category = row.destination.category;
-      if ((towns.get(town) ?? 0) >= townLimit || (categories.get(category) ?? 0) >= categoryCap) continue;
+      if ((towns.get(town) ?? 0) >= 2 || (categories.get(category) ?? 0) >= categoryCap) continue;
       selected.push(row);
       included.add(row.destination.slug);
       towns.set(town, (towns.get(town) ?? 0) + 1);
       categories.set(category, (categories.get(category) ?? 0) + 1);
     }
-    if (selected.length === maxResults) break;
+    if (selected.length === collection.maxResults) break;
+  }
+  // Only relax the two-per-town cap when a sparse catalog otherwise fails
+  // the existing minimum result count; retain the independent diversity and
+  // source-quality checks that determine whether a page can be indexed.
+  if (selected.length < collection.minResults) {
+    for (const row of sorted) {
+      if (selected.length === collection.minResults || selected.length === collection.maxResults) break;
+      if (included.has(row.destination.slug)) continue;
+      selected.push(row);
+      included.add(row.destination.slug);
+    }
   }
   return selected.sort((left, right) =>
     left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
@@ -591,7 +602,7 @@ export function selectMetroProximityDestinations(
   const rows = mcallenDayTrips
     ? selectMcAllenDayTrips(candidates, collection.maxResults)
     : collection.slug === "day-trips"
-      ? selectDiverseDayTrips(candidates, collection.maxResults)
+      ? selectDiverseDayTrips(candidates, collection)
       : candidates
         .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
         .slice(0, collection.maxResults);
