@@ -76,10 +76,12 @@ async function loadMetroIndexableDestinationsForHub(metro: MetroProximityMetro) 
   return retry.length > first.length ? retry : first;
 }
 
-export async function loadMetroProximitySitemapEntriesServer(resolvedDestinations?: Destination[]) {
-  const destinations = metroIndexableDestinations(
-    resolvedDestinations ?? await listResolvedDestinations({ limit: 5000 }),
-  );
+export async function loadMetroProximitySitemapEntriesServer() {
+  // Sitemap eligibility must come from the exact same resolved destination
+  // pipeline used by live metro pages. Accepting a caller-supplied catalog
+  // allowed the sitemap to publish routes that the page loader correctly
+  // marked noindex when the two catalog assembly paths diverged.
+  const destinations = await loadMetroIndexableDestinations();
   return metroProximitySitemapEntries(destinations, isMetroProximityCollectionIndexReadyWithTownReferences);
 }
 

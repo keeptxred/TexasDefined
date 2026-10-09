@@ -307,11 +307,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
-        // Proximity sitemap eligibility must use the same resolved catalog and
-        // readiness gate as the canonical page head. A broader sitemap-only
-        // catalog can otherwise publish a URL whose own page correctly says
-        // noindex, creating an invalid sitemap/indexability contradiction.
-        const proximityEntries = (await loadMetroProximitySitemapEntriesServer(indexableDestinations))
+        // Proximity sitemap eligibility intentionally resolves through the same
+        // canonical destination pipeline as live metro pages. Do not pass the
+        // sitemap's separately assembled destination catalog here: that split
+        // previously produced sitemap URLs whose own page rendered noindex.
+        const proximityEntries = (await loadMetroProximitySitemapEntriesServer())
           .map((item) => entry(item.path, item.lastmod))
           .filter((item): item is string => Boolean(item));
         const paintedChurchEntries = expandedPaintedChurches
