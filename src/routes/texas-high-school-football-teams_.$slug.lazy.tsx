@@ -43,7 +43,9 @@ function Page() {
       ? '/county/fort-bend'
       : schoolName === 'Fort Davis'
         ? '/county/jeff-davis'
-        : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+        : schoolName === 'Southlake Carroll'
+          ? '/county/tarrant'
+          : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
