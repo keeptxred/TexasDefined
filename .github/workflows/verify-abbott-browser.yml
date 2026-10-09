@@ -42,3 +42,33 @@ jobs:
           path: artifacts/abbott-qa/
           if-no-files-found: warn
           retention-days: 14
+
+  batch002:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out current repository
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare real Chrome browser using existing QA dependencies
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Independently verify all Batch 002 school and county pages on desktop and mobile
+        env:
+          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-batch-002-browser.mjs
+      - name: Preserve all individual school and county browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-batch-002-browser-acceptance
+          path: artifacts/football-batch-002/
+          if-no-files-found: warn
+          retention-days: 14
