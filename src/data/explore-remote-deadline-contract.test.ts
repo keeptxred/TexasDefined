@@ -22,8 +22,8 @@ describe("Explore remote catalog request deadlines", () => {
   it("stops extra rich and core page reads after cancellation without breaking coalescing", () => {
     expect(enriched).toContain("signal?: AbortSignal");
     expect(core).toContain("signal?: AbortSignal");
-    expect((enriched.match(/options\\.signal\\?\\.throwIfAborted\\(\\)/g) ?? []).length).toBeGreaterThanOrEqual(3);
-    expect((core.match(/options\\.signal\\?\\.throwIfAborted\\(\\)/g) ?? []).length).toBeGreaterThanOrEqual(3);
+    expect(enriched.split("options.signal?.throwIfAborted()").length - 1).toBeGreaterThanOrEqual(3);
+    expect(core.split("options.signal?.throwIfAborted()").length - 1).toBeGreaterThanOrEqual(3);
     expect(enriched).toContain('fetchCachedRemoteJsonRows({');
     expect(core).toContain('fetchCachedRemoteJsonRows({');
   });
