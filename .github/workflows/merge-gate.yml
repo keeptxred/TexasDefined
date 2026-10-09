@@ -63,6 +63,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
           VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}
+          CHECKED_OUT_SHA: ${{ github.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
@@ -76,6 +78,47 @@ jobs:
             -f description='Canonical Required merge gate passed' \
             -f target_url="$RUN_URL" >/dev/null
           echo "Published Required merge gate status for validated PR head $VALIDATED_SHA."
+          # Branch protection may evaluate GitHub's current synthetic PR merge
+          # commit rather than the head commit. github.sha is not reliable for this
+          # on reopened/rebased pull requests, so resolve merge_commit_sha live.
+          # Re-read after publishing and retry if GitHub regenerated the synthetic
+          # merge ref during this step.
+          if [ "$CHECKED_OUT_SHA" != "$VALIDATED_SHA" ]; then
+            gh api \
+              --method POST \
+              -H "Accept: application/vnd.github+json" \
+              "repos/$REPOSITORY/statuses/$CHECKED_OUT_SHA" \
+              -f state='success' \
+              -f context='Required merge gate' \
+              -f description='Canonical Required merge gate passed on checked-out ref' \
+              -f target_url="$RUN_URL" >/dev/null
+            echo "Published Required merge gate status for checked-out ref $CHECKED_OUT_SHA."
+          fi
+          for attempt in 1 2 3; do
+            LIVE_MERGE_SHA="$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq '.merge_commit_sha // empty')"
+            if [ -z "$LIVE_MERGE_SHA" ]; then
+              echo "::error::Pull request $PR_NUMBER has no current synthetic merge SHA."
+              exit 1
+            fi
+            gh api \
+              --method POST \
+              -H "Accept: application/vnd.github+json" \
+              "repos/$REPOSITORY/statuses/$LIVE_MERGE_SHA" \
+              -f state='success' \
+              -f context='Required merge gate' \
+              -f description='Canonical Required merge gate passed on current PR merge ref' \
+              -f target_url="$RUN_URL" >/dev/null
+            echo "Published Required merge gate status for current PR merge $LIVE_MERGE_SHA."
+            CONFIRMED_MERGE_SHA="$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq '.merge_commit_sha // empty')"
+            if [ "$CONFIRMED_MERGE_SHA" = "$LIVE_MERGE_SHA" ]; then
+              break
+            fi
+            echo "Synthetic PR merge changed from $LIVE_MERGE_SHA to $CONFIRMED_MERGE_SHA; retrying status publication."
+            if [ "$attempt" -eq 3 ]; then
+              echo "::error::Synthetic PR merge SHA did not stabilize while publishing Required merge gate status."
+              exit 1
+            fi
+          done
 
       - name: Capture performance-budget failure details
         if: failure()
