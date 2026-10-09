@@ -25,6 +25,7 @@ export const midlandCountyRailroadOilHighPlainsArticle: Article = {
   tags: ["Midland County", "Midland", "Permian Basin", "High Plains", "Texas and Pacific Railway", "oil", "ranching", "Bush Family Home", "Petroleum Museum", "West Texas", "Texas counties", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/county/martin", label: "Explore Martin County", description: "Continue north toward Stanton and the ranch-and-farm South Plains." },
     { href: "/county/ector", label: "Explore neighboring Ector County", description: "Continue west into Odessa, the Permian Basin, Stonehenge and the Odessa Meteor Crater." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
