@@ -157,7 +157,8 @@ export function BudgetCalculator() {
         })}
       </div>
 
-      <section className="hidden print:block" aria-labelledby="budget-print-detail-heading">
+      <style>{'@media print { #budget-print-details { display: block !important; } }'}</style>
+      <section id="budget-print-details" className="hidden" aria-labelledby="budget-print-detail-heading">
         <h2 id="budget-print-detail-heading" className="font-display text-2xl">Detailed monthly budget</h2>
         <p className="text-sm">Only nonzero entries are printed. Annual bills are shown as monthly reserves; all amounts are based on your inputs.</p>
         <table className="w-full border-collapse text-sm">
