@@ -2,6 +2,14 @@
 
 Updated 2026-10-08. Repository: `keeptxred/TexasDefined`.
 
+## Batch 002 — automatically assigned 25 schools (2026-10-09)
+- Recovered main `cceafcb76bdd20012365a3673d08a55ddc71ba6c` and the full completed Batch 001 evidence. PR #4333 is merged. No active football-authority batch PR overlapped the eligible next 25 at assignment. Batch 001 remains preserved in `REGISTRY.json.completedBatches` and its five school notes.
+- Selection: first 25 `NOT_REVIEWED` and unassigned `schoolRecords`, in existing registry order. **Assignment does not mean an audit, research or production verification happened.**
+- Assigned, in order: 1. Abernathy (`abernathy`); 2. Abilene (`abilene`); 3. Abilene Cooper (`abilene-cooper`); 4. Abilene Texas Leadership (`abilene-texas-leadership`); 5. Abilene Wylie (`abilene-wylie`); 6. Ackerly Sands (`ackerly-sands`); 7. Agua Dulce (`agua-dulce`); 8. Alba-Golden (`alba-golden`); 9. Albany (`albany`); 10. Aledo (`aledo`); 11. Alice (`alice`); 12. Alief Elsik (`alief-elsik`); 13. Alief Hastings (`alief-hastings`); 14. Alief Taylor (`alief-taylor`); 15. All Saints (`all-saints-fort-worth`); 16. Allen (`allen`); 17. Alpine (`alpine`); 18. Altair Rice (`altair-rice`); 19. Alto (`alto`); 20. Alvarado (`alvarado`); 21. Alvin (`alvin`); 22. Alvin Iowa Colony (`alvin-iowa-colony`); 23. Alvin Shadow Creek (`alvin-shadow-creek`); 24. Alvord (`alvord`); 25. Amarillo (`amarillo`).
+- Checkpoint branch: `football-authority-batch-002-25-20261009`. Batch 002 schools: **25 assigned, 0 individually VERIFIED at this checkpoint**. Overall: **5 VERIFIED, 1,287 not individually verified**. No schools beyond these 25 may be added until completion of the batch.
+- Next: individually audit and research Abernathy, then Abilene, then Abilene Cooper; commit each school's evidence, implementation and actual stage changes. Preserve partial work if production/CI is blocked. Batch 001's independent acceptance run artifacts remain the evidence of its completion.
+- Process change approved by user on 2026-10-09: up to 25 per batch (not a new data system); preserve school-by-school acceptance and checkpoint frequently. The older three-per-chat language is superseded.
+
 ## Canonical inventory
 - **1,292 source-declared existing profiles:** 1,268 UIL 2026–28 alignment slugs and 24 other featured/non-UIL profile slugs.
 - This is a deterministic repository inventory; it is **not** proof that all 1,292 live URLs were individually crawled. Do not auto-create more pages or confuse reported UIL alignment with a played season.
