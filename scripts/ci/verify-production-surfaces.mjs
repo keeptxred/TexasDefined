@@ -50,6 +50,9 @@ const surfaces = [
   ['metro-mcallen-world-birding-center', '/explore/near/mcallen', 'Nine World Birding Center sites. Nine different ways to explore the Valley.'],
   ['metro-mcallen-world-birding-roma', '/explore/near/mcallen', 'Roma Bluffs World Birding Center'],
   ['metro-mcallen-world-birding-operator', '/explore/near/mcallen', 'Current official visitor information'],
+  ['metro-mcallen-pumphouse-hub-guide', '/explore/near/mcallen', 'Explore the historic pumphouse guide'],
+  ['metro-mcallen-pumphouse-historic-collection', '/explore/near/mcallen/historic-sites', 'Old Hidalgo Pumphouse Museum and World Birding Center'],
+  ['metro-mcallen-pumphouse-destination-authority', '/destination/old-hidalgo-pumphouse-museum', '1909 Rio Grande irrigation pumping station'],
 
   ['metro-mcallen-day-trips-title', '/explore/near/mcallen/day-trips', 'Best Day Trips From McAllen, Texas'],
   ['metro-mcallen-day-trips-editorial', '/explore/near/mcallen/day-trips', 'Which McAllen day trip fits your day?'],
