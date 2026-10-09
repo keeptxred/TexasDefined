@@ -1,11 +1,5 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Publication-Production-Smoke/1.3';
-// Legacy static-validator tokens retained until that bookkeeping validator is migrated.
-// /news/2026-08-10-canyon-lake-full-capacity-recovery
-// Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill
-// /sitemap.xml
-// canyonLakeInSitemap: true
-
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function fetchHealthy(path, expectedText = '') {
   let last = null;
@@ -31,6 +25,14 @@ function firstPublishedNewsPath(newsBody) {
 
 const news = await fetchHealthy('/news');
 console.log(JSON.stringify({ surface: '/news', status: news.status, ok: true }));
+
+// Confirm production serves an actual XML sitemap even when publication is
+// disabled or no individual published news item is currently routed.
+const sitemap = await fetchHealthy('/sitemap.xml');
+if (!/<(?:sitemapindex|urlset)(?:\s|>)/i.test(sitemap.body)) {
+  throw new Error('/sitemap.xml returned a successful HTTP status without a valid sitemap root');
+}
+console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, ok: true }));
 const liveNewsPath = firstPublishedNewsPath(news.body);
 if (!liveNewsPath) {
   console.log(JSON.stringify({ verified: true, newsStatus: news.status, publishedNewsPresent: false, reason: 'No routed published news is currently exposed; auto-publication remains disabled.' }));
