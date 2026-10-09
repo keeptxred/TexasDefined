@@ -177,7 +177,7 @@ export const Route = createFileRoute("/destination/$slug")({
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), breadcrumbSchema] }) }],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
+  notFoundComponent: () => <Container className="py-24"><h1 className="font-display text-4xl">Destination not found</h1><p className="mt-4 text-muted-foreground">Browse <Link to="/explore" className="underline text-primary">Explore Texas</Link>.</p></Container>,
   component: DestinationPage,
 });
 
