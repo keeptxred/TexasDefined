@@ -8,7 +8,7 @@ import { createHash } from "node:crypto";
 const entries = [
   [
     "chappell-hill-bluebonnet-festival",
-    "/images/events/chappell-hill-bluebonnet-festival-20260914.webp"
+    "/images/events/chappell-hill-bluebonnet-festival-discover-source.webp"
   ],
   [
     "ima-hogg-texas-legacy",
