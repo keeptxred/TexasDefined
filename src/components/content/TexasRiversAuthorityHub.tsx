@@ -41,6 +41,43 @@ const wideModuleStyle = {
   transform: "translateX(-50%)",
 } as const;
 
+function TexasOfficialBasinMap() {
+  return (
+    <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-background">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border p-4 sm:p-6">
+        <div>
+          <p className="eyebrow text-primary">Geographically referenced map</p>
+          <h3 className="mt-2 font-display text-2xl">Texas river basin boundaries — TWDB source map</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
+            Start with the Texas Water Development Board's geographic basin map rather than guessing from a drawn blue line.
+            This map shows all 15 major basins, eight coastal basins and county context. Its published map date is January 2014,
+            and the agency cautions that displayed boundaries are approximate; use updated GIS data for precision work.
+          </p>
+        </div>
+        <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline decoration-border underline-offset-4">
+          Open the full official map (PDF) ↗
+        </a>
+      </div>
+      <div className="bg-surface p-3 sm:p-5">
+        <object
+          data={twdbMapUrl}
+          type="application/pdf"
+          aria-label="Texas Water Development Board map of 15 major and eight coastal river basins"
+          className="h-[28rem] w-full bg-background sm:h-[42rem]"
+        >
+          <p className="p-6 text-sm">
+            The map preview is not supported in this browser. <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="text-primary underline">Open the TWDB map PDF directly</a>.
+          </p>
+        </object>
+      </div>
+      <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground sm:px-6">
+        Source: Texas Water Development Board, Major River Basins of Texas (January 2014). This official reference map is separate
+        from the downloadable TexasDefined schematic below; the schematic is not a survey or navigational chart.
+      </figcaption>
+    </figure>
+  );
+}
+
 function TexasRiverOrientationMap() {
   return (
     <figure className="mt-7 overflow-hidden rounded-sm border border-border bg-surface">
@@ -76,7 +113,7 @@ function TexasRiverOrientationMap() {
         <figcaption className="border-t border-border p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
           <p className="eyebrow text-primary">Map key</p>
           <h3 className="mt-2 font-display text-2xl">Where the big systems run</h3>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">This simplified map is for orientation rather than precise basin boundaries. It shows why Texas rivers feel so different: each crosses a different combination of rainfall, elevation, geology and climate.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The illustrated paths are deliberately schematic, not a representation of surveyed rivers. Compare them with the TWDB map above to see true watershed locations. Texas rivers feel different because each crosses a different combination of rainfall, elevation, geology and climate.</p>
           <dl className="mt-6 grid grid-cols-3 gap-3">
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-2xl">15</dd></div>
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Coastal basins</dt><dd className="mt-1 font-display text-2xl">8</dd></div>
@@ -127,6 +164,8 @@ export function TexasRiversAuthorityHub() {
         <p className="mt-4 text-base leading-8 text-muted-foreground">Texas rivers make more sense when you see them as geographic systems rather than a list of names. The major basins cut across county lines, connect cities to distant headwaters and reveal how quickly the state changes from desert to limestone country to humid forest.</p>
       </div>
 
+      <TexasOfficialBasinMap />
+
       <TexasRiverOrientationMap />
 
       <div className="mt-8 grid gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2 lg:grid-cols-5" aria-label="Texas river regions">
@@ -161,9 +200,23 @@ export function TexasRiversAfterArticle() {
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
           <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Go Deeper on Five Major Texas Rivers</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. These dedicated profiles follow individual river systems in more detail, including tributaries, reservoirs, landscapes and places to experience them.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. These five researched profiles have their own dedicated pages covering tributaries, reservoirs, landscapes and places to experience them. For the other ten TWDB major basins, use the complete 15-basin comparison above and the official primary-source basin directory; we do not imply an unfinished profile exists.</p>
         </div>
         <RiverProfileCards />
+      </section>
+
+      <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">
+        <h3 id="river-primary-source-links" className="font-display text-xl">Research all 15 major basins</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Beyond the five individual river guides, TWDB maintains a reference entry for every major basin, including
+          the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Compare
+          official basin area, Texas river miles and reference flow before using local county or destination guides.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline">TexasDefined watershed explainer →</Link>
+          <a href="https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">TWDB profiles of all 15 major basins ↗</a>
+          <a href="https://www.twdb.texas.gov/mapping/gisdata.asp" target="_blank" rel="noreferrer" className="text-sm font-semibold text-primary underline">TWDB geospatial data and map sources ↗</a>
+        </div>
       </section>
 
       <section className="mt-10 grid gap-4 border-t border-border pt-8 md:grid-cols-2" aria-label="Related Texas water guides">
