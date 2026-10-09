@@ -194,9 +194,7 @@ export const Route = createFileRoute('/sports-venue/$slug')({
         title: entity.slug === 'msr-houston'
           ? 'MSR Houston Track Guide: Karting Status, Track Days, Rules & Calendar'
           : sportsVenueSearchTitle(entity.name, enrichment?.city),
-        description: entity.slug === 'msr-houston'
-          ? 'Plan an MSR Houston visit: track-day access, temporary karting closure, race calendar, 2.38-mile circuit, driving schools, guest fees, camping and directions.'
-          : sportsVenueSearchDescription(entity, enrichment),
+        description: sportsVenueSearchDescription(entity, enrichment),
         image: photo?.imageUrl,
         imageAlt: photo?.alt,
         imageWidth: photo?.width,
@@ -445,6 +443,7 @@ function sportsVenueSearchTitle(name: string, city?: string) {
 }
 
 function sportsVenueSearchDescription(entity: TexasEntityRecord, enrichment: SportsVenueEnrichment) {
+  if (entity.slug === 'msr-houston') return 'Plan an MSR Houston visit: track-day access, temporary karting closure, race calendar, 2.38-mile circuit, driving schools, guest fees, camping and directions.';
   const editorial = entity.description?.replace(/\s+/g, ' ').trim();
   if (editorial) return truncateMetaDescription(editorial);
 
