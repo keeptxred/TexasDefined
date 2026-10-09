@@ -28,6 +28,54 @@ function metroIndexableDestinations(destinations: Destination[]) {
   return destinations.filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
 }
 
+type MetroProximityMetro = NonNullable<ReturnType<typeof getMetroProximityMetro>>;
+type MetroProximityCollection = NonNullable<ReturnType<typeof getMetroProximityCollection>>;
+
+// These routes are already sitemap-eligible in production and must remain
+// discoverable from their metro hubs even if one remote catalog read degrades.
+// The existing readiness thresholds stay authoritative; this only retries the
+// same governed catalog once before accepting a temporary degraded result.
+const METRO_PROXIMITY_DISCOVERY_RETRY_TARGETS = new Map<string, readonly string[]>([
+  ["amarillo", ["road-trips"]],
+  ["el-paso", ["road-trips"]],
+]);
+
+async function loadMetroIndexableDestinations() {
+  return metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
+}
+
+function readyMetroCollections(destinations: Destination[], metro: MetroProximityMetro) {
+  return METRO_PROXIMITY_COLLECTIONS.filter((collection) =>
+    isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection),
+  );
+}
+
+async function loadMetroIndexableDestinationsForCollection(
+  metro: MetroProximityMetro,
+  collection: MetroProximityCollection,
+) {
+  const first = await loadMetroIndexableDestinations();
+  if (isMetroProximityCollectionIndexReadyWithTownReferences(first, metro, collection)) return first;
+
+  const retry = await loadMetroIndexableDestinations();
+  if (isMetroProximityCollectionIndexReadyWithTownReferences(retry, metro, collection)) return retry;
+  return retry.length > first.length ? retry : first;
+}
+
+async function loadMetroIndexableDestinationsForHub(metro: MetroProximityMetro) {
+  const first = await loadMetroIndexableDestinations();
+  const firstReady = readyMetroCollections(first, metro);
+  const required = METRO_PROXIMITY_DISCOVERY_RETRY_TARGETS.get(metro.slug) ?? [];
+  if (firstReady.length >= 4 && required.every((slug) => firstReady.some((collection) => collection.slug === slug))) return first;
+
+  const retry = await loadMetroIndexableDestinations();
+  const retryReady = readyMetroCollections(retry, metro);
+  const firstRequiredReady = required.filter((slug) => firstReady.some((collection) => collection.slug === slug)).length;
+  const retryRequiredReady = required.filter((slug) => retryReady.some((collection) => collection.slug === slug)).length;
+  if (retryRequiredReady > firstRequiredReady || retryReady.length > firstReady.length) return retry;
+  return retry.length > first.length ? retry : first;
+}
+
 export async function loadMetroProximitySitemapEntriesServer(resolvedDestinations?: Destination[]) {
   const destinations = metroIndexableDestinations(
     resolvedDestinations ?? await listResolvedDestinations({ limit: 5000 }),
@@ -83,7 +131,7 @@ function townSchema(row: MetroProximityTownResult, pageUrl: string) {
 export async function loadMetroProximityHubPageDataServer(metroSlug: string) {
   const metro = getMetroProximityMetro(metroSlug);
   if (!metro) return null;
-  const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
+  const destinations = await loadMetroIndexableDestinationsForHub(metro);
   const collections = METRO_PROXIMITY_COLLECTIONS
     .map((collection) => {
       const results = selectMetroProximityDestinations(destinations, metro, collection);
@@ -168,7 +216,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const metro = getMetroProximityMetro(metroSlug);
   const collection = getMetroProximityCollection(collectionSlug);
   if (!metro || !collection) return null;
-  const destinations = metroIndexableDestinations(await listResolvedDestinations({ limit: 5000 }));
+  const destinations = await loadMetroIndexableDestinationsForCollection(metro, collection);
   const results = selectMetroProximityDestinations(destinations, metro, collection);
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;
