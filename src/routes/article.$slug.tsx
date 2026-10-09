@@ -186,7 +186,7 @@ export const Route = createFileRoute("/article/$slug")({
     const [authors, categories, related, destinations, completeGraph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
-      context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
+      article.slug === "texas-ecoregions-habitats-guide" ? Promise.resolve([]) : context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
       getDestinationsBySlugs({ data: { slugs: article.relatedDestinations.slice(0, 8) } }),
       loadTexasKnowledgeGraph(),
     ]);
