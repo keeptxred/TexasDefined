@@ -8,6 +8,7 @@ import type {
   MetroProximityResult,
 } from "@/data/metro-proximity";
 import { metroProximityCollectionPresentation } from "@/data/metro-proximity-presentation";
+import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "@/data/mcallen-world-birding-center";
 
 type HubPageData = {
   metro: MetroProximityMetro;
@@ -45,6 +46,66 @@ export function MetroProximityHubPage({ pageData }: { pageData: HubPageData }) {
         <p className="mt-7 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">TexasDefined ranks these nearby guides with destination coordinates and source-backed place records. Mileages are straight-line geographic estimates for comparison, not promised driving distances or travel times. The destination-ring pages link directly to current driving routes from central {metro.name}.</p>
       </div>
     </section>
+
+    {metro.slug === "mcallen" && <section className="border-b border-border" aria-labelledby="mcallen-world-birding-center">
+      <Container className="py-14 sm:py-20">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <div>
+            <p className="eyebrow text-primary">A Lower Rio Grande Valley specialty · Official-source visitor guide</p>
+            <h2 id="mcallen-world-birding-center" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Nine World Birding Center sites. Nine different ways to explore the Valley.</h2>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">Texas Parks & Wildlife identifies three state parks and six community-operated locations in the nine-site World Birding Center network. They are not interchangeable: the western river bluffs, McAllen thornforest, irrigation-history museum, inland wetlands, Harlingen woodlands and coast each reward a different kind of visit.</p>
+          </div>
+          <div className="border-l-2 border-primary pl-5">
+            <p className="eyebrow text-muted-foreground">Start with the experience</p>
+            <p className="mt-3 text-sm leading-7">Short on time? Stay near McAllen or Mission. Want waterbirds? Compare Edinburg and Weslaco. For an all-day coast outing, use Brownsville or South Padre as your anchor. The nine sites are spread across the Valley, not a single walkable park.</p>
+          </div>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {MCALLEN_WBC_SITES.map((site, index) => <article key={site.name} className="border-t border-border pt-5">
+            <p className="eyebrow text-primary">{String(index + 1).padStart(2, "0")} · {site.location}</p>
+            <h3 className="mt-3 font-display text-2xl">{site.name}</h3>
+            <p className="mt-3 text-sm font-semibold">{site.fit}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{site.plan}</p>
+            <p className="mt-4 border-l-2 border-border pl-4 text-sm leading-6"><strong>Before you go:</strong> {site.before}</p>
+            <a href={site.official} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary hover:underline">Current official visitor information ↗</a>
+          </article>)}
+        </div>
+
+        <div className="mt-12 grid gap-7 border-y border-border py-8 lg:grid-cols-3">
+          <div>
+            <h3 className="font-display text-2xl">Easy McAllen area day</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Try Quinta Mazatlán in the morning and the Old Hidalgo Pumphouse later, provided both are open. It pairs native habitat with a story of how irrigation changed the Valley.</p>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Wetlands comparison day</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Choose Edinburg Scenic Wetlands or Estero Llano Grande as your main stop. Their ponds and observation areas are excellent alternatives to a rush through distant attractions.</p>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Coastal or western full day</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Pick one direction: Roma Bluffs and historic Roma to the west, or Resaca de la Palma and the South Padre coast to the east. Allow extra road time and recheck any park closures.</p>
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <h3 className="font-display text-2xl">Methodology and source verification</h3>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Site identities come from the Texas Parks & Wildlife World Birding Center network guide, checked against current state, municipal, federal and operator websites on October 9, 2026. This is an editorial planning comparison, not a promise that every trail or visitor center is open. It does not invent road-mile or driving-time estimates. Hours, park alerts, tram operations, parking and weather can change; use each operator's official page before traveling.</p>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <a href={MCALLEN_WBC_SOURCES.network} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">TPWD nine-site network source ↗</a>
+              <a href={MCALLEN_WBC_SOURCES.lowerCoast} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Coastal Birding Trail loops ↗</a>
+              <a href={MCALLEN_WBC_SOURCES.federalValley} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Federal refuge access guidance ↗</a>
+            </div>
+          </div>
+          <div className="flex flex-col items-start gap-4">
+            <Link to="/explore/near/$metro/$collection" params={{ metro: "mcallen", collection: "day-trips" }} className="eyebrow border-b border-primary pb-1 text-primary">Compare McAllen day-trip itineraries →</Link>
+            <Link to="/county/$slug" params={{ slug: "hidalgo" }} className="eyebrow border-b border-border pb-1 hover:text-primary">Hidalgo County visitor guide →</Link>
+            <Link to="/county/$slug" params={{ slug: "cameron" }} className="eyebrow border-b border-border pb-1 hover:text-primary">Cameron County visitor guide →</Link>
+            <Link to="/county/$slug" params={{ slug: "starr" }} className="eyebrow border-b border-border pb-1 hover:text-primary">Starr County visitor guide →</Link>
+          </div>
+        </div>
+      </Container>
+    </section>}
 
     <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
       <p className="eyebrow text-primary">Explore by trip type</p>

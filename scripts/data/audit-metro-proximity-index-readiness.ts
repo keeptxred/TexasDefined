@@ -74,6 +74,33 @@ for (const metro of METRO_PROXIMITY_METROS) {
   );
 }
 
+
+/**
+ * Editorial diagnosis, not an indexing override. List the exact quality-gated
+ * nearby inventory behind McAllen's noindex hub so content expansion can be
+ * prioritized against actual missing categories, towns and counties instead
+ * of filling fabricated pages or weakening the canonical eligibility rules.
+ */
+console.log("\\nMcAllen authority expansion evidence (quality-gated source catalog):");
+const mcallen = METRO_PROXIMITY_METROS.find((metro) => metro.slug === "mcallen");
+if (mcallen) {
+  const readiness = matrix.filter((row) => row.metro === "mcallen");
+  const countReady = readiness.filter((row) => row.ready).length;
+  console.log(`McAllen hub: ${countReady} of 4 minimum qualifying collection pages, current ${countReady >= 4 ? "index-ready" : "noindex"}.`);
+  for (const collection of METRO_PROXIMITY_COLLECTIONS) {
+    const metric = readiness.find((row) => row.collection === collection.slug);
+    const selected = selectMetroProximityDestinations(destinations, mcallen, collection);
+    const categories = [...new Set(selected.map((row) => row.destination.category))].sort();
+    const counties = [...new Set(selected.map((row) => normalizedCounty(row.destination)).filter(Boolean))].sort();
+    const towns = [...new Set(selected.map((row) => row.destination.nearestTown.trim()).filter(Boolean))].sort();
+    console.log(`- ${collection.slug}: ${metric?.ready ? "ready" : "noindex"}; ${selected.length} guides; categories [${categories.join(", ")}]; counties [${counties.join(", ")}]; ${metric?.gaps.join("; ") || "none"}`);
+    if (collection.slug === "things-to-do" || collection.slug === "historic-sites" || collection.slug === "state-parks") {
+      console.log(`  Evidence-backed selected guides: ${selected.map((row) => `${row.destination.slug} (${row.destination.category}; ${row.destination.nearestTown})`).join(" | ") || "none"}`);
+      console.log(`  Represented towns: ${towns.join(", ") || "none"}`);
+    }
+  }
+}
+
 const nearReady = matrix
   .filter((row) => !row.ready)
   .sort((left, right) =>

@@ -40,6 +40,11 @@
     const market = slug ? markets[slug] : null;
     const existing = document.querySelector('[data-city-experience-affiliate="viator"]');
 
+    // The Viator section is inserted inside React's article. Inserting it
+    // before hydration caused real Chrome React #418 on Fort Worth city pages.
+    // Wait for the same post-hydration signal as the lodging widgets.
+    if (market && document.documentElement.dataset.tdFootballCountyHydrated !== "1") return;
+
     if (!market) {
       existing?.remove();
       return;
@@ -78,6 +83,7 @@
 
   render();
   window.addEventListener("popstate", scheduleRender);
+  window.addEventListener("texasdefined:county-hydrated", scheduleRender);
   const root = document.getElementById("main") || document.body;
   new MutationObserver(scheduleRender).observe(root, { childList: true, subtree: true });
 })();

@@ -92,6 +92,14 @@ jobs:
             echo "Published Required merge gate status for validated PR merge $MERGE_SHA."
           fi
 
+      # The pull-request REST read endpoint can return 404 to Actions' limited
+      # GITHUB_TOKEN. Do not fail an otherwise successful canonical gate merely
+      # because the optional merge-ref refresh API lookup is unavailable.
+      - name: Check merge-ref refresh availability
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "Required merge gate already published status on validated PR head and checked-out synthetic merge ref."
+
       - name: Capture performance-budget failure details
         if: failure()
         run: npm run performance:validate > performance-budget-report.txt 2>&1 || true

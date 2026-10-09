@@ -14,8 +14,30 @@ const stateFairHighlights = fs.readFileSync('src/components/editorial/StateFairC
 const proximityCollectionRoute = fs.readFileSync('src/routes/explore.near.$metro.$collection.tsx', 'utf8');
 const proximityPresentation = fs.readFileSync('src/data/metro-proximity-presentation.ts', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
+const sportsVenueProductionWorkflow = fs.readFileSync('.github/workflows/verify-sports-venue-editorial-production.yml', 'utf8');
 
+
+const cityMetroAuthority = fs.readFileSync('src/data/city-metro-authority.ts', 'utf8');
+const citySitemapLastmod = cityMetroAuthority.match(/const cityAuthorityCheckedAt = '(\d{4}-\d{2}-\d{2})'/)?.[1];
+if (!citySitemapLastmod) throw new Error('Current city authority source review date missing');
+const citySitemapContractMarkers = [
+  'const citySitemapEntries = [',
+  'citySitemapMissing',
+  'cityAuthorityLastmod',
+  "readFileSync('src/data/city-metro-authority.ts'",
+  "cache: 'no-store'",
+  "'cache-control': 'no-cache, no-store'",
+  "response.ok",
+  '<lastmod>',
+  'city-sitemap-authority',
+  'if (!citySitemapPassed)',
+  ...['houston', 'dallas', 'fort-worth', 'austin', 'san-antonio', 'el-paso', 'arlington', 'hurst', 'corpus-christi', 'plano', 'lubbock'].map((slug) => "'" + slug + "'"),
+];
 const failures = [];
+for (const marker of citySitemapContractMarkers) {
+  if (!productionSurfaces.includes(marker)) failures.push('City live sitemap verification contract missing: ' + marker);
+}
+
 const stateFairSource = [stateFairRoute, stateFairLazyRoute, stateFairEnhancements, stateFairHighlights].join('\n');
 
 const expectedStateFairLabels = new Set([
@@ -122,6 +144,7 @@ for (const marker of [
 const requiredLiveSteps = [
   ['Verify direct Worker health', 'live_direct_health'],
   ['Verify canonical production health', 'live_canonical_health'],
+  ['Verify sports venue editorial production', 'live_sports_venue_editorial'],
   ['Verify direct Worker discovery', 'live_direct_worker'],
   ['Verify base production surfaces', 'live_base'],
   ['Verify Event structured-data production', 'live_events'],
@@ -129,6 +152,16 @@ const requiredLiveSteps = [
   ['Verify statewide financial discovery', 'live_statewide_financial'],
   ['Verify advertiser production', 'live_advertiser'],
 ];
+
+if (!workflow.includes('node scripts/production/verify-sports-venue-editorial-production.mjs')) {
+  failures.push('Canonical production deployment must execute the sports venue editorial production verifier.');
+}
+if (sportsVenueProductionWorkflow.includes('workflow_run:')) {
+  failures.push('Sports venue editorial verification must not depend on a downstream workflow_run handoff; it is blocking inside deploy-production.yml.');
+}
+if (!sportsVenueProductionWorkflow.includes('workflow_dispatch:') || !sportsVenueProductionWorkflow.includes("github.event_name == 'workflow_dispatch'")) {
+  failures.push('Sports venue editorial helper workflow must remain available for explicit manual rechecks.');
+}
 
 if (workflow.includes('- name: Enforce aggregate live verification gate')) {
   failures.push('Obsolete aggregate live verification gate must not be restored; raw production verifiers must fail closed natively.');

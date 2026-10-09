@@ -110,8 +110,8 @@ for (const feature of [
 
 for (const feature of [
   'destinationSearchDocument',
-  'fetchExploreDestinations({ limit: 5000 , signal })',
-  'fetchCoreExploreDestinations({ limit: 5000 , signal })',
+  'fetchExploreDestinations({ limit: 5000, signal })',
+  'fetchCoreExploreDestinations({ limit: 5000, signal })',
   'base.filter((document) => document.kind !== "destination")',
   'destination.managingAuthority', 'destination.bestSeason', '...destination.highlights',
 ]) if (!searchImplementation.includes(feature)) errors.push(`Remote destination search feature missing: ${feature}`);

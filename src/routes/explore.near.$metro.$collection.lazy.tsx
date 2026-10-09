@@ -33,7 +33,12 @@ type CollectionPageData = {
   };
 };
 
-function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip") {
+function bandLabel(band: "close-in" | "easy-day-trip" | "longer-day-trip", collection: MetroProximityCollection) {
+  if (collection.slug === "day-trips") {
+    if (band === "close-in") return "Closer geographic choices";
+    if (band === "easy-day-trip") return "Middle-distance choices · check the road route";
+    return "Farther geographic choices · check if an overnight fits better";
+  }
   if (band === "close-in") return "Close to the metro";
   if (band === "easy-day-trip") return "Easy day-trip range";
   return "Longer day trip";
@@ -67,6 +72,117 @@ const AUSTIN_TWO_HOUR_EDITORIAL: Record<string, AustinTownEditorial> = {
 
 function austinEditorial(slug: string) {
   return AUSTIN_TWO_HOUR_EDITORIAL[slug];
+}
+
+const MCALLEN_EDITORIAL_TRIPS = [
+  {
+    slug: "bentsen-rio-grande-valley-state-park",
+    title: "Bentsen-Rio Grande Valley State Park",
+    label: "Western Valley · Birding",
+    plan: "Easy half-day or full-day wildlife outing",
+    why: "One of the Valley's defining birding sites: visit the hawk tower, follow wooded trails and use the tram when it is operating.",
+    caution: "Private vehicles cannot drive inside the park. Confirm the seasonal tram schedule and any park alerts.",
+    official: "https://tpwd.texas.gov/state-parks/bentsen-rio-grande-valley/",
+  },
+  {
+    slug: "santa-ana-national-wildlife-refuge",
+    title: "Santa Ana National Wildlife Refuge",
+    label: "Alamo · Subtropical habitat",
+    plan: "Half day, best started early",
+    why: "Walk rare riparian and subtropical woodland, including the shorter Chachalaca Trail, and look for Valley specialty birds.",
+    caution: "Trails may be open when the visitor center is closed. Check trail conditions, entry fees and refuge rules.",
+    official: "https://www.fws.gov/refuge/santa-ana/visit-us",
+  },
+  {
+    slug: "estero-llano-grande-state-park",
+    title: "Estero Llano Grande State Park",
+    label: "Weslaco · Wetland wildlife",
+    plan: "Half day, with time for Weslaco afterward",
+    why: "A different birding habitat from Bentsen: shallow wetlands, boardwalks, a visitor-center viewing deck and extensive bird activity.",
+    caution: "This is a vehicle-free park beyond the parking area. Check current alerts and accessible trail conditions.",
+    official: "https://tpwd.texas.gov/state-parks/estero-llano-grande",
+  },
+  {
+    slug: "museum-of-south-texas-history-edinburg",
+    title: "Museum of South Texas History",
+    label: "Edinburg · Borderland history",
+    plan: "Short outing or a culture-focused half day",
+    why: "Start with the 1910 Hidalgo County Jail and explore Rio Grande Valley history spanning archaeology, ranching, river trade and modern communities.",
+    caution: "This is an indoor alternative to the midday heat. Verify opening days and admission before leaving.",
+    official: "https://mosthistory.org/",
+  },
+  {
+    slug: "laguna-atascosa-national-wildlife-refuge",
+    title: "Laguna Atascosa National Wildlife Refuge",
+    label: "Cameron County · Longer wildlife day",
+    plan: "Full day; leave early",
+    why: "Choose this for expansive coastal and wetland wildlife rather than a quick local park: birding, hiking and varied protected habitats.",
+    caution: "Follow the official route to the visitor center rather than crossing the Laguna Madre on a map. The refuge currently lists its Bahia Grande unit as closed; check current trail and unit notices before traveling.",
+    official: "https://www.fws.gov/refuge/laguna-atascosa/visit-us",
+  },
+  {
+    slug: "port-isabel-lighthouse",
+    title: "Port Isabel Lighthouse",
+    label: "Port Isabel · Maritime heritage",
+    plan: "Longer coastal day paired with South Padre",
+    why: "Visit a rare climbable historic Texas lighthouse and use Port Isabel's maritime history as the cultural start to a beach outing.",
+    caution: "The lighthouse climb involves winding stairs and short ladders; climbing depends on weather and current access.",
+    official: "https://thc.texas.gov/historic-sites/port-isabel-lighthouse",
+  },
+  {
+    slug: "south-padre-island-beaches",
+    title: "South Padre Island",
+    label: "South Padre Island · Beach day",
+    plan: "Full day at the coast",
+    why: "Choose one beach access area and make it a proper shore day rather than counting every island beach or attraction as a separate trip.",
+    caution: "Check the bridge route, beach flags, rip currents, parking rules, and weather before you go.",
+    official: "https://www.myspi.org/",
+  },
+] as const;
+
+function McAllenDayTripsAuthority({ pageData }: { pageData: CollectionPageData }) {
+  const availableSlugs = new Set(pageData.results.map((row) => row.destination.slug));
+  return <section className="border-b border-border bg-surface" aria-labelledby="mcallen-day-trip-guide">
+    <Container className="py-14 sm:py-18">
+      <p className="eyebrow text-primary">The Lower Rio Grande Valley, properly explored</p>
+      <h2 id="mcallen-day-trip-guide" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Which McAllen day trip fits your day?</h2>
+      <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">McAllen is a gateway to remarkable wildlife and borderland history—not just a starting point for distant Gulf beaches. A short local excursion can be as memorable as a full coastal day. These are editorial trip anchors, not a ranking by straight-line mileage.</p>
+      <div className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        {MCALLEN_EDITORIAL_TRIPS.map((trip) => {
+          const linked = availableSlugs.has(trip.slug);
+          return <article key={trip.slug} className="border-t border-border pt-5">
+            <p className="eyebrow text-primary">{trip.label}</p>
+            <h3 className="mt-3 font-display text-2xl">{trip.title}</h3>
+            <p className="mt-3 text-sm font-semibold">{trip.plan}</p>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{trip.why}</p>
+            <p className="mt-3 border-l-2 border-border pl-4 text-sm leading-6"><strong>Before you go:</strong> {trip.caution}</p>
+            <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
+              {linked && <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">TexasDefined guide →</Link>}
+              <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official visitor information ↗</a>
+            </div>
+          </article>;
+        })}
+      </div>
+      <div className="mt-14 border-t border-border pt-8">
+        <p className="eyebrow text-primary">Build a day, not a checklist</p>
+        <h3 className="mt-3 font-display text-3xl">Three practical ways to explore from McAllen</h3>
+        <div className="mt-7 grid gap-7 lg:grid-cols-3">
+          <div><h4 className="font-display text-2xl">Wildlife before the heat</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose Bentsen or Santa Ana for an early birding start. Keep midday flexible for lunch and rest instead of racing between far-apart refuges.</p></div>
+          <div><h4 className="font-display text-2xl">Wetlands + Valley heritage</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Spend the morning on Estero Llano Grande's wetland trails, then explore Weslaco; alternatively pair Santa Ana with the Museum of South Texas History in Edinburg if the museum is open.</p></div>
+          <div><h4 className="font-display text-2xl">Port Isabel + South Padre</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Give the drive its due. Visit the lighthouse and Port Isabel first, then devote the afternoon to one South Padre beach area. Leave flexibility for bridge traffic and weather.</p></div>
+        </div>
+      </div>
+      <div className="mt-10 border-t border-border pt-7">
+        <h3 className="font-display text-2xl">How the recommendations work</h3>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">The curated trips above are based on official state, federal and museum visitor information, checked October 2026. The geographic catalog below is screened within approximately 108 straight-line miles of McAllen and limited to two attractions per named town; it does not calculate road miles, account for every detour or guarantee opening hours. A smaller trip is not automatically less worthwhile. Open each destination's live driving route and official site before departure. Remote four-wheel-drive beach routes are not ordinary day-trip recommendations.</p>
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+          <Link to="/explore/near/$metro" params={{ metro: "mcallen" }} className="eyebrow border-b border-primary pb-1 text-primary">Explore all trips near McAllen →</Link>
+          <Link to="/county/$slug" params={{ slug: "hidalgo" }} className="eyebrow border-b border-primary pb-1 text-primary">Hidalgo County guide →</Link>
+          <Link to="/county/$slug" params={{ slug: "cameron" }} className="eyebrow border-b border-primary pb-1 text-primary">Cameron County guide →</Link>
+        </div>
+      </div>
+    </Container>
+  </section>;
 }
 
 function googleMultiStopRoute(stops: string[]) {
@@ -372,6 +488,8 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </div>
     </Container>
 
+    {metro.slug === "mcallen" && collection.slug === "day-trips" && <McAllenDayTripsAuthority pageData={pageData} />}
+
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
         <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
@@ -424,7 +542,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>
       <Container className="py-14 sm:py-18">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">{isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band)}</p>
+          <p className="eyebrow text-primary">{isAustinTwoHourGuide ? "Town guides" : bandLabel(group.band, collection)}</p>
           <h2 className="mt-3 font-display text-4xl">{isAustinTwoHourGuide ? `${group.rows.length} places worth building a day around` : `${group.rows.length} full TexasDefined guide${group.rows.length === 1 ? "" : "s"} in this geographic band`}</h2>
         </div>
         <div className="mt-9 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
