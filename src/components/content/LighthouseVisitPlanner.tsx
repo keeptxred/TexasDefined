@@ -76,9 +76,9 @@ const lighthouseVisits = [
 
 export default function LighthouseVisitPlanner() {
   return (
-    <section aria-labelledby="lighthouse-visit-planner" className="my-12 border-y border-border py-8">
+    <section aria-labelledby="texas-lighthouses-at-a-glance-access-climbs-and-trip-difficulty" className="my-12 border-y border-border py-8">
       <p className="eyebrow text-primary">Compare before you go</p>
-      <h2 id="lighthouse-visit-planner" className="mt-3 font-display text-3xl font-semibold sm:text-4xl">Which Texas lighthouse visit is right for you?</h2>
+      <h2 id="texas-lighthouses-at-a-glance-access-climbs-and-trip-difficulty" className="mt-3 font-display text-3xl font-semibold sm:text-4xl">Which Texas lighthouse visit is right for you?</h2>
       <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">
         Only Port Isabel is a conventional public lighthouse climb. The other stops range from
         exterior views and paddling to a remote island trip and a Louisiana-border history detour.
