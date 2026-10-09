@@ -165,7 +165,7 @@ assert.ok(fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8').in
 
 const budgetUxSource = fs.readFileSync('src/components/calculators/TexasBudgetPlanner.tsx', 'utf8');
 assert.ok(budgetUxSource.includes("setBudget(sanitizeBudget(JSON.parse(readSaved(BUDGET_STORAGE_KEY)!)))"), 'saved v3 budget auto-restores after a reload');
-assert.ok(budgetUxSource.includes('print:block'), 'itemized entries must be visible on printed budget');
+assert.ok(budgetUxSource.includes('#budget-print-details { display: block !important; }'), 'itemized entries must be visible on printed budget');
 assert.ok(budgetUxSource.includes('Detailed monthly budget'), 'print view must include detailed entries');
 assert.ok(budgetUxSource.includes('createBudgetCsv(budget)'), 'CSV download must use tested serializer');
 assert.ok(budgetUxSource.includes('createBudgetShareQuery(budget)'), 'share action must use tested serializer');
