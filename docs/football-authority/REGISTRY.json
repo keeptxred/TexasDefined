@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 16,
+    "partiallyCompleted": 17,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Sixteen individually implemented Batch 002 profiles on GitHub football branches, zero individually verified live.",
-    "currentSchool": "allen",
-    "nextSchool": "alpine",
-    "implementedOnBranch": 16,
+    "currentSchool": "alpine",
+    "nextSchool": "altair-rice",
+    "implementedOnBranch": 17,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -816,8 +816,21 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alpine",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alpine.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "1d4644337713c0242fa525c940be462583c9c34a"
+      ],
+      "productionVerification": null,
+      "blockers": [
+        "Protected merges and deploy",
+        "Actual mobile/desktop acceptance",
+        "No verified licensed stadium image",
+        "Stadium gate and updated Oct 2026 results"
+      ]
     },
     {
       "id": "uil:altair-rice",
