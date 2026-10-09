@@ -29,6 +29,19 @@ const CountyHighSchoolFootball = lazy(() =>
   })),
 );
 
+// Independently sourced municipal associations, only for Batch 002 programs
+// with confirmed campus city and an existing canonical TexasDefined city guide.
+const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
+  houston: [
+    { name: 'Alief Elsik Rams', slug: 'alief-elsik', context: 'Houston Alief ISD football, with sourced 2026 program and postseason history.' },
+    { name: 'Alief Hastings Fighting Bears', slug: 'alief-hastings', context: 'The Houston program’s verified 1997 state-final appearance and current district context.' },
+    { name: 'Alief Taylor Lions', slug: 'alief-taylor', context: 'Houston Alief ISD campus, current UIL placement and dated team results.' },
+  ],
+  'fort-worth': [
+    { name: 'All Saints Episcopal Saints', slug: 'all-saints-fort-worth', context: 'Fort Worth school and McNair Stadium, with sourced TAPPS championship history.' },
+  ],
+};
+
 // Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
 const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
   'van-zandt': {
@@ -255,6 +268,17 @@ function EntityPage() {
             </li>)}
           </ul>
           <p className="mt-4 text-xs text-muted-foreground">Independent editorial guides. Game sites and district boundaries may span county lines; each listed school is linked by its campus county.</p>
+        </section> : null}
+        {entity.kind === 'city' && batch002FootballCityLinks[entity.slug] ? <section aria-label="Individually researched local high school football" className="border-b border-border py-9">
+          <p className="eyebrow text-primary">Researched local football programs</p>
+          <h2 className="mt-2 font-display text-3xl">Football history in {entity.name}</h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {batch002FootballCityLinks[entity.slug].map((school) => <li key={school.slug} className="rounded-lg border border-border p-4">
+              <a className="font-semibold text-primary underline underline-offset-4" href={`/texas-high-school-football-teams/${school.slug}`}>{school.name} football profile →</a>
+              <p className="mt-2 text-sm text-muted-foreground">{school.context}</p>
+            </li>)}
+          </ul>
+          <p className="mt-4 text-xs text-muted-foreground">Campus-city links do not certify game-day stadium entrances or district-wide service areas.</p>
         </section> : null}
         {batch001FootballLink ? <section aria-label="Researched high school football history from this county" className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
