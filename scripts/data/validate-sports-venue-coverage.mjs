@@ -215,6 +215,11 @@ for (const marker of [
 }
 assert(sharedGuidePage.includes('League / conference'), 'Shared sports venue quick facts must surface sourced league or conference context.');
 assert(sharedGuidePage.includes('"@type": "FAQPage"'), 'Shared sports venue guide must publish FAQ structured data when visible venue FAQs exist.');
+assert(sharedGuidePage.includes('"@type": "WebPage"'), 'Shared sports venue guide must publish WebPage structured data for page-level freshness metadata.');
+assert(sharedGuidePage.includes('...upcomingEvents.flatMap((event) => [event.lastVerifiedAt, event.lastUpdatedAt])'), 'Shared sports venue freshness must consider event verification timestamps.');
+assert(sharedGuidePage.includes('parkingMap?.verifiedAt'), 'Shared sports venue freshness must consider parking-map verification timestamps.');
+assert(sharedGuidePage.includes('...eventSchemaNodes'), 'Shared sports venue structured data must include source-verified upcoming event nodes.');
+assert(sharedGuidePage.includes('Latest source verification'), 'Shared sports venue source review must describe the newest source verification rather than an older static guide date.');
 
 for (const getter of [
   'getSportsVenueContentRemediation(lookupSlug)',
