@@ -1,0 +1,51 @@
+name: Audit production internal-link graph
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/ci/audit-internal-link-graph-production.mjs'
+      - '.github/workflows/audit-internal-link-graph-production.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '41 10 * * 2,5'
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-internal-link-graph
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: Quantify crawlable production internal links
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Crawl sitemap-owned production pages
+        env:
+          INTERNAL_LINK_AUDIT_CONCURRENCY: '8'
+          INTERNAL_LINK_AUDIT_TIMEOUT_MS: '25000'
+          INTERNAL_LINK_AUDIT_STRICT: '1'
+        run: node scripts/ci/audit-internal-link-graph-production.mjs
+      - name: Upload production link graph
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-internal-link-graph
+          path: |
+            internal-link-graph-audit.json
+            internal-link-graph-audit.md
+          if-no-files-found: error
