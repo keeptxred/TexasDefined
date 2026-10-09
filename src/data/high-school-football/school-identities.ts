@@ -12,6 +12,13 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'shamrock',
+    mascot: 'Fighting Irish',
+    sourceUrl: 'https://www.shamrockisd.net/34144_3',
+    sourceLabel: 'Shamrock ISD Fighting Irish coaching staff',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abbott',
     mascot: 'Panthers',
     colors: 'Black and Old Gold',
