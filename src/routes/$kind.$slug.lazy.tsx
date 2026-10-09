@@ -55,6 +55,12 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     description: 'Read the 2003 six-man championship-game history and the district’s announced cancellation of its 2026 season.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?DistrictID=4820100&ID=482010001962&Search=1',
   },
+  hale: {
+    name: 'Abernathy Antelopes',
+    href: '/texas-high-school-football-teams/abernathy',
+    description: 'Explore Abernathy’s historic 1980s district-title streak, 2016 state-semifinal run and 2026 Antelopes leadership.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480741000008',
+  },
   tarrant: {
     name: 'Southlake Carroll Dragons',
     href: '/texas-high-school-football-teams/southlake-carroll',
