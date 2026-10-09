@@ -170,3 +170,21 @@ Never promise coverage in exchange for a link. Never require a link in a contrac
 ## Data handling
 
 The public repository contains schema, policy and application code only. Private contact fields are stored in `public.texasdefined_backlink_prospects`, which has RLS enabled, no anon/authenticated grants, no public RLS policy, and service-role-only access through server-side code after the existing TexasDefined admin-key check.
+
+## Reconciliation snapshot — 2026-10-09
+
+This public-safe snapshot records aggregate command-center state only; private contact identities and message history remain in Supabase.
+
+- 101 tracked outreach targets.
+- 100 targets have a verified contact email; one researched record intentionally remains email-null while its official contact-form path is reviewed. This does not indicate an incomplete bulk contact-email backfill.
+- 47 targets have been contacted; 46 are awaiting a response and one has replied.
+- Three contacted records are eligible for their first relationship-first follow-up on or after 2026-10-09.
+- 43 records have already received a follow-up: 4 on 2026-10-01 and 39 on 2026-10-08. Their recorded next actions are to wait/monitor rather than send repeated messages.
+- The one reply is a source-relationship win (media-update access), not a backlink and not a recorded correction/asset delivery.
+- 0 verified backlinks and 0 verified referring domains are currently recorded.
+- 0 linking URLs are sitting in a discovered-but-unverified state.
+- 0 exact duplicate `referring_domain + destination_url` rows exist.
+- One referring domain legitimately spans three different destinations across two campaigns; the command center's cross-campaign duplicate warning is therefore relevant, but the rows are not exact duplicates and must be reviewed together before any additional outreach.
+
+The discovery-first priority remains the maintained citation-magnet scorecard rather than increasing email volume. Highest-priority reference assets are the structured Texas Data datasets, county property-tax comparison/detail resources, appraisal-district explainer, statewide Texas Data hub, property-tax explainer, and verified utility lookups. Strengthen sources, methodology, verification dates, concise answer layers, and downloadable data on those canonical resources before expanding outreach.
+
