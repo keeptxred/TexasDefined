@@ -33,7 +33,16 @@ const citySitemapContractMarkers = [
   'if (!citySitemapPassed)',
   ...['houston', 'dallas', 'fort-worth', 'austin', 'san-antonio', 'el-paso', 'arlington', 'hurst', 'corpus-christi', 'plano', 'lubbock'].map((slug) => "'" + slug + "'"),
 ];
+const citySitemapEvidenceStep = workflow.slice(workflow.indexOf('- name: Preserve live city sitemap verification evidence'));
+const liveBaseEvidenceStep = workflow.slice(workflow.indexOf('- name: Verify base production surfaces'), workflow.indexOf('- name: Preserve live city sitemap verification evidence'));
 const failures = [];
+for (const needle of ['set -o pipefail', 'node scripts/ci/verify-production-surfaces.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log']) {
+  if (!liveBaseEvidenceStep.includes(needle)) failures.push('Production city sitemap evidence capture must remain fail-closed: ' + needle);
+}
+for (const needle of ["if: ${{ always() && steps.live_base.outcome != 'skipped' }}", 'actions/upload-artifact@v4', 'city-sitemap-live-evidence-${{ github.run_id }}', 'path: .artifacts/city-sitemap-live-evidence.log', 'if-no-files-found: error']) {
+  if (!citySitemapEvidenceStep.includes(needle)) failures.push('Production city sitemap evidence artifact must be retained: ' + needle);
+}
+
 for (const marker of citySitemapContractMarkers) {
   if (!productionSurfaces.includes(marker)) failures.push('City live sitemap verification contract missing: ' + marker);
 }
