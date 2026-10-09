@@ -26,7 +26,8 @@ export const culbersonCountyVanHornGuadalupeMountainsArticle: Article = {
   tags: ["Culberson County", "Van Horn", "Guadalupe Mountains", "Guadalupe Peak", "Salt Basin", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
-    { href: "/article/jeff-davis-county-fort-davis-mountains-texas", label: "Explore neighboring Jeff Davis County", description: "Continue south into Fort Davis, the Davis Mountains and McDonald Observatory country." },
+    { href: "/county/hudspeth", label: "Explore Hudspeth County", description: "Continue west through the Salt Basin toward Sierra Blanca." },
+    { href: "/county/jeff-davis", label: "Explore neighboring Jeff Davis County", description: "Continue south into Fort Davis, the Davis Mountains and McDonald Observatory country." },
     { href: "/browse/counties", label: "Browse all 254 Texas counties", description: "Explore Texas one county at a time." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "How distance and local government shaped the Texas county map." },
     { href: "/explore", label: "Explore Texas", description: "Find parks, towns, landscapes and destinations across the state." },
