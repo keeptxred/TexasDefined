@@ -139,8 +139,8 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
   "/article/texas-rivers-explained": {
-    title: "Major Rivers in Texas: Boundary Rivers, Regions & Map",
-    description: "Find Texas's major and boundary rivers by region, from the Rio Grande and Pecos to the Brazos, Colorado, Trinity and Sabine, with maps and waterway context.",
+    title: "Texas Rivers Explained: Major Rivers, Basins & Map",
+    description: "Explore Texas rivers with the official basin map, all 15 major basin statistics, headwaters, boundary rivers, reservoir links and river access guidance.",
   },
   "/article/texas-river-basins-guide": {
     title: "Texas River Basins: 15 Major, 8 Coastal & Watershed Map",
