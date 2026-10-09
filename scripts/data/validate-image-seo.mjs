@@ -85,7 +85,7 @@ for (const marker of [
 for (const marker of [
   'function governedDiscoverAssetsPlugin(): Plugin',
   'name: "texasdefined-governed-discover-assets"',
-  'fileName: \`images/discover/\\${name}\\`',
+  'fileName: `images/discover/${name}`',
   'source: fs.readFileSync(path.join(discoverDir, name))',
   'governedDiscoverAssetsPlugin(),',
 ]) if (!viteConfig.includes(marker)) errors.push(`Vite must emit governed Discover derivatives into the client asset manifest: ${marker}`);
