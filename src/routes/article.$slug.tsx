@@ -12,6 +12,7 @@ import { articleInternalLinks } from "@/data/article-internal-links";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
+import { stateParkHeroMap } from "@/data/state-park-hero-map";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
 import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
@@ -564,6 +565,20 @@ function ArticlePage() {
         </article>)}
       </div>
       <EastTexasFoliageParkMap />
+      <div className="mt-10">
+        <h3 className="font-display text-2xl">Photographs of the featured parks</h3>
+        <p className="mt-2 text-sm leading-7 text-muted-foreground">Documentary park photographs from the existing credited image library. They show the places, not a verified current-season foliage report.</p>
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {(["daingerfield-state-park", "caddo-lake-state-park", "lake-bob-sandlin-state-park", "tyler-state-park", "martin-creek-lake-state-park"] as const).map((slug) => {
+            const photo = stateParkHeroMap[slug];
+            return photo ? <figure key={slug} className="overflow-hidden border border-border bg-background">
+              <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+              <figcaption className="p-3 text-xs leading-5 text-muted-foreground"><span className="font-semibold text-foreground">{slug.replace(/-/g, " ").replace(/\\b\\w/g, (letter) => letter.toUpperCase())}</span><span className="mt-1 block">{photo.credit}</span></figcaption>
+            </figure> : null;
+          })}
+        </div>
+      </div>
+
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
