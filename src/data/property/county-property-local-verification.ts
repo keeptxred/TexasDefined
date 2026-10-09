@@ -19,6 +19,38 @@ export type CountyPropertyLocalVerification = {
  * local government/property-tax sources and is protected by CI freshness checks.
  */
 export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLocalVerification> = {
+  // Independently cross-checked against Bell CAD, the Comptroller and the
+  // Texas DMV directory on 2026-10-08. Bell CAD, not the county tax office,
+  // collects property taxes here; TxDMV lists the county registration office.
+  bell: {
+    appraisalDistrict: {
+      name: 'Billy White',
+      websiteUrl: 'https://bellcad.org/',
+      phone: '254-939-5841',
+      address: '411 E. Central Ave., Belton, TX 76513',
+    },
+    taxOffice: {
+      name: 'Shay Luedeke',
+      websiteUrl: 'https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices/bell',
+      phone: '254-933-5318',
+      address: '550 E. 2nd Ave., Belton, TX 76513',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://bellcad.org/',
+      taxOfficeUrl: 'https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices/bell',
+      propertySearchUrl: 'https://esearch.bellcad.org/',
+      paymentUrl: 'https://bellcad.org/pay-property-taxes/',
+    },
+    lastVerifiedAt: '2026-10-08',
+    sourceUrls: [
+      'https://comptroller.texas.gov/taxes/property-tax/county-directory/bell.php',
+      'https://bellcad.org/',
+      'https://bellcad.org/pay-property-taxes/',
+      'https://esearch.bellcad.org/',
+      'https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices/bell',
+    ],
+  },
+
   polk: {
     appraisalDistrict: {
       name: 'Chad Hill',
