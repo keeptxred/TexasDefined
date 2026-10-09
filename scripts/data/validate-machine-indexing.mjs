@@ -185,7 +185,7 @@ try {
 }
 
 if (citationIndex) {
-  if (citationIndex.asOf !== '2026-08-30') errors.push('citation-magnets.json must carry the current 2026-08-30 asOf date.');
+  if (citationIndex.asOf !== '2026-10-08') errors.push('citation-magnets.json must carry the current 2026-10-08 asOf date.');
   const citationUrls = new Set((citationIndex.resources ?? []).map((resource) => resource.url));
   for (const url of [
     'https://texasdefined.com/sports-venues',
