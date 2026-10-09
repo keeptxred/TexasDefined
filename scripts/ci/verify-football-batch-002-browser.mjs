@@ -18,6 +18,12 @@ const roster = [
   ['alvin-iowa-colony','brazoria'], ['alvin-shadow-creek','brazoria'],
   ['alvord','wise'], ['amarillo','randall'],
 ];
+// Independently documented campus-city links, not inferred from district areas.
+const cityRoster = [
+  { city: 'houston', schools: ['alief-elsik','alief-hastings','alief-taylor'] },
+  { city: 'fort-worth', schools: ['all-saints-fort-worth'] },
+];
+const cityBySchool = new Map(cityRoster.flatMap(({ city, schools }) => schools.map(slug => [slug, city])));
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json', 'utf8'));
 assert.equal(roster.length, 25);
 assert.deepEqual(registry.batch.slugs, roster.map(([slug]) => slug));
@@ -105,6 +111,8 @@ try {
         check(err,d.body.length>1200,'insufficient rendered content');
         check(err,/football/i.test(d.body),'football content not rendered');
         check(err,d.links.some(x=>pathname(x.href)==='/county/'+county),'missing school to county link');
+        const city = cityBySchool.get(slug);
+        if (city) check(err,d.links.some(x=>pathname(x.href)==='/city/'+city),'missing school to verified city guide');
         check(err,d.schema.includes('SportsTeam') && d.schema.includes('BreadcrumbList'),'missing SportsTeam/Breadcrumb schema');
         check(err,d.links.some(x => (row.evidenceSources || []).some(source => x.href.replace(/\/$/,'')===source.replace(/\/$/,''))),'no visible matching recorded research source');
         check(err,d.documentWidth<=d.viewportWidth+10,'horizontal overflow '+(d.documentWidth-d.viewportWidth));
@@ -122,6 +130,16 @@ try {
         check(err,!/\bnoindex\b/i.test(d.robots),'county noindex');
         check(err,d.documentWidth<=d.viewportWidth+10,'county horizontal overflow');
         for (const slug of slugs) check(err,d.links.some(x=>pathname(x.href)===schoolPath(slug)&&x.visible),'county missing visible reciprocal '+slug);
+      });
+    }
+    for (const { city, schools } of cityRoster) {
+      await visit(context,viewport,'city-'+city,'/city/'+city,(err,d,status)=>{
+        check(err,status===200,'non-200 city HTTP: '+status);
+        check(err,d.h1.length===1,'city H1 count not one');
+        check(err,d.canonical===origin+'/city/'+city,'incorrect city canonical: '+d.canonical);
+        check(err,!/\bnoindex\b/i.test(d.robots),'city noindex');
+        check(err,d.documentWidth<=d.viewportWidth+10,'city horizontal overflow');
+        for (const slug of schools) check(err,d.links.some(x=>pathname(x.href)===schoolPath(slug)&&x.visible),'city missing visible reciprocal '+slug);
       });
     }
     await context.close();
