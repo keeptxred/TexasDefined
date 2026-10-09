@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
+  uilEnrollmentFallsWithinBand,
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
 } from '@/data/high-school-football/enrollment-bands';
@@ -54,6 +55,12 @@ function Page() {
     : null;
   const conferenceBand = program
     ? uilFootballConferenceBand(program.classification)
+    : null;
+  const enrollmentFitsFinalBand = program
+    ? uilEnrollmentFallsWithinBand(program.uilEnrollment, enrollmentBand)
+    : null;
+  const submittedConferenceBand = program?.uilSubmittedConference && /^[1-6]A$/.test(program.uilSubmittedConference)
+    ? uilFootballConferenceBand(program.uilSubmittedConference as '1A' | '2A' | '3A' | '4A' | '5A' | '6A')
     : null;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -159,13 +166,17 @@ function Page() {
               <Snapshot label="UIL classification" value={program.classification} />
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
               {program.uilEnrollment && <Snapshot label="UIL reported enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
-              <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />
+              {enrollmentFitsFinalBand !== false && <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />}
+              {enrollmentFitsFinalBand === false && <Snapshot label="Enrollment-based conference range" value={submittedConferenceBand || 'See official UIL enrollment listing'} />}
+              {enrollmentFitsFinalBand === false && <Snapshot label="Final football placement" value={alignmentLabel(program)} />}
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
-            <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              TexasDefined orders the statewide directory from 6A through 1A because UIL classifications reflect enrollment size. For the 2026–28 cycle, this program’s final football classification{program.division ? ' and football division' : ''} corresponds to an enrollment band of <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>{program.uilEnrollment ? <> and UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment.toLocaleString('en-US')}</strong></> : null}. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
-            </p>
-            {program.uilSubmittedConference && program.uilSubmittedConference !== program.classification && <p className="mt-2 text-xs leading-6 text-muted-foreground">UIL’s alphabetical enrollment listing records a submitted conference of {program.uilSubmittedConference}; TexasDefined uses the final 2026–28 football alignment ({program.classification}) for competition placement.</p>}
+            {enrollmentFitsFinalBand !== false ? <p className="mt-4 text-sm leading-7 text-muted-foreground">
+              TexasDefined orders the statewide directory from 6A through 1A because UIL classifications generally reflect enrollment size. For the 2026–28 cycle, this program’s final football classification{program.division ? ' and football division' : ''} corresponds to an enrollment band of <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>{program.uilEnrollment ? <> and UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment.toLocaleString('en-US')}</strong></> : null}. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
+            </p> : <div className="mt-4 border-l-4 border-primary bg-surface p-4 text-sm leading-7 text-muted-foreground">
+              <p><strong className="text-foreground">Enrollment and football placement are different here.</strong> UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment?.toLocaleString('en-US')}</strong>{program.uilSubmittedConference ? <> and an enrollment submission in <strong className="text-foreground">{program.uilSubmittedConference}</strong></> : null}, while the final 2026–28 football alignment places the program in <strong className="text-foreground">{alignmentLabel(program)}</strong>. Because the reported enrollment falls outside the normal cutoff band for that final football placement, TexasDefined does not label that cutoff as this school's enrollment band. The final UIL alignment controls football competition placement.</p>
+            </div>}
+            {program.uilSubmittedConference && program.uilSubmittedConference !== program.classification && enrollmentFitsFinalBand !== false && <p className="mt-2 text-xs leading-6 text-muted-foreground">UIL’s alphabetical enrollment listing records a submitted conference of {program.uilSubmittedConference}; TexasDefined uses the final 2026–28 football alignment ({program.classification}) for competition placement.</p>}
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
               <a href={UIL_EXACT_ENROLLMENT_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alphabetical enrollment listing ↗</a>
               <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
