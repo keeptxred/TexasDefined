@@ -127,6 +127,21 @@ export const localArticleAuthoritySources: Readonly<Record<string, readonly Loca
       scope: "Official TPWD ecoregion GIS reference for users who need more exact mapped boundaries than the simplified TexasDefined orientation graphic.",
     },
     {
+      label: "US EPA — Level III and IV Ecoregions",
+      url: "https://www.epa.gov/eco-research/level-iii-and-iv-ecoregions-continental-united-states",
+      scope: "National hierarchical ecoregion framework explaining why Texas can be represented by 12 Level III regions and many finer Level IV units.",
+    },
+    {
+      label: "Texas Parks & Wildlife — Wildscapes plant guidance by ecoregion",
+      url: "https://tpwd.texas.gov/wildlife/wildlife-diversity/wildscapes/wildscapes-plant-guidance-by-ecoregion/",
+      scope: "Region-specific TPWD native-plant and habitat guidance for the same broad 10-region natural-region framework used by this guide.",
+    },
+    {
+      label: "Texas Parks & Wildlife — Natural Regions GIS download",
+      url: "https://tpwd.texas.gov/gis/data/baselayers/naturalregions-zip/view",
+      scope: "Downloadable TPWD natural-regions GIS layer for readers who need mapped boundaries beyond the generalized TexasDefined orientation map.",
+    },
+    {
       label: "Texas Water Development Board — Texas Aquifers",
       url: "https://www.twdb.texas.gov/groundwater/aquifer/",
       scope: "Official statewide groundwater and aquifer context supporting the guide's discussion of geology, recharge and regional water systems.",
