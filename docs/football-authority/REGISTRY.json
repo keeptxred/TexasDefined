@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 15,
+    "partiallyCompleted": 16,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "15 individually implemented school editorial records on active Batch 002 branches; zero school-specific production verification passes in Batch 002.",
-    "currentSchool": "all-saints-fort-worth",
-    "nextSchool": "allen",
-    "implementedOnBranch": 15,
+    "notes": "Sixteen individually implemented Batch 002 profiles on GitHub football branches, zero individually verified live.",
+    "currentSchool": "allen",
+    "nextSchool": "alpine",
+    "implementedOnBranch": 16,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -789,8 +789,21 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/allen",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/allen.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "0005a98da25da7446159103c129f330cd5fd891b"
+      ],
+      "productionVerification": null,
+      "blockers": [
+        "Protected merge/deploy",
+        "Real desktop/mobile QA and links",
+        "Unlicensed authentic photos",
+        "Verify live scores after October 9"
+      ]
     },
     {
       "id": "uil:alpine",
