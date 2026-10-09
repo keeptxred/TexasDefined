@@ -300,7 +300,7 @@ export function MSRHoustonAuthoritySections() {
         verify route conditions before departure. <SourceLink href={references.location}>Official directions</SourceLink></p>
       </SectionHeading>
       <div className="flex flex-wrap gap-4 text-sm font-semibold">
-        <a href="/city/angleton" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Explore Angleton →</a>
+        <a href="/sports-venues/motorsports" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Texas motorsports →</a>
         <a href="/county/brazoria" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Brazoria County guide →</a>
         <a href="/sports-venues" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Compare Texas sports venues →</a>
         <a href="/explore/road-trips" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Texas road trips →</a>
