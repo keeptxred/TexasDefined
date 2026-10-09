@@ -258,13 +258,6 @@ function DestinationPage() {
       ]}
     />
 
-    {destination.slug === "old-post-office-museum-art-center-graham" && <Container className="border-b border-border py-8">
-      <p className="eyebrow text-primary">Explore more Young County history</p>
-      <h2 className="mt-3 font-display text-2xl">Pair The Old Post with Graham's county-history museum</h2>
-      <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">The Old Post interprets art and local culture inside the former Graham federal post office. The distinct Young County Museum of History &amp; Culture at 609 Fourth Street explores the Brazos frontier, county archives, historical maps, ranching, oil and oral histories.</p>
-      <Link to="/destination/$slug" params={{ slug: "young-county-museum-of-history-and-culture" }} className="mt-4 inline-block border-b border-primary pb-1 font-semibold text-primary">Explore the Young County Museum authority guide →</Link>
-    </Container>}
-
     {isChokeCanyon && <span data-stay-nearby-disabled="true" className="hidden" aria-hidden="true" />}
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
