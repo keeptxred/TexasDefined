@@ -33,6 +33,8 @@ export const travisCountyAustinCapitolSpringsHillCountryArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/county/williamson", label: "Explore Williamson County", description: "Continue north to Georgetown, Round Rock and the San Gabriel River corridor." },
+    { href: "/county/hays", label: "Explore Hays County", description: "Explore San Marcos, the Blanco River and the Hill Country transition south of Austin." },
     {
       href: "/browse/counties",
       label: "Browse Texas counties",
