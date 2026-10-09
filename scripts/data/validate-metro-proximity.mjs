@@ -5,6 +5,8 @@ const paths = {
   data: "src/data/metro-proximity.ts",
   townReferences: "src/data/metro-proximity-town-references.ts",
   mcallenBirding: "src/data/mcallen-world-birding-center.ts",
+  curationValleyParks: "src/data/destination-curation-batch20.ts",
+  curationFalcon: "src/data/destination-curation-batch9.ts",
   test: "src/data/__tests__/metro-proximity.test.ts",
   pageData: "src/data/metro-proximity-page-data.server.ts",
   functions: "src/data/metro-proximity-page-data.functions.ts",
@@ -73,6 +75,14 @@ for (const token of [
   "selectDiverseDayTrips", "REMOTE_DAY_TRIP_EXCLUSIONS",
   'collection.slug === "day-trips"', "categoryLimit", "collection.minResults",
 ]) requireText(files.data, token, `shared day-trip quality model missing ${token}`);
+for (const [source, tokens] of [
+  [files.curationValleyParks, ['"bentsen-rio-grande-valley-state-park"', '"estero-llano-grande-state-park"', '"resaca-de-la-palma-state-park"', 'category:"state-parks"', 'sourceCheckedAt:"2026-10-09"']],
+  [files.curationFalcon, ['"falcon-state-park"', 'category:"state-parks"', 'sourceCheckedAt:"2026-10-09"']],
+]) {
+  for (const token of tokens) requireText(source, token, `South Texas state-park authority missing ${token}`);
+}
+requireText(files.test, "four genuinely researched Lower Valley state parks", "South Texas state-park classification regression missing");
+
 for (const token of [
   "generic metro day trips keep geographic variety",
   "sparse day-trip inventory only relaxes the town cap",

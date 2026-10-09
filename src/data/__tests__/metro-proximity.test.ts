@@ -13,6 +13,8 @@ import {
   selectMetroProximityTownReferences,
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
+import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
+import { applyCuratedDestinationBatch20 } from "../destination-curation-batch20.ts";
 import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
@@ -282,4 +284,33 @@ test("McAllen nine-site World Birding Center authority uses unique, source-backe
   for (const source of Object.values(MCALLEN_WBC_SOURCES)) {
     assert.equal(new URL(source).protocol, "https:");
   }
+});
+
+test("four genuinely researched Lower Valley state parks are classified correctly and meet geographic requirements", () => {
+  const expected = [
+    ["bentsen-rio-grande-valley-state-park", "Mission", "Hidalgo"],
+    ["estero-llano-grande-state-park", "Weslaco", "Hidalgo"],
+    ["resaca-de-la-palma-state-park", "Brownsville", "Cameron"],
+    ["falcon-state-park", "Falcon Heights", "Starr"],
+  ] as const;
+  const parks = expected.map(([slug], index) => {
+    const input = destination(800 + index, "outdoors", { slug, nearestTown: "Unknown" });
+    return applyCuratedDestinationBatch20(applyCuratedDestinationBatch9(input));
+  });
+  for (const [index, park] of parks.entries()) {
+    assert.equal(park.category, "state-parks", `${park.slug} should be correctly classified as a TPWD state park`);
+    assert.equal(park.nearestTown, expected[index][1]);
+    assert.equal(park.county, expected[index][2]);
+    assert.ok(park.summary.length >= 90);
+    assert.ok(park.body.length >= 3 && park.body.join(" ").length >= 450, park.slug);
+    assert.ok(park.hero.src.startsWith("/images/state-parks/"), `${park.slug} needs an existing licensed, exact-park hero`);
+    assert.ok(Boolean(park.hero.credit));
+    assert.ok(park.officialUrl?.startsWith("https://tpwd.texas.gov/state-parks/"));
+    assert.ok(Date.parse(park.sourceCheckedAt ?? "") > 0);
+  }
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("state-parks")!;
+  const selected = selectMetroProximityDestinations(parks, metro, collection);
+  assert.equal(selected.length, 4, "all four belong inside the McAllen state-park geographic radius");
+  assert.ok(isMetroProximityCollectionIndexReady(parks, metro, collection), "authentic park choices meet the unchanged town/county/category gates");
 });
