@@ -76,6 +76,7 @@ export const Route = createFileRoute('/$kind/$slug')({
         imageHeight: countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
         publishedTime: countySeriesArticle?.publishedAt,
+        modifiedTime: countySeriesArticle?.updatedAt,
         robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
