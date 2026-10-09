@@ -38,7 +38,9 @@ function Page() {
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
-  const countyPath = schoolName === 'Alief Elsik'
+  const countyPath = schoolName === 'Alief Hastings'
+    ? '/county/harris'
+    : schoolName === 'Alief Elsik'
     ? '/county/harris'
     : schoolName === 'Alice'
     ? '/county/jim-wells'
