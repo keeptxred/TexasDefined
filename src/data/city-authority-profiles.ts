@@ -44,6 +44,9 @@ export type CityAuthorityProfile = {
     firstTime: ReadonlyArray<{ title: string; summary: string; href?: string }>;
     stayAreas: ReadonlyArray<{ title: string; summary: string }>;
     freeThings: ReadonlyArray<{ title: string; summary: string; href?: string }>;
+    family: ReadonlyArray<{ title: string; summary: string; href?: string }>;
+    gettingAround: ReadonlyArray<{ title: string; summary: string }>;
+    shoppingEntertainment: ReadonlyArray<{ title: string; summary: string; href?: string }>;
   };
   systems: ReadonlyArray<CityAuthoritySystem>;
 };
@@ -95,6 +98,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Hermann Park', summary: 'Walk the public park, gardens and reflection spaces around the Museum District; individual attractions inside the district may charge admission.' },
         { title: 'Buffalo Bayou Park', summary: 'Use the trails, skyline views and public green space along Buffalo Bayou for a no-ticket urban outing.' },
         { title: 'Discovery Green', summary: 'Downtown public space offers lawns, public art and changing free programming; verify the calendar for event-specific details.' },
+      ],
+      family: [
+        { title: 'Hermann Park + Houston Zoo', summary: 'Keep a family day compact around the park, zoo and nearby museums so children spend more time exploring and less time in Houston traffic.', href: '/destination/houston-zoo' },
+        { title: 'Space Center Houston', summary: 'Treat NASA as its own major family outing and allow enough time for exhibits, tram experiences and the drive southeast of the urban core.', href: '/destination/space-center-houston' },
+        { title: 'Bayou and discovery parks', summary: 'Mix ticketed attractions with playground, trail and open-space time at Buffalo Bayou Park or Discovery Green, especially in cooler parts of the day.' },
+      ],
+      gettingAround: [
+        { title: 'Use METRORail for the central corridor', summary: 'Downtown, the Museum District, Hermann Park, the Texas Medical Center and other central stops can be easier to connect by rail than by repeatedly parking.' },
+        { title: 'Expect to drive across the wider metro', summary: 'Space Center Houston, Uptown and many neighborhood destinations sit well outside the compact rail corridor, so group those stops geographically.' },
+        { title: 'Plan around traffic, heat and event parking', summary: 'Houston distances can look short on a map but become slow at rush hour or during major events. Leave buffer time and avoid moving the car for every central stop.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Uptown / Galleria', summary: 'Use the Galleria area for destination-scale shopping, dining and indoor entertainment, especially when weather makes outdoor plans less appealing.' },
+        { title: 'The Heights', summary: 'Pair independent shops, restaurants and neighborhood streets along Heights-area commercial corridors with nearby trails and historic residential blocks.' },
+        { title: 'Downtown, EaDo & Montrose', summary: 'Choose the district that matches the evening: sports and concerts downtown/EaDo, or smaller restaurants, galleries and nightlife in Montrose.' },
       ],
     },
     systems: [
@@ -166,6 +184,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Klyde Warren Park', summary: 'Use the public deck park between downtown and Uptown for lawns, skyline views and changing programming.' },
         { title: 'Dallas Arts District walk', summary: 'Architecture, public space and outdoor art can be explored without buying a museum ticket.' },
         { title: 'White Rock Lake trails', summary: 'The lake and surrounding trail system provide a large public outdoor escape inside the city.' },
+      ],
+      family: [
+        { title: 'Dallas World Aquarium + downtown', summary: 'Use the aquarium as an indoor family anchor, then add one nearby downtown or Arts District stop instead of crossing the city repeatedly.', href: '/destination/dallas-world-aquarium' },
+        { title: 'Klyde Warren Park + Arts District', summary: 'Balance museums with outdoor play, food trucks and public space between downtown and Uptown.' },
+        { title: 'White Rock Lake or Fair Park', summary: 'Choose one east-side family block for trails, open space, museums or seasonal State Fair activities rather than stacking several distant districts.' },
+      ],
+      gettingAround: [
+        { title: 'DART works best on rail-connected trips', summary: 'Downtown, the Arts District, Uptown connections, Fair Park and airport transfers can fit a transit-first plan when the stops line up with rail or streetcar service.' },
+        { title: 'Keep neighborhood evenings local', summary: 'Deep Ellum, Bishop Arts, Lower Greenville and the Design District are separate clusters. Pick one for dinner and entertainment rather than driving between all of them.' },
+        { title: 'Use the car strategically', summary: 'A car remains useful for White Rock Lake and many outer neighborhoods, but central parking and event traffic can make rail, streetcar or rideshare simpler for selected trips.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Bishop Arts', summary: 'A walkable Oak Cliff cluster of independent shops, restaurants and small-scale nightlife that feels different from downtown.' },
+        { title: 'Deep Ellum', summary: 'Use Deep Ellum for live music, murals, restaurants and nightlife, with event nights requiring extra parking or rail planning.' },
+        { title: 'Uptown & Design District', summary: 'Uptown works well for dining and urban nightlife, while the nearby Design District adds galleries, showrooms and destination restaurants.' },
       ],
     },
     systems: [
@@ -244,6 +277,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Trinity Trails', summary: 'Walk or bike the public river trail system for skyline, park and neighborhood connections.' },
         { title: 'Sundance Square & downtown walk', summary: 'Use central plazas, architecture and public spaces as a no-ticket orientation to the city center.' },
       ],
+      family: [
+        { title: 'Fort Worth Zoo day', summary: 'Give the zoo its own substantial block and pair it only with nearby gardens or one Cultural District stop rather than forcing a citywide loop.' },
+        { title: 'Stockyards with kids', summary: 'Use the cattle-drive tradition, museums and pedestrian core as the family anchor, then add only age-appropriate rodeo or evening activities.', href: '/destination/fort-worth-stockyards' },
+        { title: 'Museums + open space', summary: 'Mix a Cultural District museum with Trinity Park or river-trail time to balance indoor attention spans and outdoor movement.' },
+      ],
+      gettingAround: [
+        { title: 'Treat the Stockyards and Cultural District as separate clusters', summary: 'They are not one walkable visitor zone. Plan each as a dedicated block and avoid unnecessary back-and-forth through downtown.' },
+        { title: 'Use rail for selected regional trips', summary: 'TEXRail and Trinity Railway Express can simplify airport or Dallas-area connections, while local buses and rideshare cover only part of a typical visitor itinerary.' },
+        { title: 'Expect event-day parking pressure', summary: 'Dickies Arena, Stockyards events and downtown conventions can change traffic patterns quickly. Check the event calendar before choosing where to park or stay.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Stockyards', summary: 'Western shops, live music, dining and rodeo-oriented entertainment make this the strongest themed visitor district.' },
+        { title: 'West 7th', summary: 'Restaurants, bars and entertainment sit between downtown and the Cultural District, making it useful after a museum day.' },
+        { title: 'Camp Bowie & Near Southside', summary: 'Use these corridors for independent restaurants, local retail, galleries and neighborhood-scale nightlife beyond the main tourist zones.' },
+      ],
     },
     systems: [
       {
@@ -313,6 +361,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Texas State Capitol grounds', summary: 'Explore the grounds and public civic setting; confirm current tour and building-access procedures before visiting.', href: '/destination/texas-state-capitol' },
         { title: 'Ann and Roy Butler Hike-and-Bike Trail', summary: 'Walk or bike the public Lady Bird Lake trail for skyline and waterfront views.' },
         { title: 'Mount Bonnell overlook', summary: 'A short climb reaches a classic public overlook above the Colorado River and west Austin.' },
+      ],
+      family: [
+        { title: 'Zilker + Barton Springs area', summary: 'Build a family outdoor day around the park, trail and swimming-area corridor, with heat and water-safety planning in warmer months.' },
+        { title: 'Capitol + museum corridor', summary: 'Pair the Texas State Capitol with one nearby museum so history and indoor time share the same central-city block.', href: '/destination/texas-state-capitol' },
+        { title: 'Lady Bird Lake + South Congress', summary: 'Use the trail, bridges and neighborhood stops for a flexible family half day without stacking several long drives.' },
+      ],
+      gettingAround: [
+        { title: 'Walk the central clusters', summary: 'Downtown, the Capitol area, Lady Bird Lake and parts of South Congress are easiest when parked once or reached by transit and explored on foot.' },
+        { title: 'Use CapMetro where routes match the trip', summary: 'Frequent bus corridors and rail can reduce parking needs for selected central and north-side trips, but they do not replace a car for every Hill Country or outer-neighborhood stop.' },
+        { title: 'Expect event and festival disruption', summary: 'Football, festivals and downtown events can materially change parking, street access and travel time. Build the day around the event rather than assuming normal traffic.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'South Congress', summary: 'Boutiques, restaurants, music and street life make this one of the easiest shopping-and-entertainment districts to combine with central sightseeing.' },
+        { title: 'Downtown entertainment districts', summary: 'Choose among 2nd Street, Sixth Street and Rainey-area nightlife based on the trip rather than treating downtown as one uniform evening zone.' },
+        { title: 'The Domain / North Burnet', summary: 'Use north Austin for destination shopping, restaurants and entertainment when the trip already includes north-side hotels, offices or events.' },
       ],
     },
     systems: [
@@ -384,6 +447,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.' },
         { title: 'Historic plazas & Market Square area', summary: 'Explore downtown plazas, public art and the market district without requiring a ticketed attraction.' },
       ],
+      family: [
+        { title: 'Alamo + River Walk', summary: 'Keep the first family history day compact by pairing the Alamo with the downtown river rather than adding a long cross-city attraction.', href: '/destination/the-alamo' },
+        { title: 'Mission corridor', summary: 'Use one or two missions plus Mission Reach as a slower history-and-outdoors day, with water, shade and heat planning for younger visitors.' },
+        { title: 'Pearl + Museum Reach', summary: 'Combine public space, food, river walking and nearby museums in a single north-of-downtown cluster.', href: '/destination/san-antonio-river-walk' },
+      ],
+      gettingAround: [
+        { title: 'Walk the downtown core', summary: 'The Alamo, central River Walk, convention district and major downtown plazas fit a mostly pedestrian plan once the car is parked.' },
+        { title: 'Use VIA for selected city trips', summary: 'VIA bus service can support central and corridor travel, but mission, theme-park and far-north itineraries usually require more deliberate transfer or driving plans.' },
+        { title: 'Separate downtown from outer attractions', summary: 'The mission chain, northwest attractions and far-north neighborhoods are not extensions of one walkable visitor zone. Build those as separate blocks.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Pearl', summary: 'Use Pearl for restaurants, shops, public space and river access in a compact district that can continue naturally into Museum Reach.' },
+        { title: 'Market Square', summary: 'Downtown-adjacent shops, food and cultural programming make Market Square a natural companion to the historic core.' },
+        { title: 'River Walk evening', summary: 'The central river corridor concentrates dining and entertainment, while quieter Museum Reach and Mission Reach sections provide a different experience.' },
+      ],
     },
     systems: [
       {
@@ -454,6 +532,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Downtown public art & architecture', summary: 'Walk central streets and plazas for murals, historic buildings and civic spaces without a ticket.' },
         { title: 'UTEP campus architecture', summary: 'The university’s distinctive Bhutanese-influenced architecture creates a free self-guided walking stop when campus access permits.' },
       ],
+      family: [
+        { title: 'El Paso Zoo + central museums', summary: 'Use one major family attraction and one nearby indoor stop to avoid spending the day crossing the mountain from side to side.' },
+        { title: 'Franklin Mountains', summary: 'Choose age-appropriate trails or overlooks and plan around heat, wind, elevation and water needs.', href: '/destination/franklin-mountains-state-park' },
+        { title: 'Downtown + streetcar', summary: 'Pair public art, historic architecture and a streetcar ride for a lower-driving family introduction to the city center.' },
+      ],
+      gettingAround: [
+        { title: 'The mountain shapes every cross-city trip', summary: 'Franklin Mountains divide the urban area, so west-side, northeast and east-side stops can require longer drives than straight-line distance suggests.' },
+        { title: 'Use the streetcar downtown when it fits', summary: 'The El Paso Streetcar can connect downtown, UTEP and nearby central districts without repeated parking.' },
+        { title: 'Drive for mountain and outer-corridor days', summary: 'Franklin Mountains access, Mission Valley and many east-side destinations are easier to treat as separate driving blocks.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Downtown', summary: 'Historic streets, museums, theaters, public art and restaurants make downtown the strongest all-purpose evening cluster.' },
+        { title: 'Kern Place / Cincinnati corridor', summary: 'Use the UTEP-adjacent area for restaurants, bars and a younger nightlife scene close to west-side hotels.' },
+        { title: 'East Side retail', summary: 'Major shopping centers and newer dining clusters on the east side are most practical when the day is already focused east of the mountains.' },
+      ],
     },
     systems: [
       {
@@ -523,6 +616,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Downtown public art walk', summary: 'Explore civic spaces, murals and the UTA-area streets without buying an attraction ticket.' },
         { title: 'Entertainment District exterior walk', summary: 'On non-event days, the public streetscape around the stadiums offers architecture and photo stops; respect event-day access controls.' },
       ],
+      family: [
+        { title: 'Theme-park or stadium day', summary: 'Choose the primary ticketed attraction first and build the rest of the day around its opening time, parking plan and energy demands.' },
+        { title: 'River Legacy Parks', summary: 'Use the park and Trinity River greenbelt for trails, nature and a lower-cost family break away from event crowds.' },
+        { title: 'Downtown / UTA', summary: 'Mix a civic or university-area stop with local dining when the family trip needs a quieter half day outside the Entertainment District.' },
+      ],
+      gettingAround: [
+        { title: 'Plan the last mile before an event', summary: 'Arlington’s stadium and theme-park district requires a deliberate driving, rideshare or local on-demand plan; do not assume regional rail will drop you at the venue.' },
+        { title: 'Treat the Entertainment District as one parking decision', summary: 'AT&T Stadium, Globe Life Field and nearby attractions sit close together, but event controls can make moving the car between them inefficient.' },
+        { title: 'Leave Metroplex transfer time', summary: 'Dallas, Fort Worth and DFW Airport may look close on a regional map, but freeway congestion and event traffic can materially change arrival times.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Entertainment District', summary: 'Stadiums, theme parks, concerts and event-oriented restaurants make this the city’s dominant visitor entertainment cluster.' },
+        { title: 'Downtown Arlington', summary: 'Use downtown for smaller venues, local restaurants, public art and UTA-area activity beyond the stadium corridor.' },
+        { title: 'Arlington Highlands / south Arlington', summary: 'A separate retail, dining and movie-entertainment cluster that works best when the trip already uses I-20 or south Arlington hotels.' },
+      ],
     },
     systems: [
       {
@@ -590,6 +698,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Chisholm Park', summary: 'Use the city’s largest park for trails, playgrounds, open space and the fishing pond.' },
         { title: 'Hurst public parks', summary: 'The municipal park system gives families several no-ticket recreation options; check city rules for specific facilities.' },
         { title: 'Bell Station rail-watching / orientation', summary: 'The station area is a useful public orientation point for understanding Hurst’s place on the regional rail corridor; fares apply to train rides.' },
+      ],
+      family: [
+        { title: 'WhirlyBall Hurst', summary: 'Use the dedicated guide for an indoor family or group activity that works well as a Mid-Cities add-on.', href: '/destination/whirlyball-hurst' },
+        { title: 'Chisholm Park', summary: 'Build in playground, trail and open-space time when a regional Dallas–Fort Worth trip needs a simple local reset.' },
+        { title: 'Short local day + regional attraction', summary: 'Hurst is compact, so families can pair one Hurst stop with Fort Worth, Arlington or Grapevine without pretending the city needs a full tourist checklist.' },
+      ],
+      gettingAround: [
+        { title: 'Use Hurst as a regional base', summary: 'Loop 820 and SH 121 make driving to Fort Worth, Arlington and DFW Airport practical, but peak traffic can erase the apparent advantage of a central location.' },
+        { title: 'Bell Station can replace selected car trips', summary: 'Trinity Railway Express provides a useful regional rail option for trips aligned with its corridor; check the current schedule before depending on it.' },
+        { title: 'Local errands are still car-oriented', summary: 'Most Hurst shopping, parks and family visits are easier by car, so choose a hotel area that matches the highway or regional destination you will use most.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'North East Mall area', summary: 'The city’s largest retail cluster combines shopping, dining and indoor entertainment close to SH 121.' },
+        { title: 'WhirlyBall + Mid-Cities evening', summary: 'Use WhirlyBall as the activity anchor, then choose dining in Hurst or neighboring Mid-Cities rather than adding a long Metroplex drive.', href: '/destination/whirlyball-hurst' },
+        { title: 'Hurst Town Center / local corridors', summary: 'Smaller retail and restaurant clusters offer a more practical neighborhood option for visitors staying locally.' },
       ],
     },
     systems: [
@@ -666,6 +789,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Cole Park', summary: 'Use the public bayfront park, trail and open space for a low-cost outdoor stop.' },
         { title: 'McGee Beach', summary: 'Central bayfront beach access offers an easy public shoreline stop; confirm current swimming and safety conditions.' },
       ],
+      family: [
+        { title: 'North Beach two-attraction day', summary: 'Pair USS Lexington with the Texas State Aquarium and keep the rest of the day nearby so parking and bridge crossings stay simple.', href: '/destination/uss-lexington-museum-corpus-christi' },
+        { title: 'Bayfront + beach break', summary: 'Mix museums or downtown walking with Cole Park or a central bayfront beach for a flexible lower-cost family block.' },
+        { title: 'Padre Island nature day', summary: 'Treat Gulf beach, wildlife and national-seashore time as a separate weather-dependent day with sun, surf and water-safety planning.', href: '/destination/padre-island-national-seashore' },
+      ],
+      gettingAround: [
+        { title: 'Group North Beach stops together', summary: 'USS Lexington and the Texas State Aquarium share the same visitor area, making one parking decision more efficient than multiple bridge crossings.' },
+        { title: 'Use CCRTA for selected urban trips', summary: 'Regional bus service can support some city travel, while beach, island and outer-neighborhood plans usually remain easier by car.' },
+        { title: 'Padre Island is a separate driving block', summary: 'Downtown and North Beach are not interchangeable with Gulf-beach time. Allow for causeway travel, weather and seasonal beach traffic.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Downtown & Bayfront', summary: 'Use central Corpus Christi for restaurants, festivals, marina walks, museums and event venues in the most urban visitor cluster.' },
+        { title: 'Padre Island', summary: 'Island restaurants, fishing-oriented businesses and beach nightlife work best when the trip is already based near the Gulf.' },
+        { title: 'Southside / La Palmera area', summary: 'Major shopping, dining and indoor entertainment are concentrated inland on the south side, useful during heat or poor beach weather.' },
+      ],
     },
     systems: [
       {
@@ -733,6 +871,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Historic Downtown Plano walk', summary: 'Explore the old commercial district, public art and streetscape without a ticket.' },
         { title: 'Oak Point Park & Nature Preserve', summary: 'Use the large public park and trail network for walking, cycling and open-space time.' },
         { title: 'Arbor Hills Nature Preserve', summary: 'Trails and natural areas provide a free outdoor stop on Plano’s western side.' },
+      ],
+      family: [
+        { title: 'Oak Point Park', summary: 'Use the large trail and open-space system as a flexible outdoor family anchor before adding a more structured attraction.' },
+        { title: 'Downtown Plano', summary: 'Combine the historic district with railroad history, public art and an easy meal in the city’s most walkable older center.' },
+        { title: 'Legacy district family block', summary: 'Use Legacy-area dining, shops and entertainment as an evening or weather-proof complement to parks and museums.' },
+      ],
+      gettingAround: [
+        { title: 'DART works best along the east-central rail corridor', summary: 'Downtown Plano, Parker Road and CityLine/Bush connections can support a transit-first trip when the itinerary stays near rail and feeder services.' },
+        { title: 'West Plano is more car-oriented', summary: 'Legacy, Legacy West and Dallas North Tollway destinations are separated from the historic downtown rail corridor, so driving or rideshare is often simpler.' },
+        { title: 'Use live DART planning for regional rail', summary: 'Airport and regional rail options are changing faster than the street grid. Check the current DART trip planner instead of assuming a static route or transfer pattern.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Legacy West', summary: 'Destination shopping, restaurants, hotels and entertainment form one of Plano’s strongest all-in-one visitor districts.' },
+        { title: 'The Shops at Legacy', summary: 'A separate walkable mixed-use cluster adds restaurants, retail and evening activity near the Tollway.' },
+        { title: 'Downtown Plano', summary: 'Historic storefronts, local restaurants, events and small businesses provide a more local-scale alternative to west Plano shopping districts.' },
       ],
     },
     systems: [
@@ -802,6 +955,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'West Texas Walk of Fame & Buddy Holly Plaza area', summary: 'Explore the outdoor music-history markers and Depot District streets without buying a museum ticket.' },
         { title: 'Mackenzie Park', summary: 'Use public parkland and the Canyon Lakes system for outdoor time close to the city center.' },
         { title: 'Texas Tech public art & campus walk', summary: 'The campus offers architecture and outdoor art that can be explored on foot when public access allows.' },
+      ],
+      family: [
+        { title: 'Texas Tech + museum day', summary: 'Use the university area for museums, campus landmarks and indoor time, especially when West Texas weather makes long outdoor stops less comfortable.' },
+        { title: 'Mackenzie Park + Canyon Lakes', summary: 'Build in playground, trail and open-space time close to the city center for a lower-cost family block.' },
+        { title: 'Aviation history', summary: 'Silent Wings Museum can anchor a focused indoor family history stop near the airport.', href: '/destination/silent-wings-museum-lubbock' },
+      ],
+      gettingAround: [
+        { title: 'Plan on driving for most citywide trips', summary: 'Lubbock’s major visitor areas are spread across a broad street grid, and a car is usually the simplest way to connect downtown, Texas Tech, south Lubbock and airport-area stops.' },
+        { title: 'Use Citibus where the route fits', summary: 'Local bus service can support selected city and university trips, but it is better treated as one option than as a complete visitor network for every attraction.' },
+        { title: 'Watch event and game traffic', summary: 'Texas Tech football, concerts and university events can change parking and travel times around campus and central corridors.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Depot District', summary: 'Live music, nightlife, restaurants and Buddy Holly-related attractions make the downtown district the city’s strongest visitor entertainment cluster.' },
+        { title: 'Broadway / Texas Tech', summary: 'Use the campus-adjacent corridor for restaurants, student-oriented nightlife and game-day activity.' },
+        { title: 'South and west Lubbock', summary: 'Newer retail centers, restaurants and movie entertainment around Loop 289 are practical for visitors staying outside downtown.' },
       ],
     },
     systems: [
