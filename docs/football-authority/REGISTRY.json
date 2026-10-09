@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 20,
+    "partiallyCompleted": 21,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Sixteen individually implemented Batch 002 profiles on GitHub football branches, zero individually verified live.",
-    "currentSchool": "alvarado",
-    "nextSchool": "alvin",
-    "implementedOnBranch": 20,
+    "currentSchool": "alvin",
+    "nextSchool": "alvin-iowa-colony",
+    "implementedOnBranch": 21,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -925,8 +925,20 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/alvin.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
+      ],
+      "productionVerification": null,
+      "blockers": [
+        "Current coach not verified",
+        "Venue gate and authentic photo rights",
+        "Protected merges/deploy and actual browser acceptance"
+      ]
     },
     {
       "id": "uil:alvin-iowa-colony",
