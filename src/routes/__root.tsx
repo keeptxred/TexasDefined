@@ -37,7 +37,7 @@ function GoogleTagManagerHead() {
   );
 }
 
-const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>;
+const statusFallback = <div className="py-16 text-center text-muted-foreground" role="status">Loading…</div>;
 
 function NotFoundComponent() {
   return <Suspense fallback={statusFallback}><NotFoundScreen /></Suspense>;
@@ -50,7 +50,7 @@ function ErrorComponent(props: { error: Error; reset: () => void }) {
 function HeaderFallback() {
   return (
     <div
-      className="sticky top-0 z-50 h-[4.5rem] border-b border-border/80 bg-background/96 lg:h-[7rem]"
+      className="sticky top-0 z-50 h-[4.5rem] border-b bg-background lg:h-[7rem]"
       aria-hidden="true"
     />
   );
@@ -216,7 +216,7 @@ function RootComponent() {
           <div className="flex min-h-screen flex-col bg-background">
             <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
             <main id="main" className="flex-1"><Outlet /></main>
-            <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
+            <Suspense fallback={<div className="h-40 border-t bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
         </ShopCartProvider>
       </BrandProvider>
