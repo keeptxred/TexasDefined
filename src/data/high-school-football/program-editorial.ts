@@ -45,6 +45,134 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "abilene-cooper": {
+    "slug": "abilene-cooper",
+    "theme": {
+      "accentHex": "#2657A7",
+      "label": "Original royal-blue editorial accents referencing Cooper's publicly reported school colors; not an official school seal or unlicensed photograph"
+    },
+    "seo": {
+      "title": "Abilene Cooper Cougars Football: 1967 & 1996 State Finals",
+      "description": "Abilene Cooper Cougars football: 1967 and 1996 UIL title games, Jack Mildren, Randy Allen, 2026 coach Scott Stewart, Shotwell Stadium and district guide."
+    },
+    "coach": {
+      "name": "Scott Stewart",
+      "title": "Head football coach and campus athletic coordinator — appointed May 27, 2026",
+      "sourceUrl": "https://www.abileneisd.org/o/chs/article/2937582",
+      "sourceLabel": "Cooper High School and Abilene ISD 2026 coaching appointment",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3639 Sayles Boulevard, Abilene, TX 79605",
+      "phone": "325-691-1000",
+      "sourceUrl": "https://www.abileneisd.org/o/chs",
+      "sourceLabel": "Official Cooper High School campus and contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Abilene ISD official 2026 football ticket and stadium safety notice",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD 2026 football access update",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Shotwell Stadium / Shotwell Annex game-day district facilities",
+      "address": "Abilene, Texas — current game-specific venue and gate from Abilene ISD",
+      "sourceUrl": "https://www.abileneisd.org/article/2937209",
+      "sourceLabel": "Abilene ISD Shotwell and Shotwell Annex official event guidance",
+      "verifiedAt": "2026-10-09",
+      "note": "Abilene ISD identifies Shotwell Stadium and Shotwell Annex as its 2026 football event facilities and requires clear bags. Cooper's on-campus multipurpose athletics building is known as 'The Den' but is not a substitute for the game-night venue or a claim every game is at Shotwell. The district's $35 2026 season ticket offer expired August 6; check current HomeTown Ticketing and call the district athletics office (325) 677-1444 ext. 3013 for the scheduled game's stadium, current ticket prices, accessible entries, and parking. The school campus at 3639 Sayles Boulevard is not a confirmed football-gate address."
+    },
+    "overview": [
+      "Abilene Cooper's Cougars have twice reached UIL football state championship games without winning a state title. UIL records place Cooper in the 1967 Class 4A final and the 1996 Class 5A Division II final. This is a distinct history from crosstown Abilene High's seven titles and from the separate Abilene Wylie Bulldogs program.",
+      "Cooper's 1967 run remains one of Texas football's notable near-misses. In the December 16 final at Amon Carter Stadium in Fort Worth, unbeaten Cooper faced unbeaten Austin Reagan. The Cougars led 19–7 at halftime, with quarterback Jack Mildren responsible for two rushing touchdowns and one passing score; Reagan rallied to win 20–19. UIL's centennial game review identifies a dramatic final drive stopped at the goal line. Cooper was the 1967 runner-up, not co-champion.",
+      "In 1996 Cooper returned to the state final under coach Randy Allen. The Cougars lost 55–15 to Austin Westlake, whose UIL centennial record names future NFL quarterback Drew Brees. Abilene ISD also documents Allen's role as a senior running back on Cooper's 1967 runner-up team, head coach in 1991–98, and later Hall-of-Honor recognition. Treat 1967 and 1996 as separate seasons and accomplishments, not two championships.",
+      "The documented Abilene High–Cooper 'Crosstown Showdown' began in 1961. Abilene ISD's published history of the first 62 meetings and its Shotwell Stadium visitor article includes every listed score through 2022; that is an independently sourced rivalry, unlike a generic district-opponents list. The same city rivalry may occur in non-district play: Abilene High plays UIL 5A Division I in 2026–28, while Cooper belongs to UIL 5A Division II, District 2.",
+      "In May 2026 Abilene ISD named Scott Stewart Cooper's head football coach, following Aaron Roan's move to assistant director of athletics. The announcement describes Stewart as Cooper's former defensive coordinator and notes his prior role in 14 consecutive playoff seasons through 2025; it does not retroactively attribute every one of those seasons to him as head coach. Official Cooper High's current staff list separately confirms Stewart's head-coach title.",
+      "The Cooper campus is at 3639 Sayles Boulevard in Taylor County. Its new multipurpose facility is called 'The Den,' according to an Abilene ISD facilities feature, but the district uses Shotwell facilities for varsity events. A 2026 game-day visit should use the current schedule, district stadium guidance and HomeTown Ticketing rather than expired August season-ticket prices. There is no verified 2026 admissions price, ADA gate, parking map or school/stadium photo reuse license recorded for this profile."
+    ],
+    "milestones": [
+      {
+        "date": "1960–1961",
+        "title": "A new Cougars football era and crosstown series",
+        "body": "Cooper opened as Abilene's second traditional high-school football identity, and Abilene ISD's archived Crosstown Showdown chronology begins with an Abilene High–Cooper meeting in 1961.",
+        "sourceUrl": "https://www.abileneisd.org/article/1525088",
+        "sourceLabel": "Abilene ISD official crosstown game history"
+      },
+      {
+        "date": "1967",
+        "title": "One point from the state title",
+        "body": "Unbeaten Cooper fell to Austin Reagan 20–19 in the 4A final. UIL's centennial recap credits Jack Mildren with two rushing touchdowns and one passing touchdown, including a last drive to the Reagan goal line.",
+        "sourceUrl": "https://www.uiltexas.org/100/memorable-games",
+        "sourceLabel": "UIL official 1967 Cooper–Reagan game retrospective"
+      },
+      {
+        "date": "1991–1998",
+        "title": "Randy Allen leads the Cougars",
+        "body": "Abilene ISD documents former 1967 Cooper runner Randy Allen as the Cougars' 1991–98 head coach with a 66–31–2 record before his later Highland Park championship career.",
+        "sourceUrl": "https://www.abileneisd.org/o/aisd/article/1643303",
+        "sourceLabel": "Abilene ISD historical Randy Allen recognition"
+      },
+      {
+        "date": "1996",
+        "title": "The second state championship appearance",
+        "body": "UIL's official 1996–97 final results list Cooper as 5A Division II runner-up, 55–15 behind Austin Westlake and future NFL quarterback Drew Brees.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P312",
+        "sourceLabel": "UIL 1996 football state archives"
+      },
+      {
+        "date": "2024",
+        "title": "The campus adds 'The Den'",
+        "body": "Abilene ISD's campus facilities report distinguishes Cooper's multipurpose activity center, 'The Den,' from Abilene High's 'The Nest.' It is not a verified Shotwell stadium gate.",
+        "sourceUrl": "https://www.abileneisd.org/o/ahs/article/1525931",
+        "sourceLabel": "Abilene ISD campus sports-facilities feature"
+      },
+      {
+        "date": "May 2026",
+        "title": "Scott Stewart named head coach",
+        "body": "Cooper's May 27, 2026 district announcement appoints Scott Stewart, previously defensive coordinator, to succeed Aaron Roan, now in a district athletics leadership role.",
+        "sourceUrl": "https://www.abileneisd.org/o/chs/article/2937582",
+        "sourceLabel": "Cooper High official 2026 hiring announcement"
+      },
+      {
+        "date": "2026–28",
+        "title": "Cooper plays 5A Division II District 2",
+        "body": "The new UIL alignment places the Cougars with Abilene Wylie, Amarillo Palo Duro, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial. Abilene High is in the separate 5A Division I district.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 5A Division II alignments"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Abilene Cooper ever won a football state championship?",
+        "answer": "Not in the official UIL championship records. Cooper reached the 1967 Class 4A final and the 1996 Class 5A Division II final, finishing runner-up in both seasons. Do not count either appearance as a title."
+      },
+      {
+        "question": "What happened to Cooper in the 1967 final?",
+        "answer": "Cooper lost 20–19 to Austin Reagan after leading 19–7 at halftime. UIL records quarterback Jack Mildren scoring on two runs and a pass, with the Cougars' late drive stopping at the Reagan goal line."
+      },
+      {
+        "question": "Who is Cooper's head coach for 2026?",
+        "answer": "Scott Stewart, appointed May 27, 2026 after previously coordinating Cooper's defense. He succeeded Aaron Roan, who became an Abilene ISD assistant director of athletics."
+      },
+      {
+        "question": "Was Randy Allen a Cooper player and coach?",
+        "answer": "Yes. Abilene ISD identifies Allen as a running back on Cooper's 1967 state-final team and later the Cougars' head football coach from 1991 through 1998, including the 1996 state-final appearance."
+      },
+      {
+        "question": "What is the Abilene Crosstown Showdown?",
+        "answer": "The long-running Abilene High Eagles versus Abilene Cooper Cougars football series dates to 1961. Abilene ISD provides a historical game-by-game results table; in the 2026 UIL alignment the two schools are in different divisions."
+      },
+      {
+        "question": "Is Cooper's 'The Den' its football game stadium?",
+        "answer": "No. Abilene ISD describes The Den as Cooper's on-campus multipurpose facility. Its varsity football events use district facilities including Shotwell Stadium and the Annex. Check the individual game assignment and venue gate before visiting."
+      },
+      {
+        "question": "Are Cooper's $35 2026 season tickets still on sale?",
+        "answer": "The district's May 28 offer was available only through August 6, 2026 and should not be shown as current. Look at up-to-date HomeTown Ticketing and the Abilene ISD athletics office for individual-game availability and prices."
+      }
+    ]
+  },
   "abilene": {
     "slug": "abilene",
     "theme": {
