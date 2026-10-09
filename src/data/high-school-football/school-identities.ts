@@ -12,6 +12,36 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'abilene-wylie',
+    mascot: 'Bulldogs',
+    colors: 'Purple and Gold',
+    sourceUrl: 'https://www.uiltexas.org/football/state-team/abilene-wylie-2016-2017-football',
+    sourceLabel: 'Official UIL 2016 Wylie Bulldogs team mascot and school colors',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'abilene-texas-leadership',
+    mascot: 'Eagles',
+    sourceUrl: 'https://www.texasleadershipabilene.com/',
+    sourceLabel: 'Texas Leadership of Abilene official school home and Eagles athletics',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'abilene-cooper',
+    mascot: 'Cougars',
+    sourceUrl: 'https://www.abileneisd.org/o/chs/article/2937582',
+    sourceLabel: 'Official Cooper High School 2026 athletics announcement and Cougars identity',
+    verifiedAt: '2026-10-09',
+  },
+  {
+    slug: 'abernathy',
+    mascot: 'Antelopes',
+    colors: 'Maroon and White',
+    sourceUrl: 'https://www.abernathyisd.com/131089_3',
+    sourceLabel: 'Abernathy ISD official Antelope football page',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'shamrock',
     mascot: 'Fighting Irish',
     sourceUrl: 'https://www.shamrockisd.net/34144_3',
@@ -981,9 +1011,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'abilene',
     mascot: 'Eagles',
-    sourceUrl: 'https://www.abileneisd.org/o/ahs/live-feed?page_no=1',
-    sourceLabel: 'Abilene High School',
-    verifiedAt: '2026-09-19',
+    colors: 'Black and Gold',
+    sourceUrl: 'https://www.abileneisd.org/o/ahs',
+    sourceLabel: 'Abilene High School and published campus guide — Eagles, black and gold',
+    verifiedAt: '2026-10-09',
   },
   {
     slug: 'frenship-memorial',
