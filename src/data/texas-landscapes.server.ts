@@ -5,6 +5,7 @@ import { isTexasLandscapeIndexReady } from './explore-leaf-quality';
 import { texasLandscapeCatalog, texasLandscapeGuideCatalog } from './texas-landscape-catalog';
 import { enrichedTexasLandscapeGuides } from './texas-landscape-guide-enrichment';
 import { enrichedTexasLandscapeProfiles } from './texas-landscape-profile-enrichment';
+import { texasRiverValleysFaq } from './texas-river-valleys-authority';
 
 const hubDescription = 'A field guide to the landscapes that define Texas: Hill Country limestone, Piney Woods forest, Gulf marshes, prairie, canyon, desert, mountain, river and more.';
 const hubPath = '/explore/landscapes';
@@ -101,6 +102,20 @@ function buildLandscapePageHead(item: (typeof enrichedTexasLandscapeProfiles)[nu
           citation: item.sourceLinks.map((source) => source.href),
           mainEntityOfPage: absoluteUrl(texasDefinedBrand, path),
         },
+        ...(isLandscape && item.slug === 'rivers-and-river-valleys'
+          ? [{
+            '@type': 'FAQPage',
+            '@id': `${absoluteUrl(texasDefinedBrand, path)}#faq`,
+            mainEntity: texasRiverValleysFaq.map((entry) => ({
+              '@type': 'Question',
+              name: entry.q,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: entry.a,
+              },
+            })),
+          }]
+          : []),
         {
           '@type': 'BreadcrumbList',
           '@id': `${absoluteUrl(texasDefinedBrand, path)}#breadcrumb`,

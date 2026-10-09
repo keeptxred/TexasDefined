@@ -72,10 +72,91 @@ export const texasRioGrandeGuideStub = riverStub(
   ["Rio Grande", "Rio Grande Texas", "Big Bend", "Amistad Reservoir", "Falcon Reservoir", "Lower Rio Grande Valley", "Texas rivers", "Texas borderlands"],
 );
 
+
+export const texasPecosRiverGuideStub = riverStub(
+  "texas-pecos-river-guide",
+  "Pecos River in Texas: Desert Basin, Canyons & Rio Grande Guide",
+  "Follow the Pecos through arid West Texas to Amistad and the Rio Grande, with desert hydrology, canyon geography, salinity, reservoirs and places to see the river.",
+  { src: "/images/explore/historic-sites/seminole-canyon-state-park.jpg", alt: "Canyon country near the lower Pecos River in West Texas", width: 1600, height: 1067 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/riogrande/",
+  ["Pecos River", "West Texas rivers", "Lower Pecos", "Amistad", "Rio Grande basin", "Texas geography"],
+);
+
+export const texasSabineRiverGuideStub = riverStub(
+  "texas-sabine-river-guide",
+  "Sabine River in Texas: East Texas, Toledo Bend & Gulf Guide",
+  "Understand the Sabine River from wet East Texas headwaters to Toledo Bend, the Louisiana boundary and Sabine Lake, with basin geography, reservoirs and public access.",
+  { src: "/images/state-parks/lake-tawakoni-state-park.jpg", alt: "Lake Tawakoni in the upper Sabine River basin of East Texas", width: 1600, height: 1100 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/sabine/index.asp",
+  ["Sabine River", "Toledo Bend", "East Texas rivers", "Sabine basin", "Texas Louisiana border"],
+);
+
+export const texasNechesRiverGuideStub = riverStub(
+  "texas-neches-river-guide",
+  "Neches River in Texas: Big Thicket, Angelina & Bottomlands Guide",
+  "Follow the Neches through Piney Woods bottomlands, the Angelina system, Sam Rayburn and Big Thicket to Sabine Lake, with ecology, reservoirs and public access.",
+  { src: "/images/state-parks/village-creek-state-park.jpg", alt: "Forested East Texas waterway in the Neches River basin", width: 1600, height: 1200 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/neches/index.asp",
+  ["Neches River", "Big Thicket", "Angelina River", "East Texas rivers", "Neches basin"],
+);
+
+export const texasNuecesRiverGuideStub = riverStub(
+  "texas-nueces-river-guide",
+  "Nueces River in Texas: Headwaters, Choke Canyon & Coastal Bend",
+  "Trace the Nueces from clear Edwards Plateau headwaters through dry South Texas to Choke Canyon, Lake Corpus Christi and Nueces Bay.",
+  { src: "/images/state-parks/choke-canyon-calliham-unit-state-park.jpg", alt: "Choke Canyon reservoir landscape in the Nueces River basin", width: 1600, height: 900 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/nueces/",
+  ["Nueces River", "Choke Canyon", "South Texas rivers", "Nueces basin", "Coastal Bend"],
+);
+
+export const texasFrioRiverGuideStub = riverStub(
+  "texas-frio-river-guide",
+  "Frio River in Texas: Garner, Concan, Springs & Clear Water",
+  "Explore the Frio River through Garner State Park and Concan, with spring-fed Hill Country geography, cypress corridors, flood risk and its place in the Nueces basin.",
+  { src: "/images/state-parks/garner-state-park.jpg", alt: "The Frio River corridor at Garner State Park in Texas", width: 1600, height: 230 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/nueces/",
+  ["Frio River", "Garner State Park", "Concan", "Hill Country rivers", "Nueces basin"],
+);
+
+export const texasSanAntonioRiverGuideStub = riverStub(
+  "texas-san-antonio-river-guide",
+  "San Antonio River: Headwaters, River Walk, Missions & Lower Basin",
+  "Follow the San Antonio River from spring-fed headwaters through downtown, the missions and rural South Texas to its confluence with the Guadalupe.",
+  { src: "/images/editorial/moving/san-antonio.jpg", alt: "The San Antonio River through the River Walk in downtown San Antonio", width: 1600, height: 900 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/sanantonio/",
+  ["San Antonio River", "River Walk", "San Antonio Missions", "Bexar County", "Texas rivers"],
+);
+
+export const texasRedRiverGuideStub = riverStub(
+  "texas-red-river-guide",
+  "Red River in Texas: Oklahoma Boundary, Plains & Lake Texoma",
+  "Follow the Red River along North Texas with its sediment-rich water, prairie tributaries, Lake Texoma, interstate compact and Mississippi-system connection.",
+  { src: "/images/state-parks/copper-breaks-state-park.jpg", alt: "Rolling Plains landscape in the Red River basin of North Texas", width: 1600, height: 900 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/red/index.asp",
+  ["Red River Texas", "Lake Texoma", "Texas Oklahoma border", "North Texas rivers", "Red River basin"],
+);
+
+export const texasCanadianRiverGuideStub = riverStub(
+  "texas-canadian-river-guide",
+  "Canadian River in Texas: Panhandle Breaks, Lake Meredith & High Plains",
+  "Trace the Canadian River across the Texas Panhandle from High Plains breaks to Lake Meredith, with drought, Ogallala context, canyon geography and interstate water management.",
+  { src: "/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg", alt: "Lake Meredith and Canadian River canyon country in the Texas Panhandle", width: 1600, height: 2979 },
+  "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/canadian/index.asp",
+  ["Canadian River Texas", "Lake Meredith", "Texas Panhandle", "High Plains", "Canadian River basin"],
+);
+
 export const texasExplainedRiverProfileStubs: Article[] = [
   texasBrazosRiverGuideStub,
   texasColoradoRiverGuideStub,
   texasGuadalupeRiverGuideStub,
   texasTrinityRiverGuideStub,
   texasRioGrandeGuideStub,
+  texasPecosRiverGuideStub,
+  texasSabineRiverGuideStub,
+  texasNechesRiverGuideStub,
+  texasNuecesRiverGuideStub,
+  texasFrioRiverGuideStub,
+  texasSanAntonioRiverGuideStub,
+  texasRedRiverGuideStub,
+  texasCanadianRiverGuideStub,
 ];
