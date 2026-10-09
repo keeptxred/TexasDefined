@@ -16,7 +16,7 @@ export const lighthouseDeepDiveArticles: Article[] = [
   {
     id: "lh-1", brandId: BRAND, slug: "point-bolivar-lighthouse-history", title: "Point Bolivar Lighthouse: Galveston Bay History and Restoration",
     dek: "The history of the cast-iron lighthouse that guarded the Bolivar side of Galveston Bay, survived catastrophic hurricanes and still stands beside one of Texas' busiest ferry approaches.",
-    category: "texas-history", region: "gulf-coast", hero: coastHero, authorId: "a-hollis", publishedAt: "2026-08-20", readingMinutes: 8,
+    category: "texas-history", region: "gulf-coast", hero: coastHero, authorId: "a-hollis", publishedAt: "2026-08-20", updatedAt: "2026-10-09", readingMinutes: 8,
     tags: ["Point Bolivar Lighthouse", "Galveston County", "Bolivar Peninsula", "Galveston Bay", "Texas lighthouses", "1900 hurricane"], relatedCollections: [], relatedDestinations: [],
     sourceName: "U.S. Coast Guard Historian's Office · Texas Historical Commission", sourceUrl: "https://www.history.uscg.mil/Browse-by-Topic/Assets/Land/Lighthouses-Light-Stations/Article/2014930/point-bolivar-lighthouse/",
     internalLinks: [
