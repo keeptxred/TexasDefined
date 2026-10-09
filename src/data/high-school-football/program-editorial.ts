@@ -58,6 +58,141 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "alice": {
+    "slug": "alice",
+    "theme": {
+      "accentHex": "#B56B29",
+      "label": "Original burnt-orange editorial history cards inspired by verified Alice Coyotes football uniforms and stadium coverage; not an official district logo"
+    },
+    "seo": {
+      "title": "Alice Coyotes Football: New 2026 Memorial Stadium & Program Guide",
+      "description": "Alice Coyotes football: new 2026 Memorial Stadium, coach Joe Castellano, 4A Division I District 16, consecutive 2023–24 district titles and game-day planning."
+    },
+    "coach": {
+      "name": "Joe (J.R.) Castellano",
+      "title": "Alice ISD athletic director and Alice Coyotes head football coach",
+      "sourceUrl": "https://www.aliceisd.net/en-US/athletics-640d1b62/coaching-staff-6d5e1b54",
+      "sourceLabel": "Official Alice ISD 2026 athletics coach roster",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1 Coyote Trail, Alice, TX 78332",
+      "phone": "361-664-0126",
+      "sourceUrl": "https://ahs.aliceisd.net/en-US/athletics-dc57d034",
+      "sourceLabel": "Official Alice High School campus and athletics",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Alice High 2026 football schedule, clear-bag and visitor updates",
+      "sourceUrl": "https://ahs.aliceisd.net/en-US/athletics-dc57d034",
+      "sourceLabel": "Alice High official 2026 athletics schedule and stadium visitor policies",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "New Alice Memorial Stadium (opened September 2026)",
+      "address": "212 North Stadium Road, Alice, TX 78332",
+      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898",
+      "sourceLabel": "TDLR official new Alice Memorial Stadium construction location",
+      "verifiedAt": "2026-10-09",
+      "note": "Alice ISD's rebuilt Memorial Stadium opened for football on September 11, 2026, with a KIII report describing 6,000 seats and a reported $38 million completed-project cost. The Texas state construction filing identifies the new stadium at 212 N. Stadium Road and a separate estimated $30 million registered project budget—these two cost figures are different types of estimates/reports, not proof of a discrepancy in expenditure. The original 1947-era Skydome was demolished after 2024, and Alice played temporary home dates in San Diego during 2025. Never send 2026 fans to San Diego as if it remains the home venue. Consult the official Alice athletics stadium clear-bag and student expectations documents for present-day ticketing, security, parking and accessible gates."
+    },
+    "development": {
+      "title": "Memorial Stadium rebuilding completed to opening in September 2026",
+      "body": "The district's 2024-bond stadium redesign followed the old Alice Memorial Stadium's final 2024 football season; a TDLR project registered in March 2025 planned construction of a new facility on North Stadium Road. Contemporary 3NEWS/KIII September 12, 2026 reporting confirms the new 6,000-seat Memorial Stadium hosted its first 2026 home football contest against Palmview, with Alice winning 28–7. This is documented opening evidence, not merely a forecast construction completion date. Individual seating sections, ADA routes, parking and ticket availability still require current school confirmation.",
+      "sourceUrl": "https://sports.yahoo.com/articles/alice-isd-opens-38-million-043331335.html",
+      "sourceLabel": "KIII 3NEWS September 12, 2026 report of stadium opening",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Alice football has a distinct South Texas identity: the Coyotes play for Alice High School in Jim Wells County, with a local history extending far beyond one modern UIL realignment. The school documents decades of district and playoff achievements at old Memorial Stadium, affectionately called the Skydome, but the UIL state-final archives do not identify Alice as a state football champion. Local and third-party claims about historical district titles must not be promoted as UIL state crowns.",
+      "An important recent period came under coach Joe (J.R.) Castellano. The official Alice High School football page documents the Coyotes beating Roma 34–14 in 2024 to secure a second consecutive district title, the school's first such back-to-back streak in 39 years. MaxPreps lists the 2023 campaign at 10–2 and the 2024 season at 8–4, including playoff appearances. These are different seasons from the one-win 2025 rebuilding campaign.",
+      "Memorial Stadium itself underwent a major generational replacement. Alice ISD's original Skydome hosted its last high school game in 2024, before being demolished and rebuilt. The district carried out temporary 2025 home games at San Diego High School. The newly built Memorial Stadium at 212 North Stadium Road opened Friday, September 11, 2026: Alice beat La Joya Palmview 28–7 in the opening contest, according to contemporary KIII reporting. Fans now need directions for the rebuilt home stadium, not the old 2025 temporary facility.",
+      "Construction records from the Texas Department of Licensing and Regulation describe a new football venue with locker rooms, restrooms, concessions, bleachers, press box and parking facilities at the 212 N. Stadium Rd site. The official registration's $30 million estimate differs from the approximately $38 million KIII reported for the finished venue; TexasDefined presents each figure with its source and does not describe either as independently audited final expenses. KIII reported an approximate 6,000-seat stadium, separate from older capacity claims about the demolished Skydome.",
+      "The UIL's 2026–28 football alignment returns Alice to Class 4A Division I, District 16. Its new league has Edcouch-Elsa, Hidalgo Early College, Pharr Valley View and Zapata. These are current district opponents, not opponents copied from the 2025 5A Division II schedule; the Coyotes' current posted 2026 early-season results include five wins before district play, but scorekeeping from MaxPreps is a dated third-party record and not a guarantee of today's live standing.",
+      "The school maintains a contemporary athletics page with the 2026 football schedule, stadium clear-bag rules and student expectations for Memorial Stadium. Its athletic department confirms head coach and AD Joe Castellano, while the regular Alice High campus is at 1 Coyote Trail. That campus address is distinct from the new football stadium's North Stadium Road site. Verify the gate, parking lot, accessible seating, admission and changing kickoff through Alice ISD instead of assuming old Memorial Stadium policies carried over."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "First title in a back-to-back district run",
+        "body": "MaxPreps' season archive records the Coyotes at 10–2 in 2023. The school's later 2024 announcement describes that season as the first of two consecutive district championships.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alice/alice-coyotes/football/history/",
+        "sourceLabel": "Alice season archive and school district-title history"
+      },
+      {
+        "date": "2024",
+        "title": "Alice wins a second consecutive district crown",
+        "body": "The official Alice High School football news archive says a 34–14 win over Roma earned a second straight district title, the first back-to-back district champions for Alice in 39 years.",
+        "sourceUrl": "https://ahs.aliceisd.net/en-US/football-e260d291",
+        "sourceLabel": "Alice High official football celebration"
+      },
+      {
+        "date": "2024–25",
+        "title": "Farewell to the old Skydome",
+        "body": "The old Memorial Stadium played its final football dates in 2024; Alice used nearby San Diego High for home games during 2025 while the facility was demolished and replaced.",
+        "sourceUrl": "https://sports.yahoo.com/articles/alice-isd-opens-38-million-043331335.html",
+        "sourceLabel": "KIII reporting on the 2024–26 stadium transition"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "New Memorial Stadium opens with a Coyote win",
+        "body": "Alice beat Palmview 28–7 in the replacement Memorial Stadium's opening game; KIII reported the approximately 6,000-seat stadium's debut on September 12.",
+        "sourceUrl": "https://sports.yahoo.com/articles/alice-isd-opens-38-million-043331335.html",
+        "sourceLabel": "KIII 3NEWS grand opening coverage"
+      },
+      {
+        "date": "2026",
+        "title": "A new construction project comes into use",
+        "body": "A state architectural-barriers project record identifies the new 212 N. Stadium Rd Memorial Stadium, including press box, seating, restrooms, concessions, locker rooms and planned parking.",
+        "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898",
+        "sourceLabel": "Texas TDLR project TABS2025013898"
+      },
+      {
+        "date": "2026–28",
+        "title": "Back to Class 4A Division I",
+        "body": "UIL assigns Alice to District 16 with Edcouch-Elsa, Hidalgo Early College, Pharr Valley View and Zapata, replacing Alice's older 2025 5A Division II peers.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 4A Division I alignment"
+      },
+      {
+        "date": "Oct. 2026",
+        "title": "Joe Castellano directs Coyotes football",
+        "body": "The official Alice ISD athletics directory identifies Joe Castellano as athletic director and head football coach; Alice High continues to publish the 2026 current schedule and stadium policies.",
+        "sourceUrl": "https://www.aliceisd.net/en-US/athletics-640d1b62/coaching-staff-6d5e1b54",
+        "sourceLabel": "Alice ISD football leadership"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Where do the Alice Coyotes play football in 2026?",
+        "answer": "At the rebuilt Alice Memorial Stadium, opened September 11, 2026, at 212 North Stadium Road in Alice. The 2025 temporary home dates in San Diego were during construction, not the 2026 regular home-field location."
+      },
+      {
+        "question": "How many seats does the new Memorial Stadium have?",
+        "answer": "KIII 3NEWS reported an approximately 6,000-seat venue when it opened in September 2026. For accessible seating and currently available admission, consult the school's stadium visitor and athletics pages directly."
+      },
+      {
+        "question": "Who is Alice High School's 2026 football coach?",
+        "answer": "Alice ISD identifies Joe (J.R.) Castellano as its athletic director and Coyotes head football coach on its official staff directory."
+      },
+      {
+        "question": "What is Alice's UIL football classification for 2026–28?",
+        "answer": "Class 4A Division I, District 16, alongside Edcouch-Elsa, Hidalgo Early College, Pharr Valley View and Zapata. The older 2025 5A Division II district is no longer the current grouping."
+      },
+      {
+        "question": "Did Alice win consecutive district titles?",
+        "answer": "Yes. Alice High officially celebrated its 2024 win over Roma by saying that it secured a second consecutive football district championship, something the program had not done for 39 years. A district championship is distinct from a UIL state title."
+      },
+      {
+        "question": "What happened to the historic Skydome?",
+        "answer": "The original Alice Memorial Stadium's final high-school football season was in 2024, followed by demolition and construction of its replacement. The new Memorial Stadium opened in September 2026. Photographs of the old stadium must be labeled historical."
+      },
+      {
+        "question": "Where do I find current Alice stadium tickets and clear-bag rules?",
+        "answer": "Alice High School's official athletics page links the 2026 football schedule, Memorial Stadium clear-bag rules and student expectations. Confirm ticket availability, individual game venue, parking and accessible entrances through the school rather than relying on last year's temporary stadium arrangements."
+      }
+    ]
+  },
   "aledo": {
     "slug": "aledo",
     "theme": {
