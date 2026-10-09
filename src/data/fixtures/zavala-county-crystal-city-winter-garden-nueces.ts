@@ -124,4 +124,14 @@ export const zavalaCountyCrystalCityWinterGardenNuecesArticle: Article = {
     p("Zavala County is defined by transformation. A sparse ranch frontier became a railroad-supported vegetable district. Crystal City grew from a planned farm colony into the county seat and the nation's best-known spinach town. A community built on Mexican and Mexican American farm labor later became one of the most important centers of Chicano political organizing in Texas."),
     p("The county also carries harder histories: unequal schools, labor stratification and the wartime confinement of families at Crystal City. Those stories belong beside the Nueces River, pecan groves, ranches and produce fields because all of them explain how a relatively small South Texas county became connected to national questions of agriculture, migration, civil rights and government power. Zavala County is not just a place between Uvalde and the border; it is one of the clearest places to see how water, labor and politics reshaped South Texas."),
   ],
+
+  sources: [
+    { label: "Handbook of Texas — Zavala County history", url: "https://www.tshaonline.org/handbook/entries/zavala-county" },
+    { label: "Handbook of Texas — Crystal City history", url: "https://www.tshaonline.org/handbook/entries/crystal-city-tx" },
+    { label: "Texas Historical Commission — Crystal City Family Internment Camp history", url: "https://thc.texas.gov/learn/military-history/texas-world-war-ii" },
+    { label: "Zavala County — Tax Assessor/Collector", url: "https://www.co.zavala.tx.us/page/County%20Tax%20AssessorCollector" },
+    { label: "Texas Comptroller — Zavala County appraisal and tax-office directory", url: "https://comptroller.texas.gov/taxes/property-tax/county-directory/zavala.php" },
+    { label: "Texas DMV — Zavala County tax office and vehicle services", url: "https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices/zavala" },
+    { label: "Texas State Library — official county seats", url: "https://www.tsl.texas.gov/ref/abouttx/countyseats.html" },
+  ],
 };

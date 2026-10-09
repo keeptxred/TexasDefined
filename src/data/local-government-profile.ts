@@ -87,12 +87,20 @@ async function findComptrollerCountyUrl(countySlug: string, countyName: string) 
 async function fetchComptrollerDirectory() {
   const html = await fetchText(COMPTROLLER_DIRECTORY_URL);
   const result = new Map<string, string>();
-  const anchorPattern = /<a[^>]+href=["']([^"']*county-directory\/([^"'?#]+\.php))["'][^>]*>([\s\S]*?)<\/a>/gi;
+  // Accept relative or absolute county-page hrefs, but restrict matches to
+  // official directory links explicitly numbered in the Comptroller index.
+  const anchorPattern = /<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const directory = new URL(COMPTROLLER_DIRECTORY_URL);
   for (const match of html.matchAll(anchorPattern)) {
-    const href = match[1];
-    const label = stripTags(match[3]).replace(/^\d{3}\s+/, '').trim();
-    if (!label) continue;
-    result.set(slug(label), new URL(href, COMPTROLLER_DIRECTORY_URL).toString());
+    const indexed = /^(\d{3})\s+(.+)$/.exec(stripTags(match[2]).trim());
+    if (!indexed) continue;
+    let url: URL;
+    try { url = new URL(match[1], COMPTROLLER_DIRECTORY_URL); }
+    catch { continue; }
+    if (url.origin !== directory.origin
+      || !url.pathname.startsWith(directory.pathname)
+      || !/\/[a-z0-9-]+\.php$/i.test(url.pathname)) continue;
+    result.set(slug(indexed[2].trim()), url.toString());
   }
   return result;
 }

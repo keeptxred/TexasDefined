@@ -45,5 +45,18 @@ export const mitchellCountyColoradoCityProfileArticle: Article = {
     p("Start at the Colorado City courthouse square, then explore the older commercial streets and local history collections. Drive beyond town to see the Colorado River country and the ranch-and-farm landscape that supported the original economy. Lake Colorado City and Champion Creek Reservoir add a water-and-recreation dimension that is easy to miss from the interstate. Continue east through Loraine toward Nolan County or west toward Howard County and Big Spring to follow the historic transportation corridor."),
     h("Why Mitchell County matters"),
     p("Mitchell County preserves one of the clearest early boomtown stories in West Texas. Colorado City's sudden rise demonstrates what a railroad and cattle market could do in the 1880s, while its later adjustment shows how quickly regional advantage could shift when drought and competing transportation routes changed the map. Native history, buffalo hunting, ranching, railroads, cotton, oil, reservoirs and interstate travel all occupy the same landscape, making the county a concise history of how West Texas was built and repeatedly reinvented."),
-  ]
+    h("Visitor planning: Colorado City before the reservoirs"),
+    p("For a first visit, separate three practical routes: the courthouse and older commercial streets in Colorado City, the rural rail-and-farm communities toward Loraine and Westbrook, and the reservoir country farther south. Each route reveals a different part of Mitchell County's economy. The county seat makes a natural starting point for its civic and railroad history; a lake visit requires extra driving and is best planned as a separate outdoor stop rather than an afterthought."),
+    p("Lake Colorado City State Park provides a publicly managed way to experience the county's reservoir landscape. Texas Parks and Wildlife lists fishing, paddling, wildlife watching, hiking, campsites and cabins. It also publishes current alerts, fees and reservations, which should be checked before a visit. Do not infer that every reservoir shoreline is open to public recreation: access and operating rules vary by landowner and managing authority."),
+    h("Where residents can verify the official records"),
+    p("The county's tax assessor-collector and its appraisal district serve different roles. For property valuation, exemptions or protests use the appraisal district; for tax payments use the appropriate collecting office. Vehicle titles and registrations usually begin with the county tax assessor-collector, while Texas driver-license transactions use the Department of Public Safety. The Texas Comptroller's Mitchell County record supplies official office websites and the date each office last updated its entry."),
+  ],
+  sources: [
+    { label: "Handbook of Texas — Mitchell County history", url: "https://www.tshaonline.org/handbook/entries/mitchell-county" },
+    { label: "Texas Parks and Wildlife — Lake Colorado City State Park", url: "https://tpwd.texas.gov/state-parks/lake-colorado-city" },
+    { label: "Texas Parks and Wildlife — Lake Colorado City visitor directions", url: "https://tpwd.texas.gov/state-parks/lake-colorado-city/map" },
+    { label: "Texas Comptroller — Mitchell County office contacts", url: "https://comptroller.texas.gov/taxes/property-tax/county-directory/mitchell.php" },
+    { label: "Texas State Library — official Texas county seats", url: "https://www.tsl.texas.gov/ref/abouttx/countyseats.html" },
+    { label: "TxDMV — official county tax offices", url: "https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices" },
+  ],
 };

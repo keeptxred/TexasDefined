@@ -5,6 +5,7 @@ const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-d
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
 const USER_AGENT = 'TexasDefined county property verifier/1.0';
 const CONCURRENCY = 8;
+const AUDIT_ONLY = process.argv.includes('--audit-only');
 const SOURCE_MAX_AGE_DAYS = 730;
 const MIN_RETAINED_RATIO = 0.75;
 
@@ -22,7 +23,20 @@ for (let index = 0; index < selected.length; index += CONCURRENCY) {
   const batchResults = await Promise.all(batch.map(async (county) => {
     try {
       const html = await fetchText(county.url);
-      return { county, fetched: true, enrichment: parseCountyPage(html, county.url) };
+      const appraisal = parseOfficeSection(html, 'Appraisal District', 'Tax Assessor/Collector');
+      const taxOffice = parseOfficeSection(html, 'Tax Assessor/Collector');
+      return {
+        county, fetched: true,
+        enrichment: parseCountyPage(html, county.url),
+        audit: {
+          appraisalUrl: appraisal.websiteUrl ?? null,
+          appraisalSourceUpdated: appraisal.lastUpdated ?? null,
+          taxOfficeUrl: taxOffice.websiteUrl ?? null,
+          taxOfficeSourceUpdated: taxOffice.lastUpdated ?? null,
+          appraisalCurrent: isFreshSourceDate(appraisal.lastUpdated),
+          taxOfficeCurrent: isFreshSourceDate(taxOffice.lastUpdated),
+        },
+      };
     } catch (error) {
       console.error(`Unable to sync ${county.slug}:`, error instanceof Error ? error.message : String(error));
       return { county, fetched: false, enrichment: null };
@@ -31,6 +45,40 @@ for (let index = 0; index < selected.length; index += CONCURRENCY) {
   results.push(...batchResults);
 }
 
+if (AUDIT_ONLY) {
+  // Audit is deliberately read-only. Stale/missing official contacts are
+  // problems for the research queue, never fresh verified data to publish.
+  const now = new Date().toISOString().slice(0, 10);
+  const rows = results.map((result) => ({
+    county: result.county.slug,
+    comptrollerUrl: result.county.url,
+    checkedAt: now,
+    state: !result.fetched ? 'source-fetch-failed'
+      : result.enrichment ? 'current-source-record'
+      : 'missing-or-stale-contact',
+    ...result.audit,
+  }));
+  const filename = '/tmp/county-government-links-audit';
+  await fs.writeFile(`${filename}.json`, JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    officialDirectory: DIRECTORY_URL,
+    sourceRuleMaxAgeDays: SOURCE_MAX_AGE_DAYS,
+    countyCount: rows.length,
+    verifiedCurrent: rows.filter((r) => r.state === 'current-source-record').length,
+    missingOrStale: rows.filter((r) => r.state === 'missing-or-stale-contact').length,
+    unreachableOfficialSources: rows.filter((r) => r.state === 'source-fetch-failed').length,
+    note: 'A current Comptroller directory listing does not independently verify downstream county office websites, personnel or hours.',
+    rows,
+  }, null, 2) + '\n');
+  const cols = ['county', 'state', 'comptrollerUrl', 'appraisalUrl',
+    'appraisalSourceUpdated', 'taxOfficeUrl', 'taxOfficeSourceUpdated', 'checkedAt'];
+  const cell = (value) => String(value ?? '').replace(/[\t\r\n]+/g, ' ');
+  await fs.writeFile(`${filename}.tsv`,
+    cols.join('\t') + '\n' + rows.map((row) => cols.map((column) => cell(row[column])).join('\t')).join('\n') + '\n');
+  console.log(`OFFICIAL SOURCE AUDIT: ${rows.length} counties, ${rows.filter((r) => r.state === 'current-source-record').length} current office records, ${rows.filter((r) => r.state === 'missing-or-stale-contact').length} missing/stale, ${rows.filter((r) => r.state === 'source-fetch-failed').length} unreachable. See ${filename}.json and .tsv; unresolved records require source review.`);
+  if (rows.length !== 254 && !requested) process.exitCode = 1;
+  // Do not write the generated property dataset in read-only audit mode.
+} else {
 let merged = {};
 try {
   const existing = await fs.readFile(OUTPUT, 'utf8');
@@ -53,18 +101,31 @@ await fs.writeFile(OUTPUT, renderSnapshot(ordered));
 const refreshed = results.filter((item) => item.enrichment).length;
 const withdrawn = results.filter((item) => item.fetched && !item.enrichment).length;
 console.log(`County property snapshot now contains ${nextCount} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
+} // End update-only branch; --audit-only never alters checked-in source data.
 
 function parseCountyDirectory(html) {
   const items = [];
   const seen = new Set();
-  const pattern = /<a[^>]+href=["']([^"']*county-directory\/([^"'?#/]+\.php))["'][^>]*>([\s\S]*?)<\/a>/gi;
+  // The Comptroller sometimes uses relative hrefs (anderson.php) rather than
+  // /county-directory/anderson.php. Resolve both forms to the exact official
+  // directory path and require the three-digit county index in the link label.
+  const pattern = /<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const directoryPath = new URL(DIRECTORY_URL).pathname;
   for (const match of html.matchAll(pattern)) {
-    const label = stripHtml(match[3]).replace(/^\d{3}\s+/, '').trim();
-    if (!label) continue;
+    const labelText = stripHtml(match[2]).trim();
+    const indexed = /^(\d{3})\s+(.+)$/.exec(labelText);
+    if (!indexed) continue;
+    const label = indexed[2].trim();
     const slug = slugify(label);
+    let url;
+    try { url = new URL(match[1], DIRECTORY_URL); }
+    catch { continue; }
+    if (url.origin !== new URL(DIRECTORY_URL).origin
+      || !url.pathname.startsWith(directoryPath)
+      || !/\/[a-z0-9-]+\.php$/i.test(url.pathname)) continue;
     if (seen.has(slug)) continue;
     seen.add(slug);
-    items.push({ slug, name: label, url: new URL(match[1], DIRECTORY_URL).toString() });
+    items.push({ slug, name: label, url: url.toString() });
   }
   return items.sort((a, b) => a.name.localeCompare(b.name));
 }

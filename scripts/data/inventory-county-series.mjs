@@ -6,6 +6,17 @@ const reportPath = outputPath.replace(/\.tsv$/i, '.json');
 const MIN_WORDS = 700;
 const MIN_PARAGRAPHS = 10;
 const MIN_HEADINGS = 4;
+const AUTHORITY_MIN_WORDS = 1200;
+const AUTHORITY_MIN_PARAGRAPHS = 16;
+const AUTHORITY_MIN_HEADINGS = 7;
+const AUTHORITY_MIN_RESEARCH_SOURCES = 5;
+const AUTHORITY_MIN_PRIMARY_SOURCES = 2;
+const AUTHORITY_MIN_DISTINCT_SOURCE_HOSTS = 3;
+const snapshot = fs.readFileSync('src/data/property/county-property-enrichment.generated.ts', 'utf8');
+const localOfficeVerification = fs.readFileSync('src/data/property/county-property-local-verification.ts', 'utf8');
+const knownSnapshotCounties = new Set([...snapshot.matchAll(/^  ([a-z][a-z-]+): \{/gm)].map((match) => match[1]));
+const locallyCheckedCounties = new Set([...localOfficeVerification.matchAll(/^  ([a-z][a-z-]+): \{/gm)].map((match) => match[1]));
+
 const FORBIDDEN = [
   'will expand as additional local sources are verified',
   'This county guide is being expanded',
@@ -162,6 +173,57 @@ function metrics(source) {
   };
 }
 
+
+function authorityEvidence(source, county, body) {
+  const sourcesBlock = matchingBlock(source, 'sources', '[', ']');
+  const researchSources = [...sourcesBlock.matchAll(/\burl\s*:\s*["'](https?:\/\/[^"']+)["']/g)]
+    .map((match) => match[1]);
+  const uniqueSources = [...new Set(researchSources)];
+  const hosts = [...new Set(uniqueSources.map((url) => {
+    try { return new URL(url).hostname.toLowerCase().replace(/^www\./, ''); }
+    catch { return ''; }
+  }).filter(Boolean))];
+  const primarySources = uniqueSources.filter((url) => {
+    const host = new URL(url).hostname.toLowerCase();
+    return host.endsWith('.gov') || host.endsWith('.tx.us') || host.endsWith('texas.gov')
+      || host.endsWith('.edu') || host === 'tshaonline.org'
+      || host === 'www.tshaonline.org' || host.endsWith('.county.org')
+      || host.endsWith('tsl.texas.gov');
+  });
+  const countySpecificSources = uniqueSources.filter((url) => {
+    let decoded;
+    try { decoded = decodeURIComponent(url).toLowerCase(); }
+    catch { decoded = url.toLowerCase(); }
+    return decoded.includes(county.slug) || decoded.includes(county.baseName.toLowerCase());
+  });
+  const countyInternalLinks = [...new Set([...source.matchAll(/\bhref\s*:\s*["'](\/county\/[^"']+)["']/g)]
+    .map((match) => match[1]))].filter((href) => href !== `/county/${county.slug}`);
+  const checkedInLocalContacts = knownSnapshotCounties.has(county.slug) || locallyCheckedCounties.has(county.slug);
+  const gaps = [];
+  if (body.words < AUTHORITY_MIN_WORDS) gaps.push('expand-original-county-research');
+  if (body.paragraphs < AUTHORITY_MIN_PARAGRAPHS || body.headings < AUTHORITY_MIN_HEADINGS) gaps.push('improve-county-specific-structure');
+  if (uniqueSources.length < AUTHORITY_MIN_RESEARCH_SOURCES) gaps.push('publish-five-specific-research-sources');
+  if (primarySources.length < AUTHORITY_MIN_PRIMARY_SOURCES) gaps.push('add-independent-primary-sources');
+  if (hosts.length < AUTHORITY_MIN_DISTINCT_SOURCE_HOSTS) gaps.push('diversify-research-publishers');
+  if (countySpecificSources.length < 2) gaps.push('link-county-specific-not-just-statewide-references');
+  if (countyInternalLinks.length < 2) gaps.push('connect-relevant-neighboring-county-guides');
+  if (!checkedInLocalContacts) gaps.push('verify-and-snapshot-local-office-contacts');
+  // This is a source/readiness signal, not a claim that external links work or
+  // an editorial certification. Every county still needs human source review.
+  return {
+    researchSources: uniqueSources,
+    researchSourceCount: uniqueSources.length,
+    primarySourceCount: primarySources.length,
+    countySpecificSourceCount: countySpecificSources.length,
+    distinctSourceHosts: hosts.length,
+    countyInternalLinkCount: countyInternalLinks.length,
+    checkedInLocalContacts,
+    locallyCheckedContacts: locallyCheckedCounties.has(county.slug),
+    missing: gaps,
+    status: gaps.length ? 'research-required' : 'candidate-for-independent-editorial-review',
+  };
+}
+
 const canonical = counties();
 const canonicalBySlug = new Map(canonical.map((county) => [county.slug, county]));
 const registries = activeRegistries();
@@ -212,12 +274,33 @@ for (const county of canonical) {
   if (body.headings < MIN_HEADINGS) errors.push(`Thin county structure: ${county.slug} has ${body.headings} headings; minimum ${MIN_HEADINGS}`);
   if (readingMinutes != null && readingMinutes < 5) errors.push(`County reading time too short: ${county.slug} has ${readingMinutes} minutes`);
   for (const phrase of FORBIDDEN) if (source.toLowerCase().includes(phrase.toLowerCase())) errors.push(`Forbidden placeholder in ${county.slug}: ${phrase}`);
-  rows.push({ countySlug: county.slug, countyName: county.name, articleSlug: profile.articleSlug, title: title ?? profile.articleSlug, fixture: sourcePath, registry: profile.registry, readingMinutes, heroSrc: src, heroAlt: alt, ...body });
+  const authority = authorityEvidence(source, county, body);
+  rows.push({ countySlug: county.slug, countyName: county.name, articleSlug: profile.articleSlug, title: title ?? profile.articleSlug, fixture: sourcePath, registry: profile.registry, readingMinutes, heroSrc: src, heroAlt: alt, ...body, authority });
 }
 
 rows.sort((a, b) => a.countySlug.localeCompare(b.countySlug));
 fs.writeFileSync(outputPath, rows.map((row) => `${row.countySlug}\t${row.articleSlug}\t${row.title}`).join('\n') + (rows.length ? '\n' : ''));
-fs.writeFileSync(reportPath, `${JSON.stringify({ generatedAt: new Date().toISOString(), canonicalCounties: canonical.length, registries: registries.map((r) => r.file), definitions: definitions.length, effectiveProfiles: effective.size, shadowed: shadowed.length, minimums: { words: MIN_WORDS, paragraphs: MIN_PARAGRAPHS, headings: MIN_HEADINGS }, errors, rows }, null, 2)}\n`);
+const authorityBacklogPath = outputPath.replace(/\.tsv$/i, '-authority-backlog.tsv');
+const prioritized = [...rows].sort((a, b) => b.authority.missing.length - a.authority.missing.length
+  || a.authority.researchSourceCount - b.authority.researchSourceCount
+  || a.countySlug.localeCompare(b.countySlug));
+fs.writeFileSync(authorityBacklogPath,
+  ['county_slug', 'status', 'research_sources', 'primary_sources', 'county_specific_sources', 'distinct_hosts', 'office_contact_snapshot', 'words', 'research_gaps'].join('\t') + '\n'
+  + prioritized.map((row) => [row.countySlug, row.authority.status,
+    row.authority.researchSourceCount, row.authority.primarySourceCount,
+    row.authority.countySpecificSourceCount, row.authority.distinctSourceHosts,
+    row.authority.checkedInLocalContacts ? 'yes' : 'needs-verification',
+    row.words, row.authority.missing.join(';')].join('\t')).join('\n') + '\n');
+const researchRequired = rows.filter((row) => row.authority.status === 'research-required').length;
+const noPublishedResearchSources = rows.filter((row) => row.authority.researchSourceCount === 0).length;
+const localOfficeSnapshotMissing = rows.filter((row) => !row.authority.checkedInLocalContacts).length;
+fs.writeFileSync(reportPath, `${JSON.stringify({ generatedAt: new Date().toISOString(), canonicalCounties: canonical.length, registries: registries.map((r) => r.file), definitions: definitions.length, effectiveProfiles: effective.size, shadowed: shadowed.length, minimums: { words: MIN_WORDS, paragraphs: MIN_PARAGRAPHS, headings: MIN_HEADINGS },
+  authorityAudit: { authorityCandidatesForEditorialReview: rows.length - researchRequired, researchRequired,
+    noPublishedResearchSources, localOfficeSnapshotMissing, readinessIsNotCertification: true,
+    criteria: { words: AUTHORITY_MIN_WORDS, paragraphs: AUTHORITY_MIN_PARAGRAPHS,
+      headings: AUTHORITY_MIN_HEADINGS, sources: AUTHORITY_MIN_RESEARCH_SOURCES,
+      primarySources: AUTHORITY_MIN_PRIMARY_SOURCES, distinctHosts: AUTHORITY_MIN_DISTINCT_SOURCE_HOSTS } },
+  errors, rows }, null, 2)}\n`);
 console.log(`Canonical Texas counties: ${canonical.length}`);
 console.log(`Active county registries: ${registries.length}`);
 console.log(`Profile definitions: ${definitions.length}`);
@@ -230,3 +313,5 @@ if (errors.length) {
   process.exit(1);
 }
 console.log('PASS: all 254 Texas counties have effective, substantive, non-placeholder editorial profiles with required publication metadata.');
+console.log(`AUTHORITY REVIEW (not certification): ${researchRequired}/254 still require researched changes, ${noPublishedResearchSources} have no explicit research sources, and ${localOfficeSnapshotMissing} lack checked-in local office evidence. Independent source/date verification remains required even for candidates.`);
+console.log(`County research-priority report: ${authorityBacklogPath}`);

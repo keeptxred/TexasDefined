@@ -77,5 +77,23 @@ export const valVerdeCountyDelRioAmistadDevilsRiverLowerPecosArticle: Article = 
 
     h("What defines Val Verde County"),
     p("Val Verde County is defined by water in a dry landscape. San Felipe Springs created Del Rio; the Devils and Pecos rivers cut through limestone; the Rio Grande created an international border and cross-border community; and Amistad reshaped the canyons into a modern reservoir. Lower Pecos rock art, ranching, railroads, military aviation and border trade all occupy the same enormous geography, making the county one of Texas's clearest examples of landscape shaping history."),
+    h("How to plan a safe Lower Pecos and Amistad trip"),
+    p("Val Verde County's landscape looks compact on a state map, but the experience is spread across long distances and different kinds of access. Del Rio is the service center. The National Park Service manages the U.S. portion of Amistad National Recreation Area, where available launch ramps and shoreline access can change with reservoir water levels. Check current park conditions, permits and any closures rather than assuming a map symbol guarantees a usable boat ramp."),
+    p("West of Del Rio, Seminole Canyon State Park and Historic Site is a practical place to learn about the Lower Pecos rock-art tradition. The park protects pictographs, but entry into the canyon itself is guided rather than unrestricted. Visitors can also hike designated rim trails and use the visitor center; guided rock-art tours and park-program availability should be confirmed directly with Texas Parks and Wildlife before a long drive."),
+    h("The Devils River requires different planning from Amistad"),
+    p("The Devils River is not simply another reservoir access point. The Texas Parks and Wildlife Department describes a remote, spring-fed river with very limited public access and two widely separated natural-area units. Overnight paddling beyond the natural area is a serious backcountry undertaking. Reservations, river access permits where required, weather, water levels and private property boundaries all matter; casual visitors should not treat a highway map as proof of public river access."),
+    p("That distinction helps explain Val Verde County more deeply than a list of attractions: a reservoir built for shared water management, river corridors with scarce access and protected canyon art each impose different rules on visitors. The same geography that attracts recreation also creates heat, flash-flood, distance and emergency-service challenges. Plan the trip for the route actually intended, pack water and check official instructions before committing."),
+    h("Local records and government services"),
+    p("For local services, identify the correct agency first. Property appraisals and protests belong with the appraisal district, while tax collections and most vehicle-title and registration transactions use the appropriate county tax assessor-collector office. The Texas Comptroller and Texas DMV provide official starting points. Driver licenses and state IDs are administered separately; office information and business hours should be verified before driving across the county."),
+  ],
+  sources: [
+    { label: "Handbook of Texas — Val Verde County history and geography", url: "https://www.tshaonline.org/handbook/entries/val-verde-county" },
+    { label: "National Park Service — Amistad recreation and access", url: "https://www.nps.gov/amis/planyourvisit/basicinfo.htm" },
+    { label: "National Park Service — current Amistad visitor planning", url: "https://www.nps.gov/amis/planyourvisit/index.htm" },
+    { label: "Texas Parks and Wildlife — Seminole Canyon State Park", url: "https://tpwd.texas.gov/state-parks/seminole-canyon" },
+    { label: "Texas Parks and Wildlife — Devils River State Natural Area", url: "https://tpwd.texas.gov/state-parks/devils-river" },
+    { label: "Texas Parks and Wildlife — Devils River ecology and access", url: "https://tpwd.texas.gov/state-parks/devils-river/nature/" },
+    { label: "Texas State Library — Texas county seats", url: "https://www.tsl.texas.gov/ref/abouttx/countyseats.html" },
+    { label: "TxDMV — county vehicle-title and registration offices", url: "https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices" },
   ],
 };
