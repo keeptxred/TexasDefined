@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
+import { hidalgoPumphouseAuthorityDestinations } from "../hidalgo-pumphouse-authority-destination.ts";
+
 import {
   METRO_PROXIMITY_COLLECTIONS,
   getMetroProximityCollection,
@@ -13,6 +15,9 @@ import {
   selectMetroProximityTownReferences,
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
+import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
+import { applyCuratedDestinationBatch20 } from "../destination-curation-batch20.ts";
+import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
 
@@ -126,4 +131,237 @@ test("a full destination guide supersedes its supplemental town reference", () =
 test("launch registry includes requested trip-intent expansions", () => {
   const slugs = new Set(METRO_PROXIMITY_COLLECTIONS.map((collection) => collection.slug));
   for (const slug of ["weekend-trips", "road-trips", "small-towns-1-hour", "small-towns-2-hours", "small-towns-3-hours", "lakes", "swimming-holes"]) assert.ok(slugs.has(slug as never), `missing ${slug}`);
+});
+
+test("McAllen day trips prioritize regional wildlife, allow local outings and drop unreachable coastal shortcuts", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const candidates = [
+    destination(1, "state-parks", {
+      slug: "bentsen-rio-grande-valley-state-park", nearestTown: "Mission", county: "Hidalgo",
+      coordinates: { lat: 26.187, lng: -98.381 },
+    }),
+    destination(2, "outdoors", {
+      slug: "santa-ana-national-wildlife-refuge", nearestTown: "Alamo", county: "Hidalgo",
+      coordinates: { lat: 26.083, lng: -98.145 },
+    }),
+    destination(3, "beaches-coast", {
+      slug: "yarborough-pass", nearestTown: "Padre Island", county: "Kleberg",
+      coordinates: { lat: 27.20434, lng: -97.38929 },
+    }),
+    destination(4, "beaches-coast", {
+      slug: "south-padre-island-beaches", nearestTown: "South Padre Island", county: "Cameron",
+      coordinates: { lat: 26.113528, lng: -97.164556 },
+    }),
+    destination(5, "beaches-coast", {
+      slug: "port-aransas-beach", nearestTown: "Port Aransas", county: "Nueces",
+      coordinates: { lat: 27.82247, lng: -97.0592 },
+    }),
+    destination(6, "beaches-coast", {
+      slug: "padre-island-national-seashore-backcountry", nearestTown: "Padre Island", county: "Kleberg",
+      coordinates: { lat: 27.41533, lng: -97.30151 },
+    }),
+    destination(7, "historic-sites", {
+      slug: "port-isabel-lighthouse", nearestTown: "Port Isabel", county: "Cameron",
+      coordinates: { lat: 26.0764, lng: -97.2086 },
+    }),
+  ];
+  const slugs = new Set(selectMetroProximityDestinations(candidates, metro, collection).map((row) => row.destination.slug));
+  assert.ok(slugs.has("bentsen-rio-grande-valley-state-park"), "local Bentsen park should qualify");
+  assert.ok(slugs.has("santa-ana-national-wildlife-refuge"), "Santa Ana belongs in the regional trip list");
+  assert.ok(slugs.has("south-padre-island-beaches"), "reachable South Padre coast remains an option");
+  assert.ok(slugs.has("port-isabel-lighthouse"), "the canonical Port Isabel Lighthouse guide must be eligible for the curated day-trip card");
+  assert.ok(!slugs.has("yarborough-pass"), "high-clearance 4WD Yarborough Pass is not an ordinary day trip");
+  assert.ok(!slugs.has("padre-island-national-seashore-backcountry"), "remote Padre Island backcountry is excluded");
+  assert.ok(!slugs.has("port-aransas-beach"), "distant Coastal Bend beach should not take a Valley day-trip slot");
+});
+
+test("McAllen day trips cap repetitive town clusters while preserving nearby variety", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const rows = Array.from({ length: 12 }, (_, index) => destination(index + 1, index % 2 ? "historic-sites" : "beaches-coast", {
+    nearestTown: index < 8 ? "South Padre Island" : "Weslaco",
+    county: index < 8 ? "Cameron" : "Hidalgo",
+    coordinates: { lat: 26.11 + index * 0.003, lng: -97.16 - index * 0.07 },
+  }));
+  const selected = selectMetroProximityDestinations(rows, metro, collection);
+  assert.ok(selected.filter((row) => row.destination.nearestTown === "South Padre Island").length <= 2);
+  assert.ok(selected.filter((row) => row.destination.nearestTown === "Weslaco").length <= 2);
+  assert.ok(selected.some((row) => row.destination.nearestTown === "Weslaco"));
+  assert.ok(selected.every((row, i) => i === 0 || row.distanceMiles >= selected[i - 1].distanceMiles));
+});
+
+test("McAllen editorial changes do not alter the standard geographic selector in other metros", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const tooClose = destination(1, "state-parks", { nearestTown: "Houston", coordinates: { lat: 29.762, lng: -95.371 } });
+  const ordinary = destination(2, "state-parks", { nearestTown: "Richmond", coordinates: { lat: 29.58, lng: -95.76 } });
+  assert.deepEqual(selectMetroProximityDestinations([tooClose, ordinary], metro, collection).map((row) => row.destination.slug), [ordinary.slug]);
+});
+
+test("generic metro day trips keep geographic variety instead of filling 30 slots from one town", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const repeated = Array.from({ length: 25 }, (_, index) => destination(index + 200, "beaches-coast", {
+    nearestTown: "Overrepresented Beach Town",
+    county: "County A",
+    coordinates: { lat: 30.20 + index * 0.001, lng: -95.3698 },
+  }));
+  const categories: CategorySlug[] = ["state-parks", "lakes-rivers", "historic-sites", "small-towns"];
+  const otherTowns = Array.from({ length: 12 }, (_, index) => destination(index + 300, categories[index % categories.length], {
+    nearestTown: `Distinct Town ${index}`,
+    county: `County ${index % 5}`,
+    coordinates: { lat: 30.48 + index * 0.005, lng: -95.3698 },
+  }));
+  const selected = selectMetroProximityDestinations([...repeated, ...otherTowns], metro, collection);
+  assert.equal(selected.filter((row) => row.destination.nearestTown === "Overrepresented Beach Town").length, 2);
+  assert.equal(selected.length, 14, "use a useful diverse shortlist; do not add 16 redundant beach cards just to reach 30");
+  assert.ok(new Set(selected.map((row) => row.destination.nearestTown)).size >= 10);
+  assert.ok(new Set(selected.map((row) => row.destination.category)).size >= collection.minCategories);
+  assert.ok(selected.every((row, i) => i === 0 || row.distanceMiles >= selected[i - 1].distanceMiles));
+  assert.equal(isMetroProximityCollectionIndexReady([...repeated, ...otherTowns], metro, collection), true);
+  assert.deepEqual(
+    selectMetroProximityDestinations([...otherTowns, ...repeated].reverse(), metro, collection).map((row) => row.destination.slug),
+    selected.map((row) => row.destination.slug),
+    "catalog input order must not affect day-trip picks",
+  );
+});
+
+test("sparse day-trip inventory only relaxes the town cap to meet the existing minimum", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("day-trips")!;
+  const oneTown = Array.from({ length: 18 }, (_, index) => destination(index + 400, "state-parks", {
+    nearestTown: "Single Town",
+    county: "Single County",
+    coordinates: { lat: 30.25 + index * 0.005, lng: -95.3698 },
+  }));
+  const selected = selectMetroProximityDestinations(oneTown, metro, collection);
+  assert.equal(selected.length, collection.minResults);
+  assert.equal(isMetroProximityCollectionIndexReady(oneTown, metro, collection), false, "weak geographic diversity must remain noindex");
+});
+
+test("remote backcountry shortcuts are excluded for all day-trip metros but not erased from other collections", () => {
+  const metro = getMetroProximityMetro("corpus-christi")!;
+  const dayTrips = getMetroProximityCollection("day-trips")!;
+  const thingsToDo = getMetroProximityCollection("things-to-do")!;
+  const remote = destination(501, "beaches-coast", {
+    slug: "yarborough-pass", nearestTown: "Padre Island", county: "Kleberg",
+    coordinates: { lat: 27.20434, lng: -97.38929 },
+  });
+  const accessible = destination(502, "state-parks", {
+    slug: "ordinary-park", nearestTown: "Coastal Bend", county: "Nueces",
+    coordinates: { lat: 27.45, lng: -97.39 },
+  });
+  assert.deepEqual(
+    selectMetroProximityDestinations([remote, accessible], metro, dayTrips).map((row) => row.destination.slug),
+    [accessible.slug],
+  );
+  assert.ok(
+    selectMetroProximityDestinations([remote], metro, thingsToDo).some((row) => row.destination.slug === remote.slug),
+    "other collections and destination detail should not silently lose a researched place",
+  );
+});
+
+test("non-day-trip proximity collections retain their existing geographic ordering and breadth", () => {
+  const metro = getMetroProximityMetro("houston")!;
+  const collection = getMetroProximityCollection("things-to-do")!;
+  const sameTown = Array.from({ length: 16 }, (_, index) => destination(index + 600, "state-parks", {
+    nearestTown: "Repeated Town", county: "County A", coordinates: { lat: 29.91 + index * 0.01, lng: -95.3698 },
+  }));
+  const selected = selectMetroProximityDestinations(sameTown, metro, collection);
+  assert.equal(selected.length, sameTown.length, "do not silently constrain other collection families");
+});
+
+test("McAllen nine-site World Birding Center authority uses unique, source-backed, accessible visitor choices", () => {
+  const expectedTowns = ["Roma", "Mission", "McAllen", "Hidalgo", "Edinburg", "Weslaco", "Harlingen", "Brownsville", "South Padre Island"];
+  assert.equal(MCALLEN_WBC_SITES.length, 9, "the real network comprises three parks and six community sites");
+  assert.deepEqual(MCALLEN_WBC_SITES.map((site) => site.location.split(" · ")[0]), expectedTowns);
+  assert.equal(new Set(MCALLEN_WBC_SITES.map((site) => site.name)).size, 9);
+  assert.equal(new Set(MCALLEN_WBC_SITES.map((site) => site.official)).size, 9);
+  for (const site of MCALLEN_WBC_SITES) {
+    assert.equal(new URL(site.official).protocol, "https:", site.name);
+    assert.ok(site.plan.length > 90 && site.before.length > 60 && site.fit.length >= 16, site.name);
+    assert.ok(!/\babout \d+ (?:minutes|hours) away\b/i.test(site.plan), "do not invent road-time estimates");
+  }
+  for (const source of Object.values(MCALLEN_WBC_SOURCES)) {
+    assert.equal(new URL(source).protocol, "https:");
+  }
+});
+
+test("four genuinely researched Lower Valley state parks are classified correctly and meet geographic requirements", () => {
+  const expected = [
+    ["bentsen-rio-grande-valley-state-park", "Mission", "Hidalgo"],
+    ["estero-llano-grande-state-park", "Weslaco", "Hidalgo"],
+    ["resaca-de-la-palma-state-park", "Brownsville", "Cameron"],
+    ["falcon-state-park", "Falcon Heights", "Starr"],
+  ] as const;
+  const parks = expected.map(([slug], index) => {
+    const input = destination(800 + index, "outdoors", { slug, nearestTown: "Unknown" });
+    return applyCuratedDestinationBatch20(applyCuratedDestinationBatch9(input));
+  });
+  for (const [index, park] of parks.entries()) {
+    assert.equal(park.category, "state-parks", `${park.slug} should be correctly classified as a TPWD state park`);
+    assert.equal(park.nearestTown, expected[index][1]);
+    assert.equal(park.county, expected[index][2]);
+    assert.ok(park.summary.length >= 90);
+    assert.ok(park.body.length >= 3 && park.body.join(" ").length >= 450, park.slug);
+    assert.ok(park.hero.src.startsWith("/images/state-parks/"), `${park.slug} needs an existing licensed, exact-park hero`);
+    assert.ok(Boolean(park.hero.credit));
+    assert.ok(park.officialUrl?.startsWith("https://tpwd.texas.gov/state-parks/"));
+    assert.ok(Date.parse(park.sourceCheckedAt ?? "") > 0);
+  }
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("state-parks")!;
+  const selected = selectMetroProximityDestinations(parks, metro, collection);
+  assert.equal(selected.length, 4, "all four belong inside the McAllen state-park geographic radius");
+  assert.ok(isMetroProximityCollectionIndexReady(parks, metro, collection), "authentic park choices meet the unchanged town/county/category gates");
+});
+
+
+test("Hidalgo Pumphouse authority record is a source-checked, index-eligible real place", () => {
+  const [site] = hidalgoPumphouseAuthorityDestinations;
+  assert.equal(site.slug, "old-hidalgo-pumphouse-museum");
+  assert.equal(site.category, "historic-sites");
+  assert.equal(site.county, "Hidalgo County");
+  assert.equal(site.nearestTown, "Hidalgo");
+  assert.ok(site.officialUrl?.startsWith("https://cityofhidalgo.net/"));
+  assert.ok(site.authorityGuide?.sources.some((source) => source.url.includes("atlas.thc.texas.gov/")));
+  assert.ok(site.hero.credit?.includes("CC BY-SA 3.0"), "use an attributed exact-site historic photograph");
+  assert.ok(site.body.join(" ").length > 900, "publish genuine visitor planning, not a thin SEO filler");
+  assert.ok(site.summary.trim().length >= 90, "full factual summary is required by the canonical destination audit");
+  assert.ok(site.body.length >= 3 && site.body.join(" ").length >= 450, "require the canonical minimum of substantive body copy");
+  assert.ok(site.highlights.length >= 3, "require useful, specific visitor highlights");
+  assert.ok(site.hero.src.startsWith("https://commons.wikimedia.org/wiki/Special:Redirect/file/"), "exact-site rights-cleared hero rather than a generic image");
+  assert.ok(!/AI-generated representative editorial image/i.test(site.hero.credit ?? ""), "do not use a substitute AI hero");
+  assert.equal(site.sourceCheckedAt, "2026-10-09");
+});
+
+test("a real Hidalgo County heritage destination repairs McAllen historic-site county diversity without relaxing thresholds", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("historic-sites")!;
+  assert.equal(collection.minCounties, 3);
+  const existing = [
+    destination(701, "historic-sites", { slug: "iwo-jima-museum-monument", nearestTown: "Harlingen", county: "Cameron", coordinates: { lat: 26.185, lng: -97.71 } }),
+    destination(702, "historic-sites", { slug: "palo-alto-battlefield-national-historical-park", nearestTown: "Brownsville", county: "Cameron", coordinates: { lat: 25.952, lng: -97.49 } }),
+    destination(703, "historic-sites", { slug: "palmito-ranch-battlefield", nearestTown: "Brownsville", county: "Cameron", coordinates: { lat: 25.943, lng: -97.279 } }),
+    destination(704, "historic-sites", { slug: "port-isabel-lighthouse", nearestTown: "Port Isabel", county: "Cameron", coordinates: { lat: 26.076, lng: -97.208 } }),
+    destination(705, "historic-sites", { slug: "zapata-county-museum-history", nearestTown: "Zapata", county: "Zapata", coordinates: { lat: 26.9, lng: -99.27 } }),
+  ];
+  assert.equal(isMetroProximityCollectionIndexReady(existing, metro, collection), false, "only Cameron and Zapata counties are represented");
+  const rows = [...existing, hidalgoPumphouseAuthorityDestinations[0]];
+  assert.equal(isMetroProximityCollectionIndexReady(rows, metro, collection), true, "Hidalgo County adds genuine independently reviewed historical coverage");
+  const chosen = selectMetroProximityDestinations(rows, metro, collection);
+  assert.ok(chosen.some((row) => row.destination.slug === "old-hidalgo-pumphouse-museum"));
+  assert.equal(new Set(chosen.map((row) => row.destination.county!.replace(/\s+County$/i, "").toLowerCase())).size, 3);
+});
+
+test("McAllen ordinary things-to-do excludes remote off-road beach shortcuts but keeps nearby verified history", () => {
+  const metro = getMetroProximityMetro("mcallen")!;
+  const collection = getMetroProximityCollection("things-to-do")!;
+  const remote = destination(801, "beaches-coast", {
+    slug: "yarborough-pass", nearestTown: "Corpus Christi", county: "Kleberg",
+    coordinates: { lat: 27.20434, lng: -97.38929 },
+  });
+  const selected = selectMetroProximityDestinations([remote, hidalgoPumphouseAuthorityDestinations[0]], metro, collection);
+  assert.deepEqual(selected.map((row) => row.destination.slug), ["old-hidalgo-pumphouse-museum"]);
 });

@@ -11,6 +11,7 @@ import {
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
+import { getSportsVenueEditorialDescriptions } from '@/data/sports-venue-editorial.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
@@ -30,9 +31,7 @@ export const Route = createFileRoute('/$kind/$slug')({
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     const countySportsEditorial = countySportsCandidates.length
-      ? await import('@/data/sports-venue-editorial.functions').then(({ getSportsVenueEditorialDescriptions }) =>
-          getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } }),
-        )
+      ? await getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } })
       : {};
     const countySportsVenues = countySportsCandidates.map((venue) => {
       const description = countySportsEditorial[venue.id];

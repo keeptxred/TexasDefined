@@ -1,0 +1,9 @@
+/** Visible Q&A and WebPage structured data share one editorial source. */
+export const budgetPlannerFaqs = [
+  { question: 'Should my Texas budget start with gross pay or take-home pay?', answer: 'Use the combined take-home pay actually deposited in the household account. Do not subtract payroll withholding or employer-paid benefits a second time. Use the Texas paycheck calculator if you need an estimate.' },
+  { question: 'What Texas expenses do families often forget?', answer: 'Separate electricity, property tax not included in escrow, homeowners or renters insurance, toll roads, auto insurance, healthcare, childcare, HOA or special-district costs and annual vehicle registration. Only include expenses that apply to your household.' },
+  { question: 'How do I budget for annual bills and seasonal costs?', answer: 'Enter the expected full-year amount in the annual bills section. The planner divides it by 12 to show the monthly amount to set aside. Keep it out of the monthly recurring categories to avoid double counting.' },
+  { question: 'Does the calculator predict electricity rates, taxes or inflation?', answer: 'No. It uses only the amounts you enter. The annual projection multiplies a monthly budget by 12 without assuming raises, price changes or investment returns. Confirm taxes and insurance against official bills or quotes.' },
+  { question: 'Can I compare two budgets without sharing financial information?', answer: 'Yes. Save scenario A, change inputs and save scenario B. Scenarios are stored in your browser on your device. Sharing by URL is separate and requires acknowledging that dollar amounts will be visible in the link.' },
+  { question: 'Is a positive leftover amount disposable income?', answer: 'Not necessarily. Check that all recurring, annual and emergency costs are included. The amount remaining is unallocated under your assumptions, not an assessment of affordability or personal financial advice.' },
+] as const;

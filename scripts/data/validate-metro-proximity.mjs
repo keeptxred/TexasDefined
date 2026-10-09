@@ -4,6 +4,11 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   data: "src/data/metro-proximity.ts",
   townReferences: "src/data/metro-proximity-town-references.ts",
+  mcallenBirding: "src/data/mcallen-world-birding-center.ts",
+  hidalgoPumphouse: "src/data/hidalgo-pumphouse-authority-destination.ts",
+  preservedDestinations: "src/data/destination-preserved-catalog.ts",
+  curationValleyParks: "src/data/destination-curation-batch20.ts",
+  curationFalcon: "src/data/destination-curation-batch9.ts",
   test: "src/data/__tests__/metro-proximity.test.ts",
   pageData: "src/data/metro-proximity-page-data.server.ts",
   functions: "src/data/metro-proximity-page-data.functions.ts",
@@ -28,6 +33,34 @@ for (const path of Object.values(paths)) {
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const fail = (message) => { throw new Error(`Metro proximity validation failed: ${message}`); };
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
+
+for (const token of [
+  'slug: "old-hidalgo-pumphouse-museum"',
+  'category: "historic-sites"',
+  'county: "Hidalgo County"',
+  'sourceCheckedAt: "2026-10-09"',
+  'CC BY-SA 3.0',
+  'https://atlas.thc.texas.gov/Details/4200000667',
+  'https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center',
+]) requireText(files.hidalgoPumphouse, token, `Hidalgo pumphouse authority fact/source/rights missing ${token}`);
+for (const token of [
+  'import { hidalgoPumphouseAuthorityDestinations }',
+  '  hidalgoPumphouseAuthorityDestinations,',
+]) requireText(files.preservedDestinations, token, `Hidalgo Pumphouse canonical catalog missing ${token}`);
+for (const token of [
+  '"old-hidalgo-pumphouse-museum"',
+  'metro.slug === "mcallen" && collection.slug === "things-to-do"',
+]) requireText(files.data, token, `McAllen historic-site and off-road exclusion contract missing ${token}`);
+for (const token of [
+  'params={{ slug: "old-hidalgo-pumphouse-museum" }}',
+  'Explore the historic pumphouse guide',
+]) requireText(files.hubComponent, token, `McAllen historical-guide crosslink missing ${token}`);
+requireText(files.collectionUi, 'slug: "old-hidalgo-pumphouse-museum"', "McAllen day-trip editorial card must feature the source-backed Pumphouse");
+for (const token of [
+  'Hidalgo Pumphouse authority record is a source-checked',
+  'a real Hidalgo County heritage destination repairs McAllen historic-site county diversity',
+  'McAllen ordinary things-to-do excludes remote off-road beach shortcuts',
+]) requireText(files.test, token, `Hidalgo historic-site readiness regression missing ${token}`);
 
 const expectedMetroSlugs = [
   "houston", "dallas", "fort-worth", "austin", "san-antonio", "corpus-christi", "waco",
@@ -67,6 +100,29 @@ for (const token of [
   "selectMetroProximityTownReferences", "isMetroProximityCollectionIndexReadyWithTownReferences",
   "officialUrl", "sourceCheckedAt", "destinationNames", "collection.maxResults - destinationRows.length",
 ]) requireText(files.townReferences, token, `supplemental town-reference layer missing ${token}`);
+
+for (const token of [
+  "selectDiverseDayTrips", "REMOTE_DAY_TRIP_EXCLUSIONS",
+  'collection.slug === "day-trips"', "categoryLimit", "collection.minResults",
+]) requireText(files.data, token, `shared day-trip quality model missing ${token}`);
+for (const [source, tokens] of [
+  [files.curationValleyParks, ['"bentsen-rio-grande-valley-state-park"', '"estero-llano-grande-state-park"', '"resaca-de-la-palma-state-park"', 'category:"state-parks"', 'sourceCheckedAt:"2026-10-09"']],
+  [files.curationFalcon, ['"falcon-state-park"', 'category:"state-parks"', 'sourceCheckedAt:"2026-10-09"']],
+]) {
+  for (const token of tokens) requireText(source, token, `South Texas state-park authority missing ${token}`);
+}
+requireText(files.test, "four genuinely researched Lower Valley state parks", "South Texas state-park classification regression missing");
+
+for (const token of [
+  "generic metro day trips keep geographic variety",
+  "sparse day-trip inventory only relaxes the town cap",
+  "remote backcountry shortcuts are excluded for all day-trip metros",
+  "non-day-trip proximity collections retain their existing",
+]) requireText(files.test, token, `shared day-trip selection regression missing ${token}`);
+for (const token of [
+  "Closer geographic choices", "Middle-distance choices · check the road route",
+  "Farther geographic choices · check if an overnight fits better",
+]) requireText(files.collectionUi, token, `truthful day-trip range label missing ${token}`);
 
 for (const token of [
   "unknown metro and collection slugs fail closed", "small-town hour-intent rings are non-overlapping",
@@ -120,6 +176,21 @@ for (const token of ['createLazyFileRoute("/explore/near/$metro")']) requireText
 if (files.hubUi.includes("component:") || files.hubUi.includes("DestinationCard")) fail("metro parent lazy route must stay component-neutral so critical boundary owns hub-vs-child rendering");
 
 for (const token of [
+  "MCALLEN_WBC_SITES", "MCALLEN_WBC_SOURCES",
+  "Roma Bluffs World Birding Center", "Bentsen-Rio Grande Valley State Park",
+  "Quinta Mazatlán", "Old Hidalgo Pumphouse Museum",
+  "Edinburg Scenic Wetlands", "Estero Llano Grande State Park",
+  "Harlingen Arroyo Colorado", "Resaca de la Palma State Park",
+  "South Padre Island Birding", "official:", "before:",
+]) requireText(files.mcallenBirding, token, `McAllen birding source-backed authority missing ${token}`);
+for (const token of [
+  "MCALLEN_WBC_SITES.map", 'metro.slug === "mcallen"',
+  "Nine World Birding Center sites. Nine different ways to explore the Valley.",
+  "October 9, 2026", "MCALLEN_WBC_SOURCES", "Current official visitor information",
+]) requireText(files.hubComponent, token, `McAllen hub visitor authority missing ${token}`);
+requireText(files.test, "McAllen nine-site World Birding Center authority uses unique", "McAllen nine-site birding regression missing");
+
+for (const token of [
   "MetroProximityHubPage", "Explore by trip type", "straight-line geographic estimates", "DestinationCard",
   "Nearby places worth opening first", 'to="/explore/trip-planner"', "optionCount", "source-backed options",
 ]) requireText(files.hubComponent, token, `metro hub lazy presentation missing ${token}`);
@@ -135,6 +206,12 @@ for (const token of [
   "MetroProximityCollectionRich", "DestinationCard destination={row.destination}", "MapPreview", "townReferences",
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
+
+// The McAllen lighthouse editorial card must link to the actual canonical
+// destination slug, not a non-existent historic-site alias.
+requireText(files.collectionUi, 'slug: "port-isabel-lighthouse"', "McAllen Port Isabel Lighthouse link must use the canonical destination slug");
+if (files.collectionUi.includes('slug: "port-isabel-lighthouse-state-historic-site"')) fail("McAllen card uses a nonexistent Port Isabel Lighthouse destination slug");
+requireText(files.test, 'slugs.has("port-isabel-lighthouse")', "McAllen lighthouse selection test missing");
 
 for (const token of [
   "AUSTIN_TWO_HOUR_EDITORIAL", "Choose the trip, not the radius",
@@ -206,6 +283,11 @@ for (const token of [
   "createServer", "vite-tsconfig-paths", 'ssrLoadModule("/scripts/data/audit-metro-proximity-index-readiness.ts")',
   "await vite.close()",
 ]) requireText(files.auditRunner, token, `metro readiness audit runner missing ${token}`);
+
+for (const token of [
+  "McAllen authority expansion evidence", "Evidence-backed selected guides",
+  'metro.slug === "mcallen"', "quality-gated source catalog",
+]) requireText(files.audit, token, `McAllen indexing gap diagnostics missing ${token}`);
 
 for (const token of [
   "listResolvedDestinations({ limit: 5000 })", "METRO_PROXIMITY_METROS", "METRO_PROXIMITY_COLLECTIONS",

@@ -10,6 +10,7 @@ import { johnsonCityAuthorityDestinations } from "./johnson-city-authority-desti
 import { johnsonCityWildlifeDestinations } from "./johnson-city-wildlife-destinations";
 import { lbjBoyhoodHomeDestinations } from "./lbj-boyhood-home-destination";
 import { historicSiteDestinations } from "./historic-sites";
+import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
 import { austinMuseumDestinations } from "./museum-expansion-austin";
@@ -226,6 +227,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   twinSistersDanceHallDestinations,
   buggyBarnMuseumBlancoDestinations,
   historicSiteDestinations,
+  hidalgoPumphouseAuthorityDestinations,
   militaryHistoryDestinations,
   militaryMuseumDestinations,
   houstonGalvestonMuseumDestinations,

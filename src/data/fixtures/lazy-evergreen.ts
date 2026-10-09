@@ -45,11 +45,11 @@ const texasFarmToMarketRoadsExplainedStub: Article = {
 };
 
 const texasRiversExplainedStub: Article = {
-  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
+  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Texas Rivers Explained: Major Rivers, Basins & Map",
   dek: "Major Texas rivers and 15 river basins explained, including the Rio Grande, Brazos, Colorado, Guadalupe, Trinity and Sabine.",
   category: "lakes-rivers",
   hero: { src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg", alt: "The Guadalupe River flowing beneath bald cypress trees in the Texas Hill Country", width: 1600, height: 1115, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-13", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-08-13", updatedAt: "2026-10-09", readingMinutes: 17,
   tags: ["texas rivers", "river basins", "brazos river", "colorado river", "guadalupe river", "rio grande", "texas geography", "texas water"],
   featured: true, sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp",
   body: [], relatedCollections: [], relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park"],

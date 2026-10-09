@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { calculateAffordability } from '../../src/lib/financial/affordability.ts';
+import { calculateHouseholdBudget, createBudgetDefaults, migrateLegacyBudget, sanitizeBudget } from '../../src/lib/financial/budget-planner.ts';
 import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts';
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
@@ -135,5 +136,30 @@ const mortgageComponentSource = fs.readFileSync('src/components/calculators/Offi
 const mortgageFrameworkImport = mortgageComponentSource.match(/import\s*\{([\s\S]*?)\}\s*from '@\/components\/property\/PropertyCalculatorFramework';/)?.[1] ?? '';
 assert.match(mortgageFrameworkImport, /\bBreakdownChart\b/, 'OfficialMortgageCalculator must import BreakdownChart before rendering it');
 assert.ok(mortgageComponentSource.includes('<BreakdownChart items={housingBreakdown}/>'), 'OfficialMortgageCalculator must render the shared mortgage breakdown chart');
+
+
+const budgetBaseline = calculateHouseholdBudget(createBudgetDefaults());
+close(budgetBaseline.income, 7000, .001, 'example budget take-home income');
+close(budgetBaseline.expenses, 5250, .001, 'example budget expenses excluding savings');
+close(budgetBaseline.savings, 700, .001, 'savings shown outside expenses');
+close(budgetBaseline.remaining, 1050, .001, 'example budget remaining');
+close(budgetBaseline.savingsPercent, 10, .001, 'savings percent of income');
+close(budgetBaseline.annualRemaining, 12600, .001, '12-month no-growth projection');
+const annualBillBudget = calculateHouseholdBudget(sanitizeBudget({ annualTravel: 1200, annualPropertyTax: 2400 }, Object.fromEntries(Object.keys(createBudgetDefaults()).map(key => [key, 0])) as ReturnType<typeof createBudgetDefaults>));
+close(annualBillBudget.expenses, 300, .001, 'annual expenses converted to monthly reserve');
+const unsafeBudget = sanitizeBudget({ pay: -500, housingPayment: -10, otherExpenses: Infinity, extraIncome: 'not-a-number' });
+assert.equal(unsafeBudget.pay, 0, 'negative income is rejected');
+assert.equal(unsafeBudget.housingPayment, 0, 'negative expenses are rejected');
+assert.equal(unsafeBudget.otherExpenses, 0, 'non-finite amounts are rejected');
+assert.equal(unsafeBudget.extraIncome, 0, 'invalid shared URL values are rejected');
+assert.ok(Number.isFinite(calculateHouseholdBudget(unsafeBudget).remaining), 'budget must stay finite');
+const oldBudget = migrateLegacyBudget({ income: 4500, housing: 1800, transport: 400, food: 600, utilities: 300, debt: 100, savings: 500, other: 50 });
+const oldTotals = calculateHouseholdBudget(oldBudget);
+close(oldTotals.income, 4500, .001, 'legacy take-home migration');
+close(oldTotals.expenses, 3250, .001, 'legacy inputs never double count illustrative defaults');
+close(oldTotals.savings, 500, .001, 'legacy savings migration');
+close(oldTotals.remaining, 750, .001, 'legacy remaining migration');
+assert.ok(fs.readFileSync('src/components/calculators/TexasBudgetPlanner.tsx', 'utf8').includes('shareApproved'), 'budget share URL requires explicit acknowledgement');
+assert.ok(fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8').includes('TexasBudgetPlanner'), 'budget route must use detailed planner');
 
 console.log('Calculator platform validation passed: golden math, edge cases, cross-calculator consistency, universal actions, and shared breakdown components.');

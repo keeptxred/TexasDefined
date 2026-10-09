@@ -229,7 +229,7 @@ export const METRO_PROXIMITY_COLLECTIONS = [
     minCategories: 3,
     categories: CORE_TRAVEL_CATEGORIES,
     matchTerms: [] as const,
-    summary: "Destinations far enough from the city core to feel like a real outing, but close enough to consider for a single-day trip.",
+    summary: "An intentionally varied geographic shortlist of parks, towns, history and outdoor trips. Some farther results are long driving days or better as overnights; compare real road times before choosing.",
     searchIntent: "day trips and weekend drives",
   },
   {
@@ -468,6 +468,104 @@ function distanceBand(miles: number): MetroProximityResult["distanceBand"] {
   return "longer-day-trip";
 }
 
+// McAllen's wildlife refuges, museums and South Padre day trips must not
+// disappear behind a generic 18-mile minimum or distant Coastal Bend beaches.
+// These are editorial priorities, NOT driving-distance estimates.
+const MCALLEN_DAY_TRIP_PRIORITY = [
+  "bentsen-rio-grande-valley-state-park",
+  "santa-ana-national-wildlife-refuge",
+  "estero-llano-grande-state-park",
+  "museum-of-south-texas-history-edinburg",
+  "old-hidalgo-pumphouse-museum",
+  "resaca-de-la-palma-state-park",
+  "laguna-atascosa-national-wildlife-refuge",
+  "port-isabel-lighthouse",
+  "south-padre-island-beaches",
+  "isla-blanca-park",
+] as const;
+
+// Remote beach-access points can appear close on a straight-line map while
+// requiring long detours, permits or high-clearance 4WD. Exclude these from
+// ordinary day-trip discovery statewide, not just from McAllen. Their dedicated
+// destination guides and relevant specialist coastal collections remain intact.
+const REMOTE_DAY_TRIP_EXCLUSIONS = new Set([
+  "yarborough-pass",
+  "padre-island-national-seashore-backcountry",
+]);
+
+function selectMcAllenDayTrips(rows: Array<{ destination: Destination; distanceMiles: number }>, maxResults: number) {
+  const rank = (slug: string) => {
+    const position = (MCALLEN_DAY_TRIP_PRIORITY as readonly string[]).indexOf(slug);
+    return position < 0 ? MCALLEN_DAY_TRIP_PRIORITY.length : position;
+  };
+  const sorted = [...rows].sort((left, right) =>
+    rank(left.destination.slug) - rank(right.destination.slug)
+    || left.distanceMiles - right.distanceMiles
+    || left.destination.name.localeCompare(right.destination.name),
+  );
+  const townCounts = new Map<string, number>();
+  const selected: typeof rows = [];
+  for (const row of sorted) {
+    const town = row.destination.nearestTown.trim().toLowerCase() || row.destination.slug;
+    if ((townCounts.get(town) ?? 0) >= 2) continue;
+    selected.push(row);
+    townCounts.set(town, (townCounts.get(town) ?? 0) + 1);
+    if (selected.length === maxResults) break;
+  }
+  // Keep results ordered by geographic distance inside the final diversified
+  // set so the shared distance-band headings and ItemList remain coherent.
+  return selected.sort((left, right) =>
+    left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
+  );
+}
+
+// Nearby-trip pages should offer distinct places and experiences rather than
+// letting 30 attractions in a single tourist town crowd out other towns.
+// Preserve existing index-readiness thresholds, but show fewer better choices
+// rather than padding the page with multiple attractions in the same town.
+function selectDiverseDayTrips(rows: Array<{ destination: Destination; distanceMiles: number }>, collection: MetroProximityCollection) {
+  const sorted = [...rows].sort((left, right) =>
+    left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
+  );
+  const selected: typeof rows = [];
+  const included = new Set<string>();
+  const towns = new Map<string, number>();
+  const categories = new Map<CategorySlug, number>();
+  const categoryLimit = Math.max(2, Math.ceil(collection.maxResults * 0.45));
+
+  // First favor a mix of towns and activities, then relax only category
+  // concentration. Do not refill a useful diverse shortlist to an arbitrary
+  // 30 with repeated beaches or attractions from one town.
+  for (const categoryCap of [categoryLimit, Number.POSITIVE_INFINITY]) {
+    for (const row of sorted) {
+      if (selected.length === collection.maxResults) break;
+      if (included.has(row.destination.slug)) continue;
+      const town = row.destination.nearestTown.trim().toLowerCase() || row.destination.slug;
+      const category = row.destination.category;
+      if ((towns.get(town) ?? 0) >= 2 || (categories.get(category) ?? 0) >= categoryCap) continue;
+      selected.push(row);
+      included.add(row.destination.slug);
+      towns.set(town, (towns.get(town) ?? 0) + 1);
+      categories.set(category, (categories.get(category) ?? 0) + 1);
+    }
+    if (selected.length === collection.maxResults) break;
+  }
+  // Only relax the two-per-town cap when a sparse catalog otherwise fails
+  // the existing minimum result count; retain the independent diversity and
+  // source-quality checks that determine whether a page can be indexed.
+  if (selected.length < collection.minResults) {
+    for (const row of sorted) {
+      if (selected.length === collection.minResults || selected.length === collection.maxResults) break;
+      if (included.has(row.destination.slug)) continue;
+      selected.push(row);
+      included.add(row.destination.slug);
+    }
+  }
+  return selected.sort((left, right) =>
+    left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name),
+  );
+}
+
 function destinationSearchText(destination: Destination) {
   return [
     destination.name,
@@ -491,15 +589,24 @@ export function selectMetroProximityDestinations(
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
 ): MetroProximityResult[] {
+  const mcallenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  const minimumMiles = mcallenDayTrips ? 0 : collection.minimumMiles;
+  const radiusMiles = mcallenDayTrips ? 108 : collection.radiusMiles;
   const seen = new Set<string>();
-  const rows = destinations
+  const candidates = destinations
     .filter((destination) => destination.slug && !seen.has(destination.slug) && (seen.add(destination.slug), true))
     .filter((destination) => categoryMatches(destination, collection))
+    .filter((destination) => !(collection.slug === "day-trips" || (metro.slug === "mcallen" && collection.slug === "things-to-do")) || !REMOTE_DAY_TRIP_EXCLUSIONS.has(destination.slug))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
-    .filter((row) => (collection.minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > collection.minimumMiles) && row.distanceMiles <= collection.radiusMiles)
-    .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
-    .slice(0, collection.maxResults);
+    .filter((row) => (minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > minimumMiles) && row.distanceMiles <= radiusMiles);
+  const rows = mcallenDayTrips
+    ? selectMcAllenDayTrips(candidates, collection.maxResults)
+    : collection.slug === "day-trips"
+      ? selectDiverseDayTrips(candidates, collection)
+      : candidates
+        .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
+        .slice(0, collection.maxResults);
 
   return rows.map((row) => ({
     ...row,

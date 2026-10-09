@@ -9,6 +9,7 @@ const ledger = fs.readFileSync('scripts/ci/verified-worker-ledger.mjs', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
+const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
 
 const workflowDirectory = '.github/workflows';
@@ -54,6 +55,18 @@ const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
 
+const pushTriggerStart = workflow.indexOf('  push:\n');
+const workflowDispatchStart = workflow.indexOf('  workflow_dispatch:', pushTriggerStart);
+const pushTriggerBlock = pushTriggerStart >= 0
+  ? workflow.slice(pushTriggerStart, workflowDispatchStart > pushTriggerStart ? workflowDispatchStart : workflow.length)
+  : '';
+if (!pushTriggerBlock.includes('branches:\n      - main')) {
+  failures.push('Production deployment must run for pushes to main.');
+}
+if (pushTriggerBlock.includes('\n    paths:') || pushTriggerBlock.includes('\n    paths-ignore:')) {
+  failures.push('Production deployment must not path-filter main pushes while Cloudflare Git integration can deploy every production-branch push.');
+}
+
 for (const [needle, label] of [
   ['group: texasdefined-production', 'serialized production deployment concurrency group'],
   ['cancel-in-progress: false', 'production deployment serialization must not cancel an active Worker replacement'],
@@ -88,6 +101,9 @@ for (const [needle, label] of [
   ['path: artifacts/predeploy-current-*', 'visible predeploy incident diagnostics upload'],
   ['id: predeploy_health', 'predeploy fail-closed health gate'],
   ['Current production is unhealthy; deploy blocked', 'predeploy fail-closed error'],
+  ['id: cloudflare_git_build', 'Cloudflare Git-build serialization step'],
+  ['node scripts/ci/wait-for-cloudflare-git-build.mjs', 'Cloudflare Git-build serialization command'],
+  ['DEPLOYMENT / CONCURRENCY', 'Cloudflare Git-build serialization failure classification'],
   ['deployments: write', 'verified Worker ledger permission'],
   ['id: deployed_worker_version', 'immediate post-deploy Worker version capture'],
   ['id: verified_worker_version', 'post-verification active Worker version capture'],
@@ -258,23 +274,34 @@ const smokeIndex = workflow.indexOf('id: runtime_smoke');
 const predeployDirectIndex = workflow.indexOf('id: predeploy_direct_health');
 const predeployCanonicalIndex = workflow.indexOf('id: predeploy_canonical_health');
 const predeployGateIndex = workflow.indexOf('id: predeploy_health');
+const cloudflareGitBuildIndex = workflow.indexOf('id: cloudflare_git_build');
 const captureIndex = workflow.indexOf('id: rollback_target');
-const deployIndex = workflow.indexOf('id: cloudflare');
+const deployIndex = workflow.indexOf('id: cloudflare\n');
 if (
   smokeIndex < 0 ||
   predeployDirectIndex < 0 ||
   predeployCanonicalIndex < 0 ||
   predeployGateIndex < 0 ||
+  cloudflareGitBuildIndex < 0 ||
   captureIndex < 0 ||
   deployIndex < 0 ||
   smokeIndex > predeployDirectIndex ||
   predeployDirectIndex > predeployCanonicalIndex ||
   predeployCanonicalIndex > predeployGateIndex ||
-  predeployGateIndex > captureIndex ||
+  predeployGateIndex > cloudflareGitBuildIndex ||
+  cloudflareGitBuildIndex > captureIndex ||
   captureIndex > deployIndex
 ) {
-  failures.push('The built Worker smoke and current direct/canonical health gate must pass before rollback-target capture and Cloudflare deployment.');
+  failures.push('The built Worker smoke and current direct/canonical health gate must pass before Cloudflare Git-build serialization, rollback-target capture and protected Cloudflare deployment.');
 }
+
+for (const [needle, label] of [
+  ["const checkName = 'Workers Builds: texasdefined-site';", 'Cloudflare Git-build check name'],
+  ["const appSlug = 'cloudflare-workers-and-pages';", 'Cloudflare GitHub app identity'],
+  ["commits/${sha}/check-runs?per_page=100", 'Cloudflare Git-build GitHub check query'],
+  ["check.status !== 'completed'", 'Cloudflare Git-build completion gate'],
+  ['refusing to race an external production deployment', 'Cloudflare Git-build timeout fail-closed behavior'],
+]) requireText(cloudflareGitBuildWait, needle, label);
 
 const deployedVersionIndex = workflow.indexOf('id: deployed_worker_version');
 const liveGateIndex = workflow.indexOf('id: live\n');
@@ -365,4 +392,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential, verifies live public DNS/Cloudflare edge routing without privileged zone/DNS scope, and verifies Workers AI through the production binding instead of a broad REST token; targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: every main push enters the protected production workflow; any Cloudflare Git integration build for that SHA must settle before rollback-target capture and protected deployment; current production must be healthy before replacement; failed releases capture visible diagnostics and rollback; Cloudflare production smoke routes Workers API probes through the deploy-capable credential, verifies live public DNS/Cloudflare edge routing without privileged zone/DNS scope, and verifies Workers AI through the production binding instead of a broad REST token; targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
