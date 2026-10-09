@@ -15,7 +15,12 @@ const fingerprintedArtifact = "governed-discover-derivatives-${{ steps.discover_
 assert.equal(workflow.split(fingerprintedArtifact).length - 1, 2, "successful and failed builds must use the same provenance-scoped artifact namespace");
 assert.match(workflow, /- name: Preserve verified governed Discover derivatives for the next build[\s\S]*?if: \$\{\{ success\(\) && steps\.build\.outcome == 'success' \}\}/);
 assert.match(workflow, /- name: Capture governed Discover derivatives after failed build[\s\S]*?steps\.build\.outcome == 'failure'/);
-assert.match(materializer, /if \(!source\.startsWith\("\/"\) && fsSync\.existsSync\(output\)\) continue;/);
+assert.match(materializer, /if \(!localSource \|\| !fsSync\.existsSync\(localSource\)\)/);
+assert.match(materializer, /verifyDerivative\(slug, output\)/);
+const deferredSourceGuard = materializer.indexOf("if (!localSource || !fsSync.existsSync(localSource))");
+assert.ok(deferredSourceGuard > 0, "deferred local sources need an explicit guard");
+assert.ok(materializer.indexOf("verifyDerivative(slug, output);", deferredSourceGuard) > deferredSourceGuard,
+  "existing derivative must be dimension-verified before the build may reuse it");
 assert.match(materializer, /if \(identify\.status !== 0 \|\| identify\.stdout\.trim\(\) !== "1600x900"\)/);
 assert.match(materializer, /if \(!type\.toLowerCase\(\)\.startsWith\("image\/"\)\)/);
 assert.match(workflow, /- name: Verify current direct Worker before deploy/);
