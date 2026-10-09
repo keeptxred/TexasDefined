@@ -76,6 +76,15 @@ assert(countyComponent.includes('{venue.description ? <span'), 'County sports de
 assert(entityRoute.includes("const countySportsCandidates = entity.kind === 'county'"), 'County route must continue deriving sports venues from the loaded full graph.');
 assert(entityRoute.includes("candidate.kind === 'sports-venue'"), 'County route must continue selecting sports venues from the loaded full graph.');
 assert(entityRoute.includes('.map(applyCurrentEntityCorrections)'), 'County route must suppress retired generated sports-venue seed descriptions before rendering cards.');
+const countySportsBlock = entityRoute.slice(
+  entityRoute.indexOf("const countySportsCandidates = entity.kind === 'county'"),
+  entityRoute.indexOf("const countySportsEditorial"),
+);
+assert(
+  countySportsBlock.indexOf('.map(applyCurrentEntityCorrections)') >= 0
+    && countySportsBlock.indexOf('.filter(isIndexableEntityPage)') > countySportsBlock.indexOf('.map(applyCurrentEntityCorrections)'),
+  'County route must apply current sports-venue corrections before the indexability gate so corrected authority descriptions are eligible for county cards.',
+);
 assert(entityRoute.includes("getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } })"), 'County route must bulk-load vetted sports-venue editorial descriptions.');
 assert(entityRoute.includes('countySportsEditorial[venue.id]'), 'County route must apply vetted sports-venue editorial descriptions to county cards.');
 
