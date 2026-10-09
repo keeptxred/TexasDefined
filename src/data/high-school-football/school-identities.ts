@@ -12,6 +12,13 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'abilene-cooper',
+    mascot: 'Cougars',
+    sourceUrl: 'https://www.abileneisd.org/o/chs/article/2937582',
+    sourceLabel: 'Official Cooper High School 2026 athletics announcement and Cougars identity',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abernathy',
     mascot: 'Antelopes',
     colors: 'Maroon and White',
