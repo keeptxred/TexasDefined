@@ -23,6 +23,7 @@ const southlakeCarrollProfilePath = '/texas-high-school-football-teams/southlake
 const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const springProfilePath = '/texas-high-school-football-teams/spring';
+const shamrockProfilePath = '/texas-high-school-football-teams/shamrock';
 const universalProfileCases = [
   { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
   { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
@@ -587,6 +588,35 @@ await fetchVerified(springProfilePath, 'Spring football school profile', (body) 
   if (/\bnoindex\b/i.test(body)) throw new Error('Spring football school profile unexpectedly contains noindex');
 });
 
+await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile', (body) => {
+  verifyBatch001SchoolSeo(body, shamrockProfilePath, 'Shamrock Fighting Irish Football: 2026 Schedule, Coach & UIL District');
+  for (const needle of [
+    'Shamrock Fighting Irish Football',
+    'Nate Skelton',
+    '2A Division II',
+    'District 5',
+    'UIL reported enrollment',
+    '100.5',
+    'Enrollment and football placement are different here.',
+    'enrollment submission in',
+    '1A',
+    'Final football placement',
+    '2026 results &amp; schedule',
+    'Record when checked',
+    '1–4',
+    'Winters',
+    'Wellington',
+    'Quanah',
+    'Wheeler',
+    'El Paso Field',
+    'Shamrock ISD 2026 football schedule',
+  ]) requireNeedle(body, needle, 'Shamrock football authority profile');
+  if (/UIL enrollment band<\/dt>[\s\S]{0,300}?105–175\.5/i.test(decodeHtml(body))) {
+    throw new Error('Shamrock profile incorrectly labels the normal 2A Division II cutoff as Shamrock’s enrollment band');
+  }
+  if (/\bnoindex\b/i.test(body)) throw new Error('Shamrock football authority profile unexpectedly contains noindex');
+});
+
 for (const profile of universalProfileCases) {
   await fetchVerified(profile.path, `${profile.classification} universal football profile ${profile.name}`, (body) => {
     for (const needle of [
@@ -615,6 +645,7 @@ await fetchVerified('/sitemap.xml', 'sitemap', (body) => {
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/abbott</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/keller</loc>', 'sitemap');
   requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/spring</loc>', 'sitemap');
+  requireNeedle(body, '<loc>https://texasdefined.com/texas-high-school-football-teams/shamrock</loc>', 'sitemap');
   for (const profile of universalProfileCases) {
     requireNeedle(body, `<loc>https://texasdefined.com${profile.path}</loc>`, 'sitemap universal football profile');
   }
@@ -628,4 +659,4 @@ await fetchVerified('/robots.txt', 'robots', (body) => {
   if (/Disallow:\s*\/sports(?:\/|\s|$)/i.test(body)) throw new Error('robots.txt blocks /sports');
 });
 
-console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus 2026–28 enrollment bands, 192 canonical UIL district hubs, statewide championship-history hub, shared 6A and 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');
+console.log('Friday Night Lights production smoke passed: all-1,268 UIL directory, exact official UIL enrollments plus exception-safe final football placement, Shamrock’s verified 2026 authority profile, 192 canonical UIL district hubs, statewide championship-history hub, shared 6A through 1A school-profile system, district/enrollment/eligibility research, verified stadium relationships, current-season scores/schedules guidance, the 2026 UIL season calendar, sitemap and robots are live.');
