@@ -109,6 +109,7 @@ const SPORTS_VENUE_GUIDE_WAVE7: Record<string, SportsVenueGuidePilot> = {
     officialUrl: 'https://msrhouston.com/',
     eventScheduleUrl: 'https://msrhouston.com/calendar/',
     reviewedAt: '2026-10-09',
+    bagPolicy: 'No single stadium-style bag-size rule applies to every MSR Houston road-course event. Entry, coolers, camera access, credentials and paddock restrictions are set by the event organizer and venue; confirm them along with waiver requirements before arrival.',
     accessibility: 'The track is an outdoor working paddock and road-course campus. The operator does not publish one universal event-accessibility or spectator-parking plan; contact MSR Houston and the event organizer about accessible entry, restrooms, viewing and parking before visiting.',
     faqs: [
       { question: 'Is MSR Houston open to the public?', answer: 'The operator says the facility permits public entry with a signed waiver, but road-course driving is primarily for members, eligible member guests or people registered with schools and event organizers. Do not confuse facility entry with permission to drive.' },
