@@ -53,7 +53,7 @@ const cityProductionChecks = [
   ['city-houston-social', '/city/houston', 'Houston_texas_usa_skyline.jpg?width=1600', 'social'],
   ['city-dallas-authority', '/city/dallas', 'Choose one evening district', 'profile'],
   ['city-dallas-social', '/city/dallas', 'Dallas_Texas_Skyline.jpg?width=1600', 'social'],
-  ['city-fort-worth-authority', '/city/fort-worth', 'Panther Island & Trinity River', 'profile'],
+  ['city-fort-worth-authority', '/city/fort-worth', 'Panther Island', 'profile'],
   ['city-fort-worth-social', '/city/fort-worth', 'Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600', 'social'],
   ['city-austin-authority', '/city/austin', 'Lady Bird Lake + South Congress', 'profile'],
   ['city-austin-social', '/city/austin', 'Austin%2C_TX_skyline_2026.jpg?width=1600', 'social'],
