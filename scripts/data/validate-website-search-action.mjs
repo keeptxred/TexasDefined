@@ -25,8 +25,8 @@ if (!siteSearchShell.includes('searchDocumentsQuery()')) errors.push('Site-wide 
 if (!siteSearchShell.includes('await import("@/data/queries")')) errors.push('Site-wide search route shell must dynamically load the publication query module.');
 if (siteSearchRoute.includes('fetchExploreDestinations')) errors.push('Site-wide search route must not bypass the resolved destination search index with a raw Explore fetch.');
 for (const feature of [
-  'fetchExploreDestinations({ limit: 5000 })',
-  'fetchCoreExploreDestinations({ limit: 5000 })',
+  'fetchExploreDestinations({ limit: 5000 , signal })',
+  'fetchCoreExploreDestinations({ limit: 5000 , signal })',
   'reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations))',
   'const nonDestinationDocuments = base.filter((document) => document.kind !== "destination")',
   'if (!destinations.length) return nonDestinationDocuments',
