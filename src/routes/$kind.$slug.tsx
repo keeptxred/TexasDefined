@@ -24,8 +24,9 @@ export const Route = createFileRoute('/$kind/$slug')({
     const related = rankRelatedEntities(entity, graph, 12);
     const countySportsCandidates = entity.kind === 'county'
       ? graph
-        .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug && isIndexableEntityPage(candidate))
+        .filter((candidate) => candidate.kind === 'sports-venue' && candidate.countySlug === entity.slug)
         .map(applyCurrentEntityCorrections)
+        .filter(isIndexableEntityPage)
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     const countySportsEditorial = countySportsCandidates.length
