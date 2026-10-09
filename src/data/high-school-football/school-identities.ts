@@ -19,6 +19,13 @@ export type VerifiedFootballSchoolIdentity = {
   },
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'alice',
+    mascot: 'Coyotes',
+    sourceUrl: 'https://ahs.aliceisd.net/en-US/football-e260d291',
+    sourceLabel: 'Alice High School official Coyotes football program',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'albany',
     mascot: 'Lions',
     colors: 'Red and White',
