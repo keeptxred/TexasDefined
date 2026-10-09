@@ -22,7 +22,7 @@ const profiles = [
 ];
 
 for (const marker of [
-  'title: "Major Rivers of Texas: Basins, Regions & Waterways Explained"',
+  'title: "Texas Rivers Explained: Major Rivers, Basins & Map"',
   'major rivers and river basins of Texas',
   'href: "/article/texas-river-basins-guide"',
   'href: "/article/texas-lakes-reservoirs-explained"',
@@ -62,14 +62,14 @@ for (const marker of [
   'Texas Water Development Board — River Basins',
   'Texas Water Development Board — Major River Basins Map',
   'Sources, methodology and verification',
-  'lastVerified="October 3, 2026"',
+  'lastVerified="October 9, 2026"',
   'Recommended citation',
   'https://texasdefined.com/article/texas-rivers-explained',
 ]) if (!citationTrust.includes(marker)) errors.push(`Texas rivers citation trust contract missing: ${marker}`);
 
 for (const marker of [
   'const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";',
-  'const lastVerified = "2026-10-03";',
+  'const lastVerified = "2026-10-09";',
   'const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";',
   'const majorBasins = [',
   'const coastalBasins = [',
