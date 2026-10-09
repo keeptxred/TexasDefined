@@ -139,8 +139,8 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
   "/article/texas-rivers-explained": {
-    title: "Major Rivers in Texas: Boundary Rivers, Regions & Map",
-    description: "Find Texas's major and boundary rivers by region, from the Rio Grande and Pecos to the Brazos, Colorado, Trinity and Sabine, with maps and waterway context.",
+    title: "Texas Rivers Explained: Major Rivers, Basins & Map",
+    description: "Explore Texas rivers with the official basin map, all 15 major basin statistics, headwaters, boundary rivers, reservoir links and river access guidance.",
   },
   "/article/texas-river-basins-guide": {
     title: "Texas River Basins: 15 Major, 8 Coastal & Watershed Map",
@@ -247,8 +247,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Follow the Texas Colorado River through the Highland Lakes and Austin to the Gulf, with basin geography, reservoirs, Hill Country context and key places.",
   },
   "/article/texas-ecoregions-habitats-guide": {
-    title: "Texas Ecoregions: Habitats, Landscapes & Wildlife Guide",
-    description: "Explore Texas ecoregions from Piney Woods and prairies to Edwards Plateau, South Texas brush, desert and mountains, with habitats and wildlife by region.",
+    title: "Texas Ecoregions Map: All 10 Natural Regions & Habitats",
+    description: "Compare all 10 TPWD Texas natural regions on one map, with rainfall, terrain, vegetation, water, wildlife context, representative places and official GIS sources.",
   },
   "/article/texas-home-architecture-regions": {
     title: "Texas Home Styles: Ranch, Hill Country, Craftsman & More",
