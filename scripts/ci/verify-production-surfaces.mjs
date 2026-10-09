@@ -69,7 +69,7 @@ const surfaces = [
   ['flat-creek-estate-official-link', '/destination/flat-creek-estate', 'https://flatcreekestate.com/'],
   ['flat-creek-estate-canonical', '/destination/flat-creek-estate', 'https://texasdefined.com/destination/flat-creek-estate'],
   ['young-county-museum-authority', '/destination/young-county-museum-of-history-and-culture', 'Young County Museum of History & Culture'],
-  ['young-county-museum-original-research', '/destination/young-county-museum-of-history-and-culture', 'Three research paths through the museum&#x27;s archives'],
+  ['young-county-museum-original-research', '/destination/young-county-museum-of-history-and-culture', 'Three research paths through the museum'],
   ['young-county-museum-county-inbound', '/county/young', '/destination/young-county-museum-of-history-and-culture'],
   ['the-old-post-authentic-photo', '/destination/old-post-office-museum-art-center-graham', 'United_States_Post_Office_Graham_Wiki'],
   ['the-old-post-reciprocal-museum-link', '/destination/old-post-office-museum-art-center-graham', '/destination/young-county-museum-of-history-and-culture'],
