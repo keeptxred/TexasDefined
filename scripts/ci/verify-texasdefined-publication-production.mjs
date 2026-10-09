@@ -33,6 +33,9 @@ if (!/<(?:sitemapindex|urlset)(?:\s|>)/i.test(sitemap.body)) {
   throw new Error('/sitemap.xml returned a successful HTTP status without a valid sitemap root');
 }
 console.log(JSON.stringify({ surface: '/sitemap.xml', status: sitemap.status, ok: true }));
+const ecoregionsSitemapNeedle = '<loc>' + origin + '/article/texas-ecoregions-habitats-guide</loc><lastmod>2026-10-09</lastmod>';
+const compactSitemap = sitemap.body.replace(/\\s+/g, '');
+if (!compactSitemap.includes(ecoregionsSitemapNeedle)) throw new Error('ecoregions sitemap entry is missing 2026-10-09 lastmod');
 // Govern the Texas ecoregions authority page as a production-critical evergreen surface.
 const ecoregionsPath = '/article/texas-ecoregions-habitats-guide';
 const ecoregions = await fetchHealthy(ecoregionsPath, 'Texas Ecoregions: Complete Map & Guide to All 10 Natural Regions');
@@ -56,6 +59,12 @@ for (const expected of [
   'Texas Water Development Board',
   'National Park Service',
   'Big Thicket National Preserve',
+  'Lake Mineral Wells State Park',
+  'Cedar Hill State Park',
+  'Bentsen-Rio Grande Valley State Park',
+  'Compare all 10 TPWD natural regions',
+  'Jump to a region',
+  'Why Texas ecoregion maps show different numbers',
 ]) {
   if (!ecoregions.body.includes(expected)) throw new Error(`${ecoregionsPath} is missing expected authority marker: ${expected}`);
 }
@@ -74,7 +83,9 @@ if (!['Travel & outdoors desk', 'Travel &amp; outdoors desk'].some((role) => eco
   throw new Error('/authors/a-dell is missing the expected Travel & outdoors desk role');
 }
 const ecoregionsMap = await fetchHealthy('/images/editorial/texas-ecoregions-map.svg', 'Texas natural regions');
+if (!ecoregionsMap.body.includes('boundary-informed 10-region orientation map')) throw new Error('/images/editorial/texas-ecoregions-map.svg is missing the boundary-informed map contract');
 const ecoregionsCsv = await fetchHealthy('/data/texas-ecoregions.csv', 'region,orientation,landscape,signature_vegetation,representative_place');
+if (!ecoregionsCsv.body.includes('annual_rainfall,elevation_or_terrain,water_context,management_pressures,framework_source')) throw new Error('/data/texas-ecoregions.csv is missing the expanded regional comparison fields');
 for (const region of ['Piney Woods','Gulf Prairies and Marshes','Post Oak Savannah','Blackland Prairie','Cross Timbers','South Texas Plains','Edwards Plateau','Rolling Plains','High Plains','Trans-Pecos']) {
   if (!ecoregionsCsv.body.includes(region)) throw new Error(`/data/texas-ecoregions.csv is missing region: ${region}`);
 }
