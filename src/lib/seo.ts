@@ -247,8 +247,8 @@ const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = imp
     description: "Follow the Texas Colorado River through the Highland Lakes and Austin to the Gulf, with basin geography, reservoirs, Hill Country context and key places.",
   },
   "/article/texas-ecoregions-habitats-guide": {
-    title: "Texas Ecoregions: Habitats, Landscapes & Wildlife Guide",
-    description: "Explore Texas ecoregions from Piney Woods and prairies to Edwards Plateau, South Texas brush, desert and mountains, with habitats and wildlife by region.",
+    title: "Texas Ecoregions Map: All 10 Natural Regions & Habitats",
+    description: "Compare all 10 TPWD Texas natural regions on one map, with rainfall, terrain, vegetation, water, wildlife context, representative places and official GIS sources.",
   },
   "/article/texas-home-architecture-regions": {
     title: "Texas Home Styles: Ranch, Hill Country, Craftsman & More",

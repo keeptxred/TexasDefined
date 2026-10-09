@@ -23,6 +23,7 @@ import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+import { TexasEcoregionsAuthority } from "@/components/content/TexasEcoregionsAuthority";
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -390,7 +391,8 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
-  const hideGenericRelatedRail = article.slug === "texas-ecoregions-habitats-guide";
+  const isEcoregionsArticle = article.slug === "texas-ecoregions-habitats-guide";
+  const hideGenericRelatedRail = isEcoregionsArticle;
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
@@ -427,6 +429,14 @@ function ArticlePage() {
         {!isTexasExplainedPillar && <p className="mt-5 max-w-2xl text-base leading-7 text-ink-foreground/86 sm:mt-6 sm:text-lg sm:leading-8">{article.dek}</p>}
       </Container>
     </section>
+    {isEcoregionsArticle ? <Container className="py-8 sm:py-10">
+      <figure className="overflow-hidden rounded-2xl border border-border bg-[#f4efe5] p-3 sm:p-5">
+        <img src={article.hero.src} alt={article.hero.alt} width={article.hero.width} height={article.hero.height} className="h-auto w-full object-contain" decoding="async" />
+        <figcaption id="ecoregions-map-caption" className="mt-3 text-sm leading-6 text-muted-foreground">
+          Boundary-informed TexasDefined orientation map using the TPWD 10-region framework. Boundaries are generalized for statewide reading; use the linked TPWD/EPA GIS layers for exact analysis.
+        </figcaption>
+      </figure>
+    </Container> : null}
     <Container className="relative max-w-3xl py-10 sm:py-16">
       {isTexasRiversArticle ? (
         <div className="flex flex-wrap items-center gap-2 border-b border-border pb-5 text-sm text-muted-foreground">
@@ -443,6 +453,7 @@ function ArticlePage() {
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
+      {isEcoregionsArticle ? <TexasEcoregionsAuthority /> : null}
       {isTexasExplainedPillar && (isTexasRiversArticle ? <aside className="mt-6 border-y border-border py-4" aria-label="Texas Explained series">
         <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
           <p className="font-semibold text-foreground">Texas Explained · Guide {texasExplainedPillarPosition + 1} of {texasExplainedPillarOrder.length}</p>
@@ -486,7 +497,7 @@ function ArticlePage() {
         </Suspense>
       ) : null}
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
+      {article.hero.credit && !isEcoregionsArticle && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
