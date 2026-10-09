@@ -35,7 +35,12 @@ const citySitemapContractMarkers = [
 ];
 const citySitemapEvidenceStep = workflow.slice(workflow.indexOf('- name: Preserve live city sitemap verification evidence'));
 const liveBaseEvidenceStep = workflow.slice(workflow.indexOf('- name: Verify base production surfaces'), workflow.indexOf('- name: Preserve live city sitemap verification evidence'));
+const githubStatusPublisher = fs.readFileSync('scripts/ci/publish-github-status.mjs', 'utf8');
 const failures = [];
+for (const marker of ['process.env.GITHUB_RUN_ID', 'target_url: targetUrl', '/actions/runs/']) {
+  if (!githubStatusPublisher.includes(marker)) failures.push('Production status must expose its GitHub Actions run for evidence retrieval: ' + marker);
+}
+
 for (const needle of ['set -o pipefail', 'node scripts/ci/verify-production-surfaces.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log']) {
   if (!liveBaseEvidenceStep.includes(needle)) failures.push('Production city sitemap evidence capture must remain fail-closed: ' + needle);
 }
