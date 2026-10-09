@@ -157,12 +157,11 @@ export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage
 
 function EntityPage() {
   const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
-  // Both existing county authority pages and the two football-linked Houston /
-  // Fort Worth city guides defer first-party lodging DOM writes until React
-  // hydration. Existing county guards and affiliate content are preserved.
+  // All canonical city and county routes wait for React hydration before
+  // first-party affiliate scripts modify the route's DOM. Preserve the
+  // established readiness signal for backward compatibility with county QA.
   useEffect(() => {
-    const guardedCity = entity.kind === 'city' && (entity.slug === 'houston' || entity.slug === 'fort-worth');
-    if (entity.kind !== 'county' && !guardedCity) return;
+    if (entity.kind !== 'county' && entity.kind !== 'city') return;
     document.documentElement.dataset.tdFootballCountyHydrated = '1';
     window.dispatchEvent(new Event('texasdefined:county-hydrated'));
     return () => { delete document.documentElement.dataset.tdFootballCountyHydrated; };
