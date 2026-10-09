@@ -157,11 +157,12 @@ export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage
 
 function EntityPage() {
   const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
-  // Individually audited football-linked Van Zandt, Hill, Fort Bend and Jeff Davis
-  // county pages defer first-party lodging inserts until React route hydration.
-  // Do not suppress those panels once their React tree is ready.
+  // Both existing county authority pages and the two football-linked Houston /
+  // Fort Worth city guides defer first-party lodging DOM writes until React
+  // hydration. Existing county guards and affiliate content are preserved.
   useEffect(() => {
-    if (entity.kind !== 'county') return;
+    const guardedCity = entity.kind === 'city' && (entity.slug === 'houston' || entity.slug === 'fort-worth');
+    if (entity.kind !== 'county' && !guardedCity) return;
     document.documentElement.dataset.tdFootballCountyHydrated = '1';
     window.dispatchEvent(new Event('texasdefined:county-hydrated'));
     return () => { delete document.documentElement.dataset.tdFootballCountyHydrated; };

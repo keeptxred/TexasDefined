@@ -566,8 +566,11 @@
   // Their lodging cards wait for route hydration; the pages still show eligible cards afterward.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return /^\/county\/[a-z0-9-]+$/.test(path)
-      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+    // Houston and Fort Worth now render school reciprocity inside React. As with
+    // counties, affiliate DOM insertion must wait until route hydration completes.
+    const guardedRoute = /^\/county\/[a-z0-9-]+$/.test(path)
+      || /^\/city\/(?:houston|fort-worth)$/.test(path);
+    return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
   async function syncSurface() {
