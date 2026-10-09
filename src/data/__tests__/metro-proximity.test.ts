@@ -13,6 +13,7 @@ import {
   selectMetroProximityTownReferences,
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
+import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
 
@@ -265,4 +266,20 @@ test("non-day-trip proximity collections retain their existing geographic orderi
   }));
   const selected = selectMetroProximityDestinations(sameTown, metro, collection);
   assert.equal(selected.length, sameTown.length, "do not silently constrain other collection families");
+});
+
+test("McAllen nine-site World Birding Center authority uses unique, source-backed, accessible visitor choices", () => {
+  const expectedTowns = ["Roma", "Mission", "McAllen", "Hidalgo", "Edinburg", "Weslaco", "Harlingen", "Brownsville", "South Padre Island"];
+  assert.equal(MCALLEN_WBC_SITES.length, 9, "the real network comprises three parks and six community sites");
+  assert.deepEqual(MCALLEN_WBC_SITES.map((site) => site.location.split(" · ")[0]), expectedTowns);
+  assert.equal(new Set(MCALLEN_WBC_SITES.map((site) => site.name)).size, 9);
+  assert.equal(new Set(MCALLEN_WBC_SITES.map((site) => site.official)).size, 9);
+  for (const site of MCALLEN_WBC_SITES) {
+    assert.equal(new URL(site.official).protocol, "https:", site.name);
+    assert.ok(site.plan.length > 90 && site.before.length > 60 && site.fit.length >= 16, site.name);
+    assert.ok(!/\babout \d+ (?:minutes|hours) away\b/i.test(site.plan), "do not invent road-time estimates");
+  }
+  for (const source of Object.values(MCALLEN_WBC_SOURCES)) {
+    assert.equal(new URL(source).protocol, "https:");
+  }
 });

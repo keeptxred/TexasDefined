@@ -47,6 +47,10 @@ const surfaces = [
   ['metro-el-paso-weekend-trips', '/explore/near/el-paso/weekend-trips', 'Weekend Trips From El Paso, Texas'],
   ['metro-lubbock-hub', '/explore/near/lubbock', 'Explore by trip type'],
   ['metro-mcallen-hub', '/explore/near/mcallen', 'Explore by trip type'],
+  ['metro-mcallen-world-birding-center', '/explore/near/mcallen', 'Nine World Birding Center sites. Nine different ways to explore the Valley.'],
+  ['metro-mcallen-world-birding-roma', '/explore/near/mcallen', 'Roma Bluffs World Birding Center'],
+  ['metro-mcallen-world-birding-operator', '/explore/near/mcallen', 'Current official visitor information'],
+
   ['metro-mcallen-day-trips-title', '/explore/near/mcallen/day-trips', 'Best Day Trips From McAllen, Texas'],
   ['metro-mcallen-day-trips-editorial', '/explore/near/mcallen/day-trips', 'Which McAllen day trip fits your day?'],
   ['metro-mcallen-day-trips-access', '/explore/near/mcallen/day-trips', 'Remote four-wheel-drive beach routes are not ordinary day-trip recommendations.'],
