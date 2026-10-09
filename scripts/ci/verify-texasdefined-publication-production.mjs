@@ -52,7 +52,7 @@ for (const expected of [
   'Methodology',
   'Recommended citation',
 ]) {
-  if (!ecoregions.body.includes(expected)) throw new Error(\`${ecoregionsPath} is missing expected authority marker: ${expected}\`);
+  if (!ecoregions.body.includes(expected)) throw new Error(`${ecoregionsPath} is missing expected authority marker: ${expected}`);
 }
 for (const stale of [
   'Texas Ecoregions Explained: Why the Landscape Changes So Fast',
@@ -60,12 +60,12 @@ for (const stale of [
   'Hiking Texas Trails With Your Dog',
   'Texas Dogs at Lakes and Rivers',
 ]) {
-  if (ecoregions.body.includes(stale)) throw new Error(\`${ecoregionsPath} still exposes stale production content: ${stale}\`);
+  if (ecoregions.body.includes(stale)) throw new Error(`${ecoregionsPath} still exposes stale production content: ${stale}`);
 }
 const ecoregionsMap = await fetchHealthy('/images/editorial/texas-ecoregions-map.svg', 'Texas natural regions');
 const ecoregionsCsv = await fetchHealthy('/data/texas-ecoregions.csv', 'region,orientation,landscape,signature_vegetation,representative_place');
 for (const region of ['Piney Woods','Gulf Prairies and Marshes','Post Oak Savannah','Blackland Prairie','Cross Timbers','South Texas Plains','Edwards Plateau','Rolling Plains','High Plains','Trans-Pecos']) {
-  if (!ecoregionsCsv.body.includes(region)) throw new Error(\`/data/texas-ecoregions.csv is missing region: ${region}\`);
+  if (!ecoregionsCsv.body.includes(region)) throw new Error(`/data/texas-ecoregions.csv is missing region: ${region}`);
 }
 console.log(JSON.stringify({ surface: ecoregionsPath, status: ecoregions.status, mapStatus: ecoregionsMap.status, csvStatus: ecoregionsCsv.status, ok: true }));
 
