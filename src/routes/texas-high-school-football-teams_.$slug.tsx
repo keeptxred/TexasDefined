@@ -33,7 +33,9 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: editorial?.seo?.title ?? `${teamName} Football: 2026 District, Schedule & Team Guide`,
+        title: editorial?.seo?.title ?? (editorial?.season || editorial?.schedule
+          ? `${teamName} Football: 2026 District, Schedule & Team Guide`
+          : `${teamName} Football: 2026 District & Team Guide`),
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
