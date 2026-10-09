@@ -106,14 +106,26 @@ console.log(`County property snapshot now contains ${nextCount} verified countie
 function parseCountyDirectory(html) {
   const items = [];
   const seen = new Set();
-  const pattern = /<a[^>]+href=["']([^"']*county-directory\/([^"'?#/]+\.php))["'][^>]*>([\s\S]*?)<\/a>/gi;
+  // The Comptroller sometimes uses relative hrefs (anderson.php) rather than
+  // /county-directory/anderson.php. Resolve both forms to the exact official
+  // directory path and require the three-digit county index in the link label.
+  const pattern = /<a[^>]+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const directoryPath = new URL(DIRECTORY_URL).pathname;
   for (const match of html.matchAll(pattern)) {
-    const label = stripHtml(match[3]).replace(/^\d{3}\s+/, '').trim();
-    if (!label) continue;
+    const labelText = stripHtml(match[2]).trim();
+    const indexed = /^(\d{3})\s+(.+)$/.exec(labelText);
+    if (!indexed) continue;
+    const label = indexed[2].trim();
     const slug = slugify(label);
+    let url;
+    try { url = new URL(match[1], DIRECTORY_URL); }
+    catch { continue; }
+    if (url.origin !== new URL(DIRECTORY_URL).origin
+      || !url.pathname.startsWith(directoryPath)
+      || !/\/[a-z0-9-]+\.php$/i.test(url.pathname)) continue;
     if (seen.has(slug)) continue;
     seen.add(slug);
-    items.push({ slug, name: label, url: new URL(match[1], DIRECTORY_URL).toString() });
+    items.push({ slug, name: label, url: url.toString() });
   }
   return items.sort((a, b) => a.name.localeCompare(b.name));
 }
