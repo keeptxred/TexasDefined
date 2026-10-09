@@ -125,7 +125,7 @@ const SPORTS_VENUE_GUIDE_WAVE7: Record<string, SportsVenueGuidePilot> = {
       { question: 'Are pets permitted?', answer: 'MSR Houston says leashed pets are allowed, subject to any more specific event instructions. Motor noise, hot pavement and paddock traffic make extra care important.' },
     ],
     nearbyPlaces: [
-      { label: 'Angleton, Texas', detail: 'The city containing MSR Houston; check lodging, food and other services before a track event', href: '/city/angleton' },
+      { label: 'Texas motorsports guide', detail: 'Compare road courses, racetracks and motorsports experiences across Texas', href: '/sports-venues/motorsports' },
       { label: 'Brazoria County', detail: 'County hub for the surrounding Gulf Coast area and regional destinations', href: '/county/brazoria' },
       { label: 'Texas sports venues', detail: 'Find and compare other Texas racing, motorsports and spectator destinations', href: '/sports-venues' },
       { label: 'Texas road trips', detail: 'Plan travel beyond a single event weekend', href: '/explore/road-trips' },
