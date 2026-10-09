@@ -1,4 +1,5 @@
 import { appendFileSync } from 'node:fs';
+import { matchesExpectedSurface } from './html-surface-marker.mjs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
@@ -259,7 +260,7 @@ async function verifyRevisionBoundSurface(label, path, needle) {
 
       if (lastChallenge) {
         console.log(`[${label}] Cloudflare returned cf-mitigated: challenge; waiting for the edge to become healthy.`);
-      } else if (response.ok && lastBody.includes(needle)) {
+      } else if (response.ok && matchesExpectedSurface(lastBody, needle)) {
         console.log(`[${label}] verified (${response.status}): ${needle}`);
         passed = true;
         break;
