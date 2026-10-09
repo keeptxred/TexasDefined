@@ -194,6 +194,11 @@ function EntityPage() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{batch001FootballLink.description}</p>
             <p className="mt-2 text-xs text-muted-foreground">Campus county checked against <a href={batch001FootballLink.campusCountySource} target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">federal school records ↗</a>. This independent football guide is not an official school website.</p>
             {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/abilene-texas-leadership" className="text-lg font-semibold text-primary underline underline-offset-4">Texas Leadership of Abilene Eagles football →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Explore Abilene's younger public-charter program, the fifth season of eleven-man football and 2026 head coach Webb Murphy.</p>
+              <p className="mt-2 text-xs text-muted-foreground">The <a href="https://www.texasleadershipabilene.com/campus/secondary-campus" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">official secondary campus</a> is in Abilene, Taylor County; the network's San Angelo headquarters must not be confused with the Abilene football school.</p>
+            </div>}
+            {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
               <a href="/texas-high-school-football-teams/abilene-cooper" className="text-lg font-semibold text-primary underline underline-offset-4">Abilene Cooper Cougars football profile →</a>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">Discover the Cougars' 1967 and 1996 state-final appearances, the 1961-origin Crosstown Showdown and 2026 head coach Scott Stewart.</p>
               <p className="mt-2 text-xs text-muted-foreground">Cooper's Taylor County campus confirmed by <a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000016" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">NCES school record ↗</a>. Independent editorial, not an official athletic department.</p>
