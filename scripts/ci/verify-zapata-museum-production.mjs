@@ -1,8 +1,31 @@
 /**
  * Advisory, destination-specific live certification after successful Cloudflare deployment.
- * This never replaces the core fail-closed production gate, and never claims photo ownership.
+ * Does not replace the core fail-closed production gate. The museum hero must\n * be a locally authored illustration unless photo reuse rights are documented.
  * Usage: node scripts/ci/verify-zapata-museum-production.mjs
  */
+import { readFileSync } from 'node:fs';
+
+if (process.argv.includes('--source-only')) {
+  const component = readFileSync(new URL('../../src/components/editorial/ZapataCountyMuseumAuthority.tsx', import.meta.url), 'utf8');
+  const catalog = readFileSync(new URL('../../src/data/museum-expansion-statewide-wave9.ts', import.meta.url), 'utf8');
+  const expected = [
+    '<img src="/images/zapata-county-museum-history-editorial.svg"',
+    'not a photograph of the museum',
+    'last tour begins at 3:30 p.m.',
+    'https://zapatamuseum.com/index.php/contact-us',
+  ];
+  const missing = expected.filter((value) => !component.includes(value));
+  if (missing.length) throw new Error('Zapata museum source contract failed: ' + missing.join(', '));
+  if (component.includes('src="https://www.co.zapata.tx.us/uploadedImages')) {
+    throw new Error('A third-party county museum image is embedded without a documented reuse license');
+  }
+  if (!catalog.includes('src: "/images/zapata-county-museum-history-editorial.svg"')) {
+    throw new Error('Museum social/structured-data hero must match the rights-safe local illustration');
+  }
+  console.log('PASS: Zapata museum illustration and source contract are rights-safe and consistent.');
+  process.exit(0);
+}
+
 const origin = (process.env.ZAPATA_MUSEUM_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const path = '/destination/zapata-county-museum-history';
 const canonical = `${origin}${path}`;
@@ -31,10 +54,15 @@ function verifyMuseumHtml(html) {
     'zapata-county-museum-history-editorial.svg',
     '805 N U.S. Highway 83',
     'Museum tour overview',
+    'Original TexasDefined editorial illustration',
+    'last tour begins at 3:30 p.m.',
     'application/ld+json',
   ];
-  if (process.env.ZAPATA_EXPECT_COUNTY_PHOTO !== 'false') {
-    required.push('Zapata%20County%20Museum.jpg', 'Zapata County Commissioners Court project gallery');
+  if (!/<img\\b[^>]*\\bsrc=(['"])\\/images\\/zapata-county-museum-history-editorial\\.svg\\1/i.test(html)) {
+    throw new Error('Locally authored illustration is missing from the rendered museum hero');
+  }
+  if (html.includes('Zapata%20County%20Museum.jpg') || html.includes('uploadedImages/zapata/Content/Page')) {
+    throw new Error('Museum page still embeds the third-party county exterior photo');
   }
   const missing = required.filter((marker) => !html.includes(marker));
   if (missing.length) throw new Error(`Missing museum HTML markers: ${missing.join('; ')}`);
@@ -57,7 +85,7 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const nonce = `museum-live-${Date.now()}-${attempt}`;
     const { content } = await download(`${canonical}?verification=${nonce}`);
     verifyMuseumHtml(content);
-    // The county hosts the primary photograph; we verify the local backup asset independently.
+    // Verify that the independently authored local hero is publicly accessible.
     const asset = await download(`${origin}${imagePath}?verification=${nonce}`);
     const mime = asset.response.headers.get('content-type') || '';
     if (!mime.includes('image/svg+xml')) throw new Error(`Hero SVG returned unexpected type: ${mime}`);
@@ -78,7 +106,7 @@ for (let attempt = 1; attempt <= attempts; attempt += 1) {
       if (sitemapError instanceof Error && sitemapError.message.includes('missing from the healthy Explore sitemap')) throw sitemapError;
       console.warn(`Explore sitemap unavailable; dedicated page indexability remains verified: ${sitemapError instanceof Error ? sitemapError.message : String(sitemapError)}`);
     }
-    console.log(`PASS: Zapata museum public HTML, official county photo URL and credit, canonical, indexability, exhibit content, Museum schema and backup illustration (attempt ${attempt}).`);
+    console.log(`PASS: Zapata museum public HTML, rights-safe local hero, canonical, indexability, exhibit content and Museum schema (attempt ${attempt}).`);
     process.exit(0);
   } catch (error) {
     lastError = error;
