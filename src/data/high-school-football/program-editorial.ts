@@ -59,6 +59,199 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "allen",
+    "theme": {
+      "accentHex": "#103F79",
+      "label": "Original Eagle-blue editorial timeline color, not an official logo"
+    },
+    "seo": {
+      "title": "Allen Eagles Football: Five State Titles, Lee Wiginton & 2026 Stadium Guide",
+      "description": "Allen Eagles football history: 2008–2017 five UIL titles, Kyler Murray era, coach Lee Wiginton, 2026 District 6 schedule and Eagle Stadium entrance rules."
+    },
+    "coach": {
+      "name": "Lee Wiginton",
+      "title": "Head football coach (since June 2022)",
+      "sourceUrl": "https://www.alleneaglesfb.com/coaching-staff",
+      "sourceLabel": "Allen Eagles football official 2026 coaching directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "301 Rivercrest Boulevard, Allen, TX 75002 (high-school campus, not automatic gate entrance)",
+      "sourceUrl": "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
+      "sourceLabel": "Allen High School current varsity directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Allen Eagles 2026 varsity football schedule",
+      "sourceUrl": "https://www.alleneaglesfb.com/schedule",
+      "sourceLabel": "Allen Eagles football team site",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "5–0 through September 25, 2026; October 9 McKinney result not yet verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 varsity result snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Duncanville",
+          "site": "Home",
+          "result": "W 26–7"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "DeSoto",
+          "site": "Home",
+          "result": "W 50–6"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Southlake Carroll",
+          "site": "Away",
+          "result": "W 56–35"
+        },
+        {
+          "date": "Sept. 17",
+          "opponent": "Prosper",
+          "site": "Away",
+          "district": true,
+          "result": "W 51–21"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Princeton",
+          "site": "Home",
+          "district": true,
+          "result": "W 65–7"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "McKinney",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Prosper Rock Hill",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Dallas Jesuit",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "McKinney Boyd",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Prosper Walnut Grove",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Eagle Stadium",
+      "address": "155 Rivercrest Boulevard, Allen, TX 75002 — official district football event address",
+      "sourceUrl": "https://www.allenisd.org/",
+      "sourceLabel": "Allen ISD event calendar lists October 23 Eagle Stadium match address",
+      "verifiedAt": "2026-10-09",
+      "note": "Allen ISD's August 25, 2026 published Eagle Stadium procedures specify visitor tickets enter from the visitor side, while home-side ticket holders can use either side; metal detectors at all entrances and a no-bag line are provided. Clear totes must be at most 12×12×6 inches, or use a one-gallon clear storage bag; clutches at most 4.5×6.5 inches. Gate tickets are card-only and the district requests the HomeTown Fan app for tickets. Verify accessible arrival and parking with Allen ISD directly; published seating policy is not an accessible-route map."
+    },
+    "overview": [
+      "Allen High School's Eagles are one of North Texas' most decorated modern UIL football programs, with five state championships: 2008, 2012, 2013, 2014 and 2017. Allen ISD's own athletics department publishes exactly those five football titles; the 2012–14 three-title run and the later 2017 win belong to the Eagles, not a neighboring Collin County school.",
+      "Allen football history reaches back to 1936 according to the program's own Protect the Tradition history. That football history records the five title seasons, 18,000-seat Eagle Stadium and multiple state semifinal appearances. Enrollment and win-tally summaries on promotional pages can use different counting windows; a documented title list is stronger than a guessed program-wide percentage.",
+      "The 2013 championship team was led by quarterback Kyler Murray during the Tom Westerberg years; Dave Campbell's 2026 program retrospective identifies the 2013 Eagles as one of the top teams in state history and reports 807 points that season. Tom Westerberg coached Allen's 2012–14 champion era, followed by Terry Gambill for the 2017 UIL crown. These coaching eras should not be conflated with the current staff.",
+      "The current Allen Eagles team directory names Lee Wiginton head coach, hired in June 2022, with John Broom offensive coordinator and Chase Hargis defensive coordinator. This is an important 2026 update: older season archives still display Terry Gambill or Tom Westerberg as coaches for their own historical seasons. Allen's 2026–28 alignment puts it in 6A District 6 with McKinney, Princeton, Prosper and other North Texas opponents.",
+      "Allen's 2026 season opened with wins over Duncanville 26–7, DeSoto 50–6, Southlake Carroll 56–35, Prosper 51–21 and Princeton 65–7. The Oct. 9 McKinney contest is scheduled but no result was verified in this October 9 snapshot. Those results do not by themselves establish a current playoff championship or completed unbeaten season.",
+      "Eagle Stadium is a practical part of Allen's football story. Allen ISD's 2026 security release establishes actual visitor-side gate direction, transparent bag restrictions, card-only gate purchases and metal screening. Its event calendar places football at 155 Rivercrest Boulevard; avoid directing visitors to the nearby high-school campus contact address as though it were necessarily their ticket-scanning entrance."
+    ],
+    "milestones": [
+      {
+        "date": "1936",
+        "title": "Program origins",
+        "body": "The Eagles' official football history places Allen's program founding in 1936.",
+        "sourceUrl": "https://www.alleneaglesfb.com/protect-the-tradition",
+        "sourceLabel": "Allen Eagles football program history"
+      },
+      {
+        "date": "2008",
+        "title": "First championship in the modern five-title sequence",
+        "body": "Allen ISD identifies 2008 as the Eagles' first of five UIL football state-title years in its published list.",
+        "sourceUrl": "https://www.allenisd.org/page/athletics",
+        "sourceLabel": "Allen ISD football championship archive"
+      },
+      {
+        "date": "2012–2014",
+        "title": "Three consecutive UIL crowns",
+        "body": "Allen won championships in 2012, 2013 and 2014. The 2013 Kyler Murray-led team scored 807 points in Dave Campbell's modern retrospective.",
+        "sourceUrl": "https://www.texasfootball.com/amp/article/2026/05/20/allen-eagles-where-everything-is-bigger-%E2%80%93-and-better",
+        "sourceLabel": "Dave Campbell's Texas Football Allen retrospective"
+      },
+      {
+        "date": "2017",
+        "title": "Fifth state football championship",
+        "body": "The school district's five-title list culminates with 2017; this championship occurred in Terry Gambill's coaching era.",
+        "sourceUrl": "https://www.allenisd.org/page/athletics",
+        "sourceLabel": "Official Allen ISD athletic championship list"
+      },
+      {
+        "date": "June 2022",
+        "title": "Lee Wiginton begins Allen coaching tenure",
+        "body": "The team site identifies Lee Wiginton as head coach since June 2022 and gives his previous coaching background.",
+        "sourceUrl": "https://www.alleneaglesfb.com/coaches/lee-wiginton",
+        "sourceLabel": "Allen Eagles official coach biography"
+      },
+      {
+        "date": "Aug. 25, 2026",
+        "title": "New-season stadium entrance and safety policies",
+        "body": "Allen ISD published 2026–27 stadium procedures covering ticket sides, metal detectors, bag dimensions and card-only gate admission.",
+        "sourceUrl": "https://www.allenisd.org/article/3092730",
+        "sourceLabel": "Allen ISD 2026 stadium rules"
+      },
+      {
+        "date": "Sept. 2026",
+        "title": "Five wins to open season",
+        "body": "The Eagles' first five completed match records include wins over Duncanville, DeSoto and Southlake Carroll before district wins against Prosper and Princeton.",
+        "sourceUrl": "https://www.maxpreps.com/tx/allen/allen-eagles/football/schedule/",
+        "sourceLabel": "2026 varsity score listing"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many UIL state football championships has Allen won?",
+        "answer": "Five: 2008, 2012, 2013, 2014 and 2017, according to Allen ISD's athletics title listing."
+      },
+      {
+        "question": "Who is Allen's football head coach in 2026?",
+        "answer": "Allen's current team coaching staff identifies Lee Wiginton as head football coach, with John Broom coordinating offense and Chase Hargis defense."
+      },
+      {
+        "question": "Did Kyler Murray win a state title at Allen?",
+        "answer": "Yes. The celebrated 2013 Allen championship team was led by quarterback Kyler Murray, who is a key figure in the school's Tom Westerberg-era three-title run."
+      },
+      {
+        "question": "Which UIL district does Allen play in for 2026?",
+        "answer": "Class 6A District 6 for the 2026–28 cycle, including Prosper, McKinney, Princeton, McKinney Boyd, Rock Hill, Walnut Grove and Dallas Jesuit."
+      },
+      {
+        "question": "Where is Eagle Stadium and how should visiting fans enter?",
+        "answer": "Allen ISD lists football events at 155 Rivercrest Boulevard in Allen. Its 2026 stadium rules direct holders of visitor tickets to enter on the visitor side, require metal screening, and provide a no-bag line. Confirm parking and accessible entry with the district."
+      },
+      {
+        "question": "What is the current Eagle Stadium bag and ticket policy?",
+        "answer": "The district's August 2026 stadium policy permits a clear tote up to 12×12×6 inches or one-gallon clear bag, plus a small clutch up to 4.5×6.5 inches. Gate tickets require a debit or credit card, and the district encourages HomeTown Fan tickets."
+      }
+    ]
+  },
+  {
     "slug": "all-saints-fort-worth",
     "theme": {
       "accentHex": "#4E3C79",
