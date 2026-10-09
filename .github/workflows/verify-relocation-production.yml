@@ -1,11 +1,6 @@
 name: Verify relocation production
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/verify-relocation-production.yml'
-      - 'scripts/ci/verify-relocation-production.mjs'
   pull_request:
     paths:
       - 'scripts/ci/verify-relocation-production.mjs'
@@ -51,10 +46,11 @@ jobs:
         run: node --check scripts/ci/verify-relocation-production.mjs
 
   verify:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -77,7 +73,7 @@ jobs:
             url="${PRODUCTION_ORIGIN}${path}"
             separator='?'
             if [[ "$path" == *'?'* ]]; then separator='&'; fi
-            probe_url="${url}${separator}relocation_probe=${GITHUB_SHA}-${RANDOM}"
+            probe_url="${url}${separator}relocation_probe=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${RANDOM}"
             body="$(curl -fsSL --max-time 30 -H 'cache-control: no-cache' -H 'pragma: no-cache' -A 'TexasDefined-Relocation-Route-Probe/1.0' "$probe_url" 2>/dev/null)"
             curl_status=$?
             if [[ $curl_status -eq 0 ]] && grep -Fq "$needle" <<<"$body"; then
