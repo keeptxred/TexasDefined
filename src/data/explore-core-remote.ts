@@ -127,7 +127,7 @@ async function requestCoreRows(params: URLSearchParams): Promise<Record<string, 
   return Array.isArray(rows) ? rows : [];
 }
 
-export async function fetchCoreExploreDestinations(options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {}): Promise<Destination[]> {
+export async function fetchCoreExploreDestinations(options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number; signal?: AbortSignal } = {}): Promise<Destination[]> {
   if (!hasExploreRemoteData()) return [];
   const limit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
   const params = baseParams();
@@ -140,17 +140,22 @@ export async function fetchCoreExploreDestinations(options: { featured?: boolean
   // Non-category callers should not hydrate a 5,000-row catalog for a six-item card.
   const destinations: Destination[] = [];
   for (let offset = 0; offset < MAX_REMOTE_DESTINATIONS && destinations.length < limit; offset += PAGE_SIZE) {
+    // Cancel the catalog scan after its page request times out, without
+    // aborting an upstream read that other callers may be coalescing.
+    options.signal?.throwIfAborted();
     const pageSize = options.category ? PAGE_SIZE : Math.min(PAGE_SIZE, limit - destinations.length);
     const pageParams = new URLSearchParams(params);
     pageParams.set("offset", String(offset));
     pageParams.set("limit", String(pageSize));
     const page = await requestCoreRows(pageParams);
+    options.signal?.throwIfAborted();
     for (const row of page) {
       const destination = mapRow(row);
       if (!options.category || destination.category === options.category) destinations.push(destination);
     }
     if (page.length < pageSize) break;
   }
+  options.signal?.throwIfAborted();
   return destinations.slice(0, limit);
 }
 
