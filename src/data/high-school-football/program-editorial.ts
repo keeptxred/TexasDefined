@@ -59,6 +59,191 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "altair-rice",
+    "theme": {
+      "accentHex": "#7C322A",
+      "label": "Original Raiders wine-red editorial accent, not official athletics artwork or validated school uniform colors"
+    },
+    "seo": {
+      "title": "Rice Consolidated Raiders Football: 2026 Schedule, History & Stadium",
+      "description": "Altair Rice Consolidated Raiders football: 2026 UIL 3A District 14, Brad Dumont, playoff history, Rice Veterans' Memorial Stadium and Colorado County visitor facts."
+    },
+    "coach": {
+      "name": "Brad Dumont",
+      "title": "2026 head football coach attributed by MaxPreps season history; official district hiring date not independently verified",
+      "sourceUrl": "https://www.maxpreps.com/tx/altair/rice-consolidated-raiders/football/history/",
+      "sourceLabel": "MaxPreps 2026–27 Raiders football coach and season history",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1095 Raider Drive, Altair, TX 77412",
+      "phone": "979-234-3531 ext. 1200",
+      "sourceUrl": "https://ricehs.ricecisd.org/athletics",
+      "sourceLabel": "Official Rice Consolidated High School athletics/contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Rice Consolidated Raiders 2026 varsity schedule",
+      "sourceUrl": "https://www.pigskinprep.com/archive/Schedulespdf/Altair%20Rice%20Consolidated.pdf",
+      "sourceLabel": "Published 2026 Raider Football Schedule — includes varsity home/away and district games",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–1 through September 18, 2026; later Boling and Industrial results not confirmed",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
+      "sourceLabel": "Dave Campbell's Texas Football 2026 score snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Houston Wheatley",
+          "site": "Home",
+          "result": "W 24–22"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Hempstead",
+          "site": "Home",
+          "result": "W 48–9"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Schulenburg",
+          "site": "Away",
+          "result": "W 63–27"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Edna",
+          "site": "Home",
+          "result": "L 14–27"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Boling",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Vanderbilt Industrial",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Wallis Brazos",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "East Bernard",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Tidehaven",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Van Vleck",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Rice Veterans' Memorial Stadium",
+      "address": "Altair, Texas — exact spectator gate and parking location not independently established",
+      "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
+      "sourceLabel": "Dave Campbell's stadium and 2026 team history",
+      "verifiedAt": "2026-10-09",
+      "note": "The program reference names Rice Veterans' Memorial Stadium and estimates historical capacity at 4,393. This is not proof of the present seat count or any 2026 ADA entrance policy. The official high-school contact uses 1095 Raider Drive, while the Rice CISD athletic district pages may show 1094 Raider Drive; neither address is independently confirmed as the event's spectator gate. Verify tickets, parking, bag procedures, and accessible entry with the school for the assigned match."
+    },
+    "overview": [
+      "Rice Consolidated football represents the Raiders of Rice Consolidated High School in Altair, Colorado County. The school and its Rice CISD district are entirely different from Rice University's Houston Owls; the Raiders participate in Texas UIL Class 3A Division II, District 14 for the 2026–28 alignment.",
+      "The Raiders have documented playoff tradition rather than a state championship. Dave Campbell's history archive records 22 playoff appearances with zero championship-game appearances and zero football state titles. Listing real postseason experience is valuable without inflating district wins or ordinary playoffs into a state final.",
+      "The school's recent years show sharply contrasting results: a 7–4 2024 season followed by 1–9 in 2025, in the same historical archive. MaxPreps' 2026–27 team history associates head coach Brad Dumont with these seasons; an up-to-date Rice CISD appointment announcement was not independently confirmed, so coaching attribution remains explicit.",
+      "The 2026 Raiders opened with three wins in a row: 24–22 over Houston Wheatley, 48–9 over Hempstead and 63–27 at Schulenburg, before a 14–27 loss to Edna on September 18. That puts the last cross-checked snapshot at 3–1 before the October district fixtures; score feeds inspected still omitted later final scores, so this is a dated rather than live record.",
+      "The dated published 2026 varsity schedule assigns district games to Boling, Industrial, Brazos, East Bernard, Tidehaven and Van Vleck, with some opponents requiring longer rural road travel. The Oct. 9 Industrial game is listed as away; do not send travelling fans to the Altair campus for an away fixture.",
+      "Rice Veterans' Memorial Stadium is the venue named by the Texas Football program directory. High school campus location, athletic-office mailing address, and a particular stadium entrance are separate pieces of visitor information; TexasDefined does not substitute any of the former for an unverified game-night gate. School athletics contacts should supply current parking and accessible entrances."
+    ],
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "Twenty-two reported playoff appearances",
+        "body": "Dave Campbell's football archive lists 22 Raider playoff appearances, zero title-game appearances and zero state football championships.",
+        "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
+        "sourceLabel": "Dave Campbell's Rice Consolidated history"
+      },
+      {
+        "date": "2024",
+        "title": "Seven-win postseason season",
+        "body": "Rice Consolidated finished 7–4 in 2024 according to the program's past-season ledger and entered postseason play.",
+        "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
+        "sourceLabel": "Program season results"
+      },
+      {
+        "date": "2025",
+        "title": "One-win campaign",
+        "body": "The following year the archive records a 1–9 finish; 2025 and 2026 records must not be conflated.",
+        "sourceUrl": "https://www.maxpreps.com/tx/altair/rice-consolidated-raiders/football/history/",
+        "sourceLabel": "MaxPreps verified previous season listings"
+      },
+      {
+        "date": "Sept. 10, 2026",
+        "title": "Third consecutive win at Schulenburg",
+        "body": "The 2026 results archive documents a 63–27 victory at Schulenburg, following wins over Wheatley and Hempstead.",
+        "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
+        "sourceLabel": "Dave Campbell's 2026 results"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Edna ends undefeated start",
+        "body": "Rice Consolidated lost 14–27 to Edna, leaving a documented 3–1 start before district games.",
+        "sourceUrl": "https://www.maxpreps.com/tx/altair/rice-consolidated-raiders/football/",
+        "sourceLabel": "MaxPreps Edna match report"
+      },
+      {
+        "date": "2026–28",
+        "title": "3A Division II District 14",
+        "body": "The 2026 varsity schedule lists six district opponents beginning with Boling, plus Industrial, Brazos, East Bernard, Tidehaven and Van Vleck.",
+        "sourceUrl": "https://www.pigskinprep.com/archive/Schedulespdf/Altair%20Rice%20Consolidated.pdf",
+        "sourceLabel": "Published Raider 2026 varsity schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Altair Rice Consolidated the same as Rice University?",
+        "answer": "No. Rice Consolidated High School's Raiders are in Altair, Colorado County, and compete in UIL high-school football. Rice University's Owls are a separate collegiate program in Houston."
+      },
+      {
+        "question": "Has Rice Consolidated won a UIL football state championship?",
+        "answer": "The Dave Campbell's historical program archive lists zero title-game appearances and zero championships, with 22 reported playoff appearances."
+      },
+      {
+        "question": "Who coaches Rice Consolidated football in 2026?",
+        "answer": "MaxPreps' 2026–27 school program history lists Brad Dumont as head coach. For changes and verified athletic department appointments, use Rice CISD athletics."
+      },
+      {
+        "question": "What district do the Raiders belong to?",
+        "answer": "UIL Class 3A Division II District 14 in the 2026–28 cycle, with Boling, Industrial, Brazos, East Bernard, Tidehaven and Van Vleck on the posted 2026 district schedule."
+      },
+      {
+        "question": "Where does Rice Consolidated play home games?",
+        "answer": "The school program directory identifies Rice Veterans' Memorial Stadium in Altair. The school address 1095 Raider Drive is verified for the campus but not independently verified as a stadium gate."
+      },
+      {
+        "question": "What was Rice Consolidated's 2026 record through September 18?",
+        "answer": "Three wins and one loss, following victories over Wheatley, Hempstead and Schulenburg and a loss to Edna. Later scores require fresh checking."
+      }
+    ]
+  },
+  {
     "slug": "alpine",
     "theme": {
       "accentHex": "#6A3B24",
