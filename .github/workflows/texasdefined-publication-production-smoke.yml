@@ -35,6 +35,5 @@ jobs:
             exit 1
           fi
           echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
-      # Historical label retained because the static readiness validator treats it as a contract token.
-      - name: Verify live news, Canyon Lake article and sitemap membership
+      - name: Verify live news, published article canonicals and sitemap XML
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
