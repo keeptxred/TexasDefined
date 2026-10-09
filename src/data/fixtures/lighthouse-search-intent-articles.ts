@@ -20,7 +20,7 @@ const lighthouseImages = {
   ),
   bolivar: image(
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg?width=1600",
-    "Point Bolivar Lighthouse on the Bolivar Peninsula at the entrance to Galveston Bay",
+    "Historical photograph of Point Bolivar Lighthouse on the Bolivar Peninsula; the exterior has since been repainted in black-and-white stripes",
     2502,
     1888,
     "Patrick Feller · CC BY 2.0 · Wikimedia Commons",
@@ -67,7 +67,7 @@ export const lighthouseSearchIntentArticles: Article[] = [
     hero,
     authorId: "a-hollis",
     publishedAt: "2026-08-21",
-    updatedAt: "2026-10-01",
+    updatedAt: "2026-10-09",
     readingMinutes: 18,
     tags: ["best lighthouses in texas", "texas lighthouses to visit", "port isabel lighthouse", "point bolivar lighthouse", "lydia ann lighthouse", "matagorda island lighthouse", "halfmoon reef lighthouse", "texas gulf coast"],
     featured: true,
@@ -80,7 +80,7 @@ export const lighthouseSearchIntentArticles: Article[] = [
       { href: "/article/texas-lighthouses-complete-guide", label: "Read the complete Texas lighthouse history", description: "Go beyond the visitor guide into the coastwide network of surviving and lost lights." },
       { href: "/article/texas-lighthouse-road-trip", label: "Plan the Texas lighthouse road trip", description: "Turn the lighthouse list into a multi-day Gulf Coast itinerary." },
       { href: "/destination/port-isabel-lighthouse", label: "Plan a Port Isabel Lighthouse visit", description: "Use the destination guide for the only Texas lighthouse built around a conventional public tower visit." },
-      { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse authority guide", description: "Read the full history of the black tower at the Galveston Bay entrance." },
+      { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse authority guide", description: "Read about the Galveston Bay tower, its hurricane history and its black-and-white restoration." },
       { href: "/article/halfmoon-reef-lighthouse-port-lavaca", label: "Halfmoon Reef Lighthouse authority guide", description: "See how the Matagorda Bay screw-pile light was moved ashore and preserved." },
       { href: "/article/lydia-ann-lighthouse-port-aransas", label: "Lydia Ann Lighthouse authority guide", description: "Understand the Aransas Pass light, Lighthouse Lakes and the working waterways around Port Aransas." },
       { href: "/article/matagorda-island-lighthouse-history", label: "Matagorda Island Lighthouse authority guide", description: "Go deeper on Pass Cavallo, the barrier island and the restored cast-iron tower." },
@@ -91,14 +91,6 @@ export const lighthouseSearchIntentArticles: Article[] = [
       { type: "paragraph", text: "Texas does not have six interchangeable lighthouse attractions. One is a true public climb. One is a private tower best understood from the Galveston Bay approach. One is a relocated lighthouse you can see easily from land. One survives beside the waterways around Port Aransas. One stands on a remote barrier island with restricted, boat-only access. The eastern historical endpoint is actually on the Louisiana side of the Sabine. Use this page as a visitability guide, then use the linked authority pages for the deeper history." },
 
       { type: "heading", text: "Texas lighthouses at a glance: access, climbs and trip difficulty" },
-      { type: "list", items: [
-        "Port Isabel Lighthouse — Port Isabel · Public site: yes · Tower climb: yes when operating · Lighthouse hours: daily 9 a.m.–6 p.m. off-season and 10 a.m.–9 p.m. in summer, weather permitting · Visitor Center: daily 9 a.m.–5 p.m. · Current admission: adults $5, seniors $4, children age 5+ $3, military $2.50 · Trip difficulty: easy · Best nearby base: Port Isabel / South Padre Island.",
-        "Point Bolivar Lighthouse — Bolivar Peninsula · Public tower access: no · Tower climb: no · Best viewing method: lawful public vantage points and the Galveston-Port Bolivar ferry corridor · Trip difficulty: easy · Best nearby base: Galveston / Crystal Beach · Respect private property.",
-        "Halfmoon Reef Lighthouse — Port Lavaca · Publicly viewable from land: yes · Tower climb: no · Best viewing method: Bayfront Park / roadside historic stop · Trip difficulty: easy · Best nearby base: Port Lavaca · The structure is relocated from its original Matagorda Bay setting; do not rely on unofficial museum-hour listings for tower access.",
-        "Lydia Ann Lighthouse — Harbor Island near Port Aransas · Public tower access: no · Tower climb: no · Best viewing method: public waterways and Lighthouse Lakes paddling country · Trip difficulty: moderate · Best nearby base: Port Aransas / Aransas Pass · Do not enter private lighthouse property.",
-        "Matagorda Island Lighthouse — Matagorda Island · Road access: none; boat access only · Tower climb: not a conventional public attraction · Current TPWD guidance: call ahead because access is restricted; the north-end route through the lighthouse area may be used for unsupervised wildlife viewing and hiking during daylight hours · Trip difficulty: high · Best nearby base: Port O'Connor.",
-        "Sabine Pass Lighthouse — Louisiana side of the Sabine · Conventional Texas lighthouse visit: no · Tower climb: no public Texas-side climb · Best experience: Texas-side battle, ship-channel and maritime context · Trip difficulty: moderate if the goal is history rather than tower access · Best nearby base: Port Arthur / Sabine Pass."
-      ] },
       { type: "paragraph", text: "There is no single admission price for a Texas lighthouse trip because most of these are not ticketed lighthouse attractions. Port Isabel is the key exception. The Texas Historical Commission currently lists adults at $5, seniors at $4, children age 5 and older at $3, and military admission at $2.50. Because weather and seasonal operations can affect the climb, the official site remains the final check before departure." },
 
       { type: "heading", text: "1. Port Isabel Lighthouse — best overall" },
@@ -110,11 +102,12 @@ export const lighthouseSearchIntentArticles: Article[] = [
       { type: "paragraph", text: "Official authority to verify: Texas Historical Commission, Port Isabel Lighthouse historic-site page, plan-your-visit page and site history." },
 
       { type: "heading", text: "2. Point Bolivar Lighthouse — best for Galveston Bay history" },
-      { type: "image", image: lighthouseImages.bolivar, caption: "Point Bolivar Lighthouse stands on the Bolivar side of the Galveston Bay entrance; treat it as a view-only private landmark." },
-      { type: "paragraph", text: "Point Bolivar is the lighthouse that makes immediate sense when you approach Galveston Bay. The black cast-iron tower stands on the Bolivar side of the entrance, opposite Galveston Island and beside a maritime corridor still crowded with ferries and commercial traffic. The present tower was first lit in 1873 after Civil War disruption ended the earlier station." },
+      { type: "image", image: lighthouseImages.bolivar, caption: "Historical view of the private Point Bolivar Lighthouse. Its exterior was repainted in historic black-and-white stripes; this photo should not be used as a current-condition report." },
+      { type: "paragraph", text: "Point Bolivar is the lighthouse that makes immediate sense when you approach Galveston Bay. The cast-iron tower, now restored to its historic black-and-white striped exterior, stands on the Bolivar side of the entrance, opposite Galveston Island and beside a maritime corridor still crowded with ferries and commercial traffic. The present tower was first lit in 1873 after Civil War disruption ended the earlier station." },
+      { type: "paragraph", text: "Restoration update (verified October 9, 2026): the Bolivar Point Lighthouse Foundation reports that stabilization and exterior repainting are complete, revealing the historic black-and-white stripes for the first time in more than 75 years. Historical all-black photos should be labeled by era; the restoration does not mean the privately owned tower is open to the public." },
       { type: "paragraph", text: "The lighthouse also became a refuge during the catastrophic 1900 and 1915 hurricanes. That history makes the tower more than a navigation landmark. It is a physical reminder of how exposed Gulf Coast communities depended on the strongest structures available when major storms arrived." },
       { type: "paragraph", text: "Practical plan: do not plan on entering or climbing the lighthouse. Treat it as a private, view-only historic landmark and keep the Galveston-Port Bolivar Ferry in the itinerary. The ferry corridor, ships, jetties and low coastal terrain explain the tower's original job better than a disconnected roadside photo would." },
-      { type: "paragraph", text: "Official authorities to verify: U.S. Coast Guard Historian's Office for lighthouse history; Texas Department of Transportation for current Galveston-Port Bolivar Ferry operations." },
+      { type: "paragraph", text: "Official authorities to verify: Bolivar Point Lighthouse Foundation for restoration and private-property guidance; U.S. Coast Guard Historian's Office for history; TxDOT for current ferry operations and wait times." },
 
       { type: "heading", text: "3. Halfmoon Reef Lighthouse — best easy historic stop from land" },
       { type: "image", image: lighthouseImages.halfmoon, caption: "Halfmoon Reef Lighthouse was moved from Matagorda Bay to Port Lavaca, making it one of the easiest historic Texas lighthouse structures to see from land." },
@@ -134,8 +127,8 @@ export const lighthouseSearchIntentArticles: Article[] = [
       { type: "image", image: lighthouseImages.matagorda, caption: "Matagorda Island Lighthouse stands in a remote barrier-island setting near Pass Cavallo; current TPWD guidance makes this a restricted, boat-only daylight outing rather than a normal roadside attraction." },
       { type: "paragraph", text: "Matagorda Island Lighthouse is the opposite of a quick roadside stop. The tower is tied to Pass Cavallo, barrier-island geography and the old shipping routes into Matagorda Bay. An earlier light was built in the 1850s, the Civil War damaged the station, and the lighthouse was rebuilt farther inland in 1873 using surviving cast-iron material along with new components." },
       { type: "paragraph", text: "The surviving tower is one of the most atmospheric lighthouse settings on the Texas coast because the island remains remote. There is no ordinary road bridge to the lighthouse. Texas Parks and Wildlife currently says access to Matagorda Island Wildlife Management Area is restricted and visitors should call ahead; the island is accessible only by boat." },
-      { type: "paragraph", text: "The important nuance is that 'restricted' does not mean the lighthouse area is categorically closed. TPWD says the north end of the island—including the headquarters/runway area, road system to the lighthouse and beach—is available for unsupervised wildlife viewing and hiking during daylight hours. Because management arrangements and transportation can change, confirm the current rules before committing to the trip." },
-      { type: "paragraph", text: "Practical plan: begin with Port O'Connor, arrange lawful boat access, call ahead as TPWD directs and treat the outing as a remote wildlife-management-area visit rather than a ticketed lighthouse attraction. Do not rely on old ferry, shuttle or mileage information without current confirmation." },
+      { type: "paragraph", text: "The important nuance is that 'restricted' does not mean the lighthouse area is categorically closed. TPWD says the north end of the island—including the headquarters/runway area, road system to the lighthouse and beach—is available for unsupervised wildlife viewing and hiking during daylight hours. TPWD states that hiking, biking and wildlife watching are not permitted while public hunts are under way; conditions and transportation can change, so confirm the current rules before committing to the trip." },
+      { type: "paragraph", text: "Practical plan: begin with Port O'Connor, arrange lawful boat access, call ahead as TPWD directs and treat the outing as a remote wildlife-management-area visit rather than a ticketed lighthouse attraction. There is no state ferry or drinking-water service; bring your own supplies. Do not rely on old ferry, shuttle or mileage information without current confirmation." },
       { type: "paragraph", text: "Official authorities to verify: Texas Historical Commission for the lighthouse record; Texas Parks and Wildlife Department and the current Matagorda Island refuge / wildlife-management authority for present-day access." },
 
       { type: "heading", text: "6. Sabine Pass Lighthouse — best for the story, not a conventional visit" },
