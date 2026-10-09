@@ -52,7 +52,6 @@ for (const expected of [
   'Methodology',
   'Recommended citation',
   'Texas Defined Travel &amp; Outdoors Desk',
-  'Travel &amp; outdoors desk',
   'Sources and further reading',
   'Texas Water Development Board',
   'National Park Service',
@@ -71,6 +70,9 @@ for (const stale of [
   if (ecoregions.body.includes(stale)) throw new Error(`${ecoregionsPath} still exposes stale production content: ${stale}`);
 }
 const ecoregionsAuthor = await fetchHealthy('/authors/a-dell', 'Texas Defined Travel & Outdoors Desk');
+if (!['Travel & outdoors desk', 'Travel &amp; outdoors desk'].some((role) => ecoregionsAuthor.body.includes(role))) {
+  throw new Error('/authors/a-dell is missing the expected Travel & outdoors desk role');
+}
 const ecoregionsMap = await fetchHealthy('/images/editorial/texas-ecoregions-map.svg', 'Texas natural regions');
 const ecoregionsCsv = await fetchHealthy('/data/texas-ecoregions.csv', 'region,orientation,landscape,signature_vegetation,representative_place');
 for (const region of ['Piney Woods','Gulf Prairies and Marshes','Post Oak Savannah','Blackland Prairie','Cross Timbers','South Texas Plains','Edwards Plateau','Rolling Plains','High Plains','Trans-Pecos']) {
