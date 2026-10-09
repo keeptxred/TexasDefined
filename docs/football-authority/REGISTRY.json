@@ -40,21 +40,21 @@
       "alvord",
       "amarillo"
     ],
-    "state": "ASSIGNED_RESEARCH_PENDING",
+    "state": "IMPLEMENTED_PENDING_MERGE_AND_ACCEPTANCE",
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 24,
+    "partiallyCompleted": 25,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "Sixteen individually implemented Batch 002 profiles on GitHub football branches, zero individually verified live.",
-    "currentSchool": "alvord",
-    "nextSchool": "amarillo",
-    "implementedOnBranch": 24,
+    "notes": "25 school editorials implemented across existing branches; zero individually production VERIFIED. Remaining to implement zero; remaining to verify 25.",
+    "currentSchool": "amarillo",
+    "nextSchool": null,
+    "implementedOnBranch": 25,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409
   },
@@ -1031,8 +1031,21 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "audit": "docs/football-authority/schools/amarillo.md",
+      "researchDate": "2026-10-09",
+      "implementedOnBranch": "football-authority-batch-002-ackerly-sands-20261009",
+      "commits": [
+        "9d2486f78770fd313955e5f6c8142a64ebf40e69"
+      ],
+      "productionVerification": null,
+      "blockers": [
+        "Confirm official current coach and stadium ticket policy",
+        "Photo rights and city/county links",
+        "Protected parent and continuation merges",
+        "Deployed interactive mobile/desktop acceptance"
+      ]
     },
     {
       "id": "uil:amarillo-caprock",
