@@ -50,6 +50,17 @@ function readyMetroCollections(destinations: Destination[], metro: MetroProximit
   );
 }
 
+function mergeMetroDestinationReads(...groups: Destination[][]) {
+  const merged = new Map<string, Destination>();
+  for (const group of groups) {
+    for (const destination of group) {
+      if (!destination.slug) continue;
+      merged.set(destination.slug, destination);
+    }
+  }
+  return [...merged.values()];
+}
+
 async function loadMetroIndexableDestinationsForCollection(
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
@@ -59,7 +70,12 @@ async function loadMetroIndexableDestinationsForCollection(
 
   const retry = await loadMetroIndexableDestinations();
   if (isMetroProximityCollectionIndexReadyWithTownReferences(retry, metro, collection)) return retry;
-  return retry.length > first.length ? retry : first;
+
+  // Remote Explore reads can occasionally return different partial healthy
+  // subsets in consecutive requests. Union the already quality-gated rows so
+  // complementary results cannot temporarily flip a sitemap-eligible route to
+  // noindex. Readiness thresholds still decide whether the merged set qualifies.
+  return mergeMetroDestinationReads(first, retry);
 }
 
 async function loadMetroIndexableDestinationsForHub(metro: MetroProximityMetro) {
@@ -69,11 +85,12 @@ async function loadMetroIndexableDestinationsForHub(metro: MetroProximityMetro) 
   if (firstReady.length >= 4 && required.every((slug) => firstReady.some((collection) => collection.slug === slug))) return first;
 
   const retry = await loadMetroIndexableDestinations();
-  const retryReady = readyMetroCollections(retry, metro);
+  const merged = mergeMetroDestinationReads(first, retry);
+  const mergedReady = readyMetroCollections(merged, metro);
   const firstRequiredReady = required.filter((slug) => firstReady.some((collection) => collection.slug === slug)).length;
-  const retryRequiredReady = required.filter((slug) => retryReady.some((collection) => collection.slug === slug)).length;
-  if (retryRequiredReady > firstRequiredReady || retryReady.length > firstReady.length) return retry;
-  return retry.length > first.length ? retry : first;
+  const mergedRequiredReady = required.filter((slug) => mergedReady.some((collection) => collection.slug === slug)).length;
+  if (mergedRequiredReady > firstRequiredReady || mergedReady.length > firstReady.length) return merged;
+  return merged.length > first.length ? merged : first;
 }
 
 export async function loadMetroProximitySitemapEntriesServer(resolvedDestinations?: Destination[]) {
