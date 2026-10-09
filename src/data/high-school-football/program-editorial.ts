@@ -59,6 +59,184 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "amarillo",
+    "theme": {
+      "accentHex": "#B68D30",
+      "label": "Original Sandies gold editorial accent; not a licensed school emblem"
+    },
+    "seo": {
+      "title": "Amarillo Sandies Football: Four State Titles, 2026 & Dick Bivins Stadium",
+      "description": "Amarillo High Sandies football since 1908: four UIL titles, Blair Cherry and Howard Lynch, Tascosa rivalry, 2026 District 2 schedule and Dick Bivins Stadium."
+    },
+    "coach": {
+      "name": "Chad Dunnam",
+      "title": "2026 head football coach according to current independent program listing; verify against Amarillo ISD",
+      "sourceUrl": "https://txprepfootball.com/schools/amarillo-sandies/",
+      "sourceLabel": "Texas Prep Football 2026 Amarillo coach listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "4225 Danbury Drive, Amarillo, TX 79109",
+      "sourceUrl": "https://www.ahsfhs.org/national/teams/teampage.asp?Team=Amarillo",
+      "sourceLabel": "Amarillo High historical program directory; campus address not stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Sandies fixtures and recorded finals",
+      "sourceUrl": "https://txprepfootball.com/schools/amarillo-sandies/",
+      "sourceLabel": "Texas Prep Football dated 2026 schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–1 in the three independently sourced 2026 finals through Sept. 11; subsequent results not verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://txprepfootball.com/schools/amarillo-sandies/",
+      "sourceLabel": "Texas Prep Football 2026 score ledger",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Palo Duro",
+          "site": "Away",
+          "result": "W 21–7"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Cleveland",
+          "site": "Home",
+          "result": "L 28–35"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Midland",
+          "site": "Away",
+          "result": "W 17–14"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Tascosa",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Lubbock Monterey",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Abilene",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 22",
+          "opponent": "Frenship",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Lubbock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Caprock",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Dick Bivins Stadium",
+      "address": "Amarillo, Texas — verify match-day stadium gate, parking and accessibility with Amarillo ISD",
+      "sourceUrl": "https://www.ahsfhs.org/national/teams/teampage.asp?Team=Amarillo",
+      "sourceLabel": "Independent Amarillo Sandies team stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "The historic program directory lists Dick Bivins Stadium; its school contact address 4225 Danbury Drive is not a verified spectator entrance. Event tickets, parking, accessible arrival, bags and assigned stadium for each home game require Amarillo ISD confirmation. No school/stadium photo is republished without documented usage permission."
+    },
+    "overview": [
+      "The Amarillo High Golden Sandstorm, widely called the Sandies, has played football since 1908, except for a 1917 interruption reported in the team's historical archive. It became a UIL charter member in 1920. Its first major defining period produced three consecutive Texas state championships in 1934, 1935 and 1936, followed by a fourth in 1940.",
+      "The official UIL championship record gives unusual detail to that run: Amarillo beat Corpus Christi 48–0 in 1934, Greenville 13–7 in 1935, Kerrville 10–6 in 1936 and Temple 20–7 in 1940. Amarillo also finished runner-up to Tyler in 1930 and Waco in the 1948 Class 2A final. Four crowns must not be confused with the number of finals.",
+      "Blair Cherry coached the 1934–36 three-peat. The Texas High School Football Hall of Fame credits Cherry with an 85–5–1 record across seven Amarillo seasons and later a Southwest Conference title at Texas. Howard Lynch's succeeding era yielded the 1940 state football crown and the 1948 final appearance. The current program history identifies Stan Maudlin among the historic Amarillo players who went on to collegiate success.",
+      "The Sandies' own history page enumerates dozens of district championship seasons and the Amarillo–Tascosa football series: 45 wins, 21 losses and three ties at its published snapshot. That is a documented local rivalry, unlike merely grouping every present district opponent as a traditional rival. The exact series tally is a dated school-site figure, not a live result after 2026.",
+      "The 2026–28 UIL alignment places Amarillo in Class 5A Division I District 2; its posted 2026 league games include Tascosa, Monterey, Abilene, Frenship, Lubbock and Caprock. A current independent team directory attributes head-coaching duties to Chad Dunnam, but this needs corroboration from the latest official school athletics staffing notice.",
+      "The three cross-checked early 2026 game finals include a 21–7 win over Palo Duro, 28–35 loss to Cleveland and 17–14 win at Midland. Since later dates in the retrieved results schedule did not include independently established finals, this page does not make a misleading October 9 live-record claim. Dick Bivins Stadium is the named historical venue; a verified game ticket should determine the entrance and parking, not the Danbury Drive school-campus address."
+    ],
+    "milestones": [
+      {
+        "date": "1908–1920",
+        "title": "The Golden Sandstorm emerges",
+        "body": "The Sandies' program history dates continuous football to 1908 except for 1917 and identifies Amarillo as a UIL charter member in 1920.",
+        "sourceUrl": "https://www.sandiesfootball.com/history",
+        "sourceLabel": "Amarillo Sandies football official team history"
+      },
+      {
+        "date": "1930",
+        "title": "Runner-up before the golden era",
+        "body": "The official UIL results give Tyler a 25–13 win over Amarillo in the 1930 championship game.",
+        "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical state finals"
+      },
+      {
+        "date": "1934–1936",
+        "title": "Three consecutive championships under Blair Cherry",
+        "body": "UIL final scores were 48–0 over Corpus Christi, 13–7 over Greenville and 10–6 over Kerrville. Cherry's career is documented by the Texas High School Football Hall of Fame.",
+        "sourceUrl": "https://www.texasfootball.com/hof-blair-cherry",
+        "sourceLabel": "Texas High School Football Hall of Fame"
+      },
+      {
+        "date": "1940",
+        "title": "Fourth Amarillo state championship",
+        "body": "Amarillo defeated Temple 20–7, the Sandies' fourth UIL title, under Howard Lynch.",
+        "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL 1940 championship results"
+      },
+      {
+        "date": "1948",
+        "title": "State title-game return",
+        "body": "Waco beat Amarillo 21–0 in the 1948 Class 2A final; it was a runner-up result, not a fifth championship.",
+        "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL 1948 championship results"
+      },
+      {
+        "date": "2026–28",
+        "title": "5A Division I District 2",
+        "body": "The 2026 league slate includes Tascosa, Monterey, Abilene, Frenship, Lubbock and Caprock; check updated school schedules before travel.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many state football championships has Amarillo High won?",
+        "answer": "Four: 1934 over Corpus Christi, 1935 over Greenville, 1936 over Kerrville and 1940 over Temple, according to UIL's historical football finals."
+      },
+      {
+        "question": "Who coached Amarillo's 1930s three-peat?",
+        "answer": "Blair Cherry led the 1934–36 championships and is a Texas High School Football Hall of Fame inductee."
+      },
+      {
+        "question": "Is Amarillo–Tascosa a documented football rivalry?",
+        "answer": "Yes. The Sandies' official team history publishes their head-to-head series as 45 Amarillo wins, 21 losses and three ties in its historical snapshot; later results can change that record."
+      },
+      {
+        "question": "Where do the Sandies play home games?",
+        "answer": "Dick Bivins Stadium is the venue in Amarillo program histories. Check the assigned game's ticket and Amarillo ISD for current gate, parking, accessible entry and bag procedures."
+      },
+      {
+        "question": "What is Amarillo's 2026 classification?",
+        "answer": "UIL Class 5A Division I, District 2 for 2026–28. The team name is Golden Sandstorm or Sandies, not the Amarillo Tascosa Rebels."
+      },
+      {
+        "question": "Who is the 2026 head coach?",
+        "answer": "A current independent Amarillo football listing names Chad Dunnam. Confirm the current staff and any changes directly with Amarillo ISD."
+      }
+    ]
+  },
+  {
     "slug": "alvord",
     "theme": {
       "accentHex": "#B78C35",
