@@ -15,11 +15,11 @@ const expectedLocal = {
   polk: { date: '2026-08-25', hosts: ['polkcad.org', 'co.polk.tx.us'] },
   mason: { date: '2026-08-25', hosts: ['masoncad.org', 'co.mason.tx.us'] },
   haskell: { date: '2026-08-25', hosts: ['haskellcad.com', 'haskellcountytx.gov'] },
+  bell: { date: '2026-10-08', hosts: ['bellcad.org', 'txdmv.gov'] },
 };
 const expectedGenerated = {
   comal: '2026-08-21',
   denton: '2026-08-21',
-  bell: '2026-08-21',
 };
 
 function blockFor(source, slug) {
@@ -49,7 +49,17 @@ for (const [slug, requirement] of Object.entries(expectedLocal)) {
 for (const [slug, date] of Object.entries(expectedGenerated)) {
   const block = blockFor(generated, slug);
   if (!block) failures.push(`${slug}: generated verified county record missing.`);
-  else if (!block.includes(`lastVerifiedAt: '${date}'`)) failures.push(`${slug}: expected generated verification date ${date}.`);
+  else {
+    const latest = /lastVerifiedAt:\s*['"]([0-9]{4}-[0-9]{2}-[0-9]{2})['"]/.exec(block)?.[1];
+    const checkedAt = latest ? Date.parse(latest) : NaN;
+    if (!Number.isFinite(checkedAt) || checkedAt < Date.parse(date)
+      || checkedAt > Date.now() + 24 * 60 * 60 * 1000) {
+      failures.push(`${slug}: expected generated verification on or after ${date}, not a missing, older, or future date.`);
+    }
+    if (!block.includes(`county-directory/${slug}.php`)) {
+      failures.push(`${slug}: missing the county-specific official Comptroller source.`);
+    }
+  }
 }
 
 for (const feature of [
