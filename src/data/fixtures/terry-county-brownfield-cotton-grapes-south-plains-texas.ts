@@ -127,4 +127,13 @@ export const terryCountyBrownfieldCottonGrapesSouthPlainsTexasArticle: Article =
     p("Terry County is a compact example of the South Plains story. Indigenous grasslands became ranch country; ranch country became farm country; irrigation and mechanization increased production; oil added new wealth; and vineyards introduced another way of using the same high, sunny landscape. Brownfield grew because it provided the courthouse, commerce and services needed to hold that rural economy together."),
     p("The county remains unmistakably agricultural, but it is not frozen in the past. Its farms are technologically sophisticated, its population is culturally diverse, and its growers participate in markets that extend far beyond West Texas. From the courthouse square to cotton fields and vineyard rows, Terry County shows how Texans have repeatedly adapted to the opportunities and limits of the High Plains."),
   ],
+
+  sources: [
+    { label: "Handbook of Texas — Terry County history", url: "https://www.tshaonline.org/handbook/entries/terry-county" },
+    { label: "Handbook of Texas — Brownfield history", url: "https://www.tshaonline.org/handbook/entries/brownfield-tx" },
+    { label: "Terry County — Tax Assessor/Collector office", url: "https://www.co.terry.tx.us/page/county.assessor.collector" },
+    { label: "Terry County Appraisal District — official property information", url: "https://terrycoad.org/" },
+    { label: "Texas DMV — Terry County office and vehicle services", url: "https://www.txdmv.gov/tax-assessor-collectors/county-tax-offices/terry" },
+    { label: "Texas State Library — official county seats", url: "https://www.tsl.texas.gov/ref/abouttx/countyseats.html" },
+  ],
 };
