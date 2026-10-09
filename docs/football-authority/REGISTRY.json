@@ -45,16 +45,16 @@
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
     "individuallyVerified": 0,
-    "partiallyCompleted": 4,
+    "partiallyCompleted": 5,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
     "notes": "Research and content implementation have not yet been completed for these 25 schools; no status is VERIFIED solely by assignment.",
-    "currentSchool": "abilene-texas-leadership",
-    "nextSchool": "abilene-wylie",
-    "implementedOnBranch": 4
+    "currentSchool": "abilene-wylie",
+    "nextSchool": "ackerly-sands",
+    "implementedOnBranch": 5
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -347,8 +347,40 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-wylie",
-      "status": "NOT_REVIEWED",
-      "batch": 2
+      "status": "IMPLEMENTED",
+      "batch": 2,
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/abilene-wylie.md",
+      "evidenceSources": [
+        "https://www.uiltexas.org/football/all-time-appearances",
+        "https://www.uiltexas.org/football/archives/P232",
+        "https://www.uiltexas.org/football/state-team/abilene-wylie-2016-2017-football",
+        "https://wyliegrowl.com/sandifers-retire/",
+        "https://www.wyliebulldogathletics.com/sport/football/boys/?tab=staff",
+        "https://www.wyliebulldogathletics.com/facilities",
+        "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484650005293",
+        "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf"
+      ],
+      "implementationCommits": [
+        "6065571380174fd08ce60292167fba753b46ded5",
+        "9aff87b27575c9891adc46f702f1c249eb9c056a",
+        "d56bb698b1653ee409416ff3c3a2e2298782dc47",
+        "d69b88490aca6346bb7d32ded4568f05b0101a85",
+        "7c1b446af9672ed0b4c4198c449cd7c0fe658be9"
+      ],
+      "imageStatus": "Original source-labeled purple/gold researched milestone graphics only; documentary photo rights unavailable",
+      "internalLinkStatus": "Taylor County reciprocal + Abilene Cooper district-opponent link coded; browser QA pending",
+      "seoStatus": "Individual title/description/mascot/colors coded, validation pending",
+      "productionVerification": "NOT_PERFORMED",
+      "outstanding": [
+        "Protected gate and merge",
+        "Deployed production commit check",
+        "Actual 390/1366px school/Taylor County link, SEO and hydration browser acceptance",
+        "Licensed school photography",
+        "Game-specific ticket and ADA/parking policy"
+      ]
     },
     {
       "id": "uil:ackerly-sands",
