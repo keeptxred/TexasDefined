@@ -194,6 +194,11 @@ function EntityPage() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{batch001FootballLink.description}</p>
             <p className="mt-2 text-xs text-muted-foreground">Campus county checked against <a href={batch001FootballLink.campusCountySource} target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">federal school records ↗</a>. This independent football guide is not an official school website.</p>
             {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/abilene-wylie" className="text-lg font-semibold text-primary underline underline-offset-4">Abilene Wylie Bulldogs football profile →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Follow the Bulldogs' 2004 football state title, four UIL title-game appearances, Clay Martin and Hugh Sandifer Stadium at the Wylie High campus.</p>
+              <p className="mt-2 text-xs text-muted-foreground">The Wylie High campus is independently documented in Taylor County by <a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484650005293" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">NCES official 2025–26 school records ↗</a>. Independent coverage, not a school website.</p>
+            </div>}
+            {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
               <a href="/texas-high-school-football-teams/abilene-texas-leadership" className="text-lg font-semibold text-primary underline underline-offset-4">Texas Leadership of Abilene Eagles football →</a>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">Explore Abilene's younger public-charter program, the fifth season of eleven-man football and 2026 head coach Webb Murphy.</p>
               <p className="mt-2 text-xs text-muted-foreground">The <a href="https://www.texasleadershipabilene.com/campus/secondary-campus" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">official secondary campus</a> is in Abilene, Taylor County; the network's San Angelo headquarters must not be confused with the Abilene football school.</p>
