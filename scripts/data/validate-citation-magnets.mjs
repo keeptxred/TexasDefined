@@ -36,7 +36,7 @@ const expect = (condition, message) => { if (!condition) errors.push(message); }
 
 expect(manifest.schemaVersion === 1, 'citation-magnets.json must use schemaVersion 1');
 expect(manifest.canonicalDomain === 'https://texasdefined.com', 'citation manifest canonicalDomain must be TexasDefined');
-expect(manifest.asOf === '2026-08-30', 'citation manifest freshness date must reflect the 2026-08-30 authority expansion');
+expect(manifest.asOf === '2026-10-08', 'citation manifest freshness date must reflect the 2026-10-08 authority expansion');
 expect(Array.isArray(manifest.resources) && manifest.resources.length >= 22, 'citation manifest must retain at least 22 maintained resources');
 
 const urls = manifest.resources.map((resource) => resource.url);
