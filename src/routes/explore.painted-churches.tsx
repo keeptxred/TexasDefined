@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-const PaintedChurchSourceLibrary = lazy(() => import("@/components/editorial/PaintedChurchSourceLibrary").then((module) => ({ default: module.PaintedChurchSourceLibrary })));
+import { PaintedChurchSourceLibrary } from "@/components/editorial/PaintedChurchSourceLibrary";
 import { Container } from "@/components/layout/Container";
 import { paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-sources";
 import { paintedChurchSources, schulenburgCoreRoute } from "@/data/painted-churches";
@@ -117,7 +116,7 @@ function PaintedChurchesPage() {
 
       <section aria-labelledby="what-counts" className="mt-16 border-y border-border py-10"><p className="eyebrow text-primary">A useful distinction</p><h2 id="what-counts" className="mt-3 font-display text-4xl">There is no single modern list that every source uses.</h2><div className="mt-6 max-w-4xl space-y-5 text-base leading-8 text-muted-foreground"><p>Texas heritage sources use “Painted Churches” as a travel and cultural label, while the National Register uses a narrower historic grouping. Texas Defined labels the formal group separately so commonly mentioned churches are not presented as if they share the same designation.</p><p>The result is a broader statewide guide with transparent labels: formal National Register entries, the six-community Schulenburg cluster, Recorded Texas Historic Landmarks where verified, and separately documented Painted Church traditions.</p></div><div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/painted-churches/how-many" className="border-b border-primary text-primary">Why Painted Church counts differ</Link><a href={paintedChurchSources.nationalRegisterMultipleProperty} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Texas Historical Commission listing</a><a href={paintedChurchSources.texasTimeTravel} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Texas Time Travel</a><a href={paintedChurchSources.austinPbs} target="_blank" rel="noreferrer" className="border-b border-primary text-primary">Austin PBS Painted Churches</a></div></section>
 
-      <Suspense fallback={<section className="border-y border-border py-10" role="status">Loading the source library…</section>}><PaintedChurchSourceLibrary /></Suspense>
+      <PaintedChurchSourceLibrary />
     </Container>
   </main>;
 }

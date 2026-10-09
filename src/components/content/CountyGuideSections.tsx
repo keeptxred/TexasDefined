@@ -1,6 +1,5 @@
 import { CountyIdentitySection } from '@/components/content/CountyIdentitySection';
-import { lazy, Suspense } from 'react';
-const VanZandtCountySpotlight = lazy(() => import('@/components/content/VanZandtCountySpotlight').then((module) => ({ default: module.VanZandtCountySpotlight })));
+import { VanZandtCountySpotlight } from '@/components/content/VanZandtCountySpotlight';
 import { ArticleBody } from '@/components/editorial/ArticleBody';
 import { articleInternalLinks } from '@/data/article-internal-links';
 import type { Article, ArticleInternalLink } from '@/data/types';
@@ -100,7 +99,7 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
   const countyIndustryPathways = COUNTY_INDUSTRY_PATHWAYS[entity.slug] ?? [];
 
   return <>
-    {entity.slug === 'van-zandt' ? <Suspense fallback={null}><VanZandtCountySpotlight /></Suspense> : null}
+    {entity.slug === 'van-zandt' ? <VanZandtCountySpotlight /> : null}
 
 
     <CountyIdentitySection countyName={entity.name} region={entity.region} profile={profile} />
