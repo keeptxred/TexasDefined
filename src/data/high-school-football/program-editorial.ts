@@ -59,6 +59,184 @@ export type FootballProgramEditorial = {
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   {
+    "slug": "alvarado",
+    "theme": {
+      "accentHex": "#883E39",
+      "label": "Original terracotta Indians editorial theme, not licensed school artwork"
+    },
+    "seo": {
+      "title": "Alvarado Indians Football: 2024–25 Playoff Runs, 2026 & Charles Head Stadium",
+      "description": "Alvarado Indians football: 2011 state-final history, 2024 and 2025 12-plus win seasons, 2026 UIL District 4 scores, coach research and Charles Head Stadium."
+    },
+    "campus": {
+      "address": "1301 South Parkway, Alvarado, TX 76009",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+      "sourceLabel": "MaxPreps school address and 2026 schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Alvarado 2026 varsity results and upcoming district games",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+      "sourceLabel": "MaxPreps published Oct. 6 2026 scoreboard",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 through October 1, 2026; 2–0 District 4",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+      "sourceLabel": "MaxPreps dated Alvarado season ledger",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Joshua",
+          "site": "Home",
+          "result": "L 13–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Kennedale",
+          "site": "Away",
+          "result": "L 26–35"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Fort Worth Arlington Heights",
+          "site": "Home",
+          "result": "L 19–44"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Godley",
+          "site": "Home",
+          "district": true,
+          "result": "W 24–21"
+        },
+        {
+          "date": "Oct. 1",
+          "opponent": "Carrollton Ranchview",
+          "site": "Away",
+          "district": true,
+          "result": "W 38–35"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "River Oaks Castleberry",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Lake Dallas",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Springtown",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Aubrey",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Decatur",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Charles Head Stadium",
+      "address": "Alvarado, Johnson County — spectator entrance requires local confirmation",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
+      "sourceLabel": "Dave Campbell's Alvarado Indians stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "The program archive calls Alvarado's field Charles Head Stadium with a historical 4,100-seat estimate. That number does not establish current accessibility or ticket inventory. The high school campus address at 1301 South Parkway is not a verified stadium gate. Confirm event venue, visitor entrance, parking, clear-bag and tickets through Alvarado ISD."
+    },
+    "overview": [
+      "Alvarado's Indians have one verified football state-final appearance and a long playoff tradition but no state football championship according to Dave Campbell's archive: one title-game appearance, 36 playoff seasons and zero titles. That distinction is fundamental to the program's story. Historical final-year, opponent and score require a contemporaneous archive before being put into a state-final headline.",
+      "The Johnson County team returned to sustained postseason success in the last two seasons. MaxPreps past-season history records Alvarado 13–1 in 2024 and 12–1 in 2025, with Casey Walraven listed as head coach in both campaigns. A 2026 staff appointment is not supplied in the current history snapshot, so prior leadership should not be automatically labeled current without a school source.",
+      "Alvarado enters the 2026–28 cycle in Class 4A Division I District 4. Rather than using a 2025 opponent group, the published 2026 calendar shows district games against Godley, Carrollton Ranchview, Castleberry, Lake Dallas, Springtown, Aubrey and Decatur.",
+      "The Indians opened 2026 with three non-district losses, then won two tight district games: Godley 24–21 on September 25 and Ranchview 38–35 on October 1. That produces a dated 2–3 overall and 2–0 district record as of October 9; the October 9 Castleberry game is not represented as finished.",
+      "Dave Campbell's program ledger places Alvarado at Charles Head Stadium and reports a historical capacity of 4,100. School campus and stadium entrance may differ, and actual ticket procedures and accessible parking need confirmation from the district. The football page should remain useful for visiting fans without fabricating gate numbers."
+    ],
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "State final reached; no state title",
+        "body": "Texas Football reports one state-title-game appearance and 36 playoff appearances but no UIL football crown.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
+        "sourceLabel": "Dave Campbell's Alvarado football archive"
+      },
+      {
+        "date": "2024",
+        "title": "Thirteen-win postseason campaign",
+        "body": "Alvarado's 2024–25 team history records a 13–1 season under coach Casey Walraven.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/history/",
+        "sourceLabel": "MaxPreps previous-season history"
+      },
+      {
+        "date": "2025",
+        "title": "Another twelve-win season",
+        "body": "The 2025 varsity archive records 12–1 with Casey Walraven as head coach in that season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/history/",
+        "sourceLabel": "MaxPreps 2025 history"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "First District 4 victory",
+        "body": "Alvarado beat Godley 24–21 to turn the page after three non-district defeats.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 schedule"
+      },
+      {
+        "date": "Oct. 1, 2026",
+        "title": "Tight Ranchview road win",
+        "body": "The Indians defeated Carrollton Ranchview 38–35, reaching a 2–0 district start.",
+        "sourceUrl": "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
+        "sourceLabel": "MaxPreps Oct. 6 result snapshot"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 4A Division I District 4",
+        "body": "UIL realignment places Alvarado in District 4 and the 2026 schedule lists Castleberry, Lake Dallas, Springtown, Aubrey and Decatur in the district run.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Alvarado won a Texas football state championship?",
+        "answer": "Dave Campbell's reports one state-title-game appearance and zero state championships. The exact historical title-game opponent and year should be verified in UIL archives before publication."
+      },
+      {
+        "question": "How successful was Alvarado in 2024 and 2025?",
+        "answer": "The MaxPreps historical ledger lists 13–1 in 2024 and 12–1 in 2025, with Casey Walraven identified as coach for those two seasons."
+      },
+      {
+        "question": "Who coaches Alvarado football in 2026?",
+        "answer": "Historical MaxPreps records name Casey Walraven for 2024 and 2025. The current 2026 staff could not be independently established from the season-history snapshot; confirm with Alvarado ISD."
+      },
+      {
+        "question": "What district is Alvarado in this season?",
+        "answer": "Class 4A Division I, District 4 for the 2026–28 UIL cycle."
+      },
+      {
+        "question": "Where does Alvarado play at home?",
+        "answer": "Dave Campbell's names Charles Head Stadium in Alvarado. Confirm its actual game-night gate, parking, accessibility and ticket policy through the school; the campus address alone is not a verified entrance."
+      },
+      {
+        "question": "What was Alvarado's record through October 1, 2026?",
+        "answer": "Two wins, three losses overall and 2–0 in district after 24–21 over Godley and 38–35 over Ranchview. Later finals require updated sources."
+      }
+    ]
+  },
+  {
     "slug": "alto",
     "theme": {
       "accentHex": "#8C9E16",
