@@ -25,7 +25,7 @@ export const statewideMuseumExpansionWave68Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "ysleta-del-sur-pueblo-cultural-center-museum-el-paso",
     name: "Ysleta del Sur Pueblo Cultural Center Museum",
-    summary: "Visit the Ysleta del Sur Pueblo Cultural Center Museum in El Paso: Tigua history, exhibits, actual museum photos, verified visiting hours, program guidance and the nearby Ysleta Mission.";
+    summary: "Visit the Ysleta del Sur Pueblo Cultural Center Museum in El Paso: Tigua history, exhibits, actual museum photos, verified visiting hours, program guidance and the nearby Ysleta Mission.",
     category: "historic-sites",
     region: "big-bend",
     geography: {
