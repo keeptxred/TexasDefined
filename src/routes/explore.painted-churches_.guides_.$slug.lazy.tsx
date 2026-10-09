@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { paintedChurchGalleryBySlug } from "@/data/painted-church-gallery";
+import { paintedChurchSearchGuides } from "@/data/painted-church-search-guides";
 
 export const Route = createLazyFileRoute("/explore/painted-churches/guides/$slug")({
   component: PaintedChurchSearchGuidePage,
@@ -12,6 +13,12 @@ function PaintedChurchSearchGuidePage() {
   const { guide } = Route.useLoaderData();
   const churches = expandedPaintedChurches.filter((church) => guide.relatedChurchSlugs.includes(church.slug));
   const groupLabel = guide.group === "church-query" ? "Church search" : guide.group === "place" ? "Place guide" : guide.group === "planning" ? "Trip planning" : "History & architecture";
+  const peerGuides = paintedChurchSearchGuides.filter((candidate) => candidate.group === guide.group);
+  const peerIndex = peerGuides.findIndex((candidate) => candidate.slug === guide.slug);
+  const adjacentGuides = peerIndex < 0 || peerGuides.length < 2 ? [] : [
+    peerGuides[(peerIndex - 1 + peerGuides.length) % peerGuides.length],
+    peerGuides[(peerIndex + 1) % peerGuides.length],
+  ].filter((candidate, index, items) => items.findIndex((item) => item.slug === candidate.slug) === index);
 
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
@@ -108,6 +115,7 @@ function PaintedChurchSearchGuidePage() {
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{guide.group === "planning" ? "Start with the practical answer here, then use the map, route tools and church profiles for the level of detail you need." : "This guide gives the concise answer first, then connects you to the church profiles, maps and research pages that support it."}</p>
         </section>
         <section className="border-t border-border pt-7"><p className="eyebrow text-muted-foreground">Related Texas Defined guides</p><div className="mt-4 flex flex-col items-start gap-4">{guide.relatedPaths.map((item) => <a key={item.path} href={item.path} className="border-b border-primary text-sm text-primary">{item.label}</a>)}</div></section>
+        {adjacentGuides.length ? <section className="border-t border-border pt-7"><p className="eyebrow text-muted-foreground">More in this guide series</p><div className="mt-4 flex flex-col items-start gap-4">{adjacentGuides.map((item) => <Link key={item.slug} to="/explore/painted-churches/guides/$slug" params={{ slug: item.slug }} className="border-b border-primary text-sm text-primary">{item.searchIntent}</Link>)}</div></section> : null}
         {guide.sources?.length ? <section className="border-t border-border pt-7"><p className="eyebrow text-muted-foreground">Primary sources</p><div className="mt-4 flex flex-col items-start gap-4">{guide.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="border-b border-primary text-sm text-primary">{source.label}</a>)}</div><p className="mt-4 text-xs leading-5 text-muted-foreground">Current hours, worship schedules, group-tour terms and access rules can change. Confirm time-sensitive details with the organization that controls them before traveling.</p></section> : null}
         <section className="border-t border-border pt-7"><p className="eyebrow text-muted-foreground">More Painted Churches help</p><Link to="/explore/painted-churches/guides" className="mt-3 inline-block border-b border-primary text-sm text-primary">Browse the guide library</Link></section>
       </aside>

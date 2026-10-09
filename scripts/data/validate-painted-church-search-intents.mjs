@@ -105,6 +105,14 @@ if (failures.length === 0) {
   for (const token of ["FAQPage", '"@type": "Article"', "relatedChurchSlugs", "Primary sources", "Open verified profile"]) {
     if (!detail.includes(token)) failures.push(`Search guide detail route missing ${token}.`);
   }
+  for (const token of [
+    'paintedChurchSearchGuides',
+    'candidate.group === guide.group',
+    'More in this guide series',
+    'to="/explore/painted-churches/guides/$slug"',
+  ]) {
+    if (!detail.includes(token)) failures.push(`Painted Churches sibling discovery missing ${token}.`);
+  }
   if (!sitemap.includes('await import("@/data/painted-church-search-guides")')) failures.push("Explore sitemap is not dynamically loading Painted Churches search guides inside its server handler.");
   if (!sitemap.includes('"/explore/painted-churches/guides"')) failures.push("Explore sitemap is missing the search-guide hub.");
   if (!sitemap.includes("paintedChurchSearchGuides.map")) failures.push("Explore sitemap is not emitting dedicated search-guide URLs.");
