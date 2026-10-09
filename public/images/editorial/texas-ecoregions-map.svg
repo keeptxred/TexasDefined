@@ -1,53 +1,77 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
-  <title id="title">Texas ecoregions simplified orientation map</title>
-  <desc id="desc">A simplified Texas-shaped orientation graphic labeling the ten major natural regions used by Texas Parks and Wildlife. Boundaries are generalized and not official.</desc>
+  <title id="title">Texas natural regions — boundary-informed 10-region orientation map</title>
+  <desc id="desc">A TexasDefined boundary-informed orientation map of the ten major Texas natural regions used by Texas Parks and Wildlife. Boundaries are generalized for statewide reading and are not survey-grade GIS data.</desc>
   <defs>
     <clipPath id="texas">
-      <path d="M330 130 L610 130 L620 310 L1010 310 L1110 365 L1285 350 L1395 455 L1315 565 L1240 640 L1160 790 L1010 900 L900 850 L815 765 L745 675 L650 600 L560 570 L500 495 L430 470 L385 380 L330 315 Z"/>
+      <path d="M344 94 L630 94 L638 278 L1000 278 L1075 304 L1168 300 L1246 321 L1314 316 L1398 390 L1407 451 L1360 511 L1308 575 L1258 640 L1211 716 L1169 789 L1102 855 L1000 925 L922 900 L861 845 L813 783 L760 716 L704 665 L641 628 L583 611 L535 566 L487 536 L438 526 L398 486 L369 439 L344 388 L307 355 L260 351 L248 337 L262 318 L344 318 Z"/>
     </clipPath>
     <style>
-      .label{font:700 29px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#1d2522;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
-      .small{font:600 24px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#1d2522;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round}
+      .title{font:700 46px Georgia,serif;fill:#1f2a26}
+      .sub{font:500 22px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#5c6963}
       .legend{font:600 21px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#25322d}
-      .note{font:500 22px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#58645f}
+      .legend-small{font:500 18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#5c6963}
+      .region-label{font:700 21px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#18241f;text-anchor:middle;paint-order:stroke;stroke:#fffaf2;stroke-width:5px;stroke-linejoin:round}
+      .region-small{font:700 17px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#18241f;text-anchor:middle;paint-order:stroke;stroke:#fffaf2;stroke-width:4px;stroke-linejoin:round}
+      .note{font:500 18px system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#5c6963}
     </style>
   </defs>
+
   <rect width="1600" height="1000" fill="#f4efe5"/>
-  <text x="95" y="82" font-family="Georgia,serif" font-size="47" font-weight="700" fill="#1f2a26">Texas natural regions</text>
-  <text x="96" y="118" class="note">Simplified orientation · 10-region TPWD framework · boundaries generalized</text>
+  <text x="64" y="74" class="title">Texas natural regions</text>
+  <text x="65" y="111" class="sub">10-region TPWD framework · boundary-informed orientation · exact GIS links on TexasDefined</text>
 
-  <g clip-path="url(#texas)">
-    <rect x="250" y="110" width="310" height="820" fill="#c99a63"/>
-    <rect x="500" y="110" width="220" height="820" fill="#d8b66d"/>
-    <rect x="680" y="110" width="180" height="820" fill="#c8ce78"/>
-    <rect x="820" y="110" width="210" height="820" fill="#aabf73"/>
-    <rect x="970" y="110" width="225" height="820" fill="#85aa79"/>
-    <rect x="1160" y="110" width="260" height="820" fill="#6f9d84"/>
-    <path d="M1060 600 C1180 620 1290 650 1430 720 L1430 940 L1010 940 Z" fill="#71aebe"/>
-    <path d="M630 575 C735 520 855 520 960 560 L960 790 C830 755 720 720 610 650 Z" fill="#b8a36b"/>
-    <path d="M610 320 C700 330 770 355 840 405 L805 580 C735 545 675 525 600 515 Z" fill="#d5cb86"/>
-    <path d="M815 360 C900 335 985 345 1060 390 L1045 585 C970 550 900 540 820 560 Z" fill="#9eb278"/>
+  <g transform="translate(160 82) scale(0.88)">
+    <g>
+      <path d="M344 94 L630 94 L638 278 L1000 278 L1075 304 L1168 300 L1246 321 L1314 316 L1398 390 L1407 451 L1360 511 L1308 575 L1258 640 L1211 716 L1169 789 L1102 855 L1000 925 L922 900 L861 845 L813 783 L760 716 L704 665 L641 628 L583 611 L535 566 L487 536 L438 526 L398 486 L369 439 L344 388 L307 355 L260 351 L248 337 L262 318 L344 318 Z" fill="#edf0e8" stroke="#26332e" stroke-width="7" stroke-linejoin="round"/>
+
+      <g clip-path="url(#texas)">
+        <rect x="230" y="70" width="1220" height="900" fill="#9ee6a9"/>
+        <path d="M220 300 L382 300 C410 350 433 404 468 456 C515 524 573 558 641 586 L675 630 C620 678 565 732 516 790 C447 869 372 930 265 960 L210 870 L214 650 Z" fill="#c8952f" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M338 72 L535 72 L540 510 C505 526 477 530 448 516 C420 490 398 456 378 418 L338 386 Z" fill="#b86f34" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M520 72 L716 72 L722 293 L775 304 C752 355 742 400 746 449 C749 510 732 559 692 608 C650 624 610 617 566 594 C540 552 523 522 510 493 Z" fill="#ef8b66" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M702 270 C752 279 810 282 846 313 C832 362 826 410 834 455 C843 506 833 564 803 627 C770 645 741 640 710 616 C733 566 742 519 736 469 C728 403 740 345 764 306 Z" fill="#af7d14" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M560 546 C620 514 688 500 752 510 C812 520 855 548 891 592 C899 642 884 690 851 742 C805 760 756 751 710 730 C670 690 633 660 590 642 C560 612 548 578 560 546 Z" fill="#96c9db" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M704 665 C758 650 817 660 868 690 C918 720 977 727 1035 722 C1078 755 1116 801 1144 850 L1040 934 L916 932 L838 867 L786 795 L742 737 Z" fill="#69e81f" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M824 278 C875 289 919 307 946 336 C935 384 932 430 938 474 C946 532 936 587 908 644 C887 689 866 730 846 773 C825 786 804 779 790 758 C812 709 833 666 852 625 C878 570 886 526 880 479 C874 425 883 373 907 326 Z" transform="translate(-55 0)" fill="#6d32a8" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M920 282 C984 292 1038 308 1118 337 C1105 383 1101 425 1107 468 C1113 521 1102 574 1070 633 C1047 678 1027 717 1004 760 C976 786 945 791 916 777 C937 724 960 681 982 638 C1013 580 1024 530 1018 482 C1012 431 1018 383 1040 336 Z" transform="translate(-95 0)" fill="#b178a1" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M1053 709 C1110 700 1176 681 1245 644 L1325 552 L1396 444 L1434 463 L1378 558 L1310 650 L1252 738 L1198 820 L1126 890 L1068 931 L1019 918 C1041 867 1051 815 1048 767 Z" fill="#d5b37f" stroke="#fffaf2" stroke-width="3"/>
+        <path d="M1080 276 L1455 276 L1455 650 C1385 650 1321 634 1260 603 C1212 579 1172 551 1144 515 C1120 482 1113 441 1120 402 C1127 359 1111 320 1080 276 Z" fill="#9ee6a9" stroke="#fffaf2" stroke-width="3"/>
+      </g>
+
+      <path d="M344 94 L630 94 L638 278 L1000 278 L1075 304 L1168 300 L1246 321 L1314 316 L1398 390 L1407 451 L1360 511 L1308 575 L1258 640 L1211 716 L1169 789 L1102 855 L1000 925 L922 900 L861 845 L813 783 L760 716 L704 665 L641 628 L583 611 L535 566 L487 536 L438 526 L398 486 L369 439 L344 388 L307 355 L260 351 L248 337 L262 318 L344 318 Z" fill="none" stroke="#26332e" stroke-width="7" stroke-linejoin="round"/>
+    </g>
+
+    <text x="452" y="690" class="region-label">Trans-Pecos</text>
+    <text x="446" y="246" class="region-label">High Plains</text>
+    <text x="620" y="372" class="region-label">Rolling Plains</text>
+    <text x="788" y="394" class="region-small">Cross Timbers</text>
+    <text x="713" y="615" class="region-label">Edwards Plateau</text>
+    <text x="864" y="508" class="region-small" transform="rotate(-72 864 508)">Blackland Prairie</text>
+    <text x="938" y="500" class="region-small" transform="rotate(-70 938 500)">Post Oak Savannah</text>
+    <text x="1225" y="418" class="region-label">Piney Woods</text>
+    <text x="918" y="818" class="region-label">South Texas Plains</text>
+    <text x="1196" y="724" class="region-small" transform="rotate(-58 1196 724)">Gulf Prairies &amp; Marshes</text>
   </g>
 
-  <path d="M330 130 L610 130 L620 310 L1010 310 L1110 365 L1285 350 L1395 455 L1315 565 L1240 640 L1160 790 L1010 900 L900 850 L815 765 L745 675 L650 600 L560 570 L500 495 L430 470 L385 380 L330 315 Z" fill="none" stroke="#26332e" stroke-width="8" stroke-linejoin="round"/>
-
-  <text x="445" y="560" class="label">Trans-Pecos</text>
-  <text x="596" y="440" class="small">High Plains</text>
-  <text x="690" y="585" class="small">Rolling Plains</text>
-  <text x="770" y="455" class="small">Cross Timbers</text>
-  <text x="880" y="665" class="small">Edwards Plateau</text>
-  <text x="920" y="455" class="small">Blackland Prairie</text>
-  <text x="1040" y="505" class="small">Post Oak Savannah</text>
-  <text x="1185" y="470" class="small">Piney Woods</text>
-  <text x="850" y="785" class="small">South Texas Plains</text>
-  <text x="1190" y="745" class="small">Gulf Prairies</text>
-  <text x="1190" y="776" class="small">&amp; Marshes</text>
-
-  <g transform="translate(105,730)">
-    <rect x="0" y="0" width="430" height="190" rx="18" fill="#fffaf2" stroke="#d5caba" stroke-width="2"/>
-    <text x="25" y="43" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#26332e">How to read this graphic</text>
-    <text x="25" y="82" class="note">This is an editorial orientation map,</text>
-    <text x="25" y="112" class="note">not an official boundary layer.</text>
-    <text x="25" y="151" class="note">Use TPWD for exact regional boundaries.</text>
+  <g transform="translate(62,170)">
+    <rect width="310" height="560" rx="20" fill="#fffaf2" stroke="#d4c9b8" stroke-width="2"/>
+    <text x="24" y="43" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#26332e">10-region key</text>
+    <g transform="translate(24,72)">
+      <g transform="translate(0,0)"><rect width="22" height="22" rx="4" fill="#9ee6a9"/><text x="34" y="18" class="legend">Piney Woods</text></g>
+      <g transform="translate(0,42)"><rect width="22" height="22" rx="4" fill="#d5b37f"/><text x="34" y="18" class="legend">Gulf Prairies &amp; Marshes</text></g>
+      <g transform="translate(0,84)"><rect width="22" height="22" rx="4" fill="#b178a1"/><text x="34" y="18" class="legend">Post Oak Savannah</text></g>
+      <g transform="translate(0,126)"><rect width="22" height="22" rx="4" fill="#6d32a8"/><text x="34" y="18" class="legend">Blackland Prairie</text></g>
+      <g transform="translate(0,168)"><rect width="22" height="22" rx="4" fill="#af7d14"/><text x="34" y="18" class="legend">Cross Timbers</text></g>
+      <g transform="translate(0,210)"><rect width="22" height="22" rx="4" fill="#69e81f"/><text x="34" y="18" class="legend">South Texas Plains</text></g>
+      <g transform="translate(0,252)"><rect width="22" height="22" rx="4" fill="#96c9db"/><text x="34" y="18" class="legend">Edwards Plateau</text></g>
+      <g transform="translate(0,294)"><rect width="22" height="22" rx="4" fill="#ef8b66"/><text x="34" y="18" class="legend">Rolling Plains</text></g>
+      <g transform="translate(0,336)"><rect width="22" height="22" rx="4" fill="#b86f34"/><text x="34" y="18" class="legend">High Plains</text></g>
+      <g transform="translate(0,378)"><rect width="22" height="22" rx="4" fill="#c8952f"/><text x="34" y="18" class="legend">Trans-Pecos</text></g>
+    </g>
+    <text x="24" y="494" class="legend-small">Boundary-informed redraw.</text>
+    <text x="24" y="522" class="legend-small">Use TPWD/EPA GIS for exact</text>
+    <text x="24" y="550" class="legend-small">boundary analysis.</text>
   </g>
+
+  <text x="410" y="965" class="note">TexasDefined · TPWD 10-region natural-region framework · generalized for statewide orientation</text>
 </svg>
