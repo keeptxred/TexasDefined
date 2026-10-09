@@ -29,12 +29,13 @@ function verifyMuseumHtml(html) {
     'eight-minute film',
     '/fishing/lakes/falcon-international-reservoir',
     'zapata-county-museum-history-editorial.svg',
-    'Zapata%20County%20Museum.jpg',
-    'Zapata County Commissioners Court project gallery',
     '805 N U.S. Highway 83',
     'Museum tour overview',
     'application/ld+json',
   ];
+  if (process.env.ZAPATA_EXPECT_COUNTY_PHOTO !== 'false') {
+    required.push('Zapata%20County%20Museum.jpg', 'Zapata County Commissioners Court project gallery');
+  }
   const missing = required.filter((marker) => !html.includes(marker));
   if (missing.length) throw new Error(`Missing museum HTML markers: ${missing.join('; ')}`);
 
