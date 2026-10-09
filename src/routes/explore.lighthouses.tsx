@@ -32,9 +32,9 @@ const lighthouseCards = [
     slug: "point-bolivar-lighthouse",
     name: "Point Bolivar Lighthouse",
     href: "/article/point-bolivar-lighthouse-history",
-    description: "The black cast-iron tower guarding the entrance to Galveston Bay.",
+    description: "The cast-iron tower at Galveston Bay, now restored to historic black-and-white stripes.",
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg?width=1600",
-    alt: "Point Bolivar Lighthouse on the Bolivar Peninsula at the entrance to Galveston Bay",
+    alt: "Historical photograph of Point Bolivar Lighthouse; its exterior is now black-and-white striped",
     credit: "Patrick Feller · CC BY 2.0 · Wikimedia Commons",
   },
   {
