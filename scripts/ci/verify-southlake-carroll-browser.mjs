@@ -77,6 +77,15 @@ async function countyCheck(page, viewport) {
         document.querySelector('link[rel="canonical"]')?.href === path;
     }, origin + countyPath, { timeout: 15000, polling: 250 });
   } catch (e) { hydrationTimeout = e instanceof Error ? e.message : String(e); }
+  // County hotels are deliberately inserted only after React signals hydration.
+  // Wait for that real readiness marker and settled layout before a full-page
+  // screenshot; an incomplete screenshot must still fail acceptance.
+  let countyHydrationSignal = false;
+  try {
+    await page.waitForFunction(() => document.documentElement.dataset.tdFootballCountyHydrated === '1', null, { timeout: 15000, polling: 250 });
+    countyHydrationSignal = true;
+  } catch { /* The hard marker assertion below exposes a genuine failure. */ }
+  await page.waitForTimeout(900);
   const d = await page.evaluate(school => {
     const h1s = [...document.querySelectorAll('h1')].map(e => e.innerText.trim());
     const anchors = [...document.querySelectorAll('a[href]')];
@@ -89,12 +98,14 @@ async function countyCheck(page, viewport) {
     };
   }, schoolPath);
   await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(250);
   await page.screenshot({ path: artifacts + '/' + viewport + '-tarrant-top.png', fullPage: false, animations: 'disabled' });
   const bytes = await page.screenshot({ path: artifacts + '/' + viewport + '-tarrant.png', fullPage: true, animations: 'disabled' });
   const screenshotHeight = bytes.readUInt32BE(20);
   check(response?.status() === 200, viewport + ': county HTTP ' + response?.status());
   check(d.h1s.length === 1 && /Tarrant County/i.test(d.h1s[0]) && d.canonical === origin + countyPath,
     viewport + ': wrong county H1/canonical ' + JSON.stringify(d) + ' hydrate=' + hydrationTimeout);
+  check(countyHydrationSignal, viewport + ': Tarrant React hydration readiness signal not observed');
   check(d.countyLinkVisible, viewport + ': Tarrant County lacks reciprocal Southlake Carroll link');
   check(d.width <= d.viewport + 10, viewport + ': county horizontal overflow');
   check(screenshotHeight >= 0.75 * d.height, viewport + ': incomplete county screenshot ' + screenshotHeight + '/' + d.height);
