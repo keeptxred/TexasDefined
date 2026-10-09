@@ -12,6 +12,14 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'abilene-wylie',
+    mascot: 'Bulldogs',
+    colors: 'Purple and Gold',
+    sourceUrl: 'https://www.uiltexas.org/football/state-team/abilene-wylie-2016-2017-football',
+    sourceLabel: 'Official UIL 2016 Wylie Bulldogs team mascot and school colors',
+    verifiedAt: '2026-10-09',
+  },
+  {
     slug: 'abilene-texas-leadership',
     mascot: 'Eagles',
     sourceUrl: 'https://www.texasleadershipabilene.com/',
