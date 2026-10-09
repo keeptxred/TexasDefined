@@ -219,3 +219,8 @@ Refresh latest `main`, read `MASTER.md`, `REGISTRY.json` and this ledger, and re
 - School official account establishes back-to-back 2024/2025 undefeated 14–0 TAPPS Division II titles, Dec. 2025 title-game win over Second Baptist 34–16, coach Aaron Beck, school McNair Stadium, and 2026 5–2 score snapshot through Oct. 2. Rejected conflicting SPC/zero-title aggregator; no invented UIL classification or unlicensed imagery.
 - Editorial commit `ba647f975a649548bcb84e61265a96d782236ff6`, registry `dc0ec58e10ac322c5d071d200fb4e08a6012ec1f`, school audit `docs/football-authority/schools/all-saints-fort-worth.md`. Still requires tests, protected merges, deployed Chrome acceptance and internal link/image verification.
 - **Next school: Allen**. Do not start a different batch.
+
+## Batch 002 — Allen Eagles (2026-10-09)
+- **25 assigned / 16 IMPLEMENTED across existing branches / 9 NOT_REVIEWED / 0 Batch 002 production VERIFIED.** Batch 001 five separate VERIFIED records preserved.
+- Individual Allen editorial `0005a98da25da7446159103c129f330cd5fd891b`: five official UIL state title years, historical Tom Westerberg/Terry Gambill eras, current Lee Wiginton/J. Broom/Chase Hargis staff, 2026 dated five-game undefeated opening, proper Class 6A District 6 classification, and Allen ISD's August 2026 Eagle Stadium clear-bag/card-only/entrance policies. Audit: `docs/football-authority/schools/allen.md`; registry commit `6b2fe1754050a5ee2221cf5ec07806d9f351627f`.
+- Still requires protected PR completion, live Cloudflare deployment, independently inspected mobile/desktop, county/city links, photo rights, and per-school accessibility/schema/SEO acceptance. **Next: Alpine.**
