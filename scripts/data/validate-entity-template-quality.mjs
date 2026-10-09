@@ -162,6 +162,7 @@ for (const feature of [
 ]) {
   if (!entityRoute.includes(feature)) errors.push(`City social preview contract missing: ${feature}`);
 }
+if (!cityAuthorityProfiles.includes("href: '/explore/near/el-paso/road-trips'")) errors.push('El Paso city authority must retain a contextual crawlable inbound link to the canonical road-trips collection.');
 for (const slug of ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock']) {
   if (!citySocialImages.includes(`${slug}:`) && !citySocialImages.includes(`'${slug}':`)) errors.push(`City social image metadata missing for ${slug}`);
 }
