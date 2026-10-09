@@ -14,6 +14,7 @@ import {
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
 import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
+import { esteroLlanoGrandePreservedDestinations } from "../estero-llano-grande-preserved-destination.ts";
 import { applyCuratedDestinationBatch20 } from "../destination-curation-batch20.ts";
 import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
 
@@ -313,4 +314,26 @@ test("four genuinely researched Lower Valley state parks are classified correctl
   const selected = selectMetroProximityDestinations(parks, metro, collection);
   assert.equal(selected.length, 4, "all four belong inside the McAllen state-park geographic radius");
   assert.ok(isMetroProximityCollectionIndexReady(parks, metro, collection), "authentic park choices meet the unchanged town/county/category gates");
+});
+
+test("canonical Estero Llano Grande fallback is a full, unique, vetted destination rather than a thin duplicate", () => {
+  assert.equal(esteroLlanoGrandePreservedDestinations.length, 1);
+  const [park] = esteroLlanoGrandePreservedDestinations;
+  assert.equal(park.slug, "estero-llano-grande-state-park");
+  assert.equal(park.category, "state-parks");
+  assert.equal(park.nearestTown, "Weslaco");
+  assert.equal(park.county, "Hidalgo");
+  assert.ok(park.summary.length >= 90);
+  assert.ok(park.body.length >= 3 && park.body.join(" ").length >= 450);
+  assert.ok(park.highlights.length >= 3);
+  assert.ok(park.hero.src.endsWith("/world-birding-center-estero-llano-grande-state-park.jpg"));
+  assert.ok(park.hero.credit?.includes("Wikimedia Commons"));
+  assert.equal(park.sourceCheckedAt, "2026-10-09");
+  assert.ok(park.officialUrl?.startsWith("https://tpwd.texas.gov/state-parks/estero-llano-grande/"));
+
+  const metro = getMetroProximityMetro("mcallen")!;
+  const stateParks = getMetroProximityCollection("state-parks")!;
+  const rows = selectMetroProximityDestinations([park, park], metro, stateParks);
+  assert.deepEqual(rows.map((row) => row.destination.slug), ["estero-llano-grande-state-park"], "the duplicate gate must still apply");
+  assert.ok(rows[0].distanceMiles < 40, "Estero is a genuine close-in Valley park");
 });
