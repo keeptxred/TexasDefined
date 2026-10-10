@@ -63,6 +63,7 @@ async function check(page, label) {
   row.checks.push('Explicit local save writes v3 storage');
   await page.reload({ waitUntil: 'domcontentloaded', timeout: 50_000 });
   await incomeIs(page, '$8,000');
+  await page.getByRole('button', { name: /Annual and irregular bills/ }).click();
   verify(await page.getByRole('spinbutton', { name: 'Travel, gifts and seasonal spending (annual)' }).inputValue() === '1200',
     label + ': annual bill did not persist after reload');
   verify((await page.locator('section[aria-labelledby="budget-actions-heading"] [role="status"]').innerText()).includes('restored automatically'),
