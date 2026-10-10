@@ -30,7 +30,7 @@ The protected deploy remains serialized and blocking; native sports-venue editor
 
 **Method:** All 194 names from the complete Git tree. SAFE = reviewed source and no confirmed issue in the specific race contract; FIX REQUIRED = confirmed PR/live mismatch with a proposed unmerged correction; SPECIAL CASE = deliberate independent health/source/manual or recovery semantics; RETIRED = obsolete and established for retirement (none); UNVERIFIED = not yet individually source-classified. A SAFE label is not proof of a successful recent run or Worker-version identity for each workflow.
 
-Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**; RETIRED **0**. Total **194**. New #4563 fix files: **2**; regression-validator update: **1**. Separate #4544 contains the pending river-map checkout correction.
+Counts: UNVERIFIED **99**; FIX REQUIRED **3**; SAFE **76**; SPECIAL CASE **12**; RETIRED **4**. Total **194**. New #4563 fix files: **2**; regression-validator update: **1**. Separate #4544 contains the pending river-map checkout correction.
 
 | Workflow | Classification | Basis / next step |
 |---|---|---|
@@ -46,15 +46,15 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `backend-separation.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `backfill-major-event-hero-images.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `backfill-placeholder-heroes.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `bing-indexnow.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `bing-indexnow.yml` | SPECIAL CASE | Scheduled/manual IndexNow submit and current crawler health, not a release-specific certification |
 | `build-debug.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `calculator-platform.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `certify-cochran-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `certify-cottle-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `certify-cochran-county-once.yml` | RETIRED | Read-only manual retired county marker audit; deploy capability removed |
+| `certify-cottle-county-once.yml` | RETIRED | Read-only manual retired county marker audit; deploy capability removed |
 | `certify-county-production-reusable.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `certify-deaf-smith-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `certify-fisher-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `certify-king-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `certify-deaf-smith-county-once.yml` | SAFE | Legacy one-shot diagnostic limited to path-filtered main push; no independent Worker deployment |
+| `certify-fisher-county-once.yml` | RETIRED | Read-only manual retired county marker audit; deploy capability removed |
+| `certify-king-county-once.yml` | RETIRED | Read-only manual retired county marker audit; deploy capability removed |
 | `chappell-hill-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `cloudflare-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `county-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -66,7 +66,7 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `diagnose-bundle-size-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `diagnose-client-bundle-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `diagnose-crosby-performance-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `diagnose-live-origin.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `diagnose-live-origin.yml` | SPECIAL CASE | Manual-only live origin diagnosis deliberately checks current main; not a deployment status verifier |
 | `diagnose-lubbock-performance-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `dogs-production-smoke.yml` | SPECIAL CASE | PR uses base-branch production contract, not proposed contract; post-deploy checkout pins the triggering SHA. |
 | `editorial-production-audit.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -87,10 +87,10 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `my-story-museum-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `normalize-waterdata-probe-status.yml` | SPECIAL CASE | Normalizes optional metrics after its own successful upstream verifier; status target pinned to triggering SHA. |
 | `painted-churches-seo.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `parking-map-audit.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `parking-map-audit.yml` | SAFE | PR static data audits and build; no live Worker assertion |
 | `populate-missing-site-images.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `purge-authority-cache-after-deploy.yml` | SPECIAL CASE | Intentionally may run after an unsuccessful deployment to self-heal existing Cloudflare caches; do not remove failure/rollback behavior without dedicated analysis. |
-| `recover-stale-production-deploy.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `recover-stale-production-deploy.yml` | SPECIAL CASE | Post-run stale Worker recovery dispatcher; inspects latest main and existing protected runs and dispatches canonical workflow only; must preserve |
 | `refresh-acs-county-housing-costs.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `repair-editorial-image-specificity.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `repair-editorial-migration-validator-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
@@ -98,7 +98,7 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `report-unusual-business-experiment.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `resolve-destination-placeholder-heroes.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `resolve-direct-svg-heroes.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `restore-verified-worker.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `restore-verified-worker.yml` | SPECIAL CASE | Manual recovery uses same protected production concurrency group and a verified recovery ledger; not ordinary post-deploy smoke |
 | `retire-stale-branches.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `rivers-landscape-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `rv-park-hero-assets.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
@@ -119,7 +119,7 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `texas-icons-registry.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `texas-knowledge-bank.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `texasdefined-auto-publication.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `texasdefined-publication-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `texasdefined-publication-production-smoke.yml` | SAFE | Successful deployed workflow_run/manual; pins verifier checkout to triggering SHA |
 | `things-unique-to-texas-policy.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `things-unique-to-texas-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `top-attraction-source-health.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
@@ -166,8 +166,8 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `validate-texas-symbols.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `validate-texas-talent-music-authority.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `validate-texas-talent.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `validate.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `vehicle-authority-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `validate.yml` | SAFE | Source validation on main push/manual, canonical validator, no direct deployment certificate |
+| `vehicle-authority-production-smoke.yml` | SAFE | Successful deployment/manual only; independent cache-busted public URL checks, no status write |
 | `verify-abbott-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-angi-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-aquarium-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
@@ -209,7 +209,7 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 | `verify-military-museum-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-priority-county-property-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-relocation-production-depth.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
-| `verify-relocation-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-relocation-production.yml` | SAFE | PR syntax only; workflow_run success/manual, exact checkout and STATUS_TARGET_SHA |
 | `verify-remote-evergreen-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-reservoir-authority-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-route66-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
@@ -231,7 +231,11 @@ Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**;
 
 ## Additional scope inspected on October 10
 
-Individually read another 32 workflow YAML files beyond the initial focused inventory. Of these, 31 had no new race defect; `verify-texas-river-map-browser.yml` lacks pinned checkout on its post-deploy live browser job, already addressed in pending #4544. Safe classification does not prove every downstream run succeeded.
+Individually read another 46 workflow YAML files beyond the initial focused inventory. The newly inspected source includes 31 additional safe production verifiers, 6 more source-safe flows, 4 independent special-case utilities, 4 read-only retired certification audit stubs, and one river browser with an existing fix pending in #4544. Of the first 32, 31 had no new race defect; `verify-texas-river-map-browser.yml` lacks pinned checkout on its post-deploy live browser job, already addressed in pending #4544. Safe classification does not prove every downstream run succeeded.
+
+## Legacy certifier latent risk (investigation, no operational change)
+
+`certify-county-production-reusable.yml` is a `workflow_call` path that checks out moving `main` and calls `scripts/ci/run-incomplete-county-certification.mjs`, which contains `npm run deploy` independent of `texasdefined-production` protected concurrency. The old `scripts/ci/incomplete-county-certification-config.json` is intentionally absent under retirement governance, and examined historical county-once call sites are either retired read-only audits or diagnostics. **UNVERIFIED / dormant suspected**, not asserted to be currently executable or an active race. Before changing it, trace *all* callers and run history; if obsolete, retire it under the existing retirement validator rather than activate or bypass deployment guards. Never call it as a shortcut to deploy.
 
 ## Remaining mandatory acceptance work
 
