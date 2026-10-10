@@ -17,3 +17,6 @@ Original Bowie-focused program introduction and 'Crossing the Line' story, offic
 **Outstanding:** NCES Tarrant County campus and reciprocal Arlington city/county/football-school links, first-party 2026 game finals, authentic licensed photography, venue gate/ADA/parking/ticketing, tests, protected merge/Cloudflare deploy, real production mobile/desktop/browser SEO/schema/sitemap acceptance. Individual code audit is not a completed live visual acceptance.
 
 **Next assigned:** Arlington Houston.
+
+## First-party 2026 home venue reconciliation — October 9, 2026
+[Choctaw Stadium's official high-school schedule](https://www.choctawstadium.com/event/high-school-football-20261105/) explicitly labels **visiting team vs. home team**, and schedules Bowie as host September 4 vs South Grand Prairie, September 11 vs Haltom, September 25 vs Granbury, October 23 vs Arlington, and November 5 vs Sam Houston. The historic DCTF Wilemon Field label therefore cannot be used to infer these five game venues. [Arlington ISD Athletics](https://www.aisd.net/district/departments/administration/athletics/) provides 2026–27 GoFan ticket and clear-bag policies; event-specific parking and accessible entrances remain unverified. Editorial correction `7de5f0c382df20b893e300b0f684109134fa25cd`. No result of future games and no production acceptance asserted.
