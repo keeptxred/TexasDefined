@@ -10,7 +10,7 @@ const backupPowerGuideLink = {
 for (const slug of [
   "texas-homeowner-field-manual",
   "prepare-texas-house-freeze",
-  "texas-hurricane-preparation-guide",
+  "texas-hurricane-preparation-homeowners-renters",
   "texas-pool-owner-guide",
   "how-to-choose-electricity-plan-texas",
 ]) {
