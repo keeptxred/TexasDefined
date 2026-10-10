@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 11,
+    "partiallyCompleted": 12,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "anson",
-    "nextSchool": "anson",
-    "implementedOnBranch": 11,
-    "remainingToImplement": 14,
+    "currentSchool": "anthony",
+    "nextSchool": "anthony",
+    "implementedOnBranch": 12,
+    "remainingToImplement": 13,
     "remainingToVerify": 25,
-    "notes": "11 schools individually IMPLEMENTED and audited on draft PR #4506, 14 assigned unreviewed, zero Batch003 production VERIFIED. Next Anson."
+    "notes": "12 of 25 individually researched and IMPLEMENTED on draft #4506; 13 NOT_REVIEWED, none Batch003 production verified. Next Anthony."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3235,9 +3235,31 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anson",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anson.md",
+      "implementationCommits": [
+        "59ddea2b894d29aab954358e5e9d3d0b69c06627",
+        "25df575a170a96205eb3120c5a991380c20727d5"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
+        "https://www.maxpreps.com/tx/anson/anson-tigers/football/history/",
+        "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+        "https://www.ansontigers.com/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Confirm 2026 coach first party",
+        "Jones County reciprocal local links",
+        "School image license",
+        "Ticket/ADA gate",
+        "CI protected merge deployment and browser QA"
+      ]
     },
     {
       "id": "uil:anthony",
