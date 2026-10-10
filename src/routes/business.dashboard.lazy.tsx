@@ -92,6 +92,7 @@ function BusinessDashboard(){
   setRevisions(old=>[{id:'new',created_at:new Date().toISOString(),review_status:'pending_review',proposed_profile:payload},...old]);
  }
  setBusy(false)
+ }
  return <main><Container className="py-12"><p className="eyebrow text-primary">TexasDefined Network</p><h1 className="mt-2 font-display text-4xl">My Business Dashboard</h1>
  {!ownerPortalOpen&&<p role="status" className="mt-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">Owner email sign-in is not available before Network launch.</p>}
  {!userId?<form onSubmit={signIn} className="mt-8 max-w-md space-y-4"><p>Verified business owners can request a secure email sign-in link. Signing in alone does not grant access.</p><label className="block">Account email<input required type="email" className="mt-2 w-full border border-border p-3" value={email} onChange={e=>setEmail(e.target.value)}/></label><button disabled={!ownerPortalOpen||busy} className="bg-primary px-6 py-3 text-primary-foreground">Email sign-in link</button></form>:<><button className="mt-4 border border-border px-4 py-2" onClick={()=>void supabase.auth.signOut()}>Sign out</button>
