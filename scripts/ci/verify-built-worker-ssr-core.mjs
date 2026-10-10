@@ -31,8 +31,10 @@ const smokeTargets = [
   { path: '/network/example/basic', requiredText: 'Lone Star Heritage Workshop', label: 'Network Basic example SSR' },
   { path: '/network/example/plus', requiredText: 'Lone Star Heritage Workshop', label: 'Network Plus example SSR' },
   { path: '/network/billing', requiredText: 'Manage your membership', label: 'Network billing SSR' },
+  { path: '/network/billing', requiredText: 'Owner email sign-in is not available before Network launch.', label: 'billing email disabled before launch' },
   { path: '/network/checkout-return', requiredText: 'Thank you for joining us.', label: 'Network checkout return SSR' },
   { path: '/business/dashboard', requiredText: 'My Business Dashboard', label: 'owner sign-in SSR' },
+  { path: '/business/dashboard', requiredText: 'Owner email sign-in is not available before Network launch.', label: 'owner email disabled before launch' },
   { path: '/admin/network-applications', requiredText: 'Network applications', label: 'Network admin review SSR' },
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
   {
