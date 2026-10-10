@@ -1,5 +1,12 @@
 # Austin Travis Rebels — Batch 004 school-specific audit
 
+## FINAL fact-corrected production browser certification — October 10, 2026 (CURRENT)
+
+**Status: VERIFIED**, superseding earlier IMPLEMENTED / NEEDS_FOLLOWUP / older technical-pass assertions above. [Protected corrective PR #4562](https://github.com/keeptxred/TexasDefined/pull/4562) merged at `97c9571a3b7457d547430d7a63d6debd1144a7d6`. [Production deployment #38065702334](https://github.com/keeptxred/TexasDefined/actions/runs/38065702334) completed SUCCESS for that exact SHA. [New post-deploy real Chrome run #38066125917](https://github.com/keeptxred/TexasDefined/actions/runs/38066125917) confirmed this school's **desktop 1366×900 PASS and mobile 390×844 PASS** with HTTP 200, one program-specific H1 (`Austin Travis Football`), unique SEO/canonical, SportsTeam and breadcrumb schema, external research source, county (and approved city) reciprocal links, sitemap presence, no visible broken images or image-alt omissions, no recorded client runtime errors, and zero horizontal overflow. The **new source-specific factual regression guard** passed: Austin ISD and Travis County render correctly on both viewports.
+
+[Corrected-run artifact #11674878954](https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954) contains `desktop-school-austin-travis.png`, `mobile-school-austin-travis.png` and `report.json` with report timestamp **2026-10-10T16:06:47.438Z**, tested commit `97c9571a3b7457d547430d7a63d6debd1144a7d6`. Full 25-school batch recorded **72/72 PASS**, **25/25 sitemap** and **zero failures**. Earlier error screenshots remain preserved as remediation history, not proof of this corrected state. Original historical-source, license, ADA, ticket and future-venue caveats above are still applicable; no blanket photo license or immutable gameday logistics is claimed.
+
+
 Research date 2026-10-10. **IMPLEMENTED ONLY**, NOT merged/deployed/production VERIFIED.
 
 School-specific deficiency: an individual editorial view was absent; facts about this program and visitors require distinguishing Austin school identities, actual playing venues and the historical era from 2026 classification. Official 2026 home fixtures split across stadiums; Nelson Field, House Park, Burger and Garrison differ by event. Not a single campus home venue.
