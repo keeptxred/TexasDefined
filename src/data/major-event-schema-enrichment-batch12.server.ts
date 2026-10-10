@@ -102,6 +102,17 @@ export const majorEventSchemaEnrichmentBatch12: MajorEventSchemaEnrichment[] = [
   {
     slug: "crossroads-of-texas-country-festival",
     organizer: organization("Waxahachie Convention & Visitors Bureau", "https://www.waxahachiecvb.com/"),
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ellis_County_Courthouse_%281_of_1%29.jpg?width=1600",
+      alt: "Ellis County Courthouse in downtown Waxahachie, the site of the Crossroads of Texas festival; courthouse photograph, not a festival performance",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Ellis_County_Courthouse_(1_of_1).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Courthouse photograph by Renelibrary, Wikimedia Commons, licensed CC BY-SA 4.0; depicts the actual historic courthouse-square venue, not the 2026 event.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     offers: [usdOffer("Festival general admission", 0, "https://www.waxahachietx.gov/Calendar.aspx?EID=747")],
     performers: [person("Jake Worthington"), person("Kenny Whitmire")],
     sources: [
