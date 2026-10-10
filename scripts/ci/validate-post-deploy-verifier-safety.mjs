@@ -39,6 +39,158 @@ for (const marker of [
   'statusTargetOverride || process.env.GITHUB_SHA',
   'STATUS_TARGET_SHA must be a 40-character commit SHA',
 ]) requireMarker(statusPublisher, marker, `GitHub status publisher must safely honor deployed SHA override: ${marker}`);
+// Wave 2: prevent push/PR live smokes from asserting undeployed production.
+const additionalPostDeploy = [
+  'advertiser-production-verification',
+  'swimming-holes-river-tubing-production-smoke',
+  'vehicle-authority-production-smoke',
+  'verify-reservoir-authority-production',
+  'verify-seven-regions-production',
+  'chappell-hill-production-smoke',
+];
+for (const name of additionalPostDeploy) {
+  const source = workflow(name);
+  noDirectPush(source, name);
+  requireMarker(source, 'workflow_run:', `${name} needs protected deployment completion`);
+  requireMarker(source, 'Deploy TexasDefined production', `${name} needs canonical deployment trigger`);
+  requireMarker(source, 'workflow_dispatch:', `${name} must retain manual triggering`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed/cancelled deployments`);
+  if (name !== 'advertiser-production-verification' && /^  pull_request:/m.test(source))
+    failures.push(`${name} must not probe undeployed pull-request code on production`);
+}
+const advertiser = workflow('advertiser-production-verification');
+requireMarker(advertiser, "github.event_name == 'pull_request'", 'Advertiser PR-only syntax validation missing');
+requireMarker(advertiser, 'node --check scripts/ci/verify-advertiser-production.mjs', 'Advertiser PR source syntax check missing');
+requireMarker(advertiser, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Advertiser verifier must check out exact deployed SHA');
+for (const name of ['verify-event-structured-data-production','verify-jasper-blue-hole-production','verify-sitemap-production-integrity']) {
+  const source = workflow(name);
+  requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out exact deployed SHA`);
+  if (/ref:\s*main\b/.test(source)) failures.push(`${name} must not check out moving main`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed deployments`);
+}
+// Wave 3: live-only checks may run after deploy or explicitly by hand, not on PR or push.
+for (const name of [
+  'verify-cavern-production-integrity',
+  'verify-demand-signal-routes',
+  'verify-legacy-authority-production',
+  'verify-relocation-production-depth',
+  'verify-devils-sinkhole-redirect-production',
+]) {
+  const source = workflow(name);
+  noDirectPush(source, name);
+  requireMarker(source, 'workflow_run:', `${name} must follow protected deployment`);
+  requireMarker(source, 'Deploy TexasDefined production', `${name} lost canonical deploy dependency`);
+  requireMarker(source, 'workflow_dispatch:', `${name} lost explicit manual verification`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed/cancelled deployments`);
+  if (name !== 'verify-devils-sinkhole-redirect-production' && /^  pull_request:/m.test(source))
+    failures.push(`${name} must not live-probe from PR triggers`);
+}
+const devils = workflow('verify-devils-sinkhole-redirect-production');
+requireMarker(devils, "github.event_name == 'pull_request'", 'Devils Sinkhole PR syntax validation must remain');
+requireMarker(devils, 'node --check scripts/ci/verify-devils-sinkhole-redirect-production.mjs', 'Devils Sinkhole PR syntax contract missing');
+requireMarker(devils, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Devils Sinkhole verifier must use deployed SHA');
+for (const name of ['verify-cavern-production-integrity','verify-demand-signal-routes'])
+  requireMarker(workflow(name), 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out deployed source`);
+const relocationDepth = workflow('verify-relocation-production-depth');
+requireMarker(relocationDepth, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Relocation-depth cache probe must bind deployed SHA');
+requireMarker(relocationDepth, 'process.env.DEPLOY_SHA', 'Relocation-depth probe must not use moving default branch SHA');
+// Wave 4: keep path-filtered source tests, but do not verify live URLs before
+// this very commit has its canonical protected-production success status.
+const pathFilteredLive = [
+  'verify-housing-index-surfaces',
+  'verify-local-home-insurance-production',
+  'verify-local-mortgage-production',
+  'verify-priority-county-property-production',
+  'verify-remote-evergreen-production',
+];
+for (const name of pathFilteredLive) {
+  const source = workflow(name);
+  requireMarker(source, '  pull_request:', `${name} must retain PR source validation`);
+  requireMarker(source, '  push:', `${name} must retain existing path-filtered push validation`);
+  requireMarker(source, 'statuses: read', `${name} must have read-only GitHub status access`);
+  const live = source.slice(source.indexOf('  verify-production:'));
+  requireMarker(live, "github.event_name != 'pull_request'", `${name} must never live-check on PR`);
+  requireMarker(live, 'node scripts/ci/wait-for-protected-production.mjs', `${name} must wait for protected deploy`);
+  requireMarker(live, 'PRODUCTION_COMMIT_SHA:', `${name} must bind the exact triggering commit`);
+  const waitAt = live.indexOf('node scripts/ci/wait-for-protected-production.mjs');
+  const probeAt = live.indexOf('run: node scripts/ci/verify-');
+  if (waitAt < 0 || probeAt < 0 || waitAt >= probeAt) failures.push(`${name} must wait *before* probing live production`);
+}
+const waitForProduction = fs.readFileSync('scripts/ci/wait-for-protected-production.mjs', 'utf8');
+for (const marker of [
+  "context === 'texasdefined-production'",
+  "lastState === 'success'",
+  "lastState === 'failure'",
+  'Protected deployment failed',
+  'Timed out waiting for exact-commit',
+]) requireMarker(waitForProduction, marker, `Exact-commit production gate regressed: ${marker}`);
+for (const name of ['hurst-whirlyball-production-smoke', 'my-story-museum-production-smoke', 'verify-brand-locator-production', 'verify-free-christmas-canonical']) {
+  const source = workflow(name);
+  requireMarker(source, 'STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must publish status against triggering deployed SHA`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip live assertions after failed deployment`);
+}
+for (const name of ['hurst-whirlyball-production-smoke', 'my-story-museum-production-smoke']) {
+  requireMarker(workflow(name), 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out the triggering deployed revision`);
+}
+const freeChristmasSource = workflow('verify-free-christmas-canonical');
+requireMarker(freeChristmasSource, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Free Christmas must resolve the actual deployed SHA');
+requireMarker(freeChristmasSource, 'ref: ${{ env.DEPLOY_SHA }}', 'Free Christmas must check out the resolved deployed SHA');
+const livePrSmoke = [
+  'verify-fort-davis-browser',
+  'verify-southlake-carroll-browser',
+  'verify-texas-river-map-browser',
+  'county-production-smoke',
+  'verify-find-my-county-production',
+  'verify-event-temporal-production',
+];
+for (const name of livePrSmoke) {
+  const source = workflow(name);
+  requireMarker(source, "github.event_name == 'pull_request'", `${name} must keep source-only PR validation`);
+  requireMarker(source, 'node --check scripts/ci/', `${name} PR syntax check must exist`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} live probe must require successful deploy`);
+  if (source.includes("github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'")) {
+    failures.push(`${name} must not execute production probes on PRs`);
+  }
+}
+// Cloudflare's path-filtered main push must wait for the exact source commit;
+// successful checks on an earlier Worker are not certification of this push.
+const cloudflareSmoke = workflow('cloudflare-production-smoke');
+for (const marker of [
+  '  statuses: read',
+  'Wait for exact SHA protected production deployment',
+  'PRODUCTION_COMMIT_SHA: ${{ github.sha }}',
+  'node scripts/ci/wait-for-protected-production.mjs',
+  "if: ${{ github.event_name == 'push' }}",
+]) requireMarker(cloudflareSmoke, marker, `Cloudflare smoke exact-commit gate missing: ${marker}`);
+const cloudflareGateIndex = cloudflareSmoke.indexOf('Wait for exact SHA protected production deployment');
+const cloudflareLiveIndex = cloudflareSmoke.indexOf('Verify Cloudflare Workers, public DNS and production AI binding');
+if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
+  failures.push('Cloudflare smoke must complete the protected deploy gate before live probes');
+
+// Browser verifier scripts for editorial and football must match the deploy
+// which triggered them, not whichever commit has since become default main.
+for (const name of ['verify-katy-browser','verify-abbott-browser','verify-wills-point-browser','verify-ysleta-museum-browser']) {
+  const source = workflow(name);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must only run live after successful deployment`);
+  requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out deployed source SHA`);
+  if (source.includes('Check out current repository')) failures.push(`${name} must not use moving main as verifier source`);
+}
+
+// Match post-deploy Events and museum verifier source to the triggering revision.
+const eventCompletion = workflow('verify-event-system-completion');
+const deployedRef = 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}';
+if (eventCompletion.split(deployedRef).length - 1 < 2)
+  failures.push('Both Events completion jobs must check out the deployed SHA');
+requireMarker(eventCompletion, "github.event.workflow_run.conclusion == 'success'", 'Events live checks require a successful deployment');
+const zapata = workflow('verify-zapata-museum-production');
+requireMarker(zapata, "github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'", 'Zapata live acceptance must be gated on deployment success');
+requireMarker(zapata, deployedRef, 'Zapata live verifier must check out the deployed SHA');
+if (zapata.slice(zapata.indexOf('  museum:')).includes("github.event.workflow_run.conclusion == 'failure'"))
+  failures.push('Zapata live acceptance must not execute after failed deployment');
+
+const linkGraph = workflow('audit-internal-link-graph-production');
+requireMarker(linkGraph, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Post-deploy internal-link graph audit must check out triggering SHA');
+requireMarker(linkGraph, "github.event.workflow_run.conclusion == 'success'", 'Internal-link graph audit requires successful deploy');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');

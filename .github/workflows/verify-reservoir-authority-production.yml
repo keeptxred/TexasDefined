@@ -6,11 +6,6 @@ on:
       - Deploy TexasDefined production
     types:
       - completed
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/verify-reservoir-authority-production.yml'
   workflow_dispatch:
 
 permissions:
@@ -22,7 +17,7 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     name: Verify five reservoir authority profiles live
     runs-on: ubuntu-latest
     timeout-minutes: 6

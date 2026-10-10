@@ -20,8 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out current repository
+      - name: Check out exact deployed verifier revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: Set up Node 22
         uses: actions/setup-node@v4
         with:
@@ -48,8 +50,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Check out current repository
+      - name: Check out Batch 002 deployed verifier revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: Set up Node 22
         uses: actions/setup-node@v4
         with:

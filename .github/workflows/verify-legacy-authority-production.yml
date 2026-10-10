@@ -1,22 +1,9 @@
 name: Verify legacy authority production
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/verify-legacy-authority-production.yml'
-      - 'src/data/fixtures/authority-legacy-*.ts'
-      - 'src/data/fixtures/lazy-authority-legacy.ts'
-      - 'src/data/queries.ts'
-      - 'src/routes/article.$slug.tsx'
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/verify-legacy-authority-production.yml'
-      - 'src/data/fixtures/authority-legacy-*.ts'
-      - 'src/data/fixtures/lazy-authority-legacy.ts'
-      - 'src/data/queries.ts'
-      - 'src/routes/article.$slug.tsx'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -28,6 +15,7 @@ concurrency:
 
 jobs:
   verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     name: Verify 10 legacy authority articles live
     runs-on: ubuntu-latest
     timeout-minutes: 5
