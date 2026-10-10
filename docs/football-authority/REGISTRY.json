@@ -40,21 +40,21 @@
       "arlington-martin",
       "arlington-seguin"
     ],
-    "state": "ASSIGNED",
+    "state": "IN_PROGRESS",
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 0,
+    "partiallyCompleted": 1,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "amarillo-caprock",
-    "nextSchool": "amarillo-caprock",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
+    "currentSchool": "amarillo-highland-park",
+    "nextSchool": "amarillo-highland-park",
+    "implementedOnBranch": 1,
+    "remainingToImplement": 24,
     "remainingToVerify": 25,
-    "notes": "Batch 003 assignment only. No individual audit, research, implementation, CI, deployment or production verification yet. Resume these 25; do not assign a different batch."
+    "notes": "Caprock individual content/audit committed, IMPLEMENTED only; no CI/merge/live success claimed. Remaining assigned 24 not reviewed; next Amarillo Highland Park. Batch 003 branch saves all assignment and first school work."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -2808,9 +2808,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-caprock",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-caprock.md",
+      "implementationCommits": [
+        "b58919a789fdbff4d7ca266cc601acc42c40563e",
+        "3197d4296020c7450275f24595e79310318f09b3"
+      ],
+      "evidenceSources": [
+        "https://www.amaisd.org/chs",
+        "https://www.amaisd.org/133763_3",
+        "https://www.amaisd.org/athletics",
+        "https://www.texasfootball.com/team/amarillo-caprock-longhorns",
+        "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/history/",
+        "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf"
+      ],
+      "imageStatus": "Original textual/milestone visual; school photography rights unresolved",
+      "seoStatus": "Individual editorial SEO authored, CI and live SEO not yet checked",
+      "actualProductionVerified": false,
+      "productionVerification": null,
+      "outstanding": [
+        "Official school colors",
+        "NCES county and reciprocal incoming link",
+        "Licensed authentic school image",
+        "Official game-specific stadium entrance/ADA/parking",
+        "CI/merge/deployment/live browser QA"
+      ]
     },
     {
       "id": "uil:amarillo-highland-park",
