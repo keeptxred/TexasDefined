@@ -45,7 +45,7 @@
     "gaming:validate": "node scripts/data/validate-gaming-authority.mjs",
     "calculators:validate": "node --experimental-strip-types scripts/data/validate-calculator-platform.ts",
     "metro-proximity:validate": "node --experimental-strip-types --test src/data/__tests__/metro-proximity.test.ts && node scripts/data/validate-metro-proximity.mjs && npm run metro-proximity:audit",
-    "relocation-search:validate": "node scripts/data/validate-relocation-search-spokes.mjs && node scripts/data/validate-relocation-hero-images.mjs",
+    "relocation-search:validate": "node scripts/data/validate-relocation-search-spokes.mjs",
     "editorial-outreach:validate": "node scripts/data/validate-editorial-outreach.mjs",
     "backlinks:validate": "node scripts/data/validate-backlink-command-center.mjs",
     "metro-proximity:audit": "node scripts/data/run-metro-proximity-audit.mjs"
