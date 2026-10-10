@@ -21,7 +21,7 @@ function BusinessDashboard(){
   if(!active)return;if(error){setMessage('Account loading failed.');return}
   setAccount(data as Account|null);if(data){const r=await supabase.from('texasdefined_network_profile_revisions').select('id,review_status,created_at,proposed_profile').eq('business_account_id',data.id).order('created_at',{ascending:false}).limit(20);if(active)setRevisions((r.data||[]) as Revision[])}
  })();return()=>{active=false}},[userId]);
- async function signIn(e:React.FormEvent){e.preventDefault();setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+'/business/dashboard'}});setMessage(error?error.message:'Check your email for a secure sign-in link.');setBusy(false)}
+ async function signIn(e:React.FormEvent){e.preventDefault();setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+'/business/dashboard',shouldCreateUser:false}});setMessage(error?error.message:'Check your email for a secure sign-in link.');setBusy(false)}
  async function submit(e:React.FormEvent){e.preventDefault();if(!account?.access_enabled)return;setBusy(true);setMessage('');
  const {data:{user}}=await supabase.auth.getUser();if(!user){setMessage('Sign in again.');setBusy(false);return}
  const payload=Object.fromEntries(Object.entries(draft).filter(([k,v])=>fields.some(([name])=>name===k)&&v.trim()));
