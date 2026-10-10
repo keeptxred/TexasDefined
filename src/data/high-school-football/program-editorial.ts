@@ -1260,45 +1260,70 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Editorial school-inspired accent; no official logo used"
     },
     "seo": {
-      "title": "Austin Achieve Polar Bears Football: 2026 Schedule, History & Fan Guide",
-      "description": "Independent Austin Achieve Polar Bears football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+      "title": "Austin Achieve Polar Bears Football: 2026 District & Schedule",
+      "description": "Austin Achieve Polar Bears varsity football, official charter athletics, 2026 4A Division II District 14 and documented matchups and home-campus information."
     },
     "schedule": {
-      "label": "2026 varsity schedule and source information",
-      "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
-      "sourceLabel": "Published varsity football schedule",
+      "label": "Official Lago Vista ISD 2026 District 14 opponent schedule",
+      "sourceUrl": "https://www.lagovistaisd.net/page/lhs.football",
+      "sourceLabel": "District opponent's first-party 2026 football alignment and schedule",
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "This program's distinct identity",
-      "body": "Austin Achieve's school-sponsored athletics page documents a charter-school Polar Bears varsity football program and identifies Joe Dimaio as athletic director, not necessarily head football coach. The 2026 schedule includes its September 11 victory over St. Anthony, and October district fixtures with Wimberley, Giddings, Eastside Early College and Lago Vista. This young public-charter program should not be padded with fabricated championships.",
+      "title": "Charter Polar Bears' 2026 first-party football resources",
+      "body": "Austin Achieve's official athletics website includes varsity football among its high-school sports and names Joe Dimaio athletic director, without confirming him as head football coach. The school's district administrative office is 5908 Manor Road, while the football program's published high-school campus is 7424 E Hwy 290; neither address establishes the exact event gate. Lago Vista ISD's official 2026 football page independently lists Austin Achieve in Class 4A Division II Region IV District 14 with Austin Eastside, Giddings, Lago Vista, Manor New Tech and Wimberley. The October 3 MaxPreps schedule snapshot lists a 1–5 start including a 28–14 September 11 win over St. Anthony; that is a dated snapshot, not a final 2026 record.",
       "sourceUrl": "https://www.austinachieve.org/athletics-2025",
-      "sourceLabel": "School athletics site or published team record",
+      "sourceLabel": "Austin Achieve official athletic offerings and director",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
         "date": "2026",
-        "title": "School-specific 2026 season context",
-        "body": "The 2026 score listing shows a 28–14 home win over St. Anthony on September 11; distinguish completed results from future dates.",
+        "title": "Charter team in varsity football alignment",
+        "body": "Lago Vista ISD's published 2026–28 4A Division II District 14 list includes Austin Achieve among Wimberley, Giddings, Manor New Tech, Eastside and Lago Vista.",
+        "sourceUrl": "https://www.lagovistaisd.net/page/lhs.football",
+        "sourceLabel": "Official Lago Vista ISD football district alignment"
+      },
+      {
+        "date": "Sep. 11, 2026",
+        "title": "Polar Bears defeat St. Anthony",
+        "body": "MaxPreps' October 3 updated 2026 schedule lists a 28–14 Austin Achieve home victory over St. Anthony, with a 1–5 overall record after October 2.",
         "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
-        "sourceLabel": "2026 published varsity schedule"
+        "sourceLabel": "Dated MaxPreps results and schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Official athletics director contact",
+        "body": "Austin Achieve's athletic site names Joe Dimaio for scheduling and athletics inquiries, distinct from its unidentified current head football coach.",
+        "sourceUrl": "https://www.austinachieve.org/athletics-2025",
+        "sourceLabel": "Official school athletics administration"
       }
     ],
     "overview": [
-      "Austin Achieve's school-sponsored athletics page documents a charter-school Polar Bears varsity football program and identifies Joe Dimaio as athletic director, not necessarily head football coach. The 2026 schedule includes its September 11 victory over St. Anthony, and October district fixtures with Wimberley, Giddings, Eastside Early College and Lago Vista. This young public-charter program should not be padded with fabricated championships.",
-      "TexasDefined is an independent publication, not Austin Achieve Polar Bears's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+      "Austin Achieve is an Austin charter-school Polar Bears varsity football program with its own athletic director and campus, not Austin ISD's Eastside or another Polar Bears school.",
+      "The first-party Lago Vista football guide lists Austin Achieve in 2026 Class 4A Division II District 14, with specific opponents. Austin Achieve's football campus and district administrative office use different published addresses.",
+      "A dated 2026 schedule snapshot lists a September win against St. Anthony and a 1–5 overall start as of October 3. No later score or end-of-season record is implied, and an athletics director is not labeled as the football head coach."
     ],
     "faq": [
       {
-        "question": "Where is the reliable 2026 Austin Achieve Polar Bears football schedule?",
-        "answer": "Use the linked school athletics site; opponent and venue details can change."
+        "question": "What district does Austin Achieve football play in for 2026?",
+        "answer": "Published district-opponent records place Austin Achieve in 4A Division II District 14 with Eastside, Giddings, Lago Vista, Manor New Tech and Wimberley."
       },
       {
-        "question": "What makes the Austin Achieve Polar Bears football program distinctive?",
-        "answer": "The 2026 score listing shows a 28–14 home win over St. Anthony on September 11; distinguish completed results from future dates."
+        "question": "Is Joe Dimaio Austin Achieve's head football coach?",
+        "answer": "Austin Achieve's official athletics page identifies Joe Dimaio as athletic director, not necessarily varsity football head coach."
+      },
+      {
+        "question": "What is a verified 2026 Austin Achieve football result?",
+        "answer": "The October 3 published schedule shows a 28–14 win over St. Anthony on September 11; more recent games require a fresh result check."
       }
-    ]
+    ],
+    "campus": {
+      "address": "7424 E Hwy 290, Austin, TX 78723",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
+      "sourceLabel": "Austin Achieve football home campus listing; district administrative office is a different address",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin": {
     "slug": "austin",
