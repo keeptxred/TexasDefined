@@ -107,7 +107,7 @@ const stateFairData = {
         heading: "College football at the State Fair",
         paragraphs: [
           "Cotton Bowl game days bring crowds and traffic. The 2026 State Fair Classic was September 26; the Red River Rivalry is October 10, and the State Fair Clásico October 17. Check kickoff and DART updates.",
-          "Regular State Fair admission does not include Cotton Bowl game admission. A qualifying game ticket includes Fair admission on the applicable game day; confirm specific ticket terms and use the dedicated game guides for more detailed planning."
+          "Fair admission excludes Cotton Bowl games. Qualifying game tickets include Fair admission that day; verify each game's ticket terms."
         ],
         links: [
           { label: "State Fair Classic guide", href: "/event/state-fair-classic" },
