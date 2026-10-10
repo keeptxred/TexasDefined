@@ -43,6 +43,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['NETWORK/RELEASE', 'Validate Network security and unpublished release guards', 'node', ['scripts/data/validate-network-release-guards.mjs']],
+  ['NETWORK/MIGRATIONS', 'Validate applied Supabase Network migration history', 'node', ['scripts/data/validate-network-migration-parity.mjs']],
   ['NETWORK/ADMIN', 'Verify dedicated Network administrator key', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-admin-access.test.mjs']],
   ['NETWORK/EMAIL', 'Verify disabled Office 365 email templates', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-templates.test.mjs']],
   ['NETWORK/BILLING', 'Test Stripe webhook authentication and checkout launch gate', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-security.test.mjs']],
