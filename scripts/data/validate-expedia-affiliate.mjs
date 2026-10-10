@@ -62,7 +62,7 @@ function walkFiles(directory) {
 // A single RootShell render shared by SSR and hydration is safer than an
 // SSR-only script branch. Accept either architecture, but require that the
 // unified shell has exactly one HTML return and retains every integration.
-const rootShell = root.match(/function RootShell\\([\\s\\S]*?\\n\\}/)?.[0] || '';
+const rootShell = root.slice(root.indexOf('function RootShell('), root.indexOf('function RootComponent()'));
 if (!root.includes('if (import.meta.env.SSR)')) {
   if ((rootShell.match(/return <html/g) || []).length !== 1) {
     errors.push('Unified SSR/client RootShell must have exactly one HTML return');
