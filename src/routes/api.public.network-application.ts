@@ -88,10 +88,12 @@ export const Route = createFileRoute("/api/public/network-application")({
           const logoPath=uploadedLogo?await store(uploadedLogo,"logo"):null;
           const galleryPaths:string[]=[];
           for(const [i,file] of (plan==="plus"?uploadedGallery:[]).entries())galleryPaths.push(await store(file,"gallery-"+(i+1)));
-          if(logoPath||galleryPaths.length){
-            const {error:mediaError}=await supabaseAdmin.from("texasdefined_network_applications").update({logo_storage_path:logoPath,gallery_storage_paths:galleryPaths} as never).eq("id",applicationId);
-            if(mediaError)throw new Error("Could not attach uploaded media");
-          }
+          // Finalize references and enqueue receipt only once all objects exist.
+          const {data:completed,error:finalizeError}=await supabaseAdmin.rpc(
+            "finalize_texasdefined_network_intake",{
+              p_application_id:applicationId,p_logo:logoPath,p_gallery:galleryPaths
+            });
+          if(finalizeError||completed!==true)throw new Error("Could not finalize application intake");
         }catch(err) {
           if(savedPaths.length)await supabaseAdmin.storage.from(bucket).remove(savedPaths);
           await supabaseAdmin.from("texasdefined_network_applications").delete().eq("id",applicationId);

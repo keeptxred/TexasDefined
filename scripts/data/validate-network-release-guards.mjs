@@ -120,3 +120,10 @@ check('owner login links are disabled without explicit portal launch',
  && source(root+'network.billing.tsx').includes('NETWORK_OWNER_PORTAL_ENABLED')
  && source(root+'business.dashboard.lazy.tsx').includes('disabled={!ownerPortalOpen||busy}')
  && source(root+'network.billing.lazy.tsx').includes('disabled={!ownerPortalOpen||busy}'));
+
+check('intake is reviewable only after media and receipt transaction',
+ apps.includes('finalize_texasdefined_network_intake')
+ && review.includes(".eq('intake_complete',true)")
+ && review.includes('!current.intake_complete')
+ && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('NEW.intake_complete AND NOT OLD.intake_complete')
+ && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('network_review_requires_completed_intake'));

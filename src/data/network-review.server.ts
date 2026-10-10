@@ -17,7 +17,7 @@ async function assertNetworkImageBytes(blob: Blob, type: string) {
 
 export async function listNetworkApplications(accessKey: string) {
   await assertNetworkAdminAccess(accessKey);
-  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications').select('*').order('created_at', { ascending: false }).limit(200);
+  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications').select('*').eq('intake_complete',true).order('created_at', { ascending: false }).limit(200);
   if (error) throw new Error('Network applications are unavailable.');
   const applications = (data ?? []) as Array<Record<string, unknown>>;
   // Published URLs must use stable slugs, not private application UUIDs.
@@ -45,8 +45,8 @@ export async function setNetworkApplicationReview(accessKey: string, id: string,
   await assertNetworkAdminAccess(accessKey);
   const status = action === 'approve' ? 'approved' : action === 'reject' ? 'rejected' : 'pending_review';
   const { data: current, error: lookupError } = await supabaseAdmin.from('texasdefined_network_applications')
-    .select('id,status').eq('id', id).single();
-  if (lookupError || !current) throw new Error('Application not found.');
+    .select('id,status,intake_complete').eq('id', id).single();
+  if (lookupError || !current || !current.intake_complete) throw new Error('Application is not ready for review.');
   if (current.status === 'published' && action === 'approve') {
     throw new Error('Unpublish a listing before reopening editorial approval.');
   }

@@ -72,3 +72,7 @@ Set `NETWORK_OWNER_PORTAL_ENABLED=true` only after verifying the Supabase Auth s
 
 ## Supabase advisor follow-up
 The new service-only tables intentionally have RLS with no browser policies: do not “fix” these advisory notices by granting anon/authenticated access. Three Network foreign-key indexes were added in 20261010224825. The shared project's unrelated unused-index, pg_net and Auth password-protection advisories require a separate site-wide review; do not change globally from a Network release workflow without explicit scope approval.
+
+
+## Intake media transaction
+Applications are not reviewable until `intake_complete=true`. Service-role-only `finalize_texasdefined_network_intake` checks actual private uploaded objects and atomically sets media paths and enqueues the receipt. Incomplete or failed uploads must not generate a notification. No data or emails are created by this migration. Interrupted-worker cleanup and real multipart browser tests are still required before launch.
