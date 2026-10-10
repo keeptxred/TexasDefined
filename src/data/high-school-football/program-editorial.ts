@@ -58,6 +58,169 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "anson": {
+    "slug": "anson",
+    "theme": {
+      "accentHex": "#963F28",
+      "label": "Original Tiger historical editorial graphic, not official Anson school colors"
+    },
+    "seo": {
+      "title": "Anson Tigers Football: 2026 Coach Matt Stapp, 2025 Playoffs & Tiger Stadium",
+      "description": "Anson Tigers football guide: 2026 UIL 2A Division I District 5, 2024 and 2025 eight-win seasons, coach Matt Stapp, Tiger Stadium and sourced game results."
+    },
+    "coach": {
+      "name": "Matt Stapp",
+      "title": "2026 football head coach per dated current varsity history",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/history/",
+      "sourceLabel": "MaxPreps 2026 history; primary Anson ISD coach corroboration outstanding",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1509 Commercial Avenue, Anson, TX 79501",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+      "sourceLabel": "Anson High campus directory, separate from spectator gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Anson Tigers varsity fixtures and recorded results",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+      "sourceLabel": "MaxPreps updated October 8, 2026",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 through the five completed fixtures listed on October 8, 2026; October 9 Cisco remains scheduled",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+      "sourceLabel": "Dated Anson 2026 schedule",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Post",
+          "site": "Home",
+          "result": "L 6–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Albany",
+          "site": "Away",
+          "result": "L 26–27"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Olney",
+          "site": "Home",
+          "result": "W 77–0"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Haskell",
+          "site": "Away",
+          "result": "W 48–44"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Breckenridge",
+          "site": "Home",
+          "result": "W 43–19"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Cisco",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Abilene TLCA",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "De Leon",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Hawley",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Hico",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "Anson, TX — exact game gate unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
+      "sourceLabel": "Dave Campbell's Texas Football Tigers venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists historic 800 capacity but provides no current official ADA, parking or ticket terms. Contact Anson ISD using its current extracurricular schedule for stadium arrival details."
+    },
+    "overview": [
+      "The Anson Tigers represent Anson ISD in Jones County, West Texas. Their program should not be confused with other Texas Tigers or the similarly named youth football organization: the school publishes extracurricular resources at its official ansontigers.com district site.",
+      "DCTF lists Anson with 28 football playoff appearances and no state football championship games or titles. Two consecutive 8–4 varsity seasons in 2024 and 2025 make a better documented recent story than an invented championship legacy.",
+      "The 2025 Tigers defeated Ozona 35–14 in a playoff game before a 27–28 postseason loss to Spearman; MaxPreps' full schedule confirms the dates and scores. Earlier in the season they defeated traditional regional opponent Albany 20–6, but that does not establish an all-time rivalry series outcome.",
+      "Anson's 2026–28 UIL district is Class 2A Division I District 5 against Cisco, De Leon, Hawley, Hico and Abilene TLCA. The current schedule's October 9 Cisco date is a scheduled contest, not an officially verified finished game at the time of research.",
+      "MaxPreps lists a 2026 coaching change to Matt Stapp after Kyle Wheeler in 2025 and Cory McCombs in 2024. The exact transition should be corroborated by an Anson ISD announcement before being presented as a district-confirmed appointment.",
+      "The 2026 season began with narrow 26–27 defeat at Albany followed by a 77–0 victory over Olney, a 48–44 win over Haskell and 43–19 win over Breckenridge. These source-dated results give 3–2 through September 25; the corresponding DCTF page was missing the final two September scores, so its partial 1–2 tally is not authoritative for all games.",
+      "Independent stadium listings name Tiger Stadium with historical 800 capacity. Game-day gate, accessible arrival, current tickets and weather changes need the current school district's own announcements; the high-school campus street address is not proof of stadium entrance."
+    ],
+    "milestones": [
+      {
+        "date": "2024–25",
+        "title": "Back-to-back eight-win years",
+        "body": "DCTF archived varsity results list 8–4 in both 2024 and 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
+        "sourceLabel": "DCTF program season history"
+      },
+      {
+        "date": "Nov. 2025",
+        "title": "Ozona playoff win and Spearman finish",
+        "body": "Anson beat Ozona 35–14, then lost 27–28 to Spearman in its next playoff game.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps complete 2025 postseason scores"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Four-point shootout at Haskell",
+        "body": "The Tigers won 48–44 at Haskell after a one-point loss to Albany two weeks earlier.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+        "sourceLabel": "MaxPreps dated 2026 scores"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 2A Division I District 5",
+        "body": "The present district includes Cisco, De Leon, Hawley, Hico and Abilene TLCA, not necessarily all historic rival schools.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL realignment 2026"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anson won a state football championship?",
+        "answer": "The DCTF football database credits Anson with 28 playoff appearances and no state championship-game appearance or state title."
+      },
+      {
+        "question": "Who coaches the Anson Tigers in 2026?",
+        "answer": "MaxPreps lists Matt Stapp in its 2026 head-coach history; official Anson ISD appointment confirmation is still being sought."
+      },
+      {
+        "question": "How did the Tigers finish in 2025?",
+        "answer": "Anson finished 8–4 and won a playoff game against Ozona 35–14 before losing to Spearman 27–28."
+      },
+      {
+        "question": "Where do Anson Tigers play?",
+        "answer": "The football directory lists Tiger Stadium; verify a specific game's gate, tickets and accessibility with Anson ISD."
+      }
+    ]
+  },
   "anna": {
     "slug": "anna",
     "theme": {
