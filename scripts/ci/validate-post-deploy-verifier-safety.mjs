@@ -167,6 +167,15 @@ const cloudflareLiveIndex = cloudflareSmoke.indexOf('Verify Cloudflare Workers, 
 if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
   failures.push('Cloudflare smoke must complete the protected deploy gate before live probes');
 
+// Browser verifier scripts for editorial and football must match the deploy
+// which triggered them, not whichever commit has since become default main.
+for (const name of ['verify-katy-browser','verify-abbott-browser','verify-wills-point-browser','verify-ysleta-museum-browser']) {
+  const source = workflow(name);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must only run live after successful deployment`);
+  requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out deployed source SHA`);
+  if (source.includes('Check out current repository')) failures.push(`${name} must not use moving main as verifier source`);
+}
+
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
