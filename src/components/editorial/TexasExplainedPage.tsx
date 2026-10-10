@@ -47,6 +47,16 @@ const riverProfileSlugs = [
   "texas-guadalupe-river-guide",
   "texas-trinity-river-guide",
   "texas-rio-grande-river-guide",
+  "texas-canadian-river-guide",
+  "texas-cypress-river-basin-guide",
+  "texas-lavaca-river-guide",
+  "texas-neches-river-guide",
+  "texas-nueces-river-guide",
+  "texas-red-river-guide",
+  "texas-sabine-river-guide",
+  "texas-san-antonio-river-guide",
+  "texas-san-jacinto-river-guide",
+  "texas-sulphur-river-guide",
 ] as const;
 
 const reservoirProfileSlugs = [
