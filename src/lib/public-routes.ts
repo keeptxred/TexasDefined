@@ -434,6 +434,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/network/directory",
   "/network/join",
   "/network/apply",
+  "/business/dashboard",
   "/network/example/basic",
   "/network/example/plus",
   "/search",
