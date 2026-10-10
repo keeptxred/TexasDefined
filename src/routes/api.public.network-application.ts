@@ -77,10 +77,6 @@ export const Route = createFileRoute("/api/public/network-application")({
           console.error("[network] media save failed",err instanceof Error?err.message:"unknown");
           return response({error:"Image upload failed; please retry."},503);
         }
-        return response({ok:true,applicationId,checkoutAvailable:false,message:"Application received. Checkout is temporarily unavailable; no charge was made."},201);
-            }
-          }
-        }
         return response({ok:true,applicationId,checkoutAvailable:false,message:"Application and images received for review. No listing has been published or charged."},201);
       }catch(e){console.error("[network] server unavailable",e instanceof Error?e.message:"unknown");return response({error:"Application temporarily unavailable."},503)}
     }
