@@ -40,7 +40,7 @@ async function check(page, label) {
     waitUntil: 'domcontentloaded', timeout: 55_000,
   });
   verify(response?.status() === 200, label + ': HTTP ' + response?.status());
-  await page.getByRole('heading', { name: 'Texas household budget planner' }).waitFor({ state: 'visible', timeout: 25_000 });
+  await page.getByRole('heading', { level: 1, name: 'Texas household budget planner', exact: true }).waitFor({ state: 'visible', timeout: 25_000 });
   await page.waitForLoadState('load', { timeout: 25_000 }).catch(() => {});
   await incomeIs(page, '$7,000');
   const resultText = await page.locator('section[aria-labelledby="budget-results-heading"]').innerText();
