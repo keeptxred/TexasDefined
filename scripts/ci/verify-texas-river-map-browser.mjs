@@ -24,6 +24,8 @@ async function inspect(page, label, width, height, mobile) {
       network.push({ event: 'response', status: response.status(), url: response.url() });
   });
   page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error' && /twdb|basin|CORS/i.test(message.text())) errors.push(message.text()); });
+  page.on('request', request => { if (/gis1\\.twdb\\.texas\\.gov/.test(request.url())) network.push({ event: 'request', url: request.url() }); });
   const row = { viewport: label, width, height, mobile, network, errors, checks: [] };
   evidence.push(row);
   try {
@@ -36,8 +38,21 @@ async function inspect(page, label, width, height, mobile) {
     const load = section.getByRole('button', { name: 'Load interactive basin map' });
     await load.waitFor({ state: 'visible', timeout: 25_000 });
     row.checks.push('Article rendered with opt-in map control');
-    await load.click();
-    await section.locator('svg[role="img"] path').first().waitFor({ state: 'attached', timeout: 40_000 }).catch(async cause => {
+    await page.waitForLoadState('load', { timeout: 20_000 }).catch(() => {});
+    // A server-rendered button can accept a click before the React handlers have
+    // hydrated. Reclick only while the opt-in button remains; otherwise a no-op
+    // click would incorrectly look like a failed TWDB GIS request.
+    let activated = false;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      await load.click();
+      activated = await load.waitFor({ state: 'detached', timeout: 5_000 }).then(() => true, () => false);
+      if (activated) break;
+      await page.waitForTimeout(1_200);
+    }
+    row.mapButtonActivated = activated;
+    if (!activated) throw new Error(label + ': button never activated after browser load/hydration attempts');
+    row.checks.push('React interaction activated after hydration');
+    await section.locator('svg[role="img"] path').first().waitFor({ state: 'attached', timeout: 35_000 }).catch(async cause => {
       row.mapAlert = await section.locator('[role="alert"]').allTextContents();
       throw new Error(label + ': no official GIS polygons rendered: ' + JSON.stringify(row.mapAlert) +
         ' / ' + (cause instanceof Error ? cause.message : String(cause)));
