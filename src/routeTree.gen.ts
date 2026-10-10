@@ -295,6 +295,8 @@ import { Route as PartnerWithUsExamplesRouteImport } from './routes/partner-with
 import { Route as PartnerWithUsBillingRouteImport } from './routes/partner-with-us.billing'
 import { Route as PartnerWithUsAgreementRouteImport } from './routes/partner-with-us.agreement'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
+import { Route as NetworkJoinRouteImport } from './routes/network.join'
+import { Route as NetworkApplyRouteImport } from './routes/network.apply'
 import { Route as MovingToTexasDataRouteImport } from './routes/moving-to-texas_.data'
 import { Route as MovingToTexasToolsRouteImport } from './routes/moving-to-texas.tools'
 import { Route as LearnWildlifeManagementValuationRouteImport } from './routes/learn.wildlife-management-valuation'
@@ -437,6 +439,8 @@ import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
+import { Route as NetworkExamplePlusRouteImport } from './routes/network.example.plus'
+import { Route as NetworkExampleBasicRouteImport } from './routes/network.example.basic'
 import { Route as FishingTechniquesSlugRouteImport } from './routes/fishing.techniques.$slug'
 import { Route as FishingSpeciesLargemouthBassRouteImport } from './routes/fishing.species.largemouth-bass'
 import { Route as FishingSpeciesSlugRouteImport } from './routes/fishing.species.$slug'
@@ -483,6 +487,7 @@ import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
+import { Route as ApiPublicNetworkApplicationRouteImport } from './routes/api.public.network-application'
 import { Route as ApiInternalLiveLakeVerificationRouteImport } from './routes/api/internal/live-lake-verification'
 import { Route as ApiAiEntitiesRouteImport } from './routes/api.ai.entities'
 import { Route as ApiAdminSocialCalendarPreviewRouteImport } from './routes/api.admin.social-calendar-preview'
@@ -2359,6 +2364,16 @@ const NewsSlugRoute = NewsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => NewsRoute,
 } as any).lazy(() => import('./routes/news.$slug.lazy').then((d) => d.Route))
+const NetworkJoinRoute = NetworkJoinRouteImport.update({
+  id: '/network/join',
+  path: '/network/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetworkApplyRoute = NetworkApplyRouteImport.update({
+  id: '/network/apply',
+  path: '/network/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MovingToTexasDataRoute = MovingToTexasDataRouteImport.update({
   id: '/moving-to-texas_/data',
   path: '/moving-to-texas/data',
@@ -3184,6 +3199,16 @@ const PropertyTaxCountyCountyRoute = PropertyTaxCountyCountyRouteImport.update({
   path: '/property-tax/county/$county',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NetworkExamplePlusRoute = NetworkExamplePlusRouteImport.update({
+  id: '/network/example/plus',
+  path: '/network/example/plus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetworkExampleBasicRoute = NetworkExampleBasicRouteImport.update({
+  id: '/network/example/basic',
+  path: '/network/example/basic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FishingTechniquesSlugRoute = FishingTechniquesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -3465,6 +3490,12 @@ const ApiPublicStoreProductsRoute = ApiPublicStoreProductsRouteImport.update({
   path: '/api/public/store-products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicNetworkApplicationRoute =
+  ApiPublicNetworkApplicationRouteImport.update({
+    id: '/api/public/network-application',
+    path: '/api/public/network-application',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInternalLiveLakeVerificationRoute =
   ApiInternalLiveLakeVerificationRouteImport.update({
     id: '/api/internal/live-lake-verification',
@@ -3901,6 +3932,8 @@ export interface FileRoutesByFullPath {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
+  '/network/apply': typeof NetworkApplyRoute
+  '/network/join': typeof NetworkJoinRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -4004,6 +4037,7 @@ export interface FileRoutesByFullPath {
   '/api/admin/social-calendar-preview': typeof ApiAdminSocialCalendarPreviewRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
   '/api/internal/live-lake-verification': typeof ApiInternalLiveLakeVerificationRoute
+  '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -4050,6 +4084,8 @@ export interface FileRoutesByFullPath {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
+  '/network/example/basic': typeof NetworkExampleBasicRoute
+  '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
@@ -4390,6 +4426,8 @@ export interface FileRoutesByTo {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
+  '/network/apply': typeof NetworkApplyRoute
+  '/network/join': typeof NetworkJoinRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -4493,6 +4531,7 @@ export interface FileRoutesByTo {
   '/api/admin/social-calendar-preview': typeof ApiAdminSocialCalendarPreviewRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
   '/api/internal/live-lake-verification': typeof ApiInternalLiveLakeVerificationRoute
+  '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -4539,6 +4578,8 @@ export interface FileRoutesByTo {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
+  '/network/example/basic': typeof NetworkExampleBasicRoute
+  '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
@@ -4883,6 +4924,8 @@ export interface FileRoutesById {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas_/data': typeof MovingToTexasDataRoute
+  '/network/apply': typeof NetworkApplyRoute
+  '/network/join': typeof NetworkJoinRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -4986,6 +5029,7 @@ export interface FileRoutesById {
   '/api/admin/social-calendar-preview': typeof ApiAdminSocialCalendarPreviewRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
   '/api/internal/live-lake-verification': typeof ApiInternalLiveLakeVerificationRoute
+  '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -5032,6 +5076,8 @@ export interface FileRoutesById {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
+  '/network/example/basic': typeof NetworkExampleBasicRoute
+  '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
@@ -5377,6 +5423,8 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
+    | '/network/apply'
+    | '/network/join'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -5480,6 +5528,7 @@ export interface FileRouteTypes {
     | '/api/admin/social-calendar-preview'
     | '/api/ai/entities'
     | '/api/internal/live-lake-verification'
+    | '/api/public/network-application'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -5526,6 +5575,8 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
+    | '/network/example/basic'
+    | '/network/example/plus'
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
@@ -5866,6 +5917,8 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
+    | '/network/apply'
+    | '/network/join'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -5969,6 +6022,7 @@ export interface FileRouteTypes {
     | '/api/admin/social-calendar-preview'
     | '/api/ai/entities'
     | '/api/internal/live-lake-verification'
+    | '/api/public/network-application'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -6015,6 +6069,8 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
+    | '/network/example/basic'
+    | '/network/example/plus'
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
@@ -6358,6 +6414,8 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas_/data'
+    | '/network/apply'
+    | '/network/join'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -6461,6 +6519,7 @@ export interface FileRouteTypes {
     | '/api/admin/social-calendar-preview'
     | '/api/ai/entities'
     | '/api/internal/live-lake-verification'
+    | '/api/public/network-application'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -6507,6 +6566,8 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
+    | '/network/example/basic'
+    | '/network/example/plus'
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
@@ -6818,6 +6879,8 @@ export interface RootRouteChildren {
   LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
   LearnWildlifeManagementValuationRoute: typeof LearnWildlifeManagementValuationRoute
   MovingToTexasDataRoute: typeof MovingToTexasDataRoute
+  NetworkApplyRoute: typeof NetworkApplyRoute
+  NetworkJoinRoute: typeof NetworkJoinRoute
   PropertyTaxCalculatorLocationRoute: typeof PropertyTaxCalculatorLocationRoute
   PropertyTaxCountiesRoute: typeof PropertyTaxCountiesRoute
   SportsVenueSlugRoute: typeof SportsVenueSlugRoute
@@ -6895,6 +6958,7 @@ export interface RootRouteChildren {
   ApiAdminSocialCalendarPreviewRoute: typeof ApiAdminSocialCalendarPreviewRoute
   ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
   ApiInternalLiveLakeVerificationRoute: typeof ApiInternalLiveLakeVerificationRoute
+  ApiPublicNetworkApplicationRoute: typeof ApiPublicNetworkApplicationRoute
   ApiPublicStoreProductsRoute: typeof ApiPublicStoreProductsRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
@@ -6906,6 +6970,8 @@ export interface RootRouteChildren {
   ExploreRoute66SlugRoute: typeof ExploreRoute66SlugRoute
   ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
   ExploreTripTokenRoute: typeof ExploreTripTokenRoute
+  NetworkExampleBasicRoute: typeof NetworkExampleBasicRoute
+  NetworkExamplePlusRoute: typeof NetworkExamplePlusRoute
   PropertyTaxCountyCountyRoute: typeof PropertyTaxCountyCountyRoute
   PropertyTaxTaxingUnitUnitRoute: typeof PropertyTaxTaxingUnitUnitRoute
   ExplorePaintedChurchesGuidesSlugRoute: typeof ExplorePaintedChurchesGuidesSlugRoute
@@ -8915,6 +8981,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsSlugRouteImport
       parentRoute: typeof NewsRoute
     }
+    '/network/join': {
+      id: '/network/join'
+      path: '/network/join'
+      fullPath: '/network/join'
+      preLoaderRoute: typeof NetworkJoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/apply': {
+      id: '/network/apply'
+      path: '/network/apply'
+      fullPath: '/network/apply'
+      preLoaderRoute: typeof NetworkApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moving-to-texas_/data': {
       id: '/moving-to-texas_/data'
       path: '/moving-to-texas/data'
@@ -9909,6 +9989,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertyTaxCountyCountyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/network/example/plus': {
+      id: '/network/example/plus'
+      path: '/network/example/plus'
+      fullPath: '/network/example/plus'
+      preLoaderRoute: typeof NetworkExamplePlusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/example/basic': {
+      id: '/network/example/basic'
+      path: '/network/example/basic'
+      fullPath: '/network/example/basic'
+      preLoaderRoute: typeof NetworkExampleBasicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fishing/techniques/$slug': {
       id: '/fishing/techniques/$slug'
       path: '/$slug'
@@ -10229,6 +10323,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/store-products'
       fullPath: '/api/public/store-products'
       preLoaderRoute: typeof ApiPublicStoreProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/network-application': {
+      id: '/api/public/network-application'
+      path: '/api/public/network-application'
+      fullPath: '/api/public/network-application'
+      preLoaderRoute: typeof ApiPublicNetworkApplicationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/internal/live-lake-verification': {
@@ -11243,6 +11344,8 @@ const rootRouteChildren: RootRouteChildren = {
   LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
   LearnWildlifeManagementValuationRoute: LearnWildlifeManagementValuationRoute,
   MovingToTexasDataRoute: MovingToTexasDataRoute,
+  NetworkApplyRoute: NetworkApplyRoute,
+  NetworkJoinRoute: NetworkJoinRoute,
   PropertyTaxCalculatorLocationRoute: PropertyTaxCalculatorLocationRoute,
   PropertyTaxCountiesRoute: PropertyTaxCountiesRoute,
   SportsVenueSlugRoute: SportsVenueSlugRoute,
@@ -11349,6 +11452,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAdminSocialCalendarPreviewRoute: ApiAdminSocialCalendarPreviewRoute,
   ApiAiEntitiesRoute: ApiAiEntitiesRoute,
   ApiInternalLiveLakeVerificationRoute: ApiInternalLiveLakeVerificationRoute,
+  ApiPublicNetworkApplicationRoute: ApiPublicNetworkApplicationRoute,
   ApiPublicStoreProductsRoute: ApiPublicStoreProductsRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
@@ -11360,6 +11464,8 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute66SlugRoute: ExploreRoute66SlugRoute,
   ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
   ExploreTripTokenRoute: ExploreTripTokenRoute,
+  NetworkExampleBasicRoute: NetworkExampleBasicRoute,
+  NetworkExamplePlusRoute: NetworkExamplePlusRoute,
   PropertyTaxCountyCountyRoute: PropertyTaxCountyCountyRoute,
   PropertyTaxTaxingUnitUnitRoute: PropertyTaxTaxingUnitUnitRoute,
   ExplorePaintedChurchesGuidesSlugRoute: ExplorePaintedChurchesGuidesSlugRoute,
