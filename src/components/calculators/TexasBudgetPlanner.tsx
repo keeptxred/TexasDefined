@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import {
   BUDGET_GROUPS, BUDGET_STORAGE_KEY, MAX_BUDGET_VALUE, calculateHouseholdBudget,
   createBudgetDefaults, migrateLegacyBudget, normalizeBudgetValue, sanitizeBudget,
+  createBudgetShareQuery, createBudgetCsv,
   type BudgetKey, type BudgetState,
 } from '@/lib/financial/budget-planner';
 import { CurrencyInput, formatMoney } from '@/components/property/PropertyCalculatorFramework';
@@ -32,7 +33,15 @@ export function BudgetCalculator() {
           setStatus('Budget values loaded from the URL. Review before relying on them.');
         }
       } catch { setStatus('Invalid shared budget; using illustrative starting values.'); }
-    } else if (!urlBudget && !readSaved(BUDGET_STORAGE_KEY)) {
+    } else if (!urlBudget && readSaved(BUDGET_STORAGE_KEY)) {
+      // A saved budget should survive a page reload without requiring another click.
+      try {
+        setBudget(sanitizeBudget(JSON.parse(readSaved(BUDGET_STORAGE_KEY)!)));
+        setStatus('Saved budget restored automatically from this browser.');
+      } catch {
+        setStatus('Saved budget could not be read. Reset or save a fresh budget.');
+      }
+    } else if (!urlBudget) {
       const legacy = readSaved('texasdefined:budget:v2');
       if (legacy) {
         try {
@@ -86,7 +95,7 @@ export function BudgetCalculator() {
     if (!shareApproved) { setStatus('Read and acknowledge the URL privacy notice before sharing.'); return; }
     const url = new URL(window.location.pathname, window.location.origin);
     // Only user-entered budget amounts, no names or contact fields; URLs can still be recorded.
-    url.searchParams.set('b3', JSON.stringify(budget));
+    url.search = createBudgetShareQuery(budget);
     try {
       await navigator.clipboard.writeText(url.toString());
       setStatus('Budget share URL copied. Anyone with this URL can see the entered amounts.');
@@ -102,18 +111,7 @@ export function BudgetCalculator() {
     catch { setStatus(`Scenario ${label} stored for this page session only.`); }
   };
   const downloadCsv = () => {
-    const rows = [['Category', 'Item', 'Entered USD', 'Period', 'Monthly USD']];
-    for (const group of BUDGET_GROUPS) {
-      for (const field of group.fields) {
-        const annual = 'cadence' in field;
-        rows.push([group.title, field.label, String(budget[field.key]), annual ? 'annual' : 'monthly', (budget[field.key] / (annual ? 12 : 1)).toFixed(2)]);
-      }
-    }
-    rows.push(['Total', 'Monthly income', '', 'monthly', totals.income.toFixed(2)]);
-    rows.push(['Total', 'Monthly expenses and bill reserves', '', 'monthly', totals.expenses.toFixed(2)]);
-    rows.push(['Total', 'Monthly savings allocations', '', 'monthly', totals.savings.toFixed(2)]);
-    rows.push(['Total', 'Remaining after allocations', '', 'monthly', totals.remaining.toFixed(2)]);
-    const csv = rows.map(row => row.map(value => `"${value.replace(/"/g, '""')}"`).join(',')).join('\r\n');
+    const csv = createBudgetCsv(budget);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const element = document.createElement('a');
@@ -158,6 +156,28 @@ export function BudgetCalculator() {
           </section>;
         })}
       </div>
+
+      <style>{'@media print { #budget-print-details { display: block !important; } }'}</style>
+      <section id="budget-print-details" className="hidden" aria-labelledby="budget-print-detail-heading">
+        <h2 id="budget-print-detail-heading" className="font-display text-2xl">Detailed monthly budget</h2>
+        <p className="text-sm">Only nonzero entries are printed. Annual bills are shown as monthly reserves; all amounts are based on your inputs.</p>
+        <table className="w-full border-collapse text-sm">
+          <thead><tr className="border-b border-border"><th scope="col" className="py-2 text-left">Budget item</th><th scope="col" className="py-2 text-right">Monthly amount</th></tr></thead>
+          <tbody>
+            {BUDGET_GROUPS.map(group => {
+              const nonzero = group.fields.filter(field => budget[field.key] > 0);
+              if (!nonzero.length) return null;
+              return <Fragment key={group.id}>
+                <tr className="border-b border-border"><th colSpan={2} scope="rowgroup" className="py-2 text-left font-semibold">{group.title}</th></tr>
+                {nonzero.map(field => <tr className="border-b border-border" key={field.key}>
+                  <th scope="row" className="py-1 text-left font-normal">{field.label}{'cadence' in field ? ' (annual reserve)' : ''}</th>
+                  <td className="py-1 text-right tabular-nums">{formatMoney(budget[field.key] / ('cadence' in field ? 12 : 1))}</td>
+                </tr>)}
+              </Fragment>;
+            })}
+          </tbody>
+        </table>
+      </section>
 
       <section aria-labelledby="budget-results-heading" className="border-y border-foreground py-8" aria-live="polite">
         <p className="eyebrow text-primary">Live budget summary</p>
