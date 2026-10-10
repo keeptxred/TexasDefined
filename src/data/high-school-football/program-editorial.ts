@@ -2582,9 +2582,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "campus": {
-      "address": "458 FM 149 West, Anderson, TX 77830",
-      "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
-      "sourceLabel": "Anderson-Shiro high school address, not a certified spectator gate",
+      "address": "1345 FM 149 West, Anderson, TX 77830",
+      "sourceUrl": "https://jshs.ascisd.net/apps/contact/",
+      "sourceLabel": "Official Anderson-Shiro Junior-Senior High campus contact; 458 FM 149 W is distinct district administration contact",
       "verifiedAt": "2026-10-09"
     },
     "schedule": {
