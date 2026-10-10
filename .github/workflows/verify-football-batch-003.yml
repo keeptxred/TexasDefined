@@ -20,3 +20,5 @@ jobs:
           node-version: "22"
       - name: Verify Batch 003 registry, dossiers and editorial inventory
         run: node scripts/ci/verify-football-batch-003.mjs
+      - name: Check Batch 003 browser test syntax without network or paid services
+        run: node --check scripts/ci/verify-football-batch-003-browser.mjs
