@@ -58,6 +58,208 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "baird": {
+    "slug": "baird",
+    "theme": {
+      "accentHex": "#A8212C",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Baird Bears Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Baird Bears football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Season-by-season historical scores and 2026 schedule",
+      "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
+      "sourceLabel": "Published program history and 2026 fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Distinctive program history",
+      "body": "Baird is a Callahan County SIX-MAN Division I District 7 school. Six-Man Football dates the program's transition to six-man to 2019 and lists Jeremy Kirk as head coach; its 2025 season was 3–7 after 2024's 7–4 and 2023's 6–4. Its first 2026 fixture with Abilene Texas Leadership Charter is labeled versus an 11-man team, so opponents need accurate competition context.",
+      "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
+      "sourceLabel": "Cited football program evidence",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results.",
+        "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
+        "sourceLabel": "Specific fixture and historical record source"
+      }
+    ],
+    "overview": [
+      "Baird is a Callahan County SIX-MAN Division I District 7 school. Six-Man Football dates the program's transition to six-man to 2019 and lists Jeremy Kirk as head coach; its 2025 season was 3–7 after 2024's 7–4 and 2023's 6–4. Its first 2026 fixture with Abilene Texas Leadership Charter is labeled versus an 11-man team, so opponents need accurate competition context.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+    ],
+    "faq": [
+      {
+        "question": "Is Baird Bears an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as a Class 1A six-man program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results."
+      }
+    ],
+    "coach": {
+      "name": "Jeremy Kirk",
+      "title": "Head coach in published 2026 program listing; confirm with school",
+      "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
+      "sourceLabel": "Program coach listing",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "azle": {
+    "slug": "azle",
+    "theme": {
+      "accentHex": "#006A66",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Azle Hornets Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Azle Hornets football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Season-by-season historical scores and 2026 schedule",
+      "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
+      "sourceLabel": "Published program history and 2026 fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Distinctive program history",
+      "body": "Azle is a Class 5A Division I program at Hornet Field, which Dave Campbell's Texas Football lists at 5,500 spectators, NOT proof of current certified capacity or ADA seating. Its season archive lists 2018 10–2, 2019 9–2, 2020 9–3, 2021 8–3 and a leaner 2025 2–8 campaign. Early 2026 results include Abilene Cooper 28–24.",
+      "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
+      "sourceLabel": "Cited football program evidence",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season.",
+        "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
+        "sourceLabel": "Specific fixture and historical record source"
+      }
+    ],
+    "overview": [
+      "Azle is a Class 5A Division I program at Hornet Field, which Dave Campbell's Texas Football lists at 5,500 spectators, NOT proof of current certified capacity or ADA seating. Its season archive lists 2018 10–2, 2019 9–2, 2020 9–3, 2021 8–3 and a leaner 2025 2–8 campaign. Early 2026 results include Abilene Cooper 28–24.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+    ],
+    "faq": [
+      {
+        "question": "Is Azle Hornets an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as an eleven-man football program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season."
+      }
+    ]
+  },
+  "axtell": {
+    "slug": "axtell",
+    "theme": {
+      "accentHex": "#9D2337",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Axtell Longhorns Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Axtell Longhorns football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Season-by-season historical scores and 2026 schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
+      "sourceLabel": "Published program history and 2026 fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Distinctive program history",
+      "body": "Axtell is an 11-MAN 2A Division I program, not a six-man school despite proximity to many six-man programs. Its historical team reports document 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025 under Craig Horn; the 2026 entry leaves head coach blank, so a current hire is not invented.",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
+      "sourceLabel": "Cited football program evidence",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "Three consecutive 10-win-or-better seasons from 2023 to 2025 distinguish Axtell's recent history, with 2024's 12–2 specifically sourced.",
+        "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
+        "sourceLabel": "Specific fixture and historical record source"
+      }
+    ],
+    "overview": [
+      "Axtell is an 11-MAN 2A Division I program, not a six-man school despite proximity to many six-man programs. Its historical team reports document 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025 under Craig Horn; the 2026 entry leaves head coach blank, so a current hire is not invented.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+    ],
+    "faq": [
+      {
+        "question": "Is Axtell Longhorns an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as an eleven-man football program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "Three consecutive 10-win-or-better seasons from 2023 to 2025 distinguish Axtell's recent history, with 2024's 12–2 specifically sourced."
+      }
+    ]
+  },
+  "avalon": {
+    "slug": "avalon",
+    "theme": {
+      "accentHex": "#CF7024",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Avalon Eagles Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Avalon Eagles football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Season-by-season historical scores and 2026 schedule",
+      "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+      "sourceLabel": "Published program history and 2026 fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Distinctive program history",
+      "body": "Avalon is a Class 1A Division I SIX-MAN program in Ellis County; UIL's district-chair directory independently names athletic director Malcolm Cole. Six-Man Football dates the program's six-man start to 2005 and lists an 11-game winning streak in 2019, followed by a 10–1 season in 2024 and 8–3 in 2025. The specialty archive labels the venue Avalon Eagles Field; exact accessibility and entry are unconfirmed.",
+      "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+      "sourceLabel": "Cited football program evidence",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "The 2026 Division I District 11 fixture list includes Blum, Covington, Milford and Bluff Dale; September opponents included Aquilla and Abbott, separating non-district from district opponents.",
+        "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+        "sourceLabel": "Specific fixture and historical record source"
+      }
+    ],
+    "overview": [
+      "Avalon is a Class 1A Division I SIX-MAN program in Ellis County; UIL's district-chair directory independently names athletic director Malcolm Cole. Six-Man Football dates the program's six-man start to 2005 and lists an 11-game winning streak in 2019, followed by a 10–1 season in 2024 and 8–3 in 2025. The specialty archive labels the venue Avalon Eagles Field; exact accessibility and entry are unconfirmed.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+    ],
+    "faq": [
+      {
+        "question": "Is Avalon Eagles an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as a Class 1A six-man program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "The 2026 Division I District 11 fixture list includes Blum, Covington, Milford and Bluff Dale; September opponents included Aquilla and Abbott, separating non-district from district opponents."
+      }
+    ],
+    "coach": {
+      "name": "Malcolm Cole",
+      "title": "Head coach in published 2026 program listing; confirm with school",
+      "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+      "sourceLabel": "Program coach listing",
+      "verifiedAt": "2026-10-10"
+    }
+  },
   "austin-westlake": {
     "slug": "austin-westlake",
     "theme": {
