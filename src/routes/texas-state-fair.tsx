@@ -11,7 +11,7 @@ const stateFairData = {
     title: "State Fair of Texas 2026: Dates, Hours, Tickets, Food, Rides and Fair Park",
     intro: "A current 2026 State Fair of Texas planning guide for Fair Park in Dallas, including hours, admission, parking and DART, coupons, discounts, new foods, Big Tex Choice Award winners, rides, college football, family planning and first-timer itineraries.",
     updated: "October 10, 2026",
-    quickAnswer: "The 2026 State Fair of Texas is now open at Fair Park in Dallas and runs September 25 through October 18. Gates are open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays, with last entry at 9 p.m. Ticket prices vary by day and discount, so check the official ticket page before you go.",
+    quickAnswer: "The 2026 State Fair of Texas runs September 25 through October 18 at Fair Park in Dallas. Regular Fair hours are 10 a.m.–9 p.m. Sundays–Thursdays and 10 a.m.–10 p.m. Fridays–Saturdays, with last entry at 9 p.m. Admission and discounts vary by age, day and time; use the official ticket site to confirm before visiting.",
     sections: [
       {
         heading: "2026 dates, hours and Fair Park location",
@@ -208,6 +208,8 @@ const stateFairData = {
     related: [
       { label: "2026 State Fair food guide", href: "/article/state-fair-texas-2026-new-foods-guide" },
       { label: "State Fair Classic", href: "/event/state-fair-classic" },
+      { label: "Red River Rivalry", href: "/event/red-river-rivalry" },
+      { label: "Cotton Bowl", href: "/sports-venue/cotton-bowl" },
       { label: "Dallas County", href: "/county/dallas" },
       { label: "Children's Aquarium at Fair Park", href: "/destination/childrens-aquarium-dallas-fair-park" },
       { label: "Texas events", href: "/events" },
@@ -221,6 +223,7 @@ const faq = [
   { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas runs September 25 through October 18, 2026, at Fair Park in Dallas." },
   { question: "What are the 2026 State Fair of Texas hours?", answer: "The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m. Parking gates and ticket booths open at 9:30 a.m." },
   { question: "How much are 2026 State Fair of Texas tickets?", answer: "Official 2026 gate prices: adults $15 Monday–Thursday or $25 Friday–Sunday, seniors $13 or $20, children ages 3–12 $10 each day, and children age 2 or younger free. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday. Online fees may apply." },
+  { question: "What is included with State Fair admission?", answer: "Admission includes more than 100 daily activities and attractions, including music, exhibits, livestock, arts and family entertainment. Food, Midway rides, games and some other attractions cost extra." },
   { question: "Where is the State Fair of Texas held?", answer: "The State Fair of Texas is held at Fair Park in Dallas, Texas." },
   { question: "Can I take DART to the State Fair of Texas?", answer: "Yes. DART's Green Line serves Fair Park Station and MLK Jr. Station, both convenient to fairground entrances." },
   { question: "How do State Fair of Texas coupons work?", answer: "Food, Midway rides and Midway games use Fair coupons. One coupon is currently worth $1, and unused coupons do not expire under the Fair's current policy." },
