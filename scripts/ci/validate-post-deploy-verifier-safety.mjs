@@ -152,6 +152,21 @@ for (const name of livePrSmoke) {
     failures.push(`${name} must not execute production probes on PRs`);
   }
 }
+// Cloudflare's path-filtered main push must wait for the exact source commit;
+// successful checks on an earlier Worker are not certification of this push.
+const cloudflareSmoke = workflow('cloudflare-production-smoke');
+for (const marker of [
+  '  statuses: read',
+  'Wait for exact SHA protected production deployment',
+  'PRODUCTION_COMMIT_SHA: ${{ github.sha }}',
+  'node scripts/ci/wait-for-protected-production.mjs',
+  "if: ${{ github.event_name == 'push' }}",
+]) requireMarker(cloudflareSmoke, marker, `Cloudflare smoke exact-commit gate missing: ${marker}`);
+const cloudflareGateIndex = cloudflareSmoke.indexOf('Wait for exact SHA protected production deployment');
+const cloudflareLiveIndex = cloudflareSmoke.indexOf('Verify Cloudflare Workers, public DNS and production AI binding');
+if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
+  failures.push('Cloudflare smoke must complete the protected deploy gate before live probes');
+
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
