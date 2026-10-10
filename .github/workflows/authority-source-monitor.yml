@@ -45,7 +45,13 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p artifacts
-          node scripts/ci/watch-authority-sources.mjs --full 2>&1 | tee artifacts/authority-source-execution.log
+          # A manual run can force the weekly deep scan; scheduled Thursday runs
+          # retain the original weekly Top-25 network budget.
+          if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]]; then
+            node scripts/ci/watch-authority-sources.mjs --full 2>&1 | tee artifacts/authority-source-execution.log
+          else
+            node scripts/ci/watch-authority-sources.mjs 2>&1 | tee artifacts/authority-source-execution.log
+          fi
       - name: Preserve central authority evidence
         if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-artifact@v4
