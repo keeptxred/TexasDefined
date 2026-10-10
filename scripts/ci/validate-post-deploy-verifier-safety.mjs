@@ -19,12 +19,21 @@ requireMarker(workflow('verify-hunting-production'), "github.event_name == 'pull
 requireMarker(workflow('verify-hunting-production'), 'node --check scripts/data/verify-hunting-production.mjs', 'Hunting PR syntax check missing');
 requireMarker(workflow('verify-relocation-production'), "github.event_name == 'pull_request'", 'Relocation PR syntax check missing');
 const relocation = workflow('verify-relocation-production');
-for (const marker of [
-  'id: expansion_probes',
-  'GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}',
-  'node scripts/ci/publish-github-status.mjs "$context" success',
-  'node scripts/ci/publish-github-status.mjs "$context" failure',
-]) requireMarker(relocation, marker, `Relocation per-route status must attach to deployed SHA: ${marker}`);
+const relocationProbeStart = relocation.indexOf('      - name: Probe relocation expansion routes');
+const relocationProbeEnd = relocation.indexOf('      - name: Publish relocation live verification pending');
+if (relocationProbeStart < 0 || relocationProbeEnd <= relocationProbeStart) {
+  failures.push('Relocation per-route verification step boundaries missing');
+} else {
+  const relocationProbe = relocation.slice(relocationProbeStart, relocationProbeEnd);
+  for (const marker of [
+    'id: expansion_probes',
+    'GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}',
+    'node scripts/ci/publish-github-status.mjs "$context" success',
+    'node scripts/ci/publish-github-status.mjs "$context" failure',
+  ]) requireMarker(relocationProbe, marker, `Relocation per-route status must attach to deployed SHA: ${marker}`);
+}
+const statusPublisher = fs.readFileSync('scripts/ci/publish-github-status.mjs', 'utf8');
+requireMarker(statusPublisher, 'const sha = process.env.GITHUB_SHA;', 'GitHub status publisher must use the overridden deployed SHA');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
