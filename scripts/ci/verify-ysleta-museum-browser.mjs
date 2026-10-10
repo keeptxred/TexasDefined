@@ -61,6 +61,7 @@ async function inspectMuseum(page, viewport) {
   const data = await snapshot(page);
   check(response?.status() === 200, viewport + ': museum HTTP ' + response?.status());
   check(data.h1.length === 1 && data.h1[0] === 'Ysleta del Sur Pueblo Cultural Center Museum', viewport + ': incorrect H1');
+  check(await page.locator('main').count() === 1, viewport + ': expected one semantic main landmark');
   check(data.title.includes('Ysleta del Sur Pueblo Museum'), viewport + ': missing SEO title');
   check(data.metaDescription.length > 80, viewport + ': missing/short description');
   check(data.canonical === origin + museumPath, viewport + ': wrong canonical ' + data.canonical);
