@@ -13,3 +13,6 @@ Implemented individually original season narrative, stadium rules, dated achieve
 [UIL 2003–04 Class 3A Division II state final](https://www.uiltexas.org/football/archives/P264) proves Atlanta Rabbits won the FOOTBALL state title 34–0 over Marlin. The previous draft mistakenly refrained from mentioning any Atlanta football title; it did distinguish the separate 1989 track crown. Corrected 2003 championship chronology and FAQs in commit `86bedf13f5931e1bf7c90cf5286ab9d0e5ecceda`. Never conflate the 2003 football title with 1989 track.
 
 Still requires source checks, inbound/outbound link acceptance, image rights, protected merge, deploy and actual Chrome verification.
+
+## Independent 2003 football title confirmation (2026-10-10)
+The [UIL 2003–2004 state finals](https://www.uiltexas.org/football/archives/P264) explicitly records **3A Division II: Atlanta 34, Marlin 0**. This is a verified football championship, distinct from Atlanta ISD's 1989 track title; the current profile preserves both without conflating them. No rights to reproduction of UIL graphics or school imagery are implied.
