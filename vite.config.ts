@@ -53,6 +53,9 @@ function governedDiscoverAssetsPlugin(): Plugin {
 
 // Cloudflare Builds production smoke marker: safe no-op source change.
 export default defineConfig({
+  // Use the installed Lightning CSS minifier rather than relaxing the existing stylesheet budget.
+  // Keep the behavior of the Tailwind class registry, SSR and route-level styles unchanged.
+  build: { cssMinify: "lightningcss" },
   plugins: [
     governedDiscoverAssetsPlugin(),
     reportClientMainModuleWeights(),
