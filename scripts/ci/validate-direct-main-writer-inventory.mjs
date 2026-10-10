@@ -45,9 +45,9 @@ const reviewContracts = [
   'Review every changed image for location and subject specificity',
 ];
 const editorialViolations = reviewContracts.filter(text => !editorialRepair.includes(text));
-if (/^\\s*git\\s+push\\s*$/m.test(editorialRepair)) editorialViolations.push('bare git push is prohibited');
-if (/git\\s+commit[^\\n]*\\[skip ci\\]/i.test(editorialRepair)) editorialViolations.push('cannot bypass CI with [skip ci]');
-if (/\\bgh\\s+pr\\s+merge\\b/.test(editorialRepair)) editorialViolations.push('image repair must not auto-merge');
+if (/^\s*git\s+push\s*$/m.test(editorialRepair)) editorialViolations.push('bare git push is prohibited');
+if (/git\s+commit[^\n]*\[skip ci\]/i.test(editorialRepair)) editorialViolations.push('cannot bypass CI with [skip ci]');
+if (/\bgh\s+pr\s+merge\b/.test(editorialRepair)) editorialViolations.push('image repair must not auto-merge');
 if (editorialViolations.length) findings.push({ file: editorialRepairPath, matches: editorialViolations });
 
 console.log('Direct-main writer inventory:');
