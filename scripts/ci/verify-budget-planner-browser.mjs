@@ -66,6 +66,20 @@ async function check(page, label) {
   verify(resultText.includes('$5,250') && resultText.includes('$700') && resultText.includes('$1,050'),
     label + ': default figures must reconcile');
   row.checks.push('HTTP 200, hydrated planner, default totals 7000/5250/700/1050');
+  verify(await page.getByText('Review $0 categories before relying on your remaining balance.').count() > 0,
+    label + ': planner should flag zero-valued example categories');
+  verify(await page.getByRole('heading', { name: 'What your Texas household budget can show' }).count() > 0,
+    label + ': budget-specific quick-answer summary is missing');
+  const cardDebt = page.getByRole('spinbutton', { name: 'Existing credit-card debt repayments (monthly)' });
+  await cardDebt.fill('0');
+  await cardDebt.press('Tab');
+  await page.waitForFunction(() => document.querySelector('section[aria-labelledby="budget-results-heading"]')?.innerText.includes('$4,900'),
+    null, { timeout: 12_000 });
+  await cardDebt.fill('350');
+  await cardDebt.press('Tab');
+  await page.waitForFunction(() => document.querySelector('section[aria-labelledby="budget-results-heading"]')?.innerText.includes('$5,250'),
+    null, { timeout: 12_000 });
+  row.checks.push('Zero-category warning, editorial summary and credit-card debt input behavior');
 
   await fillIncome(page, 8000);
   await page.getByRole('button', { name: /Annual and irregular bills/ }).click();

@@ -6,6 +6,7 @@ const isdDirectoryPath = '/texas-high-school-football-isds';
 const katyIsdPath = '/texas-high-school-football-isds/katy-isd';
 const championshipHistoryPath = '/texas-high-school-football-championship-history';
 const katyDistrictPath = '/texas-high-school-football-districts/6a-district-22';
+const district8Path = '/texas-high-school-football-districts/5a-division-ii-district-8';
 const classificationsPath = '/article/texas-high-school-football-classifications-1a-6a';
 const playoffsPath = '/article/texas-high-school-football-playoffs-explained';
 const sixManPath = '/article/texas-six-man-football-rules-explained';
@@ -251,35 +252,59 @@ await fetchVerified(districtDirectoryPath, 'football district directory', (body)
 
 await fetchVerified(katyDistrictPath, 'Katy UIL football district', (body) => {
   for (const needle of [
-    '6A District 22',
-    '9 programs',
+    'District 22-6A Football',
+    'data-football-district-hub="v2"',
+    'data-football-district-section="teams"',
+    'data-football-district-section="game-week"',
+    'data-football-district-section="alignment"',
+    'data-football-district-section="official-sources"',
     'Katy',
     'Katy Cinco Ranch',
     'Katy Tompkins',
     '/texas-high-school-football-teams/katy',
-    'Member order is alphabetical for research usability',
-    'Enrollment band',
-    '2,215 and above',
-    'Reported enrollment range',
-    '2,844–3,719',
-    'UIL reported enrollment:',
-    '3,401',
-    '3,669',
-    '3,186.5',
-    'Enrollment figures are the UIL 2026–28 realignment snapshot used for classification.',
-    'Open UIL enrollment listing',
-    'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf',
-    'Official UIL 2026–28 enrollment cutoffs',
-    'University Interscholastic League',
-    scoresSchedulesPath,
-    'Follow scores & weekly schedules',
+    'Current scores &amp; schedules',
     'https://www.uiltexas.org/maxpreps/',
-    'UIL Texas Scoreboard gateway',
-    'not currently an official district-standings table',
     calendarPath,
-    '2026 UIL season calendar',
+    playoffsPath,
+    scoresSchedulesPath,
+    'Official UIL 2026–28 enrollment cutoffs',
+    'UIL alignment source',
+    'UIL enrollment source',
   ]) requireNeedle(body, needle, 'Katy UIL football district');
   if (/\bnoindex\b/i.test(body)) throw new Error('Katy UIL football district unexpectedly contains noindex');
+});
+
+await fetchVerified(district8Path, '5A Division II District 8 football hub', (body) => {
+  for (const needle of [
+    'District 8-5A Division II Football',
+    'data-football-district-hub="v2"',
+    'data-football-district-section="teams"',
+    'data-football-district-section="game-week"',
+    'data-football-district-section="alignment"',
+    'data-football-district-section="explore"',
+    'data-football-district-section="official-sources"',
+    'Belton',
+    'Brenham',
+    'Bryan Rudder',
+    'Killeen Ellison',
+    'Waco',
+    'Waco University',
+    '/texas-high-school-football-teams/belton',
+    '/texas-high-school-football-teams/brenham',
+    '/texas-high-school-football-teams/bryan-rudder',
+    '/texas-high-school-football-teams/killeen-ellison',
+    '/texas-high-school-football-teams/waco',
+    '/texas-high-school-football-teams/waco-university',
+    'Current scores &amp; schedules',
+    'https://www.uiltexas.org/maxpreps/',
+    calendarPath,
+    playoffsPath,
+    scoresSchedulesPath,
+    'Official UIL 2026–28 enrollment cutoffs',
+    'UIL alignment source',
+    'UIL enrollment source',
+  ]) requireNeedle(body, needle, '5A Division II District 8 football hub');
+  if (/\bnoindex\b/i.test(body)) throw new Error('5A Division II District 8 football hub unexpectedly contains noindex');
 });
 
 await fetchVerified(classificationsPath, 'football classifications', (body) => {

@@ -56,6 +56,15 @@ All 21 distinct named attraction or venue anchors from the sampled city featured
 - Run #38076892375 reported **imageAlternatives FAIL on all 33 city/viewport combinations** because the runner required every `img` to have a *nonempty* alt value. Explicit `alt=""` is allowed for decorative imagery under accessibility conventions. PR #4587 changes the assertion to require a present alt attribute, recording the number of intentionally empty alternatives and URLs of truly missing attributes. This narrower automated check is **not a full image-semantic or WCAG audit**.
 - The post-deploy Chrome result must not be recorded as 33/33 overall passing until the corrected semantic test passes its own CI and production run.
 
+## Additional municipal county jurisdiction verification — October 10, 2026
+
+| City | Published counties | Municipality evidence | Result | Limitation |
+|---|---|---|---|---|
+| Plano | Collin and Denton | [Plano city financial service](https://ecop.plano.gov/MyTaxDollar/MyTaxDollar.aspx) distinguishes Collin/Denton residences; [Plano elections](https://www.plano.gov/elections?NID=1402) | PASS for listed county inclusion | Not individual parcel-level verification |
+| Corpus Christi | Nueces, San Patricio, Kleberg, Aransas | [City election notice](https://www.corpuschristitx.gov/media/fmibd5eg/notice-of-election-long-2022-english-1.pdf) identifies these four counties | PASS for listed county inclusion | Dated notice, not current spatial overlay |
+
+These comparisons do not establish precise current municipal/ETJ boundaries. Comprehensive GIS intersection work remains unverified.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
