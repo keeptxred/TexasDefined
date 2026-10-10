@@ -1,5 +1,18 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+## Expanded primary-source factual correction (latest; October 10, 2026)
+
+**19 of 25 Batch 004 fully VERIFIED**, **six NEEDS_FOLLOWUP**, **55 prior VERIFIED preserved**, **74 of 1,292 total VERIFIED**. The older 24/25 and 25/25 status headings below chronicle earlier checkpoints, **not current factual certification**.
+
+After visual inspection of every original desktop school screenshot, in addition to Austin LBJ's wrong Round Rock ISD and Williamson County mapping, Austin Northeast was wrongly attributed to Austin Achieve Public Schools, and Vandegrift to Williamson County. [Austin ISD Northeast](https://www.austinisd.org/schools/northeast) and [NCES Vandegrift campus record](https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482703012156) establish correct **Austin ISD** and **Leander ISD / Travis County** identifications. Austin High and Austin Travis campus-source enrichments are also changed and need retesting.
+
+More seriously, the shared football profile summary assumed **any program with an editorial notice canceled its entire 2026 football season**, leading the Austin Lake Travis page to publish a completely false season-cancellation claim. [Lake Travis football's official 2026 schedule](https://www.laketravisfootball.com/schedules) lists varsity games through November 6, and its [Oct 4, 2026 weekly announcement](https://www.laketravisfootball.com/page/show/3237464-carter-s-corner) confirms the stadium's Oct 9 varsity return, notwithstanding a different completion estimate in its state construction registration. The generic notice/cancellation conflation has been removed for all school pages; the Lake Travis-specific advisory now links to actual contemporary team operations.
+
+Source-backed school corrections and new live Chrome identity/season guards are in [PR #4562](https://github.com/keeptxred/TexasDefined/pull/4562). Until a new production deployment and corrected browser acceptance, the six changed schools have status NEEDS_FOLLOWUP in `REGISTRY.json`. Do not start Batch 005. Upon successful actual run, restore statuses and proof references and reconcile this report with results.
+
+---
+
+
 **Evidence checkpoint:** 2026-10-10. **Scope:** exactly 25 assigned schools (Arp through Baird), no Batch 005 changes.
 
 ## Factual acceptance correction discovered after the structural pass — October 10, 2026 (CURRENT)
