@@ -46,8 +46,8 @@ check('Plus dashboard never displays Featured revision controls',dashboard.inclu
 check('tier constraint migration denies implicit Featured default',source('supabase/migrations/20261010205801_network_owner_plus_tier_guard.sql').includes("SET DEFAULT 'plus'"));
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
 check('only approved application may be published',review.includes("if(app.status!=='approved')"));
-check('republishing preserves previously approved Featured edits',review.includes(".select('slug,plan,is_published')")&&review.includes("currentListing?null:await copyMedia")&&review.includes(".eq('is_published',false).select('slug').single()")&&!review.includes(".upsert({\n  application_id:app.id,slug,plan:app.plan,profile"));
-check('publication fails closed on status persistence',review.includes('if(statusError||!updatedApplication){')&&review.includes('is_published:false'));
+check('republishing preserves previously approved Featured edits',review.includes(".select('slug,plan,is_published')")&&review.includes("currentListing?null:await copyMedia")&&review.includes("finalize_texasdefined_network_publication")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("v_status:='republished'"));
+check('publication fails closed on status persistence',review.includes("finalize_texasdefined_network_publication")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("SET status='published'")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("FOR UPDATE"));
 check('intake checks full PNG signature',apps.includes('pngSignature.every'));
 check('public media checks full PNG signature',review.includes('pngHeader.every'));
 check('directory filters published records',directory.includes('.eq("is_published", true)'));
@@ -129,3 +129,5 @@ check('intake is reviewable only after media and receipt transaction',
  && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('network_review_requires_completed_intake'));
 
 check('Featured partial-upload cleanup only targets unreferenced owner media',source('src/routes/business.dashboard.lazy.tsx').includes('const uploadedPaths:string[]=[]')&&source('src/routes/business.dashboard.lazy.tsx').includes('cleanUnsubmitted()')&&source('supabase/migrations/20261010230319_network_owner_delete_unreferenced_drafts.sql').includes('NOT EXISTS'));
+
+check('atomic published listing finalizer requires completed approval and paid Plus entitlement',source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("a.intake_complete IS NOT TRUE")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("a.paid_entitlement_active IS NOT TRUE")&&source('supabase/migrations/20261010230712_network_publication_jsonb_key_count_fix.sql').includes('jsonb_object_keys(p_profile)'));

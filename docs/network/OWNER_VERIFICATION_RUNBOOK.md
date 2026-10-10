@@ -76,3 +76,7 @@ The new service-only tables intentionally have RLS with no browser policies: do 
 
 ## Intake media transaction
 Applications are not reviewable until `intake_complete=true`. Service-role-only `finalize_texasdefined_network_intake` checks actual private uploaded objects and atomically sets media paths and enqueues the receipt. Incomplete or failed uploads must not generate a notification. No data or emails are created by this migration. Interrupted-worker cleanup and real multipart browser tests are still required before launch.
+
+
+## Atomic public listing finalization
+After copying/validating approved media from private intake, the service-only publication RPC atomically commits the public listing and application status with entitlement and approval checks under application lock. The RPC checks public storage metadata to confirm referenced media exists; republishing never discards the last approved Featured revisions. Failure leaves database visibility unchanged. Storage copies created before a failed RPC can be orphaned and must be addressed by reference-aware cleanup before release. Never use separate service-layer status/publication writes again.

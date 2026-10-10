@@ -208,28 +208,16 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
  const logoPath=currentListing?null:await copyMedia(app.logo_storage_path);
  const galleryPaths:string[]=[];
  if(!currentListing)for(const path of (app.plan==='plus'?app.gallery_storage_paths:[])||[]){const copied=await copyMedia(path);if(copied)galleryPaths.push(copied)}
- // Restore previously approved content verbatim; INSERT only for a first publication.
- const {data:savedListing,error:publishError}=currentListing
-  ? await supabaseAdmin.from('texasdefined_network_public_listings')
-     .update({is_published:true,updated_at:new Date().toISOString()} as never)
-     .eq('application_id',id).eq('is_published',false).select('slug').single()
-  : await supabaseAdmin.from('texasdefined_network_public_listings')
-     .insert({application_id:app.id,slug,plan:app.plan,profile,logo_storage_path:logoPath,
-       gallery_storage_paths:galleryPaths,is_published:true,updated_at:new Date().toISOString()} as never)
-     .select('slug').single();
- if(publishError||!savedListing)throw Error('Could not publish the listing');
- const {data:updatedApplication,error:statusError}=await supabaseAdmin.from('texasdefined_network_applications')
-  .update({status:'published',updated_at:new Date().toISOString()} as never)
-  .eq('id',id).eq('status','approved').select('id').single();
- if(statusError||!updatedApplication){
-  // Fail closed: never leave a public listing visible when the workflow cannot record publication.
-  const {error:hideError}=await supabaseAdmin.from('texasdefined_network_public_listings')
-   .update({is_published:false,updated_at:new Date().toISOString()} as never)
-   .eq('application_id',id).eq('is_published',true);
-  if(hideError)console.error('[network] CRITICAL: publication rollback failed',hideError.code);
-  throw Error('Publication status could not be saved; the listing was not certified as published');
- }
- return {slug:savedListing.slug,url:'/network/business/'+savedListing.slug};
+ // The database lock serializes publication with Stripe entitlement suspensions.
+ // Application status, listing visibility and stable approved profile commit atomically.
+ const {data:result,error:commitError}=await supabaseAdmin.rpc('finalize_texasdefined_network_publication',{
+  p_application_id:app.id,p_slug:slug,p_profile:profile,p_logo:logoPath,p_gallery:galleryPaths
+ });
+ const outcome=result as {status?:unknown;slug?:unknown}|null;
+ if(commitError||!outcome||!['published','republished'].includes(String(outcome.status))
+   ||typeof outcome.slug!=='string')
+  throw Error('Atomic publication could not be completed. Nothing was certified as published.');
+ return {slug:outcome.slug,url:'/network/business/'+outcome.slug};
 }
 
 /** Administrator-only documented evidence + confirmed email; atomic DB provisioning. */
