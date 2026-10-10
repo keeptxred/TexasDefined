@@ -53,7 +53,7 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 Batch005 individually researched authority upgrades IMPLEMENTED across merged initial PR #4576 and dependent PR chain #4579, #4583, #4585 and group5. No new school is VERIFIED. Need CI, protected merges in dependency order, Cloudflare deploy, full desktop/mobile/source/county browser certification and ledger refresh. Previous 80 VERIFIED preserved, media reuse rights not assumed."
+    "notes": "All 25 individually implemented. First five Ballinger/Balmorhea/Bandera/Bangs/Banquete protected PR #4576 merged and production deployment run 38075958432 succeeded for exact commit 6826d31; they are DEPLOYED but not browser VERIFIED. Remaining 20 implemented only on dependent PR branches #4579, #4583, #4585, #4592. Zero Batch005 VERIFIED, prior 80 remain VERIFIED. Need protected dependent merges, production runs, individual live Chrome/county/sitemap/image rights certification."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5561,7 +5561,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ballinger",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 5,
       "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
@@ -5583,12 +5583,13 @@
       ],
       "outboundCountyPath": "/county/runnels",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "PRODUCTION_PIPELINE_SUCCESS_INDIVIDUAL_CHROME_PENDING",
       "blockers": [
-        "Protected merge and production deployment",
-        "Live responsive Chrome and full county reciprocal evidence",
-        "Review current tickets/ADA/parking and media reuse rights"
-      ]
+        "Independent rendered production browser acceptance and screenshot with correct H1/campus/sitemap",
+        "Current tickets/accessibility and genuine licensed photo availability"
+      ],
+      "deploymentRunId": 38075958432,
+      "deployedCommit": "6826d31ec42385c1ec9a7a6e3bcdbefa98a1df07"
     },
     {
       "id": "uil:balmorhea",
@@ -5601,7 +5602,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/balmorhea",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 5,
       "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
@@ -5623,12 +5624,13 @@
       ],
       "outboundCountyPath": "/county/reeves",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "PRODUCTION_PIPELINE_SUCCESS_INDIVIDUAL_CHROME_PENDING",
       "blockers": [
-        "Protected merge and production deployment",
-        "Live responsive Chrome and full county reciprocal evidence",
-        "Review current tickets/ADA/parking and media reuse rights"
-      ]
+        "Independent rendered production browser acceptance and screenshot with correct H1/campus/sitemap",
+        "Current tickets/accessibility and genuine licensed photo availability"
+      ],
+      "deploymentRunId": 38075958432,
+      "deployedCommit": "6826d31ec42385c1ec9a7a6e3bcdbefa98a1df07"
     },
     {
       "id": "uil:bandera",
@@ -5641,7 +5643,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bandera",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 5,
       "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
@@ -5663,12 +5665,13 @@
       ],
       "outboundCountyPath": "/county/bandera",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "PRODUCTION_PIPELINE_SUCCESS_INDIVIDUAL_CHROME_PENDING",
       "blockers": [
-        "Protected merge and production deployment",
-        "Live responsive Chrome and full county reciprocal evidence",
-        "Review current tickets/ADA/parking and media reuse rights"
-      ]
+        "Independent rendered production browser acceptance and screenshot with correct H1/campus/sitemap",
+        "Current tickets/accessibility and genuine licensed photo availability"
+      ],
+      "deploymentRunId": 38075958432,
+      "deployedCommit": "6826d31ec42385c1ec9a7a6e3bcdbefa98a1df07"
     },
     {
       "id": "uil:bangs",
@@ -5681,7 +5684,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bangs",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 5,
       "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
@@ -5703,12 +5706,13 @@
       ],
       "outboundCountyPath": "/county/brown",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "PRODUCTION_PIPELINE_SUCCESS_INDIVIDUAL_CHROME_PENDING",
       "blockers": [
-        "Protected merge and production deployment",
-        "Live responsive Chrome and full county reciprocal evidence",
-        "Review current tickets/ADA/parking and media reuse rights"
-      ]
+        "Independent rendered production browser acceptance and screenshot with correct H1/campus/sitemap",
+        "Current tickets/accessibility and genuine licensed photo availability"
+      ],
+      "deploymentRunId": 38075958432,
+      "deployedCommit": "6826d31ec42385c1ec9a7a6e3bcdbefa98a1df07"
     },
     {
       "id": "uil:banquete",
@@ -5721,7 +5725,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/banquete",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 5,
       "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
@@ -5743,12 +5747,13 @@
       ],
       "outboundCountyPath": "/county/nueces",
       "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
-      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "productionVerification": "PRODUCTION_PIPELINE_SUCCESS_INDIVIDUAL_CHROME_PENDING",
       "blockers": [
-        "Protected merge and production deployment",
-        "Live responsive Chrome and full county reciprocal evidence",
-        "Review current tickets/ADA/parking and media reuse rights"
-      ]
+        "Independent rendered production browser acceptance and screenshot with correct H1/campus/sitemap",
+        "Current tickets/accessibility and genuine licensed photo availability"
+      ],
+      "deploymentRunId": 38075958432,
+      "deployedCommit": "6826d31ec42385c1ec9a7a6e3bcdbefa98a1df07"
     },
     {
       "id": "uil:barksdale-nueces-canyon",
