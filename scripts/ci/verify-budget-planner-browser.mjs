@@ -18,28 +18,36 @@ async function incomeIs(page, display) {
 }
 async function fillIncome(page, amount) {
   const field = page.getByRole('spinbutton', { name: 'Paychecks after deductions (monthly)' });
-  // SSR markup exists before React hydrates; retry only while calculated figures
-  // have not reflected the change, so a no-op early fill cannot appear as success.
-  for (let i = 0; i < 4; i++) {
-    await field.fill(String(amount));
+  const expected = '$' + Number(amount).toLocaleString('en-US');
+  for (const method of ['fill', 'keyboard']) {
+    if (method === 'fill') await field.fill(String(amount));
+    else {
+      // Physical key events are closer to a user than a scripted value setter,
+      // and discriminate a Playwright fill event issue from a hydration failure.
+      await field.click();
+      await field.press('ControlOrMeta+A');
+      await field.pressSequentially(String(amount), { delay: 25 });
+    }
     await field.press('Tab');
-    const updated = await page.waitForFunction(expected => {
-      const node = document.querySelector('section[aria-labelledby="budget-results-heading"] strong');
-      return node?.textContent?.trim() === expected;
-    }, '$' + Number(amount).toLocaleString('en-US'), { timeout: 2_500 }).then(() => true, () => false);
-    if (updated) return;
-    await page.waitForTimeout(400);
+    const updated = await page.waitForFunction(value =>
+      document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent?.trim() === value,
+    expected, { timeout: 5_000 }).then(() => true, () => false);
+    if (updated) {
+      if (method === 'keyboard') console.log('KEYBOARD_FALLBACK: typed keys succeeded after fill produced no reactive change');
+      return;
+    }
   }
-  const diagnostic = await page.evaluate(() => ({
-    readyState: document.readyState,
-    input: document.querySelector('input[type="number"]')?.value,
-    summary: document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent,
-    scriptUrls: [...document.scripts].map(s => s.src).filter(Boolean).slice(-8),
-    loadedScripts: performance.getEntriesByType('resource').filter(r => /\.js(?:\?|$)/.test(r.name)).length,
-    reactInputProps: Object.keys(document.querySelector('input[type="number"]') || {}).some(k => k.startsWith('__reactProps')),
-    reactInputFiber: Object.keys(document.querySelector('input[type="number"]') || {}).some(k => k.startsWith('__reactFiber')),
-  }));
-  throw new Error('Income edit did not update live totals; hydration diagnostics: ' + JSON.stringify(diagnostic));
+  const diagnostic = await page.evaluate(() => {
+    const el = document.querySelector('input[type="number"]');
+    const propKey = Object.keys(el || {}).find(k => k.startsWith('__reactProps'));
+    return {
+      readyState: document.readyState, input: el?.value,
+      summary: document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent,
+      reactInputPropsAttached: !!propKey, onChangeType: propKey ? typeof el[propKey]?.onChange : null,
+      loadedScripts: performance.getEntriesByType('resource').filter(r => /\.js(?:\?|$)/.test(r.name)).length,
+    };
+  });
+  throw new Error('Neither Playwright fill nor keyboard events updated budget totals: ' + JSON.stringify(diagnostic));
 }
 async function check(page, label) {
   const row = { viewport: label, checks: [], failures: [], pageErrors: [], requestFailures: [], httpErrors: [] };
