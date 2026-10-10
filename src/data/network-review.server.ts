@@ -57,11 +57,56 @@ export async function listNetworkRevisions(accessKey:string) {
 }
 export async function reviewNetworkRevision(accessKey:string,id:string,decision:'approve'|'reject') {
  await assertSportsPartnerAccess(accessKey);
- const {data:current,error:lookupError}=await supabaseAdmin.from('texasdefined_network_profile_revisions').select('id,review_status').eq('id',id).single();
- if(lookupError||!current||current.review_status!=='pending_review')throw new Error('Change request is no longer pending.');
- const {data,error}=await supabaseAdmin.from('texasdefined_network_profile_revisions').update({review_status:decision==='approve'?'approved':'rejected',reviewed_at:new Date().toISOString()} as never).eq('id',id).eq('review_status','pending_review').select('id,review_status').single();
- if(error||!data)throw new Error('Could not review change request.');
- // This marks editorial approval only. A separate publication workflow must apply the approved revision.
+ const {data:revision,error:lookupError}=await supabaseAdmin.from('texasdefined_network_profile_revisions')
+  .select('id,review_status,business_account_id,submitted_by,proposed_profile').eq('id',id).single();
+ if(lookupError||!revision||revision.review_status!=='pending_review')throw new Error('Change request is no longer pending.');
+ if(decision==='approve'){
+  const {data:account,error:accountError}=await supabaseAdmin.from('texasdefined_network_business_accounts')
+   .select('id,application_id,owner_user_id,access_enabled').eq('id',revision.business_account_id).single();
+  if(accountError||!account||!account.access_enabled||account.owner_user_id!==revision.submitted_by)throw Error('Featured ownership or access is not valid.');
+  const {data:listing,error:listingError}=await supabaseAdmin.from('texasdefined_network_public_listings')
+   .select('application_id,profile,logo_storage_path,gallery_storage_paths').eq('application_id',account.application_id).eq('is_published',true).single();
+  if(listingError||!listing)throw Error('A published business profile is required before applying changes.');
+  const proposed=revision.proposed_profile as Record<string,unknown>;
+  const allowed=new Set(['business_name','description','category','city','address','phone','hours','website','social','services','faq','offer','logo_storage_path','gallery_storage_paths']);
+  if(Object.keys(proposed).some(key=>!allowed.has(key)))throw Error('Unsupported proposed change');
+  const profile={...(listing.profile as Record<string,unknown>)};
+  for(const [name,value] of Object.entries(proposed)){
+   if(name==='logo_storage_path'||name==='gallery_storage_paths')continue;
+   if(typeof value!=='string'||value.length>1600)throw Error('Invalid proposed field');
+   profile[name]=value.trim();
+  }
+  const copy=async(path:string)=> {
+   const prefix=account.owner_user_id+'/'+account.id+'/';
+   if(!path.startsWith(prefix))throw Error('Image does not belong to this business');
+   const ext=path.split('.').pop()?.toLowerCase();
+   const type=ext==='png'?'image/png':ext==='webp'?'image/webp':ext==='jpg'?'image/jpeg':null;
+   if(!type)throw Error('Unsupported image type');
+   const {data:blob,error:readError}=await supabaseAdmin.storage.from('texasdefined-network-featured-drafts').download(path);
+   if(readError||!blob||blob.size>3000000)throw Error('Proposed image unavailable');
+   const target=account.application_id+'/featured-'+id+'/'+path.split('/').pop();
+   const {error:saveError}=await supabaseAdmin.storage.from('texasdefined-network-published')
+    .upload(target,await blob.arrayBuffer(),{contentType:type,upsert:true});
+   if(saveError)throw Error('Approved image could not be published');
+   return target;
+  };
+  let logo=listing.logo_storage_path;
+  if(typeof proposed.logo_storage_path==='string')logo=await copy(proposed.logo_storage_path);
+  let gallery=listing.gallery_storage_paths as string[];
+  if(Array.isArray(proposed.gallery_storage_paths)){
+   if(proposed.gallery_storage_paths.length>6||proposed.gallery_storage_paths.some(p=>typeof p!=='string'))throw Error('Invalid gallery');
+   gallery=[];
+   for(const path of proposed.gallery_storage_paths)gallery.push(await copy(path as string));
+  }
+  const {error:publishError}=await supabaseAdmin.from('texasdefined_network_public_listings')
+   .update({profile,logo_storage_path:logo,gallery_storage_paths:gallery,updated_at:new Date().toISOString()} as never)
+   .eq('application_id',account.application_id).eq('is_published',true);
+  if(publishError)throw Error('Approved updates could not be published');
+ }
+ const {data,error}=await supabaseAdmin.from('texasdefined_network_profile_revisions')
+  .update({review_status:decision==='approve'?'approved':'rejected',reviewed_at:new Date().toISOString()} as never)
+  .eq('id',id).eq('review_status','pending_review').select('id,review_status').single();
+ if(error||!data)throw new Error('Profile updated but review ledger update failed.');
  return data;
 }
 
