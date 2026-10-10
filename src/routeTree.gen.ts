@@ -1679,9 +1679,7 @@ const CitationGuideRoute = CitationGuideRouteImport.update({
   id: '/citation-guide',
   path: '/citation-guide',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() =>
-  import('./routes/citation-guide.lazy').then((d) => d.Route),
-)
+} as any)
 const BuyingAHomeInTexasRoute = BuyingAHomeInTexasRouteImport.update({
   id: '/buying-a-home-in-texas',
   path: '/buying-a-home-in-texas',

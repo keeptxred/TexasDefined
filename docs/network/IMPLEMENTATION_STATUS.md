@@ -72,5 +72,23 @@ Last confirmed pre-ledger head: `7ae29da0f14e74fde8d033016d6d3d8a0ae23a57`. Foll
 ## Safe continuation order
 Fix route conflicts and generated tree → reconcile main → fix performance check → certify auth/media/database → certify billing in a safe environment → CI → merge → deployment → live smoke verification.
 
+
+## Continuation evidence — October 10, 2026, subsequent phase
+- Safely reconciled then-current `main` commit `da1b564e7af97df6ecf818bd9abfc060b774477d` into the branch with a two-parent merge commit `bb2093ac2195f16318fb9b45316448b7e7da26b3`. Diff comparison immediately after that merge: **0 commits behind, PR mergeable**. Main continues to receive concurrent commits; refresh again before later writes or merge.
+- Legacy `src/data/network-moderation.functions.ts` publication action now delegates to the canonical publisher/editorial moderation functions. Commit `1a22ad66fb5e28965471a2e980a0aa049c6a17cd`.
+- Basic and Plus fictional examples are now lazy-loaded; commit `6b548e51ab1b9e0f76f8b7d7307ce0548757edc1`. Generated route tree passed in merge gate run `38077566567`.
+- CI `38077566567` failed **only its required performance budget**: main bundle **1,832,933 bytes** > cap **1,829,000 bytes** (excess **3,933 bytes**). Texas Icons workflow `38077566575` independently failed for same reason.
+- Attempted lazy split of citation-guide in `0655da88a1d7731091e386dd5f2b8bca8185bc70`; measured `38078029089` main bundle **1,832,923 bytes**, improvement only **10 bytes**. It did not solve the budget and is reverted by the following ledger commit, preserving original citation-guide implementation. **Never raise the performance cap to hide this result.**
+- Last observed CI for the citation split: merge gate `38078029088` failed canonical premerge on performance. A post-revert current-head CI must be checked afresh. All observed new route-tree generation checks passed; production deployment and browser checks did not.
+- The final head SHA is whatever GitHub reports for the ledger/revert commit and later concurrent changes. Never reuse an earlier SHA as canonical.
+
+### Operating costs: real ceilings and assumptions
+- Basic is free; Plus list price is $19.99 monthly; Featured price remains undecided. No live charges were enabled.
+- Official US Stripe standard pricing lists **2.9% + $0.30** per successful domestic-card charge, and pay-as-you-go Stripe Billing lists **0.7%** of subscription billing volume. For one $19.99 domestic card renewal, this estimates $0.88 payment processing plus $0.14 Billing, leaving roughly **$18.97 before taxes, refunds, disputes, and other costs**. This is illustrative, not a verified negotiated account rate: https://stripe.com/pricing and https://stripe.com/billing/pricing
+- Existing Supabase plan cost and usage need verification before launch. Official Supabase Free storage quota is **1 GB total**, shared with the existing site assets: https://supabase.com/docs/guides/storage/pricing
+- Current maximum Plus intake: 1 logo + 4 gallery images x 3 MB = 15 MB private; publishing identical full-resolution copies can roughly double this to **30 MB per Plus member** (before revisions and retained drafts). 100 such maximum-size Plus profiles could require ~3 GB, so a nominal $0 infrastructure assumption is unsafe without compression, cleanup, usage monitoring and a documented image budget. Actual average is likely lower but must be measured.
+- Current allowed Featured revision images (one logo + up to six gallery at 3 MB each) can be another **21 MB private plus 21 MB public** per complete refresh. Set media retention and predictable per-business capacity before broad rollout.
+- Email sending cost/service remains unresolved; must use approved TexasDefined Office 365 identity and not personal Gmail.
+
 ## Launch state
 **NOT LAUNCHED / NOT CERTIFIED.** No confirmed end-to-end successful application, payment, customer portal login or production publication. Never claim otherwise.
