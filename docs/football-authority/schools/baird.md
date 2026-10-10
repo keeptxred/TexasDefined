@@ -12,3 +12,9 @@ School-specific prose, original milestone graphics, historical/2026 context, SEO
 
 ## Unfinished acceptance
 Research additional documented championships, coaches or alumni where supported. Validate exact official ticket/gate/ADA arrangements, stadium, photo licenses, source URLs, county/city reciprocal links, schema/canonical/indexability, mobile/desktop contrast and real browser QA. Run protected CI, merge, deploy and independently check actual production. If evidence is unavailable mark N/A/uncertain rather than inventing.
+
+## Independent school resources verification — October 10, 2026
+
+[Baird ISD football coaches page](https://www.bairdisd.org/29025_3) confirms Jeremy Kirk as athletic director/head coach, Reece Walker DC, assistants. [Official secondary campus contact](https://www.bairdisd.org/contact) places school at 600 W 7th. [District Sept 2025 community notice](https://www.bairdisd.org/index.php?articleID=60087506&pageID=smartSiteFeed&psqFeed=true) discusses POSSIBLE 2026 transition to 11-man; [2026 Six-Man Football schedule](https://sixmanfootball.com/teams/baird-bears.1033/schedule/) still lists Division I District 7. Proposal is not completed switch.
+
+Follow-up implemented in editorial commit `01a2dd34637428ffd67a43adbd2e81576785780a`. Still not merged or production VERIFIED; rights, reciprocal links, accessibility and live Chrome acceptance pending.
