@@ -596,11 +596,26 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The official 2026 varsity list places October 16 Kerrville Tivy at House Park, October 22 LBJ away at Nelson Field, and October 30 Davenport at House Park.",
         "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
         "sourceLabel": "School schedule or athletics history"
+      },
+      {
+        "date": "2026",
+        "title": "Joe Frank Martinez heads coaching staff",
+        "body": "School athletics directory identifies Joe Frank Martinez as football head coach, Zach Byerly as defensive coordinator and Drew McGarrahan as offensive coordinator.",
+        "sourceUrl": "https://www.travisrebelathletics.com/directory",
+        "sourceLabel": "Travis Rebels official coaches roster"
+      },
+      {
+        "date": "2026",
+        "title": "Multiple stadiums for a single school team",
+        "body": "The team's 2026 varsity schedule includes games at House Park, Nelson Field, Garrison and Burger; the campus at East Oltorf Street is not necessarily a varsity gate.",
+        "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+        "sourceLabel": "Official 2026 venue-by-venue varsity schedule"
       }
     ],
     "overview": [
       "Travis Early College operates a Rebels varsity football program with home games distributed across Garrison, Burger Stadium and House Park rather than at a single fixed campus field. Its official schedule lists an October 22 LBJ game at Nelson Field and a home October 30 Davenport match at House Park. These are useful, event-specific venue facts.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement.",
+      "The 2026 school coaching directory names Joe Frank Martinez head coach, with Zach Byerly handling defense and Drew McGarrahan handling offense. Stadium locations vary by fixture; the campus address is distinct."
     ],
     "faq": [
       {
@@ -610,8 +625,25 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is TexasDefined the official football website?",
         "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      },
+      {
+        "question": "Who is the Travis Rebels head football coach?",
+        "answer": "The school athletics staff page lists Joe Frank Martinez as athletic coordinator and head football coach."
       }
-    ]
+    ],
+    "coach": {
+      "name": "Joe Frank Martinez",
+      "title": "2026 athletic coordinator and head football coach",
+      "sourceUrl": "https://www.travisrebelathletics.com/directory",
+      "sourceLabel": "Travis High school athletics official staff directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "1211 East Oltorf Street, Austin, TX 78704",
+      "sourceUrl": "https://travis.austinschools.org/about-us/staff-directory",
+      "sourceLabel": "Travis Early College High official campus address",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-northeast": {
     "slug": "austin-northeast",
@@ -848,9 +880,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "LASA Raptors varsity football, school athletics calendar and 2026 games with Travis, Akins, Crockett and Navarro; verified official campus links."
     },
     "schedule": {
-      "label": "LASA Raptors official athletics schedule and calendar",
-      "sourceUrl": "https://www.lasaraptors.com/calendar",
-      "sourceLabel": "LASA official athletics calendar",
+      "label": "Official LASA 2026 varsity/JV football schedule",
+      "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+      "sourceLabel": "LASA school football team website",
       "verifiedAt": "2026-10-10"
     },
     "development": {
@@ -874,12 +906,27 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Navarro's school calendar identifies Thursday, October 8 versus LASA as its homecoming football game; this does not assert the final score.",
         "sourceUrl": "https://navarro.austinschools.org/events",
         "sourceLabel": "Navarro ECHS official calendar"
+      },
+      {
+        "date": "2026",
+        "title": "Official LASA head coach confirmed",
+        "body": "The school's 2026 football page explicitly identifies Gary Howard as head coach and publishes separate varsity and junior-varsity venue lists.",
+        "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+        "sourceLabel": "LASA official football coaches and schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Home sites split between Nelson and Burger Stadium",
+        "body": "LASA varsity lists 2026 Northeast, Travis, Navarro, Elgin and Bastrop dates at Nelson Field, while Akins and Crockett fixtures take place at Burger Stadium.",
+        "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+        "sourceLabel": "LASA official 2026 varsity match sites"
       }
     ],
     "overview": [
       "LASA is the Raptors program with its own official sports website and contact resources; it is distinct from Austin LBJ even if athletics listings share a Lazy Creek Drive address.",
       "Two independent Austin-school calendars document specific LASA fixtures: Travis visited September 10 at Nelson Field and Navarro scheduled homecoming against LASA October 8.",
-      "A verified LASA head coach, historical football awards and legally licensed program photos were not established; do not invent them."
+      "A verified LASA head coach, historical football awards and legally licensed program photos were not established; do not invent them.",
+      "The first-party LASA school football page identifies Gary Howard as 2026 head coach and gives varsity and JV schedules. In particular, varsity uses Nelson Field and Burger Stadium for different opponents, not a single home-campus stadium."
     ],
     "faq": [
       {
@@ -893,6 +940,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "When did Navarro list LASA for homecoming?",
         "answer": "Navarro ECHS's official calendar lists an October 8, 2026 varsity football homecoming game versus LASA."
+      },
+      {
+        "question": "Who coaches LASA Raptors football in 2026?",
+        "answer": "LASA's official football site lists Gary Howard as head football coach."
       }
     ],
     "campus": {
@@ -900,6 +951,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "phone": "512-414-5272",
       "sourceUrl": "https://www.lasaraptors.com/",
       "sourceLabel": "Official LASA athletics office listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Gary Howard",
+      "title": "2026 head football coach confirmed by LASA school athletics page",
+      "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+      "sourceLabel": "LASA first-party 2026 varsity and JV football calendar",
       "verifiedAt": "2026-10-10"
     }
   },
@@ -1397,11 +1455,26 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The official Akins football schedule places the October 22 visit to Austin High at House Park, while the October 29 Bowie matchup is listed at Burger Stadium.",
         "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
         "sourceLabel": "2026 published varsity schedule"
+      },
+      {
+        "date": "2026",
+        "title": "School-issued offensive and defensive coordinator assignments",
+        "body": "Akins athletics lists Benjamin Cooper as football offensive coordinator and Ajay Lerma defensive coordinator, and Tony Degelia as assistant head football coach. These are confirmed roles, not a claim about the unresolved current head-coach name.",
+        "sourceUrl": "https://www.akinseaglesathletics.com/directory",
+        "sourceLabel": "Official Akins 2026 coaching directory"
+      },
+      {
+        "date": "2026",
+        "title": "Burger, Bible and House Park itinerary",
+        "body": "Akins' first-party football calendar shows September 4 LASA at Burger, September 11 at Leander Bible Stadium, and October 22 at Austin High's House Park.",
+        "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+        "sourceLabel": "Akins school varsity football schedule"
       }
     ],
     "overview": [
       "Akins' official athletics site lists its 2026 Burger Stadium home fixtures against LASA, Crockett, Dripping Springs, Buda Johnson and Bowie, alongside away travel to Leander, Del Valle, House Park for Austin High, and Shelton Stadium for Hays. The school campus is at 10701 S First Street, not the same address as Burger Stadium. Third-party staff rosters list two different names as head coach, so first-party identification is unresolved.",
-      "TexasDefined is an independent publication, not Austin Akins Eagles's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+      "TexasDefined is an independent publication, not Austin Akins Eagles's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources.",
+      "The official Akins football department provides clear position-coach names—Benjamin Cooper, Ajay Lerma, Tony Degelia—while a third-party site conflicts on the head coach. This profile prioritizes verifiable staff roles rather than guessing a 2026 head coach."
     ],
     "faq": [
       {
@@ -1411,8 +1484,19 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What makes the Austin Akins Eagles football program distinctive?",
         "answer": "The official Akins football schedule places the October 22 visit to Austin High at House Park, while the October 29 Bowie matchup is listed at Burger Stadium."
+      },
+      {
+        "question": "Where can fans find the 2026 Akins varsity football schedule?",
+        "answer": "The official Akins Eagles Athletics varsity football calendar lists each event's stadium, including Burger, Bible and House Park."
       }
-    ]
+    ],
+    "campus": {
+      "address": "10701 South First Street, Austin, TX 78748",
+      "phone": "512-841-9900",
+      "sourceUrl": "https://www.akinseaglesathletics.com/directory",
+      "sourceLabel": "Akins High official athletic department directory",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-achieve": {
     "slug": "austin-achieve",
