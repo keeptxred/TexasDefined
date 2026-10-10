@@ -3083,11 +3083,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Tascosa varsity home venue — confirm assigned site with Amarillo ISD",
-      "address": "Amarillo, TX — ticket-specific venue required",
+      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD Athletics official scheduling/tickets",
       "verifiedAt": "2026-10-09",
-      "note": "Amarillo ISD athletics coordinates district varsity dates and ticketing; do not presume the campus 3921 Westlawn Street is the stadium gate. Historical games use different venues and game-specific stadium, parking and accessible entrances need official confirmation."
+      "note": "For 2026 varsity games at Dick Bivins Stadium, Amarillo ISD lists HomeTown advance admission at $8 adult/$3 student (digital presale through 5:45 p.m.; paper presale through 3 p.m.) and $10 tickets at the gate. AISD gives the stadium address as 3101 SE 10th Avenue, Amarillo, identifies a west home grandstand and publishes a clear-bag policy. Check the particular 2026 game, tickets and official gate/parking/accessibility information before travel; an individual team may be assigned another venue."
     },
     "overview": [
       "The Tascosa Rebels represent Tascosa High School on Westlawn Street in Amarillo. The Rebels are not the Amarillo High Golden Sandies, Caprock Longhorns or Palo Duro Dons; all are separate Amarillo school football programs with distinct coach histories and season records.",
@@ -3416,11 +3416,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Amarillo, TX — spectator gate requires ticket-specific confirmation",
-      "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
-      "sourceLabel": "DCTF Dons historical venue listing",
+      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD primary 2026 ticket and Dick Bivins stadium policy",
       "verifiedAt": "2026-10-09",
-      "note": "DCTF lists Dick Bivins Stadium and a historical 15,000 capacity, but this is not a verified accessible entrance or current capacity inspection. Confirm the assigned home stadium, parking, accessible entry and tickets through Amarillo ISD athletics; the school campus is a separate address."
+      "note": "For 2026 varsity games at Dick Bivins Stadium, Amarillo ISD lists HomeTown advance admission at $8 adult/$3 student (digital presale through 5:45 p.m.; paper presale through 3 p.m.) and $10 tickets at the gate. AISD gives the stadium address as 3101 SE 10th Avenue, Amarillo, identifies a west home grandstand and publishes a clear-bag policy. Check the particular 2026 game, tickets and official gate/parking/accessibility information before travel; an individual team may be assigned another venue."
     },
     "overview": [
       "Palo Duro's Dons represent Palo Duro High School at 1400 North Grant Street in Amarillo. Although the Dons, Caprock Longhorns, Tascosa Rebels and Amarillo Sandies share a city and sometimes opponents, their athletic histories are distinct. The team's documented 2026 coach is Eric Mims according to its September season staff roster.",
@@ -3744,11 +3744,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Amarillo, Texas — confirm exact game gate using AISD athletics",
+      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD official Athletics ticket and venue policy",
       "verifiedAt": "2026-10-09",
-      "note": "AISD posts 2026 varsity advance tickets at $8 adult / $3 student, $10 at Dick Bivins gate, and a stadium clear-bag policy. Tickets are sold through HomeTown; presale deadlines and assigned field depend on the specific game. The school campus address is not a verified stadium entrance. Confirm ADA entrance, parking and bag details with AISD before travel."
+      "note": "For 2026 varsity games at Dick Bivins Stadium, Amarillo ISD lists HomeTown advance admission at $8 adult/$3 student (digital presale through 5:45 p.m.; paper presale through 3 p.m.) and $10 tickets at the gate. AISD gives the stadium address as 3101 SE 10th Avenue, Amarillo, identifies a west home grandstand and publishes a clear-bag policy. Check the particular 2026 game, tickets and official gate/parking/accessibility information before travel; an individual team may be assigned another venue."
     },
     "overview": [
       "Caprock High School's Longhorns are one of four Amarillo ISD varsity football communities. The school sits at 3001 East 34th Avenue, while district athletics coordinates varsity football ticketing and stadium policies. Caprock is not Amarillo High's Golden Sandies, and their separate histories must not be blended.",
