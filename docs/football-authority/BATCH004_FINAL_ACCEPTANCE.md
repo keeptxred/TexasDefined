@@ -1,59 +1,96 @@
-# TexasDefined Football Authority — Batch 004 final acceptance and corrective retest
-**As of October 10, 2026: 24 of 25 independently production VERIFIED; one factual acceptance defect awaiting corrected deployment/retest.** This report distinguishes prior technical browser passes from fully accurate school identity. Do not mark the batch complete or assign Batch 005 until that defect is resolved.
+# TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
-## Protected implementation, real deployment, and Chrome evidence
-- [Merged PR #4540](https://github.com/keeptxred/TexasDefined/pull/4540), merge SHA `f4af3c89956a823fd37e367fd883897d92bce2ed`; [production deploy 38059345469](https://github.com/keeptxred/TexasDefined/actions/runs/38059345469) succeeded for the exact merge SHA.
-- [Full Chrome run 38059638426](https://github.com/keeptxred/TexasDefined/actions/runs/38059638426) verified that initial deployed merge: 72/72 browser test cases passed with 50 school viewport checks, 20 campus-county viewport checks, two Austin city viewport checks, 25/25 sitemap URLs; screenshots/report in [artifact 11672358024](https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024).
-- Later production deploy [38060642093](https://github.com/keeptxred/TexasDefined/actions/runs/38060642093) succeeded for tested production SHA `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`. Its [Chrome browser run 38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139), job `114239234476`, **passed 72/72 tests, 0 fails and 25/25 sitemap entries**, with 73 files (72 individual viewport PNGs plus machine-readable report) in [artifact 11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515).
-- An intermediate deployment `4ef6dd20e2fd552d697ddfee3924ac938f155f09` had [Chrome run 38060636948](https://github.com/keeptxred/TexasDefined/actions/runs/38060636948) **fail 18/72** because nine county pages temporarily carried **noindex** in both viewports. The newer full run passed on all ten county pages. This transient failure must not be hidden in the audit.
-- Existing structural pre-acceptance validates canonical 25 dossier and editorial objects, 25 county reciprocal pairs, 12 sourced Austin city reciprocal pairs, distinct SEO, and preservation of prior VERIFIED records. Its own PASSED results are *not* a substitute for live Chrome or first-party school fact checks.
+**Evidence checkpoint:** 2026-10-10. **Scope:** exactly 25 assigned schools (Arp through Baird), no Batch 005 changes.
 
-## Individual school status
-All entries below were included in the exact live Chrome run (desktop 1366px and mobile 390px); however one was later found to contain a mistaken school-directory join after visually inspecting the screenshots.
+## Factual acceptance correction discovered after the structural pass — October 10, 2026 (CURRENT)
 
-| # | School page | Factual/production certification | Individual evidence |
-|---:|---|---|---|
-| 1 | [arp](https://texasdefined.com/texas-high-school-football-teams/arp) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/arp.md) |
-| 2 | [aspermont](https://texasdefined.com/texas-high-school-football-teams/aspermont) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/aspermont.md) |
-| 3 | [athens](https://texasdefined.com/texas-high-school-football-teams/athens) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/athens.md) |
-| 4 | [atlanta](https://texasdefined.com/texas-high-school-football-teams/atlanta) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/atlanta.md) |
-| 5 | [aubrey](https://texasdefined.com/texas-high-school-football-teams/aubrey) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/aubrey.md) |
-| 6 | [austin](https://texasdefined.com/texas-high-school-football-teams/austin) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin.md) |
-| 7 | [austin-achieve](https://texasdefined.com/texas-high-school-football-teams/austin-achieve) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-achieve.md) |
-| 8 | [austin-akins](https://texasdefined.com/texas-high-school-football-teams/austin-akins) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-akins.md) |
-| 9 | [austin-anderson](https://texasdefined.com/texas-high-school-football-teams/austin-anderson) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-anderson.md) |
-| 10 | [austin-bowie](https://texasdefined.com/texas-high-school-football-teams/austin-bowie) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-bowie.md) |
-| 11 | [austin-crockett](https://texasdefined.com/texas-high-school-football-teams/austin-crockett) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-crockett.md) |
-| 12 | [austin-eastside](https://texasdefined.com/texas-high-school-football-teams/austin-eastside) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-eastside.md) |
-| 13 | [austin-johnson](https://texasdefined.com/texas-high-school-football-teams/austin-johnson) | **NEEDS_FOLLOWUP — wrong campus/district/county in original browser screenshot** | [Dossier](schools/austin-johnson.md) |
-| 14 | [austin-lake-travis](https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-lake-travis.md) |
-| 15 | [austin-lasa](https://texasdefined.com/texas-high-school-football-teams/austin-lasa) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-lasa.md) |
-| 16 | [austin-mccallum](https://texasdefined.com/texas-high-school-football-teams/austin-mccallum) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-mccallum.md) |
-| 17 | [austin-navarro](https://texasdefined.com/texas-high-school-football-teams/austin-navarro) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-navarro.md) |
-| 18 | [austin-northeast](https://texasdefined.com/texas-high-school-football-teams/austin-northeast) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-northeast.md) |
-| 19 | [austin-travis](https://texasdefined.com/texas-high-school-football-teams/austin-travis) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-travis.md) |
-| 20 | [austin-vandegrift](https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-vandegrift.md) |
-| 21 | [austin-westlake](https://texasdefined.com/texas-high-school-football-teams/austin-westlake) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/austin-westlake.md) |
-| 22 | [avalon](https://texasdefined.com/texas-high-school-football-teams/avalon) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/avalon.md) |
-| 23 | [axtell](https://texasdefined.com/texas-high-school-football-teams/axtell) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/axtell.md) |
-| 24 | [azle](https://texasdefined.com/texas-high-school-football-teams/azle) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/azle.md) |
-| 25 | [baird](https://texasdefined.com/texas-high-school-football-teams/baird) | VERIFIED — 1366px and 390px; sitemap and county/city link checks passed | [Dossier](schools/baird.md) |
+**Current Batch 004 factual certification: 24/25 VERIFIED and one NEEDS_FOLLOWUP (Austin LBJ / UIL Austin Johnson); 55 earlier VERIFIED preserved, 79/1292 total.** This correction supersedes the 25/25 technical-certification headline and the old closure statements retained below as historical evidence.
 
-## Confirmed material error in the technically passing set
-The original `desktop-school-austin-johnson.png` from artifact `11673525515` renders an **Austin Johnson Football** H1 and asserts the team is in **Round Rock ISD, Williamson County**, while school-specific editorial records discuss **Austin LBJ Jaguars** and its 2021 state runner-up season. [Austin ISD's LBJ Early College High School profile](https://www.austinisd.org/schools/lbj) establishes **Jaguars**, **Austin ISD** and the LBJ campus; [Austin ISD directory](https://www.austinisd.org/schools/level/H) places it at **7309 Lazy Creek Drive, Austin, TX 78724**, **Travis County**. [UIL 2026–28 football listing](https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf) labels that program **Austin Johnson, 4A Division I District 13, 907 students**. The UIL registration name and the school identity must be reconciled without accepting an unrelated TEA fuzzy match.
+The **actual saved deployed screenshot** `desktop-school-austin-johnson.png` in [artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515) says **Round Rock ISD, Williamson County**, but the same football page correctly contains Austin **LBJ Jaguars** editorial about the 2021 4A DI runner-up. [Austin ISD confirms LBJ ECHS Jaguars](https://www.austinisd.org/schools/lbj) at [7309 Lazy Creek Drive, Austin](https://www.austinisd.org/schools/level/H), **Travis County**. [UIL 2026–28 official football alignment](https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf) calls this team Austin Johnson, **4A DI District 13**, enrollment **907**. A name-only TEA join produced an unrelated Johnson school: a fatal school-identity error the 72/72 structural pass did not detect.
 
-Protected follow-up branch `football-batch004-lbj-identity-source-fix-20261010` pins just this program's verified identity and adds regression checks for **Austin LBJ Jaguars**, **Austin ISD**, **Travis County**, correctly identified JSON-LD school, and absence of wrong Round Rock/Williamson attribution in both viewports. The `austin-johnson` registry record is **NEEDS_FOLLOWUP**, `actualProductionVerified=false`, pending a successful protected merge, exact production deploy and newer passing Chrome run. Prior image artifacts and dates are kept only as evidence of the earlier *structural* test, not claimed as corrected-state evidence.
+Follow-up [PR #4562](https://github.com/keeptxred/TexasDefined/pull/4562) corrects this specific identity, official school district and county, school mascot, and its schema; preserves official UIL classification/enrollment; discards unverified misjoined TEA fields; and adds guarded full production-browser checks in both viewport sizes. The canonical Austin LBJ record is **NEEDS_FOLLOWUP** with `actualProductionVerified=false`. **The browser screenshot artifacts, existing timestamps, CI and prior 55 VERIFIED records remain preserved and factual claims are not invented.** Only after the corrective PR passes protected merge, actual deployment, and an updated live Chrome 25-school run with the new identity guards may Austin LBJ and Batch 004 return to VERIFIED (25/25, 80/1292). Do not start Batch 005 until then.
 
-## Historical, current coaching and venue claim control
-School-specific dossiers and editorial objects cite the relevant primary sources where available. Material corrections already documented include Aspermont's 1999 **eleven-man** state finalist status (not six-man); Atlanta's **2003 football state title**; Austin High's **1942 football title**; Austin LBJ's **2021 finalist** season (not championship); Austin Northeast/Reagan campus-era championships; Vandegrift's **2024 state title**; Westlake's actual championships, coach and 2024 runner-up result; Lake Travis' stadium reconstruction; and school-specific venue/location and coaching qualifications. Keep contradictory 2025 season records, unknown current coach claims and uncertain ticket/parking/ADA details explicitly qualified rather than fabricated.
+An intervening [workflow run #38060636948](https://github.com/keeptxred/TexasDefined/actions/runs/38060636948) also failed 18/72 due temporary **noindex** on nine county routes in both viewports; subsequent #38061056139 passed all county checks. This transient failure is recorded, not suppressed.
 
-## SEO, links, images, and acceptance limits
-The full Chrome runner checks route HTTP 200, individual H1, title/description, canonical and indexability, SportsTeam/BreadcrumbList schema, displayed external research sources, viewport horizontal overflow, browser runtime exceptions, visible image loading/alt attributes, live school-to-campus-county and reciprocal county-to-school paths, the documented twelve Austin-city pairs, and inclusion of all 25 URLs in the published sitemap. Technical success does not assert that every offsite link remains current or that all historical claims are independently true.
+---
 
-School graphics are authored editorial cards and milestones rather than copied school logos/photos with unproven reuse rights. No unsourced photographic reuse permission is asserted. Specific parking, admissions, accessibility arrangements, tickets, coaches and future results may change and should remain linked to official operator/school sources or labeled unverified.
+## Protected implementation and deployment
 
-## Previously verified inventory and exact next gate
-- Original **55 VERIFIED** from Batches 001–003 preserved unmodified.
-- Current Batch 004 **24 VERIFIED + one NEEDS_FOLLOWUP** = **79 VERIFIED of 1,292 existing school profiles**.
-- Following a successful guarded Austin LBJ deployment, read the new production run and the actual generated screenshot/JSON evidence, and *only then* promote `austin-johnson` to VERIFIED, restore Batch 004 25/25 and overall 80/1,292, and update `REGISTRY.json`, `PROGRESS.md`, the Austin LBJ dossier and this report.
-- Exact next checkpoint: pending new protected Austin LBJ PR/merge, deployment, post-deploy batch Chrome runner with newly added identity guards, and artifact ID. **Do not invent missing run numbers, dates or outcomes.**
+- Production implementation: merged [PR #4540](https://github.com/keeptxred/TexasDefined/pull/4540), merge commit `f4af3c89956a823fd37e367fd883897d92bce2ed`.
+- First successful deployment of that commit: [workflow #38059345469](https://github.com/keeptxred/TexasDefined/actions/runs/38059345469); first successful 25-school Chrome acceptance: [#38059638426](https://github.com/keeptxred/TexasDefined/actions/runs/38059638426), artifact **11672358024**.
+- A **newer deployment retaining Batch 004** succeeded for `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`: [workflow #38060642173](https://github.com/keeptxred/TexasDefined/actions/runs/38060642173). Its independently triggered [live production Chrome acceptance #38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139) **passed**, with preserved [report and screenshots artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515).
+- Latest second acceptance report timestamp: **2026-10-10T14:52:22.781Z**; testedCommit exactly `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`.
+- A later unrelated branding commit can advance `main`; this report does not assert successful deployment of later commits without separate evidence.
+
+## Recorded production browser acceptance — structural checks ALL PASSED, factual exception described above
+
+- **50/50 school HTTP/render/SEO/schema/source-link/reciprocal checks:** all 25 individual school routes at **1366×900 desktop** and **390×844 mobile**, HTTP 200, unique canonical, title and description present, no noindex, SportsTeam/BreadcrumbList, external research link, school-to-campus-county link, city return link where applicable, zero horizontal overflow, no broken visible images, no missing visible image alt text, zero captured page exceptions.
+- **20/20 county checks:** all ten distinct campus counties each tested at both desktop/mobile with all required school reciprocal links visible after hydration.
+- **2/2 Austin city checks:** 12 documented school-to-city and reciprocal city-to-school pairs visible desktop/mobile.
+- **25/25 production sitemap entries present**, HTTP success.
+- **72/72 browser results PASS; 0 failures**. Preserved artifact **11673525515** holds 72 screenshots and report.json (73 evidence files). Screenshot names `desktop-school-[slug].png`, `mobile-school-[slug].png`, plus county/city counterparts.
+
+### Individual production results
+
+| School | Live URL | Campus county | Browser, sitemap, reciprocal status |
+| --- | --- | --- | --- |
+| Arp | [arp](https://texasdefined.com/texas-high-school-football-teams/arp) | Smith | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Aspermont | [aspermont](https://texasdefined.com/texas-high-school-football-teams/aspermont) | Stonewall | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Athens | [athens](https://texasdefined.com/texas-high-school-football-teams/athens) | Henderson | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Atlanta | [atlanta](https://texasdefined.com/texas-high-school-football-teams/atlanta) | Cass | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Aubrey | [aubrey](https://texasdefined.com/texas-high-school-football-teams/aubrey) | Denton | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin High | [austin](https://texasdefined.com/texas-high-school-football-teams/austin) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Achieve | [austin-achieve](https://texasdefined.com/texas-high-school-football-teams/austin-achieve) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Akins | [austin-akins](https://texasdefined.com/texas-high-school-football-teams/austin-akins) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Anderson | [austin-anderson](https://texasdefined.com/texas-high-school-football-teams/austin-anderson) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Bowie | [austin-bowie](https://texasdefined.com/texas-high-school-football-teams/austin-bowie) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Crockett | [austin-crockett](https://texasdefined.com/texas-high-school-football-teams/austin-crockett) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Eastside | [austin-eastside](https://texasdefined.com/texas-high-school-football-teams/austin-eastside) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin LBJ / Johnson | [austin-johnson](https://texasdefined.com/texas-high-school-football-teams/austin-johnson) | Travis | Earlier technical checks PASS; **factual identity NEEDS_FOLLOWUP** pending new production Chrome and screenshot |
+| Austin Lake Travis | [austin-lake-travis](https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin LASA | [austin-lasa](https://texasdefined.com/texas-high-school-football-teams/austin-lasa) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin McCallum | [austin-mccallum](https://texasdefined.com/texas-high-school-football-teams/austin-mccallum) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Navarro | [austin-navarro](https://texasdefined.com/texas-high-school-football-teams/austin-navarro) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Northeast | [austin-northeast](https://texasdefined.com/texas-high-school-football-teams/austin-northeast) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Travis | [austin-travis](https://texasdefined.com/texas-high-school-football-teams/austin-travis) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Vandegrift | [austin-vandegrift](https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Austin Westlake | [austin-westlake](https://texasdefined.com/texas-high-school-football-teams/austin-westlake) | Travis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Avalon | [avalon](https://texasdefined.com/texas-high-school-football-teams/avalon) | Ellis | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Axtell | [axtell](https://texasdefined.com/texas-high-school-football-teams/axtell) | McLennan | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Azle | [azle](https://texasdefined.com/texas-high-school-football-teams/azle) | Tarrant | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+| Baird | [baird](https://texasdefined.com/texas-high-school-football-teams/baird) | Callahan | Desktop PASS; mobile PASS; sitemap PASS; county reciprocal PASS |
+
+All rows are supported by the named **GitHub runner report**, rather than inferred from success of a structural or local validator.
+
+## Editorial/factual corrections preserved
+
+- Aspermont: original UIL 1999 **11-man**, not six-man, title-game appearance, distinguished from current six-man football.
+- Atlanta: verified 2003 **3A Division II** state football championship.
+- Austin High: documented 1942 state title.
+- Austin LBJ / Johnson: 2021 **4A Division I runner-up**, not championship, distinct from Buda and San Antonio Johnson.
+- Austin Northeast: Reagan-era school championships distinguished from later team chronology.
+- Vandegrift: 2024 state football champion; correct Leander ISD/Travis County identity.
+- Westlake: specific historical championships and dated 2026 coaching/record; avoid treating transient record as evergreen.
+- Lake Travis: state TDLR registration describes stadium reconstruction, not verified completion or guaranteed current game-day access.
+- LASA, Travis, Avalon, Axtell, Baird and other programs have primary/dated personnel and sport-format context in individual `schools/[slug].md` files and `program-editorial.ts`. Unconfirmed coach information stays qualified.
+
+These documented historical and school-specific source reviews are not a license to claim every historical, current-season, venue, ADA, or traffic detail has been independently verified forever. Recheck live official schedules and accessibility arrangements prior to visits.
+
+## Rights, visuals, and accessibility limits
+
+- The Batch 004 editorial uses **original school-inspired text/timeline/CSS graphics**, rather than copying third-party sports photographs or school logos.
+- **No reproduction license** for original school photos has been acquired or implied. An authentic future photo addition requires evidence of license/permission, attribution and accessible alt text before publication.
+- Desktop/mobile Chrome snapshots verify responsive layout and basic image/overflow checks, **not** a comprehensive screen-reader, keyboard, WCAG, or manual visual-design audit.
+- The school's own official athletic department is the final authority for current coach, ticket, gate, parking, ADA accommodation and construction-access details; where unavailable the copy should avoid fabricated directions.
+
+## Registry reconciliation and certification scope
+
+The protected [certification PR #4557](https://github.com/keeptxred/TexasDefined/pull/4557) **merged** successfully at `f8c57a3cb1a29945f303a224fda8e6046103ca9e`. The canonical `main` registry now contains exactly **25 Batch 004 school records initially marked technical VERIFIED**, later corrected to **24 VERIFIED + one NEEDS_FOLLOWUP** after a confirmed mismatch; **55 previously VERIFIED** preserved (**79 currently**). Individual audit files were updated by that merge, and production link labels were corrected to `COUNTY_AND_APPLICABLE_CITY_CHROME_PASS`. This report documents a second completed production/browser run as corroboration.
+
+**Earlier structural production-browser acceptance was complete for all 25, but independently observed identity evidence has withheld one school's full factual acceptance.** Verified directly in the merged registry after PR #4557; no new batch was started.
+
+## Remaining maintenance versus production gate
+
+- **Original structural production gate:** PASS twice, but **Austin LBJ factual production correction gate remains PENDING**.
+- **Content maintenance:** Periodically revalidate season/coach/tickets/venue, improve weak first-party sourcing, acquire rights-cleared optional photographs, and conduct deeper accessibility/manual UX testing. Historical state championships should always cite the contemporaneous UIL record.
+- **Final evidence-report publication:** [PR #4553](https://github.com/keeptxred/TexasDefined/pull/4553) retains only this missing consolidated report, merged through required protected checks. Certification and 25 individual audit checkpoints are already on `main` through [#4557](https://github.com/keeptxred/TexasDefined/pull/4557); do not overwrite those newer records.
