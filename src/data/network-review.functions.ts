@@ -39,3 +39,13 @@ export const unpublishReviewedNetworkListing = createServerFn({ method: 'POST' }
     const { unpublishNetworkListing } = await import('@/data/network-review.server');
     return unpublishNetworkListing(data.accessKey, data.id);
   });
+
+export const provisionNetworkOwner = createServerFn({method:'POST'})
+ .inputValidator(z.object({
+  accessKey:z.string().min(20).max(200),applicationId:z.string().uuid(),userId:z.string().uuid(),
+  ownershipVerified:z.literal(true)
+ }))
+ .handler(async ({data})=>{
+  const {provisionReviewedNetworkOwner}=await import('@/data/network-review.server');
+  return provisionReviewedNetworkOwner(data.accessKey,data.applicationId,data.userId,data.ownershipVerified);
+ });
