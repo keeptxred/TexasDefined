@@ -40,7 +40,12 @@ const cityRoster = [
 const cityBySchool = new Map(cityRoster.flatMap(({ city, schools }) => schools.map(slug => [slug, city])));
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json', 'utf8'));
 assert.equal(roster.length, 25);
-assert.deepEqual(registry.batch.slugs, roster.map(([slug]) => slug));
+// A new active football batch must not rewrite the immutable Batch 004 roster.
+// Prefer the completed checkpoint; fallback only for pre-archive historical runs.
+const batch004 = registry.completedBatches?.find(b => b.number === 4)
+  ?? (registry.batch?.number === 4 ? registry.batch : null);
+assert.ok(batch004, 'Completed/active Batch 004 roster missing');
+assert.deepEqual(batch004.slugs, roster.map(([slug]) => slug));
 const bySlug = new Map(registry.schoolRecords.filter(x => x.batch === 4).map(x => [x.slug, x]));
 assert.equal(bySlug.size, 25);
 await mkdir(output, { recursive: true });
