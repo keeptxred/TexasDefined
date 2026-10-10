@@ -58,6 +58,167 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "aquilla": {
+    "slug": "aquilla",
+    "theme": {
+      "accentHex": "#285D77",
+      "label": "Original Cougars editorial teal accent; not an official team logo"
+    },
+    "seo": {
+      "title": "Aquilla Cougars Six-Man Football: 2025 12–1, Coach Williams & 2026",
+      "description": "Aquilla Cougars football: 2025 12–1, 2024 11–2, head coach Shannon Williams, 2026 UIL 1A Division I District 14, Cougar Stadium and game results."
+    },
+    "coach": {
+      "name": "Shannon Williams",
+      "title": "2026 head football coach according to current MaxPreps school history",
+      "sourceUrl": "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+      "sourceLabel": "2026–27 coach and historical 2025/2024 varsity roster",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Aquilla Cougars season results and district fixtures",
+      "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+      "sourceLabel": "DCTF partial October 2026 game ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "Four confirmed DCTF September wins; 2026 MaxPreps overall 6–0 uses additional games requiring reconciliation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+      "sourceLabel": "DCTF first four explicitly scored victories",
+      "games": [
+        {
+          "date": "Sept. 4",
+          "opponent": "Calvert",
+          "site": "Home",
+          "result": "W 52–7"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Avalon",
+          "site": "Away",
+          "result": "W 58–6"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Kopperl",
+          "site": "Home",
+          "result": "W 60–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Jonesboro",
+          "site": "Away",
+          "result": "W 54–8"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "May",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Penelope",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Coolidge",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Gholson",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Abbott",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cougar Stadium",
+      "address": "Aquilla, TX — current stadium entrance not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+      "sourceLabel": "DCTF team stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists a historical 500-seat capacity, which does not certify modern ADA access, parking or admissions. Confirm the precise spectator gate and policy with Aquilla ISD."
+    },
+    "overview": [
+      "Aquilla's Cougars are a six-man football program in Hill County. Their modern record is distinct from neighboring Abbott Panthers, which share UIL District 14 but have a different football championship history. A current district matchup does not automatically make every opponent a historic rivalry.",
+      "The 2025 Cougars finished 12–1 according to both MaxPreps and Dave Campbell's Texas Football. Aquilla also went 11–2 in 2024, following 7–3 in 2023. These consecutive strong seasons are genuine program-specific achievements rather than invented state titles.",
+      "DCTF reports 15 football playoff appearances but no state football title game or championship for Aquilla. Success in recent regular seasons and playoff appearances should be celebrated accurately without converting a high state ranking into an official championship.",
+      "The 2026–28 UIL Class 1A Division I realignment places Aquilla in District 14 with Abbott, Coolidge, Gholson and Penelope. The current 2026 team listing credits Shannon Williams as head coach; MaxPreps also lists Williams for the 2025 12–1 campaign.",
+      "DCTF's posted results confirm four decisive September wins: 52–7 over Calvert, 58–6 at Avalon, 60–6 against Kopperl and 54–8 at Jonesboro. The current MaxPreps overview shows a 6–0 overall record because it includes additional reported matches; without matching its full game ledger, DCTF's incomplete four-game sample should not be called the entire season.",
+      "The Aquilla-Jonesboro fixture has immediate regional context: Jonesboro's own records include longer historical postseason runs, but Aquilla's 54–8 September win is just one dated game. The 2026 schedule later pits Aquilla against Abbott, another established Hill County six-man program.",
+      "The team plays its independently documented home games at Cougar Stadium. DCTF's 500-seat historical capacity should not be mistaken for certified accessible seating or current admission and parking instructions."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Seven wins before the breakout",
+        "body": "DCTF reports a 7–3 season, ahead of its subsequent double-digit win years.",
+        "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+        "sourceLabel": "DCTF historical season records"
+      },
+      {
+        "date": "2024",
+        "title": "Eleven-win Cougars season",
+        "body": "A documented 11–2 campaign set the stage for another high-win season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+        "sourceLabel": "MaxPreps archived 2024 team history"
+      },
+      {
+        "date": "2025",
+        "title": "Twelve wins under Shannon Williams",
+        "body": "Both DCTF and MaxPreps list Aquilla at 12–1, with coach Shannon Williams in the 2025 roster history.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+        "sourceLabel": "MaxPreps 2025 team coach and record"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "54–8 win at Jonesboro",
+        "body": "The fourth individually listed 2026 DCTF final is a 54–8 road victory at Jonesboro.",
+        "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+        "sourceLabel": "DCTF dated September 2026 score"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 1A Division I District 14",
+        "body": "Present alignment includes Abbott, Aquilla, Coolidge, Gholson and Penelope.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL official six-man Division I alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Aquilla won a UIL football state title?",
+        "answer": "DCTF reports 15 playoff appearances but zero state title games or championships."
+      },
+      {
+        "question": "How did Aquilla finish in 2024 and 2025?",
+        "answer": "The Cougars went 11–2 in 2024 and 12–1 in 2025, according to both independent football archives."
+      },
+      {
+        "question": "Who coaches Aquilla football in 2026?",
+        "answer": "MaxPreps names Shannon Williams as 2026 head coach and also lists him with the 2025 12–1 program."
+      },
+      {
+        "question": "What district is Aquilla in for 2026?",
+        "answer": "UIL six-man Class 1A Division I, District 14, alongside Abbott, Coolidge, Gholson and Penelope."
+      },
+      {
+        "question": "Where is Cougar Stadium?",
+        "answer": "DCTF identifies Cougar Stadium in Aquilla, but the specific current gate, tickets, accessible parking and seating need confirmation from Aquilla ISD."
+      }
+    ]
+  },
   "apple-springs": {
     "slug": "apple-springs",
     "theme": {
