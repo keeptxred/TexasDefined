@@ -17,7 +17,7 @@ function reportClientMainModuleWeights(): Plugin {
     generateBundle(_output, bundle) {
       if (process.env.GITHUB_ACTIONS !== "true") return;
       const mainChunks = Object.values(bundle).filter(
-        (item) => item.type === "chunk" && /(?:^|\\/)main-[^/]+\\.js$/.test(item.fileName),
+        (item) => item.type === "chunk" && item.fileName.split("/").pop()?.startsWith("main-") && item.fileName.endsWith(".js"),
       );
       for (const chunk of mainChunks) {
         if (chunk.type !== "chunk") continue;
