@@ -1,5 +1,12 @@
 # Football Authority — Execution Ledger
 
+## Batch 004 **production acceptance: 25/25 VERIFIED** — 2026-10-10 (latest canonical checkpoint)
+- **Protected PR #4540 merged** at `f4af3c89956a823fd37e367fd883897d92bce2ed` and [production deployment run #38059345469](https://github.com/keeptxred/TexasDefined/actions/runs/38059345469) concluded **SUCCESS**.
+- Dedicated [production Chrome run #38059638426](https://github.com/keeptxred/TexasDefined/actions/runs/38059638426), checked out **that exact merge SHA**, concluded **SUCCESS**. Log summary: **50 desktop/mobile school checks; 20 county page checks; 25/25 sitemap entries; 72 passed, 0 failed**. The report and **73 evidence files** are retained in [artifact #11672358024](https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024). The production browser check also exercised documented Austin city links.
+- Individual Batch 004 ledger entries now contain matching deploy SHA, workflow IDs, browser run, artifact ID, verification timestamp, source limitations and `actualProductionVerified=true`. Prior **55** schools remain VERIFIED; total **80/1,292**. Batch 005 has NOT been assigned.
+- **Limits of this certification:** automated production browser, metadata, sitemap and reciprocal links are verified; this does not convey rights to third-party photos or independently certify every unsourced historical anecdote, future kickoff, coach appointment or seating/ADA availability. Maintain original graphics and source-qualified copy.
+
+
 ## Batch 004 reciprocal-link and structural CI acceptance checkpoint — 2026-10-10
 - All 25 school-specific editorial records and dossiers are IMPLEMENTED on PR #4540; prior 55 VERIFIED schools preserved; Batch004 0 VERIFIED.
 - All 25 school profiles now have individually mapped campus-county return links and 25 county pages have reciprocal school cards, as reflected in REGISTRY.json and BATCH004_CAMPUS_LINK_EVIDENCE.md. This is branch evidence, not production verification.
