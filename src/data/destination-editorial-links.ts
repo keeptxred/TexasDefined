@@ -108,7 +108,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Use Johnson City as the eastern base for museums, food, family attractions and Blanco County planning.",
     },
     {
-      href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+      href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
       label: "Continue toward Fredericksburg",
       description: "Extend west through Stonewall into the larger U.S. 290 wine, history, lodging and shopping corridor.",
     },
@@ -290,7 +290,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Pair the Hye distillery with the LBJ Ranch and Johnson City districts along the same eastern Hill Country corridor.",
     },
     {
-      href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+      href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
       label: "Continue toward Fredericksburg",
       description: "Extend west on U.S. 290 into the larger winery, museum and Hill Country visitor corridor.",
     },
