@@ -15,6 +15,11 @@ const hub = read("src/routes/explore.lighthouses.tsx");
 const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
 const visitorMatrix = read("src/components/content/LighthouseVisitPlanner.tsx");
 const articleRenderer = read("src/components/editorial/ArticleBody.tsx");
+assert(articleRenderer.includes("Point Bolivar: historic photo versus restored appearance"), "Point Bolivar historical image must identify outdated appearance");
+assert(articleRenderer.includes("thf-grant-presentation-bolivar-point-lighthouse-foundation-point-bolivar-"), "Point Bolivar must link to the 2025 restoration photo source rather than republish it unlicensed");
+assert(articleRenderer.includes("Photographs on these external sites remain their owners' work"), "Point Bolivar photo rights disclaimer required");
+assert(searchIntentArticles.includes("Point Bolivar Lighthouse in December 2009"), "Best-lighthouses photo must be dated");
+
 const topicPaths = read("src/components/editorial/ExploreTopicPaths.tsx");
 const intentPaths = read("src/components/editorial/ExploreIntentPaths.tsx");
 const routes = read("src/lib/public-routes.ts");

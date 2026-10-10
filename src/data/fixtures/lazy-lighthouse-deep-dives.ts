@@ -5,7 +5,7 @@ const hero = (src: string, alt: string, width: number, height: number, credit: s
 const heroes = {
   bolivar: hero(
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg?width=1600",
-    "Point Bolivar Lighthouse on the Bolivar Peninsula at the entrance to Galveston Bay",
+    "Point Bolivar Lighthouse photographed in December 2009, before restoration of its black-and-white stripes",
     2502,
     1888,
     "Patrick Feller · CC BY 2.0 · Wikimedia Commons",
