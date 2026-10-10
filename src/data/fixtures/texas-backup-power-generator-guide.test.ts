@@ -46,7 +46,7 @@ describe("Texas backup power and generator authority guide", () => {
     for (const sourceSlug of [
       "texas-homeowner-field-manual",
       "prepare-texas-house-freeze",
-      "texas-hurricane-preparation-guide",
+      "texas-hurricane-preparation-homeowners-renters",
       "texas-pool-owner-guide",
       "how-to-choose-electricity-plan-texas",
     ]) {
