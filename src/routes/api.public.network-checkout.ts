@@ -13,7 +13,7 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     try { body = await request.json(); } catch { return reply({ error: "Invalid request." }, 400); }
     if (!body || !/^[0-9a-f-]{36}$/i.test(body.applicationId || "")) return reply({ error: "Application not found." }, 400);
     // Contact-email knowledge is not proof of business ownership. Require a confirmed sign-in before billing.
-    const bearer = request.headers.get("authorization")?.match(/^Bearer ([\\w.-]+)$/)?.[1];
+    const bearer = request.headers.get("authorization")?.match(/^Bearer ([\w.-]+)$/)?.[1];
     if (!bearer) return reply({ error: "Sign in with your confirmed application email before checkout." }, 401);
     const {stripeCheckoutEnabled,createNetworkCheckoutSession}=await import("@/data/network-stripe.server");
     if (!stripeCheckoutEnabled()) return reply({ error: "Subscription checkout is not yet activated." }, 503);
