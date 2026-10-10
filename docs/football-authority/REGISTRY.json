@@ -4411,10 +4411,13 @@
         "a091077e5f6f426a950df7750523db9c6c6770ff"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-achieve",
@@ -4467,10 +4470,13 @@
         "a091077e5f6f426a950df7750523db9c6c6770ff"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-anderson",
@@ -4495,10 +4501,13 @@
         "a091077e5f6f426a950df7750523db9c6c6770ff"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-bowie",
@@ -4523,10 +4532,13 @@
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-crockett",
@@ -4551,10 +4563,13 @@
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-eastside",
@@ -4579,10 +4594,13 @@
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-johnson",
@@ -4607,10 +4625,13 @@
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-lake-travis",
@@ -4663,10 +4684,13 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-mccallum",
@@ -4691,10 +4715,13 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-navarro",
@@ -4719,10 +4746,13 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-northeast",
@@ -4747,10 +4777,13 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-travis",
@@ -4775,10 +4808,13 @@
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
       ],
       "inboundLinks": [
-        "/county/travis"
+        "/county/travis",
+        "/destination/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCityPath": "/destination/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE"
     },
     {
       "id": "uil:austin-vandegrift",
