@@ -481,43 +481,62 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin Navarro Vikings Football: History, 2026 Guide & Stadium Resources",
-      "description": "Research-led Austin Navarro Vikings football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+      "title": "Austin Navarro Vikings Football: 2026 Homecoming & School Schedule",
+      "description": "Navarro Early College Vikings football: school-sourced 2026 homecoming vs LASA, varsity games, family resources, and visitor information."
     },
     "schedule": {
-      "label": "Published source of team or opponent varsity schedule",
-      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
-      "sourceLabel": "Official school resource or specified historical listing",
+      "label": "Navarro ECHS current school football events calendar",
+      "sourceUrl": "https://navarro.austinschools.org/events",
+      "sourceLabel": "Navarro official events calendar",
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A distinctive football story",
-      "body": "Austin Navarro is an Austin ISD Vikings team and should never be confused with Navarro College Bulldogs or Navarro ISD Panthers. The official Crockett varsity 2026 schedule lists a Thursday, October 15 home game against Navarro at Burger Stadium. Current Navarro-specific varsity personnel and school-history detail are not supported by these opposing-team sources.",
-      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
-      "sourceLabel": "School source and explicitly qualified published record",
+      "title": "Vikings 2026 homecoming and football culture",
+      "body": "Navarro Early College High School's official October 2026 events calendar identifies the Vikings' October 8 varsity football homecoming matchup against LASA, October 15 trip to Crockett, October 23 visit to Bastrop and October 30 Senior Night against Pflugerville. The school promoted a July 29 parent meeting for prospective football players and families, connecting team involvement with campus student life. Navarro here means Austin Navarro Vikings, not Navarro College or another district's Panthers.",
+      "sourceUrl": "https://navarro.austinschools.org/events",
+      "sourceLabel": "Navarro Early College school event calendar",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
-        "date": "2026",
-        "title": "Program-specific football milestone",
-        "body": "A documented varsity fixture placed Austin Navarro at Crockett's Burger Stadium October 15, 2026, while varsity and JV venues differ.",
-        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
-        "sourceLabel": "School schedule or athletics history"
+        "date": "July 2026",
+        "title": "Vikings family football meeting",
+        "body": "Navarro ECHS announced its football parent meeting and locker distribution ahead of the season.",
+        "sourceUrl": "https://navarro.austinschools.org/news",
+        "sourceLabel": "Navarro campus athletics announcements"
+      },
+      {
+        "date": "Oct. 8, 2026",
+        "title": "LASA homecoming football",
+        "body": "The official school calendar identifies an October 8 varsity game versus LASA as homecoming.",
+        "sourceUrl": "https://navarro.austinschools.org/events",
+        "sourceLabel": "Official school events calendar"
+      },
+      {
+        "date": "Oct. 30, 2026",
+        "title": "Vikings senior night",
+        "body": "Navarro's 2026 school calendar labels its scheduled Pflugerville matchup as Senior Night.",
+        "sourceUrl": "https://navarro.austinschools.org/events",
+        "sourceLabel": "Official school events calendar"
       }
     ],
     "overview": [
-      "Austin Navarro is an Austin ISD Vikings team and should never be confused with Navarro College Bulldogs or Navarro ISD Panthers. The official Crockett varsity 2026 schedule lists a Thursday, October 15 home game against Navarro at Burger Stadium. Current Navarro-specific varsity personnel and school-history detail are not supported by these opposing-team sources.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "Navarro Early College is the Austin Vikings program and school, not Navarro College's Bulldogs or Navarro ISD's Panthers. The school itself reports 2026 football events, family meetings and homecoming.",
+      "Navarro's 2026 varsity calendar includes school-specific experiences: homecoming against LASA on October 8 and senior night against Pflugerville on October 30, with intervening away fixtures at Crockett and Bastrop.",
+      "For families, the school news hub documents 2026 football parent registration and participation opportunities. This does not establish a claim about coaching history or state championships."
     ],
     "faq": [
       {
-        "question": "What should visitors know about Austin Navarro Vikings?",
-        "answer": "A documented varsity fixture placed Austin Navarro at Crockett's Burger Stadium October 15, 2026, while varsity and JV venues differ."
+        "question": "Who did Navarro schedule for 2026 football homecoming?",
+        "answer": "The official school calendar lists LASA on Thursday, October 8, 2026."
       },
       {
-        "question": "Is TexasDefined the official football website?",
-        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+        "question": "When is Navarro football's 2026 Senior Night?",
+        "answer": "The school calendar scheduled Senior Night against Pflugerville on October 30, 2026."
+      },
+      {
+        "question": "Is this Navarro College football?",
+        "answer": "No. The page covers Navarro Early College High School's Vikings in Austin ISD, not Navarro College."
       }
     ]
   },
@@ -575,45 +594,64 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin LASA Raptors Football: History, 2026 Guide & Stadium Resources",
-      "description": "Research-led Austin LASA Raptors football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+      "title": "Austin LASA Raptors Football: Official Athletics, 2026 Games & Guide",
+      "description": "LASA Raptors varsity football, school athletics calendar and 2026 games with Travis, Akins, Crockett and Navarro; verified official campus links."
     },
     "schedule": {
-      "label": "Published source of team or opponent varsity schedule",
-      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
-      "sourceLabel": "Official school resource or specified historical listing",
+      "label": "LASA Raptors official athletics schedule and calendar",
+      "sourceUrl": "https://www.lasaraptors.com/calendar",
+      "sourceLabel": "LASA official athletics calendar",
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A distinctive football story",
-      "body": "The 2026 Travis High published varsity schedule identifies a September 10 trip to LASA at Nelson Field. LASA appears as a distinct Austin-area football program, not a shorthand for Austin High or Akins. Published opponent schedules show LASA also faced Akins and Crockett. An official LASA football archive or head coach cannot yet be confirmed.",
-      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
-      "sourceLabel": "School source and explicitly qualified published record",
+      "title": "LASA's distinct Austin academic and football identity",
+      "body": "LASA's official Raptors athletic site and calendar provide a school-specific contact and athletics channel distinct from its former shared-campus context. Travis' published football schedule identifies a September 10 trip to LASA at Nelson Field; Navarro's calendar lists the Vikings' October 8 homecoming football game against LASA. Football schedules for neighboring Austin schools are evidence of opponents and sites, not a verified LASA season record.",
+      "sourceUrl": "https://www.lasaraptors.com/",
+      "sourceLabel": "Official LASA athletics office and linked calendar",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
         "date": "2026",
-        "title": "Program-specific football milestone",
-        "body": "In 2026 LASA hosted Travis at Nelson Field on September 10 and was scheduled to visit Crockett October 30, according to official opposing schools' varsity calendars.",
+        "title": "LASA–Travis at Nelson Field",
+        "body": "Travis' official varsity listing scheduled September 10 at LASA and named Nelson Field as the game location.",
         "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
-        "sourceLabel": "School schedule or athletics history"
+        "sourceLabel": "Travis High official 2026 varsity fixture"
+      },
+      {
+        "date": "2026",
+        "title": "Featured on Navarro homecoming schedule",
+        "body": "Navarro's school calendar identifies Thursday, October 8 versus LASA as its homecoming football game; this does not assert the final score.",
+        "sourceUrl": "https://navarro.austinschools.org/events",
+        "sourceLabel": "Navarro ECHS official calendar"
       }
     ],
     "overview": [
-      "The 2026 Travis High published varsity schedule identifies a September 10 trip to LASA at Nelson Field. LASA appears as a distinct Austin-area football program, not a shorthand for Austin High or Akins. Published opponent schedules show LASA also faced Akins and Crockett. An official LASA football archive or head coach cannot yet be confirmed.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "LASA is the Raptors program with its own official sports website and contact resources; it is distinct from Austin LBJ even if athletics listings share a Lazy Creek Drive address.",
+      "Two independent Austin-school calendars document specific LASA fixtures: Travis visited September 10 at Nelson Field and Navarro scheduled homecoming against LASA October 8.",
+      "A verified LASA head coach, historical football awards and legally licensed program photos were not established; do not invent them."
     ],
     "faq": [
       {
-        "question": "What should visitors know about Austin LASA Raptors?",
-        "answer": "In 2026 LASA hosted Travis at Nelson Field on September 10 and was scheduled to visit Crockett October 30, according to official opposing schools' varsity calendars."
+        "question": "Does LASA have an official athletics website?",
+        "answer": "Yes. LASA Raptors athletics publishes contact information and a calendar at lasaraptors.com."
       },
       {
-        "question": "Is TexasDefined the official football website?",
-        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+        "question": "Where was the 2026 LASA–Travis varsity football game scheduled?",
+        "answer": "The Travis High athletics calendar lists the September 10 game at Nelson Field."
+      },
+      {
+        "question": "When did Navarro list LASA for homecoming?",
+        "answer": "Navarro ECHS's official calendar lists an October 8, 2026 varsity football homecoming game versus LASA."
       }
-    ]
+    ],
+    "campus": {
+      "address": "7309 Lazy Creek Drive, Suite 225, Austin, TX 78724",
+      "phone": "512-414-5272",
+      "sourceUrl": "https://www.lasaraptors.com/",
+      "sourceLabel": "Official LASA athletics office listing",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-lake-travis": {
     "slug": "austin-lake-travis",
