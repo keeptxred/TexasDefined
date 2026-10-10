@@ -323,5 +323,20 @@ requireMarker(riverLive, 'ref: ${{ github.event.workflow_run.head_sha || github.
 if (riverLive.includes("github.event_name == 'pull_request' ||"))
   failures.push('River atlas live browser must not run against undeployed PR code');
 
+// A newer football batch cannot change the archived Batch 003 Chrome roster.
+const batch3Workflow = workflow('verify-football-batch-003-browser');
+const batch3PrJob = batch3Workflow.slice(batch3Workflow.indexOf('  source-syntax:'), batch3Workflow.indexOf('  verify:'));
+const batch3LiveJob = batch3Workflow.slice(batch3Workflow.indexOf('  verify:'));
+requireMarker(batch3PrJob, "github.event_name == 'pull_request'", 'Batch 003 browser PR checks must be source-only');
+requireMarker(batch3PrJob, 'node --check scripts/ci/verify-football-batch-003-browser.mjs', 'Batch 003 PR browser syntax check missing');
+requireMarker(batch3PrJob, 'node scripts/ci/verify-football-batch-003.mjs', 'Batch 003 PR structural acceptance missing');
+requireMarker(batch3LiveJob, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Batch 003 production browser must check out deployed SHA');
+requireMarker(batch3LiveJob, "github.event.workflow_run.conclusion == 'success'", 'Batch 003 browser must skip failed deployments');
+const batch3BrowserSource = fs.readFileSync('scripts/ci/verify-football-batch-003-browser.mjs', 'utf8');
+for(const part of ['registry.completedBatches', 'item.number === 3', 'assert.ok(batch003', 'assert.deepEqual(batch003.slugs'])
+  requireMarker(batch3BrowserSource, part, `Batch 003 immutable historical roster contract lost: ${part}`);
+if (batch3BrowserSource.includes('assert.deepEqual(registry.batch.slugs'))
+  failures.push('Batch 003 production Chrome cannot assert against the mutable active batch roster');
+
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
 console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
