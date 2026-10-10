@@ -128,7 +128,7 @@ function StateFairLivePanel() {
 
           <div>
             <p className="eyebrow text-primary">{status}</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">Plan the day before you enter the gates</h2>
+            <h2 className="mt-2 font-display text-3xl md:text-4xl">{fairFinished ? "Explore the 2026 Fair archive" : "Plan the day before you enter the gates"}</h2>
             <p className="mt-4 leading-7 text-muted-foreground">September 25–October 18, 2026 · Fair Park, Dallas</p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Sunday–Thursday</p><p className="mt-2 font-display text-3xl">10 AM–9 PM</p></div>
@@ -137,12 +137,12 @@ function StateFairLivePanel() {
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Midway</p><p className="mt-2 font-display text-3xl">11 AM most days</p></div>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Today’s schedule ↗</a>
-              <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Tickets ↗</a>
+              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Official schedule ↗" : "Today’s schedule ↗"}</a>
+              <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
               <a href="https://bigtex.com/plan-your-visit/getting-here/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">DART & parking ↗</a>
               <a href="https://bigtex.com/plan-your-visit/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Visitor guide ↗</a>
             </div>
-            <p className="mt-4 text-xs leading-5 text-muted-foreground">Hours and operations can change for weather or special circumstances. Check the official schedule before leaving.</p>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">{fairFinished ? "The 2026 Fair concluded. Verify future dates with the organizer." : "Hours and operations can change for weather or special circumstances. Check the official schedule before leaving."}</p>
           </div>
         </div>
       </Container>
