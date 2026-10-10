@@ -434,7 +434,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin Northeast Early College Raiders Football: History, 2026 Guide & Stadium Resources",
+      "title": "Austin Northeast Raiders Football: 2026 Team & Schedule",
       "description": "Research-led Austin Northeast Early College Raiders football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
     },
     "schedule": {
@@ -775,7 +775,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Original school-inspired editorial accent; no logo reproduced"
     },
     "seo": {
-      "title": "Austin Eastside Early College Panthers Football: 2026 Guide, History & Fan Resources",
+      "title": "Austin Eastside Panthers Football: 2026 Coach & Schedule",
       "description": "Independent Austin Eastside Early College Panthers football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
     },
     "schedule": {
