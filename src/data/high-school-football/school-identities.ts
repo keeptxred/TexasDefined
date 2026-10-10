@@ -12,6 +12,13 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'austin-johnson',
+    mascot: 'Jaguars',
+    sourceUrl: 'https://www.austinisd.org/schools/lbj',
+    sourceLabel: 'Austin ISD LBJ Early College High School identifies its Jaguars',
+    verifiedAt: '2026-10-10',
+  },
+  {
     slug: 'agua-dulce',
     mascot: 'Longhorns',
     sourceUrl: 'https://www.adisd.net/',

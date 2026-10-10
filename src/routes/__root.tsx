@@ -147,14 +147,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  if (import.meta.env.SSR) {
-    return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /><script src="/expedia-travel.js" defer /><script src="/stay-affiliate-options.js" defer /><script src="/stay-nearby-context-images.js" defer /><script src="/city-experience-affiliate.js" defer /><script src="/texas-brand-locator.js" defer /></body></html>;
-  }
-  return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /></body></html>;
+  // Server and client must hydrate the same script nodes after <Scripts />.
+  // Omitting these only on the client makes React reconcile different body trees.
+  return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /><script src="/expedia-travel.js" defer /><script src="/stay-affiliate-options.js" defer /><script src="/stay-nearby-context-images.js" defer /><script src="/city-experience-affiliate.js" defer /><script src="/texas-brand-locator.js" defer /></body></html>;
 }
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    document.documentElement.dataset.tdRootHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:root-hydrated"));
+  }, []);
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;

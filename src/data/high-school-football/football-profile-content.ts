@@ -62,15 +62,15 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
 
   if (program) {
     const alignment = footballProfileAlignmentLabel(input);
-    if (editorial?.notice) {
-      return `${team} is assigned to ${alignment}, but the school announced a 2026 football-season cancellation. ${editorial.notice.body}`;
-    }
+    // Notices include venue construction, access, and schedule advisories.
+    // Never convert their mere presence into a fabricated season cancellation.
     const place = [program.city, program.countyName].filter(Boolean).join(', ');
     const enrollment = program.uilEnrollment
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
       : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
-    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
+    const notice = editorial?.notice ? ` ${editorial.notice.title}: ${editorial.notice.body}` : '';
+    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach}${notice} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {

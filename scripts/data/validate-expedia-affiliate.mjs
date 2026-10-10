@@ -59,7 +59,20 @@ function walkFiles(directory) {
   });
 }
 
-requireText(root, 'if (import.meta.env.SSR)', 'SSR-only bootstrap guard');
+// A single RootShell render shared by SSR and hydration is safer than an
+// SSR-only script branch. Accept either architecture, but require that the
+// unified shell has exactly one HTML return and retains every integration.
+const rootShell = root.slice(root.indexOf('function RootShell('), root.indexOf('function RootComponent()'));
+if (!root.includes('if (import.meta.env.SSR)')) {
+  if ((rootShell.match(/return <html/g) || []).length !== 1) {
+    errors.push('Unified SSR/client RootShell must have exactly one HTML return');
+  }
+  for (const script of [
+    '/expedia-travel.js', '/stay-affiliate-options.js',
+    '/stay-nearby-context-images.js', '/city-experience-affiliate.js',
+    '/texas-brand-locator.js',
+  ]) requireText(rootShell, '<script src="' + script + '" defer />', 'unified RootShell hydration-safe bootstrap');
+}
 requireText(root, '<script src="/expedia-travel.js" defer />', 'root bootstrap reference');
 requireText(root, '<script src="/stay-nearby-context-images.js" defer />', 'Stay Nearby image bootstrap reference');
 

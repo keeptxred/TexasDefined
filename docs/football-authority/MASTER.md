@@ -1,5 +1,8 @@
 # TexasDefined — High School Football Authority Project (locked)
 
+## Batch 004 current acceptance checkpoint — October 10, 2026
+**19/25 currently VERIFIED; 6 NEEDS_FOLLOWUP until source-corrected production release and new independent full-roster browser evidence.** Previously completed batches preserve **55 VERIFIED**; 74/1,292 overall verified at this checkpoint. See [Batch 004 acceptance](BATCH004_FINAL_ACCEPTANCE.md), `REGISTRY.json`, `PROGRESS.md` and [PR #4562](https://github.com/keeptxred/TexasDefined/pull/4562). The 72/72 previously successful production Chrome case assertions were structurally correct but did not catch campus identity mismatches (Austin LBJ, Northeast Austin, Vandegrift) or the erroneous shared notice-to-2026-season-cancellation template (Lake Travis). Austin High and Austin Travis have additional source-backed campus identity updates pending production retest. **Do not start Batch 005** until all six corrected pages pass the revised desktop/mobile browser checks after production deployment and the six registry records are restored using actual new artifacts.
+
 ## Mission and scope
 Individually audit, research, improve and production-verify **every existing** school football team page at `/texas-high-school-football-teams/[slug]`. Not a template-only project. Use the canonical UIL 2026–28 data and separate existing featured/non-UIL pages. Do not mass-create pages, rebuild unrelated sections, or silently skip private programs. Only directly relevant inbound links on existing county/city/stadium pages are in scope.
 

@@ -537,9 +537,17 @@
     sync: scheduleSync,
   };
 
+  function installWhenHydrated() {
+    if (document.documentElement.dataset.tdRootHydrated === "1") {
+      install();
+    } else {
+      window.addEventListener("texasdefined:root-hydrated", install, { once: true });
+    }
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", install, { once: true });
+    document.addEventListener("DOMContentLoaded", installWhenHydrated, { once: true });
   } else {
-    install();
+    installWhenHydrated();
   }
 })();
