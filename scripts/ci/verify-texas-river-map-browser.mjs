@@ -74,6 +74,11 @@ async function inspect(page, label, width, height, mobile) {
     verify(Boolean(brazos), label + ': no Brazos option');
     await selector.selectOption(brazos);
     verify((await section.locator('[role="status"]').allTextContents()).some(x => /Brazos/i.test(x)), label + ': selected label absent');
+    if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      verify(await section.locator('a[href="/article/texas-brazos-river-guide"]').isVisible(),
+        label + ': selected major basin missing link to its dedicated published guide');
+      row.checks.push('Selected major basin links to its dedicated guide');
+    }
     const map = section.locator('svg[role="img"]');
     const original = await map.getAttribute('viewBox');
     const zoomButton = section.getByRole('button', { name: 'Zoom to selection' });
@@ -89,10 +94,17 @@ async function inspect(page, label, width, height, mobile) {
     verify(landChoices >= 16 && landChoices < choices.length, label + ': coastal filter did not update choices: ' + landChoices);
     row.checks.push('Coastal filter updates basin menu');
     await coastal.check();
-    await section.getByLabel('Include bay polygons').check();
-    const bays = await section.locator('svg[role="img"] path').count();
-    verify(bays >= shapes, label + ': bay layer toggle unexpectedly removed polygons');
-    row.checks.push('Bay filter toggles without losing land polygons');
+    const bayControl = section.getByLabel('Include bay polygons');
+    if (await bayControl.isEnabled()) {
+      await bayControl.check();
+      const bays = await section.locator('svg[role="img"] path').count();
+      verify(bays >= shapes, label + ': bay layer unexpectedly removed basin polygons');
+      row.checks.push('Bay layer displays without losing land polygons');
+    } else {
+      verify(await section.getByText(/no separate bay polygons/i).isVisible(),
+        label + ': disabled bay control needs an explanation');
+      row.checks.push('Unavailable separate bay layer is explicitly disabled, not a misleading toggle');
+    }
     await section.getByRole('button', { name: 'Reset' }).click();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     row.horizontalOverflow = overflow;
