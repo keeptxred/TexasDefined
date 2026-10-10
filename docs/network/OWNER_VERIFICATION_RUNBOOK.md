@@ -80,3 +80,7 @@ Applications are not reviewable until `intake_complete=true`. Service-role-only 
 
 ## Atomic public listing finalization
 After copying/validating approved media from private intake, the service-only publication RPC atomically commits the public listing and application status with entitlement and approval checks under application lock. The RPC checks public storage metadata to confirm referenced media exists; republishing never discards the last approved Featured revisions. Failure leaves database visibility unchanged. Storage copies created before a failed RPC can be orphaned and must be addressed by reference-aware cleanup before release. Never use separate service-layer status/publication writes again.
+
+
+## Emergency editorial suspension
+With the dedicated Network admin key, choose Unpublish (published → approved) or Reject/Reopen. These service-only actions invoke one database transaction for listing visibility and application status; they work even while launch switches are OFF. A double Unpublish is not accepted. Verify intended profile in preview and confirm public directory immediately after production deployment, once authorized.

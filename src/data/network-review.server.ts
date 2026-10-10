@@ -41,26 +41,27 @@ export async function listNetworkApplications(accessKey: string) {
   return { applications: enriched, generatedAt: new Date().toISOString() };
 }
 
-export async function setNetworkApplicationReview(accessKey: string, id: string, action: 'approve' | 'reject' | 'reopen') {
-  await assertNetworkAdminAccess(accessKey);
-  const status = action === 'approve' ? 'approved' : action === 'reject' ? 'rejected' : 'pending_review';
-  const { data: current, error: lookupError } = await supabaseAdmin.from('texasdefined_network_applications')
-    .select('id,status,intake_complete').eq('id', id).single();
-  if (lookupError || !current || !current.intake_complete) throw new Error('Application is not ready for review.');
-  if (current.status === 'published' && action === 'approve') {
-    throw new Error('Unpublish a listing before reopening editorial approval.');
-  }
-  if (action === 'reject' || action === 'reopen') {
-    // A status-only rejection would otherwise leave an already published page visible.
-    const { error: hideError } = await supabaseAdmin.from('texasdefined_network_public_listings')
-      .update({ is_published: false, updated_at: new Date().toISOString() } as never)
-      .eq('application_id', id).eq('is_published', true);
-    if (hideError) throw new Error('Could not unpublish this listing.');
-  }
-  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications')
-    .update({ status, updated_at: new Date().toISOString() } as never).eq('id', id).select('id,status').single();
-  if (error || !data) throw new Error('Unable to update application.');
+export async function setNetworkApplicationReview(accessKey:string,id:string,action:'approve'|'reject'|'reopen'){
+ await assertNetworkAdminAccess(accessKey);
+ const {data:current,error:lookupError}=await supabaseAdmin
+  .from('texasdefined_network_applications')
+  .select('id,status,intake_complete').eq('id',id).single();
+ if(lookupError||!current||!current.intake_complete)throw Error('Application is not ready for review.');
+ if(action==='approve'){
+  if(current.status==='published')throw Error('Unpublish before reopening editorial approval.');
+  const {data,error}=await supabaseAdmin.from('texasdefined_network_applications')
+   .update({status:'approved',updated_at:new Date().toISOString()} as never)
+   .eq('id',id).select('id,status').single();
+  if(error||!data)throw Error('Unable to approve application');
   return data;
+ }
+ const status=action==='reject'?'rejected':'pending_review';
+ const {data:outcome,error}=await supabaseAdmin.rpc('suspend_texasdefined_network_listing',{
+  p_application_id:id,p_to_status:status
+ });
+ if(error||!outcome||typeof outcome!=='object'||(outcome as {status?:unknown}).status!==status)
+  throw Error('Application moderation could not be committed atomically');
+ return {id,status};
 }
 
 /** Keep the legacy action safe: a published status must always have a real listing. */
@@ -148,22 +149,15 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
 }
 
 /** Unpublish a previously approved listing while retaining the approved profile for later review. */
-export async function unpublishNetworkListing(accessKey: string, id: string) {
-  await assertNetworkAdminAccess(accessKey);
-  const { data: app, error: readError } = await supabaseAdmin
-    .from('texasdefined_network_applications').select('id,status').eq('id', id).single();
-  if (readError || !app || app.status !== 'published') {
-    throw new Error('Only a published listing can be unpublished.');
-  }
-  const { error: hideError } = await supabaseAdmin.from('texasdefined_network_public_listings')
-    .update({ is_published: false, updated_at: new Date().toISOString() } as never)
-    .eq('application_id', id).eq('is_published', true);
-  if (hideError) throw new Error('Could not hide the public listing.');
-  const { error: statusError } = await supabaseAdmin.from('texasdefined_network_applications')
-    .update({ status: 'approved', updated_at: new Date().toISOString() } as never)
-    .eq('id', id).eq('status', 'published');
-  if (statusError) throw new Error('Listing hidden but application status could not be reset.');
-  return { status: 'approved' as const, is_published: false };
+export async function unpublishNetworkListing(accessKey:string,id:string){
+ await assertNetworkAdminAccess(accessKey);
+ // Safety actions remain available even with Network publication/intake disabled.
+ const {data:outcome,error}=await supabaseAdmin.rpc('suspend_texasdefined_network_listing',{
+  p_application_id:id,p_to_status:'approved'
+ });
+ if(error||!outcome||typeof outcome!=='object'||(outcome as {status?:unknown}).status!=='approved')
+  throw Error('Only a published listing can be unpublished atomically');
+ return {status:'approved' as const,is_published:false};
 }
 
 export async function publishApprovedNetworkListing(accessKey:string,id:string) {
