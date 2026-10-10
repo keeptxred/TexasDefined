@@ -73,3 +73,13 @@ const publishDbSource=source('supabase/migrations/20261010213304_network_databas
 const suspendDbSource=source('supabase/migrations/20261010213336_network_suspend_ineligible_published_listings.sql');
 check('database refuses publication without separate approval and paid entitlement',publishDbSource.includes("a.status IN ('approved','published')")&&publishDbSource.includes('a.paid_entitlement_active = true')&&publishDbSource.includes('FOR SHARE'));
 check('database hides listings on rejected status or Plus entitlement downgrade',suspendDbSource.includes("NEW.plan = 'plus'")&&suspendDbSource.includes('SET is_published=false'));
+
+const mailTemplates=source('src/data/network-notification-templates.server.ts');
+const outboxMigration=source('supabase/migrations/20261010213947_network_private_notification_outbox.sql');
+check('Network email remains disabled without approved Microsoft 365 sender',
+ mailTemplates.includes('NETWORK_EMAIL_DELIVERY_ENABLED = false')
+ &&mailTemplates.includes("NETWORK_NOTIFICATION_SENDER = 'admin@texasdefined.com'"));
+check('Network email outbox remains service-only and idempotent',
+ outboxMigration.includes('ENABLE ROW LEVEL SECURITY')
+ &&outboxMigration.includes('ON CONFLICT (event_key) DO NOTHING')
+ &&outboxMigration.includes('FROM PUBLIC,anon,authenticated'));

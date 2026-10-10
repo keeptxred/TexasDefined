@@ -43,6 +43,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 
 const prebuildChecks = [
   ['NETWORK/RELEASE', 'Validate Network security and unpublished release guards', 'node', ['scripts/data/validate-network-release-guards.mjs']],
+  ['NETWORK/EMAIL', 'Verify disabled Office 365 email templates', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-templates.test.mjs']],
   ['NETWORK/BILLING', 'Test Stripe webhook authentication and checkout launch gate', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-security.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],

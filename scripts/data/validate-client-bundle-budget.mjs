@@ -100,7 +100,7 @@ async function main() {
 
   // Feature CSS is independently budgeted: splitting the primary sheet cannot
   // disguise an equally large second stylesheet downloaded by Network visitors.
-  const networkCssFiles = entries.filter((name) => /^network-.*\\.css$/.test(name));
+  const networkCssFiles = entries.filter((name) => /^network-.*\.css$/.test(name));
   if (networkCssFiles.length !== 1) {
     throw new Error(`Expected one route-loaded Network stylesheet, found ${networkCssFiles.length}: ${networkCssFiles.join(', ')}`);
   }
