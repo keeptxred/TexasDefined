@@ -28,3 +28,6 @@ jobs:
           git merge --no-ff --no-edit origin/main
           # Standard fast-forward-only remote branch update. Do not retry forcefully.
           git push origin HEAD:refs/heads/football-authority-batch-003-20261009
+
+# Re-run only after manual inspection confirms concurrent main changes are unrelated.
+# Current main update changes unrelated deployment validators/workflows; no football paths.
