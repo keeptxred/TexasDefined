@@ -109,7 +109,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What significant football history is documented?",
-        "answer": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results."
+        "answer": "Baird's six-man era began in 2019, according to Six-Man Football. The district publicly discussed a possible return to 11-man in September 2025, but 2026 UIL alignment still lists six-man Division I; the discussion was not a completed transition."
       },
       {
         "question": "Did Baird officially switch to 11-man football in 2026?",
@@ -182,7 +182,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What significant football history is documented?",
-        "answer": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season."
+        "answer": "Azle's recorded recent football seasons include 10–2 in 2018, 9–2 in 2019, and 9–3 in 2020, as reported by Dave Campbell's Texas Football. Those season records should not be confused with individual 2026 results."
       },
       {
         "question": "Does Azle ISD require clear bags at football games?",
@@ -329,7 +329,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What significant football history is documented?",
-        "answer": "The 2026 Division I District 11 fixture list includes Blum, Covington, Milford and Bluff Dale; September opponents included Aquilla and Abbott, separating non-district from district opponents."
+        "answer": "Six-Man Football dates Avalon's six-man program to 2005 and records an 11-game winning streak in 2019. Its season history lists 10–1 in 2024 and 8–3 in 2025; these achievements are not state-title claims."
       }
     ],
     "coach": {
@@ -925,7 +925,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "LASA is the Raptors program with its own official sports website and contact resources; it is distinct from Austin LBJ even if athletics listings share a Lazy Creek Drive address.",
       "Two independent Austin-school calendars document specific LASA fixtures: Travis visited September 10 at Nelson Field and Navarro scheduled homecoming against LASA October 8.",
-      "A verified LASA head coach, historical football awards and legally licensed program photos were not established; do not invent them.",
+      "LASA's 2026 head coach is confirmed as Gary Howard by the official school football page; historic football honors and legally reusable program photos remain unverified and must not be invented.",
       "The first-party LASA school football page identifies Gary Howard as 2026 head coach and gives varsity and JV schedules. In particular, varsity uses Nelson Field and Burger Stadium for different opponents, not a single home-campus stadium."
     ],
     "faq": [
