@@ -58,7 +58,7 @@ assert(new Set(authoritySlugs).size === completeLakeGuides.length, "Fishing cita
 assert(canonicalCitationSpotlightSlugs.length === authoritySlugs.length, `Fishing citation spotlight must retain the original ${canonicalCitationSpotlightSlugs.length} complete-lake cohort; authority list has ${authoritySlugs.length}.`);
 for (const slug of canonicalCitationSpotlightSlugs) assert(authoritySlugs.includes(slug), `Fishing citation spotlight is missing original complete lake ${slug}.`);
 for (const slug of authoritySlugs) assert(canonicalCitationSpotlightSlugs.includes(slug), `Fishing citation spotlight contains a lake outside the original cohort: ${slug}.`);
-assert(new Set(currentCompleteSlugs).size === 41, `Current complete-lake registry must expose 41 unique guides; found ${new Set(currentCompleteSlugs).size}.`);
+assert(new Set(currentCompleteSlugs).size === 50, `Current complete-lake registry must expose 50 unique guides; found ${new Set(currentCompleteSlugs).size}.`);
 for (const source of [llms, citationGuide]) {
   assert(source.includes("COMPLETE_FISHING_LAKE_SLUGS"), "Public fishing citation surfaces must derive the current complete-lake total from the authoritative registry.");
   assert(source.includes("completeFishingLakeGuideCount"), "Public fishing citation surfaces must render the authoritative complete-lake total dynamically.");

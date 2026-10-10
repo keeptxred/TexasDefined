@@ -127,6 +127,15 @@ const requiredLakes = [
   "lake-ray-hubbard",
   "lake-bridgeport",
   "lake-o-the-pines",
+  "joe-pool-lake",
+  "lake-granbury",
+  "lake-waco",
+  "lake-brownwood",
+  "proctor-lake",
+  "lake-arrowhead",
+  "lake-casa-blanca",
+  "lake-mineral-wells",
+  "lake-colorado-city",
 ];
 const parseTuple = (source, name) => {
   const match = source.match(new RegExp(`${name}\\s*=\\s*\\[([^\\]]+)\\]`, "s"));
@@ -138,8 +147,8 @@ const completeLakeSlugs = [
   ...parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"),
 ];
 const allowedExactLakeImageGaps = new Set();
-if (new Set(completeLakeSlugs).size !== 41) fail(`expected 41 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
-if (requiredLakes.length !== 41) fail(`expected 41 governed exact lake-photo mappings, found ${requiredLakes.length}`);
+if (new Set(completeLakeSlugs).size !== 50) fail(`expected 50 complete fishing lakes, found ${new Set(completeLakeSlugs).size}`);
+if (requiredLakes.length !== 50) fail(`expected 50 governed exact lake-photo mappings, found ${requiredLakes.length}`);
 for (const slug of completeLakeSlugs) {
   const hasMapping = requiredLakes.includes(slug);
   if (!hasMapping && !allowedExactLakeImageGaps.has(slug)) fail(`complete lake lacks governed image mapping or explicit exception: ${slug}`);
@@ -262,4 +271,4 @@ if (files.lakeDirectory.includes('showCredit={false}') || files.showcase.include
   fail("CC-capable lake photography must not suppress visible attribution");
 }
 
-console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/41 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);
+console.log(`Fishing image library validation passed: all ${requiredFish.length} published fish species/groups and all ${requiredLakes.length}/50 complete lake guides have governed exact-location imagery with provenance, license metadata, reusable rendering and attribution rules.`);

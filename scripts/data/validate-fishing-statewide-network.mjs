@@ -47,6 +47,15 @@ const expected = [
   ["alan-henry-reservoir", "Alan Henry Reservoir"],
   ["lake-meredith", "Lake Meredith"],
   ["lake-houston", "Lake Houston"],
+  ["joe-pool-lake", "Joe Pool Lake"],
+  ["lake-granbury", "Lake Granbury"],
+  ["lake-waco", "Lake Waco"],
+  ["lake-brownwood", "Lake Brownwood"],
+  ["proctor-lake", "Proctor Lake"],
+  ["lake-arrowhead", "Lake Arrowhead"],
+  ["lake-casa-blanca", "Lake Casa Blanca"],
+  ["lake-mineral-wells", "Lake Mineral Wells"],
+  ["lake-colorado-city", "Lake Colorado City"],
 ];
 
 const fail = (message) => { throw new Error(`Statewide fishing network validation failed: ${message}`); };
@@ -62,21 +71,21 @@ const wave2 = parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS");
 const statewide = parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS");
 if (base.length !== 10) fail(`expected 10 legacy complete lakes, found ${base.length}`);
 if (wave2.length !== 5) fail(`expected 5 wave-2 complete lakes, found ${wave2.length}`);
-if (statewide.length !== 26) fail(`expected 26 statewide-network lakes, found ${statewide.length}`);
+if (statewide.length !== 35) fail(`expected 35 statewide-network lakes, found ${statewide.length}`);
 const complete = [...base, ...wave2, ...statewide];
-if (new Set(complete).size !== 41) fail(`expected 41 unique complete lakes, found ${new Set(complete).size}`);
+if (new Set(complete).size !== 50) fail(`expected 50 unique complete lakes, found ${new Set(complete).size}`);
 
 const expectedSlugs = expected.map(([slug]) => slug);
 const lcraLiveExpectedSlugs = new Set(["fayette-county-reservoir"]);
-const officialFallbackSlugs = new Set(["calaveras-lake"]);
+const officialFallbackSlugs = new Set(["calaveras-lake", "lake-casa-blanca"]);
 const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !lcraLiveExpectedSlugs.has(slug) && !officialFallbackSlugs.has(slug));
 const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
-if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 26-lake release order");
+if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 35-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
-if (topLevel.length !== 26) fail(`expected 26 top-level lake definitions, found ${topLevel.length}`);
-if (new Set(topLevel.map((row) => row.slug)).size !== 26) fail("duplicate statewide lake slug");
-if (new Set(topLevel.map((row) => row.name)).size !== 26) fail("duplicate statewide lake name");
+if (topLevel.length !== 35) fail(`expected 35 top-level lake definitions, found ${topLevel.length}`);
+if (new Set(topLevel.map((row) => row.slug)).size !== 35) fail("duplicate statewide lake slug");
+if (new Set(topLevel.map((row) => row.name)).size !== 35) fail("duplicate statewide lake name");
 for (const [slug, name] of expected) {
   const row = topLevel.find((item) => item.slug === slug);
   if (!row || row.name !== name) fail(`missing or renamed lake definition: ${slug}`);
@@ -140,7 +149,7 @@ for (const token of [
   "getLcraHydrometSiteNumber",
 ]) requireText(files.liveFetcher, token, `LCRA resilient fetch contract missing ${token}`);
 
-if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 24) fail("expected 24 statewide-network TWDB live-water mappings");
+if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 32) fail("expected 32 statewide-network TWDB live-water mappings");
 if ((files.network.match(/lcraHydrometSiteNumber: "/g) ?? []).length !== 1) fail("expected exactly one statewide-network LCRA Hydromet mapping");
 if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
 
@@ -155,8 +164,8 @@ for (const slug of officialFallbackSlugs) {
   }
 }
 for (const token of [
-  "All 40 monitored lake page-data snapshots and server paths are current",
-  "All 40 monitored lake snapshots and live UI surfaces passed",
+  "All 48 monitored lake page-data snapshots and server paths are current",
+  "All 48 monitored lake snapshots and live UI surfaces passed",
 ]) requireText(files.liveWorkflow, token, `production live-water workflow coverage contract missing ${token}`);
 
 for (const token of [
@@ -239,8 +248,8 @@ const sectionMatch = files.routing.match(/SHOWCASE_LAKE_SECTION_SLUGS\s*=\s*\[([
 const sectionCount = sectionMatch ? [...sectionMatch[1].matchAll(/"([a-z0-9-]+)"/g)].length : 0;
 if (sectionCount !== 8) fail(`expected 8 lake intent sections, found ${sectionCount}`);
 const newEntryUrls = statewide.length * (1 + sectionCount);
-if (newEntryUrls !== 234) fail(`expected 234 statewide-network overview/intent URLs, found ${newEntryUrls}`);
+if (newEntryUrls !== 315) fail(`expected 315 statewide-network overview/intent URLs, found ${newEntryUrls}`);
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, one explicit official-agency fallback, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 35 statewide-network lakes = 50 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 32 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, two explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);
