@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - ".github/workflows/verify-football-batch-003-browser.yml"
+      - "scripts/ci/verify-football-batch-003-browser.mjs"
   workflow_run:
     workflows:
       - Deploy TexasDefined production
