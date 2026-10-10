@@ -68,3 +68,8 @@ check('feature CSS is attached to every lazy Network page',
  &&featureStyles.includes('source(none)')&&source('src/styles.css').includes('@source not "./routes/network.*.lazy.tsx"'));
 
 check('concurrent active application duplicates use a database index and return 409',apps.includes('error?.code==="23505"')&&source('supabase/migrations/20261010213107_network_atomic_active_application_identity.sql').includes('CREATE UNIQUE INDEX'));
+
+const publishDbSource=source('supabase/migrations/20261010213304_network_database_publication_entitlement_gate.sql');
+const suspendDbSource=source('supabase/migrations/20261010213336_network_suspend_ineligible_published_listings.sql');
+check('database refuses publication without separate approval and paid entitlement',publishDbSource.includes("a.status IN ('approved','published')")&&publishDbSource.includes('a.paid_entitlement_active = true')&&publishDbSource.includes('FOR SHARE'));
+check('database hides listings on rejected status or Plus entitlement downgrade',suspendDbSource.includes("NEW.plan = 'plus'")&&suspendDbSource.includes('SET is_published=false'));
