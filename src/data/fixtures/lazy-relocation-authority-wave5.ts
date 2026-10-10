@@ -6,6 +6,7 @@ const moverVerificationHero: Article["hero"] = {
   width: 1280,
   height: 960,
   credit: "Rharel1 · public domain · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Movingguardian.org.JPG",
 };
 
 const healthInsuranceHero: Article["hero"] = {
@@ -14,6 +15,7 @@ const healthInsuranceHero: Article["hero"] = {
   width: 1280,
   height: 854,
   credit: "Lance Cheung / USDA · public domain · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:RD_CFDL-Lytle_Community_Health_Center_-_Community_Facility_Direct_Loan_(20171205-RD-LSC-0262).jpg",
 };
 
 const militaryFamilyHero: Article["hero"] = {
@@ -22,6 +24,7 @@ const militaryFamilyHero: Article["hero"] = {
   width: 1280,
   height: 854,
   credit: "Airman 1st Class David Phaff / U.S. Air Force · public domain · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Laughlin_moving_6697549.jpg",
 };
 
 const renterHero: Article["hero"] = {
@@ -30,6 +33,7 @@ const renterHero: Article["hero"] = {
   width: 1280,
   height: 960,
   credit: "WhisperToMe · public domain · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:GulftonApartmentComplexes.JPG",
 };
 
 const stub = (
