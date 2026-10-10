@@ -99,7 +99,7 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    if (request.method === "POST" && new URL(request.url).pathname.startsWith("/api/public/network-")) {
+    if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
       if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
       const check = Reflect.get(limiter, "limit");
