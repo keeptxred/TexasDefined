@@ -274,5 +274,17 @@ for (const marker of [
 if (gscLive.indexOf('node scripts/ci/wait-for-protected-production.mjs') >= gscLive.indexOf('node scripts/seo/check-gsc-priority-cohort.mjs'))
   failures.push('GSC priority production crawl must wait for exact-SHA deployment before probing');
 
+// Preserve the Texas river atlas source-only PR check and deployed-SHA
+// live browser contract (adapted from prior PR #4544, without stale changes).
+const texasRiver = workflow('verify-texas-river-map-browser');
+const riverPr = texasRiver.slice(texasRiver.indexOf('  syntax:'), texasRiver.indexOf('  verify:'));
+const riverLive = texasRiver.slice(texasRiver.indexOf('  verify:'));
+requireMarker(riverPr, "github.event_name == 'pull_request'", 'River atlas PR syntax-only job missing');
+requireMarker(riverPr, 'node --check scripts/ci/verify-texas-river-map-browser.mjs', 'River atlas PR source syntax check missing');
+requireMarker(riverLive, "github.event.workflow_run.conclusion == 'success'", 'River atlas live checks require successful deployment');
+requireMarker(riverLive, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'River atlas live browser must use deployed SHA');
+if (riverLive.includes("github.event_name == 'pull_request' ||"))
+  failures.push('River atlas live browser must not run against undeployed PR code');
+
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
 console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
