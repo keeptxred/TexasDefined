@@ -98,6 +98,22 @@ async function main() {
     }
   }
 
+  // Feature CSS is independently budgeted: splitting the primary sheet cannot
+  // disguise an equally large second stylesheet downloaded by Network visitors.
+  const networkCssFiles = entries.filter((name) => /^network-.*\\.css$/.test(name));
+  if (networkCssFiles.length !== 1) {
+    throw new Error(`Expected one route-loaded Network stylesheet, found ${networkCssFiles.length}: ${networkCssFiles.join(', ')}`);
+  }
+  const NETWORK_CSS_CAP_BYTES = 45_000;
+  const networkCssFile = networkCssFiles[0];
+  const networkCssBytes = (await stat(path.join(assetsDir, networkCssFile))).size;
+  if (networkCssBytes > NETWORK_CSS_CAP_BYTES) {
+    const message = `Network route stylesheet ${networkCssFile} is ${networkCssBytes.toLocaleString()} bytes; limit is ${NETWORK_CSS_CAP_BYTES.toLocaleString()} bytes. CSS splitting cannot double the site's stylesheet weight.`;
+    reportCiError('Network stylesheet budget', message);
+    throw new Error(message);
+  }
+  console.log(`Network route CSS measurement: file=${networkCssFile}; bytes=${networkCssBytes}; cap_bytes=${NETWORK_CSS_CAP_BYTES}.`);
+
   const headroomBytes = MAX_MAIN_BYTES - mainBytes;
   const usagePercent = (mainBytes / MAX_MAIN_BYTES) * 100;
   console.log(`Client main bundle measurement: file=${mainFile}; bytes=${mainBytes}; cap_bytes=${MAX_MAIN_BYTES}; headroom_bytes=${headroomBytes}; usage_percent=${usagePercent.toFixed(2)}.`);
