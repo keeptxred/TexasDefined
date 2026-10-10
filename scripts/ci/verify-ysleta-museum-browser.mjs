@@ -61,7 +61,9 @@ async function inspectMuseum(page, viewport) {
   const data = await snapshot(page);
   check(response?.status() === 200, viewport + ': museum HTTP ' + response?.status());
   check(data.h1.length === 1 && data.h1[0] === 'Ysleta del Sur Pueblo Cultural Center Museum', viewport + ': incorrect H1');
-  check(await page.locator('main').count() === 1, viewport + ': expected one semantic main landmark');
+  const mainCount = await page.locator('main').count();
+  await writeFile(artifacts + '/' + viewport + '-landmark-stage.json', JSON.stringify({ url: page.url(), mainCount, h1: data.h1, errorFreeSoFar: true }, null, 2) + '\n');
+  check(mainCount === 1, viewport + ': expected one semantic main landmark; actual ' + mainCount);
   check(data.title.includes('Ysleta del Sur Pueblo Museum'), viewport + ': missing SEO title');
   check(data.metaDescription.length > 80, viewport + ': missing/short description');
   check(data.canonical === origin + museumPath, viewport + ': wrong canonical ' + data.canonical);
@@ -112,6 +114,19 @@ try {
     } finally { await firstVisit.close(); }
     try {
       out.push(await inspectMuseum(page, viewport));
+      // Capture the failing destination while it is still visible, before visiting
+      // linked pages; otherwise hydration evidence is accidentally taken elsewhere.
+      if (errors.length) {
+        const museumDom = await page.evaluate(() => ({
+          url: location.href,
+          mainCount: document.querySelectorAll('main').length,
+          headings: [...document.querySelectorAll('h1,h2')].slice(0, 15).map(e => ({ tag: e.tagName, text: e.textContent?.trim() })),
+          bodyChildTags: [...document.body.children].map(e => e.tagName),
+          rootMarkupStart: document.body.firstElementChild?.outerHTML.slice(0, 12000),
+          htmlLength: document.documentElement.outerHTML.length
+        }));
+        await writeFile(artifacts + '/' + viewport + '-museum-hydration-local.json', JSON.stringify({ errors, museumDom }, null, 2) + '\n');
+      }
       for (const path of [links.borderlands, links.city, links.county, links.sacred]) out.push(await inspectInbound(page, path, viewport));
       if (errors.length) {
         const dom = await page.evaluate(() => ({

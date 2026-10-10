@@ -2,10 +2,6 @@ name: Texas flag history production smoke
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/flag-history-production-smoke.yml'
   workflow_run:
     workflows: ["Deploy TexasDefined production"]
     types: [completed]
@@ -21,7 +17,7 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion != 'cancelled' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -57,7 +53,7 @@ jobs:
             local path="$1" output="$2"
             curl --retry 2 --retry-all-errors --retry-delay 1 --max-time 30 \
               --fail-with-body --silent --show-error --location \
-              "$origin${path}?production-smoke=${VERIFY_SHA}-${GITHUB_RUN_ID}" -o "$output"
+              "$origin${path}?production-smoke=${VERIFY_SHA}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${RANDOM}" -o "$output"
           }
 
           html_to_text() {
