@@ -58,6 +58,183 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington-lamar": {
+    "slug": "arlington-lamar",
+    "theme": {
+      "accentHex": "#193E77",
+      "label": "School-documented navy blue and gold editorial accent; not a Viking logo"
+    },
+    "seo": {
+      "title": "Arlington Lamar Vikings Football: 1990 State Final, Coach Najarro & 2026",
+      "description": "Arlington Lamar Vikings football history: 1990 UIL title-game run, Zach Najarro, 2018–19 teams, 2026 results, Cravens Field and official school contacts."
+    },
+    "coach": {
+      "name": "Zach Najarro",
+      "title": "Head football coach and athletics coordinator in Arlington Lamar's official staff directory",
+      "sourceUrl": "https://www.aisd.net/lamar-high-school/athletics/",
+      "sourceLabel": "Lamar High official 2026-accessible athletics directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1400 W. Lamar Boulevard, Arlington, TX 76012",
+      "phone": "682-867-8300",
+      "sourceUrl": "https://www.aisd.net/lamar-high-school/about/",
+      "sourceLabel": "Official Lamar campus page",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Lamar High football and athletic schedules",
+      "sourceUrl": "https://www.aisd.net/lamar-high-school/athletics/",
+      "sourceLabel": "Official Arlington Lamar athletic schedule link",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 in five published games through September 25, 2026; October 9 result not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+      "sourceLabel": "DCTF 2026 five-game ledger",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Little Elm",
+          "site": "Home",
+          "result": "L 10–30"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Crowley",
+          "site": "Away",
+          "result": "W 35–31"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Justin Northwest",
+          "site": "Away",
+          "result": "W 33–15"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Arlington Bowie",
+          "site": "Home",
+          "district": true,
+          "result": "L 23–29"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Arlington High",
+          "site": "Away",
+          "district": true,
+          "result": "W 41–31"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Weatherford",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Arlington Sam Houston",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Arlington Martin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Granbury",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Aledo",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cravens Field (historical program stadium)",
+      "address": "Arlington, TX — confirm ticket-specific entrance through Arlington ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+      "sourceLabel": "DCTF varsity stadium listing",
+      "verifiedAt": "2026-10-09",
+      "note": "Historical 8,500 spectator capacity is not a present certified ADA seat count or spectator gate. Campus address at Lamar Boulevard is not a substitute for the match-specific venue, parking and tickets."
+    },
+    "overview": [
+      "Arlington Lamar High's Vikings are not Houston Lamar or the Arlington Sam Houston Texans. Its official school history identifies the Viking mascot, navy blue and gold school colors, and a campus named after Mirabeau B. Lamar, the second president of the Republic of Texas.",
+      "Lamar has one UIL football state championship-game appearance, in 1990. The official 1990 playoff bracket documents a 49–7 state quarterfinal over El Paso Andress and a 28–7 semifinal over Dallas Carter before a 27–10 title-game loss to Houston Aldine. This was an important state final but never a Viking football state title.",
+      "DCTF reports 29 football playoff appearances and zero state titles. The official UIL archive's 1990 final documents Lamar's single championship-game appearance, separate from Arlington High's 1951 state championship.",
+      "The modern Vikings recorded 11–2 in 2018 and 10–2 in 2019, based on DCTF's seasonal history, before seasons of 4–6 in both 2023 and 2024 and 5–6 in 2025. These records provide a specific program arc rather than an interchangeable preview.",
+      "Arlington Lamar's current staff directory names Zach Najarro as head football coach and athletics coordinator; that official evidence takes precedence over older coach rosters. The school also directs families to official athletic schedules.",
+      "The published 2026 schedule records an early win at Crowley and another at Justin Northwest, followed by a narrow 23–29 loss to Bowie and a 41–31 victory over Arlington High. Those first five games add up to 3–2 through September 25; no October 9 Weatherford score is inferred.",
+      "DCTF lists Cravens Field as the historical team stadium. Visiting fans need an official match-specific ticket and arrival plan rather than assuming the school campus and every home game have the same entry gate."
+    ],
+    "milestones": [
+      {
+        "date": "1990",
+        "title": "UIL Class 5A Division II finalist",
+        "body": "Arlington Lamar beat Dallas Carter 28–7 in its semifinal before falling 10–27 to Houston Aldine in the title game.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/90at_bfb.html",
+        "sourceLabel": "UIL 1990 official playoff bracket"
+      },
+      {
+        "date": "2018–19",
+        "title": "Consecutive ten-win seasons",
+        "body": "DCTF lists 11–2 in 2018 and 10–2 in 2019, a notable recent competitive period.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+        "sourceLabel": "DCTF Viking completed seasons"
+      },
+      {
+        "date": "2025",
+        "title": "Back in the postseason",
+        "body": "The Vikings finished 5–6 in 2025 after two straight 4–6 years, according to the archived season records.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+        "sourceLabel": "DCTF team history"
+      },
+      {
+        "date": "2026",
+        "title": "Official head coach Zach Najarro",
+        "body": "The school athletics directory directly names Najarro as head football coach and athletics coordinator.",
+        "sourceUrl": "https://www.aisd.net/lamar-high-school/athletics/",
+        "sourceLabel": "Lamar High first-party staff"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Vikings beat Arlington High",
+        "body": "The DCTF ledger reports a 41–31 district win over Arlington High, after a narrow loss to Bowie.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+        "sourceLabel": "2026 five-game score ledger"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Arlington Lamar win the 1990 football state title?",
+        "answer": "No. Lamar reached the Class 5A Division II final but lost 27–10 to Houston Aldine. It beat Dallas Carter 28–7 in the semifinal."
+      },
+      {
+        "question": "What colors does Arlington Lamar use?",
+        "answer": "The school's fight song and campus history identify navy blue and gold."
+      },
+      {
+        "question": "Who is Lamar's current head football coach?",
+        "answer": "The official Lamar High School athletics directory names Zach Najarro as head football coach and athletics coordinator."
+      },
+      {
+        "question": "How many state football finals has Lamar played?",
+        "answer": "UIL's records list one state-final appearance in 1990. DCTF records 29 total playoff appearances and no state titles."
+      },
+      {
+        "question": "Where can visitors find football tickets?",
+        "answer": "Use Lamar's official athletics schedule and the specific game listing; the historically named Cravens Field does not by itself verify stadium entry and parking arrangements."
+      }
+    ]
+  },
   "arlington-houston": {
     "slug": "arlington-houston",
     "theme": {
