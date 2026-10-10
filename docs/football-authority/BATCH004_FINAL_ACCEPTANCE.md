@@ -73,12 +73,12 @@ These documented historical and school-specific source reviews are not a license
 
 ## Registry reconciliation and certification scope
 
-The separate protected [certification PR #4553](https://github.com/keeptxred/TexasDefined/pull/4553) proposes exactly **25 Batch 004 school records VERIFIED**, while preserving the previous **55 VERIFIED** (80 in total), using the original deployment/Chrome evidence. This report provides a second full independent deployment and Chrome run as corroboration.
+The protected [certification PR #4557](https://github.com/keeptxred/TexasDefined/pull/4557) **merged** successfully at `f8c57a3cb1a29945f303a224fda8e6046103ca9e`. The canonical `main` registry now contains exactly **25 Batch 004 school records VERIFIED** plus **55 previously VERIFIED** (**80 in total**). Individual audit files were updated by that merge, and production link labels were corrected to `COUNTY_AND_APPLICABLE_CITY_CHROME_PASS`. This report documents a second completed production/browser run as corroboration.
 
-**Production browser acceptance is complete for all 25.** Final registry certification exists on the PR branch and only becomes canonical when the branch-protected merge succeeds. Do not manually override required merge checks or claim the protected PR has merged before GitHub confirms it.
+**Production browser acceptance and canonical registry certification are complete for all 25.** Verified directly in the merged registry after PR #4557; no new batch was started.
 
 ## Remaining maintenance versus production gate
 
 - **Production gate:** PASS, witnessed twice, including newer SHA.
 - **Content maintenance:** Periodically revalidate season/coach/tickets/venue, improve weak first-party sourcing, acquire rights-cleared optional photographs, and conduct deeper accessibility/manual UX testing. Historical state championships should always cite the contemporaneous UIL record.
-- **Protected certification merge:** [PR #4553](https://github.com/keeptxred/TexasDefined/pull/4553) must pass branch protection and merge. Once merged, update any stale historic audit pre-release headings via a separate traceable documentation PR rather than rewriting source histories.
+- **Final evidence-report publication:** [PR #4553](https://github.com/keeptxred/TexasDefined/pull/4553) retains only this missing consolidated report, merged through required protected checks. Certification and 25 individual audit checkpoints are already on `main` through [#4557](https://github.com/keeptxred/TexasDefined/pull/4557); do not overwrite those newer records.

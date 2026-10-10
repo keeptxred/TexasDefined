@@ -40,7 +40,7 @@
       "azle",
       "baird"
     ],
-    "state": "ALL_25_PRODUCTION_VERIFIED",
+    "state": "VERIFIED_BATCH_004_COMPLETE",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
     "individuallyVerified": 25,
@@ -53,12 +53,19 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 0,
-    "notes": "25/25 2026-10-10 production-verified: deploy 38059345469 successful; Chrome 38059638426 success against exact merge SHA f4af3c8 with 50 school checks, 20 county checks, 25/25 sitemap, 72/72 passed, zero failed; artifact 11672358024 with 73 files. Prior 55 VERIFIED preserved. Licensed school photos and deeper independent historical editorial coverage remain optional follow-on QA; no rights claims.",
-    "verifiedAt": "2026-10-10",
-    "productionBrowserRunId": 38059638426,
-    "productionScreenshotArtifactId": 11672358024,
+    "notes": "All 25 assigned pages individually passed 1366px and 390px real Chrome production acceptance; all 25 sitemap entries, ten counties and Austin city reciprocal links passed. See Actions run 38061056139 and artifact 11673525515. No third-party images reused without rights. Editorial source and ticket/ADA qualifiers remain.",
+    "verifiedAt": "2026-10-10T14:52:28Z",
     "mergedPr": 4540,
-    "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed"
+    "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+    "deploymentRunId": 38060642093,
+    "productionBrowserRunId": 38061056139,
+    "screenshotArtifactId": 11673525515,
+    "testedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+    "schoolViewportPassed": 50,
+    "countyViewportPassed": 20,
+    "cityViewportPassed": 2,
+    "sitemapPassed": 25,
+    "failedChecks": 0
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4277,32 +4284,27 @@
       "inboundLinks": [
         "/county/smith"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/smith",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:aspermont",
@@ -4330,32 +4332,27 @@
       "inboundLinks": [
         "/county/stonewall"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/stonewall",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:athens",
@@ -4382,32 +4379,27 @@
       "inboundLinks": [
         "/county/henderson"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/henderson",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:atlanta",
@@ -4434,32 +4426,27 @@
       "inboundLinks": [
         "/county/cass"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/cass",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:aubrey",
@@ -4486,32 +4473,27 @@
       "inboundLinks": [
         "/county/denton"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/denton",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin",
@@ -4540,33 +4522,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-achieve",
@@ -4594,31 +4571,26 @@
         "/county/travis"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-akins",
@@ -4647,33 +4619,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-anderson",
@@ -4702,33 +4669,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-bowie",
@@ -4757,33 +4719,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-crockett",
@@ -4812,33 +4769,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-eastside",
@@ -4867,33 +4819,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-johnson",
@@ -4922,33 +4869,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-lake-travis",
@@ -4976,31 +4918,26 @@
         "/county/travis"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-lasa",
@@ -5029,33 +4966,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-mccallum",
@@ -5084,33 +5016,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-navarro",
@@ -5139,33 +5066,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-northeast",
@@ -5194,33 +5116,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-travis",
@@ -5249,33 +5166,28 @@
         "/city/austin"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCityPath": "/city/austin",
       "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-vandegrift",
@@ -5302,32 +5214,27 @@
       "inboundLinks": [
         "/county/travis"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/travis",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-westlake",
@@ -5355,31 +5262,26 @@
         "/county/travis"
       ],
       "outboundCountyPath": "/county/travis",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:avalon",
@@ -5406,32 +5308,27 @@
       "inboundLinks": [
         "/county/ellis"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/ellis",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:axtell",
@@ -5458,32 +5355,27 @@
       "inboundLinks": [
         "/county/mclennan"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/mclennan",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:azle",
@@ -5511,31 +5403,26 @@
         "/county/tarrant"
       ],
       "outboundCountyPath": "/county/tarrant",
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:baird",
@@ -5562,32 +5449,27 @@
       "inboundLinks": [
         "/county/callahan"
       ],
-      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
       "outboundCountyPath": "/county/callahan",
-      "productionVerification": "BROWSER_PASS_SITEMAP_AND_SCREENSHOTS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerifiedAt": "2026-10-10T14:31:09Z",
-      "seoStatus": "Automated live mobile/desktop metadata, canonical, schema, sitemap and reciprocal link checks PASS; independent editorial depth review remains distinct",
-      "imageStatus": "Original editorial graphics only; licensed school photography not independently acquired",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "workflowRunId": 38059345469,
-        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059345469",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
         "workflowConclusion": "success",
-        "productionStatus": "success",
-        "dedicatedBrowserRunId": 38059638426,
-        "individualBrowserRunId": 38059638426,
-        "screenshotArtifactId": 11672358024,
-        "browserTestedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426",
-        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38059638426/artifacts/11672358024"
-      },
-      "localLinkStatus": "PRODUCTION_BROWSER_VERIFIED",
-      "outstanding": [
-        "Photographic reproduction rights not acquired; original CSS/editorial visual remains",
-        "Reconfirm seasonal coaches/game times and individual venue accessibility before visits"
-      ]
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:ballinger",
@@ -22972,6 +22854,63 @@
       "verifiedAt": "2026-10-10",
       "productionBrowserRunId": 38026402179,
       "appleSpringsRetestRunId": 38050845453
+    },
+    {
+      "number": 4,
+      "slugs": [
+        "arp",
+        "aspermont",
+        "athens",
+        "atlanta",
+        "aubrey",
+        "austin",
+        "austin-achieve",
+        "austin-akins",
+        "austin-anderson",
+        "austin-bowie",
+        "austin-crockett",
+        "austin-eastside",
+        "austin-johnson",
+        "austin-lake-travis",
+        "austin-lasa",
+        "austin-mccallum",
+        "austin-navarro",
+        "austin-northeast",
+        "austin-travis",
+        "austin-vandegrift",
+        "austin-westlake",
+        "avalon",
+        "axtell",
+        "azle",
+        "baird"
+      ],
+      "state": "VERIFIED_BATCH_004_COMPLETE",
+      "dateAssigned": "2026-10-10",
+      "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
+      "individuallyVerified": 25,
+      "remainingAssigned": 0,
+      "assignmentBranch": "football-authority-batch-004-20261010",
+      "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
+      "maxSchoolsPerBatch": 25,
+      "currentSchool": null,
+      "nextSchool": null,
+      "implementedOnBranch": 25,
+      "remainingToImplement": 0,
+      "remainingToVerify": 0,
+      "notes": "All 25 assigned pages individually passed 1366px and 390px real Chrome production acceptance; all 25 sitemap entries, ten counties and Austin city reciprocal links passed. See Actions run 38061056139 and artifact 11673525515. No third-party images reused without rights. Editorial source and ticket/ADA qualifiers remain.",
+      "verifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "deploymentRunId": 38060642093,
+      "productionBrowserRunId": 38061056139,
+      "screenshotArtifactId": 11673525515,
+      "testedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+      "schoolViewportPassed": 50,
+      "countyViewportPassed": 20,
+      "cityViewportPassed": 2,
+      "sitemapPassed": 25,
+      "failedChecks": 0,
+      "qualification": "Production browser technical certification; factual/photo/event access caveats remain."
     }
   ]
 }
