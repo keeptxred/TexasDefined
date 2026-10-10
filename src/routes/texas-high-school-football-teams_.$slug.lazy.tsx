@@ -53,14 +53,47 @@ function Page() {
     'alvin-shadow-creek': 'brazoria',
     alvord: 'wise',
     amarillo: 'randall',
+    // Batch 003: NCES/TEA-confirmed individual campus counties.
+    'amarillo-caprock': 'randall',
+    'amarillo-highland-park': 'potter',
+    'amarillo-palo-duro': 'potter',
+    'amarillo-river-road': 'potter',
+    'amarillo-tascosa': 'potter',
+    amherst: 'lamb',
+    anahuac: 'chambers',
+    'anderson-shiro': 'grimes',
+    andrews: 'andrews',
+    angleton: 'brazoria',
+    anna: 'collin',
+    anson: 'jones',
+    anthony: 'el-paso',
+    anton: 'hockley',
+    'apple-springs': 'trinity',
+    aquilla: 'hill',
+    'aransas-pass': 'san-patricio',
+    'archer-city': 'archer',
+    argyle: 'denton',
+    arlington: 'tarrant',
+    'arlington-bowie': 'tarrant',
+    'arlington-houston': 'tarrant',
+    'arlington-lamar': 'tarrant',
+    'arlington-martin': 'tarrant',
+    'arlington-seguin': 'tarrant',
   };
-  // Link only the Batch 002 campuses with documented city location and an
-  // existing canonical city guide; a school-district service area is not enough.
+  // Link only campuses with documented city location and an existing
+  // canonical city guide; a school-district service area is not enough.
   const batch002CityGuide: Record<string, { slug: string; name: string }> = {
     'alief-elsik': { slug: 'houston', name: 'Houston' },
     'alief-hastings': { slug: 'houston', name: 'Houston' },
     'alief-taylor': { slug: 'houston', name: 'Houston' },
     'all-saints-fort-worth': { slug: 'fort-worth', name: 'Fort Worth' },
+    // Batch 003 Arlington ISD schools: official school directory confirms Arlington campuses.
+    arlington: { slug: 'arlington', name: 'Arlington' },
+    'arlington-bowie': { slug: 'arlington', name: 'Arlington' },
+    'arlington-houston': { slug: 'arlington', name: 'Arlington' },
+    'arlington-lamar': { slug: 'arlington', name: 'Arlington' },
+    'arlington-martin': { slug: 'arlington', name: 'Arlington' },
+    'arlington-seguin': { slug: 'arlington', name: 'Arlington' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
   const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
