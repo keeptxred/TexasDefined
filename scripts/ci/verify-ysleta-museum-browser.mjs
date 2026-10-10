@@ -94,10 +94,35 @@ try {
   for (const [viewport, width, height, mobile] of [['mobile', 390, 844, true], ['desktop', 1366, 900, false]]) {
     const context = await browser.newContext({ viewport: { width, height }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 1 });
     const page = await context.newPage(); const errors = [];
-    page.on('pageerror', e => errors.push({ url: page.url(), message: e.message }));
+    page.on('pageerror', e => errors.push({ url: page.url(), message: e.message, stack: e.stack || null }));
+    const firstVisit = await browser.newContext({ viewport: { width, height }, isMobile: mobile, hasTouch: mobile, javaScriptEnabled: false, deviceScaleFactor: 1 });
+    try {
+      const ssr = await firstVisit.newPage();
+      const response = await ssr.goto(cacheBusted(museumPath), { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      const markup = await ssr.evaluate(() => ({
+        h1: [...document.querySelectorAll('h1')].map(e => e.textContent.trim()),
+        bodyTextStart: document.body.innerText.slice(0, 2500),
+        renderedMainCount: document.querySelectorAll('main').length,
+        rootChildren: [...document.body.children].map(el => ({ tag: el.tagName, id: el.id, childCount: el.children.length })),
+        htmlLength: document.documentElement.outerHTML.length
+      }));
+      await writeFile(artifacts + '/' + viewport + '-ssr-diagnostic.json', JSON.stringify({ status: response?.status(), markup }, null, 2) + '\n');
+      await ssr.screenshot({ path: artifacts + '/' + viewport + '-museum-ssr.png', fullPage: true, animations: 'disabled' });
+    } finally { await firstVisit.close(); }
     try {
       out.push(await inspectMuseum(page, viewport));
       for (const path of [links.borderlands, links.city, links.county, links.sacred]) out.push(await inspectInbound(page, path, viewport));
+      if (errors.length) {
+        const dom = await page.evaluate(() => ({
+          url: location.href,
+          h1: [...document.querySelectorAll('h1')].map(e => e.textContent.trim()),
+          bodyTextStart: document.body.innerText.slice(0, 2500),
+          renderedMainCount: document.querySelectorAll('main').length,
+          rootChildren: [...document.body.children].map(el => ({ tag: el.tagName, id: el.id, childCount: el.children.length })),
+          htmlLength: document.documentElement.outerHTML.length
+        }));
+        await writeFile(artifacts + '/' + viewport + '-hydration-errors.json', JSON.stringify({ errors, dom }, null, 2) + '\n');
+      }
       check(errors.length === 0, viewport + ': page runtime errors ' + JSON.stringify(errors));
     } finally { await context.close(); }
   }
