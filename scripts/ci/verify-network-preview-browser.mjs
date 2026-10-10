@@ -99,7 +99,7 @@ try{
     if(route==='/admin/network-applications'){
       assert.equal(await page.locator('input[type="password"]').count(),1,'admin key must be required');
     }
-    await page.screenshot({path:output+'/'+route.replaceAll('/','-').replace(/^-/, '')+'-'+viewport+'.png',animations:'disabled',fullPage:false});
+    await page.screenshot({path:output+'/'+route.replaceAll('/','-').replace(/^-/, '')+'-'+viewport+'.png',animations:'disabled',fullPage:true});
     assert.equal(row.pageErrors.length,0,'client-side JavaScript errors: '+row.pageErrors.join(' | '));
    }catch(error){
     row.status='FAIL';row.failures.push(String(error));
