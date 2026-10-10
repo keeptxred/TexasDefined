@@ -118,7 +118,7 @@ export const texasRiversExplainedArticle: Article = {
   body: [
     p("You can understand a surprising amount of Texas by following the water. Towns grew where rivers could be crossed. Farms spread across bottomlands where floods left deep soil. Railroads, highways and county seats followed older settlement patterns. Modern cities now depend on reservoirs built into the same river systems, while summer weekends still revolve around stretches of water Texans have floated, fished and swum for generations."),
     p("The rivers do not all behave alike. A clear Hill Country stream flowing over limestone has little in common visually with a muddy Brazos bend, a cypress-lined East Texas river or the Rio Grande moving through desert canyons. That difference is the point. Texas is large enough that its rivers act like a second map of the state, revealing rainfall, geology, elevation and climate as they change from west to east."),
-    h("Texas rivers at a glance: six quick answers"),
+    h("Texas Rivers Explained: six quick answers before the deep dive"),
     list(
       "How many major river basins are in Texas? TWDB recognizes 15 major river basins and eight smaller coastal basins. A basin is a drainage area, not just the visible river channel.",
       "What is the longest river segment within Texas in TWDB's basin table? The Rio Grande, with 889 river miles in Texas; this is not the river's full international length.",
