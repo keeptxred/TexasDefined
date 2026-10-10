@@ -62,6 +62,9 @@ jobs:
         id: expansion_probes
         shell: bash
         env:
+          # All per-route check statuses belong to the deployed commit, not the
+          # workflow_run receiver's potentially newer default-branch SHA.
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: |
           set +e

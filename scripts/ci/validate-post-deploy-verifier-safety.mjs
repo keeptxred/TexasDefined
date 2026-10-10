@@ -18,6 +18,13 @@ for (const name of ['texasdefined-publication-production-smoke','verify-rv-produ
 requireMarker(workflow('verify-hunting-production'), "github.event_name == 'pull_request'", 'Hunting needs PR-only syntax validation');
 requireMarker(workflow('verify-hunting-production'), 'node --check scripts/data/verify-hunting-production.mjs', 'Hunting PR syntax check missing');
 requireMarker(workflow('verify-relocation-production'), "github.event_name == 'pull_request'", 'Relocation PR syntax check missing');
+const relocation = workflow('verify-relocation-production');
+for (const marker of [
+  'id: expansion_probes',
+  'GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}',
+  'node scripts/ci/publish-github-status.mjs "$context" success',
+  'node scripts/ci/publish-github-status.mjs "$context" failure',
+]) requireMarker(relocation, marker, `Relocation per-route status must attach to deployed SHA: ${marker}`);
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
