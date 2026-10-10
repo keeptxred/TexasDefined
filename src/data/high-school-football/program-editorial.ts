@@ -58,6 +58,158 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "aransas-pass": {
+    "slug": "aransas-pass",
+    "theme": {
+      "accentHex": "#6A3141",
+      "label": "Original Panthers editorial accent, not an official school badge"
+    },
+    "seo": {
+      "title": "Aransas Pass Panthers Football: 2026 Schedule, Rivalries & Program History",
+      "description": "Aransas Pass Panthers football: 2026 UIL 3A Division I, 2–3 September results, documented Ingleside series, rebuilding seasons and visiting-game resources."
+    },
+    "campus": {
+      "address": "450 South Avenue A, Aransas Pass, TX 78336",
+      "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps school directory address, not verified stadium entry",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Panthers dated scores and district fixtures",
+      "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps Panthers game results updated September 26",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 in five published completed games through September 25, 2026",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+      "sourceLabel": "Five posted 2026 results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Poth",
+          "site": "Away",
+          "result": "L 0–41"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Ingleside",
+          "site": "Home",
+          "result": "L 35–42"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Odem",
+          "site": "Away",
+          "result": "W 41–13"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "San Antonio Cole",
+          "site": "Home",
+          "result": "W 28–19"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "George West",
+          "site": "Home",
+          "result": "L 18–71"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "West Oso",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Orange Grove",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Mathis",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Sinton",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Goliad",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "overview": [
+      "The Aransas Pass Panthers are a coastal Texas high-school football program with a distinct community identity. The school at 450 South Avenue A is not automatically the assigned entrance to a varsity football field, so game-day location, parking and accessible entrance require official confirmation.",
+      "MaxPreps records a rebuilding period that included a winless 0–10 season in 2023, a 2–8 campaign in 2024 and a 1–9 finish in 2025. The team's 2026 schedule shows September wins against Odem and San Antonio Cole, meaning even its short-term progress should be documented with actual results rather than generic rebuilding rhetoric.",
+      "The 2026 Panthers scored a 41–13 win at Odem and followed with a 28–19 victory over Cole. The 2–3 dated record through September 25 also includes an early 35–42 loss to Ingleside, a notable regional matchup, and a difficult 18–71 loss to George West.",
+      "The 2026–28 UIL district alignment places Aransas Pass in Class 3A Division I District 15. Its league fixtures include West Oso, Orange Grove, Mathis, Sinton and Goliad. Current opponents and longstanding rivalries are different categories and should not be conflated.",
+      "Texas Prep Football's reported head-to-head archive lists Aransas Pass versus Ingleside 21 times since 2004, with Ingleside ahead 16–5. This is a third-party subset rather than the official complete all-time series; the competitive 35–42 September 2026 game adds meaningful present context.",
+      "The 2025 MaxPreps season record names Richard Davis as head coach; another third-party 2026 program directory identifies Justin Taylor. Without school-district first-party confirmation of the 2026 role, TexasDefined does not state a current head coach as a settled fact.",
+      "Official stadium name and event-specific ticketing/parking/ADA arrangements have not been verified from a reliable school primary source; naming a field or claiming exact stadium capacity would therefore be speculative."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Winless season in a rebuilding period",
+        "body": "Archived varsity results list the Panthers at 0–10, followed by 2–8 in 2024.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/history/",
+        "sourceLabel": "MaxPreps program seasonal records"
+      },
+      {
+        "date": "2025",
+        "title": "One-win Panthers campaign",
+        "body": "The team finished 1–9, with a 63–0 victory over Kaufer in its recorded opener.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps complete 2025 ledger"
+      },
+      {
+        "date": "Sept. 11–18, 2026",
+        "title": "Consecutive victories",
+        "body": "Wins over Odem (41–13) and San Antonio Cole (28–19) mark a short 2026 turnaround after two opening defeats.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 scores"
+      },
+      {
+        "date": "Sept. 4, 2026",
+        "title": "Ingleside game adds regional context",
+        "body": "Aransas Pass fell 35–42 to Ingleside; the two teams have extensive recorded meetings in the third-party series archive.",
+        "sourceUrl": "https://txprepfootball.com/schools/aransas-pass-panthers/",
+        "sourceLabel": "Texas Prep Football game and head-to-head history"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What is the Aransas Pass Panthers' 2026 record?",
+        "answer": "The five recorded results through September 25 show two wins and three losses. This is a dated snapshot, not a live full-season record."
+      },
+      {
+        "question": "Who is the head coach in 2026?",
+        "answer": "The public 2025 and 2026 third-party listings differ; school-district first-party confirmation is required before asserting a current coach."
+      },
+      {
+        "question": "How has Aransas Pass performed recently?",
+        "answer": "MaxPreps reports 0–10 in 2023, 2–8 in 2024 and 1–9 in 2025, with two September 2026 victories posted."
+      },
+      {
+        "question": "Is Ingleside a regular Aransas Pass opponent?",
+        "answer": "Yes. One archive records 21 meetings since 2004, with an Aransas Pass loss to Ingleside by 35–42 in September 2026; that archive is not a certified all-time series."
+      },
+      {
+        "question": "Where can visiting fans confirm entrance and tickets?",
+        "answer": "Check current Aransas Pass ISD athletics announcements for the particular game. The campus mailing address is not proof of a football stadium gate."
+      }
+    ]
+  },
   "aquilla": {
     "slug": "aquilla",
     "theme": {
