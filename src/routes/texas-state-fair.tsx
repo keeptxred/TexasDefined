@@ -73,7 +73,7 @@ const stateFairData = {
         heading: "Free student tickets extended for the final two weekends",
         paragraphs: [
           "The Fair confirmed October 5 that complimentary 2026 tickets already distributed through participating schools to pre-K through eighth-grade students within 100 miles of Fair Park are valid every remaining day, including both final weekends through October 18.",
-          "The Fair also advertises an online parent admission discount. Eligibility, ticket terms and dates are specific to 2026, so use the official announcement before planning the visit."
+          "Eligible parents can save $5 online; check the 2026 terms."
         ],
         links: [
           { label: "Official 2026 student-ticket announcement", href: "https://bigtex.com/state-fair-of-texas-expands-free-student-ticket-program-to-include-final-two-weekends-of-the-fair-2/", external: true },
