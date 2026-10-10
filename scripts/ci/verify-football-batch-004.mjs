@@ -41,7 +41,7 @@ const footballRoute = read('src/routes/texas-high-school-football-teams_.$slug.l
 const inbound = countyRoute.split('const batch002FootballCountyLinks:')[1]?.split('const siteUrl')[0] ?? '';
 const outbound = footballRoute.split('const researchedCampusCounty:')[1]?.split('const batch002CityGuide:')[0] ?? '';
 const evidence = read('docs/football-authority/BATCH004_CAMPUS_LINK_EVIDENCE.md');
-const linked = { arp:'smith', aspermont:'stonewall', athens:'henderson', atlanta:'cass', aubrey:'denton', 'austin-vandegrift':'travis', avalon:'ellis', axtell:'mclennan', baird:'callahan' };
+const linked = { arp:'smith', aspermont:'stonewall', athens:'henderson', atlanta:'cass', aubrey:'denton', 'austin-vandegrift':'travis', avalon:'ellis', axtell:'mclennan', baird:'callahan', 'austin':'travis', 'austin-achieve':'travis', 'austin-akins':'travis', 'austin-anderson':'travis', 'austin-bowie':'travis', 'austin-crockett':'travis', 'austin-eastside':'travis', 'austin-johnson':'travis', 'austin-lake-travis':'travis', 'austin-lasa':'travis', 'austin-mccallum':'travis', 'austin-navarro':'travis', 'austin-northeast':'travis', 'austin-travis':'travis', 'austin-westlake':'travis', azle:'tarrant' };
 for (const [slug, county] of Object.entries(linked)) {
   const rec = records.find(x => x.slug === slug);
   check(Boolean(rec?.inboundLinks?.includes('/county/' + county)), slug + ': registry inbound county missing');
