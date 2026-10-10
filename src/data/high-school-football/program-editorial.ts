@@ -694,12 +694,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Wilemon Field (historical listing)",
-      "address": "Arlington, Texas — confirm exact home game and spectator arrival through AISD",
-      "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
-      "sourceLabel": "DCTF Sam Houston football venue listing",
+      "name": "Choctaw Stadium (multiple scheduled 2026 home games; Wilemon Field in historical listings)",
+      "address": "Choctaw Stadium, Arlington, Texas — verify event-specific entrance with Arlington ISD",
+      "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
+      "sourceLabel": "Choctaw Stadium official 2026 high-school football calendar",
       "verifiedAt": "2026-10-09",
-      "note": "DCTF lists 8,500 historic spectator seats at Wilemon Field; official 2026 game assignment, tickets, ADA dropoff and parking must be checked on the Arlington ISD event listing. The school's Sam Houston Drive campus address is not proven to be the stadium gate."
+      "note": "Choctaw Stadium lists several Sam Houston home fixtures in 2026, including Oct. 8 vs Martin and Nov. 5 vs Bowie. DCTF separately identifies historic Wilemon Field, whose old seating count is not the Choctaw Stadium capacity. Use Arlington ISD’s event-specific tickets, ADA arrival and parking guidance; the school campus address is not a stadium entrance."
     },
     "overview": [
       "Sam Houston High School opened in Arlington in 1963, as documented on the school's own website. Its Texans are not the NFL Houston Texans and are not a school in the city of Houston. The school serves the Arlington community at 2000 Sam Houston Drive, and its 2026 football program belongs to Arlington ISD.",
