@@ -259,7 +259,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "overview": [
       "Amherst's Bulldogs have a distinct place in Texas six-man football history: back-to-back UIL six-man state championships in 1994 and 1995. Unlike a generic Class 1A team profile, Amherst's story can be rebuilt game by game from actual UIL archived playoff brackets, where the finalists, scores and coach are preserved.",
-      "The UIL 1994 championship archive lists Amherst defeating Milford 30–20 after the Bulldogs beat Balmorhea 32–28 in a semifinal. The 1995 UIL archive records Amherst beating Milford again, this time 72–48, following a 79–34 semifinal win over Lamesa Klondike. They are two different title games, not an invented undefeated season or one repeated final.",
+      "The UIL 1994 championship archive lists Amherst defeating Milford 30–20 after the Bulldogs beat Balmorhea 32–28 in a semifinal. The 1995 UIL archive records Amherst beating Milford again, this time 72–48 according to UIL's detailed playoff bracket (its champions summary instead lists 78–42), following a 79–34 semifinal win over Lamesa Klondike. They are two different title games, not an invented undefeated season or one repeated final.",
       "Coach Jack Shely appears in the UIL's documented champion-team rosters in both 1994 and 1995. Those archived rosters record the work of players, assistant coaches and school community; historical names should not be represented as current players or current 2026 staff.",
       "The 2026–28 UIL realignment lists Amherst in Class 1A Division II six-man football, District 3. The association and realignment cycle describe the scheduled grouping; they do not establish wins or an active 2026 score ledger. The current official district site provides a 2026–27 calendar but its football schedule link still says 2025–26.",
       "Recent independent record sources disagree substantially: DCTF gives 2025 as 1–5, 2024 as 3–4 and 2023 as 7–2, while MaxPreps reports 2025 as 3–6, 2024 as 6–3 and 2023 as 9–2. The page therefore withholds exact recent-season claims until each schedule and completeness of games is reconciled rather than selecting a convenient record.",
@@ -277,7 +277,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "1995",
         "title": "Back-to-back state champions",
-        "body": "Amherst defeated Milford 72–48 in the final, following a 79–34 victory over Lamesa Klondike in the semifinal.",
+        "body": "Amherst defeated Milford 72–48 according to UIL's detailed playoff bracket (its champions summary instead lists 78–42) in the final, following a 79–34 victory over Lamesa Klondike in the semifinal.",
         "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
         "sourceLabel": "UIL official 1995 playoff archive"
       },
@@ -303,7 +303,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who did Amherst beat for its 1994 and 1995 titles?",
-        "answer": "Milford in both finals: 30–20 in 1994 and 72–48 in 1995, according to official UIL archived brackets."
+        "answer": "Milford in both finals: 30–20 in 1994 and 72–48 according to UIL's detailed playoff bracket (its champions summary instead lists 78–42) in 1995, according to official UIL archived brackets."
       },
       {
         "question": "Who coached Amherst's championship teams?",
