@@ -61,7 +61,7 @@ const stateFairData = {
         heading: "More than 100 daily activities included with admission",
         paragraphs: [
           "Admission covers 100+ daily activities: music, livestock, the Texas Auto Show, Creative Arts, parades, Big Tex, family shows, and the African American Museum and Hall of State.",
-          "Food, Midway rides and games cost extra. Some museums and attractions have separate admission. The official daily schedule and fairgrounds map help you choose a walking route and find lower-cost experiences."
+          "Food, rides, games and some attractions cost extra. Use the official map and daily schedule to plan a lower-cost route."
         ],
         links: [
           { label: "Official included attractions FAQ", href: "https://bigtex.com/faqs/attractions/", external: true },
