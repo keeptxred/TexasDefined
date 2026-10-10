@@ -2576,9 +2576,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "coach": {
       "name": "Brad Hodges",
-      "title": "2026 Fighting Owls head football coach according to current team staff",
+      "title": "2026 head football coach according to MaxPreps; current school staff independently identifies Brad Hodges as athletic director",
       "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
-      "sourceLabel": "MaxPreps 2026 current coach and team listing",
+      "sourceLabel": "MaxPreps football head-coach listing; ASCISD campus directory confirms AD role",
       "verifiedAt": "2026-10-09"
     },
     "campus": {
@@ -3008,9 +3008,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "coach": {
       "name": "Kenneth (Ken) Plunk",
-      "title": "2026 head football coach per roster updated August 23, 2026",
+      "title": "2026 head coach according to MaxPreps; Amarillo ISD independently confirms Ken Plunk as campus athletic director",
       "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
-      "sourceLabel": "2026 season MaxPreps team staff roster; current district confirmation pending",
+      "sourceLabel": "MaxPreps head coach plus Amarillo ISD 2026 Tascosa campus athletic director listing",
       "verifiedAt": "2026-10-09"
     },
     "campus": {
