@@ -3,6 +3,15 @@ const failures = [];
 const workflow = (name) => fs.readFileSync(`.github/workflows/${name}.yml`, 'utf8');
 const requireMarker = (source, marker, label) => { if (!source.includes(marker)) failures.push(label); };
 const noDirectPush = (source, label) => { if (/^  push:/m.test(source)) failures.push(`${label} cannot assert live production before a protected deployment`); };
+// An independent production verifier may outlive newer main merges. Never
+// checkout a moving branch or the workflow_run receiver's github.ref.
+for (const file of fs.readdirSync('.github/workflows').filter((name) => name.endsWith('.yml'))) {
+  const source = fs.readFileSync(`.github/workflows/${file}`, 'utf8');
+  if (!/^  workflow_run:/m.test(source) || !source.includes('Deploy TexasDefined production')) continue;
+  const floatingCheckout = /^\s+ref:[ \t]*(?:["']?main["']?|\$\{\{[ \t]*github\.ref[ \t]*\}\})[ \t]*(?:#.*)?$/m;
+  if (floatingCheckout.test(source))
+    failures.push(`${file} uses a moving main/github.ref checkout after canonical deployment; pin workflow_run.head_sha or use an explicit controlled exception`);
+}
 const postDeploy = ['texasdefined-publication-production-smoke','verify-rv-production','verify-aquarium-production','verify-hunting-production','adsense-production-smoke','verify-relocation-production','flag-history-production-smoke'];
 for (const name of postDeploy) {
   const source = workflow(name);
