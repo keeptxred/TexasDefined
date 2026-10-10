@@ -94,6 +94,36 @@ for (const name of ['verify-cavern-production-integrity','verify-demand-signal-r
 const relocationDepth = workflow('verify-relocation-production-depth');
 requireMarker(relocationDepth, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Relocation-depth cache probe must bind deployed SHA');
 requireMarker(relocationDepth, 'process.env.DEPLOY_SHA', 'Relocation-depth probe must not use moving default branch SHA');
+// Wave 4: keep path-filtered source tests, but do not verify live URLs before
+// this very commit has its canonical protected-production success status.
+const pathFilteredLive = [
+  'verify-housing-index-surfaces',
+  'verify-local-home-insurance-production',
+  'verify-local-mortgage-production',
+  'verify-priority-county-property-production',
+  'verify-remote-evergreen-production',
+];
+for (const name of pathFilteredLive) {
+  const source = workflow(name);
+  requireMarker(source, '  pull_request:', `${name} must retain PR source validation`);
+  requireMarker(source, '  push:', `${name} must retain existing path-filtered push validation`);
+  requireMarker(source, 'statuses: read', `${name} must have read-only GitHub status access`);
+  const live = source.slice(source.indexOf('  verify-production:'));
+  requireMarker(live, "github.event_name != 'pull_request'", `${name} must never live-check on PR`);
+  requireMarker(live, 'node scripts/ci/wait-for-protected-production.mjs', `${name} must wait for protected deploy`);
+  requireMarker(live, 'PRODUCTION_COMMIT_SHA:', `${name} must bind the exact triggering commit`);
+  const waitAt = live.indexOf('node scripts/ci/wait-for-protected-production.mjs');
+  const probeAt = live.indexOf('run: node scripts/ci/verify-');
+  if (waitAt < 0 || probeAt < 0 || waitAt >= probeAt) failures.push(`${name} must wait *before* probing live production`);
+}
+const waitForProduction = fs.readFileSync('scripts/ci/wait-for-protected-production.mjs', 'utf8');
+for (const marker of [
+  "context === 'texasdefined-production'",
+  "lastState === 'success'",
+  "lastState === 'failure'",
+  'Protected deployment failed',
+  'Timed out waiting for exact-commit',
+]) requireMarker(waitForProduction, marker, `Exact-commit production gate regressed: ${marker}`);
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
