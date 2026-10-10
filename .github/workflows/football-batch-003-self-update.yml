@@ -1,0 +1,31 @@
+name: One-time self-removing Batch 003 branch update
+on:
+  push:
+    branches:
+      - football-authority-batch-003-20261009
+    paths:
+      - ".github/workflows/football-batch-003-self-update.yml"
+permissions:
+  contents: write
+jobs:
+  update-and-remove:
+    if: github.repository == 'keeptxred/TexasDefined'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: football-authority-batch-003-20261009
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Merge latest main and remove this temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-ff --no-edit origin/main
+          git rm .github/workflows/football-batch-003-self-update.yml
+          git commit -m "Remove completed temporary Batch 003 branch updater"
+          git push origin HEAD:refs/heads/football-authority-batch-003-20261009
