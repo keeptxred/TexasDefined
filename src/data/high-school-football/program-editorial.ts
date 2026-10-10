@@ -58,6 +58,103 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "anna": {
+    "slug": "anna",
+    "theme": {
+      "accentHex": "#843529",
+      "label": "Original Coyotes editorial copper accent; not a school logo"
+    },
+    "seo": {
+      "title": "Anna Coyotes Football: 2023 State Champions, Seth Parr & 2026",
+      "description": "Anna Coyotes football history: 2023 UIL 4A Division I 26–0 state title, Seth Parr, 2026 5A Division II program and official tickets, venue and staff."
+    },
+    "coach": {
+      "name": "Seth Parr",
+      "title": "2026 head football coach and executive athletic director confirmed by Anna ISD",
+      "sourceUrl": "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Official Anna High School athletics football staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1201 North Powell Parkway, Anna, TX 75409",
+      "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/staff/",
+      "sourceLabel": "Anna High campus directory, not a verified stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Anna Coyotes varsity football schedule and game-day resources",
+      "sourceUrl": "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Official Anna High athletics varsity football portal",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Anna's Coyotes made Texas football history in 2023 by winning their first UIL state title, a 26–0 Class 4A Division I shutout of Tyler Chapel Hill at AT&T Stadium. This is a real state championship with a verified opponent and score, unlike a regional championship or a merely deep playoff appearance.",
+      "The 2023 team finished 15–1. After an early overtime defeat to Celina, the Coyotes won every remaining game, including playoff wins against China Spring 45–21, Panther Creek 42–38, Stephenville 41–21 and Decatur 38–27 before the shutout final.",
+      "The championship game's original reporting credits running back Edward Chumley with three touchdowns and offensive MVP honors; C.J. Miller received defensive MVP recognition. Quarterback Ziondre Williams contributed to the championship victory. These are historical 2023 names, not a current 2026 roster.",
+      "The school has since climbed from its 2023 Class 4A Division I title season into 5A Division II, according to its 2026–28 UIL alignment. Its distinct 2024 9–4 and 2025 10–3 records illustrate program continuity across classification changes.",
+      "Seth Parr is not a speculative current coach: Anna High's official 2026–27 athletic staff lists him as head football coach and executive athletic director. The published staff includes defensive coordinator Robby Sevier, offensive coordinator Victor Rodriguez and special teams coordinator Michael Guerrero.",
+      "Official Anna High athletics links provide current schedules and staff contacts. The campus address on Powell Parkway is not proof of any stadium entrance or reserved seating; game-specific tickets, bag policies, parking and accessible arrival must be verified through the official athletic event."
+    ],
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "Thirteen wins before the title",
+        "body": "The 2022 Coyotes finished 13–1, building the program ahead of its championship season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/history/",
+        "sourceLabel": "MaxPreps archived Anna seasons"
+      },
+      {
+        "date": "Dec. 15, 2023",
+        "title": "First football state championship",
+        "body": "Anna shut out Tyler Chapel Hill 26–0 at AT&T Stadium to win UIL 4A Division I, closing a 15–1 season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/23-24/schedule/",
+        "sourceLabel": "Archived state final schedule"
+      },
+      {
+        "date": "2023 playoffs",
+        "title": "Decatur semifinal victory",
+        "body": "Anna defeated Decatur 38–27 after beating Stephenville 41–21, earning the title-game berth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/23-24/schedule/",
+        "sourceLabel": "Full 2023 playoff schedule"
+      },
+      {
+        "date": "2024–25",
+        "title": "Competing in a larger classification",
+        "body": "After the 4A championship the Anna program posted 9–4 and 10–3 campaigns in the next two seasons.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/history/",
+        "sourceLabel": "MaxPreps program season history"
+      },
+      {
+        "date": "2026",
+        "title": "Seth Parr leads the Coyotes",
+        "body": "Anna High's official football staff continues to list Seth Parr as head coach and executive athletic director.",
+        "sourceUrl": "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+        "sourceLabel": "Official Anna football staff roster"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Anna win the 2023 Texas football state championship?",
+        "answer": "Yes. Anna defeated Tyler Chapel Hill 26–0 in the UIL Class 4A Division I final at AT&T Stadium on December 15, 2023."
+      },
+      {
+        "question": "Who coached the 2023 champion Coyotes and who coaches in 2026?",
+        "answer": "Seth Parr coached the 2023 title team and Anna High's official 2026 football staff still lists him as head coach and executive athletic director."
+      },
+      {
+        "question": "Who stood out in Anna's 2023 championship game?",
+        "answer": "Edward Chumley scored three touchdowns and earned offensive MVP, and C.J. Miller was defensive MVP according to championship reporting."
+      },
+      {
+        "question": "What is Anna's 2026 classification?",
+        "answer": "Anna is listed in UIL Class 5A Division II for the 2026–28 cycle; that should not be confused with its Class 4A Division I title in 2023."
+      },
+      {
+        "question": "Where are official Coyotes schedules and tickets?",
+        "answer": "Anna High's official athletics portal at gocoyoteu.com provides football schedules and staff; use each event's official stadium and ticket details rather than assuming the school campus address is the entrance."
+      }
+    ]
+  },
   "angleton": {
     "slug": "angleton",
     "theme": {
