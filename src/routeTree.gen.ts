@@ -1891,11 +1891,6 @@ const TexasDataCountyHousingCostsDotcsvRoute =
     path: '/county-housing-costs.csv',
     getParentRoute: () => TexasDataRoute,
   } as any)
-const TexasDataResearchRoute = TexasDataResearchRouteImport.update({
-  id: '/research',
-  path: '/research',
-  getParentRoute: () => TexasDataRoute,
-} as any)
 const TexasDataCountyHousingCostsRoute =
   TexasDataCountyHousingCostsRouteImport.update({
     id: '/county-housing-costs',
@@ -4071,6 +4066,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -4561,6 +4557,7 @@ export interface FileRoutesByTo {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5055,6 +5052,7 @@ export interface FileRoutesById {
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
+  '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5550,6 +5548,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6040,6 +6039,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6533,6 +6533,7 @@ export interface FileRouteTypes {
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
+    | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
