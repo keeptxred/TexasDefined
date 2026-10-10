@@ -2734,17 +2734,17 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   "anahuac": {
     "slug": "anahuac",
     "theme": {
-      "accentHex": "#742336",
-      "label": "Original maroon Panther editorial accent; licensed team logo and official palette not asserted"
+      "accentHex": "#BA9637",
+      "label": "Panthers black-and-gold school identity from 2026 Anahuac ISD game-day notice; original gold editorial accent, no school logo"
     },
     "seo": {
       "title": "Anahuac Panthers Football: Kyle White Stadium, 2026 Results & History",
       "description": "Anahuac Panthers football: 28 playoff appearances, 2021–22 nine-win seasons, 2026 3A Division I District 10 and official Anahuac ISD game-day resources."
     },
     "campus": {
-      "address": "1000 Wilcox Street, Anahuac, TX 77514 (high school campus, not stadium gate)",
-      "sourceUrl": "https://www.maxpreps.com/tx/anahuac/anahuac-panthers/football/staff/",
-      "sourceLabel": "High school program directory; ISD headquarters separately at 804 Mikhael Ricks Dr",
+      "address": "201 South Kansas Avenue, Anahuac, TX 77514 (official high school campus, not a verified stadium entrance)",
+      "sourceUrl": "https://www.aisdpanthers.com/o/ahs/live_feeds/12946573",
+      "sourceLabel": "Anahuac ISD High School official Aug. 28, 2026 game-day message with campus address and black/gold identity",
       "verifiedAt": "2026-10-09"
     },
     "schedule": {
