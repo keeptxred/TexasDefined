@@ -31,7 +31,7 @@ for (const slug of expected) {
   check(["IMPLEMENTED","MERGED","DEPLOYED","VERIFIED","NEEDS_FOLLOWUP","BLOCKED"].includes(rec?.status), slug + ": unexpected status " + rec?.status);
   check(new RegExp('^  "' + slug + '": \\{', "m").test(editorial), slug + ": missing editorial object");
   check(countyLinks.includes("slug: '" + slug + "'"), slug + ": missing reciprocal county-page card");
-  check(countyEvidence.includes("\\x60" + slug + "\\x60"), slug + ": missing campus-county source evidence");
+  check(countyEvidence.includes(String.fromCharCode(96) + slug + String.fromCharCode(96)), slug + ": missing campus-county source evidence");
   const path = "docs/football-authority/schools/" + slug + ".md";
   check(existsSync(join(root, path)), slug + ": missing individual audit");
   if (existsSync(join(root, path))) {
