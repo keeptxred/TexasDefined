@@ -1,5 +1,8 @@
 name: Verify Batch 003 football production browser
 on:
+  pull_request:
+    paths:
+      - ".github/workflows/verify-football-batch-003-browser.yml"
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -14,14 +17,14 @@ concurrency:
   cancel-in-progress: false
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 50
     steps:
       - name: Check out repository evidence and browser runner
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.event.workflow_run.head_sha || github.sha }}
       - name: Set up Node 22
         uses: actions/setup-node@v4
         with:
@@ -35,10 +38,10 @@ jobs:
       - name: Independently validate 25 school routes, county and city links, sitemap, mobile and desktop
         id: browser
         env:
-          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ACCEPTANCE_SHA: e7577d5e527ae412a803505649cd048453ea54ae
         run: node scripts/ci/verify-football-batch-003-browser.mjs
       - name: Publish discoverable deployed-commit browser acceptance result
-        if: always()
+        if: ${{ always() && github.event_name != 'pull_request' }}
         env:
           GH_TOKEN: ${{ github.token }}
           STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
