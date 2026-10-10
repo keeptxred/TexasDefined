@@ -14,6 +14,8 @@ function NetworkApplication() {
   const [plan,setPlan]=useState<Plan>("basic");
   const [fields,setFields]=useState(INITIAL);
   const [logo,setLogo]=useState<string|null>(null);
+  const [logoFile,setLogoFile]=useState<File|null>(null);
+  const [galleryFiles,setGalleryFiles]=useState<File[]>([]);
   const [gallery,setGallery]=useState<string[]>([]);
   const [error,setError]=useState("");
   const [saved,setSaved]=useState(false);
@@ -25,10 +27,10 @@ function NetworkApplication() {
   function images(files:FileList|null,kind:"logo"|"gallery") {
     if(!files?.length)return;
     const items=Array.from(files);
-    if(items.some(f=>!["image/jpeg","image/png","image/webp"].includes(f.type)||f.size>5_000_000)) {setError("Images must be JPEG, PNG or WebP and under 5 MB each.");return}
+    if(items.some(f=>!["image/jpeg","image/png","image/webp"].includes(f.type)||f.size>3_000_000)) {setError("Images must be JPEG, PNG or WebP and under 3 MB each.");return}
     setError("");
-    if(kind==="logo")setLogo(URL.createObjectURL(items[0]));
-    else setGallery(items.slice(0,6).map(URL.createObjectURL));
+    if(kind==="logo"){setLogoFile(items[0]);setLogo(URL.createObjectURL(items[0]));}
+    else {setGalleryFiles(items.slice(0,4));setGallery(items.slice(0,4).map(URL.createObjectURL));}
   }
   return <main className="bg-[#f9f6ef]">
     <Container width="wide" className="py-12 sm:py-16">
@@ -39,7 +41,7 @@ function NetworkApplication() {
         {(["basic","plus"] as const).map(t=><button key={t} type="button" onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
       </div>
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e=>{e.preventDefault();setError("");setSaved(false);setSending(true);try{const r=await fetch("/api/public/network-application",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...fields,plan,websiteField:""})});const result=await r.json();if(!r.ok)throw new Error(result.error||"Unable to submit");setSaved(true)}catch(err){setError(err instanceof Error?err.message:"Submission unavailable")}finally{setSending(false)}}}>
+        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e=>{e.preventDefault();setError("");setSaved(false);setSending(true);try{const r=await fetch("/api/public/network-application",{method:"POST",body:(()=>{const form=new FormData();form.append("application",JSON.stringify({...fields,plan,websiteField:""}));if(logoFile)form.append("logo",logoFile);if(plan==="plus")galleryFiles.forEach(file=>form.append("gallery",file));return form})()});const result=await r.json();if(!r.ok)throw new Error(result.error||"Unable to submit");setSaved(true)}catch(err){setError(err instanceof Error?err.message:"Submission unavailable")}finally{setSending(false)}}}>
           <h2 className="font-display text-3xl">Your information</h2>
           {input("businessName","Business or organization name",true,"Your business name")}
           {input("category","Business category",true,"e.g. Bakery, museum, contractor")}
@@ -57,12 +59,12 @@ function NetworkApplication() {
             {multi("services","Services, products and specialties")}
             {multi("faq","Frequently asked questions")}
             {input("offer","Current event, offer or announcement")}
-            <label className="block text-sm font-semibold">Gallery (up to six images) <input type="file" multiple accept="image/png,image/jpeg,image/webp" onChange={e=>images(e.target.files,"gallery")} className="mt-2 block w-full text-sm"/></label>
+            <label className="block text-sm font-semibold">Gallery (up to four images) <input type="file" multiple accept="image/png,image/jpeg,image/webp" onChange={e=>images(e.target.files,"gallery")} className="mt-2 block w-full text-sm"/></label>
           </div>}
           {saved&&<p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-900">Your application has been received for review. No payment was taken and the profile is not public yet.</p>}
           {error&&<p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{error}</p>}
           <button type="submit" disabled={sending} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Sending…":"Submit listing for review"}</button>
-          <p className="text-xs text-muted-foreground">Preview images remain in your browser and are not uploaded. Text details are sent for editorial review only; no payment is taken.</p>
+          <p className="text-xs text-muted-foreground">Your selected images and application details are submitted privately for review. No payment is taken.</p>
         </form>
         <aside className="self-start lg:sticky lg:top-28" aria-label="Live listing preview">
           <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-xl">
