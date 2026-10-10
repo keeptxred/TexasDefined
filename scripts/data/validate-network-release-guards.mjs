@@ -41,7 +41,7 @@ check('webhook suspends unpaid listing before entitlement writes',webhook.includ
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));
 check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&review.includes('user?.email_confirmed_at'));
 check('admin provisioning forbids reassignment',source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes('v_existing.owner_user_id<>p_user_id'));
-check('Plus owner provisioning never grants Featured rights',source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes("VALUES(p_application_id,p_user_id,'plus',true)") && review.includes("existing.membership_tier!=='plus'"));
+check('Plus owner provisioning never grants Featured rights',source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes("VALUES(p_application_id,p_user_id,'plus',true)") && review.includes("supabaseAdmin.rpc('provision_verified_network_owner'"));
 check('Plus dashboard never displays Featured revision controls',dashboard.includes("account.membership_tier==='plus'") && dashboard.includes('View membership billing'));
 check('tier constraint migration denies implicit Featured default',source('supabase/migrations/20261010205801_network_owner_plus_tier_guard.sql').includes("SET DEFAULT 'plus'"));
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
