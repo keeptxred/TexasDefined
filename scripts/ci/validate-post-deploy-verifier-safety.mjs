@@ -251,5 +251,28 @@ requireMarker(countyLive, "if: ${{ github.event_name != 'pull_request' && (githu
 if (countyLive.includes("continue-on-error: ${{ github.event_name == 'pull_request' }}"))
   failures.push('County production must not hide a PR-triggered live crawl failure');
 
+// Wave 7: GSC priority source PRs and path-filtered main pushes must never
+// probe live production before this exact revision is safely deployed.
+const gscCohort = workflow('gsc-priority-cohort');
+requireMarker(gscCohort, '  pull_request:', 'GSC priority cohort must retain PR coverage');
+requireMarker(gscCohort, '  push:', 'GSC priority cohort must retain path-filtered push coverage');
+requireMarker(gscCohort, '  schedule:', 'GSC priority cohort must retain scheduled audit');
+requireMarker(gscCohort, '  statuses: read', 'GSC exact-SHA gate needs read-only status permission');
+const gscSource = gscCohort.slice(gscCohort.indexOf('  validate-crawl-links:'), gscCohort.indexOf('  verify-production:'));
+const gscLive = gscCohort.slice(gscCohort.indexOf('  verify-production:'));
+requireMarker(gscSource, 'node scripts/seo/validate-gsc-crawl-demand-links.mjs', 'GSC must retain source-only PR contract');
+if (gscSource.includes('node scripts/seo/check-gsc-priority-cohort.mjs')) failures.push('GSC source job must not probe live production');
+for (const marker of [
+  "if: ${{ github.event_name != 'pull_request' }}",
+  'needs: validate-crawl-links',
+  'Wait for exact SHA protected production deployment on push',
+  "if: ${{ github.event_name == 'push' }}",
+  'PRODUCTION_COMMIT_SHA: ${{ github.sha }}',
+  'node scripts/ci/wait-for-protected-production.mjs',
+  'node scripts/seo/check-gsc-priority-cohort.mjs',
+]) requireMarker(gscLive, marker, `GSC deployed cohort gate missing: ${marker}`);
+if (gscLive.indexOf('node scripts/ci/wait-for-protected-production.mjs') >= gscLive.indexOf('node scripts/seo/check-gsc-priority-cohort.mjs'))
+  failures.push('GSC priority production crawl must wait for exact-SHA deployment before probing');
+
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
 console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
