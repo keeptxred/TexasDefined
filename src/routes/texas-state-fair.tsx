@@ -171,17 +171,6 @@ const stateFairData = {
         ]
       },
       {
-        heading: "What is new for 2026",
-        paragraphs: [
-          "The 2026 Fair theme is Stars, Stripes, and Howdies. This year's Fair also includes new food and value programs plus changes to entertainment locations, so returning visitors should not assume every attraction is in the same place or priced the same way as last year.",
-          "Use the current Fair schedule and map on the day you visit. Those sources are more reliable than an old map saved from a previous year."
-        ],
-        links: [
-          { label: "Official State Fair news", href: "https://bigtex.com/category/press-releases/", external: true },
-          { label: "Official schedule", href: "https://bigtex.com/schedule/", external: true }
-        ]
-      },
-      {
         heading: "Where to stay and what else to do in Dallas",
         paragraphs: [
           "If the Fair is part of a Dallas weekend, staying near a DART Green Line connection can be more useful than choosing a hotel only by straight-line distance from Fair Park. That lets you avoid some event traffic while keeping rail access.",
