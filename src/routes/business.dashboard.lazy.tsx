@@ -51,22 +51,47 @@ function BusinessDashboard(){
    setBusy(false);return;
   }
  }
+ const uploadedPaths:string[]=[];
+ const drafts=supabase.storage.from('texasdefined-network-featured-drafts');
  const upload=async(file:File,label:string)=>{
   const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
   const path=user.id+'/'+account.id+'/'+crypto.randomUUID()+'-'+label+'.'+ext;
-  const {error}=await supabase.storage.from('texasdefined-network-featured-drafts').upload(path,file,{contentType:file.type,upsert:false});
+  const {error}=await drafts.upload(path,file,{contentType:file.type,upsert:false});
   if(error)throw new Error('Image upload failed');
+  uploadedPaths.push(path);
   return path;
+ };
+ const cleanUnsubmitted=async()=>{
+  if(!uploadedPaths.length)return true;
+  // This policy refuses deletion if a concurrently accepted revision references a file.
+  const {error}=await drafts.remove(uploadedPaths);
+  return !error;
  };
  try{
   if(newLogo)payload.logo_storage_path=await upload(newLogo,'logo');
-  if(newGallery.length)payload.gallery_storage_paths=await Promise.all(newGallery.map((file,i)=>upload(file,'photo-'+i)));
- }catch(err){setMessage(err instanceof Error?err.message:'Image upload failed');setBusy(false);return}
+  if(newGallery.length){
+   const paths:string[]=[];
+   // Sequential uploads make it possible to clean every successful path on partial failure.
+   for(const [i,file] of newGallery.entries())paths.push(await upload(file,'photo-'+i));
+   payload.gallery_storage_paths=paths;
+  }
+ }catch(err){
+  const cleaned=await cleanUnsubmitted();
+  setMessage((err instanceof Error?err.message:'Image upload failed')+(cleaned?'':' Contact Texas Defined to remove the unused drafts.'));
+  setBusy(false);return;
+ }
 
  if(!Object.keys(payload).length && !newLogo && !newGallery.length){setMessage('Enter at least one proposed change.');setBusy(false);return}
  const {error}=await supabase.from('texasdefined_network_profile_revisions').insert({business_account_id:account.id,submitted_by:user.id,proposed_profile:payload} as never);
- setMessage(error?('Could not submit: '+error.message):'Changes submitted for editorial approval. Your public listing is unchanged.');
- if(!error){setDraft({});setNewLogo(null);setNewGallery([]);setRevisions(old=>[{id:'new',created_at:new Date().toISOString(),review_status:'pending_review',proposed_profile:payload},...old])}setBusy(false)}
+ if(error){
+  const cleaned=await cleanUnsubmitted();
+  setMessage('Could not submit: '+error.message+(cleaned?'':' The uploaded draft files may still need cleanup.'));
+ }else{
+  setMessage('Changes submitted for editorial approval. Your public listing is unchanged.');
+  setDraft({});setNewLogo(null);setNewGallery([]);
+  setRevisions(old=>[{id:'new',created_at:new Date().toISOString(),review_status:'pending_review',proposed_profile:payload},...old]);
+ }
+ setBusy(false)
  return <main><Container className="py-12"><p className="eyebrow text-primary">TexasDefined Network</p><h1 className="mt-2 font-display text-4xl">My Business Dashboard</h1>
  {!ownerPortalOpen&&<p role="status" className="mt-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">Owner email sign-in is not available before Network launch.</p>}
  {!userId?<form onSubmit={signIn} className="mt-8 max-w-md space-y-4"><p>Verified business owners can request a secure email sign-in link. Signing in alone does not grant access.</p><label className="block">Account email<input required type="email" className="mt-2 w-full border border-border p-3" value={email} onChange={e=>setEmail(e.target.value)}/></label><button disabled={!ownerPortalOpen||busy} className="bg-primary px-6 py-3 text-primary-foreground">Email sign-in link</button></form>:<><button className="mt-4 border border-border px-4 py-2" onClick={()=>void supabase.auth.signOut()}>Sign out</button>
