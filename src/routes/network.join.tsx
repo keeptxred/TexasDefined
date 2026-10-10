@@ -52,31 +52,38 @@ const tiers = [
 function NetworkJoinPreview() {
   return (
     <main>
-      <section className="relative isolate overflow-hidden border-b border-border bg-[#f3eee6]">
-        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center opacity-45" style={{ backgroundImage: `url(${hillCountryHero})` }} />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#fbf9f3]/95 via-[#fbf9f3]/85 to-[#fbf9f3]/35" />
-        <Container className="relative py-14 sm:py-20">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,.92fr)]">
-            <div className="min-w-0">
-              <p className="eyebrow text-[#b65338]">One Texas. Everything Connected.</p>
-              <h1 className="mt-5 max-w-3xl font-display text-[clamp(2.8rem,5vw,5.5rem)] leading-[1.04] tracking-tight text-foreground">Put your business on the Texas map.</h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-foreground/85">Every Texas business and organization has a story. Make yours discoverable through the growing Texas Defined Network.</p>
-              <a href="#membership" className="mt-8 inline-block rounded-full bg-primary px-7 py-3 font-semibold text-primary-foreground hover:opacity-90">Compare listing options</a>
-              <p className="mt-4 text-sm text-foreground/70">Preview only · Submissions and payments are not open.</p>
-            </div>
-            <div className="min-w-0">
-              <div className="relative mx-auto w-full max-w-[510px] overflow-hidden rounded-[2rem] border border-[#d8c9b8] bg-[#fff8ea]/90 p-5 shadow-xl backdrop-blur-sm sm:p-8">
-                <div className="mb-4 flex items-center justify-between gap-2 text-xs font-semibold uppercase tracking-widest text-[#a55b3d]"><span>Discover all across Texas</span><span aria-hidden="true">★</span></div>
-                <div className="relative mx-auto aspect-[1.12] w-full overflow-hidden">
-                  <svg viewBox="0 0 280 260" className="absolute inset-0 h-full w-full" role="img" aria-label="Illustrated map of Texas with location markers" preserveAspectRatio="xMidYMid meet">
-                    <path d="M7 119 L14 121 L21 127 L27 131 L35 145 L42 156 L50 166 L55 168 L66 171 L75 181 L80 183 L89 181 L99 179 L107 180 L120 181 L125 180 L132 192 L142 206 L153 215 L158 226 L168 239 L175 243 L186 249 L192 252 L197 250 L195 239 L193 224 L197 209 L211 200 L223 189 L237 180 L246 173 L265 165 L265 157 L268 150 L266 142 L269 133 L263 125 L260 115 L259 106 L259 78 L251 76 L244 78 L239 72 L232 71 L226 69 L220 71 L212 72 L204 72 L198 74 L191 70 L183 68 L176 64 L168 64 L160 62 L150 59 L140 55 L140 11 L80 11 L80 113 L10 113 Z" fill="#efdac4" fillOpacity=".90" stroke="#b9785e" strokeWidth="2.2" strokeLinejoin="round"/>
-                    <g fill="#b9563d" stroke="#fff6ec" strokeWidth="1.2"><circle cx="120" cy="137" r="4"/><circle cx="153" cy="94" r="4"/><circle cx="222" cy="117" r="4"/><circle cx="187" cy="171" r="4"/><circle cx="155" cy="199" r="4"/><circle cx="105" cy="170" r="4"/></g>
-                    <circle cx="177" cy="126" r="13" fill="#245d70" stroke="#fff8ed" strokeWidth="3" />
-                    <text x="177" y="132" fontSize="15" textAnchor="middle" fill="white">★</text>
-                  </svg>
-                </div>
-                <div className="relative -mt-3 mx-auto w-fit max-w-full rounded-full border border-[#e1d6c9] bg-white px-5 py-2 text-center text-sm font-semibold text-[#245d70] shadow-sm">Your business here</div>
+      <section className="relative isolate overflow-hidden bg-[#f7eddf]">
+        <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${hillCountryHero})` }} />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#fff8ed]/95 via-[#fff8ed]/70 to-[#fff8ed]/10" />
+        <Container width="wide" className="relative py-12 sm:py-20 lg:py-24">
+          <div className="grid min-h-[570px] items-center gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+            <div className="relative z-10 min-w-0">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#b43b1a]">One Texas. Everything Connected.</p>
+              <h1 className="mt-7 max-w-[760px] font-display text-[clamp(2.8rem,5.1vw,6rem)] font-bold leading-[1.01] tracking-tight text-[#0a2242]">Put Your Business <span className="block">on the <span className="text-[#b53e20]">Texas Map</span></span></h1>
+              <p className="mt-7 max-w-[650px] text-lg leading-8 text-[#24354a] sm:text-xl">Join a growing community of Texas businesses. Get discovered by local customers, build your reputation, and be part of a stronger, more connected Texas.</p>
+              <form role="search" onSubmit={(event) => { event.preventDefault(); document.getElementById("membership")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-8 flex max-w-[690px] items-center gap-2 rounded-full bg-white/95 p-2 shadow-lg">
+                <label className="sr-only" htmlFor="network-search-preview">Search Texas Defined</label>
+                <input id="network-search-preview" type="search" placeholder="Search for businesses, categories, or cities..." className="min-w-0 flex-1 rounded-full bg-transparent px-4 py-3 text-sm text-[#12304e] outline-none sm:text-base" />
+                <button type="submit" className="rounded-full bg-[#b53e20] px-7 py-3 font-semibold text-white">Explore</button>
+              </form>
+              <p className="mt-3 text-xs text-[#31485b]">Search is a visual preview; business submissions are not open.</p>
+              <div className="mt-10 grid max-w-[680px] grid-cols-2 gap-4 text-center text-sm font-medium text-[#0a2242] sm:grid-cols-4">
+                {[
+                  ["⌕","Discover","Local Businesses"],
+                  ["♟","Support","Texas Communities"],
+                  ["★","Shop Local","Keep Texas Strong"],
+                  ["✦","From Small Towns","to Big Cities"],
+                ].map(([icon, heading, sub]) => <div key={heading}><span aria-hidden="true" className="mx-auto mb-2 flex h-11 w-11 items-center justify-center rounded-full bg-[#fbdcb2] text-2xl text-[#ac4525]">{icon}</span><strong className="block">{heading}</strong><span className="text-xs">{sub}</span></div>)}
               </div>
+            </div>
+            <div className="relative mx-auto flex w-full max-w-[680px] items-center justify-center" aria-label="Texas map illustrating network locations">
+              <svg viewBox="0 0 280 260" className="h-auto w-full drop-shadow-2xl" role="img" aria-label="Texas state map with business discovery locations">
+                <defs><linearGradient id="network-texas-fill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#e7a46a"/><stop offset=".48" stopColor="#b2aa65"/><stop offset="1" stopColor="#237b70"/></linearGradient></defs>
+                <path d="M7 119 L14 121 L21 127 L27 131 L35 145 L42 156 L50 166 L55 168 L66 171 L75 181 L80 183 L89 181 L99 179 L107 180 L120 181 L125 180 L132 192 L142 206 L153 215 L158 226 L168 239 L175 243 L186 249 L192 252 L197 250 L195 239 L193 224 L197 209 L211 200 L223 189 L237 180 L246 173 L265 165 L265 157 L268 150 L266 142 L269 133 L263 125 L260 115 L259 106 L259 78 L251 76 L244 78 L239 72 L232 71 L226 69 L220 71 L212 72 L204 72 L198 74 L191 70 L183 68 L176 64 L168 64 L160 62 L150 59 L140 55 L140 11 L80 11 L80 113 L10 113 Z" fill="url(#network-texas-fill)" stroke="#fff" strokeWidth="2.5" strokeLinejoin="round"/>
+                <g fill="#b53e20" stroke="white" strokeWidth="1.4"><circle cx="117" cy="145" r="5"/><circle cx="164" cy="104" r="5"/><circle cx="225" cy="139" r="5"/><circle cx="185" cy="169" r="5"/><circle cx="141" cy="194" r="5"/><circle cx="94" cy="153" r="5"/></g>
+                <circle cx="175" cy="130" r="12" fill="#145571" stroke="white" strokeWidth="2.5"/><text x="175" y="135" textAnchor="middle" fontSize="14" fill="white">★</text>
+              </svg>
+              <div className="absolute bottom-[24%] right-[16%] rounded-full bg-white px-4 py-2 text-xs font-bold text-[#0a2242] shadow-xl">Your business here</div>
             </div>
           </div>
         </Container>
