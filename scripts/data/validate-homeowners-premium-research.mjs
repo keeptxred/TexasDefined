@@ -8,8 +8,15 @@ assert.deepEqual(years.map(x=>x.year),Array.from({length:10},(_,i)=>2016+i));
 assert.equal(years.filter(x=>x.preliminary).length,1);
 assert.equal(years.at(-1).preliminary,true);
 for(const row of years){assert.ok(Number.isFinite(row.average_annual_premium_usd)&&row.average_annual_premium_usd>0);assert.ok(Number.isFinite(row.average_coverage_usd)&&row.average_coverage_usd>0)}
-assert.equal(years.find(x=>x.year===2023).average_annual_premium_usd,2795);
-assert.equal(years.at(-1).average_annual_premium_usd,3489);
+// Anchor every published chart value to the primary TDI source, so matching edits
+// to JSON and CSV cannot silently alter the original statewide figures.
+// Source: https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+const tdiAnnualPremiums = [1791, 1860, 1916, 1961, 1987, 2124, 2374, 2795, 3291, 3489];
+const tdiAverageCoverage = [252000, 262300, 275700, 287900, 294900, 317200, 354300, 387200, 408500, 432800];
+years.forEach((row, i) => {
+  assert.equal(row.average_annual_premium_usd, tdiAnnualPremiums[i], `TDI premium chart mismatch in ${row.year}`);
+  assert.equal(row.average_coverage_usd, tdiAverageCoverage[i], `TDI coverage chart mismatch in ${row.year}`);
+});
 assert.equal(csv.length,11,'CSV should have header and ten data rows');
 const header=csv[0].split(',');
 const ix=Object.fromEntries(header.map((x,i)=>[x,i]));
