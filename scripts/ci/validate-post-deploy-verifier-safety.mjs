@@ -152,6 +152,45 @@ for (const name of livePrSmoke) {
     failures.push(`${name} must not execute production probes on PRs`);
   }
 }
+// Cloudflare's path-filtered main push must wait for the exact source commit;
+// successful checks on an earlier Worker are not certification of this push.
+const cloudflareSmoke = workflow('cloudflare-production-smoke');
+for (const marker of [
+  '  statuses: read',
+  'Wait for exact SHA protected production deployment',
+  'PRODUCTION_COMMIT_SHA: ${{ github.sha }}',
+  'node scripts/ci/wait-for-protected-production.mjs',
+  "if: ${{ github.event_name == 'push' }}",
+]) requireMarker(cloudflareSmoke, marker, `Cloudflare smoke exact-commit gate missing: ${marker}`);
+const cloudflareGateIndex = cloudflareSmoke.indexOf('Wait for exact SHA protected production deployment');
+const cloudflareLiveIndex = cloudflareSmoke.indexOf('Verify Cloudflare Workers, public DNS and production AI binding');
+if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
+  failures.push('Cloudflare smoke must complete the protected deploy gate before live probes');
+
+// Browser verifier scripts for editorial and football must match the deploy
+// which triggered them, not whichever commit has since become default main.
+for (const name of ['verify-katy-browser','verify-abbott-browser','verify-wills-point-browser','verify-ysleta-museum-browser']) {
+  const source = workflow(name);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must only run live after successful deployment`);
+  requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out deployed source SHA`);
+  if (source.includes('Check out current repository')) failures.push(`${name} must not use moving main as verifier source`);
+}
+
+// Match post-deploy Events and museum verifier source to the triggering revision.
+const eventCompletion = workflow('verify-event-system-completion');
+const deployedRef = 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}';
+if (eventCompletion.split(deployedRef).length - 1 < 2)
+  failures.push('Both Events completion jobs must check out the deployed SHA');
+requireMarker(eventCompletion, "github.event.workflow_run.conclusion == 'success'", 'Events live checks require a successful deployment');
+const zapata = workflow('verify-zapata-museum-production');
+requireMarker(zapata, "github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'", 'Zapata live acceptance must be gated on deployment success');
+requireMarker(zapata, deployedRef, 'Zapata live verifier must check out the deployed SHA');
+if (zapata.slice(zapata.indexOf('  museum:')).includes("github.event.workflow_run.conclusion == 'failure'"))
+  failures.push('Zapata live acceptance must not execute after failed deployment');
+
+const linkGraph = workflow('audit-internal-link-graph-production');
+requireMarker(linkGraph, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Post-deploy internal-link graph audit must check out triggering SHA');
+requireMarker(linkGraph, "github.event.workflow_run.conclusion == 'success'", 'Internal-link graph audit requires successful deploy');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
