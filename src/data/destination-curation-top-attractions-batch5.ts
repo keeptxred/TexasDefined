@@ -96,7 +96,7 @@ const curated: Record<string, TopAttractionExpansion> = {
       ),
       sideTrips: items(
         ["Enchanted Rock State Natural Area", "About 18 miles north", "Climb the granite dome or use shorter trails for a landscape-focused half day.", "/destination/enchanted-rock-state-natural-area"],
-        ["Lyndon B. Johnson State Park and Historic Site", "About 18 miles east", "The LBJ ranch corridor and Sauer-Beckmann living history connect Fredericksburg with twentieth-century Texas history.", "/destination/lyndon-b-johnson-state-park-and-historic-site"],
+        ["Lyndon B. Johnson State Park and Historic Site", "About 18 miles east", "The LBJ ranch corridor and Sauer-Beckmann living history connect Fredericksburg with twentieth-century Texas history.", "/destination/lyndon-b-johnson-state-park-historic-site"],
         ["Luckenbach", "About 13 miles south-east", "Music and a tiny historic settlement add an easy Hill Country evening stop."],
         ["Highway 290 wine corridor", "East toward Stonewall", "Wineries and vineyards can fill a separate adult-focused day without leaving Gillespie County."]
       ),
