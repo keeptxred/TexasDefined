@@ -25,17 +25,9 @@ export async function setNetworkApplicationReview(accessKey: string, id: string,
   return data;
 }
 
+/** Keep the legacy action safe: a published status must always have a real listing. */
 export async function publishReviewedNetworkApplication(accessKey: string, id: string) {
-  await assertSportsPartnerAccess(accessKey);
-  const { data: current, error: readError } = await supabaseAdmin.from('texasdefined_network_applications')
-    .select('id,plan,status,paid_entitlement_active').eq('id', id).single();
-  if (readError || !current || current.status !== 'approved') throw new Error('Approve the application before publishing.');
-  if (current.plan === 'plus' && !current.paid_entitlement_active) throw new Error('Verified Plus subscription payment is required before publication.');
-  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications')
-    .update({status:'published',updated_at:new Date().toISOString()} as never)
-    .eq('id', id).eq('status','approved').select('id,status').single();
-  if (error || !data) throw new Error('Could not publish this listing.');
-  return { id, status: 'published', url: '/network/business/' + id };
+  return publishApprovedNetworkListing(accessKey, id);
 }
 
 export async function listNetworkRevisions(accessKey:string) {
