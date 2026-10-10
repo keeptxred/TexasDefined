@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-004-20261010",
     "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "austin-lasa",
-    "nextSchool": "austin-lasa",
-    "implementedOnBranch": 14,
-    "remainingToImplement": 11,
+    "currentSchool": "avalon",
+    "nextSchool": "avalon",
+    "implementedOnBranch": 21,
+    "remainingToImplement": 4,
     "remainingToVerify": 25,
-    "notes": "14 separate program profiles and school-specific research dossiers implemented in draft; eleven unreviewed, all 25 await protected production acceptance."
+    "notes": "21 individual editorial/dossier implementations on draft. 4 schools Avalon/Axtell/Azle/Baird still NOT_REVIEWED. All 25 await full school-specific acceptance."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4581,8 +4581,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lasa",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-lasa.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:austin-mccallum",
@@ -4595,8 +4604,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-mccallum",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-mccallum.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:austin-navarro",
@@ -4609,8 +4627,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-navarro",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-navarro.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:austin-northeast",
@@ -4623,8 +4650,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-northeast",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-northeast.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:austin-travis",
@@ -4637,8 +4673,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-travis",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-travis.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:austin-vandegrift",
@@ -4651,8 +4696,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-vandegrift.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:austin-westlake",
@@ -4665,8 +4719,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-westlake",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-westlake.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ]
     },
     {
       "id": "uil:avalon",
