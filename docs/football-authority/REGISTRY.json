@@ -12,62 +12,48 @@
     "total": 1292
   },
   "batch": {
-    "number": 4,
+    "number": 5,
     "slugs": [
-      "arp",
-      "aspermont",
-      "athens",
-      "atlanta",
-      "aubrey",
-      "austin",
-      "austin-achieve",
-      "austin-akins",
-      "austin-anderson",
-      "austin-bowie",
-      "austin-crockett",
-      "austin-eastside",
-      "austin-johnson",
-      "austin-lake-travis",
-      "austin-lasa",
-      "austin-mccallum",
-      "austin-navarro",
-      "austin-northeast",
-      "austin-travis",
-      "austin-vandegrift",
-      "austin-westlake",
-      "avalon",
-      "axtell",
-      "azle",
-      "baird"
+      "ballinger",
+      "balmorhea",
+      "bandera",
+      "bangs",
+      "banquete",
+      "barksdale-nueces-canyon",
+      "bartlett",
+      "bastrop",
+      "bastrop-cedar-creek",
+      "bay-city",
+      "baytown-goose-creek-memorial",
+      "baytown-lee",
+      "baytown-sterling",
+      "beaumont-united",
+      "beaumont-west-brook",
+      "beckville",
+      "beeville-jones",
+      "bells",
+      "bellville",
+      "belton",
+      "ben-bolt-palito-blanco",
+      "benavides",
+      "benjamin",
+      "big-lake-reagan-co",
+      "big-sandy"
     ],
-    "state": "VERIFIED_BATCH_004_COMPLETE",
+    "state": "ASSIGNED_RESEARCH_IN_PROGRESS",
     "dateAssigned": "2026-10-10",
-    "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "football-authority-batch-004-20261010",
-    "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
+    "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing canonical schoolRecords order after verified Batch 004; protect 80 previous VERIFIED.",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-005-20261010",
+    "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "Final source-corrected deployed production acceptance: PR #4562 merged at 97c9571a3b7457d547430d7a63d6debd1144a7d6; deployment run 38065702334 SUCCESS; dedicated Chrome run 38066125917 PASS 72/72, 50 school viewports + 20 county viewports + 2 Austin city viewports, 25/25 sitemap, 0 errors, artifact 11674878954. Six previous source defects repaired and verified on live pages; original 55 VERIFIED preserved. Historical/photo rights/event logistics remain source-qualified.",
-    "verifiedAt": "2026-10-10T16:06:47.438Z",
-    "mergedPr": 4540,
-    "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-    "deploymentRunId": 38065702334,
-    "productionBrowserRunId": 38066125917,
-    "screenshotArtifactId": 11674878954,
-    "testedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
-    "schoolViewportPassed": 50,
-    "countyViewportPassed": 20,
-    "cityViewportPassed": 2,
-    "sitemapPassed": 25,
-    "failedChecks": 0,
-    "correctionPr": 4562,
-    "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6"
+    "nextSchool": "barksdale-nueces-canyon",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
+    "remainingToVerify": 25,
+    "notes": "First five independently sourced editorial authority records, identities, protected campus county links and audit dossiers IMPLEMENTED on working branch; 20 unstarted. Zero Batch005 production verified, 80 prior verified preserved. Next barksdale-nueces-canyon."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5575,8 +5561,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ballinger",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/ballinger.md",
+      "officialSchoolUrl": "https://bhs.ballingerisd.net/",
+      "officialAthleticsUrl": "https://www.ballingerisd.net/apps/news/",
+      "county": "Runnels County",
+      "schoolDistrict": "Ballinger ISD",
+      "mascot": "Bearcats",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P648",
+        "https://www.ballingerisd.net/apps/news/",
+        "https://bhs.ballingerisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/runnels"
+      ],
+      "outboundCountyPath": "/county/runnels",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:balmorhea",
@@ -5589,8 +5601,34 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/balmorhea",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/balmorhea.md",
+      "officialSchoolUrl": "https://www.bisdbears.esc18.net/football",
+      "officialAthleticsUrl": "https://www.bisdbears.esc18.net/football",
+      "county": "Reeves County",
+      "schoolDistrict": "Balmorhea ISD",
+      "mascot": "Bears",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P46",
+        "https://www.bisdbears.esc18.net/football",
+        "https://www.bisdbears.esc18.net/football"
+      ],
+      "inboundLinks": [
+        "/county/reeves"
+      ],
+      "outboundCountyPath": "/county/reeves",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:bandera",
@@ -5603,8 +5641,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bandera",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bandera.md",
+      "officialSchoolUrl": "https://www.banderaisd.net/",
+      "officialAthleticsUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "county": "Bandera County",
+      "schoolDistrict": "Bandera ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P272",
+        "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+        "https://www.banderaisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/bandera"
+      ],
+      "outboundCountyPath": "/county/bandera",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:bangs",
@@ -5617,8 +5681,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bangs",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bangs.md",
+      "officialSchoolUrl": "https://www.bangsisd.net/",
+      "officialAthleticsUrl": "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+      "county": "Brown County",
+      "schoolDistrict": "Bangs ISD",
+      "mascot": "Dragons",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P264",
+        "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+        "https://www.bangsisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/brown"
+      ],
+      "outboundCountyPath": "/county/brown",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:banquete",
@@ -5631,8 +5721,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/banquete",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/banquete.md",
+      "officialSchoolUrl": "https://bhs.banqueteisd.net/",
+      "officialAthleticsUrl": "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+      "county": "Nueces County",
+      "schoolDistrict": "Banquete ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://www.banqueteisd.net/departments/athletics",
+        "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+        "https://bhs.banqueteisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/nueces"
+      ],
+      "outboundCountyPath": "/county/nueces",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:barksdale-nueces-canyon",
@@ -5646,7 +5762,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/barksdale-nueces-canyon",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bartlett",
@@ -5660,7 +5776,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bartlett",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bastrop",
@@ -5674,7 +5790,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bastrop-cedar-creek",
@@ -5688,7 +5804,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop-cedar-creek",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bay-city",
@@ -5702,7 +5818,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bay-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:baytown-goose-creek-memorial",
@@ -5716,7 +5832,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-goose-creek-memorial",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:baytown-lee",
@@ -5730,7 +5846,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-lee",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:baytown-sterling",
@@ -5744,7 +5860,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-sterling",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beaumont-united",
@@ -5758,7 +5874,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-united",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beaumont-west-brook",
@@ -5772,7 +5888,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-west-brook",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beckville",
@@ -5786,7 +5902,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beckville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beeville-jones",
@@ -5800,7 +5916,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beeville-jones",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bells",
@@ -5814,7 +5930,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bells",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bellville",
@@ -5828,7 +5944,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bellville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:belton",
@@ -5842,7 +5958,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/belton",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:ben-bolt-palito-blanco",
@@ -5856,7 +5972,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ben-bolt-palito-blanco",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:benavides",
@@ -5870,7 +5986,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benavides",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:benjamin",
@@ -5884,7 +6000,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benjamin",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:big-lake-reagan-co",
@@ -5898,7 +6014,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-lake-reagan-co",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:big-sandy",
@@ -5912,7 +6028,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-sandy",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:big-sandy-harmony",
