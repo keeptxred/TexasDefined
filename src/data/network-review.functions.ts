@@ -51,3 +51,10 @@ export const provisionNetworkOwner = createServerFn({method:'POST'})
   const {provisionReviewedNetworkOwner}=await import('@/data/network-review.server');
   return provisionReviewedNetworkOwner(data.accessKey,data.applicationId,data.userId,data.ownershipVerified,data.verificationMethod,data.evidenceReference,data.reviewerLabel);
  });
+
+export const previewNetworkDraftCleanup=createServerFn({method:'POST'})
+ .inputValidator(z.object({accessKey:z.string().min(32).max(200)}))
+ .handler(async({data})=>{
+  const {previewNetworkOrphanDrafts}=await import('@/data/network-review.server');
+  return previewNetworkOrphanDrafts(data.accessKey);
+ });

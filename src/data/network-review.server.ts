@@ -243,3 +243,15 @@ export async function provisionReviewedNetworkOwner(
  if(typeof record.id!=='string'||record.access_enabled!==true)throw Error('Verified owner provisioning incomplete');
  return {id:record.id,access_enabled:true,alreadyEnabled:record.alreadyEnabled===true};
 }
+
+/** Preview-only orphan candidate list. No Storage API delete is authorized here. */
+export async function previewNetworkOrphanDrafts(accessKey:string){
+ await assertNetworkAdminAccess(accessKey);
+ const {data,error}=await supabaseAdmin.rpc('list_texasdefined_network_orphan_drafts',{
+  p_min_age_days:45,p_limit:100
+ });
+ if(error)throw Error('Unable to prepare safe draft-retention inventory');
+ return (data||[]).map(row=>({
+  path:String(row.path),uploaded_at:String(row.uploaded_at)
+ }));
+}

@@ -100,3 +100,7 @@ The Featured RLS policies use `texasdefined_network_internal.network_featured_up
 
 ## Directory visibility and main landmarks
 Before launch, `NETWORK_DIRECTORY_ENABLED` is absent/OFF: public directory shows a preview-only empty state and individual business profiles are not publicly served. Enable only after separate launch approval and independent public-listing RLS, SEO and editorial review; account for already published paying listings when suspending discovery. The global site shell owns the single `<main>`; Network route components use ordinary `<div>` wrappers. Review the 18 mobile/desktop Chrome QA results for horizontal overflow, hydration and image/accessibility issues.
+
+
+## Read-only stale draft inventory
+Authenticated Network administrators can click **Preview 45-day unused draft candidates** to inspect up to 100 possible orphan objects. The server always uses the service-role-only read-only RPC and enforces the dedicated Network admin key. Candidate selection excludes any revision/public-listing references and drafts younger than 45 days. This is **not deletion approval**. Confirm the retention policy, client disclosures, preservation of images for disputes, and a concurrency-safe Storage API deletion procedure before scheduling any cleanup.
