@@ -1,14 +1,9 @@
 name: Chappell Hill production renderer smoke
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - .github/workflows/chappell-hill-production-smoke.yml
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/chappell-hill-production-smoke.yml
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +11,7 @@ permissions:
 
 jobs:
   verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
