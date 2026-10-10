@@ -58,6 +58,113 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington-bowie": {
+    "slug": "arlington-bowie",
+    "theme": {
+      "accentHex": "#D46A2D",
+      "label": "Arlington Bowie official orange and blue identity; original editorial accent, no school seal"
+    },
+    "seo": {
+      "title": "Arlington Bowie Volunteers Football: Crossing the Line Tradition & 2026",
+      "description": "Arlington Bowie Volunteers football authority: school-founded Crossing the Line tradition, coach Joseph Sam, 2024 undefeated district record and current Arlington ISD resources."
+    },
+    "coach": {
+      "name": "Joseph Sam",
+      "title": "Head football coach and athletics coordinator in current official Bowie High directory",
+      "sourceUrl": "https://www.aisd.net/bowie-high-school/athletics/",
+      "sourceLabel": "Official Bowie High School athletics staff directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "2101 Highbank Drive, Arlington, TX 76018",
+      "phone": "682-867-4400",
+      "sourceUrl": "https://www.aisd.net/bowie-high-school/about/",
+      "sourceLabel": "Official Bowie school history and campus contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Bowie Volunteers official athletic schedules and visitor links",
+      "sourceUrl": "https://www.aisd.net/bowie-high-school/athletics/",
+      "sourceLabel": "School athletics directory links to Bowie athletic schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Wilemon Field (historical team listing)",
+      "address": "Arlington, Texas — game-specific assigned venue and spectator entry require Arlington ISD confirmation",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=arlington-bowie-volunteers",
+      "sourceLabel": "DCTF football team stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists Wilemon Field with 8,500 historical capacity. Neither count nor Bowie High's campus address establish the stadium's present ADA gate, tickets, bag policy or which venue a particular fixture uses."
+    },
+    "overview": [
+      "Arlington Bowie High School's nickname, the Volunteers, has a school-authored identity unlike any other Arlington ISD program. The school's official history says 'Crossing the Line' began in 1974 under athletic director and head coach Jerry Griffin, drawing on a narrative of the Alamo and James Bowie. This is a documented school tradition, not a fabricated postgame ritual.",
+      "Bowie's official school identity is blue, orange and white, and its fight song directly references those colors and the Volunteers. School tradition should remain separate from the historical facts of the Alamo legend on which the ceremony is based.",
+      "The official school athletics staff directory names Joseph Sam head football coach and athletics coordinator. The independent MaxPreps program history associates Sam with both the 2024 8–4 and 2025 8–3 varsity football seasons, a meaningful period of continuity.",
+      "MaxPreps records a 7–0 district mark in both the 2024 and 2025 regular-season standings. In 2024, Bowie beat Arlington High 48–21 and Arlington Martin 34–24 in district, defeated Dallas Jesuit 56–42 in a postseason game and fell to Hebron 35–51 in its next playoff game. These are documented district and playoff accomplishments, not football state championships.",
+      "Dave Campbell's historical Bowie record lists 18 playoff appearances and no state football finals or titles. The current 2026 6A schedule includes Arlington Lamar, Arlington High, Martin, Sam Houston and Aledo; shared district membership alone is not evidence of a historic all-time rivalry result.",
+      "A current 2026 score source reports Bowie defeating Arlington Lamar 29–23 and Granbury 41–35 after losses to Prosper Rock Hill and South Grand Prairie. By contrast, Dave Campbell's public scoreboard snapshot has only the two opening losses, so an outdated 0–2 display should not be treated as the team's present full season record.",
+      "DCTF identifies Wilemon Field as a historical team venue. Match-specific official Arlington ISD athletics/ticketing instructions take priority over mailing addresses or unofficial parking information for spectators."
+    ],
+    "milestones": [
+      {
+        "date": "1974",
+        "title": "Crossing the Line begins",
+        "body": "Bowie High's official history credits football coach/athletic director Jerry Griffin with beginning the Volunteers' signature school tradition.",
+        "sourceUrl": "https://www.aisd.net/bowie-high-school/about/",
+        "sourceLabel": "Official Bowie High history"
+      },
+      {
+        "date": "2024",
+        "title": "Undefeated seven-game district schedule",
+        "body": "MaxPreps records Bowie going 7–0 in district while finishing 8–4 overall, including a 48–21 win over Arlington High.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/24-25/schedule/",
+        "sourceLabel": "2024 Bowie game-by-game record"
+      },
+      {
+        "date": "Nov. 2024",
+        "title": "Playoff win over Dallas Jesuit",
+        "body": "The Volunteers won 56–42 over Dallas Jesuit before Hebron eliminated Bowie 51–35.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/24-25/schedule/",
+        "sourceLabel": "2024 postseason finals"
+      },
+      {
+        "date": "2025",
+        "title": "Another 8–3 football season",
+        "body": "Independent team results show 8–3 overall and a 7–0 district mark for 2025 under head coach Joseph Sam.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/history/",
+        "sourceLabel": "MaxPreps 2025 seasons"
+      },
+      {
+        "date": "2026",
+        "title": "Current official Joseph Sam staff listing",
+        "body": "The campus athletics page names Joseph Sam as head coach and coordinator; exact game arrangements remain in live school athletic schedules.",
+        "sourceUrl": "https://www.aisd.net/bowie-high-school/athletics/",
+        "sourceLabel": "Bowie High official athletics"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What does the Volunteers name mean at Arlington Bowie?",
+        "answer": "The school connects the Volunteers to James Bowie and the Alamo story. Its official history says Jerry Griffin established the 'Crossing the Line' school tradition in 1974."
+      },
+      {
+        "question": "What colors does Bowie High use?",
+        "answer": "The school's official history lists blue, orange and white."
+      },
+      {
+        "question": "Who coaches Bowie football?",
+        "answer": "The current campus athletics directory identifies Joseph Sam as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Did Bowie win a state football championship in 2024?",
+        "answer": "No. Bowie finished 8–4, won all seven recorded district games, defeated Dallas Jesuit in a playoff game and lost to Hebron in the next round."
+      },
+      {
+        "question": "Where should visiting fans confirm football stadium tickets?",
+        "answer": "Use Bowie's official Arlington ISD athletics schedule and the specific game listing. Historical Wilemon Field capacity is not an official accessible entrance or parking guide."
+      }
+    ]
+  },
   "arlington": {
     "slug": "arlington",
     "theme": {
