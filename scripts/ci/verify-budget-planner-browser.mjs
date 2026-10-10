@@ -36,7 +36,8 @@ async function fillIncome(page, amount) {
     summary: document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent,
     scriptUrls: [...document.scripts].map(s => s.src).filter(Boolean).slice(-8),
     loadedScripts: performance.getEntriesByType('resource').filter(r => /\.js(?:\?|$)/.test(r.name)).length,
-    reactInputProps: Object.keys(document.querySelector('input[type="number"]') || {}).filter(k => k.startsWith('__reactProps
+    reactInputProps: Object.keys(document.querySelector('input[type="number"]') || {}).some(k => k.startsWith('__reactProps')),
+    reactInputFiber: Object.keys(document.querySelector('input[type="number"]') || {}).some(k => k.startsWith('__reactFiber')),
   }));
   throw new Error('Income edit did not update live totals; hydration diagnostics: ' + JSON.stringify(diagnostic));
 }
