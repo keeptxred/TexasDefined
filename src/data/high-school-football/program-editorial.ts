@@ -58,6 +58,183 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington-martin": {
+    "slug": "arlington-martin",
+    "theme": {
+      "accentHex": "#A22D32",
+      "label": "Original Martin red/black/silver editorial palette, no use of school trademarked marks"
+    },
+    "seo": {
+      "title": "Arlington Martin Warriors Football: 2026 Start, Chad Rives & History",
+      "description": "Arlington Martin Warriors football history: 2026 5–0 start, coach Chad Rives, 18-year playoff streak, 2024 rebuild, school identity and official 2026 tickets."
+    },
+    "coach": {
+      "name": "Chad Rives",
+      "title": "Head football coach and athletics coordinator according to official Martin High staff",
+      "sourceUrl": "https://www.aisd.net/martin-high-school/campus-staff/chad-rives/",
+      "sourceLabel": "Official Arlington Martin head football coach profile",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "4501 W. Pleasant Ridge Road, Arlington, TX 76016",
+      "phone": "682-867-8600",
+      "sourceUrl": "https://www.aisd.net/martin-high-school/athletics/",
+      "sourceLabel": "Arlington Martin official athletics contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Arlington ISD 2026–27 Martin varsity football schedule and tickets",
+      "sourceUrl": "https://www.aisd.net/district/departments/administration/athletics",
+      "sourceLabel": "Arlington ISD official schedules and GoFan ticket policy",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "5–0 in five verified DCTF completed games through September 25, 2026; Oct. 9 result not included",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+      "sourceLabel": "DCTF posted 2026 Martin scored fixtures",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Mansfield",
+          "site": "Away",
+          "result": "W 38–35"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Flower Mound Marcus",
+          "site": "Home",
+          "result": "W 22–17"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Crowley",
+          "site": "Home",
+          "result": "W 38–21"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Weatherford",
+          "site": "Home",
+          "district": true,
+          "result": "W 60–17"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Aledo",
+          "site": "Away",
+          "district": true,
+          "result": "W 35–21"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Arlington Sam Houston",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Arlington Bowie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Arlington Lamar",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Arlington High",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Granbury",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Glaspie Field (historic directory listing)",
+      "address": "Arlington, Texas — use event-specific Arlington ISD match venue",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+      "sourceLabel": "DCTF listed Martin football stadium",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF renders 'capacity 10', an obviously incomplete or implausible stadium figure, so TexasDefined deliberately withholds any capacity claim. Arlington ISD currently sells tickets through GoFan; official specific venue, ADA entry, parking and gates must be checked per event."
+    },
+    "overview": [
+      "The Arlington Martin Warriors are a distinct Arlington ISD Class 6A football program. School leadership confirmed that the Warriors name remains, while the school retired its former Native American headdress imagery in 2020; TexasDefined does not reproduce the discontinued image, school seal or 'Rockin’ M' trademark.",
+      "Martin had built an 18-year football playoff streak and five-year district-title streak before a difficult 3–7 finish in 2024 broke both, as documented in Dave Campbell's 2025 preseason research. The team later finished 4–6 in 2025. Historical success and a rebuilding year are both part of the Warriors story.",
+      "For 2026, Martin began with five victories over Mansfield, Flower Mound Marcus, Crowley, Weatherford and Aledo, including a 60–17 district win over Weatherford and 35–21 road win at Aledo. This source-dated 5–0 start is not a final 2026 season outcome.",
+      "Martin High's official athletics roster names Chad Rives as head football coach and athletics coordinator. His team began 2026 after an 18-year playoff-run interruption, a specific school context that generic Texas football templates omit.",
+      "DCTF records 21 program playoff appearances but no UIL state football final or state championship. A long playoff streak is an impressive accomplishment, but it does not justify inventing a football state title.",
+      "The current 2026 District 3-6A schedule includes Arlington Sam Houston, Bowie, Lamar, Arlington High, Granbury, Aledo and Weatherford. These are real current opponents, not automatically established historical rivalry series.",
+      "Arlington ISD's official 2026–27 ticketing page says athletics tickets are offered online through GoFan and generally go on sale Sunday at 8 a.m. before an event. That rule is more useful than an unreliable stadium capacity number or an assumption that school-campus parking is the stadium gate."
+    ],
+    "milestones": [
+      {
+        "date": "2020",
+        "title": "Warriors preserve name but retire older headdress image",
+        "body": "The school announced its imagery transition while continuing its Warriors name and red/black/silver school identity.",
+        "sourceUrl": "https://www.aisd.net/martin-high-school/",
+        "sourceLabel": "Arlington Martin current school, separate from archived historical mascot letter"
+      },
+      {
+        "date": "2023",
+        "title": "Eight wins before the streak ended",
+        "body": "DCTF season records give Martin an 8–4 finish in 2023.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+        "sourceLabel": "DCTF Martin varsity archive"
+      },
+      {
+        "date": "2024",
+        "title": "Eighteen-year playoff streak ends",
+        "body": "DCTF reports the 3–7 campaign broke an 18-year playoff streak and five-year district title streak.",
+        "sourceUrl": "https://www.texasfootball.com/article/2025/08/11/stock-up-10-texas-high-school-football-teams-projected-to-make-the-biggest-leap-in-2025",
+        "sourceLabel": "DCTF preseason Martin 2024 retrospective"
+      },
+      {
+        "date": "2026",
+        "title": "Chad Rives remains on official staff",
+        "body": "Martin High identifies Chad Rives as head football coach and athletic coordinator.",
+        "sourceUrl": "https://www.aisd.net/martin-high-school/campus-staff/chad-rives/",
+        "sourceLabel": "Official Martin coaching profile"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "5–0 start includes Aledo road win",
+        "body": "Martin's listed fifth victory was 35–21 at Aledo, after the 60–17 Weatherford district win.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+        "sourceLabel": "2026 game ledger"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who coaches the Martin Warriors in 2026?",
+        "answer": "Arlington Martin's official school coaching page lists Chad Rives as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Did Martin win a UIL football state title?",
+        "answer": "DCTF records 21 Martin football playoff appearances and no state football championship or final."
+      },
+      {
+        "question": "What changed about Martin's school mascot?",
+        "answer": "The school retained the Warriors nickname but retired Native American headdress imagery in 2020; TexasDefined does not reproduce discontinued marks."
+      },
+      {
+        "question": "What happened to Martin's playoff streak in 2024?",
+        "answer": "A 3–7 season ended an 18-year postseason run and five-year district championship streak, according to DCTF."
+      },
+      {
+        "question": "Where can I get Martin football tickets?",
+        "answer": "Arlington ISD's 2026–27 athletics website provides Martin schedules and GoFan tickets, with game-specific arrival and accessibility details."
+      }
+    ]
+  },
   "arlington-lamar": {
     "slug": "arlington-lamar",
     "theme": {
