@@ -21,29 +21,29 @@ const benefits = [
 
 const tiers = [
   {
-    name: "Free Listing",
+    name: "Texas Defined Basic",
     price: "Free",
     frequency: "forever",
-    note: "Your own page within Texas Defined. No website required.",
-    features: ["Name and business category", "Brief description", "Phone and location or service area", "Business hours", "Website link, if you have one", "Discoverable in relevant Texas Defined searches"],
-    status: "Preview — not accepting submissions",
-    featured: true,
-  },
-  {
-    name: "Network Plus",
-    price: "Coming soon",
-    frequency: "",
-    note: "A richer home for your story and services.",
-    features: ["Everything in Free", "Expanded descriptions and sections", "Photo galleries", "Social and contact links", "Additional business information", "Basic listing insights"],
-    status: "Coming soon",
+    note: "A simple, searchable introduction to your business or organization.",
+    features: ["Name, category, and Texas community", "Brief business description", "Phone number and address or service area", "Basic business hours", "Searchable Texas Defined profile", "No prominent website or social-media buttons"],
+    status: "Preview — submissions opening soon",
     featured: false,
   },
   {
-    name: "Network Featured",
+    name: "Texas Defined Plus",
+    price: "$19.99",
+    frequency: "/ month",
+    note: "Your expanded business presence, with more ways for customers to connect.",
+    features: ["Everything in Basic", "Prominent official website link", "Social-media profile links", "Longer description and services", "Photo gallery and FAQs", "Events or special offers", "Basic listing performance statistics"],
+    status: "Coming soon — not accepting payments",
+    featured: true,
+  },
+  {
+    name: "Texas Defined Featured",
     price: "Coming soon",
     frequency: "",
-    note: "More ways to tell your story and reach new visitors.",
-    features: ["Everything in Plus", "Promotional opportunities", "Clearly labeled sponsored placements", "Optional sponsored business stories", "Expanded insights", "Additional campaign options"],
+    note: "Additional opportunities to tell your story and reach Texas visitors.",
+    features: ["Everything in Plus", "Expanded photo and content options", "Optional, clearly labeled sponsored placements", "Optional sponsored business stories", "Additional promotional opportunities", "Expanded performance insights"],
     status: "Coming soon",
     featured: false,
   },
@@ -110,7 +110,7 @@ function NetworkJoinPreview() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-primary">Network membership</p>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">Start free. Grow with Texas.</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">Every eligible organization can have a useful basic profile. Enhanced storytelling and optional promotional tools are planned for later.</p>
+            <p className="mt-4 leading-7 text-muted-foreground">Start with a basic searchable listing at no cost. A $19.99/month enhanced profile and future promotional tools are planned but not yet available.</p>
           </div>
           <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-3">
             {tiers.map((tier) => (
