@@ -227,5 +227,64 @@ for (const marker of ['GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'Date.now()', "cach
 const publication = fs.readFileSync('scripts/ci/verify-texasdefined-publication-production.mjs', 'utf8');
 for (const marker of ['GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'Date.now()', 'td_verify=', "cache: 'no-store'"])
   requireMarker(publication, marker, `Publication cache bypass regressed: ${marker}`);
+// Wave 6: retrospective Apple Springs browser acceptance must not assert
+// proposed PR content against an older deployed Worker. Preserve the fast PR
+// syntax check and the explicitly invoked production browser acceptance.
+const appleSprings = workflow('verify-football-batch-003-apple-springs');
+const appleSource = appleSprings.slice(appleSprings.indexOf('  source-syntax:'), appleSprings.indexOf('  apple-springs-chrome:'));
+const appleLive = appleSprings.slice(appleSprings.indexOf('  apple-springs-chrome:'));
+if (!appleSprings.includes('  pull_request:') || !appleSprings.includes('  workflow_dispatch:'))
+  failures.push('Apple Springs must retain PR source validation and manual live retest');
+requireMarker(appleSource, "if: ${{ github.event_name == 'pull_request' }}", 'Apple Springs PR job must be source-only');
+requireMarker(appleSource, 'node --check scripts/ci/verify-football-batch-003-apple-springs.mjs', 'Apple Springs PR syntax check missing');
+requireMarker(appleLive, "if: ${{ github.event_name == 'workflow_dispatch' }}", 'Apple Springs live browser must be manual-only, never execute on PR');
+requireMarker(appleLive, 'node scripts/ci/verify-football-batch-003-apple-springs.mjs', 'Apple Springs manual live browser check missing');
+if (appleSource.includes('node scripts/ci/verify-football-batch-003-apple-springs.mjs\n'))
+  failures.push('Apple Springs PR source job must not invoke the live browser');
+
+// Keep the 254-county source inventory on PRs but crawl the actual site only
+// after an eligible deployment (or an intentional manual production audit).
+const countyWorkflow = workflow('audit-all-editorial-production');
+requireMarker(countyWorkflow, '  pull_request:', 'County source-inventory PR coverage missing');
+const countyLive = countyWorkflow.slice(countyWorkflow.indexOf('  verify-county-production:'));
+requireMarker(countyLive, "if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}", 'County production crawl must skip undeployed PRs and failed deployments');
+if (countyLive.includes("continue-on-error: ${{ github.event_name == 'pull_request' }}"))
+  failures.push('County production must not hide a PR-triggered live crawl failure');
+
+// Wave 7: GSC priority source PRs and path-filtered main pushes must never
+// probe live production before this exact revision is safely deployed.
+const gscCohort = workflow('gsc-priority-cohort');
+requireMarker(gscCohort, '  pull_request:', 'GSC priority cohort must retain PR coverage');
+requireMarker(gscCohort, '  push:', 'GSC priority cohort must retain path-filtered push coverage');
+requireMarker(gscCohort, '  schedule:', 'GSC priority cohort must retain scheduled audit');
+requireMarker(gscCohort, '  statuses: read', 'GSC exact-SHA gate needs read-only status permission');
+const gscSource = gscCohort.slice(gscCohort.indexOf('  validate-crawl-links:'), gscCohort.indexOf('  verify-production:'));
+const gscLive = gscCohort.slice(gscCohort.indexOf('  verify-production:'));
+requireMarker(gscSource, 'node scripts/seo/validate-gsc-crawl-demand-links.mjs', 'GSC must retain source-only PR contract');
+if (gscSource.includes('node scripts/seo/check-gsc-priority-cohort.mjs')) failures.push('GSC source job must not probe live production');
+for (const marker of [
+  "if: ${{ github.event_name != 'pull_request' }}",
+  'needs: validate-crawl-links',
+  'Wait for exact SHA protected production deployment on push',
+  "if: ${{ github.event_name == 'push' }}",
+  'PRODUCTION_COMMIT_SHA: ${{ github.sha }}',
+  'node scripts/ci/wait-for-protected-production.mjs',
+  'node scripts/seo/check-gsc-priority-cohort.mjs',
+]) requireMarker(gscLive, marker, `GSC deployed cohort gate missing: ${marker}`);
+if (gscLive.indexOf('node scripts/ci/wait-for-protected-production.mjs') >= gscLive.indexOf('node scripts/seo/check-gsc-priority-cohort.mjs'))
+  failures.push('GSC priority production crawl must wait for exact-SHA deployment before probing');
+
+// Preserve the Texas river atlas source-only PR check and deployed-SHA
+// live browser contract (adapted from prior PR #4544, without stale changes).
+const texasRiver = workflow('verify-texas-river-map-browser');
+const riverPr = texasRiver.slice(texasRiver.indexOf('  syntax:'), texasRiver.indexOf('  verify:'));
+const riverLive = texasRiver.slice(texasRiver.indexOf('  verify:'));
+requireMarker(riverPr, "github.event_name == 'pull_request'", 'River atlas PR syntax-only job missing');
+requireMarker(riverPr, 'node --check scripts/ci/verify-texas-river-map-browser.mjs', 'River atlas PR source syntax check missing');
+requireMarker(riverLive, "github.event.workflow_run.conclusion == 'success'", 'River atlas live checks require successful deployment');
+requireMarker(riverLive, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'River atlas live browser must use deployed SHA');
+if (riverLive.includes("github.event_name == 'pull_request' ||"))
+  failures.push('River atlas live browser must not run against undeployed PR code');
+
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
 console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
