@@ -11,6 +11,18 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'ballinger', mascot: 'Bearcats', sourceUrl: 'https://bhs.ballingerisd.net/', sourceLabel: 'Ballinger ISD official school/athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'balmorhea', mascot: 'Bears', sourceUrl: 'https://www.bisdbears.esc18.net/football', sourceLabel: 'Balmorhea ISD official school/athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'bandera', mascot: 'Bulldogs', sourceUrl: 'https://www.banderaisd.net/', sourceLabel: 'Bandera ISD official school/athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'bangs', mascot: 'Dragons', sourceUrl: 'https://www.bangsisd.net/', sourceLabel: 'Bangs ISD official school/athletics identity', verifiedAt: '2026-10-10' },
+  { slug: 'banquete', mascot: 'Bulldogs', sourceUrl: 'https://bhs.banqueteisd.net/', sourceLabel: 'Banquete ISD official school/athletics identity', verifiedAt: '2026-10-10' },
+  {
+    slug: 'austin-johnson',
+    mascot: 'Jaguars',
+    sourceUrl: 'https://www.austinisd.org/schools/lbj',
+    sourceLabel: 'Austin ISD LBJ Early College High School identifies its Jaguars',
+    verifiedAt: '2026-10-10',
+  },
   {
     slug: 'agua-dulce',
     mascot: 'Longhorns',

@@ -4,6 +4,30 @@ const root = process.cwd();
 const read = p => readFileSync(join(root, p), 'utf8');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const editorial = read('src/data/high-school-football/program-editorial.ts');
+const profileServer = read('src/data/high-school-football/football-program-profile.server.ts');
+const identities = read('src/data/high-school-football/school-identities.ts');
+const profileContent = read('src/data/high-school-football/football-profile-content.ts');
+if (profileContent.includes('school announced a 2026 football-season cancellation')) {
+  throw new Error('A generic football notice must never fabricate a canceled varsity season');
+}
+for (const slug of ['austin-northeast','austin-vandegrift','austin-travis']) {
+  if (!profileServer.includes("'" + slug + "':")) throw new Error(slug + ': missing source-backed campus guard');
+}
+if (!profileServer.includes("countyName: 'Travis County'")) throw new Error('Travis campus county guard removed');
+// UIL's Austin Johnson program is Austin ISD's LBJ Jaguars, not the similarly
+// named Round Rock ISD campus. Keep this source-checked disambiguation guarded.
+const lbjProfile = profileServer.slice(profileServer.indexOf('const austinLbjProgram:'));
+checkLbjIdentity();
+function checkLbjIdentity() {
+  const expected = ["officialSchoolName: 'LBJ Early College High School'", "districtName: 'Austin ISD'", "countyName: 'Travis County'", "city: 'Austin'", "canonicalSlug === 'austin-johnson'"];
+  if (!expected.every(value => lbjProfile.includes(value)) || !identities.includes("slug: 'austin-johnson'")) {
+    throw new Error('Austin LBJ Jaguars primary-source identity guard missing');
+  }
+}
+const historicalBrowser = read('scripts/ci/verify-football-batch-004-browser.mjs');
+if (!historicalBrowser.includes('registry.completedBatches?.find(b => b.number === 4)') || historicalBrowser.includes('registry.batch.slugs')) {
+  throw new Error('Batch 004 production browser must read immutable completed roster after Batch 005 assignment');
+}
 const roster = ['arp','aspermont','athens','atlanta','aubrey','austin','austin-achieve','austin-akins','austin-anderson','austin-bowie','austin-crockett','austin-eastside','austin-johnson','austin-lake-travis','austin-lasa','austin-mccallum','austin-navarro','austin-northeast','austin-travis','austin-vandegrift','austin-westlake','avalon','axtell','azle','baird'];
 const problems = [];
 const check = (ok, reason) => { if (!ok) problems.push(reason); };

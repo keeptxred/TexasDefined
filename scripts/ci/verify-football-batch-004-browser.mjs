@@ -40,7 +40,12 @@ const cityRoster = [
 const cityBySchool = new Map(cityRoster.flatMap(({ city, schools }) => schools.map(slug => [slug, city])));
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json', 'utf8'));
 assert.equal(roster.length, 25);
-assert.deepEqual(registry.batch.slugs, roster.map(([slug]) => slug));
+// A new active football batch must not rewrite the immutable Batch 004 roster.
+// Prefer the completed checkpoint; fallback only for pre-archive historical runs.
+const batch004 = registry.completedBatches?.find(b => b.number === 4)
+  ?? (registry.batch?.number === 4 ? registry.batch : null);
+assert.ok(batch004, 'Completed/active Batch 004 roster missing');
+assert.deepEqual(batch004.slugs, roster.map(([slug]) => slug));
 const bySlug = new Map(registry.schoolRecords.filter(x => x.batch === 4).map(x => [x.slug, x]));
 assert.equal(bySlug.size, 25);
 await mkdir(output, { recursive: true });
@@ -48,7 +53,7 @@ await mkdir(output, { recursive: true });
 // A temporary 503 must fail acceptance rather than falsely promote profiles.
 const sitemapChecks = [];
 try {
-  const response = await fetch(origin + '/sitemap.xml?batch004_acceptance=' + Date.now(), { signal: AbortSignal.timeout(90000) });
+  const response = await fetch(origin + '/sitemap.xml', { signal: AbortSignal.timeout(90000) });
   const xml = await response.text();
   const locations = new Set([...xml.matchAll(new RegExp('<loc>\\s*([^<]+)\\s*</loc>', 'gi'))].map(match => match[1].replace(/&amp;/g, '&').trim()));
   for (const [slug] of roster) {
@@ -97,37 +102,72 @@ async function waitForReciprocalAuthority(page, slugs, timeout) {
     return requiredSlugs.every(slug => visible.has('/texas-high-school-football-teams/' + slug));
   }, { requiredSlugs: slugs }, { timeout });
 }
+// Browser acceptance should follow the exact canonical URL visitors use.
+// Per-request random query strings bypass CDN HTML caching and turn a 72-page
+// regression into avoidable simultaneous uncached Worker/DB origin traffic.
+// One retry is allowed ONLY for transient navigation/upstream failures or a
+// browser-reported missing dynamic JS chunk; never for failed factual, SEO,
+// accessibility, reciprocal-link, or hydration assertions. Both attempts
+// remain in report.json, and persistent errors always fail closed.
+const transientStatuses = new Set([502, 503, 504, 520, 521, 522, 523, 524]);
 async function visit(context, viewport, id, path, validate) {
-  const page = await context.newPage();
-  const errors = [], runtime = [];
-  page.on('pageerror', error => runtime.push(error.message));
-  let status = 0, data = null;
-  try {
-    const response = await page.goto(origin + path + '?batch004_qa=' + Date.now(), {waitUntil:'domcontentloaded', timeout:55000});
-    status = response?.status() || 0;
-    await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
-    const county = id.startsWith('county-') ? id.slice('county-'.length) : null;
-    const city = id.startsWith('city-') ? id.slice('city-'.length) : null;
-    const reciprocalSlugs = county
-      ? roster.filter(([,campusCounty]) => campusCounty === county).map(([slug]) => slug)
-      : city ? (cityRoster.find(x => x.city === city)?.schools ?? []) : null;
-    if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 45000);
-    await page.waitForTimeout(900);
-    if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 30000);
-    data = await collect(page);
-    validate(errors, data, status);
-    check(errors, !runtime.length, 'client runtime errors: '+ runtime.join(' | '));
-    await page.screenshot({path: output+'/'+viewport+'-'+id+'.png', animations:'disabled', fullPage:false, timeout:20000});
-  } catch (error) {
-    errors.push('browser failure: '+String(error?.message || error).slice(0,350));
-  } finally {
-    results.push({viewport,id,path,http:status,passed:errors.length===0,errors,
-      title:data?.title || '',h1:data?.h1 || [],canonical:data?.canonical || '',
-      sourceLinkCount:data?.links?.filter(x=>/^https?:/.test(x.href) && !x.href.startsWith(origin)).length || 0,
-      horizontalOverflow:data ? Math.max(0,data.documentWidth-data.viewportWidth):null,
-      runtimeErrors:runtime});
-    await page.close();
+  const attempts = [];
+  const canonicalPageUrl = origin + path;
+  let finalResult = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const page = await context.newPage();
+    const errors = [], runtime = [];
+    page.on('pageerror', error => runtime.push(error.message));
+    let status = 0, data = null, cacheStatus = null, cfRay = null;
+    try {
+      const response = await page.goto(canonicalPageUrl, {
+        waitUntil: 'domcontentloaded',
+        timeout: attempt === 1 ? 30000 : 45000,
+      });
+      status = response?.status() || 0;
+      cacheStatus = response?.headers()['cf-cache-status'] || null;
+      cfRay = response?.headers()['cf-ray'] || null;
+      await page.locator('h1').first().waitFor({state:'visible', timeout:25000});
+      const county = id.startsWith('county-') ? id.slice('county-'.length) : null;
+      const city = id.startsWith('city-') ? id.slice('city-'.length) : null;
+      const reciprocalSlugs = county
+        ? roster.filter(([,campusCounty]) => campusCounty === county).map(([slug]) => slug)
+        : city ? (cityRoster.find(x => x.city === city)?.schools ?? []) : null;
+      if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 45000);
+      await page.waitForTimeout(900);
+      if (reciprocalSlugs) await waitForReciprocalAuthority(page, reciprocalSlugs, 30000);
+      data = await collect(page);
+      validate(errors, data, status);
+      check(errors, !runtime.length, 'client runtime errors: '+runtime.join(' | '));
+      await page.screenshot({path:output+'/'+viewport+'-'+id+'.png',
+        animations:'disabled', fullPage:false, timeout:20000});
+    } catch (error) {
+      errors.push('browser failure: '+String(error?.message || error).slice(0,350));
+    } finally {
+      const transientNavigationFailure = errors.some(message =>
+        /^browser failure:\s*page\.goto[:\s]/i.test(message));
+      // A waitForFunction/locator timeout caused by missing content or missing
+      // reciprocal links is a substantive failure, NOT retryable navigation.
+      const transientAssetFailure = runtime.some(message =>
+        /Failed to fetch dynamically imported module/i.test(message));
+      const retry = attempt === 1 &&
+        (transientNavigationFailure || transientAssetFailure || transientStatuses.has(status));
+      attempts.push({attempt, http:status, passed:errors.length===0,
+        errors:[...errors], runtimeErrors:[...runtime], cacheStatus, cfRay,
+        retriedForTransientNetworkFailure:retry});
+      finalResult = {viewport,id,path,http:status,passed:errors.length===0,errors,
+        title:data?.title || '',h1:data?.h1 || [],canonical:data?.canonical || '',
+        sourceLinkCount:data?.links?.filter(x=>/^https?:/.test(x.href) && !x.href.startsWith(origin)).length || 0,
+        horizontalOverflow:data ? Math.max(0,data.documentWidth-data.viewportWidth):null,
+        runtimeErrors:runtime,attemptCount:attempt,attempts,cacheStatus,cfRay};
+      await page.close();
+      if (!retry) break;
+      console.warn('Retrying transient production navigation or asset failure',viewport,id,
+        JSON.stringify(attempts[0]));
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    }
   }
+  results.push(finalResult);
 }
 try {
   for (const [viewport,width,height,mobile] of [['desktop',1366,900,false],['mobile',390,844,true]]) {
@@ -152,6 +192,33 @@ try {
         check(err,d.documentWidth<=d.viewportWidth+10,'horizontal overflow '+(d.documentWidth-d.viewportWidth));
         check(err,d.brokenImages.length===0,'broken images '+d.brokenImages.join(', '));
         check(err,d.missingImageAlts.length===0,'missing image alt text');
+        // UIL labels this Austin ISD program "Austin Johnson"; name-only TEA
+        // matching previously rendered an unrelated Round Rock ISD school.
+        if (slug === 'austin-johnson') {
+          const top = d.body.slice(0, 4500);
+          check(err,d.h1.some(value => /Austin LBJ Jaguars Football/i.test(value)), 'LBJ Jaguars H1 identity mismatch');
+          check(err,/AUSTIN ISD/i.test(top), 'LBJ school district is not Austin ISD');
+          check(err,/TRAVIS COUNTY/i.test(top), 'LBJ campus county is not Travis County');
+          check(err,!/ROUND ROCK ISD|WILLIAMSON COUNTY/i.test(top), 'incorrect Johnson campus joined to LBJ');
+          check(err,d.schema.includes('LBJ Early College High School'), 'LBJ school schema identity mismatch');
+        }
+        if (['austin', 'austin-travis', 'austin-northeast', 'austin-vandegrift'].includes(slug)) {
+          const top = d.body.slice(0, 4500);
+          const district = slug === 'austin-vandegrift' ? 'LEANDER ISD' : 'AUSTIN ISD';
+          check(err,top.toUpperCase().includes(district), slug+' missing verified campus district '+district);
+          check(err,/TRAVIS COUNTY/i.test(top), slug+' campus county incorrectly attributed');
+          if (slug === 'austin-vandegrift') {
+            check(err,!/WILLIAMSON COUNTY/i.test(top), 'Vandegrift wrongly assigned district service-area county');
+          }
+          if (slug === 'austin-northeast') {
+            check(err,!/AUSTIN ACHIEVE PUBLIC SCHOOLS/i.test(top), 'Northeast matched unrelated charter district');
+          }
+        }
+        if (slug === 'austin-lake-travis') {
+          check(err,!/school announced a 2026 football-season cancellation/i.test(d.body), 'falsely invented varsity season cancellation');
+          check(err,/varsity games return to Cavalier Stadium/i.test(d.body), 'missing current sourced stadium return notice');
+          check(err,d.links.some(x => /laketravisfootball\.com\/schedules/.test(x.href)), 'missing official 2026 varsity schedule link');
+        }
       });
     }
     const countyToSlugs = new Map();
@@ -179,14 +246,15 @@ try {
     await context.close();
   }
 } finally { await browser.close(); }
+const recoveredTransientCount = results.filter(x=>x.passed && x.attemptCount>1).length;
 const fails=results.filter(x=>!x.passed);
 const sitemapFailures=sitemapChecks.filter(x=>!x.present);
 const summary={date:new Date().toISOString(),testedCommit:process.env.ACCEPTANCE_SHA || null,assigned:25,
   schoolChecks:results.filter(x=>x.id.startsWith('school-')).length,
   countyChecks:results.filter(x=>x.id.startsWith('county-')).length,
-  passedChecks:results.length-fails.length,failedChecks:fails.length,sitemapChecks,sitemapFailures,results};
+  passedChecks:results.length-fails.length,failedChecks:fails.length,recoveredTransientCount,sitemapChecks,sitemapFailures,results};
 await writeFile(output+'/report.json',JSON.stringify(summary,null,2)+'\n');
 console.log(JSON.stringify({testedCommit:summary.testedCommit,schoolChecks:summary.schoolChecks,
- countyChecks:summary.countyChecks,sitemapPassed:sitemapChecks.length-sitemapFailures.length,sitemapFailed:sitemapFailures.length,passed:summary.passedChecks,failed:summary.failedChecks,
+ countyChecks:summary.countyChecks,sitemapPassed:sitemapChecks.length-sitemapFailures.length,sitemapFailed:sitemapFailures.length,passed:summary.passedChecks,failed:summary.failedChecks,transientRetriesRecovered:recoveredTransientCount,
  failures:fails.map(x=>({viewport:x.viewport,id:x.id,errors:x.errors}))},null,2));
 if(fails.length || sitemapFailures.length) process.exitCode=1;

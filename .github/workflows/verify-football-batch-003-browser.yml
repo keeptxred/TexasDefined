@@ -1,5 +1,10 @@
 name: Verify Batch 003 football production browser
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-batch-003-browser.mjs'
+      - '.github/workflows/verify-football-batch-003-browser.yml'
   workflow_run:
     workflows:
       - Deploy TexasDefined production
@@ -13,6 +18,19 @@ concurrency:
   group: football-batch-003-production-browser
   cancel-in-progress: false
 jobs:
+  source-syntax:
+    name: Validate fixed Batch 003 roster and browser source on PR
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check scripts/ci/verify-football-batch-003-browser.mjs
+      - run: node scripts/ci/verify-football-batch-003.mjs
+
   verify:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest

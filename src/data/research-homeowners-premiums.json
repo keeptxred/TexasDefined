@@ -1,0 +1,68 @@
+{
+  "source_name": "Texas Department of Insurance — Texas Statistical Plan for Residential Risks",
+  "source_url": "https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html",
+  "last_verified": "2026-10-10",
+  "last_source_year": 2025,
+  "years": [
+    {
+      "year": 2016,
+      "average_annual_premium_usd": 1791,
+      "average_coverage_usd": 252000,
+      "preliminary": false
+    },
+    {
+      "year": 2017,
+      "average_annual_premium_usd": 1860,
+      "average_coverage_usd": 262300,
+      "preliminary": false
+    },
+    {
+      "year": 2018,
+      "average_annual_premium_usd": 1916,
+      "average_coverage_usd": 275700,
+      "preliminary": false
+    },
+    {
+      "year": 2019,
+      "average_annual_premium_usd": 1961,
+      "average_coverage_usd": 287900,
+      "preliminary": false
+    },
+    {
+      "year": 2020,
+      "average_annual_premium_usd": 1987,
+      "average_coverage_usd": 294900,
+      "preliminary": false
+    },
+    {
+      "year": 2021,
+      "average_annual_premium_usd": 2124,
+      "average_coverage_usd": 317200,
+      "preliminary": false
+    },
+    {
+      "year": 2022,
+      "average_annual_premium_usd": 2374,
+      "average_coverage_usd": 354300,
+      "preliminary": false
+    },
+    {
+      "year": 2023,
+      "average_annual_premium_usd": 2795,
+      "average_coverage_usd": 387200,
+      "preliminary": false
+    },
+    {
+      "year": 2024,
+      "average_annual_premium_usd": 3291,
+      "average_coverage_usd": 408500,
+      "preliminary": false
+    },
+    {
+      "year": 2025,
+      "average_annual_premium_usd": 3489,
+      "average_coverage_usd": 432800,
+      "preliminary": true
+    }
+  ]
+}

@@ -221,6 +221,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/start-a-business-in-texas",
   "/texas-explained",
   "/texas-data",
+  "/texas-data/research/texas-homeowners-premiums-vs-coverage",
   "/texas-data/city-county-relationships",
   "/county",
   "/property-tax-guides",
@@ -428,6 +429,7 @@ export const REDIRECT_ONLY_PATHS = [
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
+  "/texas-data/research",
   "/search",
   "/explore/search",
   "/fishing/guides/submit",

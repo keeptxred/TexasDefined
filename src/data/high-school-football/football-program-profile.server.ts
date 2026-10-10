@@ -173,10 +173,74 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   // The optional TEA/UIL name join can return Harris County because Katy ISD
   // serves both counties. Correct this individual school without changing the
   // county attribution of any other Katy ISD program or the general matcher.
+  // UIL calls Austin ISD's LBJ Jaguars "Austin Johnson" in its 2026–28
+  // alignment. A generic name-only AskTED join can instead select an unrelated
+  // Johnson campus in Round Rock ISD / Williamson County. Keep UIL's alignment
+  // and enrollment, but source this particular school identity from Austin ISD.
+  // Do not carry over unmatched TEA IDs, URLs, history or county metadata.
+  const austinLbjProgram: FootballProgramDirectoryResult = {
+    ...seed,
+    profilePath: footballProgramProfilePath(seed.schoolName),
+    ...(exactEnrollment ? {
+      uilEnrollment: exactEnrollment.enrollment,
+      uilSubmittedConference: exactEnrollment.submittedConference,
+    } : {}),
+    officialSchoolName: 'LBJ Early College High School',
+    districtName: 'Austin ISD',
+    countyName: 'Travis County',
+    city: 'Austin',
+    schoolWebsite: 'https://www.austinisd.org/schools/lbj',
+    districtWebsite: 'https://www.austinisd.org/',
+  };
+  // Additional Batch 004 campus-directory join exceptions confirmed against
+  // official district school rosters and NCES campus county, not ZIP code or ISD
+  // headquarters. Preserve UIL program alignment, discarding mismatched TEA IDs.
+  const otherCampusCorrections: Record<string, Pick<FootballProgramDirectoryResult,
+    'officialSchoolName' | 'districtName' | 'countyName' | 'city' | 'schoolWebsite' | 'districtWebsite'>> = {
+    // Batch 005 first-five primary-source campus safeguards: reject ambiguous directory joins.
+    'ballinger': { officialSchoolName: 'Ballinger High School', districtName: 'Ballinger ISD', countyName: 'Runnels County', city: 'Ballinger', schoolWebsite: 'https://bhs.ballingerisd.net/', districtWebsite: 'https://www.ballingerisd.net/' },
+    'balmorhea': { officialSchoolName: 'Balmorhea School', districtName: 'Balmorhea ISD', countyName: 'Reeves County', city: 'Balmorhea', schoolWebsite: 'https://www.bisdbears.esc18.net/football', districtWebsite: 'https://www.bisdbears.esc18.net/' },
+    'bandera': { officialSchoolName: 'Bandera High School', districtName: 'Bandera ISD', countyName: 'Bandera County', city: 'Bandera', schoolWebsite: 'https://www.banderaisd.net/', districtWebsite: 'https://www.banderaisd.net/' },
+    'bangs': { officialSchoolName: 'Bangs High School', districtName: 'Bangs ISD', countyName: 'Brown County', city: 'Bangs', schoolWebsite: 'https://www.bangsisd.net/', districtWebsite: 'https://www.bangsisd.net/' },
+    'banquete': { officialSchoolName: 'Banquete High School', districtName: 'Banquete ISD', countyName: 'Nueces County', city: 'Banquete', schoolWebsite: 'https://bhs.banqueteisd.net/', districtWebsite: 'https://www.banqueteisd.net/' },
+    'austin-northeast': {
+      officialSchoolName: 'Northeast Early College High School',
+      districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://www.austinisd.org/schools/northeast',
+      districtWebsite: 'https://www.austinisd.org/',
+    },
+    'austin-vandegrift': {
+      officialSchoolName: 'Vandegrift High School',
+      districtName: 'Leander ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://vhs.leanderisd.org/',
+      districtWebsite: 'https://www.leanderisd.org/',
+    },
+    'austin-travis': {
+      officialSchoolName: 'Travis Early College High School',
+      districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://www.austinisd.org/schools/travis',
+      districtWebsite: 'https://www.austinisd.org/',
+    },
+    austin: {
+      officialSchoolName: 'Austin High School',
+      districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://austin.austinschools.org/',
+      districtWebsite: 'https://www.austinisd.org/',
+    },
+  };
+  const primaryCampus = otherCampusCorrections[canonicalSlug];
   const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
     ? { ...matchedProgram, countyName: 'Fort Bend County' }
-    : matchedProgram;
-  const displayName = seed.schoolName;
+    : canonicalSlug === 'austin-johnson' ? austinLbjProgram
+    : primaryCampus ? {
+      ...seed, profilePath: footballProgramProfilePath(seed.schoolName),
+      ...(exactEnrollment ? {
+        uilEnrollment: exactEnrollment.enrollment,
+        uilSubmittedConference: exactEnrollment.submittedConference,
+      } : {}),
+      ...primaryCampus,
+    } : matchedProgram;
+  const displayName = canonicalSlug === 'austin-johnson' ? 'Austin LBJ' : seed.schoolName;
 
   const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null;
   const venueLinks = getVerifiedFootballVenueLinks({

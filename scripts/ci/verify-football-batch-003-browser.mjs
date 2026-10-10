@@ -40,7 +40,13 @@ const cityRoster = [
 const cityBySchool = new Map(cityRoster.flatMap(({ city, schools }) => schools.map(slug => [slug, city])));
 const registry = JSON.parse(await readFile('docs/football-authority/REGISTRY.json', 'utf8'));
 assert.equal(roster.length, 25);
-assert.deepEqual(registry.batch.slugs, roster.map(([slug]) => slug));
+// The active registry batch advances. Historical browser acceptance must use
+// the immutable Batch 003 record, not whatever batch is currently assigned.
+const batch003 = registry.batch?.number === 3
+  ? registry.batch
+  : (registry.completedBatches ?? []).find(item => item.number === 3);
+assert.ok(batch003, 'Batch 003 registry record missing');
+assert.deepEqual(batch003.slugs, roster.map(([slug]) => slug));
 const bySlug = new Map(registry.schoolRecords.filter(x => x.batch === 3).map(x => [x.slug, x]));
 assert.equal(bySlug.size, 25);
 await mkdir(output, { recursive: true });

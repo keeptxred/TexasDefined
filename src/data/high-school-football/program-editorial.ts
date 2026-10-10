@@ -58,6 +58,307 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "ballinger": {
+    "slug": "ballinger",
+    "theme": {
+      "accentHex": "#A3232B",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Ballinger Bearcats Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Ballinger Bearcats football: source-documented 1953 class 2a state runner-up, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Ballinger ISD 2026 reserved football ticket announcements",
+      "sourceUrl": "https://www.ballingerisd.net/apps/news/",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "1953 UIL state-final appearance and modern ticket guidance",
+      "body": "UIL's 1953–54 archive records the Bearcats as the Class 2A state finalist opposite Huntsville, not as state champions. Ballinger ISD's July 2026 announcement concerns reserved football tickets, while its 2025 football schedule still appears in the news archive; visitors should not mistake the older schedule for the 2026 varsity schedule or assume reserved seating covers away games.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P648",
+      "sourceLabel": "UIL historical archive, 1953–54 Class 2A final",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1953",
+        "title": "1953 Class 2A state runner-up",
+        "body": "Ballinger reached the 1953 UIL Class 2A championship game, losing to Huntsville 40–6. That season's historical Class 2A classification should not be substituted for Ballinger's separate 2026–28 Class 2A Division I District 4 alignment.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P648",
+        "sourceLabel": "UIL historical archive, 1953–54 Class 2A final"
+      }
+    ],
+    "overview": [
+      "Ballinger's football identity includes the 1953 Class 2A championship appearance, a 40–6 loss to Huntsville confirmed by the UIL. That historic classification is separate from the current 2026–28 UIL 2A Division I District 4 placement; an old final appearance should not be styled as a Bearcats state title.",
+      "The school's official site lists Ballinger High School at 2107 North Broadway, while the ISD office is separately located at 802 Conda Avenue. In July 2026 the district announced reserved football ticket sales, an actionable resource that does not establish every game's venue, gate or current ticket availability.",
+      "A first-party 2025 Bearcats football schedule remains indexed beside the district's newer 2026 reserved ticket notice. For 2026 fixtures and venue changes, fans should consult Ballinger ISD's current athletic posts rather than treat 2025 PDF dates or a third-party score feed as a 2026 schedule."
+    ],
+    "faq": [
+      {
+        "question": "Did Ballinger win the 1953 Class 2A football title?",
+        "answer": "No. UIL's historical state championship archive records Ballinger as the 1953 Class 2A runner-up; Huntsville won 40–6."
+      },
+      {
+        "question": "Where should fans find Ballinger football tickets?",
+        "answer": "Ballinger ISD published a 2026 reserved-ticket announcement and maintains current district news and ticket resources. Verify each game's venue, prices and admission rules with the district before traveling."
+      },
+      {
+        "question": "Is Ballinger's 2026 classification the same as its 1953 final?",
+        "answer": "No. The 1953 Class 2A final was under that era's UIL alignment; the 2026–28 roster independently lists Ballinger in Class 2A Division I, District 4."
+      }
+    ],
+    "campus": {
+      "address": "2107 N Broadway, Ballinger, TX 76821",
+      "phone": "325-365-3547",
+      "sourceUrl": "https://bhs.ballingerisd.net/",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "balmorhea": {
+    "slug": "balmorhea",
+    "theme": {
+      "accentHex": "#2557A5",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Balmorhea Bears Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Balmorhea Bears football: source-documented 2020 season: six-man division ii state champion, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Balmorhea ISD first-party football staff and documents",
+      "sourceUrl": "https://www.bisdbears.esc18.net/football",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A delayed championship final, and why season and game dates differ",
+      "body": "The January 5, 2021 championship was attached to the 2020 UIL football season. Balmorhea defeated Richland Springs 74–38, as both UIL's archived result and House Resolution 30 confirm. The official Balmorhea ISD football page currently identifies Abel Garcia as its head coach/athletic director, but its visible downloadable schedule and roster are labeled 2024; those 2024 documents cannot establish 2026 opponents or completed scores.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+      "sourceLabel": "UIL archived 2020–21 six-man Division II championship",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2020 season / Jan. 2021",
+        "title": "2020 season: six-man Division II state champion",
+        "body": "UIL records Balmorhea's 74–38 win over Richland Springs as the 2020–21 Class 1A Six-Man Division II title. A Texas House resolution explicitly dates the final to January 5, 2021 at San Angelo Stadium: it was the 2020-season championship, not a second 2021-season title.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL archived 2020–21 six-man Division II championship"
+      }
+    ],
+    "overview": [
+      "Balmorhea's 2020-season Class 1A Six-Man Division II championship was decided on January 5, 2021, when the Bears beat Richland Springs 74–38. This unusual calendar detail matters: the official UIL archive and the Texas House's 2021 congratulatory resolution both describe the same championship, not separate titles.",
+      "Balmorhea is a Reeves County six-man football program, listed for the 2026–28 cycle in UIL Class 1A Division II District 6. It should not be compared directly with 11-man teams' win totals, enrollments, field dimensions or playoff brackets without identifying the format.",
+      "Balmorhea ISD's official football page identifies Abel Garcia as head coach and athletic director and provides staff information, but its visible varsity schedule and roster downloads are labeled 2024. Treat them as historical documents; obtain 2026 fixtures and game-site instructions directly from the school."
+    ],
+    "faq": [
+      {
+        "question": "When did Balmorhea win its six-man title?",
+        "answer": "The Bears won the 2020 football-season Class 1A Six-Man Division II championship, playing the final on January 5, 2021 and defeating Richland Springs 74–38."
+      },
+      {
+        "question": "Does Balmorhea play six-man or eleven-man football?",
+        "answer": "The 2026–28 UIL alignment places Balmorhea in Class 1A Six-Man Division II, District 6."
+      },
+      {
+        "question": "Is the schedule on the school site the 2026 schedule?",
+        "answer": "The publicly visible documents on the school's football page are labeled 2024. Use the district's newer updates or confirm with athletics for 2026 varsity fixtures."
+      }
+    ],
+    "coach": {
+      "name": "Abel Garcia",
+      "title": "Head coach / AD listed on official school football site; confirm 2026 appointment",
+      "sourceUrl": "https://www.bisdbears.esc18.net/football",
+      "sourceLabel": "Official Balmorhea ISD football staff page",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bandera": {
+    "slug": "bandera",
+    "theme": {
+      "accentHex": "#083A6B",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Bandera Bulldogs Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Bandera Bulldogs football: source-documented 2002 class 3a division ii state championship, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Bandera ISD athletics-run 2026 varsity football schedule and staff",
+      "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "2002 two-overtime state title and current Bulldog athletics resources",
+      "body": "The UIL 2002–03 archives identify Bandera as 3A Division II champion by a 27–24 double-overtime final against Midland Greenwood. Bandera ISD's current athletics-managed football page separately offers 2026 varsity and subvarsity schedule graphics, summer program context, and lists Joel Fontenot-Amedee as athletic director/head football coach. Check the athletic department's home-ticket and stadium guidance links before a game; a calendar entry at Bulldog Stadium is not a guarantee all varsity fixtures use that venue.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+      "sourceLabel": "UIL 2002–03 3A Division II final",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2002",
+        "title": "2002 Class 3A Division II state championship",
+        "body": "Bandera won the 2002 UIL Class 3A Division II state title 27–24 over Midland Greenwood after two overtimes. The 2002 history must not be mislabeled as a current 4A Division II trophy or attributed to Bangs' nearby Class 2A championship final.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+        "sourceLabel": "UIL 2002–03 3A Division II final"
+      }
+    ],
+    "overview": [
+      "Bandera won the 2002 UIL Class 3A Division II football championship with a 27–24 double-overtime victory over Midland Greenwood. The championship belongs to that era's Class 3A structure; the Bulldogs' 2026–28 UIL placement is Class 4A Division II District 15.",
+      "The school's athletics-run site identifies Joel Fontenot-Amedee as athletic director and head coach and posts separate 2026 varsity and junior-varsity football schedule resources. These school-published materials are a stronger guide to upcoming fixtures than recycled results from past seasons.",
+      "Bandera High School's campus address is 474 Old San Antonio Highway; Bandera ISD events also identify Bulldog Stadium for specific home activities. School campus addresses, field entrances and occasional neutral or away game locations are distinct, so parking and ADA entrance details should be checked on the official athletics site per event."
+    ],
+    "faq": [
+      {
+        "question": "What football championship did Bandera win?",
+        "answer": "UIL confirms Bandera won the 2002 Class 3A Division II state championship by beating Midland Greenwood 27–24 in two overtimes."
+      },
+      {
+        "question": "Where is Bandera High School?",
+        "answer": "Bandera ISD gives the high school campus at 474 Old San Antonio Highway, Bandera, Texas. Confirm the scheduled football venue and entry route for each game with official athletics."
+      },
+      {
+        "question": "Where can fans find Bandera's 2026 football schedule?",
+        "answer": "Bandera ISD operates a Bulldogs football athletics page with 2026 varsity and subvarsity schedules and staff information."
+      }
+    ],
+    "campus": {
+      "address": "474 Old San Antonio Hwy, Bandera, TX 78003",
+      "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/home",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Joel Fontenot-Amedee",
+      "title": "Athletic director / head football coach listed by Bandera ISD",
+      "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "sourceLabel": "Bandera ISD school-operated football athletics site",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bangs": {
+    "slug": "bangs",
+    "theme": {
+      "accentHex": "#197047",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Bangs Dragons Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Bangs Dragons football: source-documented 2002 and 2003 consecutive state runner-up seasons, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Bangs ISD 2026 varsity Dragons football schedule downloads",
+      "sourceUrl": "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Two successive 2A championship-game appearances, different divisions",
+      "body": "UIL archives list the Bangs Dragons as the 2002 2A Division I state finalist and 2003 2A Division II state finalist, with different opponents and scores. The district now publishes a 2026-27 athletics schedules directory with a 2026 Dragons football PDF, rather than requiring visitors to rely on an undated third-party fixture list. Bangs High School at 305 North Third Street is separate from the district's 200 East Hall administration address.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+      "sourceLabel": "UIL 2002–03 and 2003–04 state finalists",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2002–2003",
+        "title": "2002 and 2003 consecutive state runner-up seasons",
+        "body": "Bangs reached consecutive UIL state title games: the 2002 Class 2A Division I final (33–14 loss to Corrigan-Camden) and the 2003 Class 2A Division II final (27–0 loss to Garrison). The teams were runners-up in two different divisions; neither is a state championship win.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+        "sourceLabel": "UIL 2002–03 and 2003–04 state finalists"
+      }
+    ],
+    "overview": [
+      "Bangs has a rare two-year run of UIL football state-final appearances in different Class 2A divisions: Corrigan-Camden beat the Dragons 33–14 in 2002 Division I, and Garrison beat them 27–0 in 2003 Division II. These are documented runner-up seasons, not two state titles.",
+      "For 2026–28, UIL lists Bangs as an 11-man Class 2A Division I District 7 program, distinct from the historical 2003 Division II run. The district's 2026–27 athletics page publishes a 2026 Dragons football schedule file, so future game dates should be checked against that official document.",
+      "Bangs ISD lists the high school campus at 305 North Third Street and the district office at 200 East Hall Street. Neither location alone confirms a football stadium entry gate, fan parking, disability-access route or final kickoff time; the official school schedule and event notice should be used for game planning."
+    ],
+    "faq": [
+      {
+        "question": "Did Bangs win the 2002 or 2003 football title?",
+        "answer": "No. UIL records Bangs as 2002 Class 2A Division I runner-up and 2003 Class 2A Division II runner-up."
+      },
+      {
+        "question": "Who beat Bangs in those state finals?",
+        "answer": "Corrigan-Camden beat Bangs 33–14 in the 2002 Division I final; Garrison won the 2003 Division II final 27–0."
+      },
+      {
+        "question": "Where is the official 2026 Dragons schedule?",
+        "answer": "Bangs ISD's athletics schedules directory links the 2026 Dragons varsity football schedule file. Recheck the school for later kickoff or venue changes."
+      }
+    ],
+    "campus": {
+      "address": "305 N 3rd St, Bangs, TX 76823",
+      "phone": "325-752-6822",
+      "sourceUrl": "https://www.bangsisd.net/",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "banquete": {
+    "slug": "banquete",
+    "theme": {
+      "accentHex": "#B06322",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Banquete Bulldogs Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Banquete Bulldogs football: source-documented 2026 varsity schedules published by banquete isd, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Banquete ISD's published 2026 varsity football schedule",
+      "sourceUrl": "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Separate varsity schedules, campus address and the Bulldog Stadium calendar",
+      "body": "Banquete ISD's athletics department publishes 2026 varsity football scheduling apart from its junior-high/JV schedule and confirms the Bulldogs as its athletics identity. The high school campus is listed at 5519 Highway 44, while the ISD mailing/administration address is 4339 Fourth Street. The official district event calendar identifies Bulldog Stadium for the October 23, 2026 homecoming fixture versus Monte Alto; this is a published future listing, not proof the game has been played or that tickets, parking and accessible entrances will remain unchanged.",
+      "sourceUrl": "https://www.banqueteisd.net/departments/athletics",
+      "sourceLabel": "Banquete ISD Bulldog athletics programs and school resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 varsity schedules published by Banquete ISD",
+        "body": "The first-party Banquete athletics schedules page publishes a 2026 high school varsity football schedule separately from its 2026 junior-high and JV schedules. Those posted fixture documents should not be used to fabricate final results or claim historically unverified state football titles.",
+        "sourceUrl": "https://www.banqueteisd.net/departments/athletics",
+        "sourceLabel": "Banquete ISD Bulldog athletics programs and school resources"
+      }
+    ],
+    "overview": [
+      "Banquete High School's Bulldogs have their own 2026 varsity schedule in Banquete ISD's athletics directory. The junior-high and JV file is separate; mixing its kickoff times, opponents or sites into the varsity schedule would be misleading for visiting football families.",
+      "Banquete's high school is at 5519 Texas Highway 44 in Nueces County. The school address should not be confused with the district administration address, and a campus location does not automatically establish the stadium's preferred parking entrance or disabled-access arrangements.",
+      "The first-party district calendar lists the October 23, 2026 varsity homecoming contest versus Monte Alto at Bulldog Stadium. As of October 10 it is a future scheduled event; results, final attendance details and any later venue changes must be sourced from the school rather than forecast."
+    ],
+    "faq": [
+      {
+        "question": "Where can I find Banquete's 2026 varsity football schedule?",
+        "answer": "Banquete ISD posts the 2026 varsity Bulldogs football schedule on its athletics sports-schedules page, separately from JV and junior high."
+      },
+      {
+        "question": "Is Banquete High School at the ISD administrative address?",
+        "answer": "No. Banquete High School lists 5519 Highway 44; the district's main office is at 4339 Fourth Street."
+      },
+      {
+        "question": "Is the October 23 homecoming game already final?",
+        "answer": "No. Banquete ISD listed the October 23, 2026 Monte Alto homecoming game at Bulldog Stadium as a future fixture; check the district for current venue and ticket information."
+      }
+    ],
+    "campus": {
+      "address": "5519 Hwy 44, Banquete, TX 78339",
+      "phone": "361-387-2551",
+      "sourceUrl": "https://bhs.banqueteisd.net/departments/contact-us",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
   "baird": {
     "slug": "baird",
     "theme": {
@@ -109,7 +410,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What significant football history is documented?",
-        "answer": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results."
+        "answer": "Baird's six-man era began in 2019, according to Six-Man Football. The district publicly discussed a possible return to 11-man in September 2025, but 2026 UIL alignment still lists six-man Division I; the discussion was not a completed transition."
       },
       {
         "question": "Did Baird officially switch to 11-man football in 2026?",
@@ -182,7 +483,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What significant football history is documented?",
-        "answer": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season."
+        "answer": "Azle's recorded recent football seasons include 10–2 in 2018, 9–2 in 2019, and 9–3 in 2020, as reported by Dave Campbell's Texas Football. Those season records should not be confused with individual 2026 results."
       },
       {
         "question": "Does Azle ISD require clear bags at football games?",
@@ -329,7 +630,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What significant football history is documented?",
-        "answer": "The 2026 Division I District 11 fixture list includes Blum, Covington, Milford and Bluff Dale; September opponents included Aquilla and Abbott, separating non-district from district opponents."
+        "answer": "Six-Man Football dates Avalon's six-man program to 2005 and records an 11-game winning streak in 2019. Its season history lists 10–1 in 2024 and 8–3 in 2025; these achievements are not state-title claims."
       }
     ],
     "coach": {
@@ -925,7 +1226,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "LASA is the Raptors program with its own official sports website and contact resources; it is distinct from Austin LBJ even if athletics listings share a Lazy Creek Drive address.",
       "Two independent Austin-school calendars document specific LASA fixtures: Travis visited September 10 at Nelson Field and Navarro scheduled homecoming against LASA October 8.",
-      "A verified LASA head coach, historical football awards and legally licensed program photos were not established; do not invent them.",
+      "LASA's 2026 head coach is confirmed as Gary Howard by the official school football page; historic football honors and legally reusable program photos remain unverified and must not be invented.",
       "The first-party LASA school football page identifies Gary Howard as 2026 head coach and gives varsity and JV schedules. In particular, varsity uses Nelson Field and Burger Stadium for different opponents, not a single home-campus stadium."
     ],
     "faq": [
@@ -973,13 +1274,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "schedule": {
       "label": "Official athletics or school-specific 2026 resource",
-      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
-      "sourceLabel": "Football athletics source",
+      "sourceUrl": "https://www.laketravisfootball.com/schedules",
+      "sourceLabel": "Lake Travis football 2026 published varsity schedule",
       "verifiedAt": "2026-10-10"
     },
     "development": {
       "title": "Program identity and verified context",
-      "body": "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
+      "body": "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. The Lake Travis football program's October 4, 2026 parent update announced Cavalier Stadium's varsity return for the October 9 Cedar Ridge game; ongoing work and later access remain subject to actual event guidance.",
       "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
       "sourceLabel": "Athletics school source and archives",
       "verifiedAt": "2026-10-10"
@@ -994,16 +1295,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "date": "2025–2026",
-        "title": "Cavalier Stadium rebuild",
-        "body": "Texas TDLR lists a $46 million new stadium project, September 2025 start and December 2026 planned completion. Construction registry dates are not occupancy or inspection proof.",
+        "title": "Cavalier Stadium 2026 varsity reopening",
+        "body": "TDLR lists a $46 million stadium rebuild and a December 2026 administrative completion estimate. The football program's October 4 weekly update, more current than the registration, said Cavalier Stadium would be ready for the October 9 varsity home game; the posted schedule lists additional home varsity games on October 23 and November 6. Always verify event gates and accommodations.",
         "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
         "sourceLabel": "TDLR accessibility project registration"
       }
     ],
     "overview": [
-      "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
+      "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. The Lake Travis football program's October 4, 2026 parent update announced Cavalier Stadium's varsity return for the October 9 Cedar Ridge game; ongoing work and later access remain subject to actual event guidance.",
       "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
-      "A state-record construction filing, distinct from promotional renderings, provides the renovation scope and scheduled completion date; spectators must confirm whether their particular 2026 game is at Cavalier Stadium."
+      "TDLR's construction filing states the planned December 2026 completion, but the football team's October 4 update says the stadium was ready for an October 9 varsity return. The 2026 varsity schedule distinguishes games at Cavalier Stadium from those hosted elsewhere; check current operator/ticket and accessibility instructions before attending."
     ],
     "faq": [
       {
@@ -1022,10 +1323,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "notice": {
-      "title": "2026 Cavalier Stadium reconstruction: confirm game location",
-      "body": "Texas accessibility-project registration TABS2025026267 describes demolition and a new football stadium, concessions, press box, field house and restrooms at 3324 Ranch Road 620 South. The registered planned completion is December 31, 2026; that administrative forecast does not verify completed construction or stadium accessibility. Verify each game's operating venue and ticket policies with Lake Travis ISD.",
-      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
-      "sourceLabel": "Texas Department of Licensing and Regulation project filing",
+      "title": "2026 varsity games return to Cavalier Stadium; check game-specific access",
+      "body": "Lake Travis football's October 4, 2026 parent update says Cavalier Stadium is ready to host the October 9 varsity game against Cedar Ridge, while sub-varsity games remain at the track stadium. The published 2026 varsity schedule lists October 23 Westlake and November 6 Westwood at Cavalier Stadium. State TDLR's original December 31 construction estimate is not evidence that the stadium is closed to varsity play; game-day gates, parking, ticketing and accessibility should be confirmed through the official operator.",
+      "sourceUrl": "https://www.laketravisfootball.com/page/show/3237464-carter-s-corner",
+      "sourceLabel": "Lake Travis High School football October 4 parent update",
       "verifiedAt": "2026-10-10"
     }
   },

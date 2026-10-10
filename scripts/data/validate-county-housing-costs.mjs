@@ -9,7 +9,7 @@ const generator = fs.readFileSync('scripts/data/refresh-county-housing-costs.mjs
 const refreshWorkflow = fs.readFileSync('.github/workflows/refresh-acs-county-housing-costs.yml', 'utf8');
 const publicRoutes = fs.readFileSync('src/lib/public-routes.ts', 'utf8');
 const sitemap = fs.readFileSync('src/routes/sitemap[.]xml.ts', 'utf8');
-const hub = fs.readFileSync('src/routes/texas-data.tsx', 'utf8');
+const hub = fs.readFileSync('src/routes/texas-data.tsx', 'utf8') + '\n' + fs.readFileSync('src/routes/texas-data.lazy.tsx', 'utf8');
 const snapshot = JSON.parse(fs.readFileSync('src/data/acs-county-housing-costs.snapshot.json', 'utf8'));
 const errors = [];
 

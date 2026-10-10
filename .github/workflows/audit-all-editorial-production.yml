@@ -118,6 +118,8 @@ jobs:
 
   verify-county-production:
     name: Crawl all 254 canonical county pages on texasdefined.com
+    # PRs validate the proposed county source above. Its future pages may not be live.
+    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     needs: validate-county-source
     runs-on: ubuntu-latest
     timeout-minutes: 40
@@ -136,7 +138,6 @@ jobs:
           test "$(wc -l < /tmp/county-profiles.tsv)" -eq 254
 
       - name: Audit every production county page for substantive, indexable, visitor-first rendering
-        continue-on-error: ${{ github.event_name == 'pull_request' }}
         shell: bash
         run: |
           set -euo pipefail
