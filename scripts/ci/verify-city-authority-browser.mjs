@@ -48,6 +48,16 @@ for (const [viewport,width,height] of viewports) {
       row.checks.images=row.brokenImages.length?'FAIL':'PASS';
       row.checks.imageAlternatives=data.imgs.every(i=>i.alt.trim().length>0)?'PASS':'FAIL';
       row.checks.internalLinkPresence=data.links.some(l=>l.href.startsWith(origin+'/'))?'PASS':'FAIL';
+      if (slug === 'fort-worth') {
+        const expected = origin + '/destination/kimbell-art-museum-fort-worth';
+        const obsolete = origin + '/destination/kimbell-art-museum';
+        const relevant = data.links.filter(link => /\/destination\/kimbell-art-museum/.test(link.href));
+        row.kimbellLinks = relevant;
+        row.checks.kimbellCanonicalLink = relevant.length >= 2 && relevant.every(link => link.href === expected) ? 'PASS' : 'FAIL';
+        row.checks.kimbellObsoleteLinkAbsent = data.links.every(link => link.href !== obsolete) ? 'PASS' : 'FAIL';
+        const destination = await page.request.get(expected, { timeout: 20000 });
+        row.checks.kimbellDestinationHttp = destination.status() === 200 ? 'PASS' : 'FAIL';
+      }
       row.checks.keyboardTargets=data.focusable?'PASS':'NOT TESTED';
       row.linkCount=data.links.length;
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
