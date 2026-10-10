@@ -88,3 +88,7 @@ With the dedicated Network admin key, choose Unpublish (published → approved) 
 
 ## Featured entitlement suspension
 A Featured badge alone does not authorize uploading or editing. Storage quota and revision-submission checks also require a published Plus application with active paid entitlement, rechecked in privileged read-only Boolean helpers rather than exposing private applications to authenticated users. Previously uploaded draft media remains readable to the verified owner while billing is suspended, but new changes are blocked. The dashboard explains paused editing and links to billing.
+
+
+## Prelaunch free Chrome browser verification
+On PR #4545 check the **Network draft preview browser QA** workflow alongside Required Merge Gate. It builds the PR Worker locally, never deploys, and runs live hydration and two-viewport interaction checks without sending messages. Download or inspect the `network-preview-browser-evidence` Actions artifact for mobile/desktop screenshots and `results.json`. Review every failure; do not accept a passing static SSR smoke as browser certification. Re-run after substantial UI changes. Only separately authorized deployment permits final production/browser/real-owner testing.
