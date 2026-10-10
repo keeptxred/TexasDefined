@@ -40,7 +40,7 @@ export const BUDGET_GROUPS = [
     { key: 'pets', label: 'Pet food, care and routine vet visits', example: 0 },
   ] },
   { id: 'debt', title: 'Debt payments', description: 'Include only repayment of older balances and finance charges that are not already counted as purchases above. Do not count the same card spending again when paying the statement; mortgage and vehicle payments belong in their own categories.', kind: 'expense', fields: [
-    { key: 'creditCards', label: 'Existing credit-card debt repayments', example: 350 }
+    { key: 'creditCards', label: 'Existing credit-card debt repayments', example: 350 },
     { key: 'studentLoans', label: 'Student loans', example: 250 },
     { key: 'otherDebt', label: 'Other monthly debt payments', example: 0 },
   ] },
