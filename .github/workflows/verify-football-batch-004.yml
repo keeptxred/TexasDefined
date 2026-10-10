@@ -18,5 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Validate Batch 004 browser runner syntax without network
+        run: node --check scripts/ci/verify-football-batch-004-browser.mjs
       - name: Validate Batch 004 roster, dossiers, and verified-status integrity
         run: node scripts/ci/verify-football-batch-004.mjs
