@@ -35,6 +35,7 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
   client_reference_id:applicationId,
   'metadata[application_id]':applicationId,
   'subscription_data[metadata][application_id]':applicationId,
+  'subscription_data[metadata][project]':'TexasDefined',
   success_url:'https://texasdefined.com/network/join?checkout=success&session_id={CHECKOUT_SESSION_ID}',
   cancel_url:'https://texasdefined.com/network/join?checkout=cancelled',
   billing_address_collection:'auto',
