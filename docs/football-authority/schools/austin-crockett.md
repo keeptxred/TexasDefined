@@ -9,3 +9,6 @@ Frank Muir confirmed first-party; varsity Burger Stadium versus JV main field, v
 
 ## Incomplete acceptance
 Independently validate current official personnel, specific stadium entrances, parking/tickets and ADA resources where available; check licensed image alternatives and reciprocal Travis County/city/stadium links. Run responsive real Chrome, SEO/schema/sitemap, accessibility, tests and protected merge followed by deployed-production browser acceptance. The unresolved details are limitations, not fabricated assertions.
+
+## First-party 2026 program and coaches
+[Crockett ISD school football schedule](https://crockett.austinschools.org/athletics/teams/football) distinguishes the 2026 varsity home Burger Stadium schedule, JV campus-field games, and freshmen venues, rather than treating the campus as a stadium. School confirms Frank Muir head coach, Corry Perez defensive coordinator, Bryce Hilber offensive coordinator, plus DFO/special teams Shannon Reed. Specific researched games and school staff milestones committed `22d3635aa29225f80e7ed2ecaf1afeba106df05c`. [AISD stadium owner](https://www.austinisd.org/athletics/facilities/burger) places Toney Burger at 3200 Jones Road, Austin. Stage remains unmerged.
