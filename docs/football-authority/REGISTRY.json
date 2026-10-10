@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "barksdale-nueces-canyon",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "nextSchool": "baytown-goose-creek-memorial",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "First five independently sourced editorial authority records, identities, protected campus county links and audit dossiers IMPLEMENTED on working branch; 20 unstarted. Zero Batch005 production verified, 80 prior verified preserved. Next barksdale-nueces-canyon."
+    "notes": "Ten individually researched and authored Batch005 profiles are now implemented across initial merged PR #4576 and this group-two branch, but none is promoted to VERIFIED. Group two five pages need protected review/merge/deploy/real-browser evidence; 15 assigned remain unreviewed. Previous 80 production verified preserved."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5761,8 +5761,34 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/barksdale-nueces-canyon",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/barksdale-nueces-canyon.md",
+      "officialSchoolUrl": "https://ncjhhs.nccisd.net/",
+      "officialAthleticsUrl": "https://ncjhhs.nccisd.net/athletics/football",
+      "county": "Edwards County",
+      "schoolDistrict": "Nueces Canyon CISD",
+      "mascot": "Panthers",
+      "sourceEvidence": [
+        "https://ncjhhs.nccisd.net/athletics/football",
+        "https://ncjhhs.nccisd.net/athletics",
+        "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Edwards+County&ID=483324003739&Search=1&State=48"
+      ],
+      "inboundLinks": [
+        "/county/edwards"
+      ],
+      "outboundCountyPath": "/county/edwards",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR check and merge required",
+        "Actual production desktop/mobile and reciprocal county browser QA pending",
+        "Confirm game-day admission/accessibility and photographic reuse rights"
+      ]
     },
     {
       "id": "uil:bartlett",
@@ -5775,8 +5801,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bartlett",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bartlett.md",
+      "officialSchoolUrl": "https://bartlett.txed.net/",
+      "officialAthleticsUrl": "https://bartlett.txed.net/apps/pages/index.jsp?pREC_ID=2678362&type=d&uREC_ID=4436953",
+      "county": "Bell County",
+      "schoolDistrict": "Bartlett ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://bartlett.txed.net/apps/pages/index.jsp?pREC_ID=2678362&type=d&uREC_ID=4436953",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/92at_bfb.html"
+      ],
+      "inboundLinks": [
+        "/county/bell"
+      ],
+      "outboundCountyPath": "/county/bell",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR check and merge required",
+        "Actual production desktop/mobile and reciprocal county browser QA pending",
+        "Confirm game-day admission/accessibility and photographic reuse rights"
+      ]
     },
     {
       "id": "uil:bastrop",
@@ -5789,8 +5841,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bastrop.md",
+      "officialSchoolUrl": "https://bhs.bisdtx.org/",
+      "officialAthleticsUrl": "https://bhs.bisdtx.org/athletics/bhs-athletics",
+      "county": "Bastrop County",
+      "schoolDistrict": "Bastrop ISD",
+      "mascot": "Bears",
+      "sourceEvidence": [
+        "https://bhs.bisdtx.org/athletics/bhs-athletics",
+        "https://www.bisdtx.org/departments/athletics/memorial-stadium",
+        "https://www.bisdtx.org/departments/athletics"
+      ],
+      "inboundLinks": [
+        "/county/bastrop"
+      ],
+      "outboundCountyPath": "/county/bastrop",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR check and merge required",
+        "Actual production desktop/mobile and reciprocal county browser QA pending",
+        "Confirm game-day admission/accessibility and photographic reuse rights"
+      ]
     },
     {
       "id": "uil:bastrop-cedar-creek",
@@ -5803,8 +5881,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop-cedar-creek",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bastrop-cedar-creek.md",
+      "officialSchoolUrl": "https://cchs.bisdtx.org/",
+      "officialAthleticsUrl": "https://cchs.bisdtx.org/athletics/cchs-athletics/cchs-coaches-directory",
+      "county": "Bastrop County",
+      "schoolDistrict": "Bastrop ISD",
+      "mascot": "Eagles",
+      "sourceEvidence": [
+        "https://cchs.bisdtx.org/athletics/cchs-athletics/cchs-coaches-directory",
+        "https://cchs.bisdtx.org/athletics/cchs-athletics/cchs-game-locations",
+        "https://www.bisdtx.org/departments/athletics"
+      ],
+      "inboundLinks": [
+        "/county/bastrop"
+      ],
+      "outboundCountyPath": "/county/bastrop",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR check and merge required",
+        "Actual production desktop/mobile and reciprocal county browser QA pending",
+        "Confirm game-day admission/accessibility and photographic reuse rights"
+      ]
     },
     {
       "id": "uil:bay-city",
@@ -5817,8 +5921,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bay-city",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bay-city.md",
+      "officialSchoolUrl": "https://bchs.bcblackcats.net/",
+      "officialAthleticsUrl": "https://www.bcblackcats.net/apps/pages/index.jsp?type=d&uREC_ID=4373233",
+      "county": "Matagorda County",
+      "schoolDistrict": "Bay City ISD",
+      "mascot": "Blackcats",
+      "sourceEvidence": [
+        "https://www.bcblackcats.net/apps/pages/index.jsp?type=d&uREC_ID=4373233",
+        "https://www.uiltexas.org/100/football-teams",
+        "https://www.bcblackcats.net/apps/pages/index.jsp?pREC_ID=2575454&type=d&uREC_ID=4373233"
+      ],
+      "inboundLinks": [
+        "/county/matagorda"
+      ],
+      "outboundCountyPath": "/county/matagorda",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR check and merge required",
+        "Actual production desktop/mobile and reciprocal county browser QA pending",
+        "Confirm game-day admission/accessibility and photographic reuse rights"
+      ]
     },
     {
       "id": "uil:baytown-goose-creek-memorial",

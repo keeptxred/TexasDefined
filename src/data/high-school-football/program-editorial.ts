@@ -58,6 +58,395 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "barksdale-nueces-canyon": {
+    "slug": "barksdale-nueces-canyon",
+    "theme": {
+      "accentHex": "#2F6239",
+      "label": "Original independent editorial color; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Nueces Canyon Panthers Football | UIL History, 2026 & Game-Day Guide",
+      "description": "Independent Nueces Canyon Panthers football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+    },
+    "schedule": {
+      "label": "Nueces Canyon Panthers official football schedules and athletics",
+      "sourceUrl": "https://ncjhhs.nccisd.net/athletics/football",
+      "sourceLabel": "Nueces Canyon CISD first-party athletics",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Six-man Panthers: campus in Barksdale, games in Camp Wood",
+      "body": "The 2026 Nueces Canyon High School football page publishes a varsity schedule separately from junior-high fixtures and lists Coaches Connell, Landry Connell and Dingenary. The campus is in Barksdale, Edwards County, but Floyd Collins Field at Northcutt Stadium is in Camp Wood. Traveling supporters should navigate to the game venue, not to the Barksdale classroom address.",
+      "sourceUrl": "https://ncjhhs.nccisd.net/athletics",
+      "sourceLabel": "Nueces Canyon CISD athletic department and venue directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "District 16 six-man varsity football",
+        "body": "The official football page offers a labeled 2026 high-school schedule and names the Panthers' district opponents. The UIL alignment is six-man Division I, not eleven-man.",
+        "sourceUrl": "https://ncjhhs.nccisd.net/athletics/football",
+        "sourceLabel": "Nueces Canyon official high-school football resources"
+      },
+      {
+        "date": "2026",
+        "title": "Floyd Collins Field at Northcutt Stadium",
+        "body": "District athletics lists its game field at 301 S Guadalupe in Camp Wood, distinct from the high-school campus in Barksdale.",
+        "sourceUrl": "https://ncjhhs.nccisd.net/athletics",
+        "sourceLabel": "Official athletic department field address"
+      }
+    ],
+    "overview": [
+      "Nueces Canyon's small-school Panthers play six-man football under the 2026–28 UIL 1A Division I District 16 alignment. That format is distinct from eleven-man games and classifications.",
+      "This football community has two practical locations: Nueces Canyon JH/HS is at 200 E Taylor Street in Barksdale, Edwards County; district athletics publishes Floyd Collins Field at Northcutt Stadium at 301 S Guadalupe in Camp Wood. A school address alone is not a safe stadium-navigation link.",
+      "The official campus site separates a 2026 high-school football schedule from its junior-high calendar and lists a named staff group without explicitly resolving each individual's 2026 head-coaching role. The district calendar publishes October 23 homecoming activity against Prairie Lea; check the school for updates before traveling."
+    ],
+    "faq": [
+      {
+        "question": "Where does Nueces Canyon host home football games?",
+        "answer": "Nueces Canyon CISD identifies Floyd Collins Field at Northcutt Stadium, 301 S Guadalupe, Camp Wood. The school campus itself is in Barksdale; confirm the match venue before departure."
+      },
+      {
+        "question": "Does Nueces Canyon play six-man football?",
+        "answer": "Yes. The existing UIL 2026–28 alignment lists Nueces Canyon in Class 1A Six-Man Division I, District 16."
+      },
+      {
+        "question": "Is the varsity calendar the same as junior-high football?",
+        "answer": "No. The official Nueces Canyon football page publishes separate 2026 HS and JH documents, so consult the high-school schedule for varsity games."
+      }
+    ],
+    "campus": {
+      "address": "200 E Taylor Street, Barksdale, TX 78828",
+      "phone": "830-234-3524",
+      "sourceUrl": "https://ncjhhs.nccisd.net/",
+      "sourceLabel": "Nueces Canyon CISD official campus",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Floyd Collins Field at Northcutt Stadium",
+      "address": "301 S Guadalupe, Camp Wood, TX 78833",
+      "sourceUrl": "https://ncjhhs.nccisd.net/athletics",
+      "sourceLabel": "District athletics field address",
+      "verifiedAt": "2026-10-10",
+      "note": "Stadium is in Camp Wood; campus is in Barksdale. Gate, parking and accessibility details require confirmation."
+    }
+  },
+  "bartlett": {
+    "slug": "bartlett",
+    "theme": {
+      "accentHex": "#34599D",
+      "label": "Original independent editorial color; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Bartlett Bulldogs Football | UIL History, 2026 & Game-Day Guide",
+      "description": "Independent Bartlett Bulldogs football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+    },
+    "schedule": {
+      "label": "Bartlett Bulldogs official football schedules and athletics",
+      "sourceUrl": "https://bartlett.txed.net/apps/pages/index.jsp?pREC_ID=2678362&type=d&uREC_ID=4436953",
+      "sourceLabel": "Bartlett ISD first-party athletics",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Three UIL football championships: 1990, 1992 and 1999",
+      "body": "Bartlett's 1A championship sequence spans a decade: 36–28 over Munday in 1990, 33–26 over Sudan in 1992 and 35–6 over Aspermont in 1999. Those are verified championship games, not modern classification claims. Bartlett ISD publishes a separately labeled 2026 varsity football schedule and should be the starting point for contemporary fixtures.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+      "sourceLabel": "UIL state football champions archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1990",
+        "title": "First of three recorded Class 1A championships",
+        "body": "Bartlett defeated Munday 36–28 in the Class 1A championship game.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P360",
+        "sourceLabel": "UIL 1990–91 archival result"
+      },
+      {
+        "date": "1992",
+        "title": "Another Class 1A crown",
+        "body": "Bartlett defeated Sudan 33–26; UIL's full playoff text also records its semifinal win over Valley View.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/92at_bfb.html",
+        "sourceLabel": "UIL 1992–93 playoff archive"
+      },
+      {
+        "date": "1999",
+        "title": "Third Class 1A state title",
+        "body": "The Bulldogs defeated Aspermont 35–6, establishing the program's third UIL football championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P296",
+        "sourceLabel": "UIL 1999–2000 championship result"
+      }
+    ],
+    "overview": [
+      "Bartlett's Bulldogs have three documented Class 1A eleven-man football state championships: 1990 against Munday, 1992 against Sudan and 1999 against Aspermont. This achievement belongs to Bartlett's history; the current 2026–28 UIL classification is independently 2A Division II District 13.",
+      "The 1992 UIL playoff record names head coach/athletic director Terry Cron and documents Bartlett's run through the semifinals before its 33–26 win over Sudan. That historical leadership attribution is not evidence of the 2026 coaching staff.",
+      "Bartlett ISD's athletics page offers a specifically labeled 2026 Bulldog varsity schedule as distinct from its junior-high schedule and older 2025 PDFs. Match-day opponents, kickoff, tickets and stadium entrance should be confirmed with the district."
+    ],
+    "faq": [
+      {
+        "question": "How many state football championships has Bartlett won?",
+        "answer": "Three UIL football titles—1990, 1992 and 1999—all won in that era's Class 1A eleven-man competition."
+      },
+      {
+        "question": "Where is Bartlett's official 2026 varsity football schedule?",
+        "answer": "Bartlett ISD lists a 2026 Bartlett Bulldog Varsity Football Schedule on its athletics information page; do not confuse it with the junior-high schedule."
+      },
+      {
+        "question": "Is Bartlett currently Class 1A?",
+        "answer": "No. The 2026–28 UIL roster lists Bartlett in 2A Division II, District 13; 1A refers to its historical championship years."
+      }
+    ],
+    "campus": {
+      "address": "404 N Robinson St, Bartlett, TX 76511",
+      "sourceUrl": "https://bartlett.txed.net/",
+      "sourceLabel": "Bartlett ISD official campus",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bastrop": {
+    "slug": "bastrop",
+    "theme": {
+      "accentHex": "#8B2439",
+      "label": "Original independent editorial color; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Bastrop Bears Football | UIL History, 2026 & Game-Day Guide",
+      "description": "Independent Bastrop Bears football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+    },
+    "schedule": {
+      "label": "Bastrop Bears official football schedules and athletics",
+      "sourceUrl": "https://bhs.bisdtx.org/athletics/bhs-athletics",
+      "sourceLabel": "Bastrop ISD first-party athletics",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Bastrop Bears: the school, the coaches and the shared 2009 stadium",
+      "body": "Bastrop High's official athletics directory lists Jake Griedl for football. Bastrop ISD's Memorial Stadium opened in 2009, seats 8,000 and is shared with Cedar Creek High, despite the two schools playing in separate 2026–28 UIL districts. All district athletic tickets are sold online; venues enforce a clear-bag policy.",
+      "sourceUrl": "https://www.bisdtx.org/departments/athletics/memorial-stadium",
+      "sourceLabel": "Official Bastrop ISD stadium and 2009 opening information",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2009",
+        "title": "Memorial Stadium opened",
+        "body": "Bastrop ISD says Memorial Stadium opened in 2009 and serves both Bastrop Bears and Cedar Creek Eagles, capacity 8,000.",
+        "sourceUrl": "https://www.bisdtx.org/departments/athletics/memorial-stadium",
+        "sourceLabel": "District stadium facts"
+      },
+      {
+        "date": "2026",
+        "title": "Different UIL districts for neighboring programs",
+        "body": "Bastrop Bears are 5A Division II District 12; Cedar Creek Eagles are 5A Division I District 13 in 2026–28. Sharing a stadium does not imply identical district competition.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 Bastrop alignment"
+      }
+    ],
+    "overview": [
+      "Bastrop's Bears play eleven-man football in UIL 5A Division II District 12 for the 2026–28 realignment cycle. Their campus is Bastrop High School, 1614 Chambers Street in Bastrop, rather than the Cedar Creek site where district varsity games are often played.",
+      "The district identifies the Bears' home venue as Bastrop ISD Memorial Stadium, a shared 8,000-seat facility at 755 TX-21 W in Cedar Creek, opened in 2009. Cedar Creek Eagles share that stadium but compete as a different program, in a different current UIL division and district.",
+      "Bastrop High's athletics directory lists Jake Griedl for football. Official Bastrop ISD policy says ticket purchases are online-only, with no cash-ticket sale at the gate; clear bags are required and certain younger spectators must be accompanied by an adult. Consult the event's district listing for changes and specific access needs."
+    ],
+    "faq": [
+      {
+        "question": "Where do the Bastrop Bears play home football games?",
+        "answer": "Bastrop ISD identifies Memorial Stadium at 755 TX-21 W, Cedar Creek, as a home facility for Bastrop Bears and Cedar Creek Eagles; always verify the specific game assignment."
+      },
+      {
+        "question": "Is Bastrop in the same UIL district as Cedar Creek?",
+        "answer": "No. In the 2026–28 cycle Bastrop is 5A Division II District 12, while Cedar Creek is 5A Division I District 13."
+      },
+      {
+        "question": "Can I buy Bastrop ISD football tickets with cash at the stadium?",
+        "answer": "The district says athletic event tickets must be purchased online and enforces a clear-bag rule at its venues; check the official athletics page for any event-specific policies."
+      }
+    ],
+    "campus": {
+      "address": "1614 Chambers Street, Bastrop, TX 78602",
+      "phone": "512-772-7200",
+      "sourceUrl": "https://bhs.bisdtx.org/",
+      "sourceLabel": "Bastrop ISD official campus",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Jake Griedl",
+      "title": "Football coach named on official Bastrop High athletics staff page",
+      "sourceUrl": "https://bhs.bisdtx.org/athletics/bhs-athletics",
+      "sourceLabel": "Bastrop High athletics coach directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Bastrop ISD Memorial Stadium",
+      "address": "755 TX-21 W, Cedar Creek, TX 78612",
+      "sourceUrl": "https://www.bisdtx.org/departments/athletics/memorial-stadium",
+      "sourceLabel": "Official stadium information",
+      "verifiedAt": "2026-10-10",
+      "note": "Shared with Cedar Creek Eagles. District requires online tickets and clear bags; confirm ADA and entry details."
+    }
+  },
+  "bastrop-cedar-creek": {
+    "slug": "bastrop-cedar-creek",
+    "theme": {
+      "accentHex": "#174F71",
+      "label": "Original independent editorial color; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Cedar Creek Eagles Football | UIL History, 2026 & Game-Day Guide",
+      "description": "Independent Cedar Creek Eagles football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+    },
+    "schedule": {
+      "label": "Cedar Creek Eagles official football schedules and athletics",
+      "sourceUrl": "https://cchs.bisdtx.org/athletics/cchs-athletics/cchs-coaches-directory",
+      "sourceLabel": "Bastrop ISD first-party athletics",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Cedar Creek Eagles: separate campus and UIL district, same stadium",
+      "body": "Cedar Creek High School's official coaches directory names Jared Shaw as athletic coordinator and head football coach. Its campus sits at 793 Union Chapel Road in Cedar Creek, while football venue links point to Bastrop ISD Memorial Stadium at 755 TX-21 W. The district lists mandatory online tickets and a clear-bag policy; the Eagles and Bears must not be conflated.",
+      "sourceUrl": "https://cchs.bisdtx.org/athletics/cchs-athletics/cchs-coaches-directory",
+      "sourceLabel": "Cedar Creek High official coaches directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026–28",
+        "title": "5A Division I District 13 football placement",
+        "body": "The 2026–28 UIL alignment places Cedar Creek in 5A Division I District 13 while the district's Bastrop Bears play 5A Division II District 12.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Official UIL alignment"
+      },
+      {
+        "date": "2009",
+        "title": "Shared district stadium began service",
+        "body": "Memorial Stadium opened in 2009 and is the district's home venue for both Cedar Creek Eagles and Bastrop Bears.",
+        "sourceUrl": "https://www.bisdtx.org/departments/athletics/memorial-stadium",
+        "sourceLabel": "Bastrop ISD Memorial Stadium"
+      }
+    ],
+    "overview": [
+      "Cedar Creek Eagles football represents Cedar Creek High School, not Bastrop High. Both schools belong to Bastrop ISD and play games at its Memorial Stadium, but in the 2026–28 UIL football cycle Cedar Creek is a Class 5A Division I District 13 program, separate from the Bears' 5A Division II District 12 schedule.",
+      "The Cedar Creek High School campus is at 793 Union Chapel Road; the district's shared Memorial Stadium is at 755 TX-21 W. A trip to the campus and a trip to a varsity game may require different navigation; check the school athletics game-location list before leaving.",
+      "The Eagles' official athletics coach directory identifies Jared Shaw as athletic coordinator/head football coach. The Cedar Creek game-location pages list multiple opponent stadiums; those are travel destinations, not multiple Cedar Creek 'home stadiums.' Bastrop ISD publishes districtwide online-ticket, clear-bag and younger-spectator policies."
+    ],
+    "faq": [
+      {
+        "question": "Are Cedar Creek Eagles and Bastrop Bears the same football team?",
+        "answer": "No. They are separate Bastrop ISD campuses and programs; in 2026–28 Cedar Creek plays 5A Division I District 13 and Bastrop plays 5A Division II District 12."
+      },
+      {
+        "question": "Who is Cedar Creek's head football coach?",
+        "answer": "Cedar Creek High's official athletics coaches directory lists Jared Shaw as athletic coordinator/head football coach."
+      },
+      {
+        "question": "Where does Cedar Creek play football?",
+        "answer": "Memorial Stadium at 755 TX-21 W in Cedar Creek is an official shared home venue. The high-school campus is at 793 Union Chapel Road, a different location."
+      }
+    ],
+    "campus": {
+      "address": "793 Union Chapel Road, Cedar Creek, TX 78612",
+      "phone": "512-772-7300",
+      "sourceUrl": "https://cchs.bisdtx.org/",
+      "sourceLabel": "Bastrop ISD official campus",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Jared Shaw",
+      "title": "Athletic coordinator and head football coach",
+      "sourceUrl": "https://cchs.bisdtx.org/athletics/cchs-athletics/cchs-coaches-directory",
+      "sourceLabel": "Official CCHS coaches directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Bastrop ISD Memorial Stadium",
+      "address": "755 TX-21 W, Cedar Creek, TX 78612",
+      "sourceUrl": "https://www.bisdtx.org/departments/athletics/memorial-stadium",
+      "sourceLabel": "Official district stadium information",
+      "verifiedAt": "2026-10-10",
+      "note": "Also serves Bastrop Bears; check Eagles game-location list for away fixtures and ticket policies."
+    }
+  },
+  "bay-city": {
+    "slug": "bay-city",
+    "theme": {
+      "accentHex": "#1A4391",
+      "label": "Original independent editorial color; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Bay City Blackcats Football | UIL History, 2026 & Game-Day Guide",
+      "description": "Independent Bay City Blackcats football guide: source-verified history, 2026 UIL alignment, campus and stadium details, official athletics links."
+    },
+    "schedule": {
+      "label": "Bay City Blackcats official football schedules and athletics",
+      "sourceUrl": "https://www.bcblackcats.net/apps/pages/index.jsp?type=d&uREC_ID=4373233",
+      "sourceLabel": "Bay City ISD first-party athletics",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Bay City's undefeated 1983 title, 2000 title and 2001 return to the final",
+      "body": "UIL's 1983 historical team account records Ron Mills' Blackcats finishing 15–0 with a 30–0 state-final victory against Lubbock Estacado. UIL also records a 24–2 2000 Class 4A Division I win over Denton Ryan, followed by Bay City's 2001 runner-up finish against Ennis. Bay City ISD lists football titles in 1983 and 2000; the older Hilliard High titles are separate school history, not Blackcats titles.",
+      "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+      "sourceLabel": "UIL 100-year team history archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1983",
+        "title": "15–0 undefeated Class 4A champion",
+        "body": "Ron Mills coached Bay City to 15–0; the Blackcats shut out Lubbock Estacado 30–0 in the Class 4A final. UIL's archival season account lists Hart Lee Dykes among notable players.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL 1983 Bay City team entry"
+      },
+      {
+        "date": "2000",
+        "title": "Second UIL football title",
+        "body": "Bay City beat Denton Ryan 24–2 in the 2000 Class 4A Division I championship final.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P296",
+        "sourceLabel": "UIL 2000–01 championship archive"
+      },
+      {
+        "date": "2001",
+        "title": "Back-to-back championship-game appearances",
+        "body": "The Blackcats returned to the Class 4A Division II state final the following season, finishing runner-up to Ennis 21–0; this was not a third championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+        "sourceLabel": "UIL 2001–02 championship result"
+      }
+    ],
+    "overview": [
+      "Bay City Blackcats football has two UIL state championships. The 1983 Class 4A team went unbeaten under Ron Mills and shut out Lubbock Estacado 30–0. The 2000 Blackcats won 4A Division I over Denton Ryan 24–2; their 2001 appearance ended as runners-up to Ennis.",
+      "Bay City ISD's athletics history separately lists Hilliard High School football championships in 1959 and 1966. Those cannot be retroactively counted as additional Bay City Blackcats program titles. The 2026–28 Blackcats classification is 4A Division I District 11 and is separate from historical 4A/5A archive labels.",
+      "For current trips, Bay City High School is at 400 7th Street, with district Memorial Stadium at the same published street address. The official varsity and JV/FR 2026 schedules are separate. The school sells GoFan mobile tickets and reports card purchase at the gate but no cash sales, unlike Bastrop ISD's online-only rule. The high school explicitly corrected older PO Box mailing information in October 2025."
+    ],
+    "faq": [
+      {
+        "question": "How many Bay City Blackcats football state championships are verified?",
+        "answer": "Two: 1983 Class 4A and 2000 Class 4A Division I. A 2001 state-final appearance was a runner-up result; Hilliard High's titles are listed separately by Bay City ISD."
+      },
+      {
+        "question": "Where can fans find the Bay City varsity football schedule?",
+        "answer": "Bay City ISD athletics maintains a dedicated 2026 varsity football schedule apart from its junior-varsity and freshman football schedules."
+      },
+      {
+        "question": "Can fans pay cash at Bay City home football games?",
+        "answer": "The district's ticket page says mobile GoFan admission or card payment at the gate is available, but no cash tickets; confirm policy before the game."
+      }
+    ],
+    "campus": {
+      "address": "400 7th Street, Bay City, TX 77414",
+      "phone": "979-401-1100",
+      "sourceUrl": "https://bchs.bcblackcats.net/",
+      "sourceLabel": "Bay City ISD official campus",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Bay City ISD Memorial Stadium",
+      "address": "400 7th Street, Bay City, TX 77414",
+      "sourceUrl": "https://www.bcblackcats.net/apps/pages/index.jsp?pREC_ID=2575446&type=d&uREC_ID=4373233",
+      "sourceLabel": "District Memorial Stadium",
+      "verifiedAt": "2026-10-10",
+      "note": "Official stadium location; consult district stadium rules, updated tickets, accessible entrances and parking before travel."
+    }
+  },
   "ballinger": {
     "slug": "ballinger",
     "theme": {
