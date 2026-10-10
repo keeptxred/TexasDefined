@@ -16,10 +16,14 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     if (!stripeCheckoutEnabled()) return reply({ error: "Subscription checkout is not yet activated." }, 503);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin.from("texasdefined_network_applications")
-      .select("id,plan,status,contact_email").eq("id", body.applicationId).single();
+      .select("id,plan,status,contact_email,paid_entitlement_active,stripe_subscription_id").eq("id", body.applicationId).single();
     if (error || !data || data.plan !== "plus" || !["pending_review","approved"].includes(data.status) ||
         data.contact_email.toLowerCase() !== String(body.email || "").trim().toLowerCase()) {
       return reply({ error: "This application is not eligible for checkout." }, 422);
+    }
+    // A paid or previously-created subscription must be managed through billing, not duplicated by Checkout.
+    if (data.paid_entitlement_active || data.stripe_subscription_id) {
+      return reply({ error: "A subscription already exists for this application. Use membership billing to manage it." }, 409);
     }
     try {
       const url=await createNetworkCheckoutSession(data.id,data.contact_email);
