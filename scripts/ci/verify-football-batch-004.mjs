@@ -6,6 +6,14 @@ const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const editorial = read('src/data/high-school-football/program-editorial.ts');
 const profileServer = read('src/data/high-school-football/football-program-profile.server.ts');
 const identities = read('src/data/high-school-football/school-identities.ts');
+const profileContent = read('src/data/high-school-football/football-profile-content.ts');
+if (profileContent.includes('school announced a 2026 football-season cancellation')) {
+  throw new Error('A generic football notice must never fabricate a canceled varsity season');
+}
+for (const slug of ['austin-northeast','austin-vandegrift','austin-travis']) {
+  if (!profileServer.includes("'" + slug + "':")) throw new Error(slug + ': missing source-backed campus guard');
+}
+if (!profileServer.includes("countyName: 'Travis County'")) throw new Error('Travis campus county guard removed');
 // UIL's Austin Johnson program is Austin ISD's LBJ Jaguars, not the similarly
 // named Round Rock ISD campus. Keep this source-checked disambiguation guarded.
 const lbjProfile = profileServer.slice(profileServer.indexOf('const austinLbjProgram:'));
