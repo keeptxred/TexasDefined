@@ -192,9 +192,48 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     schoolWebsite: 'https://www.austinisd.org/schools/lbj',
     districtWebsite: 'https://www.austinisd.org/',
   };
+  // Additional Batch 004 campus-directory join exceptions confirmed against
+  // official district school rosters and NCES campus county, not ZIP code or ISD
+  // headquarters. Preserve UIL program alignment, discarding mismatched TEA IDs.
+  const otherCampusCorrections: Record<string, Pick<FootballProgramDirectoryResult,
+    'officialSchoolName' | 'districtName' | 'countyName' | 'city' | 'schoolWebsite' | 'districtWebsite'>> = {
+    'austin-northeast': {
+      officialSchoolName: 'Northeast Early College High School',
+      districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://www.austinisd.org/schools/northeast',
+      districtWebsite: 'https://www.austinisd.org/',
+    },
+    'austin-vandegrift': {
+      officialSchoolName: 'Vandegrift High School',
+      districtName: 'Leander ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://vhs.leanderisd.org/',
+      districtWebsite: 'https://www.leanderisd.org/',
+    },
+    'austin-travis': {
+      officialSchoolName: 'Travis Early College High School',
+      districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://www.austinisd.org/schools/travis',
+      districtWebsite: 'https://www.austinisd.org/',
+    },
+    austin: {
+      officialSchoolName: 'Austin High School',
+      districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
+      schoolWebsite: 'https://austin.austinschools.org/',
+      districtWebsite: 'https://www.austinisd.org/',
+    },
+  };
+  const primaryCampus = otherCampusCorrections[canonicalSlug];
   const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
     ? { ...matchedProgram, countyName: 'Fort Bend County' }
-    : canonicalSlug === 'austin-johnson' ? austinLbjProgram : matchedProgram;
+    : canonicalSlug === 'austin-johnson' ? austinLbjProgram
+    : primaryCampus ? {
+      ...seed, profilePath: footballProgramProfilePath(seed.schoolName),
+      ...(exactEnrollment ? {
+        uilEnrollment: exactEnrollment.enrollment,
+        uilSubmittedConference: exactEnrollment.submittedConference,
+      } : {}),
+      ...primaryCampus,
+    } : matchedProgram;
   const displayName = canonicalSlug === 'austin-johnson' ? 'Austin LBJ' : seed.schoolName;
 
   const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null;
