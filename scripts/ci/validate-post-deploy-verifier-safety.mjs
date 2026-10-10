@@ -176,6 +176,18 @@ for (const name of ['verify-katy-browser','verify-abbott-browser','verify-wills-
   if (source.includes('Check out current repository')) failures.push(`${name} must not use moving main as verifier source`);
 }
 
+// Match post-deploy Events and museum verifier source to the triggering revision.
+const eventCompletion = workflow('verify-event-system-completion');
+const deployedRef = 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}';
+if (eventCompletion.split(deployedRef).length - 1 < 2)
+  failures.push('Both Events completion jobs must check out the deployed SHA');
+requireMarker(eventCompletion, "github.event.workflow_run.conclusion == 'success'", 'Events live checks require a successful deployment');
+const zapata = workflow('verify-zapata-museum-production');
+requireMarker(zapata, "github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'", 'Zapata live acceptance must be gated on deployment success');
+requireMarker(zapata, deployedRef, 'Zapata live verifier must check out the deployed SHA');
+if (zapata.slice(zapata.indexOf('  museum:')).includes("github.event.workflow_run.conclusion == 'failure'"))
+  failures.push('Zapata live acceptance must not execute after failed deployment');
+
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
