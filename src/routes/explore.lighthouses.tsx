@@ -34,7 +34,7 @@ const lighthouseCards = [
     href: "/article/point-bolivar-lighthouse-history",
     description: "The cast-iron tower at Galveston Bay, now restored to historic black-and-white stripes.",
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg?width=1600",
-    alt: "Historical photograph of Point Bolivar Lighthouse; its exterior is now black-and-white striped",
+    alt: "Point Bolivar Lighthouse in a December 2009 photograph, before restoration of its black-and-white stripes",
     credit: "Patrick Feller · CC BY 2.0 · Wikimedia Commons",
   },
   {
