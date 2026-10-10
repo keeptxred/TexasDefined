@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 10,
+    "partiallyCompleted": 11,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "anna",
-    "nextSchool": "anna",
-    "implementedOnBranch": 10,
-    "remainingToImplement": 15,
+    "currentSchool": "anson",
+    "nextSchool": "anson",
+    "implementedOnBranch": 11,
+    "remainingToImplement": 14,
     "remainingToVerify": 25,
-    "notes": "10 individually researched and IMPLEMENTED on draft PR #4506, 15 assigned NOT_REVIEWED, zero production VERIFIED. Angleton next Anna."
+    "notes": "11 schools individually IMPLEMENTED and audited on draft PR #4506, 14 assigned unreviewed, zero Batch003 production VERIFIED. Next Anson."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3198,9 +3198,31 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anna",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anna.md",
+      "implementationCommits": [
+        "a058676746738c8be07845d70fa770a4db856910",
+        "2fb46aaf7f49b8382ba7a407b10f75478eec2f00"
+      ],
+      "evidenceSources": [
+        "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+        "https://www.maxpreps.com/tx/anna/anna-coyotes/football/23-24/schedule/",
+        "https://www.maxpreps.com/tx/anna/anna-coyotes/football/history/",
+        "https://www.annaisd.org/leadership/directors"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Confirm modern UIL district member list",
+        "Official stadium and accessible arrival",
+        "Collin county incoming reciprocal links",
+        "Licensed original football photography",
+        "Production CI merge deploy Chrome tests"
+      ]
     },
     {
       "id": "uil:anson",
