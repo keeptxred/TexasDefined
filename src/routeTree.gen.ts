@@ -2373,7 +2373,7 @@ const NetworkApplyRoute = NetworkApplyRouteImport.update({
   id: '/network/apply',
   path: '/network/apply',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any.lazy(() => import('./routes/network.apply.lazy').then((d) => d.Route))
 const MovingToTexasDataRoute = MovingToTexasDataRouteImport.update({
   id: '/moving-to-texas_/data',
   path: '/moving-to-texas/data',
