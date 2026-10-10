@@ -1,0 +1,99 @@
+name: TexasDefined centralized authority source health
+
+on:
+  schedule:
+    # 09:25 Texas daylight time; 08:25 CST. GitHub cron is UTC.
+    - cron: '25 14 * * 1,4'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/watch-authority-sources.mjs'
+      - 'ops/authority-monitor/**'
+      - '.github/workflows/authority-source-monitor.yml'
+  pull_request:
+    paths:
+      - 'scripts/ci/watch-authority-sources.mjs'
+      - 'ops/authority-monitor/**'
+      - '.github/workflows/authority-source-monitor.yml'
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: texasdefined-authority-source-health
+  cancel-in-progress: true
+
+jobs:
+  source-health:
+    name: Central authority source review and drift checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate registry, bounded rotation and MSR adapter
+        run: node scripts/ci/watch-authority-sources.mjs --self-test
+      - name: Check registered sources and existing specialist authorities
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        id: audit
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p artifacts
+          node scripts/ci/watch-authority-sources.mjs --full 2>&1 | tee artifacts/authority-source-execution.log
+      - name: Preserve central authority evidence
+        if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        uses: actions/upload-artifact@v4
+        with:
+          name: central-authority-health-${{ github.run_id }}
+          path: |
+            artifacts/authority-source-health.json
+            artifacts/authority-source-health.md
+            artifacts/authority-source-execution.log
+            artifacts/top25-source-health.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Open or update one editorial-review issue
+        if: steps.audit.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const title = '[Authority Monitoring] TexasDefined source review needed';
+            const p = 'artifacts/authority-source-health.json';
+            const report = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null;
+            const log = fs.existsSync('artifacts/authority-source-execution.log') ? fs.readFileSync('artifacts/authority-source-execution.log', 'utf8').slice(-6500) : 'No report produced; inspect workflow steps.';
+            const runUrl = context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            const body = ['The centralized read-only source check needs editorial review.', '',
+              'Run: ' + runUrl, 'Snapshot: central-authority-health-' + context.runId,
+              'Core/extra source coverage: ' + (report ? JSON.stringify(report.coverage) : 'unavailable'),
+              '', '## Actionable signals',
+              ...(report?.alerts?.length ? report.alerts.map(v => '- ' + v) : ['- Runner error: ' + log]),
+              '', 'Review operator sources before editing facts. Do not update sourceCheckedAt solely because a URL was fetched; investigate closure, fee, event and date changes.'].join('\n').slice(0,45000);
+            const issues = await github.paginate(github.rest.issues.listForRepo, { owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 100 });
+            const issue = issues.find(x => !x.pull_request && x.title === title);
+            if (issue) await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, body });
+            else await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body });
+      - name: Close recovered centralized authority issue
+        if: steps.audit.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('artifacts/authority-source-health.json', 'utf8'));
+            if (!report.deepCheck || report.needsReview) return;
+            const title = '[Authority Monitoring] TexasDefined source review needed';
+            const issues = await github.paginate(github.rest.issues.listForRepo, { owner: context.repo.owner, repo: context.repo.repo, state: 'open', per_page: 100 });
+            const issue = issues.find(x => !x.pull_request && x.title === title);
+            if (!issue) return;
+            const link = context.serverUrl + '/' + context.repo.owner + '/' + context.repo.repo + '/actions/runs/' + context.runId;
+            await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, body: 'All registered source checks recovered: ' + link });
+            await github.rest.issues.update({ owner: context.repo.owner, repo: context.repo.repo, issue_number: issue.number, state: 'closed' });
+      - name: Fail health workflow if review required
+        if: steps.audit.outcome == 'failure'
+        run: exit 1
