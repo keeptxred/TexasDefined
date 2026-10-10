@@ -58,6 +58,178 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "andrews": {
+    "slug": "andrews",
+    "theme": {
+      "accentHex": "#B9912A",
+      "label": "Original Mustang gold archival milestone styling, not a school crest"
+    },
+    "seo": {
+      "title": "Andrews Mustangs Football: 2026 Coach, Playoff History & Mustang Bowl",
+      "description": "Andrews Mustangs football with official ISD title history, new 2026 coach Jason Richters, 41 playoff appearances, UIL 4A Division I and Mustang Bowl game-day resources."
+    },
+    "coach": {
+      "name": "Jason Richters",
+      "title": "2026 Andrews ISD head football coach",
+      "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+      "sourceLabel": "Andrews ISD official football coaching staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1400 NW Ave. K, Andrews, TX 79714",
+      "sourceUrl": "https://www.maxpreps.com/tx/andrews/andrews-mustangs/football/staff/",
+      "sourceLabel": "2026 team roster campus; school address is not stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Andrews Mustangs game results and schedule",
+      "sourceUrl": "https://www.texasfootball.com/team/andrews-mustangs",
+      "sourceLabel": "DCTF dated 2026 football ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 in five sourced games through Sept. 25, 2026; Oct. 2 result not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/andrews/andrews-mustangs/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 football game ledger updated Sept. 29",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Clint",
+          "site": "Home",
+          "result": "W 16–7"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Big Spring",
+          "site": "Home",
+          "result": "W 42–34"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Mineral Wells",
+          "site": "Away",
+          "result": "L 7–41"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Snyder",
+          "site": "Away",
+          "result": "L 3–8"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Monahans",
+          "site": "Home",
+          "result": "W 19–7"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Lubbock Estacado",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Lubbock Christian",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Midland Greenwood",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "San Angelo Lake View",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Plainview",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Mustang Bowl",
+      "address": "Andrews, TX — verify exact match-day gate with Andrews ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/andrews-mustangs",
+      "sourceLabel": "DCTF Mustang Bowl historical venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF gives historic 8,092 stadium capacity, not a current official accessible parking or ticketing certificate. Andrews High campus on NW Avenue K and district offices at 405 NW 3rd Street are different locations and should never be assumed to be the stadium entrance."
+    },
+    "overview": [
+      "Andrews Mustangs football combines a long postseason tradition with one of West Texas's best-known stadium names, Mustang Bowl. Andrews ISD's own football accomplishments page identifies title seasons and coaching staff, making it possible to describe the program from first-party evidence rather than generic Class 4A filler.",
+      "The official Andrews ISD accomplishment record lists four regional championships in 2006, 2007, 2016 and 2019; eight area championships spanning 1993 through 2019; and multiple district crowns, including 2024 and 2025. A regional championship is not a UIL state football championship. DCTF records 41 playoff appearances, zero title-game appearances and zero state football crowns.",
+      "The 2019 team reached 11–2 according to the DCTF history ledger, while a recent sequence was 7–5 in 2022, 6–6 in 2023, 5–7 in 2024 and 5–6 in 2025. Those exact season outcomes should stand separately from district championships; losing overall records can still include district success.",
+      "Andrews ISD officially lists Jason Richters as the 2026 head football coach with a full assistant roster. That provides an unusually reliable current coach source instead of relying solely on sports databases; Tom Harvey's spring 2026 retirement is documented by local news and should not be confused with the current head coach.",
+      "In the 2026–28 UIL Class 4A Division I, District 3 alignment the Mustangs face Midland Greenwood, Plainview and San Angelo Lake View in league play. The current alignment must not be retroactively used for Andrews's 2006 regional championship season.",
+      "The first five reported 2026 final scores show victories over Clint, Big Spring and Monahans, with losses at Mineral Wells and Snyder: a 3–2 record through September 25. A later game at Lubbock Estacado is listed but lacks a checked final in the data snapshot, and should not be labeled complete.",
+      "Mustang Bowl's named historical capacity is 8,092 in DCTF, but that does not establish which entrance is open, accessible parking availability, current tickets or concessions. For accurate game-day arrival, fans should use Andrews ISD's current athletic resources and event-specific instructions."
+    ],
+    "milestones": [
+      {
+        "date": "2006–07",
+        "title": "Back-to-back regional titles",
+        "body": "Andrews ISD officially lists regional championship football seasons in both 2006 and 2007.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Andrews ISD football accomplishments"
+      },
+      {
+        "date": "2016",
+        "title": "Another regional championship",
+        "body": "The district lists 2016 among its official regional, area, bi-district and district championship years.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Andrews ISD official football achievement ledger"
+      },
+      {
+        "date": "2019",
+        "title": "Eleven wins and fourth listed regional crown",
+        "body": "DCTF reports 11–2 in 2019; Andrews ISD credits that season with regional championship honors.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Official Andrews ISD regional championship list"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two recent district championships",
+        "body": "Andrews ISD lists both 2024 and 2025 among the program's district titles, distinct from state championships.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Official Andrews ISD district-title list"
+      },
+      {
+        "date": "2026",
+        "title": "Jason Richters leads Mustangs",
+        "body": "The current Andrews ISD football coaching roster identifies Jason Richters as head football coach.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Official school athletics coaching staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Andrews won a UIL state football championship?",
+        "answer": "DCTF records 41 postseason appearances with no state championship or state-title-game appearance. The four regional championship seasons published by Andrews ISD are separate, lower playoff-stage honors."
+      },
+      {
+        "question": "Who is Andrews's 2026 head football coach?",
+        "answer": "Andrews ISD's official athletics page names Jason Richters as head coach. Former coach Tom Harvey retired in spring 2026."
+      },
+      {
+        "question": "Which years did Andrews win regional football titles?",
+        "answer": "The district's official football achievements page lists 2006, 2007, 2016 and 2019."
+      },
+      {
+        "question": "Where do the Andrews Mustangs play home games?",
+        "answer": "The historic program stadium is Mustang Bowl, according to DCTF. Use Andrews ISD event listings to confirm tickets, entrance and accessibility, rather than navigate to the school-office address."
+      },
+      {
+        "question": "How did Andrews open the 2026 season?",
+        "answer": "The five reported results through September 25 total 3–2, including wins over Clint, Big Spring and Monahans."
+      }
+    ]
+  },
   "anderson-shiro": {
     "slug": "anderson-shiro",
     "theme": {
