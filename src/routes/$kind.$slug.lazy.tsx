@@ -130,11 +130,19 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
   },
 };
 
-// Additional independently researched Batch 002 school links. Lists retain
+// Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
-  tarrant: [{ name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' }],
+  tarrant: [
+    { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
+    // Batch 003: campuses and Tarrant County independently corroborated by NCES.
+    { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL football state championship and program history' },
+    { name: 'Arlington Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw Stadium fixtures' },
+    { name: 'Arlington Lamar Vikings', slug: 'arlington-lamar', context: '1990 UIL state finalist and modern Vikings football' },
+    { name: 'Arlington Martin Warriors', slug: 'arlington-martin', context: 'Warriors postseason history and Glaspie Field context' },
+  ],
+  denton: [{ name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' }],
   collin: [{ name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' }],
   brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
   colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
