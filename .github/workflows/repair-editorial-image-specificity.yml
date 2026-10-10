@@ -1,6 +1,11 @@
 name: Repair editorial image specificity
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "scripts/data/repair-editorial-image-specificity.mjs"
+      - ".github/workflows/repair-editorial-image-specificity.yml"
   workflow_dispatch:
   push:
     branches: [main]
@@ -18,7 +23,20 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  source-syntax:
+    name: Validate editorial image repair source (PR only)
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check scripts/data/repair-editorial-image-specificity.mjs
+
   repair:
+    if: ${{ github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
