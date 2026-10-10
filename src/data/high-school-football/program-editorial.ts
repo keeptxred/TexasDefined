@@ -267,8 +267,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin Westlake Chaparrals Football: History, 2026 Guide & Stadium Resources",
-      "description": "Research-led Austin Westlake Chaparrals football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+      "title": "Austin Westlake Football: Four UIL Titles, Historic Records & 2026",
+      "description": "Westlake Chaparrals history: 1996, 2019, 2020 and 2021 UIL football crowns, 2024 state runner-up, campus resources and 2026 program reference."
     },
     "schedule": {
       "label": "Published source of team or opponent varsity schedule",
@@ -277,35 +277,68 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A distinctive football story",
-      "body": "Westlake's official athletics record lists four Texas state football championships in 1996, 2019, 2020 and 2021, distinct from title-game appearances and from Lake Travis' six championships. UIL's 2020 title team under Todd Dodge went undefeated, beating North Shore 24–21 in the semifinals. The program's published records include multi-decade district winning streaks and famous alumni Drew Brees, Nick Foles and Sam Ehlinger, whose connections should be individually sourced before expanding biographies.",
+      "title": "Four state crowns across two football eras",
+      "body": "Westlake Nation's official football records list four UIL state championships: 1996 5A, 2019 6A Division II, 2020 6A Division I and 2021 6A Division II. Their published records also document 71 consecutive district wins (1990–2003), 13 consecutive 10-win seasons (1990–2002) and 23 consecutive playoff appearances (1988–2011). The UIL's 2024 Class 6A Division I archive instead lists Westlake as runner-up to North Crowley 50–21: a 2024 state-final appearance is not a fifth Westlake title.",
       "sourceUrl": "https://www.westlakenation.com/teams/fb",
-      "sourceLabel": "School source and explicitly qualified published record",
+      "sourceLabel": "Westlake Nation official football historical records",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
-        "date": "1996–2021",
-        "title": "Program-specific football milestone",
-        "body": "The official Westlake Nation record lists 1996, 2019, 2020 and 2021 title years and identifies 2020 as 6A Division I.",
+        "date": "1996",
+        "title": "First title on school record",
+        "body": "Westlake Nation lists the 1996 5A state championship, its earliest of four recorded UIL football titles.",
         "sourceUrl": "https://www.westlakenation.com/teams/fb",
-        "sourceLabel": "School schedule or athletics history"
+        "sourceLabel": "Westlake official football record"
+      },
+      {
+        "date": "2019–2021",
+        "title": "Three consecutive football championships",
+        "body": "2019 Class 6A Division II, 2020 Class 6A Division I and 2021 Class 6A Division II form an unusual three-title span across two divisions.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake official football record"
+      },
+      {
+        "date": "2024",
+        "title": "North Crowley wins the state final",
+        "body": "UIL's 2024 Class 6A Division I state championship archive lists North Crowley 50, Austin Westlake 21, making the Chaparrals state runners-up, not champions that season.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives",
+        "sourceLabel": "UIL official 2024 state finals table"
+      },
+      {
+        "date": "1990–2003",
+        "title": "71 consecutive district victories",
+        "body": "The athletic department records a 71-game consecutive district-win streak spanning 1990–2003.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake official team historical records"
       }
     ],
     "overview": [
-      "Westlake's official athletics record lists four Texas state football championships in 1996, 2019, 2020 and 2021, distinct from title-game appearances and from Lake Travis' six championships. UIL's 2020 title team under Todd Dodge went undefeated, beating North Shore 24–21 in the semifinals. The program's published records include multi-decade district winning streaks and famous alumni Drew Brees, Nick Foles and Sam Ehlinger, whose connections should be individually sourced before expanding biographies.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "Four documented state football crowns set Westlake's historical stature: 1996, 2019, 2020 and 2021. The 2024 championship-game loss to North Crowley was a final appearance, not an additional title.",
+      "Westlake Nation publishes precise historical streaks, including 71 consecutive district victories and 13 straight 10-win seasons. These are explicitly dated records and not automatically active 2026 streaks.",
+      "Westlake High School's official athletic office is at 4100 Westbank Drive; football ticketing, exact game venues and accessibility arrangements must be checked for each 2026 matchup. The official team page lists the program in District 25-6A."
     ],
     "faq": [
       {
-        "question": "What should visitors know about Austin Westlake Chaparrals?",
-        "answer": "The official Westlake Nation record lists 1996, 2019, 2020 and 2021 title years and identifies 2020 as 6A Division I."
+        "question": "How many UIL football state championships has Austin Westlake won?",
+        "answer": "Westlake's athletics department lists four: 1996, 2019, 2020 and 2021."
       },
       {
-        "question": "Is TexasDefined the official football website?",
-        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+        "question": "Did Westlake win the 2024 football state final?",
+        "answer": "No. UIL records North Crowley beating Austin Westlake 50–21 in the 2024 Class 6A Division I championship."
+      },
+      {
+        "question": "Where is Westlake High School's athletics office?",
+        "answer": "Official Westlake Nation lists 4100 Westbank Drive, Austin, TX 78746."
       }
-    ]
+    ],
+    "campus": {
+      "address": "4100 Westbank Drive, Austin, TX 78746",
+      "phone": "512-732-9289",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Official Westlake Nation football and athletic-office contact",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-vandegrift": {
     "slug": "austin-vandegrift",
