@@ -81,7 +81,8 @@ for (const marker of [
   "'Texas Rivers Explained'",
   "'Start with the map'",
   "'Open the full 15-basin comparison'",
-  "'Texas rivers at a glance'",
+  "'Explore All 15 Major Texas River Basins'",
+  "'Texas rivers at a glance: six quick answers'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
 
 if (productionWorkflow.includes("CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN ||")) {
