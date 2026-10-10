@@ -446,7 +446,7 @@ import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
 import { Route as NetworkExamplePlusRouteImport } from './routes/network.example.plus'
 import { Route as NetworkExampleBasicRouteImport } from './routes/network.example.basic'
-import { Route as NetworkBusinessIdRouteImport } from './routes/network.business.$id'
+import { Route as NetworkBusinessSlugRouteImport } from './routes/network.business.$slug'
 import { Route as FishingTechniquesSlugRouteImport } from './routes/fishing.techniques.$slug'
 import { Route as FishingSpeciesLargemouthBassRouteImport } from './routes/fishing.species.largemouth-bass'
 import { Route as FishingSpeciesSlugRouteImport } from './routes/fishing.species.$slug'
@@ -3254,12 +3254,12 @@ const NetworkExampleBasicRoute = NetworkExampleBasicRouteImport.update({
   path: '/network/example/basic',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NetworkBusinessIdRoute = NetworkBusinessIdRouteImport.update({
-  id: '/network/business/$id',
-  path: '/network/business/$id',
+const NetworkBusinessSlugRoute = NetworkBusinessSlugRouteImport.update({
+  id: '/network/business/$slug',
+  path: '/network/business/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
-  import('./routes/network.business.$id.lazy').then((d) => d.Route),
+  import('./routes/network.business.$slug.lazy').then((d) => d.Route),
 )
 const FishingTechniquesSlugRoute = FishingTechniquesSlugRouteImport.update({
   id: '/$slug',
@@ -4161,7 +4161,7 @@ export interface FileRoutesByFullPath {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
-  '/network/business/$id': typeof NetworkBusinessIdRoute
+  '/network/business/$slug': typeof NetworkBusinessSlugRoute
   '/network/example/basic': typeof NetworkExampleBasicRoute
   '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
@@ -4664,7 +4664,7 @@ export interface FileRoutesByTo {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
-  '/network/business/$id': typeof NetworkBusinessIdRoute
+  '/network/business/$slug': typeof NetworkBusinessSlugRoute
   '/network/example/basic': typeof NetworkExampleBasicRoute
   '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
@@ -5171,7 +5171,7 @@ export interface FileRoutesById {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
-  '/network/business/$id': typeof NetworkBusinessIdRoute
+  '/network/business/$slug': typeof NetworkBusinessSlugRoute
   '/network/example/basic': typeof NetworkExampleBasicRoute
   '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
@@ -5679,7 +5679,7 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
-    | '/network/business/$id'
+    | '/network/business/$slug'
     | '/network/example/basic'
     | '/network/example/plus'
     | '/property-tax/county/$county'
@@ -6182,7 +6182,7 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
-    | '/network/business/$id'
+    | '/network/business/$slug'
     | '/network/example/basic'
     | '/network/example/plus'
     | '/property-tax/county/$county'
@@ -6688,7 +6688,7 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
-    | '/network/business/$id'
+    | '/network/business/$slug'
     | '/network/example/basic'
     | '/network/example/plus'
     | '/property-tax/county/$county'
@@ -7100,7 +7100,7 @@ export interface RootRouteChildren {
   ExploreRoute66SlugRoute: typeof ExploreRoute66SlugRoute
   ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
   ExploreTripTokenRoute: typeof ExploreTripTokenRoute
-  NetworkBusinessIdRoute: typeof NetworkBusinessIdRoute
+  NetworkBusinessSlugRoute: typeof NetworkBusinessSlugRoute
   NetworkExampleBasicRoute: typeof NetworkExampleBasicRoute
   NetworkExamplePlusRoute: typeof NetworkExamplePlusRoute
   PropertyTaxCountyCountyRoute: typeof PropertyTaxCountyCountyRoute
@@ -10169,11 +10169,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NetworkExampleBasicRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/network/business/$id': {
-      id: '/network/business/$id'
-      path: '/network/business/$id'
-      fullPath: '/network/business/$id'
-      preLoaderRoute: typeof NetworkBusinessIdRouteImport
+    '/network/business/$slug': {
+      id: '/network/business/$slug'
+      path: '/network/business/$slug'
+      fullPath: '/network/business/$slug'
+      preLoaderRoute: typeof NetworkBusinessSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fishing/techniques/$slug': {
@@ -11667,7 +11667,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute66SlugRoute: ExploreRoute66SlugRoute,
   ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
   ExploreTripTokenRoute: ExploreTripTokenRoute,
-  NetworkBusinessIdRoute: NetworkBusinessIdRoute,
+  NetworkBusinessSlugRoute: NetworkBusinessSlugRoute,
   NetworkExampleBasicRoute: NetworkExampleBasicRoute,
   NetworkExamplePlusRoute: NetworkExamplePlusRoute,
   PropertyTaxCountyCountyRoute: PropertyTaxCountyCountyRoute,
