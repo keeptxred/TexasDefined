@@ -14,7 +14,7 @@ Authority content and launch: [#4408](https://github.com/keeptxred/TexasDefined/
 
 **Correction in #4571:** `public/expedia-travel.js` now waits until the application `RootShell` sets `document.documentElement.dataset.tdRootHydrated = "1"` and emits `texasdefined:root-hydrated` before inserting/replacing monetization DOM. Startup remains one-shot and supports both before- and after-load registration. The existing affiliate integration is retained. Chrome acceptance continues to fail on React page errors; no assertion was disabled.
 
-**Landmark structure:** The final `src/routes/__root.tsx` supplies `<main id="main">` around the route outlet; `YsletaDelSurMuseumAuthority.tsx` renders inside it without a second main. Chrome explicitly confirms **one `<main>` and one H1** on both viewports. Historical #4523/#4524 landmark changes should not be independently reapplied to the latest architecture.
+**Landmark structure:** The final `RootComponent` in `src/routes/__root.tsx` supplies `<main id="main">` around the route outlet; `YsletaDelSurMuseumAuthority.tsx` renders inside it without a second main. Chrome explicitly confirms **one `<main>` and one H1** on both viewports. Historical #4523/#4524 landmark changes should not be independently reapplied to the latest architecture.
 
 ## Immutable deployment and browser evidence
 
@@ -50,3 +50,24 @@ The acceptance artifact from #38073890257 contains `acceptance.json`, mobile/des
 - No paid services were added. Preserve strict fail-closed Chrome verification for subsequent deployments.
 
 **Project task disposition:** Authority content, targeted hydration repair, merge, deployment, and two post-deployment browser runs are certified for application revision `116fcb907aba6f1983d2129929296d3654fe9a5a`. No additional museum-content or React change is justified by the reviewed evidence.
+
+## Final follow-up QA — October 10, 2026
+
+**Full-page visual review completed:** manually inspected the complete hydrated screenshots from Chrome production run [#38075364967](https://github.com/keeptxred/TexasDefined/actions/runs/38075364967), artifact [#11677884491](https://github.com/keeptxred/TexasDefined/actions/runs/38075364967/artifacts/11677884491). Desktop screenshot measured **1366 × 8263 px**; mobile **390 × 16304 px**. Reviewed hero, hours/contact panel, exhibit grids, licensed panorama, chronological timeline, planning guidance, FAQ, source lists, monetization module and full footer. No visible overlap, truncation, unintended image substitution, horizontal clipping, or missing sections; their no-JavaScript SSR counterparts are also retained in the same artifact. This is a visual inspection at the two certified viewport widths, not a claim of testing every viewport.
+
+**External-link and visitor-detail revalidation (October 10):** independently opened the following source pages and checked the claims they support. 
+- Pueblo [museum](https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum): confirms **Wednesday–Sunday, 10 a.m.–4 p.m.**, exhibits and group/school tours.
+- Pueblo [Cultural Center](https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center): confirms Pueblo operation, artifacts and member-only program restrictions.
+- Pueblo [Cultural Preservation](https://www.ysletadelsurpueblo.org/tribal-services/department-of-cultural-preservation): confirms institutional role and 2016 reorganization.
+- Pueblo [About Us](https://www.ysletadelsurpueblo.org/about-us): tribe's first-person history and identity.
+- Texas Historical Commission [official accessible museum record](https://atlas.thc.texas.gov/Details?atlasnumber=4200001263&fn=print): identifies **305 Yaya Lane, El Paso, TX 79907**, **(915) 859-7700**, **culturalcenter@ydsp-nsn.gov**, museum hours and record last updated September 27, 2026. The previous Atlas detail URL did not consistently load through automated retrieval, so the museum's outbound link has been changed to this accessible official view.
+- Texas State Historical Association [museum history](https://www.tshaonline.org/handbook/entries/ysleta-del-sur-pueblo-museum): confirms the 1975 opening and 1992 fire/rebuilding; not a current facility-hours source.
+- National Park Service [Ysleta Mission](https://www.nps.gov/places/ysleta-mission.htm): distinct church/history resource.
+- Pueblo [bread baking](https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/bread-baking): every-other-Saturday claim; [Visit El Paso cultural-center listing](https://visitelpaso.com/places/tigua-indian-cultural-center): second/fourth-Saturday listing; the page correctly flags ambiguity.
+- [Official Visit El Paso Mission Trail](https://visitelpaso.com/epmissiontrail): Ysleta, Socorro and San Elizario itinerary.
+- Pueblo [Tribal Council](https://www.ysletadelsurpueblo.org/news_detail.sstg?id=104): explicitly documents the 1987 restoration act cited by the timeline, despite the generic page title.
+- [Wikimedia Commons hero](https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center.jpg) and [panorama](https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center_2.jpg): authentic Cultural Center imagery and existing attribution retained.
+
+The **broader gift shop and Visit El Paso list daily 10 a.m.–4 p.m. hours**, which conflicts with the museum-specific source. This is not a basis to rewrite museum hours without confirmation; existing uncertainty warnings are appropriate. No new admission price, public ceremony schedule, accessibility facilities, or permissions were asserted.
+
+**Expanded production accessibility regression coverage:** PR [#4578](https://github.com/keeptxred/TexasDefined/pull/4578) adds separate Chrome tests for the accessible-name/landmark tree, nine native Tab key moves and visible keyboard-focus indicators at each viewport, and computed WCAG 2.0/2.1 AA solid-background text contrast across museum text. The test runs within the existing strict real-browser acceptance after deployment, using only existing Playwright/Chromium packages. Photo/gradient text contrast still requires human judgment; a fully manual screen-reader session cannot be claimed from programmatic accessibility-tree checks. The results must be recorded from the deployed-SHA post-merge Chrome run; this source record does not pre-certify an unmerged PR.
