@@ -48,6 +48,8 @@ function parseFile(file, slugs) {
       src: imports.get(src) ?? src,
       alt: value.match(/\balt:\s*"([^"]+)"/)?.[1] ?? "",
       credit: value.match(/\bcredit:\s*"([^"]+)"/)?.[1] ?? "",
+      sourceUrl: value.match(/\bsourceUrl:\s*"([^"]+)"/)?.[1] ?? "",
+      licenseUrl: value.match(/\blicenseUrl:\s*"([^"]+)"/)?.[1] ?? "",
       width: Number(value.match(/\bwidth:\s*(\d+)/)?.[1] ?? 0),
       height: Number(value.match(/\bheight:\s*(\d+)/)?.[1] ?? 0),
     });
@@ -77,8 +79,13 @@ for (const group of groups) {
     if (subjectWords.has(slug)) {
       if (!subjectWords.get(slug).test(lazyHero.alt)) failures.push(`${slug}: alt text does not describe this article's topic`);
       if (!lazyHero.src?.startsWith("https://upload.wikimedia.org/wikipedia/commons/") ||
-        !/public domain|CC0|CC BY-SA/i.test(lazyHero.credit)) {
-        failures.push(`${slug}: missing Wikimedia media and documented commercial reuse status`);
+        !/public domain|CC0|CC BY-SA/i.test(lazyHero.credit) ||
+        !lazyHero.sourceUrl.startsWith("https://commons.wikimedia.org/wiki/File:")) {
+        failures.push(`${slug}: missing rights-cleared Wikimedia media and clickable source attribution`);
+      }
+      if (/CC BY-SA/i.test(lazyHero.credit) &&
+        !/^https:\/\/creativecommons\.org\/licenses\/by-sa\/\d\.0\/$/.test(lazyHero.licenseUrl)) {
+        failures.push(`${slug}: Creative Commons ShareAlike image lacks a license link`);
       }
     }
     const key = lazyHero.src?.replace(/[?#].*$/, "").toLowerCase();
