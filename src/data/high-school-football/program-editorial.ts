@@ -2328,11 +2328,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Angleton, TX — confirm current stadium gate through Angleton ISD",
-      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
-      "sourceLabel": "DCTF school stadium historical directory",
+      "address": "Wildcat Stadium, 1 Stadium Drive, Angleton, TX 77515 (per Angleton High official events)",
+      "sourceUrl": "https://www.angletonisd.net/o/ahs/events",
+      "sourceLabel": "Angleton High 2026 events venue listing and Angleton ISD varsity ticket guidance",
       "verifiedAt": "2026-10-09",
-      "note": "DCTF lists historical capacity 8,800; do not represent this as official present-day ADA seating, verified gate or parking. Consult Angleton ISD event/ticket communications for current access."
+      "note": "Angleton ISD's published varsity-football exception allows cash ticket payment at Wildcat Stadium gates, while recommending GoFan advance purchases. The district's June 2026 season-ticket notice describes GoFan renewals; check individual event price and schedule. The 2026 graduation guide documents accessible seating and parking, but its gate hours and shuttle operations apply to graduation, not automatically football. Confirm current football spectator arrangements with AISD."
     },
     "overview": [
       "Angleton High School's Wildcats play in Angleton, Brazoria County. Their identity is distinct from other Texas Wildcats programs, and the school campus at 1 Campus Drive should not automatically be used as a stadium entrance.",
