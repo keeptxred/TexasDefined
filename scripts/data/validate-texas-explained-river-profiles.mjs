@@ -165,6 +165,54 @@ for (const [slug] of profiles) {
   }
 }
 
+// The second tranche closes all remaining TWDB major basin coverage without duplicating the original five.
+const additionalStubs = read('src/data/fixtures/texas-explained-river-profiles-remaining-stubs.ts');
+const additionalGuides = read('src/data/fixtures/texas-explained-river-profiles-remaining.ts');
+const interactiveMap = read('src/components/content/TexasRiverBasinInteractiveMap.tsx');
+const additionalBasins = [
+  ['Canadian', 'texas-canadian-river-guide', 'canadian/index.asp'],
+  ['Cypress', 'texas-cypress-river-basin-guide', 'cypress/index.asp'],
+  ['Lavaca', 'texas-lavaca-river-guide', 'lavaca/index.asp'],
+  ['Neches', 'texas-neches-river-guide', 'neches/index.asp'],
+  ['Nueces', 'texas-nueces-river-guide', 'nueces/index.asp'],
+  ['Red', 'texas-red-river-guide', 'red/index.asp'],
+  ['Sabine', 'texas-sabine-river-guide', 'sabine/index.asp'],
+  ['San Antonio', 'texas-san-antonio-river-guide', 'sanantonio/index.asp'],
+  ['San Jacinto', 'texas-san-jacinto-river-guide', 'sanjacinto/index.asp'],
+  ['Sulphur', 'texas-sulphur-river-guide', 'sulphur/index.asp'],
+];
+for (const [name, slug, twdbPath] of additionalBasins) {
+  if (!additionalStubs.includes(`slug: "${slug}"`)) errors.push(`Missing new river stub ${slug}`);
+  const begin = additionalGuides.indexOf(`slug: "${slug}"`);
+  const next = begin < 0 ? -1 : additionalGuides.indexOf('\nexport const ', begin);
+  const body = begin < 0 ? '' : additionalGuides.slice(begin, next > begin ? next : additionalGuides.length);
+  const wordCount = body.slice(body.indexOf('body: [')).split(/\\s+/).length;
+  if (wordCount < 600) errors.push(`New river guide below 600-word floor: ${name}, ${wordCount}`);
+  if (!body.includes(`/river_basins/${twdbPath}`)) errors.push(`Missing official TWDB source: ${name}`);
+  if (!body.includes('/article/texas-rivers-explained') || !body.includes('/article/texas-river-basins-guide') || !body.includes('/texas-explained')) errors.push(`Missing profile backlinks: ${slug}`);
+  if (!authority.includes(`/article/${slug}`)) errors.push(`Missing flagship atlas link: ${slug}`);
+  if (!basinReference.includes(`/article/${slug}`)) errors.push(`Missing TWDB table link: ${slug}`);
+  if (!topology.includes(`/article/${slug}`)) errors.push(`Missing reciprocal topology link: ${slug}`);
+  if (!hub.includes(`"${slug}"`)) errors.push(`Missing Texas Explained collection entry: ${slug}`);
+}
+for (const marker of [
+  '...texasExplainedRemainingRiverProfileStubs',
+  'texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)',
+  'await import("./texas-explained-river-profiles-remaining")',
+  'texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug)',
+]) if (!lazy.includes(marker)) errors.push(`Additional river guide lazy loading missing: ${marker}`);
+for (const marker of [
+  'GM_Admin_Boundaries/MapServer/0',
+  'Basin%2CBAYS',
+  'maxAllowableOffset=0.025',
+  'Load interactive basin map',
+  'Zoom to selection',
+  'showCoastal',
+  'showBays',
+  'TWDB',
+]) if (!interactiveMap.includes(marker)) errors.push(`TWDB interactive map source/control missing: ${marker}`);
+if (!authority.includes('<TexasRiverBasinInteractiveMap />')) errors.push('Official interactive basin atlas not mounted on rivers hub');
+
 if (errors.length) {
   console.error('Texas Explained river profile validation failed:');
   errors.forEach((error) => console.error(`- ${error}`));
