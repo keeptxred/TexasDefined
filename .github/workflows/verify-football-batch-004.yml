@@ -1,0 +1,24 @@
+name: Football Batch 004 structural pre-acceptance
+on:
+  pull_request:
+    paths:
+      - "docs/football-authority/**"
+      - "src/data/high-school-football/program-editorial.ts"
+      - "scripts/ci/verify-football-batch-004.mjs"
+      - ".github/workflows/verify-football-batch-004.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  structural-preacceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate Batch 004 browser runner syntax without network
+        run: node --check scripts/ci/verify-football-batch-004-browser.mjs
+      - name: Validate Batch 004 roster, dossiers, and verified-status integrity
+        run: node scripts/ci/verify-football-batch-004.mjs
