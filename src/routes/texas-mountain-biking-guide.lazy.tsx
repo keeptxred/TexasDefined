@@ -81,7 +81,7 @@ const trailSystems = [
   {
     name: "Hill Country State Natural Area",
     region: "Hill Country · Bandera",
-    destinationPath: "/destination/hill-country-state-natural-area",
+    destinationPath: "/destination/hill-country-louise-merrick-unit-state-natural-area",
     officialUrl: "https://tpwd.texas.gov/state-parks/hill-country/",
     trailUrl: "https://tpwd.texas.gov/state-parks/hill-country/trails-map",
     image: { src: heroHillCountry, alt: "Rolling limestone hills and oak-covered terrain in the Texas Hill Country" },
