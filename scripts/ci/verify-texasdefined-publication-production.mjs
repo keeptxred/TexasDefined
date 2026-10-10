@@ -1,11 +1,12 @@
 const origin = String(process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const userAgent = 'TexasDefined-Publication-Production-Smoke/1.3';
+const verifyToken = [process.env.GITHUB_SHA || 'local', process.env.GITHUB_RUN_ID || 'run', process.env.GITHUB_RUN_ATTEMPT || 'attempt', Date.now()].join('-');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function fetchHealthy(path, expectedText = '') {
   let last = null;
   for (let attempt = 1; attempt <= 6; attempt += 1) {
     try {
-      const response = await fetch(`${origin}${path}`, { redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000), headers: { 'user-agent': userAgent } });
+      const response = await fetch(`${origin}${path}${path.includes('?') ? '&' : '?'}td_verify=${encodeURIComponent(verifyToken)}-${attempt}`, { redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000), headers: { 'user-agent': userAgent } });
       const body = await response.text();
       const challenged = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
       last = { status: response.status, challenged, body };
