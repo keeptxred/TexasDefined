@@ -58,6 +58,208 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "austin-anderson": {
+    "slug": "austin-anderson",
+    "theme": {
+      "accentHex": "#5A2D80",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin Anderson Trojans Football: 2026 Schedule, History & Fan Guide",
+      "description": "Independent Austin Anderson Trojans football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+    },
+    "schedule": {
+      "label": "2026 varsity schedule and source information",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+      "sourceLabel": "Published varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "This program's distinct identity",
+      "body": "Anderson's program has a distinct 2026 alignment in Class 5A Division I, unlike nearby Austin High and Bowie 6A teams. The 2025 Trojans finished 10–2, following a 7–4 season in 2024, according to historical team results. Donald Hatcher is listed as head coach in both 2025 and 2026; official campus corroboration of the staffing and home venue remains pending.",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+      "sourceLabel": "School athletics site or published team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "School-specific 2026 season context",
+        "body": "The 2025 10–2 season follows a 2024 7–4 mark, an important recent competitive improvement rather than a claim of a state championship.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+        "sourceLabel": "2026 published varsity schedule"
+      }
+    ],
+    "overview": [
+      "Anderson's program has a distinct 2026 alignment in Class 5A Division I, unlike nearby Austin High and Bowie 6A teams. The 2025 Trojans finished 10–2, following a 7–4 season in 2024, according to historical team results. Donald Hatcher is listed as head coach in both 2025 and 2026; official campus corroboration of the staffing and home venue remains pending.",
+      "TexasDefined is an independent publication, not Austin Anderson Trojans's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+    ],
+    "faq": [
+      {
+        "question": "Where is the reliable 2026 Austin Anderson Trojans football schedule?",
+        "answer": "Use the linked published team history and schedule; opponent and venue details can change."
+      },
+      {
+        "question": "What makes the Austin Anderson Trojans football program distinctive?",
+        "answer": "The 2025 10–2 season follows a 2024 7–4 mark, an important recent competitive improvement rather than a claim of a state championship."
+      }
+    ],
+    "coach": {
+      "name": "Donald Hatcher",
+      "title": "Published 2026 head football coach; recheck official school personnel listing",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+      "sourceLabel": "Published football team information",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-akins": {
+    "slug": "austin-akins",
+    "theme": {
+      "accentHex": "#0F6152",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin Akins Eagles Football: 2026 Schedule, History & Fan Guide",
+      "description": "Independent Austin Akins Eagles football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+    },
+    "schedule": {
+      "label": "2026 varsity schedule and source information",
+      "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+      "sourceLabel": "Published varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "This program's distinct identity",
+      "body": "Akins' official athletics site lists its 2026 Burger Stadium home fixtures against LASA, Crockett, Dripping Springs, Buda Johnson and Bowie, alongside away travel to Leander, Del Valle, House Park for Austin High, and Shelton Stadium for Hays. The school campus is at 10701 S First Street, not the same address as Burger Stadium. Third-party staff rosters list two different names as head coach, so first-party identification is unresolved.",
+      "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+      "sourceLabel": "School athletics site or published team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Burger Stadium game planning",
+        "body": "The official Akins football schedule places the October 22 visit to Austin High at House Park, while the October 29 Bowie matchup is listed at Burger Stadium.",
+        "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+        "sourceLabel": "2026 published varsity schedule"
+      }
+    ],
+    "overview": [
+      "Akins' official athletics site lists its 2026 Burger Stadium home fixtures against LASA, Crockett, Dripping Springs, Buda Johnson and Bowie, alongside away travel to Leander, Del Valle, House Park for Austin High, and Shelton Stadium for Hays. The school campus is at 10701 S First Street, not the same address as Burger Stadium. Third-party staff rosters list two different names as head coach, so first-party identification is unresolved.",
+      "TexasDefined is an independent publication, not Austin Akins Eagles's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+    ],
+    "faq": [
+      {
+        "question": "Where is the reliable 2026 Austin Akins Eagles football schedule?",
+        "answer": "Use the linked school athletics site; opponent and venue details can change."
+      },
+      {
+        "question": "What makes the Austin Akins Eagles football program distinctive?",
+        "answer": "The official Akins football schedule places the October 22 visit to Austin High at House Park, while the October 29 Bowie matchup is listed at Burger Stadium."
+      }
+    ]
+  },
+  "austin-achieve": {
+    "slug": "austin-achieve",
+    "theme": {
+      "accentHex": "#285D87",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin Achieve Polar Bears Football: 2026 Schedule, History & Fan Guide",
+      "description": "Independent Austin Achieve Polar Bears football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+    },
+    "schedule": {
+      "label": "2026 varsity schedule and source information",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
+      "sourceLabel": "Published varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "This program's distinct identity",
+      "body": "Austin Achieve's school-sponsored athletics page documents a charter-school Polar Bears varsity football program and identifies Joe Dimaio as athletic director, not necessarily head football coach. The 2026 schedule includes its September 11 victory over St. Anthony, and October district fixtures with Wimberley, Giddings, Eastside Early College and Lago Vista. This young public-charter program should not be padded with fabricated championships.",
+      "sourceUrl": "https://www.austinachieve.org/athletics-2025",
+      "sourceLabel": "School athletics site or published team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "School-specific 2026 season context",
+        "body": "The 2026 score listing shows a 28–14 home win over St. Anthony on September 11; distinguish completed results from future dates.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
+        "sourceLabel": "2026 published varsity schedule"
+      }
+    ],
+    "overview": [
+      "Austin Achieve's school-sponsored athletics page documents a charter-school Polar Bears varsity football program and identifies Joe Dimaio as athletic director, not necessarily head football coach. The 2026 schedule includes its September 11 victory over St. Anthony, and October district fixtures with Wimberley, Giddings, Eastside Early College and Lago Vista. This young public-charter program should not be padded with fabricated championships.",
+      "TexasDefined is an independent publication, not Austin Achieve Polar Bears's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+    ],
+    "faq": [
+      {
+        "question": "Where is the reliable 2026 Austin Achieve Polar Bears football schedule?",
+        "answer": "Use the linked school athletics site; opponent and venue details can change."
+      },
+      {
+        "question": "What makes the Austin Achieve Polar Bears football program distinctive?",
+        "answer": "The 2026 score listing shows a 28–14 home win over St. Anthony on September 11; distinguish completed results from future dates."
+      }
+    ]
+  },
+  "austin": {
+    "slug": "austin",
+    "theme": {
+      "accentHex": "#82213B",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin High Maroons Football: 2026 Schedule, History & Fan Guide",
+      "description": "Independent Austin High Maroons football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+    },
+    "schedule": {
+      "label": "2026 varsity schedule and source information",
+      "sourceUrl": "https://www.austinmaroons.com/football-2026-schedule/",
+      "sourceLabel": "Published varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "This program's distinct identity",
+      "body": "Austin High's official football page describes the Maroons' 2026 campaign as District 26-6A, led by Jason Cecil. The team fields varsity, junior-varsity and freshman squads and hosts games at historic House Park in downtown Austin. The official football schedule identifies the September 25 Bowie game at House Park, while away dates need their own venue checks.",
+      "sourceUrl": "https://www.austinmaroons.com/football/",
+      "sourceLabel": "School athletics site or published team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "House Park game planning",
+        "body": "The official 2026 Maroons schedule schedules Westwood and Jarrell in September at House Park, plus the Bowie district rivalry meeting there on September 25.",
+        "sourceUrl": "https://www.austinmaroons.com/football-2026-schedule/",
+        "sourceLabel": "2026 published varsity schedule"
+      }
+    ],
+    "overview": [
+      "Austin High's official football page describes the Maroons' 2026 campaign as District 26-6A, led by Jason Cecil. The team fields varsity, junior-varsity and freshman squads and hosts games at historic House Park in downtown Austin. The official football schedule identifies the September 25 Bowie game at House Park, while away dates need their own venue checks.",
+      "TexasDefined is an independent publication, not Austin High Maroons's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+    ],
+    "faq": [
+      {
+        "question": "Where is the reliable 2026 Austin High Maroons football schedule?",
+        "answer": "Use the linked school athletics site; opponent and venue details can change."
+      },
+      {
+        "question": "What makes the Austin High Maroons football program distinctive?",
+        "answer": "The official 2026 Maroons schedule schedules Westwood and Jarrell in September at House Park, plus the Bowie district rivalry meeting there on September 25."
+      }
+    ],
+    "coach": {
+      "name": "Jason Cecil",
+      "title": "Published 2026 head football coach; recheck official school personnel listing",
+      "sourceUrl": "https://www.austinmaroons.com/football/",
+      "sourceLabel": "Published football team information",
+      "verifiedAt": "2026-10-10"
+    }
+  },
   "aubrey": {
     "slug": "aubrey",
     "theme": {
