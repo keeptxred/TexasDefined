@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const data = JSON.parse(fs.readFileSync('src/data/research-homeowners-premiums.json', 'utf8'));
+const csv = fs.readFileSync('public/texas-data/research/texas-homeowners-premiums-vs-coverage.csv','utf8').trim().split(/\r?\n/);
+const years = data.years;
+assert.equal(years.length,10);
+assert.deepEqual(years.map(x=>x.year),Array.from({length:10},(_,i)=>2016+i));
+assert.equal(years.filter(x=>x.preliminary).length,1);
+assert.equal(years.at(-1).preliminary,true);
+for(const row of years){assert.ok(Number.isFinite(row.average_annual_premium_usd)&&row.average_annual_premium_usd>0);assert.ok(Number.isFinite(row.average_coverage_usd)&&row.average_coverage_usd>0)}
+assert.equal(years.find(x=>x.year===2023).average_annual_premium_usd,2795);
+assert.equal(years.at(-1).average_annual_premium_usd,3489);
+assert.equal(csv.length,11,'CSV should have header and ten data rows');
+const header=csv[0].split(',');
+const ix=Object.fromEntries(header.map((x,i)=>[x,i]));
+for(const key of ['year','average_annual_premium_usd','average_coverage_usd','source_status']) assert.ok(key in ix,key);
+years.forEach((r,i)=>{const cells=csv[i+1].split(',');assert.equal(Number(cells[ix.year]),r.year);assert.equal(Number(cells[ix.average_annual_premium_usd]),r.average_annual_premium_usd);assert.equal(Number(cells[ix.average_coverage_usd]),r.average_coverage_usd)});
+const route='/texas-data/research/texas-homeowners-premiums-vs-coverage';
+assert.ok(fs.readFileSync('src/lib/public-routes.ts','utf8').includes('"'+route+'"'));
+assert.ok(fs.readFileSync('src/routes/texas-data.tsx','utf8').includes(route));
+console.log('Homeowners premium research data, CSV, route governance and hub reference validated.');
