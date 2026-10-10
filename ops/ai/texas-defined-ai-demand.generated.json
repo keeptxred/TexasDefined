@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-10T17:20:59.318Z",
+  "windowDays": 14,
+  "privacy": "Aggregated generalized topics only. Raw or sanitized user questions are never written to this report.",
+  "publicationBoundary": "Demand intelligence may prepare research and content changes, but it may not publish or auto-merge them.",
+  "totals": {
+    "events": 3,
+    "strong": 3,
+    "partial": 0,
+    "gap": 0,
+    "actionableOpportunities": 1
+  },
+  "opportunities": [
+    {
+      "topic": "General Texas information",
+      "category": "general-texas",
+      "askCount": 2,
+      "distinctQuestionPatterns": 2,
+      "current7d": 2,
+      "prior7d": 0,
+      "trendDelta": 2,
+      "coverage": {
+        "gap": 0,
+        "partial": 0,
+        "strong": 2
+      },
+      "demandScore": 8,
+      "commercialIntent": false,
+      "recommendedAssetType": "existing-page-improvement-or-guide",
+      "topExistingSurface": {
+        "title": "Why So Many Texas Towns Have German, Czech and Mexican Roots",
+        "href": "/article/texas-towns-german-czech-mexican-roots"
+      },
+      "authoritativeSources": [
+        {
+          "name": "Texas.gov",
+          "url": "https://www.texas.gov/"
+        },
+        {
+          "name": "Relevant state, county, city, agency, institution, or official business website",
+          "url": null
+        }
+      ],
+      "publicationStatus": "research-and-review-required"
+    }
+  ]
+}
