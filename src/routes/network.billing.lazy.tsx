@@ -9,6 +9,7 @@ export const Route = createLazyFileRoute("/network/billing")({ component: Networ
 type Membership = { id: string; name: string; status: string; paid: boolean; manageable: boolean; checkoutEligible: boolean };
 
 function NetworkBilling() {
+  const {ownerPortalOpen}=Route.useLoaderData();
   const [email, setEmail] = useState("");
   const [signedIn, setSignedIn] = useState(false);
   const [memberships, setMemberships] = useState<Membership[]>([]);
@@ -32,7 +33,7 @@ function NetworkBilling() {
     return () => subscription.unsubscribe();
   }, []);
   async function signIn(event: FormEvent) {
-    event.preventDefault(); setBusy(true); setError(""); setNotice("");
+    event.preventDefault(); if(!ownerPortalOpen){setError("Owner email sign-in is not yet active.");return} setBusy(true); setError(""); setNotice("");
     const { error: authError } = await supabase.auth.signInWithOtp({email, options: {emailRedirectTo: window.location.origin + "/network/billing"}});
     setBusy(false);
     if (authError) setError(authError.message);
@@ -75,10 +76,11 @@ function NetworkBilling() {
       <p className="eyebrow text-primary">Texas Defined Network</p>
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Manage your membership</h1>
       <p className="mt-5 leading-8 text-muted-foreground">Sign in with the email used for your listing. After separate editorial approval and verified owner provisioning, eligible Plus members can start checkout when Network billing is launched. Existing subscriptions are managed securely through Stripe.</p>
+      {!ownerPortalOpen&&!signedIn&&<p role="status" className="mt-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">Owner email sign-in is not available before Network launch. Existing subscriber assistance is available from admin@texasdefined.com.</p>}
       {!signedIn ? <form onSubmit={signIn} className="mt-8 rounded-2xl border border-border bg-surface p-6">
         <label htmlFor="billing-email" className="block text-sm font-semibold">Your business contact email</label>
         <input id="billing-email" type="email" required value={email} onChange={event => setEmail(event.target.value)} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3"/>
-        <button disabled={busy} className="mt-4 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Email me a secure sign-in link</button>
+        <button disabled={!ownerPortalOpen||busy} className="mt-4 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Email me a secure sign-in link</button>
       </form> : <section className="mt-9 space-y-4">
         <div className="flex items-center justify-between"><h2 className="font-display text-2xl">Your listings</h2><button onClick={() => void supabase.auth.signOut()} className="text-sm text-primary underline">Sign out</button></div>
         {memberships.length===0 && <p className="rounded-xl bg-surface p-6 text-muted-foreground">No Plus memberships are associated with this email address.</p>}

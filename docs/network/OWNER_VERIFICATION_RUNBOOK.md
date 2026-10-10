@@ -64,3 +64,7 @@ A verified Featured owner can store at most 24 private draft objects of at most 
 
 ## Dedicated Network administrator access
 The Network admin panel uses **`NETWORK_ADMIN_ACCESS_KEY`**, separately from sports partner admin keys. Provision a random at-least-32-character secret only in the approved Cloudflare Worker secret configuration after launch/security approval. Never put it in source, logs or browser local storage, and never repurpose an unrelated marketing admin secret. In the absence of this secret all Network admin actions fail closed; the panel remains a draft preview.
+
+
+## Owner sign-in email launch gate
+Set `NETWORK_OWNER_PORTAL_ENABLED=true` only after verifying the Supabase Auth sender/domain and both desktop/mobile magic-link callbacks are approved for TexasDefined. Default OFF disables sign-in email requests on business dashboard and Network billing. If any customers already have paid subscriptions, preserve their ability to authenticate for cancellation/billing, or provide verified alternative customer support; never silently strand paying owners behind a disabled Auth switch. Keep Network notification delivery separately disabled until Office 365 transport is certified.

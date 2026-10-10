@@ -114,3 +114,9 @@ check('Network admin moderation uses its own guarded secret, not sports marketin
  && !review.includes('assertSportsPartnerAccess')
  && source('src/data/network-admin-access.server.ts').includes('NETWORK_ADMIN_ACCESS_KEY')
  && source('src/data/network-admin-access.server.ts').includes('expected.length<32'));
+
+check('owner login links are disabled without explicit portal launch',
+ source(root+'business.dashboard.tsx').includes('NETWORK_OWNER_PORTAL_ENABLED')
+ && source(root+'network.billing.tsx').includes('NETWORK_OWNER_PORTAL_ENABLED')
+ && source(root+'business.dashboard.lazy.tsx').includes('disabled={!ownerPortalOpen||busy}')
+ && source(root+'network.billing.lazy.tsx').includes('disabled={!ownerPortalOpen||busy}'));
