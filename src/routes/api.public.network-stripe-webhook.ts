@@ -33,7 +33,16 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     if (!["customer.subscription.created","customer.subscription.updated","customer.subscription.deleted"].includes(event.type)) {
       return new Response("Ignored", { status: 200 });
     }
-    const subscription = event.data?.object;
+    const subscriptionId = event.data?.object?.id;
+    const stripeKey = process.env["STRIPE_SECRET_KEY"];
+    if (typeof subscriptionId !== "string" || !stripeKey) return new Response("Stripe verification unavailable", { status: 503 });
+    // Always fetch current subscription state. Webhook delivery order is not guaranteed.
+    const live = await fetch("https://api.stripe.com/v1/subscriptions/" + encodeURIComponent(subscriptionId), {
+      headers: { authorization: "Bearer " + stripeKey },
+    });
+    if (!live.ok) return new Response("Subscription verification unavailable", { status: 503 });
+    const subscription = await live.json() as Record<string, any>;
+    if (subscription.livemode !== true || subscription.id !== subscriptionId) return new Response("Invalid subscription", { status: 422 });
     const id = subscription?.metadata?.application_id;
     const price = subscription?.items?.data?.[0]?.price?.id;
     if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id) ||
