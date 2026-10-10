@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 17,
+    "partiallyCompleted": 18,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "archer-city",
-    "nextSchool": "archer-city",
-    "implementedOnBranch": 17,
-    "remainingToImplement": 8,
+    "currentSchool": "argyle",
+    "nextSchool": "argyle",
+    "implementedOnBranch": 18,
+    "remainingToImplement": 7,
     "remainingToVerify": 25,
-    "notes": "17 individually researched and IMPLEMENTED, eight still NOT_REVIEWED in draft PR #4506. Zero batch production VERIFIED. Next Archer City."
+    "notes": "18 individually school-specific implemented/audited on draft #4506, seven assigned still NOT_REVIEWED, zero production VERIFIED. Archer City 1964 UIL titles index contradiction documented. Next Argyle."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3456,9 +3456,32 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/archer-city",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/archer-city.md",
+      "implementationCommits": [
+        "c3f433331e041417062ed25ba2ce62ce7f833be5",
+        "0c028f474bf8154475bb3896aca0cab8b971141a"
+      ],
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://wwwprod.uiltexas.org/football/all-time-appearances",
+        "https://www.texasfootball.com/hof-uil-state-champs/",
+        "https://www.archercityisd.net/47023_1"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Conflicting UIL state title index requires official clarification",
+        "Current coaching/colors",
+        "Archer County NCES and inbound links",
+        "Licensed imagery",
+        "Stadium accessible entrance ticketing",
+        "CI merge deploy live Chrome verification"
+      ]
     },
     {
       "id": "uil:argyle",
