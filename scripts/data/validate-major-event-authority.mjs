@@ -307,6 +307,10 @@ for (const marker of [
   'usdOffer("Festival general admission", 0',
   'person("Jake Worthington")',
   'person("Kenny Whitmire")',
+  'sourceType: "wikimedia"',
+  'Ellis_County_Courthouse_%281_of_1%29.jpg',
+  'approvedForCommercialUse: true',
+  'exactLocation: true',
 ]) if (!crossroadsSchema.includes(marker)) fail(`Crossroads Event enrichment regressed: ${marker}`);
 if (!loader.includes('data-major-event-quick-facts') || !loader.includes('event.seoTitle ??')) {
   fail("major-event visitor essentials and metadata overrides must remain available");
