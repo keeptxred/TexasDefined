@@ -31,7 +31,7 @@ function BusinessDashboard(){
    if(active){setRevisions((revisionsResult.data||[]) as Revision[]);setPublished(!listingResult.error?listingResult.data as Published|null:null)}
   }else{setPublished(null)}
  })();return()=>{active=false}},[userId]);
- async function signIn(e:React.FormEvent){e.preventDefault();setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+'/business/dashboard',shouldCreateUser:false}});setMessage(error?error.message:'Check your email for a secure sign-in link.');setBusy(false)}
+ async function signIn(e:React.FormEvent){e.preventDefault();setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+'/business/dashboard',shouldCreateUser:true}});setMessage(error?error.message:'Check your email for a secure sign-in link.');setBusy(false)}
  async function submit(e:React.FormEvent){e.preventDefault();if(!account?.access_enabled)return;setBusy(true);setMessage('');
  const {data:{user}}=await supabase.auth.getUser();if(!user){setMessage('Sign in again.');setBusy(false);return}
  const payload:Record<string,unknown>=Object.fromEntries(Object.entries(draft).filter(([k,v])=>fields.some(([name])=>name===k)&&v.trim()));
