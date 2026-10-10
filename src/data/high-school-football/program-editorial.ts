@@ -973,13 +973,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "schedule": {
       "label": "Official athletics or school-specific 2026 resource",
-      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
-      "sourceLabel": "Football athletics source",
+      "sourceUrl": "https://www.laketravisfootball.com/schedules",
+      "sourceLabel": "Lake Travis football 2026 published varsity schedule",
       "verifiedAt": "2026-10-10"
     },
     "development": {
       "title": "Program identity and verified context",
-      "body": "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
+      "body": "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. The Lake Travis football program's October 4, 2026 parent update announced Cavalier Stadium's varsity return for the October 9 Cedar Ridge game; ongoing work and later access remain subject to actual event guidance.",
       "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
       "sourceLabel": "Athletics school source and archives",
       "verifiedAt": "2026-10-10"
@@ -994,16 +994,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "date": "2025–2026",
-        "title": "Cavalier Stadium rebuild",
-        "body": "Texas TDLR lists a $46 million new stadium project, September 2025 start and December 2026 planned completion. Construction registry dates are not occupancy or inspection proof.",
+        "title": "Cavalier Stadium 2026 varsity reopening",
+        "body": "TDLR lists a $46 million stadium rebuild and a December 2026 administrative completion estimate. The football program's October 4 weekly update, more current than the registration, said Cavalier Stadium would be ready for the October 9 varsity home game; the posted schedule lists additional home varsity games on October 23 and November 6. Always verify event gates and accommodations.",
         "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
         "sourceLabel": "TDLR accessibility project registration"
       }
     ],
     "overview": [
-      "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
+      "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. The Lake Travis football program's October 4, 2026 parent update announced Cavalier Stadium's varsity return for the October 9 Cedar Ridge game; ongoing work and later access remain subject to actual event guidance.",
       "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
-      "A state-record construction filing, distinct from promotional renderings, provides the renovation scope and scheduled completion date; spectators must confirm whether their particular 2026 game is at Cavalier Stadium."
+      "TDLR's construction filing states the planned December 2026 completion, but the football team's October 4 update says the stadium was ready for an October 9 varsity return. The 2026 varsity schedule distinguishes games at Cavalier Stadium from those hosted elsewhere; check current operator/ticket and accessibility instructions before attending."
     ],
     "faq": [
       {
@@ -1022,10 +1022,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "notice": {
-      "title": "2026 Cavalier Stadium reconstruction: confirm game location",
-      "body": "Texas accessibility-project registration TABS2025026267 describes demolition and a new football stadium, concessions, press box, field house and restrooms at 3324 Ranch Road 620 South. The registered planned completion is December 31, 2026; that administrative forecast does not verify completed construction or stadium accessibility. Verify each game's operating venue and ticket policies with Lake Travis ISD.",
-      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
-      "sourceLabel": "Texas Department of Licensing and Regulation project filing",
+      "title": "2026 varsity games return to Cavalier Stadium; check game-specific access",
+      "body": "Lake Travis football's October 4, 2026 parent update says Cavalier Stadium is ready to host the October 9 varsity game against Cedar Ridge, while sub-varsity games remain at the track stadium. The published 2026 varsity schedule lists October 23 Westlake and November 6 Westwood at Cavalier Stadium. State TDLR's original December 31 construction estimate is not evidence that the stadium is closed to varsity play; game-day gates, parking, ticketing and accessibility should be confirmed through the official operator.",
+      "sourceUrl": "https://www.laketravisfootball.com/page/show/3237464-carter-s-corner",
+      "sourceLabel": "Lake Travis High School football October 4 parent update",
       "verifiedAt": "2026-10-10"
     }
   },
