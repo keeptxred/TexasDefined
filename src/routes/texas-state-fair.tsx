@@ -70,17 +70,6 @@ const stateFairData = {
         ]
       },
       {
-        heading: "Free student tickets extended for the final two weekends",
-        paragraphs: [
-          "On October 5, the Fair extended eligible 2026 school-issued pre-K–eighth grade tickets (within 100 miles of Fair Park) through October 18, including weekends.",
-          "Eligible parents can save $5 online; check the 2026 terms."
-        ],
-        links: [
-          { label: "Official 2026 student-ticket announcement", href: "https://bigtex.com/state-fair-of-texas-expands-free-student-ticket-program-to-include-final-two-weekends-of-the-fair-2/", external: true },
-          { label: "Official parent admission discount", href: "https://bigtex.com/parents/", external: true }
-        ]
-      },
-      {
         heading: "Best 2026 State Fair foods and award winners",
         paragraphs: [
           "The 2026 Big Tex Choice Awards winners are Burger Chop Tater Tacos for Best Taste – Savory, Fletcher's Chocolate Corny Dog for Best Taste – Sweet, Tropical Coco Fresca for Best Taste – Sipper, and Berry Me in Matcha for Most Creative.",
