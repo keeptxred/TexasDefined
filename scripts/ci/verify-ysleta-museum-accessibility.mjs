@@ -39,9 +39,17 @@ try {
       // Audit actual computed solid-background text contrast in the museum body.
       // Exclude the photographic hero: a pixel-level image/gradient review is separate.
       const contrast = await page.evaluate(() => {
+        // Resolve all CSS Color 4 formats, including the site's oklch() tokens,
+        // through the browser's color engine instead of regex-parsing rgb().
+        const canvas = document.createElement('canvas'); canvas.width = canvas.height = 1;
+        const paint = canvas.getContext('2d', { willReadFrequently: true });
         const rgb = value => {
-          const m = value?.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-          return m ? [Number(m[1]), Number(m[2]), Number(m[3]), m[4] === undefined ? 1 : Number(m[4])] : null;
+          if (!value) return null;
+          paint.clearRect(0, 0, 1, 1);
+          paint.fillStyle = value;
+          paint.fillRect(0, 0, 1, 1);
+          const d = paint.getImageData(0, 0, 1, 1).data;
+          return [d[0], d[1], d[2], d[3] / 255];
         };
         const lum = color => {
           const c = color.slice(0, 3).map(v => v / 255).map(v => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4);
