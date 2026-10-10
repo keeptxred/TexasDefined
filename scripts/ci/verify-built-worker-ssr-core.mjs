@@ -344,17 +344,25 @@ try {
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
     }
 
-    for (const target of disabledNetworkPostTargets) {
-      const failure = await verifyWithRetries(target, checkDisabledNetworkPost,'prelaunch disabled POST '+target.path);
-      if(failure)failures.push(failure);
-      else console.log(`[launch-gate] verified (${target.expectedStatus}): ${target.path}`);
-    }
-
+    // Keep the established redirect probe independent from the new intake POST.
     for (const target of redirectTargets) {
       const label = `redirect route ${target.path}`;
       const failure = await verifyWithRetries(target, checkRedirectTarget, label);
       if (failure) failures.push(failure);
       else console.log(`[redirect] verified (${target.expectedStatus}): ${target.path} -> ${target.expectedPath}`);
+    }
+
+    // This must prove BOTH the fail-closed 503 response and Worker health afterward.
+    for (const target of disabledNetworkPostTargets) {
+      const failure = await verifyWithRetries(target, checkDisabledNetworkPost,'prelaunch disabled POST '+target.path);
+      if(failure)failures.push(failure);
+      else console.log(`[launch-gate] verified (${target.expectedStatus}): ${target.path}`);
+    }
+    const recoveryGroup=renderRouteGroups.find((group)=>group.path==='/network/join');
+    if(recoveryGroup){
+      const recovered=await verifyWithRetries(recoveryGroup,checkRenderRoute,'network intake POST liveness follow-up');
+      if(recovered)failures.push('Worker unhealthy after rejected intake POST: '+recovered);
+      else console.log('[launch-gate] Worker remains healthy after rejected intake POST');
     }
   }
 
