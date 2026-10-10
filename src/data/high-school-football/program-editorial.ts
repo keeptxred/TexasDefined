@@ -806,7 +806,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
       "sourceLabel": "Official Choctaw Stadium 2026 high-school football schedule",
       "verifiedAt": "2026-10-09",
-      "note": "Choctaw Stadium officially schedules Bowie home games including September 4 vs South Grand Prairie, September 11 vs Haltom, September 25 vs Granbury, October 23 vs Arlington and November 5 vs Sam Houston. Wilemon's historical seating count does not describe Choctaw; use Arlington ISD GoFan and event-specific accessibility, bag and parking guidance."
+      "note": "Choctaw Stadium's 2026 calendar lists five Bowie home fixtures, including November 5 vs Sam Houston. The stadium's official accessibility guide confirms accessible seating, companion seats and wheelchair assistance (Guest Services: 817-533-1723); accessible parking is listed in Lot E on a first-come basis, and general parking in Lots E and L. These policies do not guarantee space for any game; confirm event-specific tickets, parking, entrance and bag rules. Wilemon's historic seating capacity is not Choctaw's."
     },
     "overview": [
       "Arlington Bowie High School's nickname, the Volunteers, has a school-authored identity unlike any other Arlington ISD program. The school's official history says 'Crossing the Line' began in 1974 under athletic director and head coach Jerry Griffin, drawing on a narrative of the Alamo and James Bowie. This is a documented school tradition, not a fabricated postgame ritual.",
