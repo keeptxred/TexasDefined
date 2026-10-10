@@ -23,8 +23,11 @@ const expected = [
 const problems = [];
 const check = (ok, detail) => { if (!ok) problems.push(detail); };
 check(registry.counts?.total === 1292, "registry school total changed");
-check(registry.batch?.number === 3, "active batch is no longer 003");
-check(JSON.stringify(registry.batch?.slugs) === JSON.stringify(expected), "batch roster/order mismatch");
+const batch003 = registry.batch?.number === 3
+  ? registry.batch
+  : (registry.completedBatches ?? []).find(x => x.number === 3);
+check(Boolean(batch003), "Batch 003 record is missing from active or completed batches");
+check(JSON.stringify(batch003?.slugs) === JSON.stringify(expected), "Batch 003 roster/order mismatch");
 check(new Set(expected).size === 25, "duplicate batch slugs");
 const records = registry.schoolRecords ?? [];
 for (const slug of expected) {
@@ -65,7 +68,7 @@ for (const rec of records.filter(x => x.batch === 3 && x.status === "VERIFIED"))
   check(Boolean(rec.deployment?.screenshotArtifactId), rec.slug + ": missing screenshot evidence artifact");
 }
 const verified003 = records.filter(x => x.batch === 3 && x.status === "VERIFIED");
-check(verified003.length === (registry.batch?.individuallyVerified ?? -1), "verified count disagrees with registry");
+check(verified003.length === (batch003?.individuallyVerified ?? -1), "Batch 003 VERIFIED count disagrees with its retained batch record");
 if (problems.length) {
   console.error("Batch 003 structural acceptance FAIL:\n" + problems.map(x => "- " + x).join("\n"));
   process.exitCode = 1;

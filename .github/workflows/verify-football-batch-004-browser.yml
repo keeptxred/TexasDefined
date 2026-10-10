@@ -1,0 +1,53 @@
+name: Verify Batch 004 football production browser
+on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+permissions:
+  contents: read
+  statuses: write
+concurrency:
+  group: football-batch-004-production-browser
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install isolated Chrome browser driver using free runner
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify 25 school routes, all county and Austin city reciprocal links, sitemap, mobile and desktop
+        id: browser
+        env:
+          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-batch-004-browser.mjs
+      - name: Publish deployed SHA browser acceptance status
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+        run: |
+          node scripts/ci/publish-github-status.mjs texasdefined-football-batch-004-browser "$BROWSER_OUTCOME" "Batch 004 production Chrome checks passed" "Batch 004 production Chrome checks failed"
+      - name: Preserve browser acceptance report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-batch-004-browser-acceptance
+          path: artifacts/football-batch-004/
+          if-no-files-found: warn
+          retention-days: 14

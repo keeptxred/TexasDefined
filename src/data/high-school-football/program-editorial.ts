@@ -58,6 +58,2312 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "ballinger": {
+    "slug": "ballinger",
+    "theme": {
+      "accentHex": "#A3232B",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Ballinger Bearcats Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Ballinger Bearcats football: source-documented 1953 class 2a state runner-up, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Ballinger ISD 2026 reserved football ticket announcements",
+      "sourceUrl": "https://www.ballingerisd.net/apps/news/",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "1953 UIL state-final appearance and modern ticket guidance",
+      "body": "UIL's 1953–54 archive records the Bearcats as the Class 2A state finalist opposite Huntsville, not as state champions. Ballinger ISD's July 2026 announcement concerns reserved football tickets, while its 2025 football schedule still appears in the news archive; visitors should not mistake the older schedule for the 2026 varsity schedule or assume reserved seating covers away games.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P648",
+      "sourceLabel": "UIL historical archive, 1953–54 Class 2A final",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1953",
+        "title": "1953 Class 2A state runner-up",
+        "body": "Ballinger reached the 1953 UIL Class 2A championship game, losing to Huntsville 40–6. That season's historical Class 2A classification should not be substituted for Ballinger's separate 2026–28 Class 2A Division I District 4 alignment.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P648",
+        "sourceLabel": "UIL historical archive, 1953–54 Class 2A final"
+      }
+    ],
+    "overview": [
+      "Ballinger's football identity includes the 1953 Class 2A championship appearance, a 40–6 loss to Huntsville confirmed by the UIL. That historic classification is separate from the current 2026–28 UIL 2A Division I District 4 placement; an old final appearance should not be styled as a Bearcats state title.",
+      "The school's official site lists Ballinger High School at 2107 North Broadway, while the ISD office is separately located at 802 Conda Avenue. In July 2026 the district announced reserved football ticket sales, an actionable resource that does not establish every game's venue, gate or current ticket availability.",
+      "A first-party 2025 Bearcats football schedule remains indexed beside the district's newer 2026 reserved ticket notice. For 2026 fixtures and venue changes, fans should consult Ballinger ISD's current athletic posts rather than treat 2025 PDF dates or a third-party score feed as a 2026 schedule."
+    ],
+    "faq": [
+      {
+        "question": "Did Ballinger win the 1953 Class 2A football title?",
+        "answer": "No. UIL's historical state championship archive records Ballinger as the 1953 Class 2A runner-up; Huntsville won 40–6."
+      },
+      {
+        "question": "Where should fans find Ballinger football tickets?",
+        "answer": "Ballinger ISD published a 2026 reserved-ticket announcement and maintains current district news and ticket resources. Verify each game's venue, prices and admission rules with the district before traveling."
+      },
+      {
+        "question": "Is Ballinger's 2026 classification the same as its 1953 final?",
+        "answer": "No. The 1953 Class 2A final was under that era's UIL alignment; the 2026–28 roster independently lists Ballinger in Class 2A Division I, District 4."
+      }
+    ],
+    "campus": {
+      "address": "2107 N Broadway, Ballinger, TX 76821",
+      "phone": "325-365-3547",
+      "sourceUrl": "https://bhs.ballingerisd.net/",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "balmorhea": {
+    "slug": "balmorhea",
+    "theme": {
+      "accentHex": "#2557A5",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Balmorhea Bears Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Balmorhea Bears football: source-documented 2020 season: six-man division ii state champion, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Balmorhea ISD first-party football staff and documents",
+      "sourceUrl": "https://www.bisdbears.esc18.net/football",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A delayed championship final, and why season and game dates differ",
+      "body": "The January 5, 2021 championship was attached to the 2020 UIL football season. Balmorhea defeated Richland Springs 74–38, as both UIL's archived result and House Resolution 30 confirm. The official Balmorhea ISD football page currently identifies Abel Garcia as its head coach/athletic director, but its visible downloadable schedule and roster are labeled 2024; those 2024 documents cannot establish 2026 opponents or completed scores.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+      "sourceLabel": "UIL archived 2020–21 six-man Division II championship",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2020 season / Jan. 2021",
+        "title": "2020 season: six-man Division II state champion",
+        "body": "UIL records Balmorhea's 74–38 win over Richland Springs as the 2020–21 Class 1A Six-Man Division II title. A Texas House resolution explicitly dates the final to January 5, 2021 at San Angelo Stadium: it was the 2020-season championship, not a second 2021-season title.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL archived 2020–21 six-man Division II championship"
+      }
+    ],
+    "overview": [
+      "Balmorhea's 2020-season Class 1A Six-Man Division II championship was decided on January 5, 2021, when the Bears beat Richland Springs 74–38. This unusual calendar detail matters: the official UIL archive and the Texas House's 2021 congratulatory resolution both describe the same championship, not separate titles.",
+      "Balmorhea is a Reeves County six-man football program, listed for the 2026–28 cycle in UIL Class 1A Division II District 6. It should not be compared directly with 11-man teams' win totals, enrollments, field dimensions or playoff brackets without identifying the format.",
+      "Balmorhea ISD's official football page identifies Abel Garcia as head coach and athletic director and provides staff information, but its visible varsity schedule and roster downloads are labeled 2024. Treat them as historical documents; obtain 2026 fixtures and game-site instructions directly from the school."
+    ],
+    "faq": [
+      {
+        "question": "When did Balmorhea win its six-man title?",
+        "answer": "The Bears won the 2020 football-season Class 1A Six-Man Division II championship, playing the final on January 5, 2021 and defeating Richland Springs 74–38."
+      },
+      {
+        "question": "Does Balmorhea play six-man or eleven-man football?",
+        "answer": "The 2026–28 UIL alignment places Balmorhea in Class 1A Six-Man Division II, District 6."
+      },
+      {
+        "question": "Is the schedule on the school site the 2026 schedule?",
+        "answer": "The publicly visible documents on the school's football page are labeled 2024. Use the district's newer updates or confirm with athletics for 2026 varsity fixtures."
+      }
+    ],
+    "coach": {
+      "name": "Abel Garcia",
+      "title": "Head coach / AD listed on official school football site; confirm 2026 appointment",
+      "sourceUrl": "https://www.bisdbears.esc18.net/football",
+      "sourceLabel": "Official Balmorhea ISD football staff page",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bandera": {
+    "slug": "bandera",
+    "theme": {
+      "accentHex": "#083A6B",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Bandera Bulldogs Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Bandera Bulldogs football: source-documented 2002 class 3a division ii state championship, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Bandera ISD athletics-run 2026 varsity football schedule and staff",
+      "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "2002 two-overtime state title and current Bulldog athletics resources",
+      "body": "The UIL 2002–03 archives identify Bandera as 3A Division II champion by a 27–24 double-overtime final against Midland Greenwood. Bandera ISD's current athletics-managed football page separately offers 2026 varsity and subvarsity schedule graphics, summer program context, and lists Joel Fontenot-Amedee as athletic director/head football coach. Check the athletic department's home-ticket and stadium guidance links before a game; a calendar entry at Bulldog Stadium is not a guarantee all varsity fixtures use that venue.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+      "sourceLabel": "UIL 2002–03 3A Division II final",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2002",
+        "title": "2002 Class 3A Division II state championship",
+        "body": "Bandera won the 2002 UIL Class 3A Division II state title 27–24 over Midland Greenwood after two overtimes. The 2002 history must not be mislabeled as a current 4A Division II trophy or attributed to Bangs' nearby Class 2A championship final.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P272",
+        "sourceLabel": "UIL 2002–03 3A Division II final"
+      }
+    ],
+    "overview": [
+      "Bandera won the 2002 UIL Class 3A Division II football championship with a 27–24 double-overtime victory over Midland Greenwood. The championship belongs to that era's Class 3A structure; the Bulldogs' 2026–28 UIL placement is Class 4A Division II District 15.",
+      "The school's athletics-run site identifies Joel Fontenot-Amedee as athletic director and head coach and posts separate 2026 varsity and junior-varsity football schedule resources. These school-published materials are a stronger guide to upcoming fixtures than recycled results from past seasons.",
+      "Bandera High School's campus address is 474 Old San Antonio Highway; Bandera ISD events also identify Bulldog Stadium for specific home activities. School campus addresses, field entrances and occasional neutral or away game locations are distinct, so parking and ADA entrance details should be checked on the official athletics site per event."
+    ],
+    "faq": [
+      {
+        "question": "What football championship did Bandera win?",
+        "answer": "UIL confirms Bandera won the 2002 Class 3A Division II state championship by beating Midland Greenwood 27–24 in two overtimes."
+      },
+      {
+        "question": "Where is Bandera High School?",
+        "answer": "Bandera ISD gives the high school campus at 474 Old San Antonio Highway, Bandera, Texas. Confirm the scheduled football venue and entry route for each game with official athletics."
+      },
+      {
+        "question": "Where can fans find Bandera's 2026 football schedule?",
+        "answer": "Bandera ISD operates a Bulldogs football athletics page with 2026 varsity and subvarsity schedules and staff information."
+      }
+    ],
+    "campus": {
+      "address": "474 Old San Antonio Hwy, Bandera, TX 78003",
+      "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/home",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Joel Fontenot-Amedee",
+      "title": "Athletic director / head football coach listed by Bandera ISD",
+      "sourceUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "sourceLabel": "Bandera ISD school-operated football athletics site",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bangs": {
+    "slug": "bangs",
+    "theme": {
+      "accentHex": "#197047",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Bangs Dragons Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Bangs Dragons football: source-documented 2002 and 2003 consecutive state runner-up seasons, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Bangs ISD 2026 varsity Dragons football schedule downloads",
+      "sourceUrl": "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Two successive 2A championship-game appearances, different divisions",
+      "body": "UIL archives list the Bangs Dragons as the 2002 2A Division I state finalist and 2003 2A Division II state finalist, with different opponents and scores. The district now publishes a 2026-27 athletics schedules directory with a 2026 Dragons football PDF, rather than requiring visitors to rely on an undated third-party fixture list. Bangs High School at 305 North Third Street is separate from the district's 200 East Hall administration address.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+      "sourceLabel": "UIL 2002–03 and 2003–04 state finalists",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2002–2003",
+        "title": "2002 and 2003 consecutive state runner-up seasons",
+        "body": "Bangs reached consecutive UIL state title games: the 2002 Class 2A Division I final (33–14 loss to Corrigan-Camden) and the 2003 Class 2A Division II final (27–0 loss to Garrison). The teams were runners-up in two different divisions; neither is a state championship win.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+        "sourceLabel": "UIL 2002–03 and 2003–04 state finalists"
+      }
+    ],
+    "overview": [
+      "Bangs has a rare two-year run of UIL football state-final appearances in different Class 2A divisions: Corrigan-Camden beat the Dragons 33–14 in 2002 Division I, and Garrison beat them 27–0 in 2003 Division II. These are documented runner-up seasons, not two state titles.",
+      "For 2026–28, UIL lists Bangs as an 11-man Class 2A Division I District 7 program, distinct from the historical 2003 Division II run. The district's 2026–27 athletics page publishes a 2026 Dragons football schedule file, so future game dates should be checked against that official document.",
+      "Bangs ISD lists the high school campus at 305 North Third Street and the district office at 200 East Hall Street. Neither location alone confirms a football stadium entry gate, fan parking, disability-access route or final kickoff time; the official school schedule and event notice should be used for game planning."
+    ],
+    "faq": [
+      {
+        "question": "Did Bangs win the 2002 or 2003 football title?",
+        "answer": "No. UIL records Bangs as 2002 Class 2A Division I runner-up and 2003 Class 2A Division II runner-up."
+      },
+      {
+        "question": "Who beat Bangs in those state finals?",
+        "answer": "Corrigan-Camden beat Bangs 33–14 in the 2002 Division I final; Garrison won the 2003 Division II final 27–0."
+      },
+      {
+        "question": "Where is the official 2026 Dragons schedule?",
+        "answer": "Bangs ISD's athletics schedules directory links the 2026 Dragons varsity football schedule file. Recheck the school for later kickoff or venue changes."
+      }
+    ],
+    "campus": {
+      "address": "305 N 3rd St, Bangs, TX 76823",
+      "phone": "325-752-6822",
+      "sourceUrl": "https://www.bangsisd.net/",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "banquete": {
+    "slug": "banquete",
+    "theme": {
+      "accentHex": "#B06322",
+      "label": "Original independent editorial accent; not a reproduced school logo"
+    },
+    "seo": {
+      "title": "Banquete Bulldogs Football: UIL History, 2026 Schedule & School Guide",
+      "description": "Independent guide to Banquete Bulldogs football: source-documented 2026 varsity schedules published by banquete isd, current UIL alignment, official schedules, campus details and fan resources."
+    },
+    "schedule": {
+      "label": "Banquete ISD's published 2026 varsity football schedule",
+      "sourceUrl": "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+      "sourceLabel": "School district athletics and scheduling source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Separate varsity schedules, campus address and the Bulldog Stadium calendar",
+      "body": "Banquete ISD's athletics department publishes 2026 varsity football scheduling apart from its junior-high/JV schedule and confirms the Bulldogs as its athletics identity. The high school campus is listed at 5519 Highway 44, while the ISD mailing/administration address is 4339 Fourth Street. The official district event calendar identifies Bulldog Stadium for the October 23, 2026 homecoming fixture versus Monte Alto; this is a published future listing, not proof the game has been played or that tickets, parking and accessible entrances will remain unchanged.",
+      "sourceUrl": "https://www.banqueteisd.net/departments/athletics",
+      "sourceLabel": "Banquete ISD Bulldog athletics programs and school resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 varsity schedules published by Banquete ISD",
+        "body": "The first-party Banquete athletics schedules page publishes a 2026 high school varsity football schedule separately from its 2026 junior-high and JV schedules. Those posted fixture documents should not be used to fabricate final results or claim historically unverified state football titles.",
+        "sourceUrl": "https://www.banqueteisd.net/departments/athletics",
+        "sourceLabel": "Banquete ISD Bulldog athletics programs and school resources"
+      }
+    ],
+    "overview": [
+      "Banquete High School's Bulldogs have their own 2026 varsity schedule in Banquete ISD's athletics directory. The junior-high and JV file is separate; mixing its kickoff times, opponents or sites into the varsity schedule would be misleading for visiting football families.",
+      "Banquete's high school is at 5519 Texas Highway 44 in Nueces County. The school address should not be confused with the district administration address, and a campus location does not automatically establish the stadium's preferred parking entrance or disabled-access arrangements.",
+      "The first-party district calendar lists the October 23, 2026 varsity homecoming contest versus Monte Alto at Bulldog Stadium. As of October 10 it is a future scheduled event; results, final attendance details and any later venue changes must be sourced from the school rather than forecast."
+    ],
+    "faq": [
+      {
+        "question": "Where can I find Banquete's 2026 varsity football schedule?",
+        "answer": "Banquete ISD posts the 2026 varsity Bulldogs football schedule on its athletics sports-schedules page, separately from JV and junior high."
+      },
+      {
+        "question": "Is Banquete High School at the ISD administrative address?",
+        "answer": "No. Banquete High School lists 5519 Highway 44; the district's main office is at 4339 Fourth Street."
+      },
+      {
+        "question": "Is the October 23 homecoming game already final?",
+        "answer": "No. Banquete ISD listed the October 23, 2026 Monte Alto homecoming game at Bulldog Stadium as a future fixture; check the district for current venue and ticket information."
+      }
+    ],
+    "campus": {
+      "address": "5519 Hwy 44, Banquete, TX 78339",
+      "phone": "361-387-2551",
+      "sourceUrl": "https://bhs.banqueteisd.net/departments/contact-us",
+      "sourceLabel": "Official school high-school campus address and contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "baird": {
+    "slug": "baird",
+    "theme": {
+      "accentHex": "#A8212C",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Baird Bears Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Baird Bears football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Baird ISD official football coaches and school schedule",
+      "sourceUrl": "https://www.bairdisd.org/29025_3",
+      "sourceLabel": "Official school football staff and resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A 2019 six-man transition and an uncompleted 11-man proposal",
+      "body": "Baird's six-man football program began in 2019, according to the independent six-man archive. On September 30, 2025, Baird ISD announced a community discussion about a POSSIBLE return to 11-man football for the next year; that announcement was a proposal, not an accomplished format change. The 2026 UIL alignment and current Six-Man Football schedule still classify Baird as Division I six-man District 7, with Coach Jeremy Kirk independently listed by the official school football page.",
+      "sourceUrl": "https://www.bairdisd.org/index.php?articleID=60087506&pageID=smartSiteFeed&psqFeed=true",
+      "sourceLabel": "Baird ISD September 2025 discussion notice",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results.",
+        "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
+        "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "Sep. 30, 2025",
+        "title": "District publicly weighed an 11-man return",
+        "body": "Baird ISD invited the community to discuss a possible move back to 11-man the following year. The notice itself does not establish that transition occurred.",
+        "sourceUrl": "https://www.bairdisd.org/index.php?articleID=60087506&pageID=smartSiteFeed&psqFeed=true",
+        "sourceLabel": "Baird official athletics community notice"
+      }
+    ],
+    "overview": [
+      "Baird is a Callahan County SIX-MAN Division I District 7 school. Six-Man Football dates the program's transition to six-man to 2019 and lists Jeremy Kirk as head coach; its 2025 season was 3–7 after 2024's 7–4 and 2023's 6–4. Its first 2026 fixture with Abilene Texas Leadership Charter is labeled versus an 11-man team, so opponents need accurate competition context.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "The school's official coaches page names Jeremy Kirk head coach and Reece Walker defensive coordinator, along with other assistants. The team record and 2026 six-man format should be distinguished from the 2025 proposed 11-man discussion."
+    ],
+    "faq": [
+      {
+        "question": "Is Baird Bears an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as a Class 1A six-man program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "Baird's six-man era began in 2019, according to Six-Man Football. The district publicly discussed a possible return to 11-man in September 2025, but 2026 UIL alignment still lists six-man Division I; the discussion was not a completed transition."
+      },
+      {
+        "question": "Did Baird officially switch to 11-man football in 2026?",
+        "answer": "The district discussed a possible return to 11-man in September 2025, but the 2026 UIL alignment and published Baird football schedule still list six-man Division I. The meeting announcement alone is not proof of a change."
+      }
+    ],
+    "coach": {
+      "name": "Jeremy Kirk",
+      "title": "Athletic director and head football coach, as listed by Baird ISD",
+      "sourceUrl": "https://www.bairdisd.org/29025_3",
+      "sourceLabel": "Official Baird ISD football coaching directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "600 W 7th St, Baird, TX 79504",
+      "phone": "325-854-1400",
+      "sourceUrl": "https://www.bairdisd.org/contact",
+      "sourceLabel": "Baird ISD official secondary campus contact",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "azle": {
+    "slug": "azle",
+    "theme": {
+      "accentHex": "#006A66",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Azle Hornets Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Azle Hornets football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Azle ISD official athletics schedules, ticket sales and venue information",
+      "sourceUrl": "https://www.azleisd.net/o/aa/",
+      "sourceLabel": "Official Azle ISD athletics portal",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Hornet Stadium visitor rules and recent football results",
+      "body": "Azle ISD's August 24, 2026 varsity announcement explicitly locates Friday Night Lights at Hornet Stadium, links ticket purchases and reminds fans that clear bags are mandatory at district athletic venues. The athletics office at 301 Church Street is different from Azle High School at 1200 Boyd Road. Published 2018 and 2025 season records illustrate Azle's recent playoff-era highs and current rebuilding context but do not create an unsupported state title.",
+      "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+      "sourceLabel": "Azle High School first-party 2026 season notice",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season.",
+        "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
+        "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "Aug. 24, 2026",
+        "title": "Hornet Stadium cashless preparation and clear bags",
+        "body": "Official district announcement directs families to purchase online tickets and follow the district clear-bag rule for all athletic venues.",
+        "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+        "sourceLabel": "Azle High 2026 stadium guidance"
+      }
+    ],
+    "overview": [
+      "Azle is a Class 5A Division I program at Hornet Field, which Dave Campbell's Texas Football lists at 5,500 spectators, NOT proof of current certified capacity or ADA seating. Its season archive lists 2018 10–2, 2019 9–2, 2020 9–3, 2021 8–3 and a leaner 2025 2–8 campaign. Early 2026 results include Abilene Cooper 28–24.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "The Azle ISD athletics portal includes schedule, ticket purchase, live stream, Hall of Fame and venue-information paths. These are preferable to an unsourced third-party ticket reseller."
+    ],
+    "faq": [
+      {
+        "question": "Is Azle Hornets an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as an eleven-man football program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "Azle's recorded recent football seasons include 10–2 in 2018, 9–2 in 2019, and 9–3 in 2020, as reported by Dave Campbell's Texas Football. Those season records should not be confused with individual 2026 results."
+      },
+      {
+        "question": "Does Azle ISD require clear bags at football games?",
+        "answer": "Yes. Azle High's official August 2026 announcement says the district uses a clear-bag policy at athletic venues and directs spectators to online tickets."
+      }
+    ],
+    "campus": {
+      "address": "1200 Boyd Road, Azle, TX 76020",
+      "phone": "817-444-5555",
+      "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+      "sourceLabel": "Official Azle High August 2026 announcement",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Hornet Stadium",
+      "address": "Azle, Texas — confirm gate/parking with district",
+      "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+      "sourceLabel": "Official Azle High 2026 football announcement",
+      "verifiedAt": "2026-10-10",
+      "note": "Azle ISD requires tickets purchased online and clear bags at district athletic venues. The announcement does not certify accessible seating or the exact entry gate."
+    }
+  },
+  "axtell": {
+    "slug": "axtell",
+    "theme": {
+      "accentHex": "#9D2337",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Axtell Longhorns Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Axtell Longhorns football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Season-by-season historical scores and 2026 schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
+      "sourceLabel": "Published program history and 2026 fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Three double-digit-win seasons and a current staff listing",
+      "body": "Axtell's year-by-year program results list 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025, across distinct schedules. A 2026–27 roster updated August 24, 2026 lists Craig Horn as head coach and identifies ten assistants including Nate Morrill and Josh Hayes. The official Axtell ISD district address is 1100 Longhorn Parkway; the 308 Ottawa location found on third-party football team listings should not automatically be treated as the district administrative office.",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
+      "sourceLabel": "Dated 2026–27 football staff listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "Three consecutive 10-win-or-better seasons from 2023 to 2025 distinguish Axtell's recent history, with 2024's 12–2 specifically sourced.",
+        "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
+        "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "Aug. 24, 2026",
+        "title": "Updated Axtell coaching staff",
+        "body": "MaxPreps' 2026–27 roster update names Craig Horn as head coach. Direct school-district corroboration remains desirable.",
+        "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
+        "sourceLabel": "2026 team coaching roster"
+      }
+    ],
+    "overview": [
+      "Axtell is an 11-MAN 2A Division I program, not a six-man school despite proximity to many six-man programs. Its historical team reports document 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025 under Craig Horn; the 2026 entry leaves head coach blank, so a current hire is not invented.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "Axtell ISD's official district office is listed at 1100 Longhorn Parkway, whereas published team directories may provide a different campus-oriented address; avoid substituting one for verified stadium gate directions.",
+      "Coach Craig Horn appears in the August 2026 varsity staff roster and independently in the official Axtell school staff directory as athletic director; this reconciles the formerly unresolved coaching attribution."
+    ],
+    "faq": [
+      {
+        "question": "Is Axtell Longhorns an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as an eleven-man football program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "Three consecutive 10-win-or-better seasons from 2023 to 2025 distinguish Axtell's recent history, with 2024's 12–2 specifically sourced."
+      },
+      {
+        "question": "Who is listed as Axtell Longhorns football coach for 2026?",
+        "answer": "The August 24, 2026 MaxPreps staff listing names Craig Horn as head coach, but first-party Axtell ISD confirmation would strengthen that claim."
+      }
+    ],
+    "campus": {
+      "address": "308 Ottawa, Axtell, TX 76624",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/",
+      "sourceLabel": "Published Axtell campus address; confirm game gate with district",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Craig Horn",
+      "title": "2026 head football coach according to dated varsity coaching roster; Axtell ISD also lists him as athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
+      "sourceLabel": "August 2026 Axtell football staff roster",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "avalon": {
+    "slug": "avalon",
+    "theme": {
+      "accentHex": "#CF7024",
+      "label": "Program-inspired original editorial accent without official logo"
+    },
+    "seo": {
+      "title": "Avalon Eagles Football: 2026 Schedule, Local History & Stadium",
+      "description": "Independent Avalon Eagles football reference with documented classification, year-by-year results, venue context and official resources."
+    },
+    "schedule": {
+      "label": "Season-by-season historical scores and 2026 schedule",
+      "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+      "sourceLabel": "Published program history and 2026 fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Distinctive program history",
+      "body": "Avalon is a Class 1A Division I SIX-MAN program in Ellis County; UIL's district-chair directory independently names athletic director Malcolm Cole. Six-Man Football dates the program's six-man start to 2005 and lists an 11-game winning streak in 2019, followed by a 10–1 season in 2024 and 8–3 in 2025. The specialty archive labels the venue Avalon Eagles Field; exact accessibility and entry are unconfirmed.",
+      "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+      "sourceLabel": "Cited football program evidence",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "2026 program context",
+        "body": "The 2026 Division I District 11 fixture list includes Blum, Covington, Milford and Bluff Dale; September opponents included Aquilla and Abbott, separating non-district from district opponents.",
+        "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
+        "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "2026–27",
+        "title": "First-party football staff assignments",
+        "body": "Avalon ISD names Malcolm Cole athletic director/head football coach, with Korey Plough and Benjamin Massarelli as assistant football coaches.",
+        "sourceUrl": "https://www.avalonisd.net/apps/pages/index.jsp?pREC_ID=2598330&type=d&uREC_ID=4388798",
+        "sourceLabel": "Official Avalon ISD coaching assignments"
+      }
+    ],
+    "overview": [
+      "Avalon is a Class 1A Division I SIX-MAN program in Ellis County; UIL's district-chair directory independently names athletic director Malcolm Cole. Six-Man Football dates the program's six-man start to 2005 and lists an 11-game winning streak in 2019, followed by a 10–1 season in 2024 and 8–3 in 2025. The specialty archive labels the venue Avalon Eagles Field; exact accessibility and entry are unconfirmed.",
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "Avalon ISD's published 2026–27 athletics assignments independently confirms head coach Malcolm Cole and assistants Korey Plough and Benjamin Massarelli; the Eagles' coaching source no longer depends solely on a third-party six-man roster."
+    ],
+    "faq": [
+      {
+        "question": "Is Avalon Eagles an eleven-man or six-man program?",
+        "answer": "The 2026–28 UIL inventory identifies this as a Class 1A six-man program."
+      },
+      {
+        "question": "What significant football history is documented?",
+        "answer": "Six-Man Football dates Avalon's six-man program to 2005 and records an 11-game winning streak in 2019. Its season history lists 10–1 in 2024 and 8–3 in 2025; these achievements are not state-title claims."
+      }
+    ],
+    "coach": {
+      "name": "Malcolm Cole",
+      "title": "2026–27 athletic director and head football coach, first-party school assignment",
+      "sourceUrl": "https://www.avalonisd.net/apps/pages/index.jsp?pREC_ID=2598330&type=d&uREC_ID=4388798",
+      "sourceLabel": "Avalon ISD 2026–2027 athletic coaching assignments",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-westlake": {
+    "slug": "austin-westlake",
+    "theme": {
+      "accentHex": "#9E1F35",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Westlake Football: Four UIL Titles, Historic Records & 2026",
+      "description": "Westlake Chaparrals history: 1996, 2019, 2020 and 2021 UIL football crowns, 2024 state runner-up, campus resources and 2026 program reference."
+    },
+    "schedule": {
+      "label": "2026 official varsity scores and future fixtures",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Official Westlake varsity scores and fixtures",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Four state crowns across two football eras",
+      "body": "Westlake Nation's official football records list four UIL state championships: 1996 5A, 2019 6A Division II, 2020 6A Division I and 2021 6A Division II. Their published records also document 71 consecutive district wins (1990–2003), 13 consecutive 10-win seasons (1990–2002) and 23 consecutive playoff appearances (1988–2011). The UIL's 2024 Class 6A Division I archive instead lists Westlake as runner-up to North Crowley 50–21: a 2024 state-final appearance is not a fifth Westlake title.",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Westlake Nation official football historical records",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1996",
+        "title": "First title on school record",
+        "body": "Westlake Nation lists the 1996 5A state championship, its earliest of four recorded UIL football titles.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake official football record"
+      },
+      {
+        "date": "2019–2021",
+        "title": "Three consecutive football championships",
+        "body": "2019 Class 6A Division II, 2020 Class 6A Division I and 2021 Class 6A Division II form an unusual three-title span across two divisions.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake official football record"
+      },
+      {
+        "date": "2024",
+        "title": "North Crowley wins the state final",
+        "body": "UIL's 2024 Class 6A Division I state championship archive lists North Crowley 50, Austin Westlake 21, making the Chaparrals state runners-up, not champions that season.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives",
+        "sourceLabel": "UIL official 2024 state finals table"
+      },
+      {
+        "date": "1990–2003",
+        "title": "71 consecutive district victories",
+        "body": "The athletic department records a 71-game consecutive district-win streak spanning 1990–2003.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake official team historical records"
+      },
+      {
+        "date": "2026",
+        "title": "Westlake's verified 5–1 start",
+        "body": "The official varsity scoreboard lists five wins, one loss and a 2–0 district record through the October 8 Westwood game; scores beyond this dated snapshot are not claimed.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake Nation varsity scoreboard"
+      }
+    ],
+    "overview": [
+      "Four documented state football crowns set Westlake's historical stature: 1996, 2019, 2020 and 2021. The 2024 championship-game loss to North Crowley was a final appearance, not an additional title.",
+      "Westlake Nation publishes precise historical streaks, including 71 consecutive district victories and 13 straight 10-win seasons. These are explicitly dated records and not automatically active 2026 streaks.",
+      "Westlake High School's official athletic office is at 4100 Westbank Drive; football ticketing, exact game venues and accessibility arrangements must be checked for each 2026 matchup. The official team page lists the program in District 25-6A.",
+      "As of the October 10 source snapshot, the school lists Tony Salazar as current head football coach; official varsity results show a 5–1 overall and 2–0 district start. This is not a final 2026 record."
+    ],
+    "faq": [
+      {
+        "question": "How many UIL football state championships has Austin Westlake won?",
+        "answer": "Westlake's athletics department lists four: 1996, 2019, 2020 and 2021."
+      },
+      {
+        "question": "Did Westlake win the 2024 football state final?",
+        "answer": "No. UIL records North Crowley beating Austin Westlake 50–21 in the 2024 Class 6A Division I championship."
+      },
+      {
+        "question": "Where is Westlake High School's athletics office?",
+        "answer": "Official Westlake Nation lists 4100 Westbank Drive, Austin, TX 78746."
+      }
+    ],
+    "campus": {
+      "address": "4100 Westbank Drive, Austin, TX 78746",
+      "phone": "512-732-9289",
+      "sourceUrl": "https://www.westlakenation.com/info/directory",
+      "sourceLabel": "Eanes ISD Westlake Nation athletics directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Tony Salazar",
+      "title": "2026 head football coach and Eanes ISD assistant athletic director",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Official Westlake Nation 2026 varsity coaches listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–1, 2–0 district as displayed on official Westlake varsity page October 10, 2026; not a final-season record",
+      "verifiedAt": "2026-10-10",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Westlake Nation official live varsity results snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Inglewood (CA)",
+          "site": "Home",
+          "result": "W 33–26"
+        },
+        {
+          "date": "Sep. 4",
+          "opponent": "Euless Trinity",
+          "site": "Home",
+          "result": "W 35–10"
+        },
+        {
+          "date": "Sep. 11",
+          "opponent": "Prosper",
+          "site": "Away",
+          "result": "L 40–49"
+        },
+        {
+          "date": "Sep. 25",
+          "opponent": "Midland Legacy",
+          "site": "Home",
+          "result": "W 49–6"
+        },
+        {
+          "date": "Oct. 1",
+          "opponent": "Round Rock",
+          "site": "Home",
+          "district": true,
+          "result": "W 38–17"
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Westwood",
+          "site": "Away",
+          "district": true,
+          "result": "W 57–0"
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "McNeil",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Lake Travis",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    }
+  },
+  "austin-vandegrift": {
+    "slug": "austin-vandegrift",
+    "theme": {
+      "accentHex": "#205777",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Vandegrift Vipers: 2024 Football State Champions & 2026 Guide",
+      "description": "The Vipers' verified 2024 6A Division II state title, 24–17 Southlake Carroll final, Coach Drew Sanders and Travis County campus resources."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.uiltexas.org/football/alignments",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "First Vandegrift football state championship, 2024",
+      "body": "In December 2024, the Vipers captured their first UIL football state championship, defeating previously unbeaten Southlake Carroll 24–17 in the Class 6A Division II title game. Coach Drew Sanders' 2024 squad went 15–1 after a 14–1 pre-title record. UIL's state-team archive records the coaching staff and playoff journey. Leander ISD operates the campus at 9500 McNeil Drive in Travis County even though its school mailing city is Austin.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team-mp/austin-vandegrift-2024-2025-football",
+      "sourceLabel": "UIL 2024 Vandegrift championship archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Historic first state championship",
+        "body": "Vandegrift defeated Southlake Carroll 24–17 in the UIL Class 6A Division II title game, its first football state crown.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives",
+        "sourceLabel": "UIL official championship archive"
+      },
+      {
+        "date": "2024",
+        "title": "Drew Sanders' championship team",
+        "body": "The official state-team page lists Drew Sanders and a 14–1 mark entering the title game; the final victory made the season 15–1.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp/austin-vandegrift-2024-2025-football",
+        "sourceLabel": "UIL state-team record"
+      },
+      {
+        "date": "2026",
+        "title": "Austin location, Leander ISD campus",
+        "body": "NCES places Vandegrift High School at 9500 McNeil Drive in Travis County and identifies Leander ISD as the district.",
+        "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482703012156&InstName=Vandegrift",
+        "sourceLabel": "NCES public school directory"
+      }
+    ],
+    "overview": [
+      "The 2024 Vipers achieved their first state football title against Southlake Carroll, winning 24–17 at AT&T Stadium. Their championship story has primary UIL archival evidence and should not be omitted from a program authority page.",
+      "The Austin-addressed campus belongs to Leander ISD, with a Travis County physical location verified in the federal school directory. Game venues and gate rules are not automatically the same as the campus address.",
+      "Drew Sanders coached the championship season in 2024; no unchecked claim is made about a later head-coaching appointment in 2026."
+    ],
+    "faq": [
+      {
+        "question": "When did Austin Vandegrift win its first football state title?",
+        "answer": "On December 21, 2024, Vandegrift beat Southlake Carroll 24–17 for the Class 6A Division II title."
+      },
+      {
+        "question": "Is Vandegrift an Austin ISD school?",
+        "answer": "No. It is part of Leander ISD. NCES lists its campus at 9500 McNeil Drive in Austin, within Travis County."
+      },
+      {
+        "question": "Who coached the 2024 championship team?",
+        "answer": "The UIL identifies Drew Sanders as head coach of Vandegrift's 2024 championship team."
+      }
+    ],
+    "campus": {
+      "address": "9500 McNeil Drive, Austin, TX 78750",
+      "phone": "512-570-2300",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482703012156&InstName=Vandegrift",
+      "sourceLabel": "NCES school campus, Travis County",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-travis": {
+    "slug": "austin-travis",
+    "theme": {
+      "accentHex": "#B51F2A",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Travis Rebels Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin Travis Rebels football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "Travis Early College operates a Rebels varsity football program with home games distributed across Garrison, Burger Stadium and House Park rather than at a single fixed campus field. Its official schedule lists an October 22 LBJ game at Nelson Field and a home October 30 Davenport match at House Park. These are useful, event-specific venue facts.",
+      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "The official 2026 varsity list places October 16 Kerrville Tivy at House Park, October 22 LBJ away at Nelson Field, and October 30 Davenport at House Park.",
+        "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+        "sourceLabel": "School schedule or athletics history"
+      },
+      {
+        "date": "2026",
+        "title": "Joe Frank Martinez heads coaching staff",
+        "body": "School athletics directory identifies Joe Frank Martinez as football head coach, Zach Byerly as defensive coordinator and Drew McGarrahan as offensive coordinator.",
+        "sourceUrl": "https://www.travisrebelathletics.com/directory",
+        "sourceLabel": "Travis Rebels official coaches roster"
+      },
+      {
+        "date": "2026",
+        "title": "Multiple stadiums for a single school team",
+        "body": "The team's 2026 varsity schedule includes games at House Park, Nelson Field, Garrison and Burger; the campus at East Oltorf Street is not necessarily a varsity gate.",
+        "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+        "sourceLabel": "Official 2026 venue-by-venue varsity schedule"
+      }
+    ],
+    "overview": [
+      "Travis Early College operates a Rebels varsity football program with home games distributed across Garrison, Burger Stadium and House Park rather than at a single fixed campus field. Its official schedule lists an October 22 LBJ game at Nelson Field and a home October 30 Davenport match at House Park. These are useful, event-specific venue facts.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement.",
+      "The 2026 school coaching directory names Joe Frank Martinez head coach, with Zach Byerly handling defense and Drew McGarrahan handling offense. Stadium locations vary by fixture; the campus address is distinct."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin Travis Rebels?",
+        "answer": "The official 2026 varsity list places October 16 Kerrville Tivy at House Park, October 22 LBJ away at Nelson Field, and October 30 Davenport at House Park."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      },
+      {
+        "question": "Who is the Travis Rebels head football coach?",
+        "answer": "The school athletics staff page lists Joe Frank Martinez as athletic coordinator and head football coach."
+      }
+    ],
+    "coach": {
+      "name": "Joe Frank Martinez",
+      "title": "2026 athletic coordinator and head football coach",
+      "sourceUrl": "https://www.travisrebelathletics.com/directory",
+      "sourceLabel": "Travis High school athletics official staff directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "1211 East Oltorf Street, Austin, TX 78704",
+      "sourceUrl": "https://travis.austinschools.org/about-us/staff-directory",
+      "sourceLabel": "Travis Early College High official campus address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-northeast": {
+    "slug": "austin-northeast",
+    "theme": {
+      "accentHex": "#1A6971",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Northeast Raiders: Reagan-Era Titles & 2026 Football",
+      "description": "Austin Northeast Early College Raiders inherit Reagan High's 1967, 1968 and 1970 football state titles and 1973 final; school renaming and 2026 context."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://northeastechs.austinschools.org/news/2026/03/30/northeast-athletic-vacancies-26-27-school-year",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Reagan Raiders football dynasty and modern Northeast identity",
+      "body": "Northeast Early College High School's official school history explains that the campus opened in 1965 as John H. Reagan High and was renamed Northeast Early College for 2019–20. UIL's all-time appearances index attributes three football state championships to the program's historical Reagan identity: 1967, 1968 and 1970; the Raiders reached another title game in 1973. A January 1969 Congressional Record explicitly congratulates Reagan for winning the 1967 and 1968 championships, independently corroborating that consecutive achievement. Historical coaching roles of Travis Raven, Carroll Lundin and Wally Freytag belong to the Reagan eras and cannot be mistaken for the 2026 coaching staff.",
+      "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+      "sourceLabel": "Northeast ECHS official campus identity and renaming history",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1965",
+        "title": "The original Reagan campus opens",
+        "body": "Northeast's official school history states the building opened in 1965 and previously operated as John H. Reagan High.",
+        "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+        "sourceLabel": "School's official historical chronology"
+      },
+      {
+        "date": "1967–1968",
+        "title": "Back-to-back state football titles",
+        "body": "UIL credits the historical Reagan Raiders with 1967 and 1968 state championships, corroborated by a January 1969 Congressional Record entry.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL official football appearances archive"
+      },
+      {
+        "date": "1970",
+        "title": "Third historical state title",
+        "body": "UIL all-time results identify 1970 as the program's third championship season.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL official football championship index"
+      },
+      {
+        "date": "1973",
+        "title": "Another football state final",
+        "body": "The school appears again in UIL's all-time final list in 1973 without championship marker; an appearance is not a fourth championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL state-final appearances"
+      },
+      {
+        "date": "2019–2020",
+        "title": "The school becomes Northeast Early College",
+        "body": "The Austin ISD board voted to rename the Reagan campus in 2018; its Northeast Early College name took effect for 2019–20.",
+        "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+        "sourceLabel": "Official campus renamed history"
+      }
+    ],
+    "overview": [
+      "Northeast Early College's Raiders football history includes three UIL state championships in 1967, 1968 and 1970, earned when the same Austin campus operated as Reagan High School. The 1973 title-game appearance was runner-up, not a fourth championship.",
+      "Official Austin ISD school history dates the rename to the 2019–20 school year and situates the school at 7104 Berkman Drive. Referring to the historic Reagan-era titles is appropriate when the changing campus identity is explicitly explained.",
+      "The school posted a football-head-coach vacancy in March 2026; the vacancy notice is not proof the position remains open in October. Current staff, ticketing and accessible stadium access require separate first-party confirmation."
+    ],
+    "faq": [
+      {
+        "question": "How many football championships does Austin Northeast's program have?",
+        "answer": "Three historical UIL state titles, in 1967, 1968 and 1970, earned under the campus's former Reagan High School name."
+      },
+      {
+        "question": "Was Northeast Early College always named Northeast?",
+        "answer": "No. The school opened in 1965 as John H. Reagan High and adopted Northeast Early College for 2019–20 after an Austin ISD board decision."
+      },
+      {
+        "question": "Did the Raiders play in another state final after 1970?",
+        "answer": "Yes. UIL's appearances index lists a 1973 state final, but not a fourth title."
+      }
+    ],
+    "campus": {
+      "address": "7104 Berkman Drive, Austin, TX 78752",
+      "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+      "sourceLabel": "Official Northeast Early College school history",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-navarro": {
+    "slug": "austin-navarro",
+    "theme": {
+      "accentHex": "#8C354F",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Navarro Vikings Football: 2026 Homecoming & School Schedule",
+      "description": "Navarro Early College Vikings football: school-sourced 2026 homecoming vs LASA, varsity games, family resources, and visitor information."
+    },
+    "schedule": {
+      "label": "Navarro ECHS current school football events calendar",
+      "sourceUrl": "https://navarro.austinschools.org/events",
+      "sourceLabel": "Navarro official events calendar",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Vikings 2026 homecoming and football culture",
+      "body": "Navarro Early College High School's official October 2026 events calendar identifies the Vikings' October 8 varsity football homecoming matchup against LASA, October 15 trip to Crockett, October 23 visit to Bastrop and October 30 Senior Night against Pflugerville. The school promoted a July 29 parent meeting for prospective football players and families, connecting team involvement with campus student life. Navarro here means Austin Navarro Vikings, not Navarro College or another district's Panthers.",
+      "sourceUrl": "https://navarro.austinschools.org/events",
+      "sourceLabel": "Navarro Early College school event calendar",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "July 2026",
+        "title": "Vikings family football meeting",
+        "body": "Navarro ECHS announced its football parent meeting and locker distribution ahead of the season.",
+        "sourceUrl": "https://navarro.austinschools.org/news",
+        "sourceLabel": "Navarro campus athletics announcements"
+      },
+      {
+        "date": "Oct. 8, 2026",
+        "title": "LASA homecoming football",
+        "body": "The official school calendar identifies an October 8 varsity game versus LASA as homecoming.",
+        "sourceUrl": "https://navarro.austinschools.org/events",
+        "sourceLabel": "Official school events calendar"
+      },
+      {
+        "date": "Oct. 30, 2026",
+        "title": "Vikings senior night",
+        "body": "Navarro's 2026 school calendar labels its scheduled Pflugerville matchup as Senior Night.",
+        "sourceUrl": "https://navarro.austinschools.org/events",
+        "sourceLabel": "Official school events calendar"
+      }
+    ],
+    "overview": [
+      "Navarro Early College is the Austin Vikings program and school, not Navarro College's Bulldogs or Navarro ISD's Panthers. The school itself reports 2026 football events, family meetings and homecoming.",
+      "Navarro's 2026 varsity calendar includes school-specific experiences: homecoming against LASA on October 8 and senior night against Pflugerville on October 30, with intervening away fixtures at Crockett and Bastrop.",
+      "For families, the school news hub documents 2026 football parent registration and participation opportunities. This does not establish a claim about coaching history or state championships."
+    ],
+    "faq": [
+      {
+        "question": "Who did Navarro schedule for 2026 football homecoming?",
+        "answer": "The official school calendar lists LASA on Thursday, October 8, 2026."
+      },
+      {
+        "question": "When is Navarro football's 2026 Senior Night?",
+        "answer": "The school calendar scheduled Senior Night against Pflugerville on October 30, 2026."
+      },
+      {
+        "question": "Is this Navarro College football?",
+        "answer": "No. The page covers Navarro Early College High School's Vikings in Austin ISD, not Navarro College."
+      }
+    ]
+  },
+  "austin-mccallum": {
+    "slug": "austin-mccallum",
+    "theme": {
+      "accentHex": "#253D80",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin McCallum Knights Football: 2026 District & School Guide",
+      "description": "McCallum Knights football guide: 2026 5A Division I alignment, 2024–25 season records, official Austin opponent schedules and school location."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "McCallum's 2026 alignment shift",
+      "body": "The Knights moved from their 2025 Class 5A Division II District 11 listing to the 2026 5A Division I District 13 grouping. Historical records show McCallum finished 4–6 in 2024 then improved to 6–4 in 2025. Austin Anderson's official 2026 varsity athletics calendar schedules a meeting with McCallum October 15; Travis High's official calendar also lists a September 3 match against McCallum, at Garrison. These are football-school and venue-specific details, not a claim of a trophy.",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+      "sourceLabel": "McCallum year-by-year team and alignment history",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Four-win year",
+        "body": "McCallum finished 4–6 in 2024, under its previous 5A Division II district grouping.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+        "sourceLabel": "McCallum team history"
+      },
+      {
+        "date": "2025",
+        "title": "Six-win improvement",
+        "body": "The Knights finished 6–4 in the 2025 5A Division II season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+        "sourceLabel": "McCallum season record"
+      },
+      {
+        "date": "2026",
+        "title": "New 5A Division I district",
+        "body": "The team-history listing places McCallum in 5A Division I Region IV District 13, a different cycle from 2025's 5A DII.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+        "sourceLabel": "2026 realignment listing"
+      }
+    ],
+    "overview": [
+      "McCallum's 2026 UIL football grouping is 5A Division I, not the prior year's 5A Division II. The alignment change should be dated rather than mistaken for a change in sport or a playoff result.",
+      "McCallum improved from 4–6 in 2024 to 6–4 in 2025. Opponents' official school calendars place September games with Travis at Garrison and October football with Anderson.",
+      "Coaching identity and current home stadium/gate policy need official McCallum school confirmation; the available third-party coaching roster lists an assistant but not a clearly verified current head coach."
+    ],
+    "faq": [
+      {
+        "question": "Which football classification applies to McCallum in 2026?",
+        "answer": "McCallum is listed in Class 5A Division I Region IV District 13 for 2026, a change from 2025's 5A Division II grouping."
+      },
+      {
+        "question": "What was McCallum's 2025 season record?",
+        "answer": "The published year-by-year history lists a 6–4 record in 2025."
+      },
+      {
+        "question": "When does Anderson play McCallum in 2026?",
+        "answer": "Anderson's athletics calendar lists a varsity game against McCallum on October 15."
+      }
+    ],
+    "campus": {
+      "address": "5600 Sunshine Drive, Austin, TX 78756",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/staff/",
+      "sourceLabel": "McCallum school football roster campus listing",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-lasa": {
+    "slug": "austin-lasa",
+    "theme": {
+      "accentHex": "#445C80",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin LASA Raptors Football: Official Athletics, 2026 Games & Guide",
+      "description": "LASA Raptors varsity football, school athletics calendar and 2026 games with Travis, Akins, Crockett and Navarro; verified official campus links."
+    },
+    "schedule": {
+      "label": "Official LASA 2026 varsity/JV football schedule",
+      "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+      "sourceLabel": "LASA school football team website",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "LASA's distinct Austin academic and football identity",
+      "body": "LASA's official Raptors athletic site and calendar provide a school-specific contact and athletics channel distinct from its former shared-campus context. Travis' published football schedule identifies a September 10 trip to LASA at Nelson Field; Navarro's calendar lists the Vikings' October 8 homecoming football game against LASA. Football schedules for neighboring Austin schools are evidence of opponents and sites, not a verified LASA season record.",
+      "sourceUrl": "https://www.lasaraptors.com/",
+      "sourceLabel": "Official LASA athletics office and linked calendar",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "LASA–Travis at Nelson Field",
+        "body": "Travis' official varsity listing scheduled September 10 at LASA and named Nelson Field as the game location.",
+        "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+        "sourceLabel": "Travis High official 2026 varsity fixture"
+      },
+      {
+        "date": "2026",
+        "title": "Featured on Navarro homecoming schedule",
+        "body": "Navarro's school calendar identifies Thursday, October 8 versus LASA as its homecoming football game; this does not assert the final score.",
+        "sourceUrl": "https://navarro.austinschools.org/events",
+        "sourceLabel": "Navarro ECHS official calendar"
+      },
+      {
+        "date": "2026",
+        "title": "Official LASA head coach confirmed",
+        "body": "The school's 2026 football page explicitly identifies Gary Howard as head coach and publishes separate varsity and junior-varsity venue lists.",
+        "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+        "sourceLabel": "LASA official football coaches and schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Home sites split between Nelson and Burger Stadium",
+        "body": "LASA varsity lists 2026 Northeast, Travis, Navarro, Elgin and Bastrop dates at Nelson Field, while Akins and Crockett fixtures take place at Burger Stadium.",
+        "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+        "sourceLabel": "LASA official 2026 varsity match sites"
+      }
+    ],
+    "overview": [
+      "LASA is the Raptors program with its own official sports website and contact resources; it is distinct from Austin LBJ even if athletics listings share a Lazy Creek Drive address.",
+      "Two independent Austin-school calendars document specific LASA fixtures: Travis visited September 10 at Nelson Field and Navarro scheduled homecoming against LASA October 8.",
+      "LASA's 2026 head coach is confirmed as Gary Howard by the official school football page; historic football honors and legally reusable program photos remain unverified and must not be invented.",
+      "The first-party LASA school football page identifies Gary Howard as 2026 head coach and gives varsity and JV schedules. In particular, varsity uses Nelson Field and Burger Stadium for different opponents, not a single home-campus stadium."
+    ],
+    "faq": [
+      {
+        "question": "Does LASA have an official athletics website?",
+        "answer": "Yes. LASA Raptors athletics publishes contact information and a calendar at lasaraptors.com."
+      },
+      {
+        "question": "Where was the 2026 LASA–Travis varsity football game scheduled?",
+        "answer": "The Travis High athletics calendar lists the September 10 game at Nelson Field."
+      },
+      {
+        "question": "When did Navarro list LASA for homecoming?",
+        "answer": "Navarro ECHS's official calendar lists an October 8, 2026 varsity football homecoming game versus LASA."
+      },
+      {
+        "question": "Who coaches LASA Raptors football in 2026?",
+        "answer": "LASA's official football site lists Gary Howard as head football coach."
+      }
+    ],
+    "campus": {
+      "address": "7309 Lazy Creek Drive, Suite 225, Austin, TX 78724",
+      "phone": "512-414-5272",
+      "sourceUrl": "https://www.lasaraptors.com/",
+      "sourceLabel": "Official LASA athletics office listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Gary Howard",
+      "title": "2026 head football coach confirmed by LASA school athletics page",
+      "sourceUrl": "https://lasa.austinschools.org/athletics/uil-sports/football",
+      "sourceLabel": "LASA first-party 2026 varsity and JV football calendar",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-lake-travis": {
+    "slug": "austin-lake-travis",
+    "theme": {
+      "accentHex": "#A6192E",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Lake Travis Cavaliers Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Lake Travis Cavaliers football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://www.laketravisfootball.com/schedules",
+      "sourceLabel": "Lake Travis football 2026 published varsity schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. The Lake Travis football program's October 4, 2026 parent update announced Cavalier Stadium's varsity return for the October 9 Cedar Ridge game; ongoing work and later access remain subject to actual event guidance.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2016",
+        "title": "UIL championship-era milestone",
+        "body": "UIL's 2016 season records show Lake Travis defeated Austin Westlake 51–3 in the postseason; the final against The Woodlands ended 41–13.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
+        "sourceLabel": "Published season or game-day source"
+      },
+      {
+        "date": "2025–2026",
+        "title": "Cavalier Stadium 2026 varsity reopening",
+        "body": "TDLR lists a $46 million stadium rebuild and a December 2026 administrative completion estimate. The football program's October 4 weekly update, more current than the registration, said Cavalier Stadium would be ready for the October 9 varsity home game; the posted schedule lists additional home varsity games on October 23 and November 6. Always verify event gates and accommodations.",
+        "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
+        "sourceLabel": "TDLR accessibility project registration"
+      }
+    ],
+    "overview": [
+      "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. The Lake Travis football program's October 4, 2026 parent update announced Cavalier Stadium's varsity return for the October 9 Cedar Ridge game; ongoing work and later access remain subject to actual event guidance.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "TDLR's construction filing states the planned December 2026 completion, but the football team's October 4 update says the stadium was ready for an October 9 varsity return. The 2026 varsity schedule distinguishes games at Cavalier Stadium from those hosted elsewhere; check current operator/ticket and accessibility instructions before attending."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Lake Travis Cavaliers football?",
+        "answer": "UIL's 2016 season records show Lake Travis defeated Austin Westlake 51–3 in the postseason; the final against The Woodlands ended 41–13."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      }
+    ],
+    "campus": {
+      "address": "3324 Ranch Road 620 South, Austin, TX 78738",
+      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
+      "sourceLabel": "TDLR state stadium reconstruction registration",
+      "verifiedAt": "2026-10-10"
+    },
+    "notice": {
+      "title": "2026 varsity games return to Cavalier Stadium; check game-specific access",
+      "body": "Lake Travis football's October 4, 2026 parent update says Cavalier Stadium is ready to host the October 9 varsity game against Cedar Ridge, while sub-varsity games remain at the track stadium. The published 2026 varsity schedule lists October 23 Westlake and November 6 Westwood at Cavalier Stadium. State TDLR's original December 31 construction estimate is not evidence that the stadium is closed to varsity play; game-day gates, parking, ticketing and accessibility should be confirmed through the official operator.",
+      "sourceUrl": "https://www.laketravisfootball.com/page/show/3237464-carter-s-corner",
+      "sourceLabel": "Lake Travis High School football October 4 parent update",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-johnson": {
+    "slug": "austin-johnson",
+    "theme": {
+      "accentHex": "#5A2B77",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin LBJ Jaguars Football: 2021 State Final & 2026 Team",
+      "description": "Austin LBJ Jaguars reached the 2021 Class 4A Division I final, falling 38–21 to Stephenville; review historic Oscar Gordon records and 2026 team information."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/lbj-austin-jaguars/football/schedule/",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "LBJ's unbeaten 2021 run to the 4A Division I title game",
+      "body": "The Austin LBJ Jaguars, recorded by UIL as Austin Johnson, entered the December 17, 2021 Class 4A Division I state title game undefeated at 15–0. Stephenville won the final 38–21. The original UIL team roster credits Jahmal Fenner Sr. as the 2021 head coach and Oscar Gordon as the senior quarterback; the UIL record book lists Gordon's 372 passing yards in the 2021 title game. These are historical roles, not proof of current 2026 coaching staff. Austin LBJ's current school identity must not be confused with Buda Johnson or San Antonio Johnson.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-johnson-2021-2022-football",
+      "sourceLabel": "UIL 2021 Austin Johnson football team roster and playoffs",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Unbeaten run to the title game",
+        "body": "UIL's 2021 football championship release lists Austin Johnson at 15–0 entering its 4A Division I game against Stephenville.",
+        "sourceUrl": "https://www.uiltexas.org/press-releases/detail/uil-football-state-championships-information6",
+        "sourceLabel": "UIL December 2021 championship briefing"
+      },
+      {
+        "date": "Dec. 17, 2021",
+        "title": "State runner-up to Stephenville",
+        "body": "Stephenville defeated Austin LBJ 38–21 in the UIL Class 4A Division I final; this is not an LBJ championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL official 2021–22 football finals archive"
+      },
+      {
+        "date": "2021",
+        "title": "Oscar Gordon's title-game passing",
+        "body": "UIL's record book credits LBJ quarterback Oscar Gordon with 372 passing yards and 30 completions against Stephenville.",
+        "sourceUrl": "https://www.uiltexas.org/football/record-book",
+        "sourceLabel": "UIL football record book"
+      }
+    ],
+    "overview": [
+      "Austin LBJ's most important modern football achievement is its 15–0 run into the 2021 Class 4A Division I state final, where Stephenville won 38–21. The school was a runner-up, not a UIL champion.",
+      "The 2021 UIL roster names Jahmal Fenner Sr. as historical head coach and Oscar Gordon as quarterback. Fenner's 2021 role should not be mislabeled as a confirmed 2026 coaching appointment.",
+      "This team is the Austin LBJ Jaguars, called Austin Johnson in UIL finals archives. It is not Buda Johnson High School or San Antonio Johnson High School."
+    ],
+    "faq": [
+      {
+        "question": "Did the Austin LBJ Jaguars win the 2021 state football championship?",
+        "answer": "No. LBJ entered undefeated at 15–0, but Stephenville won the UIL 4A Division I final 38–21."
+      },
+      {
+        "question": "Who coached Austin LBJ's 2021 state-final team?",
+        "answer": "UIL identifies Jahmal Fenner Sr. as the 2021 coach. This does not establish who leads the 2026 team."
+      },
+      {
+        "question": "Which Austin LBJ player is in the UIL title-game passing records?",
+        "answer": "Oscar Gordon recorded 372 passing yards and 30 completions against Stephenville in the 2021 final."
+      }
+    ]
+  },
+  "austin-eastside": {
+    "slug": "austin-eastside",
+    "theme": {
+      "accentHex": "#1E6D43",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Eastside Panthers Football: 2026 Coach & Schedule",
+      "description": "Independent Austin Eastside Early College Panthers football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://eastside.austinschools.org/athletics",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Eastside's official athletics directory identifies Luis Becerra III as both athletic coordinator and head football coach, supported by named assistant coaches. Athletics resources include after-practice transportation and parent communication. Its season has matchups with Crockett and Austin Achieve.",
+      "sourceUrl": "https://eastside.austinschools.org/athletics",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Luis Becerra III leads football",
+        "body": "Eastside's official athletic directory names Luis Becerra III as both head football coach and athletic coordinator.",
+        "sourceUrl": "https://eastside.austinschools.org/athletics",
+        "sourceLabel": "Eastside school football coaching assignments"
+      },
+      {
+        "date": "2026",
+        "title": "Documented two-sided coaching staff",
+        "body": "Jose Cruz is offensive coordinator, supported by Raymundo Gonzales, Roderick Blair, Stefan Molina and Moises Garcia according to the official school directory.",
+        "sourceUrl": "https://eastside.austinschools.org/athletics",
+        "sourceLabel": "Eastside official football staff listing"
+      },
+      {
+        "date": "2026",
+        "title": "After-practice student transportation",
+        "body": "Eastside publishes school-provided after-school buses for athletes and parent meetings before each season; route specifics should be confirmed with the campus.",
+        "sourceUrl": "https://eastside.austinschools.org/athletics",
+        "sourceLabel": "Eastside official student-athlete services"
+      }
+    ],
+    "overview": [
+      "Eastside's official athletics directory identifies Luis Becerra III as both athletic coordinator and head football coach, supported by named assistant coaches. Athletics resources include after-practice transportation and parent communication. Its season has matchups with Crockett and Austin Achieve.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "Eastside's program stands out for a school-published coaching directory, dual-role football head coach/athletic coordinator Luis Becerra III, and explicit late-practice bus support for athletes. These participation details are more useful to families than generic game summaries."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Eastside Early College Panthers football?",
+        "answer": "Published 2026 fixtures include September 24 Crockett and an October 30 visit to Austin Achieve."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      },
+      {
+        "question": "Does Eastside offer buses home after football practices?",
+        "answer": "The campus athletics page says several after-school buses are provided for student athletes; contact the athletic office for route eligibility."
+      }
+    ],
+    "coach": {
+      "name": "Luis Becerra III",
+      "title": "Listed football head coach (source dated 2026)",
+      "sourceUrl": "https://eastside.austinschools.org/athletics",
+      "sourceLabel": "School athletics program",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-crockett": {
+    "slug": "austin-crockett",
+    "theme": {
+      "accentHex": "#19683A",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Crockett Cougars Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Crockett Cougars football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Crockett Early College's official 2026 page identifies Frank Muir as head football coach. Varsity home games are held at Burger Stadium, while junior varsity fixtures reference the campus field. Opponents include Akins, Eastside, Navarro, LASA and Pflugerville.",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "Aug. 27, 2026",
+        "title": "Varsity opener versus Blanco",
+        "body": "Crockett's first-party 2026 fixture lists Blanco at Burger Stadium, 7:30 PM; the schedule is not evidence of the match result.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official 2026 varsity schedule"
+      },
+      {
+        "date": "Sept. 24, 2026",
+        "title": "Eastside game at Nelson Field",
+        "body": "Crockett's school schedule lists an Eastside road matchup at Nelson Field, distinct from its Burger Stadium home dates.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official 2026 varsity schedule"
+      },
+      {
+        "date": "Oct. 15, 2026",
+        "title": "Navarro home date",
+        "body": "Crockett's varsity calendar lists Navarro at Burger Stadium on Thursday October 15; junior varsity is away at Navarro on October 14.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official varsity/JV comparison"
+      },
+      {
+        "date": "2026",
+        "title": "Named position coaching staff",
+        "body": "Frank Muir is head coach, Corry Perez defensive coordinator and Bryce Hilber offensive coordinator, as published by Crockett High.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official Crockett coaching contacts"
+      }
+    ],
+    "overview": [
+      "Crockett Early College's official 2026 page identifies Frank Muir as head football coach. Varsity home games are held at Burger Stadium, while junior varsity fixtures reference the campus field. Opponents include Akins, Eastside, Navarro, LASA and Pflugerville.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "Crockett publishes distinct 2026 varsity, junior-varsity and freshman calendars. Its coach Frank Muir is supported by defensive coordinator Corry Perez and offensive coordinator Bryce Hilber. Visitors should not assume varsity games are on the campus field used by sub-varsity teams."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Crockett Cougars football?",
+        "answer": "October 15 varsity Navarro match is scheduled at Burger Stadium; the September 24 Eastside game is at Nelson Field."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      },
+      {
+        "question": "Where do Crockett Cougars play their 2026 home varsity games?",
+        "answer": "The official varsity calendar generally lists Burger Stadium, whereas some junior-varsity and freshmen games use the Crockett main field."
+      }
+    ],
+    "coach": {
+      "name": "Frank Muir",
+      "title": "Listed football head coach (source dated 2026)",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "School athletics program",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Burger Stadium (varsity home fixtures)",
+      "address": "3200 Jones Road, Austin, TX 78745",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Crockett High official 2026 football schedule",
+      "verifiedAt": "2026-10-10",
+      "note": "Official home varsity fixtures are at Burger, while JV and freshmen use Crockett campus or opponent fields. Verify Burger exact address against Austin ISD before routing."
+    }
+  },
+  "austin-bowie": {
+    "slug": "austin-bowie",
+    "theme": {
+      "accentHex": "#8D2525",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Bowie Bulldogs Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Bowie Bulldogs football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://bowie.austinschools.org/athletics",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Bowie's school athletics office lists Jeff Ables as athletic coordinator, and the football booster staff page identifies him as head coach with decades at the school. Austin ISD HomeTown season passes cover home football games, not away tickets.",
+      "sourceUrl": "https://www.bowiefootball.org/coach",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "A long-serving Austin football coach",
+        "body": "The Bowie program identifies Jeff Ables as in his 43rd year coaching, 39th at Bowie and 25th as head coach; tenure is a dated club statement, not assumed to update automatically.",
+        "sourceUrl": "https://www.bowiefootball.org/coach",
+        "sourceLabel": "Bowie official booster coaching roster"
+      },
+      {
+        "date": "Program history",
+        "title": "Twenty-four postseason appearances reported",
+        "body": "Bowie football's program information reports 24 playoff appearances; a season-by-season UIL audit would be required before identifying each appearance.",
+        "sourceUrl": "https://www.bowiefootball.org/programinfo",
+        "sourceLabel": "Bowie football program history"
+      },
+      {
+        "date": "2026",
+        "title": "Burger Stadium game planning",
+        "body": "Austin ISD identifies Toney Burger Athletic Center at 3200 Jones Road and lists 15,000 stadium seats; the team's booster site gives an inconsistent abbreviated address. Use district owner records for navigation and confirm entry policies.",
+        "sourceUrl": "https://www.austinisd.org/athletics/facilities/burger",
+        "sourceLabel": "Bowie stadium program page"
+      }
+    ],
+    "overview": [
+      "Bowie's school athletics office lists Jeff Ables as athletic coordinator, and the football booster staff page identifies him as head coach with decades at the school. Austin ISD HomeTown season passes cover home football games, not away tickets.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "The official Bowie football booster program gives specific football history and campus identity: 24 playoff appearances, a home-site listing for Burger Stadium, and decades of coaching continuity under Jeff Ables. These are dated program statements rather than invented state titles."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Bowie Bulldogs football?",
+        "answer": "Official Bowie guidance explains that season passes cover home football games only."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      },
+      {
+        "question": "Where does the Bowie football program list its home stadium?",
+        "answer": "Bowie lists Burger Stadium as its football home site. Austin ISD, the facility owner, gives the correct address as 3200 Jones Road; verify a specific game's site before travel."
+      }
+    ],
+    "coach": {
+      "name": "Jeff Ables",
+      "title": "Listed football head coach (source dated 2026)",
+      "sourceUrl": "https://www.bowiefootball.org/coach",
+      "sourceLabel": "School athletics program",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Burger Stadium",
+      "address": "3200 Jones Road, Austin, TX 78745",
+      "sourceUrl": "https://www.austinisd.org/athletics/facilities/burger",
+      "sourceLabel": "Austin ISD official Toney Burger Athletic Center facility directory",
+      "verifiedAt": "2026-10-10",
+      "note": "Austin ISD official site documents 3200 Jones Road, 15,000 spectator seating and synthetic turf. An independent Bowie football team page displays a conflicting 200 Jones Rd abbreviation; use the owner district address and verify actual game and accessible entrance."
+    }
+  },
+  "austin-anderson": {
+    "slug": "austin-anderson",
+    "theme": {
+      "accentHex": "#5A2D80",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin Anderson Trojans Football: 2025 Playoffs & 2026 Guide",
+      "description": "Anderson Trojans 2025 10–2 football season, 2026 UIL 5A Division I realignment, House Park, coach Donald Hatcher and official game links."
+    },
+    "schedule": {
+      "label": "Official 2026 Trojans varsity athletics schedule",
+      "sourceUrl": "https://www.andersontrojanathletics.com/",
+      "sourceLabel": "Anderson High official athletic calendar",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "This program's distinct identity",
+      "body": "Anderson's program has a distinct 2026 alignment in Class 5A Division I, unlike nearby Austin High and Bowie 6A teams. The 2025 Trojans finished 10–2, following a 7–4 season in 2024, according to historical team results. Donald Hatcher is listed as head coach in both 2025 and 2026; official campus corroboration of the staffing and home venue remains pending.",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+      "sourceLabel": "School athletics site or published team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Seven-win Trojans season",
+        "body": "The 2024 Trojans finished 7–4, preceding a marked improvement the next season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+        "sourceLabel": "MaxPreps season-by-season record"
+      },
+      {
+        "date": "2025",
+        "title": "Double-digit victories",
+        "body": "Anderson finished 10–2, according to independent historical season records; it is not described as a state championship.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+        "sourceLabel": "MaxPreps 2025 standings"
+      },
+      {
+        "date": "2026",
+        "title": "New 5A Division I district opponents",
+        "body": "Anderson's official varsity calendar includes October meetings with Smithson Valley and McCallum, while DCTF lists a 2026 5A Division I alignment rather than last cycle's 6A assignment.",
+        "sourceUrl": "https://www.andersontrojanathletics.com/",
+        "sourceLabel": "Anderson 2026 varsity calendar"
+      }
+    ],
+    "overview": [
+      "The Trojans' documented 2025 10–2 season was a substantial improvement after the 2024 7–4 campaign; the two should not be flattened into a generic football-history paragraph.",
+      "Austin Anderson's official athletics portal lists the 2026 varsity calendar, including Smithson Valley on October 9 and McCallum on October 15, with an athletics office at 8403 Mesa Drive.",
+      "Published football references place Anderson at House Park and list Donald Hatcher as coach in the 2025 and 2026 seasons. The precise game-by-game stadium and current coaching assignment should be checked with Austin ISD."
+    ],
+    "faq": [
+      {
+        "question": "How did Anderson do in the 2025 football season?",
+        "answer": "MaxPreps records a 10–2 season in 2025, following a 7–4 result in 2024."
+      },
+      {
+        "question": "Where is Austin Anderson High School?",
+        "answer": "The official athletic department lists 8403 Mesa Drive, Austin, TX 78759. House Park is listed as the home football stadium in DCTF."
+      },
+      {
+        "question": "Which 2026 district opponents are on the official schedule?",
+        "answer": "Anderson's school athletics calendar lists Smithson Valley on October 9 and McCallum on October 15, among its fall fixtures."
+      }
+    ],
+    "coach": {
+      "name": "Donald Hatcher",
+      "title": "Published 2026 head football coach; recheck official school personnel listing",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+      "sourceLabel": "Published football team information",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "8403 Mesa Drive, Austin, TX 78759",
+      "phone": "512-414-2538",
+      "sourceUrl": "https://www.andersontrojanathletics.com/",
+      "sourceLabel": "Anderson official athletics office",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "House Park",
+      "address": "Austin, Texas; confirm event venue with school",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=austin-anderson-trojans",
+      "sourceLabel": "Dave Campbell's Texas Football program venue",
+      "verifiedAt": "2026-10-10",
+      "note": "DCTF lists House Park as the home stadium; game-specific venues and accessible entry policies must be confirmed with Austin ISD."
+    }
+  },
+  "austin-akins": {
+    "slug": "austin-akins",
+    "theme": {
+      "accentHex": "#0F6152",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin Akins Eagles Football: 2026 Schedule, History & Fan Guide",
+      "description": "Independent Austin Akins Eagles football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+    },
+    "schedule": {
+      "label": "2026 varsity schedule and source information",
+      "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+      "sourceLabel": "Published varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "This program's distinct identity",
+      "body": "Akins' official athletics site lists its 2026 Burger Stadium home fixtures against LASA, Crockett, Dripping Springs, Buda Johnson and Bowie, alongside away travel to Leander, Del Valle, House Park for Austin High, and Shelton Stadium for Hays. The school campus is at 10701 S First Street, not the same address as Burger Stadium. Third-party staff rosters list two different names as head coach, so first-party identification is unresolved.",
+      "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+      "sourceLabel": "School athletics site or published team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Burger Stadium game planning",
+        "body": "The official Akins football schedule places the October 22 visit to Austin High at House Park, while the October 29 Bowie matchup is listed at Burger Stadium.",
+        "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+        "sourceLabel": "2026 published varsity schedule"
+      },
+      {
+        "date": "2026",
+        "title": "School-issued offensive and defensive coordinator assignments",
+        "body": "Akins athletics lists Benjamin Cooper as football offensive coordinator and Ajay Lerma defensive coordinator, and Tony Degelia as assistant head football coach. These are confirmed roles, not a claim about the unresolved current head-coach name.",
+        "sourceUrl": "https://www.akinseaglesathletics.com/directory",
+        "sourceLabel": "Official Akins 2026 coaching directory"
+      },
+      {
+        "date": "2026",
+        "title": "Burger, Bible and House Park itinerary",
+        "body": "Akins' first-party football calendar shows September 4 LASA at Burger, September 11 at Leander Bible Stadium, and October 22 at Austin High's House Park.",
+        "sourceUrl": "https://www.akinseaglesathletics.com/sport/football/boys/",
+        "sourceLabel": "Akins school varsity football schedule"
+      }
+    ],
+    "overview": [
+      "Akins' official athletics site lists its 2026 Burger Stadium home fixtures against LASA, Crockett, Dripping Springs, Buda Johnson and Bowie, alongside away travel to Leander, Del Valle, House Park for Austin High, and Shelton Stadium for Hays. The school campus is at 10701 S First Street, not the same address as Burger Stadium. Third-party staff rosters list two different names as head coach, so first-party identification is unresolved.",
+      "TexasDefined is an independent publication, not Austin Akins Eagles's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources.",
+      "The official Akins football department provides clear position-coach names—Benjamin Cooper, Ajay Lerma, Tony Degelia—while a third-party site conflicts on the head coach. This profile prioritizes verifiable staff roles rather than guessing a 2026 head coach."
+    ],
+    "faq": [
+      {
+        "question": "Where is the reliable 2026 Austin Akins Eagles football schedule?",
+        "answer": "Use the linked school athletics site; opponent and venue details can change."
+      },
+      {
+        "question": "What makes the Austin Akins Eagles football program distinctive?",
+        "answer": "The official Akins football schedule places the October 22 visit to Austin High at House Park, while the October 29 Bowie matchup is listed at Burger Stadium."
+      },
+      {
+        "question": "Where can fans find the 2026 Akins varsity football schedule?",
+        "answer": "The official Akins Eagles Athletics varsity football calendar lists each event's stadium, including Burger, Bible and House Park."
+      }
+    ],
+    "campus": {
+      "address": "10701 South First Street, Austin, TX 78748",
+      "phone": "512-841-9900",
+      "sourceUrl": "https://www.akinseaglesathletics.com/directory",
+      "sourceLabel": "Akins High official athletic department directory",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-achieve": {
+    "slug": "austin-achieve",
+    "theme": {
+      "accentHex": "#285D87",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin Achieve Polar Bears Football: 2026 District & Schedule",
+      "description": "Austin Achieve Polar Bears varsity football, official charter athletics, 2026 4A Division II District 14 and documented matchups and home-campus information."
+    },
+    "schedule": {
+      "label": "Official Lago Vista ISD 2026 District 14 opponent schedule",
+      "sourceUrl": "https://www.lagovistaisd.net/page/lhs.football",
+      "sourceLabel": "District opponent's first-party 2026 football alignment and schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Charter Polar Bears' 2026 first-party football resources",
+      "body": "Austin Achieve's official athletics website includes varsity football among its high-school sports and names Joe Dimaio athletic director, without confirming him as head football coach. The school's district administrative office is 5908 Manor Road, while the football program's published high-school campus is 7424 E Hwy 290; neither address establishes the exact event gate. Lago Vista ISD's official 2026 football page independently lists Austin Achieve in Class 4A Division II Region IV District 14 with Austin Eastside, Giddings, Lago Vista, Manor New Tech and Wimberley. The October 3 MaxPreps schedule snapshot lists a 1–5 start including a 28–14 September 11 win over St. Anthony; that is a dated snapshot, not a final 2026 record.",
+      "sourceUrl": "https://www.austinachieve.org/athletics-2025",
+      "sourceLabel": "Austin Achieve official athletic offerings and director",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Charter team in varsity football alignment",
+        "body": "Lago Vista ISD's published 2026–28 4A Division II District 14 list includes Austin Achieve among Wimberley, Giddings, Manor New Tech, Eastside and Lago Vista.",
+        "sourceUrl": "https://www.lagovistaisd.net/page/lhs.football",
+        "sourceLabel": "Official Lago Vista ISD football district alignment"
+      },
+      {
+        "date": "Sep. 11, 2026",
+        "title": "Polar Bears defeat St. Anthony",
+        "body": "MaxPreps' October 3 updated 2026 schedule lists a 28–14 Austin Achieve home victory over St. Anthony, with a 1–5 overall record after October 2.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
+        "sourceLabel": "Dated MaxPreps results and schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Official athletics director contact",
+        "body": "Austin Achieve's athletic site names Joe Dimaio for scheduling and athletics inquiries, distinct from its unidentified current head football coach.",
+        "sourceUrl": "https://www.austinachieve.org/athletics-2025",
+        "sourceLabel": "Official school athletics administration"
+      }
+    ],
+    "overview": [
+      "Austin Achieve is an Austin charter-school Polar Bears varsity football program with its own athletic director and campus, not Austin ISD's Eastside or another Polar Bears school.",
+      "The first-party Lago Vista football guide lists Austin Achieve in 2026 Class 4A Division II District 14, with specific opponents. Austin Achieve's football campus and district administrative office use different published addresses.",
+      "A dated 2026 schedule snapshot lists a September win against St. Anthony and a 1–5 overall start as of October 3. No later score or end-of-season record is implied, and an athletics director is not labeled as the football head coach."
+    ],
+    "faq": [
+      {
+        "question": "What district does Austin Achieve football play in for 2026?",
+        "answer": "Published district-opponent records place Austin Achieve in 4A Division II District 14 with Eastside, Giddings, Lago Vista, Manor New Tech and Wimberley."
+      },
+      {
+        "question": "Is Joe Dimaio Austin Achieve's head football coach?",
+        "answer": "Austin Achieve's official athletics page identifies Joe Dimaio as athletic director, not necessarily varsity football head coach."
+      },
+      {
+        "question": "What is a verified 2026 Austin Achieve football result?",
+        "answer": "The October 3 published schedule shows a 28–14 win over St. Anthony on September 11; more recent games require a fresh result check."
+      }
+    ],
+    "campus": {
+      "address": "7424 E Hwy 290, Austin, TX 78723",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/austin-achieve-polar-bears/football/schedule/",
+      "sourceLabel": "Austin Achieve football home campus listing; district administrative office is a different address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin": {
+    "slug": "austin",
+    "theme": {
+      "accentHex": "#82213B",
+      "label": "Editorial school-inspired accent; no official logo used"
+    },
+    "seo": {
+      "title": "Austin High Maroons Football: 1942 State Champions & 2026",
+      "description": "Austin High Maroons 1942 UIL state championship 20–7 over Dallas Sunset, House Park game-day guide, 2026 coach and varsity resources."
+    },
+    "schedule": {
+      "label": "2026 varsity schedule and source information",
+      "sourceUrl": "https://www.austinmaroons.com/football-2026-schedule/",
+      "sourceLabel": "Published varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "The 1942 UIL football championship and today's Maroons",
+      "body": "Austin High's Maroons won the 1942 Class 2A UIL football championship 20–7 over Dallas Sunset, confirmed by the UIL historical champions archive. The state's current all-time appearance index also credits Austin with a title-game appearance in 1950; that additional final was not a championship. Contemporary Austin High's school-sponsored football portal places its 2026 Maroons in Class 6A and supplies House Park home fixtures, separate from its 1940s classification.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P720",
+      "sourceLabel": "UIL 1942 Class 2A state championship archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1942",
+        "title": "State football championship",
+        "body": "Austin High defeated Dallas Sunset 20–7 for the Class 2A state championship, as recorded by UIL.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P720",
+        "sourceLabel": "UIL original 1942–43 state champions"
+      },
+      {
+        "date": "1950",
+        "title": "Another appearance in the state finals",
+        "body": "UIL all-time appearances lists Austin High in the 1950 state-final field but not as the champion; avoid conflating the appearance with a second title.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL football all-time appearances listing"
+      },
+      {
+        "date": "2026",
+        "title": "Maroons play at historic House Park",
+        "body": "Austin High's 2026 team schedule lists House Park as a home-game venue and includes a September 25 Bowie matchup.",
+        "sourceUrl": "https://www.austinmaroons.com/football-2026-schedule/",
+        "sourceLabel": "Austin High 2026 official football schedule"
+      }
+    ],
+    "overview": [
+      "The Maroons' most important documented football achievement is the 1942 UIL Class 2A state championship over Dallas Sunset, 20–7. This historic achievement is distinct from the present Class 6A football alignment.",
+      "UIL separately lists a 1950 state final appearance, but not a second Austin championship. The football history therefore includes one recorded title and another final.",
+      "Austin High's current Maroons football portal publishes official 2026 House Park fixtures and school coach resources. Visitors must confirm individual stadium and ticket procedures for their game."
+    ],
+    "faq": [
+      {
+        "question": "Did Austin High School win a Texas football state championship?",
+        "answer": "Yes. UIL's historical archive records the Austin Maroons defeating Dallas Sunset 20–7 for the 1942 Class 2A title."
+      },
+      {
+        "question": "How many football titles does Austin High have?",
+        "answer": "UIL lists one championship (1942) and two title-game appearances including 1950."
+      },
+      {
+        "question": "Where are Austin High football home games played?",
+        "answer": "The Maroons' school-hosted 2026 varsity schedule lists home fixtures at House Park; verify the individual game venue."
+      }
+    ],
+    "coach": {
+      "name": "Jason Cecil",
+      "title": "Published 2026 head football coach; recheck official school personnel listing",
+      "sourceUrl": "https://www.austinmaroons.com/football/",
+      "sourceLabel": "Published football team information",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "aubrey": {
+    "slug": "aubrey",
+    "theme": {
+      "accentHex": "#AE1C2A",
+      "label": "Aubrey Chaparrals school-inspired editorial accent (not an official seal)"
+    },
+    "seo": {
+      "title": "Aubrey Chaparrals Football: Chaparral Stadium Rules & 2026 Guide",
+      "description": "Aubrey Chaparrals football: Chaparral Stadium ticket and fan policies, 2024 playoff season, coach Keith Ivy and official 2026 game-day resources."
+    },
+    "coach": {
+      "name": "Keith Ivy",
+      "title": "Head football coach (source as dated; reconfirm with district)",
+      "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/staff/",
+      "sourceLabel": "Published coaching reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "2026 football schedule and official visitor resources",
+      "sourceUrl": "https://www.aubreyisd.net/o/ahs/live-feed?page_no=1",
+      "sourceLabel": "Published 2026 schedule/resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "What distinguishes the Aubrey Chaparrals program",
+      "body": "Aubrey ISD's June 4, 2026 Chaparral Stadium guidance says tickets must be purchased online via GoFan and cash is not accepted at the gate. Bags may be inspected, high school student-section visitors need school IDs and middle-school spectators must stay seated. These concrete procedures distinguish Aubrey's fan guide from generic stadium copy.",
+      "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
+      "sourceLabel": "School district or football reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Twelve-win season",
+        "body": "Historical season records list Aubrey finishing 12–2, among the program's strongest recent years.",
+        "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2024",
+        "title": "Playoff progress",
+        "body": "Aubrey recorded an 8–5 season in 2024, following an 8–4 2023 season.",
+        "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Cashless stadium policy",
+        "body": "District policy specifies GoFan digital tickets, bag inspection and student supervision rules.",
+        "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
+        "sourceLabel": "Named source for school-specific milestone"
+      }
+    ],
+    "overview": [
+      "Aubrey is a Class 4A Division I program; DCTF credits the Chaparrals with 17 playoff appearances but no state championship or state title-game appearance. Avoid inventing a trophy to make the history look stronger.",
+      "Coach Keith Ivy is identified on the 2026 MaxPreps staff roster. The 2024 playoff campaign finished 8–5, and the 2025 season finished 3–7; these belong to separate historical seasons.",
+      "Aubrey ISD's stadium notice requires GoFan online tickets and no gate cash, allows inspected bags and restricts field access. These details are important for families and visiting supporters.",
+      "Chaparral Stadium is at the Aubrey High School campus, 510 Spring Hill Road, as corroborated by football game listings; school drop-off traffic rules should not be confused with football parking directions."
+    ],
+    "faq": [
+      {
+        "question": "Can spectators pay cash at Aubrey's Chaparral Stadium?",
+        "answer": "No. Aubrey ISD's June 2026 stadium notice directs ticket buyers to GoFan and says cash is not accepted at the gate."
+      },
+      {
+        "question": "Who is Aubrey's listed 2026 head coach?",
+        "answer": "The 2026 MaxPreps football staff roster identifies Keith Ivy."
+      },
+      {
+        "question": "Has Aubrey won a Texas state football title?",
+        "answer": "Dave Campbell's historical summary lists no state titles or state-title-game appearances, while crediting 17 playoff appearances."
+      }
+    ]
+  },
+  "atlanta": {
+    "slug": "atlanta",
+    "theme": {
+      "accentHex": "#7E1530",
+      "label": "Atlanta Rabbits school-inspired editorial accent (not an official seal)"
+    },
+    "seo": {
+      "title": "Atlanta Rabbits Football: 2003 State Champions & Rabbit Stadium",
+      "description": "Atlanta Rabbits' 2003 Class 3A Division II state crown, 34–0 win over Marlin, Rabbit Stadium school policies, historic teams and 2026 resources."
+    },
+    "coach": {
+      "name": "Tyler Morton",
+      "title": "Head football coach (source as dated; reconfirm with district)",
+      "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/staff/",
+      "sourceLabel": "Published coaching reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "2026 football schedule and official visitor resources",
+      "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/schedule/",
+      "sourceLabel": "Published 2026 schedule/resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Atlanta's verified 2003 football state title",
+      "body": "Atlanta's Rabbits won the 2003 Texas Class 3A Division II football state championship by shutting out Marlin 34–0. UIL's original 2003–04 state finals archive identifies the exact division and opponent, making this a documented football title — quite separate from the school's 1989 track championship. ATL ISD's Rabbit Stadium page documents supervision requirements for younger fans and restrictions on sideline games. Published 2025 team history lists an eight-win season, but the historic UIL football title is the program's principal milestone.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+      "sourceLabel": "UIL original 2003–2004 football title archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2003",
+        "title": "Rabbits win the UIL football state championship",
+        "body": "Atlanta defeated Marlin 34–0 in the 2003 Class 3A Division II football title game, as recorded by UIL.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+        "sourceLabel": "UIL official 2003 football championship"
+      },
+      {
+        "date": "1989",
+        "title": "Separately documented track state crown",
+        "body": "Atlanta ISD honors its 1989 track-and-field champions; this is a different sport and does not replace the 2003 football title.",
+        "sourceUrl": "https://www.atlisd.net/index.php?pageID=273542_3",
+        "sourceLabel": "Atlanta ISD official Hall of Fame"
+      },
+      {
+        "date": "2025",
+        "title": "Recent football-season snapshot",
+        "body": "Atlanta's historical team record shows 8–3 in 2025, distinct from its 2003 championship season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/history/",
+        "sourceLabel": "Published season history"
+      },
+      {
+        "date": "2026",
+        "title": "Rabbit Stadium spectator code",
+        "body": "Atlanta ISD specifies middle-school adult supervision and seated student sections at Rabbit Stadium; verify the district page before attending.",
+        "sourceUrl": "https://www.atlisd.net/45791_2",
+        "sourceLabel": "Official stadium visitor policies"
+      }
+    ],
+    "overview": [
+      "Atlanta's football identity includes the 2003 UIL Class 3A Division II state championship, won 34–0 over Marlin. The school's separately documented 1989 track crown is not the football title.",
+      "Rabbit Stadium's published visitor policy requires middle-school spectators to attend with an adult, younger children to remain under supervision and students to stay in designated seating.",
+      "The 2026 football coaching listing and 2025 8–3 record are dated separately from the 2003 title season, and the stadium rules are more useful for visiting families than a generic description of home-field atmosphere."
+    ],
+    "faq": [
+      {
+        "question": "When did Atlanta Rabbits football win a Texas state championship?",
+        "answer": "In 2003, Atlanta defeated Marlin 34–0 for the UIL Class 3A Division II title."
+      },
+      {
+        "question": "Does Atlanta's 1989 state trophy represent a football title?",
+        "answer": "No. Atlanta ISD's 1989 Hall of Fame championship was in track and field, a separate sport."
+      },
+      {
+        "question": "Can middle school students attend Rabbit Stadium without an adult?",
+        "answer": "Atlanta ISD's stadium guidelines require middle-school students to be accompanied by an adult."
+      }
+    ]
+  },
+  "athens": {
+    "slug": "athens",
+    "theme": {
+      "accentHex": "#762A3A",
+      "label": "Athens Hornets school-inspired editorial accent (not an official seal)"
+    },
+    "seo": {
+      "title": "Athens Hornets Football: Zac Harrell, Bruce Field & 2026 Schedule",
+      "description": "Athens Hornets football guide: 2025 playoff run, Zac Harrell's 2026 schedule, Bruce Field and homecoming and senior-night information."
+    },
+    "coach": {
+      "name": "Zac Harrell",
+      "title": "Head football coach (source as dated; reconfirm with district)",
+      "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+      "sourceLabel": "Published coaching reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "2026 football schedule and official visitor resources",
+      "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+      "sourceLabel": "Published 2026 schedule/resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "What distinguishes the Athens Hornets program",
+      "body": "The school's official 2026 varsity calendar identifies Zac Harrell as head coach and records separate homecoming versus Kaufman (September 18), youth football night versus Brownsboro (October 9), pink-out versus Madisonville (October 23), and senior night versus Van (October 30). These are distinct community traditions and scheduled events, not game outcomes.",
+      "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+      "sourceLabel": "School district or football reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Deep playoff run",
+        "body": "The Hornets finished 11–3 and played 14 games, according to published historical season records.",
+        "sourceUrl": "https://www.maxpreps.com/tx/athens/athens-hornets/football/history/",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Official football calendar",
+        "body": "Athens ISD published 2026 varsity, JV and freshman fixtures with homecoming, youth football, pink-out and senior-night labels.",
+        "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Five-win start",
+        "body": "The public football results snapshot lists victories over Nacogdoches, Henderson, Pine Tree, Kaufman and Gladewater through September 25; it is not a complete October season report.",
+        "sourceUrl": "https://txfb.sidev.co/team/athens-hornets",
+        "sourceLabel": "Named source for school-specific milestone"
+      }
+    ],
+    "overview": [
+      "Athens' 2026 football identity is documented directly by the Athens ISD varsity schedule: Zac Harrell leads the Hornets in Class 4A Division II and the official school calendar separates varsity, junior-varsity and freshman fixtures.",
+      "The five listed non-district wins through September 25 include a 50–48 game at Pine Tree. A midseason record snapshot is not an assertion about later district results.",
+      "Dave Campbell's Texas Football names Bruce Field as the Hornets' home stadium, with a published 4,000-seat figure that should not be treated as an accessibility certification.",
+      "The school's published calendar makes Athens-specific game-day planning possible: Kaufman was homecoming, Brownsboro youth football night, Madisonville pink-out, and Van senior night."
+    ],
+    "faq": [
+      {
+        "question": "Who is the Athens Hornets head football coach for 2026?",
+        "answer": "The Athens ISD 2026 varsity schedule identifies Zac Harrell as athletic director and head football coach."
+      },
+      {
+        "question": "Where do the Athens Hornets play?",
+        "answer": "Dave Campbell's Texas Football lists Bruce Field as the home stadium. Confirm your game's entry, ticket and accessible seating details with Athens ISD."
+      },
+      {
+        "question": "What was the Athens 2025 football record?",
+        "answer": "Published program histories record an 11–3 season in 2025, which must not be presented as the 2026 result."
+      }
+    ]
+  },
+  "aspermont": {
+    "slug": "aspermont",
+    "theme": {
+      "accentHex": "#A6192E",
+      "label": "Crimson school-color-inspired editorial accent; not an official logo"
+    },
+    "seo": {
+      "title": "Aspermont Hornets Football: 1999 11-Man Final & 2026 Six-Man",
+      "description": "UIL records Aspermont's 1999 Class 1A 11-man final against Bartlett (35–6); explore the Hornets' current 2026 six-man District 4, coach and venue resources."
+    },
+    "coach": {
+      "name": "Pat Potts",
+      "title": "Head coach as listed in 2026 program references; first-party school confirmation pending",
+      "sourceUrl": "https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/",
+      "sourceLabel": "Six-Man Football program listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "Aspermont Hornets 2026 schedule — independent schedule, confirm with district",
+      "sourceUrl": "https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/",
+      "sourceLabel": "Six-Man Football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "From the 1999 11-man state final to today's six-man game",
+      "body": "Aspermont reached the 1999 Conference 1A eleven-man football state championship game, where Bartlett defeated the Hornets 35–6. The UIL's original 1999 playoff listing explicitly identifies the bracket as 1A Eleven Man, including Aspermont's 30–27 regional win over Baird, 33–0 quarterfinal win over Paducah and 31–12 semifinal win over Wheeler. It was NOT a six-man state final. In the 2026–28 cycle, Aspermont instead competes in 1A Six-Man Division I District 4. Historical and modern playing formats must remain separate.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html",
+      "sourceLabel": "UIL primary 1999 1A eleven-man playoff archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1999",
+        "title": "1999 Class 1A eleven-man state runner-up",
+        "body": "UIL's historical game-by-game bracket reports Bartlett 35, Aspermont 6 after Aspermont advanced through Wheeler in the semifinals 31–12. This was an eleven-man era, not six-man.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html",
+        "sourceLabel": "UIL official 1999 eleven-man football records"
+      },
+      {
+        "date": "2018",
+        "title": "Nine-win modern season",
+        "body": "The six-man football history lists 2018 at 9–3, a separate modern season under a different football format.",
+        "sourceUrl": "https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/",
+        "sourceLabel": "Six-Man Football team archive"
+      },
+      {
+        "date": "2025",
+        "title": "Discrepant 2025 season summaries",
+        "body": "Six-Man Football lists 2025 at 9–2 while Dave Campbell's Texas Football lists 9–1; this discrepancy should be resolved against dated official game results before printing an unquestioned final record.",
+        "sourceUrl": "https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/",
+        "sourceLabel": "Six-Man Football historical season listing"
+      },
+      {
+        "date": "2026",
+        "title": "1A Six-Man Division I District 4",
+        "body": "Aspermont's present UIL alignment lists Six-Man Division I District 4; it does not retroactively change the 1999 state final into a six-man title.",
+        "sourceUrl": "https://www.texasfootball.com/team/aspermont-hornets",
+        "sourceLabel": "Current DCTF alignment listing"
+      }
+    ],
+    "overview": [
+      "The Hornets' documented 1999 football title-game appearance came in Conference 1A eleven-man, ending in a 35–6 loss to Bartlett. The UIL original bracket independently confirms the semifinal, quarterfinal and regional path.",
+      "Aspermont's 2026 program competes in UIL Class 1A Six-Man Division I District 4. The present format should never be substituted into the 1999 history.",
+      "Current retrospective sources disagree whether Aspermont finished 2025 at 9–1 or 9–2. Readers should use dated game-level results and the district's official records to resolve the difference.",
+      "Football references identify Hornet Stadium as the home venue, but the entry gate, parking and ADA details remain unverified."
+    ],
+    "faq": [
+      {
+        "question": "Was Aspermont's 1999 state football final a six-man game?",
+        "answer": "No. UIL's original 1999 Class 1A eleven-man bracket records Bartlett defeating Aspermont 35–6."
+      },
+      {
+        "question": "What format does Aspermont play in 2026?",
+        "answer": "Class 1A Six-Man Division I, District 4 under the 2026–28 UIL alignment."
+      },
+      {
+        "question": "Did Aspermont win the 1999 state title?",
+        "answer": "No. The Hornets finished as Class 1A eleven-man runners-up to Bartlett, 35–6."
+      },
+      {
+        "question": "What was Aspermont's 2025 record?",
+        "answer": "The two available historical summaries disagree: Six-Man Football says 9–2 while DCTF says 9–1; a confirmed final should not be asserted until the difference is resolved."
+      }
+    ]
+  },
+  "arp": {
+    "slug": "arp",
+    "theme": {
+      "accentHex": "#A51C30",
+      "label": "Editorial crimson accent; verify exact school shade before describing it as an official color"
+    },
+    "seo": {
+      "title": "Arp Tigers Football: Dale Irwin Era, 2016 Semifinal & 2026 Guide",
+      "description": "Explore Arp Tigers football history, Dale Irwin's 2016 state-semifinal run, 2026 district and official game-day information at Bill Herrington Tiger Stadium."
+    },
+    "coach": {
+      "name": "Wes Schminkey",
+      "title": "Athletic director and head football coach (appointed 2022)",
+      "sourceUrl": "https://www.arpisd.org/article/708732",
+      "sourceLabel": "Arp ISD coaching succession announcement",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "101 Toney Drive, Arp, TX 75750",
+      "phone": "903-859-4917",
+      "sourceUrl": "https://www.arpisd.org/",
+      "sourceLabel": "Arp ISD official campus directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Bill Herrington Tiger Stadium",
+      "address": "422 E Front St, Arp, TX 75750",
+      "sourceUrl": "https://www.arpisd.org/athletics?page_no=28",
+      "sourceLabel": "Arp ISD official 2026 varsity home-game listing",
+      "verifiedAt": "2026-10-10",
+      "note": "The stadium location is independently distinct from the high school campus mailing address. Confirm event parking, accessible entrance and ticket details directly with Arp ISD; those policies were not documented in the sources checked."
+    },
+    "schedule": {
+      "label": "Official 2026 varsity schedule",
+      "sourceUrl": "https://www.arpisd.org/page/arp-football-schedule",
+      "sourceLabel": "Arp ISD 2026 varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "From the Irwin decade to the Schminkey era",
+      "body": "Arp ISD credited Dale Irwin with 141 victories in 19 seasons as Tigers head coach, three district titles (2008, 2009 and 2012), and 14 playoff appearances. His 2016 team finished 12–3 and reached the state semifinals, losing 19–18 to Boling. The district named longtime defensive coordinator Wes Schminkey as successor in 2022. The district article also includes a career table that counts a Colmesneil season and shows 146 total wins, so the Arp-only and career totals should not be conflated.",
+      "sourceUrl": "https://www.arpisd.org/article/708732",
+      "sourceLabel": "Arp ISD retrospective and coach announcement, April 2022",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2007",
+        "title": "State quarterfinal heartbreak",
+        "body": "Arp's 10–4 campaign ended in a 19–13 late-game loss to Elysian Fields in a state quarterfinal, according to the district retrospective.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD retrospective"
+      },
+      {
+        "date": "2008–2012",
+        "title": "Three Irwin-era district championships",
+        "body": "Arp ISD lists district championships in 2008, 2009 and 2012 during Dale Irwin's tenure.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD retrospective"
+      },
+      {
+        "date": "2016",
+        "title": "One point from the state final",
+        "body": "The 12–3 Tigers advanced to the UIL state semifinals, where Boling won 19–18; do not mistake this semifinal trip for a state championship.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD retrospective"
+      },
+      {
+        "date": "2022",
+        "title": "Wes Schminkey appointed",
+        "body": "The district announced longtime defensive coordinator Wes Schminkey as the Tigers' next head coach and athletic director after Irwin retired.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD coaching succession"
+      },
+      {
+        "date": "2026",
+        "title": "2026 homecoming and district opener",
+        "body": "Arp ISD's official preseason announcement lists Shelbyville for homecoming September 18 and West Rusk as the opening district opponent October 9, with both statements describing the published schedule rather than an independently verified final score.",
+        "sourceUrl": "https://www.arpisd.org/live_feeds/12114880",
+        "sourceLabel": "Arp ISD 2026 schedule announcement"
+      }
+    ],
+    "overview": [
+      "Arp's football story is anchored by the district-documented Dale Irwin era: 14 playoff appearances in 19 head-coaching seasons, three district crowns and a narrow 2016 state-semifinal defeat. That specific history is more informative than an unsourced generic claim of championship tradition.",
+      "Arp's 2026 UIL assignment is Class 3A Division II District 10. Alignment is not the same thing as a season record, and readers should use the district's official calendar for current fixtures and results.",
+      "For spectators, Bill Herrington Tiger Stadium on East Front Street is the documented Arp home venue. The separate Arp High School campus is at 101 Toney Drive; check the exact event venue before navigating.",
+      "Arp ISD's April 2026 schedule announcement explicitly describes West Rusk as a rival and identifies the October 9 district opener. The source supports describing that matchup as a district-recognized rivalry, but does not by itself establish its first meeting or all-time series."
+    ],
+    "faq": [
+      {
+        "question": "Did Arp win the 2016 Texas state football championship?",
+        "answer": "No. Arp finished 12–3 and advanced to the state semifinals, where it lost to Boling 19–18, according to Arp ISD's retrospective."
+      },
+      {
+        "question": "Who succeeded Dale Irwin as Arp Tigers head football coach?",
+        "answer": "Arp ISD announced in April 2022 that former defensive coordinator Wes Schminkey would succeed Irwin as head coach and athletic director."
+      },
+      {
+        "question": "Where do the Arp Tigers play home football games?",
+        "answer": "Arp ISD lists Bill Herrington Tiger Stadium at 422 E Front St, Arp, Texas. The high school campus address is separately listed as 101 Toney Drive."
+      },
+      {
+        "question": "Which opponent does Arp ISD call a rival in the 2026 schedule?",
+        "answer": "The district's April 2026 announcement calls West Rusk a rival and scheduled the matchup as the October 9 district opener."
+      }
+    ]
+  },
   "arlington-seguin": {
     "slug": "arlington-seguin",
     "theme": {

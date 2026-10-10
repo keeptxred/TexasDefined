@@ -12,49 +12,48 @@
     "total": 1292
   },
   "batch": {
-    "number": 3,
+    "number": 5,
     "slugs": [
-      "amarillo-caprock",
-      "amarillo-highland-park",
-      "amarillo-palo-duro",
-      "amarillo-river-road",
-      "amarillo-tascosa",
-      "amherst",
-      "anahuac",
-      "anderson-shiro",
-      "andrews",
-      "angleton",
-      "anna",
-      "anson",
-      "anthony",
-      "anton",
-      "apple-springs",
-      "aquilla",
-      "aransas-pass",
-      "archer-city",
-      "argyle",
-      "arlington",
-      "arlington-bowie",
-      "arlington-houston",
-      "arlington-lamar",
-      "arlington-martin",
-      "arlington-seguin"
+      "ballinger",
+      "balmorhea",
+      "bandera",
+      "bangs",
+      "banquete",
+      "barksdale-nueces-canyon",
+      "bartlett",
+      "bastrop",
+      "bastrop-cedar-creek",
+      "bay-city",
+      "baytown-goose-creek-memorial",
+      "baytown-lee",
+      "baytown-sterling",
+      "beaumont-united",
+      "beaumont-west-brook",
+      "beckville",
+      "beeville-jones",
+      "bells",
+      "bellville",
+      "belton",
+      "ben-bolt-palito-blanco",
+      "benavides",
+      "benjamin",
+      "big-lake-reagan-co",
+      "big-sandy"
     ],
-    "state": "ALL_25_PRODUCTION_VERIFIED",
-    "dateAssigned": "2026-10-09",
-    "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
-    "individuallyVerified": 25,
-    "partiallyCompleted": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "football-authority-batch-003-20261009",
-    "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
+    "state": "ASSIGNED_RESEARCH_IN_PROGRESS",
+    "dateAssigned": "2026-10-10",
+    "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing canonical schoolRecords order after verified Batch 004; protect 80 previous VERIFIED.",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-005-20261010",
+    "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "All 25 Batch 003 schools independently production VERIFIED: 86/86 original Chrome checks + 25 sitemap entries in run 38026402179 (artifact 11660256304), full rerun SUCCESS and Apple Springs focused 2026-10-10 Chrome retest run 38050845453 SUCCESS 4/4 page checks, sitemap 1/1, artifact 11669182798; title punctuation assertion passed. Prior 30 VERIFIED retained. Overall 55/1292. Batch 004 not assigned."
+    "nextSchool": "barksdale-nueces-canyon",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
+    "remainingToVerify": 25,
+    "notes": "First five independently sourced editorial authority records, identities, protected campus county links and audit dossiers IMPLEMENTED on working branch; 20 unstarted. Zero Batch005 production verified, 80 prior verified preserved. Next barksdale-nueces-canyon."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4258,8 +4257,42 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arp",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/arp.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": true,
+      "commits": [
+        "e06e3e4fabbc3ea4d60bf59349704d5bdece2b86",
+        "d7895d3fda87d99a38c7c03745203ea5146719f3"
+      ],
+      "inboundLinks": [
+        "/county/smith"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/smith",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:aspermont",
@@ -4272,8 +4305,42 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aspermont",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/aspermont.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": true,
+      "commits": [
+        "768fcd1172272c2bfc847ef7966843904a1137dd",
+        "8a36ec84b8d719c81dd3bc474ff829acd458e9b6"
+      ],
+      "inboundLinks": [
+        "/county/stonewall"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/stonewall",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:athens",
@@ -4286,8 +4353,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/athens",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/athens.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": true,
+      "commits": [
+        "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
+      ],
+      "inboundLinks": [
+        "/county/henderson"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/henderson",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:atlanta",
@@ -4300,8 +4400,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/atlanta",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/atlanta.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": true,
+      "commits": [
+        "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
+      ],
+      "inboundLinks": [
+        "/county/cass"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/cass",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:aubrey",
@@ -4314,8 +4447,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aubrey",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/aubrey.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": true,
+      "commits": [
+        "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
+      ],
+      "inboundLinks": [
+        "/county/denton"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/denton",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin",
@@ -4328,8 +4494,59 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "a091077e5f6f426a950df7750523db9c6c6770ff"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "PRODUCTION_DESKTOP_MOBILE_CITY_RECIPROCAL_PASS",
+      "productionVerifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "SOURCE_CORRECTED_CHROME_PASS_DESKTOP_MOBILE_SITEMAP_RECIPROCAL_LINKS",
+      "deployment": {
+        "mergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "workflowRunId": 38065702334,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38065702334",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38066125917,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+        "screenshotArtifactId": 11674878954,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954",
+        "browserTestedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "individualViewportResults": "desktop 1366x900 PASS; mobile 390x844 PASS; school-specific factual regression assertions PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Technical browser, school-identity assertions, SEO/schema/sitemap/links, visible images and client runtime checks. Photo reuse rights, ambiguous historical assertions and future ticket/parking/ADA details remain individually source-qualified."
+      },
+      "identityDefect": "Original screenshot omitted school district and campus county; primary-source Austin ISD enrichment added; retest new production build.",
+      "identityRetestStatus": "SOURCE_CORRECTED_PRODUCTION_CHROME_PASS",
+      "previousFactualAcceptanceCheckpoint": {
+        "status": "NEEDS_FOLLOWUP",
+        "actualProductionVerified": false,
+        "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
+        "productionVerifiedAt": "2026-10-10T14:52:28Z",
+        "originalBrowserRunId": 38061056139,
+        "originalArtifactId": 11673525515,
+        "documentedDefect": "Original screenshot omitted school district and campus county; primary-source Austin ISD enrichment added; retest new production build."
+      },
+      "correctionMergedPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
     },
     {
       "id": "uil:austin-achieve",
@@ -4342,8 +4559,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-achieve",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-achieve.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "a091077e5f6f426a950df7750523db9c6c6770ff"
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-akins",
@@ -4356,8 +4606,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-akins",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-akins.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "a091077e5f6f426a950df7750523db9c6c6770ff"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-anderson",
@@ -4370,8 +4656,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-anderson",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-anderson.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "a091077e5f6f426a950df7750523db9c6c6770ff"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-bowie",
@@ -4384,8 +4706,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-bowie",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-bowie.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-crockett",
@@ -4398,8 +4756,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-crockett",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-crockett.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-eastside",
@@ -4412,8 +4806,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-eastside",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-eastside.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-johnson",
@@ -4426,8 +4856,60 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-johnson",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-johnson.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "PRODUCTION_DESKTOP_MOBILE_CITY_RECIPROCAL_PASS",
+      "productionVerifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "SOURCE_CORRECTED_CHROME_PASS_DESKTOP_MOBILE_SITEMAP_RECIPROCAL_LINKS",
+      "deployment": {
+        "mergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "workflowRunId": 38065702334,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38065702334",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38066125917,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+        "screenshotArtifactId": 11674878954,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954",
+        "browserTestedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "individualViewportResults": "desktop 1366x900 PASS; mobile 390x844 PASS; school-specific factual regression assertions PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Technical browser, school-identity assertions, SEO/schema/sitemap/links, visible images and client runtime checks. Photo reuse rights, ambiguous historical assertions and future ticket/parking/ADA details remain individually source-qualified."
+      },
+      "identityDefect": "Original screenshot mixed UIL Austin LBJ Jaguars with Round Rock ISD and Williamson County; Austin ISD confirmed.",
+      "identityPrimarySource": "https://www.austinisd.org/schools/lbj",
+      "identityRetestStatus": "SOURCE_CORRECTED_PRODUCTION_CHROME_PASS",
+      "previousFactualAcceptanceCheckpoint": {
+        "status": "NEEDS_FOLLOWUP",
+        "actualProductionVerified": false,
+        "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
+        "productionVerifiedAt": "2026-10-10T14:52:28Z",
+        "originalBrowserRunId": 38061056139,
+        "originalArtifactId": 11673525515,
+        "documentedDefect": "Original screenshot mixed UIL Austin LBJ Jaguars with Round Rock ISD and Williamson County; Austin ISD confirmed."
+      },
+      "correctionMergedPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
     },
     {
       "id": "uil:austin-lake-travis",
@@ -4440,8 +4922,56 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-lake-travis.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "SOURCE_CORRECTED_CHROME_PASS_DESKTOP_MOBILE_SITEMAP_RECIPROCAL_LINKS",
+      "deployment": {
+        "mergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "workflowRunId": 38065702334,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38065702334",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38066125917,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+        "screenshotArtifactId": 11674878954,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954",
+        "browserTestedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "individualViewportResults": "desktop 1366x900 PASS; mobile 390x844 PASS; school-specific factual regression assertions PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Technical browser, school-identity assertions, SEO/schema/sitemap/links, visible images and client runtime checks. Photo reuse rights, ambiguous historical assertions and future ticket/parking/ADA details remain individually source-qualified."
+      },
+      "identityDefect": "Original browser rendered false 2026 football-season cancellation triggered by generic notice logic; Lake Travis athletics shows ongoing 2026 varsity season and Oct 9 stadium return.",
+      "identityRetestStatus": "SOURCE_CORRECTED_PRODUCTION_CHROME_PASS",
+      "previousFactualAcceptanceCheckpoint": {
+        "status": "NEEDS_FOLLOWUP",
+        "actualProductionVerified": false,
+        "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
+        "productionVerifiedAt": "2026-10-10T14:52:28Z",
+        "originalBrowserRunId": 38061056139,
+        "originalArtifactId": 11673525515,
+        "documentedDefect": "Original browser rendered false 2026 football-season cancellation triggered by generic notice logic; Lake Travis athletics shows ongoing 2026 varsity season and Oct 9 stadium return."
+      },
+      "correctionMergedPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
     },
     {
       "id": "uil:austin-lasa",
@@ -4454,8 +4984,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lasa",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-lasa.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-mccallum",
@@ -4468,8 +5034,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-mccallum",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-mccallum.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-navarro",
@@ -4482,8 +5084,44 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-navarro",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-navarro.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "BRANCH_CODE_PENDING_LIVE_PRODUCTION_ACCEPTANCE",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:austin-northeast",
@@ -4496,8 +5134,59 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-northeast",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-northeast.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "PRODUCTION_DESKTOP_MOBILE_CITY_RECIPROCAL_PASS",
+      "productionVerifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "SOURCE_CORRECTED_CHROME_PASS_DESKTOP_MOBILE_SITEMAP_RECIPROCAL_LINKS",
+      "deployment": {
+        "mergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "workflowRunId": 38065702334,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38065702334",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38066125917,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+        "screenshotArtifactId": 11674878954,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954",
+        "browserTestedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "individualViewportResults": "desktop 1366x900 PASS; mobile 390x844 PASS; school-specific factual regression assertions PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Technical browser, school-identity assertions, SEO/schema/sitemap/links, visible images and client runtime checks. Photo reuse rights, ambiguous historical assertions and future ticket/parking/ADA details remain individually source-qualified."
+      },
+      "identityDefect": "Original screenshot joined Northeast Early College High School with unrelated Austin Achieve Public Schools instead of Austin ISD.",
+      "identityRetestStatus": "SOURCE_CORRECTED_PRODUCTION_CHROME_PASS",
+      "previousFactualAcceptanceCheckpoint": {
+        "status": "NEEDS_FOLLOWUP",
+        "actualProductionVerified": false,
+        "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
+        "productionVerifiedAt": "2026-10-10T14:52:28Z",
+        "originalBrowserRunId": 38061056139,
+        "originalArtifactId": 11673525515,
+        "documentedDefect": "Original screenshot joined Northeast Early College High School with unrelated Austin Achieve Public Schools instead of Austin ISD."
+      },
+      "correctionMergedPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
     },
     {
       "id": "uil:austin-travis",
@@ -4510,8 +5199,59 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-travis",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-travis.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis",
+        "/city/austin"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCityPath": "/city/austin",
+      "cityLinkStatus": "PRODUCTION_DESKTOP_MOBILE_CITY_RECIPROCAL_PASS",
+      "productionVerifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "SOURCE_CORRECTED_CHROME_PASS_DESKTOP_MOBILE_SITEMAP_RECIPROCAL_LINKS",
+      "deployment": {
+        "mergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "workflowRunId": 38065702334,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38065702334",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38066125917,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+        "screenshotArtifactId": 11674878954,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954",
+        "browserTestedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "individualViewportResults": "desktop 1366x900 PASS; mobile 390x844 PASS; school-specific factual regression assertions PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Technical browser, school-identity assertions, SEO/schema/sitemap/links, visible images and client runtime checks. Photo reuse rights, ambiguous historical assertions and future ticket/parking/ADA details remain individually source-qualified."
+      },
+      "identityDefect": "Original screenshot omitted Austin ISD and campus county; official Austin ISD source enrichment added; retest new production build.",
+      "identityRetestStatus": "SOURCE_CORRECTED_PRODUCTION_CHROME_PASS",
+      "previousFactualAcceptanceCheckpoint": {
+        "status": "NEEDS_FOLLOWUP",
+        "actualProductionVerified": false,
+        "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
+        "productionVerifiedAt": "2026-10-10T14:52:28Z",
+        "originalBrowserRunId": 38061056139,
+        "originalArtifactId": 11673525515,
+        "documentedDefect": "Original screenshot omitted Austin ISD and campus county; official Austin ISD source enrichment added; retest new production build."
+      },
+      "correctionMergedPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
     },
     {
       "id": "uil:austin-vandegrift",
@@ -4524,8 +5264,56 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-vandegrift.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/travis",
+      "productionVerifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "SOURCE_CORRECTED_CHROME_PASS_DESKTOP_MOBILE_SITEMAP_RECIPROCAL_LINKS",
+      "deployment": {
+        "mergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "workflowRunId": 38065702334,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38065702334",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38066125917,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+        "screenshotArtifactId": 11674878954,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954",
+        "browserTestedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+        "individualViewportResults": "desktop 1366x900 PASS; mobile 390x844 PASS; school-specific factual regression assertions PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Technical browser, school-identity assertions, SEO/schema/sitemap/links, visible images and client runtime checks. Photo reuse rights, ambiguous historical assertions and future ticket/parking/ADA details remain individually source-qualified."
+      },
+      "identityDefect": "Original screenshot showed Williamson County, but NCES documents Vandegrift campus in Travis County; Leander ISD source preserved.",
+      "identityRetestStatus": "SOURCE_CORRECTED_PRODUCTION_CHROME_PASS",
+      "previousFactualAcceptanceCheckpoint": {
+        "status": "NEEDS_FOLLOWUP",
+        "actualProductionVerified": false,
+        "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
+        "productionVerifiedAt": "2026-10-10T14:52:28Z",
+        "originalBrowserRunId": 38061056139,
+        "originalArtifactId": 11673525515,
+        "documentedDefect": "Original screenshot showed Williamson County, but NCES documents Vandegrift campus in Travis County; Leander ISD source preserved."
+      },
+      "correctionMergedPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "identityRetestEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38066125917",
+      "identityDefectResolution": "Confirmed on corrected production 97c9571a3b7457d547430d7a63d6debd1144a7d6, desktop 1366x900 and mobile 390x844, run 38066125917: exact school/campus identity and Lake Travis season notice assertions passed; see 11674878954."
     },
     {
       "id": "uil:austin-westlake",
@@ -4538,8 +5326,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-westlake",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/austin-westlake.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:avalon",
@@ -4552,8 +5373,41 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/avalon",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/avalon.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ],
+      "inboundLinks": [
+        "/county/ellis"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/ellis",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:axtell",
@@ -4566,8 +5420,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/axtell",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/axtell.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ],
+      "inboundLinks": [
+        "/county/mclennan"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/mclennan",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:azle",
@@ -4580,8 +5467,41 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/azle",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/azle.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ],
+      "inboundLinks": [
+        "/county/tarrant"
+      ],
+      "outboundCountyPath": "/county/tarrant",
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:baird",
@@ -4594,8 +5514,41 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baird",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "VERIFIED",
+      "batch": 4,
+      "actualProductionVerified": true,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/baird.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ],
+      "inboundLinks": [
+        "/county/callahan"
+      ],
+      "linkVerificationStatus": "COUNTY_AND_APPLICABLE_CITY_CHROME_PASS",
+      "outboundCountyPath": "/county/callahan",
+      "productionVerifiedAt": "2026-10-10T14:52:28Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "deployment": {
+        "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+        "workflowRunId": 38060642093,
+        "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38060642093",
+        "workflowConclusion": "success",
+        "dedicatedBrowserRunId": 38061056139,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139",
+        "screenshotArtifactId": 11673525515,
+        "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515",
+        "browserTestedCommit": "2aabb6a5809f14a0c734dd01e25d16b30a5a5f29",
+        "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS",
+        "sitemapResult": "PASS",
+        "countyCityReciprocalLinks": "PASS",
+        "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
+      }
     },
     {
       "id": "uil:ballinger",
@@ -4608,8 +5561,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ballinger",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/ballinger.md",
+      "officialSchoolUrl": "https://bhs.ballingerisd.net/",
+      "officialAthleticsUrl": "https://www.ballingerisd.net/apps/news/",
+      "county": "Runnels County",
+      "schoolDistrict": "Ballinger ISD",
+      "mascot": "Bearcats",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P648",
+        "https://www.ballingerisd.net/apps/news/",
+        "https://bhs.ballingerisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/runnels"
+      ],
+      "outboundCountyPath": "/county/runnels",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:balmorhea",
@@ -4622,8 +5601,34 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/balmorhea",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/balmorhea.md",
+      "officialSchoolUrl": "https://www.bisdbears.esc18.net/football",
+      "officialAthleticsUrl": "https://www.bisdbears.esc18.net/football",
+      "county": "Reeves County",
+      "schoolDistrict": "Balmorhea ISD",
+      "mascot": "Bears",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P46",
+        "https://www.bisdbears.esc18.net/football",
+        "https://www.bisdbears.esc18.net/football"
+      ],
+      "inboundLinks": [
+        "/county/reeves"
+      ],
+      "outboundCountyPath": "/county/reeves",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:bandera",
@@ -4636,8 +5641,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bandera",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bandera.md",
+      "officialSchoolUrl": "https://www.banderaisd.net/",
+      "officialAthleticsUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "county": "Bandera County",
+      "schoolDistrict": "Bandera ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P272",
+        "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+        "https://www.banderaisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/bandera"
+      ],
+      "outboundCountyPath": "/county/bandera",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:bangs",
@@ -4650,8 +5681,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bangs",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bangs.md",
+      "officialSchoolUrl": "https://www.bangsisd.net/",
+      "officialAthleticsUrl": "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+      "county": "Brown County",
+      "schoolDistrict": "Bangs ISD",
+      "mascot": "Dragons",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P264",
+        "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+        "https://www.bangsisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/brown"
+      ],
+      "outboundCountyPath": "/county/brown",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:banquete",
@@ -4664,8 +5721,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/banquete",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/banquete.md",
+      "officialSchoolUrl": "https://bhs.banqueteisd.net/",
+      "officialAthleticsUrl": "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+      "county": "Nueces County",
+      "schoolDistrict": "Banquete ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://www.banqueteisd.net/departments/athletics",
+        "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+        "https://bhs.banqueteisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/nueces"
+      ],
+      "outboundCountyPath": "/county/nueces",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:barksdale-nueces-canyon",
@@ -4679,7 +5762,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/barksdale-nueces-canyon",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bartlett",
@@ -4693,7 +5776,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bartlett",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bastrop",
@@ -4707,7 +5790,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bastrop-cedar-creek",
@@ -4721,7 +5804,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bastrop-cedar-creek",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bay-city",
@@ -4735,7 +5818,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bay-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:baytown-goose-creek-memorial",
@@ -4749,7 +5832,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-goose-creek-memorial",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:baytown-lee",
@@ -4763,7 +5846,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-lee",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:baytown-sterling",
@@ -4777,7 +5860,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-sterling",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beaumont-united",
@@ -4791,7 +5874,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-united",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beaumont-west-brook",
@@ -4805,7 +5888,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-west-brook",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beckville",
@@ -4819,7 +5902,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beckville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:beeville-jones",
@@ -4833,7 +5916,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beeville-jones",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bells",
@@ -4847,7 +5930,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bells",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:bellville",
@@ -4861,7 +5944,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bellville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:belton",
@@ -4875,7 +5958,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/belton",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:ben-bolt-palito-blanco",
@@ -4889,7 +5972,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ben-bolt-palito-blanco",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:benavides",
@@ -4903,7 +5986,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benavides",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:benjamin",
@@ -4917,7 +6000,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benjamin",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:big-lake-reagan-co",
@@ -4931,7 +6014,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-lake-reagan-co",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:big-sandy",
@@ -4945,7 +6028,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-sandy",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 5
     },
     {
       "id": "uil:big-sandy-harmony",
@@ -21932,6 +23015,113 @@
       "sitemapPassed": 25,
       "failedChecks": 0,
       "qualification": "Acceptance is browser/SEO/link verification; photo licensing and official game-day/coach/source caveats remain per school."
+    },
+    {
+      "number": 3,
+      "slugs": [
+        "amarillo-caprock",
+        "amarillo-highland-park",
+        "amarillo-palo-duro",
+        "amarillo-river-road",
+        "amarillo-tascosa",
+        "amherst",
+        "anahuac",
+        "anderson-shiro",
+        "andrews",
+        "angleton",
+        "anna",
+        "anson",
+        "anthony",
+        "anton",
+        "apple-springs",
+        "aquilla",
+        "aransas-pass",
+        "archer-city",
+        "argyle",
+        "arlington",
+        "arlington-bowie",
+        "arlington-houston",
+        "arlington-lamar",
+        "arlington-martin",
+        "arlington-seguin"
+      ],
+      "state": "VERIFIED_BATCH_003_COMPLETE",
+      "dateAssigned": "2026-10-09",
+      "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
+      "individuallyVerified": 25,
+      "partiallyCompleted": 25,
+      "remainingAssigned": 0,
+      "assignmentBranch": "football-authority-batch-003-20261009",
+      "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
+      "maxSchoolsPerBatch": 25,
+      "currentSchool": null,
+      "nextSchool": null,
+      "implementedOnBranch": 25,
+      "remainingToImplement": 0,
+      "remainingToVerify": 0,
+      "notes": "All 25 Batch 003 schools independently production VERIFIED: 86/86 original Chrome checks + 25 sitemap entries in run 38026402179 (artifact 11660256304), full rerun SUCCESS and Apple Springs focused 2026-10-10 Chrome retest run 38050845453 SUCCESS 4/4 page checks, sitemap 1/1, artifact 11669182798; title punctuation assertion passed. Prior 30 VERIFIED retained. Overall 55/1292. Batch 004 not assigned.",
+      "verifiedAt": "2026-10-10",
+      "productionBrowserRunId": 38026402179,
+      "appleSpringsRetestRunId": 38050845453
+    },
+    {
+      "number": 4,
+      "slugs": [
+        "arp",
+        "aspermont",
+        "athens",
+        "atlanta",
+        "aubrey",
+        "austin",
+        "austin-achieve",
+        "austin-akins",
+        "austin-anderson",
+        "austin-bowie",
+        "austin-crockett",
+        "austin-eastside",
+        "austin-johnson",
+        "austin-lake-travis",
+        "austin-lasa",
+        "austin-mccallum",
+        "austin-navarro",
+        "austin-northeast",
+        "austin-travis",
+        "austin-vandegrift",
+        "austin-westlake",
+        "avalon",
+        "axtell",
+        "azle",
+        "baird"
+      ],
+      "state": "VERIFIED_BATCH_004_COMPLETE",
+      "dateAssigned": "2026-10-10",
+      "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
+      "individuallyVerified": 25,
+      "remainingAssigned": 0,
+      "assignmentBranch": "football-authority-batch-004-20261010",
+      "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
+      "maxSchoolsPerBatch": 25,
+      "currentSchool": null,
+      "nextSchool": null,
+      "implementedOnBranch": 25,
+      "remainingToImplement": 0,
+      "remainingToVerify": 0,
+      "notes": "Final source-corrected deployed production acceptance: PR #4562 merged at 97c9571a3b7457d547430d7a63d6debd1144a7d6; deployment run 38065702334 SUCCESS; dedicated Chrome run 38066125917 PASS 72/72, 50 school viewports + 20 county viewports + 2 Austin city viewports, 25/25 sitemap, 0 errors, artifact 11674878954. Six previous source defects repaired and verified on live pages; original 55 VERIFIED preserved. Historical/photo rights/event logistics remain source-qualified.",
+      "verifiedAt": "2026-10-10T16:06:47.438Z",
+      "mergedPr": 4540,
+      "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
+      "deploymentRunId": 38065702334,
+      "productionBrowserRunId": 38066125917,
+      "screenshotArtifactId": 11674878954,
+      "testedCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "schoolViewportPassed": 50,
+      "countyViewportPassed": 20,
+      "cityViewportPassed": 2,
+      "sitemapPassed": 25,
+      "failedChecks": 0,
+      "correctionPr": 4562,
+      "correctionMergeCommit": "97c9571a3b7457d547430d7a63d6debd1144a7d6",
+      "qualification": "Final source-corrected production browser acceptance; do not assert blanket photo rights or current game-day logistics."
     }
   ]
 }

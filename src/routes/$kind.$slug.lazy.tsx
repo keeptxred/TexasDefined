@@ -32,6 +32,20 @@ const CountyHighSchoolFootball = lazy(() =>
 // Independently sourced municipal associations for verified Batch 002 and Batch 003
 // campuses with an existing canonical TexasDefined city guide.
 const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
+  austin: [
+    { name: 'Austin High Maroons', slug: 'austin', context: '1942 state champion, House Park heritage' },
+    { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium varsity calendar' },
+    { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 10–2 playoff season' },
+    { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Coach Jeff Ables and Bowie traditions' },
+    { name: 'Crockett Cougars', slug: 'austin-crockett', context: 'Burger Stadium home fixtures' },
+    { name: 'Eastside Panthers', slug: 'austin-eastside', context: 'Eastside Early College football' },
+    { name: 'LBJ Jaguars', slug: 'austin-johnson', context: '2021 4A Division I state runner-up' },
+    { name: 'LASA Raptors', slug: 'austin-lasa', context: 'Raptors varsity football calendar' },
+    { name: 'McCallum Knights', slug: 'austin-mccallum', context: '2025 6–4 football season' },
+    { name: 'Navarro Vikings', slug: 'austin-navarro', context: '2026 homecoming and Senior Night' },
+    { name: 'Northeast Raiders', slug: 'austin-northeast', context: 'Reagan-era 1967, 1968 and 1970 titles' },
+    { name: 'Travis Rebels', slug: 'austin-travis', context: '2026 cross-city stadium schedule' },
+  ],
   // Batch 003: current Arlington ISD school directory confirms all six city campuses.
   arlington: [
     { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL state title and the Colts football tradition' },
@@ -144,6 +158,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
   tarrant: [
+    { name: 'Azle Hornets', slug: 'azle', context: 'Hornet Field visitor guide and 2026 5A Division I fixtures' },
     { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
     // Batch 003: campuses and Tarrant County independently corroborated by NCES.
     { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL football state championship and program history' },
@@ -153,7 +168,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and documented Choctaw Stadium fixtures' },
     { name: 'Seguin Cougars', slug: 'arlington-seguin', context: '5A Division II program and Glaspie Field home-venue history' },
   ],
-  denton: [{ name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' }],
+  denton: [
+    { name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' },
+    { name: 'Aubrey Chaparrals', slug: 'aubrey', context: '2026 digital-ticket Chaparral Stadium policies and 2024 playoffs' },
+  ],
   collin: [
     { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
     { name: 'Anna Coyotes', slug: 'anna', context: '2023 Class 4A Division I state champion and current Coyotes program' },
@@ -167,6 +185,38 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Iowa Colony Pioneers', slug: 'alvin-iowa-colony', context: 'Three consecutive twelve-win seasons from 2023 to 2025' },
     { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
     { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
+  ],
+  // Batch 005 first five independently verified campuses; historical finals/official current resources.
+  'runnels': [{ name: 'Ballinger Bearcats', slug: 'ballinger', context: '1953 UIL state runner-up and official 2026 reserved-ticket notice' }],
+  'reeves': [{ name: 'Balmorhea Bears', slug: 'balmorhea', context: '2020-season six-man state champion, final played Jan. 2021' }],
+  'bandera': [{ name: 'Bandera Bulldogs', slug: 'bandera', context: '2002 two-overtime 3A Division II state champion' }],
+  'brown': [{ name: 'Bangs Dragons', slug: 'bangs', context: '2002 and 2003 successive UIL state football runner-up seasons' }],
+  'nueces': [{ name: 'Banquete Bulldogs', slug: 'banquete', context: '2026 Banquete varsity schedule and Bulldog Stadium calendar' }],
+  // Batch 004 independently matched campus counties; school game sites can differ.
+  smith: [{ name: 'Arp Tigers', slug: 'arp', context: '2016 semifinal and Bill Herrington Stadium history' }],
+  stonewall: [{ name: 'Aspermont Hornets', slug: 'aspermont', context: '1999 11-man state final and modern six-man program' }],
+  henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' }],
+  cass: [{ name: 'Atlanta Rabbits', slug: 'atlanta', context: '2003 UIL state football title and Rabbit Stadium traditions' }],
+  ellis: [{ name: 'Avalon Eagles', slug: 'avalon', context: 'Six-man football and 2024 ten-win season' }],
+  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }],
+  callahan: [{ name: 'Baird Bears', slug: 'baird', context: '2019 six-man transition and 2026 UIL district' }],
+  travis: [
+    { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: '2024 6A Division II state title at Leander ISD campus' },
+    { name: 'Austin High Maroons', slug: 'austin', context: '1942 championship and House Park football tradition' },
+    { name: 'Austin Achieve Polar Bears', slug: 'austin-achieve', context: 'Northeast campus public charter football' },
+    { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium calendar and visitor distinctions' },
+    { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 ten-win season and 2026 UIL schedule' },
+    { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Jeff Ables coaching record and Austin ISD home tickets' },
+    { name: 'Crockett Cougars', slug: 'austin-crockett', context: 'Burger Stadium varsity vs campus JV sites' },
+    { name: 'Eastside Early College Panthers', slug: 'austin-eastside', context: 'campus football and 2026 Austin-area fixtures' },
+    { name: 'Austin LBJ Jaguars', slug: 'austin-johnson', context: '2021 state runner-up and distinct LBJ campus' },
+    { name: 'Lake Travis Cavaliers', slug: 'austin-lake-travis', context: 'six UIL titles and 2026 stadium reconstruction' },
+    { name: 'LASA Raptors', slug: 'austin-lasa', context: 'school football calendar and Nelson Field fixtures' },
+    { name: 'McCallum Knights', slug: 'austin-mccallum', context: 'UIL 5A district competition and recent results' },
+    { name: 'Navarro Vikings', slug: 'austin-navarro', context: 'LASA homecoming and family football tradition' },
+    { name: 'Northeast Raiders', slug: 'austin-northeast', context: 'historic Reagan titles and modern campus identity' },
+    { name: 'Travis Rebels', slug: 'austin-travis', context: 'multiple Austin ISD stadiums and 2026 fixtures' },
+    { name: 'Westlake Chaparrals', slug: 'austin-westlake', context: 'four football state titles and 2026 Tony Salazar coaching' },
   ],
   // Batch 003 school-specific campus links use NCES school locator county, not stadium address.
   lamb: [{ name: 'Amherst Bulldogs', slug: 'amherst', context: '1994 and 1995 UIL six-man state champions and conflicting official 1995 score records' }],

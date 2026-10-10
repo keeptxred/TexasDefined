@@ -37,12 +37,14 @@ jobs:
   museum:
     # Production verification is meaningful only after deployment. Do not fail
     # a PR by asking the still-live old release to satisfy its new page contract.
-    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure') }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check out current certified source
+      - name: Check out exact deployed museum verifier
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Verify current live Zapata County Museum authority page
         run: node scripts/ci/verify-zapata-museum-production.mjs
