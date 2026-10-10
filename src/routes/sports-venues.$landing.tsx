@@ -144,7 +144,7 @@ function SportsVenueLandingPage() {
             <Stat label="Professional venues" value={professional} />
             <Stat label="College venues" value={college} />
           </dl>
-          {lastReviewed ? <p className="mt-5 text-xs leading-5 text-muted-foreground">Venue source records on this page were reviewed through {formatDate(lastReviewed)}. Event schedules, parking rules and operating details can change; use the official links inside each venue guide before traveling.</p> : null}
+          {lastReviewed ? <p className="mt-5 text-xs leading-5 text-muted-foreground">The most recently checked individual venue record in this collection was verified {formatDate(lastReviewed)}. Other listings may have older reviews; consult the dated sources on each guide for schedules, parking and operating status.</p> : null}
         </header>
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="quick-answers-heading">
@@ -216,7 +216,7 @@ function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecor
   const exampleSentence = formatList(examples);
   const answerLabel = landing.eyebrow.replace(/ sports travel$/i, '').trim();
   const sourceAnswer = lastReviewed
-    ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Source records for this collection were reviewed through ${formatDate(lastReviewed)}; event schedules and operating details should still be confirmed on the official venue links before travel.`
+    ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. The latest individual venue source check was ${formatDate(lastReviewed)}; other venue records may be older. Recheck official links for operating status and event details.`
     : `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Each venue page links to an official source for details that can change before an event.`;
 
   return [

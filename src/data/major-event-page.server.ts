@@ -245,6 +245,9 @@ export function loadMajorEventPageServer(slug: string) {
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Location</p><p class="mt-2 font-semibold">${esc(placeLine)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
   </section>`;
+  const quickFactsMarkup = event.quickFacts?.length
+    ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${event.quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
+    : "";
   const planning = event.planningSections.map((item) => {
     const supplement = event.slug === "chappell-hill-bluebonnet-festival"
       && item.title === CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE
@@ -276,7 +279,7 @@ export function loadMajorEventPageServer(slug: string) {
     ? `<p><strong>Organizer:</strong> <a class="font-semibold text-primary underline" href="${esc(schemaEnrichment.organizer.url)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.organizer.name)} ↗</a></p>`
     : "";
   const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length
-    ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — ${offer.price.toFixed(2)} ${offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
+    ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — ${offer.price === 0 ? "Free" : offer.price.toFixed(2) + " " + offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
     : "";
   const performersMarkup = displayPerformers.length
     ? `<div><h3 class="font-display text-xl">Announced performers</h3><p class="mt-2 text-muted-foreground">${displayPerformers.map((item) => item.url ? `<a class="font-semibold text-primary underline" href="${esc(item.url)}" target="_blank" rel="noreferrer noopener">${esc(item.name)} ↗</a>` : esc(item.name)).join(", ")}</p></div>`
@@ -318,7 +321,7 @@ export function loadMajorEventPageServer(slug: string) {
   const sourceReviewMarkup = event.sourceCheckedAt
     ? `<p class="mt-4 text-xs text-muted-foreground">Event facts last source-checked ${esc(event.sourceCheckedAt)}. Recheck the official organizer before traveling because dates, prices, access rules and lineups can change.</p>`
     : "";
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
@@ -359,8 +362,10 @@ export function loadMajorEventPageServer(slug: string) {
       name: window.label ? `${event.name} — ${window.label}` : event.name,
       description: event.whyItMatters,
       url: canonicalUrl,
-      startDate: window.startDate,
-      endDate: window.endDate,
+      startDate: occurrenceWindows.length === 1 && event.startDateTime?.startsWith(window.startDate)
+        ? event.startDateTime : window.startDate,
+      endDate: occurrenceWindows.length === 1 && event.endDateTime?.startsWith(window.endDate ?? window.startDate)
+        ? event.endDateTime : window.endDate,
       eventStatus: eventSchemaStatusUrl(occurrenceEnrichment?.lifecycle?.status),
       ...(occurrenceEnrichment?.lifecycle?.status === "rescheduled" && occurrenceEnrichment.lifecycle.previousStartDate
         ? { previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate }
@@ -381,16 +386,16 @@ export function loadMajorEventPageServer(slug: string) {
     slug: event.slug,
     name: event.name,
     city: event.city,
-    title: recurrenceDerived
+    title: event.seoTitle ?? (recurrenceDerived
       ? `${event.name} ${eventYear}: Projected Dates & Texas Travel Guide`
       : expiredConfirmedOccurrence
         ? `${event.name}: Dates & Texas Travel Guide`
-        : `${event.name} ${eventYear}: Dates & Texas Travel Guide`,
-    description: recurrenceDerived
+        : `${event.name} ${eventYear}: Dates & Texas Travel Guide`),
+    description: event.seoDescription ?? (recurrenceDerived
       ? `${event.name} ${eventYear} in ${event.city}, Texas: projected planning dates, official sources and practical trip planning.`
       : expiredConfirmedOccurrence
         ? `${event.name} in ${event.city}, Texas: latest confirmed dates, official sources and practical planning while the next occurrence is pending.`
-        : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`,
+        : `${event.name} ${eventYear} in ${event.city}, Texas: dates, official sources and practical trip planning.`),
     html,
     jsonLd,
   };

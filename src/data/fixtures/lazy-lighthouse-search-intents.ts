@@ -20,7 +20,7 @@ export const lighthouseSearchIntentStubs: Article[] = [
     hero,
     authorId: "a-hollis",
     publishedAt: "2026-08-21",
-    updatedAt: "2026-10-01",
+    updatedAt: "2026-10-09",
     readingMinutes: 18,
     tags: ["best lighthouses in texas", "texas lighthouses to visit", "port isabel lighthouse", "point bolivar lighthouse", "lydia ann lighthouse", "matagorda island lighthouse", "halfmoon reef lighthouse", "texas gulf coast"],
     featured: true,

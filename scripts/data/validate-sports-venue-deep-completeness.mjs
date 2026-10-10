@@ -56,7 +56,7 @@ const coreSportsVenueSlugs = [...seed.matchAll(/^\s*\{id:'sports-venue:[^']+',ki
 const seededSlugs = [...new Set([...rowSlugs(major), ...rowSlugs(tier2), ...coreSportsVenueSlugs])].sort();
 
 const profileOccurrences = new Map();
-const requiredMarkers = ['primaryEvents:', 'parking:', 'arrival:', 'planningLinks:', 'imageBrief:', 'verifiedAt,'];
+const requiredMarkers = ['primaryEvents:', 'parking:', 'arrival:', 'planningLinks:', 'imageBrief:'];
 
 for (let i = 0; i < enrichmentSources.length; i += 1) {
   const source = enrichmentSources[i];
@@ -70,6 +70,11 @@ for (let i = 0; i < enrichmentSources.length; i += 1) {
     for (const marker of requiredMarkers) {
       assert(body.includes(marker), `Deep sports venue profile ${slug} in ${file} is missing ${marker}`);
     }
+    // Keep the verification-date gate strict while permitting a venue-specific
+    // literal date. Requiring shorthand "verifiedAt," inadvertently forced
+    // all independently researched venues to share an older batch-wide date.
+    assert(/\bverifiedAt\s*(?:,|:\s*['"]\d{4}-\d{2}-\d{2}['"])/.test(body),
+      `Deep sports venue profile ${slug} in ${file} is missing a verifiedAt field`);
   }
 }
 

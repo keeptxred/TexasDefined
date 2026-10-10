@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
+import { TexasRiverBasinInteractiveMap } from "@/components/content/TexasRiverBasinInteractiveMap";
 
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
@@ -11,6 +12,16 @@ const riverProfiles = [
   { name: "Colorado", href: "/article/texas-colorado-river-guide", region: "West & Central Texas", note: "Texas-only river · Highland Lakes and Austin", image: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg" },
   { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed tributaries · Canyon Lake · tubing corridor", image: "/images/editorial/texas-guadalupe-river.jpg" },
   { name: "Trinity", href: "/article/texas-trinity-river-guide", region: "North Texas & Gulf Coast", note: "Entire basin in Texas · Dallas-Fort Worth water system", image: "/images/editorial/texas-trinity-river.jpg" },
+  { name: "Canadian", href: "/article/texas-canadian-river-guide", region: "Panhandle", note: "Lake Meredith · Canadian River Compact", image: "/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg" },
+  { name: "Cypress", href: "/article/texas-cypress-river-basin-guide", region: "Northeast Texas", note: "Caddo Lake · Cypress Bayou · Red drainage", image: "/images/state-parks/caddo-lake-state-park.jpg" },
+  { name: "Lavaca", href: "/article/texas-lavaca-river-guide", region: "Gulf Coast", note: "Navidad River · Lake Texana · Lavaca Bay", image: "/images/editorial/texas-river-basins.jpg" },
+  { name: "Neches", href: "/article/texas-neches-river-guide", region: "East Texas", note: "Angelina River · Sam Rayburn · Piney Woods", image: "/images/explore/lakes-rivers/village-creek-state-park.jpg" },
+  { name: "Nueces", href: "/article/texas-nueces-river-guide", region: "Hill Country & South Texas", note: "Frio River · Choke Canyon · Nueces Bay", image: "/images/state-parks/garner-state-park.jpg" },
+  { name: "Red", href: "/article/texas-red-river-guide", region: "North Texas", note: "Lake Texoma · Oklahoma boundary · Red River Compact", image: "/images/state-parks/eisenhower-state-park.jpg" },
+  { name: "Sabine", href: "/article/texas-sabine-river-guide", region: "East Texas & Louisiana border", note: "Toledo Bend · Sabine Lake · water supply", image: "/images/editorial/texas-river-basins.jpg" },
+  { name: "San Antonio", href: "/article/texas-san-antonio-river-guide", region: "South-Central Texas", note: "Medina River · springs · Guadalupe confluence", image: "/images/editorial/moving/san-antonio.jpg" },
+  { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · floodplain drainage", image: "/images/editorial/texas-river-basins.jpg" },
+  { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman · Red drainage", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
 ] as const;
 
 const riverRegions = [
@@ -138,7 +149,7 @@ function TexasRiverOrientationMap() {
 
 function RiverProfileCards() {
   return (
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
       {riverProfiles.map((river) => (
         <Link key={river.href} to={river.href} className="group overflow-hidden rounded-sm border border-border bg-background transition-colors hover:border-primary">
           <div className="aspect-[4/3] overflow-hidden bg-surface">
@@ -165,6 +176,8 @@ export function TexasRiversAuthorityHub() {
       </div>
 
       <TexasOfficialBasinMap />
+
+      <TexasRiverBasinInteractiveMap />
 
       <TexasRiverOrientationMap />
 
@@ -199,18 +212,16 @@ export function TexasRiversAfterArticle() {
       <section className="mt-12" aria-labelledby="river-profiles-heading">
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
-          <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Go Deeper on Five Major Texas Rivers</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. These five researched profiles have their own dedicated pages covering tributaries, reservoirs, landscapes and places to experience them. For the other ten TWDB major basins, use the complete 15-basin comparison above and the official primary-source basin directory; we do not imply an unfinished profile exists.</p>
+          <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore All 15 Major Texas River Basins</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major TWDB basin now has a dedicated TexasDefined guide, with primary-source geography, tributaries, reservoirs and visitor guidance. Some representative photos do not depict the specific named river; always verify water conditions and public access with the responsible agency.</p>
         </div>
         <RiverProfileCards />
       </section>
 
       <section className="mt-9 border-t border-border pt-8" aria-labelledby="river-primary-source-links">
-        <h3 id="river-primary-source-links" className="font-display text-xl">Research all 15 major basins</h3>
+        <h3 id="river-primary-source-links" className="font-display text-xl">Continue with official basin data</h3>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-          Beyond the five individual river guides, TWDB maintains a reference entry for every major basin, including
-          the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Compare
-          official basin area, Texas river miles and reference flow before using local county or destination guides.
+          All 15 major basins are linked above, including the Canadian, Cypress, Lavaca, Neches, Nueces, Red, Sabine, San Antonio, San Jacinto and Sulphur. Compare the official statistics and 2023 GIS boundaries against each guide; these layers are watershed orientation, not legal survey maps.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Link to="/article/texas-river-basins-guide" className="text-sm font-semibold text-primary underline">TexasDefined watershed explainer →</Link>

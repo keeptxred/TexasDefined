@@ -70,9 +70,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "coach": {
       "name": "Chad Dunnam",
-      "title": "2026 head football coach according to current independent program listing; verify against Amarillo ISD",
-      "sourceUrl": "https://txprepfootball.com/schools/amarillo-sandies/",
-      "sourceLabel": "Texas Prep Football 2026 Amarillo coach listing",
+      "title": "2026 Amarillo High head football coach, corroborated by official Sandies program and Amarillo ISD",
+      "sourceUrl": "https://www.sandiesfootball.com/contact",
+      "sourceLabel": "Amarillo Sandies football program coaching staff roster",
       "verifiedAt": "2026-10-09"
     },
     "campus": {
@@ -162,7 +162,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The official UIL championship record gives unusual detail to that run: Amarillo beat Corpus Christi 48–0 in 1934, Greenville 13–7 in 1935, Kerrville 10–6 in 1936 and Temple 20–7 in 1940. Amarillo also finished runner-up to Tyler in 1930 and Waco in the 1948 Class 2A final. Four crowns must not be confused with the number of finals.",
       "Blair Cherry coached the 1934–36 three-peat. The Texas High School Football Hall of Fame credits Cherry with an 85–5–1 record across seven Amarillo seasons and later a Southwest Conference title at Texas. Howard Lynch's succeeding era yielded the 1940 state football crown and the 1948 final appearance. The current program history identifies Stan Maudlin among the historic Amarillo players who went on to collegiate success.",
       "The Sandies' own history page enumerates dozens of district championship seasons and the Amarillo–Tascosa football series: 45 wins, 21 losses and three ties at its published snapshot. That is a documented local rivalry, unlike merely grouping every present district opponent as a traditional rival. The exact series tally is a dated school-site figure, not a live result after 2026.",
-      "The 2026–28 UIL alignment places Amarillo in Class 5A Division I District 2; its posted 2026 league games include Tascosa, Monterey, Abilene, Frenship, Lubbock and Caprock. A current independent team directory attributes head-coaching duties to Chad Dunnam, but this needs corroboration from the latest official school athletics staffing notice.",
+      "The 2026–28 UIL alignment places Amarillo in Class 5A Division I District 2; its posted 2026 league games include Tascosa, Monterey, Abilene, Frenship, Lubbock and Caprock. The Amarillo Sandies football program's coaching roster names Chad Dunnam head football coach, while Amarillo ISD's official campus staff list corroborates his athletic director position.",
       "The three cross-checked early 2026 game finals include a 21–7 win over Palo Duro, 28–35 loss to Cleveland and 17–14 win at Midland. Since later dates in the retrieved results schedule did not include independently established finals, this page does not make a misleading October 9 live-record claim. Dick Bivins Stadium is the named historical venue; a verified game ticket should determine the entrance and parking, not the Danbury Drive school-campus address."
     ],
     "milestones": [
@@ -232,7 +232,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is the 2026 head coach?",
-        "answer": "A current independent Amarillo football listing names Chad Dunnam. Confirm the current staff and any changes directly with Amarillo ISD."
+        "answer": "The Sandies football program's published coaching roster lists Chad Dunnam as head football coach; Amarillo ISD lists him as athletic director."
       }
     ]
   },
@@ -797,6 +797,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Alvin Yellowjackets Football: 2026 Results, District 19 & Memorial Stadium",
       "description": "Alvin Yellowjackets high-school football: 2026 UIL 6A District 19, dated scores, historical playoff record, Memorial Stadium and Alvin ISD opponents."
     },
+    "coach": {
+      "name": "Matthew Bass",
+      "title": "Alvin High assistant athletic director and head football coach, official school staff",
+      "sourceUrl": "https://www.alvinisd.net/o/ahs/staff",
+      "sourceLabel": "Alvin High official staff directory",
+      "verifiedAt": "2026-10-09"
+    },
     "campus": {
       "address": "802 South Johnson Street, Alvin, TX 77511",
       "sourceUrl": "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
@@ -891,7 +898,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Alvin High School's Yellowjackets are a separate UIL football program from the district's newer Iowa Colony Pioneers and Shadow Creek Sharks. Alvin plays in Class 6A District 19 for the 2026–28 realignment, a school-specific identity important on city, county and district pages that otherwise may collapse the three Alvin ISD names into one team.",
       "The historical Dave Campbell archive reports eight Alvin football playoff appearances, zero state championship-game appearances and zero football state titles. This is an actual football history, but it does not justify a synthetic state-final milestone or a borrowed Shadow Creek 2019 title.",
-      "The recent program-history table documents 0–10 in 2019, 4–6 in 2022, 2–8 in 2023 and consecutive 3–7 finishes in 2024 and 2025. Those records help explain the current rebuilding context without suggesting that lack of a title means the school lacks local football heritage.",
+      "The recent program-history table documents 0–10 in 2019, 4–6 in 2022, 2–8 in 2023 and consecutive 3–7 finishes in 2024 and 2025. Those records help explain the current rebuilding context without suggesting that lack of a title means the school lacks local football heritage. Alvin High's official current staff directory identifies Matthew Bass as assistant athletic director and head football coach.",
       "The first five recorded 2026 varsity contests were losses against Fort Bend Clements, Baytown Sterling, Pearland Dawson, Pasadena Memorial and Manvel. The closest was the September 18 home loss to Pasadena Memorial, 43–41. With no newer cross-checked final in the inspected schedule, Alvin stood 0–5 through September 24, and October 9 Pearland remained a scheduled game.",
       "The October 23 date against fellow Alvin ISD program Shadow Creek is a particularly meaningful district fixture, but not a verified annual named rivalry or guarantee of this year's game result. The Yellowjackets also face Pearland, Sam Rayburn, Brazoswood and Dobie on the published slate.",
       "Texas Football identifies Alvin's stadium as Memorial Stadium with an estimated capacity of 7,400. Its location and game-night access requirements should be checked separately from the high-school contact address at 802 South Johnson Street. The real match ticket is the appropriate source for current entry and parking."
@@ -963,7 +970,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Alvin's 2026 head coach?",
-        "answer": "A sufficiently current official Alvin ISD head-coach notice was not established from the cited school and score sources; confirm appointments directly with district athletics rather than relying on historic staff listings."
+        "answer": "Alvin High's official current staff directory names Matthew Bass assistant athletic director and head football coach."
       }
     ]
   },
@@ -975,7 +982,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Alvarado Indians Football: 2024–25 Playoff Runs, 2026 & Charles Head Stadium",
-      "description": "Alvarado Indians football: 2011 state-final history, 2024 and 2025 12-plus win seasons, 2026 UIL District 4 scores, coach research and Charles Head Stadium."
+      "description": "Alvarado Indians football: 2011 state-final history, 2024 and 2025 12-plus win seasons, 2026 UIL District 4 scores, coach Aubrey Sims and Charles Head Stadium."
+    },
+    "coach": {
+      "name": "Aubrey Sims",
+      "title": "Alvarado High athletic director and head football coach, current official school leadership",
+      "sourceUrl": "https://ahs.alvaradoisd.net/about/leadership",
+      "sourceLabel": "Alvarado High official leadership",
+      "verifiedAt": "2026-10-09"
     },
     "campus": {
       "address": "1301 South Parkway, Alvarado, TX 76009",
@@ -1069,7 +1083,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "overview": [
       "Alvarado's Indians have one verified football state-final appearance and a long playoff tradition but no state football championship according to Dave Campbell's archive: one title-game appearance, 36 playoff seasons and zero titles. That distinction is fundamental to the program's story. Historical final-year, opponent and score require a contemporaneous archive before being put into a state-final headline.",
-      "The Johnson County team returned to sustained postseason success in the last two seasons. MaxPreps past-season history records Alvarado 13–1 in 2024 and 12–1 in 2025, with Casey Walraven listed as head coach in both campaigns. A 2026 staff appointment is not supplied in the current history snapshot, so prior leadership should not be automatically labeled current without a school source.",
+      "The Johnson County team returned to sustained postseason success in the last two seasons. MaxPreps past-season history records Alvarado 13–1 in 2024 and 12–1 in 2025, with Casey Walraven listed as head coach in both campaigns. Alvarado High's current official leadership page identifies Aubrey Sims as athletic director and head football coach, succeeding Casey Walraven, who coached the 2024 and 2025 teams.",
       "Alvarado enters the 2026–28 cycle in Class 4A Division I District 4. Rather than using a 2025 opponent group, the published 2026 calendar shows district games against Godley, Carrollton Ranchview, Castleberry, Lake Dallas, Springtown, Aubrey and Decatur.",
       "The Indians opened 2026 with three non-district losses, then won two tight district games: Godley 24–21 on September 25 and Ranchview 38–35 on October 1. That produces a dated 2–3 overall and 2–0 district record as of October 9; the October 9 Castleberry game is not represented as finished.",
       "Dave Campbell's program ledger places Alvarado at Charles Head Stadium and reports a historical capacity of 4,100. School campus and stadium entrance may differ, and actual ticket procedures and accessible parking need confirmation from the district. The football page should remain useful for visiting fans without fabricating gate numbers."
@@ -1129,7 +1143,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who coaches Alvarado football in 2026?",
-        "answer": "Historical MaxPreps records name Casey Walraven for 2024 and 2025. The current 2026 staff could not be independently established from the season-history snapshot; confirm with Alvarado ISD."
+        "answer": "Alvarado High's current official leadership directory names Aubrey Sims athletic director and head football coach; historical records identify Casey Walraven as coach for the 2024 and 2025 seasons."
       },
       {
         "question": "What district is Alvarado in this season?",
@@ -1154,6 +1168,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "seo": {
       "title": "Alto Yellowjackets Football: 2006–07 State Titles, 2026 & Cam'Ron Matthews Field",
       "description": "Alto Yellowjackets football: 2006 and 2007 UIL state championships, 2026 District 11 scores, 40 playoff appearances and Cam'Ron Matthews Field."
+    },
+    "coach": {
+      "name": "Scott Ponder",
+      "title": "Alto ISD athletic director and head football coach, confirmed in current official staff directory",
+      "sourceUrl": "https://www.alto.esc7.net/staff?page_no=5",
+      "sourceLabel": "Alto ISD current staff directory",
+      "verifiedAt": "2026-10-09"
     },
     "campus": {
       "address": "248 County Road 2429, Alto, TX 75925",
@@ -1251,7 +1272,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The 2026–28 UIL alignment places Alto in Class 2A Division II District 11. Its current rivals on the league schedule include Overton, Grapeland, Mount Enterprise, Cushing, Tenaha and Cross Roads. These are district opponents; long-term series histories and special rivalry trophies should be described only when documented by original school or game sources.",
       "The current Yellowjackets began 2026 with a narrow 32–30 loss at Groveton, a 60–20 defeat by West Sabine, a 38–9 road win at Normangee and losses to Corrigan-Camden, Overton and Grapeland. The MaxPreps schedule published October 8 records Alto at 1–5 through the October 2 Grapeland result. The October 9 Mount Enterprise contest had no verified final at this research cutoff.",
       "Alto's recent seasons include an 11–1 2019 team and a 4–6 2025 finish in Dave Campbell's historical season table. Those figures show competitive swings since the title years without artificially adding state championships or assuming the 2019 record implies a state final.",
-      "The current football venue is listed as Cam'Ron Matthews Field. A third-party estimated capacity of 1,770 is context rather than a validated ticket supply or accessibility guarantee; actual gates, parking and school announcements should come from Alto ISD. A 2026 head-coach name is intentionally omitted pending a reliable current official or roster citation rather than recycling an older appointment."
+      "The current football venue is listed as Cam'Ron Matthews Field. A third-party estimated capacity of 1,770 is context rather than a validated ticket supply or accessibility guarantee; actual gates, parking and school announcements should come from Alto ISD. Alto ISD's official 2026 staff directory identifies Scott Ponder as athletic director and head football coach; his hiring was announced January 12, 2026."
     ],
     "milestones": [
       {
@@ -1320,7 +1341,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Alto's head football coach in 2026?",
-        "answer": "A sufficiently current official appointment or independently corroborated 2026 staff record was not established in this review. Contact Alto ISD athletics for its current varsity head coach rather than relying on an undated past-season listing."
+        "answer": "Alto ISD's current official staff directory names Scott Ponder athletic director and head football coach; the district announced his appointment January 12, 2026."
       }
     ]
   },

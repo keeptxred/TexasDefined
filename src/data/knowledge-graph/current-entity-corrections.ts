@@ -16,6 +16,13 @@ function stripGeneratedSportsVenueBoilerplate(description?: string) {
 export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasEntityRecord {
   let corrected = entity;
 
+  // The MSR Houston guide's October 9 primary-source audit is newer than the
+  // original August inventory snapshot. Scope the date only to this venue;
+  // other sports-venue records retain their own actual verification dates.
+  if (corrected.id === 'sports-venue:msr-houston') {
+    corrected = { ...corrected, sourceCheckedAt: '2026-10-09' };
+  }
+
   if (corrected.id === 'sports-venue:jones-att-stadium') {
     corrected = {
       ...corrected,
