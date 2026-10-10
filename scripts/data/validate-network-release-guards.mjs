@@ -100,3 +100,11 @@ check('Feature draft uploads capped per account on server and in owner UI',
  source('supabase/migrations/20261010224104_network_featured_draft_upload_quota.sql').includes('v_count<24')
  && source('supabase/migrations/20261010224104_network_featured_draft_upload_quota.sql').includes('pg_advisory_xact_lock')
  && source(root+'business.dashboard.lazy.tsx').includes('priorMedia.length+selected.length>24'));
+
+check('public network intake and uploads are disabled until launch approval',
+ apps.includes("process.env.NETWORK_INTAKE_ENABLED!=='true'")
+ && source(root+'network.apply.tsx').includes('NETWORK_INTAKE_ENABLED')
+ && source(root+'network.apply.lazy.tsx').includes('disabled={!applicationsOpen'));
+check('Network publication and Featured approval fail closed before launch',
+ review.includes("process.env.NETWORK_PUBLICATION_ENABLED!=='true'")
+ && review.includes("decision==='approve'&&process.env.NETWORK_PUBLICATION_ENABLED"));

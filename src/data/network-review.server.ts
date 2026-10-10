@@ -87,6 +87,8 @@ export async function listNetworkRevisions(accessKey:string) {
 }
 export async function reviewNetworkRevision(accessKey:string,id:string,decision:'approve'|'reject') {
  await assertSportsPartnerAccess(accessKey);
+ if(decision==='approve'&&process.env.NETWORK_PUBLICATION_ENABLED!=='true')
+  throw Error('Network profile publication is not activated.');
  if(decision==='reject'){
   const {data:outcome,error}=await supabaseAdmin.rpc('finalize_texasdefined_featured_revision',{
    p_revision_id:id,p_decision:'reject',p_profile:null,p_logo:null,p_gallery:null
@@ -166,6 +168,7 @@ export async function unpublishNetworkListing(accessKey: string, id: string) {
 
 export async function publishApprovedNetworkListing(accessKey:string,id:string) {
  await assertSportsPartnerAccess(accessKey);
+ if(process.env.NETWORK_PUBLICATION_ENABLED!=='true')throw Error('Network publication has not been activated.');
  const {data:app,error}=await supabaseAdmin.from('texasdefined_network_applications')
    .select('id,status,plan,business_name,category,description,city,address,phone,hours,website,social,services,faq,offer,logo_storage_path,gallery_storage_paths,paid_entitlement_active')
    .eq('id',id).single();

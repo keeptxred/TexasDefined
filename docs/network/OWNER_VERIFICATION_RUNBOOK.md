@@ -53,3 +53,10 @@ The admin first verifies proposed content and media bytes, then uses `finalize_t
 
 ## Featured draft media capacity protection
 A verified Featured owner can store at most 24 private draft objects of at most 3 MB each. Storage INSERT policy enforces the count under a per-account lock; the UI preflight is informational, not security. Before enabling the platform, implement and test safe cleanup of abandoned media only after checking pending/approved revision references and public listing usage. Do not automatically delete uploaded source files without a documented retention policy and owner expectations.
+
+
+## Mandatory prelaunch switch separation
+- `NETWORK_INTAKE_ENABLED=true` — ONLY after explicit approval, opens application POST and private uploads; otherwise the public endpoint returns 503 before parsing files and the frontend remains a non-submitting preview.
+- `NETWORK_PUBLICATION_ENABLED=true` — independently authorizes administrator publication and Featured revision approval. Do not enable while release gates remain open; rejection and unpublish always remain available for safety.
+- `NETWORK_CHECKOUT_ENABLED=true` — independent Stripe Plus Checkout switch, gated by verified owner and live account configuration; product inactive as last verified.
+- Office 365 delivery remains a separate disabled transport with no credentials configured. Never substitute personal Gmail. Noindex is a crawl hint, **not** a security or launch control.

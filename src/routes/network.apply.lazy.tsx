@@ -9,6 +9,7 @@ type Plan = "basic" | "plus";
 type Field = "businessName" | "category" | "description" | "city" | "address" | "phone" | "email" | "hours" | "website" | "social" | "services" | "faq" | "offer";
 const INITIAL: Record<Field,string> = {businessName:"",category:"",description:"",city:"",address:"",phone:"",email:"",hours:"",website:"",social:"",services:"",faq:"",offer:""};
 function NetworkApplication() {
+  const {applicationsOpen}=Route.useLoaderData();
   const [plan,setPlan]=useState<Plan>("basic");
   useEffect(()=>{if(new URLSearchParams(window.location.search).get("plan")==="plus")setPlan("plus");},[]);
   const [fields,setFields]=useState(INITIAL);
@@ -37,6 +38,7 @@ function NetworkApplication() {
     <Container width="wide" className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Texas Defined Network</p>
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Build your business listing</h1>
+      {!applicationsOpen&&<p role="status" className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">Preview only — Network applications and uploads are not open yet. You can explore the form locally without submitting any information.</p>}
       <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Create your business profile and see how it will appear as you enter the details. Every application is reviewed before publication. Plus applications undergo editorial review and independent ownership verification before payment becomes available.</p>
       <div className="mt-7 flex flex-wrap gap-3" role="group" aria-label="Listing plan">
         {(["basic","plus"] as const).map(t=><button key={t} type="button" disabled={submittedId!==null} onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
@@ -44,6 +46,7 @@ function NetworkApplication() {
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e => {
           e.preventDefault();
+          if(!applicationsOpen){setError("Network applications are not yet open.");return}
           setError("");
           setSending(true);
           try {
@@ -88,7 +91,7 @@ function NetworkApplication() {
           {saved&&<p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-900">Your application has been received for review. It is not public. Plus applicants must separately confirm their email and complete independent business-ownership verification with TexasDefined before billing can be enabled.</p>}
           {saved && plan==="plus" && <p className="text-sm text-muted-foreground">After editorial review, <a href="/business/dashboard" className="font-semibold text-primary underline">sign in with your application email</a> to prepare for verified owner access. Signing in does not grant access or activate billing.</p>}
           {error&&<p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{error}</p>}
-          <button type="submit" disabled={sending || (saved && plan==="basic")} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Processing…":saved?"Application received":"Submit listing for review"}</button>
+          <button type="submit" disabled={!applicationsOpen || sending || (saved && plan==="basic")} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Processing…":saved?"Application received":"Submit listing for review"}</button>
           <p className="text-xs text-muted-foreground">Application details and authorized images are submitted privately for review. Plus payment is unavailable until the required verification and launch approval are complete. Read our <a href="/privacy" className="font-semibold text-primary underline">privacy policy</a> for how submitted contact information and media are handled.</p>
         </form>
         <aside className="self-start lg:sticky lg:top-28" aria-label="Live listing preview">
