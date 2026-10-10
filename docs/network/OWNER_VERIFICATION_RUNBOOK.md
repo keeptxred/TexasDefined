@@ -60,3 +60,7 @@ A verified Featured owner can store at most 24 private draft objects of at most 
 - `NETWORK_PUBLICATION_ENABLED=true` — independently authorizes administrator publication and Featured revision approval. Do not enable while release gates remain open; rejection and unpublish always remain available for safety.
 - `NETWORK_CHECKOUT_ENABLED=true` — independent Stripe Plus Checkout switch, gated by verified owner and live account configuration; product inactive as last verified.
 - Office 365 delivery remains a separate disabled transport with no credentials configured. Never substitute personal Gmail. Noindex is a crawl hint, **not** a security or launch control.
+
+
+## Dedicated Network administrator access
+The Network admin panel uses **`NETWORK_ADMIN_ACCESS_KEY`**, separately from sports partner admin keys. Provision a random at-least-32-character secret only in the approved Cloudflare Worker secret configuration after launch/security approval. Never put it in source, logs or browser local storage, and never repurpose an unrelated marketing admin secret. In the absence of this secret all Network admin actions fail closed; the panel remains a draft preview.

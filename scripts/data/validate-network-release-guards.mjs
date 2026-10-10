@@ -108,3 +108,9 @@ check('public network intake and uploads are disabled until launch approval',
 check('Network publication and Featured approval fail closed before launch',
  review.includes("process.env.NETWORK_PUBLICATION_ENABLED!=='true'")
  && review.includes("decision==='approve'&&process.env.NETWORK_PUBLICATION_ENABLED"));
+
+check('Network admin moderation uses its own guarded secret, not sports marketing access',
+ review.includes("import { assertNetworkAdminAccess }")
+ && !review.includes('assertSportsPartnerAccess')
+ && source('src/data/network-admin-access.server.ts').includes('NETWORK_ADMIN_ACCESS_KEY')
+ && source('src/data/network-admin-access.server.ts').includes('expected.length<32'));

@@ -1,5 +1,5 @@
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
-import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
+import { assertNetworkAdminAccess } from '@/data/network-admin-access.server';
 
 /** Validate image bytes again at the public media boundary, not just at browser upload. */
 async function assertNetworkImageBytes(blob: Blob, type: string) {
@@ -16,7 +16,7 @@ async function assertNetworkImageBytes(blob: Blob, type: string) {
 }
 
 export async function listNetworkApplications(accessKey: string) {
-  await assertSportsPartnerAccess(accessKey);
+  await assertNetworkAdminAccess(accessKey);
   const { data, error } = await supabaseAdmin.from('texasdefined_network_applications').select('*').order('created_at', { ascending: false }).limit(200);
   if (error) throw new Error('Network applications are unavailable.');
   const applications = (data ?? []) as Array<Record<string, unknown>>;
@@ -42,7 +42,7 @@ export async function listNetworkApplications(accessKey: string) {
 }
 
 export async function setNetworkApplicationReview(accessKey: string, id: string, action: 'approve' | 'reject' | 'reopen') {
-  await assertSportsPartnerAccess(accessKey);
+  await assertNetworkAdminAccess(accessKey);
   const status = action === 'approve' ? 'approved' : action === 'reject' ? 'rejected' : 'pending_review';
   const { data: current, error: lookupError } = await supabaseAdmin.from('texasdefined_network_applications')
     .select('id,status').eq('id', id).single();
@@ -69,7 +69,7 @@ export async function publishReviewedNetworkApplication(accessKey: string, id: s
 }
 
 export async function listNetworkRevisions(accessKey:string) {
- await assertSportsPartnerAccess(accessKey);
+ await assertNetworkAdminAccess(accessKey);
  const {data,error}=await supabaseAdmin.from('texasdefined_network_profile_revisions').select('id,business_account_id,submitted_by,created_at,review_status,proposed_profile,reviewer_notes').order('created_at',{ascending:false}).limit(200);
  if(error)throw new Error('Cannot load change requests.');
  return Promise.all((data ?? []).map(async (revision) => {
@@ -86,7 +86,7 @@ export async function listNetworkRevisions(accessKey:string) {
  }));
 }
 export async function reviewNetworkRevision(accessKey:string,id:string,decision:'approve'|'reject') {
- await assertSportsPartnerAccess(accessKey);
+ await assertNetworkAdminAccess(accessKey);
  if(decision==='approve'&&process.env.NETWORK_PUBLICATION_ENABLED!=='true')
   throw Error('Network profile publication is not activated.');
  if(decision==='reject'){
@@ -149,7 +149,7 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
 
 /** Unpublish a previously approved listing while retaining the approved profile for later review. */
 export async function unpublishNetworkListing(accessKey: string, id: string) {
-  await assertSportsPartnerAccess(accessKey);
+  await assertNetworkAdminAccess(accessKey);
   const { data: app, error: readError } = await supabaseAdmin
     .from('texasdefined_network_applications').select('id,status').eq('id', id).single();
   if (readError || !app || app.status !== 'published') {
@@ -167,7 +167,7 @@ export async function unpublishNetworkListing(accessKey: string, id: string) {
 }
 
 export async function publishApprovedNetworkListing(accessKey:string,id:string) {
- await assertSportsPartnerAccess(accessKey);
+ await assertNetworkAdminAccess(accessKey);
  if(process.env.NETWORK_PUBLICATION_ENABLED!=='true')throw Error('Network publication has not been activated.');
  const {data:app,error}=await supabaseAdmin.from('texasdefined_network_applications')
    .select('id,status,plan,business_name,category,description,city,address,phone,hours,website,social,services,faq,offer,logo_storage_path,gallery_storage_paths,paid_entitlement_active')
@@ -238,7 +238,7 @@ export async function provisionReviewedNetworkOwner(
  verificationMethod:'official_domain'|'registry_documents'|'verified_public_phone'|'in_person'|'other_documented',
  evidenceReference:string, reviewerLabel:string,
 ) {
- await assertSportsPartnerAccess(accessKey);
+ await assertNetworkAdminAccess(accessKey);
  if(!ownershipVerified)throw Error('Independent business ownership verification is mandatory');
  if(evidenceReference.trim().length<20||evidenceReference.trim().length>500||
    reviewerLabel.trim().length<3||reviewerLabel.trim().length>100)
