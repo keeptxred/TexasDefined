@@ -8,25 +8,33 @@ on:
     paths:
       - '.github/workflows/verify-hunting-production.yml'
       - 'scripts/data/verify-hunting-production.mjs'
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/verify-hunting-production.yml'
-      - 'scripts/data/verify-hunting-production.mjs'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  verify:
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+  validate-syntax:
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check out repository
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate hunting smoke syntax without probing undeployed production
+        run: node --check scripts/data/verify-hunting-production.mjs
+
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out deployed verifier contract
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
