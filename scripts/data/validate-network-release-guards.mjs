@@ -91,3 +91,7 @@ check('Checkout redirect requires exact Stripe hostname',source('src/data/networ
 
 check('Stripe verified subscription cannot contain unrelated paid line items',webhook.includes('isExpectedNetworkPlusSubscription(subscription)')&&source('src/data/network-stripe.server.ts').includes('items.length===1'));
 check('Stripe portal requires a live server secret',billing.includes('key?.startsWith("sk_live_")'));
+
+check('Featured approval and review ledger mutate within one DB transaction',
+ review.includes("supabaseAdmin.rpc('finalize_texasdefined_featured_revision'")
+ && !review.includes(".update({review_status:decision==='approve'?'approved':'rejected'"));

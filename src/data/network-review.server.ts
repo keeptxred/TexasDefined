@@ -87,11 +87,17 @@ export async function listNetworkRevisions(accessKey:string) {
 }
 export async function reviewNetworkRevision(accessKey:string,id:string,decision:'approve'|'reject') {
  await assertSportsPartnerAccess(accessKey);
+ if(decision==='reject'){
+  const {data:outcome,error}=await supabaseAdmin.rpc('finalize_texasdefined_featured_revision',{
+   p_revision_id:id,p_decision:'reject',p_profile:null,p_logo:null,p_gallery:null
+  });
+  if(error||outcome!=='rejected')throw Error('Change request is no longer pending or could not be rejected');
+  return {id,review_status:'rejected' as const};
+ }
  const {data:revision,error:lookupError}=await supabaseAdmin.from('texasdefined_network_profile_revisions')
   .select('id,review_status,business_account_id,submitted_by,proposed_profile').eq('id',id).single();
  if(lookupError||!revision||revision.review_status!=='pending_review')throw new Error('Change request is no longer pending.');
- if(decision==='approve'){
-  const {data:account,error:accountError}=await supabaseAdmin.from('texasdefined_network_business_accounts')
+   const {data:account,error:accountError}=await supabaseAdmin.from('texasdefined_network_business_accounts')
    .select('id,application_id,owner_user_id,access_enabled,membership_tier').eq('id',revision.business_account_id).single();
   if(accountError||!account||!account.access_enabled||account.membership_tier!=='featured'||account.owner_user_id!==revision.submitted_by)throw Error('Featured ownership or access is not valid.');
   const {data:listing,error:listingError}=await supabaseAdmin.from('texasdefined_network_public_listings')
@@ -129,16 +135,14 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
    gallery=[];
    for(const path of proposed.gallery_storage_paths)gallery.push(await copy(path as string));
   }
-  const {error:publishError}=await supabaseAdmin.from('texasdefined_network_public_listings')
-   .update({profile,logo_storage_path:logo,gallery_storage_paths:gallery,updated_at:new Date().toISOString()} as never)
-   .eq('application_id',account.application_id).eq('is_published',true);
-  if(publishError)throw Error('Approved updates could not be published');
- }
- const {data,error}=await supabaseAdmin.from('texasdefined_network_profile_revisions')
-  .update({review_status:decision==='approve'?'approved':'rejected',reviewed_at:new Date().toISOString()} as never)
-  .eq('id',id).eq('review_status','pending_review').select('id,review_status').single();
- if(error||!data)throw new Error('Profile updated but review ledger update failed.');
- return data;
+
+ // Only the service-role transaction may change both published profile and review status.
+ // A failed/ambiguous result does not expose unapproved profile fields.
+ const {data:outcome,error:reviewError}=await supabaseAdmin.rpc('finalize_texasdefined_featured_revision',{
+  p_revision_id:id,p_decision:'approve',p_profile:profile,p_logo:logo,p_gallery:gallery
+ });
+ if(reviewError||outcome!=='approved')throw Error('Approved changes could not be committed atomically');
+ return {id,review_status:'approved' as const};
 }
 
 /** Unpublish a previously approved listing while retaining the approved profile for later review. */

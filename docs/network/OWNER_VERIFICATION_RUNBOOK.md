@@ -45,3 +45,7 @@ The application admin still relies on the inherited sports-partner admin access 
 
 ## Auditable atomic owner provisioning
 Use the administrator-only form after approval. Independently verify control of the actual business, then supply method, publicly reviewable source or non-sensitive summary (never IDs/passports), and reviewer label. Confirm the Supabase user has verified the exact application email. The service-only RPC validates matching user/email/plan and stores owner binding plus evidence transactionally. Reviewers must not self-certify based solely on a checkbox or email equality. No email invitations or charges are triggered by provisioning. Positive integration validation with isolated authorized test accounts remains a launch gate.
+
+
+## Atomic Featured revision review
+The admin first verifies proposed content and media bytes, then uses `finalize_texasdefined_featured_revision` for simultaneous public-profile and revision-ledger changes. RPC requires a currently published, paid Plus application and independently enabled Featured owner. Concurrent/repeated approvals return a nonapproved result. Unreferenced uploaded copies from interrupted requests still need a staged media-retention worker; do not delete unverified public media or claim orphan cleanup certified.
