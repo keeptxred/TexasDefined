@@ -5,7 +5,7 @@ import { TexasComparedHero } from "@/components/compare/TexasComparedHero";
 import { Container } from "@/components/layout/Container";
 import { loadTexasVsStateProfile } from "@/data/texas-vs-state-profile";
 import { TEXAS_VS_STATE_SNAPSHOTS } from "@/data/texas-vs-state-snapshots";
-import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug } from "@/data/texas-vs-states-index";
+import { TEXAS_VS_STATE_GROUPS, texasVsStateName, texasVsStateSlug, texasVsCanonicalPath } from "@/data/texas-vs-states-index";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const PRIORITY_MOVE_STATES = new Set(["California", "New York", "Illinois", "Florida", "Colorado"]);
@@ -177,7 +177,7 @@ function TexasVsStatePage() {
         <p className="eyebrow text-primary">Keep comparing</p>
         <h2 className="mt-2 font-display text-3xl md:text-4xl">More Texas vs {relatedGroup?.region} comparisons</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Compare Texas with nearby or regionally similar states using the same framework, then return to the full 49-state index when you want to widen the search.</p>
-        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{relatedStates.map((state) => <Link key={state} to="/texas-vs/$state" params={{ state: texasVsStateSlug(state) }} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</Link>)}</div>
+        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{relatedStates.map((state) => <a key={state} href={texasVsCanonicalPath(state)} className="border border-border p-4 font-display text-xl hover:border-primary hover:text-primary">Texas vs {state} →</a>)}</div>
         <Link to="/texas-vs-every-state" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Browse all 49 Texas state comparisons</Link>
       </Container>
     </section>}
