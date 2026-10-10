@@ -41,3 +41,6 @@ Distinct Caprock introduction, independently dated football history and eight-pl
 7. Only then advance `IMPLEMENTED → MERGED → DEPLOYED → VERIFIED`. A commit is not production acceptance.
 
 **Next school:** Amarillo Highland Park, while Caprock merge/acceptance remains open.
+
+## First-party 2026 stadium tickets and access — October 9, 2026
+[Amarillo ISD's official athletics website](https://www.amaisd.org/133763_3) publishes 2026 varsity tickets for Amarillo High, Caprock, Palo Duro and Tascosa at **$8 adult/$3 student presale** (HomeTown digital until 5:45 p.m.; office paper until 3 p.m. on game day) and **$10 at the Dick Bivins gate**. It lists stadium **3101 SE 10th Avenue, Amarillo TX 79104**, clear-bag rules, west grandstand as designated home side, and links to the current stadium policy document. These are district-wide terms for games **actually held at Dick Bivins**; check event-specific schedules and accommodation/gate details before travel. Do not apply prices to other host stadiums, assert a reserved ADA spot, or replace the campus address. Editorial citation and ticket guidance updated in `766551b03f5c0d28fd95dbcdda72bc5645fa3929`. Deployment and actual Chrome acceptance remain pending.
