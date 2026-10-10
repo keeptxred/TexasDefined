@@ -58,6 +58,173 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "anderson-shiro": {
+    "slug": "anderson-shiro",
+    "theme": {
+      "accentHex": "#C18F2F",
+      "label": "Original Fighting Owls gold editorial accent; official colors require ISD confirmation"
+    },
+    "seo": {
+      "title": "Anderson-Shiro Fighting Owls Football: 2026 Scores, Coach & History",
+      "description": "Anderson-Shiro football: 2023 nine-win and 2024 eight-win seasons, 2026 District 13-3A Division II, Brad Hodges, Owl Stadium and verified resources."
+    },
+    "coach": {
+      "name": "Brad Hodges",
+      "title": "2026 Fighting Owls head football coach according to current team staff",
+      "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
+      "sourceLabel": "MaxPreps 2026 current coach and team listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "458 FM 149 West, Anderson, TX 77830",
+      "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
+      "sourceLabel": "Anderson-Shiro high school address, not a certified spectator gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Owls results and current schedule",
+      "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+      "sourceLabel": "Dave Campbell's Texas Football individual 2026 game and history ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 in five independently listed results through September 25, 2026",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+      "sourceLabel": "DCTF 2026 Owls results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Lovelady",
+          "site": "Away",
+          "result": "L 14–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Elkhart",
+          "site": "Home",
+          "result": "W 36–28"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Buffalo",
+          "site": "Away",
+          "result": "L 0–28"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Normangee",
+          "site": "Home",
+          "result": "W 26–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Huntington",
+          "site": "Home",
+          "result": "W 49–8"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Lexington",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Schulenburg",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Florence",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Thrall",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Rogers",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Owl Stadium",
+      "address": "Anderson, TX — verify official game gate at FM 149 campus",
+      "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+      "sourceLabel": "DCTF stadium listing, not campus accessibility certificate",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists 400 as historical stadium capacity. Official current parking, ADA arrival and spectator gates should be checked with Anderson-Shiro CISD. School mailing address does not establish stadium entry."
+    },
+    "overview": [
+      "The Anderson-Shiro Fighting Owls represent a consolidated school community based in Anderson in Grimes County, not a similarly named collegiate or neighboring school. Their home listing is Owl Stadium, but seating, accessible entrance, event tickets and traffic plans must be confirmed directly with the school district.",
+      "Dave Campbell's Texas Football credits the Fighting Owls with eight football playoff appearances and no state football title game or championship. Their 2023 and 2024 results are more instructive than unsupported title narratives: 9–2 in 2023 and 8–3 in 2024, according to historical records.",
+      "The 2024 team won its first four games, lost to Newton and Woodville in district play, and finished after a 35–6 bi-district playoff loss at Troup. MaxPreps' archived results provide the sequence, rather than assuming the 8–3 year reached the state quarterfinals.",
+      "In 2025 the Fighting Owls finished 4–7 according to the historical ledger. Current season coach Brad Hodges is listed by the 2026–27 varsity team roster, and this attribution is distinct from the published records of former years.",
+      "For the 2026–28 alignment the official UIL Class 3A Division II District 13 groups Anderson-Shiro with Florence, Lexington, Rogers, Schulenburg and Thrall. It is a different district from its 2024 or 2025 opponents, and being grouped together is not itself evidence of historic rivalry.",
+      "Through September 25, 2026, the team has five confirmed result lines: victories over Elkhart 36–28, Normangee 26–6 and Huntington 49–8, alongside defeats at Lovelady and Buffalo. That is a dated 3–2 snapshot; the October 9 Lexington game is a scheduled matchup, not a declared final.",
+      "Several public sports profiles emphasize Owens/Owls teams in other cities; the correct identity here is Anderson-Shiro Fighting Owls and the campus on FM 149 West. The team should have an individual chronology, not recycled state-wide copy."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Nine-win Fighting Owls season",
+        "body": "Historical program data records a 9–2 season, with the team returning to postseason play.",
+        "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+        "sourceLabel": "DCTF program history"
+      },
+      {
+        "date": "2024",
+        "title": "Eight victories and postseason appearance",
+        "body": "The Owls finished 8–3 and lost 35–6 to Troup in the bi-district round; do not exaggerate the playoff depth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/24-25/schedule/",
+        "sourceLabel": "MaxPreps complete 2024 game ledger"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "High-scoring Huntington win",
+        "body": "The 2026 results include a 49–8 home victory over Huntington and 3–2 record after five published finals.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
+        "sourceLabel": "MaxPreps Sept. 25 2026 score recap"
+      },
+      {
+        "date": "2026–28",
+        "title": "New 3A Division II District 13",
+        "body": "UIL realignment places the Owls with Lexington, Florence, Rogers, Schulenburg and Thrall.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anderson-Shiro won a Texas state football championship?",
+        "answer": "DCTF lists eight Fighting Owls playoff appearances and zero football state championship-game appearances or titles."
+      },
+      {
+        "question": "Who coaches the Fighting Owls in 2026?",
+        "answer": "The 2026 current team page lists Brad Hodges as head coach. Check the school district for any subsequent coaching changes."
+      },
+      {
+        "question": "What UIL district is Anderson-Shiro in for 2026?",
+        "answer": "UIL Class 3A Division II, District 13, with Florence, Lexington, Rogers, Schulenburg and Thrall."
+      },
+      {
+        "question": "How did the 2024 Anderson-Shiro season end?",
+        "answer": "The Owls finished 8–3. MaxPreps records the 2024 playoff defeat to Troup, 35–6, after a regular season with eight wins."
+      },
+      {
+        "question": "Where do Anderson-Shiro games take place?",
+        "answer": "The program directory lists Owl Stadium. Confirm actual stadium entrance, mobility access, parking and game-specific tickets with Anderson-Shiro CISD before travel."
+      }
+    ]
+  },
   "anahuac": {
     "slug": "anahuac",
     "theme": {
