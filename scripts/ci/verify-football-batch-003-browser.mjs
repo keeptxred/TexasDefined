@@ -140,6 +140,7 @@ try {
         check(err,d.h1.length===1,'expected exactly one H1');
         check(err,tidy(d.h1[0]).length>8,'missing specific school H1');
         check(err,d.title.length>=20 && d.description.length>=55,'missing useful SEO title/description');
+        check(err,!/[&,:;\-–|]\s*(?:\|\s*Texas Defined)?\s*$/.test(d.title.replace(/\s*\|\s*Texas Defined\s*$/i, '').trim()),'editorial title ends in dangling punctuation: '+d.title);
         check(err,d.canonical===origin+schoolPath(slug),'incorrect canonical: '+d.canonical);
         check(err,!/\bnoindex\b/i.test(d.robots),'unexpected noindex');
         check(err,d.body.length>1200,'insufficient rendered content');
