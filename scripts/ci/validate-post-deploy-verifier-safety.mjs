@@ -3,6 +3,15 @@ const failures = [];
 const workflow = (name) => fs.readFileSync(`.github/workflows/${name}.yml`, 'utf8');
 const requireMarker = (source, marker, label) => { if (!source.includes(marker)) failures.push(label); };
 const noDirectPush = (source, label) => { if (/^  push:/m.test(source)) failures.push(`${label} cannot assert live production before a protected deployment`); };
+// An independent production verifier may outlive newer main merges. Never
+// checkout a moving branch or the workflow_run receiver's github.ref.
+for (const file of fs.readdirSync('.github/workflows').filter((name) => name.endsWith('.yml'))) {
+  const source = fs.readFileSync(`.github/workflows/${file}`, 'utf8');
+  if (!/^  workflow_run:/m.test(source) || !source.includes('Deploy TexasDefined production')) continue;
+  const floatingCheckout = /^\s+ref:[ \t]*(?:["']?main["']?|\$\{\{[ \t]*github\.ref[ \t]*\}\})[ \t]*(?:#.*)?$/m;
+  if (floatingCheckout.test(source))
+    failures.push(`${file} uses a moving main/github.ref checkout after canonical deployment; pin workflow_run.head_sha or use an explicit controlled exception`);
+}
 const postDeploy = ['texasdefined-publication-production-smoke','verify-rv-production','verify-aquarium-production','verify-hunting-production','adsense-production-smoke','verify-relocation-production','flag-history-production-smoke'];
 for (const name of postDeploy) {
   const source = workflow(name);
@@ -166,6 +175,17 @@ const cloudflareGateIndex = cloudflareSmoke.indexOf('Wait for exact SHA protecte
 const cloudflareLiveIndex = cloudflareSmoke.indexOf('Verify Cloudflare Workers, public DNS and production AI binding');
 if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
   failures.push('Cloudflare smoke must complete the protected deploy gate before live probes');
+
+// Post-deploy verifier source must not float to a newer default branch.
+const fridayNightLights = workflow('friday-night-lights-production-smoke');
+requireMarker(fridayNightLights, "github.event.workflow_run.conclusion == 'success'", 'Friday Night Lights live smoke needs successful deploy');
+requireMarker(fridayNightLights, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Friday Night Lights must check out deployed source, not default main');
+if (fridayNightLights.includes('ref: main')) failures.push('Friday Night Lights live verifier cannot use moving main');
+const waterNormalizer = workflow('normalize-waterdata-probe-status');
+requireMarker(waterNormalizer, "github.event.workflow_run.conclusion == 'success'", 'Water-data optional-probe normalization requires successful source verifier');
+requireMarker(waterNormalizer, 'STATUS_SHA: ${{ github.event.workflow_run.head_sha }}', 'Water-data status target must reference the triggering run');
+requireMarker(waterNormalizer, 'ref: ${{ github.event.workflow_run.head_sha }}', 'Water-data normalizer must execute the triggering verifier revision');
+if (waterNormalizer.includes('ref: main')) failures.push('Water-data normalizer must not execute changing main source');
 
 // Browser verifier scripts for editorial and football must match the deploy
 // which triggered them, not whichever commit has since become default main.
