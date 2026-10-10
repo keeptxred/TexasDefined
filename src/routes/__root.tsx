@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
+  useLocation,
   createRootRouteWithContext,
   HeadContent,
   Scripts,
@@ -155,6 +156,8 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const hasDestinationMain = pathname === "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;
@@ -215,7 +218,7 @@ function RootComponent() {
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
             <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
-            <main id="main" className="flex-1"><Outlet /></main>
+            {hasDestinationMain ? <div className="flex-1"><Outlet /></div> : <main id="main" className="flex-1"><Outlet /></main>}
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
         </ShopCartProvider>
