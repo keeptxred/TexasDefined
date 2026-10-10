@@ -1,4 +1,3 @@
-import smallTown from "@/assets/small-town.jpg";
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
@@ -29,11 +28,12 @@ const militaryFamilyHero: Article["hero"] = {
   credit: "Airman 1st Class David Phaff / U.S. Air Force · public domain · Wikimedia Commons",
 };
 
-const homeHero: Article["hero"] = {
-  src: smallTown,
-  alt: "Homes and neighborhood streets in a Texas community",
-  width: 1600,
-  height: 1067,
+const renterHero: Article["hero"] = {
+  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/GulftonApartmentComplexes.JPG/1280px-GulftonApartmentComplexes.JPG",
+  alt: "Apartment buildings and rental housing in the Gulfton neighborhood of Houston, Texas",
+  width: 1280,
+  height: 960,
+  credit: "WhisperToMe · public domain · Wikimedia Commons",
 };
 
 const base = (
@@ -53,7 +53,7 @@ const renterRelocation = base({
   title: "Moving to Texas as a Renter: Lease, Deposit & Utility Guide",
   dek: "A practical renter-first Texas relocation guide covering lease review, deposits, repairs, utilities, insurance, address verification and move-in documentation.",
   category: "moving-to-texas",
-  hero: homeHero,
+  hero: renterHero,
   publishedAt: "2026-09-29",
   readingMinutes: 9,
   tags: ["renting in texas", "texas renter", "lease", "security deposit", "moving to texas"],
