@@ -13,3 +13,10 @@ School-specific deficiency: an individual editorial view was absent; facts about
 MaxPreps program history https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/ distinguishes 2025 5A DII (6–4) from 2026 5A DI District 13. Official Anderson athletics https://www.andersontrojanathletics.com/ lists Oct. 15 McCallum game; Travis https://www.travisrebelathletics.com/sport/football/boys/ gives September venue. Code `93ccbeae386eb9eb9aa2b07a616042463aa10bc3`.
 
 Still unmerged/unverified; game-day policies, reciprocal links, photograph licenses and responsive production tests remain outstanding.
+
+
+## Confirmed production technical acceptance — 2026-10-10 (supersedes historic pre-release status text)
+- Live page: https://texasdefined.com/texas-high-school-football-teams/austin-mccallum. Individualized changes merged in PR #4540; current evidence includes tested `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29` production deployment.
+- [Dedicated Chrome acceptance #38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139) **PASSED** both desktop and mobile: HTTP 200, football-specific content, SEO metadata/canonical/schema, external source links, zero console exceptions or broken visible images, no horizontal overflow and school-to-`/county/travis` outbound link. The county's school reciprocal card rendered and sitemap included the page. Its documented `/city/austin` city-school reciprocal pair also passed on both viewports.
+- Saved `desktop-school-austin-mccallum.png` and `mobile-school-austin-mccallum.png` in [screenshots artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515); full acceptance ledger in `docs/football-authority/BATCH004_FINAL_ACCEPTANCE.md` (certification PR #4553).
+- Earlier audit headings say the code was only implemented/not deployed; those are now superseded historical checkpoints. Editorial depth, current coach, exact venue accessibility/tickets and permissions for *future* authentic team photographs remain separate research/rights qualifications. No third-party football photos were inserted by Batch 004.
