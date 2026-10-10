@@ -153,7 +153,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and documented Choctaw Stadium fixtures' },
     { name: 'Seguin Cougars', slug: 'arlington-seguin', context: '5A Division II program and Glaspie Field home-venue history' },
   ],
-  denton: [{ name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' }],
+  denton: [
+    { name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' },
+    { name: 'Aubrey Chaparrals', slug: 'aubrey', context: '2026 digital-ticket Chaparral Stadium policies and 2024 playoffs' },
+  ],
   collin: [
     { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
     { name: 'Anna Coyotes', slug: 'anna', context: '2023 Class 4A Division I state champion and current Coyotes program' },
@@ -168,6 +171,15 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
     { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
   ],
+  // Batch 004 independently matched campus counties; school game sites can differ.
+  smith: [{ name: 'Arp Tigers', slug: 'arp', context: '2016 semifinal and Bill Herrington Stadium history' }],
+  stonewall: [{ name: 'Aspermont Hornets', slug: 'aspermont', context: '1999 11-man state final and modern six-man program' }],
+  henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' }],
+  cass: [{ name: 'Atlanta Rabbits', slug: 'atlanta', context: '2003 UIL state football title and Rabbit Stadium traditions' }],
+  ellis: [{ name: 'Avalon Eagles', slug: 'avalon', context: 'Six-man football and 2024 ten-win season' }],
+  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }],
+  callahan: [{ name: 'Baird Bears', slug: 'baird', context: '2019 six-man transition and 2026 UIL district' }],
+  travis: [{ name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: '2024 6A Division II state title at Leander ISD campus' }],
   // Batch 003 school-specific campus links use NCES school locator county, not stadium address.
   lamb: [{ name: 'Amherst Bulldogs', slug: 'amherst', context: '1994 and 1995 UIL six-man state champions and conflicting official 1995 score records' }],
   chambers: [{ name: 'Anahuac Panthers', slug: 'anahuac', context: 'Panthers football history and 2026 classification' }],
