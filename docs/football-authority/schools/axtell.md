@@ -12,3 +12,9 @@ School-specific prose, original milestone graphics, historical/2026 context, SEO
 
 ## Unfinished acceptance
 Research additional documented championships, coaches or alumni where supported. Validate exact official ticket/gate/ADA arrangements, stadium, photo licenses, source URLs, county/city reciprocal links, schema/canonical/indexability, mobile/desktop contrast and real browser QA. Run protected CI, merge, deploy and independently check actual production. If evidence is unavailable mark N/A/uncertain rather than inventing.
+
+## Independent school resources verification — October 10, 2026
+
+[Official Axtell ISD directory](https://www.axtellisd.net/en-US) gives district 1100 Longhorn Parkway. [MaxPreps coaching list updated Aug 24, 2026](https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/) identifies Craig Horn as head coach plus ten assistants. Third-party address 308 Ottawa must not replace official district contact or be treated as stadium gate without research.
+
+Follow-up implemented in editorial commit `01a2dd34637428ffd67a43adbd2e81576785780a`. Still not merged or production VERIFIED; rights, reciprocal links, accessibility and live Chrome acceptance pending.
