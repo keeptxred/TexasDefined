@@ -148,14 +148,15 @@ test('webhook reader accepts a normally sized UTF-8 event',async()=>{
  const body=await readNetworkWebhookPayload(request);
  assert.deepEqual(JSON.parse(body),{id:'evt_safe',description:'Tejano music'});
 });
-test('webhook rejects oversized declared Content-Length before consuming the stream',async()=>{
- let consumed=false;
- const body=new ReadableStream({pull(controller){consumed=true;controller.enqueue(new Uint8Array(2));controller.close()}});
+test('webhook rejects oversized declared Content-Length without consuming the request body',async()=>{
+ // Web Streams may prefetch from pull() even when no reader was acquired.
+ // bodyUsed is the correct observable request-consumption contract.
+ const body=new ReadableStream({pull(controller){controller.enqueue(new Uint8Array(2));controller.close()}});
  const request=new Request('https://texasdefined.com/api/public/network-stripe-webhook',{
   method:'POST',body,duplex:'half',headers:{'content-length':String(NETWORK_WEBHOOK_MAX_BYTES+1)},
  });
  assert.equal(await readNetworkWebhookPayload(request),null);
- assert.equal(consumed,false);
+ assert.equal(request.bodyUsed,false);
 });
 test('webhook enforces actual streamed byte cap if Content-Length is omitted',async()=>{
  const chunk=new Uint8Array(Math.ceil(NETWORK_WEBHOOK_MAX_BYTES/2)+4);
