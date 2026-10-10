@@ -9,3 +9,7 @@ UIL 2016 state-title season 14–1 under Hank Carter and 2015 15–0 finalist; o
 
 ## Incomplete acceptance
 Independently validate current official personnel, specific stadium entrances, parking/tickets and ADA resources where available; check licensed image alternatives and reciprocal Travis County/city/stadium links. Run responsive real Chrome, SEO/schema/sitemap, accessibility, tests and protected merge followed by deployed-production browser acceptance. The unresolved details are limitations, not fabricated assertions.
+
+## 2026 major stadium reconstruction verified through state records
+
+[TDLR accessibility-registration TABS2025026267](https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267) specifies the Cavalier Stadium demolition/reconstruction at 3324 Ranch Road 620 S., $46 million estimated cost, planned September 15, 2025 start and **December 31, 2026 projected completion**. The regulatory record is not an occupancy permit or proof an individual October game can take place at the stadium. Added school-specific visitor NOTICE, campus source, milestone and cautions in `1b63ee55d99e0d70c998016fb4140422a4e4d18c`. Still requires live production check and up-to-date game site confirmation.
