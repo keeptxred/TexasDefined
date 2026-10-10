@@ -58,6 +58,163 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "anton": {
+    "slug": "anton",
+    "theme": {
+      "accentHex": "#9D6C3D",
+      "label": "Original Bulldogs heritage accent; does not reproduce a school crest"
+    },
+    "seo": {
+      "title": "Anton Bulldogs Six-Man Football: 2021 11–1, 2026 Scores & Bulldog Stadium",
+      "description": "Anton Bulldogs six-man football: 15 playoff appearances, strong 2020–21 campaigns, 2026 Class 1A Division II District 3, Bulldogs Stadium and official schedule guidance."
+    },
+    "campus": {
+      "address": "100 Ellwood Boulevard, Anton, TX 79313",
+      "sourceUrl": "https://www.maxpreps.com/tx/anton/anton-bulldogs/football/schedule/",
+      "sourceLabel": "Anton High School campus listing; not a verified stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Anton Bulldogs 2026 published schedule and scores",
+      "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+      "sourceLabel": "DCTF 2026 varsity game ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "At least three DCTF-listed 2026 wins through Sept. 25; another source lists five games, including an Oct. 2 result, requiring final reconciliation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+      "sourceLabel": "DCTF partial 2026 season results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Southland",
+          "site": "Away",
+          "result": "W 50–28"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Loop",
+          "site": "Away",
+          "result": "W 54–28"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Springlake-Earth",
+          "site": "Home"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Welch Dawson",
+          "site": "Away",
+          "result": "W 52–0"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Petersburg",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Cotton Center",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Amherst",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Lazbuddie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Lorenzo",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Hart",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Bulldog Stadium",
+      "address": "Anton, TX — spectator entrance unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+      "sourceLabel": "DCTF Anton Bulldogs stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF reports historical 1,500 seats, not a verified current accessible entry or parking allocation. Anton High's Ellwood Boulevard address is a school campus contact, not automatically a stadium gate; obtain official ticket and visitor information before travel."
+    },
+    "overview": [
+      "The Anton Bulldogs represent Anton High School in the South Plains, competing in six-man football rather than the 11-man classifications that dominate larger Texas communities. Their football program should be distinguished from other Bulldogs schools and from Amherst, a present UIL district opponent with a different championship history.",
+      "The DCTF program archive reports 15 playoff appearances, no state championship-game appearances and zero football state titles. Its records highlight a strong 2020 team at 10–1 followed by 11–1 in 2021, a distinctive short period of sustained success instead of an invented state crown.",
+      "The seasons afterward brought a marked rebuilding period: DCTF reports 1–9 in 2022, 0–4 in its partial 2023 ledger, 4–3 in 2024 and 3–4 in 2025. Texas Prep Football shows different played-game totals for several years, so these should remain source-attributed season snapshots rather than official totals.",
+      "For the 2026–28 cycle the Anton Bulldogs are in Class 1A Division II District 3 along with Amherst, Cotton Center, Hart, Lazbuddie and Lorenzo. The annual district grouping is not proof of an all-time rivalry; public game-history databases list meetings with all five schools but should be treated as incomplete without official season archives.",
+      "The 2026 DCTF schedule lists victories over Southland 50–28, Loop 54–28 and Welch Dawson 52–0. A separate Texas Prep Football record supplies 50–22 over Springlake-Earth and a 50–45 Petersburg result, explaining why DCTF's 3–0 snapshot is incomplete rather than a definitive entire 2026 record.",
+      "Anton plays its published home games at Bulldog Stadium, independently listed with a historical capacity of 1,500. Fans should verify tickets, parking, accessible entrance and venue instructions from Anton ISD and current game announcements, not an unsourced stadium photo or Google map guess."
+    ],
+    "milestones": [
+      {
+        "date": "2020–21",
+        "title": "Back-to-back strong six-man seasons",
+        "body": "DCTF historical records show 10–1 in 2020 and 11–1 in 2021, not a state-title appearance.",
+        "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+        "sourceLabel": "DCTF Anton football season archive"
+      },
+      {
+        "date": "2022–25",
+        "title": "A documented program rebuilding period",
+        "body": "DCTF lists 1–9 (2022), partial 0–4 (2023), 4–3 (2024) and 3–4 (2025); other databases include additional games.",
+        "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+        "sourceLabel": "DCTF individual season records"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Shutout win at Welch Dawson",
+        "body": "DCTF records a 52–0 Anton victory, following wins against Southland and Loop.",
+        "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+        "sourceLabel": "DCTF dated 2026 results"
+      },
+      {
+        "date": "2026–28",
+        "title": "Six-man District 3",
+        "body": "District includes Anton, Amherst, Cotton Center, Hart, Lazbuddie and Lorenzo, making the Oct. 16 Amherst fixture relevant to both programs.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL 1A Division II realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anton won a six-man state football championship?",
+        "answer": "Dave Campbell's Texas Football reports no state titles or title-game appearances, with 15 playoff appearances."
+      },
+      {
+        "question": "What were Anton's strongest recent seasons?",
+        "answer": "DCTF reports Anton at 10–1 in 2020 and 11–1 in 2021, a combined 21 victories across those two seasons."
+      },
+      {
+        "question": "What district is Anton in for 2026?",
+        "answer": "UIL Class 1A Division II District 3, alongside Amherst, Cotton Center, Hart, Lazbuddie and Lorenzo."
+      },
+      {
+        "question": "Why are 2026 online season records different?",
+        "answer": "DCTF lists three completed victories through Sept. 25, whereas Texas Prep Football also includes Springlake-Earth and Petersburg. The page preserves the source distinction rather than pretending both providers checked the same games."
+      },
+      {
+        "question": "Where is Bulldog Stadium?",
+        "answer": "Anton is listed as playing at Bulldog Stadium. Confirm its current gates, tickets and accessibility through Anton ISD, not simply the high-school mailing address."
+      }
+    ]
+  },
   "anthony": {
     "slug": "anthony",
     "theme": {
