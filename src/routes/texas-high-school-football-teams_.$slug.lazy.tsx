@@ -79,6 +79,16 @@ function Page() {
     'arlington-lamar': 'tarrant',
     'arlington-martin': 'tarrant',
     'arlington-seguin': 'tarrant',
+    // Batch 004 independent campus-county associations; venue location may differ.
+    arp: 'smith',
+    aspermont: 'stonewall',
+    athens: 'henderson',
+    atlanta: 'cass',
+    aubrey: 'denton',
+    'austin-vandegrift': 'travis',
+    avalon: 'ellis',
+    axtell: 'mclennan',
+    baird: 'callahan',
   };
   // Link only campuses with documented city location and an existing
   // canonical city guide; a school-district service area is not enough.
