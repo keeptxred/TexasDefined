@@ -30,12 +30,21 @@ async function fillIncome(page, amount) {
     if (updated) return;
     await page.waitForTimeout(400);
   }
-  throw new Error('Income edit did not update the live summary after hydration');
+  const diagnostic = await page.evaluate(() => ({
+    readyState: document.readyState,
+    input: document.querySelector('input[type="number"]')?.value,
+    summary: document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent,
+    scriptUrls: [...document.scripts].map(s => s.src).filter(Boolean).slice(-8),
+    loadedScripts: performance.getEntriesByType('resource').filter(r => /\.js(?:\?|$)/.test(r.name)).length,
+  }));
+  throw new Error('Income edit did not update live totals; hydration diagnostics: ' + JSON.stringify(diagnostic));
 }
 async function check(page, label) {
-  const row = { viewport: label, checks: [], failures: [], pageErrors: [] };
+  const row = { viewport: label, checks: [], failures: [], pageErrors: [], requestFailures: [], httpErrors: [] };
   evidence.push(row);
   page.on('pageerror', error => row.pageErrors.push(error.message));
+  page.on('requestfailed', request => row.requestFailures.push({ url: request.url(), error: request.failure()?.errorText }));
+  page.on('response', response => { if (response.status() >= 400 && response.url().startsWith(origin)) row.httpErrors.push({ status: response.status(), url: response.url() }); });
   const response = await page.goto(url + '?browser_verify=budget-' + label + '-' + Date.now(), {
     waitUntil: 'domcontentloaded', timeout: 55_000,
   });
@@ -146,7 +155,7 @@ try {
   browser = await chromium.launch({ headless: true,
     executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome',
     args: ['--no-sandbox', '--disable-dev-shm-usage'] });
-  for (const [label, width, height, mobile] of [['mobile', 390, 844, true], ['desktop', 1366, 900, false]]) {
+  for (const [label, width, height, mobile] of [['desktop', 1366, 900, false], ['mobile', 390, 844, true]]) {
     const context = await browser.newContext({
       viewport: { width, height }, isMobile: mobile, hasTouch: mobile,
       deviceScaleFactor: 1, acceptDownloads: true,
