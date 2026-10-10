@@ -3,22 +3,8 @@ import { createLazyFileRoute, Link, Outlet, useRouterState } from '@tanstack/rea
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
 
-import { description, sportsComparisonCsvPath, sportsComparisonPath } from './texas-data';
+import { description, nextStops, sportsComparisonCsvPath, sportsComparisonPath } from './texas-data';
 
-const nextStops = [
-  ['Plan a move to Texas', '/moving-to-texas', 'Use the relocation research center for metro guides, city matching, address-level source checks, moving tasks and cost tools.'],
-  ['Texas industries', '/texas-industries', 'Connect statewide economic data with sourced sector guides, regional industry hubs and county pathways.'],
-  ['Find your county', '/browse/counties', 'Explore all 254 counties and find trusted local information for each one.'],
-  ['County population growth', '/texas-data/county-growth', 'Compare Census Vintage 2025 county population change from the 2020 estimates base to July 1, 2025.'],
-  ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS median home values, gross rent, owner costs and household income across Texas counties.'],
-  ['Compare sports venues', sportsComparisonPath, 'Compare 84 verified Texas sports venue guides by location, type, capacity and opening information where available.'],
-  ['Find a city', '/browse/cities', 'Get to know major cities, regional centers and communities across the state.'],
-  ['City-to-county relationships', '/texas-data/city-county-relationships', 'See the current Texas Defined city directory mapped to counties and regions.'],
-  ['Explore Texas', '/explore', 'Find parks, lakes, caverns, road trips and memorable corners of Texas.'],
-  ['Property-tax help', '/decide/property-taxes', 'Estimate a property-tax bill and understand the numbers behind it.'],
-  ['Money & Property', '/decide/financial-tools', 'Compare household costs, homeownership expenses and moving decisions.'],
-  ['Texas resources', '/texas-resources', 'Find official contacts, local information and practical guides.'],
-] as const;
 
 const editorialLabel = (value: string) => value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
 
