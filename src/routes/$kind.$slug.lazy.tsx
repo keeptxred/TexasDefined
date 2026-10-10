@@ -29,9 +29,18 @@ const CountyHighSchoolFootball = lazy(() =>
   })),
 );
 
-// Independently sourced municipal associations, only for Batch 002 programs
-// with confirmed campus city and an existing canonical TexasDefined city guide.
+// Independently sourced municipal associations for verified Batch 002 and Batch 003
+// campuses with an existing canonical TexasDefined city guide.
 const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
+  // Batch 003: current Arlington ISD school directory confirms all six city campuses.
+  arlington: [
+    { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL state title and the Colts football tradition' },
+    { name: 'Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw game-day guide' },
+    { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and sourced 2026 season context' },
+    { name: 'Lamar Vikings', slug: 'arlington-lamar', context: '1990 state-final run and Vikings coaches' },
+    { name: 'Martin Warriors', slug: 'arlington-martin', context: 'Postseason history and Glaspie Field background' },
+    { name: 'Seguin Cougars', slug: 'arlington-seguin', context: 'Separate 5A Division II program and Glaspie Field context' },
+  ],
   houston: [
     { name: 'Alief Elsik Rams', slug: 'alief-elsik', context: 'Houston Alief ISD football, with sourced 2026 program and postseason history.' },
     { name: 'Alief Hastings Fighting Bears', slug: 'alief-hastings', context: 'The Houston program’s verified 1997 state-final appearance and current district context.' },
@@ -130,12 +139,25 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
   },
 };
 
-// Additional independently researched Batch 002 school links. Lists retain
+// Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
-  tarrant: [{ name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' }],
-  collin: [{ name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' }],
+  tarrant: [
+    { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
+    // Batch 003: campuses and Tarrant County independently corroborated by NCES.
+    { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL football state championship and program history' },
+    { name: 'Arlington Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw Stadium fixtures' },
+    { name: 'Arlington Lamar Vikings', slug: 'arlington-lamar', context: '1990 UIL state finalist and modern Vikings football' },
+    { name: 'Arlington Martin Warriors', slug: 'arlington-martin', context: 'Warriors postseason history and Glaspie Field context' },
+    { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and documented Choctaw Stadium fixtures' },
+    { name: 'Seguin Cougars', slug: 'arlington-seguin', context: '5A Division II program and Glaspie Field home-venue history' },
+  ],
+  denton: [{ name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' }],
+  collin: [
+    { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
+    { name: 'Anna Coyotes', slug: 'anna', context: '2023 Class 4A Division I state champion and current Coyotes program' },
+  ],
   brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
   colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
   cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' }],
@@ -144,9 +166,31 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Alvin Yellowjackets', slug: 'alvin', context: 'Alvin High football history and 2026 Class 6A District 19' },
     { name: 'Iowa Colony Pioneers', slug: 'alvin-iowa-colony', context: 'Three consecutive twelve-win seasons from 2023 to 2025' },
     { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
+    { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
   ],
+  // Batch 003 school-specific campus links use NCES school locator county, not stadium address.
+  lamb: [{ name: 'Amherst Bulldogs', slug: 'amherst', context: '1994 and 1995 UIL six-man state champions and conflicting official 1995 score records' }],
+  chambers: [{ name: 'Anahuac Panthers', slug: 'anahuac', context: 'Panthers football history and 2026 classification' }],
+  grimes: [{ name: 'Anderson-Shiro Fighting Owls', slug: 'anderson-shiro', context: 'School-specific recent postseason history and 2026 results' }],
+  andrews: [{ name: 'Andrews Mustangs', slug: 'andrews', context: 'Mustangs program history and 2026 coaching transition' }],
+  jones: [{ name: 'Anson Tigers', slug: 'anson', context: 'Anson program history and current UIL district' }],
+  'el-paso': [{ name: 'Anthony Wildcats', slug: 'anthony', context: 'Anthony Texas varsity history and 2026 UIL football context' }],
+  hockley: [{ name: 'Anton Bulldogs', slug: 'anton', context: 'Anton School football history and modern UIL six-man alignment' }],
+  trinity: [{ name: 'Apple Springs Eagles', slug: 'apple-springs', context: 'Six-man Eagles history and UIL classification-source clarification' }],
+  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }],
+  'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
+  archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
   wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }],
-  randall: [{ name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' }],
+  randall: [
+    { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
+    { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
+  ],
+  potter: [
+    { name: 'Amarillo Highland Park Hornets', slug: 'amarillo-highland-park', context: 'Potter County Hornets campus, 2026 UIL football alignment and school-specific program history' },
+    { name: 'Palo Duro Dons', slug: 'amarillo-palo-duro', context: 'Dons football history, modern revival and UIL District 2' },
+    { name: 'River Road Wildcats', slug: 'amarillo-river-road', context: 'Wildcats football history and current 3A Division II context' },
+    { name: 'Tascosa Rebels', slug: 'amarillo-tascosa', context: 'Rebels program history and documented cross-city series' },
+  ],
 };
 
 const siteUrl = 'https://texasdefined.com';

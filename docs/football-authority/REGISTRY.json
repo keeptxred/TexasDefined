@@ -12,76 +12,49 @@
     "total": 1292
   },
   "batch": {
-    "number": 2,
+    "number": 3,
     "slugs": [
-      "abernathy",
-      "abilene",
-      "abilene-cooper",
-      "abilene-texas-leadership",
-      "abilene-wylie",
-      "ackerly-sands",
-      "agua-dulce",
-      "alba-golden",
-      "albany",
-      "aledo",
-      "alice",
-      "alief-elsik",
-      "alief-hastings",
-      "alief-taylor",
-      "all-saints-fort-worth",
-      "allen",
-      "alpine",
-      "altair-rice",
-      "alto",
-      "alvarado",
-      "alvin",
-      "alvin-iowa-colony",
-      "alvin-shadow-creek",
-      "alvord",
-      "amarillo"
+      "amarillo-caprock",
+      "amarillo-highland-park",
+      "amarillo-palo-duro",
+      "amarillo-river-road",
+      "amarillo-tascosa",
+      "amherst",
+      "anahuac",
+      "anderson-shiro",
+      "andrews",
+      "angleton",
+      "anna",
+      "anson",
+      "anthony",
+      "anton",
+      "apple-springs",
+      "aquilla",
+      "aransas-pass",
+      "archer-city",
+      "argyle",
+      "arlington",
+      "arlington-bowie",
+      "arlington-houston",
+      "arlington-lamar",
+      "arlington-martin",
+      "arlington-seguin"
     ],
-    "state": "VERIFIED_BATCH_002_COMPLETE",
+    "state": "ALL_25_IMPLEMENTED_ACCEPTANCE_PENDING",
     "dateAssigned": "2026-10-09",
-    "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
-    "previousBatchNumber": 1,
-    "individuallyVerified": 25,
-    "partiallyCompleted": 0,
-    "remainingAssigned": 0,
-    "assignmentBranch": "football-authority-batch-002-25-20261009",
-    "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
+    "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
+    "individuallyVerified": 0,
+    "partiallyCompleted": 25,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-003-20261009",
+    "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "schoolExecutionConcurrency": 1,
-    "notes": "Batch 002 COMPLETED: all 25 assigned profiles implemented, protected-merged, deployed and verified in real production Chrome. Run 37999320417 tested actual deployed Worker 320cca41, 90/90 browser page checks (50 schools, 36 county, 4 city), 25/25 live sitemap URLs, no runtime errors, 90 screenshot contact sheets reviewed, evidence artifact 11648543332. Production VERIFIED does not attest photo licensing, unverified historical/coaching facts, or official game-day accessibility/ticketing; see each school's retained outstanding follow-ups. No Batch 003.",
     "currentSchool": null,
     "nextSchool": null,
     "implementedOnBranch": 25,
-    "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
-    "parentBatchPr": 4409,
     "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "mergedPr": 4443,
-    "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
-    "deploymentRunId": 37967100680,
-    "deploymentStatus": "SUCCESS",
-    "productionAcceptancePr": 4451,
-    "browserAcceptance": {
-      "runId": 37999320417,
-      "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
-      "deploymentRunId": 37998837557,
-      "artifactId": 11648543332,
-      "checkedAt": "2026-10-09T22:32:37.930Z",
-      "schoolViewportPassed": 50,
-      "countyViewportPassed": 36,
-      "cityViewportPassed": 4,
-      "passedChecks": 90,
-      "failed": 0,
-      "sitemapPassed": 25,
-      "screenshotCount": 90,
-      "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS"
-    },
-    "verifiedAt": "2026-10-09T22:32:37.930Z",
-    "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
-    "supplementalOpen": []
+    "remainingToVerify": 25,
+    "notes": "All 25 assigned schools remain IMPLEMENTED, not MERGED/DEPLOYED/VERIFIED. NCES/TEA campus county sources and relevant inbound county-page links are now saved for all 25 on PR #4506; six Arlington programs additionally have city-page inbound links. Local links are source-code changes only, not live verified. Remaining: current main integration, complete factual/rights/venue research, protected CI and merge, deploy, and individual Chrome acceptance. No Batch 004."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -2835,8 +2808,43 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-caprock",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-caprock.md",
+      "implementationCommits": [
+        "b58919a789fdbff4d7ca266cc601acc42c40563e",
+        "3197d4296020c7450275f24595e79310318f09b3"
+      ],
+      "evidenceSources": [
+        "https://www.amaisd.org/chs",
+        "https://www.amaisd.org/133763_3",
+        "https://www.amaisd.org/athletics",
+        "https://www.texasfootball.com/team/amarillo-caprock-longhorns",
+        "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/history/",
+        "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf"
+      ],
+      "imageStatus": "Original textual/milestone visual; school photography rights unresolved",
+      "seoStatus": "Individual editorial SEO authored, CI and live SEO not yet checked",
+      "actualProductionVerified": false,
+      "productionVerification": null,
+      "outstanding": [
+        "Official school colors",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Licensed authentic school image",
+        "Official game-specific stadium entrance/ADA/parking",
+        "CI/merge/deployment/live browser QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000149",
+      "inboundLinks": [
+        "/county/randall"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-highland-park",
@@ -2849,8 +2857,39 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-highland-park",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-highland-park.md",
+      "implementationCommits": [
+        "9c3076701e4883a010f19c80a47cffdca210edfe",
+        "f9b49d91a61a00ee9b3303cb0078b711649a761b"
+      ],
+      "evidenceSources": [
+        "https://www.hpisd.net/",
+        "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf"
+      ],
+      "imageStatus": "Original sourced milestones; school photo license not obtained",
+      "seoStatus": "Unique SEO authored but CI and production acceptance pending",
+      "actualProductionVerified": false,
+      "productionVerification": null,
+      "outstanding": [
+        "Verify official colors and current coach",
+        "Confirm campus county",
+        "Licensed stadium photo",
+        "Stadium ticket and ADA access",
+        "CI merge deploy live acceptance"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=483556006160",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-palo-duro",
@@ -2863,8 +2902,39 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-palo-duro",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-palo-duro.md",
+      "implementationCommits": [
+        "dde0511383f96056dd85dd9a1f880c514aebc2a1",
+        "cc16056b8e63fbc4e5488fe92024e00e4087baac"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "https://www.maxpreps.com/tx/amarillo/palo-duro-dons/football/staff/",
+        "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "https://www.amaisd.org/133763_3"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "School-specific authored; production untested",
+      "imageStatus": "Original milestone cards; photography rights unresolved",
+      "outstanding": [
+        "Official colors and primary head coach source",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Image license and photo",
+        "Ticket ADA parking and game-day gate",
+        "CI merge deploy and actual browser verification"
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=2DCDAA6&PrivSchool=1&School=1&State=TX&city=Amarillo&miles=15&search=1&zipcode=",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-river-road",
@@ -2877,8 +2947,40 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-river-road",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-river-road.md",
+      "implementationCommits": [
+        "a4b9cbd0fa654c4e0424508c3a0bf3d6f8814578",
+        "cf6000ea5998fc45aa685082de775a405e6a1d3a"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+        "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/history/",
+        "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "School-specific SEO authored, CI/production not tested",
+      "imageStatus": "Source-labelled original milestones, photo license outstanding",
+      "outstanding": [
+        "Gruver 2026 conflicting reported result",
+        "Official coach/colors and certified campus county",
+        "Reciprocal local links",
+        "Licensed photography",
+        "Ticket/ADA/parking details",
+        "CI merge deploy Chrome acceptance"
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=C147AF41&College=1&Library=1&PrivSchool=1&School=1&State=&city=&itemname=&miles=5&search=1&sortby=name&zipcode=79124",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-tascosa",
@@ -2891,8 +2993,42 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-tascosa",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-tascosa.md",
+      "implementationCommits": [
+        "027fb20731acefd46d80d0d854363143f37e0e3a",
+        "12c8f45d56a19f55baac2dc8fe1b7e293ce6ee65"
+      ],
+      "evidenceSources": [
+        "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
+        "https://txprepfootball.com/schools/tascosa-rebels/",
+        "https://www.sandiesfootball.com/history",
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "https://www.amaisd.org/133763_3"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "Individual editorial authored but CI/live QA pending",
+      "imageStatus": "Original historical milestone cards; no unlicensed images used",
+      "outstanding": [
+        "Frenship 2026 duplicated scores require reconciliation",
+        "Official current coach, school colors, NCES county",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Photography usage rights",
+        "Stadium and ticket ADA parking details",
+        "CI/merge/deploy/live browser acceptance"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000181",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amherst",
@@ -2905,8 +3041,43 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amherst",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amherst.md",
+      "implementationCommits": [
+        "a103006145e7f87ec305b39e10f276a530135110",
+        "2213a26ae7be0ceb28682f2ba1b647df1e58f675",
+        "f2ed7eaafe06ca8da80b9087f29531873ced5591"
+      ],
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/94at_bfb.html",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
+        "https://www.amherstisd.com/school-information",
+        "https://www.texasfootball.com/team/amherst-bulldogs",
+        "https://www.maxpreps.com/tx/amherst/amherst-bulldogs/football/history/",
+        "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "Unique editorial metadata authored, CI/live validation pending",
+      "imageStatus": "UIL-sourced historical milestone cards, no unlicensed school photo",
+      "outstanding": [
+        "Conflicting 2023–25 independent win-loss records",
+        "Official 2026 schedule and coaching status",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Rights-cleared authentic photography",
+        "Exact stadium entrance ADA tickets and official colors",
+        "CI protected merge deployment production Chrome"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schooLSearch/school_list.asp?ID=480930000389&SchoolPageNum=14&state=48",
+      "inboundLinks": [
+        "/county/lamb"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anahuac",
@@ -2919,8 +3090,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anahuac",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anahuac.md",
+      "implementationCommits": [
+        "963a701c8822ae7f41349594ebd80dc3c9673efb",
+        "e5d2c13f0e37d223d1e23ee780e9a8c70451af9b"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/anahuac-panthers",
+        "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Official head coach, colors, venue/accessibility and game-specific ticketing",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Rights-cleared authentic photo",
+        "CI, merge, deploy and real browser QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480819000190",
+      "inboundLinks": [
+        "/county/chambers"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anderson-shiro",
@@ -2933,8 +3130,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anderson-shiro",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anderson-shiro.md",
+      "implementationCommits": [
+        "62b8f4af05a1cce756de26efdc752b8d9a7e3740",
+        "657036b59245a97401d38614e8f2ade003ae6b08"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+        "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
+        "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/24-25/schedule/",
+        "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Official coaching and colors",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Photo usage rights",
+        "Owl Stadium game-day access",
+        "CI protected merge deployed live Chrome QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480823000193",
+      "inboundLinks": [
+        "/county/grimes"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:andrews",
@@ -2947,8 +3173,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/andrews",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/andrews.md",
+      "implementationCommits": [
+        "31f3eef659b6a11342ec1c22ce90e760140cf357",
+        "ffaa6c08301c8d134f07d0f59657769f2ac38f6c"
+      ],
+      "evidenceSources": [
+        "https://www.andrews.esc18.net/departments/athletics/football",
+        "https://www.texasfootball.com/team/andrews-mustangs",
+        "https://www.maxpreps.com/tx/andrews/andrews-mustangs/football/schedule/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Official colors and photography licensing",
+        "Stadium visitor entrance/ADA/tickets",
+        "UIL district document and current schedule",
+        "CI protected merge production Chrome"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schooLSearch/school_list.asp?ID=480930000389&SchoolPageNum=16&state=48",
+      "inboundLinks": [
+        "/county/andrews"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:angleton",
@@ -2961,8 +3215,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/angleton",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/angleton.md",
+      "implementationCommits": [
+        "039fdf3f5d78f379fbc8fffddb5103e548f5db8e",
+        "98f9ab05edb988485917884d59fb93b8e8d0265e"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+        "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/history/",
+        "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/staff/",
+        "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/24-25/schedule/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "UIL historical single state-final verification",
+        "Conflicting 2025 record",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Image license and stadium ADA/tickets",
+        "CI deploy and actual Chrome QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480831000200",
+      "inboundLinks": [
+        "/county/brazoria"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anna",
@@ -2975,8 +3258,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anna",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anna.md",
+      "implementationCommits": [
+        "a058676746738c8be07845d70fa770a4db856910",
+        "2fb46aaf7f49b8382ba7a407b10f75478eec2f00"
+      ],
+      "evidenceSources": [
+        "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+        "https://www.maxpreps.com/tx/anna/anna-coyotes/football/23-24/schedule/",
+        "https://www.maxpreps.com/tx/anna/anna-coyotes/football/history/",
+        "https://www.annaisd.org/leadership/directors"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Confirm modern UIL district member list",
+        "Official stadium and accessible arrival",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Licensed original football photography",
+        "Production CI merge deploy Chrome tests"
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=FFE8C0A8&School=1&itemname=South&miles=20&search=1&sortby=name&zipcode=Res++",
+      "inboundLinks": [
+        "/county/collin"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anson",
@@ -2989,8 +3301,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anson",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anson.md",
+      "implementationCommits": [
+        "59ddea2b894d29aab954358e5e9d3d0b69c06627",
+        "25df575a170a96205eb3120c5a991380c20727d5"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
+        "https://www.maxpreps.com/tx/anson/anson-tigers/football/history/",
+        "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+        "https://www.ansontigers.com/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Confirm 2026 coach first party",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "School image license",
+        "Ticket/ADA gate",
+        "CI protected merge deployment and browser QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_list.asp?County=Jones+County&Search=1&State=48",
+      "inboundLinks": [
+        "/county/jones"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anthony",
@@ -3003,8 +3344,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anthony",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anthony.md",
+      "implementationCommits": [
+        "5a01cb079be15d5deee060322ce6023d973eac6d",
+        "9b625354dc635db35730fda6c9825aab44df5b1e"
+      ],
+      "evidenceSources": [
+        "https://www.anthonyisd.net/football",
+        "https://www.texasfootball.com/team/anthony-wildcats",
+        "https://www.maxpreps.com/tx/anthony/anthony-wildcats/football/history/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Confirm UIL official 2026 district",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Licensed team photo",
+        "Current stadium ADA/tickets/parking",
+        "Protected CI merge deployment real Chrome QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_list.asp?County=el+paso&ID=484668006994&Search=1&State=48",
+      "inboundLinks": [
+        "/county/el-paso"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anton",
@@ -3017,8 +3386,37 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anton",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anton.md",
+      "implementationCommits": [
+        "949786a361ed80d671b71b1dc725ec9555d5c5e9",
+        "4ddcd2580aa85feaa9124350907e1047cd269f84"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/anton-bulldogs",
+        "https://txprepfootball.com/schools/anton-bulldogs/",
+        "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Official head coach and colors",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Conflicting 2026/older scores",
+        "Licensed authentic imagery",
+        "Stadium ticket/ADA/gate",
+        "CI protected merge deploy browser QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480846000214",
+      "inboundLinks": [
+        "/county/hockley"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:apple-springs",
@@ -3031,8 +3429,38 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/apple-springs",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/apple-springs.md",
+      "implementationCommits": [
+        "c217d24b3e66d75d4e29fda05d06d9a7515a6da6",
+        "8cd93d973c80b70f70beeb215b22269e36fb26f3"
+      ],
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "https://www.texasfootball.com/team/apple-springs-eagles",
+        "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/history/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "UIL DII versus DCTF DI source conflict",
+        "Current coach school confirmation",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Licensed imagery",
+        "2026 result completeness",
+        "Stadium gate ADA tickets",
+        "CI merge deployed browser acceptance"
+      ],
+      "campusCountySource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&dds_report=D9&id=228905001&lev=C&prgopt=reports%2Facct%2Fdistinctions.sas",
+      "inboundLinks": [
+        "/county/trinity"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:aquilla",
@@ -3045,8 +3473,36 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aquilla",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/aquilla.md",
+      "implementationCommits": [
+        "adf7d4538c3f302d70aa0a7485e6fc8e386a9aa0",
+        "9ec4a965855d1f21003e3789f2102c05b8d92c58"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/aquilla-cougars",
+        "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+        "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Reconcile 2026 four vs six game reporting",
+        "Official coach/colors and stadium policy",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Licensed school photography",
+        "CI protected merge deploy real browser checks"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480852000218",
+      "inboundLinks": [
+        "/county/hill"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:aransas-pass",
@@ -3059,8 +3515,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aransas-pass",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/aransas-pass.md",
+      "implementationCommits": [
+        "5187ec441e6d647b00e750b30a426c0ce67c331e",
+        "2c956b6439add272f33aef63219365e915632554"
+      ],
+      "evidenceSources": [
+        "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+        "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/history/",
+        "https://txprepfootball.com/schools/aransas-pass-panthers/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Current 2026 coach first-party confirmation",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Official stadium/ticketing/ADA",
+        "Licensed photo rights",
+        "Primary UIL district roster check",
+        "Protected CI merge deploy browser QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480858000224",
+      "inboundLinks": [
+        "/county/san-patricio"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:archer-city",
@@ -3073,8 +3558,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/archer-city",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/archer-city.md",
+      "implementationCommits": [
+        "c3f433331e041417062ed25ba2ce62ce7f833be5",
+        "0c028f474bf8154475bb3896aca0cab8b971141a"
+      ],
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://wwwprod.uiltexas.org/football/all-time-appearances",
+        "https://www.texasfootball.com/hof-uil-state-champs/",
+        "https://www.archercityisd.net/47023_1"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Conflicting UIL state title index requires official clarification",
+        "Current coaching/colors",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Licensed imagery",
+        "Stadium accessible entrance ticketing",
+        "CI merge deploy live Chrome verification"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_list.asp?County=Archer+County&Search=1&State=48",
+      "inboundLinks": [
+        "/county/archer"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:argyle",
@@ -3087,8 +3602,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/argyle",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/argyle.md",
+      "implementationCommits": [
+        "d72bfb4a2aa2e2570dcb78ca9cb364cb435c5d14",
+        "7ea30fc4e62604d53c1b164167ac18b05111a088"
+      ],
+      "evidenceSources": [
+        "https://www.argyleeaglessports.com/state-championships",
+        "https://www.argyleeaglessports.com/football-records",
+        "https://www.uiltexas.org/100/football",
+        "https://www.uiltexas.org/football/archives/P46",
+        "https://www.argyleisd.com/all-news/details/~board/district-news/post/uil-announces-relignment-reclassification-for-2026-2028"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "2026 head coach confirmation",
+        "2026 match results and exact stadium visitor gates",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Photo licensing",
+        "Protected CI merge deployed live Chrome QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480867008769",
+      "inboundLinks": [
+        "/county/denton"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington",
@@ -3101,8 +3646,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington.md",
+      "implementationCommits": [
+        "078ef8ff910947cdfe3c6e3ea9e3562664be7fdc",
+        "618f81869b2edeefd34432966d1055db7da9ad50"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/arlington-high-school/about/history/",
+        "https://www.aisd.net/arlington-high-school/campus-staff/scott-peach/",
+        "https://wwwprod.uiltexas.org/football/all-time-appearances",
+        "https://www.maxpreps.com/tx/arlington/arlington-colts/football/history/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Historical 1951 final exact score primary evidence",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Current UIL district and team stadium gate",
+        "Photo rights and accessibility",
+        "CI, protected merge, Cloudflare deployment and live Chrome"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870000232",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-bowie",
@@ -3115,8 +3690,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington-bowie",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington-bowie.md",
+      "implementationCommits": [
+        "93055ef50d09efa29e197a9b30b3b3b54b624b5d",
+        "e8d63f61a8d51205846dbf169e6a189c1d220c7e"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/bowie-high-school/about/",
+        "https://www.aisd.net/bowie-high-school/athletics/",
+        "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/24-25/schedule/",
+        "https://www.texasfootball.com/team/default.aspx?url=arlington-bowie-volunteers"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Official 2026 results after September",
+        "Authentic photo rights",
+        "Wilemon Field tickets ADA and gate",
+        "CI protected merge deployed Chrome"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870021493",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-houston",
@@ -3129,8 +3734,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington-houston",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington-houston.md",
+      "implementationCommits": [
+        "86b24de2e4c65c8446f2368ce2257d87ef51acb5",
+        "0055f2f8006811002742e5040b6c9906d29dd6f3"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/sam-houston-high-school/about/",
+        "https://www.aisd.net/sam-houston-high-school/athletics/",
+        "https://www.texasfootball.com/team/arlington-sam-houston-texans"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Official colors/team photo rights",
+        "Wilemon gates ticket accessibility",
+        "CI protected merge and independent live QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=8B8DDFB2&College=1&Library=1&PrivSchool=1&School=1&State=&city=&itemname=&miles=5&search=1&sortby=name&zipcode=76015",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-lamar",
@@ -3143,8 +3776,37 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington-lamar",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington-lamar.md",
+      "implementationCommits": [
+        "5b28cc4e28efefbb654477519b7afccbc4f1cc0b",
+        "e562b26fc7d8f779bb72954ed0910745b84c4524"
+      ],
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/90at_bfb.html",
+        "https://www.aisd.net/lamar-high-school/about/",
+        "https://www.aisd.net/lamar-high-school/athletics/",
+        "https://www.texasfootball.com/team/arlington-lamar-vikings"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Copyright-cleared real school imagery",
+        "Cravens Field game-day accessibility/tickets",
+        "CI merge deploy real Chrome certification"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870000253",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-martin",
@@ -3157,8 +3819,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington-martin",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington-martin.md",
+      "implementationCommits": [
+        "85aecf8f480d4c57c967a11b84ea8edb7cdf82a5",
+        "d1a1506511ac97103ce66bc382fce093e072539f",
+        "22e994291940aab1f5fadd0a0daf4367175c286a"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/martin-high-school/campus-staff/chad-rives/",
+        "https://www.aisd.net/martin-high-school/wp-content/files/sites/27/2020/07/Mascot-Letter-Summer-2020.pdf",
+        "https://www.texasfootball.com/team/arlington-martin-warriors",
+        "https://www.aisd.net/district/departments/administration/athletics"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Actual stadium site, accessibility and parking",
+        "Rights-cleared imagery",
+        "CI protected merge real Chrome QA"
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870005643",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-seguin",
@@ -3171,8 +3863,38 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington-seguin",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 3,
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington-seguin.md",
+      "implementationCommits": [
+        "2079236995223cbe36cd92e75ed42b200940e46a",
+        "67d32513cfdc92032291625bc0b53b2788d83693"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/seguin-high-school/about/",
+        "https://www.aisd.net/seguin-high-school/athletics/",
+        "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "https://www.aisd.net/district/departments/administration/athletics"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "UIL primary district alignment confirm",
+        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
+        "Image licensing",
+        "Stadium tickets/ADA/parking",
+        "CI protected merge deploy live browser certification"
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=CB88C673&PrivSchool=1&School=1&State=&city=&itemname=&miles=20&search=1&sortby=name&zipcode=76015",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arp",

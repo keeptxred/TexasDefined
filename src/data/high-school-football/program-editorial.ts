@@ -58,6 +58,3759 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington-seguin": {
+    "slug": "arlington-seguin",
+    "theme": {
+      "accentHex": "#509DCA",
+      "label": "Arlington Seguin's official Carolina blue editorial color; no school logo copied"
+    },
+    "seo": {
+      "title": "Arlington Seguin Cougars Football: 2026, Coach Gordon & Glaspie Field",
+      "description": "Arlington Juan Seguin Cougars football guide: school-specific 2024–25 playoff seasons, William Gordon, 2026 5A Division II games, identity and official ticket resources."
+    },
+    "coach": {
+      "name": "William Gordon",
+      "title": "Head football coach and athletic coordinator in official Arlington Seguin athletics directory",
+      "sourceUrl": "https://www.aisd.net/seguin-high-school/athletics/",
+      "sourceLabel": "Official Seguin High athletics staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "7001 Silo Road, Arlington, TX 76002",
+      "phone": "682-867-6700",
+      "sourceUrl": "https://www.aisd.net/seguin-high-school/about/",
+      "sourceLabel": "Official Juan Seguin High School campus, colors and traditions",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026–27 Arlington ISD Seguin football schedule and official GoFan tickets",
+      "sourceUrl": "https://www.aisd.net/district/departments/administration/athletics",
+      "sourceLabel": "District official athletics schedule and GoFan ticket policies",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 through five published completed matches on September 25, 2026; October 8 final not yet verified in this source snapshot",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+      "sourceLabel": "DCTF 2026 Seguin scheduled and completed football matches",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Terrell",
+          "site": "Home",
+          "result": "L 41–49"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Lancaster",
+          "site": "Away",
+          "result": "L 7–30"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Chisholm Trail",
+          "site": "Home",
+          "result": "L 42–50"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Ennis",
+          "site": "Away",
+          "district": true,
+          "result": "L 20–42"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Joshua",
+          "site": "Home",
+          "district": true,
+          "result": "W 38–36"
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Mansfield Timberview",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Everman",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Corsicana",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Burleson",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Midlothian Heritage",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Michael Glaspie Field (AISD Martin/Seguin competition venue)",
+      "address": "At Martin High School, Arlington, TX — confirm specific event venue and spectator gate",
+      "sourceUrl": "https://www.aisd.net/bond2019/glaspie-field/",
+      "sourceLabel": "Arlington ISD official Glaspie Field facility project",
+      "verifiedAt": "2026-10-09",
+      "note": "Arlington ISD confirms Glaspie Field at Martin High serves Martin and Seguin football; DCTF's older Wilemon Field listing cannot establish current venue for every event. Match-specific venue, spectator entrance, current ADA accommodations, parking and GoFan tickets require official Arlington ISD event instructions."
+    },
+    "overview": [
+      "Arlington's Juan Seguin High School Cougars are a separate Class 5A Division II team from the larger Arlington ISD Class 6A schools. The school's first-party identity is Cougar, with Carolina blue, black and white colors, and its campus at 7001 Silo Road. It is not Seguin High School in Guadalupe County.",
+      "The school's motto is 'Where Excellence is the Standard,' and its official school alma mater names Juan Seguin. These community features make the page distinct from generic Cougars listings and from unrelated Texas schools named Seguin.",
+      "The Arlington Seguin athletics directory names William Gordon as head football coach and athletic coordinator. This first-party record should take precedence over stale external coach or roster lists.",
+      "DCTF's historical football records list nine playoff appearances and no football state title-game appearances or championships. The team completed 7–4 seasons in both 2024 and 2025, following 5–4 in 2023 and 3–7 in 2022, an improvement worth describing without creating a false championship history.",
+      "The UIL's 2026–28 alignment places Arlington Seguin in Class 5A Division II District 7. Its current district includes Ennis, Joshua, Mansfield Timberview, Everman, Corsicana, Burleson and Midlothian Heritage, unlike the Arlington Colts/Bowie/Lamar/Martin/Sam Houston 6A district.",
+      "Five scored games in the public 2026 snapshot begin with losses to Terrell, Lancaster, Chisholm Trail and Ennis, before a narrow 38–36 District 7 win against Joshua on September 25. That makes a 1–4 snapshot; the October 8 Timberview final had not been independently corroborated when the source was checked.",
+      "The current team directory lists Wilemon Field as an associated stadium, but that is not proof that every 2026 game takes place there, nor does an 8,500 historical capacity specify an accessible gate, parking or ticket fees. Arlington ISD's 2026 official ticket policy uses GoFan; use the actual event listing."
+    ],
+    "milestones": [
+      {
+        "date": "2022–23",
+        "title": "Program building years",
+        "body": "DCTF records 3–7 in 2022 and 5–4 in 2023, before the next two winning seasons.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "DCTF historical seasons"
+      },
+      {
+        "date": "2024",
+        "title": "Seven victories and postseason football",
+        "body": "Arlington Seguin posted a 7–4 record, as its historical team records show.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "DCTF 2024 schedule history"
+      },
+      {
+        "date": "2025",
+        "title": "A second seven-win season",
+        "body": "The Cougars again finished 7–4, rather than a football state final.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "DCTF 2025 completed season"
+      },
+      {
+        "date": "2026",
+        "title": "Coach William Gordon and Cougar identity",
+        "body": "Arlington Seguin High names William Gordon head coach and identifies Carolina blue, black and white as school colors.",
+        "sourceUrl": "https://www.aisd.net/seguin-high-school/athletics/",
+        "sourceLabel": "Official Seguin athletics coach directory"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Two-point District 7 victory",
+        "body": "The team's first reported 2026 victory was a 38–36 win over Joshua after four opening losses.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "2026 DCTF score ledger"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Arlington Seguin the same as Seguin High near San Antonio?",
+        "answer": "No. This is Arlington ISD's Juan Seguin High Cougars in Arlington, Tarrant County. The Guadalupe County high school has a distinct program."
+      },
+      {
+        "question": "What are the Cougars' school colors?",
+        "answer": "The official Arlington Seguin High website lists Carolina blue, black and white."
+      },
+      {
+        "question": "Who is the 2026 Arlington Seguin football coach?",
+        "answer": "Arlington ISD's current Seguin High athletics roster lists William Gordon as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Has Arlington Seguin won a UIL football state championship?",
+        "answer": "DCTF records nine playoff appearances, zero title-game appearances and zero football state titles."
+      },
+      {
+        "question": "What district does Arlington Seguin play in for 2026?",
+        "answer": "UIL Class 5A Division II District 7, a different league from Arlington's 6A teams."
+      },
+      {
+        "question": "Where do I check football tickets and accessible arrival?",
+        "answer": "Arlington ISD's official athletics site links schedules and GoFan ticketing; the specific event page must confirm actual stadium, parking and accessible gates."
+      }
+    ]
+  },
+  "arlington-martin": {
+    "slug": "arlington-martin",
+    "theme": {
+      "accentHex": "#A22D32",
+      "label": "Original Martin red/black/silver editorial palette, no use of school trademarked marks"
+    },
+    "seo": {
+      "title": "Arlington Martin Warriors Football: 2026 Start, Chad Rives & History",
+      "description": "Arlington Martin Warriors football history: 2026 5–0 start, coach Chad Rives, 18-year playoff streak, 2024 rebuild, school identity and official 2026 tickets."
+    },
+    "coach": {
+      "name": "Chad Rives",
+      "title": "Head football coach and athletics coordinator according to official Martin High staff",
+      "sourceUrl": "https://www.aisd.net/martin-high-school/campus-staff/chad-rives/",
+      "sourceLabel": "Official Arlington Martin head football coach profile",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "4501 W. Pleasant Ridge Road, Arlington, TX 76016",
+      "phone": "682-867-8600",
+      "sourceUrl": "https://www.aisd.net/martin-high-school/athletics/",
+      "sourceLabel": "Arlington Martin official athletics contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Arlington ISD 2026–27 Martin varsity football schedule and tickets",
+      "sourceUrl": "https://www.aisd.net/district/departments/administration/athletics",
+      "sourceLabel": "Arlington ISD official schedules and GoFan ticket policy",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "5–0 in five verified DCTF completed games through September 25, 2026; Oct. 8 result not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+      "sourceLabel": "DCTF posted 2026 Martin scored fixtures",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Mansfield",
+          "site": "Away",
+          "result": "W 38–35"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Flower Mound Marcus",
+          "site": "Home",
+          "result": "W 22–17"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Crowley",
+          "site": "Home",
+          "result": "W 38–21"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Weatherford",
+          "site": "Home",
+          "district": true,
+          "result": "W 60–17"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Aledo",
+          "site": "Away",
+          "district": true,
+          "result": "W 35–21"
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Arlington Sam Houston",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Arlington Bowie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Arlington Lamar",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Arlington High",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Granbury",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Glaspie Field (historic directory listing)",
+      "address": "Arlington, Texas — use event-specific Arlington ISD match venue",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+      "sourceLabel": "DCTF listed Martin football stadium",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF renders 'capacity 10', an obviously incomplete or implausible stadium figure, so TexasDefined deliberately withholds any capacity claim. Arlington ISD currently sells tickets through GoFan; official specific venue, ADA entry, parking and gates must be checked per event."
+    },
+    "overview": [
+      "The Arlington Martin Warriors are a distinct Arlington ISD Class 6A football program. School leadership confirmed that the Warriors name remains, while the school retired its former Native American headdress imagery in 2020; TexasDefined does not reproduce the discontinued image, school seal or 'Rockin’ M' trademark.",
+      "Martin had built an 18-year football playoff streak and five-year district-title streak before a difficult 3–7 finish in 2024 broke both, as documented in Dave Campbell's 2025 preseason research. The team later finished 4–6 in 2025. Historical success and a rebuilding year are both part of the Warriors story.",
+      "For 2026, Martin began with five victories over Mansfield, Flower Mound Marcus, Crowley, Weatherford and Aledo, including a 60–17 district win over Weatherford and 35–21 road win at Aledo. This source-dated 5–0 start is not a final 2026 season outcome.",
+      "Martin High's official athletics roster names Chad Rives as head football coach and athletics coordinator. His team began 2026 after an 18-year playoff-run interruption, a specific school context that generic Texas football templates omit.",
+      "DCTF records 21 program playoff appearances but no UIL state football final or state championship. A long playoff streak is an impressive accomplishment, but it does not justify inventing a football state title.",
+      "The current 2026 District 3-6A schedule includes Arlington Sam Houston, Bowie, Lamar, Arlington High, Granbury, Aledo and Weatherford. These are real current opponents, not automatically established historical rivalry series.",
+      "Arlington ISD's official 2026–27 ticketing page says athletics tickets are offered online through GoFan and generally go on sale Sunday at 8 a.m. before an event. That rule is more useful than an unreliable stadium capacity number or an assumption that school-campus parking is the stadium gate."
+    ],
+    "milestones": [
+      {
+        "date": "2020",
+        "title": "Warriors preserve name but retire older headdress image",
+        "body": "The school announced its imagery transition while continuing its Warriors name and red/black/silver school identity.",
+        "sourceUrl": "https://www.aisd.net/martin-high-school/wp-content/files/sites/27/2020/07/Mascot-Letter-Summer-2020.pdf",
+        "sourceLabel": "Arlington Martin principal July 1, 2020 official school mascot letter"
+      },
+      {
+        "date": "2023",
+        "title": "Eight wins before the streak ended",
+        "body": "DCTF season records give Martin an 8–4 finish in 2023.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+        "sourceLabel": "DCTF Martin varsity archive"
+      },
+      {
+        "date": "2024",
+        "title": "Eighteen-year playoff streak ends",
+        "body": "DCTF reports the 3–7 campaign broke an 18-year playoff streak and five-year district title streak.",
+        "sourceUrl": "https://www.texasfootball.com/article/2025/08/11/stock-up-10-texas-high-school-football-teams-projected-to-make-the-biggest-leap-in-2025",
+        "sourceLabel": "DCTF preseason Martin 2024 retrospective"
+      },
+      {
+        "date": "2026",
+        "title": "Chad Rives remains on official staff",
+        "body": "Martin High identifies Chad Rives as head football coach and athletic coordinator.",
+        "sourceUrl": "https://www.aisd.net/martin-high-school/campus-staff/chad-rives/",
+        "sourceLabel": "Official Martin coaching profile"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "5–0 start includes Aledo road win",
+        "body": "Martin's listed fifth victory was 35–21 at Aledo, after the 60–17 Weatherford district win.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
+        "sourceLabel": "2026 game ledger"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who coaches the Martin Warriors in 2026?",
+        "answer": "Arlington Martin's official school coaching page lists Chad Rives as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Did Martin win a UIL football state title?",
+        "answer": "DCTF records 21 Martin football playoff appearances and no state football championship or final."
+      },
+      {
+        "question": "What changed about Martin's school mascot?",
+        "answer": "The school retained the Warriors nickname but retired Native American headdress imagery in 2020; TexasDefined does not reproduce discontinued marks."
+      },
+      {
+        "question": "What happened to Martin's playoff streak in 2024?",
+        "answer": "A 3–7 season ended an 18-year postseason run and five-year district championship streak, according to DCTF."
+      },
+      {
+        "question": "Where can I get Martin football tickets?",
+        "answer": "Arlington ISD's 2026–27 athletics website provides Martin schedules and GoFan tickets, with game-specific arrival and accessibility details."
+      }
+    ]
+  },
+  "arlington-lamar": {
+    "slug": "arlington-lamar",
+    "theme": {
+      "accentHex": "#193E77",
+      "label": "School-documented navy blue and gold editorial accent; not a Viking logo"
+    },
+    "seo": {
+      "title": "Arlington Lamar Vikings Football: 1990 State Final, Coach Najarro & 2026",
+      "description": "Arlington Lamar Vikings football history: 1990 UIL title-game run, Zach Najarro, 2018–19 teams, 2026 results, Cravens Field and official school contacts."
+    },
+    "coach": {
+      "name": "Zach Najarro",
+      "title": "Head football coach and athletics coordinator in Arlington Lamar's official staff directory",
+      "sourceUrl": "https://www.aisd.net/lamar-high-school/athletics/",
+      "sourceLabel": "Lamar High official 2026-accessible athletics directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1400 W. Lamar Boulevard, Arlington, TX 76012",
+      "phone": "682-867-8300",
+      "sourceUrl": "https://www.aisd.net/lamar-high-school/about/",
+      "sourceLabel": "Official Lamar campus page",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Lamar High football and athletic schedules",
+      "sourceUrl": "https://www.aisd.net/lamar-high-school/athletics/",
+      "sourceLabel": "Official Arlington Lamar athletic schedule link",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 in five published games through September 25, 2026; October 9 result not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+      "sourceLabel": "DCTF 2026 five-game ledger",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Little Elm",
+          "site": "Home",
+          "result": "L 10–30"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Crowley",
+          "site": "Away",
+          "result": "W 35–31"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Justin Northwest",
+          "site": "Away",
+          "result": "W 33–15"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Arlington Bowie",
+          "site": "Home",
+          "district": true,
+          "result": "L 23–29"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Arlington High",
+          "site": "Away",
+          "district": true,
+          "result": "W 41–31"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Weatherford",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Arlington Sam Houston",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Arlington Martin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Granbury",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Aledo",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cravens Field (historical program stadium)",
+      "address": "Arlington, TX — confirm ticket-specific entrance through Arlington ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+      "sourceLabel": "DCTF varsity stadium listing",
+      "verifiedAt": "2026-10-09",
+      "note": "Historical 8,500 spectator capacity is not a present certified ADA seat count or spectator gate. Campus address at Lamar Boulevard is not a substitute for the match-specific venue, parking and tickets."
+    },
+    "overview": [
+      "Arlington Lamar High's Vikings are not Houston Lamar or the Arlington Sam Houston Texans. Its official school history identifies the Viking mascot, navy blue and gold school colors, and a campus named after Mirabeau B. Lamar, the second president of the Republic of Texas.",
+      "Lamar has one UIL football state championship-game appearance, in 1990. The official 1990 playoff bracket documents a 49–7 state quarterfinal over El Paso Andress and a 28–7 semifinal over Dallas Carter before a 27–10 title-game loss to Houston Aldine. This was an important state final but never a Viking football state title.",
+      "DCTF reports 29 football playoff appearances and zero state titles. The official UIL archive's 1990 final documents Lamar's single championship-game appearance, separate from Arlington High's 1951 state championship.",
+      "The modern Vikings recorded 11–2 in 2018 and 10–2 in 2019, based on DCTF's seasonal history, before seasons of 4–6 in both 2023 and 2024 and 5–6 in 2025. These records provide a specific program arc rather than an interchangeable preview.",
+      "Arlington Lamar's current staff directory names Zach Najarro as head football coach and athletics coordinator; that official evidence takes precedence over older coach rosters. The school also directs families to official athletic schedules.",
+      "The published 2026 schedule records an early win at Crowley and another at Justin Northwest, followed by a narrow 23–29 loss to Bowie and a 41–31 victory over Arlington High. Those first five games add up to 3–2 through September 25; no October 9 Weatherford score is inferred.",
+      "DCTF lists Cravens Field as the historical team stadium. Visiting fans need an official match-specific ticket and arrival plan rather than assuming the school campus and every home game have the same entry gate."
+    ],
+    "milestones": [
+      {
+        "date": "1990",
+        "title": "UIL Class 5A Division II finalist",
+        "body": "Arlington Lamar beat Dallas Carter 28–7 in its semifinal before falling 10–27 to Houston Aldine in the title game.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/90at_bfb.html",
+        "sourceLabel": "UIL 1990 official playoff bracket"
+      },
+      {
+        "date": "2018–19",
+        "title": "Consecutive ten-win seasons",
+        "body": "DCTF lists 11–2 in 2018 and 10–2 in 2019, a notable recent competitive period.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+        "sourceLabel": "DCTF Viking completed seasons"
+      },
+      {
+        "date": "2025",
+        "title": "Back in the postseason",
+        "body": "The Vikings finished 5–6 in 2025 after two straight 4–6 years, according to the archived season records.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+        "sourceLabel": "DCTF team history"
+      },
+      {
+        "date": "2026",
+        "title": "Official head coach Zach Najarro",
+        "body": "The school athletics directory directly names Najarro as head football coach and athletics coordinator.",
+        "sourceUrl": "https://www.aisd.net/lamar-high-school/athletics/",
+        "sourceLabel": "Lamar High first-party staff"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Vikings beat Arlington High",
+        "body": "The DCTF ledger reports a 41–31 district win over Arlington High, after a narrow loss to Bowie.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
+        "sourceLabel": "2026 five-game score ledger"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Arlington Lamar win the 1990 football state title?",
+        "answer": "No. Lamar reached the Class 5A Division II final but lost 27–10 to Houston Aldine. It beat Dallas Carter 28–7 in the semifinal."
+      },
+      {
+        "question": "What colors does Arlington Lamar use?",
+        "answer": "The school's fight song and campus history identify navy blue and gold."
+      },
+      {
+        "question": "Who is Lamar's current head football coach?",
+        "answer": "The official Lamar High School athletics directory names Zach Najarro as head football coach and athletics coordinator."
+      },
+      {
+        "question": "How many state football finals has Lamar played?",
+        "answer": "UIL's records list one state-final appearance in 1990. DCTF records 29 total playoff appearances and no state titles."
+      },
+      {
+        "question": "Where can visitors find football tickets?",
+        "answer": "Use Lamar's official athletics schedule and the specific game listing; the historically named Cravens Field does not by itself verify stadium entry and parking arrangements."
+      }
+    ]
+  },
+  "arlington-houston": {
+    "slug": "arlington-houston",
+    "theme": {
+      "accentHex": "#324F84",
+      "label": "Original Sam Houston Texans editorial blue; official palette not independently verified"
+    },
+    "seo": {
+      "title": "Arlington Sam Houston Texans Football: Bobby Watkins & 2026 Scores",
+      "description": "Arlington Sam Houston Texans high-school football: school opened 1963, official coach Bobby Watkins, 2026 rebound results, Wilemon Field and Arlington ISD resources."
+    },
+    "coach": {
+      "name": "Bobby Watkins",
+      "title": "Head football coach and athletics coordinator listed in official Sam Houston High School directory",
+      "sourceUrl": "https://www.aisd.net/sam-houston-high-school/athletics/",
+      "sourceLabel": "Arlington ISD Sam Houston official athletics roster",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "2000 Sam Houston Drive, Arlington, TX 76014",
+      "phone": "682-867-8200",
+      "sourceUrl": "https://www.aisd.net/sam-houston-high-school/about/",
+      "sourceLabel": "Arlington Sam Houston official school history and campus address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Sam Houston Texans athletics schedule and staff",
+      "sourceUrl": "https://www.aisd.net/sam-houston-high-school/athletics/",
+      "sourceLabel": "School athletics directory with official schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 through September 25 based on five published completed games; October 8 Arlington Martin result remains unchecked",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+      "sourceLabel": "DCTF 2026 Texans published five-game results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "North Mesquite",
+          "site": "Home",
+          "result": "W 24–21"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Everman",
+          "site": "Away",
+          "result": "W 29–13"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Cleburne",
+          "site": "Away",
+          "result": "W 62–0"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Arlington High",
+          "site": "Home",
+          "district": true,
+          "result": "L 15–37"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Weatherford",
+          "site": "Away",
+          "district": true,
+          "result": "L 10–59"
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Arlington Martin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Arlington Lamar",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Granbury",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Aledo",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Arlington Bowie",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Choctaw Stadium (multiple scheduled 2026 home games; Wilemon Field in historical listings)",
+      "address": "Choctaw Stadium, Arlington, Texas — verify event-specific entrance with Arlington ISD",
+      "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
+      "sourceLabel": "Choctaw Stadium official 2026 high-school football calendar",
+      "verifiedAt": "2026-10-09",
+      "note": "Choctaw Stadium lists several Sam Houston home fixtures in 2026, including Oct. 8 vs Martin and Nov. 5 at Bowie. DCTF separately identifies historic Wilemon Field, whose old seating count is not the Choctaw Stadium capacity. Use Arlington ISD’s event-specific tickets, ADA arrival and parking guidance; the school campus address is not a stadium entrance."
+    },
+    "overview": [
+      "Sam Houston High School opened in Arlington in 1963, as documented on the school's own website. Its Texans are not the NFL Houston Texans and are not a school in the city of Houston. The school serves the Arlington community at 2000 Sam Houston Drive, and its 2026 football program belongs to Arlington ISD.",
+      "Arlington Sam Houston's official athletics staff directory names Bobby Watkins head football coach and athletic coordinator. The school also provides its own athletics schedule and staff contacts, offering a reliable alternative to third-party coaching labels.",
+      "DCTF records 11 Sam Houston varsity football playoff appearances, zero state title-game appearances and zero UIL football championships. Unlike Arlington High's 1951 championship, the Texans do not have a verified state championship; mixing the district's programs would misinform alumni.",
+      "The 2023 team went 0–10, followed by 2–8 in 2024 and 1–9 in 2025 according to DCTF's historical ledger. The start of the 2026 season therefore deserves its own narrative: victories over North Mesquite, Everman and Cleburne lifted the team to 3–0 before district defeats to Arlington High and Weatherford.",
+      "The dated 2026 scoreboard records a 62–0 road victory at Cleburne, followed the next week by a 15–37 defeat against Arlington High. This contrasts the young Texans' improvement with actual district competition, without claiming a current score for the October 9 game against Arlington Martin.",
+      "For UIL 2026, Sam Houston competes in Class 6A Region I District 3 with other Arlington-area schools and Aledo/Weatherford/Granbury. The published 2026 opponent list is a real schedule, not evidence that these teams were longstanding rivalries in every historical era.",
+      "DCTF lists Wilemon Field as the football venue. The official school provides a campus address, but the venue's historic 8,500-seat listing is not a current certified admission, accessible entry, parking or bag-policy statement."
+    ],
+    "milestones": [
+      {
+        "date": "1963",
+        "title": "Arlington Sam Houston High opens",
+        "body": "The school's official history gives 1963 as its opening year.",
+        "sourceUrl": "https://www.aisd.net/sam-houston-high-school/about/",
+        "sourceLabel": "Sam Houston High official history"
+      },
+      {
+        "date": "2023–25",
+        "title": "Three rebuilding football seasons",
+        "body": "DCTF lists 0–10 in 2023, 2–8 in 2024 and 1–9 in 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+        "sourceLabel": "DCTF prior varsity seasons"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "62–0 win at Cleburne",
+        "body": "The third listed 2026 victory, after North Mesquite and Everman, ended with a 62–0 shutout.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+        "sourceLabel": "DCTF 2026 game ledger"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Arlington Colts district meeting",
+        "body": "Sam Houston's first posted district result was a 15–37 loss to Arlington High; the schools have different program histories.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+        "sourceLabel": "DCTF scored fixtures"
+      },
+      {
+        "date": "2026",
+        "title": "Coach Bobby Watkins",
+        "body": "The school athletics roster identifies Bobby Watkins as head football coach and athletic coordinator.",
+        "sourceUrl": "https://www.aisd.net/sam-houston-high-school/athletics/",
+        "sourceLabel": "Official Sam Houston athletics staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Arlington Sam Houston High the Houston Texans?",
+        "answer": "No. The Sam Houston Texans are a high-school football team in Arlington ISD. They are unrelated to the NFL franchise or any Houston-city campus."
+      },
+      {
+        "question": "When did Arlington's Sam Houston High open?",
+        "answer": "According to its official campus history, the school opened in 1963."
+      },
+      {
+        "question": "Who coaches Sam Houston Texans football in 2026?",
+        "answer": "The current official Arlington ISD school athletics directory lists Bobby Watkins as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Has Arlington Sam Houston won a state football title?",
+        "answer": "The DCTF program history lists 11 playoff appearances but zero football state title games or championships."
+      },
+      {
+        "question": "Where do Texans home games take place?",
+        "answer": "DCTF's program directory lists Wilemon Field; check the official AISD event entry for the assigned venue, tickets, parking and accessible gates."
+      }
+    ]
+  },
+  "arlington-bowie": {
+    "slug": "arlington-bowie",
+    "theme": {
+      "accentHex": "#D46A2D",
+      "label": "Arlington Bowie official orange and blue identity; original editorial accent, no school seal"
+    },
+    "seo": {
+      "title": "Arlington Bowie Volunteers Football: Crossing the Line Tradition & 2026",
+      "description": "Arlington Bowie Volunteers football authority: school-founded Crossing the Line tradition, coach Joseph Sam, 2024 undefeated district record and current Arlington ISD resources."
+    },
+    "coach": {
+      "name": "Joseph Sam",
+      "title": "Head football coach and athletics coordinator in current official Bowie High directory",
+      "sourceUrl": "https://www.aisd.net/bowie-high-school/athletics/",
+      "sourceLabel": "Official Bowie High School athletics staff directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "2101 Highbank Drive, Arlington, TX 76018",
+      "phone": "682-867-4400",
+      "sourceUrl": "https://www.aisd.net/bowie-high-school/about/",
+      "sourceLabel": "Official Bowie school history and campus contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Bowie Volunteers official athletic schedules and visitor links",
+      "sourceUrl": "https://www.aisd.net/bowie-high-school/athletics/",
+      "sourceLabel": "School athletics directory links to Bowie athletic schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Choctaw Stadium (documented 2026 Bowie home fixtures); Wilemon Field in historic listings",
+      "address": "Choctaw Stadium, Arlington, Texas — check exact game-day entrance",
+      "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
+      "sourceLabel": "Official Choctaw Stadium 2026 high-school football schedule",
+      "verifiedAt": "2026-10-09",
+      "note": "Choctaw Stadium's 2026 calendar lists five Bowie home fixtures, including November 5 vs Sam Houston. The stadium's official accessibility guide confirms accessible seating, companion seats and wheelchair assistance (Guest Services: 817-533-1723); accessible parking is listed in Lot E on a first-come basis, and general parking in Lots E and L. These policies do not guarantee space for any game; confirm event-specific tickets, parking, entrance and bag rules. Wilemon's historic seating capacity is not Choctaw's."
+    },
+    "overview": [
+      "Arlington Bowie High School's nickname, the Volunteers, has a school-authored identity unlike any other Arlington ISD program. The school's official history says 'Crossing the Line' began in 1974 under athletic director and head coach Jerry Griffin, drawing on a narrative of the Alamo and James Bowie. This is a documented school tradition, not a fabricated postgame ritual.",
+      "Bowie's official school identity is blue, orange and white, and its fight song directly references those colors and the Volunteers. School tradition should remain separate from the historical facts of the Alamo legend on which the ceremony is based.",
+      "The official school athletics staff directory names Joseph Sam head football coach and athletics coordinator. The independent MaxPreps program history associates Sam with both the 2024 8–4 and 2025 8–3 varsity football seasons, a meaningful period of continuity.",
+      "MaxPreps records a 7–0 district mark in both the 2024 and 2025 regular-season standings. In 2024, Bowie beat Arlington High 48–21 and Arlington Martin 34–24 in district, defeated Dallas Jesuit 56–42 in a postseason game and fell to Hebron 35–51 in its next playoff game. These are documented district and playoff accomplishments, not football state championships.",
+      "Dave Campbell's historical Bowie record lists 18 playoff appearances and no state football finals or titles. The current 2026 6A schedule includes Arlington Lamar, Arlington High, Martin, Sam Houston and Aledo; shared district membership alone is not evidence of a historic all-time rivalry result.",
+      "A current 2026 score source reports Bowie defeating Arlington Lamar 29–23 and Granbury 41–35 after losses to Prosper Rock Hill and South Grand Prairie. By contrast, Dave Campbell's public scoreboard snapshot has only the two opening losses, so an outdated 0–2 display should not be treated as the team's present full season record.",
+      "Choctaw Stadium's official 2026 calendar confirms multiple Bowie home games there, while DCTF historically lists Wilemon Field. Arlington ISD publishes 2026–27 GoFan ticketing and clear-bag rules. Always use the specific game's official schedule and spectator entry instructions."
+    ],
+    "milestones": [
+      {
+        "date": "1974",
+        "title": "Crossing the Line begins",
+        "body": "Bowie High's official history credits football coach/athletic director Jerry Griffin with beginning the Volunteers' signature school tradition.",
+        "sourceUrl": "https://www.aisd.net/bowie-high-school/about/",
+        "sourceLabel": "Official Bowie High history"
+      },
+      {
+        "date": "2024",
+        "title": "Undefeated seven-game district schedule",
+        "body": "MaxPreps records Bowie going 7–0 in district while finishing 8–4 overall, including a 48–21 win over Arlington High.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/24-25/schedule/",
+        "sourceLabel": "2024 Bowie game-by-game record"
+      },
+      {
+        "date": "Nov. 2024",
+        "title": "Playoff win over Dallas Jesuit",
+        "body": "The Volunteers won 56–42 over Dallas Jesuit before Hebron eliminated Bowie 51–35.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/24-25/schedule/",
+        "sourceLabel": "2024 postseason finals"
+      },
+      {
+        "date": "2025",
+        "title": "Another 8–3 football season",
+        "body": "Independent team results show 8–3 overall and a 7–0 district mark for 2025 under head coach Joseph Sam.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/history/",
+        "sourceLabel": "MaxPreps 2025 seasons"
+      },
+      {
+        "date": "2026",
+        "title": "Current official Joseph Sam staff listing",
+        "body": "The campus athletics page names Joseph Sam as head coach and coordinator; exact game arrangements remain in live school athletic schedules.",
+        "sourceUrl": "https://www.aisd.net/bowie-high-school/athletics/",
+        "sourceLabel": "Bowie High official athletics"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What does the Volunteers name mean at Arlington Bowie?",
+        "answer": "The school connects the Volunteers to James Bowie and the Alamo story. Its official history says Jerry Griffin established the 'Crossing the Line' school tradition in 1974."
+      },
+      {
+        "question": "What colors does Bowie High use?",
+        "answer": "The school's official history lists blue, orange and white."
+      },
+      {
+        "question": "Who coaches Bowie football?",
+        "answer": "The current campus athletics directory identifies Joseph Sam as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Did Bowie win a state football championship in 2024?",
+        "answer": "No. Bowie finished 8–4, won all seven recorded district games, defeated Dallas Jesuit in a playoff game and lost to Hebron in the next round."
+      },
+      {
+        "question": "Where should visiting fans confirm football stadium tickets?",
+        "answer": "Use Bowie's official Arlington ISD athletics schedule and the specific game listing. Historical Wilemon Field capacity is not an official accessible entrance or parking guide."
+      }
+    ]
+  },
+  "arlington": {
+    "slug": "arlington",
+    "theme": {
+      "accentHex": "#2E7750",
+      "label": "Arlington High's officially documented Kelly green school identity; editorial use, not a school seal"
+    },
+    "seo": {
+      "title": "Arlington Colts Football: 1951 State Title, Scott Peach & 2026",
+      "description": "Arlington High Colts football history: 1951 UIL Class AA championship, authentic school traditions, head coach Scott Peach and current 2026 football resources."
+    },
+    "coach": {
+      "name": "Scott Peach",
+      "title": "Head football coach and athletic coordinator listed by Arlington High School",
+      "sourceUrl": "https://www.aisd.net/arlington-high-school/campus-staff/scott-peach/",
+      "sourceLabel": "Official Arlington High staff profile",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "818 W. Park Row Drive, Arlington, TX 76013",
+      "phone": "682-867-8100",
+      "sourceUrl": "https://www.aisd.net/arlington-high-school/staff-department/athletics/",
+      "sourceLabel": "Arlington High official campus athletics directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Arlington Colts 2026 posted game schedule and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/arlington/arlington-colts/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 schedule snapshot; verify later results with school",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Arlington High School's Colts have a school-history-documented Class AA football state championship from 1951, when they defeated Waco La Vega. The official UIL historical state appearances index also credits Arlington with exactly one football championship and one state-final appearance in 1951, distinct from neighboring Arlington ISD programs.",
+      "Arlington High's own historical account traces its roots to the early 1900s: the Arlington ISD was established in 1903, the school opened its Cooper and Abram Street high-school building in 1922, and students chose the Colts nickname and kelly green-and-white school colors in 1923. These are genuine campus traditions, not guessed football mascots.",
+      "The current school football staff profile identifies Scott Peach as head football coach and athletic coordinator, noting a long association with Arlington High. The 2026 MaxPreps staff history also identifies Peach, with archived football records of 7–4 in 2024 and 5–4 in 2025.",
+      "The Colts compete in 6A football. Their published 2026 schedule includes Byron Nelson, V.R. Eaton, Red Oak and later district games involving Arlington Lamar, Sam Houston, Bowie, Martin, Aledo and Weatherford. Each schedule entry is a dated listing, not an assertion that all 2026 games have already been played.",
+      "A retrieved September 13 football schedule snapshot records the early 2026 results as 38–22 over Byron Nelson, 10–20 against V.R. Eaton and 52–47 over Red Oak. Because later September and October entries had no verified finals on that snapshot, TexasDefined does not turn its 2–1 partial results into a current live overall record.",
+      "Arlington High's official motto of spirit, pride and tradition and its 'First Here; Best Here' identity provide meaningful local context. The Colts are not Arlington Bowie, Houston, Lamar, Martin or Seguin; these are different schools with their own team identities and histories.",
+      "Game-day visitors should use Arlington ISD's official athletics schedules and match-specific ticket listings. The campus street address is a school contact, not proof of a stadium spectator gate, ADA drop-off, parking terms or bag policy."
+    ],
+    "milestones": [
+      {
+        "date": "1923",
+        "title": "Colts and kelly green identity selected",
+        "body": "Arlington High's official school history says students chose the Colts mascot and kelly green-and-white colors in 1923.",
+        "sourceUrl": "https://www.aisd.net/arlington-high-school/about/history/",
+        "sourceLabel": "Arlington High official school history"
+      },
+      {
+        "date": "1951",
+        "title": "UIL Class AA state football championship",
+        "body": "The Colts defeated Waco La Vega in the 1951 title game; the official UIL index recognizes Arlington's sole football crown.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL football historical appearances and title years"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two archived varsity campaigns",
+        "body": "MaxPreps lists Arlington at 7–4 in 2024 and 5–4 in 2025 under coach Scott Peach.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/arlington-colts/football/history/",
+        "sourceLabel": "MaxPreps Colts coaching and season history"
+      },
+      {
+        "date": "2026",
+        "title": "Current Colts coaching staff",
+        "body": "The Arlington High official athletics profile names Scott Peach head coach and athletic coordinator.",
+        "sourceUrl": "https://www.aisd.net/arlington-high-school/campus-staff/scott-peach/",
+        "sourceLabel": "Official staff biography"
+      },
+      {
+        "date": "Sept. 2026",
+        "title": "Opening wins against Byron Nelson and Red Oak",
+        "body": "The dated schedule reports a 38–22 win over Byron Nelson and a 52–47 win over Red Oak, with later results not established by that September 13 snapshot.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/arlington-colts/football/schedule/",
+        "sourceLabel": "MaxPreps Sept 13 2026 posted schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Arlington High's Colts win a Texas state football championship?",
+        "answer": "Yes. Arlington High's official history confirms the 1951 Class AA championship over Waco La Vega, which UIL's archive credits as the school's one state football title."
+      },
+      {
+        "question": "When were the Colts mascot and school colors chosen?",
+        "answer": "According to Arlington High's school history, students selected the Colts mascot and kelly green-and-white colors in 1923."
+      },
+      {
+        "question": "Who coaches Arlington High football in 2026?",
+        "answer": "The official Arlington High staff directory identifies Scott Peach as head football coach and athletic coordinator."
+      },
+      {
+        "question": "Are Arlington and Arlington Bowie the same school?",
+        "answer": "No. Arlington High Colts and Arlington Bowie Volunteers are separate Arlington ISD high schools and football programs."
+      },
+      {
+        "question": "Where should visiting supporters get tickets?",
+        "answer": "Use Arlington ISD's official athletics and the specific event ticket listing. Do not assume the school campus is the stadium entrance."
+      }
+    ]
+  },
+  "argyle": {
+    "slug": "argyle",
+    "theme": {
+      "accentHex": "#AE2637",
+      "label": "UIL-verified Argyle red; editorial styling only, not an official seal"
+    },
+    "seo": {
+      "title": "Argyle Eagles Football: 2013 & 2020 State Titles, Todd Rodgers & 2026",
+      "description": "Argyle Eagles' two UIL football championships, title-game scores, Todd Rodgers coaching era, 2026 District 3-5A Division II and school-record sources."
+    },
+    "coach": {
+      "name": "Todd Rodgers",
+      "title": "Argyle athletic director and head football coach, listed in the official current athletics staff directory",
+      "sourceUrl": "https://www.argyleeaglessports.com/directory",
+      "sourceLabel": "Official Argyle Eagles current staff directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Argyle Eagles athletics and 2026 football resources",
+      "sourceUrl": "https://www.argyleeaglessports.com/",
+      "sourceLabel": "Official Argyle Eagles sports site",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Argyle's Eagles won two UIL state football championships: 38–33 over Fairfield in the 2013 Class 3A Division II final and 49–21 over Lindale in the 2020 Class 4A Division I final. The school's own championship index confirms these two years, separating football from Argyle's numerous titles in other sports.",
+      "The 2013 UIL championship recap documents a back-and-forth game at AT&T Stadium, with Ian Sadler scoring four touchdowns, including the decisive score in the fourth quarter. UIL's title-team listing identifies Todd Rodgers as coach and the team colors as red, black and white.",
+      "The 2020 UIL archive lists the undefeated Argyle champion squad and coach Todd Rodgers, while official Argyle season records tally the full 2020 campaign at 16–0. Some UIL team profiles report 15–0 heading into the championship; those snapshots should not be mistaken for competing final results.",
+      "Official Argyle football history also documents unsuccessful state-final appearances in 2005, 2011, 2014 and 2015, for six total football finals and two championships. The 2014 final went to double overtime against Navasota, which won 42–35; appearances do not equal victories.",
+      "The Eagles' official season ledger records 2024 at 13–2, including a state semifinal appearance, and 2025 at 12–2. That gives a credible recent reference point without asserting a completed 2026 season or relying on a third-party record that differs from the team archive.",
+      "Argyle ISD officially confirmed that football stays in Class 5A Division II for 2026–28 and moves to District 3, a seven-team district with additions including Eagle Mountain, Lovejoy and Nevada Community. Opponents and alignment should be kept separate from games actually played.",
+      "The Argyle Eagles' official athletics staff directory currently identifies Todd Rodgers as athletic director and head football coach. The Argyle ISD Stadium 2026 football guide lists 6615 Canyon Falls Drive, Flower Mound, TX 76226, and public gates opening 90 minutes before kickoff unless announced otherwise. Always check the particular game's official ticket and parking instructions."
+    ],
+    "milestones": [
+      {
+        "date": "2013",
+        "title": "First UIL football state championship",
+        "body": "The Eagles defeated Fairfield 38–33; UIL highlights Ian Sadler's four touchdowns in the title game.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL centennial memorable championship games"
+      },
+      {
+        "date": "2014",
+        "title": "Double-overtime state finalist",
+        "body": "Navasota defeated Argyle 42–35 in double overtime. This was an appearance, not a third football title.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL 2014 championship recap"
+      },
+      {
+        "date": "2020",
+        "title": "Second UIL football crown",
+        "body": "Argyle beat Lindale 49–21 in Class 4A Division I, as listed in UIL's official state archives.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL 2020 state championship archives"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two deep recent seasons",
+        "body": "The official program database records 13–2 in 2024 and 12–2 in 2025, distinct from state title years.",
+        "sourceUrl": "https://www.argyleeaglessports.com/football-records",
+        "sourceLabel": "Argyle official season-by-season football record"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division II District 3",
+        "body": "Argyle ISD confirmed the 2026 reclassification and newly added Eagle Mountain, Lovejoy and Nevada Community.",
+        "sourceUrl": "https://www.argyleisd.com/all-news/details/~board/district-news/post/uil-announces-relignment-reclassification-for-2026-2028",
+        "sourceLabel": "Argyle ISD February 2, 2026 realignment announcement"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many UIL football state titles has Argyle won?",
+        "answer": "Two: 2013 over Fairfield, 38–33, and 2020 over Lindale, 49–21. The official Argyle athletics program lists six state football appearances."
+      },
+      {
+        "question": "Who coached Argyle's championship football teams?",
+        "answer": "Todd Rodgers coached both title teams, according to the UIL championship roster records."
+      },
+      {
+        "question": "What colors are officially associated with Argyle football?",
+        "answer": "UIL's 2013 and 2020 team records list red, black and white."
+      },
+      {
+        "question": "What is Argyle's football classification for 2026?",
+        "answer": "Argyle ISD confirms Class 5A Division II District 3 for the 2026–28 cycle, including new district opponents Eagle Mountain, Lovejoy and Nevada Community."
+      },
+      {
+        "question": "How can visiting supporters verify 2026 games and tickets?",
+        "answer": "Use official Argyle Eagles athletics schedules and the ticket listing for the specific match; the school campus address is not a verified stadium gate."
+      }
+    ]
+  },
+  "archer-city": {
+    "slug": "archer-city",
+    "theme": {
+      "accentHex": "#774025",
+      "label": "Original Wildcats editorial heritage accent; no trademarked school crest"
+    },
+    "seo": {
+      "title": "Archer City Wildcats Football: 1964 UIL Title, Coach Ritchey & 2026",
+      "description": "Archer City Wildcats football guide: documented 1964 state title, 2024 8–4 playoffs, coach Bradan Ritchey, 2026 District 6 and Wildcat Stadium visitor information."
+    },
+    "coach": {
+      "name": "Bradan Ritchey",
+      "title": "2026 head football coach listed in program varsity history; official school confirmation pending",
+      "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/history/",
+      "sourceLabel": "MaxPreps 2026–27 coaching history",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "600 South Ash Street, Archer City, TX 76351",
+      "phone": "940-574-4536",
+      "sourceUrl": "https://www.archercityisd.net/47023_1",
+      "sourceLabel": "Archer City ISD official athletics contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Archer City varsity dates and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/schedule/",
+      "sourceLabel": "MaxPreps five published games through September 25",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 in five published completed games through September 25, 2026; Oct. 2 score requires separate corroboration",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/schedule/",
+      "sourceLabel": "2026 dated MaxPreps results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Chico",
+          "site": "Away",
+          "result": "W 28–7"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Nocona",
+          "site": "Home",
+          "result": "L 6–35"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Hamlin",
+          "site": "Home",
+          "result": "L 29–43"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Olney",
+          "site": "Away",
+          "result": "L 36–42"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Munday",
+          "site": "Away",
+          "district": true,
+          "result": "L 51–62"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Petrolia",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Windthorst",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Seymour",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Haskell",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Electra",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wildcat Stadium",
+      "address": "Archer City, Texas — verify game-day spectator gate with Archer City ISD",
+      "sourceUrl": "https://txfb.sidev.co/team/archer-city-wildcats",
+      "sourceLabel": "DCTF independent stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "Independent historical listing says 700 seats, not an official certified present ADA or ticket allocation; school campus address should not substitute for a verified entry map."
+    },
+    "overview": [
+      "The Archer City Wildcats own an unusual Texas football research discrepancy: the University Interscholastic League's own 1964 champions list credits Archer City with a 13–6 Class 1A state-final win over Ingleside, yet the current UIL all-time appearances table says zero state titles and labels Archer City's 1964 appearance as 3A. That contradiction deserves open explanation rather than quietly deleting a title.",
+      "The UIL's 1964 championship score is separately repeated by the Texas High School Football Hall of Fame's historical UIL champions list, and Dave Campbell's independent program listing reports one state title and one championship appearance. These sources support the 1964 championship, while a request for correction of UIL's contradictory all-time table remains outstanding.",
+      "In more recent football, MaxPreps records Bradan Ritchey coaching Archer City during 2022–26, including a 7–4 season in 2022 and an 8–4 playoff year in 2024. The 2025 team finished 1–9, showing why specific season context is more useful than evergreen claims of dominance.",
+      "The 2026–28 UIL alignment places Archer City in Class 2A Division II, District 6 with Electra, Haskell, Munday, Petrolia, Seymour and Windthorst. The district is not the school's 1964 historical class, and same-district status alone does not prove historic rivalry.",
+      "Five dated 2026 results through September 25 show an opening 28–7 win at Chico followed by losses to Nocona, Hamlin, Olney and Munday. The Munday game ended 51–62, while the October 9 Windthorst game was upcoming at this source checkpoint. Subsequent results should not be invented.",
+      "Archer City ISD lists its school office at 600 South Ash Street and directs fans to its official athletics section. The separate Wildcat Stadium listing and 700 historical seats do not certify specific accessible gates, parking or ticket policy."
+    ],
+    "milestones": [
+      {
+        "date": "1964",
+        "title": "UIL 1A state champions — disputed index metadata",
+        "body": "UIL's own historical champions archive says Archer City defeated Ingleside 13–6 in the 1964 1A final; its current all-time appearances index incorrectly appears to count no title and gives a different classification.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL archival championship scores (conflicts with UIL all-time index)"
+      },
+      {
+        "date": "2021–22",
+        "title": "Back-to-back winning seasons",
+        "body": "MaxPreps lists 8–3 in 2021 and 7–4 in 2022 before the 2024 postseason run.",
+        "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/history/",
+        "sourceLabel": "MaxPreps archived varsity records"
+      },
+      {
+        "date": "2024",
+        "title": "Eight wins and playoff football",
+        "body": "The Wildcats finished 8–4 under Bradan Ritchey, a more recent postseason high point.",
+        "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/history/",
+        "sourceLabel": "MaxPreps historical 2024 program"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "High-scoring game at Munday",
+        "body": "MaxPreps records Archer City's 51–62 loss at Munday, within the present District 6 schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/schedule/",
+        "sourceLabel": "2026 dated score ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "2A Division II, District 6",
+        "body": "Contemporary alignment includes Electra, Haskell, Munday, Petrolia, Seymour and Windthorst; 1964's competition class is a separate historical fact.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "UIL football realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Archer City win the 1964 UIL state football championship?",
+        "answer": "UIL's 1964 champions archive says yes: Archer City beat Ingleside 13–6 in Class 1A, and the Texas High School Football Hall of Fame corroborates. However, UIL's current all-time appearances index inconsistently lists zero titles and identifies its appearance differently."
+      },
+      {
+        "question": "Who coaches Archer City football in 2026?",
+        "answer": "MaxPreps' current program history lists Bradan Ritchey as head coach, also credited with the 2024 8–4 season."
+      },
+      {
+        "question": "What is Archer City's 2026 football district?",
+        "answer": "UIL 2A Division II District 6, with Electra, Haskell, Munday, Petrolia, Seymour and Windthorst."
+      },
+      {
+        "question": "Where do the Wildcats play?",
+        "answer": "The independent DCTF historical directory lists Wildcat Stadium; contact Archer City ISD to verify the correct entrance, mobility access and ticket policies."
+      }
+    ]
+  },
+  "aransas-pass": {
+    "slug": "aransas-pass",
+    "theme": {
+      "accentHex": "#6A3141",
+      "label": "Original Panthers editorial accent, not an official school badge"
+    },
+    "seo": {
+      "title": "Aransas Pass Panthers Football: 2026 Schedule, Rivalries & Program History",
+      "description": "Aransas Pass Panthers football: 2026 UIL 3A Division I, 2–3 September results, documented Ingleside series, rebuilding seasons and visiting-game resources."
+    },
+    "campus": {
+      "address": "450 South Avenue A, Aransas Pass, TX 78336",
+      "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps school directory address, not verified stadium entry",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Panthers dated scores and district fixtures",
+      "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+      "sourceLabel": "MaxPreps Panthers game results updated September 26",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 in five published completed games through September 25, 2026",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+      "sourceLabel": "Five posted 2026 results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Poth",
+          "site": "Away",
+          "result": "L 0–41"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Ingleside",
+          "site": "Home",
+          "result": "L 35–42"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Odem",
+          "site": "Away",
+          "result": "W 41–13"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "San Antonio Cole",
+          "site": "Home",
+          "result": "W 28–19"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "George West",
+          "site": "Home",
+          "result": "L 18–71"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "West Oso",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Orange Grove",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Mathis",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Sinton",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Goliad",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "overview": [
+      "The Aransas Pass Panthers are a coastal Texas high-school football program with a distinct community identity. The school at 450 South Avenue A is not automatically the assigned entrance to a varsity football field, so game-day location, parking and accessible entrance require official confirmation.",
+      "MaxPreps records a rebuilding period that included a winless 0–10 season in 2023, a 2–8 campaign in 2024 and a 1–9 finish in 2025. The team's 2026 schedule shows September wins against Odem and San Antonio Cole, meaning even its short-term progress should be documented with actual results rather than generic rebuilding rhetoric.",
+      "The 2026 Panthers scored a 41–13 win at Odem and followed with a 28–19 victory over Cole. The 2–3 dated record through September 25 also includes an early 35–42 loss to Ingleside, a notable regional matchup, and a difficult 18–71 loss to George West.",
+      "The 2026–28 UIL district alignment places Aransas Pass in Class 3A Division I District 15. Its league fixtures include West Oso, Orange Grove, Mathis, Sinton and Goliad. Current opponents and longstanding rivalries are different categories and should not be conflated.",
+      "Texas Prep Football's reported head-to-head archive lists Aransas Pass versus Ingleside 21 times since 2004, with Ingleside ahead 16–5. This is a third-party subset rather than the official complete all-time series; the competitive 35–42 September 2026 game adds meaningful present context.",
+      "The 2025 MaxPreps season record names Richard Davis as head coach; another third-party 2026 program directory identifies Justin Taylor. Without school-district first-party confirmation of the 2026 role, TexasDefined does not state a current head coach as a settled fact.",
+      "Official stadium name and event-specific ticketing/parking/ADA arrangements have not been verified from a reliable school primary source; naming a field or claiming exact stadium capacity would therefore be speculative."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Winless season in a rebuilding period",
+        "body": "Archived varsity results list the Panthers at 0–10, followed by 2–8 in 2024.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/history/",
+        "sourceLabel": "MaxPreps program seasonal records"
+      },
+      {
+        "date": "2025",
+        "title": "One-win Panthers campaign",
+        "body": "The team finished 1–9, with a 63–0 victory over Kaufer in its recorded opener.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps complete 2025 ledger"
+      },
+      {
+        "date": "Sept. 11–18, 2026",
+        "title": "Consecutive victories",
+        "body": "Wins over Odem (41–13) and San Antonio Cole (28–19) mark a short 2026 turnaround after two opening defeats.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aransas-pass/aransas-pass-panthers/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 scores"
+      },
+      {
+        "date": "Sept. 4, 2026",
+        "title": "Ingleside game adds regional context",
+        "body": "Aransas Pass fell 35–42 to Ingleside; the two teams have extensive recorded meetings in the third-party series archive.",
+        "sourceUrl": "https://txprepfootball.com/schools/aransas-pass-panthers/",
+        "sourceLabel": "Texas Prep Football game and head-to-head history"
+      }
+    ],
+    "faq": [
+      {
+        "question": "What is the Aransas Pass Panthers' 2026 record?",
+        "answer": "The five recorded results through September 25 show two wins and three losses. This is a dated snapshot, not a live full-season record."
+      },
+      {
+        "question": "Who is the head coach in 2026?",
+        "answer": "The public 2025 and 2026 third-party listings differ; school-district first-party confirmation is required before asserting a current coach."
+      },
+      {
+        "question": "How has Aransas Pass performed recently?",
+        "answer": "MaxPreps reports 0–10 in 2023, 2–8 in 2024 and 1–9 in 2025, with two September 2026 victories posted."
+      },
+      {
+        "question": "Is Ingleside a regular Aransas Pass opponent?",
+        "answer": "Yes. One archive records 21 meetings since 2004, with an Aransas Pass loss to Ingleside by 35–42 in September 2026; that archive is not a certified all-time series."
+      },
+      {
+        "question": "Where can visiting fans confirm entrance and tickets?",
+        "answer": "Check current Aransas Pass ISD athletics announcements for the particular game. The campus mailing address is not proof of a football stadium gate."
+      }
+    ]
+  },
+  "aquilla": {
+    "slug": "aquilla",
+    "theme": {
+      "accentHex": "#285D77",
+      "label": "Original Cougars editorial teal accent; not an official team logo"
+    },
+    "seo": {
+      "title": "Aquilla Cougars Six-Man Football: 2025 12–1, Coach Williams & 2026",
+      "description": "Aquilla Cougars football: 2025 12–1, 2024 11–2, head coach Shannon Williams, 2026 UIL 1A Division I District 14, Cougar Stadium and game results."
+    },
+    "coach": {
+      "name": "Shannon Williams",
+      "title": "2026 head football coach according to current MaxPreps school history",
+      "sourceUrl": "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+      "sourceLabel": "2026–27 coach and historical 2025/2024 varsity roster",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Aquilla Cougars season results and district fixtures",
+      "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+      "sourceLabel": "DCTF partial October 2026 game ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "Four confirmed DCTF September wins; 2026 MaxPreps overall 6–0 uses additional games requiring reconciliation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+      "sourceLabel": "DCTF first four explicitly scored victories",
+      "games": [
+        {
+          "date": "Sept. 4",
+          "opponent": "Calvert",
+          "site": "Home",
+          "result": "W 52–7"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Avalon",
+          "site": "Away",
+          "result": "W 58–6"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Kopperl",
+          "site": "Home",
+          "result": "W 60–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Jonesboro",
+          "site": "Away",
+          "result": "W 54–8"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "May",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Penelope",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Coolidge",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Gholson",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Abbott",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cougar Stadium",
+      "address": "Aquilla, TX — current stadium entrance not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+      "sourceLabel": "DCTF team stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists a historical 500-seat capacity, which does not certify modern ADA access, parking or admissions. Confirm the precise spectator gate and policy with Aquilla ISD."
+    },
+    "overview": [
+      "Aquilla's Cougars are a six-man football program in Hill County. Their modern record is distinct from neighboring Abbott Panthers, which share UIL District 14 but have a different football championship history. A current district matchup does not automatically make every opponent a historic rivalry.",
+      "The 2025 Cougars finished 12–1 according to both MaxPreps and Dave Campbell's Texas Football. Aquilla also went 11–2 in 2024, following 7–3 in 2023. These consecutive strong seasons are genuine program-specific achievements rather than invented state titles.",
+      "DCTF reports 15 football playoff appearances but no state football title game or championship for Aquilla. Success in recent regular seasons and playoff appearances should be celebrated accurately without converting a high state ranking into an official championship.",
+      "The 2026–28 UIL Class 1A Division I realignment places Aquilla in District 14 with Abbott, Coolidge, Gholson and Penelope. The current 2026 team listing credits Shannon Williams as head coach; MaxPreps also lists Williams for the 2025 12–1 campaign.",
+      "DCTF's posted results confirm four decisive September wins: 52–7 over Calvert, 58–6 at Avalon, 60–6 against Kopperl and 54–8 at Jonesboro. The current MaxPreps overview shows a 6–0 overall record because it includes additional reported matches; without matching its full game ledger, DCTF's incomplete four-game sample should not be called the entire season.",
+      "The Aquilla-Jonesboro fixture has immediate regional context: Jonesboro's own records include longer historical postseason runs, but Aquilla's 54–8 September win is just one dated game. The 2026 schedule later pits Aquilla against Abbott, another established Hill County six-man program.",
+      "The team plays its independently documented home games at Cougar Stadium. DCTF's 500-seat historical capacity should not be mistaken for certified accessible seating or current admission and parking instructions."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Seven wins before the breakout",
+        "body": "DCTF reports a 7–3 season, ahead of its subsequent double-digit win years.",
+        "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+        "sourceLabel": "DCTF historical season records"
+      },
+      {
+        "date": "2024",
+        "title": "Eleven-win Cougars season",
+        "body": "A documented 11–2 campaign set the stage for another high-win season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+        "sourceLabel": "MaxPreps archived 2024 team history"
+      },
+      {
+        "date": "2025",
+        "title": "Twelve wins under Shannon Williams",
+        "body": "Both DCTF and MaxPreps list Aquilla at 12–1, with coach Shannon Williams in the 2025 roster history.",
+        "sourceUrl": "https://www.maxpreps.com/tx/aquilla/aquilla-cougars/football/history/",
+        "sourceLabel": "MaxPreps 2025 team coach and record"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "54–8 win at Jonesboro",
+        "body": "The fourth individually listed 2026 DCTF final is a 54–8 road victory at Jonesboro.",
+        "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
+        "sourceLabel": "DCTF dated September 2026 score"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 1A Division I District 14",
+        "body": "Present alignment includes Abbott, Aquilla, Coolidge, Gholson and Penelope.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
+        "sourceLabel": "UIL official six-man Division I alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Aquilla won a UIL football state title?",
+        "answer": "DCTF reports 15 playoff appearances but zero state title games or championships."
+      },
+      {
+        "question": "How did Aquilla finish in 2024 and 2025?",
+        "answer": "The Cougars went 11–2 in 2024 and 12–1 in 2025, according to both independent football archives."
+      },
+      {
+        "question": "Who coaches Aquilla football in 2026?",
+        "answer": "MaxPreps names Shannon Williams as 2026 head coach and also lists him with the 2025 12–1 program."
+      },
+      {
+        "question": "What district is Aquilla in for 2026?",
+        "answer": "UIL six-man Class 1A Division I, District 14, alongside Abbott, Coolidge, Gholson and Penelope."
+      },
+      {
+        "question": "Where is Cougar Stadium?",
+        "answer": "DCTF identifies Cougar Stadium in Aquilla, but the specific current gate, tickets, accessible parking and seating need confirmation from Aquilla ISD."
+      }
+    ]
+  },
+  "apple-springs": {
+    "slug": "apple-springs",
+    "theme": {
+      "accentHex": "#B6873C",
+      "label": "Original Apple Springs Eagles editorial gold; no official insignia copied"
+    },
+    "seo": {
+      "title": "Apple Springs Eagles Six-Man Football: 2026 Coach, Nelson Davis Stadium & Results",
+      "description": "Apple Springs Eagles six-man football: Cash Thompson, 2026 UIL 1A Division II District 15, Nelson Davis Stadium, 12 playoffs and dated 2026 games."
+    },
+    "coach": {
+      "name": "Cash Thompson",
+      "title": "Head football coach listed in 2026–27 MaxPreps history; independent school confirmation outstanding",
+      "sourceUrl": "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/history/",
+      "sourceLabel": "2026–27 team history; 2025 coach Jeremiah Dickson listed separately",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 football schedule and reported results",
+      "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+      "sourceLabel": "DCTF current season football ledger; partly incomplete",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Nelson Davis Stadium",
+      "address": "Apple Springs, Texas — spectator entrance and accessibility unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+      "sourceLabel": "DCTF stadium name and historical 500 capacity",
+      "verifiedAt": "2026-10-09",
+      "note": "The independent stadium directory lists 500 historical seats; this is not an official accessible seating map, address, tickets or parking schedule. Contact Apple Springs ISD to verify."
+    },
+    "overview": [
+      "Apple Springs Eagles football represents a small six-man school community in Trinity County in East Texas. Its specific history and 2026 team must not be confused with other Eagles programs or with a different UIL six-man division listed by an outdated sports portal.",
+      "The canonical UIL 2026–28 alignment lists Apple Springs in Class 1A Division II District 15. MaxPreps also labels the 2026 team Division II; Dave Campbell's Texas Football currently describes the team as Division I, an unresolved secondary-source mismatch. The UIL primary document governs current alignment until corrected.",
+      "DCTF reports 12 football playoff appearances, zero state championship-game appearances and zero state titles. Past seasons include 5–5 in 2019, 3–8 in 2021, 4–7 in 2023, 3–6 in 2024 and 3–5 in 2025. These reflect program persistence but should not be elevated into unverified championship claims.",
+      "MaxPreps's 2026–27 staff history lists Cash Thompson as head football coach after Jeremiah Dickson in the 2025–26 school year. An official district hiring announcement is still needed before calling that appointment directly confirmed by Apple Springs ISD.",
+      "The posted 2026 scores differ in coverage: DCTF records an 18–68 defeat at Chester and 77–47 victory over Bryan St. Joseph, but omits the September 18 Christian Heritage final, which MaxPreps lists as an Apple Springs 51–25 win. The sources are not reporting an identical game set, so the page deliberately avoids a misleading combined overall record.",
+      "Apple Springs's published schedule also includes games against Longview Christian Heritage, Conroe Covenant and Brazos Valley before the later Buckholts and Calvert district fixtures. These opponents tell a specific six-man story involving small public and private football programs, not generic varsity claims.",
+      "DCTF names Nelson Davis Stadium as the team's venue with a historic 500-capacity listing. That does not certify a stadium gate, disability access, bag policy or current tickets; visitors need official school guidance."
+    ],
+    "milestones": [
+      {
+        "date": "2018–19",
+        "title": "Five wins in each archived season",
+        "body": "DCTF reports 5–3 in 2018 and 5–5 in 2019, rather than inventing a title.",
+        "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+        "sourceLabel": "DCTF Apple Springs program history"
+      },
+      {
+        "date": "2023–25",
+        "title": "Recent six-man participation",
+        "body": "DCTF records 4–7 in 2023, 3–6 in 2024 and 3–5 in 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+        "sourceLabel": "DCTF season archive"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Christian Heritage victory",
+        "body": "MaxPreps reports an Apple Springs 51–25 win over Christian Heritage, a game not included in DCTF's two-final snapshot.",
+        "sourceUrl": "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/",
+        "sourceLabel": "MaxPreps 2026 game report"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL Division II District 15",
+        "body": "The repository's canonical UIL source assigns Apple Springs to 1A six-man Division II, District 15; DCTF has a conflicting Division I label.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "Official UIL alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Apple Springs football 1A Division I or Division II in 2026?",
+        "answer": "The UIL's 2026–28 alignment lists Apple Springs in Division II District 15, and MaxPreps agrees; DCTF currently has a conflicting Division I label."
+      },
+      {
+        "question": "Who is Apple Springs's 2026 head coach?",
+        "answer": "The 2026 MaxPreps football history identifies Cash Thompson; the official school appointment is not separately confirmed."
+      },
+      {
+        "question": "Has Apple Springs won a football state championship?",
+        "answer": "DCTF lists 12 football playoff appearances and zero state finals or championships."
+      },
+      {
+        "question": "Where do the Eagles play home football games?",
+        "answer": "DCTF lists Nelson Davis Stadium; verify actual game-day spectator gate and accessibility with Apple Springs ISD."
+      },
+      {
+        "question": "Why do different sites show different 2026 records?",
+        "answer": "DCTF has two completed game results, while MaxPreps also reports a September 18 win against Christian Heritage. The reports cover different subsets of the schedule."
+      }
+    ]
+  },
+  "anton": {
+    "slug": "anton",
+    "theme": {
+      "accentHex": "#9D6C3D",
+      "label": "Original Bulldogs heritage accent; does not reproduce a school crest"
+    },
+    "seo": {
+      "title": "Anton Bulldogs Six-Man Football: 2021 11–1, 2026 Scores & Bulldog Stadium",
+      "description": "Anton Bulldogs six-man football: 15 playoff appearances, strong 2020–21 campaigns, 2026 Class 1A Division II District 3, Bulldogs Stadium and official schedule guidance."
+    },
+    "campus": {
+      "address": "100 Ellwood Boulevard, Anton, TX 79313",
+      "sourceUrl": "https://www.maxpreps.com/tx/anton/anton-bulldogs/football/schedule/",
+      "sourceLabel": "Anton High School campus listing; not a verified stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Anton Bulldogs 2026 published schedule and scores",
+      "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+      "sourceLabel": "DCTF 2026 varsity game ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "At least three DCTF-listed 2026 wins through Sept. 25; another source lists five games, including an Oct. 2 result, requiring final reconciliation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+      "sourceLabel": "DCTF partial 2026 season results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Southland",
+          "site": "Away",
+          "result": "W 50–28"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Loop",
+          "site": "Away",
+          "result": "W 54–28"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Springlake-Earth",
+          "site": "Home"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Welch Dawson",
+          "site": "Away",
+          "result": "W 52–0"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Petersburg",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Cotton Center",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Amherst",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Lazbuddie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Lorenzo",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Hart",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Bulldog Stadium",
+      "address": "Anton, TX — spectator entrance unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+      "sourceLabel": "DCTF Anton Bulldogs stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF reports historical 1,500 seats, not a verified current accessible entry or parking allocation. Anton High's Ellwood Boulevard address is a school campus contact, not automatically a stadium gate; obtain official ticket and visitor information before travel."
+    },
+    "overview": [
+      "The Anton Bulldogs represent Anton High School in the South Plains, competing in six-man football rather than the 11-man classifications that dominate larger Texas communities. Their football program should be distinguished from other Bulldogs schools and from Amherst, a present UIL district opponent with a different championship history.",
+      "The DCTF program archive reports 15 playoff appearances, no state championship-game appearances and zero football state titles. Its records highlight a strong 2020 team at 10–1 followed by 11–1 in 2021, a distinctive short period of sustained success instead of an invented state crown.",
+      "The seasons afterward brought a marked rebuilding period: DCTF reports 1–9 in 2022, 0–4 in its partial 2023 ledger, 4–3 in 2024 and 3–4 in 2025. Texas Prep Football shows different played-game totals for several years, so these should remain source-attributed season snapshots rather than official totals.",
+      "For the 2026–28 cycle the Anton Bulldogs are in Class 1A Division II District 3 along with Amherst, Cotton Center, Hart, Lazbuddie and Lorenzo. The annual district grouping is not proof of an all-time rivalry; public game-history databases list meetings with all five schools but should be treated as incomplete without official season archives.",
+      "The 2026 DCTF schedule lists victories over Southland 50–28, Loop 54–28 and Welch Dawson 52–0. A separate Texas Prep Football record supplies 50–22 over Springlake-Earth and a 50–45 Petersburg result, explaining why DCTF's 3–0 snapshot is incomplete rather than a definitive entire 2026 record.",
+      "Anton plays its published home games at Bulldog Stadium, independently listed with a historical capacity of 1,500. Fans should verify tickets, parking, accessible entrance and venue instructions from Anton ISD and current game announcements, not an unsourced stadium photo or Google map guess."
+    ],
+    "milestones": [
+      {
+        "date": "2020–21",
+        "title": "Back-to-back strong six-man seasons",
+        "body": "DCTF historical records show 10–1 in 2020 and 11–1 in 2021, not a state-title appearance.",
+        "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+        "sourceLabel": "DCTF Anton football season archive"
+      },
+      {
+        "date": "2022–25",
+        "title": "A documented program rebuilding period",
+        "body": "DCTF lists 1–9 (2022), partial 0–4 (2023), 4–3 (2024) and 3–4 (2025); other databases include additional games.",
+        "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+        "sourceLabel": "DCTF individual season records"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Shutout win at Welch Dawson",
+        "body": "DCTF records a 52–0 Anton victory, following wins against Southland and Loop.",
+        "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
+        "sourceLabel": "DCTF dated 2026 results"
+      },
+      {
+        "date": "2026–28",
+        "title": "Six-man District 3",
+        "body": "District includes Anton, Amherst, Cotton Center, Hart, Lazbuddie and Lorenzo, making the Oct. 16 Amherst fixture relevant to both programs.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL 1A Division II realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anton won a six-man state football championship?",
+        "answer": "Dave Campbell's Texas Football reports no state titles or title-game appearances, with 15 playoff appearances."
+      },
+      {
+        "question": "What were Anton's strongest recent seasons?",
+        "answer": "DCTF reports Anton at 10–1 in 2020 and 11–1 in 2021, a combined 21 victories across those two seasons."
+      },
+      {
+        "question": "What district is Anton in for 2026?",
+        "answer": "UIL Class 1A Division II District 3, alongside Amherst, Cotton Center, Hart, Lazbuddie and Lorenzo."
+      },
+      {
+        "question": "Why are 2026 online season records different?",
+        "answer": "DCTF lists three completed victories through Sept. 25, whereas Texas Prep Football also includes Springlake-Earth and Petersburg. The page preserves the source distinction rather than pretending both providers checked the same games."
+      },
+      {
+        "question": "Where is Bulldog Stadium?",
+        "answer": "Anton is listed as playing at Bulldog Stadium. Confirm its current gates, tickets and accessibility through Anton ISD, not simply the high-school mailing address."
+      }
+    ]
+  },
+  "anthony": {
+    "slug": "anthony",
+    "theme": {
+      "accentHex": "#315C9C",
+      "label": "Editorial Wildcat blue inspired by official district presentation; no district logo reproduced"
+    },
+    "seo": {
+      "title": "Anthony Wildcats Football: Michael Stephenson, 2026 Games & Tommy Sanchez Stadium",
+      "description": "Anthony Texas Wildcats football guide: official coach Michael Stephenson, 2026 season results, 15 playoff appearances and Tommy Sanchez Memorial Stadium."
+    },
+    "coach": {
+      "name": "Michael Stephenson",
+      "title": "Head football coach listed by Anthony Independent School District",
+      "sourceUrl": "https://www.anthonyisd.net/football",
+      "sourceLabel": "Official Anthony ISD Wildcats Football staff listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "825 Wildcat Drive, Anthony, TX 79821",
+      "sourceUrl": "https://www.maxpreps.com/tx/anthony/anthony-wildcats/football/history/",
+      "sourceLabel": "Anthony High School program directory; district administration is at a different address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official varsity/JV schedule and football staff",
+      "sourceUrl": "https://www.anthonyisd.net/football",
+      "sourceLabel": "Anthony ISD Wildcats Football page with downloadable official schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 in five source-reported completed games through September 25, 2026; October 9 district opener not counted",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+      "sourceLabel": "DCTF 2026 five-game dated results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "San Elizario",
+          "site": "Away",
+          "result": "L 20–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Cobre (New Mexico)",
+          "site": "Home",
+          "result": "L 22–28"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "El Paso Cathedral",
+          "site": "Home",
+          "result": "L 21–39"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Van Horn",
+          "site": "Away",
+          "result": "W 14–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Capitan (New Mexico)",
+          "site": "Home",
+          "result": "W 20–16"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Stanton",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Coahoma",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "San Angelo Grape Creek",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Alpine",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Crane",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Tommy Sanchez Memorial Stadium",
+      "address": "Anthony, Texas — verify stadium entrance with Anthony ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+      "sourceLabel": "DCTF Wildcats venue directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF reports a historical stadium capacity of 1,500, while a 2014 archive described an older Wildcat Stadium with 300 estimated seats. These are not evidence for the same modern seating configuration; confirm present location, gate, accessible arrival and game ticketing directly with Anthony ISD."
+    },
+    "overview": [
+      "Anthony's Wildcats represent Anthony Independent School District at the Texas–New Mexico border. The district describes Anthony as the Gateway to Texas and maintains its own official football staff and downloadable schedules. This is a different program from Anthony-area schools across the state line.",
+      "The district's football staff page names Michael Stephenson as head coach and David Rueda as athletic director. Mark Montañez, Francis Rayas and Carlos Heredia are among the assistant varsity coaches identified by the district. This first-party roster is stronger evidence than undated coaching tables.",
+      "Dave Campbell's Texas Football reports 15 Wildcats playoff appearances and no state football title game or championship. The source records 2025 at 2–9, 2024 at 1–10 and 2022 at 4–6; those are dated completed seasons, not a judgment about the ongoing 2026 team.",
+      "Anthony moved into Class 3A Division II football, a higher classification than the 2A designation in its 2022 and 2023 historical records. The 2026 slate includes Stanton, Coahoma, San Angelo Grape Creek, Alpine and Crane as listed district opponents.",
+      "The 2026 Wildcats faced two New Mexico schools early in the season: a 22–28 loss to Cobre and a 20–16 victory against Capitan. These cross-border fixtures give Anthony a distinctive football setting that is not captured in a standard statewide school-directory profile.",
+      "After losing the first three games of 2026, Anthony won 14–6 at Van Horn and 20–16 against Capitan. That is a source-dated 2–3 record through September 25; the October 9 Stanton game must not be described as completed without a verified result.",
+      "The current independent program listing names Tommy Sanchez Memorial Stadium and reports 1,500 seats. An older archive names Wildcat Stadium with an estimated 300 seats, apparently describing a past stadium record. Neither figure independently establishes current accessibility or ticket rules."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Five-win historical season",
+        "body": "MaxPreps lists a 5–5 regular season for 2021–22; Dave Campbell's lists 5–6 overall, showing a likely difference in playoff-game inclusion.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anthony/anthony-wildcats/football/history/",
+        "sourceLabel": "MaxPreps historical team records"
+      },
+      {
+        "date": "2025",
+        "title": "Two-win prior season",
+        "body": "DCTF records Anthony finishing 2–9, establishing context without claiming a championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+        "sourceLabel": "DCTF archived completed seasons"
+      },
+      {
+        "date": "Sept. 2026",
+        "title": "Consecutive wins over Van Horn and Capitan",
+        "body": "The Wildcats recorded a 14–6 road victory over Van Horn and a 20–16 victory over Capitan, New Mexico, to reach 2–3 in the five verified published games.",
+        "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+        "sourceLabel": "DCTF dated 2026 results"
+      },
+      {
+        "date": "2026",
+        "title": "Official Wildcats coaching staff",
+        "body": "Anthony ISD identifies Michael Stephenson as head coach and David Rueda as athletic director.",
+        "sourceUrl": "https://www.anthonyisd.net/football",
+        "sourceLabel": "Official Anthony ISD staff directory"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who is Anthony's head football coach in 2026?",
+        "answer": "Anthony ISD's official football page lists Michael Stephenson as head coach and David Rueda as athletic director."
+      },
+      {
+        "question": "Has Anthony won a UIL football state championship?",
+        "answer": "DCTF lists 15 Wildcats playoff appearances but no state title or state final."
+      },
+      {
+        "question": "Where do Anthony Wildcats play home football games?",
+        "answer": "DCTF currently lists Tommy Sanchez Memorial Stadium, but visitors should verify match-day location, parking, gate and accessible entry with Anthony ISD."
+      },
+      {
+        "question": "Why does Anthony play New Mexico schools?",
+        "answer": "The Wildcats are based on the Texas–New Mexico border; their published 2026 non-district schedule includes Cobre and Capitan from New Mexico."
+      },
+      {
+        "question": "Which 2026 games are confirmed results?",
+        "answer": "DCTF reports three losses followed by September wins at Van Horn (14–6) and over Capitan (20–16). The Oct. 9 Stanton matchup was not counted as a final at this research checkpoint."
+      }
+    ]
+  },
+  "anson": {
+    "slug": "anson",
+    "theme": {
+      "accentHex": "#963F28",
+      "label": "Original Tiger historical editorial graphic, not official Anson school colors"
+    },
+    "seo": {
+      "title": "Anson Tigers Football: 2026 Coach Matt Stapp, 2025 Playoffs & Tiger Stadium",
+      "description": "Anson Tigers football guide: 2026 UIL 2A Division I District 5, 2024 and 2025 eight-win seasons, coach Matt Stapp, Tiger Stadium and sourced game results."
+    },
+    "coach": {
+      "name": "Matt Stapp",
+      "title": "2026 football head coach per dated current varsity history",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/history/",
+      "sourceLabel": "MaxPreps 2026 history; primary Anson ISD coach corroboration outstanding",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1509 Commercial Avenue, Anson, TX 79501",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+      "sourceLabel": "Anson High campus directory, separate from spectator gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Anson Tigers varsity fixtures and recorded results",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+      "sourceLabel": "MaxPreps updated October 8, 2026",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 through the five completed fixtures listed on October 8, 2026; October 9 Cisco remains scheduled",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+      "sourceLabel": "Dated Anson 2026 schedule",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Post",
+          "site": "Home",
+          "result": "L 6–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Albany",
+          "site": "Away",
+          "result": "L 26–27"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Olney",
+          "site": "Home",
+          "result": "W 77–0"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Haskell",
+          "site": "Away",
+          "result": "W 48–44"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Breckenridge",
+          "site": "Home",
+          "result": "W 43–19"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Cisco",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Abilene TLCA",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "De Leon",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Hawley",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Hico",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "Anson, TX — exact game gate unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
+      "sourceLabel": "Dave Campbell's Texas Football Tigers venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists historic 800 capacity but provides no current official ADA, parking or ticket terms. Contact Anson ISD using its current extracurricular schedule for stadium arrival details."
+    },
+    "overview": [
+      "The Anson Tigers represent Anson ISD in Jones County, West Texas. Their program should not be confused with other Texas Tigers or the similarly named youth football organization: the school publishes extracurricular resources at its official ansontigers.com district site.",
+      "DCTF lists Anson with 28 football playoff appearances and no state football championship games or titles. Two consecutive 8–4 varsity seasons in 2024 and 2025 make a better documented recent story than an invented championship legacy.",
+      "The 2025 Tigers defeated Ozona 35–14 in a playoff game before a 27–28 postseason loss to Spearman; MaxPreps' full schedule confirms the dates and scores. Earlier in the season they defeated traditional regional opponent Albany 20–6, but that does not establish an all-time rivalry series outcome.",
+      "Anson's 2026–28 UIL district is Class 2A Division I District 5 against Cisco, De Leon, Hawley, Hico and Abilene TLCA. The current schedule's October 9 Cisco date is a scheduled contest, not an officially verified finished game at the time of research.",
+      "MaxPreps lists a 2026 coaching change to Matt Stapp after Kyle Wheeler in 2025 and Cory McCombs in 2024. The exact transition should be corroborated by an Anson ISD announcement before being presented as a district-confirmed appointment.",
+      "The 2026 season began with narrow 26–27 defeat at Albany followed by a 77–0 victory over Olney, a 48–44 win over Haskell and 43–19 win over Breckenridge. These source-dated results give 3–2 through September 25; the corresponding DCTF page was missing the final two September scores, so its partial 1–2 tally is not authoritative for all games.",
+      "Independent stadium listings name Tiger Stadium with historical 800 capacity. Game-day gate, accessible arrival, current tickets and weather changes need the current school district's own announcements; the high-school campus street address is not proof of stadium entrance."
+    ],
+    "milestones": [
+      {
+        "date": "2024–25",
+        "title": "Back-to-back eight-win years",
+        "body": "DCTF archived varsity results list 8–4 in both 2024 and 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
+        "sourceLabel": "DCTF program season history"
+      },
+      {
+        "date": "Nov. 2025",
+        "title": "Ozona playoff win and Spearman finish",
+        "body": "Anson beat Ozona 35–14, then lost 27–28 to Spearman in its next playoff game.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps complete 2025 postseason scores"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Four-point shootout at Haskell",
+        "body": "The Tigers won 48–44 at Haskell after a one-point loss to Albany two weeks earlier.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anson/anson-tigers/football/schedule/",
+        "sourceLabel": "MaxPreps dated 2026 scores"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 2A Division I District 5",
+        "body": "The present district includes Cisco, De Leon, Hawley, Hico and Abilene TLCA, not necessarily all historic rival schools.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL realignment 2026"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anson won a state football championship?",
+        "answer": "The DCTF football database credits Anson with 28 playoff appearances and no state championship-game appearance or state title."
+      },
+      {
+        "question": "Who coaches the Anson Tigers in 2026?",
+        "answer": "MaxPreps lists Matt Stapp in its 2026 head-coach history; official Anson ISD appointment confirmation is still being sought."
+      },
+      {
+        "question": "How did the Tigers finish in 2025?",
+        "answer": "Anson finished 8–4 and won a playoff game against Ozona 35–14 before losing to Spearman 27–28."
+      },
+      {
+        "question": "Where do Anson Tigers play?",
+        "answer": "The football directory lists Tiger Stadium; verify a specific game's gate, tickets and accessibility with Anson ISD."
+      }
+    ]
+  },
+  "anna": {
+    "slug": "anna",
+    "theme": {
+      "accentHex": "#843529",
+      "label": "Original Coyotes editorial copper accent; not a school logo"
+    },
+    "seo": {
+      "title": "Anna Coyotes Football: 2023 State Champions, Seth Parr & 2026",
+      "description": "Anna Coyotes football history: 2023 UIL 4A Division I 26–0 state title, Seth Parr, 2026 5A Division II program and official tickets, venue and staff."
+    },
+    "coach": {
+      "name": "Seth Parr",
+      "title": "2026 head football coach and executive athletic director confirmed by Anna ISD",
+      "sourceUrl": "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Official Anna High School athletics football staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1201 North Powell Parkway, Anna, TX 75409",
+      "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/staff/",
+      "sourceLabel": "Anna High campus directory, not a verified stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Anna Coyotes varsity football schedule and game-day resources",
+      "sourceUrl": "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Official Anna High athletics varsity football portal",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Anna's Coyotes made Texas football history in 2023 by winning their first UIL state title, a 26–0 Class 4A Division I shutout of Tyler Chapel Hill at AT&T Stadium. This is a real state championship with a verified opponent and score, unlike a regional championship or a merely deep playoff appearance.",
+      "The 2023 team finished 15–1. After an early overtime defeat to Celina, the Coyotes won every remaining game, including playoff wins against China Spring 45–21, Panther Creek 42–38, Stephenville 41–21 and Decatur 38–27 before the shutout final.",
+      "The championship game's original reporting credits running back Edward Chumley with three touchdowns and offensive MVP honors; C.J. Miller received defensive MVP recognition. Quarterback Ziondre Williams contributed to the championship victory. These are historical 2023 names, not a current 2026 roster.",
+      "The school has since climbed from its 2023 Class 4A Division I title season into 5A Division II, according to its 2026–28 UIL alignment. Its distinct 2024 9–4 and 2025 10–3 records illustrate program continuity across classification changes.",
+      "Seth Parr is not a speculative current coach: Anna High's official 2026–27 athletic staff lists him as head football coach and executive athletic director. The published staff includes defensive coordinator Robby Sevier, offensive coordinator Victor Rodriguez and special teams coordinator Michael Guerrero.",
+      "Official Anna High athletics identifies Coyote Stadium at 1201 N. Powell Parkway, Anna, TX 75409, distinct from the athletic sports complex at 1107 Rosamond Parkway. The stadium guidelines describe a 2017 renovation and link official tickets, clear-bag rules and attendance policy; check those official guides for game-specific admission, parking and accessible arrival."
+    ],
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "Thirteen wins before the title",
+        "body": "The 2022 Coyotes finished 13–1, building the program ahead of its championship season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/history/",
+        "sourceLabel": "MaxPreps archived Anna seasons"
+      },
+      {
+        "date": "Dec. 15, 2023",
+        "title": "First football state championship",
+        "body": "Anna shut out Tyler Chapel Hill 26–0 at AT&T Stadium to win UIL 4A Division I, closing a 15–1 season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/23-24/schedule/",
+        "sourceLabel": "Archived state final schedule"
+      },
+      {
+        "date": "2023 playoffs",
+        "title": "Decatur semifinal victory",
+        "body": "Anna defeated Decatur 38–27 after beating Stephenville 41–21, earning the title-game berth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/23-24/schedule/",
+        "sourceLabel": "Full 2023 playoff schedule"
+      },
+      {
+        "date": "2024–25",
+        "title": "Competing in a larger classification",
+        "body": "After the 4A championship the Anna program posted 9–4 and 10–3 campaigns in the next two seasons.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anna/anna-coyotes/football/history/",
+        "sourceLabel": "MaxPreps program season history"
+      },
+      {
+        "date": "2026",
+        "title": "Seth Parr leads the Coyotes",
+        "body": "Anna High's official football staff continues to list Seth Parr as head coach and executive athletic director.",
+        "sourceUrl": "https://www.gocoyoteu.com/sport/football/boys/?tab=staff",
+        "sourceLabel": "Official Anna football staff roster"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Anna win the 2023 Texas football state championship?",
+        "answer": "Yes. Anna defeated Tyler Chapel Hill 26–0 in the UIL Class 4A Division I final at AT&T Stadium on December 15, 2023."
+      },
+      {
+        "question": "Who coached the 2023 champion Coyotes and who coaches in 2026?",
+        "answer": "Seth Parr coached the 2023 title team and Anna High's official 2026 football staff still lists him as head coach and executive athletic director."
+      },
+      {
+        "question": "Who stood out in Anna's 2023 championship game?",
+        "answer": "Edward Chumley scored three touchdowns and earned offensive MVP, and C.J. Miller was defensive MVP according to championship reporting."
+      },
+      {
+        "question": "What is Anna's 2026 classification?",
+        "answer": "Anna is listed in UIL Class 5A Division II for the 2026–28 cycle; that should not be confused with its Class 4A Division I title in 2023."
+      },
+      {
+        "question": "Where are official Coyotes schedules and tickets?",
+        "answer": "Anna High's official athletics portal at gocoyoteu.com provides football schedules and staff; use each event's official stadium and ticket details rather than assuming the school campus address is the entrance."
+      }
+    ]
+  },
+  "angleton": {
+    "slug": "angleton",
+    "theme": {
+      "accentHex": "#542B39",
+      "label": "Original maroon Wildcats editorial graphics, not official logo"
+    },
+    "seo": {
+      "title": "Angleton Wildcats Football: 2024 Playoff Run, 2026 Coach & Wildcat Stadium",
+      "description": "Independent Angleton Wildcats football history: 2024 13–2 semifinal season, historic state final, Jason Brittain, 2026 fixtures and Wildcat Stadium information."
+    },
+    "coach": {
+      "name": "Jason Brittain",
+      "title": "Head coach shown on dated 2026 varsity staff roster",
+      "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/staff/",
+      "sourceLabel": "MaxPreps 2026 varsity staff directory updated September 26",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1 Campus Drive, Angleton, TX 77515",
+      "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/staff/",
+      "sourceLabel": "2026 team directory; school campus not verified game-day gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Angleton Wildcats 2026 season game listings",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+      "sourceLabel": "DCTF 2026 team schedule, partial score snapshot",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "Published DCTF partial snapshot: 3–0 through September 10; additional 2026 results require separate reconciliation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+      "sourceLabel": "DCTF 2026 partial results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Fort Bend Bush",
+          "site": "Away",
+          "result": "W 24–0"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Dayton",
+          "site": "Home",
+          "result": "W 42–0"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Fort Bend Dulles",
+          "site": "Away",
+          "result": "W 80–0"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "South Houston",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Iowa Colony",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Pasadena",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Katy Freeman",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Friendswood",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Richmond Randle",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Victoria East",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wildcat Stadium",
+      "address": "Wildcat Stadium, 1 Stadium Drive, Angleton, TX 77515 (per Angleton High official events)",
+      "sourceUrl": "https://www.angletonisd.net/o/ahs/events",
+      "sourceLabel": "Angleton High 2026 events venue listing and Angleton ISD varsity ticket guidance",
+      "verifiedAt": "2026-10-09",
+      "note": "Angleton ISD's published varsity-football exception allows cash ticket payment at Wildcat Stadium gates, while recommending GoFan advance purchases. The district's June 2026 season-ticket notice describes GoFan renewals; check individual event price and schedule. The 2026 graduation guide documents accessible seating and parking, but its gate hours and shuttle operations apply to graduation, not automatically football. Confirm current football spectator arrangements with AISD."
+    },
+    "overview": [
+      "Angleton High School's Wildcats play in Angleton, Brazoria County. Their identity is distinct from other Texas Wildcats programs, and the school campus at 1 Campus Drive should not automatically be used as a stadium entrance.",
+      "Angleton's 2024 team finished 13–2 according to both Dave Campbell's Texas Football and MaxPreps. The 2024 postseason schedule records wins over College Station 35–34 and La Porte 24–21 before a 14–21 defeat to Smithson Valley. The distinction between a 15-game season and a state championship matters.",
+      "DCTF's program history attributes 30 playoff appearances, one state championship-game appearance and no state titles. The year and opponent of that sole historical title-game appearance require a separate UIL primary-source review and should not be inferred from the 2024 record.",
+      "Current 2026 team staff lists Jason Brittain as head coach. MaxPreps also lists Brittain for the 13–2 season in 2024 and 9–2 finish in 2025, offering a school-specific coaching continuity story rather than recycling statewide football text.",
+      "DCTF reports 2025 at 9–2 and 2023 at 7–5. An alternate historical source reports a different 2025 overall total; the page uses DCTF for this season record while identifying unverified discrepancies in the individual research audit.",
+      "The partial 2026 DCTF season snapshot provides opening wins over Fort Bend Bush, Dayton and Fort Bend Dulles and then lists upcoming district fixtures including Iowa Colony, Friendswood and Richmond Randle. The source's missing later final scores are not presented as a complete October record.",
+      "The named home venue is Wildcat Stadium. Its directory-listed 8,800 capacity is not verification of accessible seating, tickets or spectator parking, so visitors should confirm arrangements with Angleton ISD."
+    ],
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Thirteen victories and a deep postseason",
+        "body": "Both DCTF and MaxPreps record a 13–2 campaign; the playoff ledger includes wins against College Station and La Porte.",
+        "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/24-25/schedule/",
+        "sourceLabel": "2024 MaxPreps archived full schedule"
+      },
+      {
+        "date": "2024 playoffs",
+        "title": "Smithson Valley ends the run",
+        "body": "The 2024 playoff record ends with Angleton losing 14–21 to Smithson Valley; not a state championship final.",
+        "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/24-25/schedule/",
+        "sourceLabel": "2024 postseason record"
+      },
+      {
+        "date": "2025",
+        "title": "Nine-win follow-up season",
+        "body": "DCTF and MaxPreps show the Wildcats 9–2 in 2025, with coach Jason Brittain still listed.",
+        "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/history/",
+        "sourceLabel": "Historical varsity seasons"
+      },
+      {
+        "date": "2026",
+        "title": "2026 coach and first three recorded finals",
+        "body": "Current roster lists Jason Brittain; DCTF's early snapshot records 24–0, 42–0 and 80–0 opening wins without asserting a full October record.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+        "sourceLabel": "DCTF partial 2026 results"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Angleton win a football state championship in 2024?",
+        "answer": "No. The 13–2 team lost a 2024 postseason game to Smithson Valley 14–21; historical team databases record zero state titles."
+      },
+      {
+        "question": "Who is Angleton's football coach for 2026?",
+        "answer": "The 2026 team staff roster names Jason Brittain as head coach."
+      },
+      {
+        "question": "How many times has Angleton reached a football state title game?",
+        "answer": "DCTF records one historical title-game appearance, but its year and opponent should be verified from UIL before they are named here."
+      },
+      {
+        "question": "Where do the Wildcats play home games?",
+        "answer": "DCTF lists Wildcat Stadium in Angleton. Confirm stadium gate, accessible seating and tickets through Angleton ISD."
+      }
+    ]
+  },
+  "andrews": {
+    "slug": "andrews",
+    "theme": {
+      "accentHex": "#B9912A",
+      "label": "Original Mustang gold archival milestone styling, not a school crest"
+    },
+    "seo": {
+      "title": "Andrews Mustangs Football: 2026 Coach, Playoff History & Mustang Bowl",
+      "description": "Andrews Mustangs football with official ISD title history, new 2026 coach Jason Richters, 41 playoff appearances, UIL 4A Division I and Mustang Bowl game-day resources."
+    },
+    "coach": {
+      "name": "Jason Richters",
+      "title": "2026 Andrews ISD head football coach",
+      "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+      "sourceLabel": "Andrews ISD official football coaching staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1400 NW Ave. K, Andrews, TX 79714",
+      "sourceUrl": "https://www.maxpreps.com/tx/andrews/andrews-mustangs/football/staff/",
+      "sourceLabel": "2026 team roster campus; school address is not stadium gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Andrews Mustangs game results and schedule",
+      "sourceUrl": "https://www.texasfootball.com/team/andrews-mustangs",
+      "sourceLabel": "DCTF dated 2026 football ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 in five sourced games through Sept. 25, 2026; Oct. 2 result not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/andrews/andrews-mustangs/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 football game ledger updated Sept. 29",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Clint",
+          "site": "Home",
+          "result": "W 16–7"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Big Spring",
+          "site": "Home",
+          "result": "W 42–34"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Mineral Wells",
+          "site": "Away",
+          "result": "L 7–41"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Snyder",
+          "site": "Away",
+          "result": "L 3–8"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Monahans",
+          "site": "Home",
+          "result": "W 19–7"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Lubbock Estacado",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Lubbock Christian",
+          "site": "Away"
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Midland Greenwood",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "San Angelo Lake View",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Plainview",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Mustang Bowl",
+      "address": "Andrews, TX — verify exact match-day gate with Andrews ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/andrews-mustangs",
+      "sourceLabel": "DCTF Mustang Bowl historical venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF gives historic 8,092 stadium capacity, not a current official accessible parking or ticketing certificate. Andrews High campus on NW Avenue K and district offices at 405 NW 3rd Street are different locations and should never be assumed to be the stadium entrance."
+    },
+    "overview": [
+      "Andrews Mustangs football combines a long postseason tradition with one of West Texas's best-known stadium names, Mustang Bowl. Andrews ISD's own football accomplishments page identifies title seasons and coaching staff, making it possible to describe the program from first-party evidence rather than generic Class 4A filler.",
+      "The official Andrews ISD accomplishment record lists four regional championships in 2006, 2007, 2016 and 2019; eight area championships spanning 1993 through 2019; and multiple district crowns, including 2024 and 2025. A regional championship is not a UIL state football championship. DCTF records 41 playoff appearances, zero title-game appearances and zero state football crowns.",
+      "The 2019 team reached 11–2 according to the DCTF history ledger, while a recent sequence was 7–5 in 2022, 6–6 in 2023, 5–7 in 2024 and 5–6 in 2025. Those exact season outcomes should stand separately from district championships; losing overall records can still include district success.",
+      "Andrews ISD officially lists Jason Richters as the 2026 head football coach with a full assistant roster. That provides an unusually reliable current coach source instead of relying solely on sports databases; Tom Harvey's spring 2026 retirement is documented by local news and should not be confused with the current head coach.",
+      "In the 2026–28 UIL Class 4A Division I, District 3 alignment the Mustangs face Midland Greenwood, Plainview and San Angelo Lake View in league play. The current alignment must not be retroactively used for Andrews's 2006 regional championship season.",
+      "The first five reported 2026 final scores show victories over Clint, Big Spring and Monahans, with losses at Mineral Wells and Snyder: a 3–2 record through September 25. A later game at Lubbock Estacado is listed but lacks a checked final in the data snapshot, and should not be labeled complete.",
+      "Mustang Bowl's named historical capacity is 8,092 in DCTF, but that does not establish which entrance is open, accessible parking availability, current tickets or concessions. For accurate game-day arrival, fans should use Andrews ISD's current athletic resources and event-specific instructions."
+    ],
+    "milestones": [
+      {
+        "date": "2006–07",
+        "title": "Back-to-back regional titles",
+        "body": "Andrews ISD officially lists regional championship football seasons in both 2006 and 2007.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Andrews ISD football accomplishments"
+      },
+      {
+        "date": "2016",
+        "title": "Another regional championship",
+        "body": "The district lists 2016 among its official regional, area, bi-district and district championship years.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Andrews ISD official football achievement ledger"
+      },
+      {
+        "date": "2019",
+        "title": "Eleven wins and fourth listed regional crown",
+        "body": "DCTF reports 11–2 in 2019; Andrews ISD credits that season with regional championship honors.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Official Andrews ISD regional championship list"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two recent district championships",
+        "body": "Andrews ISD lists both 2024 and 2025 among the program's district titles, distinct from state championships.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Official Andrews ISD district-title list"
+      },
+      {
+        "date": "2026",
+        "title": "Jason Richters leads Mustangs",
+        "body": "The current Andrews ISD football coaching roster identifies Jason Richters as head football coach.",
+        "sourceUrl": "https://www.andrews.esc18.net/departments/athletics/football",
+        "sourceLabel": "Official school athletics coaching staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Andrews won a UIL state football championship?",
+        "answer": "DCTF records 41 postseason appearances with no state championship or state-title-game appearance. The four regional championship seasons published by Andrews ISD are separate, lower playoff-stage honors."
+      },
+      {
+        "question": "Who is Andrews's 2026 head football coach?",
+        "answer": "Andrews ISD's official athletics page names Jason Richters as head coach. Former coach Tom Harvey retired in spring 2026."
+      },
+      {
+        "question": "Which years did Andrews win regional football titles?",
+        "answer": "The district's official football achievements page lists 2006, 2007, 2016 and 2019."
+      },
+      {
+        "question": "Where do the Andrews Mustangs play home games?",
+        "answer": "The historic program stadium is Mustang Bowl, according to DCTF. Use Andrews ISD event listings to confirm tickets, entrance and accessibility, rather than navigate to the school-office address."
+      },
+      {
+        "question": "How did Andrews open the 2026 season?",
+        "answer": "The five reported results through September 25 total 3–2, including wins over Clint, Big Spring and Monahans."
+      }
+    ]
+  },
+  "anderson-shiro": {
+    "slug": "anderson-shiro",
+    "theme": {
+      "accentHex": "#C18F2F",
+      "label": "Original Fighting Owls gold editorial accent; official colors require ISD confirmation"
+    },
+    "seo": {
+      "title": "Anderson-Shiro Fighting Owls Football: 2026 Scores, Coach & History",
+      "description": "Anderson-Shiro football: 2023 nine-win and 2024 eight-win seasons, 2026 District 13-3A Division II, Brad Hodges, Owl Stadium and verified resources."
+    },
+    "coach": {
+      "name": "Brad Hodges",
+      "title": "2026 head football coach according to MaxPreps; current school staff independently identifies Brad Hodges as athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
+      "sourceLabel": "MaxPreps football head-coach listing; ASCISD campus directory confirms AD role",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1345 FM 149 West, Anderson, TX 77830",
+      "sourceUrl": "https://jshs.ascisd.net/apps/contact/",
+      "sourceLabel": "Official Anderson-Shiro Junior-Senior High campus contact; 458 FM 149 W is distinct district administration contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Owls results and current schedule",
+      "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+      "sourceLabel": "Dave Campbell's Texas Football individual 2026 game and history ledger",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 in five independently listed results through September 25, 2026",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+      "sourceLabel": "DCTF 2026 Owls results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Lovelady",
+          "site": "Away",
+          "result": "L 14–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Elkhart",
+          "site": "Home",
+          "result": "W 36–28"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Buffalo",
+          "site": "Away",
+          "result": "L 0–28"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Normangee",
+          "site": "Home",
+          "result": "W 26–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Huntington",
+          "site": "Home",
+          "result": "W 49–8"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Lexington",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Schulenburg",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Florence",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Thrall",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Rogers",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Owl Stadium",
+      "address": "Anderson, TX — verify official game gate at FM 149 campus",
+      "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+      "sourceLabel": "DCTF stadium listing, not campus accessibility certificate",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists 400 as historical stadium capacity. Official current parking, ADA arrival and spectator gates should be checked with Anderson-Shiro CISD. School mailing address does not establish stadium entry."
+    },
+    "overview": [
+      "The Anderson-Shiro Fighting Owls represent a consolidated school community based in Anderson in Grimes County, not a similarly named collegiate or neighboring school. Their home listing is Owl Stadium, but seating, accessible entrance, event tickets and traffic plans must be confirmed directly with the school district.",
+      "Dave Campbell's Texas Football credits the Fighting Owls with eight football playoff appearances and no state football title game or championship. Their 2023 and 2024 results are more instructive than unsupported title narratives: 9–2 in 2023 and 8–3 in 2024, according to historical records.",
+      "The 2024 team won its first four games, lost to Newton and Woodville in district play, and finished after a 35–6 bi-district playoff loss at Troup. MaxPreps' archived results provide the sequence, rather than assuming the 8–3 year reached the state quarterfinals.",
+      "In 2025 the Fighting Owls finished 4–7 according to the historical ledger. Current season coach Brad Hodges is listed by the 2026–27 varsity team roster, and this attribution is distinct from the published records of former years.",
+      "For the 2026–28 alignment the official UIL Class 3A Division II District 13 groups Anderson-Shiro with Florence, Lexington, Rogers, Schulenburg and Thrall. It is a different district from its 2024 or 2025 opponents, and being grouped together is not itself evidence of historic rivalry.",
+      "Through September 25, 2026, the team has five confirmed result lines: victories over Elkhart 36–28, Normangee 26–6 and Huntington 49–8, alongside defeats at Lovelady and Buffalo. That is a dated 3–2 snapshot; the October 9 Lexington game is a scheduled matchup, not a declared final.",
+      "Several public sports profiles emphasize Owens/Owls teams in other cities; the correct identity here is Anderson-Shiro Fighting Owls and the campus on FM 149 West. The team should have an individual chronology, not recycled state-wide copy."
+    ],
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Nine-win Fighting Owls season",
+        "body": "Historical program data records a 9–2 season, with the team returning to postseason play.",
+        "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
+        "sourceLabel": "DCTF program history"
+      },
+      {
+        "date": "2024",
+        "title": "Eight victories and postseason appearance",
+        "body": "The Owls finished 8–3 and lost 35–6 to Troup in the bi-district round; do not exaggerate the playoff depth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/24-25/schedule/",
+        "sourceLabel": "MaxPreps complete 2024 game ledger"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "High-scoring Huntington win",
+        "body": "The 2026 results include a 49–8 home victory over Huntington and 3–2 record after five published finals.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anderson/anderson-shiro-fighting-owls/football/",
+        "sourceLabel": "MaxPreps Sept. 25 2026 score recap"
+      },
+      {
+        "date": "2026–28",
+        "title": "New 3A Division II District 13",
+        "body": "UIL realignment places the Owls with Lexington, Florence, Rogers, Schulenburg and Thrall.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anderson-Shiro won a Texas state football championship?",
+        "answer": "DCTF lists eight Fighting Owls playoff appearances and zero football state championship-game appearances or titles."
+      },
+      {
+        "question": "Who coaches the Fighting Owls in 2026?",
+        "answer": "The 2026 current team page lists Brad Hodges as head coach. Check the school district for any subsequent coaching changes."
+      },
+      {
+        "question": "What UIL district is Anderson-Shiro in for 2026?",
+        "answer": "UIL Class 3A Division II, District 13, with Florence, Lexington, Rogers, Schulenburg and Thrall."
+      },
+      {
+        "question": "How did the 2024 Anderson-Shiro season end?",
+        "answer": "The Owls finished 8–3. MaxPreps records the 2024 playoff defeat to Troup, 35–6, after a regular season with eight wins."
+      },
+      {
+        "question": "Where do Anderson-Shiro games take place?",
+        "answer": "The program directory lists Owl Stadium. Confirm actual stadium entrance, mobility access, parking and game-specific tickets with Anderson-Shiro CISD before travel."
+      }
+    ]
+  },
+  "anahuac": {
+    "slug": "anahuac",
+    "theme": {
+      "accentHex": "#BA9637",
+      "label": "Panthers black-and-gold school identity from 2026 Anahuac ISD game-day notice; original gold editorial accent, no school logo"
+    },
+    "seo": {
+      "title": "Anahuac Panthers Football: Kyle White Stadium, 2026 Results & History",
+      "description": "Anahuac Panthers football: 28 playoff appearances, 2021–22 nine-win seasons, 2026 3A Division I District 10 and official Anahuac ISD game-day resources."
+    },
+    "campus": {
+      "address": "201 South Kansas Avenue, Anahuac, TX 77514 (official high school campus, not a verified stadium entrance)",
+      "sourceUrl": "https://www.aisdpanthers.com/o/ahs/live_feeds/12946573",
+      "sourceLabel": "Anahuac ISD High School official Aug. 28, 2026 game-day message with campus address and black/gold identity",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Panthers results and dated schedule (verify official AISD updates)",
+      "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+      "sourceLabel": "DCTF 2026 dated program schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 in five reported completed games through Sept. 25, 2026; later results not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+      "sourceLabel": "DCTF published 2026 result snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Van Vleck",
+          "site": "Away",
+          "result": "L 14–42"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Livingston",
+          "site": "Away",
+          "result": "L 50–61"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Liberty",
+          "site": "Home",
+          "result": "W 35–24"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Hardin-Jefferson",
+          "site": "Home",
+          "result": "L 19–38"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Cleveland Tarkington",
+          "site": "Away",
+          "district": true,
+          "result": "W 64–26"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Kirbyville",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Buna",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "East Chambers",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 22",
+          "opponent": "Orangefield",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Coldspring-Oakhurst",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Kyle White Stadium",
+      "address": "Anahuac, Texas — separate official spectator entrance not independently verified",
+      "sourceUrl": "https://www.aisdpanthers.com/o/ahs/live-feed",
+      "sourceLabel": "Anahuac ISD High School first-party October 2, 2026 Kyle White Stadium game notice",
+      "verifiedAt": "2026-10-09",
+      "note": "Anahuac High's official October 2, 2026 game notice explicitly places home Panthers football at Kyle White Stadium and confirms black-and-gold team identity. The school's campus is separately listed as 201 South Kansas Avenue; neither campus nor district headquarters is a certified stadium gate. Historical third-party capacity 500 is not a current ADA finding. Confirm event-specific entry, parking, accessibility and tickets with Anahuac ISD."
+    },
+    "overview": [
+      "The Anahuac Panthers represent Anahuac ISD in Chambers County, near the eastern shoreline of Trinity Bay. Their football story belongs to Anahuac High School, not the similarly named Liberty or Panhandle Panthers, whose game histories and stadiums are entirely different.",
+      "Dave Campbell's Texas Football credits Anahuac with 28 football playoff appearances but no UIL football state-title-game appearance or state championship. Rather than inventing a trophy dynasty, the documented 2021 and 2022 campaigns both finished 9–3 in the archived program ledger.",
+      "The Panthers followed with 6–3 in 2023 and 6–4 in 2024 before 3–8 in 2025. These separate season outcomes matter for a school and alumni audience: a program with decades of playoff entries can fluctuate significantly from year to year.",
+      "The 2026–28 UIL realignment assigns Anahuac to Class 3A Division I, District 10 alongside Buna, Cleveland Tarkington, Coldspring-Oakhurst, East Chambers, Kirbyville and Orangefield. These opponents constitute the modern district, not an unverified list of historic rivalries.",
+      "The 2026 dated score ledger shows a 35–24 home victory over Liberty and a 64–26 District 10 win at Tarkington after two high-scoring road losses. Through the five documented September results the Panthers were 2–3; later October games and outcomes need live official confirmation.",
+      "DCTF lists Kyle White Stadium and a 500-person historical stadium capacity, but current tickets, field entrance and disability access were not confirmed by the sources reviewed. The school directory's Wilcox campus address and AISD headquarters' Mikhael Ricks Drive address should not be mistaken for a verified stadium visitor gate.",
+      "The publicly retrievable MaxPreps staff listing names Greg Neece as head coach but displays an older 2025–26 season, not a current 2026–27 verified staffing document. TexasDefined therefore deliberately withholds a claim about the 2026 coach until the official Anahuac ISD athletics program confirms it."
+    ],
+    "milestones": [
+      {
+        "date": "2021–22",
+        "title": "Consecutive nine-win teams",
+        "body": "DCTF historical football records list Anahuac at 9–3 in both seasons, demonstrating a strong modern competitive period.",
+        "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+        "sourceLabel": "DCTF Panthers past-season ledger"
+      },
+      {
+        "date": "2023–25",
+        "title": "A three-season change",
+        "body": "The documented records shift from 6–3 in 2023 and 6–4 in 2024 to 3–8 in 2025; none of these is a football state championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+        "sourceLabel": "DCTF historic wins/losses"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division I, District 10",
+        "body": "Anahuac competes with Buna, Tarkington, Coldspring-Oakhurst, East Chambers, Kirbyville and Orangefield in UIL's current two-year alignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "UIL current 3A Division I classification"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Panthers open district play with 64 points",
+        "body": "The dated 2026 game ledger lists a 64–26 road win at Cleveland Tarkington, separate from September non-district finals.",
+        "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+        "sourceLabel": "DCTF 2026 schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anahuac ever won a state football championship?",
+        "answer": "Dave Campbell's Texas Football documents 28 playoff appearances, but no football state championship or state-title-game appearances for the Panthers."
+      },
+      {
+        "question": "What is the 2026 football district for Anahuac?",
+        "answer": "UIL Class 3A Division I, District 10: Anahuac, Buna, Cleveland Tarkington, Coldspring-Oakhurst, East Chambers, Kirbyville and Orangefield."
+      },
+      {
+        "question": "Where is Anahuac's football stadium?",
+        "answer": "DCTF identifies Kyle White Stadium. The school's campus address and the ISD headquarters are separate references; verify each game's actual arrival gate and parking through Anahuac ISD."
+      },
+      {
+        "question": "Who is Anahuac's 2026 head football coach?",
+        "answer": "A legacy 2025–26 MaxPreps staff listing names Greg Neece, but the current 2026–27 coach has not been independently confirmed from the school; avoid treating that archived listing as a live fact."
+      },
+      {
+        "question": "What were Anahuac's best recent seasons?",
+        "answer": "The independently archived 2021 and 2022 football results were both 9–3, followed by 6–3 in 2023 and 6–4 in 2024."
+      }
+    ]
+  },
+  "amherst": {
+    "slug": "amherst",
+    "theme": {
+      "accentHex": "#9D6B24",
+      "label": "Original six-man football archival gold; not a licensed Amherst Bulldogs logo"
+    },
+    "seo": {
+      "title": "Amherst Bulldogs Six-Man Football: 1994–95 State Titles & 2026",
+      "description": "Amherst Bulldogs six-man football authority page: official UIL 1994 and 1995 championship scores, coach Jack Shely, 2026 District 3 and stadium/school links."
+    },
+    "coach": {
+      "name": "Daniel Hinojosa",
+      "title": "2026 head football coach per 2026 MaxPreps season history; direct official school confirmation outstanding",
+      "sourceUrl": "https://www.maxpreps.com/tx/amherst/amherst-bulldogs/football/history/",
+      "sourceLabel": "MaxPreps 2026 season head-coach listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "100 North Main Street, Amherst, TX 79312 (district contact; not verified stadium entrance)",
+      "phone": "806-246-3221",
+      "sourceUrl": "https://www.amherstisd.com/school-information",
+      "sourceLabel": "Amherst ISD official school contact and 2026–27 calendar",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Amherst ISD school information, calendars and athletics",
+      "sourceUrl": "https://www.amherstisd.com/school-information",
+      "sourceLabel": "Official district school information; posted football PDF is 2025–26, not verified 2026 football schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Bulldog Stadium",
+      "address": "Amherst, TX — exact spectator entrance not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/amherst-bulldogs",
+      "sourceLabel": "Dave Campbell's Texas Football historic program/venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists Bulldog Stadium with 750 historical spectator capacity, but an official current stadium gate, accessible parking, ticket prices and capacity are not published in the sources checked. Do not navigate to the ISD office as a presumed field entrance."
+    },
+    "overview": [
+      "Amherst's Bulldogs have a distinct place in Texas six-man football history: back-to-back UIL six-man state championships in 1994 and 1995. Unlike a generic Class 1A team profile, Amherst's story can be rebuilt game by game from actual UIL archived playoff brackets, where the finalists, scores and coach are preserved.",
+      "The UIL 1994 championship archive lists Amherst defeating Milford 30–20 after the Bulldogs beat Balmorhea 32–28 in a semifinal. The 1995 UIL archive records Amherst beating Milford again, this time 72–48 according to UIL's detailed playoff bracket (its champions summary instead lists 78–42), following a 79–34 semifinal win over Lamesa Klondike. They are two different title games, not an invented undefeated season or one repeated final.",
+      "Coach Jack Shely appears in the UIL's documented champion-team rosters in both 1994 and 1995. Those archived rosters record the work of players, assistant coaches and school community; historical names should not be represented as current players or current 2026 staff.",
+      "The 2026–28 UIL realignment lists Amherst in Class 1A Division II six-man football, District 3. The association and realignment cycle describe the scheduled grouping; they do not establish wins or an active 2026 score ledger. The current official district site provides a 2026–27 calendar but its football schedule link still says 2025–26.",
+      "Recent independent record sources disagree substantially: DCTF gives 2025 as 1–5, 2024 as 3–4 and 2023 as 7–2, while MaxPreps reports 2025 as 3–6, 2024 as 6–3 and 2023 as 9–2. The page therefore withholds exact recent-season claims until each schedule and completeness of games is reconciled rather than selecting a convenient record.",
+      "MaxPreps identifies Daniel Hinojosa as the 2026 Bulldogs head football coach, with an earlier historical stretch on the same team's season archive. This should be treated as a dated third-party attribution until confirmed by Amherst ISD itself.",
+      "For game-day planning, DCTF names Bulldog Stadium and a historical 750-seat figure, while Amherst ISD lists 100 North Main Street as school contact, not the independently verified stadium entry. Ticketing, accessibility, official kickoff and venue gate should be checked with the district."
+    ],
+    "milestones": [
+      {
+        "date": "1994",
+        "title": "First UIL six-man state crown",
+        "body": "Amherst beat Milford 30–20 in the UIL state final after a 32–28 semifinal over Balmorhea; the published historical roster names coach Jack Shely.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/94at_bfb.html",
+        "sourceLabel": "UIL official 1994 state playoff archive"
+      },
+      {
+        "date": "1995",
+        "title": "Back-to-back state champions",
+        "body": "Amherst defeated Milford 72–48 according to UIL's detailed playoff bracket (its champions summary instead lists 78–42) in the final, following a 79–34 victory over Lamesa Klondike in the semifinal.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
+        "sourceLabel": "UIL official 1995 playoff archive"
+      },
+      {
+        "date": "1994–95",
+        "title": "The Shely championship coaching era",
+        "body": "Both UIL championship-team rosters name Jack Shely as head coach, anchoring the Bulldogs' historical football identity.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/94at_bfb.html",
+        "sourceLabel": "UIL championship roster"
+      },
+      {
+        "date": "2026–28",
+        "title": "Modern six-man District 3",
+        "body": "Amherst competes within Class 1A Division II six-man football; current UIL alignment must not be confused with its 1990s classification and playoff format.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 football realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many UIL state football championships has Amherst won?",
+        "answer": "Two: the Bulldogs won the six-man finals in 1994 and 1995. UIL's primary playoff archives document both scores and opponents."
+      },
+      {
+        "question": "Who did Amherst beat for its 1994 and 1995 titles?",
+        "answer": "Milford in both finals: 30–20 in 1994 and 72–48 according to UIL's detailed playoff bracket (its champions summary instead lists 78–42) in 1995, according to official UIL archived brackets."
+      },
+      {
+        "question": "Who coached Amherst's championship teams?",
+        "answer": "The UIL title-team rosters list head coach Jack Shely in both 1994 and 1995; this is historical, not the current 2026 coaching listing."
+      },
+      {
+        "question": "Who coaches Amherst football in 2026?",
+        "answer": "MaxPreps lists Daniel Hinojosa for 2026, but Amherst ISD first-party confirmation is still required."
+      },
+      {
+        "question": "Why are recent Amherst football records omitted?",
+        "answer": "DCTF and MaxPreps disagree about the 2023–25 totals. The records are not reconciled, and the official district's football schedule is labeled 2025–26 rather than a current 2026 season ledger."
+      },
+      {
+        "question": "Where is Bulldog Stadium?",
+        "answer": "Dave Campbell's Texas Football lists Bulldog Stadium in Amherst, but a spectator entrance and accessible parking have not been independently verified; contact Amherst ISD before visiting."
+      }
+    ]
+  },
+  "amarillo-tascosa": {
+    "slug": "amarillo-tascosa",
+    "theme": {
+      "accentHex": "#7A1D32",
+      "label": "Original burgundy Rebels editorial accent; no reproduction of protected school marks"
+    },
+    "seo": {
+      "title": "Amarillo Tascosa Rebels Football: 2018 Semifinal, 2026 & Coach Plunk",
+      "description": "Amarillo Tascosa Rebels football history: Ken Plunk era, 2018 11–4 season, UIL 5A Division I District 2, documented Amarillo rivalry and game-day sources."
+    },
+    "coach": {
+      "name": "Kenneth (Ken) Plunk",
+      "title": "2026 head coach according to MaxPreps; Amarillo ISD independently confirms Ken Plunk as campus athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
+      "sourceLabel": "MaxPreps head coach plus Amarillo ISD 2026 Tascosa campus athletic director listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3921 Westlawn St, Amarillo, TX 79102",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
+      "sourceLabel": "Tascosa football staff directory campus address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Tascosa 2026 scores and next scheduled games",
+      "sourceUrl": "https://txprepfootball.com/schools/tascosa-rebels/",
+      "sourceLabel": "Texas Prep Football results schedule, separate from official AISD confirmations",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "Published initial snapshot: at least three September finals; later schedule source contains duplicate Frenship entries and unresolved 2026 scores",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://txprepfootball.com/schools/tascosa-rebels/",
+      "sourceLabel": "Texas Prep Football 2026 results; unusual duplicated Frenship scores must be independently reconciled",
+      "games": [
+        {
+          "date": "Sept. 4",
+          "opponent": "Canyon",
+          "site": "Away",
+          "result": "W 28–27"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Palo Duro",
+          "site": "Away",
+          "result": "L 14–41"
+        },
+        {
+          "date": "Sept. 26",
+          "opponent": "Frenship",
+          "site": "Home",
+          "result": "W 28–27"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Amarillo",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Lubbock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Lubbock Monterey",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Caprock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Abilene",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Tascosa varsity home venue — confirm assigned site with Amarillo ISD",
+      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD Athletics official scheduling/tickets",
+      "verifiedAt": "2026-10-09",
+      "note": "For 2026 varsity games at Dick Bivins Stadium, Amarillo ISD lists HomeTown advance admission at $8 adult/$3 student (digital presale through 5:45 p.m.; paper presale through 3 p.m.) and $10 tickets at the gate. AISD gives the stadium address as 3101 SE 10th Avenue, Amarillo, identifies a west home grandstand and publishes a clear-bag policy. Check the particular 2026 game, tickets and official gate/parking/accessibility information before travel; an individual team may be assigned another venue."
+    },
+    "overview": [
+      "The Tascosa Rebels represent Tascosa High School on Westlawn Street in Amarillo. The Rebels are not the Amarillo High Golden Sandies, Caprock Longhorns or Palo Duro Dons; all are separate Amarillo school football programs with distinct coach histories and season records.",
+      "Tascosa's modern story includes a strong run under Ken Plunk: MaxPreps lists 11–4 in 2018 and 10–4 in 2019, with prior 10–3 in 2015. These records describe postseason depth, not any asserted state football title. The 2018 season's 15 games make it a notable historical chapter worthy of further official playoff bracket documentation.",
+      "The same historical team archive records 10–3 in 2021, 10–2 in 2022, 5–6 in 2023, 7–6 in 2024 and 7–5 in 2025. Year-separated results avoid falsely treating the 2026 season as finished. The dated 2026 team-staff roster identifies Kenneth Plunk as head football coach.",
+      "For the current UIL 2026–28 alignment, Tascosa is 5A Division I District 2, alongside Amarillo High, Caprock, Abilene, Frenship, Frenship Memorial, Lubbock and Lubbock Monterey. Palo Duro is in a separate 5A Division II district; an early September 2026 non-district matchup does not mean they share UIL classification.",
+      "The September 11, 2026 Tascosa–Palo Duro game produced a documented Tascosa 14–41 loss; later 2026 reported games include a 28–27 win over Frenship. A separate Texas Prep Football result line also repeats Frenship with another score, so TexasDefined must not combine both entries into a fabricated two-game series.",
+      "Tascosa and Amarillo High share a documented long-running intra-city competition. The Sandies' historical program archive reports an all-time series snapshot, but that figure is not a live 2026 update or evidence of a new current victory. The official AISD athletics listing remains the authoritative destination for last-minute game locations and tickets."
+    ],
+    "milestones": [
+      {
+        "date": "2015",
+        "title": "Double-digit wins",
+        "body": "MaxPreps archives Tascosa's 2015 varsity team at 10–3 under Kenneth Plunk.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "sourceLabel": "MaxPreps historic season records"
+      },
+      {
+        "date": "2018–19",
+        "title": "Two deep-postseason seasons",
+        "body": "Archived football records show 11–4 in 2018 and 10–4 in 2019; exact state-bracket stages remain to be confirmed using UIL.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "sourceLabel": "MaxPreps past-season ledger"
+      },
+      {
+        "date": "2021–22",
+        "title": "Back-to-back ten-win years",
+        "body": "The historical record gives Tascosa 10–3 in 2021 and 10–2 in 2022, preceding more competitive 2023–25 seasons.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "sourceLabel": "MaxPreps team football history"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division I, District 2",
+        "body": "Current alignment places Tascosa alongside city rivals Amarillo and Caprock, but not Palo Duro (5A Division II).",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Amarillo Tascosa football in 2026?",
+        "answer": "The current 2026 football staff roster names Kenneth (Ken) Plunk as head coach, also associated with the Rebels' successful 2015 and 2018 seasons."
+      },
+      {
+        "question": "How did Tascosa perform in 2018 and 2019?",
+        "answer": "The archived records give 11–4 in 2018 and 10–4 in 2019; the exact historical UIL playoff-round finishes need additional primary bracket corroboration."
+      },
+      {
+        "question": "Do Tascosa and Palo Duro compete in the same 2026 UIL district?",
+        "answer": "No. Tascosa's 2026–28 football alignment is 5A Division I District 2; Palo Duro is in 5A Division II District 2, a different division despite the identical district number."
+      },
+      {
+        "question": "Where can I get official 2026 Tascosa football tickets?",
+        "answer": "Consult Amarillo ISD Athletics and the ticket listing for the individual Tascosa game, rather than treating the school's Westlawn Street address as a confirmed stadium entrance."
+      },
+      {
+        "question": "Is the Amarillo–Tascosa rivalry a real historic matchup?",
+        "answer": "Yes. Amarillo High's documented Sandies program archive publishes an all-time Tascosa head-to-head series; its snapshot should not be mistaken for a live 2026 updated record."
+      }
+    ]
+  },
+  "amarillo-river-road": {
+    "slug": "amarillo-river-road",
+    "theme": {
+      "accentHex": "#1F653F",
+      "label": "Original Wildcats green editorial accent; exact school-approved palette and logo rights pending"
+    },
+    "seo": {
+      "title": "Amarillo River Road Wildcats Football: 2026 Scores & Wildcat Stadium",
+      "description": "River Road Wildcats football authority guide: 2026 UIL 3A Division II District 1, Aaron Wampler, 16 postseason appearances, five dated 2026 results and game-day links."
+    },
+    "coach": {
+      "name": "Aaron Wampler",
+      "title": "2026 head football coach per MaxPreps season staff/history",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/history/",
+      "sourceLabel": "2026 River Road head coach listing; primary district corroboration outstanding",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "8741 River Road, Amarillo, TX 79108",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+      "sourceLabel": "River Road High program campus contact (not stadium entrance)",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Wildcats dates and reported scores",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+      "sourceLabel": "Dave Campbell's Texas Football 2026 program schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 through Sept. 25 in published schedule; Sep. 17 Gruver loss has conflicting 60–27 and 63–27 reports; Borger result unverified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+      "sourceLabel": "MaxPreps varsity 2026 results dated September 26",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Sanford-Fritch",
+          "site": "Home",
+          "result": "W 25–24"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Tulia",
+          "site": "Home",
+          "result": "L 14–54"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Farwell",
+          "site": "Away",
+          "result": "W 29–28"
+        },
+        {
+          "date": "Sept. 17",
+          "opponent": "Gruver",
+          "site": "Away",
+          "result": "L 27–60 (MaxPreps); Amarillo Globe-News reports 27–63"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Amarillo Highland Park",
+          "site": "Away",
+          "result": "L 24–25"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Borger",
+          "site": "Home"
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Friona",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Dimmitt",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Childress",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Canadian",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wildcat Stadium",
+      "address": "Amarillo — official spectator entrance not confirmed",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+      "sourceLabel": "DCTF River Road Wildcats stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "Independent directory lists Wildcat Stadium with 1,375 seats, but that is a historical listing, not verified ADA seating or parking inventory. This is not Canadian's separate Wildcat Stadium and not Amarillo ISD's Dick Bivins facility. For tickets, seating, parking and gates confirm directly with River Road ISD."
+    },
+    "overview": [
+      "Amarillo River Road High's Wildcats represent River Road ISD, not Amarillo ISD. The team's 8741 River Road campus and historic Wildcat Stadium listing distinguish it from Palo Duro, Caprock, Amarillo High and Tascosa, despite all having an Amarillo geographic identity.",
+      "The Dave Campbell's Texas Football program record credits River Road with 16 football playoff appearances but no state championship or state-title-game appearance. Fans should not confuse the Wildcats' title history with Canadian, another Wildcats program appearing in their 2026 district and possessing its own separate state championship history.",
+      "River Road's recent seasons have differed sharply: 7–5 in 2021, 5–7 in 2024 and 1–10 in 2025 according to the DCTF historical record. MaxPreps identifies Aaron Wampler as 2026 head football coach following Bryan Welps in 2024, a notable change that needs primary ISD corroboration.",
+      "The 2026–28 UIL alignment places River Road in Class 3A Division II District 1 with Canadian, Childress, Dimmitt and Friona. Previous seasons' Class 3A Division I references do not override the current UIL cycle.",
+      "The 2026 football season opened with two one-point Wildcat victories: 25–24 versus Sanford-Fritch on August 28 and 29–28 at Farwell on September 11. River Road later lost at Highland Park 24–25 on September 25, giving this three-game cluster a distinctive one-point pattern absent from generic stadium guides.",
+      "A verified five-game 2026 results snapshot through September 25 stands at 2–3. DCTF's Gruver loss notation reports a 63–27 defeat while MaxPreps lists 60–27: the scoring disagreement should be resolved before publishing an opponent's 63/60 total as an uncontested fact. This profile follows the MaxPreps ledger but labels it.",
+      "The DCTF venue reference lists Wildcat Stadium. A reported 1,375-seat capacity is not an official current ADA or gate certificate. Match-specific information should come directly from the district; Canadian's Wildcat Stadium is a completely different place."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Seven-win playoff campaign",
+        "body": "DCTF records the Wildcats finishing 7–5 during the 2021 football season.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+        "sourceLabel": "DCTF Wildcat past seasons"
+      },
+      {
+        "date": "2025–26",
+        "title": "Program transition",
+        "body": "The Wildcats followed a 1–10 campaign in 2025; MaxPreps lists Aaron Wampler for the 2026 football season after Bryan Welps in 2024.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/history/",
+        "sourceLabel": "MaxPreps coached seasons"
+      },
+      {
+        "date": "Aug.–Sept. 2026",
+        "title": "Two one-point wins",
+        "body": "The dated results list 25–24 over Sanford-Fritch and 29–28 at Farwell, followed by a 24–25 road defeat at Highland Park.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+        "sourceLabel": "MaxPreps result ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division II realignment",
+        "body": "Official football alignment puts River Road in District 1 against Canadian, Childress, Dimmitt and Friona.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Are the River Road Wildcats and Canadian Wildcats the same school?",
+        "answer": "No. Amarillo River Road represents River Road ISD, while Canadian is a separate district, stadium and football history; both appear in UIL 3A Division II District 1."
+      },
+      {
+        "question": "Has River Road won a Texas state football title?",
+        "answer": "DCTF records 16 playoff appearances, zero championship games and zero football state titles for the Amarillo River Road program."
+      },
+      {
+        "question": "Who coaches River Road football in 2026?",
+        "answer": "The 2026 MaxPreps history listing identifies Aaron Wampler; confirm any coaching changes with River Road ISD."
+      },
+      {
+        "question": "Where is River Road's football stadium?",
+        "answer": "DCTF identifies Wildcat Stadium for Amarillo River Road. The campus address is not a verified parking or stadium entrance, so consult district game announcements."
+      },
+      {
+        "question": "What makes the 2026 opening unusual?",
+        "answer": "The first five results included two River Road one-point wins (25–24 over Sanford-Fritch and 29–28 over Farwell) and a one-point defeat (24–25 at Amarillo Highland Park)."
+      }
+    ]
+  },
+  "amarillo-palo-duro": {
+    "slug": "amarillo-palo-duro",
+    "theme": {
+      "accentHex": "#D4AA39",
+      "label": "Original editorial gold accent, not an official school logo"
+    },
+    "seo": {
+      "title": "Amarillo Palo Duro Dons Football: 2026 Results, Eric Mims & History",
+      "description": "Palo Duro Dons football: 28 playoff appearances, 2025 ten-win season, 2026 UIL 5A Division II District 2, official game resources and Dick Bivins Stadium."
+    },
+    "coach": {
+      "name": "Eric Mims",
+      "title": "2026 football coach per MaxPreps, with independent Amarillo ISD confirmation of his Palo Duro coaching role and athletic director position",
+      "sourceUrl": "https://www.amaisd.org/92916_3",
+      "sourceLabel": "Amarillo ISD first-party coaching reference, corroborated by MaxPreps 2026 staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1400 N Grant St, Amarillo, TX 79107",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/palo-duro-dons/football/staff/",
+      "sourceLabel": "Season staff and high-school campus directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Dons schedule and archived results",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+      "sourceLabel": "Dave Campbell's Texas Football current schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "At least 4–1 through September 25 based on five source-documented games; later games require updated confirmation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+      "sourceLabel": "DCTF 2026 dated score snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Amarillo",
+          "site": "Home",
+          "result": "L 7–21"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Caprock",
+          "site": "Away",
+          "result": "W 28–3"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Tascosa",
+          "site": "Home",
+          "result": "W 41–14"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Dumas",
+          "site": "Away",
+          "result": "W 41–21"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Wichita Falls Legacy",
+          "site": "Away",
+          "district": true,
+          "result": "W 50–9"
+        },
+        {
+          "date": "Oct. 1",
+          "opponent": "Abilene Cooper",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Lubbock Coronado",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Abilene Wylie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Wichita Falls Memorial",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Lubbock Cooper",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Dick Bivins Stadium",
+      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD primary 2026 ticket and Dick Bivins stadium policy",
+      "verifiedAt": "2026-10-09",
+      "note": "For 2026 varsity games at Dick Bivins Stadium, Amarillo ISD lists HomeTown advance admission at $8 adult/$3 student (digital presale through 5:45 p.m.; paper presale through 3 p.m.) and $10 tickets at the gate. AISD gives the stadium address as 3101 SE 10th Avenue, Amarillo, identifies a west home grandstand and publishes a clear-bag policy. Check the particular 2026 game, tickets and official gate/parking/accessibility information before travel; an individual team may be assigned another venue."
+    },
+    "overview": [
+      "Palo Duro's Dons represent Palo Duro High School at 1400 North Grant Street in Amarillo. Although the Dons, Caprock Longhorns, Tascosa Rebels and Amarillo Sandies share a city and sometimes opponents, their athletic histories are distinct. The team's documented 2026 coach is Eric Mims according to its September season staff roster.",
+      "Dave Campbell's Texas Football historical directory lists 28 Dons football playoff appearances but no state-championship-game appearances or football state titles. That record makes the Dons a program with deep postseason participation, rather than a team with an invented state championship.",
+      "The football program went 10–2 in 2025 after a 5–5 2024 season, a marked improvement following 4–7 in 2023 and 3–8 in 2022. Those distinct seasons illustrate a resurgence under the staff credited to Eric Mims; the records should not be mischaracterized as state finals.",
+      "The Dons belong to UIL Class 5A Division II, District 2 for 2026–28. Their present district brings games with Abilene Cooper, Abilene Wylie, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial. This alignment is different from Amarillo High and Tascosa in 5A Division I.",
+      "In an unusually valuable cross-city comparison, the Dons' September 2026 results show a 28–3 victory at Caprock and 41–14 against Tascosa after a 21–7 opening loss to Amarillo High. Rivalries are therefore tied to actual played games, not assumed because two schools share a city.",
+      "A September 25 record snapshot shows the Dons 4–1, including a 50–9 road win at Wichita Falls Legacy. Later reporting lists additional October results, but this dated record explicitly stops at five cross-checked games. Official AISD announcements and tickets supersede any stale snapshot for game-day arrangements."
+    ],
+    "milestones": [
+      {
+        "date": "2022–24",
+        "title": "Program builds toward a turnaround",
+        "body": "Results climb from 3–8 in 2022 to 4–7 in 2023 and 5–5 in 2024.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "sourceLabel": "DCTF historical season archive"
+      },
+      {
+        "date": "2025",
+        "title": "Ten-win season and playoff return",
+        "body": "The season archive records a 10–2 Dons campaign, a notable leap from the prior 5–5 year.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "sourceLabel": "DCTF 2025 season record"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "Dons beat Tascosa",
+        "body": "The published Dons schedule records a 41–14 victory over neighboring Tascosa, contrasting the 7–21 loss to Amarillo High on Aug. 28.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "sourceLabel": "DCTF game score ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "A different UIL division from the Sandies",
+        "body": "Palo Duro's UIL District 2 is in 5A Division II, not the Sandies' 5A Division I.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "UIL Class 5A Division II alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Palo Duro won a UIL state football championship?",
+        "answer": "The DCTF program record lists zero state titles and zero state-title-game appearances, with 28 total playoff appearances."
+      },
+      {
+        "question": "Who is the Palo Duro head football coach in 2026?",
+        "answer": "The 2026 MaxPreps staff roster lists Eric Mims, corroborated by the team's recent coaching and season history."
+      },
+      {
+        "question": "What is Palo Duro's UIL classification for 2026?",
+        "answer": "Class 5A Division II, District 2, alongside Abilene Cooper, Abilene Wylie, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial."
+      },
+      {
+        "question": "Where do Palo Duro football games take place?",
+        "answer": "Dick Bivins Stadium is the historical listed home facility. Confirm each game assignment and stadium entrance from Amarillo ISD's official athletic ticket and schedule resources."
+      },
+      {
+        "question": "What happened when Palo Duro played Tascosa in 2026?",
+        "answer": "The independent September 11 football score record reports Palo Duro won 41–14. It is a documented 2026 matchup, not an unsupported claim about the all-time series."
+      }
+    ]
+  },
+  "amarillo-highland-park": {
+    "slug": "amarillo-highland-park",
+    "theme": {
+      "accentHex": "#D6A22D",
+      "label": "Original warm-gold Hornets editorial accent; official school color not independently certified"
+    },
+    "seo": {
+      "title": "Amarillo Highland Park Hornets Football: 2026, Hornet Stadium & History",
+      "description": "Independent Amarillo Highland Park Hornets guide: UIL 2A Division I District 1, ten playoff appearances, 2026 scores, Hornet Stadium and official ISD links."
+    },
+    "campus": {
+      "address": "15300 Amarillo Boulevard East, Amarillo, TX 79108 (district office; verify separate high-school entrance)",
+      "phone": "806-335-2823",
+      "sourceUrl": "https://www.hpisd.net/",
+      "sourceLabel": "Amarillo-area Highland Park ISD official district contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Hornets fixtures and archived season-by-season results",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+      "sourceLabel": "Dave Campbell's Texas Football dated schedule and season history",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 in five explicitly reported results through September 25, 2026; later Vega result not independently resolved",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+      "sourceLabel": "DCTF published score snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Wheeler",
+          "site": "Home",
+          "result": "L 0–46"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Hale Center",
+          "site": "Away",
+          "result": "L 14–26"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Gruver",
+          "site": "Away",
+          "result": "L 6–61"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Quanah",
+          "site": "Away",
+          "result": "L 27–41"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Amarillo River Road",
+          "site": "Home",
+          "result": "W 25–24"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Vega",
+          "site": "Home"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Spearman",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Panhandle",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Sanford-Fritch",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Sunray",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Hornet Stadium",
+      "address": "Amarillo, Texas — entrance unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+      "sourceLabel": "DCTF independent program stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF reports 1,000 stadium capacity, not an officially certified gate, current ADA seating map, parking or ticketing policy. Highland Park ISD official site offers a Hornet Ticket Sales resource. Verify event location and accessible arrangements directly with the district."
+    },
+    "overview": [
+      "The Highland Park Hornets represent Highland Park ISD east of Amarillo, a district distinct from both Amarillo ISD's four high schools and the much larger Highland Park Scots program near Dallas. This independent guide concerns the Hornets in the Texas Panhandle, not the Scots.",
+      "Dave Campbell's Texas Football credits Amarillo Highland Park with ten football playoff appearances and no state championship-game appearances or football state titles. The Hornets play at the independently listed Hornet Stadium, and their stadium story should not be replaced by Dick Bivins Stadium details from Amarillo ISD.",
+      "The 2026–28 UIL alignment places this particular Highland Park in Class 2A Division I District 1 with Panhandle, Sanford-Fritch, Spearman and Sunray. Classification, opponents and football-season record describe separate things: the UIL document defines the district, not outcomes of games.",
+      "Recent seasons show rebuilding and resilience rather than an invented title tradition: a 0–10 finish in 2021, 3–8 in 2022, 4–4 in 2023, 4–6 in 2024 and 4–7 in 2025, based on the independently archived DCTF season records.",
+      "The 2026 source snapshot lists a one-point 25–24 win over Amarillo River Road on September 25 after four losses, but leaves the October 2 Vega result unresolved. This page deliberately does not declare a result where the published source has only a fixture.",
+      "For visitors, Highland Park ISD's official homepage offers a Hornet ticket-sales entry, while DCTF identifies Hornet Stadium and a historical approximate 1,000 capacity. The ISD administrative address is not presented as an unverified stadium spectator gate; confirm parking, mobility access and weather/game changes before attending."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "A winless rebuilding season",
+        "body": "The Hornets finished 0–10, making the following years' results part of a distinct rebuilding period rather than a fabricated championship history.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "sourceLabel": "DCTF program season history"
+      },
+      {
+        "date": "2023–25",
+        "title": "Consistent four-win campaigns",
+        "body": "Season archive lists four victories each in 2023, 2024 and 2025, with varying schedule lengths and records.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "sourceLabel": "DCTF 2023–25 historical records"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL District 1 realignment",
+        "body": "The Hornets compete in Class 2A Division I against Panhandle, Sanford-Fritch, Spearman and Sunray.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL realignment document"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "River Road one-point win",
+        "body": "Independent season ledger reports Highland Park defeating Amarillo River Road 25–24.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "sourceLabel": "DCTF 2026 game log"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Are Amarillo Highland Park and Dallas Highland Park the same football team?",
+        "answer": "No. This is the Highland Park ISD Hornets east of Amarillo, not the Scots team from the Dallas-area Highland Park ISD."
+      },
+      {
+        "question": "Has Amarillo Highland Park won a football state championship?",
+        "answer": "The DCTF historical football program record reports zero state titles and zero championship-game appearances, alongside ten playoff appearances."
+      },
+      {
+        "question": "Where do the Hornets play?",
+        "answer": "DCTF lists Hornet Stadium. Consult Highland Park ISD ticket and game announcements for the assigned match site, gate, parking and accessibility arrangements."
+      },
+      {
+        "question": "What is Highland Park Amarillo's 2026 football district?",
+        "answer": "The UIL 2026–28 Class 2A Division I alignment assigns the Hornets to District 1 with Panhandle, Sanford-Fritch, Spearman and Sunray."
+      },
+      {
+        "question": "Where can I buy Highland Park Hornets tickets?",
+        "answer": "Visit Amarillo-area Highland Park ISD's official hpisd.net site and use its Hornet Ticket Sales link; never use the Dallas Scots ticket portal for these games."
+      }
+    ]
+  },
+  "amarillo-caprock": {
+    "slug": "amarillo-caprock",
+    "theme": {
+      "accentHex": "#7E1C34",
+      "label": "Editorial maroon accent; verify exact official Caprock school color before representing it as school branding"
+    },
+    "seo": {
+      "title": "Amarillo Caprock Longhorns Football: 2026 Schedule, History & Tickets",
+      "description": "Independent Caprock Longhorns football guide: 2026 UIL 5A Division I District 2, coach Rowdy Freeman, verified season records, Dick Bivins tickets and official links."
+    },
+    "coach": {
+      "name": "Rowdy Freeman",
+      "title": "2026 football coach per MaxPreps; Amarillo ISD independently lists him as campus athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/history/",
+      "sourceLabel": "MaxPreps 2026 coaching listing; Amarillo ISD CHS directory corroborates athletic director only",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3001 E 34th Ave, Amarillo, TX 79103",
+      "phone": "806-326-2200",
+      "sourceUrl": "https://www.amaisd.org/chs",
+      "sourceLabel": "Amarillo ISD official Caprock campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Amarillo ISD football schedules and digital tickets",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD Athletics — school schedules and tickets",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 in published completed games through October 2, 2026; October 9 fixture not counted as a result",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/schedule/",
+      "sourceLabel": "MaxPreps October 3 schedule snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Pampa",
+          "site": "Away",
+          "result": "W 29–12"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Palo Duro",
+          "site": "Home",
+          "result": "L 3–28"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Canyon",
+          "site": "Home",
+          "result": "L 7–37"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Lubbock Monterey",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–24"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Abilene",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–42"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Frenship",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Lubbock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Tascosa",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Frenship Memorial",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Amarillo",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Dick Bivins Stadium",
+      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD official Athletics ticket and venue policy",
+      "verifiedAt": "2026-10-09",
+      "note": "For 2026 varsity games at Dick Bivins Stadium, Amarillo ISD lists HomeTown advance admission at $8 adult/$3 student (digital presale through 5:45 p.m.; paper presale through 3 p.m.) and $10 tickets at the gate. AISD gives the stadium address as 3101 SE 10th Avenue, Amarillo, identifies a west home grandstand and publishes a clear-bag policy. Check the particular 2026 game, tickets and official gate/parking/accessibility information before travel; an individual team may be assigned another venue."
+    },
+    "overview": [
+      "Caprock High School's Longhorns are one of four Amarillo ISD varsity football communities. The school sits at 3001 East 34th Avenue, while district athletics coordinates varsity football ticketing and stadium policies. Caprock is not Amarillo High's Golden Sandies, and their separate histories must not be blended.",
+      "Caprock's 2026–28 UIL alignment is Class 5A Division I, District 2. Its league schedule includes Abilene, Lubbock Monterey, Frenship, Lubbock, Tascosa, Frenship Memorial and Amarillo. UIL district membership is a two-year alignment, not a championship or a record for games already played.",
+      "The Dave Campbell's Texas Football historical program summary lists eight playoff appearances, no state-title game appearances, and no football state championships. This contrasts with Caprock's actual multiple GIRLS WRESTLING state titles prominently documented by Amarillo ISD. TexasDefined does not transfer those wrestling honors to the football team.",
+      "The 2018 Longhorns went 8–4 according to the DCTF historical season index, versus 3–7 in both 2024 and 2025. These year-separated records give more meaningful context than an invented dynasty. A 2026 scores snapshot shows an opening win at Pampa and four subsequent recorded losses through October 2, not an outcome for the October 9 game.",
+      "The Caprock High campus lists Rowdy Freeman as athletic director; MaxPreps lists Freeman as 2026 head football coach. The district coaching-contact directory is linked from its athletics page, but a separate official head-coach job title was not independently confirmed. Fans should rely on the official district schedule and ticket portal for last-minute changes.",
+      "Dick Bivins Stadium is named by the independent DCTF team profile, and Amarillo ISD publishes varsity ticket prices and an actual clear-bag policy. Fans should not navigate to the school campus when the ticket specifies a different stadium; event-specific accessible arrival and parking remain to be verified."
+    ],
+    "milestones": [
+      {
+        "date": "2018",
+        "title": "Eight-win playoff-era season",
+        "body": "The Longhorns' 8–4 campaign is visible in Dave Campbell's historical program records; unlike a state title it is not a championship claim.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-caprock-longhorns",
+        "sourceLabel": "DCTF Caprock season history"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two consecutive 3–7 finishes",
+        "body": "DCTF records Caprock at 3–7 in 2024 and 2025; the records are distinct from the ongoing 2026 schedule.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-caprock-longhorns",
+        "sourceLabel": "DCTF historical season index"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division I, District 2",
+        "body": "UIL realignment places the Longhorns in the seven-opponent Panhandle and West Texas district for 2026–28.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026 alignment"
+      },
+      {
+        "date": "Aug. 28, 2026",
+        "title": "Season-opening victory at Pampa",
+        "body": "Caprock's posted season ledger begins with a 29–12 win at Pampa; later listed games must be separately confirmed as they finish.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Amarillo Caprock won a UIL football state championship?",
+        "answer": "No football state title appears in Dave Campbell's Texas Football program history, which lists eight playoff appearances and zero championship-game appearances. Caprock's documented wrestling state championships belong to a different sport."
+      },
+      {
+        "question": "Who coaches the Caprock Longhorns in 2026?",
+        "answer": "MaxPreps identifies Rowdy Freeman as the 2026 football head coach; the school's current official directory identifies him as athletic director. Consult the official athletic-staff directory for any subsequent changes."
+      },
+      {
+        "question": "What district is Caprock in for 2026?",
+        "answer": "The UIL 2026–28 football realignment places Caprock in 5A Division I District 2 with Abilene, Amarillo, Tascosa, Frenship, Frenship Memorial, Lubbock and Lubbock Monterey."
+      },
+      {
+        "question": "Where are Caprock football games played?",
+        "answer": "Dick Bivins Stadium is the team's listed stadium, but verify each home game's actual site and entrance on the official Amarillo ISD schedule and ticket listing."
+      },
+      {
+        "question": "How much are Caprock tickets in 2026?",
+        "answer": "Amarillo ISD lists District 2-5A varsity presale prices of $8 for adults and $3 for students, and a $10 stadium-gate price at Dick Bivins. Prices and availability should be reconfirmed on game day."
+      }
+    ]
+  },
   "amarillo": {
     "slug": "amarillo",
     "theme": {
