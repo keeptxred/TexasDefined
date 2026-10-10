@@ -66,6 +66,11 @@ The prior audit records official transit links for all eleven: METRO, DART, Trin
 
 Remaining municipal boundaries require independent spatial verification. ETJ must not be conflated with city limits.
 
+## Confirmed defect and correction
+
+- **Medium / broken internal destination link:** `https://texasdefined.com/city/fort-worth` linked its featured Kimbell Art Museum guide (and one trip-planning guide) to `/destination/kimbell-art-museum`. On 2026-10-09 this target returned **404 Not Found** in direct website retrieval. The correct published guide is `https://texasdefined.com/destination/kimbell-art-museum-fort-worth` (official editorial Kimbell guide, found in search). **Fix:** both literals replaced in `src/data/city-authority-profiles.ts` on PR #4519. **Production outcome: PENDING DEPLOYMENT** until merged and checked.
+- **WhirlyBall Hurst:** independent retrieval of `/destination/whirlyball-hurst` timed out once (400 fetch-timeout reported by website inspection). Not classified as a confirmed HTTP application defect because the retrieval layer did not reliably return an origin response; requires real browser/live HTTP recheck.
+
 ## Known constraints and follow-up acceptance
 
 1. Manually review all Chrome screenshots and exercise link targets, keyboard navigation, menus, interactive flows, mobile cropping, contrast and visual quality. Automated viewport evidence alone does not certify these.
