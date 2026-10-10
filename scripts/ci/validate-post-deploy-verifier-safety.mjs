@@ -27,13 +27,18 @@ if (relocationProbeStart < 0 || relocationProbeEnd <= relocationProbeStart) {
   const relocationProbe = relocation.slice(relocationProbeStart, relocationProbeEnd);
   for (const marker of [
     'id: expansion_probes',
-    'GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}',
     'node scripts/ci/publish-github-status.mjs "$context" success',
     'node scripts/ci/publish-github-status.mjs "$context" failure',
-  ]) requireMarker(relocationProbe, marker, `Relocation per-route status must attach to deployed SHA: ${marker}`);
+  ]) requireMarker(relocationProbe, marker, `Relocation per-route status contract missing: ${marker}`);
 }
+const relocationJob = relocation.slice(relocation.indexOf('  verify:'), relocationProbeStart);
+requireMarker(relocationJob, 'STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Relocation job statuses must attach to triggering deployed SHA');
 const statusPublisher = fs.readFileSync('scripts/ci/publish-github-status.mjs', 'utf8');
-requireMarker(statusPublisher, 'const sha = process.env.GITHUB_SHA;', 'GitHub status publisher must use the overridden deployed SHA');
+for (const marker of [
+  'process.env.STATUS_TARGET_SHA',
+  'statusTargetOverride || process.env.GITHUB_SHA',
+  'STATUS_TARGET_SHA must be a 40-character commit SHA',
+]) requireMarker(statusPublisher, marker, `GitHub status publisher must safely honor deployed SHA override: ${marker}`);
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
