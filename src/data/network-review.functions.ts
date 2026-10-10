@@ -32,3 +32,10 @@ export const publishApprovedNetworkApplication = createServerFn({ method: 'POST'
 export const publishNetworkListing = createServerFn({method:'POST'})
  .inputValidator(z.object({accessKey:z.string().min(20).max(200),id:z.string().uuid()}))
  .handler(async ({data})=>{const {publishApprovedNetworkListing}=await import('@/data/network-review.server');return publishApprovedNetworkListing(data.accessKey,data.id)});
+
+export const unpublishReviewedNetworkListing = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({ accessKey: z.string().min(20).max(200), id: z.string().uuid() }))
+  .handler(async ({ data }) => {
+    const { unpublishNetworkListing } = await import('@/data/network-review.server');
+    return unpublishNetworkListing(data.accessKey, data.id);
+  });
