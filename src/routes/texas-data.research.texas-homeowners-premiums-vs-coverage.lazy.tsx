@@ -7,6 +7,25 @@ import source from '@/data/research-homeowners-premiums.json';
 
 const path = '/texas-data/research/texas-homeowners-premiums-vs-coverage';
 const csvPath = path + '.csv';
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  '@id': absoluteUrl(texasDefinedBrand, path) + '#dataset',
+  name: 'Texas Homeowners Premiums Versus Coverage, 2016–2025',
+  description: 'Statewide Texas homeowners average premiums and coverage, 2016–2025, with independently calculated annual changes.',
+  url: absoluteUrl(texasDefinedBrand, path),
+  datePublished: '2026-10-10',
+  dateModified: '2026-10-10',
+  temporalCoverage: '2016/2025',
+  spatialCoverage: { '@type': 'State', name: 'Texas' },
+  creator: { '@type': 'Organization', name: 'TexasDefined Research Desk' },
+  isBasedOn: source.source_url,
+  citation: source.source_url,
+  measurementTechnique: 'Nominal year-matched TDI statewide averages; ratio of averages, not matched policy insurance rates.',
+  variableMeasured: ['Average annual homeowners premium (USD)', 'Average insured coverage (USD)', 'Annual dollar and percentage changes', 'Derived premium per $100,000 coverage'],
+  distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, csvPath) },
+};
+
 const rows = source.years.map((r, i, all) => {
   const p = all[i - 1];
   return { ...r,
@@ -36,6 +55,7 @@ function Page() {
     return x(i) + ',' + y(value);
   }).join(' ');
   return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema).replace(/</g, '\\u003c') }} />
     <DepartmentHero current="Home Insurance Research" eyebrow="TexasDefined Research Desk" title="Did Texas home insurance premiums rise faster than coverage?" description="Original analysis of official statewide homeowners insurance averages, 2016–2025." tone="surface" />
     <Container className="py-12 sm:py-16">
       <section className="border-y border-border py-8">
