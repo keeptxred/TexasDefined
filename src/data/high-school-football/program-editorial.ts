@@ -1543,7 +1543,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "development": {
       "title": "From the 1999 11-man state final to today's six-man game",
-      "body": "Aspermont reached the **1999 Conference 1A eleven-man football** state championship game, where Bartlett defeated the Hornets 35–6. The UIL's original 1999 playoff listing explicitly identifies the bracket as 1A Eleven Man, including Aspermont's 30–27 regional win over Baird, 33–0 quarterfinal win over Paducah and 31–12 semifinal win over Wheeler. It was NOT a six-man state final. In the 2026–28 cycle, Aspermont instead competes in 1A Six-Man Division I District 4. Historical and modern playing formats must remain separate.",
+      "body": "Aspermont reached the 1999 Conference 1A eleven-man football state championship game, where Bartlett defeated the Hornets 35–6. The UIL's original 1999 playoff listing explicitly identifies the bracket as 1A Eleven Man, including Aspermont's 30–27 regional win over Baird, 33–0 quarterfinal win over Paducah and 31–12 semifinal win over Wheeler. It was NOT a six-man state final. In the 2026–28 cycle, Aspermont instead competes in 1A Six-Man Division I District 4. Historical and modern playing formats must remain separate.",
       "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html",
       "sourceLabel": "UIL primary 1999 1A eleven-man playoff archive",
       "verifiedAt": "2026-10-10"
@@ -1579,7 +1579,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
-      "The Hornets' documented 1999 football title-game appearance came in **Conference 1A eleven-man**, ending in a 35–6 loss to Bartlett. The UIL original bracket independently confirms the semifinal, quarterfinal and regional path.",
+      "The Hornets' documented 1999 football title-game appearance came in Conference 1A eleven-man, ending in a 35–6 loss to Bartlett. The UIL original bracket independently confirms the semifinal, quarterfinal and regional path.",
       "Aspermont's 2026 program competes in UIL Class 1A Six-Man Division I District 4. The present format should never be substituted into the 1999 history.",
       "Current retrospective sources disagree whether Aspermont finished 2025 at 9–1 or 9–2. Readers should use dated game-level results and the district's official records to resolve the difference.",
       "Football references identify Hornet Stadium as the home venue, but the entry gate, parking and ADA details remain unverified."
