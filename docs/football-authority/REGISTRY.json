@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 9,
+    "partiallyCompleted": 10,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "angleton",
-    "nextSchool": "angleton",
-    "implementedOnBranch": 9,
-    "remainingToImplement": 16,
+    "currentSchool": "anna",
+    "nextSchool": "anna",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "9 individually IMPLEMENTED on draft PR #4506 including Andrews; 16 unreviewed; 0 VERIFIED. Amherst official 1995 score discrepancy disclosed. Next Angleton."
+    "notes": "10 individually researched and IMPLEMENTED on draft PR #4506, 15 assigned NOT_REVIEWED, zero production VERIFIED. Angleton next Anna."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3161,9 +3161,31 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/angleton",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/angleton.md",
+      "implementationCommits": [
+        "039fdf3f5d78f379fbc8fffddb5103e548f5db8e",
+        "98f9ab05edb988485917884d59fb93b8e8d0265e"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+        "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/history/",
+        "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/staff/",
+        "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/24-25/schedule/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "UIL historical single state-final verification",
+        "Conflicting 2025 record",
+        "Brazoria inbound county/city link",
+        "Image license and stadium ADA/tickets",
+        "CI deploy and actual Chrome QA"
+      ]
     },
     {
       "id": "uil:anna",
