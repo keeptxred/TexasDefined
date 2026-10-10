@@ -120,7 +120,7 @@ const stateFairData = {
         heading: "State Fair with kids",
         paragraphs: [
           "For families, a lower-stress visit usually means arriving near opening, doing animal and educational areas before the afternoon crowds, scheduling a few Midway rides rather than unlimited wandering, and building in a sit-down break before evening shows.",
-          "Write a phone number on a child's wristband or card, choose a clear family meeting point near a major landmark, and review height requirements before promising a specific ride."
+          "Pick a family meeting point and check ride heights. After 5 p.m., minors 17 and younger entering the Fair need a parent, guardian or chaperone age 21+; one adult may accompany up to six minors."
         ],
         links: [
           { label: "Official visitor planning", href: "https://bigtex.com/plan-your-visit/", external: true },
