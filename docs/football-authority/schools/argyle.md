@@ -20,3 +20,8 @@ Original championship history, 2013 game story, 2014 OT loss context, 2020 win, 
 **Remaining:** Confirm current 2026 coach and full schedule, NCES Denton County school campus, contextual reciprocal county/city and existing relevant rival links, licensed actual photo (if possible), verified stadium entry/accessible parking/tickets, CI/merge/deploy, and independent responsive production Chrome/SEO/schema/sitemap tests.
 
 **Next assigned school: Arlington Colts.**
+
+## Verified first-party correction — October 9, 2026
+- [Official Argyle Eagles staff directory](https://www.argyleeaglessports.com/directory) presently identifies **Todd Rodgers** as **Athletic Director/Head Football Coach**; earlier audit uncertainty about current appointment is superseded by this accessible official listing. It does not independently prove the date he most recently assumed the role.
+- [Official Argyle ISD Stadium 2026 Football Guide](https://www.argyleisdsports.com/argyle-isd-stadium-guide) gives **6615 Canyon Falls Drive, Flower Mound, TX 76226**, public gates **90 minutes before kickoff unless otherwise announced**, and links to tickets and game-day procedures. Follow the linked official game ticket/parking/ADA documentation for specific events; an entry policy is not itself a certified accessibility assessment.
+- School-specific production editorial corrected in commit `81534499dc523705a6756fb5edde6d1cda4cce75`. No reused team photo; no live browser/deployment acceptance claimed. Existing remainder still needs county/city reciprocal links and protected production verification.
