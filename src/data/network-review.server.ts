@@ -176,6 +176,14 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
   hours:app.hours,description:app.description,website:app.plan==='plus'?app.website:null,social:app.plan==='plus'?app.social:null,
   services:app.plan==='plus'?app.services:null,faq:app.plan==='plus'?app.faq:null,offer:app.plan==='plus'?app.offer:null,
  };
+ // Existing unpublished rows contain the LAST APPROVED public profile, including
+ // previously approved Featured edits. Never rebuild their contents from intake.
+ const {data:currentListing,error:currentListingError}=await supabaseAdmin
+  .from('texasdefined_network_public_listings')
+  .select('slug,plan,is_published').eq('application_id',id).maybeSingle();
+ if(currentListingError)throw Error('Unable to verify existing approved listing');
+ if(currentListing&&currentListing.plan!==app.plan)throw Error('Listing membership mismatch');
+ if(currentListing?.is_published)throw Error('A public listing already exists; reconcile application status before publishing');
  const copyMedia=async(path:string|null)=> {
   if(!path)return null;
   if(!path.startsWith(id+'/'))throw Error('Invalid applicant media path');
@@ -190,16 +198,23 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
   if(uploadError)throw Error('Could not publish approved media');
   return path;
  };
- const logoPath=await copyMedia(app.logo_storage_path);
+ const logoPath=currentListing?null:await copyMedia(app.logo_storage_path);
  const galleryPaths:string[]=[];
- for(const path of (app.plan==='plus'?app.gallery_storage_paths:[])||[]){const copied=await copyMedia(path);if(copied)galleryPaths.push(copied)}
- const {error:publishError}=await supabaseAdmin.from('texasdefined_network_public_listings').upsert({
-  application_id:app.id,slug,plan:app.plan,profile,logo_storage_path:logoPath,
-  gallery_storage_paths:galleryPaths,is_published:true,updated_at:new Date().toISOString()
- } as never,{onConflict:'application_id'});
- if(publishError)throw Error('Could not publish the listing');
- const {error:statusError}=await supabaseAdmin.from('texasdefined_network_applications').update({status:'published',updated_at:new Date().toISOString()} as never).eq('id',id);
- if(statusError){
+ if(!currentListing)for(const path of (app.plan==='plus'?app.gallery_storage_paths:[])||[]){const copied=await copyMedia(path);if(copied)galleryPaths.push(copied)}
+ // Restore previously approved content verbatim; INSERT only for a first publication.
+ const {data:savedListing,error:publishError}=currentListing
+  ? await supabaseAdmin.from('texasdefined_network_public_listings')
+     .update({is_published:true,updated_at:new Date().toISOString()} as never)
+     .eq('application_id',id).eq('is_published',false).select('slug').single()
+  : await supabaseAdmin.from('texasdefined_network_public_listings')
+     .insert({application_id:app.id,slug,plan:app.plan,profile,logo_storage_path:logoPath,
+       gallery_storage_paths:galleryPaths,is_published:true,updated_at:new Date().toISOString()} as never)
+     .select('slug').single();
+ if(publishError||!savedListing)throw Error('Could not publish the listing');
+ const {data:updatedApplication,error:statusError}=await supabaseAdmin.from('texasdefined_network_applications')
+  .update({status:'published',updated_at:new Date().toISOString()} as never)
+  .eq('id',id).eq('status','approved').select('id').single();
+ if(statusError||!updatedApplication){
   // Fail closed: never leave a public listing visible when the workflow cannot record publication.
   const {error:hideError}=await supabaseAdmin.from('texasdefined_network_public_listings')
    .update({is_published:false,updated_at:new Date().toISOString()} as never)
@@ -207,7 +222,7 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
   if(hideError)console.error('[network] CRITICAL: publication rollback failed',hideError.code);
   throw Error('Publication status could not be saved; the listing was not certified as published');
  }
- return {slug,url:'/network/business/'+slug};
+ return {slug:savedListing.slug,url:'/network/business/'+savedListing.slug};
 }
 
 /** Never auto-link an owner based on email alone. An administrator must verify ownership offline. */

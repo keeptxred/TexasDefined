@@ -8,6 +8,30 @@ import { defineConfig, type Plugin } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import "./scripts/assets/materialize-generated-images.mjs";
 
+// Diagnostic only: surfaces which source modules are actually retained in the main client chunk.
+// Does not alter code splitting, bundle budgets, emitted assets or mandatory gates.
+function reportClientMainModuleWeights(): Plugin {
+  return {
+    name: "texasdefined-report-client-main-modules",
+    apply: "build",
+    generateBundle(_output, bundle) {
+      if (process.env.GITHUB_ACTIONS !== "true") return;
+      const mainChunks = Object.values(bundle).filter(
+        (item) => item.type === "chunk" && /(?:^|\\/)main-[^/]+\\.js$/.test(item.fileName),
+      );
+      for (const chunk of mainChunks) {
+        if (chunk.type !== "chunk") continue;
+        const ranked = Object.entries(chunk.modules)
+          .filter(([, detail]) => detail.renderedLength > 0)
+          .sort((a, b) => b[1].renderedLength - a[1].renderedLength)
+          .slice(0, 35)
+          .map(([id, detail]) => `${detail.renderedLength} bytes  ${path.relative(process.cwd(), id)}`);
+        console.log("[client-main-modules] " + chunk.fileName + "\\n" + ranked.join("\\n"));
+      }
+    },
+  };
+}
+
 function governedDiscoverAssetsPlugin(): Plugin {
   return {
     name: "texasdefined-governed-discover-assets",
@@ -31,6 +55,7 @@ function governedDiscoverAssetsPlugin(): Plugin {
 export default defineConfig({
   plugins: [
     governedDiscoverAssetsPlugin(),
+    reportClientMainModuleWeights(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tanstackStart({
       router: {

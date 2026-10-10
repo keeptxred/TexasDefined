@@ -37,9 +37,10 @@ check('admin provisioning verifies existing confirmed email',review.includes('au
 check('admin provisioning forbids reassignment',review.includes('existing.owner_user_id!==userId'));
 check('Plus owner provisioning never grants Featured rights',review.includes("membership_tier:'plus',access_enabled:true") && review.includes("existing.membership_tier!=='plus'"));
 check('Plus dashboard never displays Featured revision controls',dashboard.includes("account.membership_tier==='plus'") && dashboard.includes('View membership billing'));
-check('tier constraint migration denies implicit Featured default',source('supabase/migrations/20261010211200_network_owner_plus_tier_guard.sql').includes("SET DEFAULT 'plus'"));
+check('tier constraint migration denies implicit Featured default',source('supabase/migrations/20261010205801_network_owner_plus_tier_guard.sql').includes("SET DEFAULT 'plus'"));
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
 check('only approved application may be published',review.includes("if(app.status!=='approved')"));
+check('republishing preserves previously approved Featured edits',review.includes(".select('slug,plan,is_published')")&&review.includes("currentListing?null:await copyMedia")&&review.includes(".eq('is_published',false).select('slug').single()")&&!review.includes(".upsert({\n  application_id:app.id,slug,plan:app.plan,profile"));
 check('publication fails closed on status persistence',review.includes('if(statusError){')&&review.includes('is_published:false'));
 check('intake checks full PNG signature',apps.includes('pngSignature.every'));
 check('public media checks full PNG signature',review.includes('pngHeader.every'));
