@@ -2,7 +2,6 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { fetchPublishedTexasDefinedNewsArticle } from "@/data/articles-remote";
-import { editorialDeskById } from "@/data/editorial-desks";
 import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
@@ -13,7 +12,10 @@ export const Route = createFileRoute("/news/$slug")({
 
     const article = await fetchPublishedTexasDefinedNewsArticle(params.slug).catch(() => null);
     if (!article) throw notFound();
-    return { liveArticle: article };
+    // Keep institutional-desk records behind this published-story route boundary.
+    // Do not increase the shared client entry bundle for a page-specific byline.
+    const { editorialDeskById } = await import("@/data/editorial-desks");
+    return { liveArticle: article, liveNewsAuthor: editorialDeskById(article.authorId) };
   },
   head: ({ match, params }) => {
     const article = match.context.liveArticle;
@@ -21,7 +23,7 @@ export const Route = createFileRoute("/news/$slug")({
     const canonicalPath = `/news/${params.slug}`;
     const canonicalUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
-    const author = editorialDeskById(article.authorId);
+    const author = match.context.liveNewsAuthor;
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
     return {
       meta: buildMeta(texasDefinedBrand, {
