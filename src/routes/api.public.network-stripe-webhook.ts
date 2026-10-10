@@ -42,10 +42,19 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     if(prior?.processed_at)return new Response("Already processed",{status:200});
     if(!prior){const {error:recordError}=await supabaseAdmin.from("texasdefined_network_stripe_events").insert({stripe_event_id:event.id,stripe_event_type:event.type} as never);if(recordError&&recordError.code!=="23505")return new Response("Event recording failed",{status:503});}
     const { data: existing, error: lookupError } = await supabaseAdmin.from("texasdefined_network_applications")
-      .select("id,stripe_subscription_id,plan").eq("id", id).single();
+      .select("id,stripe_subscription_id,stripe_customer_id,plan").eq("id", id).single();
     if (lookupError || !existing || existing.plan !== "plus") return new Response("Ignored", { status: 200 });
-    if (existing.stripe_subscription_id && existing.stripe_subscription_id !== subscription.id) {
-      return new Response("Subscription mismatch", { status: 409 });
+    const { verifiedNetworkSubscriptionOwnership } = await import("@/data/network-stripe.server");
+    if (!verifiedNetworkSubscriptionOwnership(subscription,existing)) {
+      return new Response("Subscription or customer mismatch", { status: 409 });
+    }
+    // Fail closed FIRST: a lost-payment event cannot leave a visible unpaid listing
+    // while a later entitlement database update or reconciliation fails.
+    if (!active) {
+      const { error:hideError } = await supabaseAdmin.from("texasdefined_network_public_listings")
+        .update({ is_published: false, updated_at: new Date().toISOString() } as never)
+        .eq("application_id", id).eq("plan", "plus").eq("is_published", true);
+      if (hideError) return new Response("Unable to suspend unpaid listing", { status: 503 });
     }
     const { error } = await supabaseAdmin.from("texasdefined_network_applications")
       .update({
@@ -56,12 +65,7 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
       } as never).eq("id", id);
     if (error) return new Response("Persistence failure", { status: 503 });
     if (!active) {
-      // Payment entitlement and editorial approval are separate requirements.
-      // Suspend already-published paid listings; NEVER auto-publish on renewed payment.
-      const { error:hideError } = await supabaseAdmin.from("texasdefined_network_public_listings")
-        .update({ is_published: false, updated_at: new Date().toISOString() } as never)
-        .eq("application_id", id).eq("plan", "plus").eq("is_published", true);
-      if (hideError) return new Response("Unable to suspend unpaid listing", { status: 503 });
+      // Restore the application to reviewable state, never automatically republish on recovery.
       const { error:reviewError } = await supabaseAdmin.from("texasdefined_network_applications")
         .update({ status: "approved", updated_at: new Date().toISOString() } as never)
         .eq("id", id).eq("status", "published");

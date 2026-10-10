@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { verifyStripeSignature, stripeCheckoutEnabled } from '../../src/data/network-stripe.server.ts';
+import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership } from '../../src/data/network-stripe.server.ts';
 
 const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
@@ -65,4 +65,18 @@ test('rejects a signature from a different webhook body at the same timestamp', 
  const original=JSON.stringify({id:'evt_A',type:'customer.subscription.updated'});
  const altered=JSON.stringify({id:'evt_B',type:'customer.subscription.updated'});
  assert.equal(await verifyStripeSignature(altered,'t='+timestamp+',v1='+sign(timestamp,original)),false);
+});
+
+test('refuses cross-account Stripe subscription and customer replacement', () => {
+ const existing={stripe_subscription_id:'sub_original',stripe_customer_id:'cus_original'};
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_original',customer:'cus_original'},existing),true);
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_other',customer:'cus_original'},existing),false);
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_original',customer:'cus_other'},existing),false);
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_original',customer:''},existing),false);
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_original'},existing),false);
+});
+test('first authorized subscription must always contain a Stripe customer', () => {
+ const newBusiness={stripe_subscription_id:null,stripe_customer_id:null};
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_new',customer:'cus_new'},newBusiness),true);
+ assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_new',customer:null},newBusiness),false);
 });

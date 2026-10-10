@@ -36,6 +36,8 @@ check('webhook verifies signature',webhook.includes('verifyStripeSignature(raw,h
 check('webhook uses the executable-tested signature helper',!webhook.includes('async function signatureValid(')&&webhook.includes('await import("@/data/network-stripe.server")'));
 check('webhook looks up current subscription',webhook.includes('api.stripe.com/v1/subscriptions/'));
 check('webhook never republishes paid listings automatically',webhook.includes('is_published: false')&&!webhook.includes('is_published: true'));
+check('webhook validates subscription and customer bindings',webhook.includes('verifiedNetworkSubscriptionOwnership(subscription,existing)')&&source('src/data/network-stripe.server.ts').includes('existing.stripe_customer_id === subscription.customer'));
+check('webhook suspends unpaid listing before entitlement writes',webhook.indexOf('if (!active) {') < webhook.indexOf('paid_entitlement_active: active'));
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));
 check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&review.includes('user?.email_confirmed_at'));
 check('admin provisioning forbids reassignment',review.includes('existing.owner_user_id!==userId'));

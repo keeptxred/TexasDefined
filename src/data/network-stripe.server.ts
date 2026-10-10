@@ -44,3 +44,15 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
  if(typeof result.url!=='string'||!result.url.startsWith('https://checkout.stripe.com/'))throw new Error('Stripe Checkout link unavailable');
  return result.url as string;
 }
+
+/** Bound a verified live Stripe subscription to its ORIGINAL Network business account. */
+export function verifiedNetworkSubscriptionOwnership(
+ subscription: { id?: unknown; customer?: unknown },
+ existing: { stripe_subscription_id?: string | null; stripe_customer_id?: string | null },
+): boolean {
+ return typeof subscription.id === 'string'
+  && typeof subscription.customer === 'string'
+  && subscription.customer.length > 0
+  && (!existing.stripe_subscription_id || existing.stripe_subscription_id === subscription.id)
+  && (!existing.stripe_customer_id || existing.stripe_customer_id === subscription.customer);
+}
