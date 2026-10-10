@@ -51,8 +51,21 @@ function resolveSrc(expression, imports) {
   return "";
 }
 
+// Resolve local image objects as well as inline hero literals. The previous scanner
+// skipped `hero: moveHero`, allowing many articles to share one invisible fallback.
+function imageAliases(source, imports) {
+  const aliases = new Map();
+  const pattern = /\bconst\s+([A-Za-z_$][\w$]*)\s*(?::\s*Article\[\s*["']hero["']\s*\])?\s*=\s*\{\s*src\s*:\s*([^,\n}]+)/g;
+  for (const match of source.matchAll(pattern)) {
+    const image = resolveSrc(match[2], imports);
+    if (image) aliases.set(match[1], image);
+  }
+  return aliases;
+}
+
 function scanArticleLiterals(source, file) {
   const imports = importMap(source);
+  const aliases = imageAliases(source, imports);
   const slugMatches = [...source.matchAll(/\bslug\s*:\s*["'`]([^"'`]+)["'`]/g)];
   const articles = [];
 
@@ -65,10 +78,11 @@ function scanArticleLiterals(source, file) {
     if (bodyAt < 0) continue;
 
     const beforeBody = segment.slice(0, bodyAt);
-    const hero = beforeBody.match(/\bhero\s*:\s*\{[\s\S]*?\bsrc\s*:\s*([^,\n}]+)/);
-    if (!hero) continue;
-
-    const image = resolveSrc(hero[1], imports);
+    const inlineHero = beforeBody.match(/\bhero\s*:\s*\{[\s\S]*?\bsrc\s*:\s*([^,\n}]+)/);
+    const aliasHero = beforeBody.match(/\bhero\s*:\s*([A-Za-z_$][\w$]*)\s*[,}]/);
+    const image = inlineHero
+      ? resolveSrc(inlineHero[1], imports)
+      : (aliasHero ? aliases.get(aliasHero[1]) : "");
     if (!image) continue;
 
     articles.push({
@@ -115,6 +129,26 @@ function chatOverrides(source, articlesByFile) {
   }
   return overrides;
 }
+
+// Regression test: an imported image behind a local Article["hero"] alias must
+// participate in duplicate detection rather than silently escaping the scanner.
+function assertAliasScannerRegression() {
+  const sample = [
+    'import roadTrip from "@/assets/road-trip.jpg";',
+    'const sharedHero: Article["hero"] = { src: roadTrip, alt: "Road", width: 1600, height: 1067 };',
+    'const first = { slug: "shared-a", hero: sharedHero, body: [] };',
+    'const second = { slug: "shared-b", hero: sharedHero, body: [] };',
+    'const third = { slug: "unique-c", hero: { src: "https://example.org/unique.jpg", alt: "Unique" }, body: [] };',
+  ].join("\n");
+  const rows = scanArticleLiterals(sample, "alias-regression.ts");
+  if (rows.length !== 3 ||
+    rows[0].image !== "@/assets/road-trip.jpg" ||
+    rows[1].image !== rows[0].image ||
+    rows[2].image !== "https://example.org/unique.jpg") {
+    throw new Error("Editorial image scanner regression: aliased or inline hero images escaped detection.");
+  }
+}
+assertAliasScannerRegression();
 
 async function changedFixtureFiles() {
   if (process.argv.includes("--all")) return null;
