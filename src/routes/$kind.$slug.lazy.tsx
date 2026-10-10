@@ -32,20 +32,7 @@ const CountyHighSchoolFootball = lazy(() =>
 // Independently sourced municipal associations for verified Batch 002 and Batch 003
 // campuses with an existing canonical TexasDefined city guide.
 const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
-  austin: [
-    { name: 'Austin High Maroons', slug: 'austin', context: '1942 state champion, House Park heritage' },
-    { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium varsity calendar' },
-    { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 10–2 playoff season' },
-    { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Coach Jeff Ables and Bowie traditions' },
-    { name: 'Crockett Cougars', slug: 'austin-crockett', context: 'Burger Stadium home fixtures' },
-    { name: 'Eastside Panthers', slug: 'austin-eastside', context: 'Eastside Early College football' },
-    { name: 'LBJ Jaguars', slug: 'austin-johnson', context: '2021 4A Division I state runner-up' },
-    { name: 'LASA Raptors', slug: 'austin-lasa', context: 'Raptors varsity football calendar' },
-    { name: 'McCallum Knights', slug: 'austin-mccallum', context: '2025 6–4 football season' },
-    { name: 'Navarro Vikings', slug: 'austin-navarro', context: '2026 homecoming and Senior Night' },
-    { name: 'Northeast Raiders', slug: 'austin-northeast', context: 'Reagan-era 1967, 1968 and 1970 titles' },
-    { name: 'Travis Rebels', slug: 'austin-travis', context: '2026 cross-city stadium schedule' },
-  ],
+  austin: [{ name: "Bellville Brahmas", slug: 'bellville', context: "Three UIL title-game trips: 1960, 1977 and the 2023 two-point final" }],
   // Batch 003: current Arlington ISD school directory confirms all six city campuses.
   arlington: [
     { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL state title and the Colts football tradition' },
@@ -187,9 +174,12 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
   ],
   jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
+  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
+  'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
+  'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
   // Batch 005 school-specific campus county links, distinct from away-game stadiums.
   'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
-  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }],
+  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],
   'bastrop': [{ name: "Bastrop Bears", slug: "bastrop", context: "Bears football and shared Memorial Stadium" }, { name: "Cedar Creek Eagles", slug: "bastrop-cedar-creek", context: "Eagles football and shared Memorial Stadium" }],
   'matagorda': [{ name: "Bay City Blackcats", slug: "bay-city", context: "1983 and 2000 UIL championships" }],
   // Batch 005 first five independently verified campuses; historical finals/official current resources.

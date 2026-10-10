@@ -58,6 +58,377 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "beckville": {
+    "slug": "beckville",
+    "theme": {
+      "accentHex": "#763C50",
+      "label": "Original independent editorial color; not school-licensed artwork"
+    },
+    "seo": {
+      "title": "Beckville Bearcats Football | UIL History, Stadium & 2026 Guide",
+      "description": "Independent Beckville Bearcats football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+    },
+    "schedule": {
+      "label": "Beckville ISD official football schedules",
+      "sourceUrl": "https://www.beckvilleisd.net/",
+      "sourceLabel": "Beckville ISD school/district sports resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Playoff football in Panola County, and a real campus-versus-stadium distinction",
+      "body": "The official Beckville ISD parent directory lists Beckville High School at 169 N Washington, whereas a third-party team schedule uses the alternative '1 Bearcat Dr' address. These must not be substituted for the stadium; Dave Campbell's separate stadium listing calls the football venue R.C. Beauchamp Stadium, subject to game-specific verification. NFHS archives show 2025 postseason games against Paul Pewitt, Leon and San Augustine. MaxPreps and Dave Campbell disagree on the 2025 season win total, so a single 2025 W–L record is deliberately not asserted.",
+      "sourceUrl": "https://www.nfhsnetwork.com/schools/beckville-high-school-beckville-tx/football",
+      "sourceLabel": "NFHS 2025 playoff game archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Multiple independently archived playoff games",
+        "body": "NFHS archives report Beckville's postseason against Paul Pewitt (November 14), Leon (November 21) and San Augustine (November 28). Game pages are historical, not current tickets.",
+        "sourceUrl": "https://www.nfhsnetwork.com/schools/beckville-high-school-beckville-tx/football",
+        "sourceLabel": "NFHS 2025 UIL playoff streams"
+      },
+      {
+        "date": "2026",
+        "title": "Current 2A Division I District 11",
+        "body": "The UIL 2026–28 roster places Beckville in 2A Division I District 11. Previous standings were under an earlier district structure.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL official classification"
+      },
+      {
+        "date": "Visitor guide",
+        "title": "High school campus differs from published stadium identity",
+        "body": "Beckville ISD provides a high-school address of 169 N Washington; a separate Texas football program source identifies R.C. Beauchamp Stadium, but current game entry and ADA details must be checked.",
+        "sourceUrl": "https://www.beckvilleisd.net/students-parents",
+        "sourceLabel": "District campus address"
+      }
+    ],
+    "overview": [
+      "Beckville Bearcats football is part of Beckville ISD in Panola County. The program has a documented run of recent postseason appearances, with NFHS carrying distinct archived 2025 UIL games against Paul Pewitt, Leon and San Augustine; do not misrepresent those recordings as live fixtures.",
+      "School and stadium information deserves special care. Beckville ISD's own parent directory identifies its high-school campus at 169 N Washington, while third-party profiles list a Bearcat Drive address and a stadium name. For game-day driving, use the official event assignment rather than assuming that all addresses are interchangeable.",
+      "The current 2026–28 UIL assignment is 2A Division I District 11. Two football results databases disagree on the 2025 final W–L count, so this independent guide links those sources rather than publishing an unsourced definitive total. A third-party staff roster lists Cody Ross as 2026 head coach, but first-party confirmation is outstanding."
+    ],
+    "faq": [
+      {
+        "question": "Where is Beckville High School?",
+        "answer": "Beckville ISD officially lists 169 N Washington, Beckville, TX 75631. Confirm the stadium address separately for any varsity game."
+      },
+      {
+        "question": "How far did Beckville go in the 2025 postseason?",
+        "answer": "NFHS preserves separate 2025 UIL playoff games versus Paul Pewitt, Leon and San Augustine. Exact bracket round and final season record should be rechecked against UIL before printing a record."
+      },
+      {
+        "question": "Is the 2025 win-loss figure undisputed?",
+        "answer": "No. Public football records disagree, so this page avoids publishing a specific final W–L number without stronger reconciliation."
+      }
+    ],
+    "campus": {
+      "address": "169 N Washington Street, Beckville, TX 75631",
+      "phone": "903-678-3591",
+      "sourceUrl": "https://www.beckvilleisd.net/students-parents",
+      "sourceLabel": "First-party campus address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "beeville-jones": {
+    "slug": "beeville-jones",
+    "theme": {
+      "accentHex": "#8B5931",
+      "label": "Original independent editorial color; not school-licensed artwork"
+    },
+    "seo": {
+      "title": "Beeville A. C. Jones Trojans Football | UIL History, Stadium & 2026 Guide",
+      "description": "Independent Beeville A. C. Jones Trojans football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+    },
+    "schedule": {
+      "label": "Beeville ISD official football schedules",
+      "sourceUrl": "https://www.beevilleisd.net/26553_4",
+      "sourceLabel": "Beeville ISD school/district sports resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Beeville's Trojans: the current 2026 district schedule versus stale school football pages",
+      "body": "Beeville ISD publishes clearly labeled 2026 Trojan varsity football and separate Moreno Junior High football schedules, while the standalone A. C. Jones High School football page still links a 2024 schedule. Also, A. C. Jones's public coaches directory names Dave Holmgreen as head football coach, while a third-party 2026 roster lists CJ Rivera. The two are inconsistent; neither can safely establish the 2026 appointment without a current district confirmation.",
+      "sourceUrl": "https://www.beevilleisd.net/26553_4",
+      "sourceLabel": "2026 varsity and junior-high schedules, first-party district",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "The campus football page remains on an older schedule",
+        "body": "The A. C. Jones football page still labels its linked varsity schedule '2024 Football Schedule.' Visitors should not mistake it for this season.",
+        "sourceUrl": "https://acjoneshs.beevilleisd.net/51042_3",
+        "sourceLabel": "A. C. Jones High School football page"
+      },
+      {
+        "date": "2026",
+        "title": "District athletics publishes a new varsity schedule",
+        "body": "The Beeville ISD master document feed specifically lists 'Trojan Varsity Football Schedule 2026' as well as a separate junior-high schedule.",
+        "sourceUrl": "https://www.beevilleisd.net/26553_4",
+        "sourceLabel": "Beeville ISD 2026 athletics schedules"
+      },
+      {
+        "date": "Staff verification",
+        "title": "Conflicting head-coach listings require a current answer",
+        "body": "The A. C. Jones coaches page lists Dave Holmgreen; the public 2026 MaxPreps roster lists CJ Rivera. A head-coach name is not presented as settled.",
+        "sourceUrl": "https://acjoneshs.beevilleisd.net/51041_3",
+        "sourceLabel": "Official high-school coaches directory"
+      }
+    ],
+    "overview": [
+      "A. C. Jones High School's Trojans represent Beeville ISD in Bee County. The school's campus is 1902 N Adams Street, while the ISD district administration is elsewhere. The 2026–28 UIL football realignment lists Beeville Jones in 4A Division I District 15.",
+      "The school's own football section still links a 2024 schedule. Beeville ISD's separate athletics document feed instead lists the 2026 Trojan Varsity schedule, a master athletics schedule and a separately identified 2026 Moreno Junior High calendar. Use the district feed for varsity game planning.",
+      "Coaching attribution is currently uncertain: the school coaches directory and an independent 2026 team roster give different head-coach names. This guide documents that conflict instead of inventing a current appointment. Similarly, no unverified state-title or rivalry claim is added."
+    ],
+    "faq": [
+      {
+        "question": "Where is the official 2026 Beeville Jones football schedule?",
+        "answer": "Beeville ISD's Athletics Schedules Home lists a Trojan Varsity Football Schedule 2026 and a separate master schedule. The individual high school football page still shows a 2024 link."
+      },
+      {
+        "question": "Who is the current A. C. Jones head football coach?",
+        "answer": "The campus coaches directory and the independent 2026 team roster disagree. Verify directly with Beeville ISD rather than rely on either as definitive."
+      },
+      {
+        "question": "Is Moreno Junior High's schedule the same as varsity Jones football?",
+        "answer": "No. Beeville ISD separately lists the 2026 Moreno JH schedule and the 2026 Trojan varsity schedule."
+      }
+    ],
+    "campus": {
+      "address": "1902 N Adams Street, Beeville, TX 78102",
+      "phone": "361-362-6000",
+      "sourceUrl": "https://acjoneshs.beevilleisd.net/51042_3",
+      "sourceLabel": "First-party campus address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bells": {
+    "slug": "bells",
+    "theme": {
+      "accentHex": "#254E78",
+      "label": "Original independent editorial color; not school-licensed artwork"
+    },
+    "seo": {
+      "title": "Bells Panthers Football | UIL History, Stadium & 2026 Guide",
+      "description": "Independent Bells Panthers football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+    },
+    "schedule": {
+      "label": "Bells ISD official football schedules",
+      "sourceUrl": "https://www.bellsisd.net/343568_2",
+      "sourceLabel": "Bells ISD school/district sports resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "The Panther Way and real Friday-night games at Panther Stadium",
+      "body": "Bells ISD explicitly describes Panther Stadium as a local community hub and publishes distinct Varsity Football, JV/JH Football and JH Football schedule files. Its district motto is the Panther Way: 'Learn, Work, Serve, Respect, Everyday.' That is first-party context for the community, not a license to invent rivalry trophies, titles, coaches or images. The current UIL realignment is 3A Division II District 7.",
+      "sourceUrl": "https://www.bellsisd.net/343568_2",
+      "sourceLabel": "Official Bells ISD athletics and stadium resource",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "School identity",
+        "title": "The Panther Way in Grayson County",
+        "body": "Bells ISD explains its district ethos and home-of-the-Panthers identity; the campus address for the high school is 1500 Ole Ambrose Rd.",
+        "sourceUrl": "https://bellsisd.net/",
+        "sourceLabel": "Bells ISD school directory and mission"
+      },
+      {
+        "date": "Varsity visitor information",
+        "title": "Panther Stadium and separate team calendars",
+        "body": "The ISD athletics page identifies Panther Stadium and separately lists varsity, JV and junior-high schedule files.",
+        "sourceUrl": "https://www.bellsisd.net/343568_2",
+        "sourceLabel": "Official athletic schedules and venue"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 3A Division II District 7",
+        "body": "Current UIL realignment must be distinguished from the prior 2025 matchups displayed on third-party archives.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "Official 2026 UIL football alignment"
+      }
+    ],
+    "overview": [
+      "Bells High School Panthers football plays a distinctive role in its Grayson County town, where the district describes Panther Stadium and school gymnasiums as community hubs. The district's 'Panther Way' motto is part of the documented school culture, not an invented football-only chant.",
+      "The Bells ISD athletic page provides separate download links for varsity football, junior-varsity/junior-high football and junior-high football. Visitors should choose the appropriate varsity schedule and confirm game-specific stadium, parking, accessibility and ticket details.",
+      "Bells' current 2026–28 UIL classification is Class 3A Division II District 7. No state championship, unconfirmed rivalry, coach appointment or single team record is asserted without reliable primary evidence; the useful distinguishing details here are the official school identity, event sources and accurate navigation."
+    ],
+    "faq": [
+      {
+        "question": "Where can fans find the Bells Panthers varsity schedule?",
+        "answer": "Bells ISD Athletics lists a separately labeled Varsity Football PDF alongside JV and junior-high schedules."
+      },
+      {
+        "question": "What is the Panther Way?",
+        "answer": "It is Bells ISD's published district principle: Learn, Work, Serve, Respect, Everyday."
+      },
+      {
+        "question": "Where is Bells High School?",
+        "answer": "The district lists Bells High School at 1500 Ole Ambrose Road, Bells, Texas 75414. Confirm actual game-day entrances separately."
+      }
+    ],
+    "campus": {
+      "address": "1500 Ole Ambrose Road, Bells, TX 75414",
+      "phone": "903-965-3603",
+      "sourceUrl": "https://bellsisd.net/",
+      "sourceLabel": "First-party campus address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "bellville": {
+    "slug": "bellville",
+    "theme": {
+      "accentHex": "#A82D39",
+      "label": "Original independent editorial color; not school-licensed artwork"
+    },
+    "seo": {
+      "title": "Bellville Brahmas Football | UIL History, Stadium & 2026 Guide",
+      "description": "Independent Bellville Brahmas football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+    },
+    "schedule": {
+      "label": "Bellville ISD official football schedules",
+      "sourceUrl": "https://www.bellvilleisd.org/",
+      "sourceLabel": "Bellville ISD school/district sports resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Three UIL title-game trips: 1960, 1977 and the 2023 two-point final",
+      "body": "Bellville football has three recorded state title-game appearances without a championship: a 26–21 defeat by Denver City in 1960, 22–14 by Wylie in 1977, and 28–26 to Gilmer in 2023. UIL's 2023 team archive identifies Grady Rowe as that season's coach and documents its perfect 15–0 record entering the final; that does not describe the completed season as undefeated. Bellville ISD published a July 7, 2026 notice about reserved tickets and a September 11, 2026 homecoming game versus Stafford at Bellville High School.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/bellville-2023-2024-football",
+      "sourceLabel": "UIL detailed 2023 Bellville state-final team archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1960",
+        "title": "First of three title-game appearances",
+        "body": "Bellville lost the 1960 Class 2A football championship to Denver City 26–21. UIL's centennial account describes Ernie Koy's three touchdown rushes.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL historical 1960 championship account"
+      },
+      {
+        "date": "1977",
+        "title": "Returned to the Class 2A title game",
+        "body": "The Brahmas finished runner-up to Wylie 22–14.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL official 1977 final"
+      },
+      {
+        "date": "2023",
+        "title": "Unbeaten to the final, but runner-up",
+        "body": "Bellville entered the 2023 4A Division II final at 15–0, beat Wimberley 35–33 in the semifinal, then lost to Gilmer 28–26.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/bellville-2023-2024-football",
+        "sourceLabel": "UIL archived 2023 Brahmas team record"
+      },
+      {
+        "date": "2026",
+        "title": "Bellville district ticket and homecoming records",
+        "body": "Bellville ISD published 2026 reserved ticket sale information and identified September 11 as its Stafford varsity football homecoming at the high school.",
+        "sourceUrl": "https://www.bellvilleisd.org/",
+        "sourceLabel": "Bellville ISD official 2026 football and ticket notices"
+      }
+    ],
+    "overview": [
+      "Bellville Brahmas football has three documented UIL state-finals appearances and no state football championship. Denver City won 26–21 in 1960, Wylie won 22–14 in 1977, and Gilmer won 28–26 in the 2023 Class 4A Division II title game. The near-miss 2023 run included a 35–33 semifinal win over Wimberley.",
+      "Bellville's 2023 UIL historical team page names Grady Rowe as the 2023 coach and lists a 15–0 record entering the championship. That is dated historical staff evidence, not a current coaching appointment. The school's mascot is the Brahmas, and UIL's archived team colors are red and white.",
+      "Bellville ISD's September 11, 2026 calendar identified a Stafford varsity homecoming at Bellville High School, 850 Schumann Road, while the district also posted a July reserved-season-ticket announcement. The Bellville football program is in **Austin County**, not the city of Austin in Travis County; unrelated Austin city schools must not populate Bellville's county links."
+    ],
+    "faq": [
+      {
+        "question": "Has Bellville ever won the UIL football state championship?",
+        "answer": "No. The Brahmas reached the finals in 1960, 1977 and 2023 and finished runner-up each time."
+      },
+      {
+        "question": "What happened in the 2023 Bellville–Gilmer final?",
+        "answer": "Gilmer defeated Bellville 28–26 in the 4A Division II championship. Bellville arrived 15–0 and finished with a loss."
+      },
+      {
+        "question": "Is Bellville part of the Austin High School football scene?",
+        "answer": "No. Bellville High School is in Bellville, Austin County. Austin city school teams are in the Austin/Travis County region, not in Austin County simply because of the name."
+      }
+    ],
+    "campus": {
+      "address": "850 Schumann Road, Bellville, TX 77418",
+      "sourceUrl": "https://bhs.bellvilleisd.org/",
+      "sourceLabel": "First-party campus address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "belton": {
+    "slug": "belton",
+    "theme": {
+      "accentHex": "#AD2936",
+      "label": "Original independent editorial color; not school-licensed artwork"
+    },
+    "seo": {
+      "title": "Belton Tigers Football | UIL History, Stadium & 2026 Guide",
+      "description": "Independent Belton Tigers football research: verified school history, UIL alignment, official athletic schedule and visitor resources."
+    },
+    "schedule": {
+      "label": "Belton ISD official football schedules",
+      "sourceUrl": "https://www.beltontigers.com/sport/football/boys/",
+      "sourceLabel": "Belton ISD school/district sports resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton",
+      "body": "Belton High's official 2026–27 football site distinguishes varsity, freshman and JV listings. For example, its October 16 varsity fixture is at Waco ISD Sports Complex, while a different Belton JV listing has Tiger Stadium on October 15. The high school's official athletics footer lists 624 Lake Road; that should not be conflated with neighboring Lake Belton High School's separate team. Belton's football resources also include a clear-bag policy file.",
+      "sourceUrl": "https://www.beltontigers.com/sport/football/boys/",
+      "sourceLabel": "Official Belton Tigers school varsity/JV 2026 match listings",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Varsity venue differs from JV on adjacent dates",
+        "body": "The varsity plays an October 16 fixture at Waco ISD Sports Complex; the October 15 Waco JV matchup is listed at Belton's Tiger Stadium. Division label matters for driving directions.",
+        "sourceUrl": "https://www.beltontigers.com/sport/football/boys/",
+        "sourceLabel": "Official Belton football team schedules"
+      },
+      {
+        "date": "2026",
+        "title": "Tiger Stadium is the published Belton home facility",
+        "body": "The official team listing identifies Tiger Stadium, Belton, for several JV and varsity home fixtures. Confirm the specific date, especially away games.",
+        "sourceUrl": "https://www.beltontigers.com/sport/football/boys/",
+        "sourceLabel": "Belton High School athletic match listings"
+      },
+      {
+        "date": "2026–28",
+        "title": "Current 5A Division II District 8 program",
+        "body": "UIL reclassification lists Belton High in Class 5A Division II District 8. Lake Belton High has its own separate varsity sports listing and should not be conflated.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 Belton assignment"
+      }
+    ],
+    "overview": [
+      "Belton High School Tigers football is a Bell County school program with a dedicated first-party athletic website. The current UIL roster places Belton High in Class 5A Division II District 8, while Lake Belton High School is a **separate** program; shared district geography does not make them one team.",
+      "The official 2026 football site has distinct varsity, JV Red, JV White and ninth-grade fixtures. An October 15 Waco JV game is listed at Tiger Stadium in Belton, but the October 16 varsity match is listed at Waco ISD Sports Complex. The useful travel instruction is to follow the precise squad and fixture, not merely search the school name.",
+      "Belton High School athletics publishes visitor documents including a clear-bag policy, a composite calendar and 2026–27 football listing. Its athletics contact footer identifies 624 Lake Road. No state-title claim or current coach role is invented from an unlabeled staff directory listing."
+    ],
+    "faq": [
+      {
+        "question": "Does Belton share one football program with Lake Belton?",
+        "answer": "No. The two high schools have separate varsity athletics pages. Select the Belton Tigers schedule for Belton High."
+      },
+      {
+        "question": "Where is the Belton Tigers varsity game played?",
+        "answer": "The venue depends on the opponent and date. Belton's official 2026 page lists both Tiger Stadium home fixtures and Waco ISD Sports Complex away games."
+      },
+      {
+        "question": "Is every Belton football event on the official site varsity?",
+        "answer": "No. The website labels multiple freshman and JV groups separately from varsity. Check that label before traveling."
+      }
+    ],
+    "campus": {
+      "address": "624 Lake Road, Belton, TX 76513",
+      "phone": "254-215-2200",
+      "sourceUrl": "https://www.beltontigers.com/",
+      "sourceLabel": "First-party campus address",
+      "verifiedAt": "2026-10-10"
+    }
+  },
   "baytown-goose-creek-memorial": {
     "slug": "baytown-goose-creek-memorial",
     "theme": {
