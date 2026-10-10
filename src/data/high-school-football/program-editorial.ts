@@ -3328,9 +3328,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "coach": {
       "name": "Eric Mims",
-      "title": "2026 varsity head football coach according to the season's published team staff roster",
-      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/palo-duro-dons/football/staff/",
-      "sourceLabel": "Palo Duro 2026 MaxPreps staff roster updated Sept. 4",
+      "title": "2026 football coach per MaxPreps, with independent Amarillo ISD confirmation of his Palo Duro coaching role and athletic director position",
+      "sourceUrl": "https://www.amaisd.org/92916_3",
+      "sourceLabel": "Amarillo ISD first-party coaching reference, corroborated by MaxPreps 2026 staff",
       "verifiedAt": "2026-10-09"
     },
     "campus": {
