@@ -308,11 +308,19 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The 2026 Division I District 11 fixture list includes Blum, Covington, Milford and Bluff Dale; September opponents included Aquilla and Abbott, separating non-district from district opponents.",
         "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
         "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "2026–27",
+        "title": "First-party football staff assignments",
+        "body": "Avalon ISD names Malcolm Cole athletic director/head football coach, with Korey Plough and Benjamin Massarelli as assistant football coaches.",
+        "sourceUrl": "https://www.avalonisd.net/apps/pages/index.jsp?pREC_ID=2598330&type=d&uREC_ID=4388798",
+        "sourceLabel": "Official Avalon ISD coaching assignments"
       }
     ],
     "overview": [
       "Avalon is a Class 1A Division I SIX-MAN program in Ellis County; UIL's district-chair directory independently names athletic director Malcolm Cole. Six-Man Football dates the program's six-man start to 2005 and lists an 11-game winning streak in 2019, followed by a 10–1 season in 2024 and 8–3 in 2025. The specialty archive labels the venue Avalon Eagles Field; exact accessibility and entry are unconfirmed.",
-      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "Avalon ISD's published 2026–27 athletics assignments independently confirms head coach Malcolm Cole and assistants Korey Plough and Benjamin Massarelli; the Eagles' coaching source no longer depends solely on a third-party six-man roster."
     ],
     "faq": [
       {
@@ -326,9 +334,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "coach": {
       "name": "Malcolm Cole",
-      "title": "Head coach in published 2026 program listing; confirm with school",
-      "sourceUrl": "https://sixmanfootball.com/teams/avalon-eagles.1031/schedule/",
-      "sourceLabel": "Program coach listing",
+      "title": "2026–27 athletic director and head football coach, first-party school assignment",
+      "sourceUrl": "https://www.avalonisd.net/apps/pages/index.jsp?pREC_ID=2598330&type=d&uREC_ID=4388798",
+      "sourceLabel": "Avalon ISD 2026–2027 athletic coaching assignments",
       "verifiedAt": "2026-10-10"
     }
   },
@@ -1055,15 +1063,30 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "milestones": [
       {
         "date": "2026",
-        "title": "School-specific program and visitor milestone",
-        "body": "Published 2026 fixtures include September 24 Crockett and an October 30 visit to Austin Achieve.",
+        "title": "Luis Becerra III leads football",
+        "body": "Eastside's official athletic directory names Luis Becerra III as both head football coach and athletic coordinator.",
         "sourceUrl": "https://eastside.austinschools.org/athletics",
-        "sourceLabel": "Published season or game-day source"
+        "sourceLabel": "Eastside school football coaching assignments"
+      },
+      {
+        "date": "2026",
+        "title": "Documented two-sided coaching staff",
+        "body": "Jose Cruz is offensive coordinator, supported by Raymundo Gonzales, Roderick Blair, Stefan Molina and Moises Garcia according to the official school directory.",
+        "sourceUrl": "https://eastside.austinschools.org/athletics",
+        "sourceLabel": "Eastside official football staff listing"
+      },
+      {
+        "date": "2026",
+        "title": "After-practice student transportation",
+        "body": "Eastside publishes school-provided after-school buses for athletes and parent meetings before each season; route specifics should be confirmed with the campus.",
+        "sourceUrl": "https://eastside.austinschools.org/athletics",
+        "sourceLabel": "Eastside official student-athlete services"
       }
     ],
     "overview": [
       "Eastside's official athletics directory identifies Luis Becerra III as both athletic coordinator and head football coach, supported by named assistant coaches. Athletics resources include after-practice transportation and parent communication. Its season has matchups with Crockett and Austin Achieve.",
-      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "Eastside's program stands out for a school-published coaching directory, dual-role football head coach/athletic coordinator Luis Becerra III, and explicit late-practice bus support for athletes. These participation details are more useful to families than generic game summaries."
     ],
     "faq": [
       {
@@ -1073,6 +1096,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where should fans check official football information?",
         "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      },
+      {
+        "question": "Does Eastside offer buses home after football practices?",
+        "answer": "The campus athletics page says several after-school buses are provided for student athletes; contact the athletic office for route eligibility."
       }
     ],
     "coach": {
@@ -1108,16 +1135,38 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "milestones": [
       {
-        "date": "2026",
-        "title": "School-specific program and visitor milestone",
-        "body": "October 15 varsity Navarro match is scheduled at Burger Stadium; the September 24 Eastside game is at Nelson Field.",
+        "date": "Aug. 27, 2026",
+        "title": "Varsity opener versus Blanco",
+        "body": "Crockett's first-party 2026 fixture lists Blanco at Burger Stadium, 7:30 PM; the schedule is not evidence of the match result.",
         "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
-        "sourceLabel": "Published season or game-day source"
+        "sourceLabel": "Official 2026 varsity schedule"
+      },
+      {
+        "date": "Sept. 24, 2026",
+        "title": "Eastside game at Nelson Field",
+        "body": "Crockett's school schedule lists an Eastside road matchup at Nelson Field, distinct from its Burger Stadium home dates.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official 2026 varsity schedule"
+      },
+      {
+        "date": "Oct. 15, 2026",
+        "title": "Navarro home date",
+        "body": "Crockett's varsity calendar lists Navarro at Burger Stadium on Thursday October 15; junior varsity is away at Navarro on October 14.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official varsity/JV comparison"
+      },
+      {
+        "date": "2026",
+        "title": "Named position coaching staff",
+        "body": "Frank Muir is head coach, Corry Perez defensive coordinator and Bryce Hilber offensive coordinator, as published by Crockett High.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Official Crockett coaching contacts"
       }
     ],
     "overview": [
       "Crockett Early College's official 2026 page identifies Frank Muir as head football coach. Varsity home games are held at Burger Stadium, while junior varsity fixtures reference the campus field. Opponents include Akins, Eastside, Navarro, LASA and Pflugerville.",
-      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "Crockett publishes distinct 2026 varsity, junior-varsity and freshman calendars. Its coach Frank Muir is supported by defensive coordinator Corry Perez and offensive coordinator Bryce Hilber. Visitors should not assume varsity games are on the campus field used by sub-varsity teams."
     ],
     "faq": [
       {
@@ -1127,6 +1176,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where should fans check official football information?",
         "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      },
+      {
+        "question": "Where do Crockett Cougars play their 2026 home varsity games?",
+        "answer": "The official varsity calendar generally lists Burger Stadium, whereas some junior-varsity and freshmen games use the Crockett main field."
       }
     ],
     "coach": {
@@ -1135,6 +1188,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
       "sourceLabel": "School athletics program",
       "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Burger Stadium (varsity home fixtures)",
+      "address": "3200 Jones Road, Austin, TX 78745",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Crockett High official 2026 football schedule",
+      "verifiedAt": "2026-10-10",
+      "note": "Official home varsity fixtures are at Burger, while JV and freshmen use Crockett campus or opponent fields. Verify Burger exact address against Austin ISD before routing."
     }
   },
   "austin-bowie": {
@@ -1163,15 +1224,30 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "milestones": [
       {
         "date": "2026",
-        "title": "School-specific program and visitor milestone",
-        "body": "Official Bowie guidance explains that season passes cover home football games only.",
-        "sourceUrl": "https://bowie.austinschools.org/athletics",
-        "sourceLabel": "Published season or game-day source"
+        "title": "A long-serving Austin football coach",
+        "body": "The Bowie program identifies Jeff Ables as in his 43rd year coaching, 39th at Bowie and 25th as head coach; tenure is a dated club statement, not assumed to update automatically.",
+        "sourceUrl": "https://www.bowiefootball.org/coach",
+        "sourceLabel": "Bowie official booster coaching roster"
+      },
+      {
+        "date": "Program history",
+        "title": "Twenty-four postseason appearances reported",
+        "body": "Bowie football's program information reports 24 playoff appearances; a season-by-season UIL audit would be required before identifying each appearance.",
+        "sourceUrl": "https://www.bowiefootball.org/programinfo",
+        "sourceLabel": "Bowie football program history"
+      },
+      {
+        "date": "2026",
+        "title": "Burger Stadium game planning",
+        "body": "The program lists Burger Stadium at 200 Jones Road as its stadium; fans should confirm home-game gates, parking and any AISD policy changes by date.",
+        "sourceUrl": "https://www.bowiefootball.org/programinfo",
+        "sourceLabel": "Bowie stadium program page"
       }
     ],
     "overview": [
       "Bowie's school athletics office lists Jeff Ables as athletic coordinator, and the football booster staff page identifies him as head coach with decades at the school. Austin ISD HomeTown season passes cover home football games, not away tickets.",
-      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "The official Bowie football booster program gives specific football history and campus identity: 24 playoff appearances, a home-site listing for Burger Stadium, and decades of coaching continuity under Jeff Ables. These are dated program statements rather than invented state titles."
     ],
     "faq": [
       {
@@ -1181,6 +1257,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where should fans check official football information?",
         "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      },
+      {
+        "question": "Where does the Bowie football program list its home stadium?",
+        "answer": "The Bowie football program lists Burger Stadium at 200 Jones Road, Austin. Verify the individual varsity fixture before traveling."
       }
     ],
     "coach": {
@@ -1189,6 +1269,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bowiefootball.org/coach",
       "sourceLabel": "School athletics program",
       "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Burger Stadium",
+      "address": "200 Jones Road, Austin, TX 78745",
+      "sourceUrl": "https://www.bowiefootball.org/programinfo",
+      "sourceLabel": "Bowie football first-party program information",
+      "verifiedAt": "2026-10-10",
+      "note": "Bowie booster guide identifies Burger as home facility and advertises nominal 15,000 capacity. Not proof of accessible ticket allocation or any specific 2026 game's venue."
     }
   },
   "austin-anderson": {
