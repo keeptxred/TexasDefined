@@ -40,12 +40,12 @@
       "arlington-martin",
       "arlington-seguin"
     ],
-    "state": "24_PRODUCTION_VERIFIED_APPLE_SPRINGS_TITLE_RETEST_PENDING",
+    "state": "ALL_25_PRODUCTION_VERIFIED",
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
-    "individuallyVerified": 24,
+    "individuallyVerified": 25,
     "partiallyCompleted": 25,
-    "remainingAssigned": 1,
+    "remainingAssigned": 0,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
@@ -53,8 +53,8 @@
     "nextSchool": null,
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
-    "remainingToVerify": 1,
-    "notes": "Chrome run 38026402179 passed 86/86 checks across desktop/mobile, 25/25 sitemap URLs and 86 screenshots artifact 11660256304, tested deployed commit 4b61627a. Supplemental SEO review found Apple Springs rendered title ended with a dangling ampersand; 24 school profiles independently VERIFIED and Apple Springs DEPLOYED pending retest of title fix merged in PR #4534. Prior 30 VERIFIED unchanged; overall 54/1292. Do not start Batch 004."
+    "remainingToVerify": 0,
+    "notes": "All 25 Batch 003 schools independently production VERIFIED: 86/86 original Chrome checks + 25 sitemap entries in run 38026402179 (artifact 11660256304), full rerun SUCCESS and Apple Springs focused 2026-10-10 Chrome retest run 38050845453 SUCCESS 4/4 page checks, sitemap 1/1, artifact 11669182798; title punctuation assertion passed. Prior 30 VERIFIED retained. Overall 55/1292. Batch 004 not assigned."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3626,7 +3626,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/apple-springs",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 3,
       "batchAssignmentStatus": "ASSIGNED",
       "auditCompletedAt": "2026-10-09",
@@ -3642,16 +3642,13 @@
         "https://www.texasfootball.com/team/apple-springs-eagles",
         "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/history/"
       ],
-      "actualProductionVerified": false,
+      "actualProductionVerified": true,
       "outstanding": [
         "UIL DII versus DCTF DI source conflict",
         "Current coach school confirmation",
-        "Campus county/city links committed; verify working reciprocal navigation and context in deployed desktop/mobile browser",
         "Licensed imagery",
         "2026 result completeness",
-        "Stadium gate ADA tickets",
-        "Individual production browser/sitemap/SEO/link/accessibility verification and screenshot evidence pending",
-        "Confirm corrected Apple Springs SEO title on newly deployed commit (prior browser showed dangling &)"
+        "Stadium gate ADA tickets"
       ],
       "campusCountySource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&dds_report=D9&id=228905001&lev=C&prgopt=reports%2Facct%2Fdistinctions.sas",
       "inboundLinks": [
@@ -3668,9 +3665,13 @@
         "workflowConclusion": "success",
         "productionStatus": "success",
         "individualBrowserRunId": null,
-        "screenshotArtifactId": null
+        "screenshotArtifactId": 11669182798,
+        "dedicatedBrowserRunId": 38050845453,
+        "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38050845453/artifacts/11669182798",
+        "browserConclusion": "success"
       },
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_SEO_TITLE_FIX_PENDING"
+      "productionVerification": "SUCCESS: focused live Chrome title/SEO, desktop/mobile, county reciprocity and sitemap; previous 86-check production suite PASS",
+      "productionVerifiedAt": "2026-10-10T12:08:49Z"
     },
     {
       "id": "uil:aquilla",
