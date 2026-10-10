@@ -20,6 +20,8 @@ years.forEach((r,i)=>{
  const cells=csv[i+1].split(',');
  const previous=years[i-1];
  assert.equal(cells[ix.source_status],r.preliminary?'preliminary':'published');
+ assert.equal(cells[ix.last_verified],'2026-10-10');
+ assert.equal(cells[ix.source_url],data.source_url);
  if(!previous) {
    for(const key of ['premium_yoy_change_usd','premium_yoy_change_percent','coverage_yoy_change_usd','coverage_yoy_change_percent']) assert.equal(cells[ix[key]],'',`First-year ${key} must be blank`);
  } else {
