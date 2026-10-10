@@ -1,0 +1,47 @@
+name: Verify Texas river atlas browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-texas-river-map-browser.mjs'
+      - '.github/workflows/verify-texas-river-map-browser.yml'
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texas-river-map-browser-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare Chrome and isolated Playwright (no project dependency changes)
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-river-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Exercise live TWDB basin map in mobile and desktop Chrome
+        run: node scripts/ci/verify-texas-river-map-browser.mjs
+      - name: Save screenshots, network failures and map-interaction evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texas-river-map-browser-acceptance
+          path: artifacts/texas-river-map-browser/
+          if-no-files-found: warn
+          retention-days: 14

@@ -363,7 +363,11 @@ jobs:
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
             https://texasdefined.com/sports-venue/msr-houston
+            https://texasdefined.com/sports-venues/motorsports
             https://texasdefined.com/texas-state-fair
+            https://texasdefined.com/event/crossroads-of-texas-country-festival
+            https://texasdefined.com/county/ellis
+            https://texasdefined.com/article/ellis-county-waxahachie-ennis-blackland-prairie-texas
             https://texasdefined.com/explore/painted-churches
             https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso
             https://texasdefined.com/city/el-paso

@@ -405,6 +405,45 @@ async function verifyPaidOfferAndPerformersLeaf() {
   console.log('[fort-bend-county-fair-rodeo] organizer, paid Offer and performer set verified');
 }
 
+
+async function verifyCrossroadsFestivalLeaf() {
+  const path = '/event/crossroads-of-texas-country-festival';
+  const html = await fetchProduction(path, 'crossroads-of-texas-country-festival');
+  const readable = decodeHtmlEntities(html);
+  assert(canonicalHref(html) === `${origin}${path}`, 'Crossroads festival must retain its canonical URL');
+  assert(!hasNoindex(html), 'Rights-cleared Crossroads festival must be indexable');
+  for (const marker of [
+    'data-major-event-quick-facts="true"',
+    'Saturday, October 24',
+    '9 a.m.–7 p.m.',
+    '200+ downtown booths',
+    'Music: Jake Worthington, Kenny Whitmire and the smaller stages',
+    'Parking, walking and navigating downtown',
+    'Visit Waxahachie — official downtown parking map',
+    'Ellis County Museum',
+    'Event facts last source-checked 2026-10-09',
+    'Renelibrary',
+  ]) assert(readable.includes(marker), `Crossroads festival is missing verified visitor content: ${marker}`);
+
+  const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
+  const isLiveOccurrence = currentEventDateKey() <= '2026-10-24';
+  const event = nodes.find((node) => hasType(node, 'Event'));
+  if (isLiveOccurrence) {
+    assert(event, 'Upcoming Crossroads festival requires single Event occurrence schema');
+    assert(event.startDate === '2026-10-24T09:00:00-05:00', 'Crossroads schema must use confirmed 9 a.m. CDT opening');
+    assert(event.endDate === '2026-10-24T19:00:00-05:00', 'Crossroads schema must use confirmed 7 p.m. CDT closing');
+    const freeOffer = asArray(event.offers).find((offer) => Number(offer?.price) === 0);
+    assert(freeOffer, 'Crossroads free admission must appear as structured Offer');
+    verifyOfferShape(freeOffer, 'Crossroads general admission', true);
+    const names = asArray(event.performer).filter((node) => hasType(node, 'Person')).map((node) => node.name);
+    assert(names.includes('Jake Worthington') && names.includes('Kenny Whitmire'), 'Crossroads headliner and guest must use Person performer entities');
+  } else {
+    assert(!event, 'Expired Crossroads occurrence must no longer expose Event rich-result markup');
+    assert(nodes.some((node) => hasType(node, 'WebPage')), 'Expired Crossroads festival must retain evergreen WebPage schema');
+  }
+  console.log('[crossroads-of-texas-country-festival] indexed hero, unique visitor guide, free admission, official parking source and occurrence-aware schema verified');
+}
+
 async function verifyRecurringLeaf() {
   const path = '/event/texas-renaissance-festival';
   const html = await fetchProduction(path, 'texas-renaissance-festival');
@@ -431,6 +470,7 @@ try {
   await verifyHidalgoBorderFestLeaf();
   await verifyFreeOfferLeaf();
   await verifyPaidOfferAndPerformersLeaf();
+  await verifyCrossroadsFestivalLeaf();
   await verifyRecurringLeaf();
   console.log('TexasDefined Event production verification passed, including collection SSR isolation, dynamic collection indexing/sitemap policy, recurrence-derived, expired-confirmed, and multi-window schema suppression, optional enrichment and intentional omissions.');
 } catch (error) {

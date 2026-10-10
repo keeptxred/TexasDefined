@@ -195,6 +195,26 @@ for (const [name, slug, twdbPath] of additionalBasins) {
   if (!topology.includes(`/article/${slug}`)) errors.push(`Missing reciprocal topology link: ${slug}`);
   if (!hub.includes(`"${slug}"`)) errors.push(`Missing Texas Explained collection entry: ${slug}`);
 }
+// Prevent the new basin articles from drifting back into cloned generic prose.
+for (const duplicated of [
+  'Watershed area describes the land within Texas',
+  'A basin is a network, not a blue line',
+  'The official TWDB August 2023 GIS layer traces watershed boundaries',
+  'Flooding can originate upstream even when the sky is clear locally',
+  'Texas public river-navigation law does not give everyone',
+]) {
+  if (additionalGuides.includes(duplicated)) errors.push(`Duplicated generic river guide paragraph: ${duplicated}`);
+}
+for (const marker of [
+  '15 major river basins',
+  '8 coastal basins',
+  'Selected watershed',
+  'Read the {displayName(active)} guide',
+  'basinGuidePaths[normalize(active)]',
+]) {
+  if (!interactiveMap.includes(marker)) errors.push(`Map legend or guide navigation missing: ${marker}`);
+}
+
 for (const marker of [
   '...texasExplainedRemainingRiverProfileStubs',
   'texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)',

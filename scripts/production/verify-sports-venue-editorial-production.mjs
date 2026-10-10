@@ -183,6 +183,42 @@ if (msrCanonicalHtml.includes('Road-course driving, racing and karting destinati
 }
 console.log(`PASS MSR Houston canonical visitor guide: ${msrCanonicalUrl}`);
 
+ 
+// The collection page has its own CDN cache key. Assert its edited source-review
+// wording on both cache-busted and unparameterized production responses.
+const msrDirectoryCacheBusted = await fetchText('/sports-venues/motorsports');
+const msrDirectoryUrl = baseUrl + '/sports-venues/motorsports';
+const msrDirectoryCanonicalResponse = await fetch(msrDirectoryUrl, {
+  cache: 'no-store',
+  signal: AbortSignal.timeout(30_000),
+  headers: {
+    'cache-control': 'no-cache',
+    pragma: 'no-cache',
+    'user-agent': 'TexasDefined motorsports directory content certification',
+  },
+  redirect: 'follow',
+});
+if (!msrDirectoryCanonicalResponse.ok) {
+  throw new Error('Motorsports canonical directory returned HTTP ' + msrDirectoryCanonicalResponse.status);
+}
+for (const [label, raw] of [
+  ['cache-busted motorsports directory', msrDirectoryCacheBusted.text],
+  ['canonical motorsports directory', await msrDirectoryCanonicalResponse.text()],
+]) {
+  const html = decodeHtml(raw);
+  assertIncludes(html, 'The most recently checked individual venue record in this collection was verified', label);
+  assertIncludes(html, 'The latest individual venue source check was', label);
+  assertIncludes(html, 'karting operation announced a temporary closure', label);
+  for (const stale of [
+    'Venue source records on this page were reviewed through',
+    'Source records for this collection were reviewed through',
+  ]) {
+    assertAbsent(html, stale, label);
+  }
+}
+console.log('PASS MSR Houston motorsports directory canonical review-date and karting notice: ' + msrDirectoryUrl);
+
+
 const entityChecks = [
   {
     id: 'sports-venue:att-stadium',

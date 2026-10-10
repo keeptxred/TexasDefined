@@ -6,13 +6,14 @@ const pages = [
       'Texas Rivers Explained',
       'Start with the map',
       'Texas Rivers, Region by Region',
-      'Go Deeper on Five Major Texas Rivers',
+      'Explore All 15 Major Texas River Basins',
+      'Texas rivers at a glance: six quick answers',
       'Open the full 15-basin comparison',
     ],
     forbidden: [
       'Dedicated river profiles',
       "See Texas's Major Rivers on the Map",
-      'Texas rivers at a glance',
+
       'More stories to read next',
     ],
   },
