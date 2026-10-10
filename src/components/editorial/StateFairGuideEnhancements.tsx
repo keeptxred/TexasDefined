@@ -151,6 +151,7 @@ function StateFairLivePanel() {
 }
 
 export function StateFairPlanningStrip() {
+  const fairFinished = Date.now() >= Date.parse("2026-10-19T00:00:00-05:00");
   return (
     <>
       <StateFairLivePanel />
@@ -160,9 +161,9 @@ export function StateFairPlanningStrip() {
             <div>
               <p className="eyebrow text-primary">Plan the visit</p>
               <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
-              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Buy Fair admission directly from the State Fair of Texas. If you are coming for a Cotton Bowl game, use the dedicated event guide for game-day timing, then use this page for food, rides and Fair planning.</p>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">{fairFinished ? "The 2026 Fair is over. Check the organizer for next-year admission updates; use these guides for the archived Fair and Cotton Bowl planning." : "Buy Fair admission directly from the State Fair of Texas. For Cotton Bowl games, check the dedicated game guide and use this page for Fair planning."}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>Buy State Fair tickets ↗</a>
+                <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>{fairFinished ? "Official future ticket updates ↗" : "Buy State Fair tickets ↗"}</a>
                 <Link to="/event/state-fair-classic" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">State Fair Classic guide</Link>
                 <Link to="/event/red-river-rivalry" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Red River Rivalry guide</Link>
               </div>
