@@ -29,9 +29,18 @@ const CountyHighSchoolFootball = lazy(() =>
   })),
 );
 
-// Independently sourced municipal associations, only for Batch 002 programs
-// with confirmed campus city and an existing canonical TexasDefined city guide.
+// Independently sourced municipal associations for verified Batch 002 and Batch 003
+// campuses with an existing canonical TexasDefined city guide.
 const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
+  // Batch 003: current Arlington ISD school directory confirms all six city campuses.
+  arlington: [
+    { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL state title and the Colts football tradition' },
+    { name: 'Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw game-day guide' },
+    { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and sourced 2026 season context' },
+    { name: 'Lamar Vikings', slug: 'arlington-lamar', context: '1990 state-final run and Vikings coaches' },
+    { name: 'Martin Warriors', slug: 'arlington-martin', context: 'Postseason history and Glaspie Field background' },
+    { name: 'Seguin Cougars', slug: 'arlington-seguin', context: 'Separate 5A Division II program and Glaspie Field context' },
+  ],
   houston: [
     { name: 'Alief Elsik Rams', slug: 'alief-elsik', context: 'Houston Alief ISD football, with sourced 2026 program and postseason history.' },
     { name: 'Alief Hastings Fighting Bears', slug: 'alief-hastings', context: 'The Houston program’s verified 1997 state-final appearance and current district context.' },
