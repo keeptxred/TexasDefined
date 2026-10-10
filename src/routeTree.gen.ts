@@ -296,6 +296,11 @@ import { Route as PartnerWithUsExamplesRouteImport } from './routes/partner-with
 import { Route as PartnerWithUsBillingRouteImport } from './routes/partner-with-us.billing'
 import { Route as PartnerWithUsAgreementRouteImport } from './routes/partner-with-us.agreement'
 import { Route as NewsSlugRouteImport } from './routes/news.$slug'
+import { Route as NetworkJoinRouteImport } from './routes/network.join'
+import { Route as NetworkDirectoryRouteImport } from './routes/network.directory'
+import { Route as NetworkCheckoutReturnRouteImport } from './routes/network.checkout-return'
+import { Route as NetworkBillingRouteImport } from './routes/network.billing'
+import { Route as NetworkApplyRouteImport } from './routes/network.apply'
 import { Route as MovingToTexasDataRouteImport } from './routes/moving-to-texas_.data'
 import { Route as MovingToTexasToolsRouteImport } from './routes/moving-to-texas.tools'
 import { Route as LearnWildlifeManagementValuationRouteImport } from './routes/learn.wildlife-management-valuation'
@@ -387,6 +392,7 @@ import { Route as CountyClerkSlugRouteImport } from './routes/county-clerk.$slug
 import { Route as CompareTexasCitiesPairRouteImport } from './routes/compare-texas-cities_.$pair'
 import { Route as CalculatorsTexasPropertyTaxRouteImport } from './routes/calculators.texas-property-tax'
 import { Route as CalculatorsTexasHomeAffordabilityRouteImport } from './routes/calculators.texas-home-affordability'
+import { Route as BusinessDashboardRouteImport } from './routes/business.dashboard'
 import { Route as BrowseCountiesRouteImport } from './routes/browse.counties'
 import { Route as BrowseCitiesRouteImport } from './routes/browse.cities'
 import { Route as AuthorsAuthorRouteImport } from './routes/authors.$author'
@@ -425,6 +431,7 @@ import { Route as AdminSportsPartnersRouteImport } from './routes/admin.sports-p
 import { Route as AdminSocialCalendarRouteImport } from './routes/admin.social-calendar'
 import { Route as AdminPlatformHealthRouteImport } from './routes/admin.platform-health'
 import { Route as AdminPartnerReferralsRouteImport } from './routes/admin.partner-referrals'
+import { Route as AdminNetworkApplicationsRouteImport } from './routes/admin.network-applications'
 import { Route as AdminKnowledgeGraphBehaviorRouteImport } from './routes/admin.knowledge-graph-behavior'
 import { Route as AdminInternalLinkTestsRouteImport } from './routes/admin.internal-link-tests'
 import { Route as AdminInternalLinkRollbackRouteImport } from './routes/admin.internal-link-rollback'
@@ -439,6 +446,9 @@ import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport 
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
 import { Route as PropertyTaxCountyCountyRouteImport } from './routes/property-tax.county.$county'
+import { Route as NetworkExamplePlusRouteImport } from './routes/network.example.plus'
+import { Route as NetworkExampleBasicRouteImport } from './routes/network.example.basic'
+import { Route as NetworkBusinessSlugRouteImport } from './routes/network.business.$slug'
 import { Route as FishingTechniquesSlugRouteImport } from './routes/fishing.techniques.$slug'
 import { Route as FishingSpeciesLargemouthBassRouteImport } from './routes/fishing.species.largemouth-bass'
 import { Route as FishingSpeciesSlugRouteImport } from './routes/fishing.species.$slug'
@@ -485,6 +495,10 @@ import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
+import { Route as ApiPublicNetworkStripeWebhookRouteImport } from './routes/api.public.network-stripe-webhook'
+import { Route as ApiPublicNetworkCheckoutRouteImport } from './routes/api.public.network-checkout'
+import { Route as ApiPublicNetworkBillingRouteImport } from './routes/api.public.network-billing'
+import { Route as ApiPublicNetworkApplicationRouteImport } from './routes/api.public.network-application'
 import { Route as ApiInternalLiveLakeVerificationRouteImport } from './routes/api/internal/live-lake-verification'
 import { Route as ApiAiEntitiesRouteImport } from './routes/api.ai.entities'
 import { Route as ApiAdminSocialCalendarPreviewRouteImport } from './routes/api.admin.social-calendar-preview'
@@ -1436,7 +1450,7 @@ const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() => import('./routes/privacy.lazy').then((d) => d.Route))
 const PartnerWithUsRoute = PartnerWithUsRouteImport.update({
   id: '/partner-with-us',
   path: '/partner-with-us',
@@ -2366,6 +2380,37 @@ const NewsSlugRoute = NewsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => NewsRoute,
 } as any).lazy(() => import('./routes/news.$slug.lazy').then((d) => d.Route))
+const NetworkJoinRoute = NetworkJoinRouteImport.update({
+  id: '/network/join',
+  path: '/network/join',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/network.join.lazy').then((d) => d.Route))
+const NetworkDirectoryRoute = NetworkDirectoryRouteImport.update({
+  id: '/network/directory',
+  path: '/network/directory',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/network.directory.lazy').then((d) => d.Route),
+)
+const NetworkCheckoutReturnRoute = NetworkCheckoutReturnRouteImport.update({
+  id: '/network/checkout-return',
+  path: '/network/checkout-return',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/network.checkout-return.lazy').then((d) => d.Route),
+)
+const NetworkBillingRoute = NetworkBillingRouteImport.update({
+  id: '/network/billing',
+  path: '/network/billing',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/network.billing.lazy').then((d) => d.Route),
+)
+const NetworkApplyRoute = NetworkApplyRouteImport.update({
+  id: '/network/apply',
+  path: '/network/apply',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/network.apply.lazy').then((d) => d.Route))
 const MovingToTexasDataRoute = MovingToTexasDataRouteImport.update({
   id: '/moving-to-texas_/data',
   path: '/moving-to-texas/data',
@@ -2892,6 +2937,13 @@ const CalculatorsTexasHomeAffordabilityRoute =
     path: '/calculators/texas-home-affordability',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BusinessDashboardRoute = BusinessDashboardRouteImport.update({
+  id: '/business/dashboard',
+  path: '/business/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/business.dashboard.lazy').then((d) => d.Route),
+)
 const BrowseCountiesRoute = BrowseCountiesRouteImport.update({
   id: '/browse/counties',
   path: '/browse/counties',
@@ -3105,6 +3157,14 @@ const AdminPartnerReferralsRoute = AdminPartnerReferralsRouteImport.update({
 } as any).lazy(() =>
   import('./routes/admin.partner-referrals.lazy').then((d) => d.Route),
 )
+const AdminNetworkApplicationsRoute =
+  AdminNetworkApplicationsRouteImport.update({
+    id: '/network-applications',
+    path: '/network-applications',
+    getParentRoute: () => AdminRoute,
+  } as any).lazy(() =>
+    import('./routes/admin.network-applications.lazy').then((d) => d.Route),
+  )
 const AdminKnowledgeGraphBehaviorRoute =
   AdminKnowledgeGraphBehaviorRouteImport.update({
     id: '/knowledge-graph-behavior',
@@ -3201,6 +3261,27 @@ const PropertyTaxCountyCountyRoute = PropertyTaxCountyCountyRouteImport.update({
   path: '/property-tax/county/$county',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NetworkExamplePlusRoute = NetworkExamplePlusRouteImport.update({
+  id: '/network/example/plus',
+  path: '/network/example/plus',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/network.example.plus.lazy').then((d) => d.Route),
+)
+const NetworkExampleBasicRoute = NetworkExampleBasicRouteImport.update({
+  id: '/network/example/basic',
+  path: '/network/example/basic',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/network.example.basic.lazy').then((d) => d.Route),
+)
+const NetworkBusinessSlugRoute = NetworkBusinessSlugRouteImport.update({
+  id: '/network/business/$slug',
+  path: '/network/business/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/network.business.$slug.lazy').then((d) => d.Route),
+)
 const FishingTechniquesSlugRoute = FishingTechniquesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -3482,6 +3563,29 @@ const ApiPublicStoreProductsRoute = ApiPublicStoreProductsRouteImport.update({
   path: '/api/public/store-products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicNetworkStripeWebhookRoute =
+  ApiPublicNetworkStripeWebhookRouteImport.update({
+    id: '/api/public/network-stripe-webhook',
+    path: '/api/public/network-stripe-webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicNetworkCheckoutRoute =
+  ApiPublicNetworkCheckoutRouteImport.update({
+    id: '/api/public/network-checkout',
+    path: '/api/public/network-checkout',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicNetworkBillingRoute = ApiPublicNetworkBillingRouteImport.update({
+  id: '/api/public/network-billing',
+  path: '/api/public/network-billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicNetworkApplicationRoute =
+  ApiPublicNetworkApplicationRouteImport.update({
+    id: '/api/public/network-application',
+    path: '/api/public/network-application',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiInternalLiveLakeVerificationRoute =
   ApiInternalLiveLakeVerificationRouteImport.update({
     id: '/api/internal/live-lake-verification',
@@ -3789,6 +3893,7 @@ export interface FileRoutesByFullPath {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/network-applications': typeof AdminNetworkApplicationsRoute
   '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
@@ -3827,6 +3932,7 @@ export interface FileRoutesByFullPath {
   '/authors/$author': typeof AuthorsAuthorRoute
   '/browse/cities': typeof BrowseCitiesRoute
   '/browse/counties': typeof BrowseCountiesRoute
+  '/business/dashboard': typeof BusinessDashboardRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
   '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
@@ -3918,6 +4024,11 @@ export interface FileRoutesByFullPath {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
+  '/network/apply': typeof NetworkApplyRoute
+  '/network/billing': typeof NetworkBillingRoute
+  '/network/checkout-return': typeof NetworkCheckoutReturnRoute
+  '/network/directory': typeof NetworkDirectoryRoute
+  '/network/join': typeof NetworkJoinRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -4022,6 +4133,10 @@ export interface FileRoutesByFullPath {
   '/api/admin/social-calendar-preview': typeof ApiAdminSocialCalendarPreviewRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
   '/api/internal/live-lake-verification': typeof ApiInternalLiveLakeVerificationRoute
+  '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
+  '/api/public/network-billing': typeof ApiPublicNetworkBillingRoute
+  '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
+  '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -4068,6 +4183,9 @@ export interface FileRoutesByFullPath {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
+  '/network/business/$slug': typeof NetworkBusinessSlugRoute
+  '/network/example/basic': typeof NetworkExampleBasicRoute
+  '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
@@ -4280,6 +4398,7 @@ export interface FileRoutesByTo {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/network-applications': typeof AdminNetworkApplicationsRoute
   '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
@@ -4318,6 +4437,7 @@ export interface FileRoutesByTo {
   '/authors/$author': typeof AuthorsAuthorRoute
   '/browse/cities': typeof BrowseCitiesRoute
   '/browse/counties': typeof BrowseCountiesRoute
+  '/business/dashboard': typeof BusinessDashboardRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
   '/compare-texas-cities/$pair': typeof CompareTexasCitiesPairRoute
@@ -4409,6 +4529,11 @@ export interface FileRoutesByTo {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas/data': typeof MovingToTexasDataRoute
+  '/network/apply': typeof NetworkApplyRoute
+  '/network/billing': typeof NetworkBillingRoute
+  '/network/checkout-return': typeof NetworkCheckoutReturnRoute
+  '/network/directory': typeof NetworkDirectoryRoute
+  '/network/join': typeof NetworkJoinRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -4513,6 +4638,10 @@ export interface FileRoutesByTo {
   '/api/admin/social-calendar-preview': typeof ApiAdminSocialCalendarPreviewRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
   '/api/internal/live-lake-verification': typeof ApiInternalLiveLakeVerificationRoute
+  '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
+  '/api/public/network-billing': typeof ApiPublicNetworkBillingRoute
+  '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
+  '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -4559,6 +4688,9 @@ export interface FileRoutesByTo {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
+  '/network/business/$slug': typeof NetworkBusinessSlugRoute
+  '/network/example/basic': typeof NetworkExampleBasicRoute
+  '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
@@ -4775,6 +4907,7 @@ export interface FileRoutesById {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/network-applications': typeof AdminNetworkApplicationsRoute
   '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
@@ -4813,6 +4946,7 @@ export interface FileRoutesById {
   '/authors/$author': typeof AuthorsAuthorRoute
   '/browse/cities': typeof BrowseCitiesRoute
   '/browse/counties': typeof BrowseCountiesRoute
+  '/business/dashboard': typeof BusinessDashboardRoute
   '/calculators/texas-home-affordability': typeof CalculatorsTexasHomeAffordabilityRoute
   '/calculators/texas-property-tax': typeof CalculatorsTexasPropertyTaxRoute
   '/compare-texas-cities_/$pair': typeof CompareTexasCitiesPairRoute
@@ -4904,6 +5038,11 @@ export interface FileRoutesById {
   '/learn/wildlife-management-valuation': typeof LearnWildlifeManagementValuationRoute
   '/moving-to-texas/tools': typeof MovingToTexasToolsRoute
   '/moving-to-texas_/data': typeof MovingToTexasDataRoute
+  '/network/apply': typeof NetworkApplyRoute
+  '/network/billing': typeof NetworkBillingRoute
+  '/network/checkout-return': typeof NetworkCheckoutReturnRoute
+  '/network/directory': typeof NetworkDirectoryRoute
+  '/network/join': typeof NetworkJoinRoute
   '/news/$slug': typeof NewsSlugRoute
   '/partner-with-us/agreement': typeof PartnerWithUsAgreementRoute
   '/partner-with-us/billing': typeof PartnerWithUsBillingRoute
@@ -5008,6 +5147,10 @@ export interface FileRoutesById {
   '/api/admin/social-calendar-preview': typeof ApiAdminSocialCalendarPreviewRoute
   '/api/ai/entities': typeof ApiAiEntitiesRoute
   '/api/internal/live-lake-verification': typeof ApiInternalLiveLakeVerificationRoute
+  '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
+  '/api/public/network-billing': typeof ApiPublicNetworkBillingRoute
+  '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
+  '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -5054,6 +5197,9 @@ export interface FileRoutesById {
   '/fishing/species/$slug': typeof FishingSpeciesSlugRoute
   '/fishing/species/largemouth-bass': typeof FishingSpeciesLargemouthBassRoute
   '/fishing/techniques/$slug': typeof FishingTechniquesSlugRoute
+  '/network/business/$slug': typeof NetworkBusinessSlugRoute
+  '/network/example/basic': typeof NetworkExampleBasicRoute
+  '/network/example/plus': typeof NetworkExamplePlusRoute
   '/property-tax/county/$county': typeof PropertyTaxCountyCountyRoute
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
@@ -5271,6 +5417,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/network-applications'
     | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
@@ -5309,6 +5456,7 @@ export interface FileRouteTypes {
     | '/authors/$author'
     | '/browse/cities'
     | '/browse/counties'
+    | '/business/dashboard'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
     | '/compare-texas-cities/$pair'
@@ -5400,6 +5548,11 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
+    | '/network/apply'
+    | '/network/billing'
+    | '/network/checkout-return'
+    | '/network/directory'
+    | '/network/join'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -5504,6 +5657,10 @@ export interface FileRouteTypes {
     | '/api/admin/social-calendar-preview'
     | '/api/ai/entities'
     | '/api/internal/live-lake-verification'
+    | '/api/public/network-application'
+    | '/api/public/network-billing'
+    | '/api/public/network-checkout'
+    | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -5550,6 +5707,9 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
+    | '/network/business/$slug'
+    | '/network/example/basic'
+    | '/network/example/plus'
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
@@ -5762,6 +5922,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/network-applications'
     | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
@@ -5800,6 +5961,7 @@ export interface FileRouteTypes {
     | '/authors/$author'
     | '/browse/cities'
     | '/browse/counties'
+    | '/business/dashboard'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
     | '/compare-texas-cities/$pair'
@@ -5891,6 +6053,11 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas/data'
+    | '/network/apply'
+    | '/network/billing'
+    | '/network/checkout-return'
+    | '/network/directory'
+    | '/network/join'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -5995,6 +6162,10 @@ export interface FileRouteTypes {
     | '/api/admin/social-calendar-preview'
     | '/api/ai/entities'
     | '/api/internal/live-lake-verification'
+    | '/api/public/network-application'
+    | '/api/public/network-billing'
+    | '/api/public/network-checkout'
+    | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -6041,6 +6212,9 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
+    | '/network/business/$slug'
+    | '/network/example/basic'
+    | '/network/example/plus'
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
@@ -6256,6 +6430,7 @@ export interface FileRouteTypes {
     | '/admin/internal-link-rollback'
     | '/admin/internal-link-tests'
     | '/admin/knowledge-graph-behavior'
+    | '/admin/network-applications'
     | '/admin/partner-referrals'
     | '/admin/platform-health'
     | '/admin/social-calendar'
@@ -6294,6 +6469,7 @@ export interface FileRouteTypes {
     | '/authors/$author'
     | '/browse/cities'
     | '/browse/counties'
+    | '/business/dashboard'
     | '/calculators/texas-home-affordability'
     | '/calculators/texas-property-tax'
     | '/compare-texas-cities_/$pair'
@@ -6385,6 +6561,11 @@ export interface FileRouteTypes {
     | '/learn/wildlife-management-valuation'
     | '/moving-to-texas/tools'
     | '/moving-to-texas_/data'
+    | '/network/apply'
+    | '/network/billing'
+    | '/network/checkout-return'
+    | '/network/directory'
+    | '/network/join'
     | '/news/$slug'
     | '/partner-with-us/agreement'
     | '/partner-with-us/billing'
@@ -6489,6 +6670,10 @@ export interface FileRouteTypes {
     | '/api/admin/social-calendar-preview'
     | '/api/ai/entities'
     | '/api/internal/live-lake-verification'
+    | '/api/public/network-application'
+    | '/api/public/network-billing'
+    | '/api/public/network-checkout'
+    | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -6535,6 +6720,9 @@ export interface FileRouteTypes {
     | '/fishing/species/$slug'
     | '/fishing/species/largemouth-bass'
     | '/fishing/techniques/$slug'
+    | '/network/business/$slug'
+    | '/network/example/basic'
+    | '/network/example/plus'
     | '/property-tax/county/$county'
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
@@ -6773,6 +6961,7 @@ export interface RootRouteChildren {
   AuthorsAuthorRoute: typeof AuthorsAuthorRoute
   BrowseCitiesRoute: typeof BrowseCitiesRoute
   BrowseCountiesRoute: typeof BrowseCountiesRoute
+  BusinessDashboardRoute: typeof BusinessDashboardRoute
   CalculatorsTexasHomeAffordabilityRoute: typeof CalculatorsTexasHomeAffordabilityRoute
   CalculatorsTexasPropertyTaxRoute: typeof CalculatorsTexasPropertyTaxRoute
   CompareTexasCitiesPairRoute: typeof CompareTexasCitiesPairRoute
@@ -6847,6 +7036,11 @@ export interface RootRouteChildren {
   LearnPropertyTaxesRoute: typeof LearnPropertyTaxesRoute
   LearnWildlifeManagementValuationRoute: typeof LearnWildlifeManagementValuationRoute
   MovingToTexasDataRoute: typeof MovingToTexasDataRoute
+  NetworkApplyRoute: typeof NetworkApplyRoute
+  NetworkBillingRoute: typeof NetworkBillingRoute
+  NetworkCheckoutReturnRoute: typeof NetworkCheckoutReturnRoute
+  NetworkDirectoryRoute: typeof NetworkDirectoryRoute
+  NetworkJoinRoute: typeof NetworkJoinRoute
   PropertyTaxCalculatorLocationRoute: typeof PropertyTaxCalculatorLocationRoute
   PropertyTaxCountiesRoute: typeof PropertyTaxCountiesRoute
   SportsVenueSlugRoute: typeof SportsVenueSlugRoute
@@ -6924,6 +7118,10 @@ export interface RootRouteChildren {
   ApiAdminSocialCalendarPreviewRoute: typeof ApiAdminSocialCalendarPreviewRoute
   ApiAiEntitiesRoute: typeof ApiAiEntitiesRoute
   ApiInternalLiveLakeVerificationRoute: typeof ApiInternalLiveLakeVerificationRoute
+  ApiPublicNetworkApplicationRoute: typeof ApiPublicNetworkApplicationRoute
+  ApiPublicNetworkBillingRoute: typeof ApiPublicNetworkBillingRoute
+  ApiPublicNetworkCheckoutRoute: typeof ApiPublicNetworkCheckoutRoute
+  ApiPublicNetworkStripeWebhookRoute: typeof ApiPublicNetworkStripeWebhookRoute
   ApiPublicStoreProductsRoute: typeof ApiPublicStoreProductsRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
@@ -6935,6 +7133,9 @@ export interface RootRouteChildren {
   ExploreRoute66SlugRoute: typeof ExploreRoute66SlugRoute
   ExploreStateParkSlugRoute: typeof ExploreStateParkSlugRoute
   ExploreTripTokenRoute: typeof ExploreTripTokenRoute
+  NetworkBusinessSlugRoute: typeof NetworkBusinessSlugRoute
+  NetworkExampleBasicRoute: typeof NetworkExampleBasicRoute
+  NetworkExamplePlusRoute: typeof NetworkExamplePlusRoute
   PropertyTaxCountyCountyRoute: typeof PropertyTaxCountyCountyRoute
   PropertyTaxTaxingUnitUnitRoute: typeof PropertyTaxTaxingUnitUnitRoute
   ExplorePaintedChurchesGuidesSlugRoute: typeof ExplorePaintedChurchesGuidesSlugRoute
@@ -8951,6 +9152,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsSlugRouteImport
       parentRoute: typeof NewsRoute
     }
+    '/network/join': {
+      id: '/network/join'
+      path: '/network/join'
+      fullPath: '/network/join'
+      preLoaderRoute: typeof NetworkJoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/directory': {
+      id: '/network/directory'
+      path: '/network/directory'
+      fullPath: '/network/directory'
+      preLoaderRoute: typeof NetworkDirectoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/checkout-return': {
+      id: '/network/checkout-return'
+      path: '/network/checkout-return'
+      fullPath: '/network/checkout-return'
+      preLoaderRoute: typeof NetworkCheckoutReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/billing': {
+      id: '/network/billing'
+      path: '/network/billing'
+      fullPath: '/network/billing'
+      preLoaderRoute: typeof NetworkBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/apply': {
+      id: '/network/apply'
+      path: '/network/apply'
+      fullPath: '/network/apply'
+      preLoaderRoute: typeof NetworkApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moving-to-texas_/data': {
       id: '/moving-to-texas_/data'
       path: '/moving-to-texas/data'
@@ -9588,6 +9824,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorsTexasHomeAffordabilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/business/dashboard': {
+      id: '/business/dashboard'
+      path: '/business/dashboard'
+      fullPath: '/business/dashboard'
+      preLoaderRoute: typeof BusinessDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/browse/counties': {
       id: '/browse/counties'
       path: '/browse/counties'
@@ -9854,6 +10097,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPartnerReferralsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/network-applications': {
+      id: '/admin/network-applications'
+      path: '/network-applications'
+      fullPath: '/admin/network-applications'
+      preLoaderRoute: typeof AdminNetworkApplicationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/knowledge-graph-behavior': {
       id: '/admin/knowledge-graph-behavior'
       path: '/knowledge-graph-behavior'
@@ -9950,6 +10200,27 @@ declare module '@tanstack/react-router' {
       path: '/property-tax/county/$county'
       fullPath: '/property-tax/county/$county'
       preLoaderRoute: typeof PropertyTaxCountyCountyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/example/plus': {
+      id: '/network/example/plus'
+      path: '/network/example/plus'
+      fullPath: '/network/example/plus'
+      preLoaderRoute: typeof NetworkExamplePlusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/example/basic': {
+      id: '/network/example/basic'
+      path: '/network/example/basic'
+      fullPath: '/network/example/basic'
+      preLoaderRoute: typeof NetworkExampleBasicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network/business/$slug': {
+      id: '/network/business/$slug'
+      path: '/network/business/$slug'
+      fullPath: '/network/business/$slug'
+      preLoaderRoute: typeof NetworkBusinessSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fishing/techniques/$slug': {
@@ -10274,6 +10545,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicStoreProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/network-stripe-webhook': {
+      id: '/api/public/network-stripe-webhook'
+      path: '/api/public/network-stripe-webhook'
+      fullPath: '/api/public/network-stripe-webhook'
+      preLoaderRoute: typeof ApiPublicNetworkStripeWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/network-checkout': {
+      id: '/api/public/network-checkout'
+      path: '/api/public/network-checkout'
+      fullPath: '/api/public/network-checkout'
+      preLoaderRoute: typeof ApiPublicNetworkCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/network-billing': {
+      id: '/api/public/network-billing'
+      path: '/api/public/network-billing'
+      fullPath: '/api/public/network-billing'
+      preLoaderRoute: typeof ApiPublicNetworkBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/network-application': {
+      id: '/api/public/network-application'
+      path: '/api/public/network-application'
+      fullPath: '/api/public/network-application'
+      preLoaderRoute: typeof ApiPublicNetworkApplicationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/internal/live-lake-verification': {
       id: '/api/internal/live-lake-verification'
       path: '/api/internal/live-lake-verification'
@@ -10414,6 +10713,7 @@ interface AdminRouteChildren {
   AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
   AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
   AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
+  AdminNetworkApplicationsRoute: typeof AdminNetworkApplicationsRoute
   AdminPartnerReferralsRoute: typeof AdminPartnerReferralsRoute
   AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
   AdminSocialCalendarRoute: typeof AdminSocialCalendarRoute
@@ -10433,6 +10733,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminInternalLinkRollbackRoute: AdminInternalLinkRollbackRoute,
   AdminInternalLinkTestsRoute: AdminInternalLinkTestsRoute,
   AdminKnowledgeGraphBehaviorRoute: AdminKnowledgeGraphBehaviorRoute,
+  AdminNetworkApplicationsRoute: AdminNetworkApplicationsRoute,
   AdminPartnerReferralsRoute: AdminPartnerReferralsRoute,
   AdminPlatformHealthRoute: AdminPlatformHealthRoute,
   AdminSocialCalendarRoute: AdminSocialCalendarRoute,
@@ -11199,6 +11500,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthorsAuthorRoute: AuthorsAuthorRoute,
   BrowseCitiesRoute: BrowseCitiesRoute,
   BrowseCountiesRoute: BrowseCountiesRoute,
+  BusinessDashboardRoute: BusinessDashboardRoute,
   CalculatorsTexasHomeAffordabilityRoute:
     CalculatorsTexasHomeAffordabilityRoute,
   CalculatorsTexasPropertyTaxRoute: CalculatorsTexasPropertyTaxRoute,
@@ -11300,6 +11602,11 @@ const rootRouteChildren: RootRouteChildren = {
   LearnPropertyTaxesRoute: LearnPropertyTaxesRoute,
   LearnWildlifeManagementValuationRoute: LearnWildlifeManagementValuationRoute,
   MovingToTexasDataRoute: MovingToTexasDataRoute,
+  NetworkApplyRoute: NetworkApplyRoute,
+  NetworkBillingRoute: NetworkBillingRoute,
+  NetworkCheckoutReturnRoute: NetworkCheckoutReturnRoute,
+  NetworkDirectoryRoute: NetworkDirectoryRoute,
+  NetworkJoinRoute: NetworkJoinRoute,
   PropertyTaxCalculatorLocationRoute: PropertyTaxCalculatorLocationRoute,
   PropertyTaxCountiesRoute: PropertyTaxCountiesRoute,
   SportsVenueSlugRoute: SportsVenueSlugRoute,
@@ -11406,6 +11713,10 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAdminSocialCalendarPreviewRoute: ApiAdminSocialCalendarPreviewRoute,
   ApiAiEntitiesRoute: ApiAiEntitiesRoute,
   ApiInternalLiveLakeVerificationRoute: ApiInternalLiveLakeVerificationRoute,
+  ApiPublicNetworkApplicationRoute: ApiPublicNetworkApplicationRoute,
+  ApiPublicNetworkBillingRoute: ApiPublicNetworkBillingRoute,
+  ApiPublicNetworkCheckoutRoute: ApiPublicNetworkCheckoutRoute,
+  ApiPublicNetworkStripeWebhookRoute: ApiPublicNetworkStripeWebhookRoute,
   ApiPublicStoreProductsRoute: ApiPublicStoreProductsRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
@@ -11417,6 +11728,9 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute66SlugRoute: ExploreRoute66SlugRoute,
   ExploreStateParkSlugRoute: ExploreStateParkSlugRoute,
   ExploreTripTokenRoute: ExploreTripTokenRoute,
+  NetworkBusinessSlugRoute: NetworkBusinessSlugRoute,
+  NetworkExampleBasicRoute: NetworkExampleBasicRoute,
+  NetworkExamplePlusRoute: NetworkExamplePlusRoute,
   PropertyTaxCountyCountyRoute: PropertyTaxCountyCountyRoute,
   PropertyTaxTaxingUnitUnitRoute: PropertyTaxTaxingUnitUnitRoute,
   ExplorePaintedChurchesGuidesSlugRoute: ExplorePaintedChurchesGuidesSlugRoute,
