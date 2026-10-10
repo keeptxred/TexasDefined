@@ -20,7 +20,7 @@
 2. `audit-all-editorial-production.yml`: the existing PR source inventory triggered a 254-county live crawl against the older Worker, masking the PR-live step's errors with `continue-on-error`. Keep the source inventory but execute the live 254-county crawl only on eligible successful deployments or manual invocation. Remove the misleading PR-only error masking.
 3. `scripts/ci/validate-post-deploy-verifier-safety.mjs`: add protected-contract assertions for both corrections. This script is already run in the canonical premerge validation; do not add a competing merge gate.
 
-PR number, required checks, merge SHA, and production deployment for these *new* changes: **pending**. Never claim these are complete until the PR passes required CI and merges normally.
+New correction PR [#4563](https://github.com/keeptxred/TexasDefined/pull/4563), head `4d33541dbb7baff280a8b0d5578042443c122043`: initial Required Merge Gate [#38064583516](https://github.com/keeptxred/TexasDefined/actions/runs/38064583516) **success**, with canonical pre-merge validation and both workflow-specific PR checks passing. **Merge SHA and new production acceptance pending.** Any new ledger commit requires fresh protected CI before merging. Never claim these are complete until the PR passes required CI and merges normally.
 
 ## Existing safe architecture retained
 
@@ -30,12 +30,12 @@ The protected deploy remains serialized and blocking; native sports-venue editor
 
 **Method:** All 194 names from the complete Git tree. SAFE = reviewed source and no confirmed issue in the specific race contract; FIX REQUIRED = confirmed PR/live mismatch with a proposed unmerged correction; SPECIAL CASE = deliberate independent health/source/manual or recovery semantics; RETIRED = obsolete and established for retirement (none); UNVERIFIED = not yet individually source-classified. A SAFE label is not proof of a successful recent run or Worker-version identity for each workflow.
 
-Counts: UNVERIFIED **145**; FIX REQUIRED **2**; SAFE **39**; SPECIAL CASE **8**; RETIRED **0**. Total **194**. New fix files: **2**; regression-validator update: **1**.
+Counts: UNVERIFIED **113**; FIX REQUIRED **3**; SAFE **70**; SPECIAL CASE **8**; RETIRED **0**. Total **194**. New #4563 fix files: **2**; regression-validator update: **1**. Separate #4544 contains the pending river-map checkout correction.
 
 | Workflow | Classification | Basis / next step |
 |---|---|---|
-| `adsense-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `advertiser-production-verification.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `adsense-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `advertiser-production-verification.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `audit-all-editorial-production.yml` | FIX REQUIRED | PR source inventory was accompanied by a full live 254-county crawl (with PR errors masked); proposed job-level PR exclusion preserves post-deploy and manual crawl. |
 | `audit-image-discover-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `audit-internal-link-graph-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -56,7 +56,7 @@ Counts: UNVERIFIED **145**; FIX REQUIRED **2**; SAFE **39**; SPECIAL CASE **8**;
 | `certify-fisher-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `certify-king-county-once.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `chappell-hill-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `cloudflare-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `cloudflare-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `county-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `curation-integrity.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `dallas-news-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -73,7 +73,7 @@ Counts: UNVERIFIED **145**; FIX REQUIRED **2**; SAFE **39**; SPECIAL CASE **8**;
 | `entity-maintenance.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `explore-hero-assets.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `finish-texas-events-refresh.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `flag-history-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `flag-history-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `flyover-scheduled-publish-bridge.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `friday-night-lights-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `governance-maintenance.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
@@ -84,7 +84,7 @@ Counts: UNVERIFIED **145**; FIX REQUIRED **2**; SAFE **39**; SPECIAL CASE **8**;
 | `made-in-texas-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `merge-gate.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `msr-houston-source-watch.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `my-story-museum-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `my-story-museum-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `normalize-waterdata-probe-status.yml` | SPECIAL CASE | Normalizes optional metrics after its own successful upstream verifier; status target pinned to triggering SHA. |
 | `painted-churches-seo.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `parking-map-audit.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
@@ -168,23 +168,23 @@ Counts: UNVERIFIED **145**; FIX REQUIRED **2**; SAFE **39**; SPECIAL CASE **8**;
 | `validate-texas-talent.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `validate.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `vehicle-authority-production-smoke.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-abbott-browser.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-abbott-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-angi-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-aquarium-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-aquarium-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-ask-texas-inference-manual.yml` | SPECIAL CASE | Scheduled/manual external inference health, not deployment-certifying. |
 | `verify-authority-freshness-after-deploy.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-brand-location-sources.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-brand-locator-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-brand-locator-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-budget-planner-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-cavern-production-integrity.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-cavern-production-integrity.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-city-authority-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-demand-signal-routes.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-devils-sinkhole-redirect-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-event-structured-data-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-demand-signal-routes.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-devils-sinkhole-redirect-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-event-structured-data-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-event-system-completion.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-event-temporal-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-event-temporal-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-event-ticketing-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-find-my-county-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-find-my-county-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-fishing-lcra-feed.yml` | SPECIAL CASE | Third-party LCRA CSV source availability check, not production Worker certificate. |
 | `verify-fishing-photo-governance.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `verify-football-batch-003-apple-springs.yml` | FIX REQUIRED | PR ran the deployed browser retest for a fixed production title; proposed PR-only syntax job and manually invoked browser keep future PR code from being compared to a pre-release site. |
@@ -192,42 +192,46 @@ Counts: UNVERIFIED **145**; FIX REQUIRED **2**; SAFE **39**; SPECIAL CASE **8**;
 | `verify-football-batch-003.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `verify-football-batch-004-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-football-batch-004.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-fort-davis-browser.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-fort-davis-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-free-christmas-canonical.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-gsc-manual-next-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-housing-index-surfaces.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-hunting-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-jasper-blue-hole-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-katy-browser.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-housing-index-surfaces.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-hunting-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-jasper-blue-hole-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-katy-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-legacy-article-depth-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-legacy-authority-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-legacy-authority-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-lighthouse-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-lighthouse-seasonal-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-live-lake-levels.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-local-home-insurance-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-local-mortgage-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-military-museum-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-priority-county-property-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-relocation-production-depth.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-military-museum-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-priority-county-property-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-relocation-production-depth.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-relocation-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-remote-evergreen-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-reservoir-authority-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-route66-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-remote-evergreen-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-reservoir-authority-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-route66-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-rv-production-images.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-rv-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-seasonal-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-seven-regions-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-rv-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-seasonal-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
+| `verify-seven-regions-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-sitemap-production-integrity.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-southlake-carroll-browser.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-southlake-carroll-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-sports-venue-editorial-production.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
 | `verify-sports-venue-heroes-production-all.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-stay-affiliate-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-stay-destination-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-texas-river-map-browser.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
-| `verify-wills-point-browser.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+| `verify-texas-river-map-browser.yml` | FIX REQUIRED | Post-deploy live browser job checks out moving default branch, not triggering deployed SHA; concurrent PR #4544 proposes correction; verify it before reclassifying |
+| `verify-wills-point-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-ysleta-museum-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-zapata-museum-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `websub-notify.yml` | UNVERIFIED | Source-level risk audit not yet completed; do not infer safe behavior from filename |
+
+## Additional scope inspected on October 10
+
+Individually read another 32 workflow YAML files beyond the initial focused inventory. Of these, 31 had no new race defect; `verify-texas-river-map-browser.yml` lacks pinned checkout on its post-deploy live browser job, already addressed in pending #4544. Safe classification does not prove every downstream run succeeded.
 
 ## Remaining mandatory acceptance work
 
