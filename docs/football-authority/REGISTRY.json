@@ -53,7 +53,7 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "25 individually IMPLEMENTED, 0 production VERIFIED. Nine campus-county reciprocal links now on branch and recorded; remaining 16 campus/city source maps, rights review and production acceptance outstanding."
+    "notes": "25 school-specific editorial dossiers implemented and all 25 county reciprocal link pairs committed to draft PR, NOT live browser VERIFIED. Further image/quality source checks, protected merge/deploy, and real responsive production acceptance outstanding."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4409,7 +4409,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "a091077e5f6f426a950df7750523db9c6c6770ff"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-achieve",
@@ -4432,7 +4437,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "a091077e5f6f426a950df7750523db9c6c6770ff"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-akins",
@@ -4455,7 +4465,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "a091077e5f6f426a950df7750523db9c6c6770ff"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-anderson",
@@ -4478,7 +4493,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "a091077e5f6f426a950df7750523db9c6c6770ff"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-bowie",
@@ -4501,7 +4521,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-crockett",
@@ -4524,7 +4549,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-eastside",
@@ -4547,7 +4577,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-johnson",
@@ -4570,7 +4605,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-lake-travis",
@@ -4593,7 +4633,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "1bf2989ac3ae439a53e8f20b08c70b76df3f02de"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-lasa",
@@ -4616,7 +4661,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-mccallum",
@@ -4639,7 +4689,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-navarro",
@@ -4662,7 +4717,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-northeast",
@@ -4685,7 +4745,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-travis",
@@ -4708,7 +4773,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:austin-vandegrift",
@@ -4759,7 +4829,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "outboundCountyPath": "/county/travis",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:avalon",
@@ -4838,7 +4913,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "0dab3bd153b5211f997581d7f22649204d9fda87"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/tarrant"
+      ],
+      "outboundCountyPath": "/county/tarrant",
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED"
     },
     {
       "id": "uil:baird",
