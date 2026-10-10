@@ -45,18 +45,34 @@ function hasLink(data, path) {
 async function inspectMuseum(page, viewport) {
   const response = await page.goto(cacheBusted(museumPath), { waitUntil: 'domcontentloaded', timeout: 60_000 });
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
+  const traces = [];
+  const record = async stage => {
+    const state = await page.evaluate(() => ({
+      url: location.pathname, scrollY, mainCount: document.querySelectorAll('main').length,
+      rootTextStart: document.body.innerText.slice(0, 150),
+      scripts: document.querySelectorAll('script').length
+    }));
+    traces.push({ stage, ...state });
+    await writeFile(artifacts + '/' + viewport + '-stage-trace.json', JSON.stringify(traces, null, 2) + '\n');
+  };
+  await record('after-h1-visible');
   await page.evaluate(() => document.fonts?.ready);
+  await record('after-fonts');
   await page.waitForTimeout(1200);
+  await record('after-1200ms');
   const hero = page.locator('img[alt*="Photograph of the actual Tigua Cultural Center"]');
   const panorama = page.locator('img[alt*="Wide panoramic photograph"]');
   await panorama.scrollIntoViewIfNeeded({ timeout: 20_000 });
+  await record('after-panorama-scroll');
   let photoWait = null;
   try {
     await page.waitForFunction(() => [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).length === 2 &&
       [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).every(img => img.complete && img.naturalWidth >= 500),
       null, { timeout: 25_000, polling: 350 });
   } catch (err) { photoWait = err instanceof Error ? err.message : String(err); }
+  await record('after-images-loaded');
   await page.evaluate(() => window.scrollTo(0, 0));
+  await record('after-scroll-top');
   await page.screenshot({ path: artifacts + '/' + viewport + '-museum.png', fullPage: true, animations: 'disabled', timeout: 40_000 });
   const data = await snapshot(page);
   check(response?.status() === 200, viewport + ': museum HTTP ' + response?.status());
