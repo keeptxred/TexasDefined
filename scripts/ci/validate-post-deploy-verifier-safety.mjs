@@ -68,6 +68,32 @@ for (const name of ['verify-event-structured-data-production','verify-jasper-blu
   if (/ref:\s*main\b/.test(source)) failures.push(`${name} must not check out moving main`);
   requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed deployments`);
 }
+// Wave 3: live-only checks may run after deploy or explicitly by hand, not on PR or push.
+for (const name of [
+  'verify-cavern-production-integrity',
+  'verify-demand-signal-routes',
+  'verify-legacy-authority-production',
+  'verify-relocation-production-depth',
+  'verify-devils-sinkhole-redirect-production',
+]) {
+  const source = workflow(name);
+  noDirectPush(source, name);
+  requireMarker(source, 'workflow_run:', `${name} must follow protected deployment`);
+  requireMarker(source, 'Deploy TexasDefined production', `${name} lost canonical deploy dependency`);
+  requireMarker(source, 'workflow_dispatch:', `${name} lost explicit manual verification`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed/cancelled deployments`);
+  if (name !== 'verify-devils-sinkhole-redirect-production' && /^  pull_request:/m.test(source))
+    failures.push(`${name} must not live-probe from PR triggers`);
+}
+const devils = workflow('verify-devils-sinkhole-redirect-production');
+requireMarker(devils, "github.event_name == 'pull_request'", 'Devils Sinkhole PR syntax validation must remain');
+requireMarker(devils, 'node --check scripts/ci/verify-devils-sinkhole-redirect-production.mjs', 'Devils Sinkhole PR syntax contract missing');
+requireMarker(devils, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Devils Sinkhole verifier must use deployed SHA');
+for (const name of ['verify-cavern-production-integrity','verify-demand-signal-routes'])
+  requireMarker(workflow(name), 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out deployed source`);
+const relocationDepth = workflow('verify-relocation-production-depth');
+requireMarker(relocationDepth, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Relocation-depth cache probe must bind deployed SHA');
+requireMarker(relocationDepth, 'process.env.DEPLOY_SHA', 'Relocation-depth probe must not use moving default branch SHA');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
