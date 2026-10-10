@@ -547,8 +547,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin McCallum Knights Football: History, 2026 Guide & Stadium Resources",
-      "description": "Research-led Austin McCallum Knights football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+      "title": "Austin McCallum Knights Football: 2026 District & School Guide",
+      "description": "McCallum Knights football guide: 2026 5A Division I alignment, 2024–25 season records, official Austin opponent schedules and school location."
     },
     "schedule": {
       "label": "Published source of team or opponent varsity schedule",
@@ -557,35 +557,60 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A distinctive football story",
-      "body": "The Knights play in 5A Division I in the 2026 UIL cycle, following a 5A Division II 2025 season with a 6–4 record. The classification change should be made clear rather than mixing seasons. Published Travis varsity schedules place the September 3 McCallum matchup at Garrison field.",
+      "title": "McCallum's 2026 alignment shift",
+      "body": "The Knights moved from their 2025 Class 5A Division II District 11 listing to the 2026 5A Division I District 13 grouping. Historical records show McCallum finished 4–6 in 2024 then improved to 6–4 in 2025. Austin Anderson's official 2026 varsity athletics calendar schedules a meeting with McCallum October 15; Travis High's official calendar also lists a September 3 match against McCallum, at Garrison. These are football-school and venue-specific details, not a claim of a trophy.",
       "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
-      "sourceLabel": "School source and explicitly qualified published record",
+      "sourceLabel": "McCallum year-by-year team and alignment history",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
-        "date": "2026",
-        "title": "Program-specific football milestone",
-        "body": "The 2025 McCallum season finished 6–4 after a 4–6 2024 season, published in historical season records.",
+        "date": "2024",
+        "title": "Four-win year",
+        "body": "McCallum finished 4–6 in 2024, under its previous 5A Division II district grouping.",
         "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
-        "sourceLabel": "School schedule or athletics history"
+        "sourceLabel": "McCallum team history"
+      },
+      {
+        "date": "2025",
+        "title": "Six-win improvement",
+        "body": "The Knights finished 6–4 in the 2025 5A Division II season.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+        "sourceLabel": "McCallum season record"
+      },
+      {
+        "date": "2026",
+        "title": "New 5A Division I district",
+        "body": "The team-history listing places McCallum in 5A Division I Region IV District 13, a different cycle from 2025's 5A DII.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+        "sourceLabel": "2026 realignment listing"
       }
     ],
     "overview": [
-      "The Knights play in 5A Division I in the 2026 UIL cycle, following a 5A Division II 2025 season with a 6–4 record. The classification change should be made clear rather than mixing seasons. Published Travis varsity schedules place the September 3 McCallum matchup at Garrison field.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "McCallum's 2026 UIL football grouping is 5A Division I, not the prior year's 5A Division II. The alignment change should be dated rather than mistaken for a change in sport or a playoff result.",
+      "McCallum improved from 4–6 in 2024 to 6–4 in 2025. Opponents' official school calendars place September games with Travis at Garrison and October football with Anderson.",
+      "Coaching identity and current home stadium/gate policy need official McCallum school confirmation; the available third-party coaching roster lists an assistant but not a clearly verified current head coach."
     ],
     "faq": [
       {
-        "question": "What should visitors know about Austin McCallum Knights?",
-        "answer": "The 2025 McCallum season finished 6–4 after a 4–6 2024 season, published in historical season records."
+        "question": "Which football classification applies to McCallum in 2026?",
+        "answer": "McCallum is listed in Class 5A Division I Region IV District 13 for 2026, a change from 2025's 5A Division II grouping."
       },
       {
-        "question": "Is TexasDefined the official football website?",
-        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+        "question": "What was McCallum's 2025 season record?",
+        "answer": "The published year-by-year history lists a 6–4 record in 2025."
+      },
+      {
+        "question": "When does Anderson play McCallum in 2026?",
+        "answer": "Anderson's athletics calendar lists a varsity game against McCallum on October 15."
       }
-    ]
+    ],
+    "campus": {
+      "address": "5600 Sunshine Drive, Austin, TX 78756",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/staff/",
+      "sourceLabel": "McCallum school football roster campus listing",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-lasa": {
     "slug": "austin-lasa",
@@ -937,13 +962,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Editorial school-inspired accent; no official logo used"
     },
     "seo": {
-      "title": "Austin Anderson Trojans Football: 2026 Schedule, History & Fan Guide",
-      "description": "Independent Austin Anderson Trojans football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+      "title": "Austin Anderson Trojans Football: 2025 Playoffs & 2026 Guide",
+      "description": "Anderson Trojans 2025 10–2 football season, 2026 UIL 5A Division I realignment, House Park, coach Donald Hatcher and official game links."
     },
     "schedule": {
-      "label": "2026 varsity schedule and source information",
-      "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
-      "sourceLabel": "Published varsity football schedule",
+      "label": "Official 2026 Trojans varsity athletics schedule",
+      "sourceUrl": "https://www.andersontrojanathletics.com/",
+      "sourceLabel": "Anderson High official athletic calendar",
       "verifiedAt": "2026-10-10"
     },
     "development": {
@@ -955,25 +980,44 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "milestones": [
       {
-        "date": "2026",
-        "title": "School-specific 2026 season context",
-        "body": "The 2025 10–2 season follows a 2024 7–4 mark, an important recent competitive improvement rather than a claim of a state championship.",
+        "date": "2024",
+        "title": "Seven-win Trojans season",
+        "body": "The 2024 Trojans finished 7–4, preceding a marked improvement the next season.",
         "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
-        "sourceLabel": "2026 published varsity schedule"
+        "sourceLabel": "MaxPreps season-by-season record"
+      },
+      {
+        "date": "2025",
+        "title": "Double-digit victories",
+        "body": "Anderson finished 10–2, according to independent historical season records; it is not described as a state championship.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
+        "sourceLabel": "MaxPreps 2025 standings"
+      },
+      {
+        "date": "2026",
+        "title": "New 5A Division I district opponents",
+        "body": "Anderson's official varsity calendar includes October meetings with Smithson Valley and McCallum, while DCTF lists a 2026 5A Division I alignment rather than last cycle's 6A assignment.",
+        "sourceUrl": "https://www.andersontrojanathletics.com/",
+        "sourceLabel": "Anderson 2026 varsity calendar"
       }
     ],
     "overview": [
-      "Anderson's program has a distinct 2026 alignment in Class 5A Division I, unlike nearby Austin High and Bowie 6A teams. The 2025 Trojans finished 10–2, following a 7–4 season in 2024, according to historical team results. Donald Hatcher is listed as head coach in both 2025 and 2026; official campus corroboration of the staffing and home venue remains pending.",
-      "TexasDefined is an independent publication, not Austin Anderson Trojans's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+      "The Trojans' documented 2025 10–2 season was a substantial improvement after the 2024 7–4 campaign; the two should not be flattened into a generic football-history paragraph.",
+      "Austin Anderson's official athletics portal lists the 2026 varsity calendar, including Smithson Valley on October 9 and McCallum on October 15, with an athletics office at 8403 Mesa Drive.",
+      "Published football references place Anderson at House Park and list Donald Hatcher as coach in the 2025 and 2026 seasons. The precise game-by-game stadium and current coaching assignment should be checked with Austin ISD."
     ],
     "faq": [
       {
-        "question": "Where is the reliable 2026 Austin Anderson Trojans football schedule?",
-        "answer": "Use the linked published team history and schedule; opponent and venue details can change."
+        "question": "How did Anderson do in the 2025 football season?",
+        "answer": "MaxPreps records a 10–2 season in 2025, following a 7–4 result in 2024."
       },
       {
-        "question": "What makes the Austin Anderson Trojans football program distinctive?",
-        "answer": "The 2025 10–2 season follows a 2024 7–4 mark, an important recent competitive improvement rather than a claim of a state championship."
+        "question": "Where is Austin Anderson High School?",
+        "answer": "The official athletic department lists 8403 Mesa Drive, Austin, TX 78759. House Park is listed as the home football stadium in DCTF."
+      },
+      {
+        "question": "Which 2026 district opponents are on the official schedule?",
+        "answer": "Anderson's school athletics calendar lists Smithson Valley on October 9 and McCallum on October 15, among its fall fixtures."
       }
     ],
     "coach": {
@@ -982,6 +1026,21 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.maxpreps.com/tx/austin/anderson-trojans/football/history/",
       "sourceLabel": "Published football team information",
       "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "8403 Mesa Drive, Austin, TX 78759",
+      "phone": "512-414-2538",
+      "sourceUrl": "https://www.andersontrojanathletics.com/",
+      "sourceLabel": "Anderson official athletics office",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "House Park",
+      "address": "Austin, Texas; confirm event venue with school",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=austin-anderson-trojans",
+      "sourceLabel": "Dave Campbell's Texas Football program venue",
+      "verifiedAt": "2026-10-10",
+      "note": "DCTF lists House Park as the home stadium; game-specific venues and accessible entry policies must be confirmed with Austin ISD."
     }
   },
   "austin-akins": {
