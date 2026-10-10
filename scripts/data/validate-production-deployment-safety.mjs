@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const cloudflareSmoke = fs.readFileSync('.github/workflows/cloudflare-production-smoke.yml', 'utf8');
+const staleRecovery = fs.readFileSync('.github/workflows/recover-stale-production-deploy.yml', 'utf8');
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
 const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
 const restore = fs.readFileSync('.github/workflows/restore-verified-worker.yml', 'utf8');
@@ -54,6 +55,21 @@ for (const entry of fs.readdirSync(workflowDirectory, { withFileTypes: true })) 
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
+// Stale-deploy recovery must not duplicate an already queued, running or newer
+// successful canonical deployment for the exact current-main revision.
+for (const [needle, label] of [
+  ["SOURCE_FINISHED_AT: ${{ github.event.workflow_run.updated_at }}", "stale recovery completion-time provenance"],
+  ["actions/workflows/deploy-production.yml/runs?branch=main&per_page=100", "read existing canonical production workflow runs"],
+  [".head_sha == $current_sha", "exact current-main SHA matching"],
+  [".status == \"queued\"", "queued deployment deduplication"],
+  [".status == \"in_progress\"", "running deployment deduplication"],
+  [".conclusion == \"success\"", "verified successful deployment detection"],
+  [".updated_at >= $source_finished", "do not accept an older finished deployment"],
+  ["Refusing to dispatch blindly", "invalid GitHub API evidence fails closed"],
+  ["if [[ -n \"${EXISTING_RUN}\" ]]", "skip duplicate protected deployment"],
+  ["if: ${{ steps.freshness.outputs.stale == 'true' }}", "only dispatch when stale recovery is needed"],
+]) requireText(staleRecovery, needle, label);
+
 
 const pushTriggerStart = workflow.indexOf('  push:\n');
 const workflowDispatchStart = workflow.indexOf('  workflow_dispatch:', pushTriggerStart);
