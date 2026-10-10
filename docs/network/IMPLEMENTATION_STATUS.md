@@ -112,5 +112,15 @@ Fix route conflicts and generated tree → reconcile main → fix performance ch
 - Canonical CI for earlier heads was repeatedly cancelled during syncs. Run `38079041481` was cancelled; no passing latest-head merge gate has been established. The last reproducible completed failure remains bundle **1,832,933 bytes** versus **1,829,000-byte** cap.
 - Do not merge, deploy, enable live billing, claim successful owner flows, or publish customer profiles before remaining safety and quality gates.
 
+
+## Continuation — verified owner provisioning (October 10, 2026)
+- Brought current city QA/budget planner commits into Network as a two-parent merge `c96f27ff1220dcadbfa1203d956356717b471d07` (0 behind at verification).
+- Added admin-key-protected, manual owner provisioning after required independent-business-ownership attestation, approved Plus application and verified Supabase email, commit `ef28d445ca1d24a0b79549c20d87afb40f38b79c`.
+- Allowed OTP sign-in to create a confirmed Supabase account without granting owner rights, commit `7434697ecd9af9197d7e3f3adacc2c97e3bed33e`.
+- Restricted billing membership listing to enabled owner bindings, commit `58b4778cc50820d90ea8e1a779d17faef74525a3`.
+- Read-only Supabase check found **zero** business-owner accounts before provisioning; no owners were created, no emails sent and no charges generated in this work.
+- The latest completed canonical gate `38080978100` failed **one** top-level check: main client bundle **1,833,490 bytes**, cap **1,829,000**, over **4,490**. Newer-head CI pending; this remains a blocker unless a subsequent exact-head gate passes.
+- Owner-runbook `docs/network/OWNER_VERIFICATION_RUNBOOK.md` contains the manual verification and remaining test matrix. This is staged code, **not** production certification.
+
 ## Launch state
 **NOT LAUNCHED / NOT CERTIFIED.** No confirmed end-to-end successful application, payment, customer portal login or production publication. Never claim otherwise.

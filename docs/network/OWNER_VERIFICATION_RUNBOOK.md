@@ -1,0 +1,32 @@
+# TexasDefined Network — verified owner provisioning and launch gate
+
+Updated: 2026-10-10. Feature branch only; not a launch approval.
+
+## Preconditions (required for every application)
+
+1. A Plus application has passed editorial review and is in `approved` or `published` status.
+2. A human reviewer independently confirms the applicant is authorized to act for the named business. Contact-email knowledge or website presence alone are insufficient. Record the independent evidence in the approved internal review system, not in public descriptions.
+3. The authorized applicant opens `/business/dashboard`, requests a Supabase email OTP, signs in, and completes email confirmation. Authentication by itself does **not** provision ownership.
+4. In the private Network applications admin, enter that existing authenticated Supabase user UUID for the reviewed Plus application. Explicitly attest to the independent verification before clicking **Enable verified owner**.
+5. The server verifies the admin key, application approval and Plus tier, exact match of confirmed Auth email to the original application contact email, prevents reassignment of an existing owner, and enables the owner binding.
+6. Recheck ownership and access in the admin review; if any evidence is missing, **do not** provision. No invitations, charges, Stripe activation or automatic publication follow provisioning.
+7. The public business dashboard and billing endpoints require authorized, enabled owner binding; publication additionally requires separate editorial approval and Plus payment entitlement.
+
+## Mandatory prelaunch test matrix
+
+- [ ] Unauthenticated and wrong-user owner provisioning requests denied
+- [ ] Wrong or unconfirmed email denied; UUID for another applicant denied
+- [ ] Reassignment of an existing business to another UUID denied
+- [ ] Inactive owner denied Checkout, billing portal and profile update
+- [ ] Confirmed matching user, independently verified business and authorized admin can provision, then sign in
+- [ ] Concurrent provisioning attempts cannot create duplicate owners (unique database constraint)
+- [ ] Basic account cannot receive Plus/Featured owner privileges by this action
+- [ ] Billing and publication webhook tests use isolated mocks or Stripe test mode, never live customer charges
+- [ ] CI canonical merge gate and bundle budget pass on the **exact PR head**
+- [ ] Production SSR/hydration, mobile, accessibility, security and RLS tests pass
+- [ ] Office365 notification identity and suppression behavior are verified separately
+- [ ] Explicit launch approval and independent signoff before enabling checkout, indexed discovery, or production merge
+
+## Known blockers
+
+The application admin still relies on the inherited sports-partner admin access key rather than dedicated identity-based Network RBAC. The database ownership binding does not itself store independent proof or reviewer attribution, so proof must be retained separately. Production email-deliverability is unverified. Subscription/webhook and public listing transitions span multiple DB calls and remain to be tested for partial failures and concurrency. The client bundle-size gate has recently failed at 1,833,490 bytes, against a maximum of 1,829,000 bytes. Nothing in this document waives these requirements.
