@@ -858,8 +858,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Original school-inspired editorial accent; no logo reproduced"
     },
     "seo": {
-      "title": "Austin LBJ Jaguars Football: 2026 Guide, History & Fan Resources",
-      "description": "Independent Austin LBJ Jaguars football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+      "title": "Austin LBJ Jaguars Football: 2021 State Final & 2026 Team",
+      "description": "Austin LBJ Jaguars reached the 2021 Class 4A Division I final, falling 38–21 to Stephenville; review historic Oscar Gordon records and 2026 team information."
     },
     "schedule": {
       "label": "Official athletics or school-specific 2026 resource",
@@ -868,33 +868,52 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "Program identity and verified context",
-      "body": "This registry slug refers to Austin LBJ Early College Jaguars in 4A Division I, NOT Buda Johnson nor San Antonio Johnson. Official athletics directory names Jahmal Fenner Sr. as head football coach, but 2026 third-party roster names Joseph Rauls. Coaching attribution must remain unresolved pending first-party clarification. Published 2025 team record was 9–3.",
-      "sourceUrl": "https://www.lbjjaguarathletics.com/directory",
-      "sourceLabel": "Athletics school source and archives",
+      "title": "LBJ's unbeaten 2021 run to the 4A Division I title game",
+      "body": "The Austin LBJ Jaguars, recorded by UIL as Austin Johnson, entered the December 17, 2021 Class 4A Division I state title game undefeated at 15–0. Stephenville won the final 38–21. The original UIL team roster credits Jahmal Fenner Sr. as the 2021 head coach and Oscar Gordon as the senior quarterback; the UIL record book lists Gordon's 372 passing yards in the 2021 title game. These are historical roles, not proof of current 2026 coaching staff. Austin LBJ's current school identity must not be confused with Buda Johnson or San Antonio Johnson.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-johnson-2021-2022-football",
+      "sourceLabel": "UIL 2021 Austin Johnson football team roster and playoffs",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
-        "date": "2026",
-        "title": "School-specific program and visitor milestone",
-        "body": "LBJ's 2026 fixtures include October 22 against Austin Travis and October 29 at Austin Northeast Early College.",
-        "sourceUrl": "https://www.maxpreps.com/tx/austin/lbj-austin-jaguars/football/schedule/",
-        "sourceLabel": "Published season or game-day source"
+        "date": "2021",
+        "title": "Unbeaten run to the title game",
+        "body": "UIL's 2021 football championship release lists Austin Johnson at 15–0 entering its 4A Division I game against Stephenville.",
+        "sourceUrl": "https://www.uiltexas.org/press-releases/detail/uil-football-state-championships-information6",
+        "sourceLabel": "UIL December 2021 championship briefing"
+      },
+      {
+        "date": "Dec. 17, 2021",
+        "title": "State runner-up to Stephenville",
+        "body": "Stephenville defeated Austin LBJ 38–21 in the UIL Class 4A Division I final; this is not an LBJ championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL official 2021–22 football finals archive"
+      },
+      {
+        "date": "2021",
+        "title": "Oscar Gordon's title-game passing",
+        "body": "UIL's record book credits LBJ quarterback Oscar Gordon with 372 passing yards and 30 completions against Stephenville.",
+        "sourceUrl": "https://www.uiltexas.org/football/record-book",
+        "sourceLabel": "UIL football record book"
       }
     ],
     "overview": [
-      "This registry slug refers to Austin LBJ Early College Jaguars in 4A Division I, NOT Buda Johnson nor San Antonio Johnson. Official athletics directory names Jahmal Fenner Sr. as head football coach, but 2026 third-party roster names Joseph Rauls. Coaching attribution must remain unresolved pending first-party clarification. Published 2025 team record was 9–3.",
-      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+      "Austin LBJ's most important modern football achievement is its 15–0 run into the 2021 Class 4A Division I state final, where Stephenville won 38–21. The school was a runner-up, not a UIL champion.",
+      "The 2021 UIL roster names Jahmal Fenner Sr. as historical head coach and Oscar Gordon as quarterback. Fenner's 2021 role should not be mislabeled as a confirmed 2026 coaching appointment.",
+      "This team is the Austin LBJ Jaguars, called Austin Johnson in UIL finals archives. It is not Buda Johnson High School or San Antonio Johnson High School."
     ],
     "faq": [
       {
-        "question": "What is distinctive about Austin LBJ Jaguars football?",
-        "answer": "LBJ's 2026 fixtures include October 22 against Austin Travis and October 29 at Austin Northeast Early College."
+        "question": "Did the Austin LBJ Jaguars win the 2021 state football championship?",
+        "answer": "No. LBJ entered undefeated at 15–0, but Stephenville won the UIL 4A Division I final 38–21."
       },
       {
-        "question": "Where should fans check official football information?",
-        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+        "question": "Who coached Austin LBJ's 2021 state-final team?",
+        "answer": "UIL identifies Jahmal Fenner Sr. as the 2021 coach. This does not establish who leads the 2026 team."
+      },
+      {
+        "question": "Which Austin LBJ player is in the UIL title-game passing records?",
+        "answer": "Oscar Gordon recorded 372 passing yards and 30 completions against Stephenville in the 2021 final."
       }
     ]
   },
@@ -1249,8 +1268,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Editorial school-inspired accent; no official logo used"
     },
     "seo": {
-      "title": "Austin High Maroons Football: 2026 Schedule, History & Fan Guide",
-      "description": "Independent Austin High Maroons football guide: verified program identity, 2026 fixtures, unique historical context, current resources and visiting supporter information."
+      "title": "Austin High Maroons Football: 1942 State Champions & 2026",
+      "description": "Austin High Maroons 1942 UIL state championship 20–7 over Dallas Sunset, House Park game-day guide, 2026 coach and varsity resources."
     },
     "schedule": {
       "label": "2026 varsity schedule and source information",
@@ -1259,33 +1278,52 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "This program's distinct identity",
-      "body": "Austin High's official football page describes the Maroons' 2026 campaign as District 26-6A, led by Jason Cecil. The team fields varsity, junior-varsity and freshman squads and hosts games at historic House Park in downtown Austin. The official football schedule identifies the September 25 Bowie game at House Park, while away dates need their own venue checks.",
-      "sourceUrl": "https://www.austinmaroons.com/football/",
-      "sourceLabel": "School athletics site or published team record",
+      "title": "The 1942 UIL football championship and today's Maroons",
+      "body": "Austin High's Maroons won the 1942 Class 2A UIL football championship 20–7 over Dallas Sunset, confirmed by the UIL historical champions archive. The state's current all-time appearance index also credits Austin with a title-game appearance in 1950; that additional final was not a championship. Contemporary Austin High's school-sponsored football portal places its 2026 Maroons in Class 6A and supplies House Park home fixtures, separate from its 1940s classification.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P720",
+      "sourceLabel": "UIL 1942 Class 2A state championship archive",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
+        "date": "1942",
+        "title": "State football championship",
+        "body": "Austin High defeated Dallas Sunset 20–7 for the Class 2A state championship, as recorded by UIL.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P720",
+        "sourceLabel": "UIL original 1942–43 state champions"
+      },
+      {
+        "date": "1950",
+        "title": "Another appearance in the state finals",
+        "body": "UIL all-time appearances lists Austin High in the 1950 state-final field but not as the champion; avoid conflating the appearance with a second title.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL football all-time appearances listing"
+      },
+      {
         "date": "2026",
-        "title": "House Park game planning",
-        "body": "The official 2026 Maroons schedule schedules Westwood and Jarrell in September at House Park, plus the Bowie district rivalry meeting there on September 25.",
+        "title": "Maroons play at historic House Park",
+        "body": "Austin High's 2026 team schedule lists House Park as a home-game venue and includes a September 25 Bowie matchup.",
         "sourceUrl": "https://www.austinmaroons.com/football-2026-schedule/",
-        "sourceLabel": "2026 published varsity schedule"
+        "sourceLabel": "Austin High 2026 official football schedule"
       }
     ],
     "overview": [
-      "Austin High's official football page describes the Maroons' 2026 campaign as District 26-6A, led by Jason Cecil. The team fields varsity, junior-varsity and freshman squads and hosts games at historic House Park in downtown Austin. The official football schedule identifies the September 25 Bowie game at House Park, while away dates need their own venue checks.",
-      "TexasDefined is an independent publication, not Austin High Maroons's official football site. Current kickoff, stadium admission, accessibility and scores should be confirmed with the linked school and athletics resources."
+      "The Maroons' most important documented football achievement is the 1942 UIL Class 2A state championship over Dallas Sunset, 20–7. This historic achievement is distinct from the present Class 6A football alignment.",
+      "UIL separately lists a 1950 state final appearance, but not a second Austin championship. The football history therefore includes one recorded title and another final.",
+      "Austin High's current Maroons football portal publishes official 2026 House Park fixtures and school coach resources. Visitors must confirm individual stadium and ticket procedures for their game."
     ],
     "faq": [
       {
-        "question": "Where is the reliable 2026 Austin High Maroons football schedule?",
-        "answer": "Use the linked school athletics site; opponent and venue details can change."
+        "question": "Did Austin High School win a Texas football state championship?",
+        "answer": "Yes. UIL's historical archive records the Austin Maroons defeating Dallas Sunset 20–7 for the 1942 Class 2A title."
       },
       {
-        "question": "What makes the Austin High Maroons football program distinctive?",
-        "answer": "The official 2026 Maroons schedule schedules Westwood and Jarrell in September at House Park, plus the Bowie district rivalry meeting there on September 25."
+        "question": "How many football titles does Austin High have?",
+        "answer": "UIL lists one championship (1942) and two title-game appearances including 1950."
+      },
+      {
+        "question": "Where are Austin High football home games played?",
+        "answer": "The Maroons' school-hosted 2026 varsity schedule lists home fixtures at House Park; verify the individual game venue."
       }
     ],
     "coach": {
@@ -1377,8 +1415,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Atlanta Rabbits school-inspired editorial accent (not an official seal)"
     },
     "seo": {
-      "title": "Atlanta Rabbits Football: Rabbit Stadium, Tyler Morton & 2026 Guide",
-      "description": "Atlanta Rabbits independent football guide covering Rabbit Stadium visitor rules, coach Tyler Morton, 2025 season and official 2026 resources."
+      "title": "Atlanta Rabbits Football: 2003 State Champions & Rabbit Stadium",
+      "description": "Atlanta Rabbits' 2003 Class 3A Division II state crown, 34–0 win over Marlin, Rabbit Stadium school policies, historic teams and 2026 resources."
     },
     "coach": {
       "name": "Tyler Morton",
@@ -1394,53 +1432,59 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "What distinguishes the Atlanta Rabbits program",
-      "body": "Atlanta ISD operates a dedicated Rabbit Stadium visitor-policy page addressing minors' supervision and spectator safety. In October 2026, the district's Hall of Fame also honors its 1989 state championship track team; that 1989 title is a TRACK accomplishment, not a football championship.",
-      "sourceUrl": "https://www.atlisd.net/45791_2",
-      "sourceLabel": "School district or football reference",
+      "title": "Atlanta's verified 2003 football state title",
+      "body": "Atlanta's Rabbits won the 2003 Texas Class 3A Division II football state championship by shutting out Marlin 34–0. UIL's original 2003–04 state finals archive identifies the exact division and opponent, making this a documented football title — quite separate from the school's 1989 track championship. ATL ISD's Rabbit Stadium page documents supervision requirements for younger fans and restrictions on sideline games. Published 2025 team history lists an eight-win season, but the historic UIL football title is the program's principal milestone.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+      "sourceLabel": "UIL original 2003–2004 football title archive",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
+        "date": "2003",
+        "title": "Rabbits win the UIL football state championship",
+        "body": "Atlanta defeated Marlin 34–0 in the 2003 Class 3A Division II football title game, as recorded by UIL.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P264",
+        "sourceLabel": "UIL official 2003 football championship"
+      },
+      {
         "date": "1989",
-        "title": "A non-football distinction",
-        "body": "Atlanta ISD's Hall of Fame commemorates its first state trophy as the 1989 track and field state championship. It must not be labeled a football crown.",
+        "title": "Separately documented track state crown",
+        "body": "Atlanta ISD honors its 1989 track-and-field champions; this is a different sport and does not replace the 2003 football title.",
         "sourceUrl": "https://www.atlisd.net/index.php?pageID=273542_3",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Atlanta ISD official Hall of Fame"
       },
       {
         "date": "2025",
-        "title": "Eight-win football season",
-        "body": "MaxPreps' Atlanta Rabbits historical profile lists an 8–3 2025 football season under Tyler Morton.",
+        "title": "Recent football-season snapshot",
+        "body": "Atlanta's historical team record shows 8–3 in 2025, distinct from its 2003 championship season.",
         "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/history/",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Published season history"
       },
       {
         "date": "2026",
-        "title": "Rabbit Stadium visitor guidance",
-        "body": "The district publishes spectator rules requiring seated student sections and adult supervision for younger fans.",
+        "title": "Rabbit Stadium spectator code",
+        "body": "Atlanta ISD specifies middle-school adult supervision and seated student sections at Rabbit Stadium; verify the district page before attending.",
         "sourceUrl": "https://www.atlisd.net/45791_2",
-        "sourceLabel": "Named source for school-specific milestone"
+        "sourceLabel": "Official stadium visitor policies"
       }
     ],
     "overview": [
-      "Atlanta's Rabbits compete in UIL Class 3A Division I. The unusual Rabbit mascot, dedicated Rabbit Stadium rules and Cass County community context make the program materially different from surrounding teams.",
-      "MaxPreps lists Tyler Morton as 2026 head football coach and records the Rabbits at 8–3 in 2025; these are third-party listings, not a claim of a present-day school announcement.",
-      "At Rabbit Stadium, Atlanta ISD requires middle school children to have an adult companion, with younger elementary pupils accompanied throughout the game. Refer directly to the district for current tickets and seating.",
-      "Atlanta ISD's 1989 track championship must not be confused with the football program's historical results. Other football titles are not asserted without an independently checked UIL archive."
+      "Atlanta's football identity includes the 2003 UIL Class 3A Division II state championship, won 34–0 over Marlin. The school's separately documented 1989 track crown is not the football title.",
+      "Rabbit Stadium's published visitor policy requires middle-school spectators to attend with an adult, younger children to remain under supervision and students to stay in designated seating.",
+      "The 2026 football coaching listing and 2025 8–3 record are dated separately from the 2003 title season, and the stadium rules are more useful for visiting families than a generic description of home-field atmosphere."
     ],
     "faq": [
       {
-        "question": "Where can visitors read Rabbit Stadium policies?",
-        "answer": "Atlanta ISD publishes the policies on its official Rabbit Stadium page, including supervision rules for younger students."
+        "question": "When did Atlanta Rabbits football win a Texas state championship?",
+        "answer": "In 2003, Atlanta defeated Marlin 34–0 for the UIL Class 3A Division II title."
       },
       {
-        "question": "Who is listed as Atlanta Rabbits head football coach in 2026?",
-        "answer": "The current MaxPreps staff listing identifies Tyler Morton; confirm late-season personnel changes directly with Atlanta ISD."
+        "question": "Does Atlanta's 1989 state trophy represent a football title?",
+        "answer": "No. Atlanta ISD's 1989 Hall of Fame championship was in track and field, a separate sport."
       },
       {
-        "question": "Was Atlanta's 1989 state trophy a football championship?",
-        "answer": "No. Atlanta ISD describes the 1989 honor as a track and field state championship, not football."
+        "question": "Can middle school students attend Rabbit Stadium without an adult?",
+        "answer": "Atlanta ISD's stadium guidelines require middle-school students to be accompanied by an adult."
       }
     ]
   },
