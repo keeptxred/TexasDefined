@@ -18,7 +18,7 @@ export function stripeCheckoutEnabled() {
 export const NETWORK_WEBHOOK_MAX_BYTES=1_048_576;
 export async function readNetworkWebhookPayload(request:Request):Promise<string|null>{
  const advertised=request.headers.get('content-length');
- if(advertised!==null&&/^\\d+$/.test(advertised)&&Number(advertised)>NETWORK_WEBHOOK_MAX_BYTES)return null;
+ if(advertised!==null&&/^\d+$/.test(advertised)&&Number(advertised)>NETWORK_WEBHOOK_MAX_BYTES)return null;
  if(!request.body)return '';
  const reader=request.body.getReader();
  const chunks:Uint8Array[]=[];
