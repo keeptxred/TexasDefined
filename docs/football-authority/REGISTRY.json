@@ -40,7 +40,7 @@
       "azle",
       "baird"
     ],
-    "state": "ASSIGNED_RESEARCH_PENDING",
+    "state": "ALL_25_IMPLEMENTED_ACCEPTANCE_PENDING",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-004-20261010",
     "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "avalon",
-    "nextSchool": "avalon",
-    "implementedOnBranch": 21,
-    "remainingToImplement": 4,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "21 individual editorial/dossier implementations on draft. 4 schools Avalon/Axtell/Azle/Baird still NOT_REVIEWED. All 25 await full school-specific acceptance."
+    "notes": "All 25 now have school-specific editorial + dossier files on draft PR 4540. Not merged, deployed or production VERIFIED. Some records still require stronger first-party research, source/venue/image reviews, reciprocal links, CI and real Chrome."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4742,8 +4742,17 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/avalon",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/avalon.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ]
     },
     {
       "id": "uil:axtell",
@@ -4756,8 +4765,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/axtell",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/axtell.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ]
     },
     {
       "id": "uil:azle",
@@ -4770,8 +4788,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/azle",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/azle.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ]
     },
     {
       "id": "uil:baird",
@@ -4784,8 +4811,17 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baird",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/baird.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "commits": [
+        "0dab3bd153b5211f997581d7f22649204d9fda87"
+      ]
     },
     {
       "id": "uil:ballinger",
