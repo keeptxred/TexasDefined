@@ -74,6 +74,11 @@ async function inspect(page, label, width, height, mobile) {
     verify(Boolean(brazos), label + ': no Brazos option');
     await selector.selectOption(brazos);
     verify((await section.locator('[role="status"]').allTextContents()).some(x => /Brazos/i.test(x)), label + ': selected label absent');
+    if (process.env.GITHUB_EVENT_NAME !== 'pull_request') {
+      verify(await section.locator('a[href="/article/texas-brazos-river-guide"]').isVisible(),
+        label + ': selected major basin missing link to its dedicated published guide');
+      row.checks.push('Selected major basin links to its dedicated guide');
+    }
     const map = section.locator('svg[role="img"]');
     const original = await map.getAttribute('viewBox');
     const zoomButton = section.getByRole('button', { name: 'Zoom to selection' });
@@ -100,8 +105,6 @@ async function inspect(page, label, width, height, mobile) {
         label + ': disabled bay control needs an explanation');
       row.checks.push('Unavailable separate bay layer is explicitly disabled, not a misleading toggle');
     }
-    const selectedGuide = section.locator('a[href="/article/texas-brazos-river-guide"]');
-    if (await selectedGuide.count()) row.checks.push('Selected major basin links to its dedicated guide');
     await section.getByRole('button', { name: 'Reset' }).click();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     row.horizontalOverflow = overflow;
