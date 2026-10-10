@@ -247,7 +247,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Axtell is an 11-MAN 2A Division I program, not a six-man school despite proximity to many six-man programs. Its historical team reports document 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025 under Craig Horn; the 2026 entry leaves head coach blank, so a current hire is not invented.",
       "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
-      "Axtell ISD's official district office is listed at 1100 Longhorn Parkway, whereas published team directories may provide a different campus-oriented address; avoid substituting one for verified stadium gate directions."
+      "Axtell ISD's official district office is listed at 1100 Longhorn Parkway, whereas published team directories may provide a different campus-oriented address; avoid substituting one for verified stadium gate directions.",
+      "Coach Craig Horn appears in the August 2026 varsity staff roster and independently in the official Axtell school staff directory as athletic director; this reconciles the formerly unresolved coaching attribution."
     ],
     "faq": [
       {
@@ -264,17 +265,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "campus": {
-      "address": "1100 Longhorn Parkway, Axtell, TX 76624",
-      "phone": "254-863-5615",
-      "sourceUrl": "https://www.axtellisd.net/en-US",
-      "sourceLabel": "Official Axtell ISD campus address",
+      "address": "308 Ottawa, Axtell, TX 76624",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/",
+      "sourceLabel": "Published Axtell campus address; confirm game gate with district",
       "verifiedAt": "2026-10-10"
     },
     "coach": {
       "name": "Craig Horn",
-      "title": "2026–27 head football coach according to dated team staff listing; school confirmation recommended",
+      "title": "2026 head football coach according to dated varsity coaching roster; Axtell ISD also lists him as athletic director",
       "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
-      "sourceLabel": "MaxPreps roster updated August 24, 2026",
+      "sourceLabel": "August 2026 Axtell football staff roster",
       "verifiedAt": "2026-10-10"
     }
   },
