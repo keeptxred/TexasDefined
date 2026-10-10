@@ -33,6 +33,9 @@ const roster = [
   ['arlington-martin','tarrant'],
   ['arlington-seguin','tarrant'],
 ];
+const focus = process.env.BATCH003_FOCUSED_SLUG;
+const checkedRoster = focus ? roster.filter(([slug]) => slug === focus) : roster;
+assert.ok(!focus || checkedRoster.length === 1, 'Invalid Batch 003 focus slug');
 // Independently documented campus-city links, not inferred from district areas.
 const cityRoster = [
   { city: 'arlington', schools: ['arlington','arlington-bowie','arlington-houston','arlington-lamar','arlington-martin','arlington-seguin'] },
@@ -51,12 +54,12 @@ try {
   const response = await fetch(origin + '/sitemap.xml?batch003_acceptance=' + Date.now(), { signal: AbortSignal.timeout(90000) });
   const xml = await response.text();
   const locations = new Set([...xml.matchAll(new RegExp('<loc>\\s*([^<]+)\\s*</loc>', 'gi'))].map(match => match[1].replace(/&amp;/g, '&').trim()));
-  for (const [slug] of roster) {
+  for (const [slug] of checkedRoster) {
     const target = origin + '/texas-high-school-football-teams/' + slug;
     sitemapChecks.push({ slug, present: response.ok && locations.has(target), http: response.status });
   }
 } catch (error) {
-  for (const [slug] of roster) sitemapChecks.push({ slug, present: false, error: String(error) });
+  for (const [slug] of checkedRoster) sitemapChecks.push({ slug, present: false, error: String(error) });
 }
 const results = [];
 const contexts = [];
@@ -133,7 +136,7 @@ try {
   for (const [viewport,width,height,mobile] of [['desktop',1366,900,false],['mobile',390,844,true]]) {
     const context = await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
     contexts.push(context);
-    for (const [slug,county] of roster) {
+    for (const [slug,county] of checkedRoster) {
       const row = bySlug.get(slug);
       await visit(context,viewport,'school-'+slug,schoolPath(slug),(err,d,status)=>{
         check(err,status===200,'non-200 school HTTP: '+status);
@@ -156,7 +159,7 @@ try {
       });
     }
     const countyToSlugs = new Map();
-    for (const [slug,county] of roster) countyToSlugs.set(county,[...(countyToSlugs.get(county)||[]),slug]);
+    for (const [slug,county] of checkedRoster) countyToSlugs.set(county,[...(countyToSlugs.get(county)||[]),slug]);
     for (const [county,slugs] of countyToSlugs) {
       await visit(context,viewport,'county-'+county,'/county/'+county,(err,d,status)=>{
         check(err,status===200,'non-200 county HTTP: '+status);
@@ -167,7 +170,7 @@ try {
         for (const slug of slugs) check(err,d.links.some(x=>pathname(x.href)===schoolPath(slug)&&x.visible),'county missing visible reciprocal '+slug);
       });
     }
-    for (const { city, schools } of cityRoster) {
+    for (const { city, schools } of cityRoster.filter(({schools}) => !focus || schools.includes(focus))) {
       await visit(context,viewport,'city-'+city,'/city/'+city,(err,d,status)=>{
         check(err,status===200,'non-200 city HTTP: '+status);
         check(err,d.h1.length===1,'city H1 count not one');
