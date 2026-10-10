@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "ballinger",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
+    "nextSchool": "barksdale-nueces-canyon",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
     "remainingToVerify": 25,
-    "notes": "Only assigned, no page certified. First five undergoing primary-source audit and editorial work. Real deployment, mobile/desktop Chrome, campus county reciprocal link validation and screenshot evidence required before any VERIFIED status."
+    "notes": "First five independently sourced editorial authority records, identities, protected campus county links and audit dossiers IMPLEMENTED on working branch; 20 unstarted. Zero Batch005 production verified, 80 prior verified preserved. Next barksdale-nueces-canyon."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5561,8 +5561,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ballinger",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/ballinger.md",
+      "officialSchoolUrl": "https://bhs.ballingerisd.net/",
+      "officialAthleticsUrl": "https://www.ballingerisd.net/apps/news/",
+      "county": "Runnels County",
+      "schoolDistrict": "Ballinger ISD",
+      "mascot": "Bearcats",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P648",
+        "https://www.ballingerisd.net/apps/news/",
+        "https://bhs.ballingerisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/runnels"
+      ],
+      "outboundCountyPath": "/county/runnels",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:balmorhea",
@@ -5575,8 +5601,34 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/balmorhea",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/balmorhea.md",
+      "officialSchoolUrl": "https://www.bisdbears.esc18.net/football",
+      "officialAthleticsUrl": "https://www.bisdbears.esc18.net/football",
+      "county": "Reeves County",
+      "schoolDistrict": "Balmorhea ISD",
+      "mascot": "Bears",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P46",
+        "https://www.bisdbears.esc18.net/football",
+        "https://www.bisdbears.esc18.net/football"
+      ],
+      "inboundLinks": [
+        "/county/reeves"
+      ],
+      "outboundCountyPath": "/county/reeves",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:bandera",
@@ -5589,8 +5641,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bandera",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bandera.md",
+      "officialSchoolUrl": "https://www.banderaisd.net/",
+      "officialAthleticsUrl": "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+      "county": "Bandera County",
+      "schoolDistrict": "Bandera ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P272",
+        "https://sites.google.com/banderaisd2.net/bisdathleticsweareone/fallwinter-sports/football",
+        "https://www.banderaisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/bandera"
+      ],
+      "outboundCountyPath": "/county/bandera",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:bangs",
@@ -5603,8 +5681,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bangs",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bangs.md",
+      "officialSchoolUrl": "https://www.bangsisd.net/",
+      "officialAthleticsUrl": "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+      "county": "Brown County",
+      "schoolDistrict": "Bangs ISD",
+      "mascot": "Dragons",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P264",
+        "https://www.bangsisd.net/apps/pages/index.jsp?pREC_ID=1168280&termREC_ID=&type=d&uREC_ID=546996",
+        "https://www.bangsisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/brown"
+      ],
+      "outboundCountyPath": "/county/brown",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:banquete",
@@ -5617,8 +5721,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/banquete",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/banquete.md",
+      "officialSchoolUrl": "https://bhs.banqueteisd.net/",
+      "officialAthleticsUrl": "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+      "county": "Nueces County",
+      "schoolDistrict": "Banquete ISD",
+      "mascot": "Bulldogs",
+      "sourceEvidence": [
+        "https://www.banqueteisd.net/departments/athletics",
+        "https://www.banqueteisd.net/departments/athletics/sport-schedules",
+        "https://bhs.banqueteisd.net/"
+      ],
+      "inboundLinks": [
+        "/county/nueces"
+      ],
+      "outboundCountyPath": "/county/nueces",
+      "linkVerificationStatus": "BRANCH_SOURCE_LINKS_PENDING_REAL_CHROME",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected merge and production deployment",
+        "Live responsive Chrome and full county reciprocal evidence",
+        "Review current tickets/ADA/parking and media reuse rights"
+      ]
     },
     {
       "id": "uil:barksdale-nueces-canyon",

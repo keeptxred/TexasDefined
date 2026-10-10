@@ -186,6 +186,12 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
     { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
   ],
+  // Batch 005 first five independently verified campuses; historical finals/official current resources.
+  'runnels': [{ name: 'Ballinger Bearcats', slug: 'ballinger', context: '1953 UIL state runner-up and official 2026 reserved-ticket notice' }],
+  'reeves': [{ name: 'Balmorhea Bears', slug: 'balmorhea', context: '2020-season six-man state champion, final played Jan. 2021' }],
+  'bandera': [{ name: 'Bandera Bulldogs', slug: 'bandera', context: '2002 two-overtime 3A Division II state champion' }],
+  'brown': [{ name: 'Bangs Dragons', slug: 'bangs', context: '2002 and 2003 successive UIL state football runner-up seasons' }],
+  'nueces': [{ name: 'Banquete Bulldogs', slug: 'banquete', context: '2026 Banquete varsity schedule and Bulldog Stadium calendar' }],
   // Batch 004 independently matched campus counties; school game sites can differ.
   smith: [{ name: 'Arp Tigers', slug: 'arp', context: '2016 semifinal and Bill Herrington Stadium history' }],
   stonewall: [{ name: 'Aspermont Hornets', slug: 'aspermont', context: '1999 11-man state final and modern six-man program' }],
