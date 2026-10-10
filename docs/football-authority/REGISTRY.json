@@ -53,14 +53,14 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 0,
-    "notes": "All 25 school pages are production VERIFIED; six 2026-10-10 screenshot-discovered campus/season defects were corrected by PR #4562 and retested with source-backed factual guards in live Chrome 72/72, 25/25 sitemap at deployed SHA f93d6445fb2f9084c549e5f7c0e478d29599df5c. Prior 55 VERIFIED preserved. Source limitations on photo rights, future games, ADA, ticketing still apply.",
+    "notes": "All 25 school pages are production VERIFIED; six 2026-10-10 screenshot-discovered campus/season defects were corrected by PR #4562 and retested with source-backed factual guards in live Chrome 72/72, 25/25 sitemap at deployed SHA 116fcb907aba6f1983d2129929296d3654fe9a5a. Prior 55 VERIFIED preserved. Source limitations on photo rights, future games, ADA, ticketing still apply.",
     "verifiedAt": "2026-10-10T18:03:29Z",
     "mergedPr": 4540,
     "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
     "deploymentRunId": 38073512656,
     "productionBrowserRunId": 38073890302,
     "screenshotArtifactId": 11678042145,
-    "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+    "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
     "schoolViewportPassed": 50,
     "countyViewportPassed": 20,
     "cityViewportPassed": 2,
@@ -4547,7 +4547,7 @@
         "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302",
         "screenshotArtifactId": 11678042145,
         "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145",
-        "browserTestedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "browserTestedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS; source-backed factual guards PASS",
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
@@ -4567,7 +4567,7 @@
         "productionDeploymentRunId": 38073512656,
         "browserRunId": 38073890302,
         "screenshotArtifactId": 11678042145,
-        "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "desktopAndMobilePassed": true,
         "qualification": "Factual regression guards and structural browser acceptance passed; not photo rights or current ticket/ADA verification."
       }
@@ -4912,7 +4912,7 @@
         "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302",
         "screenshotArtifactId": 11678042145,
         "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145",
-        "browserTestedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "browserTestedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS; source-backed factual guards PASS",
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
@@ -4933,7 +4933,7 @@
         "productionDeploymentRunId": 38073512656,
         "browserRunId": 38073890302,
         "screenshotArtifactId": 11678042145,
-        "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "desktopAndMobilePassed": true,
         "qualification": "Factual regression guards and structural browser acceptance passed; not photo rights or current ticket/ADA verification."
       }
@@ -4978,7 +4978,7 @@
         "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302",
         "screenshotArtifactId": 11678042145,
         "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145",
-        "browserTestedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "browserTestedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS; source-backed factual guards PASS",
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
@@ -4998,7 +4998,7 @@
         "productionDeploymentRunId": 38073512656,
         "browserRunId": 38073890302,
         "screenshotArtifactId": 11678042145,
-        "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "desktopAndMobilePassed": true,
         "qualification": "Factual regression guards and structural browser acceptance passed; not photo rights or current ticket/ADA verification."
       }
@@ -5196,7 +5196,7 @@
         "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302",
         "screenshotArtifactId": 11678042145,
         "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145",
-        "browserTestedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "browserTestedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS; source-backed factual guards PASS",
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
@@ -5216,7 +5216,7 @@
         "productionDeploymentRunId": 38073512656,
         "browserRunId": 38073890302,
         "screenshotArtifactId": 11678042145,
-        "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "desktopAndMobilePassed": true,
         "qualification": "Factual regression guards and structural browser acceptance passed; not photo rights or current ticket/ADA verification."
       }
@@ -5264,7 +5264,7 @@
         "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302",
         "screenshotArtifactId": 11678042145,
         "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145",
-        "browserTestedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "browserTestedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS; source-backed factual guards PASS",
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
@@ -5284,7 +5284,7 @@
         "productionDeploymentRunId": 38073512656,
         "browserRunId": 38073890302,
         "screenshotArtifactId": 11678042145,
-        "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "desktopAndMobilePassed": true,
         "qualification": "Factual regression guards and structural browser acceptance passed; not photo rights or current ticket/ADA verification."
       }
@@ -5329,7 +5329,7 @@
         "browserEvidenceUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302",
         "screenshotArtifactId": 11678042145,
         "screenshotArtifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145",
-        "browserTestedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "browserTestedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "individualViewportResults": "desktop 1366px PASS; mobile 390px PASS; source-backed factual guards PASS",
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
@@ -5349,7 +5349,7 @@
         "productionDeploymentRunId": 38073512656,
         "browserRunId": 38073890302,
         "screenshotArtifactId": 11678042145,
-        "testedCommit": "f93d6445fb2f9084c549e5f7c0e478d29599df5c",
+        "testedCommit": "116fcb907aba6f1983d2129929296d3654fe9a5a",
         "desktopAndMobilePassed": true,
         "qualification": "Factual regression guards and structural browser acceptance passed; not photo rights or current ticket/ADA verification."
       }
