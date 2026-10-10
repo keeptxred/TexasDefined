@@ -65,6 +65,24 @@ All 21 distinct named attraction or venue anchors from the sampled city featured
 
 These comparisons do not establish precise current municipal/ETJ boundaries. Comprehensive GIS intersection work remains unverified.
 
+## October 10 follow-up: direct municipal GIS sources
+
+The following public authoritative GIS services have been independently located and distinguish incorporated city limits from nearby jurisdictions, but their geometries **have not been overlaid against an independent county polygon layer**. Therefore these entries are **SOURCE CONFIRMED / BOUNDARIES NOT CERTIFIED**.
+
+| City | Municipality GIS source | Available boundary evidence | Outcome |
+|---|---|---|---|
+| Houston | https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer | Separate city-limit (layer 0), ETJ (layer 1) and county (layer 9) polygons | SOURCE CONFIRMED; county intersection UNVERIFIED |
+| San Antonio | https://www.sanantonio.gov/Portals/0/Files/GIS/Maps/SAETJ%20CCD%202026%2054x58.pdf | City boundary and ETJ separately drawn, Bexar and adjacent county labels | SOURCE CONFIRMED; county intersection UNVERIFIED |
+| El Paso | https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0 | Official municipal polygon, distinct from https://gis.elpasotexas.gov/ArcGIS/rest/services/CountyBoundary/FeatureServer | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+| Arlington | https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer | Official municipal boundary layer 1 | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+| Hurst | https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer | Official city limits layer 2 | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+
+The next valid acceptance step is a dated, repeatable polygon overlay with a known county-boundary vintage, recording intersection area and tolerances. **Do not infer a county intersection merely because its name is present in the map-service layer list.**
+
+## Browser evidence expansion
+
+The Chrome script now exercises actual keyboard Tab focus and samples up to twelve rendered internal-link URLs per city/viewport, preserving exact requests and statuses in the JSON artifact. These new assertions are **unverified until their post-deployment workflow succeeds**; they do not replace manual keyboard-menu/contrast/touch checks.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
