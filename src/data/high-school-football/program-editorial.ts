@@ -801,12 +801,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "venue": {
-      "name": "Wilemon Field (historical team listing)",
-      "address": "Arlington, Texas — game-specific assigned venue and spectator entry require Arlington ISD confirmation",
-      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=arlington-bowie-volunteers",
-      "sourceLabel": "DCTF football team stadium directory",
+      "name": "Choctaw Stadium (documented 2026 Bowie home fixtures); Wilemon Field in historic listings",
+      "address": "Choctaw Stadium, Arlington, Texas — check exact game-day entrance",
+      "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
+      "sourceLabel": "Official Choctaw Stadium 2026 high-school football schedule",
       "verifiedAt": "2026-10-09",
-      "note": "DCTF lists Wilemon Field with 8,500 historical capacity. Neither count nor Bowie High's campus address establish the stadium's present ADA gate, tickets, bag policy or which venue a particular fixture uses."
+      "note": "Choctaw Stadium officially schedules Bowie home games including September 4 vs South Grand Prairie, September 11 vs Haltom, September 25 vs Granbury, October 23 vs Arlington and November 5 vs Sam Houston. Wilemon's historical seating count does not describe Choctaw; use Arlington ISD GoFan and event-specific accessibility, bag and parking guidance."
     },
     "overview": [
       "Arlington Bowie High School's nickname, the Volunteers, has a school-authored identity unlike any other Arlington ISD program. The school's official history says 'Crossing the Line' began in 1974 under athletic director and head coach Jerry Griffin, drawing on a narrative of the Alamo and James Bowie. This is a documented school tradition, not a fabricated postgame ritual.",
@@ -815,7 +815,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "MaxPreps records a 7–0 district mark in both the 2024 and 2025 regular-season standings. In 2024, Bowie beat Arlington High 48–21 and Arlington Martin 34–24 in district, defeated Dallas Jesuit 56–42 in a postseason game and fell to Hebron 35–51 in its next playoff game. These are documented district and playoff accomplishments, not football state championships.",
       "Dave Campbell's historical Bowie record lists 18 playoff appearances and no state football finals or titles. The current 2026 6A schedule includes Arlington Lamar, Arlington High, Martin, Sam Houston and Aledo; shared district membership alone is not evidence of a historic all-time rivalry result.",
       "A current 2026 score source reports Bowie defeating Arlington Lamar 29–23 and Granbury 41–35 after losses to Prosper Rock Hill and South Grand Prairie. By contrast, Dave Campbell's public scoreboard snapshot has only the two opening losses, so an outdated 0–2 display should not be treated as the team's present full season record.",
-      "DCTF identifies Wilemon Field as a historical team venue. Match-specific official Arlington ISD athletics/ticketing instructions take priority over mailing addresses or unofficial parking information for spectators."
+      "Choctaw Stadium's official 2026 calendar confirms multiple Bowie home games there, while DCTF historically lists Wilemon Field. Arlington ISD publishes 2026–27 GoFan ticketing and clear-bag rules. Always use the specific game's official schedule and spectator entry instructions."
     ],
     "milestones": [
       {
