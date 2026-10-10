@@ -58,6 +58,167 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "anahuac": {
+    "slug": "anahuac",
+    "theme": {
+      "accentHex": "#742336",
+      "label": "Original maroon Panther editorial accent; licensed team logo and official palette not asserted"
+    },
+    "seo": {
+      "title": "Anahuac Panthers Football: Kyle White Stadium, 2026 Results & History",
+      "description": "Anahuac Panthers football: 28 playoff appearances, 2021–22 nine-win seasons, 2026 3A Division I District 10 and official Anahuac ISD game-day resources."
+    },
+    "campus": {
+      "address": "1000 Wilcox Street, Anahuac, TX 77514 (high school campus, not stadium gate)",
+      "sourceUrl": "https://www.maxpreps.com/tx/anahuac/anahuac-panthers/football/staff/",
+      "sourceLabel": "High school program directory; ISD headquarters separately at 804 Mikhael Ricks Dr",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Panthers results and dated schedule (verify official AISD updates)",
+      "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+      "sourceLabel": "DCTF 2026 dated program schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 in five reported completed games through Sept. 25, 2026; later results not independently verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+      "sourceLabel": "DCTF published 2026 result snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Van Vleck",
+          "site": "Away",
+          "result": "L 14–42"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Livingston",
+          "site": "Away",
+          "result": "L 50–61"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Liberty",
+          "site": "Home",
+          "result": "W 35–24"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Hardin-Jefferson",
+          "site": "Home",
+          "result": "L 19–38"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Cleveland Tarkington",
+          "site": "Away",
+          "district": true,
+          "result": "W 64–26"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Kirbyville",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Buna",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "East Chambers",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 22",
+          "opponent": "Orangefield",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Coldspring-Oakhurst",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Kyle White Stadium",
+      "address": "Anahuac, Texas — separate official spectator entrance not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+      "sourceLabel": "DCTF Panthers venue and historical capacity listing",
+      "verifiedAt": "2026-10-09",
+      "note": "Independent football directory lists Kyle White Stadium with historical capacity 500. This is not a certified current spectator/ADA capacity. High-school Wilcox campus and separate Anahuac ISD district-office address are not asserted as current game gates. Verify tickets, accessible route, parking and assigned event with AISD."
+    },
+    "overview": [
+      "The Anahuac Panthers represent Anahuac ISD in Chambers County, near the eastern shoreline of Trinity Bay. Their football story belongs to Anahuac High School, not the similarly named Liberty or Panhandle Panthers, whose game histories and stadiums are entirely different.",
+      "Dave Campbell's Texas Football credits Anahuac with 28 football playoff appearances but no UIL football state-title-game appearance or state championship. Rather than inventing a trophy dynasty, the documented 2021 and 2022 campaigns both finished 9–3 in the archived program ledger.",
+      "The Panthers followed with 6–3 in 2023 and 6–4 in 2024 before 3–8 in 2025. These separate season outcomes matter for a school and alumni audience: a program with decades of playoff entries can fluctuate significantly from year to year.",
+      "The 2026–28 UIL realignment assigns Anahuac to Class 3A Division I, District 10 alongside Buna, Cleveland Tarkington, Coldspring-Oakhurst, East Chambers, Kirbyville and Orangefield. These opponents constitute the modern district, not an unverified list of historic rivalries.",
+      "The 2026 dated score ledger shows a 35–24 home victory over Liberty and a 64–26 District 10 win at Tarkington after two high-scoring road losses. Through the five documented September results the Panthers were 2–3; later October games and outcomes need live official confirmation.",
+      "DCTF lists Kyle White Stadium and a 500-person historical stadium capacity, but current tickets, field entrance and disability access were not confirmed by the sources reviewed. The school directory's Wilcox campus address and AISD headquarters' Mikhael Ricks Drive address should not be mistaken for a verified stadium visitor gate.",
+      "The publicly retrievable MaxPreps staff listing names Greg Neece as head coach but displays an older 2025–26 season, not a current 2026–27 verified staffing document. TexasDefined therefore deliberately withholds a claim about the 2026 coach until the official Anahuac ISD athletics program confirms it."
+    ],
+    "milestones": [
+      {
+        "date": "2021–22",
+        "title": "Consecutive nine-win teams",
+        "body": "DCTF historical football records list Anahuac at 9–3 in both seasons, demonstrating a strong modern competitive period.",
+        "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+        "sourceLabel": "DCTF Panthers past-season ledger"
+      },
+      {
+        "date": "2023–25",
+        "title": "A three-season change",
+        "body": "The documented records shift from 6–3 in 2023 and 6–4 in 2024 to 3–8 in 2025; none of these is a football state championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+        "sourceLabel": "DCTF historic wins/losses"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division I, District 10",
+        "body": "Anahuac competes with Buna, Tarkington, Coldspring-Oakhurst, East Chambers, Kirbyville and Orangefield in UIL's current two-year alignment.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
+        "sourceLabel": "UIL current 3A Division I classification"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Panthers open district play with 64 points",
+        "body": "The dated 2026 game ledger lists a 64–26 road win at Cleveland Tarkington, separate from September non-district finals.",
+        "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
+        "sourceLabel": "DCTF 2026 schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Anahuac ever won a state football championship?",
+        "answer": "Dave Campbell's Texas Football documents 28 playoff appearances, but no football state championship or state-title-game appearances for the Panthers."
+      },
+      {
+        "question": "What is the 2026 football district for Anahuac?",
+        "answer": "UIL Class 3A Division I, District 10: Anahuac, Buna, Cleveland Tarkington, Coldspring-Oakhurst, East Chambers, Kirbyville and Orangefield."
+      },
+      {
+        "question": "Where is Anahuac's football stadium?",
+        "answer": "DCTF identifies Kyle White Stadium. The school's campus address and the ISD headquarters are separate references; verify each game's actual arrival gate and parking through Anahuac ISD."
+      },
+      {
+        "question": "Who is Anahuac's 2026 head football coach?",
+        "answer": "A legacy 2025–26 MaxPreps staff listing names Greg Neece, but the current 2026–27 coach has not been independently confirmed from the school; avoid treating that archived listing as a live fact."
+      },
+      {
+        "question": "What were Anahuac's best recent seasons?",
+        "answer": "The independently archived 2021 and 2022 football results were both 9–3, followed by 6–3 in 2023 and 6–4 in 2024."
+      }
+    ]
+  },
   "amherst": {
     "slug": "amherst",
     "theme": {
