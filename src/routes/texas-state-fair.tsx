@@ -60,7 +60,7 @@ const stateFairData = {
       {
         heading: "More than 100 daily activities included with admission",
         paragraphs: [
-          "The State Fair includes more than 100 free daily activities and attractions. Plan around live music, livestock and agriculture, the Texas Auto Show, Creative Arts, parades, Big Tex, family entertainment and museums such as the African American Museum and Hall of State.",
+          "Admission covers 100+ daily activities: music, livestock, the Texas Auto Show, Creative Arts, parades, Big Tex, family shows, and the African American Museum and Hall of State.",
           "Food, Midway rides and games cost extra. Some museums and attractions have separate admission. The official daily schedule and fairgrounds map help you choose a walking route and find lower-cost experiences."
         ],
         links: [
