@@ -97,5 +97,12 @@ Fix route conflicts and generated tree → reconcile main → fix performance ch
 - Merge gate run `38078347713` definitively failed one top-level check: main client bundle **1,832,933 bytes**, limit **1,829,000 bytes**, over by **3,933 bytes**. Generated routes and other canonical suite checks passed. Separate Texas Icons run `38078347747` independently reproduced the bundle failure. Do not mark CI complete and do not raise the budget.
 - The business billing portal currently requires an authenticated confirmed-email user matching the intake contact email. Independent ownership verification and authenticated end-to-end test journeys remain release requirements, not certified capabilities.
 
+
+## Additional continuation — October 10, 2026, publication idempotency
+- Synced latest `main` State Fair enhancement into Network using two-parent commit `cb5978e5569c49724e21a156579c552eb9983213`. This had 0 commits behind `main` at immediate verification.
+- Fixed a real publication replay defect: previously invoking publish again while the listing was already `published` would rebuild the public profile from original intake answers and could overwrite previously approved Featured revision content. `publishApprovedNetworkListing` now accepts only application status `approved`, not `published`. Commit `c800ed5fe6e59e48de41e03d3e127b2fbbde4c76`.
+- Checkout helper already sets Stripe idempotency key `network-plus-<application UUID>`; duplicate Checkout prevention additionally checks existing paid entitlement and subscription ID. This mechanism was inspected, not independently tested against Stripe live; no checkout was created.
+- Most recent observed fresh-head merge gate `38078844488` entered canonical premerge validation, not yet confirmed passed at time of review. Earlier attempts cancelled on branch refresh. The last reproducible completed failure remains main JS bundle 1,832,933 bytes / cap 1,829,000 bytes. Do not merge while unresolved.
+
 ## Launch state
 **NOT LAUNCHED / NOT CERTIFIED.** No confirmed end-to-end successful application, payment, customer portal login or production publication. Never claim otherwise.
