@@ -1,6 +1,6 @@
 # TexasDefined production verifier race audit — October 10, 2026
 
-> **Status: SOURCE INVENTORY CLASSIFIED; PRODUCTION ACCEPTANCE STILL PENDING.** All 194 workflow YAML files have been reviewed for trigger and execution semantics. This is not blanket CI/runtime certification: identified defects remain in protected PRs, and downstream checks must be bound to the actual deployed SHA after merge.
+> **Status: 194/194 SOURCE WORKFLOWS CLASSIFIED; FIVE RACE FIXES MERGED AND DEPLOYED.** All 194 workflow YAML files have been examined for release/PR/source trigger semantics. This is source-level certification, NOT blanket success of all independent downstream jobs; known follow-up image and football browser issues are documented below.
 
 ## Baselines and immutable evidence
 
@@ -12,15 +12,20 @@
 - Newer successful deploy [#38063782679](https://github.com/keeptxred/TexasDefined/actions/runs/38063782679), SHA `f8c57a3cb1a29945f303a224fda8e6046103ca9e`: completed success at 2026-10-10 15:35 UTC. Job `114247495535`: Cloudflare build/deploy, direct and canonical health, native sports-venue editorial blocking verifier, full Worker version identity check, rollback-target recording, and final status succeeded. All are recorded in the job steps/logs.
 - Worker version deployed and reverified in that run: `f6bb5eed-8c6c-46ff-8593-9b9a10280cd9`; prior version `7db08c7c-b979-4b85-b9c1-a1c62b7974c8`. Log confirmed version remained identical before/after verification; durable GitHub verified-Worker deployment record: `6983008180`.
 - Commit `f8c57a...` status record: `texasdefined-production=success`, `texasdefined-live=success`, `texasdefined-cloudflare=success` (verified via GitHub combined commit statuses). Downstream `texasdefined-live-swimming-tubing=success` and some additional statuses appeared. At time inspected, `texasdefined-live-lakes=pending`; **do not label all downstream verifiers complete**.
-- More recent main commits may be in flight; the Worker version above is the latest *independently log-verified* version for this audit, not a claim about future deployments.
+- Protected audit PR [#4563](https://github.com/keeptxred/TexasDefined/pull/4563) merged normally at exact merge commit `5bac79efdd392932a5f797da6b09be2ec2f33453` on 2026-10-10, following successful Required Merge Gate [#38072152936](https://github.com/keeptxred/TexasDefined/actions/runs/38072152936). No required check bypass or force-push.
+- Canonical protected deployment [#38072327675](https://github.com/keeptxred/TexasDefined/actions/runs/38072327675) at **that exact merge SHA** completed **success**. GitHub verified `texasdefined-validation/build/bundle-budget/runtime-smoke/predeploy-health/cloudflare/live/indexnow/production = success`; the blocking direct Worker, canonical, native sports-venue, base production, and event structured-data checks passed.
+- Deployed and reverified Worker version: `a8c95ecd-3ffb-41da-b3c3-a859db642b68` (previously `cffa3d28-e5c7-4a48-b1b4-bf083d92d6f4`). Version identity was stable before and after acceptance; verified recovery deployment ID `6984474741`, recorded in the completed job logs.
+- Independent GSC priority cohort push run [#38072327715](https://github.com/keeptxred/TexasDefined/actions/runs/38072327715) succeeded after waiting for this *exact* protected production commit; thus the new PR/live separation was exercised in production.
+- Known downstream nonblocking failures on this deployment: editorial image repair [#38072327916](https://github.com/keeptxred/TexasDefined/actions/runs/38072327916) received Wikimedia Commons HTTP 429 even though the governed report contained zero pending entries and all three JPEG assets exist; Batch 003 football browser [#38072712840](https://github.com/keeptxred/TexasDefined/actions/runs/38072712840) read active Batch 004 slugs rather than archived Batch 003 roster and failed before opening Chrome. Both are targeted by the next protected corrective PR. These failures are NOT certified as passing.
+- Other independent downstream checks may be pending or fail later and do not change the completed protected deploy's SHA/status. Always evaluate downstream status contexts and their triggering SHA separately; future production deployments may supersede this verified Worker version.
 
-## Confirmed new defects / proposed correction
+## Confirmed defects fixed and deployed in #4563
 
-1. `verify-football-batch-003-apple-springs.yml`: a PR invoked live Chrome against a fixed post-deployment title; a changed PR expectation could incorrectly fail before deployment. Change to a PR syntax-only job plus explicitly manual live Chrome retest. No new scheduled or production-deploy browser workload.
-2. `audit-all-editorial-production.yml`: the existing PR source inventory triggered a 254-county live crawl against the older Worker, masking the PR-live step's errors with `continue-on-error`. Keep the source inventory but execute the live 254-county crawl only on eligible successful deployments or manual invocation. Remove the misleading PR-only error masking.
-3. `scripts/ci/validate-post-deploy-verifier-safety.mjs`: add protected-contract assertions for both corrections. This script is already run in the canonical premerge validation; do not add a competing merge gate.
+1. `verify-football-batch-003-apple-springs.yml`: PR now runs syntax-only verification, with a separate manual live Chrome retest; passing PR source check #38072153066.
+2. `audit-all-editorial-production.yml`: PR validates county sources but no longer crawls old production (nor masks PR-live errors); live crawl retained on successful deployment or manual runs. PR source workflow #38072152896 passed.
+3. GSC, editorial image PR-only publishing, and river browser immutable checkout were additionally corrected. Both existing canonical regression validators protect the deployed changes; no competing merge gate or deployment path was created.
 
-New correction PR [#4563](https://github.com/keeptxred/TexasDefined/pull/4563), initial head `4d33541dbb7baff280a8b0d5578042443c122043`: initial Required Merge Gate [#38064583516](https://github.com/keeptxred/TexasDefined/actions/runs/38064583516) **success**, with canonical pre-merge validation and both workflow-specific PR checks passing. **Merge SHA and new production acceptance pending.** Any new ledger commit requires fresh protected CI before merging. Never claim these are complete until the PR passes required CI and merges normally.
+PR #4563 was merged and production-certified as documented above. Its required checks also included GSC, county-source, football and river PR test jobs; no live checker made an undeployed-PR assertion.
 
 ## Existing safe architecture retained
 
@@ -30,13 +35,13 @@ The protected deploy remains serialized and blocking; native sports-venue editor
 
 **Method:** All 194 names from the complete Git tree. SAFE = reviewed source and no confirmed issue in the specific race contract; FIX REQUIRED = confirmed PR/live mismatch with a proposed unmerged correction; SPECIAL CASE = deliberate independent health/source/manual or recovery semantics; RETIRED = legacy workflow retained as read-only audit or explicitly fail-closed entry point; UNVERIFIED = not yet individually source-classified. A SAFE label is not proof of a successful recent run or Worker-version identity for each workflow.
 
-Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UNVERIFIED **0**. Total **194**. New #4563 fix workflows: **5** (Apple Springs, 254-county, GSC cohort, editorial image repair, Texas river atlas browser); regression-validator changes: **2** (post-deploy and direct-main inventory). The river correction was adapted from the previously opened #4544; do not merge its stale overlapping version onto main.
+Counts: SAFE **139**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **0**; UNVERIFIED **0**. Total **194**. Source-level classification reflects the merged #4563 release, not the success of every independent downstream probe. New #4563 fix workflows: **5** (Apple Springs, 254-county, GSC cohort, editorial image repair, Texas river atlas browser); regression-validator changes: **2** (post-deploy and direct-main inventory). The river correction was adapted from the previously opened #4544; do not merge its stale overlapping version onto main.
 
 | Workflow | Classification | Basis / next step |
 |---|---|---|
 | `adsense-production-smoke.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `advertiser-production-verification.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
-| `audit-all-editorial-production.yml` | FIX REQUIRED | PR source inventory was accompanied by a full live 254-county crawl (with PR errors masked); proposed job-level PR exclusion preserves post-deploy and manual crawl. |
+| `audit-all-editorial-production.yml` | SAFE | PR source inventory was accompanied by a full live 254-county crawl (with PR errors masked); proposed job-level PR exclusion preserves post-deploy and manual crawl. |
 | `audit-image-discover-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `audit-internal-link-graph-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `audit-sitemap-page-indexability.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -78,7 +83,7 @@ Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UN
 | `friday-night-lights-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `governance-maintenance.yml` | SPECIAL CASE | Inspected scheduled/manual data, diagnostic, image or outreach automation; no PR-to-production release assertion; changes flow through existing service/PR governance |
 | `governance-operations.yml` | SAFE | Inspected workflow source: read-only source validation/test/build, or guarded deployed-SHA verifier; no confirmed PR/deploy race |
-| `gsc-priority-cohort.yml` | FIX REQUIRED | Confirmed PR/live cohort and push-before-deploy race; branch fixes PR source-only + exact-SHA push gate; protected CI and merge pending |
+| `gsc-priority-cohort.yml` | SAFE | Confirmed PR/live cohort and push-before-deploy race; branch fixes PR source-only + exact-SHA push gate; protected CI and merge pending |
 | `hurst-whirlyball-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `import-entities.yml` | SPECIAL CASE | Inspected scheduled/manual data, diagnostic, image or outreach automation; no PR-to-production release assertion; changes flow through existing service/PR governance |
 | `made-in-texas-production-smoke.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -92,7 +97,7 @@ Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UN
 | `purge-authority-cache-after-deploy.yml` | SPECIAL CASE | Intentionally may run after an unsuccessful deployment to self-heal existing Cloudflare caches; do not remove failure/rollback behavior without dedicated analysis. |
 | `recover-stale-production-deploy.yml` | SPECIAL CASE | Post-run stale Worker recovery dispatcher; inspects latest main and existing protected runs and dispatches canonical workflow only; must preserve |
 | `refresh-acs-county-housing-costs.yml` | SPECIAL CASE | Census refresh may update source PR branch, or propose changes from schedule; no main/deployment direct write; independent data refresh |
-| `repair-editorial-image-specificity.yml` | FIX REQUIRED | Confirmed direct-main push of image repairs with CI bypass; branch replaces with reviewable PR and exact-branch validation; protected merge pending |
+| `repair-editorial-image-specificity.yml` | SAFE | Confirmed direct-main push of image repairs with CI bypass; branch replaces with reviewable PR and exact-branch validation; protected merge pending |
 | `repair-editorial-migration-validator-once.yml` | RETIRED | Manual read-only audit of historical migration repair; no publication/deployment |
 | `repair-explore-hero-gaps.yml` | SPECIAL CASE | Inspected scheduled/manual data, diagnostic, image or outreach automation; no PR-to-production release assertion; changes flow through existing service/PR governance |
 | `report-unusual-business-experiment.yml` | SPECIAL CASE | Inspected scheduled/manual data, diagnostic, image or outreach automation; no PR-to-production release assertion; changes flow through existing service/PR governance |
@@ -187,7 +192,7 @@ Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UN
 | `verify-find-my-county-production.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-fishing-lcra-feed.yml` | SPECIAL CASE | Third-party LCRA CSV source availability check, not production Worker certificate. |
 | `verify-fishing-photo-governance.yml` | SAFE | Inspected workflow source: read-only source validation/test/build, or guarded deployed-SHA verifier; no confirmed PR/deploy race |
-| `verify-football-batch-003-apple-springs.yml` | FIX REQUIRED | PR ran the deployed browser retest for a fixed production title; proposed PR-only syntax job and manually invoked browser keep future PR code from being compared to a pre-release site. |
+| `verify-football-batch-003-apple-springs.yml` | SAFE | PR ran the deployed browser retest for a fixed production title; proposed PR-only syntax job and manually invoked browser keep future PR code from being compared to a pre-release site. |
 | `verify-football-batch-003-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-football-batch-003.yml` | SAFE | Inspected workflow source: read-only source validation/test/build, or guarded deployed-SHA verifier; no confirmed PR/deploy race |
 | `verify-football-batch-004-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -223,7 +228,7 @@ Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UN
 | `verify-sports-venue-heroes-production-all.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-stay-affiliate-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-stay-destination-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
-| `verify-texas-river-map-browser.yml` | FIX REQUIRED | Post-deploy live browser job checks out moving default branch, not triggering deployed SHA; concurrent PR #4544 proposes correction; verify it before reclassifying |
+| `verify-texas-river-map-browser.yml` | SAFE | Post-deploy live browser job checks out moving default branch, not triggering deployed SHA; concurrent PR #4544 proposes correction; verify it before reclassifying |
 | `verify-wills-point-browser.yml` | SAFE | Reviewed triggers, deploy success or exact-SHA wait, pinned checkout/status SHA where applicable, and PR/live separation; no new race confirmed |
 | `verify-ysleta-museum-browser.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
 | `verify-zapata-museum-production.yml` | SAFE | Source inspected; gated or intentionally scheduled/manual; no confirmed SHA race in reviewed contract |
@@ -239,16 +244,23 @@ Individually read another 46 workflow YAML files beyond the initial focused inve
 
 ## Further fixes found in full workflow source review
 
-- `gsc-priority-cohort.yml`: the 20-URL live GSC cohort crawled older production on PRs and path-filtered pushes. The proposed change retains source-only PR checks, scheduled/manual production audits and waits for `texasdefined-production=success` on the **exact push SHA** before a push-triggered crawl.
-- `repair-editorial-image-specificity.yml`: historically committed image changes from default-branch checkout and executed a bare `git push` using a `[skip ci]` message. The proposed change preserves the repair script, but publishes only to a **new reviewed PR branch**, explicitly dispatches the canonical validator on that branch SHA, and does not merge or deploy. `validate-direct-main-writer-inventory.mjs` has targeted no-direct-main/no-skip-CI assertions.
+- `gsc-priority-cohort.yml`: the 20-URL live GSC cohort crawled older production on PRs and path-filtered pushes. The deployed change retains source-only PR checks, scheduled/manual production audits and waits for `texasdefined-production=success` on the **exact push SHA** before a push-triggered crawl.
+- `repair-editorial-image-specificity.yml`: historically committed image changes from default-branch checkout and executed a bare `git push` using a `[skip ci]` message. The deployed workflow change preserves the repair script, but publishes only to a **new reviewed PR branch**, explicitly dispatches the canonical validator on that branch SHA, and does not merge or deploy. `validate-direct-main-writer-inventory.mjs` has targeted no-direct-main/no-skip-CI assertions.
 - `verify-texas-river-map-browser.yml`: post-deploy live Chrome had a moving default-branch checkout although its syntax job was already PR-only. #4563 pins that live job to `workflow_run.head_sha` and adds a regression guard; older PR #4544 provided the original proposed patch. No additional browser job or deployment was introduced.
 - `certify-county-production-reusable.yml` was inspected alongside its governing `validate-county-certifier-consolidation.mjs`: it is a deliberately retained, **non-dispatchable retired interface** whose predecessor configuration is prohibited and whose first merge-config step fails closed at runtime; its old deploy code is inert through the governed entry path. Do not resurrect it or bypass protected production.
+
+## Follow-up recovery items (not yet certified)
+
+1. Restore the image repair job after Commons HTTP 429: check the governed report and already-committed JPEG assets before making *any* Commons requests, fail closed for untracked missing assets, retry throttled responses at most once with bounded backoff, and retain PR-only publishing with explicit validation. A new syntax-only PR workflow check must protect this path.
+2. Restore historical Batch 003 football browser acceptance by reading `completedBatches[number=3]` instead of the mutable active `registry.batch`. Keep every original 25-school Chrome, SEO, sitemap, county and city assertion; no downgrade in requirements and no VERIFIED promotion without real production browser evidence.
+3. Bring over remaining source-level exact-SHA regression assertions from stale #4544 for canonical destinations, Cloudflare, destination indexing, city/budget browser workflows, without reviving an old branch or modifying working deployment paths.
+4. Only after passing the protected merge gate, deploy the next follow-up and verify its own production SHA/Worker version and the corrected downstream browser; update PR discussion with exact run links. Avoid another audit-only push solely to change documentation once certified.
 
 ## Remaining mandatory acceptance work
 
 - Source-level classification now covers **all 194** workflows, including non-production filename families. Keep the full register current as main evolves; do not confuse source-level review with successful runtime evidence of each verifier.
 - Check whether any `workflow_run` verifier executing on a superseded release requires an additional Worker-identity guard; do not infer this from a trigger alone. Distinguish true status-attribution defects from non-certifying scheduled health audits.
-- Reconcile the older overlapping [#4544](https://github.com/keeptxred/TexasDefined/pull/4544) safely: the current `main` already contains the other source-ordering fixes and #4563 now contains the remaining river SHA pin. Avoid merging its stale branch or overwriting concurrent CI changes. Verify the replacement fully covers its code before considering closure.
-- Run the protected Required Merge Gate on this updated branch; verify updated validator passes, avoid stale synthetic merge refs, check merging against fresh `main` and file blob SHAs; merge normally only if protected checks pass.
-- After merge, confirm deployed SHA, final GitHub `texasdefined-production` status, blocking live verification, Worker identity and recovery ledger; audit downstream statuses on *that exact SHA*. Distinguish subsequent deployments.
-- Update this ledger with PR number, merge commit, CI and deployment evidence. Do not declare full audit certification while any workflow is UNVERIFIED or any new rollout has not passed.
+- Verify the stale [#4544](https://github.com/keeptxred/TexasDefined/pull/4544) regression assertions are ported and then close it with a specific supersession explanation; do not merge its conflicting old branch.
+- Follow-up changes require a fresh protected Required Merge Gate, no stale synthetic merge ref, and exact head commit merge into current `main`; the #4563 merge already satisfied this requirement.
+- #4563 deployment, status, live verification, Worker identity and recovery ledger have been confirmed at exact SHA above. Independently revalidate the pending corrective follow-up at its own SHA after protected merge.
+- The repository source audit is complete (0 UNVERIFIED). Keep deployment claims narrower than downstream outcomes; the post-merge image and football browser failures remain open until their own evidence passes.
