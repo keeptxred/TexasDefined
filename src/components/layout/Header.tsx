@@ -34,8 +34,8 @@ export function Header() {
         <div className="hidden lg:block">
           <Container width="wide" className="relative flex h-[4.25rem] items-center justify-center border-b border-border/70">
             <p className="absolute left-0 eyebrow text-muted-foreground">The Texas magazine</p>
-            <Link to="/" className="flex items-baseline" aria-label={`${brand.identity.wordmark} front page`}>
-              <span className="font-display text-[2.45rem] font-semibold leading-none tracking-[-0.045em] text-foreground xl:text-[2.7rem]">{brand.identity.wordmark}</span>
+            <Link to="/" className="inline-flex items-center" aria-label={`${brand.identity.wordmark} front page`}>
+              <img src="/texasdefined-logo.svg" alt="" width={1825} height={382} className="block h-auto w-[15.25rem] xl:w-[16.5rem]" decoding="async" />
             </Link>
             <div className="absolute right-0 flex items-center gap-1">
               {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="inline-flex min-h-11 items-center gap-2 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-foreground/65 transition-colors hover:text-primary"><Search className="size-4" aria-hidden /><span>Search</span></Link>}
@@ -55,7 +55,7 @@ export function Header() {
         </div>
 
         <Container width="wide" className="flex h-[4.5rem] items-center justify-between lg:hidden">
-          <Link to="/" className="flex shrink-0 items-baseline" aria-label={`${brand.identity.wordmark} front page`}><span className="font-display text-[1.9rem] font-semibold leading-none tracking-[-0.04em] text-foreground sm:text-[2.1rem]">{brand.identity.wordmark}</span></Link>
+          <Link to="/" className="flex min-w-0 shrink items-center" aria-label={`${brand.identity.wordmark} front page`}><img src="/texasdefined-logo.svg" alt="" width={1825} height={382} className="block h-auto w-[min(44vw,12.5rem)]" decoding="async" /></Link>
           <div className="flex items-center gap-0.5">
             <Link to="/shop/cart" aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"} className="relative inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 p-2 text-foreground/65 transition-colors hover:text-primary"><ShoppingBag className="size-[18px]" aria-hidden />{cart.count > 0 ? <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] leading-4 text-primary-foreground">{cart.count}</span> : null}</Link>
             {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary"><Search className="size-[18px]" aria-hidden /></Link>}
