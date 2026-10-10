@@ -25,6 +25,19 @@ export async function setNetworkApplicationReview(accessKey: string, id: string,
   return data;
 }
 
+export async function publishReviewedNetworkApplication(accessKey: string, id: string) {
+  await assertSportsPartnerAccess(accessKey);
+  const { data: current, error: readError } = await supabaseAdmin.from('texasdefined_network_applications')
+    .select('id,plan,status,paid_entitlement_active').eq('id', id).single();
+  if (readError || !current || current.status !== 'approved') throw new Error('Approve the application before publishing.');
+  if (current.plan === 'plus' && !current.paid_entitlement_active) throw new Error('Verified Plus subscription payment is required before publication.');
+  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications')
+    .update({status:'published',updated_at:new Date().toISOString()} as never)
+    .eq('id', id).eq('status','approved').select('id,status').single();
+  if (error || !data) throw new Error('Could not publish this listing.');
+  return { id, status: 'published', url: '/network/business/' + id };
+}
+
 export async function listNetworkRevisions(accessKey:string) {
  await assertSportsPartnerAccess(accessKey);
  const {data,error}=await supabaseAdmin.from('texasdefined_network_profile_revisions').select('id,business_account_id,submitted_by,created_at,review_status,proposed_profile,reviewer_notes').order('created_at',{ascending:false}).limit(200);
