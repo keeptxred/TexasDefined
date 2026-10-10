@@ -150,6 +150,8 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Arlington Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw Stadium fixtures' },
     { name: 'Arlington Lamar Vikings', slug: 'arlington-lamar', context: '1990 UIL state finalist and modern Vikings football' },
     { name: 'Arlington Martin Warriors', slug: 'arlington-martin', context: 'Warriors postseason history and Glaspie Field context' },
+    { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and documented Choctaw Stadium fixtures' },
+    { name: 'Seguin Cougars', slug: 'arlington-seguin', context: '5A Division II program and Glaspie Field home-venue history' },
   ],
   denton: [{ name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' }],
   collin: [{ name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' }],
