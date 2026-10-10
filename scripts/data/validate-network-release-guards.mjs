@@ -35,9 +35,9 @@ check('billing URL pinned to Stripe',billing.includes('destination.hostname !== 
 check('webhook verifies signature',webhook.includes('verifyStripeSignature(raw,header)'));
 check('webhook uses the executable-tested signature helper',!webhook.includes('async function signatureValid(')&&webhook.includes('await import("@/data/network-stripe.server")'));
 check('webhook looks up current subscription',webhook.includes('api.stripe.com/v1/subscriptions/'));
-check('webhook never republishes paid listings automatically',webhook.includes('is_published: false')&&!webhook.includes('is_published: true'));
-check('webhook validates subscription and customer bindings',webhook.includes('verifiedNetworkSubscriptionOwnership(subscription,existing)')&&source('src/data/network-stripe.server.ts').includes('existing.stripe_customer_id === subscription.customer'));
-check('webhook suspends unpaid listing before entitlement writes',webhook.indexOf('if (!active) {') < webhook.indexOf('paid_entitlement_active: active'));
+check('webhook never republishes paid listings automatically',webhook.includes('apply_texasdefined_network_stripe_event')&&!webhook.includes('.update({ is_published: true'));
+check('webhook validates subscription and customer bindings',webhook.includes('p_customer_id:subscription.customer')&&webhook.includes('outcome==="mismatch"'));
+check('webhook suspends unpaid listing before entitlement writes',webhook.includes('p_paid_active:active')&&webhook.includes('supabaseAdmin.rpc('));
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));
 check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&review.includes('user?.email_confirmed_at'));
 check('admin provisioning forbids reassignment',review.includes('existing.owner_user_id!==userId'));
@@ -53,3 +53,5 @@ check('public media checks full PNG signature',review.includes('pngHeader.every'
 check('directory filters published records',directory.includes('.eq("is_published", true)'));
 check('profile and all entry pages remain noindex',requiredPages.every(file=>/noindex/.test(source(root+file)))&&profile.includes('noarchive'));
 console.log('Network static release safeguards validated; NOT an end-to-end test or production authorization.');
+
+check('atomic Stripe reconciliation is only after signature validation',webhook.indexOf('verifyStripeSignature(raw,header)') < webhook.indexOf('apply_texasdefined_network_stripe_event'));
