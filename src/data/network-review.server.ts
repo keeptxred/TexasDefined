@@ -1,6 +1,19 @@
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 
+/** Validate image bytes again at the public media boundary, not just at browser upload. */
+async function assertNetworkImageBytes(blob: Blob, type: string) {
+  if (blob.size === 0 || blob.size > 3_000_000) throw new Error('Approved image size invalid');
+  const bytes = new Uint8Array(await blob.slice(0, 12).arrayBuffer());
+  const png = bytes[0] === 137 && bytes[1] === 80 && bytes[2] === 78 && bytes[3] === 71;
+  const jpg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
+  const webp = bytes.length >= 12 && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
+    && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+  if (!(type === 'image/png' && png || type === 'image/jpeg' && jpg || type === 'image/webp' && webp)) {
+    throw new Error('Approved image content is not a supported image');
+  }
+}
+
 export async function listNetworkApplications(accessKey: string) {
   await assertSportsPartnerAccess(accessKey);
   const { data, error } = await supabaseAdmin.from('texasdefined_network_applications').select('*').order('created_at', { ascending: false }).limit(200);
@@ -99,7 +112,8 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
    const type=ext==='png'?'image/png':ext==='webp'?'image/webp':ext==='jpg'?'image/jpeg':null;
    if(!type)throw Error('Unsupported image type');
    const {data:blob,error:readError}=await supabaseAdmin.storage.from('texasdefined-network-featured-drafts').download(path);
-   if(readError||!blob||blob.size>3000000)throw Error('Proposed image unavailable');
+   if(readError||!blob)throw Error('Proposed image unavailable');
+   await assertNetworkImageBytes(blob,type);
    const target=account.application_id+'/featured-'+id+'/'+path.split('/').pop();
    const {error:saveError}=await supabaseAdmin.storage.from('texasdefined-network-published')
     .upload(target,await blob.arrayBuffer(),{contentType:type,upsert:true});
@@ -150,6 +164,7 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
   const ext=path.split('.').pop()?.toLowerCase();
   const contentType=ext==='png'?'image/png':ext==='webp'?'image/webp':ext==='jpg'?'image/jpeg':null;
   if(!contentType)throw Error('Unsupported approved image format');
+  await assertNetworkImageBytes(blob,contentType);
   const {error:uploadError}=await supabaseAdmin.storage.from('texasdefined-network-published').upload(path,await blob.arrayBuffer(),{contentType,upsert:true});
   if(uploadError)throw Error('Could not publish approved media');
   return path;
