@@ -19,3 +19,8 @@ Amarillo High School, Golden Sandstorm / Sandies, Randall County, Texas. Amarill
 - Registry IMPLEMENTED only at `b65ae9b1e37f443dbcff0ba2ba8361a09fb5101d`; **25/25 implemented, 0/25 individually VERIFIED** at this checkpoint.
 - Outstanding: official 2026 coaching confirmation and stadium ticket/entry/accessibility; legally reusable authentic football images, Potter County/Amarillo city reciprocal links, renderer/SEO schema and mobile/desktop page testing; protected #4409 and #4443 merges, production deployment and evidence collection.
 - **Do not start Batch 003.** Next phase is production acceptance of all 25.
+
+## 2026-10-09 completed production and current coach verification
+- Earlier IMPLEMENTED/NOT DEPLOYED notes above are historical checkpoints. Canonical Batch 002 registry marks this school **VERIFIED for live technical browser acceptance**, with 25/25 sitemap entries and 90/90 school/county/city desktop and mobile checks in [run #37999320417](https://github.com/keeptxred/TexasDefined/actions/runs/37999320417), evidence artifact #11648543332. Later [run #38000611896](https://github.com/keeptxred/TexasDefined/actions/runs/38000611896) succeeded after the certification merge.
+- **2026 head football coach: Chad Dunnam.** Amarillo High head football coach, confirmed by program coaching roster. Primary source (Amarillo Sandies football program current coaching staff): https://www.sandiesfootball.com/contact. Verified October 9, 2026. This supersedes the earlier unresolved current-coach note, without rewriting the historical audit sequence.
+- Original team-photo rights, game-specific accessible entrances, parking and ticket rules still require official evidence and are not implicitly cleared by technical browser acceptance.

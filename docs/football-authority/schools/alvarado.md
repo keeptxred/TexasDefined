@@ -30,3 +30,8 @@
 - Actual game-day spectator parking, entry gates, ticketing and accessibility policies.
 - Rights-cleared authentic football photos if used.
 - Protected PR #4409 and continuation PR #4443 merges; deployed page and Johnson County reciprocal-link mobile/desktop browser acceptance.
+
+## 2026-10-09 completed production and current coach verification
+- Earlier IMPLEMENTED/NOT DEPLOYED notes above are historical checkpoints. Canonical Batch 002 registry marks this school **VERIFIED for live technical browser acceptance**, with 25/25 sitemap entries and 90/90 school/county/city desktop and mobile checks in [run #37999320417](https://github.com/keeptxred/TexasDefined/actions/runs/37999320417), evidence artifact #11648543332. Later [run #38000611896](https://github.com/keeptxred/TexasDefined/actions/runs/38000611896) succeeded after the certification merge.
+- **2026 head football coach: Aubrey Sims.** Alvarado High athletic director and head football coach, current official school leadership. Primary source (Alvarado High official leadership): https://ahs.alvaradoisd.net/about/leadership. Verified October 9, 2026. This supersedes the earlier unresolved current-coach note, without rewriting the historical audit sequence.
+- Original team-photo rights, game-specific accessible entrances, parking and ticket rules still require official evidence and are not implicitly cleared by technical browser acceptance.

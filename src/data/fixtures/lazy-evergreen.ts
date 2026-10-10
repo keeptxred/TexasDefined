@@ -18,6 +18,7 @@ import {
 } from "./texas-explained-support-stubs";
 import { texasExplainedSupportStubs2, texasRailroadsTownGrowthGuideStub } from "./texas-explained-support-stubs-2";
 import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
+import { texasExplainedRemainingRiverProfileStubs } from "./texas-explained-river-profiles-remaining-stubs";
 import { texasExplainedReservoirProfileStubs } from "./texas-explained-reservoir-profile-stubs";
 import { texasExplainedRoadSystemStubs } from "./texas-explained-road-system-stubs";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
@@ -45,11 +46,11 @@ const texasFarmToMarketRoadsExplainedStub: Article = {
 };
 
 const texasRiversExplainedStub: Article = {
-  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
+  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Texas Rivers Explained: Major Rivers, Basins & Map",
   dek: "Major Texas rivers and 15 river basins explained, including the Rio Grande, Brazos, Colorado, Guadalupe, Trinity and Sabine.",
   category: "lakes-rivers",
   hero: { src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg", alt: "The Guadalupe River flowing beneath bald cypress trees in the Texas Hill Country", width: 1600, height: 1115, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-13", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-08-13", updatedAt: "2026-10-09", readingMinutes: 17,
   tags: ["texas rivers", "river basins", "brazos river", "colorado river", "guadalupe river", "rio grande", "texas geography", "texas water"],
   featured: true, sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp",
   body: [], relatedCollections: [], relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park"],
@@ -125,7 +126,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
   texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
-  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
+  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedRemainingRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
 ];
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -218,6 +219,11 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
     const riverModule = await import("./texas-explained-river-profiles");
     const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);
     return article ?? null;
+  }
+
+  if (texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)) {
+    const riverModule = await import("./texas-explained-river-profiles-remaining");
+    return riverModule.texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug) ?? null;
   }
 
   if (texasExplainedReservoirProfileStubs.some((article) => article.slug === slug)) {

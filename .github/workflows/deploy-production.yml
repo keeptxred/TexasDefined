@@ -362,6 +362,7 @@ jobs:
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
+            https://texasdefined.com/sports-venue/msr-houston
             https://texasdefined.com/texas-state-fair
             https://texasdefined.com/explore/painted-churches
             https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso

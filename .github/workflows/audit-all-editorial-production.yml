@@ -135,7 +135,7 @@ jobs:
           node scripts/data/inventory-county-series.mjs /tmp/county-profiles.tsv
           test "$(wc -l < /tmp/county-profiles.tsv)" -eq 254
 
-      - name: Audit every production county page for substantive, indexable, editorial-first rendering
+      - name: Audit every production county page for substantive, indexable, visitor-first rendering
         continue-on-error: ${{ github.event_name == 'pull_request' }}
         shell: bash
         run: |
@@ -173,16 +173,52 @@ jobs:
           PY
           }
 
-          editorial_precedes_facts() {
+          validate_county_section_order_and_depth() {
             local html_file="$1"
-            python3 - "$html_file" <<'PY'
+            local county_slug="$2"
+            python3 - "$html_file" "$county_slug" <<'PY'
           import html
+          import re
           import sys
           from pathlib import Path
-          document = html.unescape(Path(sys.argv[1]).read_text(errors='ignore')).casefold()
+          raw = Path(sys.argv[1]).read_text(errors='ignore')
+          document = html.unescape(raw).casefold()
+          # Keep the substantive feature and data-grid requirements. The new
+          # visitor-first template intentionally presents facts before the full
+          # county history, rather than burying core information beneath it.
           editorial = document.find('county feature')
           facts = document.find('the county in numbers')
-          raise SystemExit(0 if editorial >= 0 and facts > editorial else 1)
+          if editorial < 0 or facts < 0 or facts >= editorial:
+              raise SystemExit(1)
+          if sys.argv[2] == 'van-zandt':
+              clean = re.sub(r'<script\b[^>]*>[\s\S]*?</script>', ' ', raw, flags=re.I)
+              clean = re.sub(r'<style\b[^>]*>[\s\S]*?</style>', ' ', clean, flags=re.I)
+              clean = html.unescape(re.sub(r'<[^>]+>', ' ', clean)).casefold()
+              clean = re.sub(r'\s+', ' ', clean)
+              required = (
+                  'van zandt county essentials',
+                  '2025 population (estimate)',
+                  '66,130',
+                  'canton',
+                  'wills point',
+                  'grand saline',
+                  'edgewood',
+                  'fruitvale',
+                  'ben wheeler',
+                  'martins mill',
+                  'edom',
+                  'does not collect property taxes',
+              )
+              if any(item not in clean for item in required):
+                  raise SystemExit(1)
+              if document.find('van zandt county essentials') >= facts:
+                  raise SystemExit(1)
+              if any(url not in document for url in (
+                  '/property-tax/county/van-zandt',
+                  '/destination/wills-point-depot-museum',
+                  'vanzandt.propertytaxpayments.net/search',
+              )):
+                  raise SystemExit(1)
           PY
           }
 
@@ -230,8 +266,8 @@ jobs:
               echo "WAIT structured-layer $url"
               return 1
             fi
-            if ! editorial_precedes_facts "$html"; then
-              echo "WAIT editorial-order county-feature-must-precede-fact-grid $url"
+            if ! validate_county_section_order_and_depth "$html" "$county_slug"; then
+              echo "WAIT county-practical-first-order-or-van-zandt-depth $url"
               return 1
             fi
 
@@ -299,7 +335,7 @@ jobs:
               return 1
             fi
 
-            echo "PASS page=200 words=$words editorial-first=yes structured=yes canonical=yes indexable=yes image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
+            echo "PASS page=200 words=$words visitor-first=yes structured=yes canonical=yes indexable=yes image=200 mime=$image_type redirect=301 $url" | tee -a /tmp/results.txt
             return 0
           }
 
@@ -314,7 +350,7 @@ jobs:
 
             if [[ ! -s /tmp/next-pending.tsv ]]; then
               : > /tmp/pending.tsv
-              echo "PASS: all 254 canonical county pages are live, substantive, editorial-first, indexable, canonical, illustrated, placeholder-free, and have valid legacy redirects."
+              echo "PASS: all 254 canonical county pages are live, substantive, visitor-first, indexable, canonical, illustrated, placeholder-free, and have valid legacy redirects."
               cat /tmp/results.txt
               exit 0
             fi

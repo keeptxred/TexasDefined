@@ -89,6 +89,18 @@ for (const check of countyChecks) {
 
 const venuePageChecks = [
   {
+    path: '/sports-venue/msr-houston',
+    label: 'MSR Houston operational motorsports authority guide',
+    ordered: [
+      'Karting is temporarily closed. The road course is a separate operation.',
+      'How to participate',
+      'Can you actually drive at MSR Houston?',
+      'The three-stage track-day checklist',
+      'Questions about MSR Houston',
+      'Sources & review',
+    ],
+  },
+  {
     path: '/sports-venue/gerald-j-ford-stadium',
     label: 'Gerald J. Ford Stadium live planning layout',
     ordered: [
@@ -140,6 +152,36 @@ for (const check of venuePageChecks) {
   assertOrdered(html, check.ordered, check.label);
   console.log(`PASS ${check.label}: ${url}`);
 }
+
+// Unlike the cache-busted checks above, verify the actual canonical URL that
+// visitors and search engines receive after the post-deploy Cloudflare purge.
+const msrCanonicalUrl = `${baseUrl}/sports-venue/msr-houston`;
+const msrCanonicalResponse = await fetch(msrCanonicalUrl, {
+  cache: 'no-store',
+  signal: AbortSignal.timeout(30_000),
+  headers: {
+    'cache-control': 'no-cache',
+    pragma: 'no-cache',
+    'user-agent': 'TexasDefined MSR Houston canonical content certification',
+  },
+  redirect: 'follow',
+});
+if (!msrCanonicalResponse.ok) {
+  throw new Error(`MSR Houston canonical page returned HTTP ${msrCanonicalResponse.status}`);
+}
+const msrCanonicalHtml = decodeHtml(await msrCanonicalResponse.text());
+for (const marker of [
+  'Karting is temporarily closed. The road course is a separate operation.',
+  'Can you actually drive at MSR Houston?',
+  'The three-stage track-day checklist',
+  'Is MSR Houston karting open in October 2026?',
+]) {
+  assertIncludes(msrCanonicalHtml, marker, 'MSR Houston canonical production guide');
+}
+if (msrCanonicalHtml.includes('Road-course driving, racing and karting destination')) {
+  throw new Error('MSR Houston canonical page still shows superseded karting-open introductory copy.');
+}
+console.log(`PASS MSR Houston canonical visitor guide: ${msrCanonicalUrl}`);
 
 const entityChecks = [
   {

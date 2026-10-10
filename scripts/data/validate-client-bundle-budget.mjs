@@ -17,10 +17,11 @@ const feedRoutePaths = [
 // blocking independent county editorial updates for an obsolete 2026 baseline.
 const STABLE_MAIN_BASELINE_BYTES = 1_826_315;
 const MAX_MAIN_BYTES = 1_829_000;
-// The calculator decision-platform build measures 140,115 bytes. Keep only 135 bytes
-// of headroom so the stylesheet gate remains a tight growth detector rather than
-// blocking a measured 0.08% increase that accompanies the shared calculator UI.
-const MAX_CSS_BYTES = 140_250;
+// The previous measured stylesheet was 140,115 bytes. The independently
+// sourced venue guide introduces accessible layout utilities: current CI output
+// is 141.06 kB. Retain a hard stylesheet cap below 1% over that baseline
+// (141,516 bytes), with less than 200 bytes of headroom for the measured build.
+const MAX_CSS_BYTES = 141_250;
 
 function reportCiError(title, message) {
   if (process.env.GITHUB_ACTIONS === 'true') {
