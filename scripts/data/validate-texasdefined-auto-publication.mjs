@@ -72,6 +72,12 @@ if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') |
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
+for (const token of ['jsonLd({', '"@type": "NewsArticle"', '"@type": "BreadcrumbList"', 'editorialDeskById(article.authorId)', '<Byline author={editorialDeskById(article.authorId)}']) {
+  if (!route.includes(token)) errors.push(`Published news author/schema contract is missing ${token}`);
+}
+for (const token of ['"@type":"NewsArticle"', 'missing its institutional editorial byline link']) {
+  if (!productionSmoke.includes(token)) errors.push(`Dynamic live story publication smoke is missing ${token}`);
+}
 
 if (errors.length) {
   console.error(`TexasDefined auto-publication readiness failed (${errors.length}):`);
