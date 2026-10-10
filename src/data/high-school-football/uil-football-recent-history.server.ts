@@ -1,3 +1,5 @@
+import { UIL_RECENT_FOOTBALL_FINALS_SNAPSHOT } from './uil-football-recent-history-snapshot';
+
 // The UIL archive's canonical landing URL requires a trailing slash; the
 // slashless form can redirect in a loop from edge runtimes.
 const UIL_FOOTBALL_ARCHIVE_URL = 'https://www.uiltexas.org/football/archives/';
@@ -133,6 +135,21 @@ async function fetchArchivePage(offset: number) {
     : new Error(`UIL football archive could not be loaded for offset ${offset} from either official endpoint.`);
 }
 
+// For audited manual refreshes only; production requests must not depend on
+// four remote pages all responding within short Worker request timeouts.
+export async function fetchUilRecentFootballHistoryFromOfficialSources() {
+  const pages: UilRecentFootballFinal[][] = [];
+  for (const offset of ARCHIVE_PAGE_OFFSETS) {
+    pages.push(await fetchArchivePage(offset));
+  }
+  const finals = pages.flat().filter((row) => seasonInWindow(row.season))
+    .filter((row, index, all) => all.findIndex((candidate) =>
+      candidate.season === row.season && candidate.conference === row.conference
+      && candidate.champion === row.champion && candidate.runnerUp === row.runnerUp) === index);
+  assertCompleteUilHistoryWindow(finals);
+  return finals;
+}
+
 function seasonInWindow(season: string) {
   return season >= HISTORY_START_SEASON && season <= HISTORY_END_SEASON;
 }
@@ -183,38 +200,31 @@ function buildHistoryIndex(finals: UilRecentFootballFinal[]) {
   }));
 }
 
+function assertCompleteUilHistoryWindow(finals: UilRecentFootballFinal[]) {
+  const seasons = new Set(finals.map((row) => row.season));
+  if (!seasons.has(HISTORY_START_SEASON) || !seasons.has(HISTORY_END_SEASON) || finals.length !== 96 || seasons.size !== 8) {
+    throw new Error(
+      `UIL recent football archive window is incomplete: ${finals.length} finals across ${seasons.size} seasons.`,
+    );
+  }
+  for (const season of seasons) {
+    if (finals.filter((row) => row.season === season).length !== 12)
+      throw new Error(`Incomplete official UIL history season: ${season}.`);
+  }
+}
+
 export async function loadUilRecentFootballHistory() {
   if (recentHistoryCache && Date.now() - recentHistoryCache.loadedAt < HISTORY_CACHE_TTL_MS) {
     return recentHistoryCache;
   }
 
-  // UIL's archive is a public research source, but four simultaneous page
-  // requests can trip upstream rate limiting from a shared Worker egress IP.
-  // Fetch the small four-page window sequentially so one user lookup creates
-  // at most one in-flight UIL request while preserving the same completeness
-  // checks and 12-hour in-isolate cache.
-  const pages: UilRecentFootballFinal[][] = [];
-  for (const offset of ARCHIVE_PAGE_OFFSETS) {
-    pages.push(await fetchArchivePage(offset));
-  }
-  const finals = pages
-    .flat()
-    .filter((row) => seasonInWindow(row.season))
-    .filter((row, index, all) =>
-      all.findIndex((candidate) =>
-        candidate.season === row.season
-        && candidate.conference === row.conference
-        && candidate.champion === row.champion
-        && candidate.runnerUp === row.runnerUp
-      ) === index,
-    );
+  // Serve this fixed eight-season historical window from the reviewed UIL
+  // snapshot, avoiding cold-worker UIL egress failures and partial responses.
+  // The official upstream is still available for a deliberate refresh via
+  // fetchUilRecentFootballHistoryFromOfficialSources() below.
+  const finals: UilRecentFootballFinal[] = [...UIL_RECENT_FOOTBALL_FINALS_SNAPSHOT];
 
-  const seasons = new Set(finals.map((row) => row.season));
-  if (!seasons.has(HISTORY_START_SEASON) || !seasons.has(HISTORY_END_SEASON) || finals.length < 80) {
-    throw new Error(
-      `UIL recent football archive window is incomplete: ${finals.length} finals across ${seasons.size} seasons.`,
-    );
-  }
+  assertCompleteUilHistoryWindow(finals);
 
   recentHistoryCache = {
     loadedAt: Date.now(),

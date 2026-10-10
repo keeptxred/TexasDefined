@@ -287,6 +287,26 @@ if (!errors.length) {
     'recentFootballHistoryFromLoaded',
   ]) requireText(history, marker, 'UIL recent football history');
 
+  const recentSnapshot = read('src/data/high-school-football/uil-football-recent-history-snapshot.ts');
+  const snapshotGameRows = recentSnapshot.match(/^    '[^'\\n]+\\|[^'\\n]+\\|[^'\\n]+',$/gm) ?? [];
+  if (snapshotGameRows.length !== 96) errors.push(`UIL state-final snapshot needs all 96 source-verified rows, got ${snapshotGameRows.length}.`);
+  for (const marker of [
+    "'2025-2026'",
+    "'2018-2019'",
+    'Dallas South Oak Cliff|Richmond Randle|35-19',
+    'Aledo|College Station|52-14',
+    'Longview|Beaumont West Brook|35-34',
+    'UIL_RECENT_FOOTBALL_FINALS_SNAPSHOT.length !== 96',
+    'games.length !== UIL_FINALS_CONFERENCES.length',
+    'https://www.uiltexas.org/football/archives/P72',
+  ]) requireText(recentSnapshot, marker, 'Source-verified complete UIL state-finals snapshot');
+  for (const marker of [
+    "import { UIL_RECENT_FOOTBALL_FINALS_SNAPSHOT }",
+    'const finals: UilRecentFootballFinal[] = [...UIL_RECENT_FOOTBALL_FINALS_SNAPSHOT]',
+    'assertCompleteUilHistoryWindow(finals)',
+    'fetchUilRecentFootballHistoryFromOfficialSources',
+  ]) requireText(history, marker, 'Reliable fixed-window UIL history loader');
+
   for (const marker of [
     "const UIL_FOOTBALL_ALL_TIME_APPEARANCES_URL = 'https://www.uiltexas.org/football/all-time-appearances'",
     "const UIL_FOOTBALL_ALL_TIME_FALLBACK_URL = 'https://wwwprod.uiltexas.org/football/all-time-appearances'",
