@@ -18,9 +18,16 @@ export const Route = createFileRoute("/api/public/network-billing")({
     GET: async ({ request }) => {
       const auth = await owner(request);
       if (!auth) return respond({ error: "Sign in to manage your subscription." }, 401);
+      const {data: bindings, error: bindingError} = await auth.client
+        .from("texasdefined_network_business_accounts")
+        .select("application_id")
+        .eq("owner_user_id", auth.userId).eq("access_enabled", true);
+      if (bindingError) return respond({error:"Unable to verify business ownership."},503);
+      const ids=(bindings||[]).map(binding=>binding.application_id);
+      if (!ids.length) return respond({ok:true,memberships:[]});
       const { data, error } = await auth.client.from("texasdefined_network_applications")
         .select("id,business_name,plan,status,paid_entitlement_active,stripe_customer_id")
-        .eq("contact_email", auth.email).eq("plan", "plus").order("created_at", { ascending: false });
+        .in("id",ids).eq("contact_email", auth.email).eq("plan", "plus").order("created_at", { ascending: false });
       if (error) return respond({ error: "Unable to load subscriptions." }, 503);
       return respond({ ok: true, memberships: (data || []).map(item => ({
         id: item.id, name: item.business_name, status: item.status,
