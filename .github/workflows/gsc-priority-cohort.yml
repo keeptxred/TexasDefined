@@ -29,13 +29,15 @@ on:
 
 permissions:
   contents: read
+  statuses: read
 
 jobs:
-  verify-production:
+  validate-crawl-links:
+    name: Validate GSC crawl-demand source links
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
-      - name: Check out repository
+      - name: Check out triggering source revision
         uses: actions/checkout@v4
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -43,5 +45,26 @@ jobs:
           node-version: 22
       - name: Validate durable GSC crawl-demand links
         run: node scripts/seo/validate-gsc-crawl-demand-links.mjs
+
+  verify-production:
+    name: Verify GSC priority cohort on deployed production
+    # PRs must not assert that undeployed changes are already live.
+    if: ${{ github.event_name != 'pull_request' }}
+    needs: validate-crawl-links
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source and protected deploy gate
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Wait for exact SHA protected production deployment on push
+        if: ${{ github.event_name == 'push' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
       - name: Verify GSC priority cohort on production
         run: node scripts/seo/check-gsc-priority-cohort.mjs
