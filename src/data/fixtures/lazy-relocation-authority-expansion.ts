@@ -6,6 +6,8 @@ const houstonCommuterHero: Article["hero"] = {
   width: 1280,
   height: 960,
   credit: "Famartin · CC BY-SA 4.0 · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:2025-09-14_16_24_08_View_north_along_Texas_State_Highway_99_(Grand_Parkway)_just_north_of_its_western_interchange_with_Interstate_10_(Katy_Freeway)_in_Houston,_Harris_County,_Texas.jpg",
+  licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
 };
 
 const dallasCommuterHero: Article["hero"] = {
@@ -14,6 +16,7 @@ const dallasCommuterHero: Article["hero"] = {
   width: 1280,
   height: 896,
   credit: "Carol M. Highsmith / Library of Congress · public domain · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:A_DART_(Dallas_Area_Rapid_Transit)_light-rail_train_leaves_the_Akard_Station_in_downtown_Dallas,_Texas.jpg",
 };
 
 const propertyTaxHero: Article["hero"] = {
@@ -22,6 +25,8 @@ const propertyTaxHero: Article["hero"] = {
   width: 1280,
   height: 960,
   credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Webb_County,_TX,_Appraisal_District_Office_IMG_2011.JPG",
+  licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
 };
 
 const corporateRelocationHero: Article["hero"] = {
@@ -30,6 +35,7 @@ const corporateRelocationHero: Article["hero"] = {
   width: 1704,
   height: 2272,
   credit: "WhisperToMe · public domain · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:OneCongressPlazaAustinTX.JPG",
 };
 
 const employeeRelocationHero: Article["hero"] = {
@@ -38,6 +44,7 @@ const employeeRelocationHero: Article["hero"] = {
   width: 1280,
   height: 853,
   credit: "Pixel.la / Startup Stock Photos · CC0 · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Desk-office-workspace-coworking_(23699033283).jpg",
 };
 
 const stub = (
