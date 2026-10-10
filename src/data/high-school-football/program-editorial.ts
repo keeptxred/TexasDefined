@@ -58,6 +58,169 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "angleton": {
+    "slug": "angleton",
+    "theme": {
+      "accentHex": "#542B39",
+      "label": "Original maroon Wildcats editorial graphics, not official logo"
+    },
+    "seo": {
+      "title": "Angleton Wildcats Football: 2024 Playoff Run, 2026 Coach & Wildcat Stadium",
+      "description": "Independent Angleton Wildcats football history: 2024 13–2 semifinal season, historic state final, Jason Brittain, 2026 fixtures and Wildcat Stadium information."
+    },
+    "coach": {
+      "name": "Jason Brittain",
+      "title": "Head coach shown on dated 2026 varsity staff roster",
+      "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/staff/",
+      "sourceLabel": "MaxPreps 2026 varsity staff directory updated September 26",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1 Campus Drive, Angleton, TX 77515",
+      "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/staff/",
+      "sourceLabel": "2026 team directory; school campus not verified game-day gate",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Angleton Wildcats 2026 season game listings",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+      "sourceLabel": "DCTF 2026 team schedule, partial score snapshot",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "Published DCTF partial snapshot: 3–0 through September 10; additional 2026 results require separate reconciliation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+      "sourceLabel": "DCTF 2026 partial results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Fort Bend Bush",
+          "site": "Away",
+          "result": "W 24–0"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Dayton",
+          "site": "Home",
+          "result": "W 42–0"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Fort Bend Dulles",
+          "site": "Away",
+          "result": "W 80–0"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "South Houston",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Iowa Colony",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Pasadena",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Katy Freeman",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Friendswood",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Richmond Randle",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Victoria East",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wildcat Stadium",
+      "address": "Angleton, TX — confirm current stadium gate through Angleton ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+      "sourceLabel": "DCTF school stadium historical directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists historical capacity 8,800; do not represent this as official present-day ADA seating, verified gate or parking. Consult Angleton ISD event/ticket communications for current access."
+    },
+    "overview": [
+      "Angleton High School's Wildcats play in Angleton, Brazoria County. Their identity is distinct from other Texas Wildcats programs, and the school campus at 1 Campus Drive should not automatically be used as a stadium entrance.",
+      "Angleton's 2024 team finished 13–2 according to both Dave Campbell's Texas Football and MaxPreps. The 2024 postseason schedule records wins over College Station 35–34 and La Porte 24–21 before a 14–21 defeat to Smithson Valley. The distinction between a 15-game season and a state championship matters.",
+      "DCTF's program history attributes 30 playoff appearances, one state championship-game appearance and no state titles. The year and opponent of that sole historical title-game appearance require a separate UIL primary-source review and should not be inferred from the 2024 record.",
+      "Current 2026 team staff lists Jason Brittain as head coach. MaxPreps also lists Brittain for the 13–2 season in 2024 and 9–2 finish in 2025, offering a school-specific coaching continuity story rather than recycling statewide football text.",
+      "DCTF reports 2025 at 9–2 and 2023 at 7–5. An alternate historical source reports a different 2025 overall total; the page uses DCTF for this season record while identifying unverified discrepancies in the individual research audit.",
+      "The partial 2026 DCTF season snapshot provides opening wins over Fort Bend Bush, Dayton and Fort Bend Dulles and then lists upcoming district fixtures including Iowa Colony, Friendswood and Richmond Randle. The source's missing later final scores are not presented as a complete October record.",
+      "The named home venue is Wildcat Stadium. Its directory-listed 8,800 capacity is not verification of accessible seating, tickets or spectator parking, so visitors should confirm arrangements with Angleton ISD."
+    ],
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Thirteen victories and a deep postseason",
+        "body": "Both DCTF and MaxPreps record a 13–2 campaign; the playoff ledger includes wins against College Station and La Porte.",
+        "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/24-25/schedule/",
+        "sourceLabel": "2024 MaxPreps archived full schedule"
+      },
+      {
+        "date": "2024 playoffs",
+        "title": "Smithson Valley ends the run",
+        "body": "The 2024 playoff record ends with Angleton losing 14–21 to Smithson Valley; not a state championship final.",
+        "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/24-25/schedule/",
+        "sourceLabel": "2024 postseason record"
+      },
+      {
+        "date": "2025",
+        "title": "Nine-win follow-up season",
+        "body": "DCTF and MaxPreps show the Wildcats 9–2 in 2025, with coach Jason Brittain still listed.",
+        "sourceUrl": "https://www.maxpreps.com/tx/angleton/angleton-wildcats/football/history/",
+        "sourceLabel": "Historical varsity seasons"
+      },
+      {
+        "date": "2026",
+        "title": "2026 coach and first three recorded finals",
+        "body": "Current roster lists Jason Brittain; DCTF's early snapshot records 24–0, 42–0 and 80–0 opening wins without asserting a full October record.",
+        "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=angleton-wildcats",
+        "sourceLabel": "DCTF partial 2026 results"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Angleton win a football state championship in 2024?",
+        "answer": "No. The 13–2 team lost a 2024 postseason game to Smithson Valley 14–21; historical team databases record zero state titles."
+      },
+      {
+        "question": "Who is Angleton's football coach for 2026?",
+        "answer": "The 2026 team staff roster names Jason Brittain as head coach."
+      },
+      {
+        "question": "How many times has Angleton reached a football state title game?",
+        "answer": "DCTF records one historical title-game appearance, but its year and opponent should be verified from UIL before they are named here."
+      },
+      {
+        "question": "Where do the Wildcats play home games?",
+        "answer": "DCTF lists Wildcat Stadium in Angleton. Confirm stadium gate, accessible seating and tickets through Angleton ISD."
+      }
+    ]
+  },
   "andrews": {
     "slug": "andrews",
     "theme": {
