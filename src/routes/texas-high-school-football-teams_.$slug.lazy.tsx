@@ -120,6 +120,19 @@ function Page() {
     'arlington-lamar': { slug: 'arlington', name: 'Arlington' },
     'arlington-martin': { slug: 'arlington', name: 'Arlington' },
     'arlington-seguin': { slug: 'arlington', name: 'Arlington' },
+    // Austin city campuses; school-district and postal designations alone do not include suburban campuses.
+    'austin': { slug: 'austin', name: 'Austin' },
+    'austin-akins': { slug: 'austin', name: 'Austin' },
+    'austin-anderson': { slug: 'austin', name: 'Austin' },
+    'austin-bowie': { slug: 'austin', name: 'Austin' },
+    'austin-crockett': { slug: 'austin', name: 'Austin' },
+    'austin-eastside': { slug: 'austin', name: 'Austin' },
+    'austin-johnson': { slug: 'austin', name: 'Austin' },
+    'austin-lasa': { slug: 'austin', name: 'Austin' },
+    'austin-mccallum': { slug: 'austin', name: 'Austin' },
+    'austin-navarro': { slug: 'austin', name: 'Austin' },
+    'austin-northeast': { slug: 'austin', name: 'Austin' },
+    'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
   const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
