@@ -58,8 +58,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
     populationEstimate: { value: 2_397_315, year: 2025, asOf: 'July 1, 2025' },
     jurisdiction: {
       primaryCounty: 'Harris County',
-      counties: ['Harris County', 'Fort Bend County', 'Montgomery County', 'Waller County'],
-      note: 'Most of Houston is in Harris County, with incorporated city limits also reaching into Fort Bend, Montgomery and Waller counties. Verify the exact address before using county appraisal, election, school, court or other local-service records.',
+      counties: ['Harris County', 'Fort Bend County', 'Montgomery County'],
+      note: 'Most incorporated Houston addresses are in Harris County; city limits also extend into Fort Bend and Montgomery counties. Houston’s separate extraterritorial jurisdiction (ETJ) extends into Waller County, but ETJ alone does not establish city residency. Confirm the exact address and jurisdiction before using appraisal, election, school, court or other local-service records.',
       sourceUrl: 'https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer',
     },
     hero: {
