@@ -19,6 +19,11 @@ export function TexasRiversCitationTrust() {
             note: "Statewide mapped basin locations with county context; the agency labels the map January 2014 and cautions mapped boundaries are approximate.",
           },
           {
+            name: "TWDB Groundwater Modeling — 2023 official river basin polygons",
+            url: "https://gis1.twdb.texas.gov/server/rest/services/WSC-GW-Modeling/GM_Admin_Boundaries/MapServer/0",
+            note: "TWDB official major/coastal river basin polygons, edited August 7, 2023. Used in the optional interactive watershed map; maps drainage boundaries rather than river channels, public access, or legal parcel boundaries.",
+          },
+          {
             name: "Texas Water Development Board — GIS datasets",
             url: "https://www.twdb.texas.gov/mapping/gisdata.asp",
             note: "Underlying geographic layers and metadata for mapping work. Its USGS-derived 23-basin layer is explicitly not the official TWDB basin-boundary dataset; do not substitute the two.",
