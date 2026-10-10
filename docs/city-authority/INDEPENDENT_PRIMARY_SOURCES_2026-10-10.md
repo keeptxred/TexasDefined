@@ -31,9 +31,13 @@ Records below are comparisons to independently retrieved *official operator, age
 | Arlington | Globe Life Field hosts Texas Rangers ballpark tours | https://www.mlb.com/rangers/ballpark/tours-and-events | PASS | Official ballpark and operator confirm address and current tours |
 | Hurst | WhirlyBall Hurst is the active Hurst location | https://whirlyballtexas.com/locations/ | PASS | 147 E Harwood Rd Hurst; separate Plano location is CLOSED and must not be confused with this one |
 
+| Dallas | Dallas World Aquarium operates in downtown Dallas | https://dwazoo.com/about-dwa/ ; https://dwazoo.com/hours-prices/ | PASS | 1801 N Griffin Street, active operator and admission information |
+| Corpus Christi | USS Lexington Museum operates on North Beach | https://usslexington.com/visit/hours-admission/ | PASS | 2914 N Shoreline Blvd; active museum; holiday closures apply |
+| Lubbock | Silent Wings Museum operates under City of Lubbock | https://www.mylubbock.us/400/Silent-Wings-Museum ; https://www.mylubbock.us/401/About-Us | PASS | 6202 N I-27; Monday and municipal-holiday closures apply |
+
 **Important distinction:** The Alamo's *planned new Museum and Visitor Center* is scheduled for **spring 2028**, not presently open. This is distinct from the historic Alamo church, grounds, and current Ralston Family Collections Center, which are operating. Official: https://www.thealamo.org/support/alamo-visitor-center-museum . Do not conflate current and future visitor facilities.
 
-The following featured destinations have **not** received the full independent operator-source audit in this record: Dallas World Aquarium, USS Lexington, Silent Wings Museum, and all remaining link-by-link food or guide recommendations. No PASS is implied for them.
+All 21 distinct named attraction or venue anchors from the sampled city featured cards now have independently retrieved first-party operation/location confirmation. This narrow claim DOES NOT certify the complete editorial descriptions, user-experience details, individual images, outbound links, or food and guide recommendations. No PASS is implied for those other fields.
 
 ## Updated transportation claims
 
