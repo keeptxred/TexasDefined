@@ -135,6 +135,23 @@ for (const name of ['hurst-whirlyball-production-smoke', 'my-story-museum-produc
 const freeChristmasSource = workflow('verify-free-christmas-canonical');
 requireMarker(freeChristmasSource, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Free Christmas must resolve the actual deployed SHA');
 requireMarker(freeChristmasSource, 'ref: ${{ env.DEPLOY_SHA }}', 'Free Christmas must check out the resolved deployed SHA');
+const livePrSmoke = [
+  'verify-fort-davis-browser',
+  'verify-southlake-carroll-browser',
+  'verify-texas-river-map-browser',
+  'county-production-smoke',
+  'verify-find-my-county-production',
+  'verify-event-temporal-production',
+];
+for (const name of livePrSmoke) {
+  const source = workflow(name);
+  requireMarker(source, "github.event_name == 'pull_request'", `${name} must keep source-only PR validation`);
+  requireMarker(source, 'node --check scripts/ci/', `${name} PR syntax check must exist`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} live probe must require successful deploy`);
+  if (source.includes("github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'")) {
+    failures.push(`${name} must not execute production probes on PRs`);
+  }
+}
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
