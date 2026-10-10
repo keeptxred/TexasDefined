@@ -46,6 +46,7 @@ async function inspectMuseum(page, viewport) {
   const response = await page.goto(cacheBusted(museumPath), { waitUntil: 'domcontentloaded', timeout: 60_000 });
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
   await page.evaluate(() => document.fonts?.ready);
+  await page.waitForTimeout(1200);
   const hero = page.locator('img[alt*="Photograph of the actual Tigua Cultural Center"]');
   const panorama = page.locator('img[alt*="Wide panoramic photograph"]');
   await panorama.scrollIntoViewIfNeeded({ timeout: 20_000 });
