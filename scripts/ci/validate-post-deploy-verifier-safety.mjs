@@ -39,6 +39,35 @@ for (const marker of [
   'statusTargetOverride || process.env.GITHUB_SHA',
   'STATUS_TARGET_SHA must be a 40-character commit SHA',
 ]) requireMarker(statusPublisher, marker, `GitHub status publisher must safely honor deployed SHA override: ${marker}`);
+// Wave 2: prevent push/PR live smokes from asserting undeployed production.
+const additionalPostDeploy = [
+  'advertiser-production-verification',
+  'swimming-holes-river-tubing-production-smoke',
+  'vehicle-authority-production-smoke',
+  'verify-reservoir-authority-production',
+  'verify-seven-regions-production',
+  'chappell-hill-production-smoke',
+];
+for (const name of additionalPostDeploy) {
+  const source = workflow(name);
+  noDirectPush(source, name);
+  requireMarker(source, 'workflow_run:', `${name} needs protected deployment completion`);
+  requireMarker(source, 'Deploy TexasDefined production', `${name} needs canonical deployment trigger`);
+  requireMarker(source, 'workflow_dispatch:', `${name} must retain manual triggering`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed/cancelled deployments`);
+  if (name !== 'advertiser-production-verification' && /^  pull_request:/m.test(source))
+    failures.push(`${name} must not probe undeployed pull-request code on production`);
+}
+const advertiser = workflow('advertiser-production-verification');
+requireMarker(advertiser, "github.event_name == 'pull_request'", 'Advertiser PR-only syntax validation missing');
+requireMarker(advertiser, 'node --check scripts/ci/verify-advertiser-production.mjs', 'Advertiser PR source syntax check missing');
+requireMarker(advertiser, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Advertiser verifier must check out exact deployed SHA');
+for (const name of ['verify-event-structured-data-production','verify-jasper-blue-hole-production','verify-sitemap-production-integrity']) {
+  const source = workflow(name);
+  requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out exact deployed SHA`);
+  if (/ref:\s*main\b/.test(source)) failures.push(`${name} must not check out moving main`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip failed deployments`);
+}
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
