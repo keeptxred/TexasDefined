@@ -12,6 +12,7 @@ import { DestinationVisitPlanner } from "@/components/editorial/DestinationVisit
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { auditDestination } from "@/data/destination-audit";
 import { distanceMiles } from "@/data/destination-relationships";
@@ -45,10 +46,6 @@ const MaybornMuseumAuthority = lazy(() =>
 
 const ZapataCountyMuseumAuthority = lazy(() =>
   import("@/components/editorial/ZapataCountyMuseumAuthority")
-);
-
-const YsletaDelSurMuseumAuthority = lazy(() =>
-  import("@/components/editorial/YsletaDelSurMuseumAuthority")
 );
 
 const YoungCountyMuseumAuthority = lazy(() =>
@@ -181,7 +178,7 @@ function DestinationPage() {
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
-  if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <Suspense fallback={null}><YsletaDelSurMuseumAuthority /></Suspense>;
+  if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;
   if (destination.slug === "young-county-museum-of-history-and-culture") return <Suspense fallback={null}><YoungCountyMuseumAuthority /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
