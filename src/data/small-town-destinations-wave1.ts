@@ -46,7 +46,7 @@ export const smallTownWave1Destinations: Destination[] = [
         { name: "Enchanted Rock State Natural Area", description: "Granite-dome hiking and Hill Country views north of town; reserve ahead on busy dates.", proximity: "About 18 miles north", href: "/destination/enchanted-rock-state-natural-area" },
         { name: "Old Tunnel State Park", description: "A former railroad tunnel with a trail and seasonal Mexican free-tailed bat viewing.", proximity: "South of Fredericksburg", href: "/destination/old-tunnel-state-park" },
         { name: "Luckenbach", description: "Historic general store, dance hall and live-music culture in a tiny Hill Country settlement.", proximity: "Southeast of town", href: "/destination/luckenbach" },
-        { name: "LBJ State Park & Historic Site", description: "Sauer-Beckmann Living History Farm, Pedernales River landscape, longhorns and Hill Country history.", proximity: "Stonewall corridor", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "LBJ State Park & Historic Site", description: "Sauer-Beckmann Living History Farm, Pedernales River landscape, longhorns and Hill Country history.", proximity: "Stonewall corridor", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
         { name: "LBJ National Historical Park", description: "The LBJ Ranch and presidential-history landscape extend the U.S. 290 trip east of Stonewall.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-national-historical-park" },
         { name: "Wildseed Farms", description: "A large working wildflower farm with seasonal fields, shopping, food and drink east of Fredericksburg.", proximity: "Highway 290 east", href: "https://www.wildseedfarms.com/" },
         { name: "Das Peach Haus", description: "Orchard and food heritage, tastings, shopping and culinary experiences at the Fischer & Wieser property.", proximity: "South Fredericksburg", href: "https://www.daspeachhaus.com/" },
@@ -135,7 +135,7 @@ export const smallTownWave1Destinations: Destination[] = [
         { name: "Marktplatz", description: "Central public space and a practical break between downtown stops." },
         { name: "Wildseed Farms", description: "Seasonal flowers, open space, shopping and food make this an easy non-winery addition.", href: "https://www.wildseedfarms.com/" },
         { name: "Lady Bird Johnson Municipal Park", description: "A lower-commitment outdoor option with developed recreation close to town.", href: "https://www.fbgtx.org/343/Lady-Bird-Johnson-Municipal-Park" },
-        { name: "LBJ State Park & Sauer-Beckmann Farm", description: "Living-history interpretation and outdoor space in the Stonewall corridor.", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "LBJ State Park & Sauer-Beckmann Farm", description: "Living-history interpretation and outdoor space in the Stonewall corridor.", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
       ],
       sideTrips: [
         { name: "Gillespie County", description: "Use the county guide to connect Fredericksburg with Stonewall, Luckenbach, agriculture, ranch roads and smaller communities.", href: "/county/gillespie" },

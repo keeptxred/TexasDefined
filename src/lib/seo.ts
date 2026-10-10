@@ -76,7 +76,7 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
     title: "William Chris Vineyards Hye: Tastings, Hours & Guide",
     description: "Plan William Chris Vineyards in Hye with current tasting prices, hours, Chef's Table details, Texas-grown vineyard context and U.S. 290 trip planning.",
   },
-  "/destination/lyndon-b-johnson-state-park-and-historic-site": {
+  "/destination/lyndon-b-johnson-state-park-historic-site": {
     title: "LBJ State Park & Sauer-Beckmann Farm: Hours & Guide",
     description: "Plan LBJ State Park near Stonewall with free admission, current Sauer-Beckmann Farm hours, closures, longhorns, bison, trails and LBJ Ranch connections.",
   },

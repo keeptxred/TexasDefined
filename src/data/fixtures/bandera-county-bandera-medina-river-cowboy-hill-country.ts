@@ -40,7 +40,7 @@ export const banderaCountyBanderaMedinaRiverCowboyHillCountryArticle: Article = 
     { href: "/county/real", label: "Explore Real County", description: "Continue west into the Frio and Nueces canyon country around Leakey and Camp Wood." },
     { href: "/county/uvalde", label: "Explore Uvalde County", description: "Travel southwest toward Uvalde, Garner country and the southern edge of the Edwards Plateau." },
     { href: "/county/bexar", label: "Explore Bexar County", description: "Head southeast toward San Antonio, the missions and the metropolitan core." },
-    { href: "/destination/hill-country-state-natural-area", label: "Hill Country State Natural Area", description: "Explore primitive trails, ridges and equestrian country southwest of Bandera." },
+    { href: "/destination/hill-country-louise-merrick-unit-state-natural-area", label: "Hill Country State Natural Area", description: "Explore primitive trails, ridges and equestrian country southwest of Bandera." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how distance, settlement and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],

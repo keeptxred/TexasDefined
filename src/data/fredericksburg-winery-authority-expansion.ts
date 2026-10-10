@@ -78,7 +78,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
     areaGuide: {
       intro: "Use Becker as the historical winery anchor, add one Stonewall history stop and only one additional tasting if transportation is already planned.",
       nearbyAttractions: [
-        { name: "LBJ State Park & Historic Site", description: "Sauer-Beckmann Living History Farm, ranch landscape and the Pedernales River add agricultural context without another tasting.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "LBJ State Park & Historic Site", description: "Sauer-Beckmann Living History Farm, ranch landscape and the Pedernales River add agricultural context without another tasting.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
         { name: "LBJ National Historical Park", description: "Add the LBJ Ranch and presidential landscape to the Stonewall portion of the trip.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-national-historical-park" },
         fredericksburgHub,
       ],
@@ -89,7 +89,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
       lodging: [fredericksburgHub],
       neighborhoods: [wineCountryGuide],
       familyStops: [
-        { name: "LBJ State Park", description: "A non-wine Hill Country stop with living history, livestock and open landscape for mixed-interest groups.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "LBJ State Park", description: "A non-wine Hill Country stop with living history, livestock and open landscape for mixed-interest groups.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
       ],
       sideTrips: [gillespieCounty, { name: "Hye", description: "Continue east for William Chris, Garrison Brothers and the historic Hye corridor.", proximity: "East", href: "/destination/hye" }],
     },
@@ -172,7 +172,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
       lodging: [fredericksburgHub],
       neighborhoods: [wineCountryGuide],
       familyStops: [{ name: "National Museum of the Pacific War", description: "A destination-scale Fredericksburg museum and a stronger anchor for mixed-age groups than an all-day tasting itinerary.", proximity: "Downtown", href: "/destination/national-museum-pacific-war" }],
-      sideTrips: [gillespieCounty, { name: "Stonewall", description: "Continue east for LBJ history, orchards and a different Hill Country agricultural landscape.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" }],
+      sideTrips: [gillespieCounty, { name: "Stonewall", description: "Continue east for LBJ history, orchards and a different Hill Country agricultural landscape.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-historic-site" }],
     },
     authorityGuide: {
       whyItMatters: "Grape Creek combines working vineyards, commercial production, guided tours, downtown reach and the modern Heath Family Brands membership model in one of the corridor's highest-capacity wine operations.",
@@ -245,7 +245,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
     areaGuide: {
       intro: "Use Pedernales for a Texas-fruit and vineyard-history perspective, then add LBJ country or one nearby estate so the day explains the place as well as the wine.",
       nearbyAttractions: [
-        { name: "LBJ State Park & Historic Site", description: "Living-history farming and the Pedernales River landscape pair naturally with the winery's agricultural story.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "LBJ State Park & Historic Site", description: "Living-history farming and the Pedernales River landscape pair naturally with the winery's agricultural story.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
         { name: "LBJ National Historical Park", description: "Add the LBJ Ranch for presidential and ranch-history context.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-national-historical-park" },
       ],
       foodAndDrink: [
@@ -255,7 +255,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
       ],
       lodging: [fredericksburgHub, { name: "Johnson City", description: "A quieter eastern base for Stonewall, Hye and Blanco County trips.", proximity: "East", href: "/destination/johnson-city" }],
       neighborhoods: [wineCountryGuide],
-      familyStops: [{ name: "Sauer-Beckmann Living History Farm", description: "A strong mixed-age stop inside LBJ State Park that adds farm history to a wine-country day.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" }],
+      familyStops: [{ name: "Sauer-Beckmann Living History Farm", description: "A strong mixed-age stop inside LBJ State Park that adds farm history to a wine-country day.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-historic-site" }],
       sideTrips: [gillespieCounty, { name: "Hye", description: "Continue east to William Chris, Garrison Brothers and Hye's historic core.", proximity: "East", href: "/destination/hye" }],
     },
     authorityGuide: {
@@ -337,7 +337,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
       lodging: [fredericksburgHub],
       neighborhoods: [wineCountryGuide],
       familyStops: [{ name: "National Museum of the Pacific War", description: "A destination-scale history museum for mixed-interest groups staying in town.", proximity: "Downtown", href: "/destination/national-museum-pacific-war" }],
-      sideTrips: [gillespieCounty, { name: "Stonewall and LBJ country", description: "Continue east for ranch, farm and presidential-history context.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" }],
+      sideTrips: [gillespieCounty, { name: "Stonewall and LBJ country", description: "Continue east for ranch, farm and presidential-history context.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-historic-site" }],
     },
     authorityGuide: {
       whyItMatters: "Signor connects a 200-acre modern destination estate with a documented Texas horticulture/ranching lineage, Oregon winemaking ties, year-round agriculture and a new downtown tasting option.",
@@ -410,7 +410,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
     areaGuide: {
       intro: "Use K Estate as a modern Stonewall wine-industry stop, then compare one independent estate and add nearby history or agriculture.",
       nearbyAttractions: [
-        { name: "LBJ State Park & Historic Site", description: "A nearby living-history and ranch-landscape counterpoint to the contemporary winery experience.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "LBJ State Park & Historic Site", description: "A nearby living-history and ranch-landscape counterpoint to the contemporary winery experience.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
         { name: "LBJ National Historical Park", description: "Add the LBJ Ranch and presidential-history landscape.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-national-historical-park" },
       ],
       foodAndDrink: [
@@ -420,7 +420,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
       ],
       lodging: [fredericksburgHub, { name: "Johnson City", description: "A practical eastern base for Stonewall, Hye and Blanco County.", proximity: "East", href: "/destination/johnson-city" }],
       neighborhoods: [wineCountryGuide],
-      familyStops: [{ name: "Sauer-Beckmann Living History Farm", description: "A mixed-age farm-history stop at LBJ State Park.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" }],
+      familyStops: [{ name: "Sauer-Beckmann Living History Farm", description: "A mixed-age farm-history stop at LBJ State Park.", proximity: "Stonewall", href: "/destination/lyndon-b-johnson-state-park-historic-site" }],
       sideTrips: [gillespieCounty, { name: "Hye", description: "Continue east for William Chris, Garrison Brothers and the Hye historic corridor.", proximity: "East", href: "/destination/hye" }],
     },
     authorityGuide: {
@@ -505,7 +505,7 @@ export const fredericksburgWineryAuthorityExpansion: Destination[] = [
       ],
       neighborhoods: [wineCountryGuide],
       familyStops: [{ name: "National Museum of the Pacific War", description: "A major non-wine anchor in downtown Fredericksburg for mixed-interest trips.", proximity: "Downtown", href: "/destination/national-museum-pacific-war" }],
-      sideTrips: [gillespieCounty, { name: "Stonewall and LBJ country", description: "Continue east for orchards, ranching and presidential history.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" }],
+      sideTrips: [gillespieCounty, { name: "Stonewall and LBJ country", description: "Continue east for orchards, ranching and presidential history.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-historic-site" }],
     },
     authorityGuide: {
       whyItMatters: "Messina Hof brings a Texas wine family founded in 1977, a working Hill Country vineyard, a very broad Texas-wine portfolio and onsite cottages into one Highway 290 destination.",

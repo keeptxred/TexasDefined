@@ -150,7 +150,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const url = `${siteUrl}${canonicalPath}`;
     const imageUrl = hasUsableHero ? absoluteUrl(texasDefinedBrand, destination.hero.src) : undefined;
     const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
-    const categoryPath = destination.category === "sports" ? "/sports" : `/explore/${destination.category}`;
+    const categoryPath = destination.category === "sports" ? "/sports" : destination.category === "guides" ? "/guides" : `/explore/${destination.category}`;
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
@@ -230,7 +230,7 @@ function DestinationPage() {
     : undefined;
 
   return <>
-    <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
+    <Container className="pt-10 sm:pt-14"><nav aria-label="Breadcrumb" className="text-[0.72rem] uppercase tracking-[0.14em] text-muted-foreground"><ol className="flex flex-wrap items-center gap-2"><li><Link to="/" className="hover:text-foreground">Front page</Link></li><li aria-hidden>·</li><li><Link to="/explore" className="hover:text-foreground">Explore</Link></li><li aria-hidden>·</li><li>{destination.category === "sports" ? <Link to="/sports" className="hover:text-foreground">{categoryName}</Link> : destination.category === "guides" ? <Link to="/guides" className="hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="hover:text-foreground">{categoryName}</Link>}</li></ol></nav></Container>
 
     <section className="relative isolate mt-5 overflow-hidden bg-ink text-ink-foreground">
       <div data-image-fallback-label aria-hidden className="absolute inset-0 bg-ink" />

@@ -17,7 +17,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Add downtown museums, food, the courthouse square and other Johnson City attractions around the free NPS program.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Add Sauer-Beckmann and LBJ State Park",
       description: "Continue west to the free living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
@@ -108,7 +108,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Use Johnson City as the eastern base for museums, food, family attractions and Blanco County planning.",
     },
     {
-      href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+      href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
       label: "Continue toward Fredericksburg",
       description: "Extend west through Stonewall into the larger U.S. 290 wine, history, lodging and shopping corridor.",
     },
@@ -118,7 +118,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "See how Hye fits with Johnson City, Blanco, the Pedernales and the county's wider Hill Country geography.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Add Sauer-Beckmann and LBJ State Park",
       description: "Connect Hye with the living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
@@ -290,7 +290,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Pair the Hye distillery with the LBJ Ranch and Johnson City districts along the same eastern Hill Country corridor.",
     },
     {
-      href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+      href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
       label: "Continue toward Fredericksburg",
       description: "Extend west on U.S. 290 into the larger winery, museum and Hill Country visitor corridor.",
     },
@@ -305,7 +305,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Put the distillery in context with the historic Hye Post Office, wineries and the U.S. 290 Johnson City–Stonewall corridor.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Add LBJ State Park and Sauer-Beckmann Farm",
       description: "Pair the Hye distillery with the free living-history state park and German-Texan farm landscape near Stonewall.",
     },
@@ -465,7 +465,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Use the dedicated brewpub guide for current hours, food, house-brewed beer, live music and event planning.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Visit LBJ State Park and Sauer-Beckmann Farm",
       description: "Continue west to the free living-history farm, longhorns, bison and Pedernales River landscape near Stonewall.",
     },
@@ -556,7 +556,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
       description: "Pair LBJ country with a working Texas bourbon distillery along the Johnson City–Stonewall corridor.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Add Sauer-Beckmann Living History Farm",
       description: "Use the adjacent state park to understand the German-Texan farm culture and Pedernales landscape surrounding LBJ country.",
     },

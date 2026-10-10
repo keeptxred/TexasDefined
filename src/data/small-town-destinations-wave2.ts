@@ -110,7 +110,7 @@ export const smallTownWave2Destinations: Destination[] = [
     areaGuide: {
       intro: "Use Bandera as a base for a three-part trip: Western and settlement history in town, the Medina River, and one ranch or public-land experience in the surrounding hills.",
       nearbyAttractions: [
-        { name: "Hill Country State Natural Area", description: "Large, rugged public landscape known for hiking, horseback riding, camping and primitive Hill Country scenery.", proximity: "Southwest of Bandera", href: "/destination/hill-country-state-natural-area" },
+        { name: "Hill Country State Natural Area", description: "Large, rugged public landscape known for hiking, horseback riding, camping and primitive Hill Country scenery.", proximity: "Southwest of Bandera", href: "/destination/hill-country-louise-merrick-unit-state-natural-area" },
         { name: "Bandera City Park", description: "A riverside city park used for picnicking, fishing and swimming when current Medina River conditions permit." },
       ],
       foodAndDrink: [{ name: "Main Street and river corridor", description: "Local restaurants, bars, live-music venues and Western-oriented businesses are concentrated around central Bandera." }],

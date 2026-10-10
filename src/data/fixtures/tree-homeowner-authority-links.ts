@@ -10,7 +10,7 @@ for (const slug of [
   "texas-homeowner-field-manual",
   "texas-trees-guide",
   "best-native-plants-texas-yard",
-  "texas-hurricane-preparation-guide",
+  "texas-hurricane-preparation-homeowners-renters",
 ]) {
   const existing = articleInternalLinks[slug] ?? [];
   articleInternalLinks[slug] = existing.some((link) => link.href === treeHomeownerGuideLink.href)

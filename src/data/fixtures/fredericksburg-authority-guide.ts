@@ -44,7 +44,7 @@ export const fredericksburgAuthorityArticles: Article[] = [
       { href: "/destination/enchanted-rock-state-natural-area", label: "Enchanted Rock State Natural Area", description: "Reserve a separate outdoor block for the granite dome and trails north of town." },
       { href: "/destination/old-tunnel-state-park", label: "Old Tunnel State Park", description: "Pair seasonal bat viewing and the trail with a south-of-town Hill Country drive." },
       { href: "/destination/luckenbach", label: "Luckenbach", description: "Add the historic dance hall, general store and live-music culture to a Fredericksburg weekend." },
-      { href: "/destination/lyndon-b-johnson-state-park-and-historic-site", label: "LBJ State Park & Historic Site", description: "Use the Stonewall corridor for the Sauer-Beckmann farm, Pedernales landscape and Hill Country history." },
+      { href: "/destination/lyndon-b-johnson-state-park-historic-site", label: "LBJ State Park & Historic Site", description: "Use the Stonewall corridor for the Sauer-Beckmann farm, Pedernales landscape and Hill Country history." },
       { href: "/destination/lyndon-b-johnson-national-historical-park", label: "LBJ National Historical Park", description: "Continue into the ranch and presidential-history landscape." },
       { href: "/article/fredericksburg-history-weekend-guide", label: "History-first Fredericksburg weekend", description: "Build a deeper museum, fort and German-Texan itinerary." },
       { href: "/event/fredericksburg-oktoberfest", label: "Fredericksburg Oktoberfest", description: "Use the permanent event guide for verified festival dates, organizer sources and trip-planning context." },

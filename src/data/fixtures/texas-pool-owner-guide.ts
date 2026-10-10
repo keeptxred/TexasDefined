@@ -29,7 +29,7 @@ export const texasPoolOwnerGuideArticle: Article = {
     { href: "/article/texas-homeowner-field-manual", label: "Texas Homeowner Field Manual", description: "Put the pool into the larger system of weather, electricity, insurance, drainage and annual home maintenance." },
     { href: "/article/texas-home-maintenance-calendar", label: "Texas home maintenance calendar", description: "Build pool inspection and seasonal equipment checks into a month-by-month maintenance rhythm." },
     { href: "/article/prepare-texas-house-freeze", label: "Prepare a Texas house for a freeze", description: "Coordinate pool freeze protection with plumbing, power, irrigation and other outdoor systems." },
-    { href: "/article/texas-hurricane-preparation-guide", label: "Texas hurricane preparation guide", description: "Prepare the pool, yard and house together before tropical weather and extended outages." },
+    { href: "/article/texas-hurricane-preparation-homeowners-renters", label: "Texas hurricane preparation guide", description: "Prepare the pool, yard and house together before tropical weather and extended outages." },
     { href: "/article/how-to-choose-electricity-plan-texas", label: "Choose a Texas electricity plan", description: "Account for pool-pump load when comparing plans against real household usage." },
     { href: "/texas-utility-cost-calculator", label: "Texas utility cost calculator", description: "Estimate recurring electricity and water costs for a Texas household." },
     { href: "https://www.cdc.gov/healthy-swimming/about/home-pool-and-hot-tub-water-treatment-and-testing.html", label: "CDC home pool water treatment and testing", description: "Current residential guidance for chlorine, pH and routine water testing." },
