@@ -112,6 +112,15 @@ const MCALLEN_EDITORIAL_TRIPS = [
     official: "https://mosthistory.org/",
   },
   {
+    slug: "old-hidalgo-pumphouse-museum",
+    title: "Old Hidalgo Pumphouse Museum",
+    label: "Hidalgo · Irrigation heritage and birding",
+    plan: "Flexible local history outing; verify museum-tour availability",
+    why: "Tour the century-old irrigation machinery that changed Lower Valley agriculture, then explore the World Birding Center grounds and river habitat.",
+    caution: "The city posts weekday front-desk hours and separately advertises guided tours. Call 956-843-2286 for the exact tour schedule and access before leaving.",
+    official: "https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center",
+  },
+  {
     slug: "laguna-atascosa-national-wildlife-refuge",
     title: "Laguna Atascosa National Wildlife Refuge",
     label: "Cameron County · Longer wildlife day",

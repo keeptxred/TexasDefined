@@ -1,0 +1,48 @@
+name: Verify Texas budget planner browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-budget-planner-browser.mjs'
+      - '.github/workflows/verify-budget-planner-browser.yml'
+      - 'src/components/calculators/TexasBudgetPlanner.tsx'
+      - 'src/lib/financial/budget-planner.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-budget-planner-browser.mjs'
+      - '.github/workflows/verify-budget-planner-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: budget-planner-browser-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare Chrome and isolated Playwright (no project dependency changes)
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-budget-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Exercise live budget calculator, privacy, persistence, export and print on mobile and desktop
+        run: node scripts/ci/verify-budget-planner-browser.mjs
+      - name: Save browser acceptance report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: budget-planner-browser-acceptance
+          path: artifacts/texas-budget-planner-browser/
+          if-no-files-found: warn
+          retention-days: 14

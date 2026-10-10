@@ -81,7 +81,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
     mapLink,
   ],
   "galveston-county-island-port-juneteenth-texas": [
-    { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse", description: "Explore the black cast-iron tower across the bay and its role in Galveston navigation and hurricane survival." },
+    { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse", description: "Explore the restored black-and-white lighthouse across Galveston Bay and its history of shipping, storms and preservation." },
     bestToVisit,
     mapLink,
   ],

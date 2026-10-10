@@ -308,7 +308,7 @@ async function fetchExplorePage(params: URLSearchParams, offset: number, limit: 
 }
 
 export async function fetchExploreDestinations(
-  options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number } = {},
+  options: { featured?: boolean; query?: string; category?: CategorySlug; limit?: number; signal?: AbortSignal } = {},
 ): Promise<Destination[]> {
   if (!hasExploreRemoteData()) return [];
   const resultLimit = Math.min(options.limit ?? MAX_REMOTE_DESTINATIONS, MAX_REMOTE_DESTINATIONS);
@@ -329,12 +329,17 @@ export async function fetchExploreDestinations(
   // stopping as soon as enough matching public destinations have been found.
   const matchingRows: Record<string, unknown>[] = [];
   for (let offset = 0; offset < scanLimit && matchingRows.length < resultLimit; offset += PAGE_SIZE) {
+    // The surrounding page request may already have timed out. Never fan out
+    // more remote pages after it has switched to preserved/core content.
+    options.signal?.throwIfAborted();
     const pageSize = Math.min(PAGE_SIZE, scanLimit - offset);
     const page = await fetchExplorePage(params, offset, pageSize);
+    options.signal?.throwIfAborted();
     matchingRows.push(...page.filter((row) => matchesCategory(row, options.category)));
     if (page.length < pageSize) break;
   }
 
+  options.signal?.throwIfAborted();
   return matchingRows.map(mapRow).slice(0, resultLimit);
 }
 

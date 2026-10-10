@@ -112,7 +112,7 @@ jobs:
           assert_live_marker free-christmas '/article/free-christmas-events-in-texas' \
             'A free Texas Christmas night can be every bit as memorable as a ticketed attraction'
           assert_live_marker east-texas-fall '/article/east-texas-fall-colors' \
-            'East Texas usually runs later than the Hill Country'
+            'Quick answer: when and where to go'
           assert_live_marker hill-country-fall '/article/hill-country-fall-colors' \
             'The Hill Country fall season follows water and elevation'
           assert_live_marker fall-state-parks '/article/best-texas-state-parks-for-fall-colors' \

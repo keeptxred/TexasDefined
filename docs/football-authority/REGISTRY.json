@@ -40,44 +40,48 @@
       "alvord",
       "amarillo"
     ],
-    "state": "DEPLOYED_PENDING_INDIVIDUAL_ACCEPTANCE",
+    "state": "VERIFIED_BATCH_002_COMPLETE",
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 unassigned NOT_REVIEWED records in existing schoolRecords order, excluding the five VERIFIED schools in completed Batch 001",
     "previousBatchNumber": 1,
-    "individuallyVerified": 0,
-    "partiallyCompleted": 25,
-    "remainingAssigned": 25,
+    "individuallyVerified": 25,
+    "partiallyCompleted": 0,
+    "remainingAssigned": 0,
     "assignmentBranch": "football-authority-batch-002-25-20261009",
     "repositoryMainAtAssignment": "cceafcb76bdd20012365a3673d08a55ddc71ba6c",
     "maxSchoolsPerBatch": 25,
     "schoolExecutionConcurrency": 1,
-    "notes": "All 25 implemented and merged via PR #4443 (196504b698452cb39c32a9437a128ec4d11b0313); production workflow run 37967100680 succeeded on this exact SHA and verified the live Worker. Browser acceptance remains pending for all 25; PR #4451 adds the real-browser verification job. No Batch 003. Live Batch 002 Chrome run 37979198239 on deployed Worker commit 7c807f9: 50/50 school and 36/36 county viewport assertions PASS; screenshot artifact 11640167062. Supplemental city reciprocity/live sitemap membership and manual screenshot review not claimed. No Batch 003.",
-    "currentSchool": "amarillo",
+    "notes": "Batch 002 COMPLETED: all 25 assigned profiles implemented, protected-merged, deployed and verified in real production Chrome. Run 37999320417 tested actual deployed Worker 320cca41, 90/90 browser page checks (50 schools, 36 county, 4 city), 25/25 live sitemap URLs, no runtime errors, 90 screenshot contact sheets reviewed, evidence artifact 11648543332. Production VERIFIED does not attest photo licensing, unverified historical/coaching facts, or official game-day accessibility/ticketing; see each school's retained outstanding follow-ups. No Batch 003.",
+    "currentSchool": null,
     "nextSchool": null,
     "implementedOnBranch": 25,
     "continuationBranch": "football-authority-batch-002-ackerly-sands-20261009",
     "parentBatchPr": 4409,
     "remainingToImplement": 0,
-    "remainingToVerify": 25,
+    "remainingToVerify": 0,
     "mergedPr": 4443,
     "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
     "deploymentRunId": 37967100680,
     "deploymentStatus": "SUCCESS",
     "productionAcceptancePr": 4451,
     "browserAcceptance": {
-      "runId": 37979198239,
-      "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
-      "artifactId": 11640167062,
+      "runId": 37999320417,
+      "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+      "deploymentRunId": 37998837557,
+      "artifactId": 11648543332,
+      "checkedAt": "2026-10-09T22:32:37.930Z",
       "schoolViewportPassed": 50,
       "countyViewportPassed": 36,
+      "cityViewportPassed": 4,
+      "passedChecks": 90,
       "failed": 0,
-      "completedAt": "2026-10-09T19:22:03Z",
-      "manualScreenshotReview": "NOT_PERFORMED",
-      "supplementalOpen": [
-        "Individually confirm appropriate city reciprocal links",
-        "Individually confirm production sitemap inclusion for all 25"
-      ]
-    }
+      "sitemapPassed": 25,
+      "screenshotCount": 90,
+      "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS"
+    },
+    "verifiedAt": "2026-10-09T22:32:37.930Z",
+    "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+    "supplementalOpen": []
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -190,7 +194,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abernathy",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -213,15 +217,12 @@
         "4e6d52a6e03991a791a9ca31aaad0d2f3b9e99c4"
       ],
       "imageStatus": "Original source-labeled milestone graphics; school photos withheld for lack of license",
-      "internalLinkStatus": "Hale County reciprocal source-code change committed; production pending",
-      "seoStatus": "Unique title, description and verified identity coded; validation pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected CI/PR merge",
-        "Cloudflare deployed commit verification",
-        "Actual responsive Chrome school and Hale county screenshots / hydration",
-        "Image source reuse rights if real program photo desired",
-        "2026 venue/ticket/ADA/parking official documentation"
+        "Image licensing",
+        "Official stadium entrance/ADA/parking/tickets"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -232,6 +233,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -247,7 +277,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected CI/PR merge",
+        "Cloudflare deployed commit verification",
+        "Actual responsive Chrome school and Hale county screenshots / hydration",
+        "Image source reuse rights if real program photo desired",
+        "2026 venue/ticket/ADA/parking official documentation"
+      ]
     },
     {
       "id": "uil:abilene",
@@ -260,7 +297,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -283,15 +320,12 @@
         "e428a52ed401718c0c062679ccd7bcaf4d20a297"
       ],
       "imageStatus": "School-specific sourced original historic milestone graphics; no unlicensed school imagery",
-      "internalLinkStatus": "Taylor County reciprocal link implemented, browser acceptance pending",
-      "seoStatus": "Individual historical title/description and enriched identity, CI pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Required gate and protected merge",
-        "Production Cloudflare and corresponding commit verification",
-        "Desktop/mobile school and Taylor County exact H1/canonical/links and hydration checks",
-        "Legally cleared real team photograph",
-        "Game-specific 2026 ticket/parking/ADA source"
+        "Licensed team photograph",
+        "Official tickets/ADA/parking"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -302,6 +336,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -317,7 +380,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Required gate and protected merge",
+        "Production Cloudflare and corresponding commit verification",
+        "Desktop/mobile school and Taylor County exact H1/canonical/links and hydration checks",
+        "Legally cleared real team photograph",
+        "Game-specific 2026 ticket/parking/ADA source"
+      ]
     },
     {
       "id": "uil:abilene-cooper",
@@ -330,7 +400,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-cooper",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -354,15 +424,12 @@
         "1221c078c8c20d3d0e1e6e9ba864a7435cdc3023"
       ],
       "imageStatus": "Original editorial milestone graphics only; no licensed documentary team photography confirmed",
-      "internalLinkStatus": "Taylor County inbound and outbound plus verified Eagles rival reciprocal links implemented; browser QA pending",
-      "seoStatus": "School-specific title, description and Cougar identity coded; validation pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected CI and merge",
-        "Production deployment verification",
-        "Real Chrome desktop/mobile school/County Taylor and rival reciprocal test",
-        "Legal sports photo license if available",
-        "Current ticket/ADA/stadium gate verification"
+        "Licensed sports photograph",
+        "Official tickets/ADA/stadium entry"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -373,6 +440,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -388,7 +484,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected CI and merge",
+        "Production deployment verification",
+        "Real Chrome desktop/mobile school/County Taylor and rival reciprocal test",
+        "Legal sports photo license if available",
+        "Current ticket/ADA/stadium gate verification"
+      ]
     },
     {
       "id": "uil:abilene-texas-leadership",
@@ -401,7 +504,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-texas-leadership",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -423,15 +526,12 @@
         "6fbd111287cbd5a106843f91b30be73504abfc80"
       ],
       "imageStatus": "Source-labeled original timeline/milestone graphic only; licensing real TLCA images unverified",
-      "internalLinkStatus": "Taylor County and related Abilene school links coded; no production verification",
-      "seoStatus": "Unique original title/description and Eagles identity coded; CI/production pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected PR checks and merge",
-        "Deployment and exact commit reconciliation",
-        "Desktop/mobile real school and Taylor County link/browser checks",
-        "Official stadium entry, ADA, parking, ticketing",
-        "Rights to authentic sports image"
+        "Official stadium entry/ADA/parking/tickets",
+        "Sports photograph rights"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -442,6 +542,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -457,7 +586,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected PR checks and merge",
+        "Deployment and exact commit reconciliation",
+        "Desktop/mobile real school and Taylor County link/browser checks",
+        "Official stadium entry, ADA, parking, ticketing",
+        "Rights to authentic sports image"
+      ]
     },
     {
       "id": "uil:abilene-wylie",
@@ -470,7 +606,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/abilene-wylie",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -494,15 +630,12 @@
         "7c1b446af9672ed0b4c4198c449cd7c0fe658be9"
       ],
       "imageStatus": "Original source-labeled purple/gold researched milestone graphics only; documentary photo rights unavailable",
-      "internalLinkStatus": "Taylor County reciprocal + Abilene Cooper district-opponent link coded; browser QA pending",
-      "seoStatus": "Individual title/description/mascot/colors coded, validation pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected gate and merge",
-        "Deployed production commit check",
-        "Actual 390/1366px school/Taylor County link, SEO and hydration browser acceptance",
         "Licensed school photography",
-        "Game-specific ticket and ADA/parking policy"
+        "Official game-specific ticket/ADA/parking policy"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -513,6 +646,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -528,7 +690,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected gate and merge",
+        "Deployed production commit check",
+        "Actual 390/1366px school/Taylor County link, SEO and hydration browser acceptance",
+        "Licensed school photography",
+        "Game-specific ticket and ADA/parking policy"
+      ]
     },
     {
       "id": "uil:ackerly-sands",
@@ -541,7 +710,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ackerly-sands",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -564,15 +733,12 @@
         "bc6a9865eb00491a25306805676f32e5bd61c5ba"
       ],
       "imageStatus": "Brown/white original documented milestone graphics; no authentic photos with reuse rights; unrelated Fargo stock image discarded",
-      "internalLinkStatus": "Dawson County reciprocal link coded; production unverified",
-      "seoStatus": "Individual meta/H1 from verified Mustangs identity and school-specific source trail; CI pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected merge of prior five schools and reconciliation",
-        "Individual CI and typecheck",
-        "Production release and mobile/desktop browser acceptance",
-        "Precise stadium address, accessible gates, parking and admission",
-        "Licensed documentary photograph"
+        "Precise stadium location, ADA gates, parking and admission",
+        "Licensed team photograph"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -583,6 +749,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -598,7 +793,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merge of prior five schools and reconciliation",
+        "Individual CI and typecheck",
+        "Production release and mobile/desktop browser acceptance",
+        "Precise stadium address, accessible gates, parking and admission",
+        "Licensed documentary photograph"
+      ]
     },
     {
       "id": "uil:agua-dulce",
@@ -611,7 +813,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/agua-dulce",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -631,15 +833,12 @@
         "12cde2cab617151d6b9a9be54d139e373314daad"
       ],
       "imageStatus": "Original sourced milestones, no licensed documentary photos available",
-      "internalLinkStatus": "Nueces reciprocal school link committed, production pending",
-      "seoStatus": "Original title/description and verified Longhorn mascot committed, production pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected merge of parent #4409",
-        "Continuation PR CI and merge",
-        "Individual desktop/mobile real production acceptance",
-        "TDLR work completion, actual accessible parking/ticketing gate evidence",
-        "Documentary image reuse license"
+        "TDLR bleacher work completion and accessible entry/tickets",
+        "Licensed stadium photograph"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -650,6 +849,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -665,7 +893,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merge of parent #4409",
+        "Continuation PR CI and merge",
+        "Individual desktop/mobile real production acceptance",
+        "TDLR work completion, actual accessible parking/ticketing gate evidence",
+        "Documentary image reuse license"
+      ]
     },
     {
       "id": "uil:alba-golden",
@@ -678,7 +913,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alba-golden",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -701,15 +936,13 @@
         "e9eb5cb14a780a790feb1960b6b88cabb380f99f"
       ],
       "imageStatus": "Custom sourced red milestone cards; no authorized documentary team image and no fake school logo",
-      "internalLinkStatus": "Wood County reciprocal route source code committed; production inspection needed",
-      "seoStatus": "Unique Panthers SEO and identity committed; production checks needed",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Parent and continuation PR protected merges",
-        "Real Chrome mobile/desktop school and Wood County QA",
-        "Source discrepancy 2024–25 season archive",
-        "Official current stadium admission/parking/ADA",
-        "Licensed authentic football photography"
+        "Primary-source 2024–25 season results reconciliation",
+        "Official game-night access and ticketing",
+        "Licensed sports photograph"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -720,6 +953,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -735,7 +997,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Parent and continuation PR protected merges",
+        "Real Chrome mobile/desktop school and Wood County QA",
+        "Source discrepancy 2024–25 season archive",
+        "Official current stadium admission/parking/ADA",
+        "Licensed authentic football photography"
+      ]
     },
     {
       "id": "uil:albany",
@@ -748,7 +1017,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/albany",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -772,14 +1041,12 @@
         "c6f9ece72c88b28ee3b445780fc69542aea885e2"
       ],
       "imageStatus": "Independent documented historic-stadium visual narrative, original source-linked red-white milestone graphics; copyrighted stadium photographs withheld",
-      "internalLinkStatus": "Shackelford County school↔county source code committed; live check not done",
-      "seoStatus": "Albany-specific title/description and Lions identity/FAQ source code committed; production check pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Parent and continuation PR protected merge and deployment",
-        "Individual mobile/desktop Chrome acceptance school/county",
-        "Commercial stadium photograph reuse rights",
-        "Game-specific ADA, parking and ticket confirmation"
+        "Commercially cleared stadium photograph",
+        "Official ADA, parking and tickets"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -790,6 +1057,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -805,7 +1101,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Parent and continuation PR protected merge and deployment",
+        "Individual mobile/desktop Chrome acceptance school/county",
+        "Commercial stadium photograph reuse rights",
+        "Game-specific ADA, parking and ticket confirmation"
+      ]
     },
     {
       "id": "uil:aledo",
@@ -818,7 +1120,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aledo",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -841,14 +1143,12 @@
         "77c5bd3895f738f20a01752cf9d705e3d60afa86"
       ],
       "imageStatus": "Original championship timeline; authentic school/stadium photos withheld without license",
-      "internalLinkStatus": "Parker County reciprocal link committed in existing school/county architecture, production pending",
-      "seoStatus": "Individual 12-title/6A title/description and verified Bearcats school colors committed",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected parent/continuation merges",
-        "Actual desktop/mobile Aledo/Parker Chrome QA",
-        "Current ticket/parking/accessible stadium gates",
-        "Authentic sports photo reuse rights"
+        "Official current ticketing/parking/accessible gates",
+        "Licensed sports photograph"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -859,6 +1159,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -874,7 +1203,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected parent/continuation merges",
+        "Actual desktop/mobile Aledo/Parker Chrome QA",
+        "Current ticket/parking/accessible stadium gates",
+        "Authentic sports photo reuse rights"
+      ]
     },
     {
       "id": "uil:alice",
@@ -887,7 +1222,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alice",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -900,14 +1235,12 @@
         "a846f94ac0c8ad3b7d43551113713bbf4a07fe0c"
       ],
       "imageStatus": "School-specific sourced milestone graphics, no cleared documentary photography",
-      "internalLinkStatus": "Jim Wells County reciprocal source code committed, production pending",
-      "seoStatus": "Distinct Alice title, metadata and Coyotes identity coded, not production tested",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected PR merge",
-        "Deployment verification",
-        "Mobile/desktop Alice and Jim Wells QA",
-        "Stadium parking, ticketing, accessible gates and photo license"
+        "Official stadium parking/tickets/ADA gates",
+        "Licensed photograph"
       ],
       "evidenceSources": [
         "https://ahs.aliceisd.net/en-US/football-e260d291",
@@ -926,6 +1259,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -941,7 +1303,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected PR merge",
+        "Deployment verification",
+        "Mobile/desktop Alice and Jim Wells QA",
+        "Stadium parking, ticketing, accessible gates and photo license"
+      ]
     },
     {
       "id": "uil:alief-elsik",
@@ -954,7 +1322,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-elsik",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -973,14 +1341,12 @@
         "419e6e84e7a81f4f3fa2e81f5d2422deab06b744"
       ],
       "imageStatus": "Original sourced milestone graphics; licensed authentic images unavailable",
-      "internalLinkStatus": "Harris County links committed, production pending",
-      "seoStatus": "Individual Elsik editorial and identity metadata coded; validation pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected PR merges",
-        "Production deployment and browser QA",
-        "Official stadium entrance, ADA/parking and tickets",
-        "Authentic school image reuse rights"
+        "Official stadium gate, ADA parking and tickets",
+        "Licensed image"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -991,6 +1357,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "PASS",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1006,7 +1401,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected PR merges",
+        "Production deployment and browser QA",
+        "Official stadium entrance, ADA/parking and tickets",
+        "Authentic school image reuse rights"
+      ]
     },
     {
       "id": "uil:alief-hastings",
@@ -1019,7 +1420,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-hastings",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "auditCompletedAt": "2026-10-09",
       "researchCompletedAt": "2026-10-09",
@@ -1040,14 +1441,12 @@
         "1f1f847354c3e5c329ab5288b945e9817c12511e"
       ],
       "imageStatus": "School-specific sourced milestones, no reuse rights for real photographs",
-      "internalLinkStatus": "Harris County inbound/outbound committed, live QA pending",
-      "seoStatus": "School-specific title/description and real state-final fact coded; QA pending",
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "outstanding": [
-        "Protected merges/deploy",
-        "School/Harris mobile/desktop live checks",
-        "Stadium gate/ADA/parking/tickets and press-box completion status",
-        "Legally cleared real stadium/team image"
+        "Official stadium gate, ADA, tickets and press-box completion",
+        "Licensed image"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -1058,6 +1457,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "PASS",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1073,7 +1501,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merges/deploy",
+        "School/Harris mobile/desktop live checks",
+        "Stadium gate/ADA/parking/tickets and press-box completion status",
+        "Legally cleared real stadium/team image"
+      ]
     },
     {
       "id": "uil:alief-taylor",
@@ -1086,7 +1520,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alief-taylor",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alief-taylor.md",
       "researchDate": "2026-10-09",
@@ -1095,13 +1529,10 @@
         "f53ae27b8d6984764ce8851868beaac65e5bd3cf",
         "fd77e1ff1671bffa7af9b7a72b2b27df79de10da"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Protected parent and continuation merges",
-        "Production deployment",
-        "Rendered mobile/desktop and SEO acceptance",
-        "Unlicensed authentic team/stadium photography",
-        "Primary confirmation of head coach and game-day gate"
+        "Licensed image",
+        "Primary-source coaching verification and game-day stadium gates"
       ],
       "schoolNote": "docs/football-authority/schools/alief-taylor.md",
       "auditCompletedAt": "2026-10-09",
@@ -1112,14 +1543,11 @@
         "fd77e1ff1671bffa7af9b7a72b2b27df79de10da"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Protected parent and continuation merges",
-        "Production deployment",
-        "Rendered mobile/desktop and SEO acceptance",
-        "Unlicensed authentic team/stadium photography",
-        "Primary confirmation of head coach and game-day gate"
+        "Licensed image",
+        "Primary-source coaching verification and game-day stadium gates"
       ],
       "evidenceSources": [
         "https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf",
@@ -1139,6 +1567,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "PASS",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1154,7 +1611,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected parent and continuation merges",
+        "Production deployment",
+        "Rendered mobile/desktop and SEO acceptance",
+        "Unlicensed authentic team/stadium photography",
+        "Primary confirmation of head coach and game-day gate"
+      ]
     },
     {
       "id": "featured:all-saints-fort-worth",
@@ -1167,7 +1631,7 @@
       "format": "11-Man",
       "source": "https://www.maxpreps.com/tx/fort-worth/all-saints-saints/football/history/",
       "url": "https://texasdefined.com/texas-high-school-football-teams/all-saints-fort-worth",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/all-saints-fort-worth.md",
       "researchDate": "2026-10-09",
@@ -1175,13 +1639,11 @@
       "commits": [
         "ba647f975a649548bcb84e61265a96d782236ff6"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Protected merges and deployment",
-        "Individual rendered production acceptance",
-        "Unlicensed authentic images",
-        "Game-specific stadium entrance and ticket policies",
-        "Coach and schedule future freshness"
+        "Licensed image",
+        "Game-day stadium entrance and tickets",
+        "Coach/schedule season freshness"
       ],
       "schoolNote": "docs/football-authority/schools/all-saints-fort-worth.md",
       "auditCompletedAt": "2026-10-09",
@@ -1191,14 +1653,12 @@
         "ba647f975a649548bcb84e61265a96d782236ff6"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Protected merges and deployment",
-        "Individual rendered production acceptance",
-        "Unlicensed authentic images",
-        "Game-specific stadium entrance and ticket policies",
-        "Coach and schedule future freshness"
+        "Licensed image",
+        "Game-day stadium entrance and tickets",
+        "Coach/schedule season freshness"
       ],
       "evidenceSources": [
         "https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall",
@@ -1218,6 +1678,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "PASS",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1233,7 +1722,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merges and deployment",
+        "Individual rendered production acceptance",
+        "Unlicensed authentic images",
+        "Game-specific stadium entrance and ticket policies",
+        "Coach and schedule future freshness"
+      ]
     },
     {
       "id": "uil:allen",
@@ -1246,7 +1742,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/allen",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/allen.md",
       "researchDate": "2026-10-09",
@@ -1254,12 +1750,10 @@
       "commits": [
         "0005a98da25da7446159103c129f330cd5fd891b"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Protected merge/deploy",
-        "Real desktop/mobile QA and links",
-        "Unlicensed authentic photos",
-        "Verify live scores after October 9"
+        "Licensed image",
+        "Refresh live scores after 2026-10-09"
       ],
       "schoolNote": "docs/football-authority/schools/allen.md",
       "auditCompletedAt": "2026-10-09",
@@ -1269,13 +1763,11 @@
         "0005a98da25da7446159103c129f330cd5fd891b"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Protected merge/deploy",
-        "Real desktop/mobile QA and links",
-        "Unlicensed authentic photos",
-        "Verify live scores after October 9"
+        "Licensed image",
+        "Refresh live scores after 2026-10-09"
       ],
       "evidenceSources": [
         "https://www.allenisd.org/page/athletics",
@@ -1298,6 +1790,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1313,7 +1834,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merge/deploy",
+        "Real desktop/mobile QA and links",
+        "Unlicensed authentic photos",
+        "Verify live scores after October 9"
+      ]
     },
     {
       "id": "uil:alpine",
@@ -1326,7 +1853,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alpine",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alpine.md",
       "researchDate": "2026-10-09",
@@ -1334,12 +1861,10 @@
       "commits": [
         "1d4644337713c0242fa525c940be462583c9c34a"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Protected merges and deploy",
-        "Actual mobile/desktop acceptance",
-        "No verified licensed stadium image",
-        "Stadium gate and updated Oct 2026 results"
+        "Licensed stadium image",
+        "Official stadium gate and fresh October 2026 results"
       ],
       "schoolNote": "docs/football-authority/schools/alpine.md",
       "auditCompletedAt": "2026-10-09",
@@ -1349,13 +1874,11 @@
         "1d4644337713c0242fa525c940be462583c9c34a"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Protected merges and deploy",
-        "Actual mobile/desktop acceptance",
-        "No verified licensed stadium image",
-        "Stadium gate and updated Oct 2026 results"
+        "Licensed stadium image",
+        "Official stadium gate and fresh October 2026 results"
       ],
       "evidenceSources": [
         "https://alpine.esc18.net/high-school",
@@ -1374,6 +1897,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1389,7 +1941,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merges and deploy",
+        "Actual mobile/desktop acceptance",
+        "No verified licensed stadium image",
+        "Stadium gate and updated Oct 2026 results"
+      ]
     },
     {
       "id": "uil:altair-rice",
@@ -1402,7 +1960,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/altair-rice",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/altair-rice.md",
       "researchDate": "2026-10-09",
@@ -1410,13 +1968,11 @@
       "commits": [
         "d72985a15713e97b21b04859b371758c7cc439a8"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Protected merges and deployment",
-        "Current verified coach appointment",
-        "Finalized October results",
-        "Official stadium entrance and image rights",
-        "Mobile/desktop browser acceptance"
+        "Official 2026 coach appointment",
+        "Fresh October results",
+        "Stadium entrance and image rights"
       ],
       "schoolNote": "docs/football-authority/schools/altair-rice.md",
       "auditCompletedAt": "2026-10-09",
@@ -1426,14 +1982,12 @@
         "d72985a15713e97b21b04859b371758c7cc439a8"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Protected merges and deployment",
-        "Current verified coach appointment",
-        "Finalized October results",
-        "Official stadium entrance and image rights",
-        "Mobile/desktop browser acceptance"
+        "Official 2026 coach appointment",
+        "Fresh October results",
+        "Stadium entrance and image rights"
       ],
       "evidenceSources": [
         "https://ricehs.ricecisd.org/athletics",
@@ -1451,6 +2005,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1466,7 +2049,14 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Protected merges and deployment",
+        "Current verified coach appointment",
+        "Finalized October results",
+        "Official stadium entrance and image rights",
+        "Mobile/desktop browser acceptance"
+      ]
     },
     {
       "id": "uil:alto",
@@ -1479,7 +2069,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alto",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alto.md",
       "researchDate": "2026-10-09",
@@ -1487,12 +2077,9 @@
       "commits": [
         "ab4473f6ca2059aaa392df8d8aeb1b25de4fbdd6"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Verify current head coach official",
-        "Image rights and stadium gate",
-        "Actual production mobile/desktop review",
-        "Protected merges and deploy"
+        "Photo rights and stadium gate"
       ],
       "schoolNote": "docs/football-authority/schools/alto.md",
       "auditCompletedAt": "2026-10-09",
@@ -1502,20 +2089,18 @@
         "ab4473f6ca2059aaa392df8d8aeb1b25de4fbdd6"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Verify current head coach official",
-        "Image rights and stadium gate",
-        "Actual production mobile/desktop review",
-        "Protected merges and deploy"
+        "Photo rights and stadium gate"
       ],
       "evidenceSources": [
         "https://www.maxpreps.com/tx/alto/alto-yellowjackets/football/schedule/",
         "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
         "https://www.uiltexas.org/football/archives/P208",
         "https://www.texasfootball.com/team/alto-yellowjackets",
-        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf"
+        "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "https://www.alto.esc7.net/staff?page_no=5"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -1526,6 +2111,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1541,6 +2155,18 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
+      },
+      "outstandingAtImplementation": [
+        "Verify current head coach official",
+        "Image rights and stadium gate",
+        "Actual production mobile/desktop review",
+        "Protected merges and deploy"
+      ],
+      "coachVerification": {
+        "name": "Scott Ponder",
+        "role": "Alto ISD athletic director and head football coach, confirmed in current official staff directory",
+        "primarySourceUrl": "https://www.alto.esc7.net/staff?page_no=5",
+        "verifiedAt": "2026-10-09"
       }
     },
     {
@@ -1554,7 +2180,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvarado",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvarado.md",
       "researchDate": "2026-10-09",
@@ -1562,12 +2188,10 @@
       "commits": [
         "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "2026 official head coach",
-        "Historical title-game opponent/date",
-        "Photo rights and stadium gate",
-        "Protected merges and deployed browser acceptance"
+        "Historic title game opponent/date verification",
+        "Photo rights and stadium gate"
       ],
       "schoolNote": "docs/football-authority/schools/alvarado.md",
       "auditCompletedAt": "2026-10-09",
@@ -1577,19 +2201,18 @@
         "a366ccdc7712922c0ca57d040d7dcb824da84f8f"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "2026 official head coach",
-        "Historical title-game opponent/date",
-        "Photo rights and stadium gate",
-        "Protected merges and deployed browser acceptance"
+        "Historic title game opponent/date verification",
+        "Photo rights and stadium gate"
       ],
       "evidenceSources": [
         "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/schedule/",
         "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
         "https://www.maxpreps.com/tx/alvarado/alvarado-indians/football/history/",
-        "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf"
+        "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
+        "https://ahs.alvaradoisd.net/about/leadership"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -1600,6 +2223,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1615,6 +2267,18 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
+      },
+      "outstandingAtImplementation": [
+        "2026 official head coach",
+        "Historical title-game opponent/date",
+        "Photo rights and stadium gate",
+        "Protected merges and deployed browser acceptance"
+      ],
+      "coachVerification": {
+        "name": "Aubrey Sims",
+        "role": "Alvarado High athletic director and head football coach, current official school leadership",
+        "primarySourceUrl": "https://ahs.alvaradoisd.net/about/leadership",
+        "verifiedAt": "2026-10-09"
       }
     },
     {
@@ -1628,7 +2292,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvin.md",
       "researchDate": "2026-10-09",
@@ -1636,11 +2300,9 @@
       "commits": [
         "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Current coach not verified",
-        "Venue gate and authentic photo rights",
-        "Protected merges/deploy and actual browser acceptance"
+        "Venue gate and photo rights"
       ],
       "schoolNote": "docs/football-authority/schools/alvin.md",
       "auditCompletedAt": "2026-10-09",
@@ -1650,17 +2312,16 @@
         "3b7e088d73b17724da26b7d5f9a693d4febc9d42"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Current coach not verified",
-        "Venue gate and authentic photo rights",
-        "Protected merges/deploy and actual browser acceptance"
+        "Venue gate and photo rights"
       ],
       "evidenceSources": [
         "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
         "https://www.texasfootball.com/team/alvin-yellowjackets",
-        "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/"
+        "https://www.maxpreps.com/tx/alvin/alvin-yellowjackets/football/schedule/",
+        "https://www.alvinisd.net/o/ahs/staff"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -1671,6 +2332,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1686,6 +2376,17 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
+      },
+      "outstandingAtImplementation": [
+        "Current coach not verified",
+        "Venue gate and authentic photo rights",
+        "Protected merges/deploy and actual browser acceptance"
+      ],
+      "coachVerification": {
+        "name": "Matthew Bass",
+        "role": "Alvin High assistant athletic director and head football coach, official school staff",
+        "primarySourceUrl": "https://www.alvinisd.net/o/ahs/staff",
+        "verifiedAt": "2026-10-09"
       }
     },
     {
@@ -1699,7 +2400,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-iowa-colony",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvin-iowa-colony.md",
       "researchDate": "2026-10-09",
@@ -1707,12 +2408,11 @@
       "commits": [
         "7ce33de147d516ee9a5118109c12b946122aec41"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Freedom Field gate and unreliable capacity",
-        "Current official coaching confirmation",
-        "Authentic image rights",
-        "Merged deployment and mobile desktop acceptance"
+        "Freedom Field gate and capacity clarification",
+        "Current coach",
+        "Authentic image rights"
       ],
       "schoolNote": "docs/football-authority/schools/alvin-iowa-colony.md",
       "auditCompletedAt": "2026-10-09",
@@ -1722,13 +2422,12 @@
         "7ce33de147d516ee9a5118109c12b946122aec41"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Freedom Field gate and unreliable capacity",
-        "Current official coaching confirmation",
-        "Authentic image rights",
-        "Merged deployment and mobile desktop acceptance"
+        "Freedom Field gate and capacity clarification",
+        "Current coach",
+        "Authentic image rights"
       ],
       "evidenceSources": [
         "https://www.maxpreps.com/tx/iowa-colony/iowa-colony-pioneers/football/schedule/",
@@ -1745,6 +2444,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1760,7 +2488,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Freedom Field gate and unreliable capacity",
+        "Current official coaching confirmation",
+        "Authentic image rights",
+        "Merged deployment and mobile desktop acceptance"
+      ]
     },
     {
       "id": "uil:alvin-shadow-creek",
@@ -1773,7 +2507,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvin-shadow-creek",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvin-shadow-creek.md",
       "researchDate": "2026-10-09",
@@ -1781,11 +2515,10 @@
       "commits": [
         "f7ee89c1257d5291593aa3c79452fff545203bc1"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Current official 2026 coach",
-        "Freedom Field spectator gate and image rights",
-        "Protected merges and production responsive acceptance"
+        "Current 2026 coach",
+        "Freedom Field spectator gate and photo rights"
       ],
       "schoolNote": "docs/football-authority/schools/alvin-shadow-creek.md",
       "auditCompletedAt": "2026-10-09",
@@ -1795,12 +2528,11 @@
         "f7ee89c1257d5291593aa3c79452fff545203bc1"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Current official 2026 coach",
-        "Freedom Field spectator gate and image rights",
-        "Protected merges and production responsive acceptance"
+        "Current 2026 coach",
+        "Freedom Field spectator gate and photo rights"
       ],
       "evidenceSources": [
         "https://www.uiltexas.org/football/archives/f6ecdc319151b973627d86e50f92072a/P72",
@@ -1819,6 +2551,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1834,7 +2595,12 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Current official 2026 coach",
+        "Freedom Field spectator gate and image rights",
+        "Protected merges and production responsive acceptance"
+      ]
     },
     {
       "id": "uil:alvord",
@@ -1847,7 +2613,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/alvord",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/alvord.md",
       "researchDate": "2026-10-09",
@@ -1855,12 +2621,11 @@
       "commits": [
         "f0b9df005078020fb4f1a3ae6b13fcd6146bd2a1"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Stadium game-night gate",
-        "Independently verify 2026 head coach",
-        "Photo rights",
-        "Merge deploy and individual browser acceptance"
+        "Official stadium gate",
+        "Official head coach confirmation",
+        "Photo rights"
       ],
       "schoolNote": "docs/football-authority/schools/alvord.md",
       "auditCompletedAt": "2026-10-09",
@@ -1870,13 +2635,12 @@
         "f0b9df005078020fb4f1a3ae6b13fcd6146bd2a1"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Stadium game-night gate",
-        "Independently verify 2026 head coach",
-        "Photo rights",
-        "Merge deploy and individual browser acceptance"
+        "Official stadium gate",
+        "Official head coach confirmation",
+        "Photo rights"
       ],
       "evidenceSources": [
         "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
@@ -1893,6 +2657,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1908,7 +2701,13 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
-      }
+      },
+      "outstandingAtImplementation": [
+        "Stadium game-night gate",
+        "Independently verify 2026 head coach",
+        "Photo rights",
+        "Merge deploy and individual browser acceptance"
+      ]
     },
     {
       "id": "uil:amarillo",
@@ -1921,7 +2720,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "batch": 2,
       "audit": "docs/football-authority/schools/amarillo.md",
       "researchDate": "2026-10-09",
@@ -1929,12 +2728,10 @@
       "commits": [
         "9d2486f78770fd313955e5f6c8142a64ebf40e69"
       ],
-      "productionVerification": "BROWSER_PASS_SUPPLEMENTAL_REVIEW_PENDING",
+      "productionVerification": "BROWSER_PASS_ALL_BATCH_002_CHECKS",
       "blockers": [
-        "Confirm official current coach and stadium ticket policy",
-        "Photo rights and city/county links",
-        "Protected parent and continuation merges",
-        "Deployed interactive mobile/desktop acceptance"
+        "Official stadium tickets, entrance and accessible arrival",
+        "Photo rights"
       ],
       "schoolNote": "docs/football-authority/schools/amarillo.md",
       "auditCompletedAt": "2026-10-09",
@@ -1944,13 +2741,11 @@
         "9d2486f78770fd313955e5f6c8142a64ebf40e69"
       ],
       "imageStatus": "Unlicensed real school photos not copied; original source-backed editorial graphics and timelines",
-      "internalLinkStatus": "Reciprocal school/county links require individual post-deploy QA",
-      "seoStatus": "Individual title/description/editorial coded; production acceptance pending",
+      "internalLinkStatus": "LIVE PASS: school/county reciprocal links and applicable Houston/Fort Worth city links verified on desktop and mobile in run #37999320417",
+      "seoStatus": "LIVE PASS: HTTP 200, canonical, one H1, indexability, citations, SportsTeam/Breadcrumb schema, responsive display in run #37999320417",
       "outstanding": [
-        "Confirm official current coach and stadium ticket policy",
-        "Photo rights and city/county links",
-        "Protected parent and continuation merges",
-        "Deployed interactive mobile/desktop acceptance"
+        "Official stadium tickets, entrance and accessible arrival",
+        "Photo rights"
       ],
       "evidenceSources": [
         "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000142",
@@ -1959,7 +2754,8 @@
         "https://www.texasfootball.com/hof-blair-cherry",
         "https://www.texasfootball.com/article/2025/03/05/texas-high-school-football-program-spotlight-amarillo-sandies",
         "https://txprepfootball.com/schools/amarillo-sandies/",
-        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf"
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "https://www.sandiesfootball.com/contact"
       ],
       "mergedPr": 4443,
       "mergedCommit": "196504b698452cb39c32a9437a128ec4d11b0313",
@@ -1970,6 +2766,35 @@
         "url": "https://github.com/keeptxred/TexasDefined/actions/runs/37967100680"
       },
       "productionAcceptance": {
+        "runId": 37999320417,
+        "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+        "deploymentRunId": 37998837557,
+        "artifactId": 11648543332,
+        "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417",
+        "artifactUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/37999320417/artifacts/11648543332",
+        "checkedAt": "2026-10-09T22:32:37.930Z",
+        "schoolDesktop": "PASS",
+        "schoolMobile390": "PASS",
+        "countyDesktop": "PASS",
+        "countyMobile390": "PASS",
+        "cityReciprocal": "NOT_APPLICABLE",
+        "sitemapMembership": "PASS",
+        "canonicalAndStructuredData": "PASS",
+        "noHorizontalOverflow": "PASS",
+        "browserRuntime": "PASS",
+        "fullRunResults": {
+          "schoolViewportPassed": 50,
+          "countyViewportPassed": 36,
+          "cityViewportPassed": 4,
+          "failedChecks": 0,
+          "sitemapPassed": 25
+        },
+        "manualScreenshotReview": "FIRST_SCREEN_VISUAL_CONTACT_SHEET_REVIEW_90_SCREENSHOTS",
+        "scopeNote": "Technical production acceptance only; unresolved licensed photos, coach/records questions, stadium access, ADA, parking and tickets are retained as editorial follow-ups."
+      },
+      "actualProductionVerified": true,
+      "productionVerifiedAt": "2026-10-09T22:32:37.930Z",
+      "priorBatch002Acceptance": {
         "testedCommit": "7c807f93f39f05a7b6a847c1cbe71c36cb5af41b",
         "runId": 37979198239,
         "jobId": 113985092932,
@@ -1985,6 +2810,18 @@
         "automatedResult": "PASS",
         "manualScreenshotReview": "NOT_PERFORMED",
         "supplementalChecks": "City-specific reciprocal links and per-slug live sitemap membership not individually asserted"
+      },
+      "outstandingAtImplementation": [
+        "Confirm official current coach and stadium ticket policy",
+        "Photo rights and city/county links",
+        "Protected parent and continuation merges",
+        "Deployed interactive mobile/desktop acceptance"
+      ],
+      "coachVerification": {
+        "name": "Chad Dunnam",
+        "role": "Amarillo High head football coach, confirmed by program coaching roster",
+        "primarySourceUrl": "https://www.sandiesfootball.com/contact",
+        "verifiedAt": "2026-10-09"
       }
     },
     {
@@ -19979,6 +20816,49 @@
       "futureSchoolCapPerChat": 3,
       "schoolExecutionConcurrency": 1,
       "acceptanceStatus": "Batch 001 complete: Wills Point, Abbott, Katy, Fort Davis and Southlake Carroll individually VERIFIED through real mobile+desktop production Chrome, with exact run and screenshot evidence per school. The unrelated Fort Worth city aggregate live check failure remains separately unresolved and not reported as a pass."
+    },
+    {
+      "number": 2,
+      "slugs": [
+        "abernathy",
+        "abilene",
+        "abilene-cooper",
+        "abilene-texas-leadership",
+        "abilene-wylie",
+        "ackerly-sands",
+        "agua-dulce",
+        "alba-golden",
+        "albany",
+        "aledo",
+        "alice",
+        "alief-elsik",
+        "alief-hastings",
+        "alief-taylor",
+        "all-saints-fort-worth",
+        "allen",
+        "alpine",
+        "altair-rice",
+        "alto",
+        "alvarado",
+        "alvin",
+        "alvin-iowa-colony",
+        "alvin-shadow-creek",
+        "alvord",
+        "amarillo"
+      ],
+      "state": "VERIFIED_BATCH_002_COMPLETE",
+      "individuallyVerified": 25,
+      "verifiedAt": "2026-10-09T22:32:37.930Z",
+      "productionBrowserRunId": 37999320417,
+      "artifactId": 11648543332,
+      "deploymentRunId": 37998837557,
+      "testedCommit": "320cca41bd120b9eea3135506e9d6c5a9f7d434e",
+      "schoolViewportPassed": 50,
+      "countyViewportPassed": 36,
+      "cityViewportPassed": 4,
+      "sitemapPassed": 25,
+      "failedChecks": 0,
+      "qualification": "Acceptance is browser/SEO/link verification; photo licensing and official game-day/coach/source caveats remain per school."
     }
   ]
 }

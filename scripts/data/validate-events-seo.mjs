@@ -229,7 +229,7 @@ for (const feature of [
   'previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate',
   'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
   'description: event.whyItMatters',
-  'startDate: window.startDate',
+  'startDate: occurrenceWindows.length === 1 && event.startDateTime?.startsWith(window.startDate)',
   'const defaultLocation = {',
   '"@type": "Place"',
   'const location = venueGuide',

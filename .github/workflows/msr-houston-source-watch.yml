@@ -1,0 +1,71 @@
+name: MSR Houston source freshness
+
+on:
+  schedule:
+    # Monday and Thursday mornings in Texas (09:25 CDT / 08:25 CST).
+    - cron: '25 14 * * 1,4'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/ci/watch-msr-houston-sources.mjs
+      - src/components/sports/MSRHoustonAuthoritySections.tsx
+      - src/components/sports/MSRHoustonEventsFallback.tsx
+      - src/data/sports-venue-enrichment-batch4-racing.ts
+      - src/data/knowledge-graph/current-entity-corrections.ts
+      - src/routes/sports-venues.$landing.tsx
+      - .github/workflows/msr-houston-source-watch.yml
+  pull_request:
+    paths:
+      - scripts/ci/watch-msr-houston-sources.mjs
+      - .github/workflows/msr-houston-source-watch.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Check venue operating facts and dated events
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source-check parsing
+        run: node scripts/ci/watch-msr-houston-sources.mjs --self-test
+      - name: Check operator sources, canonical visitor guide and remaining events
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/watch-msr-houston-sources.mjs
+      # A single open issue captures ongoing drift without multiplying identical
+      # alerts. Publication and source-date changes always require human review.
+      - name: Open deduplicated editorial review issue on source drift
+        if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = 'MSR Houston: source or event-freshness review needed';
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            if (issues.some((issue) => !issue.pull_request && issue.title === title)) {
+              core.info('Existing MSR Houston freshness issue is open; no duplicate created.');
+              return;
+            }
+            const body = [
+              'The free scheduled MSR Houston source watch found a possible change.',
+              '',
+              'Review official karting closure, member-guest driving fee, event dates, the canonical MSR Houston guide, and the motorsports directory.',
+              '',
+              'Workflow evidence: ' + context.serverUrl + '/' + owner + '/' + repo + '/actions/runs/' + context.runId,
+              '',
+              'Sources: https://msrhouston.com/karting/ · https://msrhouston.com/membership/ · https://msrhouston.com/events/',
+              '',
+              'Do not treat absence of an upstream notice as confirmed reopening; investigate and publish only independently verified changes.',
+            ].join('\n');
+            await github.rest.issues.create({ owner, repo, title, body });
