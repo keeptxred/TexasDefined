@@ -1239,8 +1239,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "2026",
         "title": "Burger Stadium game planning",
-        "body": "The program lists Burger Stadium at 200 Jones Road as its stadium; fans should confirm home-game gates, parking and any AISD policy changes by date.",
-        "sourceUrl": "https://www.bowiefootball.org/programinfo",
+        "body": "Austin ISD identifies Toney Burger Athletic Center at 3200 Jones Road and lists 15,000 stadium seats; the team's booster site gives an inconsistent abbreviated address. Use district owner records for navigation and confirm entry policies.",
+        "sourceUrl": "https://www.austinisd.org/athletics/facilities/burger",
         "sourceLabel": "Bowie stadium program page"
       }
     ],
@@ -1260,7 +1260,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where does the Bowie football program list its home stadium?",
-        "answer": "The Bowie football program lists Burger Stadium at 200 Jones Road, Austin. Verify the individual varsity fixture before traveling."
+        "answer": "Bowie lists Burger Stadium as its football home site. Austin ISD, the facility owner, gives the correct address as 3200 Jones Road; verify a specific game's site before travel."
       }
     ],
     "coach": {
@@ -1272,11 +1272,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Burger Stadium",
-      "address": "200 Jones Road, Austin, TX 78745",
-      "sourceUrl": "https://www.bowiefootball.org/programinfo",
-      "sourceLabel": "Bowie football first-party program information",
+      "address": "3200 Jones Road, Austin, TX 78745",
+      "sourceUrl": "https://www.austinisd.org/athletics/facilities/burger",
+      "sourceLabel": "Austin ISD official Toney Burger Athletic Center facility directory",
       "verifiedAt": "2026-10-10",
-      "note": "Bowie booster guide identifies Burger as home facility and advertises nominal 15,000 capacity. Not proof of accessible ticket allocation or any specific 2026 game's venue."
+      "note": "Austin ISD official site documents 3200 Jones Road, 15,000 spectator seating and synthetic turf. An independent Bowie football team page displays a conflicting 200 Jones Rd abbreviation; use the owner district address and verify actual game and accessible entrance."
     }
   },
   "austin-anderson": {
