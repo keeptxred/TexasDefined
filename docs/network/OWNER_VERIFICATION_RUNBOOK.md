@@ -68,3 +68,7 @@ The Network admin panel uses **`NETWORK_ADMIN_ACCESS_KEY`**, separately from spo
 
 ## Owner sign-in email launch gate
 Set `NETWORK_OWNER_PORTAL_ENABLED=true` only after verifying the Supabase Auth sender/domain and both desktop/mobile magic-link callbacks are approved for TexasDefined. Default OFF disables sign-in email requests on business dashboard and Network billing. If any customers already have paid subscriptions, preserve their ability to authenticate for cancellation/billing, or provide verified alternative customer support; never silently strand paying owners behind a disabled Auth switch. Keep Network notification delivery separately disabled until Office 365 transport is certified.
+
+
+## Supabase advisor follow-up
+The new service-only tables intentionally have RLS with no browser policies: do not “fix” these advisory notices by granting anon/authenticated access. Three Network foreign-key indexes were added in 20261010224825. The shared project's unrelated unused-index, pg_net and Auth password-protection advisories require a separate site-wide review; do not change globally from a Network release workflow without explicit scope approval.

@@ -1,0 +1,4 @@
+-- Applied as migration 20261010224825_network_owner_fk_indexes.
+CREATE INDEX IF NOT EXISTS network_checkout_attempt_owner_fk_idx ON public.texasdefined_network_checkout_attempts(owner_user_id);
+CREATE INDEX IF NOT EXISTS network_owner_verification_owner_fk_idx ON public.texasdefined_network_owner_verifications(owner_user_id);
+CREATE INDEX IF NOT EXISTS network_revision_submitter_fk_idx ON public.texasdefined_network_profile_revisions(submitted_by);
