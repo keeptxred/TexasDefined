@@ -162,7 +162,7 @@ function NetworkJoinPreview() {
           <p className="eyebrow text-primary">One Texas. Everything Connected.</p>
           <h2 className="mx-auto mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Every Texas story deserves to be found.</h2>
           <p className="mx-auto mt-5 max-w-2xl leading-7 text-muted-foreground">Connecting the people, places, and organizations that make Texas what it is.</p>
-          <span className="mt-8 inline-flex rounded-full border border-border bg-background px-7 py-3 text-sm font-semibold text-muted-foreground">Explore the Texas Defined Network</span>
+          <a href="/network/directory" className="mt-8 inline-flex rounded-full border border-primary bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground">Explore the Texas Defined Network</a>
         </Container>
       </section>
     </main>
