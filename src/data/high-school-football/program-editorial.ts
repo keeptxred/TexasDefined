@@ -58,6 +58,173 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "amarillo-palo-duro": {
+    "slug": "amarillo-palo-duro",
+    "theme": {
+      "accentHex": "#D4AA39",
+      "label": "Original editorial gold accent, not an official school logo"
+    },
+    "seo": {
+      "title": "Amarillo Palo Duro Dons Football: 2026 Results, Eric Mims & History",
+      "description": "Palo Duro Dons football: 28 playoff appearances, 2025 ten-win season, 2026 UIL 5A Division II District 2, official game resources and Dick Bivins Stadium."
+    },
+    "coach": {
+      "name": "Eric Mims",
+      "title": "2026 varsity head football coach according to the season's published team staff roster",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/palo-duro-dons/football/staff/",
+      "sourceLabel": "Palo Duro 2026 MaxPreps staff roster updated Sept. 4",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "1400 N Grant St, Amarillo, TX 79107",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/palo-duro-dons/football/staff/",
+      "sourceLabel": "Season staff and high-school campus directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Dons schedule and archived results",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+      "sourceLabel": "Dave Campbell's Texas Football current schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "At least 4–1 through September 25 based on five source-documented games; later games require updated confirmation",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+      "sourceLabel": "DCTF 2026 dated score snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Amarillo",
+          "site": "Home",
+          "result": "L 7–21"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Caprock",
+          "site": "Away",
+          "result": "W 28–3"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Tascosa",
+          "site": "Home",
+          "result": "W 41–14"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Dumas",
+          "site": "Away",
+          "result": "W 41–21"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Wichita Falls Legacy",
+          "site": "Away",
+          "district": true,
+          "result": "W 50–9"
+        },
+        {
+          "date": "Oct. 1",
+          "opponent": "Abilene Cooper",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Lubbock Coronado",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Abilene Wylie",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Wichita Falls Memorial",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Lubbock Cooper",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Dick Bivins Stadium",
+      "address": "Amarillo, TX — spectator gate requires ticket-specific confirmation",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+      "sourceLabel": "DCTF Dons historical venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists Dick Bivins Stadium and a historical 15,000 capacity, but this is not a verified accessible entrance or current capacity inspection. Confirm the assigned home stadium, parking, accessible entry and tickets through Amarillo ISD athletics; the school campus is a separate address."
+    },
+    "overview": [
+      "Palo Duro's Dons represent Palo Duro High School at 1400 North Grant Street in Amarillo. Although the Dons, Caprock Longhorns, Tascosa Rebels and Amarillo Sandies share a city and sometimes opponents, their athletic histories are distinct. The team's documented 2026 coach is Eric Mims according to its September season staff roster.",
+      "Dave Campbell's Texas Football historical directory lists 28 Dons football playoff appearances but no state-championship-game appearances or football state titles. That record makes the Dons a program with deep postseason participation, rather than a team with an invented state championship.",
+      "The football program went 10–2 in 2025 after a 5–5 2024 season, a marked improvement following 4–7 in 2023 and 3–8 in 2022. Those distinct seasons illustrate a resurgence under the staff credited to Eric Mims; the records should not be mischaracterized as state finals.",
+      "The Dons belong to UIL Class 5A Division II, District 2 for 2026–28. Their present district brings games with Abilene Cooper, Abilene Wylie, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial. This alignment is different from Amarillo High and Tascosa in 5A Division I.",
+      "In an unusually valuable cross-city comparison, the Dons' September 2026 results show a 28–3 victory at Caprock and 41–14 against Tascosa after a 21–7 opening loss to Amarillo High. Rivalries are therefore tied to actual played games, not assumed because two schools share a city.",
+      "A September 25 record snapshot shows the Dons 4–1, including a 50–9 road win at Wichita Falls Legacy. Later reporting lists additional October results, but this dated record explicitly stops at five cross-checked games. Official AISD announcements and tickets supersede any stale snapshot for game-day arrangements."
+    ],
+    "milestones": [
+      {
+        "date": "2022–24",
+        "title": "Program builds toward a turnaround",
+        "body": "Results climb from 3–8 in 2022 to 4–7 in 2023 and 5–5 in 2024.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "sourceLabel": "DCTF historical season archive"
+      },
+      {
+        "date": "2025",
+        "title": "Ten-win season and playoff return",
+        "body": "The season archive records a 10–2 Dons campaign, a notable leap from the prior 5–5 year.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "sourceLabel": "DCTF 2025 season record"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "Dons beat Tascosa",
+        "body": "The published Dons schedule records a 41–14 victory over neighboring Tascosa, contrasting the 7–21 loss to Amarillo High on Aug. 28.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "sourceLabel": "DCTF game score ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "A different UIL division from the Sandies",
+        "body": "Palo Duro's UIL District 2 is in 5A Division II, not the Sandies' 5A Division I.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "UIL Class 5A Division II alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Palo Duro won a UIL state football championship?",
+        "answer": "The DCTF program record lists zero state titles and zero state-title-game appearances, with 28 total playoff appearances."
+      },
+      {
+        "question": "Who is the Palo Duro head football coach in 2026?",
+        "answer": "The 2026 MaxPreps staff roster lists Eric Mims, corroborated by the team's recent coaching and season history."
+      },
+      {
+        "question": "What is Palo Duro's UIL classification for 2026?",
+        "answer": "Class 5A Division II, District 2, alongside Abilene Cooper, Abilene Wylie, Lubbock Cooper, Lubbock Coronado, Wichita Falls Legacy and Wichita Falls Memorial."
+      },
+      {
+        "question": "Where do Palo Duro football games take place?",
+        "answer": "Dick Bivins Stadium is the historical listed home facility. Confirm each game assignment and stadium entrance from Amarillo ISD's official athletic ticket and schedule resources."
+      },
+      {
+        "question": "What happened when Palo Duro played Tascosa in 2026?",
+        "answer": "The independent September 11 football score record reports Palo Duro won 41–14. It is a documented 2026 matchup, not an unsupported claim about the all-time series."
+      }
+    ]
+  },
   "amarillo-highland-park": {
     "slug": "amarillo-highland-park",
     "theme": {
