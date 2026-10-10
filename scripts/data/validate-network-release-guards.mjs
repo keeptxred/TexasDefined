@@ -128,4 +128,4 @@ check('intake is reviewable only after media and receipt transaction',
  && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('NEW.intake_complete AND NOT OLD.intake_complete')
  && source('supabase/migrations/20261010225436_network_intake_complete_after_media_upload.sql').includes('network_review_requires_completed_intake'));
 
-check('Featured partial-upload cleanup only targets unreferenced owner media',source('src/routes/business.dashboard.lazy.tsx').includes('const uploadedPaths:string[]=[]')&&source('src/routes/business.dashboard.lazy.tsx').includes('cleanUnsubmitted()')&&source('supabase/migrations/2026101023_network_owner_delete_unreferenced_drafts.sql').includes('NOT EXISTS'));
+check('Featured partial-upload cleanup only targets unreferenced owner media',source('src/routes/business.dashboard.lazy.tsx').includes('const uploadedPaths:string[]=[]')&&source('src/routes/business.dashboard.lazy.tsx').includes('cleanUnsubmitted()')&&source('supabase/migrations/20261010230319_network_owner_delete_unreferenced_drafts.sql').includes('NOT EXISTS'));
