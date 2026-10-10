@@ -180,8 +180,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2020",
         "title": "Warriors preserve name but retire older headdress image",
         "body": "The school announced its imagery transition while continuing its Warriors name and red/black/silver school identity.",
-        "sourceUrl": "https://www.aisd.net/martin-high-school/",
-        "sourceLabel": "Arlington Martin current school, separate from archived historical mascot letter"
+        "sourceUrl": "https://www.aisd.net/martin-high-school/wp-content/files/sites/27/2020/07/Mascot-Letter-Summer-2020.pdf",
+        "sourceLabel": "Arlington Martin principal July 1, 2020 official school mascot letter"
       },
       {
         "date": "2023",
