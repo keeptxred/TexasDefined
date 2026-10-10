@@ -186,7 +186,7 @@ for (const [name, slug, twdbPath] of additionalBasins) {
   const begin = additionalGuides.indexOf(`slug: "${slug}"`);
   const next = begin < 0 ? -1 : additionalGuides.indexOf('\nexport const ', begin);
   const body = begin < 0 ? '' : additionalGuides.slice(begin, next > begin ? next : additionalGuides.length);
-  const wordCount = body.slice(body.indexOf('body: [')).split(/\\s+/).length;
+  const wordCount = body.slice(body.indexOf('body: [')).split(/\s+/).length;
   if (wordCount < 600) errors.push(`New river guide below 600-word floor: ${name}, ${wordCount}`);
   if (!body.includes(`/river_basins/${twdbPath}`)) errors.push(`Missing official TWDB source: ${name}`);
   if (!body.includes('/article/texas-rivers-explained') || !body.includes('/article/texas-river-basins-guide') || !body.includes('/texas-explained')) errors.push(`Missing profile backlinks: ${slug}`);
