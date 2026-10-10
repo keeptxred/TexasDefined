@@ -1,9 +1,8 @@
 name: MSR Houston source freshness
 
 on:
-  schedule:
-    # Monday and Thursday mornings in Texas (09:25 CDT / 08:25 CST).
-    - cron: '25 14 * * 1,4'
+  # Scheduled source checks now run through authority-source-monitor.yml.
+  # This remains available for explicit manual diagnosis without duplicate cron jobs.
   workflow_dispatch:
   push:
     branches: [main]
