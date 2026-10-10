@@ -429,6 +429,7 @@ export const REDIRECT_ONLY_PATHS = [
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/network/join",
+  "/network/apply",
   "/network/example/basic",
   "/network/example/plus",
   "/search",
