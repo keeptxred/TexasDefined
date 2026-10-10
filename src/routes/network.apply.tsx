@@ -12,6 +12,7 @@ type Field = "businessName" | "category" | "description" | "city" | "address" | 
 const INITIAL: Record<Field,string> = {businessName:"",category:"",description:"",city:"",address:"",phone:"",email:"",hours:"",website:"",social:"",services:"",faq:"",offer:""};
 function NetworkApplication() {
   const [plan,setPlan]=useState<Plan>("basic");
+  useEffect(()=>{if(new URLSearchParams(window.location.search).get("plan")==="plus")setPlan("plus");},[]);
   const [fields,setFields]=useState(INITIAL);
   const [logo,setLogo]=useState<string|null>(null);
   const [logoFile,setLogoFile]=useState<File|null>(null);
