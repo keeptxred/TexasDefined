@@ -21,3 +21,6 @@ Original program-specific chronology, 2023 five-game postseason trail, champions
 Exact current UIL alignment district member verification, NCES Collin County campus evidence and inbound county/city linking, rights-cleared authentic photography, official stadium name and accessible gate/parking/2026 ticketing, complete current-season dated scores, SEO and accessibility validators, safe protected merge/deploy and actual mobile/desktop Chrome production inspection. School campus contact is not presented as a verified stadium entry.
 
 **Next school:** Anson.
+
+## First-party venue correction — October 9, 2026
+The official [Anna High athletics facilities directory](https://www.gocoyoteu.com/facilities) places **Coyote Stadium at 1201 N. Powell Parkway, Anna, TX 75409** and lists the **sports complex separately at 1107 Rosamond Parkway**. The official [stadium guidelines](https://www.gocoyoteu.com/stadium-guidelines) describe the 2017 renovation and link tickets, clear-bag and attendance policies. The prior audit's stadium-identity uncertainty is resolved at the location level, **not** at the level of individual game ADA routes, gate assignments or ticket inventory. Editorial correction commit `70caa8b0bd3274cea06e43cb59a4fe0156e29706`. No merge/deploy/live verification claimed.
