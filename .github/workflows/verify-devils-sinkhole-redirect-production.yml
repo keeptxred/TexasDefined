@@ -5,9 +5,9 @@ on:
     paths:
       - 'scripts/ci/verify-devils-sinkhole-redirect-production.mjs'
       - '.github/workflows/verify-devils-sinkhole-redirect-production.yml'
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -18,10 +18,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  syntax:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check redirect verifier syntax without probing undeployed production
+        run: node --check scripts/ci/verify-devils-sinkhole-redirect-production.mjs
+
   verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22

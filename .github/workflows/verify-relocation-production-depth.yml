@@ -1,18 +1,9 @@
 name: Verify relocation production depth
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/verify-relocation-production-depth.yml'
-      - 'src/data/fixtures/relocation-evergreen-depth*.ts'
-      - 'src/data/fixtures/lazy-migrated-editorial.ts'
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/verify-relocation-production-depth.yml'
-      - 'src/data/fixtures/relocation-evergreen-depth*.ts'
-      - 'src/data/fixtures/lazy-migrated-editorial.ts'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -20,8 +11,11 @@ permissions:
 
 jobs:
   verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - name: Verify live relocation guides use depth records
         env:
@@ -29,7 +23,7 @@ jobs:
         run: |
           node <<'NODE'
           const origin = process.env.PRODUCTION_ORIGIN;
-          const revision = `${process.env.GITHUB_SHA}-${process.env.GITHUB_RUN_ID}`;
+          const revision = `${process.env.DEPLOY_SHA}-${process.env.GITHUB_RUN_ID}`;
           const minReadingMinutes = 3;
           const checks = [
             {
