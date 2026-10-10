@@ -56,6 +56,15 @@ All 21 distinct named attraction or venue anchors from the sampled city featured
 - Run #38076892375 reported **imageAlternatives FAIL on all 33 city/viewport combinations** because the runner required every `img` to have a *nonempty* alt value. Explicit `alt=""` is allowed for decorative imagery under accessibility conventions. PR #4587 changes the assertion to require a present alt attribute, recording the number of intentionally empty alternatives and URLs of truly missing attributes. This narrower automated check is **not a full image-semantic or WCAG audit**.
 - The post-deploy Chrome result must not be recorded as 33/33 overall passing until the corrected semantic test passes its own CI and production run.
 
+## Additional municipal county jurisdiction verification — October 10, 2026
+
+| City | Published counties | Independently inspected municipal evidence | Result | Limit |
+|---|---|---|---|---|
+| Plano | Collin, Denton | [City of Plano My Tax Dollars](https://ecop.plano.gov/MyTaxDollar/MyTaxDollar.aspx) explicitly distinguishes Collin versus Denton county residences; [official municipal election resources](https://www.plano.gov/elections?NID=1402) reference both counties | PASS for stated county inclusion | Not parcel-level address verification |
+| Corpus Christi | Nueces, San Patricio, Kleberg, Aransas | [City of Corpus Christi official 2022 election notice](https://www.corpuschristitx.gov/media/fmibd5eg/notice-of-election-long-2022-english-1.pdf) identifies the city as lying in precisely these four counties | PASS for stated county inclusion | Historical municipal notice; requires fresh GIS overlay to certify current boundary geometry |
+
+These are county-list source confirmations only. They are not parcel-level municipal-limit GIS intersection tests. Preserve the separation between city limits and extraterritorial jurisdiction.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
