@@ -17,6 +17,7 @@ const env = read('.env');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const remoteArticles = read('src/data/articles-remote.ts');
 const route = readRouteSurface('src/routes/news.$slug.tsx');
+const newsSchema = read('src/data/news-article-schema.ts');
 const errors = [];
 
 for (const token of ['workflow_dispatch:', 'mode:', 'dry-run', 'publish', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'PUBLISH_TEXASDEFINED']) {
@@ -72,8 +73,11 @@ if (sitemap.includes('fetchPublishedTexasDefinedNewsArticles({ limit: 200 })') |
 if (!route.includes('fetchPublishedTexasDefinedNewsArticle')) errors.push('Live /news article route must resolve only feed-backed published stories.');
 if (!route.includes('isArticleIndexReady(article)')) errors.push('Live /news article route must noindex published stories that do not satisfy the shared public-readiness floor.');
 for (const token of ['article.hero.credit', 'article.sourceUrl', 'article.relatedDestinations']) if (!route.includes(token)) errors.push(`Live article route is missing ${token}`);
-for (const token of ['jsonLd({', '"@type": "NewsArticle"', '"@type": "BreadcrumbList"', 'editorialDeskById(article.authorId)', '<Byline author={editorialDeskById(article.authorId)}']) {
-  if (!route.includes(token)) errors.push(`Published news author/schema contract is missing ${token}`);
+for (const token of ['jsonLd(match.context.liveNewsSchema)', 'buildPublishedNewsArticleSchema(article)', '<Byline author={editorialDeskById(article.authorId)}']) {
+  if (!route.includes(token)) errors.push(`Published news route/author contract is missing ${token}`);
+}
+for (const token of ['"@type": "NewsArticle"', '"@type": "BreadcrumbList"', 'editorialDeskById(article.authorId)', 'article.sourceUrl']) {
+  if (!newsSchema.includes(token)) errors.push(`Published news lazy schema contract is missing ${token}`);
 }
 for (const token of ['"@type":"NewsArticle"', 'missing its institutional editorial byline link']) {
   if (!productionSmoke.includes(token)) errors.push(`Dynamic live story publication smoke is missing ${token}`);
