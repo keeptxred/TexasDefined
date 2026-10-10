@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "beckville",
-    "implementedOnBranch": 15,
-    "remainingToImplement": 10,
+    "nextSchool": "ben-bolt-palito-blanco",
+    "implementedOnBranch": 20,
+    "remainingToImplement": 5,
     "remainingToVerify": 25,
-    "notes": "15 of 25 Batch005 individually sourced editorial records implemented across initial merged #4576 and follow-up branches #4579 and this group3 branch. 10 assigned not yet implemented, 0 production verified; 80 prior VERIFIED protected; group2 and group3 require protected merges and live browser evidence."
+    "notes": "20 school-specific researched Batch005 editorial records implemented across group1 merged and dependent branches #4579, #4583, this group4. 5 schools remaining to implement, zero Batch005 production VERIFIED; previous 80 VERIFIED preserved. Group4 fixes Austin County school-links contamination by separate Austin city high schools; live browser evidence outstanding."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6162,8 +6162,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beckville",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/beckville.md",
+      "officialSchoolUrl": "https://www.beckvilleisd.net/students-parents",
+      "officialAthleticsUrl": "https://www.beckvilleisd.net/",
+      "county": "Panola County",
+      "schoolDistrict": "Beckville ISD",
+      "mascot": "Bearcats",
+      "sourceEvidence": [
+        "https://www.beckvilleisd.net/students-parents",
+        "https://www.nfhsnetwork.com/schools/beckville-high-school-beckville-tx/football",
+        "https://www.texasfootball.com/team/beckville-bearcats"
+      ],
+      "inboundLinks": [
+        "/county/panola"
+      ],
+      "outboundCountyPath": "/county/panola",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_PRODUCTION_QA",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Dependent protected PR reviews and merges",
+        "Independent desktop/mobile production and county-link verification",
+        "Newer ticket/coach facts, stadium access and legal photo reuse review"
+      ]
     },
     {
       "id": "uil:beeville-jones",
@@ -6176,8 +6202,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beeville-jones",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/beeville-jones.md",
+      "officialSchoolUrl": "https://acjoneshs.beevilleisd.net/51042_3",
+      "officialAthleticsUrl": "https://www.beevilleisd.net/26553_4",
+      "county": "Bee County",
+      "schoolDistrict": "Beeville ISD",
+      "mascot": "Trojans",
+      "sourceEvidence": [
+        "https://www.beevilleisd.net/26553_4",
+        "https://acjoneshs.beevilleisd.net/51042_3",
+        "https://acjoneshs.beevilleisd.net/51041_3"
+      ],
+      "inboundLinks": [
+        "/county/bee"
+      ],
+      "outboundCountyPath": "/county/bee",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_PRODUCTION_QA",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Dependent protected PR reviews and merges",
+        "Independent desktop/mobile production and county-link verification",
+        "Newer ticket/coach facts, stadium access and legal photo reuse review"
+      ]
     },
     {
       "id": "uil:bells",
@@ -6190,8 +6242,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bells",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bells.md",
+      "officialSchoolUrl": "https://bellsisd.net/",
+      "officialAthleticsUrl": "https://www.bellsisd.net/343568_2",
+      "county": "Grayson County",
+      "schoolDistrict": "Bells ISD",
+      "mascot": "Panthers",
+      "sourceEvidence": [
+        "https://bellsisd.net/",
+        "https://www.bellsisd.net/343568_2",
+        "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf"
+      ],
+      "inboundLinks": [
+        "/county/grayson"
+      ],
+      "outboundCountyPath": "/county/grayson",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_PRODUCTION_QA",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Dependent protected PR reviews and merges",
+        "Independent desktop/mobile production and county-link verification",
+        "Newer ticket/coach facts, stadium access and legal photo reuse review"
+      ]
     },
     {
       "id": "uil:bellville",
@@ -6204,8 +6282,35 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bellville",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/bellville.md",
+      "officialSchoolUrl": "https://bhs.bellvilleisd.org/",
+      "officialAthleticsUrl": "https://www.bellvilleisd.org/",
+      "county": "Austin County",
+      "schoolDistrict": "Bellville ISD",
+      "mascot": "Brahmas",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/state-team-mp-archive/bellville-2023-2024-football",
+        "https://www.uiltexas.org/100/football",
+        "https://www.bellvilleisd.org/",
+        "https://bhs.bellvilleisd.org/"
+      ],
+      "inboundLinks": [
+        "/county/austin"
+      ],
+      "outboundCountyPath": "/county/austin",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_PRODUCTION_QA",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Dependent protected PR reviews and merges",
+        "Independent desktop/mobile production and county-link verification",
+        "Newer ticket/coach facts, stadium access and legal photo reuse review"
+      ]
     },
     {
       "id": "uil:belton",
@@ -6218,8 +6323,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/belton",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/belton.md",
+      "officialSchoolUrl": "https://www.beltontigers.com/",
+      "officialAthleticsUrl": "https://www.beltontigers.com/sport/football/boys/",
+      "county": "Bell County",
+      "schoolDistrict": "Belton ISD",
+      "mascot": "Tigers",
+      "sourceEvidence": [
+        "https://www.beltontigers.com/sport/football/boys/",
+        "https://www.beltontigers.com/",
+        "https://www.lakebeltonathletics.com/sport/football/boys/?tab=schedule"
+      ],
+      "inboundLinks": [
+        "/county/bell"
+      ],
+      "outboundCountyPath": "/county/bell",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_PRODUCTION_QA",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Dependent protected PR reviews and merges",
+        "Independent desktop/mobile production and county-link verification",
+        "Newer ticket/coach facts, stadium access and legal photo reuse review"
+      ]
     },
     {
       "id": "uil:ben-bolt-palito-blanco",

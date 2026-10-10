@@ -187,9 +187,13 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
   ],
   jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
+  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
+  'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
+  'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
+  austin: [{ name: 'Bellville Brahmas', slug: 'bellville', context: '1960, 1977 and 2023 UIL football state-final appearances in Austin County' }],
   // Batch 005 school-specific campus county links, distinct from away-game stadiums.
   'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
-  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }],
+  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],
   'bastrop': [{ name: "Bastrop Bears", slug: "bastrop", context: "Bears football and shared Memorial Stadium" }, { name: "Cedar Creek Eagles", slug: "bastrop-cedar-creek", context: "Eagles football and shared Memorial Stadium" }],
   'matagorda': [{ name: "Bay City Blackcats", slug: "bay-city", context: "1983 and 2000 UIL championships" }],
   // Batch 005 first five independently verified campuses; historical finals/official current resources.

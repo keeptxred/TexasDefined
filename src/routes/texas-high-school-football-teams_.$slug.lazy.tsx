@@ -41,6 +41,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'beckville': 'panola',
+    'beeville-jones': 'bee',
+    'bells': 'grayson',
+    'bellville': 'austin',
+    'belton': 'bell',
     'baytown-goose-creek-memorial': 'harris',
     'baytown-lee': 'harris',
     'baytown-sterling': 'harris',
