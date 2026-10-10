@@ -1,5 +1,34 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+## FINAL corrected-production certification — October 10, 2026 (CURRENT)
+
+**Batch 004 closed: 25 of 25 VERIFIED, zero pending; original 55 verified schools preserved; 80/1,292 lifetime VERIFIED.** The 19/25, 24/25, or 25/25 *pre-correction* checkpoints farther down this report document historical investigation stages. They are **superseded** by this final result and do not reflect the current registry.
+
+### Exact production and browser proof
+- Corrective [PR #4562](https://github.com/keeptxred/TexasDefined/pull/4562) merged with required protected checks at `97c9571a3b7457d547430d7a63d6debd1144a7d6` and preserved newer unrelated school-history and hydration work.
+- [Production deployment 38065702334](https://github.com/keeptxred/TexasDefined/actions/runs/38065702334) completed **SUCCESS** for that exact merge.
+- [Dedicated *post-deployment* Chrome acceptance 38066125917](https://github.com/keeptxred/TexasDefined/actions/runs/38066125917) completed **SUCCESS** and checked out and tested exactly `97c9571a3b7457d547430d7a63d6debd1144a7d6` (verified in job 114254019829 logs and report.json).
+- [Preserved screenshot and machine-readable evidence artifact 11674878954](https://github.com/keeptxred/TexasDefined/actions/runs/38066125917/artifacts/11674878954) includes 72 viewport screenshots plus `report.json`, dated **2026-10-10T16:06:47.438Z**. Results: **72/72 PASS**, zero failed cases; **50/50 school desktop/mobile checks**, **20/20 county checks**, **2/2 city checks**, and **25/25 sitemap entries present with HTTP 200**. Full report lists each route's returned HTTP status, page H1, title, canonical, source links, overflow, runtime errors and pass/fail.
+- All six corrected school pages were each **HTTP 200, desktop PASS and mobile PASS**, including newly added school identity and false-cancellation regression checks. All school-specific county and appropriate city reciprocal links, robots, schema, source links and visible image checks passed.
+- No current-game tickets/parking/ADA policy, blanket editorial accuracy, unlicensed photo rights or complete WCAG conformance is inferred from automated acceptance.
+
+### Final individual correction evidence
+
+| School | Correction and new acceptance |
+| --- | --- |
+| [Austin High](https://texasdefined.com/texas-high-school-football-teams/austin) | Austin ISD / Travis County enrichment: desktop and mobile PASS |
+| [Austin LBJ Jaguars](https://texasdefined.com/texas-high-school-football-teams/austin-johnson) | Replaced unrelated Round Rock ISD / Williamson County join with Austin ISD / LBJ Jaguars; schema/H1, both viewports PASS |
+| [Austin Lake Travis](https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis) | Removed fabricated season cancellation, updated stadium notice using published football season resources; both viewports PASS |
+| [Austin Northeast](https://texasdefined.com/texas-high-school-football-teams/austin-northeast) | Replaced unrelated Austin Achieve district with Austin ISD; both viewports PASS |
+| [Austin Travis](https://texasdefined.com/texas-high-school-football-teams/austin-travis) | Added source-backed Austin ISD / Travis County location; both viewports PASS |
+| [Austin Vandegrift](https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift) | Corrected campus from Williamson to Travis County, preserved Leander ISD; both viewports PASS |
+
+### Provenance and safe continuation
+
+The earlier 72/72 technical browser run #38061056139 was **not** cited to certify these fixes; its screenshots prompted the factual corrections. The later corrected exact-SHA deployment and browser run were required and have now passed. Each revised `REGISTRY.json` school record retains the prior disputed evidence and adds the actual corrected production run, tested SHA and artifact. `completedBatches` now includes Batch 004 once, and its full 25-record roster is frozen. Next Batch 005 may only select new schools following a current `main` check against other active assignments; never redo these 25. All first-party sourcing, photo-rights and current gameday caveats below remain material.
+
+---
+
 ## Expanded primary-source factual correction (latest; October 10, 2026)
 
 **19 of 25 Batch 004 fully VERIFIED**, **six NEEDS_FOLLOWUP**, **55 prior VERIFIED preserved**, **74 of 1,292 total VERIFIED**. The older 24/25 and 25/25 status headings below chronicle earlier checkpoints, **not current factual certification**.
