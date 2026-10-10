@@ -5,7 +5,7 @@
 ## Baselines and immutable evidence
 
 - Repository: [keeptxred/TexasDefined](https://github.com/keeptxred/TexasDefined); default branch: `main`.
-- Working branch: `chatgpt/ci-verifier-race-audit-wave6-20261010` (initial main baseline `49002b20077875600f224b8e7b54305b46a7a737`; latest main observed immediately before ledger write: `49002b20077875600f224b8e7b54305b46a7a737`). Refresh `main` again before review or merge.
+- Working branch: `chatgpt/ci-verifier-race-audit-wave6-20261010` (initial main baseline `49002b20077875600f224b8e7b54305b46a7a737`; later confirmed main baseline: `cadd9ad57105189c31804135463d59ec5922c618`). Refresh `main` again before review or merge.
 - Full recursive Git tree at 49002b20077875600f224b8e7b54305b46a7a737: **194** workflow files, not truncated. Listing below includes every discovered `.github/workflows/*.yml`; it is intentionally broader than the high-risk production subset.
 - Historic completed PRs: [#4462](https://github.com/keeptxred/TexasDefined/pull/4462) (`7e86c63a367700bda5ce4aabaadc245762647096`), [#4489](https://github.com/keeptxred/TexasDefined/pull/4489) (`991c3f9dbc34b254d2936a75a5410b72c9cd478e`), and [#4528](https://github.com/keeptxred/TexasDefined/pull/4528) (`cb1f4e1bfe405a3830c5ffeff05aa4568ec57360`) are all merged.
 - Prior successful deploy [#38051130783](https://github.com/keeptxred/TexasDefined/actions/runs/38051130783), exact SHA `75b69bbba76ef70730b5a78a4a570dd848946430`: completed success on 2026-10-10; direct Worker, canonical health, sports editorial and final ledger steps succeeded.
@@ -20,7 +20,7 @@
 2. `audit-all-editorial-production.yml`: the existing PR source inventory triggered a 254-county live crawl against the older Worker, masking the PR-live step's errors with `continue-on-error`. Keep the source inventory but execute the live 254-county crawl only on eligible successful deployments or manual invocation. Remove the misleading PR-only error masking.
 3. `scripts/ci/validate-post-deploy-verifier-safety.mjs`: add protected-contract assertions for both corrections. This script is already run in the canonical premerge validation; do not add a competing merge gate.
 
-New correction PR [#4563](https://github.com/keeptxred/TexasDefined/pull/4563), head `4d33541dbb7baff280a8b0d5578042443c122043`: initial Required Merge Gate [#38064583516](https://github.com/keeptxred/TexasDefined/actions/runs/38064583516) **success**, with canonical pre-merge validation and both workflow-specific PR checks passing. **Merge SHA and new production acceptance pending.** Any new ledger commit requires fresh protected CI before merging. Never claim these are complete until the PR passes required CI and merges normally.
+New correction PR [#4563](https://github.com/keeptxred/TexasDefined/pull/4563), initial head `4d33541dbb7baff280a8b0d5578042443c122043`: initial Required Merge Gate [#38064583516](https://github.com/keeptxred/TexasDefined/actions/runs/38064583516) **success**, with canonical pre-merge validation and both workflow-specific PR checks passing. **Merge SHA and new production acceptance pending.** Any new ledger commit requires fresh protected CI before merging. Never claim these are complete until the PR passes required CI and merges normally.
 
 ## Existing safe architecture retained
 
@@ -28,9 +28,9 @@ The protected deploy remains serialized and blocking; native sports-venue editor
 
 ## Workflow inventory and classification
 
-**Method:** All 194 names from the complete Git tree. SAFE = reviewed source and no confirmed issue in the specific race contract; FIX REQUIRED = confirmed PR/live mismatch with a proposed unmerged correction; SPECIAL CASE = deliberate independent health/source/manual or recovery semantics; RETIRED = obsolete and established for retirement (none); UNVERIFIED = not yet individually source-classified. A SAFE label is not proof of a successful recent run or Worker-version identity for each workflow.
+**Method:** All 194 names from the complete Git tree. SAFE = reviewed source and no confirmed issue in the specific race contract; FIX REQUIRED = confirmed PR/live mismatch with a proposed unmerged correction; SPECIAL CASE = deliberate independent health/source/manual or recovery semantics; RETIRED = legacy workflow retained as read-only audit or explicitly fail-closed entry point; UNVERIFIED = not yet individually source-classified. A SAFE label is not proof of a successful recent run or Worker-version identity for each workflow.
 
-Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UNVERIFIED **0**. Total **194**. New #4563 fix workflows: **4** (Apple Springs, 254-county, GSC cohort, editorial image repair); regression-validator changes: **2** (post-deploy and direct-main inventory). Separate #4544 contains the pending river-map checkout correction.
+Counts: SAFE **134**; SPECIAL CASE **49**; RETIRED **6**; FIX REQUIRED **5**; UNVERIFIED **0**. Total **194**. New #4563 fix workflows: **5** (Apple Springs, 254-county, GSC cohort, editorial image repair, Texas river atlas browser); regression-validator changes: **2** (post-deploy and direct-main inventory). The river correction was adapted from the previously opened #4544; do not merge its stale overlapping version onto main.
 
 | Workflow | Classification | Basis / next step |
 |---|---|---|
@@ -241,13 +241,14 @@ Individually read another 46 workflow YAML files beyond the initial focused inve
 
 - `gsc-priority-cohort.yml`: the 20-URL live GSC cohort crawled older production on PRs and path-filtered pushes. The proposed change retains source-only PR checks, scheduled/manual production audits and waits for `texasdefined-production=success` on the **exact push SHA** before a push-triggered crawl.
 - `repair-editorial-image-specificity.yml`: historically committed image changes from default-branch checkout and executed a bare `git push` using a `[skip ci]` message. The proposed change preserves the repair script, but publishes only to a **new reviewed PR branch**, explicitly dispatches the canonical validator on that branch SHA, and does not merge or deploy. `validate-direct-main-writer-inventory.mjs` has targeted no-direct-main/no-skip-CI assertions.
+- `verify-texas-river-map-browser.yml`: post-deploy live Chrome had a moving default-branch checkout although its syntax job was already PR-only. #4563 pins that live job to `workflow_run.head_sha` and adds a regression guard; older PR #4544 provided the original proposed patch. No additional browser job or deployment was introduced.
 - `certify-county-production-reusable.yml` was inspected alongside its governing `validate-county-certifier-consolidation.mjs`: it is a deliberately retained, **non-dispatchable retired interface** whose predecessor configuration is prohibited and whose first merge-config step fails closed at runtime; its old deploy code is inert through the governed entry path. Do not resurrect it or bypass protected production.
 
 ## Remaining mandatory acceptance work
 
 - Source-level classification now covers **all 194** workflows, including non-production filename families. Keep the full register current as main evolves; do not confuse source-level review with successful runtime evidence of each verifier.
 - Check whether any `workflow_run` verifier executing on a superseded release requires an additional Worker-identity guard; do not infer this from a trigger alone. Distinguish true status-attribution defects from non-certifying scheduled health audits.
-- Recheck the active independent concurrent PR [#4544](https://github.com/keeptxred/TexasDefined/pull/4544), which is changing the same regression validator. Reconcile its content if it merges; never force-push over it.
+- Reconcile the older overlapping [#4544](https://github.com/keeptxred/TexasDefined/pull/4544) safely: the current `main` already contains the other source-ordering fixes and #4563 now contains the remaining river SHA pin. Avoid merging its stale branch or overwriting concurrent CI changes. Verify the replacement fully covers its code before considering closure.
 - Run the protected Required Merge Gate on this updated branch; verify updated validator passes, avoid stale synthetic merge refs, check merging against fresh `main` and file blob SHAs; merge normally only if protected checks pass.
 - After merge, confirm deployed SHA, final GitHub `texasdefined-production` status, blocking live verification, Worker identity and recovery ledger; audit downstream statuses on *that exact SHA*. Distinguish subsequent deployments.
 - Update this ledger with PR number, merge commit, CI and deployment evidence. Do not declare full audit certification while any workflow is UNVERIFIED or any new rollout has not passed.
