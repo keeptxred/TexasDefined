@@ -59,7 +59,7 @@ export const Route = createFileRoute("/api/public/network-application")({
           .eq("contact_email",email).gte("created_at",cutoff)
           .in("status",["pending_review","approved","published"]).limit(200);
         if(checkError)throw new Error("Duplicate check temporarily unavailable");
-        const normalize=(value:string)=>value.trim().normalize("NFKC").toLocaleLowerCase("en-US").replace(/\\s+/g," ");
+        const normalize=(value:string)=>value.trim().normalize("NFKC").toLocaleLowerCase("en-US").replace(/\s+/g," ");
         if((recent||[]).some(entry=>normalize(entry.business_name)===normalize(businessName)&&normalize(entry.city)===normalize(city))){
           return response({error:"A recent application for this business has already been received. Contact Texas Defined if you need to correct it."},409);
         }
