@@ -4,6 +4,10 @@ const root = process.cwd();
 const file = p => readFileSync(join(root, p), "utf8");
 const registry = JSON.parse(file("docs/football-authority/REGISTRY.json"));
 const editorial = file("src/data/high-school-football/program-editorial.ts");
+const localPages = file("src/routes/$kind.$slug.lazy.tsx");
+const countyLinks = localPages.split("const batch002FootballCountyLinks:")[1]?.split("const siteUrl")[0] ?? "";
+const cityLinks = localPages.split("const batch002FootballCityLinks:")[1]?.split("const batch001FootballCountyLinks:")[0] ?? "";
+const countyEvidence = file("docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md");
 const expected = [
   "amarillo-caprock","amarillo-highland-park","amarillo-palo-duro",
   "amarillo-river-road","amarillo-tascosa","amherst","anahuac",
@@ -26,6 +30,8 @@ for (const slug of expected) {
   check(rec?.batch === 3, slug + ": wrong registry batch");
   check(["IMPLEMENTED","MERGED","DEPLOYED","VERIFIED","NEEDS_FOLLOWUP","BLOCKED"].includes(rec?.status), slug + ": unexpected status " + rec?.status);
   check(new RegExp('^  "' + slug + '": \\{', "m").test(editorial), slug + ": missing editorial object");
+  check(countyLinks.includes("slug: '" + slug + "'"), slug + ": missing reciprocal county-page card");
+  check(countyEvidence.includes("\\x60" + slug + "\\x60"), slug + ": missing campus-county source evidence");
   const path = "docs/football-authority/schools/" + slug + ".md";
   check(existsSync(join(root, path)), slug + ": missing individual audit");
   if (existsSync(join(root, path))) {
@@ -33,6 +39,9 @@ for (const slug of expected) {
     check(audit.length >= 400, slug + ": very short individual audit");
     check(/https:\/\//.test(audit), slug + ": no source URLs in audit");
   }
+}
+for (const slug of ["arlington","arlington-bowie","arlington-houston","arlington-lamar","arlington-martin","arlington-seguin"]) {
+  check(cityLinks.includes("slug: '" + slug + "'"), slug + ": missing Arlington city reciprocal card");
 }
 const verifiedPrior = records.filter(x => x.status === "VERIFIED" && x.batch !== 3);
 check(verifiedPrior.length >= 30, "fewer than 30 previously VERIFIED schools");
