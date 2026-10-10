@@ -152,6 +152,16 @@ try {
         check(err,d.documentWidth<=d.viewportWidth+10,'horizontal overflow '+(d.documentWidth-d.viewportWidth));
         check(err,d.brokenImages.length===0,'broken images '+d.brokenImages.join(', '));
         check(err,d.missingImageAlts.length===0,'missing image alt text');
+        // UIL labels this Austin ISD program "Austin Johnson"; name-only TEA
+        // matching previously rendered an unrelated Round Rock ISD school.
+        if (slug === 'austin-johnson') {
+          const top = d.body.slice(0, 4500);
+          check(err,d.h1.some(value => /Austin LBJ Jaguars Football/i.test(value)), 'LBJ Jaguars H1 identity mismatch');
+          check(err,/AUSTIN ISD/i.test(top), 'LBJ school district is not Austin ISD');
+          check(err,/TRAVIS COUNTY/i.test(top), 'LBJ campus county is not Travis County');
+          check(err,!/ROUND ROCK ISD|WILLIAMSON COUNTY/i.test(top), 'incorrect Johnson campus joined to LBJ');
+          check(err,d.schema.includes('LBJ Early College High School'), 'LBJ school schema identity mismatch');
+        }
       });
     }
     const countyToSlugs = new Map();
