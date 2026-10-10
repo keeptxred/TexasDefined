@@ -255,3 +255,13 @@ export async function previewNetworkOrphanDrafts(accessKey:string){
   path:String(row.path),uploaded_at:String(row.uploaded_at)
  }));
 }
+
+/** Administrator-only and read-only: candidates are NOT approved for deletion. */
+export async function previewNetworkOrphanPublishedMedia(accessKey:string){
+ await assertNetworkAdminAccess(accessKey);
+ const {data,error}=await supabaseAdmin.rpc('list_texasdefined_network_orphan_published_media',{
+  p_min_age_days:45,p_limit:100
+ });
+ if(error)throw Error('Unable to prepare published-media retention inventory');
+ return (data||[]).map(row=>({path:String(row.path),uploaded_at:String(row.uploaded_at)}));
+}

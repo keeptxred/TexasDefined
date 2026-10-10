@@ -152,3 +152,10 @@ check('Network webhook caps untrusted body before HMAC or Stripe network calls',
  && webhook.indexOf('readNetworkWebhookPayload(request)') < webhook.indexOf('verifyStripeSignature(raw,header)'));
 check('Network webhook requires live Stripe credentials for remote revalidation',
  webhook.includes('stripeKey?.startsWith("sk_live_")'));
+
+check('Published media inventory is read-only, least-privilege and keeps unpublished references',
+ source('supabase/migrations/20261010235427_network_readonly_orphan_published_media_inventory.sql').includes("texasdefined-network-published")
+ && source('supabase/migrations/20261010235427_network_readonly_orphan_published_media_inventory.sql').includes('NOT EXISTS')
+ && source('supabase/migrations/20261010235427_network_readonly_orphan_published_media_inventory.sql').includes('TO service_role')
+ && source('src/data/network-review.server.ts').includes('previewNetworkOrphanPublishedMedia')
+ && source('src/routes/admin.network-applications.lazy.tsx').includes('This never deletes media'));

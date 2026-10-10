@@ -104,3 +104,7 @@ Before launch, `NETWORK_DIRECTORY_ENABLED` is absent/OFF: public directory shows
 
 ## Read-only stale draft inventory
 Authenticated Network administrators can click **Preview 45-day unused draft candidates** to inspect up to 100 possible orphan objects. The server always uses the service-role-only read-only RPC and enforces the dedicated Network admin key. Candidate selection excludes any revision/public-listing references and drafts younger than 45 days. This is **not deletion approval**. Confirm the retention policy, client disclosures, preservation of images for disputes, and a concurrency-safe Storage API deletion procedure before scheduling any cleanup.
+
+
+## Public copied-image orphan inventory
+The Network admin panel has a **read-only Preview 45-day unused published-image copies** action, separate from private draft candidates. It is guarded by `NETWORK_ADMIN_ACCESS_KEY` and the service-only RPC. Candidates older than 45 days exclude images referenced by any current **or unpublished** listing and revision. This list is an audit aid, not permission to delete; explicit owner/retention policy approval and reference-aware rechecks remain prerequisites for any future Storage API deletion.

@@ -36,7 +36,8 @@ const applied=[
   "20261010231400_network_featured_paid_entitlement_upload_revision_guard.sql",
   "20261010231443_network_featured_revision_private_entitlement_helper.sql",
   "20261010232130_network_entitlement_helpers_private_schema.sql",
-  "20261010232506_network_readonly_stale_draft_cleanup_inventory.sql"
+  "20261010232506_network_readonly_stale_draft_cleanup_inventory.sql",
+  "20261010235427_network_readonly_orphan_published_media_inventory.sql"
 ];
 let errors=0;
 for (const filename of applied){

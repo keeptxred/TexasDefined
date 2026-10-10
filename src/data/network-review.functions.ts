@@ -58,3 +58,10 @@ export const previewNetworkDraftCleanup=createServerFn({method:'POST'})
   const {previewNetworkOrphanDrafts}=await import('@/data/network-review.server');
   return previewNetworkOrphanDrafts(data.accessKey);
  });
+
+export const previewNetworkPublishedMediaCleanup=createServerFn({method:'POST'})
+ .inputValidator(z.object({accessKey:z.string().min(32).max(200)}))
+ .handler(async({data})=>{
+  const {previewNetworkOrphanPublishedMedia}=await import('@/data/network-review.server');
+  return previewNetworkOrphanPublishedMedia(data.accessKey);
+ });

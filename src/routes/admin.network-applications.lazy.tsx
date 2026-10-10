@@ -2,7 +2,7 @@ import "../network.css";
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Container } from '@/components/layout/Container';
-import { getNetworkApplications, reviewNetworkApplication, getNetworkRevisionQueue, reviewFeaturedRevision, publishNetworkListing, unpublishReviewedNetworkListing, provisionNetworkOwner, previewNetworkDraftCleanup } from '@/data/network-review.functions';
+import { getNetworkApplications, reviewNetworkApplication, getNetworkRevisionQueue, reviewFeaturedRevision, publishNetworkListing, unpublishReviewedNetworkListing, provisionNetworkOwner, previewNetworkDraftCleanup, previewNetworkPublishedMediaCleanup } from '@/data/network-review.functions';
 
 export const Route = createLazyFileRoute('/admin/network-applications')({component: NetworkReview});
 
@@ -19,6 +19,7 @@ function NetworkReview(){
  const [verificationEvidence,setVerificationEvidence]=useState<Record<string,string>>({});
  const [reviewerLabels,setReviewerLabels]=useState<Record<string,string>>({});
  const [orphanDrafts,setOrphanDrafts]=useState<Array<{path:string;uploaded_at:string}>|null>(null);
+ const [orphanPublishedMedia,setOrphanPublishedMedia]=useState<Array<{path:string;uploaded_at:string}>|null>(null);
  async function bindOwner(id:string) {
   setBusy(true);setError('');
   try {
@@ -37,6 +38,12 @@ function NetworkReview(){
   catch(e){setError(e instanceof Error?e.message:'Draft inventory unavailable')}
   finally{setBusy(false)}
  }
+ async function previewPublishedCopies(){
+  setBusy(true);setError('');
+  try{setOrphanPublishedMedia(await previewNetworkPublishedMediaCleanup({data:{accessKey:key}}))}
+  catch(e){setError(e instanceof Error?e.message:'Published-media inventory unavailable')}
+  finally{setBusy(false)}
+ }
  async function reload(){const r=await getNetworkApplications({data:{accessKey:key}});setRows(r.applications as Array<Record<string,any>>);const changes=await getNetworkRevisionQueue({data:{accessKey:key}});setRevisions(changes as Array<Record<string,any>>)}
  async function moderate(id:string,action:'approve'|'reject'|'reopen'){setBusy(true);try{await reviewNetworkApplication({data:{accessKey:key,id,action}});await reload()}catch(e){setError(e instanceof Error?e.message:'Update failed')}finally{setBusy(false)}}
  async function publish(id:string){setBusy(true);setError('');try{const result=await publishNetworkListing({data:{accessKey:key,id}});await reload();setError('Published: '+result.url)}catch(e){setError(e instanceof Error?e.message:'Publication failed')}finally{setBusy(false)}}
@@ -53,7 +60,18 @@ function NetworkReview(){
     {orphanDrafts.map(row=><li key={row.path}><code className="break-all">{row.path}</code><span className="ml-2 text-muted-foreground">Uploaded {row.uploaded_at}</span></li>)}
    </ul>}
   </div>}
- </section><div className="mt-6 space-y-5">{rows.filter(r=>status==='all'||r.status===status).map(r=><article key={r.id} className="rounded-xl border border-border bg-background p-6"><h2 className="font-display text-2xl">{r.business_name}</h2><p>{r.category} · {r.city} · {r.plan} · {r.status}</p><p className="mt-3 whitespace-pre-wrap">{r.description}</p><p className="mt-2 text-sm">{r.contact_email} · {r.phone}</p><div className="mt-4 grid grid-cols-3 gap-3">{r.media?.map((m:{url:string|null,path:string})=>m.url?<img key={m.path} src={m.url} alt="Submitted business photo" className="aspect-square w-full object-contain"/>:null)}</div><div className="mt-5 flex gap-3"><button disabled={busy} className="bg-primary px-4 py-2 text-primary-foreground" onClick={()=>void moderate(r.id,'approve')}>Approve</button><button disabled={busy||r.status!=='approved'||(r.plan==='plus'&&!r.paid_entitlement_active)} className="border border-primary px-4 py-2 text-primary disabled:opacity-40" onClick={()=>void publish(r.id)}>Publish approved listing</button><button disabled={busy} className="border border-border px-4 py-2" onClick={()=>void moderate(r.id,'reject')}>Reject</button><button disabled={busy} className="border border-border px-4 py-2" onClick={()=>void moderate(r.id,'reopen')}>Reopen</button>{r.status==='published' && r.listing_slug && <a className="border border-border px-4 py-2 text-primary" href={'/network/business/'+r.listing_slug} target="_blank" rel="noreferrer">View profile</a>}{r.status==='published' && <button disabled={busy} className="border border-amber-500 px-4 py-2 text-amber-800 disabled:opacity-40" onClick={()=>void unpublish(r.id)}>Unpublish</button>}</div>{r.plan==='plus'&&['approved','published'].includes(r.status)&&<div className="mt-5 rounded-lg border border-border p-4">
+ </section>
+ <section className="mt-6 rounded-xl border border-border p-4" aria-label="Published media orphan inventory">
+  <button type="button" disabled={busy} onClick={()=>void previewPublishedCopies()} className="rounded-lg border border-primary px-4 py-2 text-primary disabled:opacity-40">Preview 45-day unused published-image copies</button>
+  <p className="mt-2 text-xs text-muted-foreground">Read-only candidate list. This never deletes media. Images referenced by published OR unpublished listings and revision records are excluded.</p>
+  {orphanPublishedMedia!==null&&<div className="mt-4 text-sm" role="status">
+   <strong>{orphanPublishedMedia.length} possible unused published-media copies</strong>
+   {orphanPublishedMedia.length>0&&<ul className="mt-3 list-disc space-y-2 pl-5">
+    {orphanPublishedMedia.map(row=><li key={row.path}><code className="break-all">{row.path}</code><span className="ml-2 text-muted-foreground">Uploaded {row.uploaded_at}</span></li>)}
+   </ul>}
+  </div>}
+ </section>
+ <div className="mt-6 space-y-5">{rows.filter(r=>status==='all'||r.status===status).map(r=><article key={r.id} className="rounded-xl border border-border bg-background p-6"><h2 className="font-display text-2xl">{r.business_name}</h2><p>{r.category} · {r.city} · {r.plan} · {r.status}</p><p className="mt-3 whitespace-pre-wrap">{r.description}</p><p className="mt-2 text-sm">{r.contact_email} · {r.phone}</p><div className="mt-4 grid grid-cols-3 gap-3">{r.media?.map((m:{url:string|null,path:string})=>m.url?<img key={m.path} src={m.url} alt="Submitted business photo" className="aspect-square w-full object-contain"/>:null)}</div><div className="mt-5 flex gap-3"><button disabled={busy} className="bg-primary px-4 py-2 text-primary-foreground" onClick={()=>void moderate(r.id,'approve')}>Approve</button><button disabled={busy||r.status!=='approved'||(r.plan==='plus'&&!r.paid_entitlement_active)} className="border border-primary px-4 py-2 text-primary disabled:opacity-40" onClick={()=>void publish(r.id)}>Publish approved listing</button><button disabled={busy} className="border border-border px-4 py-2" onClick={()=>void moderate(r.id,'reject')}>Reject</button><button disabled={busy} className="border border-border px-4 py-2" onClick={()=>void moderate(r.id,'reopen')}>Reopen</button>{r.status==='published' && r.listing_slug && <a className="border border-border px-4 py-2 text-primary" href={'/network/business/'+r.listing_slug} target="_blank" rel="noreferrer">View profile</a>}{r.status==='published' && <button disabled={busy} className="border border-amber-500 px-4 py-2 text-amber-800 disabled:opacity-40" onClick={()=>void unpublish(r.id)}>Unpublish</button>}</div>{r.plan==='plus'&&['approved','published'].includes(r.status)&&<div className="mt-5 rounded-lg border border-border p-4">
  <p className="font-semibold">Verified owner access (administrator only)</p>
  <p className="mt-2 text-sm">First independently verify the business ownership. The user's Supabase account must already exist and its confirmed email must exactly match this application. This does not send an email or charge a card.</p>
  <label className="mt-3 block text-sm">Verified Supabase user UUID <input className="mt-1 block w-full rounded border border-border p-2" value={ownerUserIds[r.id]||''} onChange={e=>setOwnerUserIds(prev=>({...prev,[r.id]:e.target.value}))} placeholder="00000000-0000-0000-0000-000000000000"/></label>
