@@ -1559,7 +1559,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Original Apple Springs Eagles editorial gold; no official insignia copied"
     },
     "seo": {
-      "title": "Apple Springs Eagles Six-Man Football: 2026 Coach, Nelson Davis Stadium & Results",
+      "title": "Apple Springs Eagles Football: 2026 Coach, Stadium and Results",
       "description": "Apple Springs Eagles six-man football: Cash Thompson, 2026 UIL 1A Division II District 15, Nelson Davis Stadium, 12 playoffs and dated 2026 games."
     },
     "coach": {
