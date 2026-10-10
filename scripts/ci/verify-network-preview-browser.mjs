@@ -109,11 +109,39 @@ try{
   }
   await context.close();
  }
+ // Prove direct HTTP callers are blocked even when bypassing disabled UI controls.
+ // No valid application, email, Stripe session or user identity is created.
+ const apiCases=[
+  {method:'POST',path:'/api/public/network-application',body:'{}',status:503,label:'direct intake closed'},
+  {method:'POST',path:'/api/public/network-billing',body:'{}',status:401,label:'anonymous billing portal denied'},
+  {method:'GET',path:'/api/public/network-billing',status:401,label:'anonymous membership list denied'},
+  {method:'POST',path:'/api/public/network-checkout',body:'{}',status:400,label:'invalid checkout request rejected'},
+  {method:'GET',path:'/network/business/unpublished-qa-fixture',status:404,label:'no unpublished business profile'},
+ ];
+ for(const api of apiCases){
+  const entry={route:api.path,viewport:'HTTP',status:'PASS',failures:[]};
+  results.push(entry);
+  try{
+   const response=await fetch(origin+api.path,{
+    method:api.method,
+    headers:{origin,'content-type':'application/json'},
+    ...(api.body!==undefined?{body:api.body}:{}),
+    signal:AbortSignal.timeout(15000)
+   });
+   assert.equal(response.status,api.status,`${api.label} expected ${api.status}, got ${response.status}`);
+   // After a disabled intake POST the very same Worker must still be alive.
+   if(api.label==='direct intake closed'){
+    const alive=await fetch(origin+'/network/join',{signal:AbortSignal.timeout(15000)});
+    assert.equal(alive.status,200,'Worker died after rejected intake POST');
+   }
+  }catch(error){entry.status='FAIL';entry.failures.push(String(error))}
+  console.log('NETWORK API',api.label,entry.status,entry.failures.join(' | '));
+ }
 }finally{
  if(browser)await browser.close();
  await stop();
  await writeFile(output+'/results.json',JSON.stringify({testedAt:new Date().toISOString(),origin,results},null,2)+'\n');
 }
 const failures=results.filter(r=>r.status!=='PASS');
-console.log('NETWORK BROWSER RESULT '+(results.length-failures.length)+'/'+results.length+' mobile/desktop route checks PASS');
+console.log('NETWORK BROWSER RESULT '+(results.length-failures.length)+'/'+results.length+' mobile/desktop and direct HTTP checks PASS');
 if(failures.length)process.exitCode=1;
