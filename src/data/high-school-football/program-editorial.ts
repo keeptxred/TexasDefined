@@ -58,6 +58,98 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "argyle": {
+    "slug": "argyle",
+    "theme": {
+      "accentHex": "#AE2637",
+      "label": "UIL-verified Argyle red; editorial styling only, not an official seal"
+    },
+    "seo": {
+      "title": "Argyle Eagles Football: 2013 & 2020 State Titles, Todd Rodgers & 2026",
+      "description": "Argyle Eagles' two UIL football championships, title-game scores, Todd Rodgers coaching era, 2026 District 3-5A Division II and school-record sources."
+    },
+    "coach": {
+      "name": "Todd Rodgers",
+      "title": "Long-serving Argyle football head coach in official team coaching records, 2003–2025; 2026 status requires a new official confirmation",
+      "sourceUrl": "https://www.argyleeaglessports.com/coaching-record",
+      "sourceLabel": "Official Argyle Eagles football coaching records through 2025",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Argyle Eagles athletics and 2026 football resources",
+      "sourceUrl": "https://www.argyleeaglessports.com/",
+      "sourceLabel": "Official Argyle Eagles sports site",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Argyle's Eagles won two UIL state football championships: 38–33 over Fairfield in the 2013 Class 3A Division II final and 49–21 over Lindale in the 2020 Class 4A Division I final. The school's own championship index confirms these two years, separating football from Argyle's numerous titles in other sports.",
+      "The 2013 UIL championship recap documents a back-and-forth game at AT&T Stadium, with Ian Sadler scoring four touchdowns, including the decisive score in the fourth quarter. UIL's title-team listing identifies Todd Rodgers as coach and the team colors as red, black and white.",
+      "The 2020 UIL archive lists the undefeated Argyle champion squad and coach Todd Rodgers, while official Argyle season records tally the full 2020 campaign at 16–0. Some UIL team profiles report 15–0 heading into the championship; those snapshots should not be mistaken for competing final results.",
+      "Official Argyle football history also documents unsuccessful state-final appearances in 2005, 2011, 2014 and 2015, for six total football finals and two championships. The 2014 final went to double overtime against Navasota, which won 42–35; appearances do not equal victories.",
+      "The Eagles' official season ledger records 2024 at 13–2, including a state semifinal appearance, and 2025 at 12–2. That gives a credible recent reference point without asserting a completed 2026 season or relying on a third-party record that differs from the team archive.",
+      "Argyle ISD officially confirmed that football stays in Class 5A Division II for 2026–28 and moves to District 3, a seven-team district with additions including Eagle Mountain, Lovejoy and Nevada Community. Opponents and alignment should be kept separate from games actually played.",
+      "The official coaching archive lists Todd Rodgers throughout 2003–2025; without a dated 2026 first-party staff confirmation, his exact 2026 appointment is not treated as newly verified. Fans can use the current Argyle athletics site for schedules, ticketing and assigned home-game entry information."
+    ],
+    "milestones": [
+      {
+        "date": "2013",
+        "title": "First UIL football state championship",
+        "body": "The Eagles defeated Fairfield 38–33; UIL highlights Ian Sadler's four touchdowns in the title game.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL centennial memorable championship games"
+      },
+      {
+        "date": "2014",
+        "title": "Double-overtime state finalist",
+        "body": "Navasota defeated Argyle 42–35 in double overtime. This was an appearance, not a third football title.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL 2014 championship recap"
+      },
+      {
+        "date": "2020",
+        "title": "Second UIL football crown",
+        "body": "Argyle beat Lindale 49–21 in Class 4A Division I, as listed in UIL's official state archives.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL 2020 state championship archives"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two deep recent seasons",
+        "body": "The official program database records 13–2 in 2024 and 12–2 in 2025, distinct from state title years.",
+        "sourceUrl": "https://www.argyleeaglessports.com/football-records",
+        "sourceLabel": "Argyle official season-by-season football record"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division II District 3",
+        "body": "Argyle ISD confirmed the 2026 reclassification and newly added Eagle Mountain, Lovejoy and Nevada Community.",
+        "sourceUrl": "https://www.argyleisd.com/all-news/details/~board/district-news/post/uil-announces-relignment-reclassification-for-2026-2028",
+        "sourceLabel": "Argyle ISD February 2, 2026 realignment announcement"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many UIL football state titles has Argyle won?",
+        "answer": "Two: 2013 over Fairfield, 38–33, and 2020 over Lindale, 49–21. The official Argyle athletics program lists six state football appearances."
+      },
+      {
+        "question": "Who coached Argyle's championship football teams?",
+        "answer": "Todd Rodgers coached both title teams, according to the UIL championship roster records."
+      },
+      {
+        "question": "What colors are officially associated with Argyle football?",
+        "answer": "UIL's 2013 and 2020 team records list red, black and white."
+      },
+      {
+        "question": "What is Argyle's football classification for 2026?",
+        "answer": "Argyle ISD confirms Class 5A Division II District 3 for the 2026–28 cycle, including new district opponents Eagle Mountain, Lovejoy and Nevada Community."
+      },
+      {
+        "question": "How can visiting supporters verify 2026 games and tickets?",
+        "answer": "Use official Argyle Eagles athletics schedules and the ticket listing for the specific match; the school campus address is not a verified stadium gate."
+      }
+    ]
+  },
   "archer-city": {
     "slug": "archer-city",
     "theme": {
