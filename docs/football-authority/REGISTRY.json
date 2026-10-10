@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 4,
+    "partiallyCompleted": 5,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "amarillo-tascosa",
-    "nextSchool": "amarillo-tascosa",
-    "implementedOnBranch": 4,
-    "remainingToImplement": 21,
+    "currentSchool": "amherst",
+    "nextSchool": "amherst",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
     "remainingToVerify": 25,
-    "notes": "Batch 003 four school-specific IMPLEMENTED and audited on draft PR #4506 (Caprock, Highland Park, Palo Duro, River Road). 21 remain NOT_REVIEWED; zero Batch003 production VERIFIED. Next Tascosa."
+    "notes": "Five Amarillo area schools independently researched and IMPLEMENTED on draft PR #4506; 20 assigned still NOT_REVIEWED; zero Batch003 production VERIFIED. Next Amherst."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -2969,9 +2969,36 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-tascosa",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-tascosa.md",
+      "implementationCommits": [
+        "027fb20731acefd46d80d0d854363143f37e0e3a",
+        "12c8f45d56a19f55baac2dc8fe1b7e293ce6ee65"
+      ],
+      "evidenceSources": [
+        "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
+        "https://txprepfootball.com/schools/tascosa-rebels/",
+        "https://www.sandiesfootball.com/history",
+        "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "https://www.amaisd.org/133763_3"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "Individual editorial authored but CI/live QA pending",
+      "imageStatus": "Original historical milestone cards; no unlicensed images used",
+      "outstanding": [
+        "Frenship 2026 duplicated scores require reconciliation",
+        "Official current coach, school colors, NCES county",
+        "Appropriate reciprocal county/city linking",
+        "Photography usage rights",
+        "Stadium and ticket ADA parking details",
+        "CI/merge/deploy/live browser acceptance"
+      ]
     },
     {
       "id": "uil:amherst",
