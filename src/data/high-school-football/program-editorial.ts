@@ -58,6 +58,172 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "amarillo-river-road": {
+    "slug": "amarillo-river-road",
+    "theme": {
+      "accentHex": "#1F653F",
+      "label": "Original Wildcats green editorial accent; exact school-approved palette and logo rights pending"
+    },
+    "seo": {
+      "title": "Amarillo River Road Wildcats Football: 2026 Scores & Wildcat Stadium",
+      "description": "River Road Wildcats football authority guide: 2026 UIL 3A Division II District 1, Aaron Wampler, 16 postseason appearances, five dated 2026 results and game-day links."
+    },
+    "coach": {
+      "name": "Aaron Wampler",
+      "title": "2026 head football coach per MaxPreps season staff/history",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/history/",
+      "sourceLabel": "2026 River Road head coach listing; primary district corroboration outstanding",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "8741 River Road, Amarillo, TX 79108",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+      "sourceLabel": "River Road High program campus contact (not stadium entrance)",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Wildcats dates and reported scores",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+      "sourceLabel": "Dave Campbell's Texas Football 2026 program schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 over five corroborated completed games through Sept. 25, 2026; Borger result not verified",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+      "sourceLabel": "MaxPreps varsity 2026 results dated September 26",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Sanford-Fritch",
+          "site": "Home",
+          "result": "W 25–24"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Tulia",
+          "site": "Home",
+          "result": "L 14–54"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Farwell",
+          "site": "Away",
+          "result": "W 29–28"
+        },
+        {
+          "date": "Sept. 17",
+          "opponent": "Gruver",
+          "site": "Away",
+          "result": "L 27–60"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Amarillo Highland Park",
+          "site": "Away",
+          "result": "L 24–25"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Borger",
+          "site": "Home"
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Friona",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Dimmitt",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Childress",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Canadian",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wildcat Stadium",
+      "address": "Amarillo — official spectator entrance not confirmed",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+      "sourceLabel": "DCTF River Road Wildcats stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "Independent directory lists Wildcat Stadium with 1,375 seats, but that is a historical listing, not verified ADA seating or parking inventory. This is not Canadian's separate Wildcat Stadium and not Amarillo ISD's Dick Bivins facility. For tickets, seating, parking and gates confirm directly with River Road ISD."
+    },
+    "overview": [
+      "Amarillo River Road High's Wildcats represent River Road ISD, not Amarillo ISD. The team's 8741 River Road campus and historic Wildcat Stadium listing distinguish it from Palo Duro, Caprock, Amarillo High and Tascosa, despite all having an Amarillo geographic identity.",
+      "The Dave Campbell's Texas Football program record credits River Road with 16 football playoff appearances but no state championship or state-title-game appearance. Fans should not confuse the Wildcats' title history with Canadian, another Wildcats program appearing in their 2026 district and possessing its own separate state championship history.",
+      "River Road's recent seasons have differed sharply: 7–5 in 2021, 5–7 in 2024 and 1–10 in 2025 according to the DCTF historical record. MaxPreps identifies Aaron Wampler as 2026 head football coach following Bryan Welps in 2024, a notable change that needs primary ISD corroboration.",
+      "The 2026–28 UIL alignment places River Road in Class 3A Division II District 1 with Canadian, Childress, Dimmitt and Friona. Previous seasons' Class 3A Division I references do not override the current UIL cycle.",
+      "The 2026 football season opened with two one-point Wildcat victories: 25–24 versus Sanford-Fritch on August 28 and 29–28 at Farwell on September 11. River Road later lost at Highland Park 24–25 on September 25, giving this three-game cluster a distinctive one-point pattern absent from generic stadium guides.",
+      "A verified five-game 2026 results snapshot through September 25 stands at 2–3. DCTF's Gruver loss notation reports a 63–27 defeat while MaxPreps lists 60–27: the scoring disagreement should be resolved before publishing an opponent's 63/60 total as an uncontested fact. This profile follows the MaxPreps ledger but labels it.",
+      "The DCTF venue reference lists Wildcat Stadium. A reported 1,375-seat capacity is not an official current ADA or gate certificate. Match-specific information should come directly from the district; Canadian's Wildcat Stadium is a completely different place."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Seven-win playoff campaign",
+        "body": "DCTF records the Wildcats finishing 7–5 during the 2021 football season.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
+        "sourceLabel": "DCTF Wildcat past seasons"
+      },
+      {
+        "date": "2025–26",
+        "title": "Program transition",
+        "body": "The Wildcats followed a 1–10 campaign in 2025; MaxPreps lists Aaron Wampler for the 2026 football season after Bryan Welps in 2024.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/history/",
+        "sourceLabel": "MaxPreps coached seasons"
+      },
+      {
+        "date": "Aug.–Sept. 2026",
+        "title": "Two one-point wins",
+        "body": "The dated results list 25–24 over Sanford-Fritch and 29–28 at Farwell, followed by a 24–25 road defeat at Highland Park.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
+        "sourceLabel": "MaxPreps result ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 3A Division II realignment",
+        "body": "Official football alignment puts River Road in District 1 against Canadian, Childress, Dimmitt and Friona.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 football alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Are the River Road Wildcats and Canadian Wildcats the same school?",
+        "answer": "No. Amarillo River Road represents River Road ISD, while Canadian is a separate district, stadium and football history; both appear in UIL 3A Division II District 1."
+      },
+      {
+        "question": "Has River Road won a Texas state football title?",
+        "answer": "DCTF records 16 playoff appearances, zero championship games and zero football state titles for the Amarillo River Road program."
+      },
+      {
+        "question": "Who coaches River Road football in 2026?",
+        "answer": "The 2026 MaxPreps history listing identifies Aaron Wampler; confirm any coaching changes with River Road ISD."
+      },
+      {
+        "question": "Where is River Road's football stadium?",
+        "answer": "DCTF identifies Wildcat Stadium for Amarillo River Road. The campus address is not a verified parking or stadium entrance, so consult district game announcements."
+      },
+      {
+        "question": "What makes the 2026 opening unusual?",
+        "answer": "The first five results included two River Road one-point wins (25–24 over Sanford-Fritch and 29–28 over Farwell) and a one-point defeat (24–25 at Amarillo Highland Park)."
+      }
+    ]
+  },
   "amarillo-palo-duro": {
     "slug": "amarillo-palo-duro",
     "theme": {
