@@ -21,3 +21,10 @@
 - Confirm Smith County campus mapping and add justified reciprocal county or city inbound link without affecting unrelated pages.
 - Run project validators/required CI and protected PR workflow; merge, deploy, and independently validate live mobile/desktop.
 - Verify official current tickets and accessibility resources when published, but never invent them. School photo license remains unresolved.
+
+
+## Confirmed production technical acceptance — 2026-10-10 (supersedes historic pre-release status text)
+- This individual page **is live** at https://texasdefined.com/texas-high-school-football-teams/arp. Implemented in protected merged PR #4540, deployed and retested under release SHA `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`.
+- Exact deployed production runner [#38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139): desktop and mobile **PASS** (HTTP 200, canonical, SEO/meta/schema, research links, runtime, images, overflow, school-to-county link). Production `/county/smith` also has a visible reciprocal card in desktop and mobile; sitemap inclusion **PASS**.
+- Screenshots: `desktop-school-arp.png` and `mobile-school-arp.png` in [artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515). See `docs/football-authority/BATCH004_FINAL_ACCEPTANCE.md` in certification PR #4553 for full evidence.
+- Earlier passages saying “not merged”, “not deployed”, or “browser QA pending” are **historic pre-release observations**, not current technical findings. Source, coach, stadium ADA/parking/tickets, and third-party image-rights follow-ups remain independently qualified; no unlicensed sports photograph was added by Batch 004.

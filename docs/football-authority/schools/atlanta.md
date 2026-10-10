@@ -16,3 +16,10 @@ Still requires source checks, inbound/outbound link acceptance, image rights, pr
 
 ## Independent 2003 football title confirmation (2026-10-10)
 The [UIL 2003–2004 state finals](https://www.uiltexas.org/football/archives/P264) explicitly records **3A Division II: Atlanta 34, Marlin 0**. This is a verified football championship, distinct from Atlanta ISD's 1989 track title; the current profile preserves both without conflating them. No rights to reproduction of UIL graphics or school imagery are implied.
+
+
+## Confirmed production technical acceptance — 2026-10-10 (supersedes historic pre-release status text)
+- This individual page **is live** at https://texasdefined.com/texas-high-school-football-teams/atlanta. Implemented in protected merged PR #4540, deployed and retested under release SHA `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`.
+- Exact deployed production runner [#38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139): desktop and mobile **PASS** (HTTP 200, canonical, SEO/meta/schema, research links, runtime, images, overflow, school-to-county link). Production `/county/cass` also has a visible reciprocal card in desktop and mobile; sitemap inclusion **PASS**.
+- Screenshots: `desktop-school-atlanta.png` and `mobile-school-atlanta.png` in [artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515). See `docs/football-authority/BATCH004_FINAL_ACCEPTANCE.md` in certification PR #4553 for full evidence.
+- Earlier passages saying “not merged”, “not deployed”, or “browser QA pending” are **historic pre-release observations**, not current technical findings. Source, coach, stadium ADA/parking/tickets, and third-party image-rights follow-ups remain independently qualified; no unlicensed sports photograph was added by Batch 004.

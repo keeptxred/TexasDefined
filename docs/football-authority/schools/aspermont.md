@@ -26,3 +26,10 @@ Current record discrepancy: [DCTF](https://www.texasfootball.com/team/aspermont-
 
 ## Independent cross-check of 1999 historical classification (2026-10-10)
 The [UIL 1999 complete playoff bracket](https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html) identifies the contest as Conference 1A **Eleven Man**, Bartlett 35–6 Aspermont. [UIL final index](https://www.uiltexas.org/football/archives/P296) separately lists six-man champion Gordon over Groom in the same year. Two separate UIL first-party pages corroborate the critical historical-format correction. Preserve modern six-man status separately.
+
+
+## Confirmed production technical acceptance — 2026-10-10 (supersedes historic pre-release status text)
+- This individual page **is live** at https://texasdefined.com/texas-high-school-football-teams/aspermont. Implemented in protected merged PR #4540, deployed and retested under release SHA `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`.
+- Exact deployed production runner [#38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139): desktop and mobile **PASS** (HTTP 200, canonical, SEO/meta/schema, research links, runtime, images, overflow, school-to-county link). Production `/county/stonewall` also has a visible reciprocal card in desktop and mobile; sitemap inclusion **PASS**.
+- Screenshots: `desktop-school-aspermont.png` and `mobile-school-aspermont.png` in [artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515). See `docs/football-authority/BATCH004_FINAL_ACCEPTANCE.md` in certification PR #4553 for full evidence.
+- Earlier passages saying “not merged”, “not deployed”, or “browser QA pending” are **historic pre-release observations**, not current technical findings. Source, coach, stadium ADA/parking/tickets, and third-party image-rights follow-ups remain independently qualified; no unlicensed sports photograph was added by Batch 004.
