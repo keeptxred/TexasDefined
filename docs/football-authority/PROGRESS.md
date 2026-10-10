@@ -3,8 +3,8 @@
 ## Latest canonical checkpoint — Batch 003 (2026-10-09)
 - **Canonical registry:** `docs/football-authority/REGISTRY.json` (takes precedence over older historical notes in this file). Batch 001 five and Batch 002 twenty-five are VERIFIED per recorded live browser evidence; **30/1,292 total**, 1,262 still needing school-specific work.
 - **Batch 003:** exactly 25 schools assigned and saved in stable registry order, from Amarillo Caprock through Arlington Seguin. Assignment branch `football-authority-batch-003-20261009` and draft [PR #4506](https://github.com/keeptxred/TexasDefined/pull/4506). No additional Batch 004 assignment.
-- **Implemented, not merged/deployed/VERIFIED:** Amarillo Caprock (individual audit `schools/amarillo-caprock.md`, content `b58919a`, audit `3197d42`) and Amarillo Highland Park (audit `schools/amarillo-highland-park.md`, content `9c30767`, audit `f9b49d9`). Both retain research/photo/coach/venue/NCES and live browser follow-ups.
-- **Current:** 2 individually researched + IMPLEMENTED, **0** Batch 003 MERGED/DEPLOYED/VERIFIED, **23** assigned NOT_REVIEWED. **Next: Amarillo Palo Duro**. The 25 assigned remain pending real protected merge/deployment/Chrome production acceptance.
+- **Implemented, not merged/deployed/VERIFIED:** Amarillo Caprock (`schools/amarillo-caprock.md`), Amarillo Highland Park (`schools/amarillo-highland-park.md`), Amarillo Palo Duro (`schools/amarillo-palo-duro.md`), and Amarillo River Road (`schools/amarillo-river-road.md`). All have individual source-grounded code updates and retained blockers.
+- **Current:** 4 individually researched + IMPLEMENTED, **0** Batch 003 MERGED/DEPLOYED/VERIFIED, **21** assigned NOT_REVIEWED. **Next: Amarillo Tascosa**. Draft PR #4506 remains open; source/licensing, local inbound links, CI, protected merge, deployment and true browser QA still required.
 - **Concurrency:** read fresh main before subsequent edits/merges and preserve parallel unrelated changes. Never mistake the draft PR for a completed school.
 
 ## Historical execution checkpoints (superseded where contradicted by the canonical registry)
