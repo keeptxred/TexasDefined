@@ -33,12 +33,22 @@ function BusinessDashboard(){
   }else{setPublished(null)}
  })();return()=>{active=false}},[userId]);
  async function signIn(e:React.FormEvent){e.preventDefault();setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+'/business/dashboard',shouldCreateUser:true}});setMessage(error?error.message:'Check your email for a secure sign-in link.');setBusy(false)}
- async function submit(e:React.FormEvent){e.preventDefault();if(!account?.access_enabled)return;setBusy(true);setMessage('');
+ async function submit(e:React.FormEvent){e.preventDefault();if(!account?.access_enabled||account.membership_tier!=='featured')return;setBusy(true);setMessage('');
  const {data:{user}}=await supabase.auth.getUser();if(!user){setMessage('Sign in again.');setBusy(false);return}
  const payload:Record<string,unknown>=Object.fromEntries(Object.entries(draft).filter(([k,v])=>fields.some(([name])=>name===k)&&v.trim()));
  const selected=[...(newLogo?[newLogo]:[]),...newGallery];
  if(selected.some(file=>file.size>3000000||file.size===0||!['image/jpeg','image/png','image/webp'].includes(file.type))) {
   setMessage('Use JPEG, PNG or WebP files under 3 MB.');setBusy(false);return;
+ }
+ // Fail early on quota exhaustion; the Storage INSERT policy is the authoritative guard.
+ if(selected.length){
+  const {data:priorMedia,error:quotaError}=await supabase.storage.from('texasdefined-network-featured-drafts')
+   .list(user.id+'/'+account.id,{limit:100});
+  if(quotaError||!priorMedia){setMessage('Media quota could not be checked. Please retry.');setBusy(false);return}
+  if(priorMedia.length+selected.length>24){
+   setMessage('This business has reached its 24-draft-image limit. Contact Texas Defined to review older draft media.');
+   setBusy(false);return;
+  }
  }
  const upload=async(file:File,label:string)=>{
   const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';

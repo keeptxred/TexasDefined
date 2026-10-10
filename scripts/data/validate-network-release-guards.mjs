@@ -95,3 +95,8 @@ check('Stripe portal requires a live server secret',billing.includes('key?.start
 check('Featured approval and review ledger mutate within one DB transaction',
  review.includes("supabaseAdmin.rpc('finalize_texasdefined_featured_revision'")
  && !review.includes(".update({review_status:decision==='approve'?'approved':'rejected'"));
+
+check('Feature draft uploads capped per account on server and in owner UI',
+ source('supabase/migrations/20261010224104_network_featured_draft_upload_quota.sql').includes('v_count<24')
+ && source('supabase/migrations/20261010224104_network_featured_draft_upload_quota.sql').includes('pg_advisory_xact_lock')
+ && source(root+'business.dashboard.lazy.tsx').includes('priorMedia.length+selected.length>24'));

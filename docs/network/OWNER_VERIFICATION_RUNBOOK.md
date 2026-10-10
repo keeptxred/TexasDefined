@@ -49,3 +49,7 @@ Use the administrator-only form after approval. Independently verify control of 
 
 ## Atomic Featured revision review
 The admin first verifies proposed content and media bytes, then uses `finalize_texasdefined_featured_revision` for simultaneous public-profile and revision-ledger changes. RPC requires a currently published, paid Plus application and independently enabled Featured owner. Concurrent/repeated approvals return a nonapproved result. Unreferenced uploaded copies from interrupted requests still need a staged media-retention worker; do not delete unverified public media or claim orphan cleanup certified.
+
+
+## Featured draft media capacity protection
+A verified Featured owner can store at most 24 private draft objects of at most 3 MB each. Storage INSERT policy enforces the count under a per-account lock; the UI preflight is informational, not security. Before enabling the platform, implement and test safe cleanup of abandoned media only after checking pending/approved revision references and public listing usage. Do not automatically delete uploaded source files without a documented retention policy and owner expectations.
