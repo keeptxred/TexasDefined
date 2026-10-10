@@ -84,3 +84,7 @@ After copying/validating approved media from private intake, the service-only pu
 
 ## Emergency editorial suspension
 With the dedicated Network admin key, choose Unpublish (published → approved) or Reject/Reopen. These service-only actions invoke one database transaction for listing visibility and application status; they work even while launch switches are OFF. A double Unpublish is not accepted. Verify intended profile in preview and confirm public directory immediately after production deployment, once authorized.
+
+
+## Featured entitlement suspension
+A Featured badge alone does not authorize uploading or editing. Storage quota and revision-submission checks also require a published Plus application with active paid entitlement, rechecked in privileged read-only Boolean helpers rather than exposing private applications to authenticated users. Previously uploaded draft media remains readable to the verified owner while billing is suspended, but new changes are blocked. The dashboard explains paused editing and links to billing.
