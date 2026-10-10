@@ -988,9 +988,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "coach": {
       "name": "Todd Rodgers",
-      "title": "Long-serving Argyle football head coach in official team coaching records, 2003–2025; 2026 status requires a new official confirmation",
-      "sourceUrl": "https://www.argyleeaglessports.com/coaching-record",
-      "sourceLabel": "Official Argyle Eagles football coaching records through 2025",
+      "title": "Argyle athletic director and head football coach, listed in the official current athletics staff directory",
+      "sourceUrl": "https://www.argyleeaglessports.com/directory",
+      "sourceLabel": "Official Argyle Eagles current staff directory",
       "verifiedAt": "2026-10-09"
     },
     "schedule": {
@@ -1006,7 +1006,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Official Argyle football history also documents unsuccessful state-final appearances in 2005, 2011, 2014 and 2015, for six total football finals and two championships. The 2014 final went to double overtime against Navasota, which won 42–35; appearances do not equal victories.",
       "The Eagles' official season ledger records 2024 at 13–2, including a state semifinal appearance, and 2025 at 12–2. That gives a credible recent reference point without asserting a completed 2026 season or relying on a third-party record that differs from the team archive.",
       "Argyle ISD officially confirmed that football stays in Class 5A Division II for 2026–28 and moves to District 3, a seven-team district with additions including Eagle Mountain, Lovejoy and Nevada Community. Opponents and alignment should be kept separate from games actually played.",
-      "The official coaching archive lists Todd Rodgers throughout 2003–2025; without a dated 2026 first-party staff confirmation, his exact 2026 appointment is not treated as newly verified. Fans can use the current Argyle athletics site for schedules, ticketing and assigned home-game entry information."
+      "The Argyle Eagles' official athletics staff directory currently identifies Todd Rodgers as athletic director and head football coach. The Argyle ISD Stadium 2026 football guide lists 6615 Canyon Falls Drive, Flower Mound, TX 76226, and public gates opening 90 minutes before kickoff unless announced otherwise. Always check the particular game's official ticket and parking instructions."
     ],
     "milestones": [
       {
