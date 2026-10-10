@@ -41,7 +41,7 @@ export const Route = createFileRoute("/api/public/network-billing")({
       if (!key) return respond({ error: "Billing portal is temporarily unavailable." }, 503);
       const body = new URLSearchParams({
         customer: data.stripe_customer_id,
-        return_url: new URL(request.url).origin + "/network/billing",
+        return_url: "https://texasdefined.com/network/billing",
       });
       const stripe = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
         method: "POST",
