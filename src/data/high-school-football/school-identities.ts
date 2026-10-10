@@ -11,6 +11,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'ben-bolt-palito-blanco', mascot: 'Fighting Badgers', sourceUrl: 'https://www.bbpbschools.net/', sourceLabel: 'Ben Bolt–Palito Blanco ISD official institution identity', verifiedAt: '2026-10-10' },
+  { slug: 'benavides', mascot: 'Eagles', sourceUrl: 'https://www.benavidesisd.net/', sourceLabel: 'Benavides ISD official institution identity', verifiedAt: '2026-10-10' },
+  { slug: 'benjamin', mascot: 'Mustangs', sourceUrl: 'https://www.benjaminisd.net/', sourceLabel: 'Benjamin ISD official institution identity', verifiedAt: '2026-10-10' },
+  { slug: 'big-lake-reagan-co', mascot: 'Owls', sourceUrl: 'https://www.reagancountyisd.net/', sourceLabel: 'Reagan County ISD official institution identity', verifiedAt: '2026-10-10' },
+  { slug: 'big-sandy', mascot: 'Wildcats', sourceUrl: 'https://www.bigsandyisd.org/o/district', sourceLabel: 'Big Sandy ISD official institution identity', verifiedAt: '2026-10-10' },
   { slug: 'beckville', mascot: 'Bearcats', sourceUrl: 'https://www.beckvilleisd.net/students-parents', sourceLabel: 'Beckville ISD school athletic source', verifiedAt: '2026-10-10' },
   { slug: 'beeville-jones', mascot: 'Trojans', sourceUrl: 'https://acjoneshs.beevilleisd.net/51042_3', sourceLabel: 'Beeville ISD school athletic source', verifiedAt: '2026-10-10' },
   { slug: 'bells', mascot: 'Panthers', sourceUrl: 'https://bellsisd.net/', sourceLabel: 'Bells ISD school athletic source', verifiedAt: '2026-10-10' },
