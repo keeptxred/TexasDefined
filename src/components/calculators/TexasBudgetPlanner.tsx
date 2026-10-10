@@ -65,6 +65,7 @@ export function BudgetCalculator() {
   }, []);
 
   const totals = useMemo(() => calculateHouseholdBudget(budget), [budget]);
+  const zeroValueCategories = totals.groups.filter(group => ['family', 'lifestyle', 'annual'].includes(group.id) && group.monthly === 0).map(group => group.title);
   const onChange = (key: BudgetKey, value: number) => {
     setBudget(previous => ({ ...previous, [key]: normalizeBudgetValue(value) }));
     setShareApproved(false);
@@ -129,6 +130,7 @@ export function BudgetCalculator() {
         <h2 id="budget-start-heading" className="mt-2 font-display text-3xl">Build a monthly budget</h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The starting values illustrate a hypothetical household, not Texas averages or a recommendation. Replace them with your actual take-home pay and expenses. Every number can be adjusted, and no login is required.</p>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">All fields accept nonnegative dollar amounts, up to {formatMoney(MAX_BUDGET_VALUE)} per field. Annual bill fields are converted to monthly reserves automatically.</p>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">If you pay credit-card statements, enter card purchases in their spending categories and record here only repayments of older balances or finance charges that are not already included. Otherwise those purchases are counted twice.</p>
       </section>
 
       <div className="space-y-3 print:hidden">
@@ -181,6 +183,7 @@ export function BudgetCalculator() {
 
       <section aria-labelledby="budget-results-heading" className="border-y border-foreground py-8" aria-live="polite">
         <p className="eyebrow text-primary">Live budget summary</p>
+        {zeroValueCategories.length > 0 && <div className="mb-6 border border-border bg-surface p-4 text-sm leading-6" role="note"><strong className="block text-foreground">Review $0 categories before relying on your remaining balance.</strong><span className="text-muted-foreground"> No costs are currently entered for {zeroValueCategories.join(', ')}. Expand these sections and check medical costs, subscriptions, annual renewals and other irregular bills. A $0 is fine if the category truly does not apply to your household.</span></div>}
         <h2 id="budget-results-heading" className="mt-2 font-display text-3xl">Where your monthly income goes</h2>
         <div className="mt-6 grid gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
           {[

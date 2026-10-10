@@ -4,7 +4,9 @@ import { AnswerSummary } from '@/components/content/AnswerSummary';
 import { Container } from '@/components/layout/Container';
 import { EvergreenNextSteps } from '@/components/monetization/EvergreenNextSteps';
 
-export function CalculatorPage({ eyebrow, title, description, children }: { eyebrow: string; title: string; description: string; children: ReactNode }) {
+type QuickAnswer = { title: string; items: { question: string; answer: string }[] };
+
+export function CalculatorPage({ eyebrow, title, description, quickAnswer, children }: { eyebrow: string; title: string; description: string; quickAnswer?: QuickAnswer; children: ReactNode }) {
   return (
     <>
       <section className="border-b border-border bg-surface">
@@ -26,8 +28,8 @@ export function CalculatorPage({ eyebrow, title, description, children }: { eyeb
 
       <AnswerSummary
         eyebrow="Quick answer"
-        title={`What this ${title.toLowerCase()} does`}
-        items={[
+        title={quickAnswer?.title ?? `What this ${title.toLowerCase()} does`}
+        items={quickAnswer?.items ?? [
           { question: "What does this calculator estimate?", answer: description },
           { question: "Who is it for?", answer: "Texans comparing costs, planning a move, evaluating a home purchase or trying to understand a household money decision before talking with a provider or agency." },
           { question: "Is the result official?", answer: "No. Results are planning estimates based on the values you enter and should be checked against current rates, taxes, insurance, eligibility rules and property details." },
