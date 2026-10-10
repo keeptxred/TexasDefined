@@ -23,6 +23,7 @@ const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
 const LIGHTHOUSE_VISIT_PATH = "/article/best-lighthouses-to-visit-in-texas";
 const LighthouseVisitPlanner = lazy(() => import("@/components/content/LighthouseVisitPlanner"));
 const LOOPS_SPURS_PATH = "/article/texas-loops-spurs-explained";
+const BOLIVAR_HISTORY_PATH = "/article/point-bolivar-lighthouse-history";
 
 export function articleHeadingId(text: string) {
   return text
@@ -61,6 +62,19 @@ function LoopsSpursVisual() {
   </figure>;
 }
 
+function BolivarRestorationPhotoSources() {
+  return <aside aria-label="Point Bolivar lighthouse photography and restoration status" className="my-7 border-l-2 border-primary bg-muted/20 px-5 py-4 text-sm leading-7">
+    <p className="font-semibold text-foreground">Point Bolivar: historic photo versus restored appearance</p>
+    <p className="mt-2 text-muted-foreground">The licensed photo on this page was taken in December 2009, before the tower was repainted. The present historic black-and-white stripes are documented in newer photographs; this older image is not a current-condition photograph.</p>
+    <p className="mt-3">
+      <a href="https://texashistoricalfoundation.org/news-events/event-calendar.html/event/2025/03/18/thf-grant-presentation-bolivar-point-lighthouse-foundation-point-bolivar-" rel="noopener noreferrer" target="_blank" className="font-semibold text-primary underline underline-offset-4">See the March 2025 restoration photograph at the Texas Historical Foundation ↗</a>
+      {" · "}
+      <a href="https://bolivarpointlighthouse.org/gallery/" rel="noopener noreferrer" target="_blank" className="font-semibold text-primary underline underline-offset-4">Official lighthouse gallery ↗</a>
+    </p>
+    <p className="mt-2 text-xs text-muted-foreground">Photographs on these external sites remain their owners' work and are linked, not republished, without permission.</p>
+  </aside>;
+}
+
 export function Byline({ author, meta }: { author: Author | null; meta: string }) {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
@@ -77,6 +91,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
   const showSixManFootballAuthority = pathname === SIX_MAN_FOOTBALL_PATH;
   const showLoopsSpursVisual = pathname === LOOPS_SPURS_PATH;
+  const showBolivarHistoryPhotoSources = pathname === BOLIVAR_HISTORY_PATH;
   const showLighthouseVisitPlanner = pathname === LIGHTHOUSE_VISIT_PATH;
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
@@ -102,6 +117,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     {articleSlug ? <UnusualBusinessAuthorityPanel slug={articleSlug} /> : null}
     {showSixManFootballAuthority ? <Suspense fallback={null}><SixManFootballAuthority /></Suspense> : null}
     {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
+    {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
         case "heading":
@@ -130,6 +146,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
                 {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}
               </figcaption>
             )}
+            {articleSlug === "best-lighthouses-to-visit-in-texas" && block.image.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
           </figure>
         );
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
