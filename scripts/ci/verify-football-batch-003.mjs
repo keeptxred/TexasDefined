@@ -8,6 +8,10 @@ const localPages = file("src/routes/$kind.$slug.lazy.tsx");
 const countyLinks = localPages.split("const batch002FootballCountyLinks:")[1]?.split("const siteUrl")[0] ?? "";
 const cityLinks = localPages.split("const batch002FootballCityLinks:")[1]?.split("const batch001FootballCountyLinks:")[0] ?? "";
 const countyEvidence = file("docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md");
+const schoolPage = file("src/routes/texas-high-school-football-teams_.$slug.lazy.tsx");
+const outboundCounty = schoolPage.split("const researchedCampusCounty:")[1]?.split("const batch002CityGuide:")[0] ?? "";
+const outboundCity = schoolPage.split("const batch002CityGuide:")[1]?.split("const cityGuide =")[0] ?? "";
+
 const expected = [
   "amarillo-caprock","amarillo-highland-park","amarillo-palo-duro",
   "amarillo-river-road","amarillo-tascosa","amherst","anahuac",
@@ -32,6 +36,12 @@ for (const slug of expected) {
   check(new RegExp('^  "' + slug + '": \\{', "m").test(editorial), slug + ": missing editorial object");
   check(countyLinks.includes("slug: '" + slug + "'"), slug + ": missing reciprocal county-page card");
   check(countyEvidence.includes(String.fromCharCode(96) + slug + String.fromCharCode(96)), slug + ": missing campus-county source evidence");
+  const county = rec?.inboundLinks?.find(p => p.startsWith("/county/"))?.slice(8);
+  check(Boolean(county), slug + ": registry is missing campus county inbound route");
+  if (county) {
+    check(outboundCounty.includes("'" + slug + "': '" + county + "'") || outboundCounty.includes(slug + ": '" + county + "'"), slug + ": missing or wrong school-to-county return link");
+  }
+
   const path = "docs/football-authority/schools/" + slug + ".md";
   check(existsSync(join(root, path)), slug + ": missing individual audit");
   if (existsSync(join(root, path))) {
@@ -42,6 +52,8 @@ for (const slug of expected) {
 }
 for (const slug of ["arlington","arlington-bowie","arlington-houston","arlington-lamar","arlington-martin","arlington-seguin"]) {
   check(cityLinks.includes("slug: '" + slug + "'"), slug + ": missing Arlington city reciprocal card");
+  check(outboundCity.includes("'" + slug + "': { slug: 'arlington'") || outboundCity.includes(slug + ": { slug: 'arlington'"), slug + ": missing return link to Arlington city");
+
 }
 const verifiedPrior = records.filter(x => x.status === "VERIFIED" && x.batch !== 3);
 check(verifiedPrior.length >= 30, "fewer than 30 previously VERIFIED schools");
