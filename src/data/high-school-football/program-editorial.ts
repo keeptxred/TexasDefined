@@ -3180,7 +3180,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "season": {
-      "record": "2–3 over five corroborated completed games through Sept. 25, 2026; Borger result not verified",
+      "record": "2–3 through Sept. 25 in published schedule; Sep. 17 Gruver loss has conflicting 60–27 and 63–27 reports; Borger result unverified",
       "verifiedAt": "2026-10-09",
       "sourceUrl": "https://www.maxpreps.com/tx/amarillo/river-road-wildcats/football/schedule/",
       "sourceLabel": "MaxPreps varsity 2026 results dated September 26",
@@ -3207,7 +3207,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "Sept. 17",
           "opponent": "Gruver",
           "site": "Away",
-          "result": "L 27–60"
+          "result": "L 27–60 (MaxPreps); Amarillo Globe-News reports 27–63"
         },
         {
           "date": "Sept. 25",
