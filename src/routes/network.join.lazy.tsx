@@ -43,7 +43,7 @@ const tiers = [
 
 function NetworkJoinPreview() {
   return (
-    <main>
+    <div>
       <section className="relative isolate overflow-hidden bg-[#f7eddf]">
         <div aria-hidden="true" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${hillCountryHero})` }} />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-[#fff8ed]/95 via-[#fff8ed]/70 to-[#fff8ed]/10" />
@@ -157,6 +157,6 @@ function NetworkJoinPreview() {
           <a href="/network/directory" className="mt-8 inline-flex rounded-full border border-primary bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground">Explore the Texas Defined Network</a>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

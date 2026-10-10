@@ -96,3 +96,7 @@ On PR #4545 check the **Network draft preview browser QA** workflow alongside Re
 
 ## Internal RLS helper schema
 The Featured RLS policies use `texasdefined_network_internal.network_featured_upload_under_quota` and `network_can_submit_featured_revision`, not public REST RPCs. Never grant `anon` access or recreate the old `public` SECURITY DEFINER helpers. Schema usage for `authenticated` is exclusively for RLS evaluation, with each helper enforcing matching `auth.uid()`. Re-run Supabase advisors after changes and keep applications/outbox service-role-only.
+
+
+## Directory visibility and main landmarks
+Before launch, `NETWORK_DIRECTORY_ENABLED` is absent/OFF: public directory shows a preview-only empty state and individual business profiles are not publicly served. Enable only after separate launch approval and independent public-listing RLS, SEO and editorial review; account for already published paying listings when suspending discovery. The global site shell owns the single `<main>`; Network route components use ordinary `<div>` wrappers. Review the 18 mobile/desktop Chrome QA results for horizontal overflow, hydration and image/accessibility issues.

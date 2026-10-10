@@ -34,7 +34,7 @@ function NetworkApplication() {
     if(kind==="logo"){setLogoFile(items[0]);setLogo(URL.createObjectURL(items[0]));}
     else {setGalleryFiles(items.slice(0,4));setGallery(items.slice(0,4).map(URL.createObjectURL));}
   }
-  return <main className="bg-[#f9f6ef]">
+  return <div className="bg-[#f9f6ef]">
     <Container width="wide" className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Texas Defined Network</p>
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Build your business listing</h1>
@@ -120,5 +120,5 @@ function NetworkApplication() {
         </aside>
       </div>
     </Container>
-  </main>
+  </div>
 }

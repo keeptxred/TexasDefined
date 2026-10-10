@@ -8,7 +8,7 @@ function BusinessProfile(){
  const record=Route.useLoaderData() as {slug:string;plan:string;profile:Record<string,unknown>;logo_storage_path:string|null;gallery_storage_paths:string[]};
  const get=(name:string)=>typeof record?.profile?.[name]==='string'?String(record.profile[name]):'';
  const media=(path:string)=>supabase.storage.from('texasdefined-network-published').getPublicUrl(path).data.publicUrl;
- return <main className="bg-[#faf8f3]"><Container className="py-12 sm:py-16">
+ return <div className="bg-[#faf8f3]"><Container className="py-12 sm:py-16">
   <>
    <p className="eyebrow text-primary">Texas Defined Network · {record.plan}</p>
    <div className="mt-5 flex flex-wrap items-center gap-6">
@@ -31,5 +31,5 @@ function BusinessProfile(){
     </aside>
    </div><p className="mt-12 text-xs text-muted-foreground">Business-provided information, reviewed by Texas Defined. Sponsored or paid features do not determine editorial coverage.</p>
   </>
- </Container></main>;
+ </Container></div>;
 }

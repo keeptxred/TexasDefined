@@ -13,7 +13,7 @@ function NetworkDirectory() {
     event.preventDefault();
     window.history.replaceState(null, "", "/network/directory?q=" + encodeURIComponent(query.trim()));
   };
-  return <main>
+  return <div>
     <section className="border-b border-border bg-surface"><Container className="py-16">
       <p className="eyebrow text-primary">One Texas. Everything Connected.</p>
       <h1 className="mt-3 font-display text-5xl">Explore the Texas Defined Network</h1>
@@ -36,5 +36,5 @@ function NetworkDirectory() {
         </article>)}
       </div>}
     </Container>
-  </main>;
+  </div>;
 }

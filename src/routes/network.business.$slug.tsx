@@ -6,6 +6,7 @@ import { createServerFn } from "@tanstack/react-start";
 const getPublishedProfile = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
+    if(process.env.NETWORK_DIRECTORY_ENABLED!=="true")return null;
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug) || data.slug.length > 120) return null;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: listing, error } = await supabaseAdmin

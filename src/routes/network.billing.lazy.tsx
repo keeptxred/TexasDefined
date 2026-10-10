@@ -71,7 +71,7 @@ function NetworkBilling() {
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Billing portal unavailable."); }
     finally { setBusy(false); }
   }
-  return <main><Container className="py-14 sm:py-20">
+  return <div><Container className="py-14 sm:py-20">
     <div className="mx-auto max-w-3xl">
       <p className="eyebrow text-primary">Texas Defined Network</p>
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Manage your membership</h1>
@@ -95,5 +95,5 @@ function NetworkBilling() {
       {error && <p role="alert" className="mt-5 rounded-xl bg-surface p-4 text-red-700">{error}</p>}
       <a href="/network/join" className="mt-9 inline-block text-primary underline">Return to Network membership</a>
     </div>
-  </Container></main>;
+  </Container></div>;
 }

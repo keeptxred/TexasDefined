@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
 const listProfiles = createServerFn({ method: "GET" }).handler(async () => {
+  // No private or public directory reads until independently approved visibility launch.
+  if(process.env.NETWORK_DIRECTORY_ENABLED!=="true")return [];
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   // Only independently published public profiles appear here, never the private intake table.
   const { data, error } = await supabaseAdmin.from("texasdefined_network_public_listings")
