@@ -270,7 +270,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "season": {
-      "record": "5–0 in five verified DCTF completed games through September 25, 2026; Oct. 9 result not included",
+      "record": "5–0 in five verified DCTF completed games through September 25, 2026; Oct. 8 result not independently verified",
       "verifiedAt": "2026-10-09",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
       "sourceLabel": "DCTF posted 2026 Martin scored fixtures",
@@ -308,7 +308,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "result": "W 35–21"
         },
         {
-          "date": "Oct. 9",
+          "date": "Oct. 8",
           "opponent": "Arlington Sam Houston",
           "site": "Away",
           "district": true
