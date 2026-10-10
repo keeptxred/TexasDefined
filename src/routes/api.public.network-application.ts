@@ -51,6 +51,18 @@ export const Route = createFileRoute("/api/public/network-application")({
       };
       try {
         const {supabaseAdmin}=await import("@/integrations/supabase/client.server");
+        // Check recent live submissions without revealing whether a particular email has an account.
+        // The Cloudflare POST limiter remains the primary abuse control.
+        const cutoff = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+        const {data: recent,error: checkError}=await supabaseAdmin.from("texasdefined_network_applications")
+          .select("business_name,city,status")
+          .eq("contact_email",email).gte("created_at",cutoff)
+          .in("status",["pending_review","approved","published"]).limit(200);
+        if(checkError)throw new Error("Duplicate check temporarily unavailable");
+        const normalize=(value:string)=>value.trim().normalize("NFKC").toLocaleLowerCase("en-US").replace(/\\s+/g," ");
+        if((recent||[]).some(entry=>normalize(entry.business_name)===normalize(businessName)&&normalize(entry.city)===normalize(city))){
+          return response({error:"A recent application for this business has already been received. Contact Texas Defined if you need to correct it."},409);
+        }
         const {data,error}=await supabaseAdmin.from("texasdefined_network_applications").insert(record as never).select("id").single();
         if(error||!data){console.error("[network] insert failed",error?.code);return response({error:"Application could not be received. Try again later."},503)}
         const applicationId=(data as {id:string}).id;
