@@ -53,7 +53,7 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 now have school-specific editorial + dossier files on draft PR 4540. Not merged, deployed or production VERIFIED. Some records still require stronger first-party research, source/venue/image reviews, reciprocal links, CI and real Chrome."
+    "notes": "25 individually IMPLEMENTED, 0 production VERIFIED. Nine campus-county reciprocal links now on branch and recorded; remaining 16 campus/city source maps, rights review and production acceptance outstanding."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4268,7 +4268,12 @@
       "commits": [
         "e06e3e4fabbc3ea4d60bf59349704d5bdece2b86",
         "d7895d3fda87d99a38c7c03745203ea5146719f3"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/smith"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/smith"
     },
     {
       "id": "uil:aspermont",
@@ -4292,7 +4297,12 @@
       "commits": [
         "768fcd1172272c2bfc847ef7966843904a1137dd",
         "8a36ec84b8d719c81dd3bc474ff829acd458e9b6"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/stonewall"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/stonewall"
     },
     {
       "id": "uil:athens",
@@ -4315,7 +4325,12 @@
       "actualProductionVerified": false,
       "commits": [
         "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/henderson"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/henderson"
     },
     {
       "id": "uil:atlanta",
@@ -4338,7 +4353,12 @@
       "actualProductionVerified": false,
       "commits": [
         "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/cass"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/cass"
     },
     {
       "id": "uil:aubrey",
@@ -4361,7 +4381,12 @@
       "actualProductionVerified": false,
       "commits": [
         "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/denton"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/denton"
     },
     {
       "id": "uil:austin",
@@ -4706,7 +4731,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/travis"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/travis"
     },
     {
       "id": "uil:austin-westlake",
@@ -4752,7 +4782,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "0dab3bd153b5211f997581d7f22649204d9fda87"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/ellis"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/ellis"
     },
     {
       "id": "uil:axtell",
@@ -4775,7 +4810,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "0dab3bd153b5211f997581d7f22649204d9fda87"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/mclennan"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/mclennan"
     },
     {
       "id": "uil:azle",
@@ -4821,7 +4861,12 @@
       "implementedOnBranch": "football-authority-batch-004-20261010",
       "commits": [
         "0dab3bd153b5211f997581d7f22649204d9fda87"
-      ]
+      ],
+      "inboundLinks": [
+        "/county/callahan"
+      ],
+      "linkVerificationStatus": "SOURCE_MAPPED_BRANCH_ONLY_NOT_PRODUCTION_VERIFIED",
+      "outboundCountyPath": "/county/callahan"
     },
     {
       "id": "uil:ballinger",
