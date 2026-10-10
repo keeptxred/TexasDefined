@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 20,
+    "partiallyCompleted": 21,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "arlington-bowie",
-    "nextSchool": "arlington-bowie",
-    "implementedOnBranch": 20,
-    "remainingToImplement": 5,
+    "currentSchool": "arlington-houston",
+    "nextSchool": "arlington-houston",
+    "implementedOnBranch": 21,
+    "remainingToImplement": 4,
     "remainingToVerify": 25,
-    "notes": "20 individual school profiles/audits implemented in draft #4506, five remaining NOT_REVIEWED. Zero Batch003 production VERIFIED. Next Arlington Bowie."
+    "notes": "21 individual school programs implemented with research audits in draft #4506. Four remain NOT_REVIEWED: Arlington Houston, Lamar, Martin, Seguin. Zero Batch 003 production VERIFIED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3569,9 +3569,31 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington-bowie",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington-bowie.md",
+      "implementationCommits": [
+        "93055ef50d09efa29e197a9b30b3b3b54b624b5d",
+        "e8d63f61a8d51205846dbf169e6a189c1d220c7e"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/bowie-high-school/about/",
+        "https://www.aisd.net/bowie-high-school/athletics/",
+        "https://www.maxpreps.com/tx/arlington/bowie-volunteers/football/24-25/schedule/",
+        "https://www.texasfootball.com/team/default.aspx?url=arlington-bowie-volunteers"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "NCES Tarrant County and contextual city/county football reciprocal links",
+        "Official 2026 results after September",
+        "Authentic photo rights",
+        "Wilemon Field tickets ADA and gate",
+        "CI protected merge deployed Chrome"
+      ]
     },
     {
       "id": "uil:arlington-houston",
