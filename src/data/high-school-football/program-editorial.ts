@@ -58,6 +58,262 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "austin-lake-travis": {
+    "slug": "austin-lake-travis",
+    "theme": {
+      "accentHex": "#A6192E",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Lake Travis Cavaliers Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Lake Travis Cavaliers football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2016",
+        "title": "UIL championship-era milestone",
+        "body": "UIL's 2016 season records show Lake Travis defeated Austin Westlake 51–3 in the postseason; the final against The Woodlands ended 41–13.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
+        "sourceLabel": "Published season or game-day source"
+      }
+    ],
+    "overview": [
+      "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Lake Travis Cavaliers football?",
+        "answer": "UIL's 2016 season records show Lake Travis defeated Austin Westlake 51–3 in the postseason; the final against The Woodlands ended 41–13."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      }
+    ]
+  },
+  "austin-johnson": {
+    "slug": "austin-johnson",
+    "theme": {
+      "accentHex": "#5A2B77",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin LBJ Jaguars Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin LBJ Jaguars football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/lbj-austin-jaguars/football/schedule/",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "This registry slug refers to Austin LBJ Early College Jaguars in 4A Division I, NOT Buda Johnson nor San Antonio Johnson. Official athletics directory names Jahmal Fenner Sr. as head football coach, but 2026 third-party roster names Joseph Rauls. Coaching attribution must remain unresolved pending first-party clarification. Published 2025 team record was 9–3.",
+      "sourceUrl": "https://www.lbjjaguarathletics.com/directory",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "School-specific program and visitor milestone",
+        "body": "LBJ's 2026 fixtures include October 22 against Austin Travis and October 29 at Austin Northeast Early College.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/lbj-austin-jaguars/football/schedule/",
+        "sourceLabel": "Published season or game-day source"
+      }
+    ],
+    "overview": [
+      "This registry slug refers to Austin LBJ Early College Jaguars in 4A Division I, NOT Buda Johnson nor San Antonio Johnson. Official athletics directory names Jahmal Fenner Sr. as head football coach, but 2026 third-party roster names Joseph Rauls. Coaching attribution must remain unresolved pending first-party clarification. Published 2025 team record was 9–3.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin LBJ Jaguars football?",
+        "answer": "LBJ's 2026 fixtures include October 22 against Austin Travis and October 29 at Austin Northeast Early College."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      }
+    ]
+  },
+  "austin-eastside": {
+    "slug": "austin-eastside",
+    "theme": {
+      "accentHex": "#1E6D43",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Eastside Early College Panthers Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Eastside Early College Panthers football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://eastside.austinschools.org/athletics",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Eastside's official athletics directory identifies Luis Becerra III as both athletic coordinator and head football coach, supported by named assistant coaches. Athletics resources include after-practice transportation and parent communication. Its season has matchups with Crockett and Austin Achieve.",
+      "sourceUrl": "https://eastside.austinschools.org/athletics",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "School-specific program and visitor milestone",
+        "body": "Published 2026 fixtures include September 24 Crockett and an October 30 visit to Austin Achieve.",
+        "sourceUrl": "https://eastside.austinschools.org/athletics",
+        "sourceLabel": "Published season or game-day source"
+      }
+    ],
+    "overview": [
+      "Eastside's official athletics directory identifies Luis Becerra III as both athletic coordinator and head football coach, supported by named assistant coaches. Athletics resources include after-practice transportation and parent communication. Its season has matchups with Crockett and Austin Achieve.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Eastside Early College Panthers football?",
+        "answer": "Published 2026 fixtures include September 24 Crockett and an October 30 visit to Austin Achieve."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      }
+    ],
+    "coach": {
+      "name": "Luis Becerra III",
+      "title": "Listed football head coach (source dated 2026)",
+      "sourceUrl": "https://eastside.austinschools.org/athletics",
+      "sourceLabel": "School athletics program",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-crockett": {
+    "slug": "austin-crockett",
+    "theme": {
+      "accentHex": "#19683A",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Crockett Cougars Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Crockett Cougars football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Crockett Early College's official 2026 page identifies Frank Muir as head football coach. Varsity home games are held at Burger Stadium, while junior varsity fixtures reference the campus field. Opponents include Akins, Eastside, Navarro, LASA and Pflugerville.",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "School-specific program and visitor milestone",
+        "body": "October 15 varsity Navarro match is scheduled at Burger Stadium; the September 24 Eastside game is at Nelson Field.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "Published season or game-day source"
+      }
+    ],
+    "overview": [
+      "Crockett Early College's official 2026 page identifies Frank Muir as head football coach. Varsity home games are held at Burger Stadium, while junior varsity fixtures reference the campus field. Opponents include Akins, Eastside, Navarro, LASA and Pflugerville.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Crockett Cougars football?",
+        "answer": "October 15 varsity Navarro match is scheduled at Burger Stadium; the September 24 Eastside game is at Nelson Field."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      }
+    ],
+    "coach": {
+      "name": "Frank Muir",
+      "title": "Listed football head coach (source dated 2026)",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "School athletics program",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "austin-bowie": {
+    "slug": "austin-bowie",
+    "theme": {
+      "accentHex": "#8D2525",
+      "label": "Original school-inspired editorial accent; no logo reproduced"
+    },
+    "seo": {
+      "title": "Austin Bowie Bulldogs Football: 2026 Guide, History & Fan Resources",
+      "description": "Independent Austin Bowie Bulldogs football profile: distinctive history, current sources, football venues and school-specific game-day guidance."
+    },
+    "schedule": {
+      "label": "Official athletics or school-specific 2026 resource",
+      "sourceUrl": "https://bowie.austinschools.org/athletics",
+      "sourceLabel": "Football athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Program identity and verified context",
+      "body": "Bowie's school athletics office lists Jeff Ables as athletic coordinator, and the football booster staff page identifies him as head coach with decades at the school. Austin ISD HomeTown season passes cover home football games, not away tickets.",
+      "sourceUrl": "https://www.bowiefootball.org/coach",
+      "sourceLabel": "Athletics school source and archives",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "School-specific program and visitor milestone",
+        "body": "Official Bowie guidance explains that season passes cover home football games only.",
+        "sourceUrl": "https://bowie.austinschools.org/athletics",
+        "sourceLabel": "Published season or game-day source"
+      }
+    ],
+    "overview": [
+      "Bowie's school athletics office lists Jeff Ables as athletic coordinator, and the football booster staff page identifies him as head coach with decades at the school. Austin ISD HomeTown season passes cover home football games, not away tickets.",
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+    ],
+    "faq": [
+      {
+        "question": "What is distinctive about Austin Bowie Bulldogs football?",
+        "answer": "Official Bowie guidance explains that season passes cover home football games only."
+      },
+      {
+        "question": "Where should fans check official football information?",
+        "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
+      }
+    ],
+    "coach": {
+      "name": "Jeff Ables",
+      "title": "Listed football head coach (source dated 2026)",
+      "sourceUrl": "https://www.bowiefootball.org/coach",
+      "sourceLabel": "School athletics program",
+      "verifiedAt": "2026-10-10"
+    }
+  },
   "austin-anderson": {
     "slug": "austin-anderson",
     "theme": {
