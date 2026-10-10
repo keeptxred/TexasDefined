@@ -227,5 +227,29 @@ for (const marker of ['GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'Date.now()', "cach
 const publication = fs.readFileSync('scripts/ci/verify-texasdefined-publication-production.mjs', 'utf8');
 for (const marker of ['GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'Date.now()', 'td_verify=', "cache: 'no-store'"])
   requireMarker(publication, marker, `Publication cache bypass regressed: ${marker}`);
+// Wave 6: retrospective Apple Springs browser acceptance must not assert
+// proposed PR content against an older deployed Worker. Preserve the fast PR
+// syntax check and the explicitly invoked production browser acceptance.
+const appleSprings = workflow('verify-football-batch-003-apple-springs');
+const appleSource = appleSprings.slice(appleSprings.indexOf('  source-syntax:'), appleSprings.indexOf('  apple-springs-chrome:'));
+const appleLive = appleSprings.slice(appleSprings.indexOf('  apple-springs-chrome:'));
+if (!appleSprings.includes('  pull_request:') || !appleSprings.includes('  workflow_dispatch:'))
+  failures.push('Apple Springs must retain PR source validation and manual live retest');
+requireMarker(appleSource, "if: ${{ github.event_name == 'pull_request' }}", 'Apple Springs PR job must be source-only');
+requireMarker(appleSource, 'node --check scripts/ci/verify-football-batch-003-apple-springs.mjs', 'Apple Springs PR syntax check missing');
+requireMarker(appleLive, "if: ${{ github.event_name == 'workflow_dispatch' }}", 'Apple Springs live browser must be manual-only, never execute on PR');
+requireMarker(appleLive, 'node scripts/ci/verify-football-batch-003-apple-springs.mjs', 'Apple Springs manual live browser check missing');
+if (appleSource.includes('node scripts/ci/verify-football-batch-003-apple-springs.mjs\n'))
+  failures.push('Apple Springs PR source job must not invoke the live browser');
+
+// Keep the 254-county source inventory on PRs but crawl the actual site only
+// after an eligible deployment (or an intentional manual production audit).
+const countyWorkflow = workflow('audit-all-editorial-production');
+requireMarker(countyWorkflow, '  pull_request:', 'County source-inventory PR coverage missing');
+const countyLive = countyWorkflow.slice(countyWorkflow.indexOf('  verify-county-production:'));
+requireMarker(countyLive, "if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}", 'County production crawl must skip undeployed PRs and failed deployments');
+if (countyLive.includes("continue-on-error: ${{ github.event_name == 'pull_request' }}"))
+  failures.push('County production must not hide a PR-triggered live crawl failure');
+
 if (failures.length) { for (const failure of failures) console.error('FAIL: '+failure); process.exit(1); }
 console.log('Scoped post-deploy verifier safety passed: deploy-success gating, immutable checkout, cache bypass, and blocking native sports smoke.');
