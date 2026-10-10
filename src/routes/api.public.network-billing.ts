@@ -10,7 +10,7 @@ async function owner(request: Request) {
   const { data, error } = await supabaseAdmin.auth.getUser(token);
   const user = data.user;
   if (error || !user?.email || !user.email_confirmed_at) return null;
-  return { client: supabaseAdmin, email: user.email.toLowerCase() };
+  return { client: supabaseAdmin, email: user.email.toLowerCase(), userId: user.id };
 }
 
 export const Route = createFileRoute("/api/public/network-billing")({
@@ -37,6 +37,15 @@ export const Route = createFileRoute("/api/public/network-billing")({
       const { data, error } = await auth.client.from("texasdefined_network_applications")
         .select("stripe_customer_id").eq("id", id).eq("plan", "plus").eq("contact_email", auth.email).maybeSingle();
       if (error || !data?.stripe_customer_id) return respond({ error: "No active billing account found." }, 404);
+      // Only a reviewed, enabled owner binding may access the Stripe customer portal.
+      const { data: ownerBinding, error: ownerError } = await auth.client
+        .from("texasdefined_network_business_accounts")
+        .select("application_id")
+        .eq("application_id", id)
+        .eq("owner_user_id", auth.userId)
+        .eq("access_enabled", true)
+        .maybeSingle();
+      if (ownerError || !ownerBinding) return respond({ error: "Verified business ownership is required." }, 403);
       const key = process.env["STRIPE_SECRET_KEY"];
       if (!key) return respond({ error: "Billing portal is temporarily unavailable." }, 503);
       const body = new URLSearchParams({
