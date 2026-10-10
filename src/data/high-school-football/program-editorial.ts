@@ -58,6 +58,99 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "apple-springs": {
+    "slug": "apple-springs",
+    "theme": {
+      "accentHex": "#B6873C",
+      "label": "Original Apple Springs Eagles editorial gold; no official insignia copied"
+    },
+    "seo": {
+      "title": "Apple Springs Eagles Six-Man Football: 2026 Coach, Nelson Davis Stadium & Results",
+      "description": "Apple Springs Eagles six-man football: Cash Thompson, 2026 UIL 1A Division II District 15, Nelson Davis Stadium, 12 playoffs and dated 2026 games."
+    },
+    "coach": {
+      "name": "Cash Thompson",
+      "title": "Head football coach listed in 2026–27 MaxPreps history; independent school confirmation outstanding",
+      "sourceUrl": "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/history/",
+      "sourceLabel": "2026–27 team history; 2025 coach Jeremiah Dickson listed separately",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 football schedule and reported results",
+      "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+      "sourceLabel": "DCTF current season football ledger; partly incomplete",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Nelson Davis Stadium",
+      "address": "Apple Springs, Texas — spectator entrance and accessibility unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+      "sourceLabel": "DCTF stadium name and historical 500 capacity",
+      "verifiedAt": "2026-10-09",
+      "note": "The independent stadium directory lists 500 historical seats; this is not an official accessible seating map, address, tickets or parking schedule. Contact Apple Springs ISD to verify."
+    },
+    "overview": [
+      "Apple Springs Eagles football represents a small six-man school community in Trinity County in East Texas. Its specific history and 2026 team must not be confused with other Eagles programs or with a different UIL six-man division listed by an outdated sports portal.",
+      "The canonical UIL 2026–28 alignment lists Apple Springs in Class 1A Division II District 15. MaxPreps also labels the 2026 team Division II; Dave Campbell's Texas Football currently describes the team as Division I, an unresolved secondary-source mismatch. The UIL primary document governs current alignment until corrected.",
+      "DCTF reports 12 football playoff appearances, zero state championship-game appearances and zero state titles. Past seasons include 5–5 in 2019, 3–8 in 2021, 4–7 in 2023, 3–6 in 2024 and 3–5 in 2025. These reflect program persistence but should not be elevated into unverified championship claims.",
+      "MaxPreps's 2026–27 staff history lists Cash Thompson as head football coach after Jeremiah Dickson in the 2025–26 school year. An official district hiring announcement is still needed before calling that appointment directly confirmed by Apple Springs ISD.",
+      "The posted 2026 scores differ in coverage: DCTF records an 18–68 defeat at Chester and 77–47 victory over Bryan St. Joseph, but omits the September 18 Christian Heritage final, which MaxPreps lists as an Apple Springs 51–25 win. The sources are not reporting an identical game set, so the page deliberately avoids a misleading combined overall record.",
+      "Apple Springs's published schedule also includes games against Longview Christian Heritage, Conroe Covenant and Brazos Valley before the later Buckholts and Calvert district fixtures. These opponents tell a specific six-man story involving small public and private football programs, not generic varsity claims.",
+      "DCTF names Nelson Davis Stadium as the team's venue with a historic 500-capacity listing. That does not certify a stadium gate, disability access, bag policy or current tickets; visitors need official school guidance."
+    ],
+    "milestones": [
+      {
+        "date": "2018–19",
+        "title": "Five wins in each archived season",
+        "body": "DCTF reports 5–3 in 2018 and 5–5 in 2019, rather than inventing a title.",
+        "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+        "sourceLabel": "DCTF Apple Springs program history"
+      },
+      {
+        "date": "2023–25",
+        "title": "Recent six-man participation",
+        "body": "DCTF records 4–7 in 2023, 3–6 in 2024 and 3–5 in 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
+        "sourceLabel": "DCTF season archive"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Christian Heritage victory",
+        "body": "MaxPreps reports an Apple Springs 51–25 win over Christian Heritage, a game not included in DCTF's two-final snapshot.",
+        "sourceUrl": "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/",
+        "sourceLabel": "MaxPreps 2026 game report"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL Division II District 15",
+        "body": "The repository's canonical UIL source assigns Apple Springs to 1A six-man Division II, District 15; DCTF has a conflicting Division I label.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "Official UIL alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Apple Springs football 1A Division I or Division II in 2026?",
+        "answer": "The UIL's 2026–28 alignment lists Apple Springs in Division II District 15, and MaxPreps agrees; DCTF currently has a conflicting Division I label."
+      },
+      {
+        "question": "Who is Apple Springs's 2026 head coach?",
+        "answer": "The 2026 MaxPreps football history identifies Cash Thompson; the official school appointment is not separately confirmed."
+      },
+      {
+        "question": "Has Apple Springs won a football state championship?",
+        "answer": "DCTF lists 12 football playoff appearances and zero state finals or championships."
+      },
+      {
+        "question": "Where do the Eagles play home football games?",
+        "answer": "DCTF lists Nelson Davis Stadium; verify actual game-day spectator gate and accessibility with Apple Springs ISD."
+      },
+      {
+        "question": "Why do different sites show different 2026 records?",
+        "answer": "DCTF has two completed game results, while MaxPreps also reports a September 18 win against Christian Heritage. The reports cover different subsets of the schedule."
+      }
+    ]
+  },
   "anton": {
     "slug": "anton",
     "theme": {
