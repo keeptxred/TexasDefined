@@ -224,9 +224,10 @@ export async function provisionReviewedNetworkOwner(accessKey:string, applicatio
     user.email.trim().toLowerCase()!==String(application.contact_email).trim().toLowerCase())
   throw Error('User must have verified the matching application email');
  const {data:existing,error:existingError}=await supabaseAdmin.from('texasdefined_network_business_accounts')
-  .select('id,owner_user_id,access_enabled').eq('application_id',applicationId).maybeSingle();
+  .select('id,owner_user_id,access_enabled,membership_tier').eq('application_id',applicationId).maybeSingle();
  if(existingError)throw Error('Owner account lookup failed');
  if(existing&&existing.owner_user_id!==userId)throw Error('Business account is already assigned to a different user');
+ if(existing&&existing.membership_tier!=='plus')throw Error('This application already has an independently managed membership tier');
  if(existing){
   if(existing.access_enabled)return {id:existing.id,access_enabled:true,alreadyEnabled:true};
   const {data,error}=await supabaseAdmin.from('texasdefined_network_business_accounts')
@@ -236,7 +237,7 @@ export async function provisionReviewedNetworkOwner(accessKey:string, applicatio
   return {id:data.id,access_enabled:true,alreadyEnabled:false};
  }
  const {data,error}=await supabaseAdmin.from('texasdefined_network_business_accounts')
-  .insert({application_id:applicationId,owner_user_id:userId,membership_tier:'featured',access_enabled:true} as never)
+  .insert({application_id:applicationId,owner_user_id:userId,membership_tier:'plus',access_enabled:true} as never)
   .select('id,access_enabled').single();
  if(error||!data)throw Error('Could not provision verified business owner');
  return {id:data.id,access_enabled:true,alreadyEnabled:false};

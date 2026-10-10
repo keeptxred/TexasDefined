@@ -35,6 +35,9 @@ check('webhook never republishes paid listings automatically',webhook.includes('
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));
 check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&review.includes('user?.email_confirmed_at'));
 check('admin provisioning forbids reassignment',review.includes('existing.owner_user_id!==userId'));
+check('Plus owner provisioning never grants Featured rights',review.includes("membership_tier:'plus',access_enabled:true") && review.includes("existing.membership_tier!=='plus'"));
+check('Plus dashboard never displays Featured revision controls',dashboard.includes("account.membership_tier==='plus'") && dashboard.includes('View membership billing'));
+check('tier constraint migration denies implicit Featured default',source('supabase/migrations/20261010211200_network_owner_plus_tier_guard.sql').includes("SET DEFAULT 'plus'"));
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
 check('only approved application may be published',review.includes("if(app.status!=='approved')"));
 check('publication fails closed on status persistence',review.includes('if(statusError){')&&review.includes('is_published:false'));

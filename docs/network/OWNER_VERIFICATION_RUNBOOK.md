@@ -30,3 +30,9 @@ Updated: 2026-10-10. Feature branch only; not a launch approval.
 ## Known blockers
 
 The application admin still relies on the inherited sports-partner admin access key rather than dedicated identity-based Network RBAC. The database ownership binding does not itself store independent proof or reviewer attribution, so proof must be retained separately. Production email-deliverability is unverified. Subscription/webhook and public listing transitions span multiple DB calls and remain to be tested for partial failures and concurrency. The client bundle-size gate has recently failed at 1,833,490 bytes, against a maximum of 1,829,000 bytes. Nothing in this document waives these requirements.
+
+## Plus versus Featured membership authorization (October 10 continuation)
+- Approved Plus applications are provisioned into `membership_tier = plus`; NEVER grant `featured` merely for verified Plus ownership. The prior code incorrectly set `featured` due to a Featured-only database constraint.
+- A Plus owner can sign in and access only their reviewed account, published public listing and membership billing. Featured profile-edit submission and Featured private-media upload remain limited by live RLS to an enabled account with `membership_tier = featured`.
+- Featured upgrade remains a separate manual, independently approved process, not automatically performed by Plus checkout or email confirmation.
+- Database migration `20261010211200_network_owner_plus_tier_guard` permits explicit `plus` or `featured`, changes the default to the least-privileged `plus`, and tightens Featured draft SELECT to enabled Featured owners. Test authorization boundaries before launch.
