@@ -2825,10 +2825,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "venue": {
       "name": "Kyle White Stadium",
       "address": "Anahuac, Texas — separate official spectator entrance not independently verified",
-      "sourceUrl": "https://www.texasfootball.com/team/anahuac-panthers",
-      "sourceLabel": "DCTF Panthers venue and historical capacity listing",
+      "sourceUrl": "https://www.aisdpanthers.com/o/ahs/live-feed",
+      "sourceLabel": "Anahuac ISD High School first-party October 2, 2026 Kyle White Stadium game notice",
       "verifiedAt": "2026-10-09",
-      "note": "Independent football directory lists Kyle White Stadium with historical capacity 500. This is not a certified current spectator/ADA capacity. High-school Wilcox campus and separate Anahuac ISD district-office address are not asserted as current game gates. Verify tickets, accessible route, parking and assigned event with AISD."
+      "note": "Anahuac High's official October 2, 2026 game notice explicitly places home Panthers football at Kyle White Stadium and confirms black-and-gold team identity. The school's campus is separately listed as 201 South Kansas Avenue; neither campus nor district headquarters is a certified stadium gate. Historical third-party capacity 500 is not a current ADA finding. Confirm event-specific entry, parking, accessibility and tickets with Anahuac ISD."
     },
     "overview": [
       "The Anahuac Panthers represent Anahuac ISD in Chambers County, near the eastern shoreline of Trinity Bay. Their football story belongs to Anahuac High School, not the similarly named Liberty or Panhandle Panthers, whose game histories and stadiums are entirely different.",
