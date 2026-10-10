@@ -35,6 +35,7 @@ export const Route = createFileRoute("/api/public/network-checkout")({
       .select("application_id")
       .eq("application_id", data.id)
       .eq("owner_user_id", verified.user.id)
+      .eq("access_enabled", true)
       .maybeSingle();
     if (ownershipError || !ownership) {
       return reply({ error: "Business ownership must be verified before subscription checkout." }, 403);
