@@ -77,7 +77,19 @@ export const Route = createFileRoute("/api/public/network-application")({
           console.error("[network] media save failed",err instanceof Error?err.message:"unknown");
           return response({error:"Image upload failed; please retry."},503);
         }
-        return response({ok:true,applicationId,message:"Application and images received for review. No listing has been published or charged."},201);
+        if(plan==="plus") {
+          const {stripeCheckoutEnabled,createNetworkCheckoutSession}=await import("@/data/network-stripe.server");
+          if(stripeCheckoutEnabled()) {
+            try {
+              const checkoutUrl=await createNetworkCheckoutSession(applicationId,email);
+              return response({ok:true,applicationId,checkoutUrl,message:"Application received. Complete secure Stripe Checkout to activate Plus billing."},201);
+            }catch(err) {
+              console.error("[network] checkout session creation failed",err instanceof Error?err.message:"unknown");
+              return response({ok:true,applicationId,checkoutAvailable:false,message:"Application received. Checkout is temporarily unavailable; no charge was made."},201);
+            }
+          }
+        }
+        return response({ok:true,applicationId,checkoutAvailable:false,message:"Application and images received for review. No listing has been published or charged."},201);
       }catch(e){console.error("[network] server unavailable",e instanceof Error?e.message:"unknown");return response({error:"Application temporarily unavailable."},503)}
     }
   }}
