@@ -92,3 +92,7 @@ A Featured badge alone does not authorize uploading or editing. Storage quota an
 
 ## Prelaunch free Chrome browser verification
 On PR #4545 check the **Network draft preview browser QA** workflow alongside Required Merge Gate. It builds the PR Worker locally, never deploys, and runs live hydration and two-viewport interaction checks without sending messages. Download or inspect the `network-preview-browser-evidence` Actions artifact for mobile/desktop screenshots and `results.json`. Review every failure; do not accept a passing static SSR smoke as browser certification. Re-run after substantial UI changes. Only separately authorized deployment permits final production/browser/real-owner testing.
+
+
+## Internal RLS helper schema
+The Featured RLS policies use `texasdefined_network_internal.network_featured_upload_under_quota` and `network_can_submit_featured_revision`, not public REST RPCs. Never grant `anon` access or recreate the old `public` SECURITY DEFINER helpers. Schema usage for `authenticated` is exclusively for RLS evaluation, with each helper enforcing matching `auth.uid()`. Re-run Supabase advisors after changes and keep applications/outbox service-role-only.
