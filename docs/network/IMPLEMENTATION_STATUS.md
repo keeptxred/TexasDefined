@@ -90,5 +90,12 @@ Fix route conflicts and generated tree → reconcile main → fix performance ch
 - Current allowed Featured revision images (one logo + up to six gallery at 3 MB each) can be another **21 MB private plus 21 MB public** per complete refresh. Set media retention and predictable per-business capacity before broad rollout.
 - Email sending cost/service remains unresolved; must use approved TexasDefined Office 365 identity and not personal Gmail.
 
+
+## Additional continuation — October 10, 2026 (latest branch sync)
+- The newer main commits through `306d5ca129e52122c3b7d614ae4d5ffc2c6881d4` were merged to the Network feature via two-parent commit `fdbc77edefcf24e0a295cc45ea1007518bb1d173`, preserving ten nonoverlapping city, museum, news, and State Fair files. Confirmed **0 commits behind** immediately after this sync. Main may move again; always refresh before merge.
+- Server-only media checking now requires all eight PNG magic bytes before an approved application/Featured image becomes public, commit `82d6971f95ebb5ad75be6071403f57184830b2bf`. No migration, billing activation or production deployment.
+- Merge gate run `38078347713` definitively failed one top-level check: main client bundle **1,832,933 bytes**, limit **1,829,000 bytes**, over by **3,933 bytes**. Generated routes and other canonical suite checks passed. Separate Texas Icons run `38078347747` independently reproduced the bundle failure. Do not mark CI complete and do not raise the budget.
+- The business billing portal currently requires an authenticated confirmed-email user matching the intake contact email. Independent ownership verification and authenticated end-to-end test journeys remain release requirements, not certified capabilities.
+
 ## Launch state
 **NOT LAUNCHED / NOT CERTIFIED.** No confirmed end-to-end successful application, payment, customer portal login or production publication. Never claim otherwise.
