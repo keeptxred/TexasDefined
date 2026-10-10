@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 2,
+    "partiallyCompleted": 3,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "amarillo-palo-duro",
-    "nextSchool": "amarillo-palo-duro",
-    "implementedOnBranch": 2,
-    "remainingToImplement": 23,
+    "currentSchool": "amarillo-river-road",
+    "nextSchool": "amarillo-river-road",
+    "implementedOnBranch": 3,
+    "remainingToImplement": 22,
     "remainingToVerify": 25,
-    "notes": "Batch 003: Amarillo Caprock and Amarillo Highland Park individually researched and implemented with audits; 23 other assigned schools untouched. All 25 not yet production VERIFIED; draft PR #4506. Next Amarillo Palo Duro. Source/checks limitations retained."
+    "notes": "3 implemented (Caprock, Highland Park, Palo Duro) with individual audits on draft PR #4506. 22 assigned still NOT_REVIEWED; none Batch003 production VERIFIED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -2890,9 +2890,33 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amarillo-palo-duro",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amarillo-palo-duro.md",
+      "implementationCommits": [
+        "dde0511383f96056dd85dd9a1f880c514aebc2a1",
+        "cc16056b8e63fbc4e5488fe92024e00e4087baac"
+      ],
+      "evidenceSources": [
+        "https://www.texasfootball.com/team/amarillo-palo-duro-dons",
+        "https://www.maxpreps.com/tx/amarillo/palo-duro-dons/football/staff/",
+        "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "https://www.amaisd.org/133763_3"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "School-specific authored; production untested",
+      "imageStatus": "Original milestone cards; photography rights unresolved",
+      "outstanding": [
+        "Official colors and primary head coach source",
+        "Campus county and reciprocal inbound link",
+        "Image license and photo",
+        "Ticket ADA parking and game-day gate",
+        "CI merge deploy and actual browser verification"
+      ]
     },
     {
       "id": "uil:amarillo-river-road",
