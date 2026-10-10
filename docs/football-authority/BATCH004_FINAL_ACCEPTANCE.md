@@ -1,5 +1,12 @@
 # TexasDefined High School Football — Batch 004 Final Production Acceptance Evidence
 
+## FINAL Batch 004 six-school factual acceptance — 2026-10-10 (supersedes prior pending checkpoints)
+
+**All 25/25 Batch 004 schools VERIFIED; 80/1,292 overall including 55 earlier VERIFIED; zero assigned needing follow-up.** The six screenshot-discovered source/identity/season errors (Austin High, Austin LBJ, Austin Northeast, Austin Travis, Vandegrift and Lake Travis) were corrected in [PR #4562](https://github.com/keeptxred/TexasDefined/pull/4562), merged before the subsequent [successful production deployment](https://github.com/keeptxred/TexasDefined/actions/runs/38073512656) at exact SHA `f93d6445fb2f9084c549e5f7c0e478d29599df5c`. [Real 1366px and 390px Chrome acceptance](https://github.com/keeptxred/TexasDefined/actions/runs/38073890302) **passed 72/72 checks with 0 failures** (50 school viewports, 20 county viewports, 2 Austin city viewports), plus **25/25 sitemap**, using school-specific district/county, LBJ Jaguars H1/schema, unrelated-school exclusion and Lake Travis season/stadium/source-link regression assertions. [Saved screenshot/report artifact 11678042145](https://github.com/keeptxred/TexasDefined/actions/runs/38073890302/artifacts/11678042145). The six individual registry records now point to this new production run and preserve their prior structural-run evidence.
+
+**Scope:** Verified technical/live school identity and rendered-source-correction acceptance, not a claim that all historical anecdotes, photo permissions, future results, current coach, ADA, tickets, entrance or parking arrangements have been independently certified. Earlier contrary headings below are historical checkpoints, not active status. Do not assign Batch 005 until separately refreshed main and inventory/registry review.
+
+
 ## Expanded primary-source factual correction (latest; October 10, 2026)
 
 **19 of 25 Batch 004 fully VERIFIED**, **six NEEDS_FOLLOWUP**, **55 prior VERIFIED preserved**, **74 of 1,292 total VERIFIED**. The older 24/25 and 25/25 status headings below chronicle earlier checkpoints, **not current factual certification**.
