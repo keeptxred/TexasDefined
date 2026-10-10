@@ -229,7 +229,9 @@ export const Route = createFileRoute("/texas-state-fair")({
       ...base,
       scripts: [
         ...base.scripts,
-        jsonLd({
+        jsonLd(Date.now() >= Date.parse("2026-10-19T00:00:00-05:00")
+          ? { "@context": "https://schema.org", "@type": "WebPage", about: { "@type": "Thing", name: "State Fair of Texas", sameAs: "https://bigtex.com/" } }
+          : {
           "@context": "https://schema.org",
           "@type": "Event",
           name: "2026 State Fair of Texas",
