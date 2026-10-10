@@ -102,7 +102,7 @@ export const garrisonBrothersHyeDestinations: Destination[] = [
           description:
             "Hye, Stonewall and the road toward Fredericksburg contain one of Texas' densest winery and tasting-room clusters.",
           proximity: "Along U.S. 290",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
       lodging: [
@@ -118,7 +118,7 @@ export const garrisonBrothersHyeDestinations: Destination[] = [
           description:
             "Stay west when the distillery is part of a larger winery or Fredericksburg itinerary.",
           proximity: "West on U.S. 290",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
       neighborhoods: [
@@ -166,7 +166,7 @@ export const garrisonBrothersHyeDestinations: Destination[] = [
           description:
             "Continue west for the full winery, museum, shopping and German-Texan heritage cluster.",
           proximity: "West on U.S. 290",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
     },
