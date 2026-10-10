@@ -166,7 +166,8 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
    .select('id,status,plan,business_name,category,description,city,address,phone,hours,website,social,services,faq,offer,logo_storage_path,gallery_storage_paths,paid_entitlement_active')
    .eq('id',id).single();
  if(error||!app)throw Error('Application unavailable');
- if(app.status!=='approved'&&app.status!=='published')throw Error('Listing requires editorial approval');
+ // Do not overwrite a live Featured owner's subsequently approved revisions with stale intake fields.
+ if(app.status!=='approved')throw Error('Only approved, unpublished applications can be published. Unpublish before requesting another publication.');
  if(app.plan==='plus'&&!app.paid_entitlement_active)throw Error('Active paid subscription required for Plus');
  const slugBase=String(app.business_name+'-'+app.city).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80);
  const slug=(slugBase||'texas-business')+'-'+id.slice(0,8);
