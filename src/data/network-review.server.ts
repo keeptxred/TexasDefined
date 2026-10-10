@@ -30,7 +30,21 @@ export async function listNetworkApplications(accessKey: string) {
 export async function setNetworkApplicationReview(accessKey: string, id: string, action: 'approve' | 'reject' | 'reopen') {
   await assertSportsPartnerAccess(accessKey);
   const status = action === 'approve' ? 'approved' : action === 'reject' ? 'rejected' : 'pending_review';
-  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications').update({ status, updated_at: new Date().toISOString() } as never).eq('id', id).select('id,status').single();
+  const { data: current, error: lookupError } = await supabaseAdmin.from('texasdefined_network_applications')
+    .select('id,status').eq('id', id).single();
+  if (lookupError || !current) throw new Error('Application not found.');
+  if (current.status === 'published' && action === 'approve') {
+    throw new Error('Unpublish a listing before reopening editorial approval.');
+  }
+  if (action === 'reject' || action === 'reopen') {
+    // A status-only rejection would otherwise leave an already published page visible.
+    const { error: hideError } = await supabaseAdmin.from('texasdefined_network_public_listings')
+      .update({ is_published: false, updated_at: new Date().toISOString() } as never)
+      .eq('application_id', id).eq('is_published', true);
+    if (hideError) throw new Error('Could not unpublish this listing.');
+  }
+  const { data, error } = await supabaseAdmin.from('texasdefined_network_applications')
+    .update({ status, updated_at: new Date().toISOString() } as never).eq('id', id).select('id,status').single();
   if (error || !data) throw new Error('Unable to update application.');
   return data;
 }
@@ -64,8 +78,8 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
  if(lookupError||!revision||revision.review_status!=='pending_review')throw new Error('Change request is no longer pending.');
  if(decision==='approve'){
   const {data:account,error:accountError}=await supabaseAdmin.from('texasdefined_network_business_accounts')
-   .select('id,application_id,owner_user_id,access_enabled').eq('id',revision.business_account_id).single();
-  if(accountError||!account||!account.access_enabled||account.owner_user_id!==revision.submitted_by)throw Error('Featured ownership or access is not valid.');
+   .select('id,application_id,owner_user_id,access_enabled,membership_tier').eq('id',revision.business_account_id).single();
+  if(accountError||!account||!account.access_enabled||account.membership_tier!=='featured'||account.owner_user_id!==revision.submitted_by)throw Error('Featured ownership or access is not valid.');
   const {data:listing,error:listingError}=await supabaseAdmin.from('texasdefined_network_public_listings')
    .select('application_id,profile,logo_storage_path,gallery_storage_paths').eq('application_id',account.application_id).eq('is_published',true).single();
   if(listingError||!listing)throw Error('A published business profile is required before applying changes.');
