@@ -58,6 +58,394 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "baytown-goose-creek-memorial": {
+    "slug": "baytown-goose-creek-memorial",
+    "theme": {
+      "accentHex": "#9C2434",
+      "label": "Original independently authored accent, not an official logo"
+    },
+    "seo": {
+      "title": "Goose Creek Memorial Patriots Football: UIL History, 2026 & Game-Day Guide",
+      "description": "Goose Creek Memorial Patriots football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+    },
+    "schedule": {
+      "label": "Goose Creek CISD first-party school/athletics resources",
+      "sourceUrl": "https://schools.gccisd.net/page/gcmhs.staffdirectory",
+      "sourceLabel": "School or district athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Patriots founded in 2008 and their 2025 playoff season",
+      "body": "Goose Creek Memorial's own archival school profile identifies its 2008 founding as GCCISD's third comprehensive campus. The Patriots finished 7–4 in 2025, including a 28–20 opening playoff loss to Clear Springs. The 2026–28 UIL alignment places this team in 5A Division I District 9. Its current campus staff roster identifies JayMond Cleveland as campus athletics coordinator, not automatically as the head football coach. Its 2025 results must never be presented as 2026 finals.",
+      "sourceUrl": "https://schools.gccisd.net/upload/page/0936/docs/2022-2023/GCM%20School%20Profile%2022-23_update1017.pdf",
+      "sourceLabel": "GCCISD first-party campus profile",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2008",
+        "title": "Goose Creek Memorial High School founded",
+        "body": "The district's own school profile identifies GCM as its third comprehensive high-school campus, opened in 2008.",
+        "sourceUrl": "https://schools.gccisd.net/upload/page/0936/docs/2022-2023/GCM%20School%20Profile%2022-23_update1017.pdf",
+        "sourceLabel": "Official GCCISD school-history profile"
+      },
+      {
+        "date": "2025",
+        "title": "Patriots' 7–4 playoff campaign",
+        "body": "A season archive records victories over Baytown Sterling and Baytown Lee, a 7–4 overall finish and postseason against Clear Springs; this is prior-season context rather than a 2026 result.",
+        "sourceUrl": "https://www.maxpreps.com/tx/baytown/goose-creek-memorial-patriots/football/25-26/schedule/",
+        "sourceLabel": "2025 varsity schedule archive"
+      },
+      {
+        "date": "2026",
+        "title": "Current UIL alignment differs from the 2025 opponents",
+        "body": "The 2026–28 UIL alignment places GCM in 5A Division I District 9. Check current district schedules for the relevant season instead of carrying 2025 standings forward.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "Official 2026–28 UIL alignment"
+      }
+    ],
+    "overview": [
+      "Goose Creek Memorial Patriots football represents a distinct Baytown high school founded in 2008. GCM is not Robert E. Lee High School or Ross S. Sterling High School, the district's other older comprehensive campuses.",
+      "The 2025 varsity season archive records 7 wins and 4 losses, including games against fellow Goose Creek CISD campuses Sterling and Lee. The Patriots' next UIL realignment is 5A Division I District 9, so old 2025 standings should not be assumed to match 2026.",
+      "GCM's campus is 6001 E Wallisville Road, Baytown. District staff sources name JayMond Cleveland campus athletics coordinator, but that title alone does not verify the current head football coach. The school's own athletics link and district event calendar are the most appropriate starting points for schedules and game-specific locations."
+    ],
+    "faq": [
+      {
+        "question": "When was Goose Creek Memorial High School founded?",
+        "answer": "Goose Creek CISD's official GCM school profile identifies it as the district's third comprehensive high school founded in 2008."
+      },
+      {
+        "question": "How did GCM do in 2025?",
+        "answer": "The 2025 varsity archive records a 7–4 season and a postseason appearance, distinct from the current 2026 fixtures."
+      },
+      {
+        "question": "Is Goose Creek Memorial the same team as Baytown Sterling or Lee?",
+        "answer": "No. The Patriots are one of three separate Goose Creek CISD comprehensive high school football programs. Confirm the specific school's match venue."
+      }
+    ],
+    "campus": {
+      "address": "6001 E Wallisville Rd, Baytown, TX 77521",
+      "phone": "281-421-4400",
+      "sourceUrl": "https://schools.gccisd.net/page/gcmhs.home/",
+      "sourceLabel": "Goose Creek CISD official campus",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "baytown-lee": {
+    "slug": "baytown-lee",
+    "theme": {
+      "accentHex": "#7E3C47",
+      "label": "Original independently authored accent, not an official logo"
+    },
+    "seo": {
+      "title": "Baytown Lee Ganders Football: UIL History, 2026 & Game-Day Guide",
+      "description": "Baytown Lee Ganders football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+    },
+    "schedule": {
+      "label": "Goose Creek CISD first-party school/athletics resources",
+      "sourceUrl": "https://schools.gccisd.net/page/relhs.studentlife",
+      "sourceLabel": "School or district athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Back-to-back 1951 and 1952 Class 4A state finalists, never champions",
+      "body": "UIL championship archives show Baytown Lee reached two consecutive Class 4A title games, losing to Lubbock 14–12 in 1951 and 12–7 in 1952. These were two *runner-up* appearances, not titles. The current official school athletics page lists Timothy Finn as campus athletics coordinator but the current student-life page names Roger Sutterfield: this first-party conflict is kept visible without assigning either as current football head coach.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P672",
+      "sourceLabel": "Original UIL 1951–53 championship outcomes",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1951",
+        "title": "First of two consecutive 4A state-final appearances",
+        "body": "Baytown Lee lost 14–12 to Lubbock in the 1951 title game. The archive lists Lubbock as champion.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P672",
+        "sourceLabel": "UIL 1951 championship archive"
+      },
+      {
+        "date": "1952",
+        "title": "Returned to the 4A state title game",
+        "body": "Baytown Lee was again runner-up to Lubbock, this time 12–7. Neither final is a Lee football championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P672",
+        "sourceLabel": "UIL 1952 championship archive"
+      },
+      {
+        "date": "2026–28",
+        "title": "Lee plays separately from GCM and Sterling",
+        "body": "Baytown Lee is in the 2026–28 UIL 5A Division II District 10 realignment, unlike both Goose Creek Memorial and Sterling in 5A Division I District 9.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 alignment"
+      }
+    ],
+    "overview": [
+      "Robert E. Lee High School Ganders football has two historically documented UIL championship-game appearances. Both came in Class 4A against Lubbock in 1951 (14–12) and 1952 (12–7); UIL's record lists **zero state football championships** for Baytown Lee.",
+      "The Lee campus is 1809 Market Street in Baytown. Goose Creek CISD maintains its athletic information and student-life pages, but the official pages differ on the campus athletics coordinator's name. Neither listing is proof of a 2026 varsity head-coach appointment. Current staff needs district confirmation.",
+      "The Ganders' 2026–28 UIL alignment is 5A Division II District 10. This differs from Baytown's Goose Creek Memorial Patriots and Sterling Rangers, and is a reason to avoid uncritically pooling the three Baytown teams' schedules or historical titles."
+    ],
+    "faq": [
+      {
+        "question": "Did Baytown Lee win a UIL football state title in 1951 or 1952?",
+        "answer": "No. The Ganders were Class 4A runners-up to Lubbock in both 1951 (14–12) and 1952 (12–7)."
+      },
+      {
+        "question": "Who is Lee's current head football coach?",
+        "answer": "The school's athletics and student-life pages disagree about the campus athletics coordinator; neither independently establishes the 2026 head football coach. Confirm with Goose Creek CISD."
+      },
+      {
+        "question": "Is Baytown Lee in the same 2026 district as Sterling?",
+        "answer": "No. Lee is 5A Division II District 10, while Sterling is 5A Division I District 9 in the 2026–28 UIL alignment."
+      }
+    ],
+    "campus": {
+      "address": "1809 Market Street, Baytown, TX 77520",
+      "phone": "281-420-4535",
+      "sourceUrl": "https://schools.gccisd.net/page/relhs.sl.athletics",
+      "sourceLabel": "Goose Creek CISD official campus",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "baytown-sterling": {
+    "slug": "baytown-sterling",
+    "theme": {
+      "accentHex": "#2F6E9D",
+      "label": "Original independently authored accent, not an official logo"
+    },
+    "seo": {
+      "title": "Baytown Sterling Rangers Football: UIL History, 2026 & Game-Day Guide",
+      "description": "Baytown Sterling Rangers football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+    },
+    "schedule": {
+      "label": "Goose Creek CISD first-party school/athletics resources",
+      "sourceUrl": "https://schools.gccisd.net/page/rsshs.aboutus",
+      "sourceLabel": "School or district athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "1972 Class 4A state-final season and the school's Spirit of Sterling traditions",
+      "body": "The UIL 1972 football archive records Baytown Sterling as Class 4A state runner-up after a 37–7 loss to Odessa Permian. Sterling's own school history publishes the Rangers' distinctive 'Spirit of Sterling' school song and silver-and-blue traditions. These are corroborated school rituals, not a basis for fabricating a football stadium event or championship.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+      "sourceLabel": "UIL 1972 Class 4A title-game archive",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1972",
+        "title": "Rangers reached the UIL Class 4A final",
+        "body": "Odessa Permian defeated Baytown Sterling 37–7. Sterling's documented result is runner-up, not a state title.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL official 1972 champions ledger"
+      },
+      {
+        "date": "School tradition",
+        "title": "The Rangers' Spirit of Sterling",
+        "body": "The school publishes its own 'Spirit of Sterling' school song and silver/blue standards, providing a real source for the fan identity without using copyrighted school artwork.",
+        "sourceUrl": "https://schools.gccisd.net/page/rsshs.aboutus",
+        "sourceLabel": "Official Ross S. Sterling about and school-song page"
+      },
+      {
+        "date": "2025",
+        "title": "Documented district game versus Beaumont United",
+        "body": "Beaumont ISD's 2025 report records United's 24–14 victory against Sterling, a context-specific historic game; do not reuse it as a 2026 result.",
+        "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/find-a-way-first-year-coach-leads-beaumont-united-to-historic-first-winning-season-and-playoff-return",
+        "sourceLabel": "Official Beaumont ISD 2025 game report"
+      }
+    ],
+    "overview": [
+      "Baytown Sterling Rangers reached the Class 4A state football championship game in 1972. Their final ended with Odessa Permian winning 37–7. Official UIL histories do not credit the Sterling program with a state championship.",
+      "The Rangers' own school materials prominently preserve the 'Spirit of Sterling' school song and blue-and-silver identity. These school-supplied traditions distinguish Sterling from nearby Baytown Lee Ganders and Goose Creek Memorial Patriots.",
+      "Sterling's campus is at 300 W Baker Road, Baytown, and its 2026–28 varsity UIL football alignment is 5A Division I District 9. A 2025 opponent result against Beaumont United is useful historical context only, not a current ticket or game-location guarantee."
+    ],
+    "faq": [
+      {
+        "question": "Has Baytown Sterling ever played for a UIL state football championship?",
+        "answer": "Yes. Sterling reached the 1972 Class 4A final but lost to Odessa Permian 37–7; it was runner-up."
+      },
+      {
+        "question": "What are the Rangers' historic school colors and traditions?",
+        "answer": "The school's official history publishes silver-and-blue standards, a school song called Spirit of Sterling, and the Rangers fight song."
+      },
+      {
+        "question": "Where is Ross S. Sterling High School?",
+        "answer": "The official campus address is 300 W Baker Road, Baytown, Texas. A varsity game may be at a different venue; use the current schedule."
+      }
+    ],
+    "campus": {
+      "address": "300 W Baker Road, Baytown, TX 77521",
+      "phone": "281-420-4500",
+      "sourceUrl": "https://schools.gccisd.net/page/rsshs.home",
+      "sourceLabel": "Goose Creek CISD official campus",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "beaumont-united": {
+    "slug": "beaumont-united",
+    "theme": {
+      "accentHex": "#7D274A",
+      "label": "Original independently authored accent, not an official logo"
+    },
+    "seo": {
+      "title": "Beaumont United Timberwolves Football: UIL History, 2026 & Game-Day Guide",
+      "description": "Beaumont United Timberwolves football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+    },
+    "schedule": {
+      "label": "Beaumont ISD first-party school/athletics resources",
+      "sourceUrl": "https://www.bmtisd.com/departments/athletics/homepage",
+      "sourceLabel": "School or district athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "2025 first winning varsity season under Drenard Williams and Beaumont Bowl",
+      "body": "Beaumont ISD's November 12, 2025 first-party report documents the Timberwolves' first winning regular football season (6–4) under then-first-year head coach Drenard Williams. A 24–14 victory over Baytown Sterling secured that achievement and a postseason date against Houston Madison. BISD also documents its 2025 Beaumont Bowl rivalry with West Brook and online-only ticketing. United's **basketball** state titles must not be misassigned to football.",
+      "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/find-a-way-first-year-coach-leads-beaumont-united-to-historic-first-winning-season-and-playoff-return",
+      "sourceLabel": "Beaumont ISD verified 2025 football report",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "First winning regular season",
+        "body": "First-year coach Drenard Williams led the Timberwolves to 6–4 and a postseason berth, per Beaumont ISD, after beating Baytown Sterling 24–14.",
+        "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/find-a-way-first-year-coach-leads-beaumont-united-to-historic-first-winning-season-and-playoff-return",
+        "sourceLabel": "Official Beaumont ISD November 2025 report"
+      },
+      {
+        "date": "2025",
+        "title": "Beaumont Bowl against West Brook",
+        "body": "District announcement calls the October 24 annual West Brook–United game and associated tailgate the Beaumont Bowl, with a rivalry trophy. This notice describes 2025, not a newly scheduled 2026 game.",
+        "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/friday-night-lights-and-community-vibes-beaumont-bowl-returns-october-24",
+        "sourceLabel": "BISD official Beaumont Bowl announcement"
+      },
+      {
+        "date": "2026–28",
+        "title": "5A Division I District 9 program",
+        "body": "UIL alignment lists United in 5A Division I District 9; previous 2025 postseason stories are not a basis to invent a championship.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 conference placement"
+      }
+    ],
+    "overview": [
+      "Beaumont United Timberwolves football reached a historic milestone in fall 2025: Beaumont ISD identifies the 6–4 regular season under new head coach Drenard Williams as the school's first winning varsity football campaign, followed by a bi-district playoff appearance. Its 24–14 game against Baytown Sterling was important to that result.",
+      "The school's campus is 3443 Fannett Road and its colors are maroon and gold, as the first-party school site verifies. Beaumont ISD lists Doggett Family Stadium as its major district football venue; the field is not at United's campus, and away/neutral game sites vary.",
+      "The annual Beaumont Bowl is a documented city football rivalry between the Timberwolves and West Brook Bruins; the first-party 2025 event notice describes the Oct. 24 game and tailgate, but does not establish the 2026 date. Beaumont ISD's published stadium rules call for online-only tickets and student ID/accompaniment requirements. Do not count United's separate basketball championships as football championships."
+    ],
+    "faq": [
+      {
+        "question": "What made Beaumont United's 2025 football season historic?",
+        "answer": "According to Beaumont ISD, it was the program's first winning regular season at 6–4 and a playoff return under coach Drenard Williams."
+      },
+      {
+        "question": "What is the Beaumont Bowl?",
+        "answer": "It is the officially promoted Beaumont ISD football rivalry between Beaumont United and West Brook, with a trophy and community event. The referenced announcement concerns 2025, not a verified 2026 date."
+      },
+      {
+        "question": "Where should Timberwolves visitors buy game tickets?",
+        "answer": "Beaumont ISD's published district stadium policy directs fans to online ticketing, with student ID and young-spectator rules. Check the game-specific venue and current policies."
+      }
+    ],
+    "campus": {
+      "address": "3443 Fannett Road, Beaumont, TX 77705",
+      "phone": "409-617-5400",
+      "sourceUrl": "https://united.bmtisd.com/about-our-school",
+      "sourceLabel": "Beaumont ISD official campus",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Drenard Williams",
+      "title": "Head football coach documented for the 2025 season; reconfirm 2026",
+      "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/find-a-way-first-year-coach-leads-beaumont-united-to-historic-first-winning-season-and-playoff-return",
+      "sourceLabel": "Beaumont ISD November 2025 coach profile",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Doggett Family Stadium",
+      "address": "5250 Bayou Willow Parkway, Beaumont, TX 77705",
+      "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/doggett-stadium-shines-again-friday-night-lights-return",
+      "sourceLabel": "BISD stadium operational bulletin",
+      "verifiedAt": "2026-10-10",
+      "note": "District stadium for United and West Brook; check current game assignment, mobile ticketing, student ID and accessibility."
+    }
+  },
+  "beaumont-west-brook": {
+    "slug": "beaumont-west-brook",
+    "theme": {
+      "accentHex": "#154A77",
+      "label": "Original independently authored accent, not an official logo"
+    },
+    "seo": {
+      "title": "Beaumont West Brook Bruins Football: UIL History, 2026 & Game-Day Guide",
+      "description": "Beaumont West Brook Bruins football: verified milestones, current UIL alignment, real school identity and stadium/visitor sources."
+    },
+    "schedule": {
+      "label": "Beaumont ISD first-party school/athletics resources",
+      "sourceUrl": "https://www.bmtisd.com/departments/athletics/homepage",
+      "sourceLabel": "School or district athletics source",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry",
+      "body": "UIL records the 1982 Class 5A state football championship as a 21–10 West Brook win over Hurst Bell. UIL's 2018 6A Division II final lists a 35–34 loss to Longview; that latter appearance was a runner-up, not the Bruins' second title. The school independently identifies its mascot and red/blue identity, and BISD's Beaumont Bowl documentation describes the rivalry against Beaumont United.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P408",
+      "sourceLabel": "UIL official 1982 5A final",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1982",
+        "title": "Bruins won the Class 5A state title",
+        "body": "West Brook defeated Hurst Bell 21–10, recorded by the UIL as the school's single football state championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P408",
+        "sourceLabel": "UIL 1982 Class 5A championship archive"
+      },
+      {
+        "date": "2018",
+        "title": "Lost a one-point 6A Division II championship final",
+        "body": "West Brook finished as runner-up after Longview won 35–34. UIL lists Eric Peevey as 2018 head coach; that archived coach is not necessarily the current coach.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/beaumont-west-brook-2018-2019-football",
+        "sourceLabel": "UIL 2018 West Brook football state-team archive"
+      },
+      {
+        "date": "2025",
+        "title": "Beaumont Bowl school-rivalry gathering",
+        "body": "Beaumont ISD advertised the October 24, 2025 football game and community tailgate with United. It was a 2025 event notice, not an announcement of the 2026 fixture.",
+        "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/friday-night-lights-and-community-vibes-beaumont-bowl-returns-october-24",
+        "sourceLabel": "BISD historical Beaumont Bowl announcement"
+      }
+    ],
+    "overview": [
+      "Beaumont West Brook Bruins are a UIL football state champion, but only once: they defeated Hurst Bell 21–10 in the Class 5A 1982 championship. The Bruins then returned in 2018, losing 35–34 to Longview in the Class 6A Division II final. Confusing the two achievements would overstate their title count.",
+      "The school's official campus information gives West Brook High School's address as 8750 Phelan Boulevard, Beaumont, while Beaumont ISD operates Doggett Family Stadium separately. The first-party school site lists the Bruins as red and blue; UIL's 2018 historical profile also includes white in the archived team colors.",
+      "West Brook's Beaumont Bowl games with Beaumont United are an officially promoted city rivalry. BISD published a 2025 stadium policy describing online-only tickets, bag checks, security and ID/accompaniment requirements. Travelers should consult the specific game's 2026 athletics listing for any changes."
+    ],
+    "faq": [
+      {
+        "question": "How many UIL football titles has West Brook won?",
+        "answer": "One: the 1982 Class 5A championship, defeating Hurst Bell 21–10. The 2018 final against Longview was a 35–34 runner-up finish."
+      },
+      {
+        "question": "Who coached West Brook's 2018 title-game team?",
+        "answer": "The UIL's 2018 team record identifies Eric Peevey. This is a historical detail, not an assertion about the 2026 head coach."
+      },
+      {
+        "question": "What is the Beaumont Bowl?",
+        "answer": "It is Beaumont ISD's named football rivalry between West Brook Bruins and Beaumont United Timberwolves. Confirm current dates and tickets on district athletics pages."
+      }
+    ],
+    "campus": {
+      "address": "8750 Phelan Boulevard, Beaumont, TX 77706",
+      "phone": "409-617-5500",
+      "sourceUrl": "https://wb.bmtisd.com/about-our-school",
+      "sourceLabel": "Beaumont ISD official campus",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Doggett Family Stadium",
+      "address": "5250 Bayou Willow Parkway, Beaumont, TX 77705",
+      "sourceUrl": "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/doggett-stadium-shines-again-friday-night-lights-return",
+      "sourceLabel": "Official Beaumont ISD stadium and entry notice",
+      "verifiedAt": "2026-10-10",
+      "note": "District stadium shared with Beaumont United; 2025 online ticket and student ID rules should be reconfirmed for 2026."
+    }
+  },
   "barksdale-nueces-canyon": {
     "slug": "barksdale-nueces-canyon",
     "theme": {

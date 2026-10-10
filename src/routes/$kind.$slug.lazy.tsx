@@ -156,7 +156,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
-  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }],
+  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }, { name: "Goose Creek Memorial Patriots", slug: 'baytown-goose-creek-memorial', context: "Patriots founded in 2008 and their 2025 playoff season" }, { name: "Baytown Lee Ganders", slug: 'baytown-lee', context: "Back-to-back 1951 and 1952 Class 4A state finalists, never champions" }, { name: "Baytown Sterling Rangers", slug: 'baytown-sterling', context: "1972 Class 4A state-final season and the school's Spirit of Sterling traditions" }],
   tarrant: [
     { name: 'Azle Hornets', slug: 'azle', context: 'Hornet Field visitor guide and 2026 5A Division I fixtures' },
     { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
@@ -186,6 +186,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
     { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
   ],
+  jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
   // Batch 005 school-specific campus county links, distinct from away-game stadiums.
   'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
   'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }],
