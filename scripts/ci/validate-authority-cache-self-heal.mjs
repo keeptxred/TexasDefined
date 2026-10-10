@@ -80,6 +80,7 @@ for (const marker of [
   "url: 'https://texasdefined.com/article/texas-rivers-explained'",
   "'Texas Rivers Explained'",
   "'Start with the map'",
+  "'Explore All 15 Major Texas River Basins'",
   "'Open the full 15-basin comparison'",
   "'Texas rivers at a glance'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
