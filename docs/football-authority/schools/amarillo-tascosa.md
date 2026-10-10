@@ -31,3 +31,6 @@ Code commit: `027fb20731acefd46d80d0d854363143f37e0e3a`.
 Open: official current coaching confirmation, exact school colors, NCES county and reciprocal county/city links, licensed genuine photos, precise stadium/ADA/parking and Frenship score reconciliation, validator/CI gates, protected merge, deployed responsive Chrome production checks. The research web client did not establish full live visual QA.
 
 **Next assigned school: Amherst.**
+
+## 2026-10-09 first-party athletic leadership reconciliation
+[Amarillo ISD's Tascosa High School staff directory](https://www.amaisd.org/ths) lists **Ken Plunk as Athletic Director** in the 2026-accessible school directory. This directly corroborates district employment and athletic leadership, while the 2026 football head-coach attribution separately comes from the season's MaxPreps roster. Do not treat the AD title alone as proving head coaching duties. Canonical editorial attribution updated in commit `556a7c75eb65f07bda4ca458a7809029c56e0228`. No first-party football appointment announcement invented and no production VERIFIED claim.
