@@ -688,7 +688,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         {
           "date": "Nov. 5",
           "opponent": "Arlington Bowie",
-          "site": "Home",
+          "site": "Away",
           "district": true
         }
       ]
@@ -699,7 +699,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
       "sourceLabel": "Choctaw Stadium official 2026 high-school football calendar",
       "verifiedAt": "2026-10-09",
-      "note": "Choctaw Stadium lists several Sam Houston home fixtures in 2026, including Oct. 8 vs Martin and Nov. 5 vs Bowie. DCTF separately identifies historic Wilemon Field, whose old seating count is not the Choctaw Stadium capacity. Use Arlington ISD’s event-specific tickets, ADA arrival and parking guidance; the school campus address is not a stadium entrance."
+      "note": "Choctaw Stadium lists several Sam Houston home fixtures in 2026, including Oct. 8 vs Martin and Nov. 5 at Bowie. DCTF separately identifies historic Wilemon Field, whose old seating count is not the Choctaw Stadium capacity. Use Arlington ISD’s event-specific tickets, ADA arrival and parking guidance; the school campus address is not a stadium entrance."
     },
     "overview": [
       "Sam Houston High School opened in Arlington in 1963, as documented on the school's own website. Its Texans are not the NFL Houston Texans and are not a school in the city of Houston. The school serves the Arlington community at 2000 Sam Houston Drive, and its 2026 football program belongs to Arlington ISD.",
