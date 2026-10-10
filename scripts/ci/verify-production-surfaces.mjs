@@ -173,7 +173,7 @@ const surfaces = [
   ['fort-sam-houston-national-cemetery', '/destination/fort-sam-houston-national-cemetery', 'Fort Sam Houston National Cemetery'],
   ['houston-national-cemetery', '/destination/houston-national-cemetery', 'Houston National Cemetery'],
   ['dallas-fort-worth-national-cemetery', '/destination/dallas-fort-worth-national-cemetery', 'Dallas-Fort Worth National Cemetery'],
-  ['state-fair-current-date', '/texas-state-fair', 'September 25, 2026'],
+  ['state-fair-current-date', '/texas-state-fair', 'October 10, 2026'],
   ['state-fair-planning-strip', '/texas-state-fair', 'Tickets, football and a place to stay'],
   ['state-fair-featured-gallery', '/texas-state-fair', 'State Fair photo carousel'],
   ['state-fair-full-gallery', '/texas-state-fair', 'View the full 31-photo historical State Fair gallery'],
