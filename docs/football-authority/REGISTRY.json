@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 19,
+    "partiallyCompleted": 20,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "arlington",
-    "nextSchool": "arlington",
-    "implementedOnBranch": 19,
-    "remainingToImplement": 6,
+    "currentSchool": "arlington-bowie",
+    "nextSchool": "arlington-bowie",
+    "implementedOnBranch": 20,
+    "remainingToImplement": 5,
     "remainingToVerify": 25,
-    "notes": "19 source-grounded individually implemented on Batch 003 draft #4506; six assigned NOT_REVIEWED, none Batch003 production verified. Argyle has UIL titles 2013 and 2020 verified. Next Arlington."
+    "notes": "20 individual school profiles/audits implemented in draft #4506, five remaining NOT_REVIEWED. Zero Batch003 production VERIFIED. Next Arlington Bowie."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3532,9 +3532,31 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arlington",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/arlington.md",
+      "implementationCommits": [
+        "078ef8ff910947cdfe3c6e3ea9e3562664be7fdc",
+        "618f81869b2edeefd34432966d1055db7da9ad50"
+      ],
+      "evidenceSources": [
+        "https://www.aisd.net/arlington-high-school/about/history/",
+        "https://www.aisd.net/arlington-high-school/campus-staff/scott-peach/",
+        "https://wwwprod.uiltexas.org/football/all-time-appearances",
+        "https://www.maxpreps.com/tx/arlington/arlington-colts/football/history/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Historical 1951 final exact score primary evidence",
+        "NCES Tarrant County and inbound local football links",
+        "Current UIL district and team stadium gate",
+        "Photo rights and accessibility",
+        "CI, protected merge, Cloudflare deployment and live Chrome"
+      ]
     },
     {
       "id": "uil:arlington-bowie",
