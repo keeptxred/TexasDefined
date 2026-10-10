@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-004-20261010",
     "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "arp",
-    "nextSchool": "arp",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
+    "currentSchool": "aspermont",
+    "nextSchool": "aspermont",
+    "implementedOnBranch": 1,
+    "remainingToImplement": 24,
     "remainingToVerify": 25,
-    "notes": "Assignment only; individual audits/research, implementations, merge, deployment and production acceptance remain pending."
+    "notes": "Arp individually researched and implemented; production acceptance, links and tests still pending. 24 other assignments remain NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4257,8 +4257,18 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arp",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/arp.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": false,
+      "commits": [
+        "e06e3e4fabbc3ea4d60bf59349704d5bdece2b86",
+        "d7895d3fda87d99a38c7c03745203ea5146719f3"
+      ]
     },
     {
       "id": "uil:aspermont",
