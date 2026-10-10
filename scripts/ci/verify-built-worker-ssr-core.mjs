@@ -24,6 +24,15 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // Prelaunch Network pages must render content on the built Worker without browser JavaScript.
+  { path: '/network/join', requiredText: 'One Texas. Everything Connected.', label: 'Network membership SSR' },
+  { path: '/network/apply', requiredText: 'Build your business listing', label: 'Network application SSR' },
+  { path: '/network/example/basic', requiredText: 'Lone Star Heritage Workshop', label: 'Network Basic example SSR' },
+  { path: '/network/example/plus', requiredText: 'Lone Star Heritage Workshop', label: 'Network Plus example SSR' },
+  { path: '/network/billing', requiredText: 'Manage your membership', label: 'Network billing SSR' },
+  { path: '/network/checkout-return', requiredText: 'Thank you for joining us.', label: 'Network checkout return SSR' },
+  { path: '/business/dashboard', requiredText: 'My Business Dashboard', label: 'owner sign-in SSR' },
+  { path: '/admin/network-applications', requiredText: 'Network applications', label: 'Network admin review SSR' },
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
   {
     path: '/best-places-to-go-camping-in-texas',
