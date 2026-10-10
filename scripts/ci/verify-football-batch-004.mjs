@@ -51,6 +51,18 @@ for (const [slug, county] of Object.entries(linked)) {
 }
 // Parse only the 25 individually authored JSON-style editorial records.
 // Every entry must have its own substantive summary, distinct SEO, and school-specific FAQ.
+// School-city reciprocal paths are distinct from county routes, and only documented city campuses qualify.
+const citySchoolSlugs = ["austin","austin-akins","austin-anderson","austin-bowie","austin-crockett","austin-eastside","austin-johnson","austin-lasa","austin-mccallum","austin-navarro","austin-northeast","austin-travis"];
+const cityCards = countyRoute.split('const batch002FootballCityLinks:')[1]?.split('const batch001FootballCountyLinks:')[0] ?? '';
+const schoolCities = footballRoute.split('const batch002CityGuide:')[1]?.split('const cityGuide =')[0] ?? '';
+const cityEvidence = read('docs/football-authority/BATCH004_CITY_LINK_EVIDENCE.md');
+for (const slug of citySchoolSlugs) {
+  const rec = records.find(x => x.slug === slug);
+  check(rec?.inboundLinks?.includes('/city/austin'), slug + ': Austin city inbound registry path missing');
+  check(cityCards.includes("slug: '" + slug + "'"), slug + ': city profile missing card');
+  check(schoolCities.includes("'" + slug + "': { slug: 'austin'"), slug + ': school missing city return link');
+  check(cityEvidence.includes('`' + slug + '`'), slug + ': city evidence missing');
+}
 const titles = new Set();
 for (const slug of roster) {
   const marker = '  "' + slug + '": ';
