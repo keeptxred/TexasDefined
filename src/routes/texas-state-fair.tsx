@@ -11,7 +11,7 @@ const stateFairData = {
     title: "State Fair of Texas 2026: Dates, Hours, Tickets, Food, Rides and Fair Park",
     intro: "A current 2026 State Fair of Texas planning guide for Fair Park in Dallas, including hours, admission, parking and DART, coupons, discounts, new foods, Big Tex Choice Award winners, rides, college football, family planning and first-timer itineraries.",
     updated: "September 25, 2026",
-    quickAnswer: "The 2026 State Fair of Texas is now open at Fair Park in Dallas and runs September 25 through October 18. Gates are open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays, with last entry at 9 p.m. Ticket prices vary by day and discount, so check the official ticket page before you go.",
+    quickAnswer: "The 2026 State Fair runs September 25–October 18 at Fair Park in Dallas. Hours: 10 a.m.–9 p.m. Sunday–Thursday and 10 a.m.–10 p.m. Friday–Saturday; last entry 9 p.m. Verify official ticket prices and discounts.",
     sections: [
       {
         heading: "2026 dates, hours and Fair Park location",
@@ -21,14 +21,15 @@ const stateFairData = {
         ],
         links: [
           { label: "Official State Fair hours", href: "https://bigtex.com/faqs/fair-hours/", external: true },
-          { label: "Official daily schedule", href: "https://bigtex.com/schedule/", external: true }
+          { label: "Official daily schedule", href: "https://bigtex.com/schedule/", external: true },
+          { label: "Official fairgrounds map", href: "https://bigtex.com/plan-your-visit/map/", external: true }
         ]
       },
       {
         heading: "2026 ticket prices and admission",
         paragraphs: [
-          "State Fair admission is dynamically priced by day and discount. The Fair currently lists general admission from $7 to $25, children ages 3–12 from $7 to $10, children age 2 and younger free, and senior admission from $7 to $20. Season-pass options are also available.",
-          "Because prices and promotions can change by date, buy from the official Fair ticket page and compare the day's general admission price with any discount that applies to you before checkout."
+          "Official 2026 gate admission is $15 for adults Monday–Thursday and $25 Friday–Sunday; $13 or $20 for seniors age 60 and older; $10 every day for children ages 3–12; and free for children age 2 and younger. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday.",
+          "Online fees may apply. Check discounts; school-issued 2026 student tickets were extended through October 18, including both final weekends."
         ],
         links: [
           { label: "Official tickets and packages", href: "https://bigtex.com/buy-tickets-new/", external: true },
@@ -57,6 +58,18 @@ const stateFairData = {
         ]
       },
       {
+        heading: "More than 100 daily activities included with admission",
+        paragraphs: [
+          "Admission covers 100+ daily activities: music, livestock, the Texas Auto Show, Creative Arts, parades, Big Tex, family shows, and the African American Museum and Hall of State.",
+          "Food, rides, games and some attractions cost extra. Use the official map and daily schedule to plan a lower-cost route."
+        ],
+        links: [
+          { label: "Official included attractions FAQ", href: "https://bigtex.com/faqs/attractions/", external: true },
+          { label: "Official daily schedule", href: "https://bigtex.com/schedule/", external: true },
+          { label: "2026 Every Day Values", href: "https://bigtex.com/every-day-values/", external: true }
+        ]
+      },
+      {
         heading: "Best 2026 State Fair foods and award winners",
         paragraphs: [
           "The 2026 Big Tex Choice Awards winners are Burger Chop Tater Tacos for Best Taste – Savory, Fletcher's Chocolate Corny Dog for Best Taste – Sweet, Tropical Coco Fresca for Best Taste – Sipper, and Berry Me in Matcha for Most Creative.",
@@ -82,12 +95,14 @@ const stateFairData = {
       {
         heading: "College football at the State Fair",
         paragraphs: [
-          "College football is part of the State Fair identity, with major games played at the Cotton Bowl inside Fair Park. Game days create a very different traffic and crowd pattern from an ordinary Fair day, so arrive earlier and plan transportation around kickoff.",
-          "If you are attending the State Fair Classic, use the dedicated TexasDefined event guide for game-specific planning and then combine it with this Fair guide for food, rides and attractions before or after the game."
+          "Cotton Bowl game days bring crowds and traffic. The 2026 State Fair Classic was September 26; the Red River Rivalry is October 10, and the State Fair Clásico October 17. Check kickoff and DART updates.",
+          "Fair admission excludes Cotton Bowl games. Qualifying game tickets include Fair admission that day; verify each game's ticket terms."
         ],
         links: [
           { label: "State Fair Classic guide", href: "/event/state-fair-classic" },
-          { label: "Texas sports venues", href: "/sports-venues" }
+          { label: "Red River Rivalry guide", href: "/event/red-river-rivalry" },
+          { label: "Cotton Bowl guide", href: "/sports-venue/cotton-bowl" },
+          { label: "Official State Fair football details", href: "https://bigtex.com/plan-your-visit/attractions-events/college-football/", external: true }
         ]
       },
       {
@@ -145,17 +160,6 @@ const stateFairData = {
         ]
       },
       {
-        heading: "What is new for 2026",
-        paragraphs: [
-          "The 2026 Fair theme is Stars, Stripes, and Howdies. This year's Fair also includes new food and value programs plus changes to entertainment locations, so returning visitors should not assume every attraction is in the same place or priced the same way as last year.",
-          "Use the current Fair schedule and map on the day you visit. Those sources are more reliable than an old map saved from a previous year."
-        ],
-        links: [
-          { label: "Official State Fair news", href: "https://bigtex.com/category/press-releases/", external: true },
-          { label: "Official schedule", href: "https://bigtex.com/schedule/", external: true }
-        ]
-      },
-      {
         heading: "Where to stay and what else to do in Dallas",
         paragraphs: [
           "If the Fair is part of a Dallas weekend, staying near a DART Green Line connection can be more useful than choosing a hotel only by straight-line distance from Fair Park. That lets you avoid some event traffic while keeping rail access.",
@@ -182,6 +186,8 @@ const stateFairData = {
     related: [
       { label: "2026 State Fair food guide", href: "/article/state-fair-texas-2026-new-foods-guide" },
       { label: "State Fair Classic", href: "/event/state-fair-classic" },
+      { label: "Red River Rivalry", href: "/event/red-river-rivalry" },
+      { label: "Cotton Bowl", href: "/sports-venue/cotton-bowl" },
       { label: "Dallas County", href: "/county/dallas" },
       { label: "Children's Aquarium at Fair Park", href: "/destination/childrens-aquarium-dallas-fair-park" },
       { label: "Texas events", href: "/events" },
@@ -194,7 +200,8 @@ const stateFairData = {
 const faq = [
   { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas runs September 25 through October 18, 2026, at Fair Park in Dallas." },
   { question: "What are the 2026 State Fair of Texas hours?", answer: "The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m. Parking gates and ticket booths open at 9:30 a.m." },
-  { question: "How much are 2026 State Fair of Texas tickets?", answer: "Official 2026 prices vary by day and discount. The Fair currently lists general admission from $7 to $25, child admission ages 3–12 from $7 to $10, children age 2 and younger free, and senior admission from $7 to $20." },
+  { question: "How much are 2026 State Fair of Texas tickets?", answer: "Official 2026 gate prices: adults $15 Monday–Thursday or $25 Friday–Sunday, seniors $13 or $20, children ages 3–12 $10 each day, and children age 2 or younger free. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday. Online fees may apply." },
+  { question: "What is included with State Fair admission?", answer: "Admission includes more than 100 daily activities and attractions, including music, exhibits, livestock, arts and family entertainment. Food, Midway rides, games and some other attractions cost extra." },
   { question: "Where is the State Fair of Texas held?", answer: "The State Fair of Texas is held at Fair Park in Dallas, Texas." },
   { question: "Can I take DART to the State Fair of Texas?", answer: "Yes. DART's Green Line serves Fair Park Station and MLK Jr. Station, both convenient to fairground entrances." },
   { question: "How do State Fair of Texas coupons work?", answer: "Food, Midway rides and Midway games use Fair coupons. One coupon is currently worth $1, and unused coupons do not expire under the Fair's current policy." },
@@ -235,12 +242,15 @@ export const Route = createFileRoute("/texas-state-fair")({
             name: "Fair Park",
             address: {
               "@type": "PostalAddress",
+              streetAddress: "3809 Grand Avenue",
+              postalCode: "75210",
               addressLocality: "Dallas",
               addressRegion: "TX",
               addressCountry: "US",
             },
           },
-          url: "https://bigtex.com/",
+          url: "https://texasdefined.com/texas-state-fair",
+          sameAs: "https://bigtex.com/",
           description: loaderData.intro,
           organizer: { "@type": "Organization", name: "State Fair of Texas", url: "https://bigtex.com/" },
         }),
