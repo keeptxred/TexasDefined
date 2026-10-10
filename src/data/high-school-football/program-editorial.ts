@@ -58,6 +58,105 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington": {
+    "slug": "arlington",
+    "theme": {
+      "accentHex": "#2E7750",
+      "label": "Arlington High's officially documented Kelly green school identity; editorial use, not a school seal"
+    },
+    "seo": {
+      "title": "Arlington Colts Football: 1951 State Title, Scott Peach & 2026",
+      "description": "Arlington High Colts football history: 1951 UIL Class AA championship, authentic school traditions, head coach Scott Peach and current 2026 football resources."
+    },
+    "coach": {
+      "name": "Scott Peach",
+      "title": "Head football coach and athletic coordinator listed by Arlington High School",
+      "sourceUrl": "https://www.aisd.net/arlington-high-school/campus-staff/scott-peach/",
+      "sourceLabel": "Official Arlington High staff profile",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "818 W. Park Row Drive, Arlington, TX 76013",
+      "phone": "682-867-8100",
+      "sourceUrl": "https://www.aisd.net/arlington-high-school/staff-department/athletics/",
+      "sourceLabel": "Arlington High official campus athletics directory",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Arlington Colts 2026 posted game schedule and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/arlington/arlington-colts/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 schedule snapshot; verify later results with school",
+      "verifiedAt": "2026-10-09"
+    },
+    "overview": [
+      "Arlington High School's Colts have a school-history-documented Class AA football state championship from 1951, when they defeated Waco La Vega. The official UIL historical state appearances index also credits Arlington with exactly one football championship and one state-final appearance in 1951, distinct from neighboring Arlington ISD programs.",
+      "Arlington High's own historical account traces its roots to the early 1900s: the Arlington ISD was established in 1903, the school opened its Cooper and Abram Street high-school building in 1922, and students chose the Colts nickname and kelly green-and-white school colors in 1923. These are genuine campus traditions, not guessed football mascots.",
+      "The current school football staff profile identifies Scott Peach as head football coach and athletic coordinator, noting a long association with Arlington High. The 2026 MaxPreps staff history also identifies Peach, with archived football records of 7–4 in 2024 and 5–4 in 2025.",
+      "The Colts compete in 6A football. Their published 2026 schedule includes Byron Nelson, V.R. Eaton, Red Oak and later district games involving Arlington Lamar, Sam Houston, Bowie, Martin, Aledo and Weatherford. Each schedule entry is a dated listing, not an assertion that all 2026 games have already been played.",
+      "A retrieved September 13 football schedule snapshot records the early 2026 results as 38–22 over Byron Nelson, 10–20 against V.R. Eaton and 52–47 over Red Oak. Because later September and October entries had no verified finals on that snapshot, TexasDefined does not turn its 2–1 partial results into a current live overall record.",
+      "Arlington High's official motto of spirit, pride and tradition and its 'First Here; Best Here' identity provide meaningful local context. The Colts are not Arlington Bowie, Houston, Lamar, Martin or Seguin; these are different schools with their own team identities and histories.",
+      "Game-day visitors should use Arlington ISD's official athletics schedules and match-specific ticket listings. The campus street address is a school contact, not proof of a stadium spectator gate, ADA drop-off, parking terms or bag policy."
+    ],
+    "milestones": [
+      {
+        "date": "1923",
+        "title": "Colts and kelly green identity selected",
+        "body": "Arlington High's official school history says students chose the Colts mascot and kelly green-and-white colors in 1923.",
+        "sourceUrl": "https://www.aisd.net/arlington-high-school/about/history/",
+        "sourceLabel": "Arlington High official school history"
+      },
+      {
+        "date": "1951",
+        "title": "UIL Class AA state football championship",
+        "body": "The Colts defeated Waco La Vega in the 1951 title game; the official UIL index recognizes Arlington's sole football crown.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL football historical appearances and title years"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two archived varsity campaigns",
+        "body": "MaxPreps lists Arlington at 7–4 in 2024 and 5–4 in 2025 under coach Scott Peach.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/arlington-colts/football/history/",
+        "sourceLabel": "MaxPreps Colts coaching and season history"
+      },
+      {
+        "date": "2026",
+        "title": "Current Colts coaching staff",
+        "body": "The Arlington High official athletics profile names Scott Peach head coach and athletic coordinator.",
+        "sourceUrl": "https://www.aisd.net/arlington-high-school/campus-staff/scott-peach/",
+        "sourceLabel": "Official staff biography"
+      },
+      {
+        "date": "Sept. 2026",
+        "title": "Opening wins against Byron Nelson and Red Oak",
+        "body": "The dated schedule reports a 38–22 win over Byron Nelson and a 52–47 win over Red Oak, with later results not established by that September 13 snapshot.",
+        "sourceUrl": "https://www.maxpreps.com/tx/arlington/arlington-colts/football/schedule/",
+        "sourceLabel": "MaxPreps Sept 13 2026 posted schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Arlington High's Colts win a Texas state football championship?",
+        "answer": "Yes. Arlington High's official history confirms the 1951 Class AA championship over Waco La Vega, which UIL's archive credits as the school's one state football title."
+      },
+      {
+        "question": "When were the Colts mascot and school colors chosen?",
+        "answer": "According to Arlington High's school history, students selected the Colts mascot and kelly green-and-white colors in 1923."
+      },
+      {
+        "question": "Who coaches Arlington High football in 2026?",
+        "answer": "The official Arlington High staff directory identifies Scott Peach as head football coach and athletic coordinator."
+      },
+      {
+        "question": "Are Arlington and Arlington Bowie the same school?",
+        "answer": "No. Arlington High Colts and Arlington Bowie Volunteers are separate Arlington ISD high schools and football programs."
+      },
+      {
+        "question": "Where should visiting supporters get tickets?",
+        "answer": "Use Arlington ISD's official athletics and the specific event ticket listing. Do not assume the school campus is the stadium entrance."
+      }
+    ]
+  },
   "argyle": {
     "slug": "argyle",
     "theme": {
