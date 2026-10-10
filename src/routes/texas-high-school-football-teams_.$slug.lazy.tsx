@@ -89,6 +89,22 @@ function Page() {
     avalon: 'ellis',
     axtell: 'mclennan',
     baird: 'callahan',
+    'austin': 'travis',
+    'austin-achieve': 'travis',
+    'austin-akins': 'travis',
+    'austin-anderson': 'travis',
+    'austin-bowie': 'travis',
+    'austin-crockett': 'travis',
+    'austin-eastside': 'travis',
+    'austin-johnson': 'travis',
+    'austin-lake-travis': 'travis',
+    'austin-lasa': 'travis',
+    'austin-mccallum': 'travis',
+    'austin-navarro': 'travis',
+    'austin-northeast': 'travis',
+    'austin-travis': 'travis',
+    'austin-westlake': 'travis',
+    azle: 'tarrant',
   };
   // Link only campuses with documented city location and an existing
   // canonical city guide; a school-district service area is not enough.
