@@ -38,7 +38,7 @@ function NetworkApplication() {
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Build your business listing</h1>
       <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Create your business profile and see how it will appear as you enter the details. Every application is reviewed before publication. Plus memberships continue through secure subscription checkout.</p>
       <div className="mt-7 flex flex-wrap gap-3" role="group" aria-label="Listing plan">
-        {(["basic","plus"] as const).map(t=><button key={t} type="button" onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
+        {(["basic","plus"] as const).map(t=><button key={t} type="button" disabled={submittedId!==null} onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
       </div>
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e => {
@@ -97,7 +97,7 @@ function NetworkApplication() {
           {saved&&<p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-900">Your application has been received for review. Your profile is not public until approved; Plus memberships also require confirmed payment.</p>}
           {error&&<p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{error}</p>}
           <button type="submit" disabled={sending || (saved && plan==="basic")} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Processing…":submittedId&&plan==="plus"?"Continue to secure checkout":saved?"Application received":"Submit listing for review"}</button>
-          <p className="text-xs text-muted-foreground">Application details and authorized images are submitted privately for review. Plus subscribers complete payment securely through Stripe.</p>
+          <p className="text-xs text-muted-foreground">Application details and authorized images are submitted privately for review. Plus subscribers complete payment securely through Stripe. Read our <a href="/privacy" className="font-semibold text-primary underline">privacy policy</a> for how submitted contact information and media are handled.</p>
         </form>
         <aside className="self-start lg:sticky lg:top-28" aria-label="Live listing preview">
           <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-xl">
