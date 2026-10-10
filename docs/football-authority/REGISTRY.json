@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-004-20261010",
     "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "aspermont",
-    "nextSchool": "aspermont",
-    "implementedOnBranch": 1,
-    "remainingToImplement": 24,
+    "currentSchool": "athens",
+    "nextSchool": "athens",
+    "implementedOnBranch": 2,
+    "remainingToImplement": 23,
     "remainingToVerify": 25,
-    "notes": "Arp individually researched and implemented; production acceptance, links and tests still pending. 24 other assignments remain NOT_REVIEWED."
+    "notes": "Arp and Aspermont individually IMPLEMENTED; 23 remain NOT_REVIEWED, all 25 await production acceptance."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4281,8 +4281,18 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aspermont",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/aspermont.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": false,
+      "commits": [
+        "768fcd1172272c2bfc847ef7966843904a1137dd",
+        "8a36ec84b8d719c81dd3bc474ff829acd458e9b6"
+      ]
     },
     {
       "id": "uil:athens",
