@@ -16,6 +16,8 @@ function NetworkApplication() {
   const [logo,setLogo]=useState<string|null>(null);
   const [gallery,setGallery]=useState<string[]>([]);
   const [error,setError]=useState("");
+  const [saved,setSaved]=useState(false);
+  const [sending,setSending]=useState(false);
   useEffect(()=>()=>{if(logo) URL.revokeObjectURL(logo);gallery.forEach(URL.revokeObjectURL)},[logo,gallery]);
   const update=(key:Field)=>(event:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>setFields(old=>({...old,[key]:event.target.value}));
   const input=(key:Field,label:string,required=false,placeholder="")=><label className="block text-sm font-semibold text-foreground">{label}<input required={required} name={key} value={fields[key]} placeholder={placeholder} onChange={update(key)} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-base font-normal" /></label>;
@@ -32,12 +34,12 @@ function NetworkApplication() {
     <Container width="wide" className="py-12 sm:py-16">
       <p className="eyebrow text-primary">Texas Defined Network</p>
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Build your business listing</h1>
-      <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Enter your details and see how your listing will appear before submitting. This is an unlisted preview builder; nothing is published or charged here yet.</p>
+      <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Enter your details and see how your listing will appear before submitting. This is an unlisted preview builder; submissions are reviewed before publication, and no payments are taken on this form.</p>
       <div className="mt-7 flex flex-wrap gap-3" role="group" aria-label="Listing plan">
         {(["basic","plus"] as const).map(t=><button key={t} type="button" onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
       </div>
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={e=>{e.preventDefault();setError("Saving and submission are not enabled until the secure application endpoint is connected.");}}>
+        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e=>{e.preventDefault();setError("");setSaved(false);setSending(true);try{const r=await fetch("/api/public/network-application",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...fields,plan,websiteField:""})});const result=await r.json();if(!r.ok)throw new Error(result.error||"Unable to submit");setSaved(true)}catch(err){setError(err instanceof Error?err.message:"Submission unavailable")}finally{setSending(false)}}}>
           <h2 className="font-display text-3xl">Your information</h2>
           {input("businessName","Business or organization name",true,"Your business name")}
           {input("category","Business category",true,"e.g. Bakery, museum, contractor")}
@@ -57,9 +59,10 @@ function NetworkApplication() {
             {input("offer","Current event, offer or announcement")}
             <label className="block text-sm font-semibold">Gallery (up to six images) <input type="file" multiple accept="image/png,image/jpeg,image/webp" onChange={e=>images(e.target.files,"gallery")} className="mt-2 block w-full text-sm"/></label>
           </div>}
+          {saved&&<p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-900">Your application has been received for review. No payment was taken and the profile is not public yet.</p>}
           {error&&<p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{error}</p>}
-          <button type="submit" className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Save application (coming soon)</button>
-          <p className="text-xs text-muted-foreground">Preview images remain in your browser and are not uploaded. No draft is saved or submitted and no payments are taken.</p>
+          <button type="submit" disabled={sending} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Sending…":"Submit listing for review"}</button>
+          <p className="text-xs text-muted-foreground">Preview images remain in your browser and are not uploaded. Text details are sent for editorial review only; no payment is taken.</p>
         </form>
         <aside className="self-start lg:sticky lg:top-28" aria-label="Live listing preview">
           <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-xl">
