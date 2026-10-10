@@ -33,11 +33,11 @@ function bounds(features: BasinFeature[]) {
   return `${left} ${top} ${Math.max(50, right - left)} ${Math.max(50, bottom - top)}`;
 }
 function displayName(raw: string) {
-  return raw.replace(/_+/g, " ").replace(/\s+(River|Basin)$/gi, "").trim();
+  return raw.replace(/_+/g, " ").replace(/\s+(River|Creek)?\s*Basin$/gi, "").replace(/\s+(River|Creek)$/gi, "").trim();
 }
 function isMajor(value: string) {
   const key = normalize(displayName(value));
-  return majorKeys.has(key) || (key === "cypresscreek");
+  return majorKeys.has(key) || key === "cypresscreek";
 }
 const originalView = "0 0 1000 760";
 
