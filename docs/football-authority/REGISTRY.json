@@ -40,11 +40,11 @@
       "azle",
       "baird"
     ],
-    "state": "BATCH_004_LBJ_FACTUAL_RETEST_PENDING",
+    "state": "BATCH004_SIX_SCHOOL_SOURCE_CORRECTIONS_RETEST_PENDING",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
-    "individuallyVerified": 24,
-    "remainingAssigned": 1,
+    "individuallyVerified": 19,
+    "remainingAssigned": 6,
     "assignmentBranch": "football-authority-batch-004-20261010",
     "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
@@ -52,8 +52,8 @@
     "nextSchool": null,
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
-    "remainingToVerify": 1,
-    "notes": "24/25 remain VERIFIED; Austin Johnson/LBJ has a confirmed published wrong-district/county identity despite earlier 72/72 structural Chrome PASS. Follow-up corrective branch requires protected merge, production deploy and actual tested LBJ source identity before restoration to VERIFIED. Retain original artifacts and 55 previous VERIFED.",
+    "remainingToVerify": 6,
+    "notes": "19/25 VERIFIED; six NEEDS_FOLLOWUP pending new live deployment and Chrome test after documented corrections to Austin, Austin LBJ, Austin Northeast, Austin Travis, Vandegrift, and Lake Travis false varsity season-cancellation wording. Existing 72/72 Chrome passed structural tests before these factual corrections, retain 55 previously VERIFIED and original screenshots.",
     "verifiedAt": "2026-10-10T14:52:28Z",
     "mergedPr": 4540,
     "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
@@ -4506,9 +4506,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin",
-      "status": "VERIFIED",
+      "status": "NEEDS_FOLLOWUP",
       "batch": 4,
-      "actualProductionVerified": true,
+      "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -4528,7 +4528,7 @@
       "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
         "workflowRunId": 38060642093,
@@ -4543,7 +4543,9 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "identityDefect": "Original screenshot omitted school district and campus county; primary-source Austin ISD enrichment added; retest new production build.",
+      "identityRetestStatus": "NEW_CORRECTED_DEPLOY_AND_CHROME_PENDING"
     },
     {
       "id": "uil:austin-achieve",
@@ -4875,7 +4877,7 @@
       "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerification": "BROWSER_STRUCTURAL_PASS_IDENTITY_DEFECT_PENDING_NEW_PRODUCTION_RETEST",
+      "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
         "workflowRunId": 38060642093,
@@ -4891,9 +4893,9 @@
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
       },
-      "identityDefect": "Published Austin LBJ Jaguars page was incorrectly enriched with Round Rock ISD and Williamson County through generic AskTED Johnson match. Official Austin ISD places LBJ Early College High School at 7309 Lazy Creek Drive, Austin, Travis County. Primary-source correction and targeted Chrome guard submitted in follow-up PR; do not promote until deployed factual retest.",
+      "identityDefect": "Original screenshot mixed UIL Austin LBJ Jaguars with Round Rock ISD and Williamson County; Austin ISD confirmed.",
       "identityPrimarySource": "https://www.austinisd.org/schools/lbj",
-      "identityRetestStatus": "PENDING_DEPLOYED_PRODUCTION_EVIDENCE"
+      "identityRetestStatus": "NEW_CORRECTED_DEPLOY_AND_CHROME_PENDING"
     },
     {
       "id": "uil:austin-lake-travis",
@@ -4906,9 +4908,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis",
-      "status": "VERIFIED",
+      "status": "NEEDS_FOLLOWUP",
       "batch": 4,
-      "actualProductionVerified": true,
+      "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -4925,7 +4927,7 @@
       "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
         "workflowRunId": 38060642093,
@@ -4940,7 +4942,9 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "identityDefect": "Original browser rendered false 2026 football-season cancellation triggered by generic notice logic; Lake Travis athletics shows ongoing 2026 varsity season and Oct 9 stadium return.",
+      "identityRetestStatus": "NEW_CORRECTED_DEPLOY_AND_CHROME_PENDING"
     },
     {
       "id": "uil:austin-lasa",
@@ -5103,9 +5107,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-northeast",
-      "status": "VERIFIED",
+      "status": "NEEDS_FOLLOWUP",
       "batch": 4,
-      "actualProductionVerified": true,
+      "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5125,7 +5129,7 @@
       "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
         "workflowRunId": 38060642093,
@@ -5140,7 +5144,9 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "identityDefect": "Original screenshot joined Northeast Early College High School with unrelated Austin Achieve Public Schools instead of Austin ISD.",
+      "identityRetestStatus": "NEW_CORRECTED_DEPLOY_AND_CHROME_PENDING"
     },
     {
       "id": "uil:austin-travis",
@@ -5153,9 +5159,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-travis",
-      "status": "VERIFIED",
+      "status": "NEEDS_FOLLOWUP",
       "batch": 4,
-      "actualProductionVerified": true,
+      "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5175,7 +5181,7 @@
       "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
         "workflowRunId": 38060642093,
@@ -5190,7 +5196,9 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "identityDefect": "Original screenshot omitted Austin ISD and campus county; official Austin ISD source enrichment added; retest new production build.",
+      "identityRetestStatus": "NEW_CORRECTED_DEPLOY_AND_CHROME_PENDING"
     },
     {
       "id": "uil:austin-vandegrift",
@@ -5203,9 +5211,9 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift",
-      "status": "VERIFIED",
+      "status": "NEEDS_FOLLOWUP",
       "batch": 4,
-      "actualProductionVerified": true,
+      "actualProductionVerified": false,
       "auditCompletedAt": "2026-10-10",
       "researchCompletedAt": "2026-10-10",
       "implementedAt": "2026-10-10",
@@ -5222,7 +5230,7 @@
       "productionVerifiedAt": "2026-10-10T14:52:28Z",
       "mergedPr": 4540,
       "mergedCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
-      "productionVerification": "BROWSER_PASS_DESKTOP_MOBILE_SITEMAP_SCREENSHOTS",
+      "productionVerification": "OLD_CHROME_STRUCTURAL_PASS_PRIMARY_SOURCE_CORRECTION_PENDING_DEPLOY_RETEST",
       "deployment": {
         "mergeCommit": "f4af3c89956a823fd37e367fd883897d92bce2ed",
         "workflowRunId": 38060642093,
@@ -5237,7 +5245,9 @@
         "sitemapResult": "PASS",
         "countyCityReciprocalLinks": "PASS",
         "scopeQualification": "Browser/SEO/schema/sitemap/links/visible image and JS acceptance. Photo rights, historical assertions and event logistics remain individually source-qualified."
-      }
+      },
+      "identityDefect": "Original screenshot showed Williamson County, but NCES documents Vandegrift campus in Travis County; Leander ISD source preserved.",
+      "identityRetestStatus": "NEW_CORRECTED_DEPLOY_AND_CHROME_PENDING"
     },
     {
       "id": "uil:austin-westlake",
