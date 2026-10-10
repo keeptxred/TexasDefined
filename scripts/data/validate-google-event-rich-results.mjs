@@ -102,6 +102,10 @@ for (const [needle, message] of [
   ['eventStatus: "https://schema.org/EventScheduled"', 'State Fair must publish scheduled status while current.'],
   ['eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"', 'State Fair must publish offline attendance mode.'],
   ['"@type": "PostalAddress"', 'State Fair must publish a PostalAddress.'],
+  ['fairConcluded()', 'State Fair guide must check the occurrence expiry.'],
+  ['Date.parse("2026-10-19T00:00:00-05:00")', 'State Fair expiry must use Texas-local midnight.'],
+  ['"@type": "WebPage"', 'Expired State Fair must downgrade to WebPage schema.'],
+  ['"@type": "Thing"', 'Expired State Fair must retain its evergreen identity.'],
 ]) requireText(stateFair, needle, message);
 
 if (failures.length) {
