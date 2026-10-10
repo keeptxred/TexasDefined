@@ -217,6 +217,7 @@ import { Route as TexasHighSchoolFootballTeamsSlugRouteImport } from './routes/t
 import { Route as TexasHighSchoolFootballIsdsSlugRouteImport } from './routes/texas-high-school-football-isds_.$slug'
 import { Route as TexasHighSchoolFootballDistrictsSlugRouteImport } from './routes/texas-high-school-football-districts_.$slug'
 import { Route as TexasDataCountyHousingCostsDotcsvRouteImport } from './routes/texas-data.county-housing-costs[.]csv'
+import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
 import { Route as TexasDataCountyHousingCostsRouteImport } from './routes/texas-data.county-housing-costs'
 import { Route as TexasDataCountyGrowthDotcsvRouteImport } from './routes/texas-data.county-growth[.]csv'
 import { Route as TexasDataCountyGrowthRouteImport } from './routes/texas-data.county-growth'
@@ -1890,6 +1891,13 @@ const TexasDataCountyHousingCostsDotcsvRoute =
     path: '/county-housing-costs.csv',
     getParentRoute: () => TexasDataRoute,
   } as any)
+const TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute = TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport.update({
+  id: '/research/texas-homeowners-premiums-vs-coverage',
+  path: '/research/texas-homeowners-premiums-vs-coverage',
+  getParentRoute: () => TexasDataRoute,
+} as any).lazy(() =>
+  import('./routes/texas-data.research.texas-homeowners-premiums-vs-coverage.lazy').then((d) => d.Route),
+)
 const TexasDataCountyHousingCostsRoute =
   TexasDataCountyHousingCostsRouteImport.update({
     id: '/county-housing-costs',
@@ -3987,6 +3995,7 @@ export interface FileRoutesByFullPath {
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/texas-data/city-county-relationships': typeof TexasDataCityCountyRelationshipsRoute
   '/texas-data/city-county-relationships.csv': typeof TexasDataCityCountyRelationshipsDotcsvRoute
+  '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/texas-data/county-growth': typeof TexasDataCountyGrowthRoute
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
@@ -4477,6 +4486,7 @@ export interface FileRoutesByTo {
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/texas-data/city-county-relationships': typeof TexasDataCityCountyRelationshipsRoute
   '/texas-data/city-county-relationships.csv': typeof TexasDataCityCountyRelationshipsDotcsvRoute
+  '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/texas-data/county-growth': typeof TexasDataCountyGrowthRoute
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
@@ -4971,6 +4981,7 @@ export interface FileRoutesById {
   '/texas-data/$datasetSlug': typeof TexasDataDatasetSlugRoute
   '/texas-data/city-county-relationships': typeof TexasDataCityCountyRelationshipsRoute
   '/texas-data/city-county-relationships.csv': typeof TexasDataCityCountyRelationshipsDotcsvRoute
+  '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/texas-data/county-growth': typeof TexasDataCountyGrowthRoute
   '/texas-data/county-growth.csv': typeof TexasDataCountyGrowthDotcsvRoute
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
@@ -5466,6 +5477,7 @@ export interface FileRouteTypes {
     | '/texas-data/$datasetSlug'
     | '/texas-data/city-county-relationships'
     | '/texas-data/city-county-relationships.csv'
+    | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/texas-data/county-growth'
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
@@ -5956,6 +5968,7 @@ export interface FileRouteTypes {
     | '/texas-data/$datasetSlug'
     | '/texas-data/city-county-relationships'
     | '/texas-data/city-county-relationships.csv'
+    | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/texas-data/county-growth'
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
@@ -6449,6 +6462,7 @@ export interface FileRouteTypes {
     | '/texas-data/$datasetSlug'
     | '/texas-data/city-county-relationships'
     | '/texas-data/city-county-relationships.csv'
+    | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/texas-data/county-growth'
     | '/texas-data/county-growth.csv'
     | '/texas-data/county-housing-costs'
@@ -8398,6 +8412,13 @@ declare module '@tanstack/react-router' {
       path: '/county-growth.csv'
       fullPath: '/texas-data/county-growth.csv'
       preLoaderRoute: typeof TexasDataCountyGrowthDotcsvRouteImport
+      parentRoute: typeof TexasDataRoute
+    }
+    '/texas-data/research/texas-homeowners-premiums-vs-coverage': {
+      id: '/texas-data/research/texas-homeowners-premiums-vs-coverage'
+      path: '/research/texas-homeowners-premiums-vs-coverage'
+      fullPath: '/texas-data/research/texas-homeowners-premiums-vs-coverage'
+      preLoaderRoute: typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport
       parentRoute: typeof TexasDataRoute
     }
     '/texas-data/county-growth': {
@@ -10685,6 +10706,7 @@ const SportsVenuesRouteWithChildren = SportsVenuesRoute._addFileChildren(
 )
 
 interface TexasDataRouteChildren {
+  TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute: typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   TexasDataDatasetSlugRoute: typeof TexasDataDatasetSlugRoute
   TexasDataCityCountyRelationshipsRoute: typeof TexasDataCityCountyRelationshipsRoute
   TexasDataCityCountyRelationshipsDotcsvRoute: typeof TexasDataCityCountyRelationshipsDotcsvRoute
@@ -10696,6 +10718,7 @@ interface TexasDataRouteChildren {
 }
 
 const TexasDataRouteChildren: TexasDataRouteChildren = {
+  TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute: TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute,
   TexasDataDatasetSlugRoute: TexasDataDatasetSlugRoute,
   TexasDataCityCountyRelationshipsRoute: TexasDataCityCountyRelationshipsRoute,
   TexasDataCityCountyRelationshipsDotcsvRoute:
