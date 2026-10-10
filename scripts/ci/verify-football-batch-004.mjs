@@ -24,6 +24,10 @@ function checkLbjIdentity() {
     throw new Error('Austin LBJ Jaguars primary-source identity guard missing');
   }
 }
+const historicalBrowser = read('scripts/ci/verify-football-batch-004-browser.mjs');
+if (!historicalBrowser.includes('registry.completedBatches?.find(b => b.number === 4)') || historicalBrowser.includes('registry.batch.slugs')) {
+  throw new Error('Batch 004 production browser must read immutable completed roster after Batch 005 assignment');
+}
 const roster = ['arp','aspermont','athens','atlanta','aubrey','austin','austin-achieve','austin-akins','austin-anderson','austin-bowie','austin-crockett','austin-eastside','austin-johnson','austin-lake-travis','austin-lasa','austin-mccallum','austin-navarro','austin-northeast','austin-travis','austin-vandegrift','austin-westlake','avalon','axtell','azle','baird'];
 const problems = [];
 const check = (ok, reason) => { if (!ok) problems.push(reason); };
