@@ -44,13 +44,30 @@ on:
 
 permissions:
   contents: read
+  statuses: read
 
 concurrency:
-  group: destination-indexing-smoke-main
+  group: destination-indexing-smoke-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
+  deployment-gate:
+    name: Wait for exact protected production commit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Await this push's verified deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+
   hydration-stability:
+    needs: deployment-gate
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -96,6 +113,7 @@ jobs:
           echo "Houston Zoo destination hydration stability and itinerary numbering passed across three production fetches."
 
   browser-stability:
+    needs: deployment-gate
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -160,6 +178,7 @@ jobs:
           echo "Headless Chromium destination stability passed across Houston Zoo and two comparison destinations."
 
   smoke:
+    needs: deployment-gate
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
