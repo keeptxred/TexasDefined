@@ -170,7 +170,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
   ],
   potter: [
-    { name: 'Amarillo Highland Park Hornets', slug: 'amarillo-highland-park', context: 'Potter County Hornets campus and 2026 six-man program research' },
+    { name: 'Amarillo Highland Park Hornets', slug: 'amarillo-highland-park', context: 'Potter County Hornets campus, 2026 UIL football alignment and school-specific program history' },
     { name: 'Palo Duro Dons', slug: 'amarillo-palo-duro', context: 'Dons football history, modern revival and UIL District 2' },
     { name: 'River Road Wildcats', slug: 'amarillo-river-road', context: 'Wildcats football history and current 3A Division II context' },
     { name: 'Tascosa Rebels', slug: 'amarillo-tascosa', context: 'Rebels program history and documented cross-city series' },
