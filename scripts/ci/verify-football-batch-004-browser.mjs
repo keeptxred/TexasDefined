@@ -152,6 +152,33 @@ try {
         check(err,d.documentWidth<=d.viewportWidth+10,'horizontal overflow '+(d.documentWidth-d.viewportWidth));
         check(err,d.brokenImages.length===0,'broken images '+d.brokenImages.join(', '));
         check(err,d.missingImageAlts.length===0,'missing image alt text');
+        // UIL labels this Austin ISD program "Austin Johnson"; name-only TEA
+        // matching previously rendered an unrelated Round Rock ISD school.
+        if (slug === 'austin-johnson') {
+          const top = d.body.slice(0, 4500);
+          check(err,d.h1.some(value => /Austin LBJ Jaguars Football/i.test(value)), 'LBJ Jaguars H1 identity mismatch');
+          check(err,/AUSTIN ISD/i.test(top), 'LBJ school district is not Austin ISD');
+          check(err,/TRAVIS COUNTY/i.test(top), 'LBJ campus county is not Travis County');
+          check(err,!/ROUND ROCK ISD|WILLIAMSON COUNTY/i.test(top), 'incorrect Johnson campus joined to LBJ');
+          check(err,d.schema.includes('LBJ Early College High School'), 'LBJ school schema identity mismatch');
+        }
+        if (['austin', 'austin-travis', 'austin-northeast', 'austin-vandegrift'].includes(slug)) {
+          const top = d.body.slice(0, 4500);
+          const district = slug === 'austin-vandegrift' ? 'LEANDER ISD' : 'AUSTIN ISD';
+          check(err,top.toUpperCase().includes(district), slug+' missing verified campus district '+district);
+          check(err,/TRAVIS COUNTY/i.test(top), slug+' campus county incorrectly attributed');
+          if (slug === 'austin-vandegrift') {
+            check(err,!/WILLIAMSON COUNTY/i.test(top), 'Vandegrift wrongly assigned district service-area county');
+          }
+          if (slug === 'austin-northeast') {
+            check(err,!/AUSTIN ACHIEVE PUBLIC SCHOOLS/i.test(top), 'Northeast matched unrelated charter district');
+          }
+        }
+        if (slug === 'austin-lake-travis') {
+          check(err,!/school announced a 2026 football-season cancellation/i.test(d.body), 'falsely invented varsity season cancellation');
+          check(err,/varsity games return to Cavalier Stadium/i.test(d.body), 'missing current sourced stadium return notice');
+          check(err,d.links.some(x => /laketravisfootball\.com\/schedules/.test(x.href)), 'missing official 2026 varsity schedule link');
+        }
       });
     }
     const countyToSlugs = new Map();
