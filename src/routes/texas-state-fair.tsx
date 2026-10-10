@@ -28,7 +28,7 @@ const stateFairData = {
       {
         heading: "2026 ticket prices and admission",
         paragraphs: [
-          "Official 2026 gate admission is $15 for adults Monday–Thursday and $25 Friday–Sunday; $13 or $20 for seniors age 60 and older; $10 every day for children ages 3–12; and free for children age 2 and younger. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday.",
+          "2026 gate prices: Adults $15 Mon–Thu or $25 Fri–Sun; seniors 60+ $13 Mon–Wed, $7 Thu Senior Day, or $20 Fri–Sun; children 3–12 $10 daily; ages 2 and younger free. After 5 p.m., adults and seniors pay $10 Mon–Thu or $20 Fri–Sun.",
           "Online fees may apply. Check discounts; school-issued 2026 student tickets were extended through October 18, including both final weekends."
         ],
         links: [
