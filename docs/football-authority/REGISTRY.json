@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 5,
+    "partiallyCompleted": 6,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "amherst",
-    "nextSchool": "amherst",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "currentSchool": "anahuac",
+    "nextSchool": "anahuac",
+    "implementedOnBranch": 6,
+    "remainingToImplement": 19,
     "remainingToVerify": 25,
-    "notes": "Five Amarillo area schools independently researched and IMPLEMENTED on draft PR #4506; 20 assigned still NOT_REVIEWED; zero Batch003 production VERIFIED. Next Amherst."
+    "notes": "6 school-specific research/implementation entries committed to draft PR #4506, including UIL-documented 1994/95 Amherst titles. 19 assigned still NOT_REVIEWED; zero Batch003 production VERIFIED. Next Anahuac."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3011,9 +3011,37 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/amherst",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/amherst.md",
+      "implementationCommits": [
+        "a103006145e7f87ec305b39e10f276a530135110",
+        "2213a26ae7be0ceb28682f2ba1b647df1e58f675",
+        "f2ed7eaafe06ca8da80b9087f29531873ced5591"
+      ],
+      "evidenceSources": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/94at_bfb.html",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
+        "https://www.amherstisd.com/school-information",
+        "https://www.texasfootball.com/team/amherst-bulldogs",
+        "https://www.maxpreps.com/tx/amherst/amherst-bulldogs/football/history/",
+        "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf"
+      ],
+      "actualProductionVerified": false,
+      "seoStatus": "Unique editorial metadata authored, CI/live validation pending",
+      "imageStatus": "UIL-sourced historical milestone cards, no unlicensed school photo",
+      "outstanding": [
+        "Conflicting 2023–25 independent win-loss records",
+        "Official 2026 schedule and coaching status",
+        "Lamb County NCES/county incoming link",
+        "Rights-cleared authentic photography",
+        "Exact stadium entrance ADA tickets and official colors",
+        "CI protected merge deployment production Chrome"
+      ]
     },
     {
       "id": "uil:anahuac",
