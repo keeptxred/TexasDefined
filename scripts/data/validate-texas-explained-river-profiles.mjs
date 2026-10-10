@@ -45,7 +45,7 @@ for (const marker of [
   'Texas Rivers, Region by Region',
   'const riverRegions = [',
   'See all river basins →',
-  'Go Deeper on Five Major Texas Rivers',
+  'Explore All 15 Major Texas River Basins',
   'Texas River Basins Explained →',
   'Explore Texas Lakes & Rivers →',
   '<TexasRiversCitationTrust />',
@@ -171,4 +171,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, downloadable CSV/JSON basin data, focused flagship presentation, non-duplicative regional flow and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: official basin mapping, 15 source-backed river guides, progressive TWDB basin statistics, 2023 GIS references and citations are protected.');
