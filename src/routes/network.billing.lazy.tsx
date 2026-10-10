@@ -5,23 +5,25 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createLazyFileRoute("/network/billing")({ component: NetworkBilling });
 
-type Membership = { id: string; name: string; status: string; paid: boolean; manageable: boolean };
+type Membership = { id: string; name: string; status: string; paid: boolean; manageable: boolean; checkoutEligible: boolean };
 
 function NetworkBilling() {
   const [email, setEmail] = useState("");
   const [signedIn, setSignedIn] = useState(false);
   const [memberships, setMemberships] = useState<Membership[]>([]);
+  const [checkoutAvailable, setCheckoutAvailable] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   async function refresh() {
     const { data: { session } } = await supabase.auth.getSession();
-    if (!session) { setSignedIn(false); setMemberships([]); return; }
+    if (!session) { setSignedIn(false); setMemberships([]); setCheckoutAvailable(false); return; }
     setSignedIn(true);
     const response = await fetch("/api/public/network-billing", { headers: { authorization: "Bearer " + session.access_token } });
     if (!response.ok) throw new Error("Could not load your network memberships.");
     const result = await response.json();
     setMemberships(result.memberships || []);
+    setCheckoutAvailable(result.checkoutAvailable === true);
   }
   useEffect(() => {
     void refresh().catch(() => setError("Unable to load memberships."));
@@ -34,6 +36,22 @@ function NetworkBilling() {
     setBusy(false);
     if (authError) setError(authError.message);
     else setNotice("Check your email for your secure sign-in link.");
+  }
+  async function startCheckout(id: string) {
+    setBusy(true); setError("");
+    try {
+      const {data:{session}}=await supabase.auth.getSession();
+      if (!session?.user?.email) throw new Error("Sign in with your verified application email.");
+      const response=await fetch("/api/public/network-checkout",{
+        method:"POST",
+        headers:{"authorization":"Bearer "+session.access_token,"content-type":"application/json"},
+        body:JSON.stringify({applicationId:id,email:session.user.email}),
+      });
+      const result=await response.json();
+      if(!response.ok||!result.url)throw new Error(result.error||"Checkout is unavailable.");
+      window.location.assign(result.url);
+    }catch(cause){setError(cause instanceof Error?cause.message:"Checkout is unavailable.");}
+    finally{setBusy(false);}
   }
   async function portal(id: string) {
     setBusy(true); setError("");
@@ -55,7 +73,7 @@ function NetworkBilling() {
     <div className="mx-auto max-w-3xl">
       <p className="eyebrow text-primary">Texas Defined Network</p>
       <h1 className="mt-3 font-display text-4xl sm:text-5xl">Manage your membership</h1>
-      <p className="mt-5 leading-8 text-muted-foreground">Sign in with the email used for your listing to review your Plus memberships and manage payment methods, invoices or cancellation through Stripe's secure portal.</p>
+      <p className="mt-5 leading-8 text-muted-foreground">Sign in with the email used for your listing. After separate editorial approval and verified owner provisioning, eligible Plus members can start checkout when Network billing is launched. Existing subscriptions are managed securely through Stripe.</p>
       {!signedIn ? <form onSubmit={signIn} className="mt-8 rounded-2xl border border-border bg-surface p-6">
         <label htmlFor="billing-email" className="block text-sm font-semibold">Your business contact email</label>
         <input id="billing-email" type="email" required value={email} onChange={event => setEmail(event.target.value)} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3"/>
@@ -66,7 +84,8 @@ function NetworkBilling() {
         {memberships.map(item => <div key={item.id} className="rounded-2xl border border-border bg-surface p-6">
           <h3 className="font-display text-2xl">{item.name}</h3>
           <p className="mt-2 text-sm text-muted-foreground">Listing status: {item.status} · Subscription: {item.paid ? "Active" : "Not active"}</p>
-          <button type="button" disabled={busy||!item.manageable} onClick={() => void portal(item.id)} className="mt-4 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-40">Manage subscription</button>
+          {item.checkoutEligible && <button type="button" disabled={busy||!checkoutAvailable} onClick={() => void startCheckout(item.id)} className="mt-4 mr-3 rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-40">{checkoutAvailable ? "Start secure Plus checkout" : "Checkout not active yet"}</button>}
+          {item.manageable && <button type="button" disabled={busy} onClick={() => void portal(item.id)} className="mt-4 rounded-full border border-primary px-6 py-3 font-semibold text-primary disabled:opacity-40">Manage subscription</button>}
         </div>)}
       </section>}
       {notice && <p role="status" className="mt-5 rounded-xl bg-surface p-4">{notice}</p>}

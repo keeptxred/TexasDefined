@@ -23,15 +23,18 @@ export const Route = createFileRoute("/api/public/network-billing")({
         .select("application_id")
         .eq("owner_user_id", auth.userId).eq("access_enabled", true);
       if (bindingError) return respond({error:"Unable to verify business ownership."},503);
+      const {stripeCheckoutEnabled}=await import("@/data/network-stripe.server");
+      const checkoutAvailable=stripeCheckoutEnabled();
       const ids=(bindings||[]).map(binding=>binding.application_id);
-      if (!ids.length) return respond({ok:true,memberships:[]});
+      if (!ids.length) return respond({ok:true,memberships:[],checkoutAvailable});
       const { data, error } = await auth.client.from("texasdefined_network_applications")
-        .select("id,business_name,plan,status,paid_entitlement_active,stripe_customer_id")
+        .select("id,business_name,plan,status,paid_entitlement_active,stripe_customer_id,stripe_subscription_id")
         .in("id",ids).eq("contact_email", auth.email).eq("plan", "plus").order("created_at", { ascending: false });
       if (error) return respond({ error: "Unable to load subscriptions." }, 503);
-      return respond({ ok: true, memberships: (data || []).map(item => ({
+      return respond({ ok: true, checkoutAvailable, memberships: (data || []).map(item => ({
         id: item.id, name: item.business_name, status: item.status,
         paid: item.paid_entitlement_active, manageable: !!item.stripe_customer_id,
+        checkoutEligible: item.status === "approved" && !item.paid_entitlement_active && !item.stripe_subscription_id,
       })) });
     },
     POST: async ({ request }) => {

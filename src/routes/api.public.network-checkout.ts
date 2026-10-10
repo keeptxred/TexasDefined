@@ -25,7 +25,7 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     }
     const { data, error } = await supabaseAdmin.from("texasdefined_network_applications")
       .select("id,plan,status,contact_email,paid_entitlement_active,stripe_subscription_id").eq("id", body.applicationId).single();
-    if (error || !data || data.plan !== "plus" || !["pending_review","approved"].includes(data.status) ||
+    if (error || !data || data.plan !== "plus" || data.status !== "approved" ||
         data.contact_email.toLowerCase() !== String(body.email || "").trim().toLowerCase()) {
       return reply({ error: "This application is not eligible for checkout." }, 422);
     }

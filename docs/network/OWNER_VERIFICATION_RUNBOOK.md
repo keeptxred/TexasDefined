@@ -36,3 +36,8 @@ The application admin still relies on the inherited sports-partner admin access 
 - A Plus owner can sign in and access only their reviewed account, published public listing and membership billing. Featured profile-edit submission and Featured private-media upload remain limited by live RLS to an enabled account with `membership_tier = featured`.
 - Featured upgrade remains a separate manual, independently approved process, not automatically performed by Plus checkout or email confirmation.
 - Database migration `20261010205801_network_owner_plus_tier_guard` permits explicit `plus` or `featured`, changes the default to the least-privileged `plus`, and tightens Featured draft SELECT to enabled Featured owners. Test authorization boundaries before launch.
+
+## Plus first subscription path
+- After manual approval and verified Plus owner provisioning, owner signs into `/network/billing`; the server returns an eligible-to-checkout flag only for approved Plus accounts without an existing subscription.
+- The Checkout action stays disabled until the real production `NETWORK_CHECKOUT_ENABLED` gate is explicitly enabled at launch. The Checkout API independently re-verifies confirmed email, owner binding, approval, and absence of a subscription.
+- Do not test by creating live sessions, charges, or real customer users before authorized launch; use mocks or non-live test mode.
