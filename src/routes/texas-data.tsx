@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'Official Texas data, local finders, cost comparisons and practical guides for moving, traveling and exploring the state.';
+export const description = 'Texas data, local tools and comparisons for travel, moving and everyday decisions.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
 
@@ -30,7 +30,7 @@ export const Route = createFileRoute('/texas-data')({
                 '@type': 'Dataset',
                 '@id': `${absoluteUrl(texasDefinedBrand, sportsComparisonPath)}#dataset`,
                 name: 'Texas Sports Venue Comparison',
-                description: 'Compare 84 verified Texas sports venues, with location, type, capacity and opening details when available.',
+                description: 'Compare 84 verified sports venues, with capacity and opening details when known.',
                 url: absoluteUrl(texasDefinedBrand, sportsComparisonPath),
                 spatialCoverage: { '@type': 'State', name: 'Texas' },
                 distribution: {
