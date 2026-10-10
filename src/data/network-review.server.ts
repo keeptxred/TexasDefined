@@ -6,13 +6,23 @@ export async function listNetworkApplications(accessKey: string) {
   const { data, error } = await supabaseAdmin.from('texasdefined_network_applications').select('*').order('created_at', { ascending: false }).limit(200);
   if (error) throw new Error('Network applications are unavailable.');
   const applications = (data ?? []) as Array<Record<string, unknown>>;
+  // Published URLs must use stable slugs, not private application UUIDs.
+  const ids = applications.map(entry => String(entry.id));
+  const { data: publicRows, error: publicError } = ids.length
+    ? await supabaseAdmin.from('texasdefined_network_public_listings')
+      .select('application_id,slug,is_published').in('application_id', ids)
+    : { data: [], error: null };
+  if (publicError) throw new Error('Unable to load published listing links.');
+  const publicSlugs = new Map((publicRows ?? [])
+    .filter(row => row.is_published)
+    .map(row => [String(row.application_id), String(row.slug)]));
   const enriched = await Promise.all(applications.map(async (entry) => {
     const paths = [entry.logo_storage_path, ...((entry.gallery_storage_paths as string[] | null) ?? [])].filter((p):p is string => typeof p === 'string' && p.length > 0);
     const media = await Promise.all(paths.map(async (path) => {
       const { data: signed, error: mediaError } = await supabaseAdmin.storage.from('texasdefined-network-applications').createSignedUrl(path, 300);
       return { path, url: mediaError ? null : signed?.signedUrl ?? null };
     }));
-    return { ...entry, media };
+    return { ...entry, listing_slug: publicSlugs.get(String(entry.id)) ?? null, media };
   }));
   return { applications: enriched, generatedAt: new Date().toISOString() };
 }
