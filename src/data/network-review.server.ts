@@ -69,9 +69,25 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
   hours:app.hours,description:app.description,website:app.plan==='plus'?app.website:null,social:app.plan==='plus'?app.social:null,
   services:app.plan==='plus'?app.services:null,faq:app.plan==='plus'?app.faq:null,offer:app.plan==='plus'?app.offer:null,
  };
+ const copyMedia=async(path:string|null)=> {
+  if(!path)return null;
+  if(!path.startsWith(id+'/'))throw Error('Invalid applicant media path');
+  const original=supabaseAdmin.storage.from('texasdefined-network-applications');
+  const {data:blob,error:downloadError}=await original.download(path);
+  if(downloadError||!blob)throw Error('Approved image unavailable');
+  const ext=path.split('.').pop()?.toLowerCase();
+  const contentType=ext==='png'?'image/png':ext==='webp'?'image/webp':ext==='jpg'?'image/jpeg':null;
+  if(!contentType)throw Error('Unsupported approved image format');
+  const {error:uploadError}=await supabaseAdmin.storage.from('texasdefined-network-published').upload(path,await blob.arrayBuffer(),{contentType,upsert:true});
+  if(uploadError)throw Error('Could not publish approved media');
+  return path;
+ };
+ const logoPath=await copyMedia(app.logo_storage_path);
+ const galleryPaths:string[]=[];
+ for(const path of (app.plan==='plus'?app.gallery_storage_paths:[])||[]){const copied=await copyMedia(path);if(copied)galleryPaths.push(copied)}
  const {error:publishError}=await supabaseAdmin.from('texasdefined_network_public_listings').upsert({
-  application_id:app.id,slug,plan:app.plan,profile,logo_storage_path:app.logo_storage_path,
-  gallery_storage_paths:app.plan==='plus'?app.gallery_storage_paths:[],is_published:true,updated_at:new Date().toISOString()
+  application_id:app.id,slug,plan:app.plan,profile,logo_storage_path:logoPath,
+  gallery_storage_paths:galleryPaths,is_published:true,updated_at:new Date().toISOString()
  } as never,{onConflict:'application_id'});
  if(publishError)throw Error('Could not publish the listing');
  const {error:statusError}=await supabaseAdmin.from('texasdefined_network_applications').update({status:'published',updated_at:new Date().toISOString()} as never).eq('id',id);
