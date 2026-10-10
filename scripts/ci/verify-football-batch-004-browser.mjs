@@ -145,8 +145,9 @@ async function visit(context, viewport, id, path, validate) {
       errors.push('browser failure: '+String(error?.message || error).slice(0,350));
     } finally {
       const transientNavigationFailure = errors.some(message =>
-        /^browser failure:/.test(message) &&
-        /page\.goto|Timeout|net::ERR_|Navigation failed|ERR_CONNECTION/i.test(message));
+        /^browser failure:\s*page\.goto[:\s]/i.test(message));
+      // A waitForFunction/locator timeout caused by missing content or missing
+      // reciprocal links is a substantive failure, NOT retryable navigation.
       const transientAssetFailure = runtime.some(message =>
         /Failed to fetch dynamically imported module/i.test(message));
       const retry = attempt === 1 &&
