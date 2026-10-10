@@ -21,14 +21,15 @@ const stateFairData = {
         ],
         links: [
           { label: "Official State Fair hours", href: "https://bigtex.com/faqs/fair-hours/", external: true },
-          { label: "Official daily schedule", href: "https://bigtex.com/schedule/", external: true }
+          { label: "Official daily schedule", href: "https://bigtex.com/schedule/", external: true },
+          { label: "Official fairgrounds map", href: "https://bigtex.com/plan-your-visit/map/", external: true }
         ]
       },
       {
         heading: "2026 ticket prices and admission",
         paragraphs: [
           "Official 2026 gate admission is $15 for adults Monday–Thursday and $25 Friday–Sunday; $13 or $20 for seniors age 60 and older; $10 every day for children ages 3–12; and free for children age 2 and younger. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday.",
-          "Because prices and promotions can change by date, buy from the official Fair ticket page and compare the day's general admission price with any discount that applies to you before checkout."
+          "Online prices include processing fees and may be higher than the gate price. Discounts can vary by day, so check the official State Fair discount page before purchasing."
         ],
         links: [
           { label: "Official tickets and packages", href: "https://bigtex.com/buy-tickets-new/", external: true },
@@ -194,7 +195,7 @@ const stateFairData = {
 const faq = [
   { question: "When is the 2026 State Fair of Texas?", answer: "The 2026 State Fair of Texas runs September 25 through October 18, 2026, at Fair Park in Dallas." },
   { question: "What are the 2026 State Fair of Texas hours?", answer: "The Fair is open 10 a.m.–9 p.m. Sundays through Thursdays and 10 a.m.–10 p.m. Fridays and Saturdays. Last entry is 9 p.m. Parking gates and ticket booths open at 9:30 a.m." },
-  { question: "How much are 2026 State Fair of Texas tickets?", answer: "Official 2026 prices vary by day and discount. The Fair currently lists general admission from $7 to $25, child admission ages 3–12 from $7 to $10, children age 2 and younger free, and senior admission from $7 to $20." },
+  { question: "How much are 2026 State Fair of Texas tickets?", answer: "Official 2026 gate prices: adults $15 Monday–Thursday or $25 Friday–Sunday, seniors $13 or $20, children ages 3–12 $10 each day, and children age 2 or younger free. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday. Online fees may apply." },
   { question: "Where is the State Fair of Texas held?", answer: "The State Fair of Texas is held at Fair Park in Dallas, Texas." },
   { question: "Can I take DART to the State Fair of Texas?", answer: "Yes. DART's Green Line serves Fair Park Station and MLK Jr. Station, both convenient to fairground entrances." },
   { question: "How do State Fair of Texas coupons work?", answer: "Food, Midway rides and Midway games use Fair coupons. One coupon is currently worth $1, and unused coupons do not expire under the Fair's current policy." },
