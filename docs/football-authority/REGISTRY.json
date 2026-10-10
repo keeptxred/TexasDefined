@@ -54,7 +54,7 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 assigned schools individually researched, authored and committed with separate audits to draft PR #4506. NOT MERGED, DEPLOYED or VERIFIED. Each retains source/image/game-day/local link/CI/production acceptance follow-ups; next reconcile all, code/tests, inbound links, protected merge/deploy and real Chrome QA. Do not assign Batch 004 prematurely."
+    "notes": "All 25 assigned schools remain IMPLEMENTED, not MERGED/DEPLOYED/VERIFIED. NCES/TEA campus county sources and relevant inbound county-page links are now saved for all 25 on PR #4506; six Arlington programs additionally have city-page inbound links. Local links are source-code changes only, not live verified. Remaining: current main integration, complete factual/rights/venue research, protected CI and merge, deploy, and individual Chrome acceptance. No Batch 004."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -2838,7 +2838,13 @@
         "Licensed authentic school image",
         "Official game-specific stadium entrance/ADA/parking",
         "CI/merge/deployment/live browser QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000149",
+      "inboundLinks": [
+        "/county/randall"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-highland-park",
@@ -2877,7 +2883,13 @@
         "Licensed stadium photo",
         "Stadium ticket and ADA access",
         "CI merge deploy live acceptance"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=483556006160",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-palo-duro",
@@ -2916,7 +2928,13 @@
         "Image license and photo",
         "Ticket ADA parking and game-day gate",
         "CI merge deploy and actual browser verification"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=2DCDAA6&PrivSchool=1&School=1&State=TX&city=Amarillo&miles=15&search=1&zipcode=",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-river-road",
@@ -2956,7 +2974,13 @@
         "Licensed photography",
         "Ticket/ADA/parking details",
         "CI merge deploy Chrome acceptance"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=C147AF41&College=1&Library=1&PrivSchool=1&School=1&State=&city=&itemname=&miles=5&search=1&sortby=name&zipcode=79124",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amarillo-tascosa",
@@ -2998,7 +3022,13 @@
         "Photography usage rights",
         "Stadium and ticket ADA parking details",
         "CI/merge/deploy/live browser acceptance"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480813000181",
+      "inboundLinks": [
+        "/county/potter"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:amherst",
@@ -3041,7 +3071,13 @@
         "Rights-cleared authentic photography",
         "Exact stadium entrance ADA tickets and official colors",
         "CI protected merge deployment production Chrome"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schooLSearch/school_list.asp?ID=480930000389&SchoolPageNum=14&state=48",
+      "inboundLinks": [
+        "/county/lamb"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anahuac",
@@ -3075,7 +3111,13 @@
         "NCES county & reciprocal link",
         "Rights-cleared authentic photo",
         "CI, merge, deploy and real browser QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480819000190",
+      "inboundLinks": [
+        "/county/chambers"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anderson-shiro",
@@ -3112,7 +3154,13 @@
         "Photo usage rights",
         "Owl Stadium game-day access",
         "CI protected merge deployed live Chrome QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480823000193",
+      "inboundLinks": [
+        "/county/grimes"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:andrews",
@@ -3148,7 +3196,13 @@
         "Stadium visitor entrance/ADA/tickets",
         "UIL district document and current schedule",
         "CI protected merge production Chrome"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schooLSearch/school_list.asp?ID=480930000389&SchoolPageNum=16&state=48",
+      "inboundLinks": [
+        "/county/andrews"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:angleton",
@@ -3185,7 +3239,13 @@
         "Brazoria inbound county/city link",
         "Image license and stadium ADA/tickets",
         "CI deploy and actual Chrome QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480831000200",
+      "inboundLinks": [
+        "/county/brazoria"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anna",
@@ -3222,7 +3282,13 @@
         "Collin county incoming reciprocal links",
         "Licensed original football photography",
         "Production CI merge deploy Chrome tests"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=FFE8C0A8&School=1&itemname=South&miles=20&search=1&sortby=name&zipcode=Res++",
+      "inboundLinks": [
+        "/county/collin"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anson",
@@ -3259,7 +3325,13 @@
         "School image license",
         "Ticket/ADA gate",
         "CI protected merge deployment and browser QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_list.asp?County=Jones+County&Search=1&State=48",
+      "inboundLinks": [
+        "/county/jones"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anthony",
@@ -3295,7 +3367,13 @@
         "Licensed team photo",
         "Current stadium ADA/tickets/parking",
         "Protected CI merge deployment real Chrome QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_list.asp?County=el+paso&ID=484668006994&Search=1&State=48",
+      "inboundLinks": [
+        "/county/el-paso"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:anton",
@@ -3332,7 +3410,13 @@
         "Licensed authentic imagery",
         "Stadium ticket/ADA/gate",
         "CI protected merge deploy browser QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480846000214",
+      "inboundLinks": [
+        "/county/hockley"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:apple-springs",
@@ -3370,7 +3454,13 @@
         "2026 result completeness",
         "Stadium gate ADA tickets",
         "CI merge deployed browser acceptance"
-      ]
+      ],
+      "campusCountySource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&dds_report=D9&id=228905001&lev=C&prgopt=reports%2Facct%2Fdistinctions.sas",
+      "inboundLinks": [
+        "/county/trinity"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:aquilla",
@@ -3406,7 +3496,13 @@
         "NCES Hill County and relevant inbound links",
         "Licensed school photography",
         "CI protected merge deploy real browser checks"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480852000218",
+      "inboundLinks": [
+        "/county/hill"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:aransas-pass",
@@ -3443,7 +3539,13 @@
         "Licensed photo rights",
         "Primary UIL district roster check",
         "Protected CI merge deploy browser QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480858000224",
+      "inboundLinks": [
+        "/county/san-patricio"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:archer-city",
@@ -3481,7 +3583,13 @@
         "Licensed imagery",
         "Stadium accessible entrance ticketing",
         "CI merge deploy live Chrome verification"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_list.asp?County=Archer+County&Search=1&State=48",
+      "inboundLinks": [
+        "/county/archer"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:argyle",
@@ -3519,7 +3627,13 @@
         "Denton county and contextual reciprocal local links",
         "Photo licensing",
         "Protected CI merge deployed live Chrome QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480867008769",
+      "inboundLinks": [
+        "/county/denton"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington",
@@ -3556,7 +3670,14 @@
         "Current UIL district and team stadium gate",
         "Photo rights and accessibility",
         "CI, protected merge, Cloudflare deployment and live Chrome"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870000232",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-bowie",
@@ -3593,7 +3714,14 @@
         "Authentic photo rights",
         "Wilemon Field tickets ADA and gate",
         "CI protected merge deployed Chrome"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870021493",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-houston",
@@ -3628,7 +3756,14 @@
         "Official colors/team photo rights",
         "Wilemon gates ticket accessibility",
         "CI protected merge and independent live QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=8B8DDFB2&College=1&Library=1&PrivSchool=1&School=1&State=&city=&itemname=&miles=5&search=1&sortby=name&zipcode=76015",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-lamar",
@@ -3664,7 +3799,14 @@
         "Copyright-cleared real school imagery",
         "Cravens Field game-day accessibility/tickets",
         "CI merge deploy real Chrome certification"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870000253",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-martin",
@@ -3701,7 +3843,14 @@
         "Actual stadium site, accessibility and parking",
         "Rights-cleared imagery",
         "CI protected merge real Chrome QA"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480870005643",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arlington-seguin",
@@ -3738,7 +3887,14 @@
         "Image licensing",
         "Stadium tickets/ADA/parking",
         "CI protected merge deploy live browser certification"
-      ]
+      ],
+      "campusCountySource": "https://nces.ed.gov/globallocator/index.asp?CS=CB88C673&PrivSchool=1&School=1&State=&city=&itemname=&miles=20&search=1&sortby=name&zipcode=76015",
+      "inboundLinks": [
+        "/county/tarrant",
+        "/city/arlington"
+      ],
+      "localLinkStatus": "COMMITTED_ON_PR_BRANCH_NOT_PRODUCTION_VERIFIED",
+      "localLinkEvidenceFile": "docs/football-authority/BATCH003_CAMPUS_LINK_EVIDENCE.md"
     },
     {
       "id": "uil:arp",
