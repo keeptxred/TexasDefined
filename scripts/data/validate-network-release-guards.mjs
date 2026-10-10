@@ -88,3 +88,6 @@ check('owner access requires audit-backed atomic provisioning',review.includes("
 
 check('Stripe checkout must claim and commit one durable reservation',checkout.includes('reserve_texasdefined_network_checkout')&&checkout.includes('complete_texasdefined_network_checkout')&&checkout.includes('session.expiresAt'));
 check('Checkout redirect requires exact Stripe hostname',source('src/data/network-stripe.server.ts').includes("target.hostname==='checkout.stripe.com'"));
+
+check('Stripe verified subscription cannot contain unrelated paid line items',webhook.includes('isExpectedNetworkPlusSubscription(subscription)')&&source('src/data/network-stripe.server.ts').includes('items.length===1'));
+check('Stripe portal requires a live server secret',billing.includes('key?.startsWith("sk_live_")'));

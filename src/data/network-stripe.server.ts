@@ -65,3 +65,17 @@ export function verifiedNetworkSubscriptionOwnership(
   && (!existing.stripe_subscription_id || existing.stripe_subscription_id === subscription.id)
   && (!existing.stripe_customer_id || existing.stripe_customer_id === subscription.customer);
 }
+
+/** Inspected subscription must describe exactly one approved $19.99 Plus line item. */
+export function isExpectedNetworkPlusSubscription(subscription: Record<string,any>):boolean {
+ const items=subscription.items?.data;
+ return subscription.livemode===true
+  && typeof subscription.id==='string' && /^sub_[A-Za-z0-9_]+$/.test(subscription.id)
+  && typeof subscription.customer==='string' && /^cus_[A-Za-z0-9_]+$/.test(subscription.customer)
+  && subscription.metadata?.project==='TexasDefined'
+  && typeof subscription.metadata?.application_id==='string'
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id)
+  && Array.isArray(items) && items.length===1
+  && items[0]?.price?.id===NETWORK_PLUS_PRICE
+  && items[0]?.quantity===1;
+}

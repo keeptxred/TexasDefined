@@ -57,7 +57,7 @@ export const Route = createFileRoute("/api/public/network-billing")({
         .maybeSingle();
       if (ownerError || !ownerBinding) return respond({ error: "Verified business ownership is required." }, 403);
       const key = process.env["STRIPE_SECRET_KEY"];
-      if (!key) return respond({ error: "Billing portal is temporarily unavailable." }, 503);
+      if (!key?.startsWith("sk_live_")) return respond({ error: "Billing portal is temporarily unavailable." }, 503);
       const body = new URLSearchParams({
         customer: data.stripe_customer_id,
         return_url: "https://texasdefined.com/network/billing",

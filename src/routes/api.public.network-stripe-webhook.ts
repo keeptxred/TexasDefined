@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-const PRICE_ID = "price_1UP28XLtRurj6GMNwFlYDW6N";
+
 // One production HMAC verifier shared with the executable Stripe security tests.
 export const Route = createFileRoute("/api/public/network-stripe-webhook")({
   server: { handlers: { POST: async ({ request }) => {
@@ -27,11 +27,9 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     if (!live.ok) return new Response("Subscription verification unavailable", { status: 503 });
     const subscription = await live.json() as Record<string, any>;
     if (subscription.livemode !== true || subscription.id !== subscriptionId) return new Response("Invalid subscription", { status: 422 });
-    const id = subscription?.metadata?.application_id;
-    const price = subscription?.items?.data?.[0]?.price?.id;
-    if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id) ||
-        price !== PRICE_ID || subscription?.metadata?.project !== "TexasDefined" ||
-        typeof subscription?.id !== "string") return new Response("Ignored", { status: 200 });
+    const { isExpectedNetworkPlusSubscription } = await import("@/data/network-stripe.server");
+    if(!isExpectedNetworkPlusSubscription(subscription))return new Response("Ignored",{status:200});
+    const id = String(subscription.metadata.application_id);
     // Read the verified CURRENT subscription state, not the delivery order of old invoice events.
     // A recovered subscription must not be deactivated by a delayed failure notification.
     const active = subscription.status === "active";

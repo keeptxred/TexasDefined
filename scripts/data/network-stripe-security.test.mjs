@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl } from '../../src/data/network-stripe.server.ts';
+import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription } from '../../src/data/network-stripe.server.ts';
 
 const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
@@ -123,4 +123,20 @@ test('Checkout cannot create a session without explicit live authorization',asyn
   createNetworkCheckoutSession('11111111-1111-4111-8111-111111111111','test@example.invalid','22222222-2222-4222-8222-222222222222'),
   /not activated/
  );
+});
+
+test('Stripe Plus subscription verifier rejects extra items and cross-plan prices',()=>{
+ const item={price:{id:'price_1UP28XLtRurj6GMNwFlYDW6N'},quantity:1};
+ const valid={
+  livemode:true,id:'sub_mocked_example',customer:'cus_mocked_example',
+  metadata:{application_id:'11111111-1111-4111-8111-111111111111',project:'TexasDefined'},
+  items:{data:[item]}
+ };
+ assert.equal(isExpectedNetworkPlusSubscription(valid),true);
+ assert.equal(isExpectedNetworkPlusSubscription({...valid,items:{data:[item,item]}}),false);
+ assert.equal(isExpectedNetworkPlusSubscription({...valid,items:{data:[{...item,quantity:2}]}}),false);
+ assert.equal(isExpectedNetworkPlusSubscription({...valid,items:{data:[{price:{id:'price_wrong'},quantity:1}]}}),false);
+ assert.equal(isExpectedNetworkPlusSubscription({...valid,livemode:false}),false);
+ assert.equal(isExpectedNetworkPlusSubscription({...valid,metadata:{...valid.metadata,project:'Other'}}),false);
+ assert.equal(isExpectedNetworkPlusSubscription({...valid,customer:'cus_!!!'}),false);
 });
