@@ -41,6 +41,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'baytown-goose-creek-memorial': 'harris',
+    'baytown-lee': 'harris',
+    'baytown-sterling': 'harris',
+    'beaumont-united': 'jefferson',
+    'beaumont-west-brook': 'jefferson',
     'barksdale-nueces-canyon': 'edwards',
     'bartlett': 'bell',
     'bastrop': 'bastrop',

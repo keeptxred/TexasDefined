@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "baytown-goose-creek-memorial",
-    "implementedOnBranch": 10,
-    "remainingToImplement": 15,
+    "nextSchool": "beckville",
+    "implementedOnBranch": 15,
+    "remainingToImplement": 10,
     "remainingToVerify": 25,
-    "notes": "Ten individually researched and authored Batch005 profiles are now implemented across initial merged PR #4576 and this group-two branch, but none is promoted to VERIFIED. Group two five pages need protected review/merge/deploy/real-browser evidence; 15 assigned remain unreviewed. Previous 80 production verified preserved."
+    "notes": "15 of 25 Batch005 individually sourced editorial records implemented across initial merged #4576 and follow-up branches #4579 and this group3 branch. 10 assigned not yet implemented, 0 production verified; 80 prior VERIFIED protected; group2 and group3 require protected merges and live browser evidence."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -5961,8 +5961,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-goose-creek-memorial",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/baytown-goose-creek-memorial.md",
+      "officialSchoolUrl": "https://schools.gccisd.net/page/gcmhs.home/",
+      "officialAthleticsUrl": "https://schools.gccisd.net/page/gcmhs.staffdirectory",
+      "county": "Harris County",
+      "schoolDistrict": "Goose Creek CISD",
+      "mascot": "Patriots",
+      "sourceEvidence": [
+        "https://schools.gccisd.net/page/gcmhs.home/",
+        "https://schools.gccisd.net/page/gcmhs.staffdirectory",
+        "https://www.maxpreps.com/tx/baytown/goose-creek-memorial-patriots/football/25-26/schedule/"
+      ],
+      "inboundLinks": [
+        "/county/harris"
+      ],
+      "outboundCountyPath": "/county/harris",
+      "linkVerificationStatus": "PR_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR review/merge/deploy",
+        "Independent live desktop/mobile/county return-link QA and legal photo rights",
+        "Confirm updated coach/venue/ADA/ticket rules with district"
+      ]
     },
     {
       "id": "uil:baytown-lee",
@@ -5975,8 +6001,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-lee",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/baytown-lee.md",
+      "officialSchoolUrl": "https://schools.gccisd.net/page/relhs.sl.athletics",
+      "officialAthleticsUrl": "https://schools.gccisd.net/page/relhs.studentlife",
+      "county": "Harris County",
+      "schoolDistrict": "Goose Creek CISD",
+      "mascot": "Ganders",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P672",
+        "https://schools.gccisd.net/page/relhs.sl.athletics",
+        "https://schools.gccisd.net/page/relhs.studentlife"
+      ],
+      "inboundLinks": [
+        "/county/harris"
+      ],
+      "outboundCountyPath": "/county/harris",
+      "linkVerificationStatus": "PR_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR review/merge/deploy",
+        "Independent live desktop/mobile/county return-link QA and legal photo rights",
+        "Confirm updated coach/venue/ADA/ticket rules with district"
+      ]
     },
     {
       "id": "uil:baytown-sterling",
@@ -5989,8 +6041,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baytown-sterling",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/baytown-sterling.md",
+      "officialSchoolUrl": "https://schools.gccisd.net/page/rsshs.home",
+      "officialAthleticsUrl": "https://schools.gccisd.net/page/rsshs.aboutus",
+      "county": "Harris County",
+      "schoolDistrict": "Goose Creek CISD",
+      "mascot": "Rangers",
+      "sourceEvidence": [
+        "https://schools.gccisd.net/page/rsshs.aboutus",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://schools.gccisd.net/page/rsshs.home"
+      ],
+      "inboundLinks": [
+        "/county/harris"
+      ],
+      "outboundCountyPath": "/county/harris",
+      "linkVerificationStatus": "PR_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR review/merge/deploy",
+        "Independent live desktop/mobile/county return-link QA and legal photo rights",
+        "Confirm updated coach/venue/ADA/ticket rules with district"
+      ]
     },
     {
       "id": "uil:beaumont-united",
@@ -6003,8 +6081,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-united",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/beaumont-united.md",
+      "officialSchoolUrl": "https://united.bmtisd.com/about-our-school",
+      "officialAthleticsUrl": "https://www.bmtisd.com/departments/athletics/homepage",
+      "county": "Jefferson County",
+      "schoolDistrict": "Beaumont ISD",
+      "mascot": "Timberwolves",
+      "sourceEvidence": [
+        "https://united.bmtisd.com/about-our-school",
+        "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/find-a-way-first-year-coach-leads-beaumont-united-to-historic-first-winning-season-and-playoff-return",
+        "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/friday-night-lights-and-community-vibes-beaumont-bowl-returns-october-24"
+      ],
+      "inboundLinks": [
+        "/county/jefferson"
+      ],
+      "outboundCountyPath": "/county/jefferson",
+      "linkVerificationStatus": "PR_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR review/merge/deploy",
+        "Independent live desktop/mobile/county return-link QA and legal photo rights",
+        "Confirm updated coach/venue/ADA/ticket rules with district"
+      ]
     },
     {
       "id": "uil:beaumont-west-brook",
@@ -6017,8 +6121,35 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/beaumont-west-brook",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/beaumont-west-brook.md",
+      "officialSchoolUrl": "https://wb.bmtisd.com/about-our-school",
+      "officialAthleticsUrl": "https://www.bmtisd.com/departments/athletics/homepage",
+      "county": "Jefferson County",
+      "schoolDistrict": "Beaumont ISD",
+      "mascot": "Bruins",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/archives/P408",
+        "https://www.uiltexas.org/football/state-team/beaumont-west-brook-2018-2019-football",
+        "https://wb.bmtisd.com/about-our-school",
+        "https://www.bmtisd.com/departments/community-and-media-relations/news-archive/news-details/~board/2025-26-bisd-current-news/post/friday-night-lights-and-community-vibes-beaumont-bowl-returns-october-24"
+      ],
+      "inboundLinks": [
+        "/county/jefferson"
+      ],
+      "outboundCountyPath": "/county/jefferson",
+      "linkVerificationStatus": "PR_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR review/merge/deploy",
+        "Independent live desktop/mobile/county return-link QA and legal photo rights",
+        "Confirm updated coach/venue/ADA/ticket rules with district"
+      ]
     },
     {
       "id": "uil:beckville",
