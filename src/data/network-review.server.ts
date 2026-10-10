@@ -5,7 +5,8 @@ import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 async function assertNetworkImageBytes(blob: Blob, type: string) {
   if (blob.size === 0 || blob.size > 3_000_000) throw new Error('Approved image size invalid');
   const bytes = new Uint8Array(await blob.slice(0, 12).arrayBuffer());
-  const png = bytes[0] === 137 && bytes[1] === 80 && bytes[2] === 78 && bytes[3] === 71;
+  const pngHeader = [137, 80, 78, 71, 13, 10, 26, 10];
+  const png = bytes.length >= pngHeader.length && pngHeader.every((byte, index) => bytes[index] === byte);
   const jpg = bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255;
   const webp = bytes.length >= 12 && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
     && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
