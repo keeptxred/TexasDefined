@@ -24,3 +24,6 @@ School-specific original history, individually correct 1994 and 1995 playoff sco
 Check current UIL district member names directly in PDF; validate coach and colors with Amherst ISD, source-controlled 2026 schedule, Lamb County/NCES campus county and reciprocal county/city link (verify county, do not assume), legit graphics/photo rights, stadium/tickets/ADA, tests, protected merge/deploy, actual mobile and desktop acceptance, schema, sitemap and screenshots.
 
 **Next assigned:** Anahuac.
+
+## 2026-10-09 source reconciliation addendum
+The [UIL detailed 1995 six-man playoff bracket](https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html) records **Amherst 72–48 Milford**, but the separate [UIL historical champions list](https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html) prints **Amherst 78–42 Milford**. Both are primary-source UIL pages. This unresolved discrepancy is now noted in the published editorial rather than implying one number is undisputed. Reconcile with contemporary newspaper/UIL film or a corrected UIL page before treating the final score as independently settled.
