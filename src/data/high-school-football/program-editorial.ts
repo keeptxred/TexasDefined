@@ -58,6 +58,110 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "amherst": {
+    "slug": "amherst",
+    "theme": {
+      "accentHex": "#9D6B24",
+      "label": "Original six-man football archival gold; not a licensed Amherst Bulldogs logo"
+    },
+    "seo": {
+      "title": "Amherst Bulldogs Six-Man Football: 1994–95 State Titles & 2026",
+      "description": "Amherst Bulldogs six-man football authority page: official UIL 1994 and 1995 championship scores, coach Jack Shely, 2026 District 3 and stadium/school links."
+    },
+    "coach": {
+      "name": "Daniel Hinojosa",
+      "title": "2026 head football coach per 2026 MaxPreps season history; direct official school confirmation outstanding",
+      "sourceUrl": "https://www.maxpreps.com/tx/amherst/amherst-bulldogs/football/history/",
+      "sourceLabel": "MaxPreps 2026 season head-coach listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "100 North Main Street, Amherst, TX 79312 (district contact; not verified stadium entrance)",
+      "phone": "806-246-3221",
+      "sourceUrl": "https://www.amherstisd.com/school-information",
+      "sourceLabel": "Amherst ISD official school contact and 2026–27 calendar",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Amherst ISD school information, calendars and athletics",
+      "sourceUrl": "https://www.amherstisd.com/school-information",
+      "sourceLabel": "Official district school information; posted football PDF is 2025–26, not verified 2026 football schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "venue": {
+      "name": "Bulldog Stadium",
+      "address": "Amherst, TX — exact spectator entrance not independently verified",
+      "sourceUrl": "https://www.texasfootball.com/team/amherst-bulldogs",
+      "sourceLabel": "Dave Campbell's Texas Football historic program/venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists Bulldog Stadium with 750 historical spectator capacity, but an official current stadium gate, accessible parking, ticket prices and capacity are not published in the sources checked. Do not navigate to the ISD office as a presumed field entrance."
+    },
+    "overview": [
+      "Amherst's Bulldogs have a distinct place in Texas six-man football history: back-to-back UIL six-man state championships in 1994 and 1995. Unlike a generic Class 1A team profile, Amherst's story can be rebuilt game by game from actual UIL archived playoff brackets, where the finalists, scores and coach are preserved.",
+      "The UIL 1994 championship archive lists Amherst defeating Milford 30–20 after the Bulldogs beat Balmorhea 32–28 in a semifinal. The 1995 UIL archive records Amherst beating Milford again, this time 72–48, following a 79–34 semifinal win over Lamesa Klondike. They are two different title games, not an invented undefeated season or one repeated final.",
+      "Coach Jack Shely appears in the UIL's documented champion-team rosters in both 1994 and 1995. Those archived rosters record the work of players, assistant coaches and school community; historical names should not be represented as current players or current 2026 staff.",
+      "The 2026–28 UIL realignment lists Amherst in Class 1A Division II six-man football, District 3. The association and realignment cycle describe the scheduled grouping; they do not establish wins or an active 2026 score ledger. The current official district site provides a 2026–27 calendar but its football schedule link still says 2025–26.",
+      "Recent independent record sources disagree substantially: DCTF gives 2025 as 1–5, 2024 as 3–4 and 2023 as 7–2, while MaxPreps reports 2025 as 3–6, 2024 as 6–3 and 2023 as 9–2. The page therefore withholds exact recent-season claims until each schedule and completeness of games is reconciled rather than selecting a convenient record.",
+      "MaxPreps identifies Daniel Hinojosa as the 2026 Bulldogs head football coach, with an earlier historical stretch on the same team's season archive. This should be treated as a dated third-party attribution until confirmed by Amherst ISD itself.",
+      "For game-day planning, DCTF names Bulldog Stadium and a historical 750-seat figure, while Amherst ISD lists 100 North Main Street as school contact, not the independently verified stadium entry. Ticketing, accessibility, official kickoff and venue gate should be checked with the district."
+    ],
+    "milestones": [
+      {
+        "date": "1994",
+        "title": "First UIL six-man state crown",
+        "body": "Amherst beat Milford 30–20 in the UIL state final after a 32–28 semifinal over Balmorhea; the published historical roster names coach Jack Shely.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/94at_bfb.html",
+        "sourceLabel": "UIL official 1994 state playoff archive"
+      },
+      {
+        "date": "1995",
+        "title": "Back-to-back state champions",
+        "body": "Amherst defeated Milford 72–48 in the final, following a 79–34 victory over Lamesa Klondike in the semifinal.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
+        "sourceLabel": "UIL official 1995 playoff archive"
+      },
+      {
+        "date": "1994–95",
+        "title": "The Shely championship coaching era",
+        "body": "Both UIL championship-team rosters name Jack Shely as head coach, anchoring the Bulldogs' historical football identity.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/94at_bfb.html",
+        "sourceLabel": "UIL championship roster"
+      },
+      {
+        "date": "2026–28",
+        "title": "Modern six-man District 3",
+        "body": "Amherst competes within Class 1A Division II six-man football; current UIL alignment must not be confused with its 1990s classification and playoff format.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 football realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How many UIL state football championships has Amherst won?",
+        "answer": "Two: the Bulldogs won the six-man finals in 1994 and 1995. UIL's primary playoff archives document both scores and opponents."
+      },
+      {
+        "question": "Who did Amherst beat for its 1994 and 1995 titles?",
+        "answer": "Milford in both finals: 30–20 in 1994 and 72–48 in 1995, according to official UIL archived brackets."
+      },
+      {
+        "question": "Who coached Amherst's championship teams?",
+        "answer": "The UIL title-team rosters list head coach Jack Shely in both 1994 and 1995; this is historical, not the current 2026 coaching listing."
+      },
+      {
+        "question": "Who coaches Amherst football in 2026?",
+        "answer": "MaxPreps lists Daniel Hinojosa for 2026, but Amherst ISD first-party confirmation is still required."
+      },
+      {
+        "question": "Why are recent Amherst football records omitted?",
+        "answer": "DCTF and MaxPreps disagree about the 2023–25 totals. The records are not reconciled, and the official district's football schedule is labeled 2025–26 rather than a current 2026 season ledger."
+      },
+      {
+        "question": "Where is Bulldog Stadium?",
+        "answer": "Dave Campbell's Texas Football lists Bulldog Stadium in Amherst, but a spectator entrance and accessible parking have not been independently verified; contact Amherst ISD before visiting."
+      }
+    ]
+  },
   "amarillo-tascosa": {
     "slug": "amarillo-tascosa",
     "theme": {
