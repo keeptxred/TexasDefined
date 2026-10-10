@@ -32,5 +32,5 @@ years.forEach((r,i)=>{
 });
 const route='/texas-data/research/texas-homeowners-premiums-vs-coverage';
 assert.ok(fs.readFileSync('src/lib/public-routes.ts','utf8').includes('"'+route+'"'));
-assert.ok(fs.readFileSync('src/routes/texas-data.tsx','utf8').includes(route));
+assert.ok(fs.readFileSync('src/routes/texas-data.lazy.tsx','utf8').includes(route));
 console.log('Homeowners premium research data, CSV, route governance and hub reference validated.');
