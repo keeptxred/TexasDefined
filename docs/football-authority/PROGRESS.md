@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## Batch 004 reciprocal-link and structural CI acceptance checkpoint — 2026-10-10
+- All 25 school-specific editorial records and dossiers are IMPLEMENTED on PR #4540; prior 55 VERIFIED schools preserved; Batch004 0 VERIFIED.
+- All 25 school profiles now have individually mapped campus-county return links and 25 county pages have reciprocal school cards, as reflected in REGISTRY.json and BATCH004_CAMPUS_LINK_EVIDENCE.md. This is branch evidence, not production verification.
+- Dedicated free workflow .github/workflows/verify-football-batch-004.yml runs scripts/ci/verify-football-batch-004.mjs for exact roster, individual audits, unique SEO, program-specific editorial, rights documentation if photographs are introduced, 25 bidirectional county references and all prior VERIFIED statuses.
+- First all-25 school/county and substantive editorial check PASSED in GitHub Actions run 38058151099. Previous Batch003 structural acceptance also PASSED.
+- Still required: original rights-cleared images or legally defensible alternatives, remaining first-party source reviews, accessibility, city reciprocal links where justified, safe updated-main reconciliation, protected merge, live deployment and 25 separate desktop/mobile browser acceptances with screenshots.
+- Draft PR #4540 remains OPEN. Never mark these 25 VERIFIED without production evidence; do not start Batch005.
+
+
 ## Batch 004 continuation — independently verified historical and current primary sources (October 10, 2026)
 - Confirmed [UIL 1999 Class 1A eleven-man playoff bracket](https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html) and [UIL 2003 Class 3A Division II archive](https://www.uiltexas.org/football/archives/P264). Specific Aspermont and Atlanta dossier corroborations committed as `a6e4699` and `901800c`, preserving distinctions between six-man today and eleven-man in 1999, and between Atlanta football 2003 and track 1989.
 - [Official Eanes ISD Westlake varsity football](https://www.westlakenation.com/teams/fb) verifies **Tony Salazar** as 2026 head coach, varsity **5–1 overall / 2–0 league** through October 8 with six individually listed score outcomes, and scheduled Oct 16/23 fixtures. Original Westlake editorial coach, school contact, dated results and corresponding dossier committed as `d0c48aa` and `a0bff44`. Later games are not represented as final.
