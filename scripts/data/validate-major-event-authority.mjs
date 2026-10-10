@@ -255,7 +255,7 @@ for (const marker of [
 for (const marker of [
   '"@type": "Event"',
   'description: event.whyItMatters',
-  'startDate: window.startDate',
+  'startDate: occurrenceWindows.length === 1 && event.startDateTime?.startsWith(window.startDate)',
   'eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"',
   'const defaultLocation = {',
   '"@type": "Place"',
@@ -286,6 +286,30 @@ if (collectionLoader.includes('"@type": "Event"')) {
 const genericEventKinds = "['fair','rodeo','festival','holiday-event','sporting-event'].includes(kind)";
 if (entityRoute.includes(`${genericEventKinds}) return 'Event'`) || !entityRoute.includes(`${genericEventKinds}) return 'Thing'`)) {
   fail("generic knowledge-graph event-like records must stay neutral until verified occurrence data exists on a dedicated event page");
+}
+
+// Protect source-backed visitor essentials, without requiring generic facts on other event guides.
+const crossroads = read(path.join(dataDir, "major-event-expanded-authority-tranche41.server.ts"));
+const crossroadsSchema = read(path.join(dataDir, "major-event-schema-enrichment-batch12.server.ts"));
+for (const marker of [
+  'slug: "crossroads-of-texas-country-festival"',
+  'startDateTime: "2026-10-24T09:00:00-05:00"',
+  'endDateTime: "2026-10-24T19:00:00-05:00"',
+  'sourceCheckedAt: "2026-10-09"',
+  'quickFacts: [',
+  'Jake Worthington',
+  'Kenny Whitmire',
+  '200+ downtown booths',
+  'official downtown parking map',
+  '/texas-music',
+]) if (!crossroads.includes(marker)) fail(`Crossroads authority guide regressed: ${marker}`);
+for (const marker of [
+  'usdOffer("Festival general admission", 0',
+  'person("Jake Worthington")',
+  'person("Kenny Whitmire")',
+]) if (!crossroadsSchema.includes(marker)) fail(`Crossroads Event enrichment regressed: ${marker}`);
+if (!loader.includes('data-major-event-quick-facts') || !loader.includes('event.seoTitle ??')) {
+  fail("major-event visitor essentials and metadata overrides must remain available");
 }
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
