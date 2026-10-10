@@ -4,6 +4,7 @@ import { jsonLd } from "@/lib/seo";
 
 // PrioritySearchPage UI is intentionally delivered from texas-state-fair.lazy.tsx.
 const canonicalPath = "/texas-state-fair";
+const fairConcluded = () => Date.now() >= Date.parse("2026-10-19T00:00:00-05:00");
 const seoDescription = "State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events.";
 
 const stateFairData = {
@@ -214,6 +215,9 @@ const faq = [
 export const Route = createFileRoute("/texas-state-fair")({
   loader: () => ({
     ...stateFairData,
+    quickAnswer: fairConcluded()
+      ? "The 2026 State Fair concluded October 18 at Fair Park in Dallas. These are 2026 historical details; verify future dates and prices with the organizer."
+      : stateFairData.quickAnswer,
     faq,
   }),
   head: ({ loaderData }) => {
@@ -229,7 +233,7 @@ export const Route = createFileRoute("/texas-state-fair")({
       ...base,
       scripts: [
         ...base.scripts,
-        jsonLd(Date.now() >= Date.parse("2026-10-19T00:00:00-05:00")
+        jsonLd(fairConcluded()
           ? { "@context": "https://schema.org", "@type": "WebPage", about: { "@type": "Thing", name: "State Fair of Texas", sameAs: "https://bigtex.com/" } }
           : {
           "@context": "https://schema.org",
