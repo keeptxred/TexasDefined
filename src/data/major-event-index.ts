@@ -10,6 +10,9 @@ export interface MajorEventIndexRecord {
   category: TexasEvent["category"];
   startDate: string;
   endDate?: string;
+  // Source-confirmed occurrence times, with explicit ISO 8601 offsets.
+  startDateTime?: string;
+  endDateTime?: string;
   dateNote?: string;
   venue?: string;
   officialUrl: string;
