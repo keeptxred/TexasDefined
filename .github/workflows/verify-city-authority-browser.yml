@@ -1,0 +1,47 @@
+name: Verify city authority production browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-city-authority-browser.mjs'
+      - '.github/workflows/verify-city-authority-browser.yml'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/components/content/EntityDepthSections.tsx'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-city-authority-browser.mjs'
+      - '.github/workflows/verify-city-authority-browser.yml'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/components/content/EntityDepthSections.tsx'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: city-authority-browser-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser driver (no repository dependencies)
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-city-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Run 11 city live Chrome checks at all 3 viewports
+        run: node scripts/ci/verify-city-authority-browser.mjs
+      - name: Retain actual viewport screenshots and machine-readable results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: city-authority-browser-qa
+          path: artifacts/city-authority-browser/
+          if-no-files-found: warn
+          retention-days: 30
