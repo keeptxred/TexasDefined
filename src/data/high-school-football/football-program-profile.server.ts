@@ -197,6 +197,12 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   // headquarters. Preserve UIL program alignment, discarding mismatched TEA IDs.
   const otherCampusCorrections: Record<string, Pick<FootballProgramDirectoryResult,
     'officialSchoolName' | 'districtName' | 'countyName' | 'city' | 'schoolWebsite' | 'districtWebsite'>> = {
+    // Batch 005 first-five primary-source campus safeguards: reject ambiguous directory joins.
+    'ballinger': { officialSchoolName: 'Ballinger High School', districtName: 'Ballinger ISD', countyName: 'Runnels County', city: 'Ballinger', schoolWebsite: 'https://bhs.ballingerisd.net/', districtWebsite: 'https://www.ballingerisd.net/' },
+    'balmorhea': { officialSchoolName: 'Balmorhea School', districtName: 'Balmorhea ISD', countyName: 'Reeves County', city: 'Balmorhea', schoolWebsite: 'https://www.bisdbears.esc18.net/football', districtWebsite: 'https://www.bisdbears.esc18.net/' },
+    'bandera': { officialSchoolName: 'Bandera High School', districtName: 'Bandera ISD', countyName: 'Bandera County', city: 'Bandera', schoolWebsite: 'https://www.banderaisd.net/', districtWebsite: 'https://www.banderaisd.net/' },
+    'bangs': { officialSchoolName: 'Bangs High School', districtName: 'Bangs ISD', countyName: 'Brown County', city: 'Bangs', schoolWebsite: 'https://www.bangsisd.net/', districtWebsite: 'https://www.bangsisd.net/' },
+    'banquete': { officialSchoolName: 'Banquete High School', districtName: 'Banquete ISD', countyName: 'Nueces County', city: 'Banquete', schoolWebsite: 'https://bhs.banqueteisd.net/', districtWebsite: 'https://www.banqueteisd.net/' },
     'austin-northeast': {
       officialSchoolName: 'Northeast Early College High School',
       districtName: 'Austin ISD', countyName: 'Travis County', city: 'Austin',
