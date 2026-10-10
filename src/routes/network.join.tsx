@@ -50,11 +50,11 @@ const tiers = [
 ];
 
 function NetworkJoinPreview() {
-  const [showExample, setShowExample] = useState(false);
+  const [example, setExample] = useState<"basic" | "plus" | null>(null);
   return (
     <main>
-      <section className="border-b border-border bg-surface">
-        <Container className="py-16 sm:py-24">
+      <section className="relative overflow-hidden border-b border-border bg-surface">
+        <svg aria-hidden="true" viewBox="0 0 260 250" className="pointer-events-none absolute -right-10 top-8 h-72 w-72 fill-primary/5 stroke-primary/20 stroke-[3] sm:right-8 sm:h-96 sm:w-96"><path d="M17 22 H114 V74 H183 V105 H216 L247 131 L219 155 L211 184 L184 198 L158 240 L125 211 L103 179 L66 166 L49 131 H17 Z" /></svg><Container className="relative py-16 sm:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <span className="inline-flex rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">Texas Defined Network · Private preview</span>
             <p className="eyebrow mt-8 text-primary">One Texas. Everything Connected.</p>
@@ -62,21 +62,21 @@ function NetworkJoinPreview() {
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">Every Texas business and organization has a story. Make yours discoverable through the growing Texas Defined Network.</p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <a href="#membership" className="rounded-full bg-primary px-7 py-3 font-semibold text-primary-foreground transition hover:opacity-90">Explore membership options</a>
-              <button type="button" onClick={() => setShowExample(!showExample)} className="rounded-full border border-border bg-background px-7 py-3 font-semibold text-foreground transition hover:border-primary">{showExample ? "Hide sample listing" : "See an example listing"}</button>
+              
             </div>
             <p className="mt-5 text-sm text-muted-foreground">Concept preview only. Listings, accounts and payments are not yet open.</p>
           </div>
         </Container>
       </section>
 
-      {showExample && (
-        <section aria-label="Illustrative listing" className="border-b border-border bg-background">
+      {example && (
+        <section id="listing-example" aria-label="Illustrative listing" className="border-b border-border bg-background">
           <Container className="py-10">
             <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-surface p-7 shadow-sm sm:p-10">
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Sample listing — fictional business</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">{example === "plus" ? "Plus listing example — fictional business" : "Basic listing example — fictional business"}</p>
               <h2 className="mt-3 font-display text-4xl">Lone Star Heritage Workshop</h2>
               <p className="mt-2 text-sm text-muted-foreground">Katy, Texas · Arts &amp; Heritage</p>
-              <p className="mt-5 leading-7 text-muted-foreground">A sample neighborhood workshop sharing Texas crafts, demonstrations, and community classes. This fictional listing illustrates the free directory layout.</p>
+              <p className="mt-5 leading-7 text-muted-foreground">{example === "plus" ? "Explore workshops, demonstrations, classes, and expanded services in this fictional Plus listing." : "A sample neighborhood workshop sharing Texas crafts, demonstrations, and community classes. This fictional listing illustrates the free directory layout."}</p>{example === "plus" && <div className="mt-5 flex flex-wrap gap-3"><span className="rounded-full bg-primary/10 px-4 py-2 text-sm text-primary">Official website</span><span className="rounded-full bg-primary/10 px-4 py-2 text-sm text-primary">Facebook</span><span className="rounded-full bg-primary/10 px-4 py-2 text-sm text-primary">Photo gallery</span></div>}
               <div className="mt-6 grid gap-4 border-t border-border pt-6 text-sm sm:grid-cols-2">
                 <div><strong>Hours</strong><p className="mt-1 text-muted-foreground">Tuesday–Saturday · 10 AM–5 PM (example)</p></div>
                 <div><strong>Contact</strong><p className="mt-1 text-muted-foreground">Phone and official website will appear here.</p></div>
@@ -124,7 +124,7 @@ function NetworkJoinPreview() {
                 <ul className="mt-6 flex-1 space-y-4 border-t border-border pt-6">
                   {tier.features.map((item) => <li key={item} className="flex gap-3 text-sm leading-6"><span className="font-bold text-primary" aria-hidden="true">✓</span><span>{item}</span></li>)}
                 </ul>
-                <div className="mt-8 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
+                {tier.name !== "Texas Defined Featured" && <button type="button" onClick={() => { setExample(tier.name === "Texas Defined Basic" ? "basic" : "plus"); window.setTimeout(() => document.getElementById("listing-example")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0); }} className="mt-8 rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</button>}<div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
               </article>
             ))}
           </div>
