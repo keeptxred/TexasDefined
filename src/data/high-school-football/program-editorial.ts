@@ -58,6 +58,187 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington-seguin": {
+    "slug": "arlington-seguin",
+    "theme": {
+      "accentHex": "#509DCA",
+      "label": "Arlington Seguin's official Carolina blue editorial color; no school logo copied"
+    },
+    "seo": {
+      "title": "Arlington Seguin Cougars Football: 2026, Coach Gordon & Wilemon Field",
+      "description": "Arlington Juan Seguin Cougars football guide: school-specific 2024–25 playoff seasons, William Gordon, 2026 5A Division II games, identity and official ticket resources."
+    },
+    "coach": {
+      "name": "William Gordon",
+      "title": "Head football coach and athletic coordinator in official Arlington Seguin athletics directory",
+      "sourceUrl": "https://www.aisd.net/seguin-high-school/athletics/",
+      "sourceLabel": "Official Seguin High athletics staff",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "7001 Silo Road, Arlington, TX 76002",
+      "phone": "682-867-6700",
+      "sourceUrl": "https://www.aisd.net/seguin-high-school/about/",
+      "sourceLabel": "Official Juan Seguin High School campus, colors and traditions",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026–27 Arlington ISD Seguin football schedule and official GoFan tickets",
+      "sourceUrl": "https://www.aisd.net/district/departments/administration/athletics",
+      "sourceLabel": "District official athletics schedule and GoFan ticket policies",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 through five published completed matches on September 25, 2026; October 8 final not yet verified in this source snapshot",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+      "sourceLabel": "DCTF 2026 Seguin scheduled and completed football matches",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Terrell",
+          "site": "Home",
+          "result": "L 41–49"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Lancaster",
+          "site": "Away",
+          "result": "L 7–30"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Chisholm Trail",
+          "site": "Home",
+          "result": "L 42–50"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Ennis",
+          "site": "Away",
+          "district": true,
+          "result": "L 20–42"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Joshua",
+          "site": "Home",
+          "district": true,
+          "result": "W 38–36"
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Mansfield Timberview",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Everman",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Corsicana",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Burleson",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 5",
+          "opponent": "Midlothian Heritage",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wilemon Field (historic team directory)",
+      "address": "Arlington, TX — confirm assigned game and accessible stadium gate via Arlington ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+      "sourceLabel": "DCTF historical Seguin football stadium",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF's 8,500 seat capacity is an independent historical figure, not a current ADA, tickets or gate confirmation. Official 2026 Arlington ISD GoFan tickets and each event's venue are the required game-day source."
+    },
+    "overview": [
+      "Arlington's Juan Seguin High School Cougars are a separate Class 5A Division II team from the larger Arlington ISD Class 6A schools. The school's first-party identity is Cougar, with Carolina blue, black and white colors, and its campus at 7001 Silo Road. It is not Seguin High School in Guadalupe County.",
+      "The school's motto is 'Where Excellence is the Standard,' and its official school alma mater names Juan Seguin. These community features make the page distinct from generic Cougars listings and from unrelated Texas schools named Seguin.",
+      "The Arlington Seguin athletics directory names William Gordon as head football coach and athletic coordinator. This first-party record should take precedence over stale external coach or roster lists.",
+      "DCTF's historical football records list nine playoff appearances and no football state title-game appearances or championships. The team completed 7–4 seasons in both 2024 and 2025, following 5–4 in 2023 and 3–7 in 2022, an improvement worth describing without creating a false championship history.",
+      "The UIL's 2026–28 alignment places Arlington Seguin in Class 5A Division II District 7. Its current district includes Ennis, Joshua, Mansfield Timberview, Everman, Corsicana, Burleson and Midlothian Heritage, unlike the Arlington Colts/Bowie/Lamar/Martin/Sam Houston 6A district.",
+      "Five scored games in the public 2026 snapshot begin with losses to Terrell, Lancaster, Chisholm Trail and Ennis, before a narrow 38–36 District 7 win against Joshua on September 25. That makes a 1–4 snapshot; the October 8 Timberview final had not been independently corroborated when the source was checked.",
+      "The current team directory lists Wilemon Field as an associated stadium, but that is not proof that every 2026 game takes place there, nor does an 8,500 historical capacity specify an accessible gate, parking or ticket fees. Arlington ISD's 2026 official ticket policy uses GoFan; use the actual event listing."
+    ],
+    "milestones": [
+      {
+        "date": "2022–23",
+        "title": "Program building years",
+        "body": "DCTF records 3–7 in 2022 and 5–4 in 2023, before the next two winning seasons.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "DCTF historical seasons"
+      },
+      {
+        "date": "2024",
+        "title": "Seven victories and postseason football",
+        "body": "Arlington Seguin posted a 7–4 record, as its historical team records show.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "DCTF 2024 schedule history"
+      },
+      {
+        "date": "2025",
+        "title": "A second seven-win season",
+        "body": "The Cougars again finished 7–4, rather than a football state final.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "DCTF 2025 completed season"
+      },
+      {
+        "date": "2026",
+        "title": "Coach William Gordon and Cougar identity",
+        "body": "Arlington Seguin High names William Gordon head coach and identifies Carolina blue, black and white as school colors.",
+        "sourceUrl": "https://www.aisd.net/seguin-high-school/athletics/",
+        "sourceLabel": "Official Seguin athletics coach directory"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "Two-point District 7 victory",
+        "body": "The team's first reported 2026 victory was a 38–36 win over Joshua after four opening losses.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
+        "sourceLabel": "2026 DCTF score ledger"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Arlington Seguin the same as Seguin High near San Antonio?",
+        "answer": "No. This is Arlington ISD's Juan Seguin High Cougars in Arlington, Tarrant County. The Guadalupe County high school has a distinct program."
+      },
+      {
+        "question": "What are the Cougars' school colors?",
+        "answer": "The official Arlington Seguin High website lists Carolina blue, black and white."
+      },
+      {
+        "question": "Who is the 2026 Arlington Seguin football coach?",
+        "answer": "Arlington ISD's current Seguin High athletics roster lists William Gordon as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Has Arlington Seguin won a UIL football state championship?",
+        "answer": "DCTF records nine playoff appearances, zero title-game appearances and zero football state titles."
+      },
+      {
+        "question": "What district does Arlington Seguin play in for 2026?",
+        "answer": "UIL Class 5A Division II District 7, a different league from Arlington's 6A teams."
+      },
+      {
+        "question": "Where do I check football tickets and accessible arrival?",
+        "answer": "Arlington ISD's official athletics site links schedules and GoFan ticketing; the specific event page must confirm actual stadium, parking and accessible gates."
+      }
+    ]
+  },
   "arlington-martin": {
     "slug": "arlington-martin",
     "theme": {
