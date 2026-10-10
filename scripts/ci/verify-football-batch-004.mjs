@@ -35,6 +35,20 @@ for (const slug of roster) {
     check(Boolean(item.deployment?.screenshotArtifactId), slug + ': VERIFIED without screenshot evidence');
   }
 }
+// Structural reciprocal-link checks only; deployed rendering needs independent browser QA.
+const countyRoute = read('src/routes/$kind.$slug.lazy.tsx');
+const footballRoute = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+const inbound = countyRoute.split('const batch002FootballCountyLinks:')[1]?.split('const siteUrl')[0] ?? '';
+const outbound = footballRoute.split('const researchedCampusCounty:')[1]?.split('const batch002CityGuide:')[0] ?? '';
+const evidence = read('docs/football-authority/BATCH004_CAMPUS_LINK_EVIDENCE.md');
+const linked = { arp:'smith', aspermont:'stonewall', athens:'henderson', atlanta:'cass', aubrey:'denton', 'austin-vandegrift':'travis', avalon:'ellis', axtell:'mclennan', baird:'callahan' };
+for (const [slug, county] of Object.entries(linked)) {
+  const rec = records.find(x => x.slug === slug);
+  check(Boolean(rec?.inboundLinks?.includes('/county/' + county)), slug + ': registry inbound county missing');
+  check(outbound.includes("'" + slug + "': '" + county + "'") || outbound.includes(slug + ": '" + county + "'"), slug + ': football page missing outbound county');
+  check(inbound.includes("slug: '" + slug + "'"), slug + ': county index missing school card');
+  check(evidence.includes('`' + slug + '`'), slug + ': documented campus evidence missing');
+}
 const prior = records.filter(r => r.status === 'VERIFIED' && r.batch !== 4);
 check(prior.length >= 55, 'Previously VERIFIED school count regressed below 55');
 check((batch?.individuallyVerified ?? -1) === records.filter(r => r.batch === 4 && r.status === 'VERIFIED').length, 'Batch 004 count inconsistent');
