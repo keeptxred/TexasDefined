@@ -58,6 +58,113 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arp": {
+    "slug": "arp",
+    "theme": {
+      "accentHex": "#A51C30",
+      "label": "Editorial crimson accent; verify exact school shade before describing it as an official color"
+    },
+    "seo": {
+      "title": "Arp Tigers Football: Dale Irwin Era, 2016 Semifinal & 2026 Guide",
+      "description": "Explore Arp Tigers football history, Dale Irwin's 2016 state-semifinal run, 2026 district and official game-day information at Bill Herrington Tiger Stadium."
+    },
+    "coach": {
+      "name": "Wes Schminkey",
+      "title": "Athletic director and head football coach (appointed 2022)",
+      "sourceUrl": "https://www.arpisd.org/article/708732",
+      "sourceLabel": "Arp ISD coaching succession announcement",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "101 Toney Drive, Arp, TX 75750",
+      "phone": "903-859-4917",
+      "sourceUrl": "https://www.arpisd.org/",
+      "sourceLabel": "Arp ISD official campus directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Bill Herrington Tiger Stadium",
+      "address": "422 E Front St, Arp, TX 75750",
+      "sourceUrl": "https://www.arpisd.org/athletics?page_no=28",
+      "sourceLabel": "Arp ISD official 2026 varsity home-game listing",
+      "verifiedAt": "2026-10-10",
+      "note": "The stadium location is independently distinct from the high school campus mailing address. Confirm event parking, accessible entrance and ticket details directly with Arp ISD; those policies were not documented in the sources checked."
+    },
+    "schedule": {
+      "label": "Official 2026 varsity schedule",
+      "sourceUrl": "https://www.arpisd.org/page/arp-football-schedule",
+      "sourceLabel": "Arp ISD 2026 varsity football schedule",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "From the Irwin decade to the Schminkey era",
+      "body": "Arp ISD credited Dale Irwin with 141 victories in 19 seasons as Tigers head coach, three district titles (2008, 2009 and 2012), and 14 playoff appearances. His 2016 team finished 12–3 and reached the state semifinals, losing 19–18 to Boling. The district named longtime defensive coordinator Wes Schminkey as successor in 2022. The district article also includes a career table that counts a Colmesneil season and shows 146 total wins, so the Arp-only and career totals should not be conflated.",
+      "sourceUrl": "https://www.arpisd.org/article/708732",
+      "sourceLabel": "Arp ISD retrospective and coach announcement, April 2022",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2007",
+        "title": "State quarterfinal heartbreak",
+        "body": "Arp's 10–4 campaign ended in a 19–13 late-game loss to Elysian Fields in a state quarterfinal, according to the district retrospective.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD retrospective"
+      },
+      {
+        "date": "2008–2012",
+        "title": "Three Irwin-era district championships",
+        "body": "Arp ISD lists district championships in 2008, 2009 and 2012 during Dale Irwin's tenure.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD retrospective"
+      },
+      {
+        "date": "2016",
+        "title": "One point from the state final",
+        "body": "The 12–3 Tigers advanced to the UIL state semifinals, where Boling won 19–18; do not mistake this semifinal trip for a state championship.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD retrospective"
+      },
+      {
+        "date": "2022",
+        "title": "Wes Schminkey appointed",
+        "body": "The district announced longtime defensive coordinator Wes Schminkey as the Tigers' next head coach and athletic director after Irwin retired.",
+        "sourceUrl": "https://www.arpisd.org/article/708732",
+        "sourceLabel": "Arp ISD coaching succession"
+      },
+      {
+        "date": "2026",
+        "title": "2026 homecoming and district opener",
+        "body": "Arp ISD's official preseason announcement lists Shelbyville for homecoming September 18 and West Rusk as the opening district opponent October 9, with both statements describing the published schedule rather than an independently verified final score.",
+        "sourceUrl": "https://www.arpisd.org/live_feeds/12114880",
+        "sourceLabel": "Arp ISD 2026 schedule announcement"
+      }
+    ],
+    "overview": [
+      "Arp's football story is anchored by the district-documented Dale Irwin era: 14 playoff appearances in 19 head-coaching seasons, three district crowns and a narrow 2016 state-semifinal defeat. That specific history is more informative than an unsourced generic claim of championship tradition.",
+      "Arp's 2026 UIL assignment is Class 3A Division II District 10. Alignment is not the same thing as a season record, and readers should use the district's official calendar for current fixtures and results.",
+      "For spectators, Bill Herrington Tiger Stadium on East Front Street is the documented Arp home venue. The separate Arp High School campus is at 101 Toney Drive; check the exact event venue before navigating.",
+      "Arp ISD's April 2026 schedule announcement explicitly describes West Rusk as a rival and identifies the October 9 district opener. The source supports describing that matchup as a district-recognized rivalry, but does not by itself establish its first meeting or all-time series."
+    ],
+    "faq": [
+      {
+        "question": "Did Arp win the 2016 Texas state football championship?",
+        "answer": "No. Arp finished 12–3 and advanced to the state semifinals, where it lost to Boling 19–18, according to Arp ISD's retrospective."
+      },
+      {
+        "question": "Who succeeded Dale Irwin as Arp Tigers head football coach?",
+        "answer": "Arp ISD announced in April 2022 that former defensive coordinator Wes Schminkey would succeed Irwin as head coach and athletic director."
+      },
+      {
+        "question": "Where do the Arp Tigers play home football games?",
+        "answer": "Arp ISD lists Bill Herrington Tiger Stadium at 422 E Front St, Arp, Texas. The high school campus address is separately listed as 101 Toney Drive."
+      },
+      {
+        "question": "Which opponent does Arp ISD call a rival in the 2026 schedule?",
+        "answer": "The district's April 2026 announcement calls West Rusk a rival and scheduled the matchup as the October 9 district opener."
+      }
+    ]
+  },
   "arlington-seguin": {
     "slug": "arlington-seguin",
     "theme": {
