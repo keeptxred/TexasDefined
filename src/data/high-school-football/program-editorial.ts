@@ -2167,7 +2167,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The championship game's original reporting credits running back Edward Chumley with three touchdowns and offensive MVP honors; C.J. Miller received defensive MVP recognition. Quarterback Ziondre Williams contributed to the championship victory. These are historical 2023 names, not a current 2026 roster.",
       "The school has since climbed from its 2023 Class 4A Division I title season into 5A Division II, according to its 2026–28 UIL alignment. Its distinct 2024 9–4 and 2025 10–3 records illustrate program continuity across classification changes.",
       "Seth Parr is not a speculative current coach: Anna High's official 2026–27 athletic staff lists him as head football coach and executive athletic director. The published staff includes defensive coordinator Robby Sevier, offensive coordinator Victor Rodriguez and special teams coordinator Michael Guerrero.",
-      "Official Anna High athletics links provide current schedules and staff contacts. The campus address on Powell Parkway is not proof of any stadium entrance or reserved seating; game-specific tickets, bag policies, parking and accessible arrival must be verified through the official athletic event."
+      "Official Anna High athletics identifies Coyote Stadium at 1201 N. Powell Parkway, Anna, TX 75409, distinct from the athletic sports complex at 1107 Rosamond Parkway. The stadium guidelines describe a 2017 renovation and link official tickets, clear-bag rules and attendance policy; check those official guides for game-specific admission, parking and accessible arrival."
     ],
     "milestones": [
       {
