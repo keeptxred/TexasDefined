@@ -1525,8 +1525,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Crimson school-color-inspired editorial accent; not an official logo"
     },
     "seo": {
-      "title": "Aspermont Hornets Six-Man Football: 1999 Final, 2026 District & History",
-      "description": "Independent Aspermont Hornets six-man guide with 1999 state final, 2026 Class 1A Division I district, current coaching sources and Hornets game-day links."
+      "title": "Aspermont Hornets Football: 1999 11-Man Final & 2026 Six-Man",
+      "description": "UIL records Aspermont's 1999 Class 1A 11-man final against Bartlett (35–6); explore the Hornets' current 2026 six-man District 4, coach and venue resources."
     },
     "coach": {
       "name": "Pat Potts",
@@ -1542,64 +1542,64 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A Six-Man state finalist, not a state champion",
-      "body": "Aspermont's football program reached a state title game in 1999, but Dave Campbell's Texas Football counts zero state championships. Those are distinct achievements. In the 2026–28 UIL alignment, the Hornets compete in Class 1A Six-Man Division I District 4. The program's 2025 season is recorded as 9–2 by the dedicated Six-Man Football archive, an earlier season rather than a 2026 record.",
-      "sourceUrl": "https://www.texasfootball.com/team/aspermont-hornets",
-      "sourceLabel": "Dave Campbell's Texas Football program history",
+      "title": "From the 1999 11-man state final to today's six-man game",
+      "body": "Aspermont reached the **1999 Conference 1A eleven-man football** state championship game, where Bartlett defeated the Hornets 35–6. The UIL's original 1999 playoff listing explicitly identifies the bracket as 1A Eleven Man, including Aspermont's 30–27 regional win over Baird, 33–0 quarterfinal win over Paducah and 31–12 semifinal win over Wheeler. It was NOT a six-man state final. In the 2026–28 cycle, Aspermont instead competes in 1A Six-Man Division I District 4. Historical and modern playing formats must remain separate.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html",
+      "sourceLabel": "UIL primary 1999 1A eleven-man playoff archive",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
         "date": "1999",
-        "title": "State championship game appearance",
-        "body": "Dave Campbell's all-time program summary credits Aspermont with one state title-game appearance, but zero state titles. The 1999 season is identified by the school's historical athletics summaries; final opponent and score require primary archive verification.",
-        "sourceUrl": "https://www.texasfootball.com/team/aspermont-hornets",
-        "sourceLabel": "DCTF all-time title-game count"
+        "title": "1999 Class 1A eleven-man state runner-up",
+        "body": "UIL's historical game-by-game bracket reports Bartlett 35, Aspermont 6 after Aspermont advanced through Wheeler in the semifinals 31–12. This was an eleven-man era, not six-man.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html",
+        "sourceLabel": "UIL official 1999 eleven-man football records"
       },
       {
         "date": "2018",
-        "title": "Nine-win playoff season",
-        "body": "Six-Man Football's year-by-year archive lists a 9–3 record for 2018, in a different UIL alignment cycle from 2026.",
+        "title": "Nine-win modern season",
+        "body": "The six-man football history lists 2018 at 9–3, a separate modern season under a different football format.",
         "sourceUrl": "https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/",
-        "sourceLabel": "Six-Man Football records"
+        "sourceLabel": "Six-Man Football team archive"
       },
       {
         "date": "2025",
-        "title": "Nine victories",
-        "body": "The independent six-man archive lists Aspermont at 9–2 in 2025. This should not be misrepresented as the 2026 season record.",
+        "title": "Discrepant 2025 season summaries",
+        "body": "Six-Man Football lists 2025 at 9–2 while Dave Campbell's Texas Football lists 9–1; this discrepancy should be resolved against dated official game results before printing an unquestioned final record.",
         "sourceUrl": "https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/",
-        "sourceLabel": "Six-Man Football records"
+        "sourceLabel": "Six-Man Football historical season listing"
       },
       {
         "date": "2026",
-        "title": "District 4 six-man schedule",
-        "body": "A 2026 published schedule lists district games against Jayton, Rotan and Hermleigh; consult official school communications to confirm kickoff or venue changes.",
-        "sourceUrl": "https://www.maxpreps.com/tx/aspermont/aspermont-hornets/football/schedule/",
-        "sourceLabel": "MaxPreps schedule snapshot"
+        "title": "1A Six-Man Division I District 4",
+        "body": "Aspermont's present UIL alignment lists Six-Man Division I District 4; it does not retroactively change the 1999 state final into a six-man title.",
+        "sourceUrl": "https://www.texasfootball.com/team/aspermont-hornets",
+        "sourceLabel": "Current DCTF alignment listing"
       }
     ],
     "overview": [
-      "Aspermont is a six-man program in Stonewall County, not an 11-man team. Its 2026–28 UIL designation is 1A Six-Man Division I District 4, which must be kept separate from historical classification and prior-season records.",
-      "The Hornets are credited by Dave Campbell's Texas Football with one appearance in a state championship game and no state championships. Public summaries associate that final with 1999; the opponent and score should not be invented pending direct UIL archival corroboration.",
-      "A key recent achievement is the archived 2025 9–2 season. External sites may show stale 2026 records or scheduled games as completed, so results should be checked individually before updating the page.",
-      "Program directories identify the home field as Hornet Stadium or Aspermont Hornets Field; a verified street-level entrance, ADA information, current stadium capacity and event ticket policy were not established. Do not send visitors to a guessed entrance."
+      "The Hornets' documented 1999 football title-game appearance came in **Conference 1A eleven-man**, ending in a 35–6 loss to Bartlett. The UIL original bracket independently confirms the semifinal, quarterfinal and regional path.",
+      "Aspermont's 2026 program competes in UIL Class 1A Six-Man Division I District 4. The present format should never be substituted into the 1999 history.",
+      "Current retrospective sources disagree whether Aspermont finished 2025 at 9–1 or 9–2. Readers should use dated game-level results and the district's official records to resolve the difference.",
+      "Football references identify Hornet Stadium as the home venue, but the entry gate, parking and ADA details remain unverified."
     ],
     "faq": [
       {
-        "question": "Does Aspermont play six-man or eleven-man football?",
-        "answer": "Aspermont competes in UIL Class 1A Six-Man Division I under the 2026–28 alignment."
+        "question": "Was Aspermont's 1999 state football final a six-man game?",
+        "answer": "No. UIL's original 1999 Class 1A eleven-man bracket records Bartlett defeating Aspermont 35–6."
       },
       {
-        "question": "Has Aspermont won a UIL football state title?",
-        "answer": "Dave Campbell's Texas Football lists one state championship-game appearance and no titles. The historical final is associated with 1999."
+        "question": "What format does Aspermont play in 2026?",
+        "answer": "Class 1A Six-Man Division I, District 4 under the 2026–28 UIL alignment."
       },
       {
-        "question": "Who is listed as the 2026 Aspermont football coach?",
-        "answer": "Six-Man Football and MaxPreps list Pat Potts, but independent official Aspermont ISD confirmation is still needed."
+        "question": "Did Aspermont win the 1999 state title?",
+        "answer": "No. The Hornets finished as Class 1A eleven-man runners-up to Bartlett, 35–6."
       },
       {
-        "question": "Where do the Hornets play?",
-        "answer": "Football directories identify Hornet Stadium / Aspermont Hornets Field. Verify the exact 2026 game location and accessible entrance directly with Aspermont ISD before traveling."
+        "question": "What was Aspermont's 2025 record?",
+        "answer": "The two available historical summaries disagree: Six-Man Football says 9–2 while DCTF says 9–1; a confirmed final should not be asserted until the difference is resolved."
       }
     ]
   },
