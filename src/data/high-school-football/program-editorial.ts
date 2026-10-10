@@ -58,6 +58,177 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "archer-city": {
+    "slug": "archer-city",
+    "theme": {
+      "accentHex": "#774025",
+      "label": "Original Wildcats editorial heritage accent; no trademarked school crest"
+    },
+    "seo": {
+      "title": "Archer City Wildcats Football: 1964 UIL Title, Coach Ritchey & 2026",
+      "description": "Archer City Wildcats football guide: documented 1964 state title, 2024 8–4 playoffs, coach Bradan Ritchey, 2026 District 6 and Wildcat Stadium visitor information."
+    },
+    "coach": {
+      "name": "Bradan Ritchey",
+      "title": "2026 head football coach listed in program varsity history; official school confirmation pending",
+      "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/history/",
+      "sourceLabel": "MaxPreps 2026–27 coaching history",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "600 South Ash Street, Archer City, TX 76351",
+      "phone": "940-574-4536",
+      "sourceUrl": "https://www.archercityisd.net/47023_1",
+      "sourceLabel": "Archer City ISD official athletics contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Archer City varsity dates and results",
+      "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/schedule/",
+      "sourceLabel": "MaxPreps five published games through September 25",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 in five published completed games through September 25, 2026; Oct. 2 score requires separate corroboration",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/schedule/",
+      "sourceLabel": "2026 dated MaxPreps results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Chico",
+          "site": "Away",
+          "result": "W 28–7"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Nocona",
+          "site": "Home",
+          "result": "L 6–35"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Hamlin",
+          "site": "Home",
+          "result": "L 29–43"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Olney",
+          "site": "Away",
+          "result": "L 36–42"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Munday",
+          "site": "Away",
+          "district": true,
+          "result": "L 51–62"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Petrolia",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Windthorst",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Seymour",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Haskell",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Electra",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wildcat Stadium",
+      "address": "Archer City, Texas — verify game-day spectator gate with Archer City ISD",
+      "sourceUrl": "https://txfb.sidev.co/team/archer-city-wildcats",
+      "sourceLabel": "DCTF independent stadium record",
+      "verifiedAt": "2026-10-09",
+      "note": "Independent historical listing says 700 seats, not an official certified present ADA or ticket allocation; school campus address should not substitute for a verified entry map."
+    },
+    "overview": [
+      "The Archer City Wildcats own an unusual Texas football research discrepancy: the University Interscholastic League's own 1964 champions list credits Archer City with a 13–6 Class 1A state-final win over Ingleside, yet the current UIL all-time appearances table says zero state titles and labels Archer City's 1964 appearance as 3A. That contradiction deserves open explanation rather than quietly deleting a title.",
+      "The UIL's 1964 championship score is separately repeated by the Texas High School Football Hall of Fame's historical UIL champions list, and Dave Campbell's independent program listing reports one state title and one championship appearance. These sources support the 1964 championship, while a request for correction of UIL's contradictory all-time table remains outstanding.",
+      "In more recent football, MaxPreps records Bradan Ritchey coaching Archer City during 2022–26, including a 7–4 season in 2022 and an 8–4 playoff year in 2024. The 2025 team finished 1–9, showing why specific season context is more useful than evergreen claims of dominance.",
+      "The 2026–28 UIL alignment places Archer City in Class 2A Division II, District 6 with Electra, Haskell, Munday, Petrolia, Seymour and Windthorst. The district is not the school's 1964 historical class, and same-district status alone does not prove historic rivalry.",
+      "Five dated 2026 results through September 25 show an opening 28–7 win at Chico followed by losses to Nocona, Hamlin, Olney and Munday. The Munday game ended 51–62, while the October 9 Windthorst game was upcoming at this source checkpoint. Subsequent results should not be invented.",
+      "Archer City ISD lists its school office at 600 South Ash Street and directs fans to its official athletics section. The separate Wildcat Stadium listing and 700 historical seats do not certify specific accessible gates, parking or ticket policy."
+    ],
+    "milestones": [
+      {
+        "date": "1964",
+        "title": "UIL 1A state champions — disputed index metadata",
+        "body": "UIL's own historical champions archive says Archer City defeated Ingleside 13–6 in the 1964 1A final; its current all-time appearances index incorrectly appears to count no title and gives a different classification.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL archival championship scores (conflicts with UIL all-time index)"
+      },
+      {
+        "date": "2021–22",
+        "title": "Back-to-back winning seasons",
+        "body": "MaxPreps lists 8–3 in 2021 and 7–4 in 2022 before the 2024 postseason run.",
+        "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/history/",
+        "sourceLabel": "MaxPreps archived varsity records"
+      },
+      {
+        "date": "2024",
+        "title": "Eight wins and playoff football",
+        "body": "The Wildcats finished 8–4 under Bradan Ritchey, a more recent postseason high point.",
+        "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/history/",
+        "sourceLabel": "MaxPreps historical 2024 program"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "High-scoring game at Munday",
+        "body": "MaxPreps records Archer City's 51–62 loss at Munday, within the present District 6 schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/archer-city/archer-city-wildcats/football/schedule/",
+        "sourceLabel": "2026 dated score ledger"
+      },
+      {
+        "date": "2026–28",
+        "title": "2A Division II, District 6",
+        "body": "Contemporary alignment includes Electra, Haskell, Munday, Petrolia, Seymour and Windthorst; 1964's competition class is a separate historical fact.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "UIL football realignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Did Archer City win the 1964 UIL state football championship?",
+        "answer": "UIL's 1964 champions archive says yes: Archer City beat Ingleside 13–6 in Class 1A, and the Texas High School Football Hall of Fame corroborates. However, UIL's current all-time appearances index inconsistently lists zero titles and identifies its appearance differently."
+      },
+      {
+        "question": "Who coaches Archer City football in 2026?",
+        "answer": "MaxPreps' current program history lists Bradan Ritchey as head coach, also credited with the 2024 8–4 season."
+      },
+      {
+        "question": "What is Archer City's 2026 football district?",
+        "answer": "UIL 2A Division II District 6, with Electra, Haskell, Munday, Petrolia, Seymour and Windthorst."
+      },
+      {
+        "question": "Where do the Wildcats play?",
+        "answer": "The independent DCTF historical directory lists Wildcat Stadium; contact Archer City ISD to verify the correct entrance, mobility access and ticket policies."
+      }
+    ]
+  },
   "aransas-pass": {
     "slug": "aransas-pass",
     "theme": {
