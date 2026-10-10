@@ -11,7 +11,7 @@ export const Route = createFileRoute("/api/public/network-application")({
       if(origin) { let url:URL; try {url=new URL(origin)}catch{return response({error:"Invalid origin"},403)}
         if(!["texasdefined.com","www.texasdefined.com","localhost"].includes(url.hostname))return response({error:"Invalid origin"},403);
       }
-      if(Number(request.headers.get("content-length")||0)>24000)return response({error:"Request too large"},413);
+      if(Number(request.headers.get("content-length")||0)>16000000)return response({error:"Request too large"},413);
       let input:ApplicationInput;
       let uploadedLogo:File|null=null;
       let uploadedGallery:File[]=[];
