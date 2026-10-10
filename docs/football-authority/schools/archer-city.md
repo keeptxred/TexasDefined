@@ -20,3 +20,6 @@ Code commit: `c3f433331e041417062ed25ba2ce62ce7f833be5`.
 Obtain official correction/confirmation for contradictory UIL all-time index, current ISD coach/color and stadium gate/ADA/tickets, NCES Archer County campus and reciprocal county/city school links, rights-cleared photo if possible, tests, protected merge/deploy and actual Chrome desktop/mobile SEO/schema/sitemap QA. Source-code implementation does not constitute production acceptance.
 
 **Next assigned school: Argyle.**
+
+## Additional UIL primary-source verification — October 9, 2026
+The UIL's current [Football State Archives 1964–1965 season table](https://www.uiltexas.org/football/archives/P528) independently presents the championship listing **Class 1A: Archer City 13–6 Ingleside**, consistent with its historical champions table. This corroborates the title within two UIL archive views but does not resolve the incompatible zero-title entry in the UIL all-time appearances index. Keep that indexing discrepancy explicit; do not claim the all-time index has been fixed or that a formal UIL correction was obtained. No production acceptance implied.
