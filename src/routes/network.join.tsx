@@ -124,7 +124,7 @@ function NetworkJoinPreview() {
                 <ul className="mt-6 flex-1 space-y-4 border-t border-border pt-6">
                   {tier.features.map((item) => <li key={item} className="flex gap-3 text-sm leading-6"><span className="font-bold text-primary" aria-hidden="true">✓</span><span>{item}</span></li>)}
                 </ul>
-                {tier.name !== "Texas Defined Featured" && <button type="button" onClick={() => { setExample(tier.name === "Texas Defined Basic" ? "basic" : "plus"); window.setTimeout(() => document.getElementById("listing-example")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0); }} className="mt-8 rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</button>}<div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
+                {tier.name !== "Texas Defined Featured" && <a href={tier.name === "Texas Defined Basic" ? "/network/example/basic" : "/network/example/plus"} className="mt-8 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</a>}<div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
               </article>
             ))}
           </div>
