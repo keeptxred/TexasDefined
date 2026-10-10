@@ -24,3 +24,6 @@ Original program-specific introduction, 2023/24 postseason history, 2026 Brad Ho
 4. Never mark VERIFIED solely from a program editorial code commit.
 
 **Next school:** Andrews.
+
+## Campus address revalidation — October 9, 2026
+Primary [Anderson-Shiro Junior-Senior High official contact](https://jshs.ascisd.net/apps/contact/) and [official maps page](https://jshs.ascisd.net/apps/maps/) explicitly give the **physical school campus at 1345 FM 149 West, Anderson TX 77830**, phone (936) 873-4550. [NCES school ID 480823000193](https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480823000193) distinguishes mailing **458 FM 149 W** from the physical **1345 FM 149 W**. Earlier editorial incorrectly labeled 458 FM 149 West as the high-school campus; corrected in code commit `4c99f717ba77b18d1c0b45ca0be528a8b65f9a04`. The first-party address identifies campus location, not necessarily the Owl Stadium spectator entrance. Do not promote VERIFIED until live checks.
