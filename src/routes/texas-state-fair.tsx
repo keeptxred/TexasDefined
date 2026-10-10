@@ -72,7 +72,7 @@ const stateFairData = {
       {
         heading: "Free student tickets extended for the final two weekends",
         paragraphs: [
-          "The Fair confirmed October 5 that complimentary 2026 tickets already distributed through participating schools to pre-K through eighth-grade students within 100 miles of Fair Park are valid every remaining day, including both final weekends through October 18.",
+          "On October 5, the Fair extended eligible 2026 school-issued pre-K–eighth grade tickets (within 100 miles of Fair Park) through October 18, including weekends.",
           "Eligible parents can save $5 online; check the 2026 terms."
         ],
         links: [
