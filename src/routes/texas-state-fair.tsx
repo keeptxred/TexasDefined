@@ -106,12 +106,14 @@ const stateFairData = {
       {
         heading: "College football at the State Fair",
         paragraphs: [
-          "College football is part of the State Fair identity, with major games played at the Cotton Bowl inside Fair Park. Game days create a very different traffic and crowd pattern from an ordinary Fair day, so arrive earlier and plan transportation around kickoff.",
-          "If you are attending the State Fair Classic, use the dedicated TexasDefined event guide for game-specific planning and then combine it with this Fair guide for food, rides and attractions before or after the game."
+          "College football is part of State Fair history, with major games at the Cotton Bowl. The 2026 State Fair Classic was held September 26, the Red River Rivalry is October 10, and the State Fair Clásico is scheduled for October 17. Game days change crowd levels and traffic patterns, so verify current kickoff and transportation details before traveling.",
+          "Regular State Fair admission does not include Cotton Bowl game admission. A qualifying game ticket includes Fair admission on the applicable game day; confirm specific ticket terms and use the dedicated game guides for more detailed planning."
         ],
         links: [
           { label: "State Fair Classic guide", href: "/event/state-fair-classic" },
-          { label: "Texas sports venues", href: "/sports-venues" }
+          { label: "Red River Rivalry guide", href: "/event/red-river-rivalry" },
+          { label: "Cotton Bowl guide", href: "/sports-venue/cotton-bowl" },
+          { label: "Official State Fair football details", href: "https://bigtex.com/plan-your-visit/attractions-events/college-football/", external: true }
         ]
       },
       {
