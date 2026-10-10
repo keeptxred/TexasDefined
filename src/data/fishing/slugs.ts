@@ -57,6 +57,15 @@ export const STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS = [
   "alan-henry-reservoir",
   "lake-meredith",
   "lake-houston",
+  "joe-pool-lake",
+  "lake-granbury",
+  "lake-waco",
+  "lake-brownwood",
+  "proctor-lake",
+  "lake-arrowhead",
+  "lake-casa-blanca",
+  "lake-mineral-wells",
+  "lake-colorado-city",
 ] as const;
 
 export const COMPLETE_FISHING_LAKE_SLUGS = [
