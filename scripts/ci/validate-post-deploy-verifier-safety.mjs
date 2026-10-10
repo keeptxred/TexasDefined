@@ -124,6 +124,17 @@ for (const marker of [
   'Protected deployment failed',
   'Timed out waiting for exact-commit',
 ]) requireMarker(waitForProduction, marker, `Exact-commit production gate regressed: ${marker}`);
+for (const name of ['hurst-whirlyball-production-smoke', 'my-story-museum-production-smoke', 'verify-brand-locator-production', 'verify-free-christmas-canonical']) {
+  const source = workflow(name);
+  requireMarker(source, 'STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must publish status against triggering deployed SHA`);
+  requireMarker(source, "github.event.workflow_run.conclusion == 'success'", `${name} must skip live assertions after failed deployment`);
+}
+for (const name of ['hurst-whirlyball-production-smoke', 'my-story-museum-production-smoke']) {
+  requireMarker(workflow(name), 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out the triggering deployed revision`);
+}
+const freeChristmasSource = workflow('verify-free-christmas-canonical');
+requireMarker(freeChristmasSource, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Free Christmas must resolve the actual deployed SHA');
+requireMarker(freeChristmasSource, 'ref: ${{ env.DEPLOY_SHA }}', 'Free Christmas must check out the resolved deployed SHA');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');

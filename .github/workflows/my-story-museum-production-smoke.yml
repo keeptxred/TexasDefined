@@ -22,9 +22,13 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
-      - name: Check out repository
+      - name: Check out deployed verifier revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
