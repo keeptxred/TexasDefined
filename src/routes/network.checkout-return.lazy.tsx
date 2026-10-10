@@ -1,3 +1,4 @@
+import "../network.css";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 export const Route = createLazyFileRoute("/network/checkout-return")({component:CheckoutReturn});

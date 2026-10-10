@@ -1,3 +1,4 @@
+import "../network.css";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Container } from "@/components/layout/Container";

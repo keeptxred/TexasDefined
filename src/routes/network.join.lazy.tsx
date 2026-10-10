@@ -1,3 +1,4 @@
+import "../network.css";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import hillCountryHero from "@/assets/hero-hill-country.jpg";

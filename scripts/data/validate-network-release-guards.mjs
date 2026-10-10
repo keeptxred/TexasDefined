@@ -55,3 +55,14 @@ check('profile and all entry pages remain noindex',requiredPages.every(file=>/no
 console.log('Network static release safeguards validated; NOT an end-to-end test or production authorization.');
 
 check('atomic Stripe reconciliation is only after signature validation',webhook.indexOf('verifyStripeSignature(raw,header)') < webhook.indexOf('apply_texasdefined_network_stripe_event'));
+
+const featureStyles=source('src/network.css');
+const featureStyleUsers=[
+ 'network.join.lazy.tsx','network.apply.lazy.tsx','network.directory.lazy.tsx',
+ 'network.billing.lazy.tsx','network.business.$slug.lazy.tsx',
+ 'network.checkout-return.lazy.tsx','network.example.basic.lazy.tsx',
+ 'network.example.plus.lazy.tsx','business.dashboard.lazy.tsx','admin.network-applications.lazy.tsx',
+];
+check('feature CSS is attached to every lazy Network page',
+ featureStyleUsers.every(file=>source(root+file).includes('import "../network.css";'))
+ &&featureStyles.includes('source(none)')&&source('src/styles.css').includes('@source not "./routes/network.*.lazy.tsx"'));

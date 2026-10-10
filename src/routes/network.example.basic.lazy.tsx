@@ -1,3 +1,4 @@
+import "../network.css";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 const isPlus = false;

@@ -1,0 +1,6 @@
+/* Route-split Network Tailwind utilities. Global theme and preflight remain in styles.css. */
+@reference "./styles.css";
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "./routes/network.*.lazy.tsx";
+@source "./routes/business.dashboard.lazy.tsx";
+@source "./routes/admin.network-applications.lazy.tsx";
