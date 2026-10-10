@@ -1,0 +1,52 @@
+name: Verify homeowners research production browser
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/ci/verify-homeowners-research-browser.mjs
+      - .github/workflows/verify-homeowners-research-browser.yml
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: homeowners-research-production-browser
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out exact test or deployed revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare free runner's Chrome browser
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-homeowners-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify published article, CSV, hub links, hydration and mobile/desktop layouts
+        run: node scripts/ci/verify-homeowners-research-browser.mjs
+      - name: Preserve article and hub screenshots and verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: homeowners-research-production-browser
+          path: artifacts/homeowners-research-browser/
+          if-no-files-found: warn
+          retention-days: 14
