@@ -3,7 +3,7 @@ import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { fetchPublishedTexasDefinedNewsArticle } from "@/data/articles-remote";
 import { isArticleIndexReady } from "@/data/fixtures/texas-gateway-index-readiness";
-import { buildMeta, canonicalLink } from "@/lib/seo";
+import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 export const Route = createFileRoute("/news/$slug")({
   beforeLoad: async ({ params }) => {
@@ -12,7 +12,10 @@ export const Route = createFileRoute("/news/$slug")({
 
     const article = await fetchPublishedTexasDefinedNewsArticle(params.slug).catch(() => null);
     if (!article) throw notFound();
-    return { liveArticle: article };
+    // Keep institutional-desk records behind this published-story route boundary.
+    // Do not increase the shared client entry bundle for a page-specific byline.
+    const { buildPublishedNewsArticleSchema } = await import("@/data/news-article-schema");
+    return { liveArticle: article, liveNewsSchema: buildPublishedNewsArticleSchema(article) };
   },
   head: ({ match, params }) => {
     const article = match.context.liveArticle;
@@ -32,6 +35,9 @@ export const Route = createFileRoute("/news/$slug")({
         robots: isArticleIndexReady(article) ? undefined : "noindex, follow, max-image-preview:large",
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      // Match evergreen attribution: institutional author identity and source
+      // citations belong to the published page, not just the database row.
+      scripts: [jsonLd(match.context.liveNewsSchema)],
     };
   },
 });
