@@ -89,5 +89,9 @@ if (!liveNewsPath) {
 const story = await fetchHealthy(liveNewsPath);
 const expectedCanonical = `${origin}${liveNewsPath}`;
 if (!story.body.includes(expectedCanonical)) throw new Error(`${liveNewsPath} is live but does not expose its expected canonical URL ${expectedCanonical}`);
+// Check the first actually published, routed story rather than binding the
+// publication smoke to a historical fixed slug.
+if (!story.body.includes('"@type":"NewsArticle"')) throw new Error(`${liveNewsPath} is missing Article structured data`);
+if (!/href=["\']\/authors\/a-[^"\']+["\']/.test(story.body)) throw new Error(`${liveNewsPath} is missing its institutional editorial byline link`);
 console.log(JSON.stringify({ surface: liveNewsPath, status: story.status, canonical: expectedCanonical, ok: true }));
 console.log(JSON.stringify({ verified: true, newsStatus: news.status, liveNewsStatus: story.status, liveNewsPath, publishedNewsPresent: true }));

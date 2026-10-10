@@ -5,7 +5,7 @@ const museumUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultur
 const culturalUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center";
 const preservationUrl = "https://www.ysletadelsurpueblo.org/tribal-services/department-of-cultural-preservation";
 const puebloUrl = "https://www.ysletadelsurpueblo.org/about-us";
-const commissionUrl = "https://atlas.thc.texas.gov/details/4200001263";
+const commissionUrl = "https://atlas.thc.texas.gov/Details?atlasnumber=4200001263&fn=print";
 const texasHistoryUrl = "https://www.tshaonline.org/handbook/entries/ysleta-del-sur-pueblo-museum";
 const missionUrl = "https://www.nps.gov/places/ysleta-mission.htm";
 const breadBakingUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/bread-baking";

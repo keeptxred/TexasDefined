@@ -207,3 +207,7 @@ try {
   await writeFile(artifacts + '/failure.json', JSON.stringify({ checkedAt: new Date().toISOString(), completed: out, failure: String(e?.stack || e) }, null, 2) + '\n');
   throw e;
 } finally { if (browser) await browser.close(); }
+
+// Run a separate, strict assistive-technology tree, keyboard, and computed-contrast pass.
+// The existing live Chrome acceptance and hydration assertions remain unchanged.
+await import('./verify-ysleta-museum-accessibility.mjs');
