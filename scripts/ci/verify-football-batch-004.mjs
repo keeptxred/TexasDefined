@@ -4,6 +4,18 @@ const root = process.cwd();
 const read = p => readFileSync(join(root, p), 'utf8');
 const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
 const editorial = read('src/data/high-school-football/program-editorial.ts');
+const profileServer = read('src/data/high-school-football/football-program-profile.server.ts');
+const identities = read('src/data/high-school-football/school-identities.ts');
+// UIL's Austin Johnson program is Austin ISD's LBJ Jaguars, not the similarly
+// named Round Rock ISD campus. Keep this source-checked disambiguation guarded.
+const lbjProfile = profileServer.slice(profileServer.indexOf('const austinLbjProgram:'));
+checkLbjIdentity();
+function checkLbjIdentity() {
+  const expected = ["officialSchoolName: 'LBJ Early College High School'", "districtName: 'Austin ISD'", "countyName: 'Travis County'", "city: 'Austin'", "canonicalSlug === 'austin-johnson'"];
+  if (!expected.every(value => lbjProfile.includes(value)) || !identities.includes("slug: 'austin-johnson'")) {
+    throw new Error('Austin LBJ Jaguars primary-source identity guard missing');
+  }
+}
 const roster = ['arp','aspermont','athens','atlanta','aubrey','austin','austin-achieve','austin-akins','austin-anderson','austin-bowie','austin-crockett','austin-eastside','austin-johnson','austin-lake-travis','austin-lasa','austin-mccallum','austin-navarro','austin-northeast','austin-travis','austin-vandegrift','austin-westlake','avalon','axtell','azle','baird'];
 const problems = [];
 const check = (ok, reason) => { if (!ok) problems.push(reason); };
