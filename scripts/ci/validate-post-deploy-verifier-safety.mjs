@@ -167,6 +167,17 @@ const cloudflareLiveIndex = cloudflareSmoke.indexOf('Verify Cloudflare Workers, 
 if (cloudflareGateIndex < 0 || cloudflareLiveIndex <= cloudflareGateIndex)
   failures.push('Cloudflare smoke must complete the protected deploy gate before live probes');
 
+// Post-deploy verifier source must not float to a newer default branch.
+const fridayNightLights = workflow('friday-night-lights-production-smoke');
+requireMarker(fridayNightLights, "github.event.workflow_run.conclusion == 'success'", 'Friday Night Lights live smoke needs successful deploy');
+requireMarker(fridayNightLights, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Friday Night Lights must check out deployed source, not default main');
+if (fridayNightLights.includes('ref: main')) failures.push('Friday Night Lights live verifier cannot use moving main');
+const waterNormalizer = workflow('normalize-waterdata-probe-status');
+requireMarker(waterNormalizer, "github.event.workflow_run.conclusion == 'success'", 'Water-data optional-probe normalization requires successful source verifier');
+requireMarker(waterNormalizer, 'STATUS_SHA: ${{ github.event.workflow_run.head_sha }}', 'Water-data status target must reference the triggering run');
+requireMarker(waterNormalizer, 'ref: ${{ github.event.workflow_run.head_sha }}', 'Water-data normalizer must execute the triggering verifier revision');
+if (waterNormalizer.includes('ref: main')) failures.push('Water-data normalizer must not execute changing main source');
+
 // Browser verifier scripts for editorial and football must match the deploy
 // which triggered them, not whichever commit has since become default main.
 for (const name of ['verify-katy-browser','verify-abbott-browser','verify-wills-point-browser','verify-ysleta-museum-browser']) {
