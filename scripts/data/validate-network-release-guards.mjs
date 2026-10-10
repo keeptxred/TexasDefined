@@ -44,7 +44,7 @@ check('tier constraint migration denies implicit Featured default',source('supab
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
 check('only approved application may be published',review.includes("if(app.status!=='approved')"));
 check('republishing preserves previously approved Featured edits',review.includes(".select('slug,plan,is_published')")&&review.includes("currentListing?null:await copyMedia")&&review.includes(".eq('is_published',false).select('slug').single()")&&!review.includes(".upsert({\n  application_id:app.id,slug,plan:app.plan,profile"));
-check('publication fails closed on status persistence',review.includes('if(statusError){')&&review.includes('is_published:false'));
+check('publication fails closed on status persistence',review.includes('if(statusError||!updatedApplication){')&&review.includes('is_published:false'));
 check('intake checks full PNG signature',apps.includes('pngSignature.every'));
 check('public media checks full PNG signature',review.includes('pngHeader.every'));
 check('directory filters published records',directory.includes('.eq("is_published", true)'));
