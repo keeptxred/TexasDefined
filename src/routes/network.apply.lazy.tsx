@@ -18,9 +18,10 @@ function NetworkApplication() {
   const [error,setError]=useState("");
   const [saved,setSaved]=useState(false);
   const [sending,setSending]=useState(false);
+  const [authorized,setAuthorized]=useState(false);
   useEffect(()=>()=>{if(logo) URL.revokeObjectURL(logo);gallery.forEach(URL.revokeObjectURL)},[logo,gallery]);
   const update=(key:Field)=>(event:React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>)=>setFields(old=>({...old,[key]:event.target.value}));
-  const input=(key:Field,label:string,required=false,placeholder="")=><label className="block text-sm font-semibold text-foreground">{label}<input required={required} name={key} value={fields[key]} placeholder={placeholder} onChange={update(key)} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-base font-normal" /></label>;
+  const input=(key:Field,label:string,required=false,placeholder="")=><label className="block text-sm font-semibold text-foreground">{label}<input required={required} name={key} value={fields[key]} placeholder={placeholder} type={key==="email"?"email":"text"} onChange={update(key)} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-base font-normal" /></label>;
   const multi=(key:Field,label:string,maxLength=1200)=><label className="block text-sm font-semibold text-foreground">{label}<textarea name={key} maxLength={maxLength} value={fields[key]} onChange={update(key)} rows={4} className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-base font-normal" /></label>;
   function images(files:FileList|null,kind:"logo"|"gallery") {
     if(!files?.length)return;
@@ -39,7 +40,7 @@ function NetworkApplication() {
         {(["basic","plus"] as const).map(t=><button key={t} type="button" onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
       </div>
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e=>{e.preventDefault();setError("");setSaved(false);setSending(true);try{const r=await fetch("/api/public/network-application",{method:"POST",body:(()=>{const form=new FormData();form.append("application",JSON.stringify({...fields,plan,websiteField:""}));if(logoFile)form.append("logo",logoFile);if(plan==="plus")galleryFiles.forEach(file=>form.append("gallery",file));return form})()});const result=await r.json();if(!r.ok)throw new Error(result.error||"Unable to submit");setSaved(true)}catch(err){setError(err instanceof Error?err.message:"Submission unavailable")}finally{setSending(false)}}}>
+        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e=>{e.preventDefault();setError("");setSaved(false);setSending(true);try{const r=await fetch("/api/public/network-application",{method:"POST",body:(()=>{const form=new FormData();form.append("application",JSON.stringify({...fields,plan,authorized,websiteField:""}));if(logoFile)form.append("logo",logoFile);if(plan==="plus")galleryFiles.forEach(file=>form.append("gallery",file));return form})()});const result=await r.json();if(!r.ok)throw new Error(result.error||"Unable to submit");setSaved(true)}catch(err){setError(err instanceof Error?err.message:"Submission unavailable")}finally{setSending(false)}}}>
           <h2 className="font-display text-3xl">Your information</h2>
           {input("businessName","Business or organization name",true,"Your business name")}
           {input("category","Business category",true,"e.g. Bakery, museum, contractor")}
@@ -59,6 +60,7 @@ function NetworkApplication() {
             {input("offer","Current event, offer or announcement")}
             <label className="block text-sm font-semibold">Gallery (up to four images) <input type="file" multiple accept="image/png,image/jpeg,image/webp" onChange={e=>images(e.target.files,"gallery")} className="mt-2 block w-full text-sm"/></label>
           </div>}
+          <label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" required checked={authorized} onChange={e=>setAuthorized(e.target.checked)} className="mt-1 h-5 w-5" /><span>I am authorized to represent this organization, and I have permission to supply its name, branding and images for a Texas Defined listing. I understand the listing will be reviewed before publication.</span></label>
           {saved&&<p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-900">Your application has been received for review. No payment was taken and the profile is not public yet.</p>}
           {error&&<p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{error}</p>}
           <button type="submit" disabled={sending} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Sending…":"Submit listing for review"}</button>
