@@ -29,6 +29,6 @@ function BusinessProfile(){
       {get('social')&&/^https:\/\//i.test(get('social'))&&<a className="mt-5 block font-semibold text-primary underline" href={get('social')} rel="nofollow noopener noreferrer" target="_blank">Social page ↗</a>}
     </aside>
    </div><p className="mt-12 text-xs text-muted-foreground">Business-provided information, reviewed by Texas Defined. Sponsored or paid features do not determine editorial coverage.</p>
-  </>}
+  </>
  </Container></main>;
 }
