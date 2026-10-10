@@ -38,6 +38,7 @@ export const Route = createFileRoute("/api/public/network-application")({
       } catch {return response({error:"Invalid application"},400)}
       if(!input || typeof input!=="object" || Array.isArray(input))return response({error:"Invalid application"},400);
       if(clean(input.websiteField))return response({ok:true},202); // Bot honeypot
+      if(input.authorized!==true)return response({error:"You must confirm authority to submit this listing and media."},422);
       const plan=input.plan==="plus"?"plus":input.plan==="basic"?"basic":null;
       const businessName=clean(input.businessName,160),category=clean(input.category,120),city=clean(input.city,160),email=clean(input.email,254);
       if(!plan||businessName.length<2||!category||!city||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return response({error:"Please complete all required fields and provide a valid email."},422);
