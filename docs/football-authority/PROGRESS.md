@@ -1,5 +1,13 @@
 # Football Authority — Execution Ledger
 
+## Batch 004 — completed production certification (2026-10-10; current)
+- **25/25 VERIFIED**, zero assigned remaining, **80/1,292 lifetime VERIFIED** including 55 earlier schools. Entries in `REGISTRY.json` have individual status, exact tested SHA, deploy/Chrome evidence and screenshots. Older IMPLEMENTED and draft PR statements below are historical and superseded.
+- [PR #4540](https://github.com/keeptxred/TexasDefined/pull/4540) merged at `f4af3c89956a823fd37e367fd883897d92bce2ed`; protected structural preacceptance passed.
+- [Production deployment](https://github.com/keeptxred/TexasDefined/actions/runs/38060642093) SUCCESS at `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`; [real production Chrome acceptance](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139) SUCCESS **72/72 cases**: 50 school page viewports (25 desktop + 25 mobile), 20 county viewports, 2 Austin city viewports, **25/25 sitemap entries**, zero recorded browser failures. [Screenshot and full report artifact 11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515) documents the school-by-school results.
+- Each school tested live HTTP 200, unique H1, metadata/canonical/robots, SportsTeam+breadcrumb schema, rendered source links, school↔campus county and approved Austin city reciprocals, no horizontal overflow, visibly broken images/missing image alt or client runtime errors. **Technical QA does not independently guarantee photo reuse rights, historical truth beyond documented first-party sourcing, game-day ticketing/ADA/parking, or future results.** Keep those individual editorial caveats.
+- Batch 004 closed; do not reassign any of these schools. Next assignment requires a fresh main+registry check for other active work.
+
+
 ## Batch 004 reciprocal-link and structural CI acceptance checkpoint — 2026-10-10
 - All 25 school-specific editorial records and dossiers are IMPLEMENTED on PR #4540; prior 55 VERIFIED schools preserved; Batch004 0 VERIFIED.
 - All 25 school profiles now have individually mapped campus-county return links and 25 county pages have reciprocal school cards, as reflected in REGISTRY.json and BATCH004_CAMPUS_LINK_EVIDENCE.md. This is branch evidence, not production verification.
