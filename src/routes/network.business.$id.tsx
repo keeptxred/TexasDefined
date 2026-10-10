@@ -7,6 +7,7 @@ type PublicProfile = {
   city: string; description: string; address: string | null; phone: string | null;
   hours: string | null; website: string | null; social: string | null;
   services: string | null; faq: string | null; offer: string | null;
+  logoUrl: string | null; galleryUrls: string[];
 };
 const getProfile = createServerFn({ method: "GET" })
   .inputValidator((input: { id: string }) => input)
@@ -15,13 +16,21 @@ const getProfile = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: row, error } = await supabaseAdmin
       .from("texasdefined_network_applications")
-      .select("id,plan,status,paid_entitlement_active,business_name,category,city,description,address,phone,hours,website,social,services,faq,offer")
+      .select("id,plan,status,paid_entitlement_active,business_name,category,city,description,address,phone,hours,website,social,services,faq,offer,logo_storage_path,gallery_storage_paths")
       .eq("id", data.id)
       .eq("status", "published")
       .maybeSingle();
     if (error || !row) return null;
-    const profile = row as unknown as PublicProfile & { paid_entitlement_active: boolean };
+    const profile = row as unknown as PublicProfile & { paid_entitlement_active: boolean; logo_storage_path: string | null; gallery_storage_paths: string[] };
     const isPlus = profile.plan === "plus" && profile.paid_entitlement_active;
+    const bucket = supabaseAdmin.storage.from('texasdefined-network-applications');
+    const mediaUrl = async (path: string | null): Promise<string | null> => {
+      if (!path) return null;
+      const { data: signed, error: mediaError } = await bucket.createSignedUrl(path, 3600);
+      return mediaError ? null : signed?.signedUrl || null;
+    };
+    const logoUrl = await mediaUrl(profile.logo_storage_path);
+    const galleryUrls = isPlus ? (await Promise.all((profile.gallery_storage_paths || []).slice(0,4).map(mediaUrl))).filter((url): url is string => !!url) : [];
     return {
       id: profile.id, plan: isPlus ? "plus" : "basic",
       business_name: profile.business_name, category: profile.category, city: profile.city,
@@ -31,6 +40,7 @@ const getProfile = createServerFn({ method: "GET" })
       services: isPlus ? profile.services : null,
       faq: isPlus ? profile.faq : null,
       offer: isPlus ? profile.offer : null,
+      logoUrl, galleryUrls,
     };
   });
 
@@ -58,11 +68,12 @@ function NetworkBusinessPage() {
   return <main className="bg-background">
     <section className="border-b border-border bg-surface"><Container className="py-12 sm:py-20">
       <p className="eyebrow text-primary">Texas Defined Network · {data.category} · {data.city}</p>
-      <h1 className="mt-4 font-display text-4xl sm:text-6xl">{data.business_name}</h1>
+      <div className="mt-5 flex flex-wrap items-center gap-5">{data.logoUrl && <img src={data.logoUrl} alt={`${data.business_name} logo`} className="h-24 w-24 rounded-xl border border-border bg-background object-contain p-2"/>}<h1 className="font-display text-4xl sm:text-6xl">{data.business_name}</h1></div>
       <p className="mt-5 max-w-3xl text-lg leading-8 text-muted-foreground">{data.description}</p>
     </Container></section>
     <Container className="grid gap-10 py-12 lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)]">
       <section className="space-y-8">
+        {data.plan === "plus" && data.galleryUrls.length > 0 && <div className="grid gap-3 sm:grid-cols-2">{data.galleryUrls.map((url,index) => <img key={url} src={url} alt={`${data.business_name} photo ${index+1}`} className="aspect-[4/3] w-full rounded-xl object-cover"/>)}</div>}
         {data.plan === "plus" && data.services && <div><h2 className="font-display text-3xl">What we offer</h2><p className="mt-4 whitespace-pre-line leading-8 text-muted-foreground">{data.services}</p></div>}
         {data.plan === "plus" && data.faq && <div><h2 className="font-display text-3xl">Common questions</h2><p className="mt-4 whitespace-pre-line leading-8 text-muted-foreground">{data.faq}</p></div>}
         {data.plan === "plus" && data.offer && <div className="rounded-xl border border-border bg-surface p-5"><h2 className="font-display text-2xl">What's happening</h2><p className="mt-3 text-muted-foreground">{data.offer}</p></div>}
