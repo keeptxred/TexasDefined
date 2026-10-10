@@ -8,8 +8,12 @@ export const Route = createFileRoute("/api/public/network-application")({
   server: { handlers: {
     POST: async ({request}) => {
       // Noindex is not a launch gate. Reject ALL intake and media until explicitly armed.
-      if(process.env.NETWORK_INTAKE_ENABLED!=='true')
+      if(process.env.NETWORK_INTAKE_ENABLED!=='true'){
+        // Release the unread request body without buffering untrusted multipart uploads.
+        // Local Worker liveness tests exercise this path before other routes.
+        if(request.body){try{await request.body.cancel()}catch{}}
         return response({error:"Network applications are not open yet."},503);
+      }
       const origin=request.headers.get("Origin");
       if(origin) { let url:URL; try {url=new URL(origin)}catch{return response({error:"Invalid origin"},403)}
         if(!["texasdefined.com","www.texasdefined.com","localhost"].includes(url.hostname))return response({error:"Invalid origin"},403);
