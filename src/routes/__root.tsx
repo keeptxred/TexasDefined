@@ -155,6 +155,10 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useEffect(() => {
+    document.documentElement.dataset.tdRootHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:root-hydrated"));
+  }, []);
+  useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;
     let installed = false;
