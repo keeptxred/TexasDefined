@@ -199,6 +199,13 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
  } as never,{onConflict:'application_id'});
  if(publishError)throw Error('Could not publish the listing');
  const {error:statusError}=await supabaseAdmin.from('texasdefined_network_applications').update({status:'published',updated_at:new Date().toISOString()} as never).eq('id',id);
- if(statusError)throw Error('Listing published but workflow status update failed');
+ if(statusError){
+  // Fail closed: never leave a public listing visible when the workflow cannot record publication.
+  const {error:hideError}=await supabaseAdmin.from('texasdefined_network_public_listings')
+   .update({is_published:false,updated_at:new Date().toISOString()} as never)
+   .eq('application_id',id).eq('is_published',true);
+  if(hideError)console.error('[network] CRITICAL: publication rollback failed',hideError.code);
+  throw Error('Publication status could not be saved; the listing was not certified as published');
+ }
  return {slug,url:'/network/business/'+slug};
 }
