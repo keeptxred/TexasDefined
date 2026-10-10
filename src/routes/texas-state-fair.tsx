@@ -29,7 +29,7 @@ const stateFairData = {
         heading: "2026 ticket prices and admission",
         paragraphs: [
           "Official 2026 gate admission is $15 for adults Monday–Thursday and $25 Friday–Sunday; $13 or $20 for seniors age 60 and older; $10 every day for children ages 3–12; and free for children age 2 and younger. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday.",
-          "Online prices include processing fees and may be higher than the gate price. Discounts can vary by day, so check the official State Fair discount page before purchasing."
+          "Online fees may apply. Check discounts; school-issued 2026 student tickets were extended through October 18, including both final weekends."
         ],
         links: [
           { label: "Official tickets and packages", href: "https://bigtex.com/buy-tickets-new/", external: true },
