@@ -58,6 +58,165 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "amarillo-highland-park": {
+    "slug": "amarillo-highland-park",
+    "theme": {
+      "accentHex": "#D6A22D",
+      "label": "Original warm-gold Hornets editorial accent; official school color not independently certified"
+    },
+    "seo": {
+      "title": "Amarillo Highland Park Hornets Football: 2026, Hornet Stadium & History",
+      "description": "Independent Amarillo Highland Park Hornets guide: UIL 2A Division I District 1, ten playoff appearances, 2026 scores, Hornet Stadium and official ISD links."
+    },
+    "campus": {
+      "address": "15300 Amarillo Boulevard East, Amarillo, TX 79108 (district office; verify separate high-school entrance)",
+      "phone": "806-335-2823",
+      "sourceUrl": "https://www.hpisd.net/",
+      "sourceLabel": "Amarillo-area Highland Park ISD official district contact",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "2026 Hornets fixtures and archived season-by-season results",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+      "sourceLabel": "Dave Campbell's Texas Football dated schedule and season history",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 in five explicitly reported results through September 25, 2026; later Vega result not independently resolved",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+      "sourceLabel": "DCTF published score snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Wheeler",
+          "site": "Home",
+          "result": "L 0–46"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Hale Center",
+          "site": "Away",
+          "result": "L 14–26"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Gruver",
+          "site": "Away",
+          "result": "L 6–61"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Quanah",
+          "site": "Away",
+          "result": "L 27–41"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Amarillo River Road",
+          "site": "Home",
+          "result": "W 25–24"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Vega",
+          "site": "Home"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Spearman",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Panhandle",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Sanford-Fritch",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Sunray",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Hornet Stadium",
+      "address": "Amarillo, Texas — entrance unverified",
+      "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+      "sourceLabel": "DCTF independent program stadium directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF reports 1,000 stadium capacity, not an officially certified gate, current ADA seating map, parking or ticketing policy. Highland Park ISD official site offers a Hornet Ticket Sales resource. Verify event location and accessible arrangements directly with the district."
+    },
+    "overview": [
+      "The Highland Park Hornets represent Highland Park ISD east of Amarillo, a district distinct from both Amarillo ISD's four high schools and the much larger Highland Park Scots program near Dallas. This independent guide concerns the Hornets in the Texas Panhandle, not the Scots.",
+      "Dave Campbell's Texas Football credits Amarillo Highland Park with ten football playoff appearances and no state championship-game appearances or football state titles. The Hornets play at the independently listed Hornet Stadium, and their stadium story should not be replaced by Dick Bivins Stadium details from Amarillo ISD.",
+      "The 2026–28 UIL alignment places this particular Highland Park in Class 2A Division I District 1 with Panhandle, Sanford-Fritch, Spearman and Sunray. Classification, opponents and football-season record describe separate things: the UIL document defines the district, not outcomes of games.",
+      "Recent seasons show rebuilding and resilience rather than an invented title tradition: a 0–10 finish in 2021, 3–8 in 2022, 4–4 in 2023, 4–6 in 2024 and 4–7 in 2025, based on the independently archived DCTF season records.",
+      "The 2026 source snapshot lists a one-point 25–24 win over Amarillo River Road on September 25 after four losses, but leaves the October 2 Vega result unresolved. This page deliberately does not declare a result where the published source has only a fixture.",
+      "For visitors, Highland Park ISD's official homepage offers a Hornet ticket-sales entry, while DCTF identifies Hornet Stadium and a historical approximate 1,000 capacity. The ISD administrative address is not presented as an unverified stadium spectator gate; confirm parking, mobility access and weather/game changes before attending."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "A winless rebuilding season",
+        "body": "The Hornets finished 0–10, making the following years' results part of a distinct rebuilding period rather than a fabricated championship history.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "sourceLabel": "DCTF program season history"
+      },
+      {
+        "date": "2023–25",
+        "title": "Consistent four-win campaigns",
+        "body": "Season archive lists four victories each in 2023, 2024 and 2025, with varying schedule lengths and records.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "sourceLabel": "DCTF 2023–25 historical records"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL District 1 realignment",
+        "body": "The Hornets compete in Class 2A Division I against Panhandle, Sanford-Fritch, Spearman and Sunray.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL realignment document"
+      },
+      {
+        "date": "Sept. 25, 2026",
+        "title": "River Road one-point win",
+        "body": "Independent season ledger reports Highland Park defeating Amarillo River Road 25–24.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
+        "sourceLabel": "DCTF 2026 game log"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Are Amarillo Highland Park and Dallas Highland Park the same football team?",
+        "answer": "No. This is the Highland Park ISD Hornets east of Amarillo, not the Scots team from the Dallas-area Highland Park ISD."
+      },
+      {
+        "question": "Has Amarillo Highland Park won a football state championship?",
+        "answer": "The DCTF historical football program record reports zero state titles and zero championship-game appearances, alongside ten playoff appearances."
+      },
+      {
+        "question": "Where do the Hornets play?",
+        "answer": "DCTF lists Hornet Stadium. Consult Highland Park ISD ticket and game announcements for the assigned match site, gate, parking and accessibility arrangements."
+      },
+      {
+        "question": "What is Highland Park Amarillo's 2026 football district?",
+        "answer": "The UIL 2026–28 Class 2A Division I alignment assigns the Hornets to District 1 with Panhandle, Sanford-Fritch, Spearman and Sunray."
+      },
+      {
+        "question": "Where can I buy Highland Park Hornets tickets?",
+        "answer": "Visit Amarillo-area Highland Park ISD's official hpisd.net site and use its Hornet Ticket Sales link; never use the Dallas Scots ticket portal for these games."
+      }
+    ]
+  },
   "amarillo-caprock": {
     "slug": "amarillo-caprock",
     "theme": {
