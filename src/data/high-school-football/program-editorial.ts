@@ -58,6 +58,335 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "austin-westlake": {
+    "slug": "austin-westlake",
+    "theme": {
+      "accentHex": "#9E1F35",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Westlake Chaparrals Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin Westlake Chaparrals football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "Westlake's official athletics record lists four Texas state football championships in 1996, 2019, 2020 and 2021, distinct from title-game appearances and from Lake Travis' six championships. UIL's 2020 title team under Todd Dodge went undefeated, beating North Shore 24–21 in the semifinals. The program's published records include multi-decade district winning streaks and famous alumni Drew Brees, Nick Foles and Sam Ehlinger, whose connections should be individually sourced before expanding biographies.",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1996–2021",
+        "title": "Program-specific football milestone",
+        "body": "The official Westlake Nation record lists 1996, 2019, 2020 and 2021 title years and identifies 2020 as 6A Division I.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "Westlake's official athletics record lists four Texas state football championships in 1996, 2019, 2020 and 2021, distinct from title-game appearances and from Lake Travis' six championships. UIL's 2020 title team under Todd Dodge went undefeated, beating North Shore 24–21 in the semifinals. The program's published records include multi-decade district winning streaks and famous alumni Drew Brees, Nick Foles and Sam Ehlinger, whose connections should be individually sourced before expanding biographies.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin Westlake Chaparrals?",
+        "answer": "The official Westlake Nation record lists 1996, 2019, 2020 and 2021 title years and identifies 2020 as 6A Division I."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
+  "austin-vandegrift": {
+    "slug": "austin-vandegrift",
+    "theme": {
+      "accentHex": "#205777",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Vandegrift Vipers Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin Vandegrift Vipers football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.uiltexas.org/football/alignments",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "Vandegrift is a distinct Leander ISD football program in the Austin metro, not an Austin ISD high school. In 2026 news coverage, San Antonio Johnson's 38–7 victory over Vandegrift was reported, but it must not be conflated with Buda Johnson or Austin LBJ. Official 2026 UIL alignment and historical titles need dedicated verification.",
+      "sourceUrl": "https://www.uiltexas.org/football/alignments",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "School location, coaching and historic playoff distinction require first-party school sources; no unsourced state crown or venue capacity is asserted.",
+        "sourceUrl": "https://www.uiltexas.org/football/alignments",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "Vandegrift is a distinct Leander ISD football program in the Austin metro, not an Austin ISD high school. In 2026 news coverage, San Antonio Johnson's 38–7 victory over Vandegrift was reported, but it must not be conflated with Buda Johnson or Austin LBJ. Official 2026 UIL alignment and historical titles need dedicated verification.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin Vandegrift Vipers?",
+        "answer": "School location, coaching and historic playoff distinction require first-party school sources; no unsourced state crown or venue capacity is asserted."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
+  "austin-travis": {
+    "slug": "austin-travis",
+    "theme": {
+      "accentHex": "#B51F2A",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Travis Rebels Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin Travis Rebels football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "Travis Early College operates a Rebels varsity football program with home games distributed across Garrison, Burger Stadium and House Park rather than at a single fixed campus field. Its official schedule lists an October 22 LBJ game at Nelson Field and a home October 30 Davenport match at House Park. These are useful, event-specific venue facts.",
+      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "The official 2026 varsity list places October 16 Kerrville Tivy at House Park, October 22 LBJ away at Nelson Field, and October 30 Davenport at House Park.",
+        "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "Travis Early College operates a Rebels varsity football program with home games distributed across Garrison, Burger Stadium and House Park rather than at a single fixed campus field. Its official schedule lists an October 22 LBJ game at Nelson Field and a home October 30 Davenport match at House Park. These are useful, event-specific venue facts.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin Travis Rebels?",
+        "answer": "The official 2026 varsity list places October 16 Kerrville Tivy at House Park, October 22 LBJ away at Nelson Field, and October 30 Davenport at House Park."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
+  "austin-northeast": {
+    "slug": "austin-northeast",
+    "theme": {
+      "accentHex": "#1A6971",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Northeast Early College Raiders Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin Northeast Early College Raiders football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://northeastechs.austinschools.org/news/2026/03/30/northeast-athletic-vacancies-26-27-school-year",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "Northeast Early College posted a vacancy for head football coach on March 30, 2026. A later MaxPreps roster identifies Abdul Mustafa, but that third-party staff list requires school confirmation for an unqualified current appointment. The 2026 season includes a district meeting with Travis and LBJ Austin; the campus is on Berkman Drive.",
+      "sourceUrl": "https://northeastechs.austinschools.org/news/2026/03/30/northeast-athletic-vacancies-26-27-school-year",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "March 2026 official job posting demonstrates a coaching transition; do not mistake its vacancy announcement for proof the role remains vacant in October.",
+        "sourceUrl": "https://northeastechs.austinschools.org/news/2026/03/30/northeast-athletic-vacancies-26-27-school-year",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "Northeast Early College posted a vacancy for head football coach on March 30, 2026. A later MaxPreps roster identifies Abdul Mustafa, but that third-party staff list requires school confirmation for an unqualified current appointment. The 2026 season includes a district meeting with Travis and LBJ Austin; the campus is on Berkman Drive.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin Northeast Early College Raiders?",
+        "answer": "March 2026 official job posting demonstrates a coaching transition; do not mistake its vacancy announcement for proof the role remains vacant in October."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
+  "austin-navarro": {
+    "slug": "austin-navarro",
+    "theme": {
+      "accentHex": "#8C354F",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin Navarro Vikings Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin Navarro Vikings football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "Austin Navarro is an Austin ISD Vikings team and should never be confused with Navarro College Bulldogs or Navarro ISD Panthers. The official Crockett varsity 2026 schedule lists a Thursday, October 15 home game against Navarro at Burger Stadium. Current Navarro-specific varsity personnel and school-history detail are not supported by these opposing-team sources.",
+      "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "A documented varsity fixture placed Austin Navarro at Crockett's Burger Stadium October 15, 2026, while varsity and JV venues differ.",
+        "sourceUrl": "https://crockett.austinschools.org/athletics/teams/football",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "Austin Navarro is an Austin ISD Vikings team and should never be confused with Navarro College Bulldogs or Navarro ISD Panthers. The official Crockett varsity 2026 schedule lists a Thursday, October 15 home game against Navarro at Burger Stadium. Current Navarro-specific varsity personnel and school-history detail are not supported by these opposing-team sources.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin Navarro Vikings?",
+        "answer": "A documented varsity fixture placed Austin Navarro at Crockett's Burger Stadium October 15, 2026, while varsity and JV venues differ."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
+  "austin-mccallum": {
+    "slug": "austin-mccallum",
+    "theme": {
+      "accentHex": "#253D80",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin McCallum Knights Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin McCallum Knights football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "The Knights play in 5A Division I in the 2026 UIL cycle, following a 5A Division II 2025 season with a 6–4 record. The classification change should be made clear rather than mixing seasons. Published Travis varsity schedules place the September 3 McCallum matchup at Garrison field.",
+      "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "The 2025 McCallum season finished 6–4 after a 4–6 2024 season, published in historical season records.",
+        "sourceUrl": "https://www.maxpreps.com/tx/austin/mccallum-knights/football/history/",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "The Knights play in 5A Division I in the 2026 UIL cycle, following a 5A Division II 2025 season with a 6–4 record. The classification change should be made clear rather than mixing seasons. Published Travis varsity schedules place the September 3 McCallum matchup at Garrison field.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin McCallum Knights?",
+        "answer": "The 2025 McCallum season finished 6–4 after a 4–6 2024 season, published in historical season records."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
+  "austin-lasa": {
+    "slug": "austin-lasa",
+    "theme": {
+      "accentHex": "#445C80",
+      "label": "School-inspired original editorial styling, not a school logo"
+    },
+    "seo": {
+      "title": "Austin LASA Raptors Football: History, 2026 Guide & Stadium Resources",
+      "description": "Research-led Austin LASA Raptors football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+    },
+    "schedule": {
+      "label": "Published source of team or opponent varsity schedule",
+      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+      "sourceLabel": "Official school resource or specified historical listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "A distinctive football story",
+      "body": "The 2026 Travis High published varsity schedule identifies a September 10 trip to LASA at Nelson Field. LASA appears as a distinct Austin-area football program, not a shorthand for Austin High or Akins. Published opponent schedules show LASA also faced Akins and Crockett. An official LASA football archive or head coach cannot yet be confirmed.",
+      "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+      "sourceLabel": "School source and explicitly qualified published record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "Program-specific football milestone",
+        "body": "In 2026 LASA hosted Travis at Nelson Field on September 10 and was scheduled to visit Crockett October 30, according to official opposing schools' varsity calendars.",
+        "sourceUrl": "https://www.travisrebelathletics.com/sport/football/boys/",
+        "sourceLabel": "School schedule or athletics history"
+      }
+    ],
+    "overview": [
+      "The 2026 Travis High published varsity schedule identifies a September 10 trip to LASA at Nelson Field. LASA appears as a distinct Austin-area football program, not a shorthand for Austin High or Akins. Published opponent schedules show LASA also faced Akins and Crockett. An official LASA football archive or head coach cannot yet be confirmed.",
+      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+    ],
+    "faq": [
+      {
+        "question": "What should visitors know about Austin LASA Raptors?",
+        "answer": "In 2026 LASA hosted Travis at Nelson Field on September 10 and was scheduled to visit Crockett October 30, according to official opposing schools' varsity calendars."
+      },
+      {
+        "question": "Is TexasDefined the official football website?",
+        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+      }
+    ]
+  },
   "austin-lake-travis": {
     "slug": "austin-lake-travis",
     "theme": {
