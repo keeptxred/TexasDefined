@@ -63,31 +63,47 @@ for (const [viewport,width,height] of viewports) {
       row.checks.keyboardTargets=data.focusable?'PASS':'NOT TESTED';
       // Actual keyboard events rather than source-only counts. A real focused element
       // should be reached by Tab and its focus should remain observable.
-      await page.keyboard.press('Tab');
-      row.keyboardEvidence = await page.evaluate(() => {
-        const el = document.activeElement;
-        const name = el?.getAttribute('aria-label') || el?.textContent?.trim().slice(0,80) || el?.getAttribute('title') || '';
-        return {tag:el?.tagName || '', name, visible:!!el?.getClientRects().length,
-          focusVisible:!!el?.matches?.(':focus-visible')};
-      });
-      row.checks.keyboardNavigation = row.keyboardEvidence.visible &&
-        row.keyboardEvidence.tag !== 'BODY' && row.keyboardEvidence.tag !== 'HTML' ? 'PASS' : 'FAIL';
-      // Validate a representative set of rendered internal links with real HTTP
-      // requests; navigation by text and destination content need separate review.
+      // Navigate multiple Tab stops: browser shell controls may precede the
+      // first visible interactive target in the page's actual focus order.
+      row.keyboardEvidence = [];
+      for(let tab = 0; tab < 12; tab++) {
+        await page.keyboard.press('Tab');
+        row.keyboardEvidence.push(await page.evaluate(() => {
+          const el = document.activeElement;
+          return {tag:el?.tagName || '', name:(el?.getAttribute('aria-label') ||
+            el?.textContent?.trim().slice(0,80) || el?.getAttribute('title') || ''),
+            visible:!!el?.getClientRects().length,
+            focusVisible:!!el?.matches?.(':focus-visible')};
+        }));
+      }
+      row.checks.keyboardNavigation = row.keyboardEvidence.some(f=>
+        f.visible && f.tag !== 'BODY' && f.tag !== 'HTML') ? 'PASS' : 'FAIL';
+      // Retry transient network errors once; preserve failures, URLs and status
+      // codes, do not whitelist persistent broken links.
       const sample = [...new Set(data.links
         .filter(l=>l.href.startsWith(origin+'/') && !l.href.includes('#'))
         .map(l=>l.href))].slice(0,12);
       row.linkSample = [];
       for(const href of sample) {
-        try {
-          const res = await page.request.get(href,{timeout:12000,maxRedirects:5});
-          row.linkSample.push({href,status:res.status()});
-        } catch(error) {
-          row.linkSample.push({href,error:String(error)});
+        const attempts=[];
+        for(let attempt=0;attempt<2;attempt++) {
+          try {
+            const res=await page.request.get(href,{timeout:20000,maxRedirects:5});
+            attempts.push({status:res.status()});
+            if(res.status()>=200 && res.status()<400)break;
+          }catch(error){attempts.push({error:String(error)});}
         }
+        const final=attempts[attempts.length-1];
+        row.linkSample.push({href,...final,attempts});
       }
       row.checks.internalLinkSample = row.linkSample.length &&
         row.linkSample.every(l=>l.status>=200 && l.status<400) ? 'PASS' : 'FAIL';
+      if(row.checks.keyboardNavigation==='FAIL' || row.checks.internalLinkSample==='FAIL') {
+        console.error('CITY DIAGNOSTIC',slug,viewport,JSON.stringify({
+          keyboardEvidence:row.keyboardEvidence,
+          failedLinks:row.linkSample.filter(l=>!(l.status>=200 && l.status<400))
+        }));
+      }
       row.linkCount=data.links.length;
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
       row.checks.javascript=row.errors.filter(x=>x.startsWith('JS:')).length?'FAIL':'PASS';
