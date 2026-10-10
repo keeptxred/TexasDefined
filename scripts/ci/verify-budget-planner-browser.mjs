@@ -72,6 +72,9 @@ async function check(page, label) {
     label + ': planner should flag zero-valued example categories');
   verify(await page.getByRole('heading', { name: 'What your Texas household budget can show' }).count() > 0,
     label + ': budget-specific quick-answer summary is missing');
+  // Confirm reactive hydration before the first debt edit. SSR summary numbers can appear
+  // before React attaches mobile event handlers; fillIncome retries physical typing.
+  await fillIncome(page, 8000);
   const cardDebt = page.getByRole('spinbutton', { name: 'Existing credit-card debt repayments (monthly)' });
   await cardDebt.fill('0');
   await cardDebt.press('Tab');
@@ -83,7 +86,6 @@ async function check(page, label) {
     null, { timeout: 12_000 });
   row.checks.push('Zero-category warning, editorial summary and credit-card debt input behavior');
 
-  await fillIncome(page, 8000);
   await page.getByRole('button', { name: /Annual and irregular bills/ }).click();
   const annual = page.getByRole('spinbutton', { name: 'Travel, gifts and seasonal spending (annual)' });
   await annual.fill('1200');
