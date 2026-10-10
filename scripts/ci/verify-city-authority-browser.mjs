@@ -61,6 +61,33 @@ for (const [viewport,width,height] of viewports) {
         row.checks.kimbellDestinationHttp = destination.status() === 200 ? 'PASS' : 'FAIL';
       }
       row.checks.keyboardTargets=data.focusable?'PASS':'NOT TESTED';
+      // Actual keyboard events rather than source-only counts. A real focused element
+      // should be reached by Tab and its focus should remain observable.
+      await page.keyboard.press('Tab');
+      row.keyboardEvidence = await page.evaluate(() => {
+        const el = document.activeElement;
+        const name = el?.getAttribute('aria-label') || el?.textContent?.trim().slice(0,80) || el?.getAttribute('title') || '';
+        return {tag:el?.tagName || '', name, visible:!!el?.getClientRects().length,
+          focusVisible:!!el?.matches?.(':focus-visible')};
+      });
+      row.checks.keyboardNavigation = row.keyboardEvidence.visible &&
+        row.keyboardEvidence.tag !== 'BODY' && row.keyboardEvidence.tag !== 'HTML' ? 'PASS' : 'FAIL';
+      // Validate a representative set of rendered internal links with real HTTP
+      // requests; navigation by text and destination content need separate review.
+      const sample = [...new Set(data.links
+        .filter(l=>l.href.startsWith(origin+'/') && !l.href.includes('#'))
+        .map(l=>l.href))].slice(0,12);
+      row.linkSample = [];
+      for(const href of sample) {
+        try {
+          const res = await page.request.get(href,{timeout:12000,maxRedirects:5});
+          row.linkSample.push({href,status:res.status()});
+        } catch(error) {
+          row.linkSample.push({href,error:String(error)});
+        }
+      }
+      row.checks.internalLinkSample = row.linkSample.length &&
+        row.linkSample.every(l=>l.status>=200 && l.status<400) ? 'PASS' : 'FAIL';
       row.linkCount=data.links.length;
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
       row.checks.javascript=row.errors.filter(x=>x.startsWith('JS:')).length?'FAIL':'PASS';
