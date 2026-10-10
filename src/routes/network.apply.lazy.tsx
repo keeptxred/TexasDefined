@@ -17,6 +17,7 @@ function NetworkApplication() {
   const [gallery,setGallery]=useState<string[]>([]);
   const [error,setError]=useState("");
   const [saved,setSaved]=useState(false);
+  const [submittedId,setSubmittedId]=useState<string|null>(null);
   const [sending,setSending]=useState(false);
   const [authorized,setAuthorized]=useState(false);
   useEffect(()=>()=>{if(logo) URL.revokeObjectURL(logo);gallery.forEach(URL.revokeObjectURL)},[logo,gallery]);
@@ -40,7 +41,39 @@ function NetworkApplication() {
         {(["basic","plus"] as const).map(t=><button key={t} type="button" onClick={()=>setPlan(t)} aria-pressed={plan===t} className={`rounded-full border px-6 py-3 font-semibold ${plan===t?"border-primary bg-primary text-primary-foreground":"border-border bg-white text-foreground"}`}>{t==="basic"?"Basic · Free":"Plus · $19.99/month"}</button>)}
       </div>
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
-        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e=>{e.preventDefault();setError("");setSaved(false);setSending(true);try{const r=await fetch("/api/public/network-application",{method:"POST",body:(()=>{const form=new FormData();form.append("application",JSON.stringify({...fields,plan,authorized,websiteField:""}));if(logoFile)form.append("logo",logoFile);if(plan==="plus")galleryFiles.forEach(file=>form.append("gallery",file));return form})()});const result=await r.json();if(!r.ok)throw new Error(result.error||"Unable to submit");setSaved(true);if(plan==="plus" && result.applicationId){const payment=await fetch("/api/public/network-checkout",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({applicationId:result.applicationId,email:fields.email})});const checkout=await payment.json();if(!payment.ok||!checkout.url)throw new Error(checkout.error||"Application received, but checkout is unavailable. Contact us with your business name; please do not submit a duplicate application.");window.location.assign(checkout.url)}}catch(err){setError(err instanceof Error?err.message:"Submission unavailable")}finally{setSending(false)}}}>
+        <form className="space-y-5 rounded-3xl border border-border bg-white p-6 sm:p-8" onSubmit={async e => {
+          e.preventDefault();
+          setError("");
+          setSending(true);
+          try {
+            let applicationId = submittedId;
+            if (!applicationId) {
+              setSaved(false);
+              const form = new FormData();
+              form.append("application", JSON.stringify({...fields,plan,authorized,websiteField:""}));
+              if (logoFile) form.append("logo",logoFile);
+              if (plan === "plus") galleryFiles.forEach(file => form.append("gallery",file));
+              const response = await fetch("/api/public/network-application",{method:"POST",body:form});
+              const result = await response.json();
+              if (!response.ok || !result.applicationId) throw new Error(result.error || "Could not save your application.");
+              applicationId = result.applicationId;
+              setSubmittedId(applicationId);
+              setSaved(true);
+            }
+            if (plan === "plus") {
+              const response = await fetch("/api/public/network-checkout",{
+                method:"POST",
+                headers:{"content-type":"application/json"},
+                body:JSON.stringify({applicationId,email:fields.email}),
+              });
+              const result = await response.json();
+              if (!response.ok || !result.url) throw new Error(result.error || "Your application was saved. Checkout could not be opened; select Continue to Checkout to retry.");
+              window.location.assign(result.url);
+            }
+          } catch (error) {
+            setError(error instanceof Error ? error.message : "Submission unavailable");
+          } finally { setSending(false); }
+        }}}>
           <h2 className="font-display text-3xl">Your information</h2>
           {input("businessName","Business or organization name",true,"Your business name")}
           {input("category","Business category",true,"e.g. Bakery, museum, contractor")}
@@ -63,7 +96,7 @@ function NetworkApplication() {
           <label className="flex items-start gap-3 text-sm leading-6"><input type="checkbox" required checked={authorized} onChange={e=>setAuthorized(e.target.checked)} className="mt-1 h-5 w-5" /><span>I am authorized to represent this organization, and I have permission to supply its name, branding and images for a Texas Defined listing. I understand the listing will be reviewed before publication.</span></label>
           {saved&&<p role="status" className="rounded-lg bg-green-50 p-3 text-sm text-green-900">Your application has been received for review. No payment was taken and the profile is not public yet.</p>}
           {error&&<p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{error}</p>}
-          <button type="submit" disabled={sending} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Sending…":"Submit listing for review"}</button>
+          <button type="submit" disabled={sending || (saved && plan==="basic")} className="w-full rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">{sending?"Processing…":submittedId&&plan==="plus"?"Continue to secure checkout":saved?"Application received":"Submit listing for review"}</button>
           <p className="text-xs text-muted-foreground">Your selected images and application details are submitted privately for review. No payment is taken.</p>
         </form>
         <aside className="self-start lg:sticky lg:top-28" aria-label="Live listing preview">
