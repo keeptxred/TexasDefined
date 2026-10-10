@@ -58,6 +58,160 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "amarillo-tascosa": {
+    "slug": "amarillo-tascosa",
+    "theme": {
+      "accentHex": "#7A1D32",
+      "label": "Original burgundy Rebels editorial accent; no reproduction of protected school marks"
+    },
+    "seo": {
+      "title": "Amarillo Tascosa Rebels Football: 2018 Semifinal, 2026 & Coach Plunk",
+      "description": "Amarillo Tascosa Rebels football history: Ken Plunk era, 2018 11–4 season, UIL 5A Division I District 2, documented Amarillo rivalry and game-day sources."
+    },
+    "coach": {
+      "name": "Kenneth (Ken) Plunk",
+      "title": "2026 head football coach per roster updated August 23, 2026",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
+      "sourceLabel": "2026 season MaxPreps team staff roster; current district confirmation pending",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3921 Westlawn St, Amarillo, TX 79102",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/staff/",
+      "sourceLabel": "Tascosa football staff directory campus address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Tascosa 2026 scores and next scheduled games",
+      "sourceUrl": "https://txprepfootball.com/schools/tascosa-rebels/",
+      "sourceLabel": "Texas Prep Football results schedule, separate from official AISD confirmations",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "Published initial snapshot: at least three September finals; later schedule source contains duplicate Frenship entries and unresolved 2026 scores",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://txprepfootball.com/schools/tascosa-rebels/",
+      "sourceLabel": "Texas Prep Football 2026 results; unusual duplicated Frenship scores must be independently reconciled",
+      "games": [
+        {
+          "date": "Sept. 4",
+          "opponent": "Canyon",
+          "site": "Away",
+          "result": "W 28–27"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Palo Duro",
+          "site": "Away",
+          "result": "L 14–41"
+        },
+        {
+          "date": "Sept. 26",
+          "opponent": "Frenship",
+          "site": "Home",
+          "result": "W 28–27"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Amarillo",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Lubbock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Lubbock Monterey",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Caprock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Abilene",
+          "site": "Home",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Tascosa varsity home venue — confirm assigned site with Amarillo ISD",
+      "address": "Amarillo, TX — ticket-specific venue required",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD Athletics official scheduling/tickets",
+      "verifiedAt": "2026-10-09",
+      "note": "Amarillo ISD athletics coordinates district varsity dates and ticketing; do not presume the campus 3921 Westlawn Street is the stadium gate. Historical games use different venues and game-specific stadium, parking and accessible entrances need official confirmation."
+    },
+    "overview": [
+      "The Tascosa Rebels represent Tascosa High School on Westlawn Street in Amarillo. The Rebels are not the Amarillo High Golden Sandies, Caprock Longhorns or Palo Duro Dons; all are separate Amarillo school football programs with distinct coach histories and season records.",
+      "Tascosa's modern story includes a strong run under Ken Plunk: MaxPreps lists 11–4 in 2018 and 10–4 in 2019, with prior 10–3 in 2015. These records describe postseason depth, not any asserted state football title. The 2018 season's 15 games make it a notable historical chapter worthy of further official playoff bracket documentation.",
+      "The same historical team archive records 10–3 in 2021, 10–2 in 2022, 5–6 in 2023, 7–6 in 2024 and 7–5 in 2025. Year-separated results avoid falsely treating the 2026 season as finished. The dated 2026 team-staff roster identifies Kenneth Plunk as head football coach.",
+      "For the current UIL 2026–28 alignment, Tascosa is 5A Division I District 2, alongside Amarillo High, Caprock, Abilene, Frenship, Frenship Memorial, Lubbock and Lubbock Monterey. Palo Duro is in a separate 5A Division II district; an early September 2026 non-district matchup does not mean they share UIL classification.",
+      "The September 11, 2026 Tascosa–Palo Duro game produced a documented Tascosa 14–41 loss; later 2026 reported games include a 28–27 win over Frenship. A separate Texas Prep Football result line also repeats Frenship with another score, so TexasDefined must not combine both entries into a fabricated two-game series.",
+      "Tascosa and Amarillo High share a documented long-running intra-city competition. The Sandies' historical program archive reports an all-time series snapshot, but that figure is not a live 2026 update or evidence of a new current victory. The official AISD athletics listing remains the authoritative destination for last-minute game locations and tickets."
+    ],
+    "milestones": [
+      {
+        "date": "2015",
+        "title": "Double-digit wins",
+        "body": "MaxPreps archives Tascosa's 2015 varsity team at 10–3 under Kenneth Plunk.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "sourceLabel": "MaxPreps historic season records"
+      },
+      {
+        "date": "2018–19",
+        "title": "Two deep-postseason seasons",
+        "body": "Archived football records show 11–4 in 2018 and 10–4 in 2019; exact state-bracket stages remain to be confirmed using UIL.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "sourceLabel": "MaxPreps past-season ledger"
+      },
+      {
+        "date": "2021–22",
+        "title": "Back-to-back ten-win years",
+        "body": "The historical record gives Tascosa 10–3 in 2021 and 10–2 in 2022, preceding more competitive 2023–25 seasons.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/tascosa-rebels/football/history/",
+        "sourceLabel": "MaxPreps team football history"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division I, District 2",
+        "body": "Current alignment places Tascosa alongside city rivals Amarillo and Caprock, but not Palo Duro (5A Division II).",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026–28 alignment"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Amarillo Tascosa football in 2026?",
+        "answer": "The current 2026 football staff roster names Kenneth (Ken) Plunk as head coach, also associated with the Rebels' successful 2015 and 2018 seasons."
+      },
+      {
+        "question": "How did Tascosa perform in 2018 and 2019?",
+        "answer": "The archived records give 11–4 in 2018 and 10–4 in 2019; the exact historical UIL playoff-round finishes need additional primary bracket corroboration."
+      },
+      {
+        "question": "Do Tascosa and Palo Duro compete in the same 2026 UIL district?",
+        "answer": "No. Tascosa's 2026–28 football alignment is 5A Division I District 2; Palo Duro is in 5A Division II District 2, a different division despite the identical district number."
+      },
+      {
+        "question": "Where can I get official 2026 Tascosa football tickets?",
+        "answer": "Consult Amarillo ISD Athletics and the ticket listing for the individual Tascosa game, rather than treating the school's Westlawn Street address as a confirmed stadium entrance."
+      },
+      {
+        "question": "Is the Amarillo–Tascosa rivalry a real historic matchup?",
+        "answer": "Yes. Amarillo High's documented Sandies program archive publishes an all-time Tascosa head-to-head series; its snapshot should not be mistaken for a live 2026 updated record."
+      }
+    ]
+  },
   "amarillo-river-road": {
     "slug": "amarillo-river-road",
     "theme": {
