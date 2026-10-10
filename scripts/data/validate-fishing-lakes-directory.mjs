@@ -72,8 +72,8 @@ const completeSlugs = [
   ...statewideCompleteSlugs,
 ];
 assert(slugs.includes("...BASE_COMPLETE_FISHING_LAKE_SLUGS") && slugs.includes("...WAVE2_COMPLETE_FISHING_LAKE_SLUGS") && slugs.includes("...STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS"), "Fishing lakes complete-guide registry must compose the base, wave-2 and statewide-network slug tuples.");
-assert(statewideCompleteSlugs.length === 26, `Fishing lakes directory must include exactly 26 statewide-network lake guides; found ${statewideCompleteSlugs.length}.`);
-assert(new Set(completeSlugs).size === 41, `Fishing lakes directory must expose exactly 41 currently validated complete lake guides; found ${new Set(completeSlugs).size}.`);
+assert(statewideCompleteSlugs.length === 35, `Fishing lakes directory must include exactly 35 statewide-network lake guides; found ${statewideCompleteSlugs.length}.`);
+assert(new Set(completeSlugs).size === 50, `Fishing lakes directory must expose exactly 50 currently validated complete lake guides; found ${new Set(completeSlugs).size}.`);
 assert(legacyExpectedCompleteSlugs.every((slug) => completeSlugs.includes(slug)), "Fishing lakes complete-guide registry no longer contains the original validated fifteen-lake collection.");
 
 assert(hubRoute.includes('lazy(() => import("@/components/fishing/FishingHub")'), "Fishing hub lazy boundary is missing.");
@@ -95,4 +95,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("Fishing lakes directory validated: 41 completed lake guides remain query-backed, dynamically counted, lazily rendered, sitemap/search-owned and answer-first, while the original 15-lake cohort remains protected.");
+console.log("Fishing lakes directory validated: 50 completed lake guides remain query-backed, dynamically counted, lazily rendered, sitemap/search-owned and answer-first, while the original 15-lake cohort remains protected.");

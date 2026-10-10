@@ -51,6 +51,7 @@ interface FishDefinition {
 interface StatewideLakeDefinition {
   slug: StatewideNetworkLakeSlug;
   name: string;
+  verifiedAt?: string;
   tpwdSlug: string;
   waterDataSlug?: string;
   lcraHydrometSiteNumber?: string;
@@ -71,6 +72,7 @@ interface StatewideLakeDefinition {
   habitat: string[];
   fish: FishDefinition[];
   access: string;
+  accessPage?: string;
   specialRules?: boolean;
   liveDataNote?: string;
   nearbyLakes: { slug: string; name: string }[];
@@ -504,6 +506,161 @@ export const statewideNetworkLakeDefinitions: StatewideLakeDefinition[] = [
     access: "TPWD lists commercial access in the upper reservoir, Deussen Park near the dam for boat and bank fishing, and bank access beneath the FM 1960 bridge; verify current facility status before travel.",
     nearbyLakes: [{slug:"lake-conroe",name:"Lake Conroe"},{slug:"lake-livingston",name:"Lake Livingston"}],
   },
+  {
+    slug: "joe-pool-lake", name: "Joe Pool Lake", tpwdSlug: "joe_pool", waterDataSlug: "joe-pool", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    summary: "A 6,469-acre Dallas-Fort Worth reservoir with hydrilla, flooded timber and roadbed structure supporting good largemouth bass, crappie, white bass and channel catfish fishing.",
+    surfaceAcres: 6469, maxDepthFeet: 75, impoundedYear: 1986, counties: ["Tarrant", "Ellis", "Dallas"], nearestCities: ["Grand Prairie", "Cedar Hill", "Midlothian"],
+    waterway: "Mountain Creek", riverBasin: "Trinity River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "522 ft msl", fluctuation: "2–4 feet annually", clarity: "Clear near the dam to stained",
+    identity: "Joe Pool is a metro-accessible structure lake where hydrilla, pondweed, flooded timber, old roads and bridges give anglers unusually varied cover within the southern DFW corridor.",
+    habitat: ["Hydrilla and American pondweed occur around the reservoir, especially near the dam.", "Standing timber remains in the upper thirds of both arms.", "Flooded stock ponds, bridges, roadbeds and marked brush piles add man-made structure."],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","good","spring","Hydrilla, pondweed and submerged structure anchor the reservoir's most popular sport fishery.",["soft-plastics","spinnerbaits","crankbaits","topwater"]),
+      fish("channel-catfish","Channel catfish","good","year-round","Creek channels and deeper structural edges provide a durable catfish pattern.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Bridges and submerged cover are major crappie targets, especially around seasonal movement.",["jigs-and-minnows"]),
+      fish("white-bass","White bass","good","summer","Schooling white bass commonly use the lower portion of the lake.",["topwater","vertical-jigging"]),
+    ],
+    access: "Cedar Hill State Park and City of Grand Prairie facilities provide major ramps, shoreline fishing, camping and day-use access; confirm fees and closures before travel.", specialRules: true,
+    nearbyLakes: [{slug:"lake-ray-hubbard",name:"Lake Ray Hubbard"},{slug:"cedar-creek-reservoir",name:"Cedar Creek Reservoir"}],
+    camping: {name:"Cedar Hill State Park",summary:"The state park on the east side of Joe Pool Lake combines camping, shoreline recreation and boat access; reserve busy dates and verify current ramp conditions."},
+  },
+  {
+    slug: "lake-granbury", name: "Lake Granbury", tpwdSlug: "granbury", waterDataSlug: "granbury", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    summary: "An 8,310-acre Brazos River reservoir running through Granbury with extensive docks and piers, good largemouth, catfish and white/striped bass fishing, and large water-level swings.",
+    surfaceAcres: 8310, maxDepthFeet: 75, impoundedYear: 1969, counties: ["Hood"], nearestCities: ["Granbury", "Cleburne", "Fort Worth"],
+    waterway: "Brazos River", riverBasin: "Brazos River Basin", authority: "Brazos River Authority", conservationPool: "692.7 ft msl", fluctuation: "Up to 30 feet", clarity: "Clear to stained",
+    identity: "Lake Granbury is a developed-shoreline fishery where boat houses and piers are the dominant visible cover, while current water level and periodic golden-alga conditions are unusually important trip-planning variables.",
+    habitat: ["Boat houses and piers dominate the reservoir's fishable structure.", "Small amounts of timber, cattails, bulrushes and water stargrass add natural cover.", "TPWD and local partners have installed additional fish-habitat structures."],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","good","spring","Docks, limited vegetation and installed habitat support a good black-bass fishery.",["soft-plastics","crankbaits","spinnerbaits"]),
+      fish("catfish","Catfish","good","year-round","Channel and flathead catfish provide a reliable bait fishery along channels and structural edges.",["cut-bait","live-bait"]),
+      fish("white-bass","White bass","good","year-round","White bass add a schooling open-water target across the reservoir.",["topwater","vertical-jigging"]),
+      fish("striped-bass","Striped bass","good","year-round","Striped bass share the reservoir's shad-based open-water fishery.",["trolling","live-bait","vertical-jigging"]),
+      fish("crappie","Crappie","fair","spring","Crappie are a secondary target around docks and submerged structure.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "TPWD lists public and private access around Lake Granbury; changing lake levels can affect ramp usability, so verify the specific facility before towing.",
+    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"}],
+  },
+  {
+    slug: "lake-waco", name: "Lake Waco", tpwdSlug: "waco", waterDataSlug: "waco", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    summary: "An 8,465-acre Bosque River reservoir inside Waco with excellent largemouth and channel/blue catfish plus strong crappie, white bass and hybrid striped bass opportunity.",
+    surfaceAcres: 8465, maxDepthFeet: 90, impoundedYear: 1965, counties: ["McLennan"], nearestCities: ["Waco", "Woodway", "Bellmead"],
+    waterway: "North, Middle and South Bosque rivers", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "462 ft msl", fluctuation: "2–6 feet", clarity: "Stained to murky most of the year",
+    identity: "Lake Waco combines a high-quality urban bass-and-catfish fishery with natural shoreline, submerged timber, old roadbeds, bridges and purpose-built PVC habitat structures.",
+    habitat: ["Water willow is the dominant aquatic plant, with lotus, cattails, pondweed and buttonbush also present.", "Submerged timber and flooded terrestrial vegetation add natural cover.", "Old roadbeds, the former dam, docks, bridge pilings and TPWD PVC habitat reefs provide man-made structure."],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","excellent","spring","TPWD rates the largemouth fishery excellent across the lake's natural and man-made cover.",["soft-plastics","spinnerbaits","crankbaits"]),
+      fish("blue-catfish","Blue catfish","excellent","year-round","Blue catfish are part of an excellent channel-and-blue catfish fishery.",["cut-bait","live-bait"]),
+      fish("channel-catfish","Channel catfish","excellent","year-round","Channel catfish provide strong year-round opportunity around channels and flats.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Crappie use timber, docks, bridge structure and installed habitat.",["jigs-and-minnows"]),
+      fish("white-bass","White bass","good","spring","White bass provide a strong schooling and seasonal river-oriented fishery.",["topwater","vertical-jigging"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","good","year-round","Palmetto bass add another open-water shad-oriented target.",["trolling","vertical-jigging","live-bait"]),
+    ],
+    access: "The U.S. Army Corps of Engineers operates a broad public-access network with ramps, bank fishing and camping around Lake Waco; individual parks have seasonal schedules and fees.", accessPage: "access2.phtml", specialRules: true,
+    nearbyLakes: [{slug:"lake-whitney",name:"Lake Whitney"},{slug:"belton-lake",name:"Belton Lake"}],
+  },
+  {
+    slug: "lake-brownwood", name: "Lake Brownwood", tpwdSlug: "brownwood", waterDataSlug: "brownwood", verifiedAt: "2026-10-09", region: "hill-country",
+    summary: "A 6,490-acre Pecan Bayou reservoir north of Brownwood with excellent white bass, good largemouth and catfish, rocky shoreline, docks, timber and direct state-park access.",
+    surfaceAcres: 6490, maxDepthFeet: 95, impoundedYear: 1933, counties: ["Brown"], nearestCities: ["Brownwood", "Early", "Bangs"],
+    waterway: "Pecan Bayou and Jim Ned Creek", riverBasin: "Colorado River Basin", authority: "Brown County Water Control and Irrigation District No. 1", conservationPool: "1,425 ft msl", fluctuation: "Moderate and sometimes prone to long declines", clarity: "Clear to stained",
+    identity: "Lake Brownwood is a Hill Country transition fishery with an excellent summer-to-early-fall white-bass bite, solid largemouth and catfish opportunity, and a mix of rocky developed shoreline and timbered upper arms.",
+    habitat: ["Rocky shoreline and boat docks dominate much of the reservoir.", "Standing timber, black willow and buttonbush are concentrated in the upper Jim Ned and Pecan Bayou arms.", "Water willow and bulrush occur around the lake, with water willow strongest in Sowell Creek."],
+    fish: [
+      fish("white-bass","White bass","excellent","summer","Summer and early fall are the lake's defining white-bass window, including schooling main-lake fish.",["topwater","vertical-jigging"]),
+      fish("largemouth-bass","Largemouth bass","good","fall","Rock, points, docks and vegetation support good bass fishing from fall through spring.",["crankbaits","soft-plastics","spinnerbaits","topwater"]),
+      fish("catfish","Catfish","good","year-round","Channel and flathead catfish provide a reliable bait fishery.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","fair","spring","Crappie are a secondary target around timber, docks and brush.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "TPWD lists public boating access and Lake Brownwood State Park provides a major recreation base; verify lake level, ramp status and invasive-species guidance before travel.",
+    nearbyLakes: [{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"},{slug:"proctor-lake",name:"Proctor Lake"}],
+    camping: {name:"Lake Brownwood State Park",summary:"The state park provides established camping and lake recreation on the shoreline; check reservations, ramp conditions and current park alerts."},
+  },
+  {
+    slug: "proctor-lake", name: "Proctor Lake", tpwdSlug: "proctor", waterDataSlug: "proctor", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    summary: "A 4,537-acre Leon River system reservoir in Comanche County with excellent crappie, good catfish and white bass, hybrid striped bass, standing timber and multiple Corps ramps.",
+    surfaceAcres: 4537, maxDepthFeet: 34, impoundedYear: 1963, counties: ["Comanche"], nearestCities: ["Comanche", "Dublin", "Proctor"],
+    waterway: "Sabana and Leon rivers", riverBasin: "Brazos River Basin", authority: "U.S. Army Corps of Engineers", conservationPool: "1,162 ft msl", fluctuation: "Moderate and sometimes prone to long declines", clarity: "Slightly stained to stained, generally up to about 3 feet",
+    identity: "Proctor is a compact multi-species reservoir where excellent crappie, good catfish and white bass, and a hybrid-striped-bass fishery share timber, willow, rock and installed habitat.",
+    habitat: ["Standing timber and willow trees dominate the upper reservoir.", "Rocky cover appears in selected areas.", "TPWD and local partners have installed brush piles and artificial reefs."],
+    fish: [
+      fish("crappie","Crappie","excellent","spring","Crappie are Proctor's strongest rated fishery and use timber, brush and spillway-area structure.",["jigs-and-minnows"]),
+      fish("catfish","Catfish","good","year-round","Channel, blue and flathead catfish provide good year-round opportunity.",["cut-bait","live-bait"]),
+      fish("white-bass","White bass","good","year-round","White bass add a strong schooling component to the reservoir.",["topwater","vertical-jigging"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","fair","year-round","Hybrids remain a recognized open-water target even though current TPWD ratings are more modest.",["trolling","vertical-jigging","live-bait"],"secondary"),
+      fish("largemouth-bass","Largemouth bass","fair","spring","Bass use timber, willows and rocky structure but are a secondary fishery in current TPWD ratings.",["soft-plastics","crankbaits"],"secondary"),
+    ],
+    access: "U.S. Army Corps of Engineers parks including Promontory Point, Sowell Creek, the dam area and Copperas Creek provide concrete ramps and day-use access; fees and closures vary.",
+    nearbyLakes: [{slug:"lake-brownwood",name:"Lake Brownwood"},{slug:"lake-granbury",name:"Lake Granbury"}],
+  },
+  {
+    slug: "lake-arrowhead", name: "Lake Arrowhead", tpwdSlug: "arrowhead", waterDataSlug: "arrowhead", verifiedAt: "2026-10-09", region: "panhandle",
+    summary: "A 14,969-acre reservoir southeast of Wichita Falls with excellent catfish, a strong spring white-crappie fishery, white bass, rocky structure, timber and unusual submerged oil-derrick habitat.",
+    surfaceAcres: 14969, maxDepthFeet: 45, impoundedYear: 1966, counties: ["Clay"], nearestCities: ["Wichita Falls", "Henrietta", "Scotland"],
+    waterway: "Little Wichita River", riverBasin: "Red River Basin", authority: "City of Wichita Falls", conservationPool: "926 ft msl", fluctuation: "4–6 feet", clarity: "Typically 1–2 feet of visibility",
+    identity: "Lake Arrowhead is a North Texas catfish-and-crappie anchor with abundant white bass and distinctive fish-holding structure ranging from riprap and timber to old oil derricks.",
+    habitat: ["Riprap along the dam and bridges and rocky main-lake shoals provide hard structure.", "Standing timber remains in the upper reservoir and backs of many coves.", "Lotus, pondweed, bulrush and cattails vary with water level, while old capped oil derricks act as unusual fish attractors."],
+    fish: [
+      fish("catfish","Catfish","excellent","year-round","Channel, blue and flathead catfish are a defining fishery, with blue catfish especially prominent.",["cut-bait","live-bait"]),
+      fish("crappie","Crappie","good","spring","Spring is the strongest white-crappie period around shallow shoreline habitat, bridges, piers and derricks.",["jigs-and-minnows"]),
+      fish("largemouth-bass","Largemouth bass","fair","summer","Bass quality varies with turbidity and lake elevation and is strongest around shallow rock, vegetation, docks and woody debris.",["topwater","crankbaits","soft-plastics"],"secondary"),
+      fish("white-bass","White bass","fair","spring","White bass use rocky points in spring and school over shad in warmer months.",["topwater","vertical-jigging"],"secondary"),
+    ],
+    access: "Lake Arrowhead State Park and other public access sites provide ramps, fishing and shoreline recreation; check water level and facility status before towing.",
+    nearbyLakes: [{slug:"lake-bridgeport",name:"Lake Bridgeport"},{slug:"lake-meredith",name:"Lake Meredith"}],
+    camping: {name:"Lake Arrowhead State Park",summary:"The state park is the clearest overnight and shoreline-access base for the reservoir; verify reservations and current ramp conditions."},
+  },
+  {
+    slug: "lake-casa-blanca", name: "Lake Casa Blanca", tpwdSlug: "casa_blanca", verifiedAt: "2026-10-09", region: "south-texas",
+    summary: "A 1,680-acre Laredo reservoir with excellent catfish and hybrid striped bass, good largemouth and crappie, riprap, reeds, flooded timber and direct state-park access.",
+    surfaceAcres: 1680, maxDepthFeet: 36, impoundedYear: 1951, counties: ["Webb"], nearestCities: ["Laredo", "Rio Bravo", "El Cenizo"],
+    waterway: "Chacon Creek", riverBasin: "Rio Grande Basin", authority: "Webb County", conservationPool: "440 ft msl", fluctuation: "Large fluctuations, up to 25 feet", clarity: "Turbid",
+    identity: "Lake Casa Blanca is Laredo's principal public reservoir fishery, pairing excellent catfish and hybrid-striped-bass ratings with largemouth, crappie and a compact state-park access network.",
+    habitat: ["Rock and concrete riprap line the dam.", "Cattails and bulrushes provide shoreline vegetation when water levels support them.", "Dead trees in the upper lake and points near deeper water add fish-holding structure."],
+    fish: [
+      fish("catfish","Catfish","excellent","year-round","Blue, channel and flathead catfish make up one of the lake's strongest fisheries.",["cut-bait","live-bait"]),
+      fish("hybrid-striped-bass","Hybrid striped bass","excellent","year-round","Stocked hybrids follow shad around points and deeper drop-offs.",["trolling","vertical-jigging","live-bait"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","Riprap, flooded timber, reeds, bulrushes and humps provide the main bass framework.",["topwater","spinnerbaits","soft-plastics"]),
+      fish("crappie","Crappie","good","spring","Crappie use submerged timber and respond to small jigs and minnows.",["jigs-and-minnows"]),
+      fish("sunfish","Sunfish","fair","year-round","Sunfish provide an accessible secondary shoreline target.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "Lake Casa Blanca International State Park provides the principal public ramp, fishing pier and recreation access; lake level can vary sharply, so verify conditions with the park office.", specialRules: true,
+    liveDataNote: "TPWD directs visitors to the state park office for the current Lake Casa Blanca water level. TexasDefined does not present a live numeric gauge without a public real-time feed.",
+    nearbyLakes: [{slug:"falcon-international-reservoir",name:"Falcon International Reservoir"},{slug:"choke-canyon-reservoir",name:"Choke Canyon Reservoir"}],
+    camping: {name:"Lake Casa Blanca International State Park",summary:"The state park provides camping, a public ramp and shoreline recreation inside Laredo; confirm current water level, closures and reservations before travel."},
+  },
+  {
+    slug: "lake-mineral-wells", name: "Lake Mineral Wells", tpwdSlug: "mineral_wells", waterDataSlug: "mineral-wells", verifiedAt: "2026-10-09", region: "prairies-lakes",
+    summary: "A compact 440-acre state-park lake east of Mineral Wells with excellent crappie and sunfish, good largemouth and channel catfish, shoreline vegetation and purpose-built fish habitat.",
+    surfaceAcres: 440, maxDepthFeet: 30, impoundedYear: 1920, counties: ["Palo Pinto"], nearestCities: ["Mineral Wells", "Weatherford", "Graford"],
+    waterway: "Rock Creek watershed", riverBasin: "Brazos River Basin", authority: "Texas Parks and Wildlife Department", conservationPool: "863 ft msl", fluctuation: "Very little", clarity: "Stained",
+    identity: "Lake Mineral Wells is a small, highly accessible state-park fishery where crappie and sunfish rate excellent and anglers can target water willow, brush, boulders, timber and installed crappie condos without navigating a large reservoir.",
+    habitat: ["Water willow and bulrush ring much of the shoreline.", "TPWD-installed crappie condos and submerged brush piles concentrate fish near public fishing areas.", "Submerged boulders, standing timber and deeper holes in Rippy Branch broaden the cover mix."],
+    fish: [
+      fish("crappie","Crappie","excellent","winter","Crappie school deep around cover in winter and move shallow to spawn in spring.",["jigs-and-minnows"]),
+      fish("sunfish","Sunfish","excellent","year-round","Sunfish provide one of the lake's strongest accessible bank-fishing opportunities.",["jigs-and-minnows"]),
+      fish("largemouth-bass","Largemouth bass","good","spring","Water-willow edges, the dam, brush and boulders support good bass fishing.",["spinnerbaits","crankbaits","soft-plastics"]),
+      fish("channel-catfish","Channel catfish","good","year-round","Channel catfish are available from late winter through fall around deeper holes and cover.",["cut-bait","live-bait"]),
+    ],
+    access: "The reservoir lies inside Lake Mineral Wells State Park, which provides the principal public access and may close on selected wildlife-management dates; check park alerts before travel.", specialRules: true,
+    nearbyLakes: [{slug:"possum-kingdom-reservoir",name:"Possum Kingdom Reservoir"},{slug:"lake-bridgeport",name:"Lake Bridgeport"}],
+    camping: {name:"Lake Mineral Wells State Park",summary:"State-park camping, fishing piers and shoreline access make this one of the network's easiest lake-and-overnight combinations; verify closure dates and reservations."},
+  },
+  {
+    slug: "lake-colorado-city", name: "Lake Colorado City", tpwdSlug: "colorado_city", waterDataSlug: "colorado-city", verifiedAt: "2026-10-09", region: "panhandle",
+    summary: "A 1,618-acre West Texas reservoir near Colorado City where the fishery is recovering from drought and recurring cool-season golden-alga blooms, with state-park access and current water-level data.",
+    surfaceAcres: 1618, maxDepthFeet: 51, impoundedYear: 1949, counties: ["Mitchell"], nearestCities: ["Colorado City", "Snyder", "Sweetwater"],
+    waterway: "Morgan Creek", riverBasin: "Colorado River Basin", authority: "City of Colorado City", conservationPool: "2,070 ft msl", fluctuation: "3–6 feet seasonally", clarity: "Clear near the dam and mid-lake; turbid in the upper reservoir",
+    identity: "Lake Colorado City belongs in the network because its current limitations are useful planning information: TPWD says the fishery is recovering from drought and recurring winter golden-alga blooms, so anglers need current conditions rather than inflated destination claims.",
+    habitat: ["Steep rocky bluffs dominate near the dam.", "Mud flats shape much of the middle and upper reservoir.", "Bulrushes line many mud-flat shorelines and create the lake's principal shallow vegetation."],
+    fish: [
+      fish("largemouth-bass","Largemouth bass","poor","spring","TPWD currently rates largemouth bass poor while the reservoir fishery continues to recover.",["soft-plastics","spinnerbaits"],"secondary"),
+      fish("channel-catfish","Channel catfish","poor","year-round","Catfish remain present but current TPWD ratings are poor; verify recent reports before making a fishing-specific trip.",["cut-bait","live-bait"],"secondary"),
+      fish("sunfish","Sunfish","poor","year-round","Sunfish are present but currently rate poor, making current-condition checks especially important.",["jigs-and-minnows"],"secondary"),
+    ],
+    access: "Lake Colorado City State Park and Cooper's Cove provide paved ramps, day use and camping; the state park ramp is open year-round while camping availability is seasonal.",
+    nearbyLakes: [{slug:"alan-henry-reservoir",name:"Alan Henry Reservoir"},{slug:"o-h-ivie-lake",name:"O.H. Ivie Lake"}],
+    camping: {name:"Lake Colorado City State Park",summary:"The state park provides camping and reservoir access, but anglers should check golden-alga notices, water level and current fish reports before building a trip around fishing."},
+  },
 ];
 
 const techniqueLabels: Record<TechniqueId, string> = {
@@ -518,12 +675,16 @@ const techniqueLabels: Record<TechniqueId, string> = {
   "cut-bait": "Cut bait",
 };
 
+function sourceVerifiedAt(def: StatewideLakeDefinition) {
+  return def.verifiedAt ?? VERIFIED_AT;
+}
+
 function tpwdSource(def: StatewideLakeDefinition): FishingSource {
   return {
     id: `tpwd-${def.slug}`,
     name: `Texas Parks & Wildlife Department — ${def.name}`,
     url: `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/${def.tpwdSlug}/`,
-    checkedAt: VERIFIED_AT,
+    checkedAt: sourceVerifiedAt(def),
     sourceType: "state",
   };
 }
@@ -532,8 +693,8 @@ function accessSource(def: StatewideLakeDefinition): FishingSource {
   return {
     id: `tpwd-${def.slug}-access`,
     name: `Texas Parks & Wildlife Department — ${def.name} public access`,
-    url: `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/${def.tpwdSlug}/access.phtml`,
-    checkedAt: VERIFIED_AT,
+    url: `https://tpwd.texas.gov/fishboat/fish/recreational/lakes/${def.tpwdSlug}/${def.accessPage ?? "access.phtml"}`,
+    checkedAt: sourceVerifiedAt(def),
     sourceType: "state",
   };
 }
@@ -543,7 +704,7 @@ export const statewideNetworkFishingLakes: FishingLake[] = statewideNetworkLakeD
   brandId: BRAND,
   slug: def.slug,
   status: "published",
-  verifiedAt: VERIFIED_AT,
+  verifiedAt: sourceVerifiedAt(def),
   sources: [tpwdSource(def), accessSource(def)],
   name: def.name,
   summary: def.summary,
@@ -570,7 +731,7 @@ export const statewideNetworkLakeSpeciesProfiles: LakeSpeciesProfile[] = statewi
     prominence: target.prominence ?? "primary",
     quality: target.quality,
     seasonalPatterns: [{ season: target.season, summary: target.summary }],
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: sourceVerifiedAt(def),
     sources: [source],
   }));
 });
@@ -592,7 +753,7 @@ export const statewideNetworkLakeTechniqueProfiles: LakeTechniqueProfile[] = sta
     speciesIds: [...speciesIds],
     seasons: ["year-round"],
     summary: `${techniqueLabels[techniqueId]} is included in TPWD-backed fishing guidance for ${def.name}; use the lake's fish section for species and seasonal context.`,
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: sourceVerifiedAt(def),
     sources: [source],
   }));
 });
@@ -609,7 +770,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       : { label: `TPWD — official ${def.name} lake information`, url: lakeSource.url };
   return {
     slug: def.slug,
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: sourceVerifiedAt(def),
     overview: {
       name: def.name,
       summary: def.summary,
@@ -667,7 +828,7 @@ function prototype(def: StatewideLakeDefinition): ShowcaseLakePrototype {
       ...def.nearbyLakes.map((lake) => ({ label: lake.name, description: `Compare ${def.name} with another nearby or regionally related Texas fishing destination.`, href: `/fishing/lakes/${lake.slug}`, external: false })),
     ],
     businessCategories: ["Fishing guides", "Marinas & fuel", "Bait & tackle", "Boat rentals & repair", "Campgrounds & lodging", "Restaurants"],
-    reportSnapshot: { checkedAt: VERIFIED_AT, summary: `TexasDefined does not convert durable ${def.name} patterns into a fake live report. Use a dated TexasDefined report when available and TPWD's current fishing report link for current conditions.` },
+    reportSnapshot: { checkedAt: sourceVerifiedAt(def), summary: `TexasDefined does not convert durable ${def.name} patterns into a fake live report. Use a dated TexasDefined report when available and TPWD's current fishing report link for current conditions.` },
     liveDataNote: def.liveDataNote,
     sources: {
       tpwdLake: { label: lakeSource.name, url: lakeSource.url },
@@ -682,4 +843,4 @@ export const statewideNetworkShowcaseLakePrototypes = Object.fromEntries(
   statewideNetworkLakeDefinitions.map((def) => [def.slug, prototype(def)]),
 ) as Record<StatewideNetworkLakeSlug, ShowcaseLakePrototype>;
 
-export const STATEWIDE_NETWORK_VERIFIED_AT = VERIFIED_AT;
+export const STATEWIDE_NETWORK_VERIFIED_AT = "2026-10-09";
