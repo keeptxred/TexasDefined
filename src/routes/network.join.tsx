@@ -54,7 +54,7 @@ function NetworkJoinPreview() {
   return (
     <main>
       <section className="relative overflow-hidden border-b border-border bg-surface">
-        <img aria-hidden="true" alt="" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Outline_of_Texas_%28simplified%29.svg" className="pointer-events-none absolute -right-10 top-8 h-72 w-72 object-contain opacity-[0.07] sm:right-8 sm:h-96 sm:w-96" /><Container className="relative py-16 sm:py-24">
+        <svg aria-hidden="true" viewBox="0 0 280 260" className="pointer-events-none absolute right-0 top-6 h-80 w-80 text-primary/20 sm:right-8 sm:h-[28rem] sm:w-[28rem]" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7,119 L14,121 L21,127 L27,131 L35,145 L42,156 L50,166 L55,168 L66,171 L75,181 L80,183 L89,181 L99,179 L107,180 L120,181 L125,180 L132,192 L142,206 L153,215 L158,226 L168,239 L175,243 L186,249 L192,252 L197,250 L195,239 L193,224 L197,209 L211,200 L223,189 L237,180 L246,173 L265,165 L265,157 L268,150 L266,142 L269,133 L263,125 L260,115 L259,106 L259,78 L251,76 L244,78 L239,72 L232,71 L226,69 L220,71 L212,72 L204,72 L198,74 L191,70 L183,68 L176,64 L168,64 L160,62 L150,59 L140,55 L140,11 L80,11 L80,113 L10,113 L7,119Z" stroke="currentColor" strokeWidth="2.7" strokeLinejoin="round" vectorEffect="non-scaling-stroke" /></svg><Container className="relative py-16 sm:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <span className="inline-flex rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">Texas Defined Network · Private preview</span>
             <p className="eyebrow mt-8 text-primary">One Texas. Everything Connected.</p>
