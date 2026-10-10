@@ -27,11 +27,11 @@ function NetworkDirectory() {
     <Container className="py-12">
       {results.length === 0 ? <p className="text-muted-foreground">Verified network listings will appear here as they are approved.</p> :
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {results.map(profile => <article key={profile.id} className="rounded-2xl border border-border bg-surface p-6">
+        {results.map(profile => <article key={profile.slug} className="rounded-2xl border border-border bg-surface p-6">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">{profile.city} · {profile.category}</p>
           <h2 className="mt-3 font-display text-2xl">{profile.business_name}</h2>
           <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{profile.description}</p>
-          <a href={`/network/business/${profile.id}`} className="mt-5 inline-block font-semibold text-primary underline">View profile →</a>
+          <a href={`/network/business/${profile.slug}`} className="mt-5 inline-block font-semibold text-primary underline">View profile →</a>
         </article>)}
       </div>}
     </Container>
