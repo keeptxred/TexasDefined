@@ -11,6 +11,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'barksdale-nueces-canyon', mascot: 'Panthers', sourceUrl: 'https://ncjhhs.nccisd.net/', sourceLabel: 'Nueces Canyon CISD official school identification', verifiedAt: '2026-10-10' },
+  { slug: 'bartlett', mascot: 'Bulldogs', sourceUrl: 'https://bartlett.txed.net/', sourceLabel: 'Bartlett ISD official school identification', verifiedAt: '2026-10-10' },
+  { slug: 'bastrop', mascot: 'Bears', sourceUrl: 'https://bhs.bisdtx.org/', sourceLabel: 'Bastrop ISD official school identification', verifiedAt: '2026-10-10' },
+  { slug: 'bastrop-cedar-creek', mascot: 'Eagles', sourceUrl: 'https://cchs.bisdtx.org/', sourceLabel: 'Bastrop ISD official school identification', verifiedAt: '2026-10-10' },
+  { slug: 'bay-city', mascot: 'Blackcats', sourceUrl: 'https://bchs.bcblackcats.net/', sourceLabel: 'Bay City ISD official school identification', verifiedAt: '2026-10-10' },
   { slug: 'ballinger', mascot: 'Bearcats', sourceUrl: 'https://bhs.ballingerisd.net/', sourceLabel: 'Ballinger ISD official school/athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'balmorhea', mascot: 'Bears', sourceUrl: 'https://www.bisdbears.esc18.net/football', sourceLabel: 'Balmorhea ISD official school/athletics identity', verifiedAt: '2026-10-10' },
   { slug: 'bandera', mascot: 'Bulldogs', sourceUrl: 'https://www.banderaisd.net/', sourceLabel: 'Bandera ISD official school/athletics identity', verifiedAt: '2026-10-10' },
