@@ -65,7 +65,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Arlington Seguin's official Carolina blue editorial color; no school logo copied"
     },
     "seo": {
-      "title": "Arlington Seguin Cougars Football: 2026, Coach Gordon & Wilemon Field",
+      "title": "Arlington Seguin Cougars Football: 2026, Coach Gordon & Glaspie Field",
       "description": "Arlington Juan Seguin Cougars football guide: school-specific 2024–25 playoff seasons, William Gordon, 2026 5A Division II games, identity and official ticket resources."
     },
     "coach": {
@@ -159,12 +159,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Wilemon Field (historic team directory)",
-      "address": "Arlington, TX — confirm assigned game and accessible stadium gate via Arlington ISD",
-      "sourceUrl": "https://www.texasfootball.com/team/arlington-seguin-cougars",
-      "sourceLabel": "DCTF historical Seguin football stadium",
+      "name": "Michael Glaspie Field (AISD Martin/Seguin competition venue)",
+      "address": "At Martin High School, Arlington, TX — confirm specific event venue and spectator gate",
+      "sourceUrl": "https://www.aisd.net/bond2019/glaspie-field/",
+      "sourceLabel": "Arlington ISD official Glaspie Field facility project",
       "verifiedAt": "2026-10-09",
-      "note": "DCTF's 8,500 seat capacity is an independent historical figure, not a current ADA, tickets or gate confirmation. Official 2026 Arlington ISD GoFan tickets and each event's venue are the required game-day source."
+      "note": "Arlington ISD confirms Glaspie Field at Martin High serves Martin and Seguin football; DCTF's older Wilemon Field listing cannot establish current venue for every event. Match-specific venue, spectator entrance, current ADA accommodations, parking and GoFan tickets require official Arlington ISD event instructions."
     },
     "overview": [
       "Arlington's Juan Seguin High School Cougars are a separate Class 5A Division II team from the larger Arlington ISD Class 6A schools. The school's first-party identity is Cougar, with Carolina blue, black and white colors, and its campus at 7001 Silo Road. It is not Seguin High School in Guadalupe County.",
