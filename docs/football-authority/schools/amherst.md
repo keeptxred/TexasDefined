@@ -21,6 +21,6 @@ School-specific original history, individually correct 1994 and 1995 playoff sco
 **Stage: IMPLEMENTED only on draft PR #4506. NOT MERGED, DEPLOYED or VERIFIED.**
 
 ## Remaining
-Check current UIL district member names directly in PDF; validate coach and colors with Amherst ISD, source-controlled 2026 schedule, Lamp County/NCES campus county and reciprocal county/city link (verify county, do not assume), legit graphics/photo rights, stadium/tickets/ADA, tests, protected merge/deploy, actual mobile and desktop acceptance, schema, sitemap and screenshots.
+Check current UIL district member names directly in PDF; validate coach and colors with Amherst ISD, source-controlled 2026 schedule, Lamb County/NCES campus county and reciprocal county/city link (verify county, do not assume), legit graphics/photo rights, stadium/tickets/ADA, tests, protected merge/deploy, actual mobile and desktop acceptance, schema, sitemap and screenshots.
 
 **Next assigned:** Anahuac.
