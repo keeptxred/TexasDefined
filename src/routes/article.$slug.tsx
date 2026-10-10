@@ -486,7 +486,13 @@ function ArticlePage() {
         </Suspense>
       ) : null}
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
+      {article.hero.credit && (
+        <p className="mt-10 text-xs text-muted-foreground">
+          Image credit: {article.hero.credit}
+          {article.hero.sourceUrl && <> · <a href={article.hero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-primary">Original photo</a></>}
+          {article.hero.licenseUrl && <> · <a href={article.hero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-primary">License terms</a></>}
+        </p>
+      )}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>

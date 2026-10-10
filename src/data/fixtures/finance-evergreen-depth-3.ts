@@ -7,11 +7,13 @@ const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
 
 const rentBuyHero: Article["hero"] = {
-  src: "https://images.unsplash.com/photo-1758915576261-8da237f62126?auto=format&fit=crop&w=1600&q=82",
-  alt: "A distinctive Texas house representing the choice between renting and buying",
-  width: 1600,
-  height: 1067,
-  credit: "Dennis Lamberth · Unsplash",
+  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Wilson_House%2C_Houston%2C_TX.jpg/1280px-Wilson_House%2C_Houston%2C_TX.jpg",
+  alt: "A historic yellow house with a shaded front porch in Houston, Texas, illustrating the homeownership side of the rent-or-buy decision",
+  width: 1280,
+  height: 853,
+  credit: "25or6to4 · CC BY-SA 4.0 · Wikimedia Commons",
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Wilson_House,_Houston,_TX.jpg",
+  licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
 };
 const trueCostHero: Article["hero"] = { src: homeMaintenanceHero, alt: "Texas home maintenance and recurring ownership costs", width: 1600, height: 1067 };
 const equityHero: Article["hero"] = {
