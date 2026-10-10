@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
+import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 export const description = 'Useful Texas facts, local finders and practical guidance gathered in one place — whether you are researching a move, comparing costs, planning sports travel or simply getting to know the state better.';
@@ -24,10 +25,7 @@ export const nextStops = [
 ] as const;
 
 export const Route = createFileRoute('/texas-data')({
-  loader: async () => {
-    const { getTexasDatasets } = await import('@/data/texas-data-center');
-    return { datasets: await getTexasDatasets() };
-  },
+  loader: async () => ({ datasets: await getTexasDatasets() }),
   head: ({ loaderData }) => {
     const pageUrl = absoluteUrl(texasDefinedBrand, '/texas-data');
     const datasets = loaderData?.datasets ?? [];
