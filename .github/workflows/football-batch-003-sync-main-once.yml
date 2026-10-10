@@ -31,3 +31,5 @@ jobs:
 
 # Re-run only after manual inspection confirms concurrent main changes are unrelated.
 # Current main update changes unrelated deployment validators/workflows; no football paths.
+
+# Concurrent main since e83dcee0: Ysleta museum browser verifier only; no football file overlap.
