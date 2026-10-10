@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 12,
+    "partiallyCompleted": 13,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "anthony",
-    "nextSchool": "anthony",
-    "implementedOnBranch": 12,
-    "remainingToImplement": 13,
+    "currentSchool": "anton",
+    "nextSchool": "anton",
+    "implementedOnBranch": 13,
+    "remainingToImplement": 12,
     "remainingToVerify": 25,
-    "notes": "12 of 25 individually researched and IMPLEMENTED on draft #4506; 13 NOT_REVIEWED, none Batch003 production verified. Next Anthony."
+    "notes": "13 school-specific implementations and audits committed on draft #4506. Twelve assigned schools NOT_REVIEWED. No school Batch003 VERIFIED; next Anton."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3272,9 +3272,30 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/anthony",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/anthony.md",
+      "implementationCommits": [
+        "5a01cb079be15d5deee060322ce6023d973eac6d",
+        "9b625354dc635db35730fda6c9825aab44df5b1e"
+      ],
+      "evidenceSources": [
+        "https://www.anthonyisd.net/football",
+        "https://www.texasfootball.com/team/anthony-wildcats",
+        "https://www.maxpreps.com/tx/anthony/anthony-wildcats/football/history/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "Confirm UIL official 2026 district",
+        "El Paso County NCES and inbound links",
+        "Licensed team photo",
+        "Current stadium ADA/tickets/parking",
+        "Protected CI merge deployment real Chrome QA"
+      ]
     },
     {
       "id": "uil:anton",
