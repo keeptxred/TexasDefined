@@ -657,6 +657,20 @@
     isMonetizationEligible,
   });
 
-  if (document.readyState === "complete") start();
-  else window.addEventListener("load", start, { once: true });
+  // Loading the page does not mean React has finished hydrating. The Expedia
+  // surfaces insert and replace DOM nodes inside #main, and doing so before
+  // React mounts intermittently causes hydration error #418 on destination pages.
+  let started = false;
+  function startWhenHydrated() {
+    if (document.documentElement.dataset.tdRootHydrated === "1") {
+      if (started) return;
+      started = true;
+      start();
+    } else {
+      window.addEventListener("texasdefined:root-hydrated", startWhenHydrated, { once: true });
+    }
+  }
+
+  if (document.readyState === "complete") startWhenHydrated();
+  else window.addEventListener("load", startWhenHydrated, { once: true });
 })();

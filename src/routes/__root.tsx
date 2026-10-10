@@ -23,7 +23,7 @@ const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((m
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
 const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
-const iconVersion = "20260822";
+const iconVersion = "20261010";
 const googleTagManagerId = "GTM-5DK7GCGV";
 const googleTagManagerHosts = JSON.stringify(TEXASDEFINED_ANALYTICS_HOSTS);
 
@@ -105,10 +105,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             logo: {
               "@type": "ImageObject",
               "@id": `${siteUrl}/#logo`,
-              url: `${siteUrl}/icon-512.png`,
-              contentUrl: `${siteUrl}/icon-512.png`,
-              width: 512,
-              height: 512,
+              url: `${siteUrl}/texasdefined-logo.svg`,
+              contentUrl: `${siteUrl}/texasdefined-logo.svg`,
+              width: 1825,
+              height: 382,
             },
             image: { "@id": `${siteUrl}/#logo` },
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
@@ -147,14 +147,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
-  if (import.meta.env.SSR) {
-    return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /><script src="/expedia-travel.js" defer /><script src="/stay-affiliate-options.js" defer /><script src="/stay-nearby-context-images.js" defer /><script src="/city-experience-affiliate.js" defer /><script src="/texas-brand-locator.js" defer /></body></html>;
-  }
-  return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /></body></html>;
+  // Server and client must hydrate the same script nodes after <Scripts />.
+  // Omitting these only on the client makes React reconcile different body trees.
+  return <html lang={texasDefinedBrand.identity.locale}><head><GoogleTagManagerHead /><HeadContent /></head><body>{children}<Scripts /><script src="/expedia-travel.js" defer /><script src="/stay-affiliate-options.js" defer /><script src="/stay-nearby-context-images.js" defer /><script src="/city-experience-affiliate.js" defer /><script src="/texas-brand-locator.js" defer /></body></html>;
 }
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    document.documentElement.dataset.tdRootHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:root-hydrated"));
+  }, []);
   useEffect(() => {
     let active = true;
     let cleanup: (() => void) | undefined;

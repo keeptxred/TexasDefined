@@ -79,6 +79,32 @@ function Page() {
     'arlington-lamar': 'tarrant',
     'arlington-martin': 'tarrant',
     'arlington-seguin': 'tarrant',
+    // Batch 004 independent campus-county associations; venue location may differ.
+    arp: 'smith',
+    aspermont: 'stonewall',
+    athens: 'henderson',
+    atlanta: 'cass',
+    aubrey: 'denton',
+    'austin-vandegrift': 'travis',
+    avalon: 'ellis',
+    axtell: 'mclennan',
+    baird: 'callahan',
+    'austin': 'travis',
+    'austin-achieve': 'travis',
+    'austin-akins': 'travis',
+    'austin-anderson': 'travis',
+    'austin-bowie': 'travis',
+    'austin-crockett': 'travis',
+    'austin-eastside': 'travis',
+    'austin-johnson': 'travis',
+    'austin-lake-travis': 'travis',
+    'austin-lasa': 'travis',
+    'austin-mccallum': 'travis',
+    'austin-navarro': 'travis',
+    'austin-northeast': 'travis',
+    'austin-travis': 'travis',
+    'austin-westlake': 'travis',
+    azle: 'tarrant',
   };
   // Link only campuses with documented city location and an existing
   // canonical city guide; a school-district service area is not enough.
@@ -94,6 +120,19 @@ function Page() {
     'arlington-lamar': { slug: 'arlington', name: 'Arlington' },
     'arlington-martin': { slug: 'arlington', name: 'Arlington' },
     'arlington-seguin': { slug: 'arlington', name: 'Arlington' },
+    // Austin city campuses; school-district and postal designations alone do not include suburban campuses.
+    'austin': { slug: 'austin', name: 'Austin' },
+    'austin-akins': { slug: 'austin', name: 'Austin' },
+    'austin-anderson': { slug: 'austin', name: 'Austin' },
+    'austin-bowie': { slug: 'austin', name: 'Austin' },
+    'austin-crockett': { slug: 'austin', name: 'Austin' },
+    'austin-eastside': { slug: 'austin', name: 'Austin' },
+    'austin-johnson': { slug: 'austin', name: 'Austin' },
+    'austin-lasa': { slug: 'austin', name: 'Austin' },
+    'austin-mccallum': { slug: 'austin', name: 'Austin' },
+    'austin-navarro': { slug: 'austin', name: 'Austin' },
+    'austin-northeast': { slug: 'austin', name: 'Austin' },
+    'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
   const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;

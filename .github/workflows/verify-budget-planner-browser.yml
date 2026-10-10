@@ -16,20 +16,38 @@ on:
 
 permissions:
   contents: read
+  statuses: read
 
 concurrency:
   group: budget-planner-browser-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  verify:
+  syntax:
+    name: Validate budget planner browser verifier syntax
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --check scripts/ci/verify-budget-planner-browser.mjs
+
+  verify:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact SHA protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
       - name: Prepare Chrome and isolated Playwright (no project dependency changes)
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
