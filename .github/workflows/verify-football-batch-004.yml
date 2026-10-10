@@ -5,6 +5,9 @@ on:
       - "docs/football-authority/**"
       - "src/data/high-school-football/program-editorial.ts"
       - "scripts/ci/verify-football-batch-004.mjs"
+      - "scripts/ci/verify-football-batch-004-browser.mjs"
+      - "src/data/high-school-football/football-program-profile.server.ts"
+      - "src/data/high-school-football/school-identities.ts"
       - ".github/workflows/verify-football-batch-004.yml"
   workflow_dispatch:
 permissions:
