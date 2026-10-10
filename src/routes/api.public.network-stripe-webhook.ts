@@ -49,7 +49,9 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id) ||
         price !== PRICE_ID || subscription?.metadata?.project !== "TexasDefined" ||
         typeof subscription?.id !== "string") return new Response("Ignored", { status: 200 });
-    const active = event.type !== "customer.subscription.deleted" && event.type !== "invoice.payment_failed" && subscription.status === "active";
+    // Read the verified CURRENT subscription state, not the delivery order of old invoice events.
+    // A recovered subscription must not be deactivated by a delayed failure notification.
+    const active = subscription.status === "active";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     if(typeof event.id!=="string")return new Response("Invalid event ID",{status:400});
     const {data:prior,error:priorError}=await supabaseAdmin.from("texasdefined_network_stripe_events").select("processed_at").eq("stripe_event_id",event.id).maybeSingle();
@@ -70,6 +72,18 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
         updated_at: new Date().toISOString(),
       } as never).eq("id", id);
     if (error) return new Response("Persistence failure", { status: 503 });
+    if (!active) {
+      // Payment entitlement and editorial approval are separate requirements.
+      // Suspend already-published paid listings; NEVER auto-publish on renewed payment.
+      const { error:hideError } = await supabaseAdmin.from("texasdefined_network_public_listings")
+        .update({ is_published: false, updated_at: new Date().toISOString() } as never)
+        .eq("application_id", id).eq("plan", "plus").eq("is_published", true);
+      if (hideError) return new Response("Unable to suspend unpaid listing", { status: 503 });
+      const { error:reviewError } = await supabaseAdmin.from("texasdefined_network_applications")
+        .update({ status: "approved", updated_at: new Date().toISOString() } as never)
+        .eq("id", id).eq("status", "published");
+      if (reviewError) return new Response("Unable to reset publication state", { status: 503 });
+    }
     const {error:ledgerError}=await supabaseAdmin.from("texasdefined_network_stripe_events").update({processed_at:new Date().toISOString()} as never).eq("stripe_event_id",event.id);
     if(ledgerError)return new Response("Event processing incomplete",{status:503});
     return new Response("ok", { status: 200 });
