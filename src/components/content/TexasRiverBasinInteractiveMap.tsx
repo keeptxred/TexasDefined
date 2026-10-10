@@ -114,9 +114,9 @@ export function TexasRiverBasinInteractiveMap() {
         <div className="grid border-t border-border lg:grid-cols-[minmax(0,1fr)_15rem]">
           <div className="relative overflow-hidden bg-surface p-2 sm:p-5">
             <div className="mb-2 flex flex-wrap items-center gap-x-5 gap-y-2 px-2 text-xs text-muted-foreground" aria-label="Basin map legend">
-              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border border-[#456779] bg-[#638f9b]" />15 major river basins</span>
-              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border border-[#456779] bg-[#c9b79c]" />8 coastal basins</span>
-              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border-2 border-[#572c1c] bg-[#bf754f]" />Selected watershed</span>
+              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border" style={{ borderColor: "#456779", backgroundColor: "#638f9b" }} />15 major river basins</span>
+              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border" style={{ borderColor: "#456779", backgroundColor: "#c9b79c" }} />8 coastal basins</span>
+              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border-2" style={{ borderColor: "#572c1c", backgroundColor: "#bf754f" }} />Selected watershed</span>
             </div>
             <svg viewBox={viewBox} preserveAspectRatio="xMidYMid meet" role="img"
               aria-label={`Official 2023 TWDB river basin polygons. ${active || "All visible watersheds"} highlighted.`}
