@@ -180,6 +180,15 @@ export const fishingLakeImages: Record<string, FishingVisualAsset> = {
   "lake-livingston": lake("lake-livingston", "/images/state-parks/lake-livingston-state-park.jpg", "Lake Livingston State Park shoreline and lake", 1600, 900, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
   "lake-tawakoni": lake("lake-tawakoni", "/images/state-parks/lake-tawakoni-state-park.jpg", "Lake Tawakoni State Park shoreline", 1600, 1100, "Judy Gallagher", "CC BY 2.0", CC_BY_2, "cc-by"),
   "lake-whitney": lake("lake-whitney", "/images/state-parks/lake-whitney-state-park.jpg", "Lake Whitney State Park shoreline", 1600, 900, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
+  "joe-pool-lake": commonsLake("lake-joe-pool", "USACE Joe Pool Lake and Dam.jpg", "Aerial view of Joe Pool Lake and Dam in the Dallas-Fort Worth metropolitan area", 1500, 1000, "U.S. Army Corps of Engineers", "Public domain — U.S. federal government work", COMMONS_PD, "public-domain", "Wikimedia Commons / U.S. Army Corps of Engineers"),
+  "lake-granbury": commonsLake("lake-granbury", "Lake Granbury.jpg", "Lake Granbury in Hood County, Texas, seen in NASA World Wind imagery", 1280, 978, "NASA World Wind / Sdenny123", "Public domain — NASA World Wind public-domain layer", COMMONS_PD, "public-domain", "Wikimedia Commons / NASA World Wind"),
+  "lake-waco": commonsLake("lake-waco", "USACE Waco Lake and Dam.jpg", "Aerial view of Waco Lake and Dam on the Bosque River in McLennan County", 1500, 1000, "U.S. Army Corps of Engineers", "Public domain — U.S. federal government work", COMMONS_PD, "public-domain", "Wikimedia Commons / U.S. Army Corps of Engineers"),
+  "lake-brownwood": commonsLake("lake-brownwood", "Lake Brownwood.jpg", "Lake Brownwood viewed from Lake Brownwood State Park", 2385, 1341, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
+  "proctor-lake": commonsLake("lake-proctor", "USACE Proctor Lake Texas.jpg", "Aerial view of Proctor Lake on the Leon River in Comanche County", 1500, 1003, "U.S. Army Corps of Engineers", "Public domain — U.S. federal government work", COMMONS_PD, "public-domain", "Wikimedia Commons / U.S. Army Corps of Engineers"),
+  "lake-arrowhead": commonsLake("lake-arrowhead", "Lake Arrowhead.JPG", "Lake Arrowhead in North Texas viewed from the air", 3264, 2053, "Fredlyfish4", "CC BY-SA 3.0", CC_BY_SA_3, "cc-by-sa"),
+  "lake-casa-blanca": commonsLake("lake-casa-blanca", "Entrance to Lake Casa Blanca, Laredo, TX IMG 2013.JPG", "Entrance to Lake Casa Blanca International State Park in Laredo, Texas", 2592, 1944, "Billy Hathorn", "CC BY-SA 3.0", CC_BY_SA_3, "cc-by-sa"),
+  "lake-mineral-wells": commonsLake("lake-mineral-wells", "Lake Mineral Wells from State Park.jpg", "Lake Mineral Wells viewed from Lake Mineral Wells State Park", 3200, 1800, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
+  "lake-colorado-city": commonsLake("lake-colorado-city", "View Lake Colorado City State Park 2023.jpg", "Lake Colorado City viewed from Lake Colorado City State Park", 3556, 2000, "Larry D. Moore", "CC BY 4.0", CC_BY_4, "cc-by"),
 };
 
 export function getFishingFishImage(slugOrId: string) {

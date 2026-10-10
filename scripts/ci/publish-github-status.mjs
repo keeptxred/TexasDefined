@@ -12,7 +12,12 @@ if (outcome === 'skipped' || outcome === '') {
 
 const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;
 const repository = process.env.GITHUB_REPOSITORY;
-const sha = process.env.GITHUB_SHA;
+const statusTargetOverride = process.env.STATUS_TARGET_SHA;
+if (statusTargetOverride && !/^[a-f0-9]{40}$/i.test(statusTargetOverride)) {
+  console.error('::error title=Invalid CI status target::STATUS_TARGET_SHA must be a 40-character commit SHA.');
+  process.exit(2);
+}
+const sha = statusTargetOverride || process.env.GITHUB_SHA;
 
 if (!token || !repository || !sha) {
   console.log(`::warning title=CI telemetry unavailable::Could not publish ${context} status because GitHub token/repository/SHA metadata is unavailable.`);

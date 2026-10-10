@@ -51,6 +51,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      # GitHub's reserved GITHUB_SHA can point at the receiver's newer default branch.
+      STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -99,8 +101,6 @@ jobs:
           probe td-reloc-sitemap /sitemap.xml '/article/military-family-moving-to-texas'
           exit "$failed"
       - name: Publish relocation live verification pending
-        env:
-          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live pending "Verifying TexasDefined relocation production surfaces"
       - name: Verify relocation toolkit in production
         id: relocation_live
@@ -110,6 +110,5 @@ jobs:
       - name: Publish relocation live verification result
         if: always()
         env:
-          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
           STAGE_OUTCOME: ${{ steps.relocation_live.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live "$STAGE_OUTCOME" "Relocation production verification passed" "Relocation production verification failed"

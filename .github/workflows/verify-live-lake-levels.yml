@@ -97,6 +97,8 @@ jobs:
               'lake-austin', 'fayette-county-reservoir', 'lake-somerville', 'belton-lake', 'stillhouse-hollow-reservoir',
               'caddo-lake', 'lake-o-the-pines', 'lake-bob-sandlin', 'lake-nacogdoches',
               'lake-corpus-christi', 'alan-henry-reservoir', 'lake-meredith', 'lake-houston',
+              'joe-pool-lake', 'lake-granbury', 'lake-waco', 'lake-brownwood',
+              'proctor-lake', 'lake-arrowhead', 'lake-mineral-wells', 'lake-colorado-city',
           ]
           with open(sys.argv[2], 'w', encoding='utf-8') as out:
               for source in ('recent', 'csv', 'html'):
@@ -156,7 +158,7 @@ jobs:
             publish_status failure texasdefined-waterdata-diagnostic "Current lake data failed one or more protected checks"
             exit 1
           fi
-          publish_status success texasdefined-waterdata-diagnostic "All 40 monitored lake page-data snapshots and server paths are current"
+          publish_status success texasdefined-waterdata-diagnostic "All 48 monitored lake page-data snapshots and server paths are current"
 
       - name: Verify every published lake exposes the live-level UI
         shell: bash
@@ -174,6 +176,8 @@ jobs:
             lake-austin fayette-county-reservoir lake-somerville belton-lake stillhouse-hollow-reservoir
             caddo-lake lake-o-the-pines lake-bob-sandlin lake-nacogdoches
             lake-corpus-christi alan-henry-reservoir lake-meredith lake-houston
+            joe-pool-lake lake-granbury lake-waco lake-brownwood
+            proctor-lake lake-arrowhead lake-mineral-wells lake-colorado-city
           )
 
           publish_status() {
@@ -247,6 +251,23 @@ jobs:
             echo "Calaveras must not render a fake live-level strip without a public real-time gauge." >&2
             exit 1
           fi
+
+          casa_body="$(mktemp)"
+          casa_headers="$(mktemp)"
+          casa_code="$(curl --silent --show-error --location --max-time 30 \
+            --user-agent 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36' \
+            --header 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' \
+            --dump-header "$casa_headers" --output "$casa_body" --write-out '%{http_code}' \
+            "https://texasdefined.com/fishing/lakes/lake-casa-blanca?verify-casa-blanca-fallback=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" || true)"
+          ! grep -iq '^cf-mitigated: *challenge' "$casa_headers"
+          [[ "$casa_code" == "200" ]]
+          grep -Fq 'TPWD directs visitors to the state park office for the current Lake Casa Blanca water level.' "$casa_body"
+          grep -Fq 'Official current conditions' "$casa_body"
+          if grep -Fq 'Live lake level:' "$casa_body"; then
+            echo "Lake Casa Blanca must not render a fake live-level strip without a public real-time gauge." >&2
+            exit 1
+          fi
+          rm -f "$casa_body" "$casa_headers"
 
       - name: Verify lake section route exposes live-level UI
         shell: bash
@@ -328,7 +349,7 @@ jobs:
             --header 'Accept: application/vnd.github+json' \
             --header 'X-GitHub-Api-Version: 2022-11-28' \
             "https://api.github.com/repos/${GITHUB_REPOSITORY}/statuses/${STATUS_SHA}" \
-            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All 40 monitored lake snapshots and live UI surfaces passed"}' >/dev/null
+            --data '{"state":"success","context":"texasdefined-live-lakes","description":"All 48 monitored lake snapshots and live UI surfaces passed"}' >/dev/null
 
       - name: Publish live-lake verification failure
         if: failure()
