@@ -124,7 +124,6 @@ async function main() {
   const extra = extraSources(fs.readFileSync(path.join(ROOT, REVIEW_REGISTRY), 'utf8'));
   assert(new Set([...core, ...extra].map(x => x.id)).size === core.length + extra.length, 'Core/additional ID collision');
   selfTest(core, extra);
-  const msrTest = runScript('scripts/ci/watch-msr-houston-sources.mjs', { AUTHORITY_MONITOR_TEST_ONLY: '1' });
   if (process.argv.includes('--self-test')) {
     const result = spawnSync(process.execPath, ['scripts/ci/watch-msr-houston-sources.mjs','--self-test'], { cwd:ROOT, encoding:'utf8' });
     assert(result.status === 0, 'MSR adapter self-test failed: ' + (result.stderr || result.stdout));
@@ -134,11 +133,14 @@ async function main() {
   const today = texasDate();
   const batch = scheduledBatch(extra, today);
   const results = await probeSources([...core, ...batch.selected], today);
-  const checks = [
-    runScript('scripts/ci/watch-msr-houston-sources.mjs'),
-    runScript('scripts/data/validate-top-attraction-review-freshness.mjs'),
-    runScript('scripts/data/check-top-attraction-source-health.mjs', { TOP25_SOURCE_HEALTH_REPORT: 'artifacts/top25-source-health.json' }),
-  ];
+  // Top-25 deep reachability is weekly (Monday) and on explicit --full runs;
+  // MSR and the official source-governance subset are checked twice weekly.
+  const deepCheck = new Date(today + 'T12:00:00Z').getUTCDay() === 1 || process.argv.includes('--full');
+  const checks = [runScript('scripts/ci/watch-msr-houston-sources.mjs')];
+  if (deepCheck) {
+    checks.push(runScript('scripts/data/validate-top-attraction-review-freshness.mjs'));
+    checks.push(runScript('scripts/data/check-top-attraction-source-health.mjs', { TOP25_SOURCE_HEALTH_REPORT: 'artifacts/top25-source-health.json' }));
+  }
   const failures = [
     ...results.filter(x => x.state === 'failure').map(x => x.id + ': official source returned HTTP ' + x.status + (x.error ? ' (' + x.error + ')' : '')),
     ...results.filter(x => x.overdue).map(x => x.id + ': editorial review overdue by ' + (x.daysOld - x.reviewEveryDays) + ' days (last verified ' + x.reviewedAt + ')'),
@@ -149,7 +151,7 @@ async function main() {
     'Core official-source records: ' + core.length,
     'Extra monitored source records: ' + extra.length,
     'Selected extra batch: ' + (batch.index + 1) + '/' + batch.batches + ' (' + batch.selected.length + ' sources)',
-    'Existing specialist adapters: MSR Houston (1 guide), Top 25 attractions (25 guides)',
+    'Existing specialist adapters: MSR Houston (1 guide) and Top 25 attractions (25 guides; deep check this run: ' + deepCheck + ')',
     'Official HTTP checks: ' + results.length,
     'Reachable: ' + results.filter(x => x.state === 'reachable').length,
     'Restricted / unconfirmed: ' + results.filter(x => x.state === 'restricted').length,
@@ -169,7 +171,7 @@ async function main() {
   const report = { schemaVersion:1,checkedAt:new Date().toISOString(),texasDate:today,
     coverage:{msrGuides:1,top25Guides:25,coreOfficialSources:core.length,extraRegisteredSources:extra.length,
       extraBatch:batch.index + 1,extraBatchCount:batch.batches,extraSourcesChecked:batch.selected.length},
-    sources:results,adapters:checks,alerts:failures,needsReview:failures.length > 0 };
+    sources:results,adapters:checks,deepCheck,alerts:failures,needsReview:failures.length > 0 };
   fs.writeFileSync(path.join(REPORT_DIR,'authority-source-health.json'),JSON.stringify(report,null,2)+'\n');
   fs.writeFileSync(path.join(REPORT_DIR,'authority-source-health.md'),summary+'\n');
   if(process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
