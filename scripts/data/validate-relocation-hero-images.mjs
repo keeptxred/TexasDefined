@@ -23,6 +23,7 @@ const groups = [
 ];
 
 const subjectWords = new Map([
+  ["moving-to-texas-renter-guide", /apartment|rental|housing/i],
   ["how-to-verify-texas-moving-company", /mover|moving truck/i],
   ["health-insurance-when-moving-to-texas", /clinic|health|patient/i],
   ["military-family-moving-to-texas", /military|air force|PCS/i],
