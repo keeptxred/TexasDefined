@@ -1,8 +1,8 @@
 name: Top 25 authority source health
 
 on:
-  schedule:
-    - cron: '17 12 * * 1'
+  # Scheduled source checks now run through authority-source-monitor.yml.
+  # This remains available for explicit manual diagnosis without duplicate cron jobs.
   workflow_dispatch:
 
 permissions:
