@@ -20,7 +20,7 @@ const lighthouseImages = {
   ),
   bolivar: image(
     "https://commons.wikimedia.org/wiki/Special:Redirect/file/Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg?width=1600",
-    "Historical photograph of Point Bolivar Lighthouse on the Bolivar Peninsula; the exterior has since been repainted in black-and-white stripes",
+    "Point Bolivar Lighthouse photographed in December 2009, before restoration of its black-and-white stripes",
     2502,
     1888,
     "Patrick Feller · CC BY 2.0 · Wikimedia Commons",
@@ -102,7 +102,7 @@ export const lighthouseSearchIntentArticles: Article[] = [
       { type: "paragraph", text: "Official authority to verify: Texas Historical Commission, Port Isabel Lighthouse historic-site page, plan-your-visit page and site history." },
 
       { type: "heading", text: "2. Point Bolivar Lighthouse — best for Galveston Bay history" },
-      { type: "image", image: lighthouseImages.bolivar, caption: "Historical view of the private Point Bolivar Lighthouse. Its exterior was repainted in historic black-and-white stripes; this photo should not be used as a current-condition report." },
+      { type: "image", image: lighthouseImages.bolivar, caption: "Point Bolivar Lighthouse in December 2009 (Patrick Feller, CC BY 2.0). The historic black-and-white striped paint was restored years later; see the linked March 2025 restoration photograph." },
       { type: "paragraph", text: "Point Bolivar is the lighthouse that makes immediate sense when you approach Galveston Bay. The cast-iron tower, now restored to its historic black-and-white striped exterior, stands on the Bolivar side of the entrance, opposite Galveston Island and beside a maritime corridor still crowded with ferries and commercial traffic. The present tower was first lit in 1873 after Civil War disruption ended the earlier station." },
       { type: "paragraph", text: "Restoration update (verified October 9, 2026): the Bolivar Point Lighthouse Foundation reports that stabilization and exterior repainting are complete, revealing the historic black-and-white stripes for the first time in more than 75 years. Historical all-black photos should be labeled by era; the restoration does not mean the privately owned tower is open to the public." },
       { type: "paragraph", text: "The lighthouse also became a refuge during the catastrophic 1900 and 1915 hurricanes. That history makes the tower more than a navigation landmark. It is a physical reminder of how exposed Gulf Coast communities depended on the strongest structures available when major storms arrived." },
