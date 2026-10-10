@@ -19,3 +19,6 @@ Individually authored source-backed historical chronology, 2026 dated five-game 
 - Execute tests, protected PR, merge, deployment and responsive production validation; only then VERIFIED.
 
 **Current status: IMPLEMENTED on Batch 003 draft work, not merged/deployed/VERIFIED.** Next school: Amarillo Palo Duro.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075` by [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179). The [86-screenshot artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304) includes `desktop-school-amarillo-highland-park.png` and `mobile-school-amarillo-highland-park.png`. Both viewports: HTTP 200, one H1, correct canonical/metadata, SportsTeam/Breadcrumb schema, sources, school/county links, no JS runtime errors, broken images, missing alt or overflow; school in 25/25 sitemap. Qualified unverified game-day access and photo rights remain unclaimed, not fabricated.

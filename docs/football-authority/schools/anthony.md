@@ -21,3 +21,6 @@ Original football editorial specific to Anthony, ISD-sourced current coaches, di
 UIL primary district PDF, official school-color identity, NCES El Paso County campus and reciprocal inbound county/city link, image rights, precise Tommy Sanchez Stadium gate/ADA/tickets/parking, football CI, protected merge and actual deployed desktop/mobile browser/SEO/schema/sitemap checks.
 
 **Next assigned:** Anton.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075` in [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179), [artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304). Screenshots `desktop-school-anthony.png` and `mobile-school-anthony.png`; both HTTP 200, title/canonical/schema/source/county links and sitemap correct, no JS errors, missing alt, broken images or overflow. Unavailable ADA/gate and photo-rights information remains qualified, not invented.
