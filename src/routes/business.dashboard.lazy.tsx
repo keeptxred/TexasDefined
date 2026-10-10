@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 export const Route=createLazyFileRoute('/business/dashboard')({component:BusinessDashboard});
 type Account={id:string;application_id:string;access_enabled:boolean};
-type Revision={id:string;review_status:string;created_at:string;proposed_profile:Record<string,string>};
+type Revision={id:string;review_status:string;created_at:string;proposed_profile:Record<string,unknown>};
 const fields=[['business_name','Business name'],['description','Description'],['category','Category'],['city','City / area'],['address','Public address'],['phone','Public phone'],['hours','Hours'],['website','Website'],['social','Social link'],['services','Services'],['faq','FAQs'],['offer','Current offer']] as const;
 function BusinessDashboard(){
  const [email,setEmail]=useState('');
