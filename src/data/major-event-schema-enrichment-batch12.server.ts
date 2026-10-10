@@ -101,10 +101,12 @@ export const majorEventSchemaEnrichmentBatch12: MajorEventSchemaEnrichment[] = [
   {
     slug: "crossroads-of-texas-country-festival",
     organizer: organization("Waxahachie Convention & Visitors Bureau", "https://www.waxahachiecvb.com/"),
+    offers: [usdOffer("Festival general admission", 0, "https://www.waxahachietx.gov/Calendar.aspx?EID=747")],
+    performers: [group("Jake Worthington"), group("Kenny Whitmire")],
     sources: [
-      { label: "Visit Waxahachie official 2026 Crossroads of Texas GO TEXAN Country Festival page", url: "https://www.waxahachiecvb.com/events/2026/crossroads-of-texas-country-festival" },
-      { label: "Waxahachie CVB official 2026 Crossroads vendor application", url: "https://www.waxahachiecvb.com/f/69" },
+      { label: "Visit Waxahachie — official 2026 festival and announced performers", url: "https://www.waxahachiecvb.com/events/2026/crossroads-of-texas-country-festival" },
+      { label: "City of Waxahachie — free admission and 9 a.m.–7 p.m. hours", url: "https://www.waxahachietx.gov/Calendar.aspx?EID=747" },
     ],
-    verifiedAt: "2026-09-03",
+    verifiedAt: "2026-10-09",
   },
 ];
