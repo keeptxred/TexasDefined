@@ -1,21 +1,14 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { useEffect,useState } from 'react';
 import { Container } from '@/components/layout/Container';
 import { supabase } from '@/integrations/supabase/client';
 
 export const Route=createLazyFileRoute('/network/business/$slug')({component:BusinessProfile});
-type Listing={slug:string;plan:string;profile:Record<string,unknown>;logo_storage_path:string|null;gallery_storage_paths:string[]};
 function BusinessProfile(){
- const {slug}=Route.useParams();
- const [record,setRecord]=useState<Listing|null>(null);
- const [loading,setLoading]=useState(true);
- useEffect(()=>{let active=true;setLoading(true);void supabase.from('texasdefined_network_public_listings')
- .select('slug,plan,profile,logo_storage_path,gallery_storage_paths').eq('slug',slug).eq('is_published',true).maybeSingle()
- .then(({data,error})=>{if(active){setRecord(!error?data as Listing|null:null);setLoading(false)}});return()=>{active=false}},[slug]);
+ const record=Route.useLoaderData();
  const get=(name:string)=>typeof record?.profile?.[name]==='string'?String(record.profile[name]):'';
  const media=(path:string)=>supabase.storage.from('texasdefined-network-published').getPublicUrl(path).data.publicUrl;
  return <main className="bg-[#faf8f3]"><Container className="py-12 sm:py-16">
-  {loading?<p>Loading business profile…</p>:!record?<div><h1 className="font-display text-4xl">Business listing unavailable</h1><p className="mt-4">This listing is not currently published.</p></div>:<>
+  <>
    <p className="eyebrow text-primary">Texas Defined Network · {record.plan}</p>
    <div className="mt-5 flex flex-wrap items-center gap-6">
     {record.logo_storage_path&&<img src={media(record.logo_storage_path)} alt={get('business_name')+' logo'} className="h-28 w-28 rounded-2xl border border-border bg-white object-contain p-2"/>}
