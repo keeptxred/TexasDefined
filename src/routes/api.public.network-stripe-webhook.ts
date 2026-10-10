@@ -30,10 +30,11 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     let event: Record<string, any>;
     try { event = JSON.parse(raw); } catch { return new Response("Invalid event", { status: 400 }); }
     if (event.livemode !== true || typeof event.type !== "string") return new Response("Ignored", { status: 200 });
-    if (!["customer.subscription.created","customer.subscription.updated","customer.subscription.deleted"].includes(event.type)) {
+    if (!["customer.subscription.created","customer.subscription.updated","customer.subscription.deleted","invoice.paid","invoice.payment_failed"].includes(event.type)) {
       return new Response("Ignored", { status: 200 });
     }
-    const subscriptionId = event.data?.object?.id;
+    const obj=event.data?.object;
+    const subscriptionId = event.type.startsWith("customer.subscription.") ? obj?.id : (obj?.subscription || obj?.parent?.subscription_details?.subscription);
     const stripeKey = process.env["STRIPE_SECRET_KEY"];
     if (typeof subscriptionId !== "string" || !stripeKey) return new Response("Stripe verification unavailable", { status: 503 });
     // Always fetch current subscription state. Webhook delivery order is not guaranteed.
@@ -48,8 +49,13 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id) ||
         price !== PRICE_ID || subscription?.metadata?.project !== "TexasDefined" ||
         typeof subscription?.id !== "string") return new Response("Ignored", { status: 200 });
-    const active = event.type !== "customer.subscription.deleted" && subscription.status === "active";
+    const active = event.type !== "customer.subscription.deleted" && event.type !== "invoice.payment_failed" && subscription.status === "active";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    if(typeof event.id!=="string")return new Response("Invalid event ID",{status:400});
+    const {data:prior,error:priorError}=await supabaseAdmin.from("texasdefined_network_stripe_events").select("processed_at").eq("stripe_event_id",event.id).maybeSingle();
+    if(priorError)return new Response("Event ledger unavailable",{status:503});
+    if(prior?.processed_at)return new Response("Already processed",{status:200});
+    if(!prior){const {error:recordError}=await supabaseAdmin.from("texasdefined_network_stripe_events").insert({stripe_event_id:event.id,stripe_event_type:event.type} as never);if(recordError&&recordError.code!=="23505")return new Response("Event recording failed",{status:503});}
     const { data: existing, error: lookupError } = await supabaseAdmin.from("texasdefined_network_applications")
       .select("id,stripe_subscription_id,plan").eq("id", id).single();
     if (lookupError || !existing || existing.plan !== "plus") return new Response("Ignored", { status: 200 });
@@ -64,6 +70,8 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
         updated_at: new Date().toISOString(),
       } as never).eq("id", id);
     if (error) return new Response("Persistence failure", { status: 503 });
+    const {error:ledgerError}=await supabaseAdmin.from("texasdefined_network_stripe_events").update({processed_at:new Date().toISOString()} as never).eq("stripe_event_id",event.id);
+    if(ledgerError)return new Response("Event processing incomplete",{status:503});
     return new Response("ok", { status: 200 });
   } } },
 });
