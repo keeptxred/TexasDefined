@@ -57,6 +57,13 @@ for (const slug of ["arlington","arlington-bowie","arlington-houston","arlington
 }
 const verifiedPrior = records.filter(x => x.status === "VERIFIED" && x.batch !== 3);
 check(verifiedPrior.length >= 30, "fewer than 30 previously VERIFIED schools");
+for (const rec of records.filter(x => x.batch === 3 && x.status === "VERIFIED")) {
+  check(rec.actualProductionVerified === true, rec.slug + ": marked VERIFIED without actualProductionVerified");
+  check(typeof rec.productionVerifiedAt === "string" && rec.productionVerifiedAt.length > 10, rec.slug + ": missing production verification timestamp");
+  check(Boolean(rec.mergedCommit || rec.deployment?.mergeCommit), rec.slug + ": missing actual merged commit");
+  check(Boolean(rec.deployment?.dedicatedBrowserRunId), rec.slug + ": missing dedicated production browser run ID");
+  check(Boolean(rec.deployment?.screenshotArtifactId), rec.slug + ": missing screenshot evidence artifact");
+}
 const verified003 = records.filter(x => x.batch === 3 && x.status === "VERIFIED");
 check(verified003.length === (registry.batch?.individuallyVerified ?? -1), "verified count disagrees with registry");
 if (problems.length) {
