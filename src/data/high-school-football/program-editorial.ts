@@ -58,6 +58,173 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "anthony": {
+    "slug": "anthony",
+    "theme": {
+      "accentHex": "#315C9C",
+      "label": "Editorial Wildcat blue inspired by official district presentation; no district logo reproduced"
+    },
+    "seo": {
+      "title": "Anthony Wildcats Football: Michael Stephenson, 2026 Games & Tommy Sanchez Stadium",
+      "description": "Anthony Texas Wildcats football guide: official coach Michael Stephenson, 2026 season results, 15 playoff appearances and Tommy Sanchez Memorial Stadium."
+    },
+    "coach": {
+      "name": "Michael Stephenson",
+      "title": "Head football coach listed by Anthony Independent School District",
+      "sourceUrl": "https://www.anthonyisd.net/football",
+      "sourceLabel": "Official Anthony ISD Wildcats Football staff listing",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "825 Wildcat Drive, Anthony, TX 79821",
+      "sourceUrl": "https://www.maxpreps.com/tx/anthony/anthony-wildcats/football/history/",
+      "sourceLabel": "Anthony High School program directory; district administration is at a different address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official varsity/JV schedule and football staff",
+      "sourceUrl": "https://www.anthonyisd.net/football",
+      "sourceLabel": "Anthony ISD Wildcats Football page with downloadable official schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "2–3 in five source-reported completed games through September 25, 2026; October 9 district opener not counted",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+      "sourceLabel": "DCTF 2026 five-game dated results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "San Elizario",
+          "site": "Away",
+          "result": "L 20–34"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Cobre (New Mexico)",
+          "site": "Home",
+          "result": "L 22–28"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "El Paso Cathedral",
+          "site": "Home",
+          "result": "L 21–39"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Van Horn",
+          "site": "Away",
+          "result": "W 14–6"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Capitan (New Mexico)",
+          "site": "Home",
+          "result": "W 20–16"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Stanton",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Coahoma",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "San Angelo Grape Creek",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Alpine",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Crane",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Tommy Sanchez Memorial Stadium",
+      "address": "Anthony, Texas — verify stadium entrance with Anthony ISD",
+      "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+      "sourceLabel": "DCTF Wildcats venue directory",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF reports a historical stadium capacity of 1,500, while a 2014 archive described an older Wildcat Stadium with 300 estimated seats. These are not evidence for the same modern seating configuration; confirm present location, gate, accessible arrival and game ticketing directly with Anthony ISD."
+    },
+    "overview": [
+      "Anthony's Wildcats represent Anthony Independent School District at the Texas–New Mexico border. The district describes Anthony as the Gateway to Texas and maintains its own official football staff and downloadable schedules. This is a different program from Anthony-area schools across the state line.",
+      "The district's football staff page names Michael Stephenson as head coach and David Rueda as athletic director. Mark Montañez, Francis Rayas and Carlos Heredia are among the assistant varsity coaches identified by the district. This first-party roster is stronger evidence than undated coaching tables.",
+      "Dave Campbell's Texas Football reports 15 Wildcats playoff appearances and no state football title game or championship. The source records 2025 at 2–9, 2024 at 1–10 and 2022 at 4–6; those are dated completed seasons, not a judgment about the ongoing 2026 team.",
+      "Anthony moved into Class 3A Division II football, a higher classification than the 2A designation in its 2022 and 2023 historical records. The 2026 slate includes Stanton, Coahoma, San Angelo Grape Creek, Alpine and Crane as listed district opponents.",
+      "The 2026 Wildcats faced two New Mexico schools early in the season: a 22–28 loss to Cobre and a 20–16 victory against Capitan. These cross-border fixtures give Anthony a distinctive football setting that is not captured in a standard statewide school-directory profile.",
+      "After losing the first three games of 2026, Anthony won 14–6 at Van Horn and 20–16 against Capitan. That is a source-dated 2–3 record through September 25; the October 9 Stanton game must not be described as completed without a verified result.",
+      "The current independent program listing names Tommy Sanchez Memorial Stadium and reports 1,500 seats. An older archive names Wildcat Stadium with an estimated 300 seats, apparently describing a past stadium record. Neither figure independently establishes current accessibility or ticket rules."
+    ],
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Five-win historical season",
+        "body": "MaxPreps lists a 5–5 regular season for 2021–22; Dave Campbell's lists 5–6 overall, showing a likely difference in playoff-game inclusion.",
+        "sourceUrl": "https://www.maxpreps.com/tx/anthony/anthony-wildcats/football/history/",
+        "sourceLabel": "MaxPreps historical team records"
+      },
+      {
+        "date": "2025",
+        "title": "Two-win prior season",
+        "body": "DCTF records Anthony finishing 2–9, establishing context without claiming a championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+        "sourceLabel": "DCTF archived completed seasons"
+      },
+      {
+        "date": "Sept. 2026",
+        "title": "Consecutive wins over Van Horn and Capitan",
+        "body": "The Wildcats recorded a 14–6 road victory over Van Horn and a 20–16 victory over Capitan, New Mexico, to reach 2–3 in the five verified published games.",
+        "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
+        "sourceLabel": "DCTF dated 2026 results"
+      },
+      {
+        "date": "2026",
+        "title": "Official Wildcats coaching staff",
+        "body": "Anthony ISD identifies Michael Stephenson as head coach and David Rueda as athletic director.",
+        "sourceUrl": "https://www.anthonyisd.net/football",
+        "sourceLabel": "Official Anthony ISD staff directory"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Who is Anthony's head football coach in 2026?",
+        "answer": "Anthony ISD's official football page lists Michael Stephenson as head coach and David Rueda as athletic director."
+      },
+      {
+        "question": "Has Anthony won a UIL football state championship?",
+        "answer": "DCTF lists 15 Wildcats playoff appearances but no state title or state final."
+      },
+      {
+        "question": "Where do Anthony Wildcats play home football games?",
+        "answer": "DCTF currently lists Tommy Sanchez Memorial Stadium, but visitors should verify match-day location, parking, gate and accessible entry with Anthony ISD."
+      },
+      {
+        "question": "Why does Anthony play New Mexico schools?",
+        "answer": "The Wildcats are based on the Texas–New Mexico border; their published 2026 non-district schedule includes Cobre and Capitan from New Mexico."
+      },
+      {
+        "question": "Which 2026 games are confirmed results?",
+        "answer": "DCTF reports three losses followed by September wins at Van Horn (14–6) and over Capitan (20–16). The Oct. 9 Stanton matchup was not counted as a final at this research checkpoint."
+      }
+    ]
+  },
   "anson": {
     "slug": "anson",
     "theme": {
