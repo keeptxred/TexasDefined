@@ -69,16 +69,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Independent Baird Bears football reference with documented classification, year-by-year results, venue context and official resources."
     },
     "schedule": {
-      "label": "Season-by-season historical scores and 2026 schedule",
-      "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
-      "sourceLabel": "Published program history and 2026 fixtures",
+      "label": "Baird ISD official football coaches and school schedule",
+      "sourceUrl": "https://www.bairdisd.org/29025_3",
+      "sourceLabel": "Official school football staff and resources",
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "Distinctive program history",
-      "body": "Baird is a Callahan County SIX-MAN Division I District 7 school. Six-Man Football dates the program's transition to six-man to 2019 and lists Jeremy Kirk as head coach; its 2025 season was 3–7 after 2024's 7–4 and 2023's 6–4. Its first 2026 fixture with Abilene Texas Leadership Charter is labeled versus an 11-man team, so opponents need accurate competition context.",
-      "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
-      "sourceLabel": "Cited football program evidence",
+      "title": "A 2019 six-man transition and an uncompleted 11-man proposal",
+      "body": "Baird's six-man football program began in 2019, according to the independent six-man archive. On September 30, 2025, Baird ISD announced a community discussion about a POSSIBLE return to 11-man football for the next year; that announcement was a proposal, not an accomplished format change. The 2026 UIL alignment and current Six-Man Football schedule still classify Baird as Division I six-man District 7, with Coach Jeremy Kirk independently listed by the official school football page.",
+      "sourceUrl": "https://www.bairdisd.org/index.php?articleID=60087506&pageID=smartSiteFeed&psqFeed=true",
+      "sourceLabel": "Baird ISD September 2025 discussion notice",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
@@ -88,11 +88,19 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results.",
         "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
         "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "Sep. 30, 2025",
+        "title": "District publicly weighed an 11-man return",
+        "body": "Baird ISD invited the community to discuss a possible move back to 11-man the following year. The notice itself does not establish that transition occurred.",
+        "sourceUrl": "https://www.bairdisd.org/index.php?articleID=60087506&pageID=smartSiteFeed&psqFeed=true",
+        "sourceLabel": "Baird official athletics community notice"
       }
     ],
     "overview": [
       "Baird is a Callahan County SIX-MAN Division I District 7 school. Six-Man Football dates the program's transition to six-man to 2019 and lists Jeremy Kirk as head coach; its 2025 season was 3–7 after 2024's 7–4 and 2023's 6–4. Its first 2026 fixture with Abilene Texas Leadership Charter is labeled versus an 11-man team, so opponents need accurate competition context.",
-      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "The school's official coaches page names Jeremy Kirk head coach and Reece Walker defensive coordinator, along with other assistants. The team record and 2026 six-man format should be distinguished from the 2025 proposed 11-man discussion."
     ],
     "faq": [
       {
@@ -102,13 +110,24 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What significant football history is documented?",
         "answer": "The 2026 six-man district schedule names Santa Anna, Bronte, Robert Lee, Paint Rock and Highland; planned fixtures should not be invented as completed results."
+      },
+      {
+        "question": "Did Baird officially switch to 11-man football in 2026?",
+        "answer": "The district discussed a possible return to 11-man in September 2025, but the 2026 UIL alignment and published Baird football schedule still list six-man Division I. The meeting announcement alone is not proof of a change."
       }
     ],
     "coach": {
       "name": "Jeremy Kirk",
-      "title": "Head coach in published 2026 program listing; confirm with school",
-      "sourceUrl": "https://sixmanfootball.com/teams/baird-bears.1033/schedule/",
-      "sourceLabel": "Program coach listing",
+      "title": "Athletic director and head football coach, as listed by Baird ISD",
+      "sourceUrl": "https://www.bairdisd.org/29025_3",
+      "sourceLabel": "Official Baird ISD football coaching directory",
+      "verifiedAt": "2026-10-10"
+    },
+    "campus": {
+      "address": "600 W 7th St, Baird, TX 79504",
+      "phone": "325-854-1400",
+      "sourceUrl": "https://www.bairdisd.org/contact",
+      "sourceLabel": "Baird ISD official secondary campus contact",
       "verifiedAt": "2026-10-10"
     }
   },
@@ -123,16 +142,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Independent Azle Hornets football reference with documented classification, year-by-year results, venue context and official resources."
     },
     "schedule": {
-      "label": "Season-by-season historical scores and 2026 schedule",
-      "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
-      "sourceLabel": "Published program history and 2026 fixtures",
+      "label": "Azle ISD official athletics schedules, ticket sales and venue information",
+      "sourceUrl": "https://www.azleisd.net/o/aa/",
+      "sourceLabel": "Official Azle ISD athletics portal",
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "Distinctive program history",
-      "body": "Azle is a Class 5A Division I program at Hornet Field, which Dave Campbell's Texas Football lists at 5,500 spectators, NOT proof of current certified capacity or ADA seating. Its season archive lists 2018 10–2, 2019 9–2, 2020 9–3, 2021 8–3 and a leaner 2025 2–8 campaign. Early 2026 results include Abilene Cooper 28–24.",
-      "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
-      "sourceLabel": "Cited football program evidence",
+      "title": "Hornet Stadium visitor rules and recent football results",
+      "body": "Azle ISD's August 24, 2026 varsity announcement explicitly locates Friday Night Lights at Hornet Stadium, links ticket purchases and reminds fans that clear bags are mandatory at district athletic venues. The athletics office at 301 Church Street is different from Azle High School at 1200 Boyd Road. Published 2018 and 2025 season records illustrate Azle's recent playoff-era highs and current rebuilding context but do not create an unsupported state title.",
+      "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+      "sourceLabel": "Azle High School first-party 2026 season notice",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
@@ -142,11 +161,19 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season.",
         "sourceUrl": "https://www.texasfootball.com/team/azle-hornets",
         "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "Aug. 24, 2026",
+        "title": "Hornet Stadium cashless preparation and clear bags",
+        "body": "Official district announcement directs families to purchase online tickets and follow the district clear-bag rule for all athletic venues.",
+        "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+        "sourceLabel": "Azle High 2026 stadium guidance"
       }
     ],
     "overview": [
       "Azle is a Class 5A Division I program at Hornet Field, which Dave Campbell's Texas Football lists at 5,500 spectators, NOT proof of current certified capacity or ADA seating. Its season archive lists 2018 10–2, 2019 9–2, 2020 9–3, 2021 8–3 and a leaner 2025 2–8 campaign. Early 2026 results include Abilene Cooper 28–24.",
-      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "The Azle ISD athletics portal includes schedule, ticket purchase, live stream, Hall of Fame and venue-information paths. These are preferable to an unsourced third-party ticket reseller."
     ],
     "faq": [
       {
@@ -156,8 +183,27 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What significant football history is documented?",
         "answer": "The August 28, 2026 Azle opener against Abilene Cooper ended 28–24; historic 2018 10–2 results belong to another season."
+      },
+      {
+        "question": "Does Azle ISD require clear bags at football games?",
+        "answer": "Yes. Azle High's official August 2026 announcement says the district uses a clear-bag policy at athletic venues and directs spectators to online tickets."
       }
-    ]
+    ],
+    "campus": {
+      "address": "1200 Boyd Road, Azle, TX 76020",
+      "phone": "817-444-5555",
+      "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+      "sourceLabel": "Official Azle High August 2026 announcement",
+      "verifiedAt": "2026-10-10"
+    },
+    "venue": {
+      "name": "Hornet Stadium",
+      "address": "Azle, Texas — confirm gate/parking with district",
+      "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
+      "sourceLabel": "Official Azle High 2026 football announcement",
+      "verifiedAt": "2026-10-10",
+      "note": "Azle ISD requires tickets purchased online and clear bags at district athletic venues. The announcement does not certify accessible seating or the exact entry gate."
+    }
   },
   "axtell": {
     "slug": "axtell",
@@ -176,10 +222,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "Distinctive program history",
-      "body": "Axtell is an 11-MAN 2A Division I program, not a six-man school despite proximity to many six-man programs. Its historical team reports document 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025 under Craig Horn; the 2026 entry leaves head coach blank, so a current hire is not invented.",
-      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
-      "sourceLabel": "Cited football program evidence",
+      "title": "Three double-digit-win seasons and a current staff listing",
+      "body": "Axtell's year-by-year program results list 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025, across distinct schedules. A 2026–27 roster updated August 24, 2026 lists Craig Horn as head coach and identifies ten assistants including Nate Morrill and Josh Hayes. The official Axtell ISD district address is 1100 Longhorn Parkway; the 308 Ottawa location found on third-party football team listings should not automatically be treated as the district administrative office.",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
+      "sourceLabel": "Dated 2026–27 football staff listing",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
@@ -189,11 +235,19 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Three consecutive 10-win-or-better seasons from 2023 to 2025 distinguish Axtell's recent history, with 2024's 12–2 specifically sourced.",
         "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/history/",
         "sourceLabel": "Specific fixture and historical record source"
+      },
+      {
+        "date": "Aug. 24, 2026",
+        "title": "Updated Axtell coaching staff",
+        "body": "MaxPreps' 2026–27 roster update names Craig Horn as head coach. Direct school-district corroboration remains desirable.",
+        "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
+        "sourceLabel": "2026 team coaching roster"
       }
     ],
     "overview": [
       "Axtell is an 11-MAN 2A Division I program, not a six-man school despite proximity to many six-man programs. Its historical team reports document 10–1 in 2023, 12–2 in 2024 and 11–2 in 2025 under Craig Horn; the 2026 entry leaves head coach blank, so a current hire is not invented.",
-      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used."
+      "Schedules change; exact gates, online tickets, parking and accessibility require confirmation from the local school. No unlicensed game photograph or manufactured title history is used.",
+      "Axtell ISD's official district office is listed at 1100 Longhorn Parkway, whereas published team directories may provide a different campus-oriented address; avoid substituting one for verified stadium gate directions."
     ],
     "faq": [
       {
@@ -203,8 +257,26 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What significant football history is documented?",
         "answer": "Three consecutive 10-win-or-better seasons from 2023 to 2025 distinguish Axtell's recent history, with 2024's 12–2 specifically sourced."
+      },
+      {
+        "question": "Who is listed as Axtell Longhorns football coach for 2026?",
+        "answer": "The August 24, 2026 MaxPreps staff listing names Craig Horn as head coach, but first-party Axtell ISD confirmation would strengthen that claim."
       }
-    ]
+    ],
+    "campus": {
+      "address": "1100 Longhorn Parkway, Axtell, TX 76624",
+      "phone": "254-863-5615",
+      "sourceUrl": "https://www.axtellisd.net/en-US",
+      "sourceLabel": "Official Axtell ISD campus address",
+      "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Craig Horn",
+      "title": "2026–27 head football coach according to dated team staff listing; school confirmation recommended",
+      "sourceUrl": "https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/",
+      "sourceLabel": "MaxPreps roster updated August 24, 2026",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "avalon": {
     "slug": "avalon",
