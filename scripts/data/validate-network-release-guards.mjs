@@ -145,3 +145,10 @@ check('Network pages reuse the sole root main landmark',source(root+'__root.tsx'
 check('Network directory and profiles are hidden without explicit public visibility launch',source(root+'network.directory.tsx').includes('NETWORK_DIRECTORY_ENABLED')&&source(root+'network.business.$slug.tsx').includes('NETWORK_DIRECTORY_ENABLED'));
 
 check('orphan media inventory is 45-day read-only and admin-authenticated',source('supabase/migrations/20261010232506_network_readonly_stale_draft_cleanup_inventory.sql').includes('p_min_age_days<30')&&source('supabase/migrations/20261010232506_network_readonly_stale_draft_cleanup_inventory.sql').includes('NOT EXISTS')&&source('src/data/network-review.server.ts').includes("p_min_age_days:45,p_limit:100")&&source('src/routes/admin.network-applications.lazy.tsx').includes('Read-only inventory. This screen never deletes files'));
+
+check('Network webhook caps untrusted body before HMAC or Stripe network calls',
+ webhook.includes('readNetworkWebhookPayload(request)')
+ && source('src/data/network-stripe.server.ts').includes('NETWORK_WEBHOOK_MAX_BYTES=1_048_576')
+ && webhook.indexOf('readNetworkWebhookPayload(request)') < webhook.indexOf('verifyStripeSignature(raw,header)'));
+check('Network webhook requires live Stripe credentials for remote revalidation',
+ webhook.includes('stripeKey?.startsWith("sk_live_")'));

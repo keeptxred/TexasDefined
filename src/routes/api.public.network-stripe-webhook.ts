@@ -6,7 +6,9 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
   server: { handlers: { POST: async ({ request }) => {
     const secret = process.env["STRIPE_WEBHOOK_SECRET"];
     if (!secret) return new Response("Webhook not configured", { status: 503 });
-    const raw = await request.text();
+    const { readNetworkWebhookPayload } = await import("@/data/network-stripe.server");
+    const raw = await readNetworkWebhookPayload(request);
+    if (raw===null) return new Response("Invalid or oversized webhook body", { status: 413 });
     const header = request.headers.get("stripe-signature") || "";
     const { verifyStripeSignature } = await import("@/data/network-stripe.server");
     if (!await verifyStripeSignature(raw,header)) return new Response("Invalid signature", { status: 400 });
@@ -19,7 +21,8 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     const obj=event.data?.object;
     const subscriptionId = event.type.startsWith("customer.subscription.") ? obj?.id : (obj?.subscription || obj?.parent?.subscription_details?.subscription);
     const stripeKey = process.env["STRIPE_SECRET_KEY"];
-    if (typeof subscriptionId !== "string" || !stripeKey) return new Response("Stripe verification unavailable", { status: 503 });
+    if (typeof subscriptionId !== "string" || !stripeKey?.startsWith("sk_live_"))
+      return new Response("Stripe verification unavailable", { status: 503 });
     // Always fetch current subscription state. Webhook delivery order is not guaranteed.
     const live = await fetch("https://api.stripe.com/v1/subscriptions/" + encodeURIComponent(subscriptionId), {
       headers: { authorization: "Bearer " + stripeKey },

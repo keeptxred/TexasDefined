@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription } from '../../src/data/network-stripe.server.ts';
+import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription, readNetworkWebhookPayload, NETWORK_WEBHOOK_MAX_BYTES } from '../../src/data/network-stripe.server.ts';
 
 const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
@@ -139,4 +139,37 @@ test('Stripe Plus subscription verifier rejects extra items and cross-plan price
  assert.equal(isExpectedNetworkPlusSubscription({...valid,livemode:false}),false);
  assert.equal(isExpectedNetworkPlusSubscription({...valid,metadata:{...valid.metadata,project:'Other'}}),false);
  assert.equal(isExpectedNetworkPlusSubscription({...valid,customer:'cus_!!!'}),false);
+});
+
+test('webhook reader accepts a normally sized UTF-8 event',async()=>{
+ const request=new Request('https://texasdefined.com/api/public/network-stripe-webhook',{
+  method:'POST',body:JSON.stringify({id:'evt_safe',description:'Tejano music'}),
+ });
+ const body=await readNetworkWebhookPayload(request);
+ assert.deepEqual(JSON.parse(body),{id:'evt_safe',description:'Tejano music'});
+});
+test('webhook rejects oversized declared Content-Length before consuming the stream',async()=>{
+ let consumed=false;
+ const body=new ReadableStream({pull(controller){consumed=true;controller.enqueue(new Uint8Array(2));controller.close()}});
+ const request=new Request('https://texasdefined.com/api/public/network-stripe-webhook',{
+  method:'POST',body,duplex:'half',headers:{'content-length':String(NETWORK_WEBHOOK_MAX_BYTES+1)},
+ });
+ assert.equal(await readNetworkWebhookPayload(request),null);
+ assert.equal(consumed,false);
+});
+test('webhook enforces actual streamed byte cap if Content-Length is omitted',async()=>{
+ const chunk=new Uint8Array(Math.ceil(NETWORK_WEBHOOK_MAX_BYTES/2)+4);
+ const stream=new ReadableStream({
+  start(controller){controller.enqueue(chunk);controller.enqueue(chunk);controller.close()}
+ });
+ const request=new Request('https://texasdefined.com/api/public/network-stripe-webhook',{
+  method:'POST',body:stream,duplex:'half',
+ });
+ assert.equal(await readNetworkWebhookPayload(request),null);
+});
+test('webhook rejects invalid UTF-8 instead of decoding replacement characters',async()=>{
+ const request=new Request('https://texasdefined.com/api/public/network-stripe-webhook',{
+  method:'POST',body:new Uint8Array([0xff,0xfe,0x00]),
+ });
+ assert.equal(await readNetworkWebhookPayload(request),null);
 });

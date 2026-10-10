@@ -12,6 +12,37 @@ export async function stripeRequest(path:string,init:RequestInit={}) {
 export function stripeCheckoutEnabled() {
  return process.env.NETWORK_CHECKOUT_ENABLED==='true' && !!process.env.STRIPE_SECRET_KEY && process.env.STRIPE_SECRET_KEY.startsWith('sk_live_');
 }
+/** Hard cap on untrusted webhook requests BEFORE signature verification.
+ * A signed event never requires an unbounded read in the Worker runtime.
+ */
+export const NETWORK_WEBHOOK_MAX_BYTES=1_048_576;
+export async function readNetworkWebhookPayload(request:Request):Promise<string|null>{
+ const advertised=request.headers.get('content-length');
+ if(advertised!==null&&/^\\d+$/.test(advertised)&&Number(advertised)>NETWORK_WEBHOOK_MAX_BYTES)return null;
+ if(!request.body)return '';
+ const reader=request.body.getReader();
+ const chunks:Uint8Array[]=[];
+ let bytes=0;
+ try{
+  while(true){
+   const part=await reader.read();
+   if(part.done)break;
+   bytes+=part.value.byteLength;
+   if(bytes>NETWORK_WEBHOOK_MAX_BYTES){
+    await reader.cancel().catch(()=>{});
+    return null;
+   }
+   chunks.push(part.value);
+  }
+  const buffer=new Uint8Array(bytes);
+  let offset=0;
+  for(const chunk of chunks){buffer.set(chunk,offset);offset+=chunk.byteLength}
+  return new TextDecoder('utf-8',{fatal:true}).decode(buffer);
+ }catch{
+  await reader.cancel().catch(()=>{});
+  return null;
+ }
+}
 export async function verifyStripeSignature(raw:string,header:string|null) {
  const signingSecret=process.env.STRIPE_WEBHOOK_SECRET;
  if(!signingSecret || !header)return false;
