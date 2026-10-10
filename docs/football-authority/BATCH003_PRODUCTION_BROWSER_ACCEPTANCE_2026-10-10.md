@@ -1,0 +1,11 @@
+# Football Batch 003 — Independent Production Browser Acceptance
+Date: 2026-10-10. This is evidence for **individual** production outcomes, not merely CI.
+- Content merge PR: [#4506](https://github.com/keeptxred/TexasDefined/pull/4506); merged commit `e7577d5e527ae412a803505649cd048453ea54ae`.
+- Protected production deploy: [#38025493948](https://github.com/keeptxred/TexasDefined/actions/runs/38025493948), SUCCESS.
+- Independent real Chrome workflow: [#38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179), SUCCESS. Deployment commit under test (from report.json): `4b61627a4a36cf3bff9c32e592b3f94a04805075`.
+- Screenshot + JSON report artifact: [#11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304), 86 viewport screenshots, `report.json`.
+- Actual report generated `2026-10-10T05:11:10.898Z`: `assigned=25`, `schoolChecks=50`, `countyChecks=34`, `passedChecks=86`, `failedChecks=0`; `sitemapChecks=25`, `sitemapFailures=0`. All 50 school requests HTTP 200; no recorded JS runtime errors, horizontal overflow or browser-check failures. County pages and Arlington city inbound links passed at 1366 and 390px.
+- Source links per school: minimum 21 visible external links on both viewports. Every inspected school had correct canonical, one H1, schema and required links under the runner.
+- **Supplemental manual SEO review found Apple Springs exception**: HTML document title `Apple Springs Eagles Six-Man Football: 2026 Coach, Nelson Davis Stadium & | Texas Defined` ends in a dangling ampersand. Source `program-editorial.ts` was corrected in PR #4534 but post-correction deployed title **must be retested**. Keep Apple Springs DEPLOYED, not VERIFIED, until that proof exists. The other 24 program titles passed the supplemental trailing-punctuation review.
+- The Chrome suite does not establish exclusive photography rights, independently re-judge every season score, or promise unavailable game-day ADA accommodations. The 25 individually sourced dossiers document discrepancies and original non-logo graphic alternatives; unsupported details remain qualified.
+- **Registry outcome at this checkpoint**: 24 of 25 Batch 003 VERIFIED, Apple Springs DEPLOYED; earlier 30 VERIFIED unchanged; total **54 of 1,292**, and Batch 004 must not start until Apple Springs closes.
