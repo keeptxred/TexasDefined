@@ -18,3 +18,6 @@ Original school-specific history of the long playoff streak and 2024 break, auth
 **Outstanding:** NCES Tarrant County and city/county reciprocal inbound football links, true stadium site/gate and ADA information, licensed photo, CI, protected merge and actual mobile/desktop production QA/schema/sitemap.
 
 **Next assigned: Arlington Seguin.**
+
+## Official venue cross-check — October 9, 2026
+[Choctaw Stadium's published 2026 regular-season schedule](https://www.choctawstadium.com/event/high-school-football-20261105/) lists **Thursday, October 8: Martin vs Sam Houston**, with Martin visiting and Sam Houston home, kickoff 7 p.m. CT. The previous editorial's October 9 date was incorrect. Corrected Martin's team entry in `program-editorial.ts` in commit `2fbd4f84af7c3e9a6648e7a5f0bb85f5f5ec9db7`; the game's **final result remains unverified**, and the venue schedule itself is not score evidence. Arlington ISD [2026–27 athletics policy](https://www.aisd.net/district/departments/administration/athletics/) provides authoritative schedule/ticket updates and clear-bag guidance. Live browser verification, school county reciprocal links, image rights and game-day accessibility still remain outstanding.
