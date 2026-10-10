@@ -23,9 +23,17 @@ Records below are comparisons to independently retrieved *official operator, age
 | Arlington | AT&T Stadium is a current event and touring venue | https://attstadium.com/tours/ | PASS | Individual tours/field access depend on calendar and availability |
 | Corpus Christi | Texas State Aquarium is active at North Beach | https://www.texasstateaquarium.org/plan-your-visit/visitor-information/map-directions/ | PASS | 2710 N Shoreline Blvd confirmed; special hours and exhibits change |
 
+| Dallas | State Fair of Texas is held in Dallas at Fair Park in 2026 | https://www.fairparkdallas.com/events/detail/2026-state-fair-of-texas | PASS | September 25–October 18, 2026; do not imply it is year-round |
+| Fort Worth | Fort Worth Stockyards hosts the public longhorn cattle drive | https://fortworthstockyards.com/attractions/fort-worth-herd/ | PASS | Weather permitting and schedule change-sensitive |
+| Fort Worth | Dickies Arena operates a sports and concert venue | https://dickiesarena.com/events/month/2026-10/ | PASS | Current October 2026 event calendar confirms ongoing operation |
+| Austin | Blanton Museum of Art operates as a museum visitor attraction | https://blantonmuseum.org/visit/ | PASS | Monday closure and other changing entry rules are in the official visitor page |
+| Austin | Texas State Capitol and Capitol Visitors Center receive visitors | https://tspb.texas.gov/plan/hours/hours.html | PASS | State Preservation Board is responsible for official visitor information |
+| Arlington | Globe Life Field hosts Texas Rangers ballpark tours | https://www.mlb.com/rangers/ballpark/tours-and-events | PASS | Official ballpark and operator confirm address and current tours |
+| Hurst | WhirlyBall Hurst is the active Hurst location | https://whirlyballtexas.com/locations/ | PASS | 147 E Harwood Rd Hurst; separate Plano location is CLOSED and must not be confused with this one |
+
 **Important distinction:** The Alamo's *planned new Museum and Visitor Center* is scheduled for **spring 2028**, not presently open. This is distinct from the historic Alamo church, grounds, and current Ralston Family Collections Center, which are operating. Official: https://www.thealamo.org/support/alamo-visitor-center-museum . Do not conflate current and future visitor facilities.
 
-The following featured destinations have **not** received the full independent operator-source audit in this record: Dallas World Aquarium, the State Fair of Texas, Fort Worth Stockyards, Dickies Arena, Texas State Capitol, Blanton Museum of Art, Globe Life Field, WhirlyBall Hurst, USS Lexington, Silent Wings Museum, and all remaining link-by-link food or guide recommendations. No PASS is implied for them.
+The following featured destinations have **not** received the full independent operator-source audit in this record: Dallas World Aquarium, USS Lexington, Silent Wings Museum, and all remaining link-by-link food or guide recommendations. No PASS is implied for them.
 
 ## Updated transportation claims
 
