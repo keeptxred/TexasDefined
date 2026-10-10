@@ -10,7 +10,15 @@ export const Route = createLazyFileRoute('/texas-budget-planner')({
 });
 
 function TexasBudgetPlannerPage() {
-  return <CalculatorPage eyebrow="Where the money goes" title="Texas household budget planner" description={description}>
+  return <CalculatorPage eyebrow="Where the money goes" title="Texas household budget planner" description={description} quickAnswer={{
+    title: 'What your Texas household budget can show',
+    items: [
+      { question: 'How much money is left after bills and savings?', answer: 'Add monthly take-home pay, recurring expenses, annual-bill reserves and planned savings. The planner calculates what remains unallocated each month and across twelve unchanged months.' },
+      { question: 'Why are Texas-specific bills important?', answer: 'Summer electricity, property taxes outside mortgage escrow, insurance premiums, tolls and vehicle renewals can change the result. Enter your actual amounts, not statewide averages.' },
+      { question: 'What if I pay for groceries with a credit card?', answer: 'Record groceries under food, then count only payments on older balances or finance charges under credit-card debt. Do not enter the same purchase a second time as a card payment.' },
+      { question: 'Are my entries private and is this financial advice?', answer: 'Calculations run in your browser. Local saving stays on your device, while a share URL exposes the amounts to anyone who receives it. Results are planning estimates, not advice or a lender approval.' },
+    ],
+  }}>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -31,11 +39,12 @@ function TexasBudgetPlannerPage() {
       <Link to="/texas-homeownership-cost-calculator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Homeownership cost</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Build mortgage, taxes, insurance, maintenance and utilities into the housing number.</span></Link>
     </div></section>
     <section className="mt-12 border-t border-border pt-10" aria-labelledby="budget-method-heading">
-      <p className="eyebrow text-primary">Methodology · updated October 9, 2026</p>
+      <p className="eyebrow text-primary">Methodology · updated October 10, 2026</p>
       <h2 id="budget-method-heading" className="mt-3 font-display text-3xl">How the Texas household budget math works</h2>
       <div className="mt-5 max-w-3xl space-y-4 text-base leading-7 text-muted-foreground">
         <p><strong className="text-foreground">Monthly take-home income</strong> is the sum of all after-deduction household pay and additional income. This is not gross salary; avoid subtracting payroll tax or benefits a second time.</p>
         <p><strong className="text-foreground">Expenses</strong> add the monthly amounts entered for housing, transportation, utilities, food, debts, family costs and other spending. Each annual bill entered separately is divided by 12 and included in monthly expenses as a reserve.</p>
+        <p><strong className="text-foreground">Credit-card debt</strong> includes only payments toward prior balances, interest or fees not already included in the spending categories. Purchases paid with a card belong in food, transport or another spending category, not in both places.</p>
         <p><strong className="text-foreground">Savings</strong> are shown separately from expenses. Remaining money equals income minus expenses minus savings allocations. Percentages shown use monthly take-home income as the denominator.</p>
         <p><strong className="text-foreground">Annual projection</strong> multiplies the monthly figures by 12. It assumes no raises, inflation, investment growth or seasonal cash-flow changes. The underlying values are household estimates, not verified Texas averages or eligibility decisions.</p>
       </div>
