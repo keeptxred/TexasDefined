@@ -17,6 +17,11 @@ export const Route = createFileRoute("/explore/near/$metro/$collection")({
   component: MetroProximityCollectionPage,
 });
 
+function countyNames(value: string) {
+  return value.replace(/\s+Count(?:y|ies)$/i, "").trim().split(/\s*(?:,|\/|&|\band\b)\s*/i)
+    .map((part) => part.replace(/\s+County$/i, "").trim()).filter(Boolean);
+}
+
 function countySlug(value: string) {
   return value.replace(/\s+County$/i, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
@@ -91,7 +96,7 @@ function MetroProximityCollectionPage() {
             <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong>Good for:</strong> {row.town.bestFor.join(" · ")}</p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
               <a href={row.town.officialUrl} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Official local source ↗</a>
-              <Link to="/county/$slug" params={{ slug: countySlug(row.town.county) }} className="border-b border-border pb-1 hover:border-primary hover:text-primary">Explore {row.town.county} County</Link>
+              {countyNames(row.town.county).length === 1 ? <Link to="/county/$slug" params={{ slug: countySlug(row.town.county) }} className="border-b border-border pb-1 hover:border-primary hover:text-primary">Explore {row.town.county.replace(/\s+County$/i, "")} County</Link> : <Link to="/browse/counties" className="border-b border-border pb-1 hover:border-primary hover:text-primary">Browse these counties →</Link>}
             </div>
           </article>)}
         </div>
