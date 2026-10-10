@@ -147,6 +147,10 @@ for (const marker of [
   if (!articles.includes(marker)) fail(`free Christmas canonical depth marker is missing: ${marker}`);
 }
 
+if (!depth.includes("Quick answer: when and where to go")) {
+  fail("East Texas fall-color canonical depth marker is missing");
+}
+
 if (!process.exitCode) {
   console.log(`Seasonal intent depth guard passed: ${slugs.length} canonical seasonal pages retain at least 500 source words, every rendered body clears the ${seasonalIndexMinimum}-word route indexability floor (minimum observed ${minimumObservedBodyWords}), keep one canonical owner, and cannot regress to a one-minute contract.`);
 }
