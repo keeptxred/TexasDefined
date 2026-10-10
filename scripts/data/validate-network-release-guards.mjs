@@ -32,7 +32,8 @@ check('billing enforces verified sign-in',billing.includes('email_confirmed_at')
 check('billing list filters owner bindings',billing.includes('.in("id",ids)')&&billing.includes('.eq("access_enabled", true)'));
 check('billing portal enforces owner binding',billing.includes('.eq("owner_user_id", auth.userId)')&&billing.includes('if (ownerError || !ownerBinding)'));
 check('billing URL pinned to Stripe',billing.includes('destination.hostname !== "billing.stripe.com"')&&billing.includes('return_url: "https://texasdefined.com/network/billing"'));
-check('webhook verifies signature',webhook.includes('signatureValid(raw, header, secret)'));
+check('webhook verifies signature',webhook.includes('verifyStripeSignature(raw,header)'));
+check('webhook uses the executable-tested signature helper',!webhook.includes('async function signatureValid(')&&webhook.includes('await import("@/data/network-stripe.server")'));
 check('webhook looks up current subscription',webhook.includes('api.stripe.com/v1/subscriptions/'));
 check('webhook never republishes paid listings automatically',webhook.includes('is_published: false')&&!webhook.includes('is_published: true'));
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));

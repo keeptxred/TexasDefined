@@ -46,3 +46,23 @@ test('checkout requires explicit flag and live-secret configuration',()=>{
  process.env.STRIPE_SECRET_KEY='sk_test_not_live';
  assert.equal(stripeCheckoutEnabled(),false);
 });
+
+test('webhook accepts matching rotated Stripe signature among several candidates', async () => {
+ process.env.STRIPE_WEBHOOK_SECRET=secret;
+ const timestamp=String(Math.floor(Date.now()/1000));
+ const payload=JSON.stringify({id:'evt_rotation_example',livemode:false});
+ assert.equal(await verifyStripeSignature(payload,'t='+timestamp+',v1='+('0'.repeat(64))+',v1='+sign(timestamp,payload)),true);
+});
+test('rejects correctly signed webhook too far in the future', async () => {
+ process.env.STRIPE_WEBHOOK_SECRET=secret;
+ const payload=JSON.stringify({id:'evt_future_example'});
+ const timestamp=String(Math.floor(Date.now()/1000)+3600);
+ assert.equal(await verifyStripeSignature(payload,'t='+timestamp+',v1='+sign(timestamp,payload)),false);
+});
+test('rejects a signature from a different webhook body at the same timestamp', async () => {
+ process.env.STRIPE_WEBHOOK_SECRET=secret;
+ const timestamp=String(Math.floor(Date.now()/1000));
+ const original=JSON.stringify({id:'evt_A',type:'customer.subscription.updated'});
+ const altered=JSON.stringify({id:'evt_B',type:'customer.subscription.updated'});
+ assert.equal(await verifyStripeSignature(altered,'t='+timestamp+',v1='+sign(timestamp,original)),false);
+});

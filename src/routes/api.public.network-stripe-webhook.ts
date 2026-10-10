@@ -1,32 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 const PRICE_ID = "price_1UP28XLtRurj6GMNwFlYDW6N";
-const encoder = new TextEncoder();
-function validHexEqual(left: string, right: string) {
-  if (left.length !== right.length) return false;
-  let different = 0;
-  for (let i = 0; i < left.length; i++) different |= left.charCodeAt(i) ^ right.charCodeAt(i);
-  return different === 0;
-}
-async function signatureValid(raw: string, header: string, secret: string) {
-  const fragments = header.split(",").map(segment => segment.trim());
-  const timestamp = fragments.find(s => s.startsWith("t="))?.slice(2);
-  const signatures = fragments.filter(s => s.startsWith("v1=")).map(s => s.slice(3));
-  const time = Number(timestamp);
-  if (!Number.isSafeInteger(time) || Math.abs(Date.now() / 1000 - time) > 300 || !signatures.length) return false;
-  const key = await crypto.subtle.importKey("raw", encoder.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
-  const digest = await crypto.subtle.sign("HMAC", key, encoder.encode(timestamp + "." + raw));
-  const signature = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
-  return signatures.some(s => validHexEqual(signature, s));
-}
-
+// One production HMAC verifier shared with the executable Stripe security tests.
 export const Route = createFileRoute("/api/public/network-stripe-webhook")({
   server: { handlers: { POST: async ({ request }) => {
     const secret = process.env["STRIPE_WEBHOOK_SECRET"];
     if (!secret) return new Response("Webhook not configured", { status: 503 });
     const raw = await request.text();
     const header = request.headers.get("stripe-signature") || "";
-    if (!await signatureValid(raw, header, secret)) return new Response("Invalid signature", { status: 400 });
+    const { verifyStripeSignature } = await import("@/data/network-stripe.server");
+    if (!await verifyStripeSignature(raw,header)) return new Response("Invalid signature", { status: 400 });
     let event: Record<string, any>;
     try { event = JSON.parse(raw); } catch { return new Response("Invalid event", { status: 400 }); }
     if (event.livemode !== true || typeof event.type !== "string") return new Response("Ignored", { status: 200 });
