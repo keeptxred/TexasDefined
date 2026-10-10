@@ -27,6 +27,7 @@ const smokeTargets = [
   // Prelaunch Network pages must render content on the built Worker without browser JavaScript.
   { path: '/network/join', requiredText: 'One Texas. Everything Connected.', label: 'Network membership SSR' },
   { path: '/network/apply', requiredText: 'Build your business listing', label: 'Network application SSR' },
+  { path: '/network/apply', requiredText: 'Network applications and uploads are not open yet.', label: 'Network intake launch gate visible' },
   { path: '/network/example/basic', requiredText: 'Lone Star Heritage Workshop', label: 'Network Basic example SSR' },
   { path: '/network/example/plus', requiredText: 'Lone Star Heritage Workshop', label: 'Network Plus example SSR' },
   { path: '/network/billing', requiredText: 'Manage your membership', label: 'Network billing SSR' },
@@ -99,6 +100,10 @@ const redirectTargets = [
     expectedQuery: ['source', 'smoke'],
     label: 'duplicated fishing technique path normalization',
   },
+];
+
+const disabledNetworkPostTargets = [
+  {path:'/api/public/network-application',expectedStatus:503,expectedText:'Network applications are not open yet.'},
 ];
 
 const renderRouteGroups = [...smokeTargets.reduce((groups, target) => {
@@ -221,6 +226,21 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
   }
 }
 
+async function checkDisabledNetworkPost(target, attemptToken) {
+ try {
+  const response=await fetch(smokeUrl(target.path,attemptToken),{
+   method:'POST',redirect:'manual',cache:'no-store',
+   headers:{...requestHeaders,origin,'content-type':'application/json'},
+   body:'{}',signal:AbortSignal.timeout(requestTimeoutMs),
+  });
+  const text=await response.text();
+  if(response.status===target.expectedStatus&&text.includes(target.expectedText))return '';
+  return `${target.path} expected disabled intake HTTP ${target.expectedStatus} with known error; got HTTP ${response.status}`;
+ } catch(error){
+  return `${target.path} failed: ${error instanceof Error?error.message:String(error)}`;
+ }
+}
+
 async function checkRedirectTarget(target, attemptToken) {
   try {
     const url = smokeUrl(target.path, attemptToken);
@@ -322,6 +342,12 @@ try {
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
     }
 
+    for (const target of disabledNetworkPostTargets) {
+      const failure = await verifyWithRetries(target, checkDisabledNetworkPost,'prelaunch disabled POST '+target.path);
+      if(failure)failures.push(failure);
+      else console.log(`[launch-gate] verified (${target.expectedStatus}): ${target.path}`);
+    }
+
     for (const target of redirectTargets) {
       const label = `redirect route ${target.path}`;
       const failure = await verifyWithRetries(target, checkRedirectTarget, label);
@@ -331,7 +357,7 @@ try {
   }
 
   if (!failures.length) {
-    console.log(`Built Worker SSR smoke passed: ${renderRouteGroups.length} unique render route(s), ${smokeTargets.length} marker check(s), and ${redirectTargets.length} redirect target(s) passed.`);
+    console.log(`Built Worker SSR smoke passed: ${renderRouteGroups.length} unique render route(s), ${smokeTargets.length} marker check(s), and ${redirectTargets.length} redirect target(s) plus ${disabledNetworkPostTargets.length} disabled intake POST(s) passed.`);
     if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${renderRouteGroups.length} render routes / ${smokeTargets.length} marker checks + ${redirectTargets.length} redirect target(s) | process-ready signal + warmup + per-route retries: ${targetAttempts} |\n`);
   } else {
     const failure = failures.join('; ');
