@@ -162,6 +162,23 @@ try {
           check(err,!/ROUND ROCK ISD|WILLIAMSON COUNTY/i.test(top), 'incorrect Johnson campus joined to LBJ');
           check(err,d.schema.includes('LBJ Early College High School'), 'LBJ school schema identity mismatch');
         }
+        if (['austin', 'austin-travis', 'austin-northeast', 'austin-vandegrift'].includes(slug)) {
+          const top = d.body.slice(0, 4500);
+          const district = slug === 'austin-vandegrift' ? 'LEANDER ISD' : 'AUSTIN ISD';
+          check(err,top.toUpperCase().includes(district), slug+' missing verified campus district '+district);
+          check(err,/TRAVIS COUNTY/i.test(top), slug+' campus county incorrectly attributed');
+          if (slug === 'austin-vandegrift') {
+            check(err,!/WILLIAMSON COUNTY/i.test(top), 'Vandegrift wrongly assigned district service-area county');
+          }
+          if (slug === 'austin-northeast') {
+            check(err,!/AUSTIN ACHIEVE PUBLIC SCHOOLS/i.test(top), 'Northeast matched unrelated charter district');
+          }
+        }
+        if (slug === 'austin-lake-travis') {
+          check(err,!/school announced a 2026 football-season cancellation/i.test(d.body), 'falsely invented varsity season cancellation');
+          check(err,/varsity games return to Cavalier Stadium/i.test(d.body), 'missing current sourced stadium return notice');
+          check(err,d.links.some(x => /laketravisfootball\.com\/schedules/.test(x.href)), 'missing official 2026 varsity schedule link');
+        }
       });
     }
     const countyToSlugs = new Map();
