@@ -12,49 +12,48 @@
     "total": 1292
   },
   "batch": {
-    "number": 3,
+    "number": 4,
     "slugs": [
-      "amarillo-caprock",
-      "amarillo-highland-park",
-      "amarillo-palo-duro",
-      "amarillo-river-road",
-      "amarillo-tascosa",
-      "amherst",
-      "anahuac",
-      "anderson-shiro",
-      "andrews",
-      "angleton",
-      "anna",
-      "anson",
-      "anthony",
-      "anton",
-      "apple-springs",
-      "aquilla",
-      "aransas-pass",
-      "archer-city",
-      "argyle",
-      "arlington",
-      "arlington-bowie",
-      "arlington-houston",
-      "arlington-lamar",
-      "arlington-martin",
-      "arlington-seguin"
+      "arp",
+      "aspermont",
+      "athens",
+      "atlanta",
+      "aubrey",
+      "austin",
+      "austin-achieve",
+      "austin-akins",
+      "austin-anderson",
+      "austin-bowie",
+      "austin-crockett",
+      "austin-eastside",
+      "austin-johnson",
+      "austin-lake-travis",
+      "austin-lasa",
+      "austin-mccallum",
+      "austin-navarro",
+      "austin-northeast",
+      "austin-travis",
+      "austin-vandegrift",
+      "austin-westlake",
+      "avalon",
+      "axtell",
+      "azle",
+      "baird"
     ],
-    "state": "ALL_25_PRODUCTION_VERIFIED",
-    "dateAssigned": "2026-10-09",
-    "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
-    "individuallyVerified": 25,
-    "partiallyCompleted": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "football-authority-batch-003-20261009",
-    "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
+    "state": "ASSIGNED_RESEARCH_PENDING",
+    "dateAssigned": "2026-10-10",
+    "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing stable registry order; previous 55 VERIFIED excluded",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-004-20261010",
+    "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "All 25 Batch 003 schools independently production VERIFIED: 86/86 original Chrome checks + 25 sitemap entries in run 38026402179 (artifact 11660256304), full rerun SUCCESS and Apple Springs focused 2026-10-10 Chrome retest run 38050845453 SUCCESS 4/4 page checks, sitemap 1/1, artifact 11669182798; title punctuation assertion passed. Prior 30 VERIFIED retained. Overall 55/1292. Batch 004 not assigned."
+    "currentSchool": "arp",
+    "nextSchool": "arp",
+    "implementedOnBranch": 0,
+    "remainingToImplement": 25,
+    "remainingToVerify": 25,
+    "notes": "Assignment only; individual audits/research, implementations, merge, deployment and production acceptance remain pending."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4259,7 +4258,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/arp",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:aspermont",
@@ -4273,7 +4272,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aspermont",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:athens",
@@ -4287,7 +4286,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/athens",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:atlanta",
@@ -4301,7 +4300,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/atlanta",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:aubrey",
@@ -4315,7 +4314,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aubrey",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin",
@@ -4329,7 +4328,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-achieve",
@@ -4343,7 +4342,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-achieve",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-akins",
@@ -4357,7 +4356,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-akins",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-anderson",
@@ -4371,7 +4370,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-anderson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-bowie",
@@ -4385,7 +4384,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-bowie",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-crockett",
@@ -4399,7 +4398,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-crockett",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-eastside",
@@ -4413,7 +4412,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-eastside",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-johnson",
@@ -4427,7 +4426,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-johnson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-lake-travis",
@@ -4441,7 +4440,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lake-travis",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-lasa",
@@ -4455,7 +4454,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-lasa",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-mccallum",
@@ -4469,7 +4468,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-mccallum",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-navarro",
@@ -4483,7 +4482,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-navarro",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-northeast",
@@ -4497,7 +4496,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-northeast",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-travis",
@@ -4511,7 +4510,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-travis",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-vandegrift",
@@ -4525,7 +4524,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-vandegrift",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:austin-westlake",
@@ -4539,7 +4538,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/austin-westlake",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:avalon",
@@ -4553,7 +4552,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/avalon",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:axtell",
@@ -4567,7 +4566,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/axtell",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:azle",
@@ -4581,7 +4580,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/azle",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:baird",
@@ -4595,7 +4594,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/baird",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 4
     },
     {
       "id": "uil:ballinger",
@@ -21932,6 +21931,54 @@
       "sitemapPassed": 25,
       "failedChecks": 0,
       "qualification": "Acceptance is browser/SEO/link verification; photo licensing and official game-day/coach/source caveats remain per school."
+    },
+    {
+      "number": 3,
+      "slugs": [
+        "amarillo-caprock",
+        "amarillo-highland-park",
+        "amarillo-palo-duro",
+        "amarillo-river-road",
+        "amarillo-tascosa",
+        "amherst",
+        "anahuac",
+        "anderson-shiro",
+        "andrews",
+        "angleton",
+        "anna",
+        "anson",
+        "anthony",
+        "anton",
+        "apple-springs",
+        "aquilla",
+        "aransas-pass",
+        "archer-city",
+        "argyle",
+        "arlington",
+        "arlington-bowie",
+        "arlington-houston",
+        "arlington-lamar",
+        "arlington-martin",
+        "arlington-seguin"
+      ],
+      "state": "VERIFIED_BATCH_003_COMPLETE",
+      "dateAssigned": "2026-10-09",
+      "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
+      "individuallyVerified": 25,
+      "partiallyCompleted": 25,
+      "remainingAssigned": 0,
+      "assignmentBranch": "football-authority-batch-003-20261009",
+      "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
+      "maxSchoolsPerBatch": 25,
+      "currentSchool": null,
+      "nextSchool": null,
+      "implementedOnBranch": 25,
+      "remainingToImplement": 0,
+      "remainingToVerify": 0,
+      "notes": "All 25 Batch 003 schools independently production VERIFIED: 86/86 original Chrome checks + 25 sitemap entries in run 38026402179 (artifact 11660256304), full rerun SUCCESS and Apple Springs focused 2026-10-10 Chrome retest run 38050845453 SUCCESS 4/4 page checks, sitemap 1/1, artifact 11669182798; title punctuation assertion passed. Prior 30 VERIFIED retained. Overall 55/1292. Batch 004 not assigned.",
+      "verifiedAt": "2026-10-10",
+      "productionBrowserRunId": 38026402179,
+      "appleSpringsRetestRunId": 38050845453
     }
   ]
 }
