@@ -425,6 +425,7 @@ import { Route as AdminSportsSponsorsRouteImport } from './routes/admin.sports-s
 import { Route as AdminSportsPartnersRouteImport } from './routes/admin.sports-partners'
 import { Route as AdminSocialCalendarRouteImport } from './routes/admin.social-calendar'
 import { Route as AdminPlatformHealthRouteImport } from './routes/admin.platform-health'
+import { Route as AdminNetworkApplicationsRouteImport } from './routes/admin.network-applications'
 import { Route as AdminPartnerReferralsRouteImport } from './routes/admin.partner-referrals'
 import { Route as AdminKnowledgeGraphBehaviorRouteImport } from './routes/admin.knowledge-graph-behavior'
 import { Route as AdminInternalLinkTestsRouteImport } from './routes/admin.internal-link-tests'
@@ -3106,6 +3107,13 @@ const AdminPlatformHealthRoute = AdminPlatformHealthRouteImport.update({
 } as any).lazy(() =>
   import('./routes/admin.platform-health.lazy').then((d) => d.Route),
 )
+const AdminNetworkApplicationsRoute = AdminNetworkApplicationsRouteImport.update({
+  id: '/network-applications',
+  path: '/network-applications',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin.network-applications.lazy').then((d) => d.Route),
+)
 const AdminPartnerReferralsRoute = AdminPartnerReferralsRouteImport.update({
   id: '/partner-referrals',
   path: '/partner-referrals',
@@ -3803,6 +3811,7 @@ export interface FileRoutesByFullPath {
   '/admin/internal-link-rollback': typeof AdminInternalLinkRollbackRoute
   '/admin/internal-link-tests': typeof AdminInternalLinkTestsRoute
   '/admin/knowledge-graph-behavior': typeof AdminKnowledgeGraphBehaviorRoute
+  '/admin/network-applications': typeof AdminNetworkApplicationsRoute
   '/admin/partner-referrals': typeof AdminPartnerReferralsRoute
   '/admin/platform-health': typeof AdminPlatformHealthRoute
   '/admin/social-calendar': typeof AdminSocialCalendarRoute
@@ -9891,6 +9900,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPlatformHealthRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/network-applications': {
+      id: '/admin/network-applications'
+      path: '/network-applications'
+      fullPath: '/admin/network-applications'
+      preLoaderRoute: typeof AdminNetworkApplicationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/partner-referrals': {
       id: '/admin/partner-referrals'
       path: '/partner-referrals'
@@ -10472,6 +10488,7 @@ interface AdminRouteChildren {
   AdminInternalLinkRollbackRoute: typeof AdminInternalLinkRollbackRoute
   AdminInternalLinkTestsRoute: typeof AdminInternalLinkTestsRoute
   AdminKnowledgeGraphBehaviorRoute: typeof AdminKnowledgeGraphBehaviorRoute
+  AdminNetworkApplicationsRoute: typeof AdminNetworkApplicationsRoute
   AdminPartnerReferralsRoute: typeof AdminPartnerReferralsRoute
   AdminPlatformHealthRoute: typeof AdminPlatformHealthRoute
   AdminSocialCalendarRoute: typeof AdminSocialCalendarRoute
@@ -10491,6 +10508,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminInternalLinkRollbackRoute: AdminInternalLinkRollbackRoute,
   AdminInternalLinkTestsRoute: AdminInternalLinkTestsRoute,
   AdminKnowledgeGraphBehaviorRoute: AdminKnowledgeGraphBehaviorRoute,
+  AdminNetworkApplicationsRoute: AdminNetworkApplicationsRoute,
   AdminPartnerReferralsRoute: AdminPartnerReferralsRoute,
   AdminPlatformHealthRoute: AdminPlatformHealthRoute,
   AdminSocialCalendarRoute: AdminSocialCalendarRoute,
