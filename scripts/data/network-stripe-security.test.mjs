@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership } from '../../src/data/network-stripe.server.ts';
+import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl } from '../../src/data/network-stripe.server.ts';
 
 const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
@@ -79,4 +79,48 @@ test('first authorized subscription must always contain a Stripe customer', () =
  const newBusiness={stripe_subscription_id:null,stripe_customer_id:null};
  assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_new',customer:'cus_new'},newBusiness),true);
  assert.equal(verifiedNetworkSubscriptionOwnership({id:'sub_new',customer:null},newBusiness),false);
+});
+
+test('rejects spoofed or unsafe Stripe checkout redirect destinations',()=>{
+ assert.equal(isNetworkCheckoutUrl('https://checkout.stripe.com.evil.test/c/pay/123'),false);
+ assert.equal(isNetworkCheckoutUrl('http://checkout.stripe.com/c/pay/123'),false);
+ assert.equal(isNetworkCheckoutUrl('https://billing.stripe.com/p/session'),false);
+ assert.equal(isNetworkCheckoutUrl('https://checkout.stripe.com/c/pay/session'),true);
+});
+test('mocked Checkout creates a bounded, owner-reserved session with a unique attempt id',async()=>{
+ const priorFetch=globalThis.fetch;
+ process.env.NETWORK_CHECKOUT_ENABLED='true';
+ process.env.STRIPE_SECRET_KEY='sk_live_mocked_never_sent';
+ let outgoing;
+ globalThis.fetch=async(url,options)=>{
+   outgoing={url,options};
+   return {ok:true,status:200,json:async()=>({
+     id:'cs_live_mocked_for_unit_test',
+     url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
+     expires_at:Math.floor(Date.now()/1000)+1800,
+   })};
+ };
+ try {
+   const appId='11111111-1111-4111-8111-111111111111';
+   const attempt='22222222-2222-4222-8222-222222222222';
+   const result=await createNetworkCheckoutSession(appId,'test@example.invalid',attempt);
+   assert.equal(result.sessionId,'cs_live_mocked_for_unit_test');
+   assert.equal(outgoing.url,'https://api.stripe.com/v1/checkout/sessions');
+   assert.equal(outgoing.options.headers['Idempotency-Key'],'network-plus-'+appId+'-'+attempt);
+   const body=new URLSearchParams(outgoing.options.body);
+   assert.equal(body.get('subscription_data[metadata][application_id]'),appId);
+   assert.equal(body.get('line_items[0][price]'),'price_1UP28XLtRurj6GMNwFlYDW6N');
+   assert.ok(body.get('success_url').includes('/network/checkout-return?'));
+ } finally {
+   globalThis.fetch=priorFetch;
+   delete process.env.NETWORK_CHECKOUT_ENABLED;
+   delete process.env.STRIPE_SECRET_KEY;
+ }
+});
+test('Checkout cannot create a session without explicit live authorization',async()=>{
+ delete process.env.NETWORK_CHECKOUT_ENABLED;
+ await assert.rejects(
+  createNetworkCheckoutSession('11111111-1111-4111-8111-111111111111','test@example.invalid','22222222-2222-4222-8222-222222222222'),
+  /not activated/
+ );
 });

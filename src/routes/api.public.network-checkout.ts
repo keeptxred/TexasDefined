@@ -44,9 +44,33 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     if (data.paid_entitlement_active || data.stripe_subscription_id) {
       return reply({ error: "A subscription already exists for this application. Use membership billing to manage it." }, 409);
     }
+    // Serialize parallel calls in the private DB, reusing only a still-live Stripe URL.
+    const {isNetworkCheckoutUrl}=await import("@/data/network-stripe.server");
+    const {data:reservation,error:reserveError}=await supabaseAdmin.rpc(
+      "reserve_texasdefined_network_checkout",{p_application_id:data.id,p_owner_user_id:verified.user.id}
+    );
+    if(reserveError||!reservation||typeof reservation!=="object")
+      return reply({error:"Checkout reservation is unavailable."},503);
+    const status=(reservation as {status?:unknown}).status;
+    if(status==="not_eligible")return reply({error:"This application is not eligible for checkout."},422);
+    if(status==="busy")return reply({error:"Checkout is already being prepared; retry shortly."},409);
+    if(status==="reuse"){
+      const url=(reservation as {url?:unknown}).url;
+      return isNetworkCheckoutUrl(url)?reply({ok:true,url}):reply({error:"Checkout link is unavailable."},503);
+    }
+    const key=(reservation as {attemptKey?:unknown}).attemptKey;
+    if(status!=="create"||typeof key!=="string"||!/^[0-9a-f-]{36}$/i.test(key))
+      return reply({error:"Checkout reservation could not be completed."},503);
     try {
-      const url=await createNetworkCheckoutSession(data.id,data.contact_email);
-      return reply({ok:true,url});
+      const session=await createNetworkCheckoutSession(data.id,data.contact_email,key);
+      const {data:finalized,error:finalizeError}=await supabaseAdmin.rpc(
+        "complete_texasdefined_network_checkout",{
+          p_application_id:data.id,p_owner_user_id:verified.user.id,p_attempt_key:key,
+          p_session_id:session.sessionId,p_checkout_url:session.url,p_expires_at:session.expiresAt,
+        }
+      );
+      if(finalizeError||finalized!==true)return reply({error:"Checkout session verification incomplete. Retry shortly."},503);
+      return reply({ok:true,url:session.url});
     } catch (error) {
       console.error("[network] Stripe checkout creation failed",error instanceof Error?error.message:"unknown");
       return reply({error:"Checkout could not be started."},503);

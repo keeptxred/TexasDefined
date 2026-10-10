@@ -25,7 +25,14 @@ export async function verifyStripeSignature(raw:string,header:string|null) {
  return candidate.some(hex=>{if(!/^[0-9a-f]{64}$/i.test(hex))return false;let difference=0;for(let i=0;i<32;i++)difference|=expected[i]^Number.parseInt(hex.slice(i*2,i*2+2),16);return difference===0});
 }
 
-export async function createNetworkCheckoutSession(applicationId:string,email:string) {
+export function isNetworkCheckoutUrl(url:unknown):url is string {
+ if(typeof url!=='string')return false;
+ try {const target=new URL(url);return target.protocol==='https:'&&target.hostname==='checkout.stripe.com'&&target.username===''&&target.password==='';}
+ catch{return false}
+}
+export async function createNetworkCheckoutSession(applicationId:string,email:string,attemptKey:string) {
+ if(!/^[0-9a-f-]{36}$/i.test(applicationId)||!/^[0-9a-f-]{36}$/i.test(attemptKey))throw Error('Invalid reserved checkout attempt');
+
  if(!stripeCheckoutEnabled())throw new Error('Network billing is not activated');
  const params=new URLSearchParams({
   mode:'subscription',
@@ -36,13 +43,15 @@ export async function createNetworkCheckoutSession(applicationId:string,email:st
   'metadata[application_id]':applicationId,
   'subscription_data[metadata][application_id]':applicationId,
   'subscription_data[metadata][project]':'TexasDefined',
-  success_url:'https://texasdefined.com/network/join?checkout=success&session_id={CHECKOUT_SESSION_ID}',
-  cancel_url:'https://texasdefined.com/network/join?checkout=cancelled',
+  success_url:'https://texasdefined.com/network/checkout-return?session_id={CHECKOUT_SESSION_ID}',
+  cancel_url:'https://texasdefined.com/network/billing?checkout=cancelled',
   billing_address_collection:'auto',
  });
- const result=await stripeRequest('/checkout/sessions',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':'network-plus-'+applicationId},body:params});
- if(typeof result.url!=='string'||!result.url.startsWith('https://checkout.stripe.com/'))throw new Error('Stripe Checkout link unavailable');
- return result.url as string;
+ const result=await stripeRequest('/checkout/sessions',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Idempotency-Key':'network-plus-'+applicationId+'-'+attemptKey},body:params});
+ if(!isNetworkCheckoutUrl(result.url)||typeof result.id!=='string'||!/^cs_live_[a-zA-Z0-9_]+$/.test(result.id)
+   ||typeof result.expires_at!=='number'||!Number.isSafeInteger(result.expires_at)
+   ||result.expires_at<Math.floor(Date.now()/1000)+60)throw new Error('Stripe Checkout session unavailable');
+ return {url:result.url as string,sessionId:result.id as string,expiresAt:result.expires_at as number};
 }
 
 /** Bound a verified live Stripe subscription to its ORIGINAL Network business account. */
