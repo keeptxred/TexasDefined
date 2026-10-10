@@ -541,6 +541,20 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
           </table>
         </div>
         <p className="mt-4 max-w-4xl text-xs leading-6 text-muted-foreground">Planning-drive ranges are editorial estimates from central Austin for choosing among trips, not live traffic predictions. Always open the current route before departure.</p>
+        <div className="mt-10 grid gap-7 border-t border-border pt-8 md:grid-cols-3">
+          <div><h3 className="font-display text-2xl">Spring and wildflowers</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Choose Hill Country routes for spring scenery, but expect popular weekends to bring traffic. Wildflower timing varies by rainfall and weather; avoid stopping on unsafe road shoulders.</p></div>
+          <div><h3 className="font-display text-2xl">Summer and river trips</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">For New Braunfels or Llano, check river flow, heat advisories, access rules and weather before committing. Plan outdoor time early and keep an indoor alternative.</p></div>
+          <div><h3 className="font-display text-2xl">Fall and winter</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Courthouse squares, museums and historic districts make flexible cooler-weather outings. Verify holiday schedules and tour availability, especially on Sundays.</p></div>
+        </div>
+        <div className="mt-9 border-t border-border pt-7">
+          <h3 className="font-display text-2xl">More ways to explore from Austin</h3>
+          <div className="mt-4 flex flex-wrap gap-x-7 gap-y-3 text-sm font-semibold">
+            <Link to="/explore/near/austin/day-trips" className="border-b border-primary pb-1 text-primary">Day trips →</Link>
+            <Link to="/explore/near/austin/state-parks" className="border-b border-primary pb-1 text-primary">State parks →</Link>
+            <Link to="/explore/near/austin/swimming-holes" className="border-b border-primary pb-1 text-primary">Swimming holes →</Link>
+            <Link to="/explore/near/austin/road-trips" className="border-b border-primary pb-1 text-primary">Road trips →</Link>
+          </div>
+        </div>
       </Container>
     </section>}
 
