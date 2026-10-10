@@ -73,7 +73,7 @@ function NetworkApplication() {
           } catch (error) {
             setError(error instanceof Error ? error.message : "Submission unavailable");
           } finally { setSending(false); }
-        }}}>
+        }}>
           <h2 className="font-display text-3xl">Your information</h2>
           {input("businessName","Business or organization name",true,"Your business name")}
           {input("category","Business category",true,"e.g. Bakery, museum, contractor")}
