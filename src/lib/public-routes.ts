@@ -221,6 +221,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/start-a-business-in-texas",
   "/texas-explained",
   "/texas-data",
+  "/texas-data/research/texas-homeowners-premiums-vs-coverage",
   "/texas-data/city-county-relationships",
   "/county",
   "/property-tax-guides",
