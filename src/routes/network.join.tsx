@@ -5,8 +5,8 @@ import hillCountryHero from "@/assets/hero-hill-country.jpg";
 export const Route = createFileRoute("/network/join")({
   head: () => ({
     meta: [
-      { title: "Join the Texas Defined Network | Private Preview" },
-      { name: "description", content: "Preview a free Texas Defined Network listing and future partner options." },
+      { title: "Join the Texas Defined Network | Texas Defined" },
+      { name: "description", content: "Join the Texas Defined Network. Explore free and enhanced profiles for Texas organizations." },
       { name: "robots", content: "noindex, nofollow, noarchive" },
     ],
   }),
@@ -26,7 +26,7 @@ const tiers = [
     frequency: "forever",
     note: "A simple, searchable introduction to your business or organization.",
     features: ["Name, category, and Texas community", "Brief business description", "Phone number and address or service area", "Basic business hours", "Searchable Texas Defined profile", "No prominent website or social-media buttons"],
-    status: "Preview — submissions opening soon",
+    status: "Free profile",
     featured: false,
   },
   {
@@ -35,16 +35,16 @@ const tiers = [
     frequency: "/ month",
     note: "Your expanded business presence, with more ways for customers to connect.",
     features: ["Everything in Basic", "Prominent official website link", "Social-media profile links", "Longer description and services", "Photo gallery and FAQs", "Events or special offers", "Basic listing performance statistics"],
-    status: "Coming soon — not accepting payments",
+    status: "Enhanced profile",
     featured: true,
   },
   {
     name: "Texas Defined Featured",
-    price: "Coming soon",
+    price: "Custom",
     frequency: "",
     note: "Additional opportunities to tell your story and reach Texas visitors.",
     features: ["Everything in Plus", "Expanded photo and content options", "Optional, clearly labeled sponsored placements", "Optional sponsored business stories", "Additional promotional opportunities", "Expanded performance insights"],
-    status: "Coming soon",
+    status: "Featured opportunities",
     featured: false,
   },
 ];
@@ -66,7 +66,7 @@ function NetworkJoinPreview() {
                 <input id="network-search-preview" type="search" placeholder="Search for businesses, categories, or cities..." className="min-w-0 flex-1 rounded-full bg-transparent px-4 py-3 text-sm text-[#12304e] outline-none sm:text-base" />
                 <button type="submit" className="rounded-full bg-[#b53e20] px-7 py-3 font-semibold text-white">Explore</button>
               </form>
-              <p className="mt-3 text-xs text-[#31485b]">Search is a visual preview; business submissions are not open.</p>
+              <p className="mt-3 text-xs text-[#31485b]">Explore the people, places, and organizations that make Texas unique.</p>
               <div className="mt-10 grid max-w-[680px] grid-cols-2 gap-4 text-center text-sm font-medium text-[#0a2242] sm:grid-cols-4">
                 {[
                   ["⌕","Discover","Local Businesses"],
@@ -113,21 +113,21 @@ function NetworkJoinPreview() {
           <div className="mx-auto max-w-3xl text-center">
             <p className="eyebrow text-primary">Network membership</p>
             <h2 className="mt-3 font-display text-4xl sm:text-5xl">Start free. Grow with Texas.</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">Start with a basic searchable listing at no cost. A $19.99/month enhanced profile and future promotional tools are planned but not yet available.</p>
+            <p className="mt-4 leading-7 text-muted-foreground">Start with a basic searchable listing at no cost. Upgrade to a richer profile for $19.99 per month, or explore custom featured opportunities.</p>
           </div>
           <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-3">
             {tiers.map((tier) => (
               <article key={tier.name} className={`flex flex-col rounded-3xl border bg-background p-7 shadow-sm ${tier.featured ? "border-primary ring-1 ring-primary/30" : "border-border"}`}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h3 className="font-display text-2xl">{tier.name}</h3>
-                  {tier.featured && <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Most popular</span>}
+                  {tier.featured && <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">Enhanced</span>}
                 </div>
                 <p className="mt-6 text-3xl font-semibold">{tier.price}<span className="ml-2 text-sm font-normal text-muted-foreground">{tier.frequency}</span></p>
                 <p className="mt-4 min-h-14 leading-7 text-muted-foreground">{tier.note}</p>
                 <ul className="mt-6 flex-1 space-y-4 border-t border-border pt-6">
                   {tier.features.map((item) => <li key={item} className="flex gap-3 text-sm leading-6"><span className="font-bold text-primary" aria-hidden="true">✓</span><span>{item}</span></li>)}
                 </ul>
-                {tier.name !== "Texas Defined Featured" && <a href={tier.name === "Texas Defined Basic" ? "/network/example/basic" : "/network/example/plus"} className="mt-8 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</a>}{tier.name !== "Texas Defined Featured" && <a href={`/network/apply?plan=${tier.name === "Texas Defined Basic" ? "basic" : "plus"}`} className="mt-3 block rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground">Build your {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} listing</a>}<div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
+                {tier.name !== "Texas Defined Featured" && <a href={tier.name === "Texas Defined Basic" ? "/network/example/basic" : "/network/example/plus"} className="mt-8 block rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary hover:bg-primary/10">See {tier.name === "Texas Defined Basic" ? "Basic" : "Plus"} example listing</a>}<p className="mt-3 text-center text-xs text-muted-foreground">Profile enrollment is not enabled in this private design preview.</p><div className="mt-3 rounded-full bg-surface px-4 py-3 text-center text-sm font-medium text-muted-foreground">{tier.status}</div>
               </article>
             ))}
           </div>
@@ -159,10 +159,10 @@ function NetworkJoinPreview() {
 
       <section className="border-t border-border bg-surface">
         <Container className="py-16 text-center sm:py-20">
-          <p className="eyebrow text-primary">The next chapter of Texas Defined</p>
+          <p className="eyebrow text-primary">One Texas. Everything Connected.</p>
           <h2 className="mx-auto mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Every Texas story deserves to be found.</h2>
-          <p className="mx-auto mt-5 max-w-2xl leading-7 text-muted-foreground">We're shaping a statewide discovery network for the people, places and organizations that make Texas what it is.</p>
-          <span className="mt-8 inline-flex rounded-full border border-border bg-background px-7 py-3 text-sm font-semibold text-muted-foreground">Free listing submissions opening soon</span>
+          <p className="mx-auto mt-5 max-w-2xl leading-7 text-muted-foreground">Connecting the people, places, and organizations that make Texas what it is.</p>
+          <span className="mt-8 inline-flex rounded-full border border-border bg-background px-7 py-3 text-sm font-semibold text-muted-foreground">Explore the Texas Defined Network</span>
         </Container>
       </section>
     </main>
