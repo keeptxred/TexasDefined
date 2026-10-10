@@ -33,7 +33,7 @@ check('webhook verifies signature',webhook.includes('signatureValid(raw, header,
 check('webhook looks up current subscription',webhook.includes('api.stripe.com/v1/subscriptions/'));
 check('webhook never republishes paid listings automatically',webhook.includes('is_published: false')&&!webhook.includes('is_published: true'));
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));
-check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&/user\\?\\.email_confirmed_at/.test(review));
+check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&review.includes('user?.email_confirmed_at'));
 check('admin provisioning forbids reassignment',review.includes('existing.owner_user_id!==userId'));
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
 check('only approved application may be published',review.includes("if(app.status!=='approved')"));
