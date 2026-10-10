@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: read
+  statuses: read
 
 concurrency:
   group: destination-canonical-smoke-main
@@ -23,8 +24,18 @@ concurrency:
 jobs:
   smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
+      - name: Checkout deployment gate script
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact SHA protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
       - name: Verify canonical destination consolidation live
         shell: bash
         run: |
