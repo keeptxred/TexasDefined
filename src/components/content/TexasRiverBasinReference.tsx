@@ -38,6 +38,16 @@ const researchedProfiles: Record<string, string> = {
   Guadalupe: "/article/texas-guadalupe-river-guide",
   Trinity: "/article/texas-trinity-river-guide",
   "Rio Grande": "/article/texas-rio-grande-river-guide",
+  Canadian: "/article/texas-canadian-river-guide",
+  Cypress: "/article/texas-cypress-river-basin-guide",
+  Lavaca: "/article/texas-lavaca-river-guide",
+  Neches: "/article/texas-neches-river-guide",
+  Nueces: "/article/texas-nueces-river-guide",
+  Red: "/article/texas-red-river-guide",
+  Sabine: "/article/texas-sabine-river-guide",
+  "San Antonio": "/article/texas-san-antonio-river-guide",
+  "San Jacinto": "/article/texas-san-jacinto-river-guide",
+  Sulphur: "/article/texas-sulphur-river-guide",
 };
 
 const comparisonMetrics = [
@@ -226,8 +236,8 @@ Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gall
       </details>
 
       <p className="mt-3 text-xs leading-5 text-muted-foreground">
-        Linked river names in the table open existing TexasDefined profiles. Unlinked names still have verified TWDB figures
-        and can be researched through the agency directory above. Data verified {lastVerified}; downloading this reference
+        Every major basin name opens its own TexasDefined guide. TWDB provides the underlying area, mileage and historical-flow figures;
+        current conditions and public access require separate verification. Data verified {lastVerified}; downloading this reference
         preserves the source URL and verification date.
       </p>
       <div className="mt-6">
