@@ -26,10 +26,12 @@ for (const marker of [
   'major rivers and river basins of Texas',
   'href: "/article/texas-river-basins-guide"',
   'href: "/article/texas-lakes-reservoirs-explained"',
+  'h("Texas Rivers Explained: six quick answers before the deep dive")',
 ]) if (!pillar.includes(marker)) errors.push(`GSC river-intent contract missing: ${marker}`);
 
 for (const forbiddenMarker of [
   'h("Where Texas\'s Major Rivers Flow")',
+  'h("Texas rivers at a glance: six quick answers")',
   '"West Texas and the mountains: Rio Grande, Pecos and Devils River systems move through high desert, basins and canyon country."',
   '"Central Texas and the plains: Brazos and Colorado systems cross large portions of the state and feed major reservoirs."',
 ]) if (pillar.includes(forbiddenMarker)) errors.push(`Texas rivers pillar must not restore duplicate regional rundown: ${forbiddenMarker}`);
