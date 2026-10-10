@@ -26,3 +26,6 @@ Original year-specific Tigers overview, 2024–25 eight-win team records, 2025 p
 Official coaching confirmation and exact team colors; NCES Jones County campus and reciprocal city/county inbound links; venue gate/ticket/ADA; original rights-cleared school photo; CI and protected PR review; deployment and real rendered 390/1366 browser/mobile, canonical, schema, sitemap and runtime QA.
 
 **Next:** Anthony.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075` by [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179). [Artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304) includes `desktop-school-anson.png` and `mobile-school-anson.png`. Each viewport: HTTP 200, one H1, canonical/SEO, schema, visible sources and county link, no reported broken images, missing alts, JavaScript runtime errors or overflow. School is in 25/25 sitemap. Qualified unavailable image licensing or individual game entry is not asserted as independently proven.

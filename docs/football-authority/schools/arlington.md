@@ -20,3 +20,6 @@ Original 1951 championship and school founding/mascot story, distinct coach and 
 **Outstanding:** Verify 1951 score directly from UIL archive, exact current UIL district/rivals, NCES Tarrant County campus and existing county/city/school reciprocal links, current stadium event access/ADA and official photography rights, relevant football validators/CI, safe protected merge/deploy and rendered production desktop/mobile SEO/schema/sitemap checks.
 
 **Next assigned:** Arlington Bowie.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** by [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179) at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075`. [Artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304) includes `desktop-school-arlington.png` and `mobile-school-arlington.png`. Each viewport returned 200 with one H1, correct canonical/SEO/schema, visible individual source and Tarrant County/Arlington reciprocal links, no recorded runtime errors, image issues or overflow. Included in 25/25 sitemap. Event-specific ADA access and image reuse permissions remain qualified and not falsely asserted.

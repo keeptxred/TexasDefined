@@ -21,3 +21,6 @@ Original individual Anton six-man football narrative, documented two-season peak
 Official coach, identity/colors and school-site links; NCES Hockley County campus and reciprocal county/city links; game-specific scoreboard crosscheck; image license; stadium gate/ADA/tickets/parking; football tests, protected PR, deploy, responsive production browser and structured SEO checks.
 
 **Next assigned school: Apple Springs.**
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075` in [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179), [artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304). Screenshots `desktop-school-anton.png` and `mobile-school-anton.png`; both HTTP 200, title/canonical/schema/source/county links and sitemap correct, no JS errors, missing alt, broken images or overflow. Unavailable ADA/gate and photo-rights information remains qualified, not invented.

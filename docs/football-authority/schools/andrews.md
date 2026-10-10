@@ -21,3 +21,6 @@ Original Mustangs editorial about documented regional title years and multiple s
 Verify NCES Andrews County campus and corresponding reciprocal county/city pages, official maroon/gold colors/branding directly from district, rights-cleared genuine photos, verified ADA gate/tickets/current stadium capacity, specific UIL district PDF, technical validators and merge gate, deploy, true production desktop/mobile/SEO/schema/sitemap browser checks. Do not claim success until independently observed.
 
 **Next assigned:** Angleton.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075` by [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179). [Artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304) includes `desktop-school-andrews.png` and `mobile-school-andrews.png`. Each viewport: HTTP 200, one H1, canonical/SEO, schema, visible sources and county link, no reported broken images, missing alts, JavaScript runtime errors or overflow. School is in 25/25 sitemap. Qualified unavailable image licensing or individual game entry is not asserted as independently proven.

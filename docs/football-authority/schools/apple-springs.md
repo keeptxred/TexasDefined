@@ -19,3 +19,6 @@ Individual six-man program story, primary UIL classification correction, dated p
 Primary-source official coach and colors, confirm school/campus Trinity County NCES, proper reciprocal county/local links, photos/rights, district fixture source verification, current stadium gate and tickets, protected football validation/CI, merge, actual deployed Chrome responsive 390/1366/canonical/structured-data/browser/sitemap acceptance.
 
 **Next assigned school:** Aquilla.
+
+## Production Chrome exception — 2026-10-10 (NOT VERIFIED)
+[Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179), [artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304), includes `desktop-school-apple-springs.png` and `mobile-school-apple-springs.png`. Both screens returned HTTP 200; metadata, links, schema, images, runtime/overflow and sitemap passed. **Supplemental title check failed**: rendered title truncates to `... Nelson Davis Stadium & | Texas Defined`. Shorter title source merged in PR #4534; verify actual newly deployed title before promoting to VERIFIED. Remain DEPLOYED, acceptance pending.

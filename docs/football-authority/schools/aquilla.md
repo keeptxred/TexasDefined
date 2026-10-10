@@ -18,3 +18,6 @@ Distinct 2023–25 Cougars rise, 2026 coach and four official-source-attributed 
 Remaining: official AISD coach/color/campus confirmation, NCES Hill County and context-relevant inbound county/school links, true stadium gate/ADA, licensed photos, reconcile six-vs-four reported 2026 games, CI protected merge, production mobile/desktop Chrome verification and sitemap/schema tests.
 
 **Next assigned:** Aransas Pass.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075` in [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179), [artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304). Screenshots `desktop-school-aquilla.png` and `mobile-school-aquilla.png`; both HTTP 200, title/canonical/schema/source/county links and sitemap correct, no JS errors, missing alt, broken images or overflow. Unavailable ADA/gate and photo-rights information remains qualified, not invented.

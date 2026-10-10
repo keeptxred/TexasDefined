@@ -19,3 +19,6 @@ Distinct 1990 postseason narrative, exact major historic matchups, official Viki
 **Remaining:** NCES Tarrant campus; relevant reciprocal city/county/school links; photo licensing; game-specific Cravens gates, ADA, tickets and parking; CI, protected merge, live deployment and real 390/1366 browser SEO/schema/sitemap checks.
 
 **Next assigned:** Arlington Martin.
+
+## Individual production browser certification — 2026-10-10
+**Production browser VERIFIED** by [Chrome run 38026402179](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179) at deployed commit `4b61627a4a36cf3bff9c32e592b3f94a04805075`. [Artifact 11660256304](https://github.com/keeptxred/TexasDefined/actions/runs/38026402179/artifacts/11660256304) includes `desktop-school-arlington-lamar.png` and `mobile-school-arlington-lamar.png`. Each viewport returned 200 with one H1, correct canonical/SEO/schema, visible individual source and Tarrant County/Arlington reciprocal links, no recorded runtime errors, image issues or overflow. Included in 25/25 sitemap. Event-specific ADA access and image reuse permissions remain qualified and not falsely asserted.
