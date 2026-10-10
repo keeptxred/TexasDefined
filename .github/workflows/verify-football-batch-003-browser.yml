@@ -40,6 +40,7 @@ jobs:
         id: browser
         env:
           ACCEPTANCE_SHA: e7577d5e527ae412a803505649cd048453ea54ae
+          BATCH003_FOCUSED_SLUG: apple-springs
         run: node scripts/ci/verify-football-batch-003-browser.mjs
       - name: Publish discoverable deployed-commit browser acceptance result
         if: ${{ always() && github.event_name != 'pull_request' }}
