@@ -9,9 +9,21 @@ export const Route = createFileRoute("/api/public/network-application")({
     POST: async ({request}) => {
       // Noindex is not a launch gate. Reject ALL intake and media until explicitly armed.
       if(process.env.NETWORK_INTAKE_ENABLED!=='true'){
-        // Release the unread request body without buffering untrusted multipart uploads.
-        // Local Worker liveness tests exercise this path before other routes.
-        if(request.body){try{await request.body.cancel()}catch{}}
+        // Wrangler's local proxy can die after an early POST response with an unread
+        // body. Consume only a small, bounded amount; never buffer full media uploads.
+        // The public intake remains disabled regardless of the request payload.
+        if(request.body){
+          const reader=request.body.getReader();
+          let bytes=0;
+          try{
+            while(true){
+              const part=await reader.read();
+              if(part.done)break;
+              bytes+=part.value.byteLength;
+              if(bytes>65536){await reader.cancel();break}
+            }
+          }catch{try{await reader.cancel()}catch{}}
+        }
         return response({error:"Network applications are not open yet."},503);
       }
       const origin=request.headers.get("Origin");
