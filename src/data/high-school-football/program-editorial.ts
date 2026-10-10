@@ -314,8 +314,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin Vandegrift Vipers Football: History, 2026 Guide & Stadium Resources",
-      "description": "Research-led Austin Vandegrift Vipers football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+      "title": "Austin Vandegrift Vipers: 2024 Football State Champions & 2026 Guide",
+      "description": "The Vipers' verified 2024 6A Division II state title, 24–17 Southlake Carroll final, Coach Drew Sanders and Travis County campus resources."
     },
     "schedule": {
       "label": "Published source of team or opponent varsity schedule",
@@ -324,35 +324,61 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A distinctive football story",
-      "body": "Vandegrift is a distinct Leander ISD football program in the Austin metro, not an Austin ISD high school. In 2026 news coverage, San Antonio Johnson's 38–7 victory over Vandegrift was reported, but it must not be conflated with Buda Johnson or Austin LBJ. Official 2026 UIL alignment and historical titles need dedicated verification.",
-      "sourceUrl": "https://www.uiltexas.org/football/alignments",
-      "sourceLabel": "School source and explicitly qualified published record",
+      "title": "First Vandegrift football state championship, 2024",
+      "body": "In December 2024, the Vipers captured their first UIL football state championship, defeating previously unbeaten Southlake Carroll 24–17 in the Class 6A Division II title game. Coach Drew Sanders' 2024 squad went 15–1 after a 14–1 pre-title record. UIL's state-team archive records the coaching staff and playoff journey. Leander ISD operates the campus at 9500 McNeil Drive in Travis County even though its school mailing city is Austin.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team-mp/austin-vandegrift-2024-2025-football",
+      "sourceLabel": "UIL 2024 Vandegrift championship archive",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
+        "date": "2024",
+        "title": "Historic first state championship",
+        "body": "Vandegrift defeated Southlake Carroll 24–17 in the UIL Class 6A Division II title game, its first football state crown.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives",
+        "sourceLabel": "UIL official championship archive"
+      },
+      {
+        "date": "2024",
+        "title": "Drew Sanders' championship team",
+        "body": "The official state-team page lists Drew Sanders and a 14–1 mark entering the title game; the final victory made the season 15–1.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp/austin-vandegrift-2024-2025-football",
+        "sourceLabel": "UIL state-team record"
+      },
+      {
         "date": "2026",
-        "title": "Program-specific football milestone",
-        "body": "School location, coaching and historic playoff distinction require first-party school sources; no unsourced state crown or venue capacity is asserted.",
-        "sourceUrl": "https://www.uiltexas.org/football/alignments",
-        "sourceLabel": "School schedule or athletics history"
+        "title": "Austin location, Leander ISD campus",
+        "body": "NCES places Vandegrift High School at 9500 McNeil Drive in Travis County and identifies Leander ISD as the district.",
+        "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482703012156&InstName=Vandegrift",
+        "sourceLabel": "NCES public school directory"
       }
     ],
     "overview": [
-      "Vandegrift is a distinct Leander ISD football program in the Austin metro, not an Austin ISD high school. In 2026 news coverage, San Antonio Johnson's 38–7 victory over Vandegrift was reported, but it must not be conflated with Buda Johnson or Austin LBJ. Official 2026 UIL alignment and historical titles need dedicated verification.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "The 2024 Vipers achieved their first state football title against Southlake Carroll, winning 24–17 at AT&T Stadium. Their championship story has primary UIL archival evidence and should not be omitted from a program authority page.",
+      "The Austin-addressed campus belongs to Leander ISD, with a Travis County physical location verified in the federal school directory. Game venues and gate rules are not automatically the same as the campus address.",
+      "Drew Sanders coached the championship season in 2024; no unchecked claim is made about a later head-coaching appointment in 2026."
     ],
     "faq": [
       {
-        "question": "What should visitors know about Austin Vandegrift Vipers?",
-        "answer": "School location, coaching and historic playoff distinction require first-party school sources; no unsourced state crown or venue capacity is asserted."
+        "question": "When did Austin Vandegrift win its first football state title?",
+        "answer": "On December 21, 2024, Vandegrift beat Southlake Carroll 24–17 for the Class 6A Division II title."
       },
       {
-        "question": "Is TexasDefined the official football website?",
-        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+        "question": "Is Vandegrift an Austin ISD school?",
+        "answer": "No. It is part of Leander ISD. NCES lists its campus at 9500 McNeil Drive in Austin, within Travis County."
+      },
+      {
+        "question": "Who coached the 2024 championship team?",
+        "answer": "The UIL identifies Drew Sanders as head coach of Vandegrift's 2024 championship team."
       }
-    ]
+    ],
+    "campus": {
+      "address": "9500 McNeil Drive, Austin, TX 78750",
+      "phone": "512-570-2300",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482703012156&InstName=Vandegrift",
+      "sourceLabel": "NCES school campus, Travis County",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-travis": {
     "slug": "austin-travis",
@@ -619,11 +645,19 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "UIL's 2016 season records show Lake Travis defeated Austin Westlake 51–3 in the postseason; the final against The Woodlands ended 41–13.",
         "sourceUrl": "https://www.uiltexas.org/football/state-team/austin-lake-travis-2016-2017-football",
         "sourceLabel": "Published season or game-day source"
+      },
+      {
+        "date": "2025–2026",
+        "title": "Cavalier Stadium rebuild",
+        "body": "Texas TDLR lists a $46 million new stadium project, September 2025 start and December 2026 planned completion. Construction registry dates are not occupancy or inspection proof.",
+        "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
+        "sourceLabel": "TDLR accessibility project registration"
       }
     ],
     "overview": [
       "Lake Travis is documented as a six-time UIL football champion, including the 2016 Class 6A Division I crown. UIL identifies Hank Carter as coach of the 14–1 2016 team, red and black colors, and its postseason opponents. Contemporary reports describe a 2026 stadium renovation; current entry access and construction status require confirmation.",
-      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information."
+      "This guide distinguishes documented historical achievements from current season alignment. Ticket policies, accessibility and game venues can change; verify them through the linked school information.",
+      "A state-record construction filing, distinct from promotional renderings, provides the renovation scope and scheduled completion date; spectators must confirm whether their particular 2026 game is at Cavalier Stadium."
     ],
     "faq": [
       {
@@ -634,7 +668,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "question": "Where should fans check official football information?",
         "answer": "Consult the school's published resources. Do not infer admission, parking or accommodations from a generic campus address."
       }
-    ]
+    ],
+    "campus": {
+      "address": "3324 Ranch Road 620 South, Austin, TX 78738",
+      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
+      "sourceLabel": "TDLR state stadium reconstruction registration",
+      "verifiedAt": "2026-10-10"
+    },
+    "notice": {
+      "title": "2026 Cavalier Stadium reconstruction: confirm game location",
+      "body": "Texas accessibility-project registration TABS2025026267 describes demolition and a new football stadium, concessions, press box, field house and restrooms at 3324 Ranch Road 620 South. The registered planned completion is December 31, 2026; that administrative forecast does not verify completed construction or stadium accessibility. Verify each game's operating venue and ticket policies with Lake Travis ISD.",
+      "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2025026267",
+      "sourceLabel": "Texas Department of Licensing and Regulation project filing",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-johnson": {
     "slug": "austin-johnson",
