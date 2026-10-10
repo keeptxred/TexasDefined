@@ -30,10 +30,10 @@ export const hidalgoPumphouseAuthorityDestinations: Destination[] = [{
   coordinates: { lat: 26.09689, lng: -98.26177 },
   address: "902 S. 2nd Street, Hidalgo, TX 78557",
   hero: {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hidalgo_Pumphouse%2C_Hidalgo%2C_Texas.JPG?width=960",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hidalgo_Pumphouse%2C_Hidalgo%2C_Texas.JPG?width=1920",
     alt: "Historic Hidalgo irrigation pumphouse building beside the Rio Grande, photographed on site in Hidalgo, Texas",
-    width: 960,
-    height: 1440,
+    width: 1920,
+    height: 2880,
     credit: "25or6to4 · Wikimedia Commons · CC BY-SA 3.0 (2014), exact-site photo",
   },
   bestSeason: "Fall through spring for comfortable trail and birding weather; the industrial-history museum can be a useful year-round stop when guided access is available.",
