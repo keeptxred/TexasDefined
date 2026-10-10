@@ -8,8 +8,8 @@
 
 - **Source inspection:** actual GitHub files `src/data/city-authority-profiles.ts`, `EntityDepthSections.tsx`, and `validate-entity-template-quality.mjs` examined. Existing structural validator covers all 11 profiles.
 - **Production HTML retrieval:** all eleven canonical URLs returned readable editorial content and city headings through independent HTTP web retrieval on 2026-10-09. This does **not** verify actual Chrome rendering, load-event image success, keyboard controls, mobile viewport or hydration.
-- **Automated CI:** new 33-combination Chrome runner `scripts/ci/verify-city-authority-browser.mjs` and `.github/workflows/verify-city-authority-browser.yml` added to QA branch; no results asserted until workflow run and artifact inspection.
-- **Actual browser testing:** NOT TESTED as of this record; planned Chrome CI will supply screenshot and runtime evidence, but does not substitute for all manual accessibility or functional test cases.
+- **Automated CI:** new runner and workflow passed 33/33 viewport combinations in run 38021044139; assertions include HTTP, H1, canonical, description, indexability, OG, overflow, image load/alt, link presence and JS errors. Does not establish every link's actual target or licensing.
+- **Actual browser testing:** production Chrome workflow [38021044139](https://github.com/keeptxred/TexasDefined/actions/runs/38021044139) SUCCESS. Real headless Chrome completed 33/33 city/viewport runs at 390x844, 768x1024 and 1440x900. Screenshot and JSON artifacts retained. This is not a full manual visual/accessibility audit.
 - **Official factual verification:** 2020 and 2025 population values for all eleven cities independently compared against U.S. Census Bureau QuickFacts. Prior transportation review is documented in the previous audit; not relabeled as newly individually checked.
 - **Production deployment:** new QA workflow and script are not asserted deployed before successful protected PR merge.
 
@@ -19,19 +19,19 @@ Columns: **HTML** = readable live retrieval; **Chrome** = real browser run at 39
 
 | City | HTML | Chrome | Images | Links | Responsive | SEO | Accessibility | Interactions |
 |---|---|---|---|---|---|---|---|---|
-| Houston | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Dallas | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Fort Worth | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Austin | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| San Antonio | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| El Paso | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Arlington | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Hurst | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Corpus Christi | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Plano | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
-| Lubbock | PASS (HTML retrieval) | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED | NOT TESTED |
+| Houston | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Dallas | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Fort Worth | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Austin | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| San Antonio | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| El Paso | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Arlington | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Hurst | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Corpus Christi | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Plano | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
+| Lubbock | PASS (HTML retrieval) | PASS (automated 3 sizes) | PASS (load/alt only) | NOT TESTED (targets) | PASS (overflow only) | PASS (metadata) | NOT TESTED (full WCAG) | NOT TESTED (click flow) |
 
-No failures have yet been substantiated with Chrome reproduction screenshots. Unknown results must stay NOT TESTED, not PASS.
+Automated Chrome logged no failures across 33 viewport runs. Manual screenshot review, full functional and WCAG verification are NOT TESTED.
 
 ## Independent factual comparison ledger
 
@@ -55,13 +55,24 @@ No failures have yet been substantiated with Chrome reproduction screenshots. Un
 
 The prior audit records official transit links for all eleven: METRO, DART, Trinity Metro/TEXRail/TRE, CapMetro, VIA, Sun Metro, Arlington On-Demand, Bell TRE, CCRTA, Plano DART/GoLink, and Citibus. That prior review is preserved, not counted a second time as newly verified facts.
 
+## Independent municipal jurisdiction evidence (partial)
+
+| City | Published counties | Official confirmation | Result |
+|---|---|---|---|
+| Dallas | Dallas, Collin, Denton, Kaufman, Rockwall | https://www.dallascityhall.com/government/citysecretary/elections/Pages/elections.aspx | PASS |
+| Fort Worth | Tarrant, Denton, Parker, Johnson, Wise | https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf | PASS |
+| Austin | Travis, Williamson, Hays | https://www.austintexas.gov/ready-central-texas/news/city-austin-become-ipaws-alerting-authority | PASS |
+| San Antonio | Bexar, Comal, Medina | https://comptroller.texas.gov/taxes/sales/combined-area.php establishes Medina; city 2016 annexation record establishes Comal; comprehensive 2026 municipal overlay still not assessed | UNVERIFIED (partial) |
+
+Remaining municipal boundaries require independent spatial verification. ETJ must not be conflated with city limits.
+
 ## Known constraints and follow-up acceptance
 
-1. Run the new Chrome workflow and inspect its JSON and screenshots. Mark individual checks PASS/FAIL only after seeing evidence. Its automated signals are narrower than manual WCAG, navigation, content/licensing and visual quality review.
+1. Manually review all Chrome screenshots and exercise link targets, keyboard navigation, menus, interactive flows, mobile cropping, contrast and visual quality. Automated viewport evidence alone does not certify these.
 2. Compare all 11 municipal boundary/county claims to municipal GIS, and census populations to current Census QuickFacts, individually.
 3. Check every featured museum, attraction, food venue and system link against its current official website; record an itemized claim for each.
 4. Document any reproduced failure with exact city URL, viewport, steps, expected/actual behavior, severity and artifact.
 5. Fix only proven defects, refresh main before writes, require protected CI before merge, and confirm production SHA plus live sitemap afterward.
 6. Keep the city fact source-review date unchanged until corresponding facts have actually been reverified.
 
-**Acceptance: NOT COMPLETE.** No manual viewport, accessibility or complete factual verification is certified by this document.
+**Acceptance: NOT COMPLETE.** Automated live-browser viewport regression is certified; full manual visual/accessibility and exhaustive factual review remain outstanding.
