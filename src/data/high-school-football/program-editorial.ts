@@ -539,8 +539,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "School-inspired original editorial styling, not a school logo"
     },
     "seo": {
-      "title": "Austin Northeast Raiders Football: 2026 Team & Schedule",
-      "description": "Research-led Austin Northeast Early College Raiders football guide with specific 2026 identity, historical context, upcoming resources and visitor guidance."
+      "title": "Austin Northeast Raiders: Reagan-Era Titles & 2026 Football",
+      "description": "Austin Northeast Early College Raiders inherit Reagan High's 1967, 1968 and 1970 football state titles and 1973 final; school renaming and 2026 context."
     },
     "schedule": {
       "label": "Published source of team or opponent varsity schedule",
@@ -549,35 +549,74 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-10"
     },
     "development": {
-      "title": "A distinctive football story",
-      "body": "Northeast Early College posted a vacancy for head football coach on March 30, 2026. A later MaxPreps roster identifies Abdul Mustafa, but that third-party staff list requires school confirmation for an unqualified current appointment. The 2026 season includes a district meeting with Travis and LBJ Austin; the campus is on Berkman Drive.",
-      "sourceUrl": "https://northeastechs.austinschools.org/news/2026/03/30/northeast-athletic-vacancies-26-27-school-year",
-      "sourceLabel": "School source and explicitly qualified published record",
+      "title": "Reagan Raiders football dynasty and modern Northeast identity",
+      "body": "Northeast Early College High School's official school history explains that the campus opened in 1965 as John H. Reagan High and was renamed Northeast Early College for 2019–20. UIL's all-time appearances index attributes three football state championships to the program's historical Reagan identity: 1967, 1968 and 1970; the Raiders reached another title game in 1973. A January 1969 Congressional Record explicitly congratulates Reagan for winning the 1967 and 1968 championships, independently corroborating that consecutive achievement. Historical coaching roles of Travis Raven, Carroll Lundin and Wally Freytag belong to the Reagan eras and cannot be mistaken for the 2026 coaching staff.",
+      "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+      "sourceLabel": "Northeast ECHS official campus identity and renaming history",
       "verifiedAt": "2026-10-10"
     },
     "milestones": [
       {
-        "date": "2026",
-        "title": "Program-specific football milestone",
-        "body": "March 2026 official job posting demonstrates a coaching transition; do not mistake its vacancy announcement for proof the role remains vacant in October.",
-        "sourceUrl": "https://northeastechs.austinschools.org/news/2026/03/30/northeast-athletic-vacancies-26-27-school-year",
-        "sourceLabel": "School schedule or athletics history"
+        "date": "1965",
+        "title": "The original Reagan campus opens",
+        "body": "Northeast's official school history states the building opened in 1965 and previously operated as John H. Reagan High.",
+        "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+        "sourceLabel": "School's official historical chronology"
+      },
+      {
+        "date": "1967–1968",
+        "title": "Back-to-back state football titles",
+        "body": "UIL credits the historical Reagan Raiders with 1967 and 1968 state championships, corroborated by a January 1969 Congressional Record entry.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL official football appearances archive"
+      },
+      {
+        "date": "1970",
+        "title": "Third historical state title",
+        "body": "UIL all-time results identify 1970 as the program's third championship season.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL official football championship index"
+      },
+      {
+        "date": "1973",
+        "title": "Another football state final",
+        "body": "The school appears again in UIL's all-time final list in 1973 without championship marker; an appearance is not a fourth championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL state-final appearances"
+      },
+      {
+        "date": "2019–2020",
+        "title": "The school becomes Northeast Early College",
+        "body": "The Austin ISD board voted to rename the Reagan campus in 2018; its Northeast Early College name took effect for 2019–20.",
+        "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+        "sourceLabel": "Official campus renamed history"
       }
     ],
     "overview": [
-      "Northeast Early College posted a vacancy for head football coach on March 30, 2026. A later MaxPreps roster identifies Abdul Mustafa, but that third-party staff list requires school confirmation for an unqualified current appointment. The 2026 season includes a district meeting with Travis and LBJ Austin; the campus is on Berkman Drive.",
-      "Do not treat historical seasons as the current season. Check official school athletics for updated tickets, game sites and accessibility; this independent guide does not imply school endorsement."
+      "Northeast Early College's Raiders football history includes three UIL state championships in 1967, 1968 and 1970, earned when the same Austin campus operated as Reagan High School. The 1973 title-game appearance was runner-up, not a fourth championship.",
+      "Official Austin ISD school history dates the rename to the 2019–20 school year and situates the school at 7104 Berkman Drive. Referring to the historic Reagan-era titles is appropriate when the changing campus identity is explicitly explained.",
+      "The school posted a football-head-coach vacancy in March 2026; the vacancy notice is not proof the position remains open in October. Current staff, ticketing and accessible stadium access require separate first-party confirmation."
     ],
     "faq": [
       {
-        "question": "What should visitors know about Austin Northeast Early College Raiders?",
-        "answer": "March 2026 official job posting demonstrates a coaching transition; do not mistake its vacancy announcement for proof the role remains vacant in October."
+        "question": "How many football championships does Austin Northeast's program have?",
+        "answer": "Three historical UIL state titles, in 1967, 1968 and 1970, earned under the campus's former Reagan High School name."
       },
       {
-        "question": "Is TexasDefined the official football website?",
-        "answer": "No. TexasDefined is an independent guide; consult the named school sources for changing schedules and venue policies."
+        "question": "Was Northeast Early College always named Northeast?",
+        "answer": "No. The school opened in 1965 as John H. Reagan High and adopted Northeast Early College for 2019–20 after an Austin ISD board decision."
+      },
+      {
+        "question": "Did the Raiders play in another state final after 1970?",
+        "answer": "Yes. UIL's appearances index lists a 1973 state final, but not a fourth title."
       }
-    ]
+    ],
+    "campus": {
+      "address": "7104 Berkman Drive, Austin, TX 78752",
+      "sourceUrl": "https://northeastechs.austinschools.org/about-us/history",
+      "sourceLabel": "Official Northeast Early College school history",
+      "verifiedAt": "2026-10-10"
+    }
   },
   "austin-navarro": {
     "slug": "austin-navarro",
