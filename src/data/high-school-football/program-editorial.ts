@@ -624,7 +624,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "season": {
-      "record": "3–2 through September 25 based on five published completed games; October 9 Arlington Martin remains unchecked",
+      "record": "3–2 through September 25 based on five published completed games; October 8 Arlington Martin result remains unchecked",
       "verifiedAt": "2026-10-09",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
       "sourceLabel": "DCTF 2026 Texans published five-game results",
@@ -662,7 +662,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "result": "L 10–59"
         },
         {
-          "date": "Oct. 9",
+          "date": "Oct. 8",
           "opponent": "Arlington Martin",
           "site": "Home",
           "district": true
@@ -686,9 +686,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "district": true
         },
         {
-          "date": "Nov. 6",
+          "date": "Nov. 5",
           "opponent": "Arlington Bowie",
-          "site": "Away",
+          "site": "Home",
           "district": true
         }
       ]
