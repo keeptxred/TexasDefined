@@ -43,14 +43,24 @@ export const Route = createFileRoute("/api/public/network-billing")({
         customer: data.stripe_customer_id,
         return_url: "https://texasdefined.com/network/billing",
       });
-      const stripe = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
-        method: "POST",
-        headers: { authorization: "Bearer " + key, "content-type": "application/x-www-form-urlencoded" },
-        body,
-      });
-      const result = await stripe.json() as { url?: string };
-      if (!stripe.ok || !result.url) return respond({ error: "Unable to open the billing portal." }, 503);
-      return respond({ ok: true, url: result.url });
+      try {
+        const stripe = await fetch("https://api.stripe.com/v1/billing_portal/sessions", {
+          method: "POST",
+          headers: { authorization: "Bearer " + key, "content-type": "application/x-www-form-urlencoded" },
+          body,
+        });
+        if (!stripe.ok) return respond({ error: "Unable to open the billing portal." }, 503);
+        const result = await stripe.json() as { url?: unknown };
+        // Never return an untrusted payment-management redirect to the browser.
+        if (typeof result.url !== "string") return respond({ error: "Billing portal unavailable." }, 503);
+        const destination = new URL(result.url);
+        if (destination.protocol !== "https:" || destination.hostname !== "billing.stripe.com") {
+          return respond({ error: "Billing portal unavailable." }, 503);
+        }
+        return respond({ ok: true, url: result.url });
+      } catch {
+        return respond({ error: "Billing portal temporarily unavailable." }, 503);
+      }
     },
   } },
 });
