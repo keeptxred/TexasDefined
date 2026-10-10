@@ -49,6 +49,44 @@ for (const [slug, county] of Object.entries(linked)) {
   check(inbound.includes("slug: '" + slug + "'"), slug + ': county index missing school card');
   check(evidence.includes('`' + slug + '`'), slug + ': documented campus evidence missing');
 }
+// Parse only the 25 individually authored JSON-style editorial records.
+// Every entry must have its own substantive summary, distinct SEO, and school-specific FAQ.
+const titles = new Set();
+for (const slug of roster) {
+  const marker = '  "' + slug + '": ';
+  const start = editorial.indexOf(marker);
+  if (start < 0) continue;
+  const next = editorial.indexOf('\n  "', start + marker.length);
+  check(next > start, slug + ': cannot isolate editorial record');
+  if (next <= start) continue;
+  let obj;
+  try {
+    const raw = editorial.slice(start + marker.length, next).trim().replace(/,$/, '');
+    obj = JSON.parse(raw);
+  } catch (error) {
+    check(false, slug + ': cannot parse authored editorial record as JSON: ' + error.message);
+    continue;
+  }
+  check(obj.slug === slug, slug + ': editorial slug mismatch');
+  check(obj.seo?.title?.length >= 35, slug + ': short SEO title');
+  check(obj.seo?.description?.length >= 75, slug + ': thin SEO description');
+  check(!titles.has(obj.seo?.title), slug + ': reused SEO title');
+  titles.add(obj.seo?.title);
+  check(Array.isArray(obj.overview) && obj.overview.length >= 2 &&
+        obj.overview.some(x => x.length >= 110), slug + ': thin editorial overview');
+  check(Array.isArray(obj.faq) && obj.faq.length >= 2, slug + ': missing individual FAQ');
+  check(Array.isArray(obj.milestones) && obj.milestones.length >= 1,
+        slug + ': school-specific milestone missing');
+  check(Boolean(obj.development?.body && obj.development.body.length >= 140),
+        slug + ': insufficient program-specific development');
+  for (const source of [obj.development, obj.schedule, obj.coach, obj.campus, ...(obj.milestones ?? [])]) {
+    if (source) check(/^https:\/\//.test(source.sourceUrl ?? ''), slug + ': unsafe/missing source URL');
+  }
+  if (obj.photo) {
+    check(/^https:\/\//.test(obj.photo.sourceUrl ?? ''), slug + ': photo needs verifiable source');
+    check(Boolean(obj.photo.license && obj.photo.licenseUrl), slug + ': no photo reuse license evidence');
+  }
+}
 const prior = records.filter(r => r.status === 'VERIFIED' && r.batch !== 4);
 check(prior.length >= 55, 'Previously VERIFIED school count regressed below 55');
 check((batch?.individuallyVerified ?? -1) === records.filter(r => r.batch === 4 && r.status === 'VERIFIED').length, 'Batch 004 count inconsistent');
