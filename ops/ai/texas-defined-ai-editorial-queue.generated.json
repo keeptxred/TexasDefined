@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-10T17:20:59.318Z",
+  "source": "ops/ai/texas-defined-ai-demand.generated.json",
+  "privacy": "Aggregated generalized topics only. Raw or sanitized user questions are never written to this queue.",
+  "publicationBoundary": "This queue recommends research or page improvements for human review only; it may not publish or auto-merge content.",
+  "actionDefinitions": {
+    "improve-existing-surface": "Demand is landing on an existing TexasDefined surface while gap or partial coverage is material; review that page for researched improvements.",
+    "review-existing-surface": "An existing TexasDefined surface appears relevant and coverage is comparatively strong; verify whether a targeted refresh is warranted before creating anything new.",
+    "research-new-surface": "No existing TexasDefined surface is consistently associated with the demand cluster; research whether a new guide, directory, planner, explainer or structured-data surface is justified."
+  },
+  "items": [
+    {
+      "rank": 1,
+      "topic": "General Texas information",
+      "category": "general-texas",
+      "demandScore": 8,
+      "askCount": 2,
+      "trendDelta": 2,
+      "coverage": {
+        "gap": 0,
+        "partial": 0,
+        "strong": 2
+      },
+      "commercialIntent": false,
+      "recommendedAssetType": "existing-page-improvement-or-guide",
+      "recommendedAction": "review-existing-surface",
+      "target": {
+        "title": "Why So Many Texas Towns Have German, Czech and Mexican Roots",
+        "href": "/article/texas-towns-german-czech-mexican-roots"
+      },
+      "authoritativeSources": [
+        {
+          "name": "Texas.gov",
+          "url": "https://www.texas.gov/"
+        },
+        {
+          "name": "Relevant state, county, city, agency, institution, or official business website",
+          "url": null
+        }
+      ],
+      "publicationStatus": "research-and-review-required"
+    }
+  ]
+}
