@@ -343,9 +343,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Westlake Chaparrals history: 1996, 2019, 2020 and 2021 UIL football crowns, 2024 state runner-up, campus resources and 2026 program reference."
     },
     "schedule": {
-      "label": "Published source of team or opponent varsity schedule",
+      "label": "2026 official varsity scores and future fixtures",
       "sourceUrl": "https://www.westlakenation.com/teams/fb",
-      "sourceLabel": "Official school resource or specified historical listing",
+      "sourceLabel": "Official Westlake varsity scores and fixtures",
       "verifiedAt": "2026-10-10"
     },
     "development": {
@@ -383,12 +383,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The athletic department records a 71-game consecutive district-win streak spanning 1990–2003.",
         "sourceUrl": "https://www.westlakenation.com/teams/fb",
         "sourceLabel": "Westlake official team historical records"
+      },
+      {
+        "date": "2026",
+        "title": "Westlake's verified 5–1 start",
+        "body": "The official varsity scoreboard lists five wins, one loss and a 2–0 district record through the October 8 Westwood game; scores beyond this dated snapshot are not claimed.",
+        "sourceUrl": "https://www.westlakenation.com/teams/fb",
+        "sourceLabel": "Westlake Nation varsity scoreboard"
       }
     ],
     "overview": [
       "Four documented state football crowns set Westlake's historical stature: 1996, 2019, 2020 and 2021. The 2024 championship-game loss to North Crowley was a final appearance, not an additional title.",
       "Westlake Nation publishes precise historical streaks, including 71 consecutive district victories and 13 straight 10-win seasons. These are explicitly dated records and not automatically active 2026 streaks.",
-      "Westlake High School's official athletic office is at 4100 Westbank Drive; football ticketing, exact game venues and accessibility arrangements must be checked for each 2026 matchup. The official team page lists the program in District 25-6A."
+      "Westlake High School's official athletic office is at 4100 Westbank Drive; football ticketing, exact game venues and accessibility arrangements must be checked for each 2026 matchup. The official team page lists the program in District 25-6A.",
+      "As of the October 10 source snapshot, the school lists Tony Salazar as current head football coach; official varsity results show a 5–1 overall and 2–0 district start. This is not a final 2026 record."
     ],
     "faq": [
       {
@@ -407,9 +415,74 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "campus": {
       "address": "4100 Westbank Drive, Austin, TX 78746",
       "phone": "512-732-9289",
-      "sourceUrl": "https://www.westlakenation.com/teams/fb",
-      "sourceLabel": "Official Westlake Nation football and athletic-office contact",
+      "sourceUrl": "https://www.westlakenation.com/info/directory",
+      "sourceLabel": "Eanes ISD Westlake Nation athletics directory",
       "verifiedAt": "2026-10-10"
+    },
+    "coach": {
+      "name": "Tony Salazar",
+      "title": "2026 head football coach and Eanes ISD assistant athletic director",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Official Westlake Nation 2026 varsity coaches listing",
+      "verifiedAt": "2026-10-10"
+    },
+    "season": {
+      "record": "5–1, 2–0 district as displayed on official Westlake varsity page October 10, 2026; not a final-season record",
+      "verifiedAt": "2026-10-10",
+      "sourceUrl": "https://www.westlakenation.com/teams/fb",
+      "sourceLabel": "Westlake Nation official live varsity results snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Inglewood (CA)",
+          "site": "Home",
+          "result": "W 33–26"
+        },
+        {
+          "date": "Sep. 4",
+          "opponent": "Euless Trinity",
+          "site": "Home",
+          "result": "W 35–10"
+        },
+        {
+          "date": "Sep. 11",
+          "opponent": "Prosper",
+          "site": "Away",
+          "result": "L 40–49"
+        },
+        {
+          "date": "Sep. 25",
+          "opponent": "Midland Legacy",
+          "site": "Home",
+          "result": "W 49–6"
+        },
+        {
+          "date": "Oct. 1",
+          "opponent": "Round Rock",
+          "site": "Home",
+          "district": true,
+          "result": "W 38–17"
+        },
+        {
+          "date": "Oct. 8",
+          "opponent": "Westwood",
+          "site": "Away",
+          "district": true,
+          "result": "W 57–0"
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "McNeil",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Lake Travis",
+          "site": "Away",
+          "district": true
+        }
+      ]
     }
   },
   "austin-vandegrift": {
