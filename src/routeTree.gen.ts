@@ -1885,6 +1885,11 @@ const TexasHighSchoolFootballDistrictsSlugRoute =
       (d) => d.Route,
     ),
   )
+const TexasDataResearchRoute = TexasDataResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => TexasDataRoute,
+} as any)
 const TexasDataCountyHousingCostsDotcsvRoute =
   TexasDataCountyHousingCostsDotcsvRouteImport.update({
     id: '/county-housing-costs.csv',
