@@ -17,3 +17,9 @@ Individual six-man introduction, historical finalists clarification, 2018/2025/2
 
 ## Still required
 Verify primary UIL 1999 final details, first-party coach and official school/stadium/current ticket links; assess campus Stonewall County mapping and reciprocal link, license for authentic images, mobile/desktop rendering, SEO/schema/canonical/sitemap, accessibility, validators, protected merge, deployment and independent Chrome page acceptance. Do not claim verified on a code commit.
+
+## Critical historical correction: 1999 was 11-man, not six-man (October 10, 2026)
+
+[UIL original 1999 Class 1A eleven-man playoff bracket](https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/99at_bfb.html) proves that Aspermont reached the **ELEVEN-MAN**, not six-man, state final. Path: Baird 30–27 region; Paducah 33–0 quarterfinal; Wheeler 31–12 semifinal; final **Bartlett 35, Aspermont 6**. [UIL official finals archive](https://www.uiltexas.org/football/archives/p216/P288) independently lists 1999 1A Bartlett–Aspermont 35–6, with a separate 1999 six-man Gordon–Groom 54–34 contest. The earlier draft mistakenly described the 1999 appearance as a *six-man* final; corrected in `8e82364dcc49e679936189fd18acdb7e2d27bd61` and typography follow-up `08bb4ab11d2e041a3de45de4458ea46623636a49`. The 2026 Hornets are six-man, so clearly distinguish eras.
+
+Current record discrepancy: [DCTF](https://www.texasfootball.com/team/aspermont-hornets) says 2025 9–1; [Six-Man Football](https://sixmanfootball.com/teams/aspermont-hornets.1021/schedule/) lists 2025 9–2. A final authoritative record is unresolved, and editorial copy discloses that inconsistency. Do not represent 1999 as a six-man title or 2025 as an unquestioned record.
