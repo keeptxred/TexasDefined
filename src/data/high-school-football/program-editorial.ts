@@ -58,6 +58,228 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "aubrey": {
+    "slug": "aubrey",
+    "theme": {
+      "accentHex": "#AE1C2A",
+      "label": "Aubrey Chaparrals school-inspired editorial accent (not an official seal)"
+    },
+    "seo": {
+      "title": "Aubrey Chaparrals Football: Chaparral Stadium Rules & 2026 Guide",
+      "description": "Aubrey Chaparrals football: Chaparral Stadium ticket and fan policies, 2024 playoff season, coach Keith Ivy and official 2026 game-day resources."
+    },
+    "coach": {
+      "name": "Keith Ivy",
+      "title": "Head football coach (source as dated; reconfirm with district)",
+      "sourceUrl": "https://www.maxpreps.com/tx/aubrey/aubrey-chaparrals/football/staff/",
+      "sourceLabel": "Published coaching reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "2026 football schedule and official visitor resources",
+      "sourceUrl": "https://www.aubreyisd.net/o/ahs/live-feed?page_no=1",
+      "sourceLabel": "Published 2026 schedule/resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "What distinguishes the Aubrey Chaparrals program",
+      "body": "Aubrey ISD's June 4, 2026 Chaparral Stadium guidance says tickets must be purchased online via GoFan and cash is not accepted at the gate. Bags may be inspected, high school student-section visitors need school IDs and middle-school spectators must stay seated. These concrete procedures distinguish Aubrey's fan guide from generic stadium copy.",
+      "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
+      "sourceLabel": "School district or football reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2021",
+        "title": "Twelve-win season",
+        "body": "Historical season records list Aubrey finishing 12–2, among the program's strongest recent years.",
+        "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2024",
+        "title": "Playoff progress",
+        "body": "Aubrey recorded an 8–5 season in 2024, following an 8–4 2023 season.",
+        "sourceUrl": "https://www.texasfootball.com/team/aubrey-chaparrals",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Cashless stadium policy",
+        "body": "District policy specifies GoFan digital tickets, bag inspection and student supervision rules.",
+        "sourceUrl": "https://www.aubreyisd.net/live_feeds/12506149",
+        "sourceLabel": "Named source for school-specific milestone"
+      }
+    ],
+    "overview": [
+      "Aubrey is a Class 4A Division I program; DCTF credits the Chaparrals with 17 playoff appearances but no state championship or state title-game appearance. Avoid inventing a trophy to make the history look stronger.",
+      "Coach Keith Ivy is identified on the 2026 MaxPreps staff roster. The 2024 playoff campaign finished 8–5, and the 2025 season finished 3–7; these belong to separate historical seasons.",
+      "Aubrey ISD's stadium notice requires GoFan online tickets and no gate cash, allows inspected bags and restricts field access. These details are important for families and visiting supporters.",
+      "Chaparral Stadium is at the Aubrey High School campus, 510 Spring Hill Road, as corroborated by football game listings; school drop-off traffic rules should not be confused with football parking directions."
+    ],
+    "faq": [
+      {
+        "question": "Can spectators pay cash at Aubrey's Chaparral Stadium?",
+        "answer": "No. Aubrey ISD's June 2026 stadium notice directs ticket buyers to GoFan and says cash is not accepted at the gate."
+      },
+      {
+        "question": "Who is Aubrey's listed 2026 head coach?",
+        "answer": "The 2026 MaxPreps football staff roster identifies Keith Ivy."
+      },
+      {
+        "question": "Has Aubrey won a Texas state football title?",
+        "answer": "Dave Campbell's historical summary lists no state titles or state-title-game appearances, while crediting 17 playoff appearances."
+      }
+    ]
+  },
+  "atlanta": {
+    "slug": "atlanta",
+    "theme": {
+      "accentHex": "#7E1530",
+      "label": "Atlanta Rabbits school-inspired editorial accent (not an official seal)"
+    },
+    "seo": {
+      "title": "Atlanta Rabbits Football: Rabbit Stadium, Tyler Morton & 2026 Guide",
+      "description": "Atlanta Rabbits independent football guide covering Rabbit Stadium visitor rules, coach Tyler Morton, 2025 season and official 2026 resources."
+    },
+    "coach": {
+      "name": "Tyler Morton",
+      "title": "Head football coach (source as dated; reconfirm with district)",
+      "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/staff/",
+      "sourceLabel": "Published coaching reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "2026 football schedule and official visitor resources",
+      "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/schedule/",
+      "sourceLabel": "Published 2026 schedule/resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "What distinguishes the Atlanta Rabbits program",
+      "body": "Atlanta ISD operates a dedicated Rabbit Stadium visitor-policy page addressing minors' supervision and spectator safety. In October 2026, the district's Hall of Fame also honors its 1989 state championship track team; that 1989 title is a TRACK accomplishment, not a football championship.",
+      "sourceUrl": "https://www.atlisd.net/45791_2",
+      "sourceLabel": "School district or football reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1989",
+        "title": "A non-football distinction",
+        "body": "Atlanta ISD's Hall of Fame commemorates its first state trophy as the 1989 track and field state championship. It must not be labeled a football crown.",
+        "sourceUrl": "https://www.atlisd.net/index.php?pageID=273542_3",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2025",
+        "title": "Eight-win football season",
+        "body": "MaxPreps' Atlanta Rabbits historical profile lists an 8–3 2025 football season under Tyler Morton.",
+        "sourceUrl": "https://www.maxpreps.com/tx/atlanta/atlanta-rabbits/football/history/",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Rabbit Stadium visitor guidance",
+        "body": "The district publishes spectator rules requiring seated student sections and adult supervision for younger fans.",
+        "sourceUrl": "https://www.atlisd.net/45791_2",
+        "sourceLabel": "Named source for school-specific milestone"
+      }
+    ],
+    "overview": [
+      "Atlanta's Rabbits compete in UIL Class 3A Division I. The unusual Rabbit mascot, dedicated Rabbit Stadium rules and Cass County community context make the program materially different from surrounding teams.",
+      "MaxPreps lists Tyler Morton as 2026 head football coach and records the Rabbits at 8–3 in 2025; these are third-party listings, not a claim of a present-day school announcement.",
+      "At Rabbit Stadium, Atlanta ISD requires middle school children to have an adult companion, with younger elementary pupils accompanied throughout the game. Refer directly to the district for current tickets and seating.",
+      "Atlanta ISD's 1989 track championship must not be confused with the football program's historical results. Other football titles are not asserted without an independently checked UIL archive."
+    ],
+    "faq": [
+      {
+        "question": "Where can visitors read Rabbit Stadium policies?",
+        "answer": "Atlanta ISD publishes the policies on its official Rabbit Stadium page, including supervision rules for younger students."
+      },
+      {
+        "question": "Who is listed as Atlanta Rabbits head football coach in 2026?",
+        "answer": "The current MaxPreps staff listing identifies Tyler Morton; confirm late-season personnel changes directly with Atlanta ISD."
+      },
+      {
+        "question": "Was Atlanta's 1989 state trophy a football championship?",
+        "answer": "No. Atlanta ISD describes the 1989 honor as a track and field state championship, not football."
+      }
+    ]
+  },
+  "athens": {
+    "slug": "athens",
+    "theme": {
+      "accentHex": "#762A3A",
+      "label": "Athens Hornets school-inspired editorial accent (not an official seal)"
+    },
+    "seo": {
+      "title": "Athens Hornets Football: Zac Harrell, Bruce Field & 2026 Schedule",
+      "description": "Athens Hornets football guide: 2025 playoff run, Zac Harrell's 2026 schedule, Bruce Field and homecoming and senior-night information."
+    },
+    "coach": {
+      "name": "Zac Harrell",
+      "title": "Head football coach (source as dated; reconfirm with district)",
+      "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+      "sourceLabel": "Published coaching reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "schedule": {
+      "label": "2026 football schedule and official visitor resources",
+      "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+      "sourceLabel": "Published 2026 schedule/resources",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "What distinguishes the Athens Hornets program",
+      "body": "The school's official 2026 varsity calendar identifies Zac Harrell as head coach and records separate homecoming versus Kaufman (September 18), youth football night versus Brownsboro (October 9), pink-out versus Madisonville (October 23), and senior night versus Van (October 30). These are distinct community traditions and scheduled events, not game outcomes.",
+      "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+      "sourceLabel": "School district or football reference",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2025",
+        "title": "Deep playoff run",
+        "body": "The Hornets finished 11–3 and played 14 games, according to published historical season records.",
+        "sourceUrl": "https://www.maxpreps.com/tx/athens/athens-hornets/football/history/",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Official football calendar",
+        "body": "Athens ISD published 2026 varsity, JV and freshman fixtures with homecoming, youth football, pink-out and senior-night labels.",
+        "sourceUrl": "https://files-backend.assets.thrillshare.com/documents/asset/uploaded_file/4025/Aisd/7e253aaf-3dbe-4285-9b66-f544fa7f84ea/2026-Football-Schedule.pdf?disposition=inline",
+        "sourceLabel": "Named source for school-specific milestone"
+      },
+      {
+        "date": "2026",
+        "title": "Five-win start",
+        "body": "The public football results snapshot lists victories over Nacogdoches, Henderson, Pine Tree, Kaufman and Gladewater through September 25; it is not a complete October season report.",
+        "sourceUrl": "https://txfb.sidev.co/team/athens-hornets",
+        "sourceLabel": "Named source for school-specific milestone"
+      }
+    ],
+    "overview": [
+      "Athens' 2026 football identity is documented directly by the Athens ISD varsity schedule: Zac Harrell leads the Hornets in Class 4A Division II and the official school calendar separates varsity, junior-varsity and freshman fixtures.",
+      "The five listed non-district wins through September 25 include a 50–48 game at Pine Tree. A midseason record snapshot is not an assertion about later district results.",
+      "Dave Campbell's Texas Football names Bruce Field as the Hornets' home stadium, with a published 4,000-seat figure that should not be treated as an accessibility certification.",
+      "The school's published calendar makes Athens-specific game-day planning possible: Kaufman was homecoming, Brownsboro youth football night, Madisonville pink-out, and Van senior night."
+    ],
+    "faq": [
+      {
+        "question": "Who is the Athens Hornets head football coach for 2026?",
+        "answer": "The Athens ISD 2026 varsity schedule identifies Zac Harrell as athletic director and head football coach."
+      },
+      {
+        "question": "Where do the Athens Hornets play?",
+        "answer": "Dave Campbell's Texas Football lists Bruce Field as the home stadium. Confirm your game's entry, ticket and accessible seating details with Athens ISD."
+      },
+      {
+        "question": "What was the Athens 2025 football record?",
+        "answer": "Published program histories record an 11–3 season in 2025, which must not be presented as the 2026 result."
+      }
+    ]
+  },
   "aspermont": {
     "slug": "aspermont",
     "theme": {
