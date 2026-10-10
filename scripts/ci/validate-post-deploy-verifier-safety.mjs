@@ -124,6 +124,34 @@ for (const marker of [
   'Protected deployment failed',
   'Timed out waiting for exact-commit',
 ]) requireMarker(waitForProduction, marker, `Exact-commit production gate regressed: ${marker}`);
+// Wave 5: expensive live browser and privileged Cloudflare smokes must wait for
+// the source commit's protected deployment; PRs may only validate source syntax.
+const destinationIndexing = workflow('destination-indexing-smoke');
+requireMarker(destinationIndexing, 'statuses: read', 'Destination indexing needs read-only status checks');
+requireMarker(destinationIndexing, 'node scripts/ci/wait-for-protected-production.mjs', 'Destination indexing lost protected production gate');
+if ((destinationIndexing.match(/needs: deployment-gate/g) || []).length !== 3)
+  failures.push('All three destination indexing/browser jobs must depend on protected deployment gate');
+for (const name of ['destination-canonical-smoke','cloudflare-production-smoke','verify-budget-planner-browser','verify-city-authority-browser']) {
+  const source = workflow(name);
+  requireMarker(source, 'statuses: read', `${name} needs read-only status permission`);
+  const waitAt = source.indexOf('node scripts/ci/wait-for-protected-production.mjs');
+  if (waitAt < 0) failures.push(`${name} must wait for exact-commit protected production before probing`);
+  const liveAt = source.indexOf('      - name: ', waitAt + 1);
+  if (waitAt < 0 || liveAt < waitAt) failures.push(`${name} protected-production wait is misplaced`);
+}
+for (const name of ['verify-budget-planner-browser','verify-city-authority-browser']) {
+  const source = workflow(name);
+  requireMarker(source, "github.event_name == 'pull_request'", `${name} must keep PR syntax-only job`);
+  requireMarker(source, "github.event_name != 'pull_request'", `${name} must avoid PR live Chrome checks`);
+  requireMarker(source, 'node --check scripts/ci/', `${name} PR source syntax regression`);
+}
+const riverBrowser = workflow('verify-texas-river-map-browser');
+requireMarker(riverBrowser, "github.event_name == 'pull_request'", 'River browser PR syntax-only validation missing');
+requireMarker(riverBrowser, 'node --check scripts/ci/verify-texas-river-map-browser.mjs', 'River browser PR syntax contract missing');
+requireMarker(riverBrowser, "github.event.workflow_run.conclusion == 'success'", 'River browser must skip failed deployments');
+requireMarker(riverBrowser, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'River browser source checkout must be pinned to triggering deploy');
+if (riverBrowser.includes("github.event_name != 'workflow_run'"))
+  failures.push('River browser must not execute live checks from pull requests');
 const seasonal = workflow('verify-seasonal-production');
 requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
 requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
