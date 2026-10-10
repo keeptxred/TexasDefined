@@ -58,6 +58,378 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "ben-bolt-palito-blanco": {
+    "slug": "ben-bolt-palito-blanco",
+    "theme": {
+      "accentHex": "#264C9A",
+      "label": "Original, independently chosen editorial accent; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Ben Bolt–Palito Blanco Fighting Badgers Football | 2026 & Texas UIL History",
+      "description": "Independent Ben Bolt–Palito Blanco Fighting Badgers football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+    },
+    "schedule": {
+      "label": "Ben Bolt–Palito Blanco ISD official athletics and 2026 football news",
+      "sourceUrl": "https://www.bbpbschools.net/apps/events/",
+      "sourceLabel": "First-party school district 2026 sport resource",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Jim Wells County Fighting Badgers with a first-party 2026 game calendar",
+      "body": "The district explicitly identifies its high school at 172 Badger Lane, Alice, a Jim Wells County location even though the program name begins with Ben Bolt. Its dated October 2026 events calendar separates junior-high from high-school football and identifies Friday October 9 at Woodsboro, October 16 varsity homecoming against Santa Maria, October 23 at Riviera and October 30 at La Villa. The October 2 date is an official open/buy week with 'NO GAME'; no result should be manufactured for it. The school's public site also offers an Online Game Tickets route rather than relying on a reseller.",
+      "sourceUrl": "https://www.bbpbschools.net/apps/events/",
+      "sourceLabel": "Official Ben Bolt-Palito Blanco ISD October 2026 event calendar",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026-10-02",
+        "title": "A genuine open week, not an undocumented result",
+        "body": "The ISD calendar explicitly says HS Football Open — No Game on October 2, 2026; never treat this as a completed fixture.",
+        "sourceUrl": "https://www.bbpbschools.net/apps/events/",
+        "sourceLabel": "Official district October events"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "Homecoming versus Santa Maria",
+        "body": "The district announces homecoming as a high-school varsity game against Santa Maria with a 7 p.m. listed kickoff; kickoff may change.",
+        "sourceUrl": "https://www.bbpbschools.net/apps/events/",
+        "sourceLabel": "Dated 2026 school athletics calendar"
+      },
+      {
+        "date": "2026-10-23",
+        "title": "Scheduled district away game at Riviera",
+        "body": "The 2026 calendar differentiates varsity at Riviera on October 23 from the preceding junior-high events.",
+        "sourceUrl": "https://www.bbpbschools.net/apps/events/",
+        "sourceLabel": "District varsity events"
+      }
+    ],
+    "overview": [
+      "Ben Bolt–Palito Blanco Fighting Badgers football is a Class 2A Division II District 16 eleven-man UIL program in the 2026–28 cycle. The district's name includes Ben Bolt and Palito Blanco, but its high school campus is physically listed at 172 Badger Lane near Alice, in Jim Wells County; school names and postal cities do not substitute for a campus location.",
+      "The district itself posts a detailed 2026 calendar and distinguishes varsity from junior-high games. October 2 was an open week, October 9 was listed away at Woodsboro, October 16 is its designated Santa Maria homecoming, October 23 is at Riviera and October 30 at La Villa. These are published schedule events, not verified final scores.",
+      "Ben Bolt–Palito Blanco ISD explicitly identifies the Fighting Badgers, links to Online Game Tickets, and provides high-school calendars and contact information. Use the dated first-party entries for tickets and travel; campus address is not by itself proof of the specific Friday-night field entrance, parking or accessible seating."
+    ],
+    "faq": [
+      {
+        "question": "Why is the Ben Bolt football team's school address in Alice?",
+        "answer": "Ben Bolt–Palito Blanco High School and district use 172 Badger Lane, Alice, Texas. It is in Jim Wells County and is a legitimate campus address despite the district name."
+      },
+      {
+        "question": "Was Ben Bolt–Palito Blanco scheduled to play on October 2, 2026?",
+        "answer": "No. The official ISD events calendar labels it an open week with no high-school football game."
+      },
+      {
+        "question": "When is the Fighting Badgers' 2026 football homecoming?",
+        "answer": "The district lists Friday, October 16 against Santa Maria as the homecoming high-school football fixture. Confirm kickoff, tickets and stadium entry directly."
+      }
+    ],
+    "campus": {
+      "address": "172 Badger Lane, Alice, TX 78332",
+      "phone": "361-664-9822",
+      "sourceUrl": "https://www.bbpbschools.net/",
+      "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "benavides": {
+    "slug": "benavides",
+    "theme": {
+      "accentHex": "#3B5E8C",
+      "label": "Original, independently chosen editorial accent; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Benavides Eagles Football | 2026 & Texas UIL History",
+      "description": "Independent Benavides Eagles football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+    },
+    "schedule": {
+      "label": "Benavides ISD official athletics and 2026 football news",
+      "sourceUrl": "https://www.benavidesisd.net/departments/athletics",
+      "sourceLabel": "First-party school district 2026 sport resource",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Benavides Eagles: a published 2026 six-man football schedule, not eleven-man",
+      "body": "Benavides ISD's school homepage explicitly links a '2026 Football Schedule', the district athletics department identifies Celso Oliveira as athletic director, and the district's motto is 'All Dreams are Within an Eagle's Reach.' This is a current 1A Six-Man Division II District 16 program, not a Texas 2A eleven-man team. The district postal contact at 106 W School Street is its public office; it is not proof of the specific game-night football field. MaxPreps 2026 results are independent third-party submissions and should not displace the district's official schedule or be falsely presented as first-party verified.",
+      "sourceUrl": "https://www.benavidesisd.net/",
+      "sourceLabel": "Benavides ISD home, 2026 football schedule notice",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2026",
+        "title": "ISD posts 2026 football schedule",
+        "body": "The official district home explicitly links its 2026 Football Schedule with the school calendar, rather than relying on last year's schedule.",
+        "sourceUrl": "https://www.benavidesisd.net/",
+        "sourceLabel": "Benavides ISD first-party football schedule notice"
+      },
+      {
+        "date": "2026",
+        "title": "Published athletic director point of contact",
+        "body": "The district athletics directory names Celso Oliveira as athletic director and supplies the department's telephone for stadium, ticket and coach confirmation.",
+        "sourceUrl": "https://www.benavidesisd.net/departments/athletics",
+        "sourceLabel": "Official Benavides athletics directory"
+      },
+      {
+        "date": "2026–28",
+        "title": "Class 1A six-man Division II district 16",
+        "body": "UIL realignment confirms 1A six-man Division II District 16. The format must be distinguished from neighboring eleven-man programs.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "sourceLabel": "UIL official six-man realignment"
+      }
+    ],
+    "overview": [
+      "Benavides Eagles football competes in UIL Class 1A Six-Man Division II District 16 for the 2026–28 alignment cycle. This is the six-man form of Texas high-school football; score totals, rosters, district structure and game field cannot be compared indiscriminately with eleven-man programs.",
+      "Benavides ISD visibly offers a current 2026 football schedule. Its athletics directory names Celso Oliveira athletic director, not automatically head varsity football coach; the school's motto explicitly refers to Eagle pride. These verified official links are more valuable than an unsourced claim of championships, rivals or 2026 coaches.",
+      "The ISD provides its general public contact at 106 W School Street in Benavides. That is not automatically the high-school field, ticket booth or visitor entrance. Ask athletics about the assigned 2026 home field, ticketing, parking and ADA accessibility before traveling; third-party score websites are historical context, not official scheduled results."
+    ],
+    "faq": [
+      {
+        "question": "Does Benavides football play six-man or eleven-man?",
+        "answer": "UIL's 2026–28 alignment identifies the Eagles as a 1A Six-Man Division II District 16 program."
+      },
+      {
+        "question": "Where is the 2026 Benavides Eagles schedule?",
+        "answer": "The district homepage directly promotes its 2026 Football Schedule; check that first-party link for updates."
+      },
+      {
+        "question": "Is Celso Oliveira confirmed as 2026 Eagles head football coach?",
+        "answer": "No. The ISD lists him as athletic director. That title alone does not establish the current football head-coach appointment."
+      }
+    ],
+    "campus": {
+      "address": "106 W School Street, Benavides, TX 78341 (ISD office; confirm high-school entrance)",
+      "phone": "361-256-3000",
+      "sourceUrl": "https://www.benavidesisd.net/",
+      "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "benjamin": {
+    "slug": "benjamin",
+    "theme": {
+      "accentHex": "#703F8A",
+      "label": "Original, independently chosen editorial accent; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Benjamin Mustangs Football | 2026 & Texas UIL History",
+      "description": "Independent Benjamin Mustangs football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+    },
+    "schedule": {
+      "label": "Benjamin ISD official athletics and 2026 football news",
+      "sourceUrl": "https://www.benjaminisd.net/",
+      "sourceLabel": "First-party school district 2026 sport resource",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Back-to-back 2022 and 2023 six-man Division II state championships",
+      "body": "UIL's official 2022 and 2023 Benjamin team records list the Mustangs as Class 1A Six-Man Division II state finalists led by coach Nathan Hayes in those historical years; independent Six-Man Football championship history identifies final scores of 68–20 over Loraine (2022) and 82–34 over Oglesby (2023). UIL's 2023 team archive shows a 14–0 season record entering the title game and names several notable players; the score and coaching details are dated records, not current player or coach claims. Third-party 2026 football listings name Aaron Kuehler coach, but a current Benjamin ISD first-party appointment is not independently established here.",
+      "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
+      "sourceLabel": "Official UIL 2023 Benjamin Mustangs championship team record",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "2022",
+        "title": "First of two consecutive six-man titles",
+        "body": "Benjamin defeated Loraine 68–20 for the 2022 1A Six-Man Division II state championship. UIL's official team record identifies Nathan Hayes as 2022 head coach.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/benjamin-2022-2023-boys-football",
+        "sourceLabel": "UIL Benjamin 2022 team archive"
+      },
+      {
+        "date": "2023",
+        "title": "Another Division II football championship",
+        "body": "Benjamin beat Oglesby 82–34 in the 2023 final; UIL's 2023–24 school record shows a 14–0 season heading into the championship game.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
+        "sourceLabel": "UIL Benjamin 2023 team archive"
+      },
+      {
+        "date": "2026",
+        "title": "New 2026 players are not the 2022 title roster",
+        "body": "Benjamin ISD publishes current Mustang football imagery and news; a 2022 UIL championship roster is preserved as archival evidence, not a 2026 roster or proof of current head coaching.",
+        "sourceUrl": "https://www.benjaminisd.net/",
+        "sourceLabel": "Official Benjamin ISD school news"
+      }
+    ],
+    "overview": [
+      "Benjamin Mustangs earned consecutive UIL six-man Division II state football championships in 2022 and 2023, defeating Loraine and Oglesby respectively. The separate 2022 and 2023 championship records prove these are two titles, not repeated reporting of one academic-year season.",
+      "The team's official 2022 and 2023 UIL archives name Nathan Hayes head coach for those years. The 2023 archive records an undefeated season entering the title game and publishes historical players; this guide intentionally avoids representing former players, 2022 staff or 2023 win streaks as 2026 lineup facts.",
+      "Benjamin ISD is in Knox County, and its official 300 W Hays campus contact is the starting point for school support. A separate six-man results site provides 2026 fixtures and currently names Aaron Kuehler as head coach, but current staffing and field-entry information should be checked with the school before publication as official. Its present UIL assignment is 1A Six-Man Division II District 9."
+    ],
+    "faq": [
+      {
+        "question": "How many six-man state championships did Benjamin win in 2022–23?",
+        "answer": "Two: the Mustangs won the 2022 and 2023 UIL 1A Six-Man Division II finals."
+      },
+      {
+        "question": "Was Nathan Hayes the Benjamin football coach for both championship seasons?",
+        "answer": "UIL's 2022 and 2023 team profiles list Nathan Hayes in those historical coaching roles, not as proof of the 2026 appointment."
+      },
+      {
+        "question": "What school colors are verified for the Mustangs?",
+        "answer": "The 2023 UIL official team archive gives Purple and White, distinct from a school's copyrighted logo."
+      }
+    ],
+    "campus": {
+      "address": "300 W Hays Street, Benjamin, TX 79505",
+      "phone": "940-459-2231",
+      "sourceUrl": "https://www.benjaminisd.net/",
+      "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "big-lake-reagan-co": {
+    "slug": "big-lake-reagan-co",
+    "theme": {
+      "accentHex": "#28648C",
+      "label": "Original, independently chosen editorial accent; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Reagan County Owls Football | 2026 & Texas UIL History",
+      "description": "Independent Reagan County Owls football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+    },
+    "schedule": {
+      "label": "Reagan County ISD official athletics and 2026 football news",
+      "sourceUrl": "https://www.reagancountyisd.net/athletics",
+      "sourceLabel": "First-party school district 2026 sport resource",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Big Lake's Reagan County Owls, 1986 Class 2A semifinals and James H. Bird Memorial Stadium",
+      "body": "UIL's original 1986 Conference 2A playoff document credits Reagan County with consecutive victories over McCamey, Anson, Panhandle and Goldthwaite before Mart defeated the Owls 35–15 in the 1986 semifinal. This was a deep postseason run, not a state championship. Reagan County ISD's 2026 first-party live feed names James H. Bird Memorial Stadium for its September 18, 2026 homecoming game against McCamey and describes district-specific fan traditions, including blue and gold homecoming entry. Its athletics hub and high-school schedule documents are useful current links; homecoming-admission rules are a dated event promotion and not a standing rule for all games.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/86at_bfb.html",
+      "sourceLabel": "Original UIL 1986 postseason bracket",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1986",
+        "title": "Reagan County reached the Class 2A semifinals",
+        "body": "The UIL playoff text records victories over McCamey (34–7), Anson (35–20), Panhandle (22–0), Goldthwaite (17–14) before losing 35–15 to Mart.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/86at_bfb.html",
+        "sourceLabel": "1986 UIL 2A playoff record"
+      },
+      {
+        "date": "2026-09-18",
+        "title": "Homecoming at James H. Bird Memorial Stadium",
+        "body": "The district announced Owls–McCamey homecoming at James H. Bird Memorial Stadium, with the 2026 event's 6:20 coronation and 7 p.m. kickoff. Free blue-and-gold entry was specific to the homecoming bulletin.",
+        "sourceUrl": "https://www.reagancountyisd.net/live-feed?page_no=2",
+        "sourceLabel": "Official district 2026 homecoming stadium notice"
+      },
+      {
+        "date": "2026",
+        "title": "September 11 varsity road kickoff at Miles",
+        "body": "The district athletics feed identifies a varsity game at Miles and says tickets at the gate for that date; that policy is game-specific.",
+        "sourceUrl": "https://www.reagancountyisd.net/live-feed?page_no=1",
+        "sourceLabel": "Reagan County ISD first-party varsity notice"
+      }
+    ],
+    "overview": [
+      "Reagan County Owls football represents Big Lake, Reagan County, in the current UIL 2026–28 Class 2A Division I District 4. The school district uses 'Every Owl. Every Day.' and maintains its own athletic and schedule resources. 'Reagan County' is the high-school football program, not a San Antonio or Austin Reagan campus.",
+      "The UIL's original 1986 2A playoff bracket tracks the Owls through four postseason wins before the Mart semifinal defeat. Listing that appearance precisely offers more historical value than incorrectly promoting the 1986 run as a state title.",
+      "The ISD's first-party September 2026 notices identify James H. Bird Memorial Stadium as a homecoming football setting and document the particular McCamey and Miles games. Its free-entry promotion for supporters wearing school colors applied to that homecoming, not necessarily every event. The school/district address is 1111 E 12th Street; confirm exact stadium navigation and 2026 ticket/accessible entrance details with the ISD."
+    ],
+    "faq": [
+      {
+        "question": "What notable football playoff season is officially documented for Reagan County?",
+        "answer": "The Owls reached the 1986 Class 2A state semifinals, losing to Mart 35–15 after four recorded playoff victories."
+      },
+      {
+        "question": "What is the Big Lake Owls stadium called?",
+        "answer": "Reagan County ISD's September 2026 homecoming notice identifies James H. Bird Memorial Stadium. Ask the school for its current street entrance and game-specific assignment."
+      },
+      {
+        "question": "Does the September 2026 free homecoming admission apply to every Owls game?",
+        "answer": "No. The district announced a blue-and-gold apparel entry promotion for that specific homecoming event. Confirm other games' policies separately."
+      }
+    ],
+    "campus": {
+      "address": "1111 E 12th Street, Big Lake, TX 76932",
+      "phone": "325-884-3705",
+      "sourceUrl": "https://www.reagancountyisd.net/",
+      "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
+      "verifiedAt": "2026-10-10"
+    }
+  },
+  "big-sandy": {
+    "slug": "big-sandy",
+    "theme": {
+      "accentHex": "#812B39",
+      "label": "Original, independently chosen editorial accent; no school logo reproduced"
+    },
+    "seo": {
+      "title": "Big Sandy Wildcats Football | 2026 & Texas UIL History",
+      "description": "Independent Big Sandy Wildcats football research: verified school milestones, current UIL alignment, schedules, visitor guidance and original sources."
+    },
+    "schedule": {
+      "label": "Big Sandy ISD official athletics and 2026 football news",
+      "sourceUrl": "https://www.bigsandyisd.org/live_feeds/12842018",
+      "sourceLabel": "First-party school district 2026 sport resource",
+      "verifiedAt": "2026-10-10"
+    },
+    "development": {
+      "title": "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection",
+      "body": "Official UIL records establish three consecutive Class B titles in 1973, 1974 and 1975 under coach Jim Norman, with 1974 decided 0–0 against Celina as a co-championship under historical rules. 1973 was 25–0 versus Rule. The UIL's champions list and 1975 archive say 26–2 over Groom but its centennial 1975 team account displays 28–2; the page explicitly flags the discrepancy instead of confidently selecting one from the same governing organization. UIL's centennial team biographies include Lovie Smith and David Overstreet among program football alumni for the 1973/1975 era. Big Sandy ISD published distinct varsity and junior-high 2026 football schedules in August.",
+      "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+      "sourceLabel": "UIL centennial Big Sandy football team histories and named alumni",
+      "verifiedAt": "2026-10-10"
+    },
+    "milestones": [
+      {
+        "date": "1973",
+        "title": "First of three consecutive UIL Class B crowns",
+        "body": "Jim Norman coached the Wildcats to an unbeaten season, defeating Rule 25–0. UIL highlights David Overstreet and Lovie Smith on the title team's personnel list.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "Official UIL centennial 1973 team account"
+      },
+      {
+        "date": "1974",
+        "title": "Scoreless championship and official co-title with Celina",
+        "body": "The state game finished 0–0 and UIL names both Big Sandy and Celina co-champions. It was not an outright victory.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL 1974 Big Sandy-Celina championship history"
+      },
+      {
+        "date": "1975",
+        "title": "Third Class B state title with a disputed reported score",
+        "body": "Big Sandy beat Groom and completed its third consecutive title. UIL's historical winner list gives 26–2; UIL's own centennial roster account gives 28–2. This discrepancy is recorded for correction rather than silently picking one.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL original champions ledger"
+      },
+      {
+        "date": "2026",
+        "title": "Official varsity and junior-high schedule announcement",
+        "body": "An August 17 district bulletin links separate 2026 high-school and junior-high football schedules, making the season resource distinct from historic title records.",
+        "sourceUrl": "https://www.bigsandyisd.org/live_feeds/12842018",
+        "sourceLabel": "Big Sandy ISD first-party 2026 schedule news"
+      }
+    ],
+    "overview": [
+      "Big Sandy Wildcats in Upshur County have three consecutive UIL Class B football championships from 1973, 1974 and 1975. The 1974 title was shared with Celina after a 0–0 tie, not an ordinary victory; head coach Jim Norman is credited by UIL for that era.",
+      "Big Sandy's 1973 undefeated title season features prominent football alumni Lovie Smith and David Overstreet in UIL's centennial account. The 1975 final against Groom has a documented disagreement within UIL's own sources—26–2 in the winners archive but 28–2 in the narrative season retrospective. Both are historical UIL figures; a single definitive score requires archival reconciliation.",
+      "The current Wildcats belong to UIL 2A Division II District 10, not the 1970s Class B system. On August 17, 2026, Big Sandy ISD issued a direct high-school and junior-high schedule announcement. The district lists 401 North Wildcat Drive in Big Sandy; away-game addresses and stadium entry should be verified against the appropriate varsity fixture."
+    ],
+    "faq": [
+      {
+        "question": "How many football state titles does Big Sandy have?",
+        "answer": "Three consecutive UIL Class B titles: 1973, 1974 (shared with Celina following a 0–0 final) and 1975."
+      },
+      {
+        "question": "Was the 1974 Big Sandy–Celina final scoreless?",
+        "answer": "Yes. UIL records a 0–0 tie and classifies both programs as co-champions for that year's Class B title."
+      },
+      {
+        "question": "Why does Big Sandy's 1975 score sometimes appear as 26–2 or 28–2?",
+        "answer": "UIL's historical championships table gives 26–2 against Groom, while its own centennial team-history page gives 28–2. Both are official sources, so the discrepancy needs archival resolution."
+      }
+    ],
+    "campus": {
+      "address": "401 N Wildcat Drive, Big Sandy, TX 75755 (district listing; confirm exact stadium gate)",
+      "phone": "903-636-5287",
+      "sourceUrl": "https://www.bigsandyisd.org/o/district",
+      "sourceLabel": "Official school or district location; confirm exact campus entrance where noted",
+      "verifiedAt": "2026-10-10"
+    }
+  },
   "beckville": {
     "slug": "beckville",
     "theme": {

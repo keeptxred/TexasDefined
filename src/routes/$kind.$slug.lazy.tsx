@@ -177,6 +177,11 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
   'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
   'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
+  'jim-wells': [{ name: "Ben Bolt–Palito Blanco Fighting Badgers", slug: 'ben-bolt-palito-blanco', context: "Jim Wells County Fighting Badgers with a first-party 2026 game calendar" }],
+  'duval': [{ name: "Benavides Eagles", slug: 'benavides', context: "Benavides Eagles: a published 2026 six-man football schedule, not eleven-man" }],
+  'knox': [{ name: "Benjamin Mustangs", slug: 'benjamin', context: "Back-to-back 2022 and 2023 six-man Division II state championships" }],
+  'reagan': [{ name: "Reagan County Owls", slug: 'big-lake-reagan-co', context: "Big Lake's Reagan County Owls, 1986 Class 2A semifinals and James H. Bird Memorial Stadium" }],
+  'upshur': [{ name: "Big Sandy Wildcats", slug: 'big-sandy', context: "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection" }],
   // Batch 005 school-specific campus county links, distinct from away-game stadiums.
   'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
   'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],

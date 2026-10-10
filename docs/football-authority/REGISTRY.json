@@ -40,7 +40,7 @@
       "big-lake-reagan-co",
       "big-sandy"
     ],
-    "state": "ASSIGNED_RESEARCH_IN_PROGRESS",
+    "state": "ALL_25_IMPLEMENTED_ON_DEPENDENT_BRANCHES_PENDING_PRODUCTION",
     "dateAssigned": "2026-10-10",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned in existing canonical schoolRecords order after verified Batch 004; protect 80 previous VERIFIED.",
     "individuallyVerified": 0,
@@ -49,11 +49,11 @@
     "repositoryMainAtAssignment": "193f24fb06e48fd43fd821d6a6bced28d958301a",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "ben-bolt-palito-blanco",
-    "implementedOnBranch": 20,
-    "remainingToImplement": 5,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "20 school-specific researched Batch005 editorial records implemented across group1 merged and dependent branches #4579, #4583, this group4. 5 schools remaining to implement, zero Batch005 production VERIFIED; previous 80 VERIFIED preserved. Group4 fixes Austin County school-links contamination by separate Austin city high schools; live browser evidence outstanding."
+    "notes": "All 25 Batch005 individually researched authority upgrades IMPLEMENTED across merged initial PR #4576 and dependent PR chain #4579, #4583, #4585 and group5. No new school is VERIFIED. Need CI, protected merges in dependency order, Cloudflare deploy, full desktop/mobile/source/county browser certification and ledger refresh. Previous 80 VERIFIED preserved, media reuse rights not assumed."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6363,8 +6363,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/ben-bolt-palito-blanco",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/ben-bolt-palito-blanco.md",
+      "officialSchoolUrl": "https://www.bbpbschools.net/",
+      "officialAthleticsUrl": "https://www.bbpbschools.net/apps/events/",
+      "county": "Jim Wells County",
+      "schoolDistrict": "Ben Bolt–Palito Blanco ISD",
+      "mascot": "Fighting Badgers",
+      "sourceEvidence": [
+        "https://www.bbpbschools.net/",
+        "https://www.bbpbschools.net/apps/events/",
+        "https://nces.ed.gov/ccd/districtsearch/district_detail.asp?ID2=4809870&details=2"
+      ],
+      "inboundLinks": [
+        "/county/jim-wells"
+      ],
+      "outboundCountyPath": "/county/jim-wells",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR chain, CI, merges and deployment",
+        "Live 25-school browser acceptance, campus-county inbound and outgoing links, sitemap and mobile testing",
+        "Confirm current ticket and ADA details, verify specific venue, permissions for genuine school photos"
+      ]
     },
     {
       "id": "uil:benavides",
@@ -6377,8 +6403,34 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benavides",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/benavides.md",
+      "officialSchoolUrl": "https://www.benavidesisd.net/",
+      "officialAthleticsUrl": "https://www.benavidesisd.net/departments/athletics",
+      "county": "Duval County",
+      "schoolDistrict": "Benavides ISD",
+      "mascot": "Eagles",
+      "sourceEvidence": [
+        "https://www.benavidesisd.net/",
+        "https://www.benavidesisd.net/departments/athletics",
+        "https://www.maxpreps.com/tx/benavides/benavides-eagles/football/schedule/"
+      ],
+      "inboundLinks": [
+        "/county/duval"
+      ],
+      "outboundCountyPath": "/county/duval",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR chain, CI, merges and deployment",
+        "Live 25-school browser acceptance, campus-county inbound and outgoing links, sitemap and mobile testing",
+        "Confirm current ticket and ADA details, verify specific venue, permissions for genuine school photos"
+      ]
     },
     {
       "id": "uil:benjamin",
@@ -6391,8 +6443,35 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/benjamin",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/benjamin.md",
+      "officialSchoolUrl": "https://www.benjaminisd.net/",
+      "officialAthleticsUrl": "https://www.benjaminisd.net/",
+      "county": "Knox County",
+      "schoolDistrict": "Benjamin ISD",
+      "mascot": "Mustangs",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/football/state-team/benjamin-2022-2023-boys-football",
+        "https://www.uiltexas.org/football/state-team-mp-archive/benjamin-2023-2024-football",
+        "https://www.benjaminisd.net/about-us",
+        "https://sixmanfootball.com/teams/benjamin-mustangs.1041/"
+      ],
+      "inboundLinks": [
+        "/county/knox"
+      ],
+      "outboundCountyPath": "/county/knox",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR chain, CI, merges and deployment",
+        "Live 25-school browser acceptance, campus-county inbound and outgoing links, sitemap and mobile testing",
+        "Confirm current ticket and ADA details, verify specific venue, permissions for genuine school photos"
+      ]
     },
     {
       "id": "uil:big-lake-reagan-co",
@@ -6405,8 +6484,34 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-lake-reagan-co",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/big-lake-reagan-co.md",
+      "officialSchoolUrl": "https://www.reagancountyisd.net/",
+      "officialAthleticsUrl": "https://www.reagancountyisd.net/athletics",
+      "county": "Reagan County",
+      "schoolDistrict": "Reagan County ISD",
+      "mascot": "Owls",
+      "sourceEvidence": [
+        "https://www.reagancountyisd.net/athletics",
+        "https://www.reagancountyisd.net/live-feed?page_no=2",
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/86at_bfb.html"
+      ],
+      "inboundLinks": [
+        "/county/reagan"
+      ],
+      "outboundCountyPath": "/county/reagan",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR chain, CI, merges and deployment",
+        "Live 25-school browser acceptance, campus-county inbound and outgoing links, sitemap and mobile testing",
+        "Confirm current ticket and ADA details, verify specific venue, permissions for genuine school photos"
+      ]
     },
     {
       "id": "uil:big-sandy",
@@ -6419,8 +6524,35 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/big-sandy",
-      "status": "NOT_REVIEWED",
-      "batch": 5
+      "status": "IMPLEMENTED",
+      "batch": 5,
+      "actualProductionVerified": false,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/big-sandy.md",
+      "officialSchoolUrl": "https://www.bigsandyisd.org/o/district",
+      "officialAthleticsUrl": "https://www.bigsandyisd.org/live_feeds/12842018",
+      "county": "Upshur County",
+      "schoolDistrict": "Big Sandy ISD",
+      "mascot": "Wildcats",
+      "sourceEvidence": [
+        "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "https://www.uiltexas.org/100/football-teams",
+        "https://www.bigsandyisd.org/live_feeds/12842018",
+        "https://nces.ed.gov/ccd/schooLSearch/school_detail.asp?County=Upshur+County&ID=481014000469&Search=1&State=48"
+      ],
+      "inboundLinks": [
+        "/county/upshur"
+      ],
+      "outboundCountyPath": "/county/upshur",
+      "linkVerificationStatus": "DEPENDENT_BRANCH_PENDING_LIVE_BROWSER",
+      "productionVerification": "NOT_DEPLOYED_OR_BROWSER_VERIFIED",
+      "blockers": [
+        "Protected PR chain, CI, merges and deployment",
+        "Live 25-school browser acceptance, campus-county inbound and outgoing links, sitemap and mobile testing",
+        "Confirm current ticket and ADA details, verify specific venue, permissions for genuine school photos"
+      ]
     },
     {
       "id": "uil:big-sandy-harmony",
