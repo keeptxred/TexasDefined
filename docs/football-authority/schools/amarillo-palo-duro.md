@@ -25,3 +25,6 @@ Added Palo Duro-specific historical narrative, 2025 resurgence, actual September
 
 ## Remaining acceptance
 Official ISD head-coach confirmation, primary campus county/NCES and reciprocal links, genuine official colors, licensed photos or original graphic audit, exact accessible stadium gates/ticket rules, technical checks and CI, protected merge/deploy, desktop/mobile production browser inspection and sitemap/schema validation. Next assigned school: Amarillo River Road.
+
+## October 9, 2026 independent first-party coach corroboration
+[Amarillo ISD's official 2026-accessible newsletters](https://www.amaisd.org/92916_3) independently call Eric Mims **Palo Duro coach** in their reporting on Julian Reese's Delaware football commitment. The [Palo Duro High campus directory](https://www.amaisd.org/pdhs) lists **Eric Mims, Athletic Director**. Combined with the dated 2026 MaxPreps roster, this materially improves coaching provenance; neither a school newsletter nor an athletic-director job title alone necessarily proves every 2026 game assignment. Updated editorial coaching attribution in `5ba4dbe1904b29762ce7dc657a96ae8a2a1f6b4c`. No photograph reused and no production verification asserted.
