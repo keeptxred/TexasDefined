@@ -83,6 +83,17 @@ The next valid acceptance step is a dated, repeatable polygon overlay with a kno
 
 The Chrome script now exercises actual keyboard Tab focus and samples up to twelve rendered internal-link URLs per city/viewport, preserving exact requests and statuses in the JSON artifact. These new assertions are **unverified until their post-deployment workflow succeeds**; they do not replace manual keyboard-menu/contrast/touch checks.
 
+## Relocation guidance: authoritative statewide jurisdiction limits
+
+| Published city-page guidance | Independent primary source | Result | Exact limitation |
+|---|---|---|---|
+| School attendance must be verified by address, not inferred from city name | https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq | PASS for procedural guidance | TEA distinguishes district boundaries from campus attendance zones; district confirms specific campus assignments |
+| A school-district map is not a parcel-level legal determination | https://tea.texas.gov/families-and-students/school-district-locator/geographic-data | PASS for the caution | TEA describes map geometry as approximate and refers legal/attendance verification to the district |
+| A Texas city's name does not establish a single property-tax rate or taxing-unit stack | https://comptroller.texas.gov/taxes/property-tax/basics.php | PASS for procedural guidance | County, school, city and special districts may overlap; property-specific units/rates remain unverified |
+| Local appraisal and tax records must be checked through appropriate local government offices | https://comptroller.texas.gov/taxes/property-tax/county-directory/index.php | PASS for procedural guidance | The Comptroller does not hold an individual homeowner's local appraisal/tax information |
+
+**Scope:** These four checks validate the statewide *methodology* behind the 11-city relocation advice, not the address-level schools, utilities, specific tax figures, neighborhood risks, or exact city-specific operators.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
