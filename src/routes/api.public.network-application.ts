@@ -27,7 +27,8 @@ export const Route = createFileRoute("/api/public/network-application")({
           for(const file of [...(uploadedLogo?[uploadedLogo]:[]),...uploadedGallery]) {
             if(file.size>3000000||file.size===0||!["image/png","image/jpeg","image/webp"].includes(file.type))return response({error:"Each image must be JPEG, PNG or WebP and under 3 MB."},422);
             const bytes=new Uint8Array(await file.slice(0,12).arrayBuffer());
-            const png=bytes[0]===137&&bytes[1]===80&&bytes[2]===78&&bytes[3]===71;
+            const pngSignature=[137,80,78,71,13,10,26,10];
+            const png=bytes.length>=pngSignature.length&&pngSignature.every((byte,index)=>bytes[index]===byte);
             const jpg=bytes[0]===255&&bytes[1]===216&&bytes[2]===255;
             const webp=String.fromCharCode(...bytes.slice(0,4))==="RIFF"&&String.fromCharCode(...bytes.slice(8,12))==="WEBP";
             if(!(file.type==="image/png"&&png||file.type==="image/jpeg"&&jpg||file.type==="image/webp"&&webp))return response({error:"Invalid image data"},422);
