@@ -3,8 +3,8 @@
 ## Latest canonical checkpoint — Batch 003 (2026-10-09)
 - **Canonical registry:** `docs/football-authority/REGISTRY.json` (takes precedence over older historical notes in this file). Batch 001 five and Batch 002 twenty-five are VERIFIED per recorded live browser evidence; **30/1,292 total**, 1,262 still needing school-specific work.
 - **Batch 003:** exactly 25 schools assigned and saved in stable registry order, from Amarillo Caprock through Arlington Seguin. Assignment branch `football-authority-batch-003-20261009` and draft [PR #4506](https://github.com/keeptxred/TexasDefined/pull/4506). No additional Batch 004 assignment.
-- **Implemented, not merged/deployed/VERIFIED:** Amarillo Caprock, Amarillo Highland Park, Amarillo Palo Duro, Amarillo River Road, Amarillo Tascosa, Amherst, Anahuac, Anderson-Shiro, Andrews, Angleton, Anna and Anson. All 12 have individual school audits under `schools/[slug].md` and program-specific editorial committed on draft #4506.
-- **Current:** 12 individually researched + IMPLEMENTED, **0** Batch 003 MERGED/DEPLOYED/VERIFIED, **13** assigned NOT_REVIEWED. **Next: Anthony**. Photo rights, county inbound links, tests, merge, deployment and real responsive browser QA remain pending.
+- **Implemented, not merged/deployed/VERIFIED:** Amarillo Caprock, Amarillo Highland Park, Amarillo Palo Duro, Amarillo River Road, Amarillo Tascosa, Amherst, Anahuac, Anderson-Shiro, Andrews, Angleton, Anna, Anson, Anthony, Anton, Apple Springs. Each has an individual source audit under `schools/[slug].md`.
+- **Current:** 15 individually researched + IMPLEMENTED, **0** Batch 003 MERGED/DEPLOYED/VERIFIED, **10** assigned NOT_REVIEWED. **Next: Aquilla**. Draft PR #4506 remains unmerged; image rights, county inbound links, tests and live certification pending.
 - **Concurrency:** read fresh main before subsequent edits/merges and preserve parallel unrelated changes. Never mistake the draft PR for a completed school.
 
 ## Historical execution checkpoints (superseded where contradicted by the canonical registry)
