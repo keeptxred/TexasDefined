@@ -569,6 +569,9 @@ jobs:
 
       - name: Upload statewide financial discovery diagnostics
         if: always()
+        # Preserve diagnostics without treating GitHub artifact-service outages
+        # as live production failures; the verifier above remains a hard gate.
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: statewide-financial-discovery-${{ github.run_id }}
