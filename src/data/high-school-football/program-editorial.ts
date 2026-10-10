@@ -58,6 +58,175 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "amarillo-caprock": {
+    "slug": "amarillo-caprock",
+    "theme": {
+      "accentHex": "#7E1C34",
+      "label": "Editorial maroon accent; verify exact official Caprock school color before representing it as school branding"
+    },
+    "seo": {
+      "title": "Amarillo Caprock Longhorns Football: 2026 Schedule, History & Tickets",
+      "description": "Independent Caprock Longhorns football guide: 2026 UIL 5A Division I District 2, coach Rowdy Freeman, verified season records, Dick Bivins tickets and official links."
+    },
+    "coach": {
+      "name": "Rowdy Freeman",
+      "title": "2026 football coach per MaxPreps; Amarillo ISD independently lists him as campus athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/history/",
+      "sourceLabel": "MaxPreps 2026 coaching listing; Amarillo ISD CHS directory corroborates athletic director only",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "3001 E 34th Ave, Amarillo, TX 79103",
+      "phone": "806-326-2200",
+      "sourceUrl": "https://www.amaisd.org/chs",
+      "sourceLabel": "Amarillo ISD official Caprock campus",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Amarillo ISD football schedules and digital tickets",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD Athletics — school schedules and tickets",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "1–4 in published completed games through October 2, 2026; October 9 fixture not counted as a result",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/schedule/",
+      "sourceLabel": "MaxPreps October 3 schedule snapshot",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "Pampa",
+          "site": "Away",
+          "result": "W 29–12"
+        },
+        {
+          "date": "Sept. 3",
+          "opponent": "Palo Duro",
+          "site": "Home",
+          "result": "L 3–28"
+        },
+        {
+          "date": "Sept. 10",
+          "opponent": "Canyon",
+          "site": "Home",
+          "result": "L 7–37"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Lubbock Monterey",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–24"
+        },
+        {
+          "date": "Oct. 2",
+          "opponent": "Abilene",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–42"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Frenship",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 15",
+          "opponent": "Lubbock",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Tascosa",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 29",
+          "opponent": "Frenship Memorial",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Amarillo",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Dick Bivins Stadium",
+      "address": "Amarillo, Texas — confirm exact game gate using AISD athletics",
+      "sourceUrl": "https://www.amaisd.org/133763_3",
+      "sourceLabel": "Amarillo ISD official Athletics ticket and venue policy",
+      "verifiedAt": "2026-10-09",
+      "note": "AISD posts 2026 varsity advance tickets at $8 adult / $3 student, $10 at Dick Bivins gate, and a stadium clear-bag policy. Tickets are sold through HomeTown; presale deadlines and assigned field depend on the specific game. The school campus address is not a verified stadium entrance. Confirm ADA entrance, parking and bag details with AISD before travel."
+    },
+    "overview": [
+      "Caprock High School's Longhorns are one of four Amarillo ISD varsity football communities. The school sits at 3001 East 34th Avenue, while district athletics coordinates varsity football ticketing and stadium policies. Caprock is not Amarillo High's Golden Sandies, and their separate histories must not be blended.",
+      "Caprock's 2026–28 UIL alignment is Class 5A Division I, District 2. Its league schedule includes Abilene, Lubbock Monterey, Frenship, Lubbock, Tascosa, Frenship Memorial and Amarillo. UIL district membership is a two-year alignment, not a championship or a record for games already played.",
+      "The Dave Campbell's Texas Football historical program summary lists eight playoff appearances, no state-title game appearances, and no football state championships. This contrasts with Caprock's actual multiple GIRLS WRESTLING state titles prominently documented by Amarillo ISD. TexasDefined does not transfer those wrestling honors to the football team.",
+      "The 2018 Longhorns went 8–4 according to the DCTF historical season index, versus 3–7 in both 2024 and 2025. These year-separated records give more meaningful context than an invented dynasty. A 2026 scores snapshot shows an opening win at Pampa and four subsequent recorded losses through October 2, not an outcome for the October 9 game.",
+      "The Caprock High campus lists Rowdy Freeman as athletic director; MaxPreps lists Freeman as 2026 head football coach. The district coaching-contact directory is linked from its athletics page, but a separate official head-coach job title was not independently confirmed. Fans should rely on the official district schedule and ticket portal for last-minute changes.",
+      "Dick Bivins Stadium is named by the independent DCTF team profile, and Amarillo ISD publishes varsity ticket prices and an actual clear-bag policy. Fans should not navigate to the school campus when the ticket specifies a different stadium; event-specific accessible arrival and parking remain to be verified."
+    ],
+    "milestones": [
+      {
+        "date": "2018",
+        "title": "Eight-win playoff-era season",
+        "body": "The Longhorns' 8–4 campaign is visible in Dave Campbell's historical program records; unlike a state title it is not a championship claim.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-caprock-longhorns",
+        "sourceLabel": "DCTF Caprock season history"
+      },
+      {
+        "date": "2024–25",
+        "title": "Two consecutive 3–7 finishes",
+        "body": "DCTF records Caprock at 3–7 in 2024 and 2025; the records are distinct from the ongoing 2026 schedule.",
+        "sourceUrl": "https://www.texasfootball.com/team/amarillo-caprock-longhorns",
+        "sourceLabel": "DCTF historical season index"
+      },
+      {
+        "date": "2026–28",
+        "title": "UIL 5A Division I, District 2",
+        "body": "UIL realignment places the Longhorns in the seven-opponent Panhandle and West Texas district for 2026–28.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
+        "sourceLabel": "UIL 2026 alignment"
+      },
+      {
+        "date": "Aug. 28, 2026",
+        "title": "Season-opening victory at Pampa",
+        "body": "Caprock's posted season ledger begins with a 29–12 win at Pampa; later listed games must be separately confirmed as they finish.",
+        "sourceUrl": "https://www.maxpreps.com/tx/amarillo/caprock-longhorns/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 schedule"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Has Amarillo Caprock won a UIL football state championship?",
+        "answer": "No football state title appears in Dave Campbell's Texas Football program history, which lists eight playoff appearances and zero championship-game appearances. Caprock's documented wrestling state championships belong to a different sport."
+      },
+      {
+        "question": "Who coaches the Caprock Longhorns in 2026?",
+        "answer": "MaxPreps identifies Rowdy Freeman as the 2026 football head coach; the school's current official directory identifies him as athletic director. Consult the official athletic-staff directory for any subsequent changes."
+      },
+      {
+        "question": "What district is Caprock in for 2026?",
+        "answer": "The UIL 2026–28 football realignment places Caprock in 5A Division I District 2 with Abilene, Amarillo, Tascosa, Frenship, Frenship Memorial, Lubbock and Lubbock Monterey."
+      },
+      {
+        "question": "Where are Caprock football games played?",
+        "answer": "Dick Bivins Stadium is the team's listed stadium, but verify each home game's actual site and entrance on the official Amarillo ISD schedule and ticket listing."
+      },
+      {
+        "question": "How much are Caprock tickets in 2026?",
+        "answer": "Amarillo ISD lists District 2-5A varsity presale prices of $8 for adults and $3 for students, and a $10 stadium-gate price at Dick Bivins. Prices and availability should be reconfirmed on game day."
+      }
+    ]
+  },
   "amarillo": {
     "slug": "amarillo",
     "theme": {
