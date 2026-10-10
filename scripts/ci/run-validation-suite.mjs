@@ -7,6 +7,7 @@ const checks = [
   ['county-editorial-discovery', 'INTERNAL-LINKING', 'Validate county editorial discovery', 'node', ['scripts/data/validate-county-editorial-discovery.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
+  ['homeowners-premium-research', 'SOURCE/QUALITY', 'Validate Texas homeowners premiums research', 'node', ['scripts/data/validate-homeowners-premium-research.mjs']],
   ['public-route-governance', 'ROUTING/GOVERNANCE', 'Validate public route governance', 'node', ['scripts/data/validate-public-route-governance.mjs']],
   ['texas-talent-launch-contract', 'CONTENT/GOVERNANCE', 'Validate hidden Texas Talent launch contract', 'node', ['scripts/data/validate-texas-talent.mjs']],
   ['texas-talent-launch-depth-gate', 'CONTENT/DEPTH', 'Validate Texas Talent launch-depth gate', 'node', ['scripts/data/validate-texas-talent-launch-depth-gate.mjs']],
