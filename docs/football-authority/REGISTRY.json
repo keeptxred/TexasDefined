@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-004-20261010",
     "repositoryMainAtAssignment": "75b69bbba76ef70730b5a78a4a570dd848946430",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "athens",
-    "nextSchool": "athens",
-    "implementedOnBranch": 2,
-    "remainingToImplement": 23,
+    "currentSchool": "austin",
+    "nextSchool": "austin",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
     "remainingToVerify": 25,
-    "notes": "Arp and Aspermont individually IMPLEMENTED; 23 remain NOT_REVIEWED, all 25 await production acceptance."
+    "notes": "Five distinct schools Arp, Aspermont, Athens, Atlanta, Aubrey have school-specific editorial + dossiers on draft PR; 20 remain NOT_REVIEWED, all 25 await protected production acceptance."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -4305,8 +4305,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/athens",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/athens.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": false,
+      "commits": [
+        "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
+      ]
     },
     {
       "id": "uil:atlanta",
@@ -4319,8 +4328,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/atlanta",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/atlanta.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": false,
+      "commits": [
+        "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
+      ]
     },
     {
       "id": "uil:aubrey",
@@ -4333,8 +4351,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/aubrey",
-      "status": "NOT_REVIEWED",
-      "batch": 4
+      "status": "IMPLEMENTED",
+      "batch": 4,
+      "auditCompletedAt": "2026-10-10",
+      "researchCompletedAt": "2026-10-10",
+      "implementedAt": "2026-10-10",
+      "schoolNote": "docs/football-authority/schools/aubrey.md",
+      "implementedOnBranch": "football-authority-batch-004-20261010",
+      "actualProductionVerified": false,
+      "commits": [
+        "53ff6412daa3ba8e2bc5252919593ea06b1d60dc"
+      ]
     },
     {
       "id": "uil:austin",
