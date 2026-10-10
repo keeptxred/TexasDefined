@@ -100,6 +100,10 @@ async function run() {
   if (!/karting operation announced a temporary closure/i.test(directory)) {
     note('Motorsports landing no longer shows the MSR Houston karting-status distinction.');
   }
+  if (!directory.includes('The most recently checked individual venue record in this collection was verified') ||
+      directory.includes('Venue source records on this page were reviewed through')) {
+    note('Motorsports directory may be serving stale collection-wide review metadata; verify canonical HTML and cache.');
+  }
   const fee = publishedGuestFee(membership);
   if (fee === null || fee !== 175) note('Guest driving fee changed or could not be parsed. Current observed amount: ' + (fee ?? 'not verified') + '. Recheck guide pricing.');
   if (!guideSource.includes('$175 plus tax')) note('The guide fee claim differs from the monitored $175 published rate; editorial verification required.');
