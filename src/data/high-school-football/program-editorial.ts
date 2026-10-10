@@ -58,6 +58,183 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "arlington-houston": {
+    "slug": "arlington-houston",
+    "theme": {
+      "accentHex": "#324F84",
+      "label": "Original Sam Houston Texans editorial blue; official palette not independently verified"
+    },
+    "seo": {
+      "title": "Arlington Sam Houston Texans Football: Bobby Watkins & 2026 Scores",
+      "description": "Arlington Sam Houston Texans high-school football: school opened 1963, official coach Bobby Watkins, 2026 rebound results, Wilemon Field and Arlington ISD resources."
+    },
+    "coach": {
+      "name": "Bobby Watkins",
+      "title": "Head football coach and athletics coordinator listed in official Sam Houston High School directory",
+      "sourceUrl": "https://www.aisd.net/sam-houston-high-school/athletics/",
+      "sourceLabel": "Arlington ISD Sam Houston official athletics roster",
+      "verifiedAt": "2026-10-09"
+    },
+    "campus": {
+      "address": "2000 Sam Houston Drive, Arlington, TX 76014",
+      "phone": "682-867-8200",
+      "sourceUrl": "https://www.aisd.net/sam-houston-high-school/about/",
+      "sourceLabel": "Arlington Sam Houston official school history and campus address",
+      "verifiedAt": "2026-10-09"
+    },
+    "schedule": {
+      "label": "Official Sam Houston Texans athletics schedule and staff",
+      "sourceUrl": "https://www.aisd.net/sam-houston-high-school/athletics/",
+      "sourceLabel": "School athletics directory with official schedule",
+      "verifiedAt": "2026-10-09"
+    },
+    "season": {
+      "record": "3–2 through September 25 based on five published completed games; October 9 Arlington Martin remains unchecked",
+      "verifiedAt": "2026-10-09",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+      "sourceLabel": "DCTF 2026 Texans published five-game results",
+      "games": [
+        {
+          "date": "Aug. 28",
+          "opponent": "North Mesquite",
+          "site": "Home",
+          "result": "W 24–21"
+        },
+        {
+          "date": "Sept. 4",
+          "opponent": "Everman",
+          "site": "Away",
+          "result": "W 29–13"
+        },
+        {
+          "date": "Sept. 11",
+          "opponent": "Cleburne",
+          "site": "Away",
+          "result": "W 62–0"
+        },
+        {
+          "date": "Sept. 18",
+          "opponent": "Arlington High",
+          "site": "Home",
+          "district": true,
+          "result": "L 15–37"
+        },
+        {
+          "date": "Sept. 25",
+          "opponent": "Weatherford",
+          "site": "Away",
+          "district": true,
+          "result": "L 10–59"
+        },
+        {
+          "date": "Oct. 9",
+          "opponent": "Arlington Martin",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 16",
+          "opponent": "Arlington Lamar",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Oct. 23",
+          "opponent": "Granbury",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "Oct. 30",
+          "opponent": "Aledo",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "Nov. 6",
+          "opponent": "Arlington Bowie",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "venue": {
+      "name": "Wilemon Field (historical listing)",
+      "address": "Arlington, Texas — confirm exact home game and spectator arrival through AISD",
+      "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+      "sourceLabel": "DCTF Sam Houston football venue listing",
+      "verifiedAt": "2026-10-09",
+      "note": "DCTF lists 8,500 historic spectator seats at Wilemon Field; official 2026 game assignment, tickets, ADA dropoff and parking must be checked on the Arlington ISD event listing. The school's Sam Houston Drive campus address is not proven to be the stadium gate."
+    },
+    "overview": [
+      "Sam Houston High School opened in Arlington in 1963, as documented on the school's own website. Its Texans are not the NFL Houston Texans and are not a school in the city of Houston. The school serves the Arlington community at 2000 Sam Houston Drive, and its 2026 football program belongs to Arlington ISD.",
+      "Arlington Sam Houston's official athletics staff directory names Bobby Watkins head football coach and athletic coordinator. The school also provides its own athletics schedule and staff contacts, offering a reliable alternative to third-party coaching labels.",
+      "DCTF records 11 Sam Houston varsity football playoff appearances, zero state title-game appearances and zero UIL football championships. Unlike Arlington High's 1951 championship, the Texans do not have a verified state championship; mixing the district's programs would misinform alumni.",
+      "The 2023 team went 0–10, followed by 2–8 in 2024 and 1–9 in 2025 according to DCTF's historical ledger. The start of the 2026 season therefore deserves its own narrative: victories over North Mesquite, Everman and Cleburne lifted the team to 3–0 before district defeats to Arlington High and Weatherford.",
+      "The dated 2026 scoreboard records a 62–0 road victory at Cleburne, followed the next week by a 15–37 defeat against Arlington High. This contrasts the young Texans' improvement with actual district competition, without claiming a current score for the October 9 game against Arlington Martin.",
+      "For UIL 2026, Sam Houston competes in Class 6A Region I District 3 with other Arlington-area schools and Aledo/Weatherford/Granbury. The published 2026 opponent list is a real schedule, not evidence that these teams were longstanding rivalries in every historical era.",
+      "DCTF lists Wilemon Field as the football venue. The official school provides a campus address, but the venue's historic 8,500-seat listing is not a current certified admission, accessible entry, parking or bag-policy statement."
+    ],
+    "milestones": [
+      {
+        "date": "1963",
+        "title": "Arlington Sam Houston High opens",
+        "body": "The school's official history gives 1963 as its opening year.",
+        "sourceUrl": "https://www.aisd.net/sam-houston-high-school/about/",
+        "sourceLabel": "Sam Houston High official history"
+      },
+      {
+        "date": "2023–25",
+        "title": "Three rebuilding football seasons",
+        "body": "DCTF lists 0–10 in 2023, 2–8 in 2024 and 1–9 in 2025.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+        "sourceLabel": "DCTF prior varsity seasons"
+      },
+      {
+        "date": "Sept. 11, 2026",
+        "title": "62–0 win at Cleburne",
+        "body": "The third listed 2026 victory, after North Mesquite and Everman, ended with a 62–0 shutout.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+        "sourceLabel": "DCTF 2026 game ledger"
+      },
+      {
+        "date": "Sept. 18, 2026",
+        "title": "Arlington Colts district meeting",
+        "body": "Sam Houston's first posted district result was a 15–37 loss to Arlington High; the schools have different program histories.",
+        "sourceUrl": "https://www.texasfootball.com/team/arlington-sam-houston-texans",
+        "sourceLabel": "DCTF scored fixtures"
+      },
+      {
+        "date": "2026",
+        "title": "Coach Bobby Watkins",
+        "body": "The school athletics roster identifies Bobby Watkins as head football coach and athletic coordinator.",
+        "sourceUrl": "https://www.aisd.net/sam-houston-high-school/athletics/",
+        "sourceLabel": "Official Sam Houston athletics staff"
+      }
+    ],
+    "faq": [
+      {
+        "question": "Is Arlington Sam Houston High the Houston Texans?",
+        "answer": "No. The Sam Houston Texans are a high-school football team in Arlington ISD. They are unrelated to the NFL franchise or any Houston-city campus."
+      },
+      {
+        "question": "When did Arlington's Sam Houston High open?",
+        "answer": "According to its official campus history, the school opened in 1963."
+      },
+      {
+        "question": "Who coaches Sam Houston Texans football in 2026?",
+        "answer": "The current official Arlington ISD school athletics directory lists Bobby Watkins as head football coach and athletics coordinator."
+      },
+      {
+        "question": "Has Arlington Sam Houston won a state football title?",
+        "answer": "The DCTF program history lists 11 playoff appearances but zero football state title games or championships."
+      },
+      {
+        "question": "Where do Texans home games take place?",
+        "answer": "DCTF's program directory lists Wilemon Field; check the official AISD event entry for the assigned venue, tickets, parking and accessible gates."
+      }
+    ]
+  },
   "arlington-bowie": {
     "slug": "arlington-bowie",
     "theme": {
