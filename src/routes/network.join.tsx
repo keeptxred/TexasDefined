@@ -61,9 +61,9 @@ function NetworkJoinPreview() {
               <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#b43b1a]">One Texas. Everything Connected.</p>
               <h1 className="mt-7 max-w-[760px] font-display text-[clamp(2.8rem,5.1vw,6rem)] font-bold leading-[1.01] tracking-tight text-[#0a2242]">Put Your Business <span className="block">on the <span className="text-[#b53e20]">Texas Map</span></span></h1>
               <p className="mt-7 max-w-[650px] text-lg leading-8 text-[#24354a] sm:text-xl">Join a growing community of Texas businesses. Get discovered by local customers, build your reputation, and be part of a stronger, more connected Texas.</p>
-              <form role="search" onSubmit={(event) => { event.preventDefault(); document.getElementById("membership")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-8 flex max-w-[690px] items-center gap-2 rounded-full bg-white/95 p-2 shadow-lg">
+              <form role="search" onSubmit={(event) => { event.preventDefault(); const query = new FormData(event.currentTarget).get("q"); window.location.assign("/network/directory?q=" + encodeURIComponent(String(query || "").trim())); }} className="mt-8 flex max-w-[690px] items-center gap-2 rounded-full bg-white/95 p-2 shadow-lg">
                 <label className="sr-only" htmlFor="network-search-preview">Search Texas Defined</label>
-                <input id="network-search-preview" type="search" placeholder="Search for businesses, categories, or cities..." className="min-w-0 flex-1 rounded-full bg-transparent px-4 py-3 text-sm text-[#12304e] outline-none sm:text-base" />
+                <input id="network-search-preview" name="q" type="search" placeholder="Search for businesses, categories, or cities..." className="min-w-0 flex-1 rounded-full bg-transparent px-4 py-3 text-sm text-[#12304e] outline-none sm:text-base" />
                 <button type="submit" className="rounded-full bg-[#b53e20] px-7 py-3 font-semibold text-white">Explore</button>
               </form>
               <p className="mt-3 text-xs text-[#31485b]">Explore the people, places, and organizations that make Texas unique.</p>
