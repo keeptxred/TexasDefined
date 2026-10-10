@@ -94,6 +94,14 @@ The Chrome script now exercises actual keyboard Tab focus and samples up to twel
 
 **Scope:** These four checks validate the statewide *methodology* behind the 11-city relocation advice, not the address-level schools, utilities, specific tax figures, neighborhood risks, or exact city-specific operators.
 
+## High-priority unresolved jurisdiction discrepancy: Houston / Waller County
+
+**Published:** `src/data/city-authority-profiles.ts` currently describes incorporated Houston as reaching Harris, Fort Bend, Montgomery **and Waller** counties.
+
+**Conflicting primary evidence:** A [City of Houston financial report](https://www.houstontx.gov/controller/cafr2001/cafr2001.pdf) explicitly describes three incorporated counties—Harris, Fort Bend, Montgomery. The [Harris Central Appraisal District explanation](https://hcad.org/hcad-help/hcad-properties-split-by-county-line/) likewise describes City of Houston parcels in Montgomery and Fort Bend outside Harris. Houston's [planning ETJ FAQ](https://pwehelp.houstontx.gov/planning/DevelopRegs/faq.html) explicitly lists Waller among Houston's *ETJ* counties, which is not proof it is within city limits. Its [municipal GIS service](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer) exposes separate city-limit, ETJ and county layers.
+
+**Disposition:** **UNVERIFIED / POSSIBLE PUBLISHED ERROR** until a current city-limits polygon is intersected with Waller County's boundary and any limited-purpose territory is characterized. The four-county claim must not be counted PASS merely because Waller occurs in GIS council district, voting precinct or ETJ data. Do not silently erase Waller from published data without the current-year spatial determination.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
