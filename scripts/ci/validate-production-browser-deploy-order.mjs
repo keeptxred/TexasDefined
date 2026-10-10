@@ -28,9 +28,17 @@ for (const [name, script] of [
   required(source, "PRODUCTION_COMMIT_SHA: ${{ github.sha }}", name + ' deployed SHA');
   required(source, 'node scripts/ci/wait-for-protected-production.mjs', name + ' protected deploy wait');
   required(source, 'statuses: read', name + ' status read');
-  const waitAt=source.indexOf('node scripts/ci/wait-for-protected-production.mjs');
-  const probeAt=source.indexOf('npm install --prefix /tmp/texasdefined-');
-  if (waitAt<0 || probeAt<=waitAt) failures.push(name + ' must wait before starting live browser checks');
+  const verifyIndex = source.indexOf('\n  verify:\n');
+  if (verifyIndex < 0) {
+    failures.push(name + ' must have an explicit live verify job');
+  } else {
+    const sourceOnly = source.slice(0, verifyIndex);
+    const liveJob = source.slice(verifyIndex);
+    const waitAt = liveJob.indexOf('node scripts/ci/wait-for-protected-production.mjs');
+    const probeAt = liveJob.indexOf('npm install --prefix /tmp/texasdefined-');
+    if (sourceOnly.includes('node scripts/ci/wait-for-protected-production.mjs')) failures.push(name + ' must not wait for deployment during PR syntax checking');
+    if (waitAt < 0 || probeAt <= waitAt) failures.push(name + ' live verify job must wait before starting browser checks');
+  }
 }
 const waitScript = fs.readFileSync('scripts/ci/wait-for-protected-production.mjs', 'utf8');
 for (const m of ['PRODUCTION_COMMIT_SHA', "s.context === 'texasdefined-production'", "if (lastState === 'success')", "if (lastState === 'failure' || lastState === 'error')"])

@@ -31,11 +31,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Wait for exact SHA protected production deployment
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
-        run: node scripts/ci/wait-for-protected-production.mjs
       - run: node --check scripts/ci/verify-city-authority-browser.mjs
 
   verify:
@@ -47,6 +42,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Wait for exact SHA protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
       - name: Install isolated browser driver (no repository dependencies)
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
