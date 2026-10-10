@@ -19,3 +19,8 @@ Correct independent Arlington Sam Houston identity, school founding timeline, Bo
 Remaining: confirm campus NCES Tarrant County and relevant inbound Arlington city/county/school links, official school colors, football photo licenses, game-day gates/tickets/ADA, mobile/desktop tests, CI, protected merge, Cloudflare production and live sitemap/schema verification.
 
 **Next assigned:** Arlington Lamar.
+
+## Official 2026–27 Arlington ISD game-day and venue evidence — October 9, 2026
+- [Arlington ISD Athletics](https://www.aisd.net/district/departments/administration/athletics) supplies school-specific 2026–27 schedule links for all six AISD high schools, states varsity football tickets use GoFan and are released at **8 a.m. Sunday before the event**, and publishes district-wide clear-bag and admission rules. This should be the primary live ticket-policy referral, with playoff exceptions.
+- [Choctaw Stadium's official 2026 schedule](https://www.choctawstadium.com/event/high-school-football-20261105/) distinguishes home vs away and identifies Sam Houston as the home side at Choctaw for Aug 28 vs North Mesquite, Sep 18 vs Arlington, Oct 8 vs Martin, Oct 16 vs Lamar, Oct 30 vs Aledo and Nov 5 vs Bowie. These are **scheduled fixtures**, not claims that any game has been completed or its score verified.
+- No confirmation of accessible entrance, parking availability or reuse permission for game photographs is implied. Production page/mobile acceptance remains pending; no status promotion.
