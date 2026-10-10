@@ -29,6 +29,16 @@ export const Route = createFileRoute("/api/public/network-checkout")({
         data.contact_email.toLowerCase() !== String(body.email || "").trim().toLowerCase()) {
       return reply({ error: "This application is not eligible for checkout." }, 422);
     }
+    // Verified email alone does not prove control of the business. A reviewed owner binding is required.
+    const { data: ownership, error: ownershipError } = await supabaseAdmin
+      .from("texasdefined_network_business_accounts")
+      .select("application_id")
+      .eq("application_id", data.id)
+      .eq("owner_user_id", verified.user.id)
+      .maybeSingle();
+    if (ownershipError || !ownership) {
+      return reply({ error: "Business ownership must be verified before subscription checkout." }, 403);
+    }
     // A paid or previously-created subscription must be managed through billing, not duplicated by Checkout.
     if (data.paid_entitlement_active || data.stripe_subscription_id) {
       return reply({ error: "A subscription already exists for this application. Use membership billing to manage it." }, 409);
