@@ -44,17 +44,17 @@
     "dateAssigned": "2026-10-09",
     "selectionRule": "First 25 NOT_REVIEWED unassigned schoolRecords in stable canonical ordering, excluding 30 production VERIFIED schools",
     "individuallyVerified": 0,
-    "partiallyCompleted": 14,
+    "partiallyCompleted": 15,
     "remainingAssigned": 25,
     "assignmentBranch": "football-authority-batch-003-20261009",
     "repositoryMainAtAssignment": "8e45e426aa82da29fd5cdbcb4cf0ec589b203e80",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "apple-springs",
-    "nextSchool": "apple-springs",
-    "implementedOnBranch": 14,
-    "remainingToImplement": 11,
+    "currentSchool": "aquilla",
+    "nextSchool": "aquilla",
+    "implementedOnBranch": 15,
+    "remainingToImplement": 10,
     "remainingToVerify": 25,
-    "notes": "14 school-specific implementations and individual research audits on draft PR #4506; 11 assigned NOT_REVIEWED, 0 Batch003 production VERIFIED. Anthony and Anton completed to IMPLEMENTED in last continuation. Next Apple Springs."
+    "notes": "15 school-specific program editorial/audits saved in draft PR #4506, ten assigned NOT_REVIEWED, zero production VERIFIED. Apple Springs official UIL DII differs from DCTF DI; discrepancy preserved. Next Aquilla."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -3345,9 +3345,32 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/apple-springs",
-      "status": "NOT_REVIEWED",
+      "status": "IMPLEMENTED",
       "batch": 3,
-      "batchAssignmentStatus": "ASSIGNED"
+      "batchAssignmentStatus": "ASSIGNED",
+      "auditCompletedAt": "2026-10-09",
+      "researchCompletedAt": "2026-10-09",
+      "implementedAt": "2026-10-09",
+      "schoolNote": "docs/football-authority/schools/apple-springs.md",
+      "implementationCommits": [
+        "c217d24b3e66d75d4e29fda05d06d9a7515a6da6",
+        "8cd93d973c80b70f70beeb215b22269e36fb26f3"
+      ],
+      "evidenceSources": [
+        "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
+        "https://www.texasfootball.com/team/apple-springs-eagles",
+        "https://www.maxpreps.com/tx/apple-springs/apple-springs-eagles/football/history/"
+      ],
+      "actualProductionVerified": false,
+      "outstanding": [
+        "UIL DII versus DCTF DI source conflict",
+        "Current coach school confirmation",
+        "Trinity County NCES and local inbound link",
+        "Licensed imagery",
+        "2026 result completeness",
+        "Stadium gate ADA tickets",
+        "CI merge deployed browser acceptance"
+      ]
     },
     {
       "id": "uil:aquilla",
