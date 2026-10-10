@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 export const Route=createLazyFileRoute('/network/business/$slug')({component:BusinessProfile});
 function BusinessProfile(){
- const record=Route.useLoaderData();
+ const record=Route.useLoaderData() as {slug:string;plan:string;profile:Record<string,unknown>;logo_storage_path:string|null;gallery_storage_paths:string[]};
  const get=(name:string)=>typeof record?.profile?.[name]==='string'?String(record.profile[name]):'';
  const media=(path:string)=>supabase.storage.from('texasdefined-network-published').getPublicUrl(path).data.publicUrl;
  return <main className="bg-[#faf8f3]"><Container className="py-12 sm:py-16">
