@@ -140,6 +140,25 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
  return data;
 }
 
+/** Unpublish a previously approved listing while retaining the approved profile for later review. */
+export async function unpublishNetworkListing(accessKey: string, id: string) {
+  await assertSportsPartnerAccess(accessKey);
+  const { data: app, error: readError } = await supabaseAdmin
+    .from('texasdefined_network_applications').select('id,status').eq('id', id).single();
+  if (readError || !app || app.status !== 'published') {
+    throw new Error('Only a published listing can be unpublished.');
+  }
+  const { error: hideError } = await supabaseAdmin.from('texasdefined_network_public_listings')
+    .update({ is_published: false, updated_at: new Date().toISOString() } as never)
+    .eq('application_id', id).eq('is_published', true);
+  if (hideError) throw new Error('Could not hide the public listing.');
+  const { error: statusError } = await supabaseAdmin.from('texasdefined_network_applications')
+    .update({ status: 'approved', updated_at: new Date().toISOString() } as never)
+    .eq('id', id).eq('status', 'published');
+  if (statusError) throw new Error('Listing hidden but application status could not be reset.');
+  return { status: 'approved' as const, is_published: false };
+}
+
 export async function publishApprovedNetworkListing(accessKey:string,id:string) {
  await assertSportsPartnerAccess(accessKey);
  const {data:app,error}=await supabaseAdmin.from('texasdefined_network_applications')
