@@ -43,9 +43,11 @@ export const unpublishReviewedNetworkListing = createServerFn({ method: 'POST' }
 export const provisionNetworkOwner = createServerFn({method:'POST'})
  .inputValidator(z.object({
   accessKey:z.string().min(20).max(200),applicationId:z.string().uuid(),userId:z.string().uuid(),
-  ownershipVerified:z.literal(true)
+  ownershipVerified:z.literal(true),
+  verificationMethod:z.enum(['official_domain','registry_documents','verified_public_phone','in_person','other_documented']),
+  evidenceReference:z.string().trim().min(20).max(500),reviewerLabel:z.string().trim().min(3).max(100)
  }))
  .handler(async ({data})=>{
   const {provisionReviewedNetworkOwner}=await import('@/data/network-review.server');
-  return provisionReviewedNetworkOwner(data.accessKey,data.applicationId,data.userId,data.ownershipVerified);
+  return provisionReviewedNetworkOwner(data.accessKey,data.applicationId,data.userId,data.ownershipVerified,data.verificationMethod,data.evidenceReference,data.reviewerLabel);
  });

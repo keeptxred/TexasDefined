@@ -41,3 +41,7 @@ The application admin still relies on the inherited sports-partner admin access 
 - After manual approval and verified Plus owner provisioning, owner signs into `/network/billing`; the server returns an eligible-to-checkout flag only for approved Plus accounts without an existing subscription.
 - The Checkout action stays disabled until the real production `NETWORK_CHECKOUT_ENABLED` gate is explicitly enabled at launch. The Checkout API independently re-verifies confirmed email, owner binding, approval, and absence of a subscription.
 - Do not test by creating live sessions, charges, or real customer users before authorized launch; use mocks or non-live test mode.
+
+
+## Auditable atomic owner provisioning
+Use the administrator-only form after approval. Independently verify control of the actual business, then supply method, publicly reviewable source or non-sensitive summary (never IDs/passports), and reviewer label. Confirm the Supabase user has verified the exact application email. The service-only RPC validates matching user/email/plan and stores owner binding plus evidence transactionally. Reviewers must not self-certify based solely on a checkbox or email equality. No email invitations or charges are triggered by provisioning. Positive integration validation with isolated authorized test accounts remains a launch gate.

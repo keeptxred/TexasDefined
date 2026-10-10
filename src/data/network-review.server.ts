@@ -225,10 +225,17 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
  return {slug:savedListing.slug,url:'/network/business/'+savedListing.slug};
 }
 
-/** Never auto-link an owner based on email alone. An administrator must verify ownership offline. */
-export async function provisionReviewedNetworkOwner(accessKey:string, applicationId:string, userId:string, ownershipVerified:boolean) {
+/** Administrator-only documented evidence + confirmed email; atomic DB provisioning. */
+export async function provisionReviewedNetworkOwner(
+ accessKey:string, applicationId:string, userId:string, ownershipVerified:boolean,
+ verificationMethod:'official_domain'|'registry_documents'|'verified_public_phone'|'in_person'|'other_documented',
+ evidenceReference:string, reviewerLabel:string,
+) {
  await assertSportsPartnerAccess(accessKey);
  if(!ownershipVerified)throw Error('Independent business ownership verification is mandatory');
+ if(evidenceReference.trim().length<20||evidenceReference.trim().length>500||
+   reviewerLabel.trim().length<3||reviewerLabel.trim().length>100)
+  throw Error('Documented evidence and a reviewer label are required');
  const {data:application,error:appError}=await supabaseAdmin.from('texasdefined_network_applications')
   .select('id,plan,status,contact_email').eq('id',applicationId).single();
  if(appError||!application||application.plan!=='plus'||!['approved','published'].includes(application.status))
@@ -238,22 +245,12 @@ export async function provisionReviewedNetworkOwner(accessKey:string, applicatio
  if(authError||!user?.email_confirmed_at||!user.email||
     user.email.trim().toLowerCase()!==String(application.contact_email).trim().toLowerCase())
   throw Error('User must have verified the matching application email');
- const {data:existing,error:existingError}=await supabaseAdmin.from('texasdefined_network_business_accounts')
-  .select('id,owner_user_id,access_enabled,membership_tier').eq('application_id',applicationId).maybeSingle();
- if(existingError)throw Error('Owner account lookup failed');
- if(existing&&existing.owner_user_id!==userId)throw Error('Business account is already assigned to a different user');
- if(existing&&existing.membership_tier!=='plus')throw Error('This application already has an independently managed membership tier');
- if(existing){
-  if(existing.access_enabled)return {id:existing.id,access_enabled:true,alreadyEnabled:true};
-  const {data,error}=await supabaseAdmin.from('texasdefined_network_business_accounts')
-   .update({access_enabled:true} as never).eq('id',existing.id).eq('owner_user_id',userId)
-   .select('id,access_enabled').single();
-  if(error||!data)throw Error('Could not enable verified owner');
-  return {id:data.id,access_enabled:true,alreadyEnabled:false};
- }
- const {data,error}=await supabaseAdmin.from('texasdefined_network_business_accounts')
-  .insert({application_id:applicationId,owner_user_id:userId,membership_tier:'plus',access_enabled:true} as never)
-  .select('id,access_enabled').single();
- if(error||!data)throw Error('Could not provision verified business owner');
- return {id:data.id,access_enabled:true,alreadyEnabled:false};
+ const {data:provisioned,error}=await supabaseAdmin.rpc('provision_verified_network_owner',{
+  p_application_id:applicationId,p_user_id:userId,p_method:verificationMethod,
+  p_evidence:evidenceReference.trim(),p_reviewer:reviewerLabel.trim(),
+ });
+ if(error||!provisioned||typeof provisioned!=='object')throw Error('Owner provisioning and audit could not be committed');
+ const record=provisioned as {id?:unknown;access_enabled?:unknown;alreadyEnabled?:unknown};
+ if(typeof record.id!=='string'||record.access_enabled!==true)throw Error('Verified owner provisioning incomplete');
+ return {id:record.id,access_enabled:true,alreadyEnabled:record.alreadyEnabled===true};
 }

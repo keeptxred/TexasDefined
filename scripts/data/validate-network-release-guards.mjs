@@ -40,8 +40,8 @@ check('webhook validates subscription and customer bindings',webhook.includes('p
 check('webhook suspends unpaid listing before entitlement writes',webhook.includes('p_paid_active:active')&&webhook.includes('supabaseAdmin.rpc('));
 check('admin provisioning requires manual business evidence',review.includes('if(!ownershipVerified)')&&ownerUI.includes('I independently verified this applicant'));
 check('admin provisioning verifies existing confirmed email',review.includes('auth.admin.getUserById(userId)')&&review.includes('user?.email_confirmed_at'));
-check('admin provisioning forbids reassignment',review.includes('existing.owner_user_id!==userId'));
-check('Plus owner provisioning never grants Featured rights',review.includes("membership_tier:'plus',access_enabled:true") && review.includes("existing.membership_tier!=='plus'"));
+check('admin provisioning forbids reassignment',source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes('v_existing.owner_user_id<>p_user_id'));
+check('Plus owner provisioning never grants Featured rights',source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes("VALUES(p_application_id,p_user_id,'plus',true)") && review.includes("existing.membership_tier!=='plus'"));
 check('Plus dashboard never displays Featured revision controls',dashboard.includes("account.membership_tier==='plus'") && dashboard.includes('View membership billing'));
 check('tier constraint migration denies implicit Featured default',source('supabase/migrations/20261010205801_network_owner_plus_tier_guard.sql').includes("SET DEFAULT 'plus'"));
 check('dashboard can create account without granting access',dashboard.includes('shouldCreateUser:true')&&dashboard.includes('account?.access_enabled'));
@@ -83,3 +83,5 @@ check('Network email outbox remains service-only and idempotent',
  outboxMigration.includes('ENABLE ROW LEVEL SECURITY')
  &&outboxMigration.includes('ON CONFLICT (event_key) DO NOTHING')
  &&outboxMigration.includes('FROM PUBLIC,anon,authenticated'));
+
+check('owner access requires audit-backed atomic provisioning',review.includes("supabaseAdmin.rpc('provision_verified_network_owner'")&&source('supabase/migrations/20261010214534_network_atomic_owner_verification_audit.sql').includes('FOR UPDATE')&&ownerUI.includes('Evidence reference'));

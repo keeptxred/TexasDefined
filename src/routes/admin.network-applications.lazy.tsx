@@ -15,11 +15,16 @@ function NetworkReview(){
  const [status,setStatus]=useState('pending_review');
  const [ownerUserIds,setOwnerUserIds]=useState<Record<string,string>>({});
  const [ownershipProof,setOwnershipProof]=useState<Record<string,boolean>>({});
+ const [verificationMethods,setVerificationMethods]=useState<Record<string,'official_domain'|'registry_documents'|'verified_public_phone'|'in_person'|'other_documented'>>({});
+ const [verificationEvidence,setVerificationEvidence]=useState<Record<string,string>>({});
+ const [reviewerLabels,setReviewerLabels]=useState<Record<string,string>>({});
  async function bindOwner(id:string) {
   setBusy(true);setError('');
   try {
    const uid=(ownerUserIds[id]||'').trim();
-   const result=await provisionNetworkOwner({data:{accessKey:key,applicationId:id,userId:uid,ownershipVerified:true}});
+   const result=await provisionNetworkOwner({data:{accessKey:key,applicationId:id,userId:uid,ownershipVerified:true,
+     verificationMethod:verificationMethods[id]||'other_documented',
+     evidenceReference:verificationEvidence[id]||'',reviewerLabel:reviewerLabels[id]||''}});
    setError('Verified owner access enabled for application '+id+' (account '+result.id+').');
    await reload();
   } catch(e) {setError(e instanceof Error?e.message:'Owner provisioning failed')}
@@ -35,8 +40,23 @@ function NetworkReview(){
  <p className="font-semibold">Verified owner access (administrator only)</p>
  <p className="mt-2 text-sm">First independently verify the business ownership. The user's Supabase account must already exist and its confirmed email must exactly match this application. This does not send an email or charge a card.</p>
  <label className="mt-3 block text-sm">Verified Supabase user UUID <input className="mt-1 block w-full rounded border border-border p-2" value={ownerUserIds[r.id]||''} onChange={e=>setOwnerUserIds(prev=>({...prev,[r.id]:e.target.value}))} placeholder="00000000-0000-0000-0000-000000000000"/></label>
+ <label className="mt-3 block text-sm">Independent verification method
+  <select className="mt-1 block w-full rounded border border-border p-2" value={verificationMethods[r.id]||'other_documented'} onChange={e=>setVerificationMethods(prev=>({...prev,[r.id]:e.target.value as 'official_domain'|'registry_documents'|'verified_public_phone'|'in_person'|'other_documented'}))}>
+   <option value="official_domain">Official business domain</option><option value="registry_documents">Official public registry evidence</option>
+   <option value="verified_public_phone">Call to independently verified business number</option>
+   <option value="in_person">In-person owner verification</option><option value="other_documented">Other documented independent check</option>
+  </select>
+ </label>
+ <label className="mt-3 block text-sm">Evidence reference (public record URL or non-sensitive verification summary; no identification documents)
+  <textarea className="mt-1 block w-full rounded border border-border p-2" minLength={20} maxLength={500}
+    value={verificationEvidence[r.id]||''} onChange={e=>setVerificationEvidence(prev=>({...prev,[r.id]:e.target.value}))}/>
+ </label>
+ <label className="mt-3 block text-sm">Reviewer name or initials
+  <input className="mt-1 block w-full rounded border border-border p-2" minLength={3} maxLength={100}
+    value={reviewerLabels[r.id]||''} onChange={e=>setReviewerLabels(prev=>({...prev,[r.id]:e.target.value}))}/>
+ </label>
  <label className="mt-3 flex items-start gap-2 text-sm"><input type="checkbox" checked={!!ownershipProof[r.id]} onChange={e=>setOwnershipProof(prev=>({...prev,[r.id]:e.target.checked}))}/>I independently verified this applicant controls the business and is authorized to manage its profile.</label>
- <button type="button" className="mt-3 border border-primary px-4 py-2 text-primary disabled:opacity-40" disabled={busy||!ownershipProof[r.id]||!/^[0-9a-f-]{36}$/i.test(ownerUserIds[r.id]||'')} onClick={()=>void bindOwner(r.id)}>Enable verified owner</button>
+ <button type="button" className="mt-3 border border-primary px-4 py-2 text-primary disabled:opacity-40" disabled={busy||!ownershipProof[r.id]||!/^[0-9a-f-]{36}$/i.test(ownerUserIds[r.id]||'')||(verificationEvidence[r.id]||'').trim().length<20||(reviewerLabels[r.id]||'').trim().length<3} onClick={()=>void bindOwner(r.id)}>Enable verified owner</button>
  </div>}</article>)}</div>
  <section className="mt-12 border-t border-border pt-8"><h2 className="font-display text-3xl">Featured change requests</h2><p className="mt-2 text-sm text-muted-foreground">Review proposed field edits. Approving a Featured revision applies approved changes to its published listing.</p><div className="mt-6 space-y-4">{revisions.filter(r=>r.review_status==='pending_review').map(r=><article key={r.id} className="rounded-xl border border-border p-6"><p className="text-sm text-muted-foreground">Business account {r.business_account_id}</p>{Object.entries(r.proposed_profile||{}).map(([name,value])=><p key={name} className="mt-3 whitespace-pre-wrap"><strong>{name.replaceAll('_',' ')}:</strong> {String(value)}</p>)}<div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">{r.media?.map((m:{url:string|null,path:string})=>m.url?<img key={m.path} src={m.url} alt="Featured proposed new photo awaiting approval" className="aspect-square w-full rounded-xl object-contain"/>:null)}</div><div className="mt-5 flex gap-3"><button disabled={busy} className="bg-primary px-4 py-2 text-primary-foreground" onClick={()=>void moderateRevision(r.id,'approve')}>Approve changes</button><button disabled={busy} className="border border-border px-4 py-2" onClick={()=>void moderateRevision(r.id,'reject')}>Reject changes</button></div></article>)}</div></section></>}
  {error&&<p role="alert" className="mt-4 text-red-700">{error}</p>}
