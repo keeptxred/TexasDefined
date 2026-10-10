@@ -58,6 +58,29 @@ const stateFairData = {
         ]
       },
       {
+        heading: "More than 100 daily activities included with admission",
+        paragraphs: [
+          "The State Fair includes more than 100 free daily activities and attractions. Plan around live music, livestock and agriculture, the Texas Auto Show, Creative Arts, parades, Big Tex, family entertainment and museums such as the African American Museum and Hall of State.",
+          "Food, Midway rides and games cost extra. Some museums and attractions have separate admission. The official daily schedule and fairgrounds map help you choose a walking route and find lower-cost experiences."
+        ],
+        links: [
+          { label: "Official included attractions FAQ", href: "https://bigtex.com/faqs/attractions/", external: true },
+          { label: "Official daily schedule", href: "https://bigtex.com/schedule/", external: true },
+          { label: "2026 Every Day Values", href: "https://bigtex.com/every-day-values/", external: true }
+        ]
+      },
+      {
+        heading: "Free student tickets extended for the final two weekends",
+        paragraphs: [
+          "The Fair confirmed October 5 that complimentary 2026 tickets already distributed through participating schools to pre-K through eighth-grade students within 100 miles of Fair Park are valid every remaining day, including both final weekends through October 18.",
+          "The Fair also advertises an online parent admission discount. Eligibility, ticket terms and dates are specific to 2026, so use the official announcement before planning the visit."
+        ],
+        links: [
+          { label: "Official 2026 student-ticket announcement", href: "https://bigtex.com/state-fair-of-texas-expands-free-student-ticket-program-to-include-final-two-weekends-of-the-fair-2/", external: true },
+          { label: "Official parent admission discount", href: "https://bigtex.com/parents/", external: true }
+        ]
+      },
+      {
         heading: "Best 2026 State Fair foods and award winners",
         paragraphs: [
           "The 2026 Big Tex Choice Awards winners are Burger Chop Tater Tacos for Best Taste – Savory, Fletcher's Chocolate Corny Dog for Best Taste – Sweet, Tropical Coco Fresca for Best Taste – Sipper, and Berry Me in Matcha for Most Creative.",
