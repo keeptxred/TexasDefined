@@ -1,0 +1,30 @@
+name: Batch 003 one-time nonforce main integration
+on:
+  push:
+    branches:
+      - football-authority-batch-003-20261009
+    paths:
+      - .github/workflows/football-batch-003-sync-main-once.yml
+permissions:
+  contents: write
+jobs:
+  integrate-main:
+    if: github.repository == 'keeptxred/TexasDefined'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: football-authority-batch-003-20261009
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Merge current main without rewriting history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git merge --no-ff --no-edit origin/main
+          # Standard fast-forward-only remote branch update. Do not retry forcefully.
+          git push origin HEAD:refs/heads/football-authority-batch-003-20261009
