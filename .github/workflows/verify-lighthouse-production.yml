@@ -99,6 +99,8 @@ jobs:
           fetch_assert best-lighthouses-matagorda '/article/best-lighthouses-to-visit-in-texas' 'access to Matagorda Island Wildlife Management Area is restricted and visitors should call ahead; the island is accessible only by boat'
           fetch_assert best-lighthouses-matagorda-daylight '/article/best-lighthouses-to-visit-in-texas' 'available for unsupervised wildlife viewing and hiking during daylight hours'
           fetch_assert best-lighthouses-sabine '/article/best-lighthouses-to-visit-in-texas' 'the historic lighthouse tower stands on the Louisiana side of the Sabine'
+          fetch_assert best-lighthouses-bolivar-restoration '/article/best-lighthouses-to-visit-in-texas' 'Restoration update (verified October 9, 2026)'
+          fetch_assert bolivar-restored-title '/article/point-bolivar-lighthouse-history' 'historic black-and-white stripes'
           fetch_assert lighthouse-reference-json '/api/texas-lighthouses.json' '"count": 6'
           fetch_assert lighthouse-reference-source '/api/texas-lighthouses.json' '"sourceUrl"'
           fetch_assert lighthouse-reference-sabine '/api/texas-lighthouses.json' 'Sabine Pass Lighthouse stands on the Louisiana side'
@@ -109,7 +111,7 @@ jobs:
           fetch_assert beaches-discovery '/explore/beaches-coast' 'Texas lighthouses'
           fetch_assert historic-discovery '/explore/historic-sites' 'Texas lighthouses'
           fetch_assert roadtrip-discovery '/explore/road-trips' 'Texas lighthouse trail'
-          fetch_assert point-bolivar '/article/point-bolivar-lighthouse-history' 'Point Bolivar Lighthouse: The Black Tower at Galveston Bay'
+          fetch_assert point-bolivar '/article/point-bolivar-lighthouse-history' 'Point Bolivar Lighthouse: Galveston Bay History and Restoration'
           fetch_assert lydia-ann '/article/lydia-ann-lighthouse-port-aransas' 'Lydia Ann Lighthouse: The Light Across From Port Aransas'
           fetch_assert matagorda '/article/matagorda-island-lighthouse-history' "Matagorda Island Lighthouse: The Black Tower Beyond Port O'Connor"
           fetch_assert halfmoon '/article/halfmoon-reef-lighthouse-port-lavaca' 'Halfmoon Reef Lighthouse: The Texas Light That Came Ashore'

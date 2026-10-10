@@ -55,7 +55,7 @@ const stub = (record: LighthouseStub): Article => ({
 });
 
 export const lighthouseDeepDiveStubs: Article[] = [
-  stub({ id: "lh-1", slug: "point-bolivar-lighthouse-history", title: "Point Bolivar Lighthouse: The Black Tower at Galveston Bay", dek: "The black cast-iron tower guarding Galveston Bay's Bolivar side.", readingMinutes: 8, hero: heroes.bolivar }),
+  stub({ id: "lh-1", slug: "point-bolivar-lighthouse-history", title: "Point Bolivar Lighthouse: Galveston Bay History and Restoration", dek: "The historic cast-iron tower, now restored to black-and-white stripes, guarding Galveston Bay's Bolivar side.", readingMinutes: 8, hero: heroes.bolivar }),
   stub({ id: "lh-2", slug: "lydia-ann-lighthouse-port-aransas", title: "Lydia Ann Lighthouse: The Light Across From Port Aransas", dek: "The historic Aransas Pass light across from Port Aransas.", readingMinutes: 9, hero: heroes.lydiaAnn }),
   stub({ id: "lh-3", slug: "matagorda-island-lighthouse-history", title: "Matagorda Island Lighthouse: The Black Tower Beyond Port O'Connor", dek: "The Civil War-era lighthouse preserved on wild Matagorda Island.", readingMinutes: 10, hero: heroes.matagorda }),
   stub({ id: "lh-4", slug: "halfmoon-reef-lighthouse-port-lavaca", title: "Halfmoon Reef Lighthouse: The Texas Light That Came Ashore", dek: "The Matagorda Bay lighthouse that found a new home in Port Lavaca.", readingMinutes: 8, hero: heroes.halfmoon }),

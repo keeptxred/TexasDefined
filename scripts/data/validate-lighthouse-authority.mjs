@@ -13,6 +13,8 @@ const searchIntentArticles = read("src/data/fixtures/lighthouse-search-intent-ar
 const newestEvergreen = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const hub = read("src/routes/explore.lighthouses.tsx");
 const visitorPlans = read("src/data/lighthouse-visitor-planning.ts");
+const visitorMatrix = read("src/components/content/LighthouseVisitPlanner.tsx");
+const articleRenderer = read("src/components/editorial/ArticleBody.tsx");
 const topicPaths = read("src/components/editorial/ExploreTopicPaths.tsx");
 const intentPaths = read("src/components/editorial/ExploreIntentPaths.tsx");
 const routes = read("src/lib/public-routes.ts");
@@ -66,7 +68,7 @@ assert(historyIntentBlock.includes('to: "/explore/lighthouses"'), "Explore Histo
 const intentSlug = "best-lighthouses-to-visit-in-texas";
 const currentIntentMetadata = {
   dek: "A practical Texas lighthouse guide comparing public access, climbs, viewing methods and trip logistics from Port Isabel to the Sabine gateway.",
-  updatedAt: "2026-10-01",
+  updatedAt: "2026-10-09",
   readingMinutes: 18,
   tags: ["best lighthouses in texas", "texas lighthouses to visit", "port isabel lighthouse", "point bolivar lighthouse", "lydia ann lighthouse", "matagorda island lighthouse", "halfmoon reef lighthouse", "texas gulf coast"],
   sourceName: "Texas Historical Commission · U.S. Coast Guard Historian's Office · Texas Parks and Wildlife Department",
@@ -88,6 +90,13 @@ assert(searchIntentStubs.includes(`slug: \"${intentSlug}\"`), "Best-lighthouses 
 assert(searchIntentStubs.includes('import("./lighthouse-search-intent-articles")'), "Best-lighthouses article must remain lazy-loaded");
 assert(newestEvergreen.includes("lighthouseSearchIntentStubs") && newestEvergreen.includes("loadLighthouseSearchIntentArticle"), "Best-lighthouses intent loader is not registered");
 assert(searchIntentArticles.includes('title: "Best Lighthouses to Visit in Texas: What You Can Actually See and Climb"'), "Best-lighthouses search title is missing");
+assert(articleRenderer.includes('const LighthouseVisitPlanner = lazy('), "Lighthouse visit planner must be lazy-loaded");
+assert(articleRenderer.includes('showLighthouseVisitPlanner'), "Visitor comparison must be included on the lighthouse article");
+for (const source of ["thc.texas.gov/historic-sites/port-isabel-lighthouse", "bolivarpointlighthouse.org/", "atlas.thc.texas.gov/Details/5057002332", "tpwd.texas.gov/boating/paddling-trails/gulf-coast/lighthouse-lakes/", "tpwd.texas.gov/huntwild/hunt/wma/find_a_wma/list/", "thc.texas.gov/historic-sites/sabine-pass-battleground"]) {
+  assert(visitorMatrix.includes(source), `Lighthouse visitor matrix missing current official source ${source}`);
+}
+assert(visitorMatrix.includes("October 9, 2026") && visitorMatrix.includes("black-and-white stripes"), "Lighthouse matrix must include verified restoration and source check date");
+assert(searchIntentArticles.includes("Restoration update (verified October 9, 2026)") && searchIntentArticles.includes("no state ferry or drinking-water service"), "Best-lighthouses page missing new restoration or remote-island access details");
 for (const requiredText of [
   "Texas lighthouses at a glance: access, climbs and trip difficulty",
   "1. Port Isabel Lighthouse — best overall",

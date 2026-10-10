@@ -20,6 +20,8 @@ const metroRelocationGuidePaths = new Set([
   "/article/moving-to-el-paso-guide",
 ]);
 const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
+const LIGHTHOUSE_VISIT_PATH = "/article/best-lighthouses-to-visit-in-texas";
+const LighthouseVisitPlanner = lazy(() => import("@/components/content/LighthouseVisitPlanner"));
 const LOOPS_SPURS_PATH = "/article/texas-loops-spurs-explained";
 
 export function articleHeadingId(text: string) {
@@ -75,6 +77,7 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
   const showSixManFootballAuthority = pathname === SIX_MAN_FOOTBALL_PATH;
   const showLoopsSpursVisual = pathname === LOOPS_SPURS_PATH;
+  const showLighthouseVisitPlanner = pathname === LIGHTHOUSE_VISIT_PATH;
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   const available = () => entities.filter((entity) => !linked.has(entity.id));
@@ -101,7 +104,11 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     {showLoopsSpursVisual ? <LoopsSpursVisual /> : null}
     {blocks.map((block, index) => {
       switch (block.type) {
-        case "heading": return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
+        case "heading":
+          if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
+          }
+          return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
         case "image": return (
