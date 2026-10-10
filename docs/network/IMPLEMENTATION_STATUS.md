@@ -122,5 +122,14 @@ Fix route conflicts and generated tree → reconcile main → fix performance ch
 - The latest completed canonical gate `38080978100` failed **one** top-level check: main client bundle **1,833,490 bytes**, cap **1,829,000**, over **4,490**. Newer-head CI pending; this remains a blocker unless a subsequent exact-head gate passes.
 - Owner-runbook `docs/network/OWNER_VERIFICATION_RUNBOOK.md` contains the manual verification and remaining test matrix. This is staged code, **not** production certification.
 
+
+## Continuation — verified CI evidence and pending launch blockers (October 10, 2026)
+- Added invariant checks `scripts/data/validate-network-release-guards.mjs` to canonical premerge CI, commit `6ac78dc1bfd4b9c2b6d5342294c8bdd1930c5539`.
+- Added executable Stripe HMAC and disabled-Checkout tests, commit `bfca45ac073f28b4646060d542ba465d0c006d64`. All **4 of 4** Stripe unit tests passed in Merge Gate `38082538896`; none connected to Stripe or charged customers.
+- Merge Gate `38082538896` failed **two** top-level checks: one mistaken static assertion that required `user.email_confirmed_at` rather than the actual correctly guarded optional-chain `user?.email_confirmed_at`, and the persistent main client bundle **1,833,490 bytes**, **4,490** above **1,829,000** cap. The static verifier assertion was corrected in `8f8ee18330e5ab0792c3a8ef81189a8d37cb262d` and still requires a fresh run to be confirmed. No performance limit was raised.
+- Synced current main browser verifier changes via two-parent commit `7a3e10240b51000eebc4fc4987ae9d148d874545`, verified 0 commits behind immediately afterward; main is concurrently active.
+- Read-only Supabase checks: RLS enabled on applications, business accounts, revisions and public listings; all four corresponding table counts were **zero**; all four Network storage buckets contained **zero** objects and private/public flags matched their intended usage. No customer lifecycle can honestly be certified from live production data.
+- **Remaining blockers are mandatory:** pass client JS budget without bypass; authenticated owner flows with an independently verified test business; non-live billing lifecycle/webhook and concurrency/rollback tests; Office365 notifications configured and verified; browser/mobile/hydration/security production evidence; explicit release approval. Keep PR #4545 DRAFT, noindex, unmerged; Stripe live Checkout/product inactive; no publication, customer charges, or outbound mail.
+
 ## Launch state
 **NOT LAUNCHED / NOT CERTIFIED.** No confirmed end-to-end successful application, payment, customer portal login or production publication. Never claim otherwise.
