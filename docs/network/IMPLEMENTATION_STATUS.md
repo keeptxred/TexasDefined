@@ -104,5 +104,13 @@ Fix route conflicts and generated tree → reconcile main → fix performance ch
 - Checkout helper already sets Stripe idempotency key `network-plus-<application UUID>`; duplicate Checkout prevention additionally checks existing paid entitlement and subscription ID. This mechanism was inspected, not independently tested against Stripe live; no checkout was created.
 - Most recent observed fresh-head merge gate `38078844488` entered canonical premerge validation, not yet confirmed passed at time of review. Earlier attempts cancelled on branch refresh. The last reproducible completed failure remains main JS bundle 1,832,933 bytes / cap 1,829,000 bytes. Do not merge while unresolved.
 
+
+## Continuation — post-sync media and publication protections
+- Latest `main` deployment workflow and Ticketmaster integration updates were reconciled into the feature without overwriting Network changes, most recently via `b32d81db6350279aab9dc7b3f6ca74a3b61d9dc0`.
+- Private application intake now rejects fake PNG headers by checking all eight signature bytes, mirroring the public publication boundary; commit `637f3069fbb138948b7c39df9233d5a1524e02e1`.
+- Publication now makes a best-effort rollback (`is_published=false`) if recording the application status as `published` fails; commit `2976077e72512683838296d21e94fd1cd0924672`. This is **not** a database transaction; concurrency and failure testing are still required.
+- Canonical CI for earlier heads was repeatedly cancelled during syncs. Run `38079041481` was cancelled; no passing latest-head merge gate has been established. The last reproducible completed failure remains bundle **1,832,933 bytes** versus **1,829,000-byte** cap.
+- Do not merge, deploy, enable live billing, claim successful owner flows, or publish customer profiles before remaining safety and quality gates.
+
 ## Launch state
 **NOT LAUNCHED / NOT CERTIFIED.** No confirmed end-to-end successful application, payment, customer portal login or production publication. Never claim otherwise.
