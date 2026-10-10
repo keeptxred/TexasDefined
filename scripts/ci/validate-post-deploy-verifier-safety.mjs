@@ -274,6 +274,43 @@ for (const marker of [
 if (gscLive.indexOf('node scripts/ci/wait-for-protected-production.mjs') >= gscLive.indexOf('node scripts/seo/check-gsc-priority-cohort.mjs'))
   failures.push('GSC priority production crawl must wait for exact-SHA deployment before probing');
 
+// Wave 5 follow-up: the exact-commit waits already exist in production
+// workflows. Permanently regression-test the older #4544 safety contracts.
+const destinationIndexing = workflow('destination-indexing-smoke');
+requireMarker(destinationIndexing, '  statuses: read', 'Destination indexing must retain read-only deployment status access');
+requireMarker(destinationIndexing, '  deployment-gate:', 'Destination indexing must retain shared exact-SHA deployment gate');
+requireMarker(destinationIndexing, 'PRODUCTION_COMMIT_SHA: ${{ github.sha }}', 'Destination indexing gate must bind exact push SHA');
+requireMarker(destinationIndexing, 'node scripts/ci/wait-for-protected-production.mjs', 'Destination indexing must await protected deployment');
+if ((destinationIndexing.match(/needs: deployment-gate/g) || []).length !== 3)
+  failures.push('All three destination indexing, browser and hydration jobs must depend on the protected deployment gate');
+for (const [name, liveStep] of [
+  ['destination-canonical-smoke', 'Verify canonical destination consolidation live'],
+  ['cloudflare-production-smoke', 'Verify Cloudflare Workers, public DNS and production AI binding'],
+  ['verify-budget-planner-browser', 'Exercise live budget calculator, privacy, persistence, export'],
+  ['verify-city-authority-browser', 'Run 11 city live Chrome checks at all 3 viewports'],
+]) {
+  const source = workflow(name);
+  requireMarker(source, 'statuses: read', `${name} must have read-only exact-commit status access`);
+  requireMarker(source, 'PRODUCTION_COMMIT_SHA: ${{ github.sha }}', `${name} must target exact push commit`);
+  const waitAt = source.indexOf('node scripts/ci/wait-for-protected-production.mjs');
+  const probeAt = source.indexOf(liveStep);
+  if (waitAt < 0 || probeAt < 0 || probeAt <= waitAt)
+    failures.push(`${name} must gate production verification on protected exact-SHA deployment`);
+}
+for (const [name, browserScript] of [
+  ['verify-budget-planner-browser', 'verify-budget-planner-browser.mjs'],
+  ['verify-city-authority-browser', 'verify-city-authority-browser.mjs'],
+]) {
+  const source = workflow(name);
+  const sourceJob = source.slice(source.indexOf('  syntax:'), source.indexOf('  verify:'));
+  const liveJob = source.slice(source.indexOf('  verify:'));
+  requireMarker(sourceJob, "if: ${{ github.event_name == 'pull_request' }}", `${name} PR job must be source-only`);
+  requireMarker(sourceJob, `node --check scripts/ci/${browserScript}`, `${name} PR source syntax check missing`);
+  if (sourceJob.includes(`run: node scripts/ci/${browserScript}`))
+    failures.push(`${name} PR job may not run live browser verification`);
+  requireMarker(liveJob, "if: ${{ github.event_name != 'pull_request' }}", `${name} must not run live browser against PR code`);
+}
+
 // Preserve the Texas river atlas source-only PR check and deployed-SHA
 // live browser contract (adapted from prior PR #4544, without stale changes).
 const texasRiver = workflow('verify-texas-river-map-browser');
