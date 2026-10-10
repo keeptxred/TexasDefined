@@ -21,3 +21,10 @@ Follow-up implemented in editorial commit `01a2dd34637428ffd67a43adbd2e815767857
 
 ## 2026 coaching reconciliation — independent cross-check
 [Official Axtell junior/senior high staff](https://ahs.axtellisd.net/en-US/staff) identifies **Craig Horn** as athletic director. [Dated 2026 varsity coaching roster](https://www.maxpreps.com/tx/axtell/axtell-longhorns/football/staff/) identifies Craig Horn as head football coach with Nate Morrill and Josh Hayes among assistants; roster last updated August 24, 2026. These independent sources resolve the earlier omission of the 2026 coach, without claiming the school staff page separately uses the head-coach title. Correct Texas Axtell Longhorns (not Kansas Axtell Eagles). Implementation commit `a0144aedcf20116fa28196949781d13761a626a2`. Still no production browser certification.
+
+
+## Confirmed production technical acceptance — 2026-10-10 (supersedes historic pre-release status text)
+- Live: https://texasdefined.com/texas-high-school-football-teams/axtell, implemented and merged in PR #4540 and verified after production deployment of `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`.
+- [Production Chrome runner #38061056139](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139) passed this school's **desktop and mobile** routes (HTTP 200, correct canonical/SEO metadata/structured data, external research links, runtime, image health, responsive overflow), plus the visible reciprocal school ↔ `/county/mclennan` links and sitemap inclusion.
+- Individual `desktop-school-axtell.png` and `mobile-school-axtell.png` screenshots stored in [artifact #11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515); see `docs/football-authority/BATCH004_FINAL_ACCEPTANCE.md` and certification PR #4553.
+- Older “unmerged/undeloyed/unverified browser” descriptions are dated pre-release observations, now superseded for technical QA only. Current coaching/game days, stadium gates and accessibility remain official-school-confirmation questions, and images remain original editorial graphics rather than reproducing unlicensed sports photography.
