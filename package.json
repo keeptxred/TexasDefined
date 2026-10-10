@@ -48,7 +48,8 @@
     "relocation-search:validate": "node scripts/data/validate-relocation-search-spokes.mjs",
     "editorial-outreach:validate": "node scripts/data/validate-editorial-outreach.mjs",
     "backlinks:validate": "node scripts/data/validate-backlink-command-center.mjs",
-    "metro-proximity:audit": "node scripts/data/run-metro-proximity-audit.mjs"
+    "metro-proximity:audit": "node scripts/data/run-metro-proximity-audit.mjs",
+    "research:homeowners:validate": "node scripts/data/validate-homeowners-premium-research.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
