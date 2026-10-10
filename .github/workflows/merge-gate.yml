@@ -64,6 +64,7 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}
           MERGE_SHA: ${{ github.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
@@ -90,6 +91,28 @@ jobs:
               -f description='Canonical Required merge gate passed on PR merge ref' \
               -f target_url="$RUN_URL" >/dev/null
             echo "Published Required merge gate status for validated PR merge $MERGE_SHA."
+          fi
+          # GitHub may regenerate the synthetic PR merge SHA without changing its
+          # content tree. Publish the required status for the CURRENT merge ref
+          # only when its tree exactly matches the workspace that passed validation.
+          git fetch --no-tags origin "refs/pull/$PR_NUMBER/merge"
+          CURRENT_MERGE_SHA="$(git rev-parse FETCH_HEAD)"
+          CURRENT_MERGE_TREE="$(git rev-parse "$CURRENT_MERGE_SHA^{tree}")"
+          VALIDATED_TREE="$(git write-tree)"
+          if [ "$CURRENT_MERGE_TREE" = "$VALIDATED_TREE" ]; then
+            if [ "$CURRENT_MERGE_SHA" != "$MERGE_SHA" ]; then
+              gh api \
+                --method POST \
+                -H "Accept: application/vnd.github+json" \
+                "repos/$REPOSITORY/statuses/$CURRENT_MERGE_SHA" \
+                -f state='success' \
+                -f context='Required merge gate' \
+                -f description='Validated identical current PR merge tree' \
+                -f target_url="$RUN_URL" >/dev/null
+              echo "Published status for current identical-tree PR merge $CURRENT_MERGE_SHA."
+            fi
+          else
+            echo "Current PR merge tree differs from validated workspace; refusing to publish an unvalidated status."
           fi
 
       # The pull-request REST read endpoint can return 404 to Actions' limited
