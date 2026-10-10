@@ -173,10 +173,29 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   // The optional TEA/UIL name join can return Harris County because Katy ISD
   // serves both counties. Correct this individual school without changing the
   // county attribution of any other Katy ISD program or the general matcher.
+  // UIL calls Austin ISD's LBJ Jaguars "Austin Johnson" in its 2026–28
+  // alignment. A generic name-only AskTED join can instead select an unrelated
+  // Johnson campus in Round Rock ISD / Williamson County. Keep UIL's alignment
+  // and enrollment, but source this particular school identity from Austin ISD.
+  // Do not carry over unmatched TEA IDs, URLs, history or county metadata.
+  const austinLbjProgram: FootballProgramDirectoryResult = {
+    ...seed,
+    profilePath: footballProgramProfilePath(seed.schoolName),
+    ...(exactEnrollment ? {
+      uilEnrollment: exactEnrollment.enrollment,
+      uilSubmittedConference: exactEnrollment.submittedConference,
+    } : {}),
+    officialSchoolName: 'LBJ Early College High School',
+    districtName: 'Austin ISD',
+    countyName: 'Travis County',
+    city: 'Austin',
+    schoolWebsite: 'https://www.austinisd.org/schools/lbj',
+    districtWebsite: 'https://www.austinisd.org/',
+  };
   const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
     ? { ...matchedProgram, countyName: 'Fort Bend County' }
-    : matchedProgram;
-  const displayName = seed.schoolName;
+    : canonicalSlug === 'austin-johnson' ? austinLbjProgram : matchedProgram;
+  const displayName = canonicalSlug === 'austin-johnson' ? 'Austin LBJ' : seed.schoolName;
 
   const identity = getVerifiedFootballSchoolIdentity(canonicalSlug) ?? null;
   const venueLinks = getVerifiedFootballVenueLinks({
