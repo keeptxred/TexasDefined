@@ -11,9 +11,11 @@ const evidence = [];
 await mkdir(output, { recursive: true });
 
 function verify(condition, description) { assert.ok(condition, description); }
+// Target the first numeric summary tile, not any earlier explanatory notice.
+// The $0 category review deliberately contains a <strong> before this grid.
 async function incomeIs(page, display) {
   await page.waitForFunction((expected) =>
-    document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent?.trim() === expected,
+    document.querySelector('section[aria-labelledby="budget-results-heading"] > div.grid > div:first-child strong')?.textContent?.trim() === expected,
   display, { timeout: 15_000 });
 }
 async function fillIncome(page, amount) {
@@ -30,7 +32,7 @@ async function fillIncome(page, amount) {
     }
     await field.press('Tab');
     const updated = await page.waitForFunction(value =>
-      document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent?.trim() === value,
+      document.querySelector('section[aria-labelledby="budget-results-heading"] > div.grid > div:first-child strong')?.textContent?.trim() === value,
     expected, { timeout: 5_000 }).then(() => true, () => false);
     if (updated) {
       if (method === 'keyboard') console.log('KEYBOARD_FALLBACK: typed keys succeeded after fill produced no reactive change');
@@ -42,7 +44,7 @@ async function fillIncome(page, amount) {
     const propKey = Object.keys(el || {}).find(k => k.startsWith('__reactProps'));
     return {
       readyState: document.readyState, input: el?.value,
-      summary: document.querySelector('section[aria-labelledby="budget-results-heading"] strong')?.textContent,
+      summary: document.querySelector('section[aria-labelledby="budget-results-heading"] > div.grid > div:first-child strong')?.textContent,
       reactInputPropsAttached: !!propKey, onChangeType: propKey ? typeof el[propKey]?.onChange : null,
       loadedScripts: performance.getEntriesByType('resource').filter(r => /\.js(?:\?|$)/.test(r.name)).length,
     };
