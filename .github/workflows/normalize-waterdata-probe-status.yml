@@ -23,10 +23,10 @@ jobs:
       STATUS_SHA: ${{ github.event.workflow_run.head_sha }}
       SOURCE_WORKFLOW_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
     steps:
-      - name: Check out current main
+      - name: Check out exact triggering lake-verifier revision
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Normalize observability-only probe statuses
         run: node scripts/ci/normalize-waterdata-probe-status.mjs
