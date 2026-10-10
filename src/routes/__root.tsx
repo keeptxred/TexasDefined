@@ -14,8 +14,9 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { absoluteUrl } from "@/lib/seo";
 import { TEXASDEFINED_ANALYTICS_HOSTS } from "@/platform/analytics-host";
 import { ShopCartProvider } from "@/lib/shop-cart";
+import { Header } from "@/components/layout/Header";
 
-const Header = lazy(() => import("@/components/layout/Header").then((module) => ({ default: module.Header })));
+
 const Footer = lazy(() => import("@/components/layout/Footer").then((module) => ({ default: module.Footer })));
 const NotFoundScreen = lazy(() => import("@/components/RouteStatusScreens").then((module) => ({ default: module.NotFoundScreen })));
 const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((module) => ({ default: module.ErrorScreen })));
@@ -45,15 +46,6 @@ function NotFoundComponent() {
 
 function ErrorComponent(props: { error: Error; reset: () => void }) {
   return <Suspense fallback={statusFallback}><ErrorScreen {...props} /></Suspense>;
-}
-
-function HeaderFallback() {
-  return (
-    <div
-      className="sticky top-0 z-50 h-[4.5rem] border-b border-border/80 bg-background/96 lg:h-[7rem]"
-      aria-hidden="true"
-    />
-  );
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -214,7 +206,7 @@ function RootComponent() {
       <BrandProvider brand={texasDefinedBrand}>
         <ShopCartProvider>
           <div className="flex min-h-screen flex-col bg-background">
-            <Suspense fallback={<HeaderFallback />}><Header /></Suspense>
+            <Header />
             <main id="main" className="flex-1"><Outlet /></main>
             <Suspense fallback={<div className="h-40 border-t border-border bg-surface" aria-hidden="true" />}><Footer /></Suspense>
           </div>
