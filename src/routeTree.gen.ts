@@ -3265,12 +3265,16 @@ const NetworkExamplePlusRoute = NetworkExamplePlusRouteImport.update({
   id: '/network/example/plus',
   path: '/network/example/plus',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/network.example.plus.lazy').then((d) => d.Route),
+)
 const NetworkExampleBasicRoute = NetworkExampleBasicRouteImport.update({
   id: '/network/example/basic',
   path: '/network/example/basic',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/network.example.basic.lazy').then((d) => d.Route),
+)
 const NetworkBusinessSlugRoute = NetworkBusinessSlugRouteImport.update({
   id: '/network/business/$slug',
   path: '/network/business/$slug',
