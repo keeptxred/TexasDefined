@@ -9,6 +9,7 @@ const usdOffer = (name: string, price: number, url: string): EventSchemaOffer =>
 
 const organization = (name: string, url: string): EventSchemaEntity => ({ type: "Organization", name, url });
 const group = (name: string): EventSchemaEntity => ({ type: "PerformingGroup", name });
+const person = (name: string): EventSchemaEntity => ({ type: "Person", name });
 
 // Final supplemental dedicated Event-leaf research wave.
 // Recurrence-derived future leaves do not inherit prior-year prices or performers.
@@ -102,7 +103,7 @@ export const majorEventSchemaEnrichmentBatch12: MajorEventSchemaEnrichment[] = [
     slug: "crossroads-of-texas-country-festival",
     organizer: organization("Waxahachie Convention & Visitors Bureau", "https://www.waxahachiecvb.com/"),
     offers: [usdOffer("Festival general admission", 0, "https://www.waxahachietx.gov/Calendar.aspx?EID=747")],
-    performers: [group("Jake Worthington"), group("Kenny Whitmire")],
+    performers: [person("Jake Worthington"), person("Kenny Whitmire")],
     sources: [
       { label: "Visit Waxahachie — official 2026 festival and announced performers", url: "https://www.waxahachiecvb.com/events/2026/crossroads-of-texas-country-festival" },
       { label: "City of Waxahachie — free admission and 9 a.m.–7 p.m. hours", url: "https://www.waxahachietx.gov/Calendar.aspx?EID=747" },
