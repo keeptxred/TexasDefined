@@ -603,7 +603,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "date": "School identity",
         "title": "The Panther Way in Grayson County",
-        "body": "Bells ISD explains its district ethos and home-of-the-Panthers identity; the campus address for the high school is 1500 Ole Ambrose Rd.",
+        "body": "Bells ISD explains its district ethos and home-of-the-Panthers identity; the campus address for the high school is 1550 Ole Ambrose Rd.",
         "sourceUrl": "https://bellsisd.net/",
         "sourceLabel": "Bells ISD school directory and mission"
       },
@@ -638,11 +638,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where is Bells High School?",
-        "answer": "The district lists Bells High School at 1500 Ole Ambrose Road, Bells, Texas 75414. Confirm actual game-day entrances separately."
+        "answer": "The district lists Bells High School at 1550 Ole Ambrose Road, Bells, Texas 75414. Confirm actual game-day entrances separately."
       }
     ],
     "campus": {
-      "address": "1500 Ole Ambrose Road, Bells, TX 75414",
+      "address": "1550 Ole Ambrose Road, Bells, TX 75414",
       "phone": "903-965-3603",
       "sourceUrl": "https://bellsisd.net/",
       "sourceLabel": "First-party campus address",
