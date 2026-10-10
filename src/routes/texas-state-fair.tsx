@@ -27,7 +27,7 @@ const stateFairData = {
       {
         heading: "2026 ticket prices and admission",
         paragraphs: [
-          "State Fair admission is dynamically priced by day and discount. The Fair currently lists general admission from $7 to $25, children ages 3–12 from $7 to $10, children age 2 and younger free, and senior admission from $7 to $20. Season-pass options are also available.",
+          "Official 2026 gate admission is $15 for adults Monday–Thursday and $25 Friday–Sunday; $13 or $20 for seniors age 60 and older; $10 every day for children ages 3–12; and free for children age 2 and younger. After 5 p.m. adults and seniors pay $10 Monday–Thursday or $20 Friday–Sunday.",
           "Because prices and promotions can change by date, buy from the official Fair ticket page and compare the day's general admission price with any discount that applies to you before checkout."
         ],
         links: [
