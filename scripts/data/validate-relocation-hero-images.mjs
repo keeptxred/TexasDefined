@@ -1,39 +1,56 @@
 import fs from "node:fs";
 
-const files = [
-  "src/data/fixtures/lazy-relocation-authority-wave5.ts",
-  "src/data/fixtures/relocation-authority-wave5.ts",
+const groups = [
+  {
+    files: ["src/data/fixtures/lazy-relocation-authority-wave5.ts", "src/data/fixtures/relocation-authority-wave5.ts"],
+    slugs: [
+      "moving-to-texas-renter-guide",
+      "how-to-verify-texas-moving-company",
+      "health-insurance-when-moving-to-texas",
+      "military-family-moving-to-texas",
+    ],
+  },
+  {
+    files: ["src/data/fixtures/lazy-relocation-authority-expansion.ts", "src/data/fixtures/relocation-authority-expansion.ts"],
+    slugs: [
+      "best-houston-suburbs-for-commuters",
+      "best-dallas-suburbs-for-commuters",
+      "texas-property-taxes-for-new-residents",
+      "corporate-relocation-to-texas",
+      "employee-relocation-guide-to-texas",
+    ],
+  },
 ];
-const slugs = [
-  "moving-to-texas-renter-guide",
-  "how-to-verify-texas-moving-company",
-  "health-insurance-when-moving-to-texas",
-  "military-family-moving-to-texas",
-];
+
 const subjectWords = new Map([
   ["how-to-verify-texas-moving-company", /mover|moving truck/i],
   ["health-insurance-when-moving-to-texas", /clinic|health|patient/i],
   ["military-family-moving-to-texas", /military|air force|PCS/i],
+  ["best-houston-suburbs-for-commuters", /Houston|Katy|commut/i],
+  ["best-dallas-suburbs-for-commuters", /Dallas|DART|commut/i],
+  ["texas-property-taxes-for-new-residents", /appraisal|tax/i],
+  ["corporate-relocation-to-texas", /office|corporate|business/i],
+  ["employee-relocation-guide-to-texas", /employee|office|work/i],
 ]);
 
 const failures = [];
-const snapshots = [];
+const seenImages = new Map();
 
-function parseFile(file) {
+function parseFile(file, slugs) {
   const source = fs.readFileSync(file, "utf8");
   const imports = new Map([...source.matchAll(/import\s+(\w+)\s+from\s+["']([^"']+)["']/g)].map((match) => [match[1], match[2]]));
   const heroObjects = new Map();
-
   for (const match of source.matchAll(/const\s+(\w+)\s*:\s*Article\["hero"\]\s*=\s*\{([\s\S]*?)\n\};/g)) {
     const value = match[2];
     const src = value.match(/\bsrc:\s*(["'])(.*?)\1/)?.[2] ?? value.match(/\bsrc:\s*(\w+)/)?.[1];
-    const alt = value.match(/\balt:\s*"([^"]+)"/)?.[1] ?? "";
-    const credit = value.match(/\bcredit:\s*"([^"]+)"/)?.[1] ?? "";
-    const width = Number(value.match(/\bwidth:\s*(\d+)/)?.[1] ?? 0);
-    const height = Number(value.match(/\bheight:\s*(\d+)/)?.[1] ?? 0);
-    heroObjects.set(match[1], { src: imports.get(src) ?? src, alt, credit, width, height });
+    heroObjects.set(match[1], {
+      src: imports.get(src) ?? src,
+      alt: value.match(/\balt:\s*"([^"]+)"/)?.[1] ?? "",
+      credit: value.match(/\bcredit:\s*"([^"]+)"/)?.[1] ?? "",
+      width: Number(value.match(/\bwidth:\s*(\d+)/)?.[1] ?? 0),
+      height: Number(value.match(/\bheight:\s*(\d+)/)?.[1] ?? 0),
+    });
   }
-
   const records = new Map();
   const slugMatches = [...source.matchAll(/\bslug:\s*"([^"]+)"/g)];
   for (let i = 0; i < slugMatches.length; i++) {
@@ -45,44 +62,35 @@ function parseFile(file) {
     if (!hero) failures.push(`${file}: missing or unresolved hero for ${match[1]}`);
     else records.set(match[1], hero);
   }
-
   for (const slug of slugs) if (!records.has(slug)) failures.push(`${file}: missing ${slug}`);
   return records;
 }
 
-for (const file of files) snapshots.push({ file, records: parseFile(file) });
-
-for (const slug of slugs) {
-  const entries = snapshots.map(({ file, records }) => ({ file, hero: records.get(slug) }));
-  if (entries.some((entry) => !entry.hero)) continue;
-  const [first, second] = entries;
-  if (JSON.stringify(first.hero) !== JSON.stringify(second.hero)) {
-    failures.push(`${slug}: article and lazy catalog hero data do not match`);
-  }
-  if (first.hero.width < 1200 || first.hero.height < 1 || !first.hero.alt) {
-    failures.push(`${slug}: hero does not meet image dimensions/alt requirements`);
-  }
-  if (subjectWords.has(slug)) {
-    if (!subjectWords.get(slug).test(first.hero.alt)) failures.push(`${slug}: subject-specific alt text is missing`);
-    if (!first.hero.src.startsWith("https://upload.wikimedia.org/wikipedia/commons/thumb/") ||
-        !first.hero.credit.includes("public domain")) {
-      failures.push(`${slug}: missing verified rights-cleared Wikimedia hero and attribution`);
+for (const group of groups) {
+  const snapshots = group.files.map((file) => ({ file, records: parseFile(file, group.slugs) }));
+  for (const slug of group.slugs) {
+    const [lazyHero, fullHero] = snapshots.map(({ records }) => records.get(slug));
+    if (!lazyHero || !fullHero) continue;
+    if (JSON.stringify(lazyHero) !== JSON.stringify(fullHero)) failures.push(`${slug}: lazy and full hero data differ`);
+    if (lazyHero.width < 1200 || lazyHero.height < 1 || !lazyHero.alt.trim()) failures.push(`${slug}: missing 1200px image or useful alt text`);
+    if (subjectWords.has(slug)) {
+      if (!subjectWords.get(slug).test(lazyHero.alt)) failures.push(`${slug}: alt text does not describe this article's topic`);
+      if (!lazyHero.src?.startsWith("https://upload.wikimedia.org/wikipedia/commons/") ||
+        !/public domain|CC0|CC BY-SA/i.test(lazyHero.credit)) {
+        failures.push(`${slug}: missing Wikimedia media and documented commercial reuse status`);
+      }
     }
+    const key = lazyHero.src?.replace(/[?#].*$/, "").toLowerCase();
+    if (!key) continue;
+    if (seenImages.has(key)) failures.push(`Repeat image used for ${slug} and ${seenImages.get(key)}`);
+    seenImages.set(key, slug);
   }
 }
 
-const images = new Map();
-for (const slug of slugs) {
-  const image = snapshots[0].records.get(slug)?.src;
-  if (!image) continue;
-  const previous = images.get(image);
-  if (previous) failures.push(`Relocation card duplicate image: ${previous} and ${slug}`);
-  images.set(image, slug);
-}
-
+if (seenImages.size !== 9) failures.push(`Only ${seenImages.size} distinct relocation hero URLs; expected nine`);
 if (failures.length) {
-  console.error("Relocation image governance validation failed:");
+  console.error("Texas Life relocation image uniqueness and provenance validation failed:");
   for (const failure of failures) console.error("- " + failure);
   process.exit(1);
 }
-console.log("PASS: each relocation story has a distinct, representative hero; lazy and full records agree; all three newly assigned photographs have public-domain provenance.");
+console.log("PASS: nine distinct Texas Life relocation images; subject-specific alt text; recorded reuse rights; matching full and lazy article registries.");
