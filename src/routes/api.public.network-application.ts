@@ -65,6 +65,7 @@ export const Route = createFileRoute("/api/public/network-application")({
           return response({error:"A recent application for this business has already been received. Contact Texas Defined if you need to correct it."},409);
         }
         const {data,error}=await supabaseAdmin.from("texasdefined_network_applications").insert(record as never).select("id").single();
+        if(error?.code==="23505")return response({error:"An application for this business is already under review or active."},409);
         if(error||!data){console.error("[network] insert failed",error?.code);return response({error:"Application could not be received. Try again later."},503)}
         const applicationId=(data as {id:string}).id;
         const bucket="texasdefined-network-applications";

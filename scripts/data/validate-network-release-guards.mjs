@@ -66,3 +66,5 @@ const featureStyleUsers=[
 check('feature CSS is attached to every lazy Network page',
  featureStyleUsers.every(file=>source(root+file).includes('import "../network.css";'))
  &&featureStyles.includes('source(none)')&&source('src/styles.css').includes('@source not "./routes/network.*.lazy.tsx"'));
+
+check('concurrent active application duplicates use a database index and return 409',apps.includes('error?.code==="23505"')&&source('supabase/migrations/20261010213107_network_atomic_active_application_identity.sql').includes('CREATE UNIQUE INDEX'));
