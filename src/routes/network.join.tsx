@@ -54,7 +54,7 @@ function NetworkJoinPreview() {
   return (
     <main>
       <section className="relative overflow-hidden border-b border-border bg-surface">
-        <svg aria-hidden="true" viewBox="0 0 260 250" className="pointer-events-none absolute -right-10 top-8 h-72 w-72 fill-primary/5 stroke-primary/20 stroke-[3] sm:right-8 sm:h-96 sm:w-96"><path d="M17 22 H114 V74 H183 V105 H216 L247 131 L219 155 L211 184 L184 198 L158 240 L125 211 L103 179 L66 166 L49 131 H17 Z" /></svg><Container className="relative py-16 sm:py-24">
+        <img aria-hidden="true" alt="" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Outline_of_Texas_%28simplified%29.svg" className="pointer-events-none absolute -right-10 top-8 h-72 w-72 object-contain opacity-[0.07] sm:right-8 sm:h-96 sm:w-96" /><Container className="relative py-16 sm:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <span className="inline-flex rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary">Texas Defined Network · Private preview</span>
             <p className="eyebrow mt-8 text-primary">One Texas. Everything Connected.</p>
