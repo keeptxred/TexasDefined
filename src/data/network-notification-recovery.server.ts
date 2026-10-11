@@ -42,7 +42,8 @@ export async function reconcileNetworkNotificationRecovery(
    const {acquireNetworkGraphAppToken,networkGraphCredentialsFromEnv}=
      await import('./network-graph-token.server.ts');
    const {findNetworkGraphSentItemsEvidence}=await import('./network-graph-sentitems.server.ts');
-   const plan=prepareNetworkGraphClaim(current);
+   const {networkGraphPlanForEnvironment}=await import('./network-staging-mail-sink.server.ts');
+   const plan=networkGraphPlanForEnvironment(prepareNetworkGraphClaim(current),process.env);
    const credentials=networkGraphCredentialsFromEnv(process.env);
    const token=await acquireNetworkGraphAppToken(credentials);
    const matched=await findNetworkGraphSentItemsEvidence(plan,token.accessToken);
