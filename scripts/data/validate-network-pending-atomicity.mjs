@@ -1,4 +1,4 @@
-/** Pending-only SQL atomicity gate; never connects to any database. */
+/** Original SQL-source mirror atomicity gate; never connects to any database. */
 import {readFileSync} from 'node:fs';
 const files=["20261011043000_network_owner_revision_read_revocation.sql","20261011044000_network_sensitive_action_audit.sql","20261011045000_network_notification_manual_recovery.sql","20261011046000_network_featured_storage_atomic_counter.sql"];
 for(const file of files){
@@ -21,4 +21,4 @@ for(const required of ['LOCK TABLE storage.objects IN SHARE ROW EXCLUSIVE MODE',
  'network_featured_usage_prevent_move']){
  if(!quota.includes(required))throw new Error('Quota migration prerequisite missing: '+required);
 }
-console.log('PASS: all four pending Network migration transactions are bounded and UNAPPLIED');
+console.log('PASS: original four SQL source mirrors are bounded and match installed migration sources (no database writes)');
