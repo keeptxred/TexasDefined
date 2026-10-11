@@ -1,5 +1,6 @@
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { assertNetworkAdminAccess } from '@/data/network-admin-access.server';
+import { writeImmutableNetworkPublishedImage } from '@/data/network-published-media.server';
 
 /** Validate image bytes again at the public media boundary, not just at browser upload. */
 async function assertNetworkImageBytes(blob: Blob, type: string) {
@@ -125,9 +126,8 @@ export async function reviewNetworkRevision(accessKey:string,id:string,decision:
    if(readError||!blob)throw Error('Proposed image unavailable');
    await assertNetworkImageBytes(blob,type);
    const target=account.application_id+'/featured-'+id+'/'+path.split('/').pop();
-   const {error:saveError}=await supabaseAdmin.storage.from('texasdefined-network-published')
-    .upload(target,await blob.arrayBuffer(),{contentType:type,upsert:true});
-   if(saveError)throw Error('Approved image could not be published');
+   await writeImmutableNetworkPublishedImage(
+    supabaseAdmin.storage.from('texasdefined-network-published'),target,blob,type);
    return target;
   };
   let logo=listing.logo_storage_path;
@@ -195,8 +195,8 @@ export async function publishApprovedNetworkListing(accessKey:string,id:string) 
   const contentType=ext==='png'?'image/png':ext==='webp'?'image/webp':ext==='jpg'?'image/jpeg':null;
   if(!contentType)throw Error('Unsupported approved image format');
   await assertNetworkImageBytes(blob,contentType);
-  const {error:uploadError}=await supabaseAdmin.storage.from('texasdefined-network-published').upload(path,await blob.arrayBuffer(),{contentType,upsert:true});
-  if(uploadError)throw Error('Could not publish approved media');
+  await writeImmutableNetworkPublishedImage(
+   supabaseAdmin.storage.from('texasdefined-network-published'),path,blob,contentType);
   return path;
  };
  const logoPath=currentListing?null:await copyMedia(app.logo_storage_path);
