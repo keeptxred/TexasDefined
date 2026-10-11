@@ -110,16 +110,31 @@ function formatMonth(value: string) {
   }).format(new Date(`${value}-01T12:00:00Z`));
 }
 
+// Internal event records may store HH:mm:ss. Never expose raw SQL time strings
+// on a visitor-facing event card or calendar result. Times are local venue times.
+function formatEventStartTime(value?: string | null): string {
+  if (!value) return "";
+  const time = value.trim();
+  const match = /^(\\d{1,2}):(\\d{2})(?::\\d{2})?$/.exec(time);
+  if (!match) return time;
+  const hour = Number(match[1]);
+  const minute = Number(match[2]);
+  if (hour > 23 || minute > 59) return time;
+  return `${hour % 12 || 12}:${match[2]} ${hour < 12 ? "AM" : "PM"}`;
+}
+
 function formatRange(event: TexasEventRecord) {
   const start = formatDay(event.startDate);
   if (event.endDate && event.endDate !== event.startDate) return `${start}–${formatDay(event.endDate)}`;
-  return `${start}${event.startTime ? ` · ${event.startTime}` : ""}`;
+  const time = formatEventStartTime(event.startTime);
+  return `${start}${time ? ` · ${time}` : ""}`;
 }
 
 function formatCarouselRange(event: TexasEventRecord) {
   const start = formatShortDay(event.startDate);
   const end = event.endDate && event.endDate !== event.startDate ? formatShortDay(event.endDate) : "";
-  return `${start}${end ? `–${end}` : ""}${event.startTime ? ` · ${event.startTime}` : ""}`;
+  const time = formatEventStartTime(event.startTime);
+  return `${start}${end ? `–${end}` : ""}${time ? ` · ${time}` : ""}`;
 }
 
 export function buildTexasEventCarouselItemsServer(records: readonly TexasEventRecord[]) {
