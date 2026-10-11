@@ -12,7 +12,7 @@ const env={
  SUPABASE_SERVICE_ROLE_KEY:'eyJ'+ 'x'.repeat(30)+'.eyJ'+ 'y'.repeat(30)+'.syntheticSignature'+ 'z'.repeat(45),
  NETWORK_ADMIN_ACCESS_KEY:'synthetic-admin-'+ 'x'.repeat(36),
  STRIPE_SECRET_KEY:'sk_live_SYNTHETIC_'+ 'x'.repeat(70),
- STRIPE_WEBHOOK_SECRET:'whsec_SYNTHETIC_'+ 'x'.repeat(70),
+ NETWORK_STRIPE_WEBHOOK_SECRET:'whsec_SYNTHETIC_'+ 'x'.repeat(70),
  NETWORK_GRAPH_TENANT_ID:a,
  NETWORK_GRAPH_CLIENT_ID:'22222222-2222-4222-8222-222222222222',
  NETWORK_GRAPH_CLIENT_SECRET:'synthetic-client-'+'x'.repeat(40),
