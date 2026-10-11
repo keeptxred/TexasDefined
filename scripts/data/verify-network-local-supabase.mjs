@@ -107,6 +107,57 @@ const cross=await rest(two.token,'texasdefined_network_profile_revisions');
 allowed(cross,'Second user RLS');
 assert.equal(cross.json?.length,0,'Second user saw first owner private revision');
 
+
+// Independently exercise the ACTUAL service-only reviewed-owner provisioning RPC
+// over local PostgREST with genuine confirmed GoTrue users. No emails are sent.
+// These fake documented verification claims MUST NOT be copied to production.
+const verifiedApp=randomUUID();
+sql("INSERT INTO public.texasdefined_network_applications"+
+ "(id,plan,status,business_name,category,city,contact_email,intake_complete,paid_entitlement_active) VALUES"+
+ "('"+verifiedApp+"','plus','approved','Synthetic Independent Verification','Test','Dallas','"+one.email+"',true,false);");
+const provisionParams={
+ p_application_id:verifiedApp,p_user_id:one.id,
+ p_method:'registry_documents',
+ p_evidence:'synthetic local registry confirmation, not a real review',
+ p_reviewer:'sole-admin',
+};
+const provisionCall=(roleToken,params)=>req('POST','/rest/v1/rpc/provision_verified_network_owner',
+ roleToken===service?service:anon,roleToken,params);
+denied(await provisionCall(anon,provisionParams),'Anonymous owner provisioning RPC');
+denied(await provisionCall(one.token,provisionParams),'Owner cannot grant themselves membership');
+denied(await provisionCall(two.token,provisionParams),'Other owner cannot grant membership');
+denied(await provisionCall(service,{...provisionParams,p_user_id:two.id}),'Confirmed wrong-email owner provisioning');
+denied(await provisionCall(service,{...provisionParams,p_evidence:'short'}),'Owner provisioning missing evidence');
+const provisioned=await provisionCall(service,provisionParams);
+allowed(provisioned,'Service-only independently verified owner provisioning');
+const provisionedId=assertUuid(provisioned.json?.id);
+assert.equal(provisioned.json?.access_enabled,true);
+assert.equal(provisioned.json?.alreadyEnabled,false);
+const afterProvision=await rest(one.token,'texasdefined_network_business_accounts');
+allowed(afterProvision,'Verified owner can read their new Plus binding');
+assert.ok(afterProvision.json.some(a=>a.id===provisionedId&&a.membership_tier==='plus'&&a.access_enabled===true),
+ 'Real confirmed owner was not linked to approved Plus business');
+const provisionReplay=await provisionCall(service,provisionParams);
+allowed(provisionReplay,'Idempotent already-enabled owner provisioning');
+assert.equal(provisionReplay.json?.id,provisionedId);
+assert.equal(provisionReplay.json?.alreadyEnabled,true);
+assert.equal(sql("SELECT COUNT(*) FROM public.texasdefined_network_owner_verifications WHERE application_id='"+
+ verifiedApp+"';"),'1','Duplicate owner-verification audit was inserted');
+sql("UPDATE public.texasdefined_network_business_accounts SET access_enabled=false WHERE id='"+
+ provisionedId+"';");
+const reenabled=await provisionCall(service,provisionParams);
+allowed(reenabled,'Service re-enable verified owner binding');
+assert.equal(reenabled.json?.id,provisionedId);
+assert.equal(reenabled.json?.access_enabled,true);
+assert.equal(reenabled.json?.alreadyEnabled,false);
+assert.equal(sql("SELECT COUNT(*) FROM public.texasdefined_network_owner_verifications WHERE application_id='"+
+ verifiedApp+"';"),'2','Owner re-enable did not create exactly one new audit event');
+assert.equal(sql("SELECT COUNT(*) FROM public.texasdefined_network_owner_verifications WHERE application_id='"+
+ verifiedApp+"' AND provisioning_action='created';"),'1','Provision-created audit missing');
+assert.equal(sql("SELECT COUNT(*) FROM public.texasdefined_network_owner_verifications WHERE application_id='"+
+ verifiedApp+"' AND provisioning_action='reenabled';"),'1','Re-enable audit missing');
+console.log('NETWORK REAL LOCAL OWNER PROVISIONING PASS: actual GoTrue-confirmed users, service-only RPC, wrong owner/email/evidence denied, Plus binding, idempotency and auditable revocation/re-enable');
+
 const bucket='texasdefined-network-featured-drafts';
 const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZ8AAAAASUVORK5CYII=','base64');
 async function upload(user,path,content=png,type='image/png'){

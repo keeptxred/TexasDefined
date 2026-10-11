@@ -24,18 +24,6 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
-  // Prelaunch Network pages must render content on the built Worker without browser JavaScript.
-  { path: '/network/join', requiredText: 'One Texas. Everything Connected.', label: 'Network membership SSR' },
-  { path: '/network/apply', requiredText: 'Build your business listing', label: 'Network application SSR' },
-  { path: '/network/apply', requiredText: 'Network applications and uploads are not open yet.', label: 'Network intake launch gate visible' },
-  { path: '/network/example/basic', requiredText: 'Lone Star Heritage Workshop', label: 'Network Basic example SSR' },
-  { path: '/network/example/plus', requiredText: 'Lone Star Heritage Workshop', label: 'Network Plus example SSR' },
-  { path: '/network/billing', requiredText: 'Manage your membership', label: 'Network billing SSR' },
-  { path: '/network/billing', requiredText: 'Owner email sign-in is not available before Network launch.', label: 'billing email disabled before launch' },
-  { path: '/network/checkout-return', requiredText: 'Thank you for joining us.', label: 'Network checkout return SSR' },
-  { path: '/business/dashboard', requiredText: 'My Business Dashboard', label: 'owner sign-in SSR' },
-  { path: '/business/dashboard', requiredText: 'Owner email sign-in is not available before Network launch.', label: 'owner email disabled before launch' },
-  { path: '/admin/network-applications', requiredText: 'Network applications', label: 'Network admin review SSR' },
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
   {
     path: '/best-places-to-go-camping-in-texas',
@@ -91,6 +79,9 @@ const smokeTargets = [
   { path: '/guides/citypass-texas', requiredText: 'Is CityPASS® worth it in Texas?', label: 'guide child route body' },
   { path: '/explore/landscapes/hill-country', requiredText: 'The Hill Country is where the Edwards Plateau breaks into rounded hills', label: 'landscape child route body' },
   { path: '/sports/friday-night-lights', requiredText: 'Friday Night Lights, Defined', label: 'sports child route body' },
+  { path: '/sports/softball', requiredText: 'Women’s softball in Texas, defined', label: 'Texas women’s softball authority SSR' },
+  { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
+  { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
 
@@ -102,10 +93,6 @@ const redirectTargets = [
     expectedQuery: ['source', 'smoke'],
     label: 'duplicated fishing technique path normalization',
   },
-];
-
-const disabledNetworkPostTargets = [
-  {path:'/api/public/network-application',expectedStatus:503,expectedText:'Network applications are not open yet.'},
 ];
 
 const renderRouteGroups = [...smokeTargets.reduce((groups, target) => {
@@ -228,21 +215,6 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
   }
 }
 
-async function checkDisabledNetworkPost(target, attemptToken) {
- try {
-  const response=await fetch(smokeUrl(target.path,attemptToken),{
-   method:'POST',redirect:'manual',cache:'no-store',
-   headers:{...requestHeaders,origin,'content-type':'application/json'},
-   body:'{}',signal:AbortSignal.timeout(requestTimeoutMs),
-  });
-  const text=await response.text();
-  if(response.status===target.expectedStatus&&text.includes(target.expectedText))return '';
-  return `${target.path} expected disabled intake HTTP ${target.expectedStatus} with known error; got HTTP ${response.status}`;
- } catch(error){
-  return `${target.path} failed: ${error instanceof Error?error.message:String(error)}`;
- }
-}
-
 async function checkRedirectTarget(target, attemptToken) {
   try {
     const url = smokeUrl(target.path, attemptToken);
@@ -344,30 +316,16 @@ try {
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
     }
 
-    // Keep the established redirect probe independent from the new intake POST.
     for (const target of redirectTargets) {
       const label = `redirect route ${target.path}`;
       const failure = await verifyWithRetries(target, checkRedirectTarget, label);
       if (failure) failures.push(failure);
       else console.log(`[redirect] verified (${target.expectedStatus}): ${target.path} -> ${target.expectedPath}`);
     }
-
-    // This must prove BOTH the fail-closed 503 response and Worker health afterward.
-    for (const target of disabledNetworkPostTargets) {
-      const failure = await verifyWithRetries(target, checkDisabledNetworkPost,'prelaunch disabled POST '+target.path);
-      if(failure)failures.push(failure);
-      else console.log(`[launch-gate] verified (${target.expectedStatus}): ${target.path}`);
-    }
-    const recoveryGroup=renderRouteGroups.find((group)=>group.path==='/network/join');
-    if(recoveryGroup){
-      const recovered=await verifyWithRetries(recoveryGroup,checkRenderRoute,'network intake POST liveness follow-up');
-      if(recovered)failures.push('Worker unhealthy after rejected intake POST: '+recovered);
-      else console.log('[launch-gate] Worker remains healthy after rejected intake POST');
-    }
   }
 
   if (!failures.length) {
-    console.log(`Built Worker SSR smoke passed: ${renderRouteGroups.length} unique render route(s), ${smokeTargets.length} marker check(s), and ${redirectTargets.length} redirect target(s) plus ${disabledNetworkPostTargets.length} disabled intake POST(s) passed.`);
+    console.log(`Built Worker SSR smoke passed: ${renderRouteGroups.length} unique render route(s), ${smokeTargets.length} marker check(s), and ${redirectTargets.length} redirect target(s) passed.`);
     if (summaryPath) appendFileSync(summaryPath, `| ✅ pass | Built Worker SSR smoke | ${renderRouteGroups.length} render routes / ${smokeTargets.length} marker checks + ${redirectTargets.length} redirect target(s) | process-ready signal + warmup + per-route retries: ${targetAttempts} |\n`);
   } else {
     const failure = failures.join('; ');

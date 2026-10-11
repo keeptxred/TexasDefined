@@ -293,3 +293,7 @@ On commit `784efce14727b31e8507de3b0e5db8c8811e4d0d`, all four exact-head workfl
 ### Account switch privacy regression — billing screen
 
 The billing client must not render a former owner's membership list when Auth sessions change or a delayed API response arrives after logout. A monotonic `refreshSequence` invalidates each asynchronous session, fetch, and JSON response; owner-specific membership and checkout controls are cleared synchronously on Auth events and teardown. Regression is checked through the existing Node billing test and Merge Gate. This is a client privacy safeguard layered on top of server-side verified-owner billing restrictions.
+
+### Owner provisioning HTTP acceptance evidence
+
+The separate local GoTrue/Storage CI suite now tests `provision_verified_network_owner` as an actual service-only PostgREST RPC, verifying lack of anonymous/owner execution grants, correct confirmed owner-email binding, denial of missing review evidence and wrong-owner email, audit idempotency and audit-on-reenable. The synthetic evidence never represents real business ownership. Do not certify until the new **exact commit's** CI passes.

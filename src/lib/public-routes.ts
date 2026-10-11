@@ -59,6 +59,9 @@ export const INDEXABLE_STATIC_PATHS = [
   "/dogs",
   "/sports",
   "/sports/friday-night-lights",
+  "/sports/softball",
+  "/sports/softball/paris-junior-college",
+  "/sports/softball/texas-volts",
   "/gaming",
   "/gaming/video-game-industry",
   "/gaming/why-dallas-matters-online-gaming",
@@ -429,14 +432,6 @@ export const REDIRECT_ONLY_PATHS = [
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
-  "/network/billing",
-  "/network/checkout-return",
-  "/business/dashboard",
-  "/network/directory",
-  "/network/join",
-  "/network/apply",
-  "/network/example/basic",
-  "/network/example/plus",
   "/texas-data/research",
   "/search",
   "/explore/search",
