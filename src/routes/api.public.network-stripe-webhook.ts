@@ -23,12 +23,16 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
     const stripeKey = process.env["STRIPE_SECRET_KEY"];
     if (typeof subscriptionId !== "string" || !stripeKey?.startsWith("sk_live_"))
       return new Response("Stripe verification unavailable", { status: 503 });
-    // Always fetch current subscription state. Webhook delivery order is not guaranteed.
-    const live = await fetch("https://api.stripe.com/v1/subscriptions/" + encodeURIComponent(subscriptionId), {
-      headers: { authorization: "Bearer " + stripeKey },
-    });
-    if (!live.ok) return new Response("Subscription verification unavailable", { status: 503 });
-    const subscription = await live.json() as Record<string, any>;
+    // Webhook delivery order is not guaranteed. Verify CURRENT Stripe state.
+    // Timeout, connectivity, malformed JSON and API failures are retriable 503s,
+    // never a successful acknowledgement and never a permission bypass.
+    let subscription: Record<string, any>;
+    try {
+      const {readNetworkCurrentStripeSubscription}=await import("@/data/network-stripe.server");
+      subscription=await readNetworkCurrentStripeSubscription(subscriptionId);
+    } catch {
+      return new Response("Subscription verification unavailable", { status: 503 });
+    }
     if (subscription.livemode !== true || subscription.id !== subscriptionId) return new Response("Invalid subscription", { status: 422 });
     const { isExpectedNetworkPlusSubscription } = await import("@/data/network-stripe.server");
     if(!isExpectedNetworkPlusSubscription(subscription))return new Response("Ignored",{status:200});
