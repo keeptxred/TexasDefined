@@ -37,14 +37,14 @@ CITY_LAYERS = {
     "houston": "https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0",
     "dallas": "https://gis.dallascityhall.com/arcgis/rest/services/Basemap/CityLimits/MapServer/0",
     "fort-worth": "https://gis.fortworthtexas.gov/gisimage/rest/services/Mapping/Report_Areas_Published/MapServer/3",
-    "austin": None,
+    "austin": "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0",
     "san-antonio": None,
     "el-paso": "https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0",
     "arlington": "https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1",
     "hurst": "https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer/2",
-    "corpus-christi": None,
+    "corpus-christi": "https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2",
     "plano": "https://maps.planogis.org/arcgiswad/rest/services/OpenData/MunicipalBoundary/MapServer/0",
-    "lubbock": None,
+    "lubbock": "https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13",
 }
 # Reconcile results to published jurisdiction list, not arbitrary city-name county.
 PUBLISHED = {
