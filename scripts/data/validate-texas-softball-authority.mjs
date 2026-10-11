@@ -28,7 +28,7 @@ for (const { path, file, label } of pages) {
   const headSource = read('src/routes/sports.softball' + (path === '/sports/softball' ? '' : path.endsWith('texas-volts') ? '.texas-volts' : '.paris-junior-college') + '.tsx');
   assert.ok(headSource.includes('createFileRoute(canonicalPath)'), label + ' must have a metadata route');
   assert.ok(headSource.includes('canonicalLink('), label + ' must have canonical SEO');
-  assert.ok(headSource.includes('application/ld+json'), label + ' must expose schema');
+  assert.ok(file.includes('application/ld+json'), label + ' must expose schema in SSR body');
   assert.ok(headSource.includes('2026-10-11'), label + ' must carry a real review date');
   assert.ok(file.includes('Breadcrumb'), label + ' must include visible navigation');
   assert.ok(file.includes('Sources') || file.includes('sources') || file.includes('officialResources'), label + ' must cite original sources');
