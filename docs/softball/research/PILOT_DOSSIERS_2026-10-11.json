@@ -3,7 +3,7 @@
   "lastReviewed": "2026-10-11",
   "season": "2026-27",
   "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
-  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details. October 11 separate Amarillo-specific May 17, 2024 KFDA/KCBD original news source confirmed historic planned softball complex south of existing football field; distinct hpisd.org Dallas 2024 bond and TDLR softball project are unrelated and excluded.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details. October 11 separate Amarillo-specific May 17, 2024 KFDA/KCBD original news source confirmed historic planned softball complex south of existing football field; distinct hpisd.org Dallas 2024 bond and TDLR softball project are unrelated and excluded. Historical venue renaming found October 11: Katy ISD board video July 27 2026 item 9.11 and independent August 6 press document honoring former coach Kalum Haack by naming Katy High's softball field. Prior 2025 schedule's KHS-Softball Field label is pre-naming, not necessarily the current official visitor-facing name. This change was researched BEFORE first authority page publication.",
   "publicationAuthorization": false,
   "pilotSchools": [
     {
@@ -749,6 +749,27 @@
           "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
           "kind": "official-federal-government",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-2026-board-naming",
+          "title": "Katy ISD original July 27 2026 board meeting recording and agenda item 9.11 official field naming",
+          "url": "https://www.katyisdtx.new.swagit.com/videos/394549",
+          "kind": "official-school-board-video",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-aug2026-field-name-report",
+          "title": "Katy-Fulshear Times August 6 2026 original reporting: board names Katy HS softball field after coach Kalum Haack",
+          "url": "https://katyfulsheartimes.com/articles/katy-isd-board-names-softball-field-after-26-year-coaching-legend-kalum-haack-mshll7fg",
+          "kind": "independent-local-news",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-athletic-hall-2025",
+          "title": "Katy ISD 2025 Athletic Hall of Honor recognizes softball coach Kalum Haack and 2015 softball state champion team",
+          "url": "https://www.katyisd.org/news-details/~board/news-headlines-katy-independent-school-district-100/post/champions-to-allstars-katy-isd-athletic-hall-of-honor-inducts-class-of-2025",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -849,6 +870,24 @@
             "official-campus-students",
             "official-campus-location"
           ]
+        },
+        {
+          "claim": "Katy ISD's official July 27, 2026 board meeting archive lists agenda item 9.11 as consideration of naming a portion of Katy High School. Contemporary August 6 local reporting states trustees unanimously APPROVED naming the high school's SOFTBALL FIELD in honor of retired longtime head coach Kalum Haack. This postdates historical athletic event calendars that simply call it 'KHS-Softball Field'; exact permanent sign wording and field visitor entrance remain unverified.",
+          "season": "2026-27",
+          "sourceIds": [
+            "katy-2026-board-naming",
+            "katy-aug2026-field-name-report",
+            "katy-official-venue-2025"
+          ]
+        },
+        {
+          "claim": "The field honoree Kalum Haack led Katy High's softball program for 26 years, including its 2015 and 2019 state championship seasons, and retired in May 2024, according to Katy-Fulshear Times' August 2026 board-vote account. Katy ISD separately inducted coach Kalum Haack and the school's 2015 state-champion softball team into its 2025 Athletics Hall of Honor, independently corroborating his lasting team legacy.",
+          "season": "2025-26",
+          "sourceIds": [
+            "katy-aug2026-field-name-report",
+            "katy-athletic-hall-2025",
+            "uil-team-2026"
+          ]
         }
       ],
       "conflicts": [
@@ -857,7 +896,7 @@
         "Katy city/ISD territory spans county boundaries. Verify actual Katy HS campus county, not the city label, using TEA/official geographic source."
       ],
       "gaps": [
-        "Exact physical entrance, current 2027 use, parking, gate/ticket and accessibility for district-named 'KHS-Softball Field' (not verified by the 6331 Highway Blvd campus address)",
+        "Physical entrance, stadium sign text following July 27, 2026 Kalum Haack field naming, current 2027 use, parking, admission, tickets and ADA seating — not verified from the board vote or campus address",
         "Current 2027 coach verification under consistent official name and varsity assistants",
         "2027 dated school-controlled schedules and public roster source",
         "1990s–2010s program history, full 2007/2015/2019 brackets and award records",
@@ -865,16 +904,18 @@
         "Licensed team-field original images, photography credits and visitor policies"
       ],
       "venueResearch": {
-        "namedField": "KHS-Softball Field",
+        "namedField": "Katy High School softball field named in honor of Kalum Haack by school-board vote July 27, 2026",
         "nameVerified": true,
         "physicalAddressVerified": false,
         "parkingVerified": false,
         "accessibleSeatingVerified": false,
         "sourceIds": [
           "katy-official-venue-2025",
-          "school-contact"
+          "school-contact",
+          "katy-2026-board-naming",
+          "katy-aug2026-field-name-report"
         ],
-        "notes": "Katy ISD official event schedule confirms the school-used name KHS-Softball Field in February 2025. Official campus contact provides 6331 Highway Blvd but does not document a specific softball field parcel/entrance, accessible seating or current 2027 policies."
+        "notes": "Katy ISD official event schedule confirms the school-used name KHS-Softball Field in February 2025. Official campus contact provides 6331 Highway Blvd but does not document a specific softball field parcel/entrance, accessible seating or current 2027 policies. MAJOR POST-2025 NAME UPDATE: The official Katy ISD July 27 2026 meeting agenda contains facility-naming item 9.11, with a detailed August 6 2026 local story reporting unanimous vote to honor longtime coach Kalum Haack at Katy High softball field. The old February 2025 district schedule label 'KHS-Softball Field' predates the naming; exact installed field sign, spectator entry and 2027 calendar still require independent field verification."
       },
       "coachingResearch": {
         "schoolWebsiteAsOf": "2026-10-11",
