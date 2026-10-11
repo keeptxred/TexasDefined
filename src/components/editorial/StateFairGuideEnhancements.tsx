@@ -190,6 +190,27 @@ export function StateFairPlanningStrip() {
               {featuredPhotos.map((photo, index) => <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}><PhotoCard photo={photo} eager={index === 0} /></div>)}
             </div>
             <p className="mt-2 text-xs leading-5 text-muted-foreground">These archival images are independently licensed through Wikimedia Commons. For current-year photography, use the State Fair’s official media galleries.</p>
+            <div className="mt-10 max-w-4xl" data-state-fair-2026-licensed-photo>
+              <p className="eyebrow text-primary">Photographed in September 2026</p>
+              <h3 className="mt-2 font-display text-2xl">The 2026 Midway from above</h3>
+              <figure className="mt-4 overflow-hidden border border-border bg-background">
+                <img
+                  src={commonsImage("The Midway of the State Fair of Texas 2026.png", 960)}
+                  alt="2026 State Fair of Texas Midway, tents and Dallas skyline viewed from the Top o' Texas Tower"
+                  className="w-full object-cover"
+                  style={{ aspectRatio: "3 / 2" }}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption className="space-y-1 px-4 py-3 text-xs leading-5 text-muted-foreground">
+                  September 28, 2026 · View from the Top o' Texas Tower. Photo: IcedCowboyCoffee ·{" "}
+                  <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer" className="underline underline-offset-2">CC0 1.0</a>
+                  {" "}·{" "}
+                  <a href={commonsSource("The Midway of the State Fair of Texas 2026.png")} target="_blank" rel="noreferrer" className="underline underline-offset-2">Wikimedia Commons source</a>
+                  {" "}· Display-cropped for layout.
+                </figcaption>
+              </figure>
+            </div>
           </div>
         </Container>
       </section>
