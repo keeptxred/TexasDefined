@@ -9,7 +9,7 @@ const proof={messageId:'AAMkSENTid1234=',reference:'graph-sentitems-header-match
 import {NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS} from '../../src/data/network-atomic-launch-readiness.server.ts';
 const env={
  SUPABASE_URL:'https://ftkznprjljkhymknvhye.supabase.co',
- SUPABASE_SERVICE_ROLE_KEY:'synthetic-not-secret-'+'x'.repeat(90),
+ SUPABASE_SERVICE_ROLE_KEY:'eyJ'+ 'x'.repeat(30)+'.eyJ'+ 'y'.repeat(30)+'.syntheticSignature'+ 'z'.repeat(45),
  NETWORK_ADMIN_ACCESS_KEY:'synthetic-admin-'+ 'x'.repeat(36),
  STRIPE_SECRET_KEY:'sk_live_SYNTHETIC_'+ 'x'.repeat(70),
  STRIPE_WEBHOOK_SECRET:'whsec_SYNTHETIC_'+ 'x'.repeat(70),
