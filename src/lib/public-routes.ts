@@ -61,6 +61,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/sports/friday-night-lights",
   "/sports/softball",
   "/sports/softball/schools",
+  "/sports/softball/colleges",
   "/sports/softball/paris-junior-college",
   "/sports/softball/texas-volts",
   "/gaming",
