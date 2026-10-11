@@ -21,16 +21,19 @@ const cases=[
 ];
 const viewports=[['mobile',390,844],['desktop',1366,900]];
 const results=[];
-const server=spawn('node_modules/.bin/wrangler',[
- 'dev','--config','dist/server/wrangler.json','--local',
- '--ip','127.0.0.1','--port',String(port)
-],{env:{...process.env,CI:'true',NO_COLOR:'1'},stdio:['ignore','pipe','pipe'],detached:process.platform!=='win32'});
 let serverOutput='',browser;
-for(const stream of [server.stdout,server.stderr]){
- stream.on('data',data=>{
-  serverOutput=(serverOutput+data.toString()).slice(-25000);
- });
+function launchWorker(){
+ const next=spawn('node_modules/.bin/wrangler',[
+  'dev','--config','dist/server/wrangler.json','--local',
+  '--ip','127.0.0.1','--port',String(port)
+ ],{env:{...process.env,CI:'true',NO_COLOR:'1'},stdio:['ignore','pipe','pipe'],detached:process.platform!=='win32'});
+ serverOutput='';
+ for(const stream of [next.stdout,next.stderr]){
+  stream.on('data',data=>{serverOutput=(serverOutput+data.toString()).slice(-25000)});
+ }
+ return next;
 }
+let server=launchWorker();
 const sleep=(ms)=>new Promise(resolve=>setTimeout(resolve,ms));
 async function ready(){
  const start=Date.now();
@@ -129,6 +132,14 @@ try{
  // First-response assertions are strict; no retry can turn an HTTP 500 green.
  await browser.close();
  browser=undefined;
+ // Wrangler's local Miniflare proxy intermittently loses its internal network
+ // channel after the asset-heavy 18-page Chrome run (observed as unrelated
+ // 500/fetch failures after browser teardown). Each suite now owns a fresh
+ // local Worker lifecycle. This is isolation, not retry: the prior browser
+ // assertions already completed, and every API probe checks its FIRST response.
+ await stop();
+ server=launchWorker();
+ await ready();
  // Prove direct HTTP callers are blocked even when bypassing disabled UI controls.
  // No valid application, email, Stripe session or user identity is created.
  const apiCases=[
