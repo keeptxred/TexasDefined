@@ -52,6 +52,27 @@ for(const p of pilot.pilotSchools){
   sources+=p.sources.length;
   gaps+=p.gaps.length;
 }
+// Research findings that must not regress into missing football-style history.
+const byName = name => pilot.pilotSchools.find(p=>p.name === name);
+const verifiedFact = (team, needle, sourceId) => {
+  const record = byName(team)?.facts.find(f => f.claim.includes(needle) && f.sourceIds.includes(sourceId));
+  assert.ok(record, team + ': missing authoritative dated finding ' + needle + ' from ' + sourceId);
+};
+verifiedFact('Shiner', '2001, 2002, 2008, 2011, 2015, 2016, 2024 and 2026', 'uil-state-2026');
+verifiedFact('Shiner', 'Steven Cerny', 'uil-2017-team');
+verifiedFact('Shiner', 'runner-up', 'uil-2025-final');
+verifiedFact('Shiner', 'cutoff date', 'uil-2026-pairings');
+verifiedFact('Ganado', '2025–26 Ganado softball schedule', 'school-schedules');
+verifiedFact('Ganado', 'prefinal submitted tally', 'uil-2026-pairings');
+verifiedFact('Katy', 'its general campus address', 'school-contact');
+verifiedFact('Pearland', 'varsity softball and JV softball filters', 'school-live-calendar');
+verifiedFact('Pearland', "potentially inconsistent 'Game 3' opponent", 'school-2026-ticketing');
+verifiedFact('Pearland', 'Michele Hyden', 'school-general-current');
+assert.ok(byName('Shiner').sources.some(s => s.url.includes('/historical-archives/athletics/archives/softball/state/00_01/')),
+  'Preserve primary original 2001 Shiner championship source rather than generic third-party archive');
+assert.ok(byName('Pearland').gaps.some(g => g.includes('softball stadium/field')),
+  'Keep Pearland softball field unverified until official venue-specific evidence is found');
+
 const collision=pilot.pilotSchools.find(p=>p.name==='Amarillo Highland Park');
 assert.ok(collision,'Collision test requires Amarillo Highland Park Hornets');
 assert.equal(collision.identity.campusUrl,'https://www.hpisd.net/','Do not confuse Amarillo Hornets with Dallas Scots');
