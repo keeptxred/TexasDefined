@@ -9,6 +9,9 @@
 -- individually and PostgreSQL LOCK TABLE is invalid outside a transaction.
 -- Backfill, usage guards, and all three triggers must activate atomically.
 BEGIN;
+-- Fail quickly rather than hold up shared Storage metadata writes.
+SET LOCAL lock_timeout = '5s';
+SET LOCAL statement_timeout = '45s';
 
 -- Installing this on hosted Storage will briefly block writes while existing
 -- objects are backfilled. Review operational deployment window first.
