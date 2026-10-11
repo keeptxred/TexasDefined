@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { validatePublishedManifest } from './authority-contract.mjs';
 
@@ -14,6 +15,24 @@ const head = read('src/routes/sports.softball.{-$team}.tsx');
 const body = read('src/routes/sports.softball.{-$team}.lazy.tsx');
 const sourceFiles = readdirSync(resolve(root,'src/routes')).filter((p)=>p.includes('softball'));
 const published = new Set(manifest.pages.map(p=>p.slug));
+// A large verified directory never grants permission for mass page creation.
+// In each PR limit promotion to 8 hand-researched, reviewed team profiles.
+if (process.env.GITHUB_BASE_REF) {
+  let previous;
+  try {
+    const base = execFileSync('git', ['show','origin/' + process.env.GITHUB_BASE_REF + ':src/data/softball/published-team-profiles.json'], {cwd:root,encoding:'utf8'});
+    previous = JSON.parse(base).pages;
+  } catch (e) {
+    // The first gated release creates the manifest. Other errors must be fixed.
+    if (manifest.pages.length) errors.push('Missing trusted main publication manifest for the batch-size comparison');
+    previous = [];
+  }
+  const prior = new Set(previous.map(p=>p.slug));
+  const newlyPublished = [...published].filter(slug=>!prior.has(slug));
+  if (newlyPublished.length > 8) errors.push('Batch too large: ' + newlyPublished.length + ' new pages; max 8 verified profiles per PR');
+  const removed = [...prior].filter(slug=>!published.has(slug));
+  if (removed.length) errors.push('Unreviewed deletion of already-published softball pages: ' + removed.join(', '));
+}
 for (const record of manifest.pages) {
   const url = '/sports/softball/' + record.slug;
   if (!staticRoutes.includes('"' + url + '"')) errors.push(record.slug + ': missing static canonical sitemap registration');
