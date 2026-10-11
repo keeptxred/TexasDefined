@@ -33,6 +33,7 @@ export type SportsVenueGuidePageProps = {
   guide: SportsVenueGuidePilot;
   enrichment?: SportsVenueEnrichment;
   photo?: SportsVenuePhoto;
+  fallbackPhotoSrc?: string;
   parkingMap?: ParkingMapAsset;
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
@@ -45,6 +46,7 @@ export function SportsVenueGuidePage({
   guide,
   enrichment,
   photo,
+  fallbackPhotoSrc,
   parkingMap,
   nearbyAttractions = [],
   upcomingEvents = [],
@@ -174,7 +176,7 @@ export function SportsVenueGuidePage({
           </header>
 
           <div className="grid items-start gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
-            <VenuePhoto photo={photo} venueName={entity.name} />
+            <VenuePhoto photo={photo} venueName={entity.name} fallbackImageUrl={fallbackPhotoSrc} />
             <QuickFacts guide={guide} capacity={guide.capacity ?? enrichment?.capacity} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
 
@@ -305,9 +307,16 @@ function VenueBreadcrumb({ venueName }: { venueName: string }) {
   );
 }
 
-function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName: string }) {
-  const [failedUrl, setFailedUrl] = useState<string | null>(null);
-  if (!photo || failedUrl === photo.imageUrl) {
+function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenuePhoto; venueName: string; fallbackImageUrl?: string }) {
+  // Image delivery may fail independently of the verified original source.
+  // Retry the approved source once before presenting an honest no-photo state.
+  const [failedUrls, setFailedUrls] = useState<string[]>([]);
+  const source = photo && !failedUrls.includes(photo.imageUrl)
+    ? photo.imageUrl
+    : fallbackImageUrl && fallbackImageUrl !== photo?.imageUrl && !failedUrls.includes(fallbackImageUrl)
+      ? fallbackImageUrl
+      : null;
+  if (!photo || !source) {
     return (
       <div
         className="flex items-center justify-center border border-border bg-muted px-8 py-12 text-center text-sm text-muted-foreground"
@@ -322,7 +331,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
   return (
     <figure className="min-w-0 overflow-hidden bg-muted">
       <img
-        src={photo.imageUrl}
+        src={source}
         alt={photo.alt}
         width={photo.width}
         height={photo.height}
@@ -330,7 +339,7 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
         fetchPriority="high"
         decoding="async"
         className="block h-auto w-full object-contain"
-        onError={() => setFailedUrl(photo.imageUrl)}
+        onError={() => setFailedUrls((previous) => previous.includes(source) ? previous : [...previous, source])}
       />
     </figure>
   );
