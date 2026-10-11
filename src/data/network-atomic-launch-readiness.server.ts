@@ -78,7 +78,7 @@ export function networkCustomerLaunchArmed(
  environment:Record<string,string|undefined>,
 ):boolean{
  const raw=environment.NETWORK_LAUNCH_EVIDENCE_JSON;
- if(typeof raw!=='string'||raw.length<100||raw.length>16_384)return false;
+ if(typeof raw!=='string'||raw.length<100||raw.length>5_000)return false;
  let evidence:unknown;
  try{evidence=JSON.parse(raw);}catch{return false;}
  if(!evidence ||typeof evidence!=='object'||Array.isArray(evidence))return false;
