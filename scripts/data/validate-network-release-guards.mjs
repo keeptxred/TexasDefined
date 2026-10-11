@@ -83,6 +83,22 @@ check('authorized Plus owner can start checkout only after launch',billing.inclu
 check('billing enforces verified sign-in',billing.includes('email_confirmed_at')&&billing.includes('auth.getUser(token)'));
 check('billing list filters owner bindings',billing.includes('.in("id",ids)')&&billing.includes('.eq("access_enabled", true)'));
 check('billing portal enforces owner binding',billing.includes('.eq("owner_user_id", auth.userId)')&&billing.includes('if (ownerError || !ownerBinding)'));
+check('billing and checkout anonymous/invalid denials precede stage host 503, with no privileged actions before host denial',
+ (()=>{const get=billing.split('GET: async ({ request }) => {')[1]?.split('POST: async ({ request }) => {')[0]||'';
+ const post=billing.split('POST: async ({ request }) => {')[1]||'';
+ const checkoutAuth='if (!bearer) return reply({ error: "Sign in with your confirmed application email before checkout." }, 401)';
+ return get.indexOf('if (!auth) return respond({ error: "Sign in to manage your subscription." }, 401)')>=0
+  && get.indexOf('if(!networkStripeHostAllowed(request))')>get.indexOf('if (!auth) return')
+  && get.indexOf('.from("texasdefined_network_business_accounts")')>get.indexOf('if(!networkStripeHostAllowed(request))')
+  && post.indexOf('if (!auth) {')>=0
+  && post.indexOf('if(!networkStripeHostAllowed(request))')>post.indexOf('if (!auth) {')
+  && post.indexOf('.from("texasdefined_network_applications")')>post.indexOf('if(!networkStripeHostAllowed(request))')
+  && checkout.indexOf(checkoutAuth)>=0
+  && checkout.indexOf('if(!networkStripeHostAllowed(request))')>checkout.indexOf(checkoutAuth)
+  && checkout.indexOf('if(!networkStripeHostAllowed(request))')>checkout.indexOf('parseBoundedNetworkBillingJson(request)')
+  && checkout.indexOf('supabaseAdmin.auth.getUser(bearer)')>checkout.indexOf('if(!networkStripeHostAllowed(request))');
+ })());
+
 check('billing GET and portal use the same exact case-insensitive confirmed-email policy as owner provisioning',
  billing.includes('matchingNetworkOwnerEmail(item.contact_email,auth.email)')
  && billing.includes('matchingNetworkOwnerEmail(data.contact_email,auth.email)')
