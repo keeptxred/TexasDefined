@@ -17,7 +17,7 @@ const sport = read('src/routes/sports.lazy.tsx');
 const routes = read('src/lib/public-routes.ts');
 
 const pages = [
-  { path: '/sports/softball', file: hub, label: 'Texas women's softball hub' },
+  { path: '/sports/softball', file: hub, label: "Texas women's softball hub" },
   { path: '/sports/softball/paris-junior-college', file: paris, label: 'Paris JC Lady Dragons' },
   { path: '/sports/softball/texas-volts', file: volts, label: 'Texas Volts' },
 ];
