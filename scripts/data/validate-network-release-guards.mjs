@@ -128,6 +128,14 @@ check('proposed disabled-owner private revision READ policy is tested safely wit
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('Disabled owner can still read private revisions or draft media')
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('Authenticated role without JWT subject')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('network-proposed-revision-read-revocation.sql'));
+check('pending private sensitive-action audit is source tracked, service-only, and exercised in rollback fixture',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("pendingAudit='supabase/pending/20261011044000_network_sensitive_action_audit.sql'")
+ && source('scripts/data/verify-network-migration-replay.mjs').includes("auditFixture='scripts/data/network-sensitive-action-audit-fixture.sql'")
+ && source('supabase/pending/20261011044000_network_sensitive_action_audit.sql').includes('REVOKE ALL ON texasdefined_network_internal.admin_action_audit')
+ && source('scripts/data/network-sensitive-action-audit-fixture.sql').includes('seven material audit transitions')
+ && source('scripts/data/network-sensitive-action-audit-fixture.sql').includes('ROLLBACK;')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011044000_network_sensitive_action_audit.sql')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-sensitive-action-audit-fixture.sql'));
 check('isolated replay executes two-owner and private media RLS fixture with full rollback',
  source('scripts/data/verify-network-migration-replay.mjs').includes("ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql'")
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('SET LOCAL ROLE authenticated;')

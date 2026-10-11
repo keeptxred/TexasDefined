@@ -49,6 +49,10 @@ const proposedRevocation='supabase/pending/20261011043000_network_owner_revision
 if(!existsSync(proposedRevocation))throw new Error('Proposed owner revision SELECT revocation missing');
 execSql(['-f',proposedRevocation],'staging-only disabled-owner revision SELECT policy hardening');
 console.log('REPLAY PROPOSED OWNER REVOCATION PASS: staging-only policy applied in disposable DB; production unchanged');
+const pendingAudit='supabase/pending/20261011044000_network_sensitive_action_audit.sql';
+if(!existsSync(pendingAudit))throw new Error('Pending private sensitive-action audit migration missing');
+execSql(['-f',pendingAudit],'pending sensitive-action audit trigger migration: disposable DB only');
+console.log('REPLAY PENDING AUDIT SCHEMA PASS: private immutable audit table and state-transition triggers');
 const checks=`DO $verification$
 DECLARE network_tables integer; network_buckets integer;
 BEGIN
@@ -97,6 +101,10 @@ END
 $verification$;`;
 execSql(['-c',checks],'final schema/RLS/bucket/RPC verification');
 console.log('REPLAY RESULT PASS: 34/34 migrations in isolated PostgreSQL; NOT end-to-end Supabase certification');
+const auditFixture='scripts/data/network-sensitive-action-audit-fixture.sql';
+if(!existsSync(auditFixture))throw new Error('Missing isolated sensitive-action audit fixture');
+execSql(['-f',auditFixture],'single-administrator private audit state-transition rollback fixture');
+console.log('REPLAY SENSITIVE AUDIT RESULT PASS: seven material transitions, RLS privacy and append-only grants; rolled back');
 const ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql';
 if(!existsSync(ownerIsolationFixture))throw new Error('Missing isolated two-owner RLS fixture');
 execSql(['-f',ownerIsolationFixture],'two-owner RLS and Storage quota rollback fixture');
