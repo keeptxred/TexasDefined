@@ -23,6 +23,8 @@ on:
       - 'public/expedia-travel.js'
       - 'public/stay-affiliate-options.js'
   workflow_dispatch:
+  schedule:
+    - cron: '43 14 * * *'
 permissions:
   contents: read
   actions: read
