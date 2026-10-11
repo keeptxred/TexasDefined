@@ -95,6 +95,8 @@ export const Route = createFileRoute("/api/public/network-billing")({
       if (ownerError || !ownerBinding) return respond({ error: "Verified business ownership is required." }, 403);
       const runtime=getNetworkStripeRuntime();
       if(!runtime)return respond({ error: "Billing portal is temporarily unavailable." }, 503);
+      if(typeof data.stripe_customer_id!=="string" || !/^cus_[A-Za-z0-9_]+$/.test(data.stripe_customer_id))
+        return respond({error:"Billing customer identity unavailable."},503);
       const key=runtime.secret;
       const body = new URLSearchParams({
         customer: data.stripe_customer_id,
@@ -108,10 +110,11 @@ export const Route = createFileRoute("/api/public/network-billing")({
           signal: AbortSignal.timeout(12_000),
         });
         if (!stripe.ok) return respond({ error: "Unable to open the billing portal." }, 503);
-        const result = await stripe.json() as { url?: unknown };
-        // Never return an untrusted payment-management redirect to the browser.
-        const {isNetworkBillingPortalUrl}=await import("@/data/network-stripe.server");
-        if(!isNetworkBillingPortalUrl(result.url)) {
+        const result:unknown = await stripe.json();
+        // A real Stripe URL is insufficient: this session must be for the exact
+        // owner-bound customer, correct live/test mode and stage return origin.
+        const {isExpectedNetworkBillingPortalSession}=await import("@/data/network-stripe.server");
+        if(!isExpectedNetworkBillingPortalSession(result,data.stripe_customer_id,runtime)) {
           return respond({ error: "Billing portal unavailable." }, 503);
         }
         return respond({ ok: true, url: result.url });
