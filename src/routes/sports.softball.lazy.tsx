@@ -68,6 +68,7 @@ function SoftballRoute() {
 function Page() {
   return <Container className="pb-16 pt-10 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Texas Women’s Softball: Teams, 2026 Champions, Colleges & UIL Guide', url: 'https://texasdefined.com/sports/softball', dateModified: '2026-10-11',  }) }} />
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><a href="/">Home</a> / <a href="/sports">Texas sports</a> / <span aria-current="page">Softball</span></nav>
       <header className="pb-12 pt-10">
         <p className="eyebrow text-primary">TexasDefined sports research · Updated {verified}</p>
