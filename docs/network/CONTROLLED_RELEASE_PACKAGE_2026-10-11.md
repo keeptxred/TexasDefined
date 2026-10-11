@@ -70,7 +70,7 @@ SELECT policyname,cmd,qual FROM pg_policies
 SELECT tgname,tgrelid::regclass FROM pg_trigger WHERE NOT tgisinternal AND
  tgname IN ('network_sensitive_application_audit','network_sensitive_listing_audit',
  'network_sensitive_revision_audit','network_sensitive_owner_audit',
- 'network_featured_usage_before_insert','network_featured_usage_after_delete',
+ 'network_featured_usage_after_insert','network_featured_usage_after_delete',
  'network_featured_usage_prevent_move');
 SELECT has_function_privilege('anon',
  'public.reconcile_texasdefined_network_notification(uuid,uuid,text,text,text,text)','EXECUTE')
