@@ -31,7 +31,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Jonesboro",
+        "conference": "2A",
+        "district": 26,
+        "region": 4
+      }
     },
     {
       "classification": "2A Division I",
@@ -44,7 +50,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Ganado",
+        "conference": "2A",
+        "district": 29,
+        "region": 4
+      }
     },
     {
       "classification": "2A Division II",
@@ -57,7 +69,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Shiner",
+        "conference": "2A",
+        "district": 29,
+        "region": 4
+      }
     },
     {
       "classification": "3A Division I",
@@ -70,7 +88,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Grandview",
+        "conference": "3A",
+        "district": 16,
+        "region": 2
+      }
     },
     {
       "classification": "3A Division II",
@@ -83,7 +107,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Santa Gertrudis Acad",
+        "conference": "3A",
+        "district": 30,
+        "region": 4
+      }
     },
     {
       "classification": "4A Division I",
@@ -96,7 +126,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Bullard",
+        "conference": "4A",
+        "district": 17,
+        "region": 3
+      }
     },
     {
       "classification": "4A Division II",
@@ -109,7 +145,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Liberty",
+        "conference": "4A",
+        "district": 19,
+        "region": 3
+      }
     },
     {
       "classification": "5A Division I",
@@ -122,7 +164,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Mt Belvieu Barbers Hill",
+        "conference": "6A",
+        "district": 18,
+        "region": 3
+      }
     },
     {
       "classification": "5A Division II",
@@ -135,7 +183,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Montgomery Lake Creek",
+        "conference": "5A",
+        "district": 17,
+        "region": 3
+      }
     },
     {
       "classification": "6A Division I",
@@ -148,7 +202,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Pearland",
+        "conference": "6A",
+        "district": 19,
+        "region": 3
+      }
     },
     {
       "classification": "6A Division II",
@@ -161,7 +221,13 @@
       "awardSourceId": "uil-all-tournament",
       "athleteStatus": "historical-public-award-only",
       "allowRosterPublication": false,
-      "allowUnlicensedPhoto": false
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Katy",
+        "conference": "6A",
+        "district": 22,
+        "region": 3
+      }
     }
   ],
   "editorialRules": [
@@ -169,6 +235,9 @@
     "No athlete's current school enrollment, recruitment contact, eligibility, residence or personal data may be inferred from the historical award.",
     "Selection committee is the Texas Girls Coaches Association; award is at the state all-tournament level and must not be represented as full-season statewide MVP.",
     "Primary official UIL archive and UIL May 31 release corroborate championship school and historical MVP; original award name spellings preserved.",
-    "All 2026 champion school dossiers must be individually researched under the 38-topic complete-first-release standard before URLs publish."
+    "All 2026 champion school dossiers must be individually researched under the 38-topic complete-first-release standard before URLs publish.",
+    "Important documented league transition: 2026 5A Division I champion Mont Belvieu Barbers Hill appears as 'Mt Belvieu Barbers Hill' in **2026–27 Conference 6A** district 18; never identify it as 2026–27 5A based solely on the title.",
+    "The 2026 1A title champion Jonesboro appears in the 2026–27 **2A softball alignment registry**; the historical trophy's 1A division is not its new softball conference.",
+    "UIL naming aliases are explicit: 'Santa Gertrudis Academy' (2026 champion) matches 'Santa Gertrudis Acad' in 2026–27 alignment; 'Mont Belvieu Barbers Hill' matches 'Mt Belvieu Barbers Hill'."
   ]
 }
