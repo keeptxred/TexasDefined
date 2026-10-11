@@ -91,6 +91,8 @@ export function networkIsolatedStagingArmed(
     !environment.STRIPE_SECRET_KEY.startsWith('sk_test_') ||
     typeof environment.STRIPE_WEBHOOK_SECRET!=='string' ||
     !environment.STRIPE_WEBHOOK_SECRET.startsWith('whsec_') ||
+    typeof environment.NETWORK_STRIPE_TEST_WEBHOOK_SECRET!=='string' ||
+    !environment.NETWORK_STRIPE_TEST_WEBHOOK_SECRET.startsWith('whsec_') ||
     !/^price_[A-Za-z0-9]+$/.test(environment.NETWORK_STRIPE_TEST_PRICE_ID||'') ||
     environment.NETWORK_STRIPE_TEST_PRICE_ID==='price_1UP28XLtRurj6GMNwFlYDW6N' ||
     !requiredFlags.filter(f=>f!=='NETWORK_LAUNCH_ATOMIC_VERIFIED')
