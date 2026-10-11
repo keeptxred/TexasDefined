@@ -342,6 +342,13 @@ check('Checkout session requires exact configured Stripe mode, open subscription
 check('Checkout redirect requires exact Stripe hostname',source('src/data/network-stripe.server.ts').includes("target.hostname==='checkout.stripe.com'"));
 
 check('Stripe verified subscription cannot contain unrelated paid line items',webhook.includes('isExpectedNetworkPlusSubscription(subscription)')&&source('src/data/network-stripe.server.ts').includes('items.length===1'));
+check('Stripe Plus price changes de-entitle only the exact existing customer/subscription, never bind a new subscription',
+ webhook.includes('isNetworkSubscriptionIdentity(subscription)')
+ && webhook.includes('isBoundNetworkSubscriptionPriceMismatch(subscription,bound)')
+ && webhook.includes('const active=correctPlusPrice && subscription.status==="active"')
+ && source('src/data/network-stripe.server.ts').includes('existing.stripe_subscription_id===subscription.id')
+ && source('src/data/network-stripe.server.ts').includes('existing.stripe_customer_id===subscription.customer')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-stripe-entitlement-boundary.test.mjs'));
 check('Stripe portal uses validated server-only live or isolated test credentials',
  billing.includes('const runtime=getNetworkStripeRuntime()')
  && billing.includes('const key=runtime.secret;')
