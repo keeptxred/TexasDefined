@@ -30,13 +30,17 @@ export const Route = createFileRoute("/api/public/network-application")({
       if(origin) { let url:URL; try {url=new URL(origin)}catch{return response({error:"Invalid origin"},403)}
         if(!["texasdefined.com","www.texasdefined.com","localhost"].includes(url.hostname))return response({error:"Invalid origin"},403);
       }
-      if(Number(request.headers.get("content-length")||0)>16000000)return response({error:"Request too large"},413);
+      // A missing/spoofed Content-Length must never bypass the hard intake cap.
+      // Bound actual streamed bytes BEFORE constructing FormData or buffering JSON.
+      const {readBoundedNetworkIntakeBody}=await import("@/data/network-intake-limits.server");
+      const boundedBody=await readBoundedNetworkIntakeBody(request);
+      if(boundedBody===null)return response({error:"Request too large or unreadable"},413);
       let input:ApplicationInput;
       let uploadedLogo:File|null=null;
       let uploadedGallery:File[]=[];
       try {
         if(request.headers.get("content-type")?.includes("multipart/form-data")) {
-          const form=await request.formData();
+          const form=await new Response(boundedBody,{headers:{"content-type":request.headers.get("content-type")||"application/octet-stream"}}).formData();
           const raw=form.get("application");
           if(typeof raw!=="string"||raw.length>24000)return response({error:"Invalid application"},400);
           input=JSON.parse(raw);
@@ -53,7 +57,9 @@ export const Route = createFileRoute("/api/public/network-application")({
             if(!(file.type==="image/png"&&png||file.type==="image/jpeg"&&jpg||file.type==="image/webp"&&webp))return response({error:"Invalid image data"},422);
           }
         } else {
-          const raw=await request.text();if(raw.length>24000)return response({error:"Request too large"},413);input=JSON.parse(raw);
+          const raw=new TextDecoder("utf-8",{fatal:true}).decode(boundedBody);
+          if(raw.length>24000)return response({error:"Request too large"},413);
+          input=JSON.parse(raw);
         }
       } catch {return response({error:"Invalid application"},400)}
       if(!input || typeof input!=="object" || Array.isArray(input))return response({error:"Invalid application"},400);
