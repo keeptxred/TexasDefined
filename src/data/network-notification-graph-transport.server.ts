@@ -33,7 +33,8 @@ export function prepareNetworkGraphHttpRequest(plan: NetworkGraphClaimPlan): {
     typeof msg.message.body?.content!=='string') throw Error('Graph claim envelope invalid');
   // Refuse fields that could silently add external copies, attachments,
   // impersonated senders, HTML or provider-specific actions.
-  const fields=(value:Record<string,unknown>,allowed:readonly string[])=>
+  const fields=(value:unknown,allowed:readonly string[])=>
+    !!value && typeof value==='object' && !Array.isArray(value) &&
     Object.keys(value).every(key=>allowed.includes(key));
   if (!fields(msg as Record<string,unknown>,['message','saveToSentItems']) ||
       !fields(msg.message as Record<string,unknown>,['subject','body','toRecipients','replyTo']) ||
