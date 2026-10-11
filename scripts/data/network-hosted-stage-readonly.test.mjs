@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {validateNetworkHostedStageConfig,runNetworkHostedStageReadOnly} from './network-hosted-stage-readonly.mjs';
+import {validateNetworkHostedStageConfig,runNetworkHostedStageReadOnly,runNetworkHostedRevokedOwnerReadOnly} from './network-hosted-stage-readonly.mjs';
 
 const u1='11111111-1111-4111-8111-111111111111',
 u2='22222222-2222-4222-8222-222222222222';
@@ -47,7 +47,7 @@ test('staging acceptance config is host-pinned, requires consent, rejects shared
  for(const over of bad)
   assert.throws(()=>validateNetworkHostedStageConfig({...env(),...over}),/invalid/);
 });
-function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false}={}){
+function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false,revokedSecond=false}={}){
  const c=validateNetworkHostedStageConfig(env());
  return async(url,options)=>{
   assert.equal(options.method==='POST'?options.method:'GET',options.method);
@@ -63,10 +63,11 @@ function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false}={}){
   else if(url.includes('texasdefined_network_business_accounts'))
     body=[{id:owner.account,owner_user_id:owner.id,access_enabled:true,membership_tier:'featured'}];
   else if(url.includes('texasdefined_network_profile_revisions'))
-    body=foreignRevisionLeak?[{id:other.revision,business_account_id:other.account}]:
+    body=revokedSecond&&index===1?[]:foreignRevisionLeak?[{id:other.revision,business_account_id:other.account}]:
       [{id:owner.revision,business_account_id:owner.account}];
   else if(url.includes('/storage/v1/object/')){
-    if(url.endsWith('/'+other.id+'/'+other.account+'/'+other.media))status=foreignObjectLeak?200:404;
+    if(revokedSecond&&index===1&&url.endsWith('/'+owner.id+'/'+owner.account+'/'+owner.media))status=403;
+    else if(url.endsWith('/'+other.id+'/'+other.account+'/'+other.media))status=foreignObjectLeak?200:404;
     body={};
   } else throw Error('Unknown stage endpoint');
   return {status,json:async()=>body};
@@ -86,6 +87,17 @@ test('cross-owner revision RLS leak makes acceptance fail',async()=>{
 test('cross-owner private Storage exposure makes acceptance fail',async()=>{
  const c=validateNetworkHostedStageConfig(env());
  await assert.rejects(runNetworkHostedStageReadOnly(c,stageFetch({foreignObjectLeak:true})),/cross-owner private Storage read not denied/);
+});
+test('after independently authorized staging revocation, a still-authenticated disabled owner loses revisions and private media',async()=>{
+ const c=validateNetworkHostedStageConfig(env());
+ const result=await runNetworkHostedRevokedOwnerReadOnly(c,stageFetch({revokedSecond:true}));
+ assert.equal(result.accepted,true);
+ assert.equal(result.checks,5);
+ assert.equal(result.scope,'isolated-hosted-revoked-owner-read-only');
+});
+test('the old vulnerable private revision SELECT policy must FAIL hosted revocation acceptance',async()=>{
+ const c=validateNetworkHostedStageConfig(env());
+ await assert.rejects(runNetworkHostedRevokedOwnerReadOnly(c,stageFetch()),/disabled owner can still read private revisions/);
 });
 test('fixture checks do not allow mutating HTTP requests',async()=>{
  let requests=0;
