@@ -74,9 +74,60 @@ export const NETWORK_LAUNCH_FEATURE_KEYS=[...requiredFlags];
  * All production credentials, eight feature switches and every independent
  * acceptance record must be simultaneously present. No partial activation.
  */
+/**
+ * Staging alone can turn on the entire test-mode journey BEFORE acceptance
+ * artifacts exist. A separate Supabase tenant, Stripe TEST credentials,
+ * noncanonical stage origin, synthetic-only operator authorization and all
+ * user-facing flags are mandatory. Never permit any stage shortcut on prod.
+ */
+export function networkIsolatedStagingArmed(
+ environment:Record<string,string|undefined>,
+):boolean{
+ if(environment.NETWORK_ISOLATED_STAGING!=='true' ||
+    environment.NETWORK_STAGE_QA_APPROVED!=='approved-synthetic-staging-only' ||
+    environment.NETWORK_STRIPE_MODE!=='test' ||
+    environment.NETWORK_STRIPE_TEST_MODE_ENABLED!=='true' ||
+    typeof environment.STRIPE_SECRET_KEY!=='string' ||
+    !environment.STRIPE_SECRET_KEY.startsWith('sk_test_') ||
+    typeof environment.STRIPE_WEBHOOK_SECRET!=='string' ||
+    !environment.STRIPE_WEBHOOK_SECRET.startsWith('whsec_') ||
+    !/^price_[A-Za-z0-9]+$/.test(environment.NETWORK_STRIPE_TEST_PRICE_ID||'') ||
+    environment.NETWORK_STRIPE_TEST_PRICE_ID==='price_1UP28XLtRurj6GMNwFlYDW6N' ||
+    !requiredFlags.filter(f=>f!=='NETWORK_LAUNCH_ATOMIC_VERIFIED')
+      .every(f=>environment[f]==='true') ||
+    environment.NETWORK_GRAPH_MAILBOX!=='admin@texasdefined.com' ||
+    !uuid.test(environment.NETWORK_GRAPH_CLIENT_ID||'') ||
+    !uuid.test(environment.NETWORK_GRAPH_TENANT_ID||'') ||
+    typeof environment.NETWORK_GRAPH_CLIENT_SECRET!=='string' ||
+    environment.NETWORK_GRAPH_CLIENT_SECRET.length<24)
+   return false;
+ let db:URL,origin:URL;
+ try{
+  db=new URL(environment.SUPABASE_URL||'');
+  origin=new URL(environment.NETWORK_STAGE_ORIGIN||'');
+ }catch{return false;}
+ const production='ftkznprjljkhymknvhye.supabase.co';
+ return db.protocol==='https:' &&
+    db.hostname.endsWith('.supabase.co') &&
+    db.hostname!==production &&
+    /^[a-z0-9-]{15,35}\.supabase\.co$/.test(db.hostname) &&
+    origin.protocol==='https:' &&
+    origin.hostname!=='texasdefined.com' &&
+    origin.hostname!=='www.texasdefined.com' &&
+    !origin.hostname.endsWith('.texasdefined.com') &&
+    origin.hostname.endsWith('.workers.dev') &&
+    origin.pathname==='/' && !origin.search && !origin.hash &&
+    !origin.username && !origin.password &&
+    typeof environment.SUPABASE_SERVICE_ROLE_KEY==='string' &&
+    environment.SUPABASE_SERVICE_ROLE_KEY.length>75 &&
+    typeof environment.NETWORK_ADMIN_ACCESS_KEY==='string' &&
+    environment.NETWORK_ADMIN_ACCESS_KEY.length>=32;
+}
 export function networkCustomerLaunchArmed(
  environment:Record<string,string|undefined>,
 ):boolean{
+ if(environment.NETWORK_ISOLATED_STAGING==='true')
+  return networkIsolatedStagingArmed(environment);
  const raw=environment.NETWORK_LAUNCH_EVIDENCE_JSON;
  if(typeof raw!=='string'||raw.length<100||raw.length>5_000)return false;
  let evidence:unknown;
