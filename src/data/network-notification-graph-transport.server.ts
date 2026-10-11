@@ -19,6 +19,7 @@ export function prepareNetworkGraphHttpRequest(plan: NetworkGraphClaimPlan): {
 } {
   if (!plan || typeof plan !== 'object' ||
     plan.sender !== NETWORK_NOTIFICATION_SENDER ||
+    typeof plan.id!=='string'|| !/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(plan.id) ||
     typeof plan.recipient !== 'string' ||
     plan.recipient.length>254 || !boundedEmail.test(plan.recipient) ||
     /[\x00-\x1f\x7f]/.test(plan.recipient)) throw Error('Graph claim envelope invalid');
@@ -45,7 +46,12 @@ export function prepareNetworkGraphHttpRequest(plan: NetworkGraphClaimPlan): {
       msg.message.subject.length>260 ||
       /[\r\n\x00-\x1f\x7f]/.test(msg.message.subject))
     throw Error('Graph claim envelope invalid');
-  const body=JSON.stringify(msg);
+  // A single server-owned immutable correlation header links 202 acceptance to
+  // independent Sent Items evidence; the client cannot supply any headers.
+  // Microsoft Graph v1.0 supports x- custom internetMessageHeaders in sendMail.
+  const body=JSON.stringify({...msg,message:{...msg.message,
+    internetMessageHeaders:[{name:'x-texasdefined-notification-id',value:plan.id}],
+  }});
   // Restrict an unusually large malformed or attacker-enriched mail payload
   // before allocating a provider request.
   if (new TextEncoder().encode(body).byteLength>16_384)
