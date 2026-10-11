@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
@@ -133,7 +134,7 @@ export const Route = createFileRoute("/destination/davis-hill-state-park")({
 });
 
 const citationClass = "font-semibold text-primary underline underline-offset-4 hover:text-foreground";
-function OfficialLink({ href, children }: { href: string; children: React.ReactNode }) {
+function OfficialLink({ href, children }: { href: string; children: ReactNode }) {
   return <a className={citationClass} href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
 }
 
