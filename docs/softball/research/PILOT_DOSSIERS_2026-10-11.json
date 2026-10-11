@@ -3,7 +3,7 @@
   "lastReviewed": "2026-10-11",
   "season": "2026-27",
   "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
-  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year.",
   "publicationAuthorization": false,
   "pilotSchools": [
     {
@@ -134,6 +134,13 @@
           "title": "Shiner Comanche sports independently maintained 2001–02 team archives",
           "url": "https://shinercomanchesports.com/shs2002.htm",
           "kind": "independent-community-archive",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-softball-staff",
+          "title": "Shiner ISD current athletics softball staff page",
+          "url": "https://www.shinerisd.net/athletics/softball",
+          "kind": "official-school",
           "checkedAt": "2026-10-11"
         }
       ],
@@ -268,6 +275,14 @@
             "shiner-2002-community",
             "uil-2002-final"
           ]
+        },
+        {
+          "claim": "The Shiner ISD athletics softball page currently names Jason Keller with Anastacia Rehak, Patrick Walker and Kailey Moeller in its Lady Comanche program coaching group, consistent with the 2025–26 UIL tournament submission; this is a present website listing checked October 11, 2026, not a dated 2027 appointment letter.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-softball-staff",
+            "uil-state-2026"
+          ]
         }
       ],
       "gaps": [
@@ -288,6 +303,18 @@
           "school-softball"
         ],
         "notes": "Searches of Shiner ISD softball athletics page and historic school sports archive have not established a current 2027 field address, public ingress, ticket policy or ADA routes. No placeholders or borrowed fields permitted."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": "Jason Keller",
+        "listedSupportStaff": [
+          "Anastacia Rehak",
+          "Patrick Walker",
+          "Kailey Moeller"
+        ],
+        "schoolStaffPageSourceId": "school-current-softball-staff",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Official school current softball page lists all four, but it does not label them as the confirmed future Spring 2027 competition staff."
       }
     },
     {
@@ -384,6 +411,13 @@
           "url": "https://www.uiltexas.org/press-releases/detail/2025-uil-softball-state-all-tournament-teams",
           "kind": "official-uil",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-current-faculty",
+          "title": "Ganado High official staff directory with James Harp and Shauna Hazlewood",
+          "url": "https://ghs.ganadoisd.org/facultystaff-directory1",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -467,6 +501,14 @@
             "uil-2025-all-tournament",
             "uil-champions"
           ]
+        },
+        {
+          "claim": "Ganado High's current faculty directory includes James Harp and Shauna Hazlewood as faculty and Joshua Ervin as athletics director. The 2025–26 UIL softball state-team sheet separately identifies James Harp as head coach and Shauna Hazlewood as an assistant, but the newer directory does not independently label either person as a 2027 softball coach.",
+          "season": "2026-27",
+          "sourceIds": [
+            "ganado-current-faculty",
+            "uil-state-2026"
+          ]
         }
       ],
       "gaps": [
@@ -487,6 +529,14 @@
           "ganado-school-calendar"
         ],
         "notes": "2025–26 official Ganado High calendar calls this venue 'Ganado Softball Field' on home varsity and JV games. Exact parcel/entrance address, current 2027 event confirmation, accessibility and ticket policies remain unverified."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": null,
+        "listedSupportStaff": [],
+        "schoolStaffPageSourceId": "ganado-current-faculty",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "2026 UIL lists James Harp as historic head coach, school faculty directory lists him as English faculty now but without softball assignment; do not infer the 2027 varsity head coach. Athletic director shown as Joshua Ervin."
       }
     },
     {
@@ -569,6 +619,20 @@
           "url": "https://www.katyisd.org/cms/lib/TX50010808/Centricity/Domain/3801/AEC%202-10-25%20-%202-15-25.pdf",
           "kind": "official-school",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-athletics-coaches",
+          "title": "Katy High athletics current sport-by-sport coach directory",
+          "url": "https://khs.katyisd.org/athletics/directory",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-coach-identity",
+          "title": "Katy High staff directory listing Megan Vanetta as Softball Head Coach",
+          "url": "https://khs.katyisd.org/our-campus/directory?const_page=3",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -644,6 +708,23 @@
           "sourceIds": [
             "uil-2026-all-tournament"
           ]
+        },
+        {
+          "claim": "The Katy High School current athletics coaches directory identifies softball coach Megan Vanetta, while the separate faculty listing gives Megan Vanetta with a 'Science / Softball Head Coach' title. UIL's 2025–26 tournament sheet spells the previous season's head coach Meghan Brown VanEtta. Current school display spelling has priority for a present-tense school role, with the UIL archival form preserved only where discussing 2025–26.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-athletics-coaches",
+            "school-current-coach-identity",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "Katy High's athletics directory identifies Judy Whillock as assistant athletic coordinator; the 2025–26 UIL tournament sheet lists her among softball assistants, but those are separately defined roles and do not alone establish her spring 2027 varsity-softball appointment.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-athletics-coaches",
+            "uil-team-2026"
+          ]
         }
       ],
       "conflicts": [
@@ -670,6 +751,17 @@
           "school-contact"
         ],
         "notes": "Katy ISD official event schedule confirms the school-used name KHS-Softball Field in February 2025. Official campus contact provides 6331 Highway Blvd but does not document a specific softball field parcel/entrance, accessible seating or current 2027 policies."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": "Megan Vanetta",
+        "listedSupportStaff": [
+          "Judy Whillock — current Assistant Athletic Coordinator; 2025–26 UIL historical softball assistant",
+          "Brian Schmitt — 2025–26 historical UIL softball assistant"
+        ],
+        "schoolStaffPageSourceId": "school-current-athletics-coaches",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Current school has Megan Vanetta, while UIL 2026 historical team sheet calls coach Meghan Brown VanEtta; respect variant and verify school preferred presentation. 2027 full softball assistant appointments unavailable."
       }
     },
     {
@@ -766,6 +858,13 @@
           "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
           "kind": "official-uil",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "school-current-staff",
+          "title": "Pearland High official women's softball current coaching roles",
+          "url": "https://phs.pearlandisd.org/athletics-phs/womens/softball",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -857,6 +956,13 @@
           "sourceIds": [
             "uil-2026-all-tournament"
           ]
+        },
+        {
+          "claim": "The Pearland High official women's softball page currently identifies Michele Hyden as head coach, Lori Romero as varsity assistant, Haley Jordan as JV1 assistant and Kaitlin Owens as JV2 assistant; the listing was reviewed October 11, 2026 without assuming each appointment will remain identical for the 2027 competition season.",
+          "season": "2026-27",
+          "sourceIds": [
+            "school-current-staff"
+          ]
         }
       ],
       "conflicts": [
@@ -881,6 +987,18 @@
           "school-general"
         ],
         "notes": "Pearland High confirms school campus 3775 South Main Street and publishes event calendars, but neither source reliably identifies the precise varsity girls softball playing field and entrance as of Oct 2026."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": "Michele Hyden",
+        "listedSupportStaff": [
+          "Lori Romero — Varsity Assistant",
+          "Haley Jordan — JV1 Assistant",
+          "Kaitlin Owens — JV2 Assistant"
+        ],
+        "schoolStaffPageSourceId": "school-current-staff",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Pearland official 2026-10-11 current athletics directory, not a separate spring-2027 roster/appointment statement. Michele spelling corroborated by official coach and coordinator pages."
       }
     },
     {
@@ -942,6 +1060,13 @@
           "url": "https://www.maxpreps.com/tx/amarillo/highland-park-hornets/softball/",
           "kind": "third-party-unverified-staff",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "amarillo-official-feed",
+          "title": "Amarillo Highland Park ISD official live feed announcing softball/baseball as newly added school programs",
+          "url": "https://www.hpisd.net/live-feed?page_no=27",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -991,6 +1116,14 @@
             "independent-staff-snapshot",
             "uil-alignment"
           ]
+        },
+        {
+          "claim": "The real Amarillo Highland Park ISD's archived live feed promotes merchandise for its 'two newest programs,' softball and baseball, and records an early softball parent meeting, offering genuine district evidence that the softball program had a comparatively recent school launch; the relative 'almost two years ago' feed labels are insufficient to claim a precise inaugural season or first varsity game.",
+          "season": "2024-25",
+          "sourceIds": [
+            "amarillo-official-feed",
+            "amarillo-school"
+          ]
         }
       ],
       "gaps": [
@@ -1015,6 +1148,14 @@
           "amarillo-school"
         ],
         "notes": "Third-party schedules reference 'Highland Park HS' and Plainview game locations, not an authoritative address for the Amarillo school's home softball diamond. Never substitute Dallas Scots fields."
+      },
+      "coachingResearch": {
+        "schoolWebsiteAsOf": "2026-10-11",
+        "listedHeadCoach": null,
+        "listedSupportStaff": [],
+        "schoolStaffPageSourceId": "amarillo-official-feed",
+        "explicitSpring2027SeasonStaffPublished": false,
+        "notes": "Official Amarillo school live feed confirms softball program activity, not a named current head coach. Third-party E. Martinez initial remains unverified; exclude Dallas Michael Pullen."
       }
     }
   ]
