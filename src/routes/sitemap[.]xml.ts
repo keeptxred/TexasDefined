@@ -60,7 +60,7 @@ export const Route = createFileRoute("/sitemap.xml")({
     handlers: {
       GET: async ({ request }) => {
         const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
-        const networkAccepted=networkCustomerLaunchArmed(process.env);
+        const networkAccepted=networkCustomerLaunchArmed(process.env) && process.env.NETWORK_ISOLATED_STAGING!=='true';
         const edgeCache = getPrimarySitemapEdgeCache();
         let cacheRequest = primarySitemapCacheRequest(request);
         // Separate the cache namespace at the sole approved cutover; a stale
