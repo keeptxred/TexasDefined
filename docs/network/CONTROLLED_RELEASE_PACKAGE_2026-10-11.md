@@ -164,3 +164,35 @@ Account: `acct_1TobIzLtRurj6GMN` (connected **LIVE** context; no TEST account or
 
 The Network billing POST now rejects every Stripe billing-portal session unless the response's object is `billing_portal.session`, its ID has a billing portal session prefix, its `customer` matches the verified owner's exact persisted Stripe customer, its `livemode` matches the trusted runtime, its `return_url` matches that runtime's exact configured origin, and its redirect uses the pinned HTTPS `billing.stripe.com` host. `scripts/data/network-stripe-portal-binding.test.mjs` exercises cross-business, wrong-mode, callback/host spoofing and malformed sessions in the mandatory Merge Gate. This is a **source-level defense**, not evidence that any hosted Stripe portal has been successfully configured.
 
+## FINAL HANDOFF — October 11 read-only hosted preflight, out-of-order registry and approval gates
+
+**Observed current state (not deployment):** Prior unchanged-source certification is exact SHA `26ddc7461fda1041d7faf5f5b3b77caad6ba45a4`, with four successful workflow runs **38159498525 / 38159498580 / 38159498602 / 38159498584**. At recovery PR #4545 was open/draft/mergeable/unmerged, main `fc373557707bed5e1ce8d70ce67f689c107f85ec`, 464 ahead and zero behind. Hosted Supabase still lacks all four pending versions, has 0 Network application/account/revision/listing/outbox/media objects and no branch; hosted owner-revision SELECT policy is missing `access_enabled`. **Security vulnerability remains open**. No private objects/production users were created. No Stripe or Graph delivery was activated.
+
+**Important official-versioning preflight:** Shared hosted migration history has *newer non-Network* versions **20261011043154, 20261011043158, 20261011043223 and 20261011045107**; these interleave with proposed Network **043000, 044000, 045000, 046000** timestamps. Before owner-authorized promotion, compare every host/source migration and do an exact official CLI versioned dry run; require an explicit approved plan for backfilling older unapplied migration versions without touching applied historical files or unrelated site deployments. Reject a migration push that proposes any surprising unrelated SQL. The fourth proposed file needs low-write timing and one-attempt 5-second lock acquisition on global `storage.objects`, full transaction, statement timeout and backup/recovery preparation. A failed lock is a STOP, not a retry loop.
+
+**Provider evidence refreshed:** Only connected Stripe LIVE account `acct_1TobIzLtRurj6GMN`; Plus price `price_1UP28XLtRurj6GMNwFlYDW6N` active USD $19.99 monthly with exclusive tax behavior, parent product inactive; **zero** live portal configurations and **six** existing non-Network webhook endpoints (do not alter). Outlook profile matches `admin@texasdefined.com` but cannot alone establish Graph tenant permission/delivery. Hosted staging, Stripe TEST, true mail delivery and real authenticated browser acceptance remain missing.
+
+### Production release decision matrix (2026-10-11, evidence-conservative)
+
+| Workstream | Source complete | Real integration verified | Production ready | Deployed/active |
+|---|---|---|---|---|
+| Applications / owner access | Yes, disposable checks | Hosted NO | NO | NO (existing SQL schema only) |
+| Supabase RLS / 4 pending migrations | Prepared/tested only | Hosted NO | NO (revocation flaw) | Four NO |
+| Storage / Featured media | Yes, real disposable HTTP | Hosted NO | NO | Old schema only; quota upgrade NO |
+| Stripe / billing | Helpers and synthetic tests | Provider TEST NO | NO | Live Plus inactive; checkout NO |
+| Graph / notifications | Claim planner only; worker missing | Real Graph NO | NO | Delivery NO |
+| Business policies | Draft only | Approval NO | NO | NO |
+| Browser / accessibility | Disposable Chrome PASS | Authenticated hosted NO | NO | Network release NO |
+| Security / monitoring | Partial source and procedures | Hosted incident tests NO | NO | Network monitoring unverified |
+| Public directory / SEO | Prepared, preview noindex | Production rollout NO | NO | Network directory promotion NO |
+| Final merge / release | Draft PR and source CI | End-to-end NO | NO | NO |
+
+**Next owner authorization in ONE packet:**
+(A) Explicitly approve or decline controlled hosted SQL promotion of four migrations (with special Storage low-write window; separate from staging).
+(B) Permit an isolated hosted nonproduction Supabase/staging hostname with two synthetic users and media, subject to separate *confirmed zero cost* or a separately approved amount; supply deployment/secret access without sharing production secrets.
+(C) Connect real Stripe TEST-mode context and provide scoped staging test key, independent price and signed webhook; do not expose secrets in PR/comments/chat.
+(D) Authorize narrowly scoped Graph Mail.Send for `admin@texasdefined.com` plus a separate limited, named set of test recipient messages. Keep production delivery OFF.
+(E) Approve or amend business terms in `PROPOSED_BUSINESS_POLICIES.md`, including Basic, Plus, Featured, tax/refunds/cancellation/licensing/privacy/retention.
+(F) After staging/provider acceptance, **separately** authorize merge, production site deploy, provider live configuration, intake, owners, paid Checkout, email, directory publication and indexing. No approval of (A) automatically approves (F).
+
+**Defect / recovery protocol:** Hosted stage acceptance report must enumerate PASS/FAIL/NOT RUN plus environment, timestamps, redacted provider/SQL evidence and exact tested commit. After a new source change recertify its own exact HEAD; do not borrow successful runs from ancestor. On a failed/ambiguous global Storage lock stop and inspect, never blind-retry. Do not convert migration source preparation into a claim of hosted security remediation. Pending SQL and feature flags remain OFF until explicitly authorized and verified.
