@@ -6,12 +6,26 @@ const row={id:a,claim_token:'22222222-2222-4222-8222-222222222222',
  event_key:'notice:'+a,event_type:'application_received',recipient_email:'owner@example.invalid',
  payload:{business_name:'Test Business'},attempts:1};
 const proof={messageId:'AAMkSENTid1234=',reference:'graph-sentitems-header-match/'+a+'/AAMkSENTid1234='};
-const env={};
-for(const flag of ['NETWORK_INTAKE_ENABLED','NETWORK_OWNER_PORTAL_ENABLED','NETWORK_PUBLICATION_ENABLED',
- 'NETWORK_DIRECTORY_ENABLED','NETWORK_CHECKOUT_ENABLED','NETWORK_EMAIL_DELIVERY_ENABLED',
- 'NETWORK_GRAPH_DISPATCH_ENABLED','NETWORK_CRON_ENABLED'])env[flag]='true';
-env.NETWORK_LAUNCH_ATOMIC_VERIFIED='true';
-env.NETWORK_GRAPH_MAILBOX='admin@texasdefined.com';
+import {NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS} from '../../src/data/network-atomic-launch-readiness.server.ts';
+const env={
+ SUPABASE_URL:'https://ftkznprjljkhymknvhye.supabase.co',
+ SUPABASE_SERVICE_ROLE_KEY:'synthetic-not-secret-'+'x'.repeat(90),
+ NETWORK_ADMIN_ACCESS_KEY:'synthetic-admin-'+ 'x'.repeat(36),
+ STRIPE_SECRET_KEY:'sk_live_SYNTHETIC_'+ 'x'.repeat(70),
+ STRIPE_WEBHOOK_SECRET:'whsec_SYNTHETIC_'+ 'x'.repeat(70),
+ NETWORK_GRAPH_TENANT_ID:a,
+ NETWORK_GRAPH_CLIENT_ID:'22222222-2222-4222-8222-222222222222',
+ NETWORK_GRAPH_CLIENT_SECRET:'synthetic-client-'+'x'.repeat(40),
+ NETWORK_GRAPH_MAILBOX:'admin@texasdefined.com',
+ NETWORK_LAUNCH_ATOMIC_VERIFIED:'true',
+};
+for(const flag of NETWORK_LAUNCH_FEATURE_KEYS)env[flag]='true';
+const proofs={};
+for(const key of NETWORK_LAUNCH_EVIDENCE_KEYS)proofs[key]={
+ passed:true,reference:'synthetic-test-only/'+key+'/mock-evidence',
+ completedAt:'2026-10-11T18:00:00Z',
+};
+env.NETWORK_LAUNCH_EVIDENCE_JSON=JSON.stringify(proofs);
 test('cron cannot arm with a single disabled feature or without atomic cutover receipt',()=>{
  assert.equal(networkCronLaunchArmed(env),true);
  for(const name of Object.keys(env)){
