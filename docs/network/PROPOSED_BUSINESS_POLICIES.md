@@ -83,3 +83,25 @@ Data anticipated: contact/business information, owner Auth identity, proof-of-ow
 - [ ] Separately approve Graph test messages, merge, production deployment, payment collection, public directory indexing, and publication.
 
 **Until approved:** all sections remain drafts, no new legal or commercial promise has been made, and the current release decision remains **UNSAFE TO MERGE — NOT READY TO LAUNCH**.
+
+## Sole-owner consolidated commercial decision sheet — proposed defaults ONLY (October 11)
+
+**No box below is approved.** The sole administrator must approve/amend in a single written decision before binding customer copy, enabling paid plans or inviting real businesses. The recommendations are planning defaults, not legal advice.
+
+| Decision | Proposed operational default for owner approval | Open choice / exception |
+|---|---|---|
+| Eligibility | Actual Texas-facing operating business; independently verify Texas service/physical presence and responsible representative | Purely remote/non-Texas merchants and regulated categories require explicit editorial rule |
+| Authority proof | Business registration or authoritative public listing **plus** independent control of official company domain or call to independently published phone; store evidence reference, date and reviewer | Alternate verified method for sole proprietors without registration |
+| Basic | Free, reviewed public core identity, category, city/area and approved contact/website where supported; no placement/traffic guarantee | Confirm exact form fields, limits and permitted photos in deployed UI |
+| Plus | **Proposed** $19.99/month recurring for enhanced reviewed listing and already-supported links/gallery/events/insights where implemented; no ranking or publication guarantee | Confirm included limits/benefits and tax/renewal disclosures with actual UI and live configuration |
+| Featured | **Do not sell until price, benefits and provisioning workflow are specified**; reviewed revisions only, 24 private draft objects max is an operational quota, not commercial promise | Owner must set price, prominence rules, renewal, add/remove benefits and downgrade behavior |
+| Editorial process | Sole owner reviews all submissions, change requests and independent ownership evidence; provide corrections and appeals via admin@texasdefined.com; no fixed response-time SLA | Record rejection/suspension grounds and independent final approval |
+| Intellectual property | Applicants warrant rights to publish submitted photos/logos/text; grant limited listing-use license; investigate documented takedown requests; do not reuse for unrelated ads without permission | Final rights/license, stock-photo permissions, withdrawal and backup handling |
+| Cancellation | **Proposed** cancellation stops auto-renewal at end of current paid billing cycle, with access ending when entitlement ends; no automatic republish upon payment recovery | Choose immediate versus term-end, exceptions for suspension, and accurate portal behavior |
+| Refunds / tax | **Proposed** review erroneous/duplicate charges individually; no promise of automatic prorated refund; disclose correct tax collection per tax advice/configuration before charging | Legal/tax review of sales tax, refunds, disputes and required consumer disclosures |
+| Failed payment | Restrict paid entitlement and public visibility upon ineligibility; owner can resolve through billing support even if dashboard is unavailable | Determine grace period and notice cadence |
+| Retention | Minimum necessary proof, audit, account and media data; preserve legal disputes/appeals; inventory orphaned media read-only first; owner approval before deletion | Approve exact retention periods, backups, deletion requests and incident holds by data class |
+| Messages | Essential transactional account/application/billing notices only when authorized; distinct voluntary consent for marketing | Approve sender, consent language, unsubscribe/support procedure |
+| Discovery | Only editorially approved and separately published listings indexable after launch authorization; private drafts/verification NEVER indexed; label paid promotion | Approve sponsor/featured disclosure and indexing launch timing |
+
+**Owner response required:** Mark each row `APPROVE` / `AMEND: …` / `DEFER`, assign exact Featured price or leave Featured disabled, and confirm whether sole-admin release permissions (SQL, staging, test mail, merge, live billing, indexing) are each individually granted. Absence of a response is **not** approval. Security revocation, hosted provider testing, and legal review remain release blockers regardless of commercial decisions.
