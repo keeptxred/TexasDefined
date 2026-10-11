@@ -30,6 +30,19 @@ export function prepareNetworkGraphHttpRequest(plan: NetworkGraphClaimPlan): {
     msg.message.replyTo[0]?.emailAddress?.address!==NETWORK_NOTIFICATION_SENDER ||
     typeof msg.message.subject!=='string' ||
     typeof msg.message.body?.content!=='string') throw Error('Graph claim envelope invalid');
+  // Refuse fields that could silently add external copies, attachments,
+  // impersonated senders, HTML or provider-specific actions.
+  const fields=(value:Record<string,unknown>,allowed:readonly string[])=>
+    Object.keys(value).every(key=>allowed.includes(key));
+  if (!fields(msg as Record<string,unknown>,['message','saveToSentItems']) ||
+      !fields(msg.message as Record<string,unknown>,['subject','body','toRecipients','replyTo']) ||
+      !fields(msg.message.body as Record<string,unknown>,['contentType','content']) ||
+      msg.message.body.contentType!=='Text' ||
+      !fields(msg.message.toRecipients[0].emailAddress as Record<string,unknown>,['address']) ||
+      !fields(msg.message.replyTo[0].emailAddress as Record<string,unknown>,['address']) ||
+      msg.message.subject.length>260 ||
+      /[\r\n\x00-\x1f\x7f]/.test(msg.message.subject))
+    throw Error('Graph claim envelope invalid');
   const body=JSON.stringify(msg);
   // Restrict an unusually large malformed or attacker-enriched mail payload
   // before allocating a provider request.
