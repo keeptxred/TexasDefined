@@ -5,7 +5,7 @@
  * of mailbox submission only (not final recipient delivery). No automatic
  * retransmission occurs when the proof is not found.
  *
- * Graph app needs Exchange-mailbox-scoped Application Mail.ReadBasic alongside
+ * Graph app needs Exchange-mailbox-scoped Application Mail.ReadBasic.All alongside
  * Application Mail.Send. Never grant unscoped tenant-wide read permissions.
  */
 import type {NetworkGraphClaimPlan} from './network-notification-claim-plan.server.ts';
@@ -26,7 +26,14 @@ export function validateNetworkSentItemsNextLink(raw:unknown):string {
  const expected=new URL(base+'/mailFolders/sentitems/messages');
  if(url.protocol!=='https:'||url.origin!==expected.origin ||
     url.pathname!==expected.pathname||url.username||url.password||
-    url.hash||!url.searchParams.has('$skiptoken'))
+    url.hash ||!(
+      (url.searchParams.has('$skiptoken')&&
+       (url.searchParams.get('$skiptoken')||'').length>0) ||
+      (url.searchParams.has('$skip')&&
+       /^\\d+$/.test(url.searchParams.get('$skip')||'')&&
+       Number(url.searchParams.get('$skip'))>0&&
+       Number(url.searchParams.get('$skip'))<=10_000_000)
+    ))
   throw Error('Network Graph Sent Items pagination invalid');
  return url.toString();
 }
