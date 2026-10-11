@@ -11,7 +11,7 @@ const [schemaMigration, deliveryMigration, indexMigration, server, functions, co
   read('src/data/sports-sponsorship.server.ts'),
   read('src/data/sports-sponsorship.functions.ts'),
   read('src/components/sports/SponsoredSportsPlacement.tsx'),
-  read('src/routes/sports-venues.tsx'),
+  Promise.all([read('src/routes/sports-venues.tsx'), read('src/routes/sports-venues.lazy.tsx')]).then((sources) => sources.join('\n')),
   read('src/routes/sports-venue.$slug.tsx'),
   read('src/routes/sports-venue.jones-att-stadium.tsx'),
   read('src/components/sports/SportsVenueGuidePilotContent.tsx'),
