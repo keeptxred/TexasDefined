@@ -53,6 +53,13 @@ check('dashboard can create account without granting access',dashboard.includes(
 check('only approved application may be published',review.includes("if(app.status!=='approved')"));
 check('republishing preserves previously approved Featured edits',review.includes(".select('slug,plan,is_published')")&&review.includes("currentListing?null:await copyMedia")&&review.includes("finalize_texasdefined_network_publication")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("v_status:='republished'"));
 check('publication fails closed on status persistence',review.includes("finalize_texasdefined_network_publication")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("SET status='published'")&&source('supabase/migrations/20261010230653_network_atomic_listing_publication.sql').includes("FOR UPDATE"));
+check('intake limits ACTUAL streamed bytes before multipart or JSON materialization',
+ apps.includes('readBoundedNetworkIntakeBody(request)')
+ && apps.indexOf('readBoundedNetworkIntakeBody(request)') < apps.indexOf('new Response(boundedBody')
+ && !apps.includes('await request.formData()') && !apps.includes('await request.text()')
+ && source('src/data/network-intake-limits.server.ts').includes('NETWORK_INTAKE_MAX_BYTES=16_000_000')
+ && source('src/data/network-intake-limits.server.ts').includes('total>NETWORK_INTAKE_MAX_BYTES')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-limits.test.mjs'));
 check('intake checks full PNG signature',apps.includes('pngSignature.every'));
 check('public media checks full PNG signature',review.includes('pngHeader.every'));
 check('directory filters published records',directory.includes('.eq("is_published", true)'));
