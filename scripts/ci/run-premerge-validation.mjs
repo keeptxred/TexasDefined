@@ -57,6 +57,8 @@ const prebuildChecks = [
   ['NETWORK/MAIL-SINK', 'Prevent outbound synthetic owner notifications from escaping the staging admin mailbox', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-staging-mail-sink.test.mjs']],
   ['NETWORK/MAIL-RECOVERY', 'Validate private notification recovery evidence, no fake sent and no unconfirmed automatic retry', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-recovery.test.mjs']],
   ['NETWORK/FULL-CUTOVER', 'Assert all customer journeys and reviewed listing sitemaps share one acceptance boundary', 'node', ['--test', 'scripts/data/network-full-cutover-contract.test.mjs']],
+  ['NETWORK/PERFORMANCE', 'Verify truthful Plus and Featured private aggregate reporting', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-profile-metrics.test.mjs']],
+  ['NETWORK/PERFORMANCE', 'Prove edge rate limits, service-only SQL grants, verified owner access and staged schema', 'node', ['--test', 'scripts/data/network-profile-metrics-contract.test.mjs']],
   ['NETWORK/HOSTED-STAGING', 'Verify hosted staging read-only check refuses production and proves two-owner isolation', 'node', ['--test', 'scripts/data/network-hosted-stage-readonly.test.mjs']],
   ['NETWORK/OPERATIONS', 'Verify Network health inventory only executes aggregate SELECT statements', 'node', ['--test', 'scripts/data/network-operations-readonly.test.mjs']],
   ['NETWORK/PUBLIC-INDEX', 'Verify only editorially published profiles are searchable after directory launch', 'node', ['--test', 'scripts/data/network-public-indexing.test.mjs']],
