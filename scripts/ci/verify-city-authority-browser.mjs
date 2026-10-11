@@ -119,6 +119,38 @@ for (const [viewport,width,height] of viewports) {
       // Additional full-page desktop evidence for actual manual editorial review.
       // This file alone does not certify contrast, keyboard order, or aesthetics.
       if (viewport === 'desktop') {
+        // A fullPage screenshot does NOT imply the browser scrolled into
+        // below-the-fold loading="lazy" images. The earlier retained Houston,
+        // Fort Worth and Austin captures had apparently empty hero slots, so
+        // proactively visit every viewport-height before full-page capture.
+        await page.evaluate(async () => {
+          const step = Math.max(500, Math.floor(window.innerHeight * 0.8));
+          for (let y = 0, scans = 0; scans < 100 && y <= document.documentElement.scrollHeight; y += step, scans++) {
+            window.scrollTo({top:y,behavior:'instant'});
+            await new Promise(resolve => setTimeout(resolve, 90));
+          }
+        });
+        await page.waitForFunction(() => [...document.querySelectorAll('main img')].every(img => img.complete), undefined, {timeout:5000}).catch(() => {});
+        row.fullPageImageEvidence = await page.evaluate(() => [...document.querySelectorAll('main img')].map(img => ({
+          src: img.currentSrc || img.src,
+          alt: img.getAttribute('alt'),
+          loading: img.getAttribute('loading'),
+          complete: img.complete,
+          naturalWidth: img.naturalWidth,
+          renderedWidth: Math.round(img.getBoundingClientRect().width),
+          renderedHeight: Math.round(img.getBoundingClientRect().height),
+          status: img.complete && img.naturalWidth > 0 ? 'LOADED' : (img.complete ? 'FAILED' : 'PENDING')
+        })));
+        row.fullPageImageReadiness = {
+          loaded: row.fullPageImageEvidence.filter(img => img.status === 'LOADED').length,
+          failed: row.fullPageImageEvidence.filter(img => img.status === 'FAILED').length,
+          pending: row.fullPageImageEvidence.filter(img => img.status === 'PENDING').length
+        };
+        row.checks.fullPageImageReadiness = row.fullPageImageReadiness.failed === 0 && row.fullPageImageReadiness.pending === 0 ? 'PASS' : 'REVIEW';
+        await page.evaluate(() => window.scrollTo({top:0,behavior:'instant'}));
+        await page.waitForFunction(() => window.scrollY === 0, undefined, {timeout:3000}).catch(() => {});
+        row.fullPageScreenshotScrollY = await page.evaluate(() => window.scrollY);
+        row.checks.fullPageScreenshotTop = row.fullPageScreenshotScrollY === 0 ? 'PASS' : 'FAIL';
         await page.screenshot({path:output+'/'+slug+'-desktop-full.png',fullPage:true,animations:'disabled'});
       }
       row.checks.javascript=row.errors.filter(x=>x.startsWith('JS:')).length?'FAIL':'PASS';
