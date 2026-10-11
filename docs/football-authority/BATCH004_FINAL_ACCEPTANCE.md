@@ -12,6 +12,13 @@
 - All six corrected school pages were each **HTTP 200, desktop PASS and mobile PASS**, including newly added school identity and false-cancellation regression checks. All school-specific county and appropriate city reciprocal links, robots, schema, source links and visible image checks passed.
 - No current-game tickets/parking/ADA policy, blanket editorial accuracy, unlicensed photo rights or complete WCAG conformance is inferred from automated acceptance.
 
+### October 11, 2026 — subsequent production regression and screenshot comparison
+
+- After additional unrelated mainline changes, dedicated [Batch 004 Chrome run #38115116709](https://github.com/keeptxred/TexasDefined/actions/runs/38115116709) completed **SUCCESS** on exact production commit `136dedab3b753bd8ce09b76ec218506ea30e70a2`; [artifact #11692608977](https://github.com/keeptxred/TexasDefined/actions/runs/38115116709/artifacts/11692608977) preserves **72 screenshots plus `report.json`**.
+- Report timestamp **2026-10-11T05:37:49.542Z**: **72/72 passed, 0 failed**, **50/50 school desktop/mobile viewports**, **20/20 county viewports**, **2/2 Austin city viewports**, and **25/25 live sitemap entries**. All school H1s, titles and canonical URLs matched the source-corrected October 10 baseline; no recorded client runtime errors or horizontal overflow in either run.
+- The newest run encountered **one transient mobile navigation timeout at `/county/callahan`**, recorded and successfully retried under the bounded network-retry policy. This is not reported as a clean first-attempt success or as a persistent page defect.
+- Manual contact-sheet review of all 25 school pairs in the preceding evidence artifact showed no obvious **above-the-fold** heading clipping at the tested desktop/mobile widths; Arp and Austin LBJ first-viewport screenshots were also individually inspected at full native resolution. The runner stores **first-viewport screenshots** (`fullPage: false`), so this visual check **does not constitute a full-page, screen-reader, keyboard-navigation or WCAG audit**. Sitewide and county-page source-link-count changes were observed, but no link breakage is established by counts alone.
+
 ### Final individual correction evidence
 
 | School | Correction and new acceptance |
