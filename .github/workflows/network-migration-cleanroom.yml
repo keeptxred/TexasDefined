@@ -10,6 +10,7 @@ on:
       - 'scripts/data/verify-network-migration-replay.mjs'
       - '.github/workflows/network-migration-cleanroom.yml'
       - 'docs/network/IMPLEMENTATION_STATUS.md'
+      - 'docs/network/OWNER_VERIFICATION_RUNBOOK.md'
   workflow_dispatch:
 
 permissions:
