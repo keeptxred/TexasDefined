@@ -304,7 +304,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           if(valid.length>0)uniqueEntries.push({path:"/network/directory"});
           for(const row of valid)uniqueEntries.push({
             path:"/network/business/"+row.slug,
-            lastmod:toDate(row.published_at),
+            lastmod:toDate(row.published_at??undefined),
           });
         }
 
