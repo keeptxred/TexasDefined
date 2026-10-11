@@ -1,0 +1,28 @@
+# Individual UIL Softball School Authority — Complete-at-First-Release Page Engine
+**October 11, 2026 · Owner: TexasDefined · Status: awaiting protected CI acceptance**
+
+## Purpose
+This is the complete page route/template architecture for **every approved, individually researched** school from the 1,192-row 2026–27 UIL softball alignment. It is NOT a generator of 1,192 near-duplicate web pages; nobody should create partial team pages in order to show artificial coverage.
+
+Unlike the old football iteration-by-iteration rebuilds, each team must be **fully researched before its first public deployment**: the 38-topic research audit, all 13 bespoke editorial sections, 18+ individually attributable factual findings, school/campus identity, exact softball district, current/historical coaching role, credible original history, original venue mapping/access, calendar, official policy, championships, alumni, earned licensing and image rights, 6+ high-quality attributable sources across at least 3 hosts, 1,050+ original researched words, editor/owner signoff, page-specific SEO, accessibility and tests. Minimums are not padding targets. There is **no arbitrary per-PR quota** if every page meets the standard.
+
+## How this engine operates
+1. Approved pages exist ONLY in `src/data/softball/published-team-profiles.json`. They must pass `scripts/softball/authority-contract.mjs` including `complete-first-release-audit.mjs`. Until research is complete, the school remains in the 1,192-row directory, NOT as a standalone URL.
+2. A concise `src/data/softball/published-team-index.json` repeats ONLY `slug, uilName, conference, district, region` for each exact approved profile. `scripts/softball/verify-publications.mjs` verifies **bidirectional equality**: no missing profile, no invented extra school route, and no wrong conference/district/campus match. Do not copy entire article data to the client-side directory.
+3. The shared `src/routes/sports.softball.{-$team}.tsx` rejects malformed slugs, rejects unapproved/unknown slugs as true 404, and loads the exact full approved article via a GET TanStack Start server function that only imports `published-team-profiles.json` from the server module. The existing hub, 1,192-school directory, Paris Junior College and Texas Volts remain directly accessible on their original paths.
+4. The shared **lazy** component `src/components/softball/SoftballPublishedTeamAuthorityPage.tsx` renders the complete substantive article: 13 researched topics with original citations, date-labeled factual claims and source library, rights-cleared team photographs, district/region/school, editor/review, visitor planning, corrections, and local links. Strong responsive layout, real anchors, keyboard-accessible links, alt text, accessible breadcrumbs and section navigation.
+5. Each approved route receives **unique SEO metadata**, canonical, article/school/team structured data and cited original documents. Only the approved tiny index adds individual routes to the existing canonical public-sitemap index; the 1,192 source-directory rows do not automatically add 1,192 shallow URLs.
+6. The existing built Worker SSR smoke script reads approved manifest records and verifies every resulting page renders **its own exact title**, not a generic 200/hub. The new `scripts/softball/test-approved-team-engine.mjs` checks non-publishing baseline, lazy server-only article separation and indexing behavior alongside the canonical protected Merge Gate.
+
+## Publishing a genuinely finished team
+- Research the actual school, resolve same-name collisions, exact TEA campus ID/county, UIL softball conference and district, real playing venue address and source-labeled visitor policies.
+- Review primary UIL/school/history documents, current team/varsity staff plus separate historical staff, dated official schedules and championships; write page-specific deep narrative.
+- Secure local rights-cleared media with named creator, independent image permission evidence, alt text, no automatically copied photos of minors or school logos. Where source-backed historical information is unrecorded, cite the search/official record rather than fabricate.
+- Have an accountable editor and owner verify all 38 topics and finish the article before publishing. Add full manifest entry and EXACT matching lean index entry as **one reviewed change set**.
+- Run `npm run softball:authority:validate` then `node scripts/ci/run-premerge-validation.mjs`; inspect every page's links, mobile, keyboard/contrast, canonicals/schema/robots, image rights, live Worker and Cloudflare after deploy. Never evade a failing required gate or raise CSS/JS budgets merely to merge.
+
+## Present public state
+The official 1,192-school UIL directory and its CSV are published. The initial five school dossiers and statewide title/MVP research **are NOT yet finished authority pages** and remain excluded from the published manifest. This engine is designed to support the whole verified program network but must not create public team pages from insufficient research.
+
+## Important privacy/security distinctions
+Only school-administered public roster access sources should be linked, never bulk republish personal details, private phone numbers or recruiting contacts. Official team/school brand photos and logos are NOT automatically licensed. School campus addresses and district offices must not be silently converted into home-field visitor addresses. An archived tournament MVP, historical record or previous year's coaching list must never be promoted as evidence of a current student or present-season coach.
