@@ -115,7 +115,7 @@ function formatMonth(value: string) {
 function formatEventStartTime(value?: string | null): string {
   if (!value) return "";
   const time = value.trim();
-  const match = /^(\\d{1,2}):(\\d{2})(?::\\d{2})?$/.exec(time);
+  const match = /^(\d{1,2}):(\d{2})(?::\d{2})?$/.exec(time);
   if (!match) return time;
   const hour = Number(match[1]);
   const minute = Number(match[2]);
