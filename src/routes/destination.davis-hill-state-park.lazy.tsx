@@ -70,6 +70,32 @@ export const Route = createLazyFileRoute("/destination/davis-hill-state-park")({
   component: DavisHillAuthorityPage,
 });
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://texasdefined.com/destination/davis-hill-state-park#webpage",
+      url: "https://texasdefined.com/destination/davis-hill-state-park",
+      name: "Davis Hill State Natural Area: Access, History & Geology",
+      dateModified: "2026-10-10",
+      citation: sources.map((source) => source.url),
+      author: {
+        "@type": "Organization",
+        name: "Texas Defined Travel & Outdoors Desk",
+        url: "https://texasdefined.com/authors/a-dell",
+      },
+    },
+    {
+      "@type": "Place",
+      name: "Davis Hill State Natural Area",
+      alternateName: "Davis Hill State Park",
+      description: "Future Texas Parks & Wildlife state natural area; no general public visitor access published.",
+      address: { "@type": "PostalAddress", addressLocality: "Liberty County", addressRegion: "TX", addressCountry: "US" },
+    },
+  ],
+};
+
 const citationClass = "font-semibold text-primary underline underline-offset-4 hover:text-foreground";
 function OfficialLink({ href, children }: { href: string; children: ReactNode }) {
   return <a className={citationClass} href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
@@ -78,6 +104,7 @@ function OfficialLink({ href, children }: { href: string; children: ReactNode })
 function DavisHillAuthorityPage() {
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="border-b border-border bg-muted/30 py-10 sm:py-16">
         <Container>
           <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
