@@ -91,13 +91,16 @@ check('billing GET and portal use the same exact case-insensitive confirmed-emai
  && source('src/data/network-owner-email.ts').includes("applicationContact.trim().toLowerCase()===verifiedEmail.trim().toLowerCase()")
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-email.test.mjs'));
 
-check('billing URL pinned to Stripe with bounded provider timeout',
- billing.includes('isNetworkBillingPortalUrl(result.url)')
+check('billing response bound to exact customer, mode and return origin with bounded transport',
+ billing.includes('isExpectedNetworkBillingPortalSession(result,data.stripe_customer_id,runtime)')
  && billing.includes('signal: AbortSignal.timeout(12_000)')
  && billing.includes('return_url: runtime.siteOrigin+"/network/billing"')
+ && source('src/data/network-stripe.server.ts').includes("session.customer===expectedCustomer")
+ && source('src/data/network-stripe.server.ts').includes("session.livemode===runtime.livemode")
  && source('src/data/network-stripe.server.ts').includes("destination.hostname==='billing.stripe.com'")
  && source('src/data/network-stripe.server.ts').includes("destination.username===''")
- && source('src/data/network-stripe.server.ts').includes("destination.hash===''"));
+ && source('src/data/network-stripe.server.ts').includes("destination.hash===''")
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-stripe-portal-binding.test.mjs'));
 check('Stripe Checkout upstream POST is bounded and preserves stable reservation idempotency',
  source('src/data/network-stripe.server.ts').includes('signal:AbortSignal.timeout(12_000)')
  && source('src/data/network-stripe.server.ts').includes("'Idempotency-Key':'network-plus-'")
