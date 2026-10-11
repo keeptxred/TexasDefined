@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {validateNetworkRecoveryDecision,maskNetworkRecoveryRecipient,networkRecoveryResolutions}
  from '../../src/data/network-notification-recovery-policy.ts';
 const id='11111111-1111-4111-8111-111111111111';
@@ -44,8 +45,7 @@ test('invalid ids, evidence and reviewer fields fail closed',()=>{
 test('admin inventory masks recipient local-parts and never exposes claim tokens',()=>{
  assert.equal(maskNetworkRecoveryRecipient('OWNER@EXAMPLE.INVALID'),'o***@example.invalid');
  assert.equal(maskNetworkRecoveryRecipient(null),'[unavailable]');
- const fs=await import('node:fs');
- const source=fs.readFileSync('src/data/network-notification-recovery.server.ts','utf8');
+ const source=readFileSync('src/data/network-notification-recovery.server.ts','utf8');
  assert.match(source,/assertNetworkAdminAccess\(accessKey\)/);
  assert.match(source,/reconcile_texasdefined_network_notification/);
  assert.match(source,/findNetworkGraphSentItemsEvidence/);
