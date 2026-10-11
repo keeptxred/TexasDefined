@@ -109,7 +109,7 @@ def polygon_features(layer, where="1=1"):
     for i in range(0, len(ids), 25):
         options = {"f": "geojson", "objectIds": ",".join(map(str, ids[i:i+25])),
                    "outFields": "*", "returnGeometry": "true", "outSR": 4326}
-         fc, sha = query(layer + "/query", options)
+        fc, sha = query(layer + "/query", options)
         if fc.get("type") != "FeatureCollection":
             raise ValueError("No GeoJSON FeatureCollection returned by " + layer)
         features.extend(fc.get("features", []))
