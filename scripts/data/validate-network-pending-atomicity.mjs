@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs';
 const files=["20261011043000_network_owner_revision_read_revocation.sql","20261011044000_network_sensitive_action_audit.sql","20261011045000_network_notification_manual_recovery.sql","20261011046000_network_featured_storage_atomic_counter.sql"];
 for(const file of files){
  const sql=readFileSync('supabase/pending/'+file,'utf8');
- const lines=sql.split(/\r?\n/).map(x=>x.trim());
+ const lines=sql.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
  if(lines.filter(x=>x==='BEGIN;').length!==1 ||
     lines.filter(x=>x==='COMMIT;').length!==1 || lines.at(-1)!=='COMMIT;')
    throw new Error('Exactly one complete explicit transaction required: '+file);
