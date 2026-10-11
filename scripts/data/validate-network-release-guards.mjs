@@ -31,7 +31,17 @@ check('authorized Plus owner can start checkout only after launch',billing.inclu
 check('billing enforces verified sign-in',billing.includes('email_confirmed_at')&&billing.includes('auth.getUser(token)'));
 check('billing list filters owner bindings',billing.includes('.in("id",ids)')&&billing.includes('.eq("access_enabled", true)'));
 check('billing portal enforces owner binding',billing.includes('.eq("owner_user_id", auth.userId)')&&billing.includes('if (ownerError || !ownerBinding)'));
-check('billing URL pinned to Stripe',billing.includes('destination.hostname !== "billing.stripe.com"')&&billing.includes('return_url: "https://texasdefined.com/network/billing"'));
+check('billing URL pinned to Stripe with bounded provider timeout',
+ billing.includes('isNetworkBillingPortalUrl(result.url)')
+ && billing.includes('signal: AbortSignal.timeout(12_000)')
+ && billing.includes('return_url: "https://texasdefined.com/network/billing"')
+ && source('src/data/network-stripe.server.ts').includes("destination.hostname==='billing.stripe.com'")
+ && source('src/data/network-stripe.server.ts').includes("destination.username===''")
+ && source('src/data/network-stripe.server.ts').includes("destination.hash===''"));
+check('Stripe Checkout upstream POST is bounded and preserves stable reservation idempotency',
+ source('src/data/network-stripe.server.ts').includes('signal:AbortSignal.timeout(12_000)')
+ && source('src/data/network-stripe.server.ts').includes("'Idempotency-Key':'network-plus-'")
+ && source('src/data/network-stripe.server.ts').includes("stripeRequest('/checkout/sessions'"));
 check('webhook verifies signature',webhook.includes('verifyStripeSignature(raw,header)'));
 check('webhook uses the executable-tested signature helper',!webhook.includes('async function signatureValid(')&&webhook.includes('await import("@/data/network-stripe.server")'));
 check('webhook looks up current subscription with bounded and fail-closed Stripe transport',
