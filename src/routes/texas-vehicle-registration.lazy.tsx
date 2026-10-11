@@ -60,6 +60,33 @@ function TexasVehicleRegistrationPage() {
         <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Texas offers general-issue, specialty, personalized, replacement, disabled and military plates. Plate availability, eligibility, character limits and fees can change, so confirm the current transaction with TxDMV before ordering or visiting a county office.</p>
         <div className="mt-5 flex flex-wrap gap-3"><a href="https://www.txdmv.gov/motorists/license-plates" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV plate information</a><Link to="/find-my-dmv" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Find the right Texas office</Link></div>
       </section>
+      <section id="duplicate-titles" aria-labelledby="duplicate-title-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">Lost, damaged or incorrect title</p>
+        <h2 id="duplicate-title-heading" className="mt-2 font-display text-3xl">Replace a lost Texas vehicle title</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">If your Texas certificate of title is lost, stolen, destroyed or damaged, request a certified copy through TxDMV rather than attempting to transfer ownership without the title. A certified copy is different from a new title application or a bonded-title procedure.</p>
+        <ol className="mt-5 max-w-3xl list-decimal space-y-3 pl-5 leading-7">
+          <li>Confirm that the vehicle has a Texas title and identify the recorded owner or lienholder.</li>
+          <li>Use the current TxDMV Application for a Certified Copy of Title (Form VTR-34), following the agency's identity, signature and lienholder instructions.</li>
+          <li>Check the accepted submission methods and current fee before mailing documents or visiting a TxDMV regional service center.</li>
+          <li>If the title information itself is wrong, ask TxDMV about a corrected title; if ownership cannot be established, review bonded-title eligibility rather than using a duplicate-title request.</li>
+        </ol>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a href="https://www.txdmv.gov/motorists/buying-or-selling-a-vehicle/get-a-copy-of-your-title" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">TxDMV certified title copy instructions</a>
+          <a href="https://www.txdmv.gov/" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">TxDMV forms and regional services</a>
+        </div>
+      </section>
+      <section id="disabled-parking" aria-labelledby="disabled-parking-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">Accessible parking</p>
+        <h2 id="disabled-parking-heading" className="mt-2 font-display text-3xl">Texas disabled parking placards and plates</h2>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Texas issues qualifying disabled parking placards and license plates through the TxDMV system and county tax assessor-collector offices. The Application for Persons with Disabilities Parking Placard and/or License Plate (Form VTR-214) explains medical certification and applicant requirements. Eligibility, expiration and renewal rules depend on the credential and circumstances.</p>
+        <ol className="mt-4 max-w-3xl list-decimal space-y-2 pl-5 leading-7">
+          <li>Read the current VTR-214 eligibility criteria and identify whether a placard, plate or both are appropriate.</li>
+          <li>Arrange any required certification by an authorized medical professional using the current form and submission rules.</li>
+          <li>Submit the completed application to the appropriate county tax office and verify current fees, expiration and renewal procedures.</li>
+          <li>Review Texas rules governing who may use the placard or plate and when accessible parking privileges apply.</li>
+        </ol>
+        <a href="https://www.txdmv.gov/motorists/disabled-parking-placards-plates" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV disabled parking information</a>
+      </section>
       <section id="title-transfer" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Buying or selling</p>
         <h2 className="mt-2 font-display text-3xl">Texas vehicle title transfers</h2>
