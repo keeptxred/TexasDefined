@@ -3,8 +3,10 @@ import type { Article } from "../types";
 /**
  * Editorial record backed by first-party operator history, family obituary,
  * county chamber, a 2025 interview with the current keepers and 2026 reporting.
- * A castle-specific hero requires documented image usage rights; the nearby
- * Bellville courthouse is labeled honestly rather than misrepresenting a photo.
+ * The hero is an unaltered photograph by A Yee, IMG_2330 (2013),
+ * used under Creative Commons Attribution 2.0 with an explicit credit.
+ * Original: https://www.flickr.com/photos/57412095@N05/10611367506/
+ * License: https://creativecommons.org/licenses/by/2.0/
  */
 export const newmansCastleBellvilleArticle: Article = {
   id: "guide-newmans-castle-bellville-texas",
@@ -21,11 +23,11 @@ export const newmansCastleBellvilleArticle: Article = {
     travelRegionIds: ["gulf-coast"],
   },
   hero: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/1/14/Austin_county_courthouse.jpg",
-    alt: "Austin County Courthouse in Bellville, the town near Newman's Castle; contextual image, not a photograph of the castle",
-    width: 1588,
-    height: 1133,
-    credit: "Larry D. Moore · Wikimedia Commons · CC BY 4.0 · Bellville contextual image (not Newman's Castle)",
+    src: "https://static.trip101.com/paragraph_media/pictures/002/914/438/large/img_2330-1664867645.jpg?1704354516=",
+    alt: "Newman's Castle outside Bellville, Texas, reflected in the moat, with corner towers and battlements; photograph taken in 2013",
+    width: 1000,
+    height: 667,
+    credit: "A Yee (Arturo Yee) · IMG_2330 · 2013 · CC BY 2.0 · Flickr · https://creativecommons.org/licenses/by/2.0/ · no modifications",
   },
   authorId: "a-marisol",
   publishedAt: "2026-10-11",
@@ -50,6 +52,8 @@ export const newmansCastleBellvilleArticle: Article = {
     { label: "RFD-TV 2026 programming: Texas Country Reporter Newman's Castle segment", url: "https://schedule.rfdcc.com/rfdtv/getschedule/index.html" },
     { label: "Texas Monthly: ownership of Texas Country Reporter", url: "https://projects.texasmonthly.com/media-kit/tcr/" },
     { label: "Texas Co-op Power (January 2011): Mike Newman interview", url: "https://texascooppower.com/king-of-his-own-castle/" },
+    { label: "A Yee original Newman's Castle photo IMG_2330 (2013, CC BY 2.0)", url: "https://www.flickr.com/photos/57412095@N05/10611367506/" },
+    { label: "Creative Commons Attribution 2.0 image license", url: "https://creativecommons.org/licenses/by/2.0/" },
   ],
   internalLinks: [
     { href: "/county/austin", label: "Explore Austin County", description: "Bellville, surrounding communities and the wider Brazos country." },
@@ -121,6 +125,6 @@ export const newmansCastleBellvilleArticle: Article = {
     { type: "heading", text: "Does the tour include lunch?" },
     { type: "paragraph", text: "Do not assume that it does. Some older accounts describe a bakery lunch bundled with the tour, but the current official visit instructions emphasize direct castle check-in and recommend visiting the bakery afterward. Verify inclusions at booking." },
     { type: "heading", text: "Research notes, sources and verification" },
-    { type: "paragraph", text: "TexasDefined fact-checked the 1998 construction start, 2007 move-in and March 2024 death against the castle's official history and the family's obituary. Current visitor instructions were taken from the castle's homepage and cross-checked against the Bellville Chamber of Commerce; operator instructions control when a historical article differs. The relationship between Mike Newman and Chad Welty was corroborated by the obituary and the Weltys' own 2025 interview. Architectural, mechanical and maintenance descriptions were cross-checked with the operator and Chron's June 2026 reporting. The October 2026 television appearance is supported by RFD-TV program listings, but the exact 'October 3 / Episode 16' label could not be independently reconciled with its season-55 listings. We have not independently visited the property, checked a live checkout price, verified ownership records, inspected accessibility or secured a licensed close-up castle photograph." },
+    { type: "paragraph", text: "TexasDefined fact-checked the 1998 construction start, 2007 move-in and March 2024 death against the castle's official history and the family's obituary. Current visitor instructions were taken from the castle's homepage and cross-checked against the Bellville Chamber of Commerce; operator instructions control when a historical article differs. The relationship between Mike Newman and Chad Welty was corroborated by the obituary and the Weltys' own 2025 interview. Architectural, mechanical and maintenance descriptions were cross-checked with the operator and Chron's June 2026 reporting. The October 2026 television appearance is supported by RFD-TV program listings, but the exact 'October 3 / Episode 16' label could not be independently reconciled with its season-55 listings. We have not independently visited the property, checked a live checkout price, verified ownership records, inspected accessibility or commissioned newer first-party photography or inspected the venue in person." },
   ],
 };
