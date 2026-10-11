@@ -94,4 +94,8 @@ const ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sq
 if(!existsSync(ownerIsolationFixture))throw new Error('Missing isolated two-owner RLS fixture');
 execSql(['-f',ownerIsolationFixture],'two-owner RLS and Storage quota rollback fixture');
 console.log('REPLAY OWNER RLS RESULT PASS: simulated cross-owner, unpaid, quota, outsider and anon isolation; transaction rolled back');
+const stripeReconciliationFixture='scripts/data/network-migration-stripe-reconciliation-fixture.sql';
+if(!existsSync(stripeReconciliationFixture))throw new Error('Missing isolated Stripe database lifecycle fixture');
+execSql(['-f',stripeReconciliationFixture],'synthetic Stripe payment and listing lifecycle rollback fixture');
+console.log('REPLAY STRIPE DB RESULT PASS: simulated duplicate, payment failure, delisting, safe recovery and explicit re-publication; transaction rolled back');
 
