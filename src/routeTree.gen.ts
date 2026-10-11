@@ -497,6 +497,7 @@ import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
 import { Route as ApiPublicNetworkStripeWebhookRouteImport } from './routes/api.public.network-stripe-webhook'
+import { Route as ApiPublicNetworkMetricsRouteImport } from './routes/api.public.network-metrics'
 import { Route as ApiPublicNetworkCheckoutRouteImport } from './routes/api.public.network-checkout'
 import { Route as ApiPublicNetworkBillingRouteImport } from './routes/api.public.network-billing'
 import { Route as ApiPublicNetworkApplicationRouteImport } from './routes/api.public.network-application'
@@ -3578,6 +3579,11 @@ const ApiPublicNetworkStripeWebhookRoute =
     path: '/api/public/network-stripe-webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicNetworkMetricsRoute = ApiPublicNetworkMetricsRouteImport.update({
+  id: '/api/public/network-metrics',
+  path: '/api/public/network-metrics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicNetworkCheckoutRoute =
   ApiPublicNetworkCheckoutRouteImport.update({
     id: '/api/public/network-checkout',
@@ -4145,6 +4151,7 @@ export interface FileRoutesByFullPath {
   '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
   '/api/public/network-billing': typeof ApiPublicNetworkBillingRoute
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
+  '/api/public/network-metrics': typeof ApiPublicNetworkMetricsRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
@@ -4651,6 +4658,7 @@ export interface FileRoutesByTo {
   '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
   '/api/public/network-billing': typeof ApiPublicNetworkBillingRoute
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
+  '/api/public/network-metrics': typeof ApiPublicNetworkMetricsRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
@@ -5161,6 +5169,7 @@ export interface FileRoutesById {
   '/api/public/network-application': typeof ApiPublicNetworkApplicationRoute
   '/api/public/network-billing': typeof ApiPublicNetworkBillingRoute
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
+  '/api/public/network-metrics': typeof ApiPublicNetworkMetricsRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
@@ -5672,6 +5681,7 @@ export interface FileRouteTypes {
     | '/api/public/network-application'
     | '/api/public/network-billing'
     | '/api/public/network-checkout'
+    | '/api/public/network-metrics'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
@@ -6178,6 +6188,7 @@ export interface FileRouteTypes {
     | '/api/public/network-application'
     | '/api/public/network-billing'
     | '/api/public/network-checkout'
+    | '/api/public/network-metrics'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
@@ -6687,6 +6698,7 @@ export interface FileRouteTypes {
     | '/api/public/network-application'
     | '/api/public/network-billing'
     | '/api/public/network-checkout'
+    | '/api/public/network-metrics'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
     | '/explore/cavern/$slug'
@@ -7136,6 +7148,7 @@ export interface RootRouteChildren {
   ApiPublicNetworkApplicationRoute: typeof ApiPublicNetworkApplicationRoute
   ApiPublicNetworkBillingRoute: typeof ApiPublicNetworkBillingRoute
   ApiPublicNetworkCheckoutRoute: typeof ApiPublicNetworkCheckoutRoute
+  ApiPublicNetworkMetricsRoute: typeof ApiPublicNetworkMetricsRoute
   ApiPublicNetworkStripeWebhookRoute: typeof ApiPublicNetworkStripeWebhookRoute
   ApiPublicStoreProductsRoute: typeof ApiPublicStoreProductsRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
@@ -10574,6 +10587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicNetworkStripeWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/network-metrics': {
+      id: '/api/public/network-metrics'
+      path: '/api/public/network-metrics'
+      fullPath: '/api/public/network-metrics'
+      preLoaderRoute: typeof ApiPublicNetworkMetricsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/network-checkout': {
       id: '/api/public/network-checkout'
       path: '/api/public/network-checkout'
@@ -11740,6 +11760,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicNetworkApplicationRoute: ApiPublicNetworkApplicationRoute,
   ApiPublicNetworkBillingRoute: ApiPublicNetworkBillingRoute,
   ApiPublicNetworkCheckoutRoute: ApiPublicNetworkCheckoutRoute,
+  ApiPublicNetworkMetricsRoute: ApiPublicNetworkMetricsRoute,
   ApiPublicNetworkStripeWebhookRoute: ApiPublicNetworkStripeWebhookRoute,
   ApiPublicStoreProductsRoute: ApiPublicStoreProductsRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
