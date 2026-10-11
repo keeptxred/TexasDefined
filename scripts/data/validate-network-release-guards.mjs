@@ -38,6 +38,14 @@ check('authorized Plus owner can start checkout only after launch',billing.inclu
 check('billing enforces verified sign-in',billing.includes('email_confirmed_at')&&billing.includes('auth.getUser(token)'));
 check('billing list filters owner bindings',billing.includes('.in("id",ids)')&&billing.includes('.eq("access_enabled", true)'));
 check('billing portal enforces owner binding',billing.includes('.eq("owner_user_id", auth.userId)')&&billing.includes('if (ownerError || !ownerBinding)'));
+check('billing GET and portal use the same exact case-insensitive confirmed-email policy as owner provisioning',
+ billing.includes('matchingNetworkOwnerEmail(item.contact_email,auth.email)')
+ && billing.includes('matchingNetworkOwnerEmail(data.contact_email,auth.email)')
+ && !billing.includes('.eq("contact_email", auth.email)')
+ && !billing.includes('.ilike(')
+ && source('src/data/network-owner-email.ts').includes("applicationContact.trim().toLowerCase()===verifiedEmail.trim().toLowerCase()")
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-email.test.mjs'));
+
 check('billing URL pinned to Stripe with bounded provider timeout',
  billing.includes('isNetworkBillingPortalUrl(result.url)')
  && billing.includes('signal: AbortSignal.timeout(12_000)')
