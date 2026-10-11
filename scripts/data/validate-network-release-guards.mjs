@@ -153,6 +153,15 @@ check('manual notification provider-reconciliation is private, audited and never
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011045000_network_notification_manual_recovery.sql')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-notification-manual-recovery-fixture.sql'));
+check('actual local HTTP PostgREST JWT boundary is independently tested without live customers',
+ source('.github/workflows/network-migration-cleanroom.yml').includes('postgrest/postgrest:v14.14')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-postgrest-http-rls.mjs')
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes("process.env.PGDATABASE!=='network_replay'")
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('Expired JWT accepted')
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('Forged JWT accepted')
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('disabled owner private revisions revoked')
+ && source('scripts/data/verify-network-postgrest-http-rls.mjs').includes('disabled owner draft media revoked')
+ && source('scripts/data/network-postgrest-http-rls-fixture.sql').includes('request.jwt.claims'));
 check('isolated replay executes two-owner and private media RLS fixture with full rollback',
  source('scripts/data/verify-network-migration-replay.mjs').includes("ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql'")
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('SET LOCAL ROLE authenticated;')
