@@ -121,19 +121,6 @@ function destinationSeoTitle(name: string, categoryName: string) {
 
 export const Route = createFileRoute("/destination/$slug")({
   loader: async ({ context, params }) => {
-    if (params.slug === "davis-hill-state-park") {
-      // TPWD conservation site, not yet publicly accessible: resolve without
-      // remote catalog dependency or generic trip/booking recommendations.
-      const { davisHillFallback } = await import("@/data/davis-hill-authority-fallback");
-      return {
-        destination: davisHillFallback,
-        graph: [],
-        categories: [],
-        regions: [],
-        relatedArticles: [],
-        relationshipGroups: [],
-      };
-    }
     let destination = await context.queryClient.ensureQueryData(destinationQuery(params.slug));
     if (!destination) throw notFound();
     if (isTopTexasAttraction(destination.slug)) {
@@ -153,27 +140,13 @@ export const Route = createFileRoute("/destination/$slug")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups } = loaderData;
-    if (destination.slug === "davis-hill-state-park") {
-      const canonicalPath = "/destination/davis-hill-state-park";
-      return {
-        meta: buildMeta(texasDefinedBrand, {
-          title: "Davis Hill State Natural Area: Access, History & Geology",
-          description: destination.summary,
-          canonicalPath,
-          robots: "index, follow, max-image-preview:large",
-          modifiedTime: "2026-10-10",
-        }),
-        links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      };
-    }
-
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
     const isYoungCountyMuseum = destination.slug === "young-county-museum-of-history-and-culture";
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
     const audit = auditDestination(destination);
-    const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
+    const indexable = destination.slug === "davis-hill-state-park" || (audit.readyForIndexing && isPrimaryTripPlannerDestination(destination));
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
