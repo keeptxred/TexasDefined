@@ -52,6 +52,17 @@ CITY_LAYERS = {
 CANDIDATE_LAYERS = {
     "san-antonio": "https://services7.arcgis.com/BUFM2kw4MpxDUJVh/ArcGIS/rest/services/COSA_City_Limits/FeatureServer/0",
 }
+# Some source layers contain ETJ, other cities, or limited-purpose polygons.
+# Restrict the primary geometry explicitly to full-service/full-purpose limits.
+# Limited-purpose polygons are queried separately and never silently promoted.
+CITY_FULL_WHERE = {
+    "houston": "SERVICE_TY = 'FULL'",
+    "austin": "CITY_NAME = 'Austin' AND JURISDICTION_TYPE = 'FULL'",
+}
+CITY_LIMITED_WHERE = {
+    "houston": "SERVICE_TY = 'LIMITED'",
+    "austin": "CITY_NAME = 'Austin' AND JURISDICTION_TYPE = 'LTD'",
+}
 # Reconcile results to published jurisdiction list, not arbitrary city-name county.
 PUBLISHED = {
     "houston": ["Harris", "Fort Bend", "Montgomery"],
@@ -84,7 +95,7 @@ def valid(poly):
         return poly
     return poly.buffer(0)
 
-def polygon_features(layer, where="1=1", envelope=None):
+def polygon_features(layer, where="1=1"):
     meta, meta_sha = query(layer, {"f": "json"})
     if meta.get("geometryType") != "esriGeometryPolygon":
         raise ValueError("Not an official polygon layer: " + layer)
@@ -98,10 +109,7 @@ def polygon_features(layer, where="1=1", envelope=None):
     for i in range(0, len(ids), 25):
         options = {"f": "geojson", "objectIds": ",".join(map(str, ids[i:i+25])),
                    "outFields": "*", "returnGeometry": "true", "outSR": 4326}
-        if envelope:
-            # County bounding-box filtering is done in the county-specific query.
-            pass
-        fc, sha = query(layer + "/query", options)
+         fc, sha = query(layer + "/query", options)
         if fc.get("type") != "FeatureCollection":
             raise ValueError("No GeoJSON FeatureCollection returned by " + layer)
         features.extend(fc.get("features", []))
@@ -110,6 +118,7 @@ def polygon_features(layer, where="1=1", envelope=None):
         raise ValueError(f"Truncated geometry: wanted {len(ids)}, received {len(features)}")
     return features, {"url": layer, "name": meta.get("name"),
                       "id_field": meta.get("objectIdField"), "feature_count": len(features),
+                      "where": where,
                       "metadata_sha256": meta_sha, "geometry_chunk_sha256": raw_shas,
                       "editingInfo": meta.get("editingInfo"),
                       "copyright": meta.get("copyrightText"), "extent": meta.get("extent")}
@@ -145,11 +154,22 @@ def audit_city(city, include_candidates=False):
         report["blocker"] = "Current official city-limits VECTOR polygon endpoint not independently confirmed"
         return report
     try:
-        features, source = polygon_features(source_url)
+        full_where = CITY_FULL_WHERE.get(city, "1=1")
+        features, source = polygon_features(source_url, where=full_where)
         geoms = [valid(shape(f["geometry"])) for f in features if f.get("geometry")]
         if not geoms or any(g.is_empty for g in geoms):
             raise ValueError("Empty municipal geometry")
         municipal = valid(unary_union(geoms))
+        limited_summary = None
+        if city in CITY_LIMITED_WHERE:
+            limited_where = CITY_LIMITED_WHERE[city]
+            limited_features, limited_source = polygon_features(source_url, where=limited_where)
+            limited_geoms = [valid(shape(f["geometry"])) for f in limited_features if f.get("geometry")]
+            limited_geometry = valid(unary_union(limited_geoms)) if limited_geoms else None
+            limited_summary = {"source": limited_source, "where": limited_where,
+                               "feature_count": len(limited_features),
+                               "geometry_area_km2": round(transform(TO_EQUAL_AREA, limited_geometry).area / 1e6, 5) if limited_geometry else 0,
+                               "status": "REVIEW_SEPARATELY_FOR_LIMITED_PURPOSE_COUNTIES"}
         county_rows, county_sha = county_features(municipal.bounds)
         metric_city = valid(transform(TO_EQUAL_AREA, municipal))
         overlaps = []
@@ -164,7 +184,9 @@ def audit_city(city, include_candidates=False):
                                                 else "SLIVER_REVIEW" if km2 > 0 else "NO_AREA")})
         candidates = sorted(row["county"] for row in overlaps if row["classification"] == "SUBSTANTIAL_CANDIDATE")
         expected = sorted(PUBLISHED[city])
-        report.update({"source": source, "county_query_sha256": county_sha,
+        report.update({"source": source, "full_purpose_where": full_where,
+                       "limited_purpose": limited_summary,
+                       "county_query_sha256": county_sha,
                        "municipal_geom_type": municipal.geom_type,
                        "municipal_area_km2": round(metric_city.area / 1e6, 5),
                        "county_intersections": overlaps,
