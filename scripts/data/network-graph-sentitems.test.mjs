@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {prepareNetworkGraphClaim} from '../../src/data/network-notification-claim-plan.server.ts';
-import {findNetworkGraphSentItemsEvidence} from '../../src/data/network-graph-sentitems.server.ts';
+import {findNetworkGraphSentItemsEvidence,validateNetworkSentItemsNextLink} from '../../src/data/network-graph-sentitems.server.ts';
 const id='11111111-1111-4111-8111-111111111111';
 const plan=prepareNetworkGraphClaim({
  id,claim_token:'22222222-2222-4222-8222-222222222222',
@@ -48,4 +48,59 @@ test('provider errors and malformed responses fail without claiming proof',async
  await assert.rejects(findNetworkGraphSentItemsEvidence(plan,token,async()=>({status:200,json:async()=>({value:{}})})),/response invalid/);
  const t=async(url)=>url.includes('mailFolders')?{status:200,json:async()=>({value:[listRow]})}:{status:403};
  await assert.rejects(findNetworkGraphSentItemsEvidence(plan,token,t),/header lookup unavailable/);
+});
+
+test('bounded same-mailbox pagination recovers a verified message beyond the newest page',async()=>{
+ const sent='https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages';
+ const next=sent+'?$skiptoken=SYNTHETIC_PAGE_TWO&$top=60';
+ const seen=[];
+ const read=async(url,request)=>{
+  seen.push(url);
+  assert.equal(request.headers.Authorization,'Bearer '+token);
+  if(url===next)return {status:200,json:async()=>({value:[listRow]})};
+  if(url.includes('/mailFolders/sentitems/messages'))
+   return {status:200,json:async()=>({value:[
+    {...listRow,subject:'irrelevant message'}
+   ],'@odata.nextLink':next})};
+  return {status:200,json:async()=>detail()};
+ };
+ const proof=await findNetworkGraphSentItemsEvidence(plan,token,read);
+ assert.equal(proof.messageId,listRow.id);
+ assert.equal(seen.length,3);
+ assert.equal(seen[1],next);
+});
+test('hostile Graph paging links never receive bearer credentials',async()=>{
+ const prefix='https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages';
+ for(const invalid of [
+  'https://evil.invalid/messages?$skiptoken=t',
+  'https://graph.microsoft.com.evil.invalid/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages?$skiptoken=t',
+  'http://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages?$skiptoken=t',
+  'https://graph.microsoft.com/v1.0/users/other%40example.com/mailFolders/sentitems/messages?$skiptoken=t',
+  'https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/messages?$skiptoken=t',
+  'https://user:pass@graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages?$skiptoken=t',
+  prefix+'?$skiptoken=t#fragment',
+  prefix+'?$top=60',
+ ]){
+  assert.throws(()=>validateNetworkSentItemsNextLink(invalid),/pagination invalid/,invalid);
+  let count=0;
+  const mock=async()=>{
+   count++;
+   return {status:200,json:async()=>({value:[],'@odata.nextLink':invalid})};
+  };
+  await assert.rejects(findNetworkGraphSentItemsEvidence(plan,token,mock),/pagination invalid/);
+  assert.equal(count,1,'must not fetch off-scope URL');
+ }
+});
+test('overlong provider pagination never causes an infinite scan or false sent status',async()=>{
+ const link='https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages?$skiptoken=NEXT';
+ let requests=0;
+ const mock=async()=>{
+  requests++;
+  return {status:200,json:async()=>({
+   value:[{...listRow,subject:'Not this notification'}],
+   '@odata.nextLink':link,
+  })};
+ };
+ await assert.rejects(findNetworkGraphSentItemsEvidence(plan,token,mock),/proof scan incomplete/);
+ assert.equal(requests,4);
 });
