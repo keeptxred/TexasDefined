@@ -29,10 +29,27 @@ export async function reconcileNetworkNotificationRecovery(
  const decision=validateNetworkRecoveryDecision(rawDecision);
  const {data:current,error:lookupError}=await supabaseAdmin
   .from('texasdefined_network_email_outbox')
-  .select('id,status,claim_token').eq('id',decision.id).maybeSingle();
+  .select('id,status,claim_token,event_key,event_type,recipient_email,payload,attempts')
+  .eq('id',decision.id).maybeSingle();
  if(lookupError||!current||!current.claim_token||
     !['sending','suppressed'].includes(current.status))
   throw Error('Notification is no longer eligible for reconciliation');
+ if(decision.resolution==='sent_verified'){
+   // Never trust a manually typed Graph message ID: independently verify the
+   // held outbox row against the actual scoped admin mailbox before granting
+   // even a service-role reconciliation.
+   const {prepareNetworkGraphClaim}=await import('./network-notification-claim-plan.server.ts');
+   const {acquireNetworkGraphAppToken,networkGraphCredentialsFromEnv}=
+     await import('./network-graph-token.server.ts');
+   const {findNetworkGraphSentItemsEvidence}=await import('./network-graph-sentitems.server.ts');
+   const plan=prepareNetworkGraphClaim(current);
+   const credentials=networkGraphCredentialsFromEnv(process.env);
+   const token=await acquireNetworkGraphAppToken(credentials);
+   const matched=await findNetworkGraphSentItemsEvidence(plan,token.accessToken);
+   if(!matched || matched.messageId!==decision.verifiedProviderId ||
+      matched.reference!==decision.evidenceReference)
+     throw Error('Submitted Sent Items evidence cannot be independently verified');
+ }
  const {data,error}=await supabaseAdmin.rpc('reconcile_texasdefined_network_notification',{
   p_id:decision.id,p_claim_token:current.claim_token,
   p_resolution:decision.resolution,
