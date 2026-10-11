@@ -98,6 +98,10 @@ const stripeReconciliationFixture='scripts/data/network-migration-stripe-reconci
 if(!existsSync(stripeReconciliationFixture))throw new Error('Missing isolated Stripe database lifecycle fixture');
 execSql(['-f',stripeReconciliationFixture],'synthetic Stripe payment and listing lifecycle rollback fixture');
 console.log('REPLAY STRIPE DB RESULT PASS: simulated duplicate, payment failure, delisting, safe recovery and explicit re-publication; transaction rolled back');
+const notificationClaimFixture='scripts/data/network-notification-claim-rollback-fixture.sql';
+if(!existsSync(notificationClaimFixture))throw new Error('Missing service-only notification claim rollback fixture');
+execSql(['-f',notificationClaimFixture],'service-only outbox claim, token and terminal acknowledgement rollback fixture');
+console.log('REPLAY OUTBOX CLAIM RESULT PASS: durable claim, wrong-token denial, final ack/failure, replay protection, exhausted-attempt denial; rolled back');
 // This LAST fixture deliberately commits several independent transactions;
 // it is allowed ONLY after the strict ephemeral localhost guard above.
 const committedStripeFixture='scripts/data/network-migration-stripe-committed-deliveries-fixture.sql';

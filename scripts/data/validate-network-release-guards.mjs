@@ -92,6 +92,12 @@ check('Featured 24-file quota is raced across two actual PostgreSQL sessions',
  && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes("draftCount()!=='24'")
  && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes('NETWORK_MIGRATION_REPLAY_ISOLATED')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-concurrent-upload-quota.mjs'));
+check('isolated replay exercises service-only notification claim and token-gated delivery transitions',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("notificationClaimFixture='scripts/data/network-notification-claim-rollback-fixture.sql'")
+ && source('scripts/data/network-notification-claim-rollback-fixture.sql').includes('Wrong token accepted')
+ && source('scripts/data/network-notification-claim-rollback-fixture.sql').includes('Exhausted retry unexpectedly reclaimed')
+ && source('scripts/data/network-notification-claim-rollback-fixture.sql').includes('ROLLBACK;')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('network-notification-claim-rollback-fixture.sql'));
 check('separate committed Stripe delivery fixture verifies durable outbox dedupe and replay isolation',
  source('scripts/data/verify-network-migration-replay.mjs').includes("committedStripeFixture='scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'")
  && source('scripts/data/network-migration-stripe-committed-deliveries-fixture.sql').includes('evt_separate_activation_001')
