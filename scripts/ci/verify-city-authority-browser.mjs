@@ -137,6 +137,39 @@ for (const [viewport,width,height] of viewports) {
         if(row.checks.fullPageImageReadiness==='FAIL')
           console.error('CITY LAZY IMAGE DEFECT',slug,
             JSON.stringify(row.fullPageImageAudit.filter(img=>img.status!=='LOADED')));
+        // A browser can fully decode a below-fold image yet omit it from an
+        // off-viewport fullPage screenshot (deferred paint/content visibility).
+        // Capture each actual rendered image in VIEWPORT after scrolling to it;
+        // this is the relevant evidence for what a reader sees on scroll.
+        row.imageViewportEvidence=[];
+        const imageLocators=page.locator('main img');
+        const imageCount=await imageLocators.count();
+        for(let n=0;n<imageCount;n++){
+          const img=imageLocators.nth(n);
+          try {
+            await img.scrollIntoViewIfNeeded({timeout:10000});
+            await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+            const meta=await img.evaluate(i=>{
+              const rect=i.getBoundingClientRect();
+              const cs=getComputedStyle(i);
+              return {src:i.currentSrc||i.src,alt:i.getAttribute('alt'),
+                complete:i.complete,naturalWidth:i.naturalWidth,naturalHeight:i.naturalHeight,
+                bounds:{x:Math.round(rect.x),y:Math.round(rect.y),width:Math.round(rect.width),height:Math.round(rect.height)},
+                display:cs.display,visibility:cs.visibility,opacity:cs.opacity};
+            });
+            const filename=slug+'-desktop-image-'+String(n+1).padStart(2,'0')+'.png';
+            await img.screenshot({path:output+'/'+filename,animations:'disabled',timeout:20000});
+            row.imageViewportEvidence.push({...meta,filename,status:'CAPTURED'});
+          }catch(error){
+            row.imageViewportEvidence.push({index:n,status:'ERROR',error:String(error).slice(0,350)});
+          }
+        }
+        // Do not accept screenshot capture failures as a complete visual check.
+        row.checks.inViewportImageEvidence=row.imageViewportEvidence.length===imageCount &&
+          row.imageViewportEvidence.every(i=>i.status==='CAPTURED' &&
+            i.complete && i.naturalWidth>0 && i.bounds.width>0 && i.bounds.height>0 &&
+            i.display!=='none' && i.visibility!=='hidden' && Number(i.opacity)>0)
+          ?'PASS':'FAIL';
       }
       // Keyboard QA can auto-scroll the document to a focused anchor. A screenshot
       // of that scroll position misses the page title and is unsuitable as a
