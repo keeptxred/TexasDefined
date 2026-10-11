@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 
 const read = (file) => readFileSync(file, "utf8");
 const route = read("src/routes/destination.davis-hill-state-park.tsx");
+const page = read("src/routes/destination.davis-hill-state-park.lazy.tsx");
 const legacyRoute = read("src/routes/state-park.$slug.tsx");
 const curation = read("src/data/destination-curation-batch12.ts");
 const unavailable = read("src/data/destination-availability.ts");
@@ -16,18 +17,19 @@ contains(route, 'createFileRoute("/destination/davis-hill-state-park")', "canoni
 contains(route, 'canonicalPath: path', "canonical SEO");
 contains(route, 'dateModified: "2026-10-10"', "schema freshness");
 contains(route, "citation: sources.map", "verifiable citations");
-contains(route, "Public access: not open for ordinary visits", "explicit access warning");
-contains(route, 'role="note"', "accessible status notice");
-contains(route, 'to="/county/liberty"', "county link");
-contains(route, 'to="/article/texas-rivers-explained"', "river context link");
-contains(route, 'to="/explore/state-parks"', "state park context link");
-contains(route, 'to="/destination/davis-mountains-state-park"', "name disambiguation");
-contains(route, "not a developed, routinely accessible state park", "unavailable description");
+contains(page, 'createLazyFileRoute("/destination/davis-hill-state-park")', "lazy detailed page");
+contains(page, "Public access: not open for ordinary visits", "explicit access warning");
+contains(page, 'role="note"', "accessible status notice");
+contains(page, 'to="/county/liberty"', "county link");
+contains(page, 'to="/article/texas-rivers-explained"', "river context link");
+contains(page, 'to="/explore/state-parks"', "state park context link");
+contains(page, 'to="/destination/davis-mountains-state-park"', "name disambiguation");
+contains(page, "not a developed, routinely accessible state park", "unavailable description");
 for (const key of ["future-parks", "2022/0324/agenda", "2022/0324/transcripts", "texas-state-parks-on-the-horizon", "wanderlist-future-state-parks", "2025/0821/agenda"]) {
-  contains(route, key, "primary sourcing");
+  contains(page, key, "primary sourcing");
 }
 for (const key of ["DestinationVisitPlanner", "DestinationViatorBooking", "CityPassContextualCallout", "MapPreview", "Book now"]) {
-  excludes(route, key, "unavailable park must not be sold as a visit");
+  excludes(page, key, "unavailable park must not be sold as a visit");
 }
 contains(legacyRoute, 'statusCode: 301', "existing legacy redirect");
 contains(legacyRoute, 'href: ' + String.fromCharCode(96) + '/destination/', "legacy redirect target");
