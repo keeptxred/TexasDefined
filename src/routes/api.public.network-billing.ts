@@ -37,10 +37,10 @@ async function owner(request: Request) {
 export const Route = createFileRoute("/api/public/network-billing")({
   server: { handlers: {
     GET: async ({ request }) => {
-      const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
-      if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       const auth = await owner(request);
       if (!auth) return respond({ error: "Sign in to manage your subscription." }, 401);
+      const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
+      if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       const {data: bindings, error: bindingError} = await auth.client
         .from("texasdefined_network_business_accounts")
         .select("application_id")
@@ -65,13 +65,13 @@ export const Route = createFileRoute("/api/public/network-billing")({
         await discardRejectedNetworkPostBody(request);
         return respond({ error: "Invalid request origin." }, 403);
       }
-      const {getNetworkStripeRuntime,networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
-      if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       const auth = await owner(request);
       if (!auth) {
         await discardRejectedNetworkPostBody(request);
         return respond({ error: "Sign in to manage your subscription." }, 401);
       }
+      const {getNetworkStripeRuntime,networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
+      if(!networkStripeHostAllowed(request))return respond({error:"Billing unavailable for this host."},503);
       // Authenticated billing requests must also honor a real streamed byte limit.
       const {parseBoundedNetworkBillingJson}=await import("@/data/network-billing-json.server");
       const parsed=await parseBoundedNetworkBillingJson(request);
