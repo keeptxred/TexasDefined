@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { editorialImageSrc } from "@/lib/editorial-image-delivery";
@@ -151,6 +152,15 @@ function StateFairLivePanel() {
 }
 
 export function StateFairPlanningStrip() {
+  // RootShell may commit before this lazy route hydrates. Make DOM-owned
+  // affiliate integrations wait until the State Fair slot itself is mounted.
+  useEffect(() => {
+    document.documentElement.dataset.tdStateFairHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:state-fair-hydrated"));
+    return () => {
+      delete document.documentElement.dataset.tdStateFairHydrated;
+    };
+  }, []);
   const fairFinished = Date.now() >= Date.parse("2026-10-19T00:00:00-05:00");
   return (
     <>

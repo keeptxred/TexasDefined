@@ -3,6 +3,8 @@ import path from 'node:path';
 
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const bootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+const stateFairGuide = fs.readFileSync('src/components/editorial/StateFairGuideEnhancements.tsx', 'utf8');
+const stayOptions = fs.readFileSync('public/stay-affiliate-options.js', 'utf8');
 const contextImages = fs.readFileSync('public/stay-nearby-context-images.js', 'utf8');
 const venueRoute = fs.readFileSync('src/routes/sports-venue.$slug.tsx', 'utf8');
 const registry = JSON.parse(fs.readFileSync('public/stay-nearby-hotels.json', 'utf8'));
@@ -74,6 +76,12 @@ if (!root.includes('if (import.meta.env.SSR)')) {
   ]) requireText(rootShell, '<script src="' + script + '" defer />', 'unified RootShell hydration-safe bootstrap');
 }
 requireText(root, '<script src="/expedia-travel.js" defer />', 'root bootstrap reference');
+requireText(stateFairGuide, 'tdStateFairHydrated = "1"', 'State Fair lazy slot mount');
+requireText(stateFairGuide, 'texasdefined:state-fair-hydrated', 'State Fair lazy hydration notification');
+requireText(bootstrap, 'if (stateFairSlotPending()) return;', 'Expedia State Fair React hydration gate');
+requireText(bootstrap, 'texasdefined:state-fair-hydrated', 'Expedia deferred State Fair sync');
+requireText(stayOptions, 'tdStateFairHydrated !== "1"', 'stay-options State Fair React hydration gate');
+requireText(stayOptions, 'texasdefined:state-fair-hydrated', 'stay-options State Fair refresh');
 requireText(root, '<script src="/stay-nearby-context-images.js" defer />', 'Stay Nearby image bootstrap reference');
 
 for (const [needle, label] of [
