@@ -48,6 +48,9 @@ test('admin inventory masks recipient local-parts and never exposes claim tokens
  const source=fs.readFileSync('src/data/network-notification-recovery.server.ts','utf8');
  assert.match(source,/assertNetworkAdminAccess\(accessKey\)/);
  assert.match(source,/reconcile_texasdefined_network_notification/);
+ assert.match(source,/findNetworkGraphSentItemsEvidence/);
+ assert.match(source,/acquireNetworkGraphAppToken/);
+ assert.match(source,/matched.messageId!==decision.verifiedProviderId/);
  assert.match(source,/\.select\('id,event_type,recipient_email,status,attempts,claimed_at,created_at,error_code'\)/);
  assert.doesNotMatch(source,/sendMail|submitNetworkGraphHttpRequest/);
 });
