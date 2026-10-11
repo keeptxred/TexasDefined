@@ -1,4 +1,4 @@
-// Snapshot of applied Network migrations read from supabase_migrations.schema_migrations
+// Snapshot of all applied Network-related migrations read from supabase_migrations.schema_migrations
 // for shared project ftkznprjljkhymknvhye on October 10, 2026.
 // Static on purpose: CI cannot use privileged production Supabase credentials.
 // Add future applied migrations to the manifest and keep the checked-in history complete.
@@ -13,6 +13,7 @@ const applied=[
   "20261010180309_create_texasdefined_network_stripe_event_idempotency_ledger.sql",
   "20261010180719_create_texasdefined_network_governed_public_listing_profiles.sql",
   "20261010180743_add_governed_network_published_media_bucket.sql",
+  "20261010181405_add_featured_owner_bound_private_media_upload_policies.sql",
   "20261010183442_harden_texasdefined_network_featured_authorization.sql",
   "20261010205801_network_owner_plus_tier_guard.sql",
   "20261010211826_atomic_texasdefined_network_stripe_reconciliation.sql",
