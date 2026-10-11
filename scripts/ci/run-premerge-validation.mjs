@@ -54,6 +54,7 @@ const prebuildChecks = [
   ['NETWORK/GRAPH-AUTH', 'Validate app-only Graph OAuth with fixed tenant and default scope', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-graph-token.test.mjs']],
   ['NETWORK/GRAPH-PROOF', 'Require exact Sent Items header proof before notice reconciliation', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-graph-sentitems.test.mjs']],
   ['NETWORK/MAIL-CRON', 'Verify single-cutover Cron, idempotent claims and no blind resend', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-cron.test.mjs']],
+  ['NETWORK/FULL-CUTOVER', 'Assert all customer journeys and reviewed listing sitemaps share one acceptance boundary', 'node', ['--test', 'scripts/data/network-full-cutover-contract.test.mjs']],
   ['NETWORK/HOSTED-STAGING', 'Verify hosted staging read-only check refuses production and proves two-owner isolation', 'node', ['--test', 'scripts/data/network-hosted-stage-readonly.test.mjs']],
   ['NETWORK/OPERATIONS', 'Verify Network health inventory only executes aggregate SELECT statements', 'node', ['--test', 'scripts/data/network-operations-readonly.test.mjs']],
   ['NETWORK/PUBLIC-INDEX', 'Verify only editorially published profiles are searchable after directory launch', 'node', ['--test', 'scripts/data/network-public-indexing.test.mjs']],
