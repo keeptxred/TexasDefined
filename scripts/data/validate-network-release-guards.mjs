@@ -152,6 +152,10 @@ check('intake limits ACTUAL streamed bytes before multipart or JSON materializat
 check('atomic Storage quota enforces 24 even for concurrent real API HTTP requests and service-role bypass',
  source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('ON CONFLICT(business_account_id) DO UPDATE')
  && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('WHERE usage.object_count<24')
+ && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('network_featured_usage_after_insert AFTER INSERT ON storage.objects')
+ && source('scripts/data/network-featured-atomic-quota-fixture.sql').includes('ON CONFLICT(bucket_id,name) DO NOTHING')
+ && source('scripts/data/network-featured-atomic-quota-fixture.sql').includes('ON CONFLICT(bucket_id,name) DO UPDATE SET name=EXCLUDED.name')
+ && source('scripts/data/network-featured-atomic-quota-fixture.sql').includes('Quota counter diverged after duplicate insert/upsert')
  && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('AFTER DELETE ON storage.objects')
  && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('BEFORE UPDATE OF name,bucket_id')
  && source('scripts/data/verify-network-migration-replay.mjs').includes("pendingAtomicQuota='supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql'")
