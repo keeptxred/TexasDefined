@@ -38,11 +38,19 @@ for (const [needle, label] of [
 
 for (const [needle, label] of [
   ['trackAffiliateClick', 'CityPASS click tracking'],
-  ['data-affiliate-partner="citypass"', 'CityPASS partner metadata'],
-  ['data-commercial-partner="citypass"', 'CityPASS commercial metadata'],
   ['module: "citypass"', 'CityPASS module attribution'],
   ['sponsored nofollow noopener noreferrer', 'CityPASS relationship attributes'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying CityPASS® purchases', 'CityPASS disclosure'],
+]) requireText(citypass, needle, label);
+
+// This connection is paused while its three approved 7eer tracking redirects
+// consistently return HTTP 404. Direct official links MUST NOT claim commission
+// or emit affiliate analytics, even though historical approved IDs are retained.
+for (const [needle, label] of [
+  ['CITYPASS_AFFILIATE_LINKS_ENABLED ? "citypass" : undefined', 'Conditional CityPASS partner/commercial metadata'],
+  ['CITYPASS_AFFILIATE_LINKS_ENABLED ? () => trackAffiliateClick(', 'Conditional CityPASS click analytics'],
+  ['CITYPASS_AFFILIATE_LINKS_ENABLED ? "sponsored nofollow noopener noreferrer" : "noopener noreferrer"', 'Conditional CityPASS sponsored link relationship'],
+  ['does not earn an affiliate commission from this fallback link', 'Truthful fallback disclosure'],
 ]) requireText(citypass, needle, label);
 
 for (const [source, prefix] of [[destinationViator, 'destination Viator'], [statewideViator, 'statewide Viator']]) {
