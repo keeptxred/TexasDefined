@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { matchingNetworkOwnerEmail } from "@/data/network-owner-email";
 
 const respond = (data: unknown, status = 200) => Response.json(data, {
   status, headers: { "cache-control": "no-store" },
@@ -48,10 +49,10 @@ export const Route = createFileRoute("/api/public/network-billing")({
       const ids=(bindings||[]).map(binding=>binding.application_id);
       if (!ids.length) return respond({ok:true,memberships:[],checkoutAvailable});
       const { data, error } = await auth.client.from("texasdefined_network_applications")
-        .select("id,business_name,plan,status,paid_entitlement_active,stripe_customer_id,stripe_subscription_id")
-        .in("id",ids).eq("contact_email", auth.email).eq("plan", "plus").order("created_at", { ascending: false });
+        .select("id,business_name,plan,status,paid_entitlement_active,stripe_customer_id,stripe_subscription_id,contact_email")
+        .in("id",ids).eq("plan", "plus").order("created_at", { ascending: false });
       if (error) return respond({ error: "Unable to load subscriptions." }, 503);
-      return respond({ ok: true, checkoutAvailable, memberships: (data || []).map(item => ({
+      return respond({ ok: true, checkoutAvailable, memberships: (data || []).filter(item=>matchingNetworkOwnerEmail(item.contact_email,auth.email)).map(item => ({
         id: item.id, name: item.business_name, status: item.status,
         paid: item.paid_entitlement_active, manageable: !!item.stripe_customer_id,
         checkoutEligible: item.status === "approved" && !item.paid_entitlement_active && !item.stripe_subscription_id,
@@ -76,8 +77,9 @@ export const Route = createFileRoute("/api/public/network-billing")({
         ? (value as {applicationId?:unknown}).applicationId : undefined;
       if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id)) return respond({ error: "Invalid subscription." }, 400);
       const { data, error } = await auth.client.from("texasdefined_network_applications")
-        .select("stripe_customer_id").eq("id", id).eq("plan", "plus").eq("contact_email", auth.email).maybeSingle();
-      if (error || !data?.stripe_customer_id) return respond({ error: "No active billing account found." }, 404);
+        .select("stripe_customer_id,contact_email").eq("id", id).eq("plan", "plus").maybeSingle();
+      if (error || !data?.stripe_customer_id || !matchingNetworkOwnerEmail(data.contact_email,auth.email))
+        return respond({ error: "No active billing account found." }, 404);
       // Only a reviewed, enabled owner binding may access the Stripe customer portal.
       const { data: ownerBinding, error: ownerError } = await auth.client
         .from("texasdefined_network_business_accounts")
