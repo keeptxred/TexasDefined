@@ -122,6 +122,27 @@ export default {
     // Cron is not exposed over HTTP; the complete Network release must be
     // explicitly armed before any notification is claimed or sent.
     const run=async()=>{
+      // Reporting maintenance is independent of Microsoft Graph. No failed
+      // mailbox scope or token acquisition may prevent bounded expiration of
+      // 35-day private business counter history.
+      const scopedEnv=env as Record<string,string|undefined>;
+      const {networkCustomerLaunchArmed}=await import("./data/network-atomic-launch-readiness.server");
+      if(networkCustomerLaunchArmed(scopedEnv)){
+        try{
+          const {supabaseAdmin}=await import("./integrations/supabase/client.server");
+          const db=supabaseAdmin as unknown as {rpc:(name:string)=>
+            Promise<{data:unknown;error:unknown}>};
+          const pruning=await db.rpc("prune_texasdefined_network_profile_metrics");
+          if(pruning.error || typeof pruning.data!=="number" ||
+             !Number.isInteger(pruning.data)||pruning.data<0||pruning.data>5000)
+             throw Error("Network aggregate retention RPC failed");
+          if(pruning.data)console.info("[network-cron] expired aggregate metric rows",pruning.data);
+        }catch{
+          // Fail loudly but do NOT hold customer notification reconciliation
+          // hostage to the independent metrics cleanup operation.
+          console.error("[network-cron] private aggregate retention failed; operator verification needed");
+        }
+      }
       const {runNetworkNotificationCronOnWorker}=await import("./data/network-notification-cron.server");
       const result=await runNetworkNotificationCronOnWorker(
         env as Record<string,string|undefined>,
