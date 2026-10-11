@@ -225,7 +225,7 @@ function BillingAdmin(){
             <input name="description" minLength={2} maxLength={500} required className="min-h-11 border border-border bg-background px-3 py-2 font-normal"/>
           </label>
           <label className="grid gap-2 text-sm font-semibold">Unit amount (USD)
-            <input name="unitAmountDollars" type="number" step="0.01" min="-1000000" max="1000000" required className="min-h-11 border border-border bg-background px-3 py-2 font-normal"/>
+            <input name="unitAmountDollars" type="number" step="0.01" min="0.01" max="1000000" required className="min-h-11 border border-border bg-background px-3 py-2 font-normal"/>
           </label>
           <label className="grid gap-2 text-sm font-semibold">Quantity
             <input name="quantity" type="number" min="1" max="1000" defaultValue="1" required className="min-h-11 border border-border bg-background px-3 py-2 font-normal"/>
