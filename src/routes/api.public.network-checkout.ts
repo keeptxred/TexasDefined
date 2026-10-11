@@ -9,9 +9,14 @@ export const Route = createFileRoute("/api/public/network-checkout")({
   server: { handlers: { POST: async ({ request }) => {
     const origin = new URL(request.url).origin;
     if (request.headers.get("origin") !== origin) return reply({ error: "Invalid request origin." }, 403);
-    let body: { applicationId?: string; email?: string };
-    try { body = await request.json(); } catch { return reply({ error: "Invalid request." }, 400); }
-    if (!body || !/^[0-9a-f-]{36}$/i.test(body.applicationId || "")) return reply({ error: "Application not found." }, 400);
+    // Enforce actual streamed bytes before JSON parsing or any database/Stripe work.
+    const {parseBoundedNetworkBillingJson}=await import("@/data/network-billing-json.server");
+    const parsed=await parseBoundedNetworkBillingJson(request);
+    if(!parsed.ok)return reply({error:parsed.status===413?"Request too large.":"Invalid request."},parsed.status);
+    const body=parsed.value as {applicationId?:unknown;email?:unknown}|null;
+    if (!body || typeof body!=="object" || Array.isArray(body) ||
+        typeof body.applicationId!=="string" || !/^[0-9a-f-]{36}$/i.test(body.applicationId))
+      return reply({ error: "Application not found." }, 400);
     // Contact-email knowledge is not proof of business ownership. Require a confirmed sign-in before billing.
     const bearer = request.headers.get("authorization")?.match(/^Bearer ([\w.-]+)$/)?.[1];
     if (!bearer) return reply({ error: "Sign in with your confirmed application email before checkout." }, 401);
