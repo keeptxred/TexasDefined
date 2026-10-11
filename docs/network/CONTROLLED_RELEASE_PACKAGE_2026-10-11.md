@@ -135,3 +135,9 @@ No test key, test price, test webhook endpoint, staging host or isolated hosted 
 
 **Read-only live Stripe check on October 11:** recurring Plus price `price_1UP28XLtRurj6GMNwFlYDW6N` is USD $19.99/month, currency USD, tax behavior exclusive, live price active; its parent product `prod_VPrsZ3mYEKz2da` **is inactive** with prelaunch metadata. Do not activate the live product or checkout until all acceptance and owner decisions pass.
 
+
+## Prelaunch Microsoft Graph claim planner / no-send acceptance
+
+A new pure `prepareNetworkGraphClaim` validates one already-claimed private outbox row, bounds event type, claim token, attempts, business name and recipient, and constructs the approved Office 365 payload from `admin@texasdefined.com`. The `classifyNetworkGraphClaimForOperator` output never authorizes marking an HTTP response delivered or retrying without evidence. The mandatory synthetic tests reject corrupt claims, injections and test network calls; 202, 429, 5xx and crashed/ambiguous responses remain documented manual-resolution cases. **This is not an installed Graph dispatcher, authenticated tenant permission, Sent Items verification, delivered email or operational lease recovery.** Live delivery and staging test mail remain disabled until separately authorized and externally accepted.
+
+Before enabling a real worker: obtain tenant-scoped mailbox-limited Microsoft Graph Mail.Send; confirm no shared/delegated human administrator is required; require a positive sender identity check; install a bounded dedicated claim worker only in an isolated, owner-approved environment; validate redacted logs, claim-token-bound manual reconciliation, no duplicate sends after uncertainty, and accurate Graph accepted-versus-delivered terminology. Do not enable a timer against the shared outbox on the basis of passing pure tests.
