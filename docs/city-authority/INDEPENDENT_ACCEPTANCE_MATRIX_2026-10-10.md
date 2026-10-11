@@ -150,3 +150,13 @@ The new open-source research helper `scripts/data/verify-city-municipal-gis.py` 
 6. **Release:** only reproduce and fix actual site defects in focused guarded PRs; require protected checks and verify exact deployed commit before post-release final acceptance.
 
 **No city is FULLY CERTIFIED on October 10 evidence.** This report is a recoverable worklist, not a substitute for the specified independent checks.
+
+## Additional October 10 independent live-source and imagery recheck
+
+- Independently fetched all eleven live `https://texasdefined.com/city/{slug}` editorial routes through external HTML inspection. Each returned a readable city heading and expected city guide text. This is **HTML availability PASS only**, not a new Chrome QA run or comprehensive interactive test. The city HTML explicitly reflects the Houston Waller ETJ correction.
+- The earlier single WhirlyBall Hurst retrieval timeout was **not reproducible on this recheck**: `https://texasdefined.com/destination/whirlyball-hurst` returned readable editorial HTML and current Hurst venue information. Classify the historical timeout as **transient/unconfirmed**, not a permanent 404.
+- Fort Worth's canonical `https://texasdefined.com/destination/kimbell-art-museum-fort-worth` returned readable live editorial HTML. The obsolete `/destination/kimbell-art-museum` did not yield a usable page in the retrieval tool, but no current destination 404 is claimed without reliable origin response. The Chrome runner's exact canonical-link checks remain the stronger evidence.
+- Compared the exact `hero.src` literals of all eleven `src/data/city-authority-profiles.ts` entries: **11 distinct configured hero URLs (no identical repeated source URLs)**, and every city has a descriptive literal hero `alt`. This is a **static uniqueness check only**, not visual proof of distinct resulting images, relevance, copyright rights, all rendered images or full-page cropping. The existing automated image-load and alt-attribute checks passed at all three viewports.
+- Direct external sitemap.xml retrieval failed in the inspection layer rather than returning a confirmed application HTTP status. **Sitemap inclusion remains UNVERIFIED**, not classified a live sitemap defect. Retry via a production browser/HTTP checker with exact status recorded.
+
+No fact source-review timestamps or final certification statuses were advanced by these scoped observations.
