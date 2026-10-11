@@ -67,8 +67,13 @@ export const Route = createFileRoute("/api/public/network-billing")({
         await discardRejectedNetworkPostBody(request);
         return respond({ error: "Sign in to manage your subscription." }, 401);
       }
-      let id: unknown;
-      try { id = (await request.json()).applicationId; } catch { return respond({ error: "Invalid request." }, 400); }
+      // Authenticated billing requests must also honor a real streamed byte limit.
+      const {parseBoundedNetworkBillingJson}=await import("@/data/network-billing-json.server");
+      const parsed=await parseBoundedNetworkBillingJson(request);
+      if(!parsed.ok)return respond({error:parsed.status===413?"Request too large.":"Invalid request."},parsed.status);
+      const value=parsed.value;
+      const id:unknown=value && typeof value==="object" && !Array.isArray(value)
+        ? (value as {applicationId?:unknown}).applicationId : undefined;
       if (typeof id !== "string" || !/^[0-9a-f-]{36}$/i.test(id)) return respond({ error: "Invalid subscription." }, 400);
       const { data, error } = await auth.client.from("texasdefined_network_applications")
         .select("stripe_customer_id").eq("id", id).eq("plan", "plus").eq("contact_email", auth.email).maybeSingle();
