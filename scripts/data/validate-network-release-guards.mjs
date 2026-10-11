@@ -73,7 +73,15 @@ check('hosted staging read-only acceptance is explicit, synthetic and physically
  && source('scripts/data/network-hosted-stage-readonly.mjs').includes("method='GET'")
  && source('scripts/data/network-hosted-stage-readonly.mjs').includes("requestStage(fetcher,config,user.token")
  && source('scripts/data/network-hosted-stage-readonly.mjs').includes("cross-owner private Storage read not denied")
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("runNetworkHostedRevokedOwnerReadOnly")
+ && source('scripts/data/network-hosted-stage-readonly.mjs').includes("disabled owner can still read private revisions")
  && source('scripts/ci/run-premerge-validation.mjs').includes("network-hosted-stage-readonly.test.mjs"));
+check('Network health diagnostic remains read-only and detects the critical security state',
+ source('scripts/data/network-operations-readonly.sql').includes('owner_revision_revocation_policy_present')
+ && source('scripts/data/network-operations-readonly.sql').includes('paid_listing_entitlement_drift')
+ && source('scripts/data/network-operations-readonly.sql').includes('notification_uncertain_claims')
+ && source('scripts/data/network-operations-readonly.sql').includes('pending_upgrade_versions_applied')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-operations-readonly.test.mjs'));
 
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
  source('src/data/network-stripe-mode.server.ts').includes("database.includes('ftkznprjljkhymknvhye')")
