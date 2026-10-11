@@ -3,7 +3,7 @@
   "lastReviewed": "2026-10-11",
   "season": "2026-27",
   "dataPolicy": "Verified 2026–27 UIL softball district identities and clearly season-labelled 2025–26 historical team evidence. Research-only. No individual pages auto-published or approved by this file.",
-  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected.",
+  "method": "Exact match school name+conference+district+region to official UIL softball PDF. Primary school/UIL records for historical facts. Unresolved areas stay in gaps and must be closed for complete-first-publication acceptance. Current staff cannot be inferred from prior championship rosters. Expanded with primary-source historical UIL finals, official school schedule/current-season caveats, school staff spelling corroboration and known stale postseason notices on October 11, 2026. Every historical claim remains season-labelled and neither roster reprints nor inferred playing-field addresses are approved. October 11 independent primary-source award pass: 2026 UIL TGCA all-tournament groups for four champions, 2025 Shiner/Ganado honors, 2025 Katy district venue naming and official 2026 Ganado calendar venue naming. Venue recognition DOES NOT imply exact field parcel, admission, ADA, parking or current 2027 location. Third-party Amarillo team records explicitly not elevated to official school confirmations. October 11 coach role research: current school athletic websites identify named Shiner, Pearland and Katy softball head coaches as-of verification (not explicit Spring 2027 appointments), Ganado official faculty listings confirm James Harp employment but do not imply current role, and Amarillo school live feed confirms actual softball launch activity without reliable program foundation year. October 11 independent TEA/NCES physical campus crosswalk: Katy HS campus is in Fort Bend County (despite Katy ISD district association with Harris County), Shiner HS is a combined grades 7–12 campus and TEA vs NCES student counts are not identical, and Ganado, Pearland, Amarillo Highland Park each have exact state campus IDs and dated non-UIL enrollments. No student private data collected. Substantive October 11 Amarillo-specific original reportage pass identified contemporaneous May 18, 2024 construction/coach interviews, $6m anticipated fields portion of a $130m bond plan, inaugural head coach Eliza Martinez, historical 2024-25 assistant Mary Lieberknecht from third-party archived schedule and Spring 2025 real game fixture results. All year/venue claims retain evidence level; no implication 2027 coach or 2024 plan's as-built field details. October 11 separate Amarillo-specific May 17, 2024 KFDA/KCBD original news source confirmed historic planned softball complex south of existing football field; distinct hpisd.org Dallas 2024 bond and TDLR softball project are unrelated and excluded. Historical venue renaming found October 11: Katy ISD board video July 27 2026 item 9.11 and independent August 6 press document honoring former coach Kalum Haack by naming Katy High's softball field. Prior 2025 schedule's KHS-Softball Field label is pre-naming, not necessarily the current official visitor-facing name. This change was researched BEFORE first authority page publication.",
   "publicationAuthorization": false,
   "pilotSchools": [
     {
@@ -749,6 +749,27 @@
           "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
           "kind": "official-federal-government",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-2026-board-naming",
+          "title": "Katy ISD original July 27 2026 board meeting recording and agenda item 9.11 official field naming",
+          "url": "https://www.katyisdtx.new.swagit.com/videos/394549",
+          "kind": "official-school-board-video",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-aug2026-field-name-report",
+          "title": "Katy-Fulshear Times August 6 2026 original reporting: board names Katy HS softball field after coach Kalum Haack",
+          "url": "https://katyfulsheartimes.com/articles/katy-isd-board-names-softball-field-after-26-year-coaching-legend-kalum-haack-mshll7fg",
+          "kind": "independent-local-news",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "katy-athletic-hall-2025",
+          "title": "Katy ISD 2025 Athletic Hall of Honor recognizes softball coach Kalum Haack and 2015 softball state champion team",
+          "url": "https://www.katyisd.org/news-details/~board/news-headlines-katy-independent-school-district-100/post/champions-to-allstars-katy-isd-athletic-hall-of-honor-inducts-class-of-2025",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -849,6 +870,32 @@
             "official-campus-students",
             "official-campus-location"
           ]
+        },
+        {
+          "claim": "Katy ISD's official July 27, 2026 board meeting archive lists agenda item 9.11 as consideration of naming a portion of Katy High School. Contemporary August 6 local reporting states trustees unanimously APPROVED naming the high school's SOFTBALL FIELD in honor of retired longtime head coach Kalum Haack. This postdates historical athletic event calendars that simply call it 'KHS-Softball Field'; exact permanent sign wording and field visitor entrance remain unverified.",
+          "season": "2026-27",
+          "sourceIds": [
+            "katy-2026-board-naming",
+            "katy-aug2026-field-name-report",
+            "katy-official-venue-2025"
+          ]
+        },
+        {
+          "claim": "The field honoree Kalum Haack led Katy High's softball program for 26 years, including its 2015 and 2019 state championship seasons, and retired in May 2024, according to Katy-Fulshear Times' August 2026 board-vote account. Katy ISD separately inducted coach Kalum Haack and the school's 2015 state-champion softball team into its 2025 Athletics Hall of Honor, independently corroborating his lasting team legacy.",
+          "season": "2025-26",
+          "sourceIds": [
+            "katy-aug2026-field-name-report",
+            "katy-athletic-hall-2025",
+            "uil-team-2026"
+          ]
+        },
+        {
+          "claim": "The detailed August 2026 Katy-Fulshear Times board-naming report credits retired coach Kalum Haack with more than 850 career wins at Katy High, two state titles in 2015 and 2019, 18 regional semifinal appearances and nine consecutive outright district championships at the end of his tenure. These are attributed historical reporter-compiled totals, not independently audited UIL career stats; seek the school athletics Hall of Honor citation or archival season-by-season evidence before presenting exact aggregate totals as official.",
+          "season": "2023-24",
+          "sourceIds": [
+            "katy-aug2026-field-name-report",
+            "katy-athletic-hall-2025"
+          ]
         }
       ],
       "conflicts": [
@@ -857,7 +904,7 @@
         "Katy city/ISD territory spans county boundaries. Verify actual Katy HS campus county, not the city label, using TEA/official geographic source."
       ],
       "gaps": [
-        "Exact physical entrance, current 2027 use, parking, gate/ticket and accessibility for district-named 'KHS-Softball Field' (not verified by the 6331 Highway Blvd campus address)",
+        "Physical entrance, stadium sign text following July 27, 2026 Kalum Haack field naming, current 2027 use, parking, admission, tickets and ADA seating — not verified from the board vote or campus address",
         "Current 2027 coach verification under consistent official name and varsity assistants",
         "2027 dated school-controlled schedules and public roster source",
         "1990s–2010s program history, full 2007/2015/2019 brackets and award records",
@@ -865,16 +912,18 @@
         "Licensed team-field original images, photography credits and visitor policies"
       ],
       "venueResearch": {
-        "namedField": "KHS-Softball Field",
+        "namedField": "Katy High School softball field named in honor of Kalum Haack by school-board vote July 27, 2026",
         "nameVerified": true,
         "physicalAddressVerified": false,
         "parkingVerified": false,
         "accessibleSeatingVerified": false,
         "sourceIds": [
           "katy-official-venue-2025",
-          "school-contact"
+          "school-contact",
+          "katy-2026-board-naming",
+          "katy-aug2026-field-name-report"
         ],
-        "notes": "Katy ISD official event schedule confirms the school-used name KHS-Softball Field in February 2025. Official campus contact provides 6331 Highway Blvd but does not document a specific softball field parcel/entrance, accessible seating or current 2027 policies."
+        "notes": "Katy ISD official event schedule confirms the school-used name KHS-Softball Field in February 2025. Official campus contact provides 6331 Highway Blvd but does not document a specific softball field parcel/entrance, accessible seating or current 2027 policies. MAJOR POST-2025 NAME UPDATE: The official Katy ISD July 27 2026 meeting agenda contains facility-naming item 9.11, with a detailed August 6 2026 local story reporting unanimous vote to honor longtime coach Kalum Haack at Katy High softball field. The old February 2025 district schedule label 'KHS-Softball Field' predates the naming; exact installed field sign, spectator entry and 2027 calendar still require independent field verification."
       },
       "coachingResearch": {
         "schoolWebsiteAsOf": "2026-10-11",
@@ -1160,7 +1209,7 @@
       "name": "Amarillo Highland Park",
       "slug": "amarillo-highland-park",
       "schoolOperator": "Highland Park Independent School District (Amarillo)",
-      "programStatus": "school-softball-alignment-verified",
+      "programStatus": "inaugural-2025-program-history-researched-not-ready-to-publish",
       "researchReadiness": "NOT READY TO PUBLISH",
       "identity": {
         "conference": "2A",
@@ -1245,6 +1294,34 @@
           "url": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=483556006160",
           "kind": "official-federal-government",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "presspass-may-2024-origin",
+          "title": "Press Pass Sports May 18 2024: Highland Park Amarillo baseball and softball complex groundbreaking, original coaches and quotes",
+          "url": "https://www.presspass.news/2024/05/18/highland-park-isd-breaks-ground-on-new-baseball-softball-complexes/",
+          "kind": "independent-reported-2024-interviews",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "hpark-2025-coach-schedule",
+          "title": "2024–25 Amarillo Highland Park Lady Hornets original-looking girls softball schedule PDF, mirrored by Texas Prep Softball",
+          "url": "https://txprepsoftball.net/images/Schedules/2A-1A/Amarillo_Highland_Park.pdf",
+          "kind": "secondary-mirrored-original-schedule",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "hpark-2025-game-results",
+          "title": "2024–25 Amarillo Highland Park Hornets girls softball historical results archive, opposing school fixture",
+          "url": "https://www.maxpreps.com/games/3-22-2025/softball-25/highland-park-vs-sanford-fritch.htm?c=R8BA9a-3gk-tWNlr0L-c0A",
+          "kind": "secondary-scoreboard",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "kfdanews-groundbreaking-2024",
+          "title": "KFDA/KCBD May 17, 2024 news report pinpoints planned Amarillo Highland Park softball complex south of football field",
+          "url": "https://www.kcbd.com/2024/05/17/highland-park-isd-breaks-ground-new-softball-baseball-complex/",
+          "kind": "independent-local-tv-news",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -1310,19 +1387,73 @@
             "official-campus-students",
             "official-campus-location"
           ]
+        },
+        {
+          "claim": "Independent Amarillo-area reporter Kale Steed documented Highland Park ISD's May 2024 groundbreaking for new baseball and softball complexes under a previously approved $130 million school bond package, reporting approximately $6 million budgeted for those facilities; this is a 2024 construction plan and not proof the final project cost or visitor amenities.",
+          "season": "2023-24",
+          "sourceIds": [
+            "presspass-may-2024-origin"
+          ]
+        },
+        {
+          "claim": "On May 18, 2024, Press Pass Sports quoted Superintendent Jimmy Hannon and Athletic Director Ty Stout describing how student requests and school-board support led Amarillo Highland Park to introduce its first baseball and softball programs, targeting first competition in spring 2025. A separately archived 2024–25 Lady Hornets game schedule corroborates actual first-year softball planning and historical opponents.",
+          "season": "2024-25",
+          "sourceIds": [
+            "presspass-may-2024-origin",
+            "hpark-2025-coach-schedule",
+            "amarillo-official-feed"
+          ]
+        },
+        {
+          "claim": "Eliza Martinez, a former Plains High School track and powerlifting coach and Slaton graduate, was named Amarillo Highland Park's inaugural head SOFTBALL coach in April 2024, according to the original contemporaneous May 18, 2024 Press Pass Sports report. The 2024–25 Lady Hornets schedule independently labels Eliza Martinez as head coach and Mary Lieberknecht as assistant; neither document establishes confirmed staffing for spring 2027.",
+          "season": "2024-25",
+          "sourceIds": [
+            "presspass-may-2024-origin",
+            "hpark-2025-coach-schedule"
+          ]
+        },
+        {
+          "claim": "The 2024–25 Lady Hornets softball schedule explicitly contains home scrimmages against Dalhart and Littlefield, varsity games against River Road, Sunray and other UIL opponents, and a home Sanford-Fritch senior night scheduled April 15. This is season-specific archived fixture evidence; scheduled dates and times are not conclusive proof a game occurred or of a final score.",
+          "season": "2024-25",
+          "sourceIds": [
+            "hpark-2025-coach-schedule"
+          ]
+        },
+        {
+          "claim": "The spring 2025 Amarillo Highland Park versus Sanford-Fritch public scoreboard shows a completed March 22, 2025 varsity softball game, independent corroboration that the new program was playing games by spring 2025. This third-party game record does not itself verify the newly built stadium's completion, exact playing venue parcel or field-accessibility rules.",
+          "season": "2024-25",
+          "sourceIds": [
+            "hpark-2025-game-results"
+          ]
+        },
+        {
+          "claim": "In its May 2024 construction coverage, Press Pass Sports quotes the Highland Park superintendent that both planned softball and baseball diamonds were intended to have artificial-turf playing fields and lighting; those announced construction specifications must be checked against later district as-built photographs and bond records before described as confirmed 2026–27 facilities.",
+          "season": "2023-24",
+          "sourceIds": [
+            "presspass-may-2024-origin"
+          ]
+        },
+        {
+          "claim": "An independent May 17, 2024 KFDA news report states Amarillo Highland Park ISD's planned baseball and softball complex was at the SOUTH END OF THE EXISTING FOOTBALL FIELD, with the anticipated first season in spring 2025. This is a historically sourced campus-area orientation only; it does not verify the final softball playing field's named gate, street entrance or compliant accessible spectator route.",
+          "season": "2023-24",
+          "sourceIds": [
+            "kfdanews-groundbreaking-2024",
+            "presspass-may-2024-origin"
+          ]
         }
       ],
       "gaps": [
         "Original Amarillo district 2025–26 softball coach and 2026–27 current appointment; do not use Dallas's Michael Pullen",
         "Specific home softball field, exact address and official parking/ADA source; official district office is not automatically the field",
         "Independent official schedule and roster source, exact athletic program varsity/JV identity and team name",
-        "Historic playoff/championship archive, independently attributable school-specific milestones and records",
+        "Independently complete post-2025 original UIL program playoff archive, exact inaugural 2025 season results, actual public opening date for new home softball complex and subsequent historical season milestones",
         "Separate school campus/ISD/county spatial verification from district administrative location",
         "Original softball/field photographs with usage licenses; no Dallas Scots images or insignia",
         "Exact softball-specific and school-specific primary archives are sparse; exclude Dallas Scots and any unauthenticated venue/staff claims even when sports search results rank them first"
       ],
       "conflicts": [
-        "Name collision High Priority: Dallas Highland Park's scotsillustrated.com and hpisd.org have unrelated 5A/6A context; Amarillo uses hpisd.net, Hornets and 2A softball District 1."
+        "Name collision High Priority: Dallas Highland Park's scotsillustrated.com and hpisd.org have unrelated 5A/6A context; Amarillo uses hpisd.net, Hornets and 2A softball District 1.",
+        "CRITICAL DIFFERENT DISTRICT: Dallas Highland Park ISD hpisd.org 2024 bond records and 330 Westchester Dr Dallas softball athletic barrier filings are NOT related to Amarillo hpisd.net or its May 2023 bond/2024 baseball-softball construction. Do not copy 2026 Dallas $513k batting cage upgrade to this Amarillo team."
       ],
       "venueResearch": {
         "namedField": "Unverified (Amarillo Hornets program)",
@@ -1331,9 +1462,11 @@
         "parkingVerified": false,
         "accessibleSeatingVerified": false,
         "sourceIds": [
-          "amarillo-school"
+          "amarillo-school",
+          "presspass-may-2024-origin",
+          "kfdanews-groundbreaking-2024"
         ],
-        "notes": "Third-party schedules reference 'Highland Park HS' and Plainview game locations, not an authoritative address for the Amarillo school's home softball diamond. Never substitute Dallas Scots fields."
+        "notes": "Third-party schedules reference 'Highland Park HS' and Plainview game locations, not an authoritative address for the Amarillo school's home softball diamond. Never substitute Dallas Scots fields. May 2024 contemporaneous report covers approximately $6m earmarked from bond proceeds to build turf-and-lighted baseball/softball complexes targeting spring 2025; no school-issued as-built field address, current ADA/gate policies or exact completion date verified. A May 17, 2024 local-TV report located the **planned** new softball complex at the south end of the football field. That is useful approximate on-campus geography, not a current mapped street entrance or as-built accessibility evaluation."
       },
       "coachingResearch": {
         "schoolWebsiteAsOf": "2026-10-11",
@@ -1341,7 +1474,10 @@
         "listedSupportStaff": [],
         "schoolStaffPageSourceId": "amarillo-official-feed",
         "explicitSpring2027SeasonStaffPublished": false,
-        "notes": "Official Amarillo school live feed confirms softball program activity, not a named current head coach. Third-party E. Martinez initial remains unverified; exclude Dallas Michael Pullen."
+        "notes": "Official Amarillo school live feed confirms softball program activity, not a named current head coach. Third-party E. Martinez initial remains unverified; exclude Dallas Michael Pullen. Two separate published historical sources now document full initial coach identity: original May 18, 2024 reporter's appointment interview identifies Eliza Martinez, and a 2024–25 schedule mirror independently lists Eliza Martinez with assistant Mary Lieberknecht. The newest spring 2027 school appointment remains unconfirmed.",
+        "historicalHeadCoach": "Eliza Martinez",
+        "historicalAssistantCoach": "Mary Lieberknecht",
+        "historyDate": "2024-2025"
       }
     }
   ]

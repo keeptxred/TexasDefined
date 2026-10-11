@@ -108,6 +108,26 @@ assert.equal(byName('Pearland').coachingResearch.listedHeadCoach,'Michele Hyden'
 assert.equal(byName('Katy').coachingResearch.listedHeadCoach,'Megan Vanetta');
 assert.equal(byName('Ganado').coachingResearch.listedHeadCoach,null,
   'Official Ganado faculty membership cannot prove 2027 softball coaching');
+// Amarillo Highland Park history was NOT generic: independent May 2024
+// interviews and a real 2024-25 schedule document its inaugural softball era.
+// They must never be repackaged as a Spring 2027 coach or finished venue.
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historicalHeadCoach,'Eliza Martinez');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historicalAssistantCoach,'Mary Lieberknecht');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historyDate,'2024-2025');
+assert.ok(byName('Amarillo Highland Park').sources.some(s=>s.id==='presspass-may-2024-origin' && s.kind.includes('independent')),
+ 'First-program coaching and construction evidence must cite contemporary local reporter');
+assert.ok(byName('Amarillo Highland Park').sources.some(s=>s.id==='hpark-2025-coach-schedule' && s.kind.includes('mirrored')),
+ 'Mirrored 2024-25 softball schedule must not be elevated to an official school-hosted source');
+verifiedFact('Amarillo Highland Park','inaugural head SOFTBALL coach','presspass-may-2024-origin');
+verifiedFact('Amarillo Highland Park','assistant Mary Lieberknecht','hpark-2025-coach-schedule');
+verifiedFact('Amarillo Highland Park','$130 million school bond','presspass-may-2024-origin');
+verifiedFact('Amarillo Highland Park','completed March 22, 2025 varsity softball game','hpark-2025-game-results');
+verifiedFact('Amarillo Highland Park','SOUTH END OF THE EXISTING FOOTBALL FIELD','kfdanews-groundbreaking-2024');
+assert.ok(byName('Amarillo Highland Park').conflicts.some(c=>c.includes('Dallas Highland Park ISD hpisd.org 2024 bond')),
+  'Never cross-pollinate Dallas school 2024 bond project or Westchester field into Amarillo 2024 new program');
+assert.equal(byName('Amarillo Highland Park').venueResearch.physicalAddressVerified,false,
+ 'Groundbreaking does not verify built field coordinates or 2027 gate accessibility');
+
 assert.equal(byName('Amarillo Highland Park').coachingResearch.listedHeadCoach,null,
   'Do not use unverified third-party coach initial or Dallas staff');
 verifiedFact('Katy','Megan Vanetta','school-current-athletics-coaches');
@@ -118,7 +138,12 @@ verifiedFact('Amarillo Highland Park',"'two newest programs,' softball and baseb
 verifiedFact('Ganado','501 West Devers','ganado-campus-address');
 
 assert.equal(byName('Ganado').venueResearch.namedField,'Ganado Softball Field');
-assert.equal(byName('Katy').venueResearch.namedField,'KHS-Softball Field');
+assert.ok(byName('Katy').venueResearch.namedField.includes('Kalum Haack'),
+ 'Post-July 2026 Katy field is named for retired longtime coach Kalum Haack; pre-2026 event label KHS-Softball Field is stale');
+verifiedFact('Katy','Kalum Haack','katy-2026-board-naming');
+verifiedFact('Katy','2015 state-champion softball team','katy-athletic-hall-2025');
+assert.ok(byName('Katy').venueResearch.sourceIds.includes('katy-aug2026-field-name-report'),
+ 'Local independent account and July 27 school board item must accompany renamed Katy varsity venue');
 assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
 assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,false,'Never import Dallas Scots venues');
 // Assert the actual UIL 2026 selection and award recipient, not the prose
