@@ -37,7 +37,8 @@ const applied=[
   "20261010231443_network_featured_revision_private_entitlement_helper.sql",
   "20261010232130_network_entitlement_helpers_private_schema.sql",
   "20261010232506_network_readonly_stale_draft_cleanup_inventory.sql",
-  "20261010235427_network_readonly_orphan_published_media_inventory.sql"
+  "20261010235427_network_readonly_orphan_published_media_inventory.sql",
+  "20261011000421_network_private_notification_trigger_execute_grants.sql"
 ];
 let errors=0;
 for (const filename of applied){
@@ -47,7 +48,7 @@ for (const filename of applied){
  if(body.trim().length<50){console.error('Empty or incomplete migration: '+filename);errors++;}
 }
 const expected=new Set(applied);
-const checkedIn=readdirSync(folder).filter(f=>/^20261010\d{6}_.+network.*\.sql$/i.test(f)||/^20261010\d{6}_.*governed_network.*\.sql$/i.test(f));
+const checkedIn=readdirSync(folder).filter(f=>/^202610\d{8}_.+network.*\.sql$/i.test(f)||/^202610\d{8}_.*governed_network.*\.sql$/i.test(f));
 const unexpected=checkedIn.filter(f=>!expected.has(f));
 if(unexpected.length){console.error('Network migrations lack manifest entries: '+unexpected.join(', '));errors+=unexpected.length;}
 if(errors){console.error('Network migration history validation failed: '+errors+' issue(s)');process.exitCode=1;}

@@ -112,3 +112,7 @@ Authenticated Network administrators can click **Preview 45-day unused draft can
 
 ## Public copied-image orphan inventory
 The Network admin panel has a **read-only Preview 45-day unused published-image copies** action, separate from private draft candidates. It is guarded by `NETWORK_ADMIN_ACCESS_KEY` and the service-only RPC. Candidates older than 45 days exclude images referenced by any current **or unpublished** listing and revision. This list is an audit aid, not permission to delete; explicit owner/retention policy approval and reference-aware rechecks remain prerequisites for any future Storage API deletion.
+
+
+## Notification trigger execution security
+Migration 20261011000421 revokes direct browser/REST EXECUTE access to `network_application_email_events`, `network_owner_email_events` and `network_revision_email_events`. Database triggers still enqueue service-only outbox events normally. Do not restore default PUBLIC function grants or replace with publicly callable `SECURITY DEFINER` RPCs. The sender is still not configured; queued events do not send emails.

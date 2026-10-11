@@ -159,3 +159,9 @@ check('Published media inventory is read-only, least-privilege and keeps unpubli
  && source('supabase/migrations/20261010235427_network_readonly_orphan_published_media_inventory.sql').includes('TO service_role')
  && source('src/data/network-review.server.ts').includes('previewNetworkOrphanPublishedMedia')
  && source('src/routes/admin.network-applications.lazy.tsx').includes('This never deletes media'));
+
+check('notification trigger functions are not exposed as browser-callable SECURITY DEFINER RPCs',
+ source('supabase/migrations/20261011000421_network_private_notification_trigger_execute_grants.sql').includes('FROM PUBLIC,anon,authenticated')
+ && source('supabase/migrations/20261011000421_network_private_notification_trigger_execute_grants.sql').includes('network_application_email_events')
+ && source('supabase/migrations/20261011000421_network_private_notification_trigger_execute_grants.sql').includes('network_owner_email_events')
+ && source('supabase/migrations/20261011000421_network_private_notification_trigger_execute_grants.sql').includes('network_revision_email_events'));
