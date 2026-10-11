@@ -41,6 +41,14 @@ test('launch is all-or-nothing and requires complete config AND independent evid
   assert.ok(result.missing.includes('e2e:'+e));
  }
 });
+test('marketing plan benefits require independent real customer delivery proof, not source or flags',()=>{
+ const {env,proof}=fixture();
+ const missing={...proof,planBenefitsDelivered:{...proof.planBenefitsDelivered,passed:false}};
+ const out=inspectNetworkAtomicLaunch(env,missing);
+ assert.equal(out.ready,false);
+ assert.ok(out.missing.includes('e2e:planBenefitsDelivered'));
+ assert.equal(inspectNetworkAtomicLaunch(env,proof).ready,true);
+});
 test('flags by themselves cannot certify a single launch',()=>{
  const {env}=fixture();
  const result=inspectNetworkAtomicLaunch(env,{});
