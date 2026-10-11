@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { validateProfile, validatePublishedManifest, SECTION_IDS } from './authority-contract.mjs';
+import { SOFTBALL_RESEARCH_TOPICS } from './complete-first-release-audit.mjs';
 
 const now = new Date('2026-10-11T15:00:00Z');
 const reviewedAt = '2026-10-11';
@@ -24,8 +25,13 @@ function valid() {
     ownerApproved:true, editor:'TexasDefined Editorial', canonicalPath:'/sports/softball/amarillo-highland-park',
     sport:'girls-softball', season:'2026-27', reviewedAt,
     uniqueThesis:'The verified historical record for the Amarillo Highland Park program requires comparison of the official softball district alignment, school archives, game-day venue and the community context. This research explains distinctive institutional milestones, player pathways and actual school-specific program identity, with original records rather than general praise and borrowed football classifications.',
-    identity:{uilName:'Amarillo Highland Park',conference:'2A',district:1,region:1,schoolOfficialUrl:'https://www.example.edu',city:'Amarillo'},
+    identity:{uilName:'Amarillo Highland Park',conference:'2A',district:1,region:1,schoolOfficialUrl:'https://www.example.edu',city:'Amarillo',schoolDistrict:'Highland Park ISD',mascot:'Hornets',county:'Potter',softballTeamName:'Lady Hornets'},
     sources:structuredClone(sources),
+    researchAudit:Object.fromEntries(SOFTBALL_RESEARCH_TOPICS.map((topic,i)=>[topic.id,{
+      finding:'verified',
+      summary:'Synthetic evidence notes for the '+topic.id+' requirement specify independently consulted official school records, dated UIL documents and school-specific factual research to justify this first publication.',
+      sourceIds:[sources[i % sources.length].id], checkedAt:reviewedAt,
+    }])),
     claims:[...Array(20)].map((_,i)=>({
       id:'fact-'+i, text:'Documented school-specific evidence for season '+i+' identifies a distinct verified program milestone for the named varsity softball school.',
       sourceIds:[sources[i%sources.length].id],asOf:reviewedAt,
@@ -68,10 +74,22 @@ rejected('no media rights evidence',p=>{p.media[0].permissionEvidenceUrl=''},'pe
 rejected('no source trace on venue',p=>{p.sections.homeFieldAndGameDay.sourceIds=[]},'homeFieldAndGameDay');
 rejected('no backlink to state directory',p=>{p.relatedPaths=['/sports/softball','/county/potter']},'two hub backlinks');
 rejected('expired seasonal research',p=>{p.reviewedAt='2025-01-01'},'older than');
+rejected('incomplete first-release topic',p=>{delete p.researchAudit.programOrigins},'programOrigins');
+rejected('unresolved topic after initial research',p=>{p.researchAudit.programOrigins.finding='pending'},'never pending');
+rejected('missing verified game-day policies',p=>{p.researchAudit.gameDayPlanning.finding='documented-no-record'},'must be verified');
+rejected('evidence-free source claims',p=>{p.researchAudit.homeFieldLocation.sourceIds=[]},'homeFieldLocation');
+rejected('stale school-specific audit',p=>{p.researchAudit.championships.checkedAt='2025-03-11'},'season-current');
+rejected('undocumented missing historical record',p=>{
+  p.researchAudit.programOrigins.finding='documented-no-record';
+  p.researchAudit.programOrigins.recordsSearched='';
+},'documented search effort');
+rejected('unsourced campus county',p=>{p.identity.county=''},'county');
+rejected('unsourced softball team mascot',p=>{p.identity.mascot=''},'mascot');
+rejected('unresearched local school identity',p=>{p.identity.schoolDistrict=''},'schoolDistrict');
 const duplicate=structuredClone(fixture);
 duplicate.slug='amarillo-highland-park-duplicate';
 duplicate.canonicalPath='/sports/softball/'+duplicate.slug;
 const errors=validatePublishedManifest({version:1,pages:[fixture,duplicate]},registry,now);
 assert.ok(errors.some(x=>x.includes('Same school-season')),'No school-season may generate two pages');
 assert.ok(errors.some(x=>x.includes('boilerplate duplicate')),'Entire shared articles must not pass as unique research');
-console.log('PASS: 17 individual negative cases plus duplicate-school and duplicated-article gates');
+console.log('PASS: 26 individual negative cases plus duplicate-school and duplicated-article gates, including every first-release research topic');
