@@ -7,6 +7,8 @@ const getPublishedProfile = createServerFn({ method: "GET" })
   .inputValidator((data: { slug: string }) => data)
   .handler(async ({ data }) => {
     if(process.env.NETWORK_DIRECTORY_ENABLED!=="true")return null;
+    const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
+    if(!networkCustomerLaunchArmed(process.env))return null;
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug) || data.slug.length > 120) return null;
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: listing, error } = await supabaseAdmin
