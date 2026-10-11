@@ -20,6 +20,7 @@ on:
       - 'scripts/data/network-notification-claim-rollback-fixture.sql'
       - 'scripts/data/verify-network-concurrent-upload-quota.mjs'
       - 'scripts/data/verify-network-migration-replay.mjs'
+      - 'scripts/data/validate-network-pending-atomicity.mjs'
       - 'scripts/data/network-postgrest-http-rls-fixture.sql'
       - 'scripts/data/verify-network-postgrest-http-rls.mjs'
       - '.github/workflows/network-migration-cleanroom.yml'
