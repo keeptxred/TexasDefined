@@ -248,6 +248,24 @@ async function checkRedirectTarget(target, attemptToken) {
   }
 }
 
+// Do not accept a generic 200/hub for an unapproved or invented UIL team.
+// The built Worker must return a real HTTP 404, even before any profiles are live.
+const forbiddenSoftballRoute = { path: '/sports/softball/never-an-approved-uil-school-ci', label: 'Unapproved UIL school must be a 404' };
+async function checkForbiddenSoftballRoute(target, attemptToken) {
+  try {
+    const response = await fetch(smokeUrl(target.path, attemptToken), {
+      redirect: 'manual', cache: 'no-store', headers: requestHeaders,
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    });
+    lastStatus.set(target.path, String(response.status));
+    if (response.status === 404) return '';
+    return target.label + ': expected true HTTP 404 but received ' + response.status;
+  } catch(error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    return target.label + ': fetch failed: ' + detail;
+  }
+}
+
 async function verifyWithRetries(target, checker, label) {
   let failure = '';
 
@@ -322,6 +340,12 @@ try {
       );
       if (failure) failures.push(failure);
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
+    }
+
+    {
+      const failure = await verifyWithRetries(forbiddenSoftballRoute, checkForbiddenSoftballRoute, 'unapproved softball team 404');
+      if (failure) failures.push(failure);
+      else console.log('[route] verified (404): '+forbiddenSoftballRoute.path+' (never publish invented UIL schools)');
     }
 
     for (const target of redirectTargets) {

@@ -1,6 +1,11 @@
 import { useMemo, useState, type ReactNode } from 'react';
 import { Container } from '@/components/layout/Container';
 import registry from '@/data/softball/uil-2026-27-registry.json';
+import approvedIndex from '@/data/softball/published-team-index.json';
+
+const approvedTeamByIdentity = new Map((approvedIndex as { pages: { slug: string; uilName: string; conference: string; district: number; region: number }[] }).pages.map((p) => [
+  [p.uilName, p.conference, p.district, p.region].join('|'), '/sports/softball/' + p.slug,
+]));
 
 const all = 'all';
 const classifications = ['2A', '3A', '4A', '5A', '6A'] as const;
@@ -106,6 +111,7 @@ export function SoftballSchoolsDirectory() {
         {visible.length === 0 ? <p className="mt-8 border border-border p-6 text-sm">No schools match those filters. Clear a filter or try the official PDF for the relevant conference.</p> : <div className="mt-5 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
           {visible.map((school) => <div className="bg-background p-5" key={school.conference + '-' + school.district + '-' + school.name}>
             <h3 className="font-display text-xl">{school.name}</h3>
+            {approvedTeamByIdentity.has([school.name, school.conference, school.district, school.region].join('|')) && <a className="mt-3 block text-sm font-semibold text-primary underline" href={approvedTeamByIdentity.get([school.name, school.conference, school.district, school.region].join('|'))}>Read complete, independently verified team guide →</a>}
             <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-primary">{school.conference} softball · District {school.district} · Region {school.region}</p>
             <a className="mt-3 block text-sm font-semibold text-primary underline" href={school.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={'UIL original district PDF for ' + school.name}>See original UIL district PDF ↗</a>
           </div>)}
