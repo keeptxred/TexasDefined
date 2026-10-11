@@ -33,8 +33,10 @@ jobs:
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/texasdefined-network-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          # Wrangler 4.114+ has an upstream local Miniflare network-drop regression.\n          # Pin ONLY the disposable local QA server to the proven pre-regression build;\n          # normal npm ci, app build, and production dependencies remain unchanged.\n          npm install --prefix /tmp/texasdefined-network-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 wrangler@4.113.0
       - name: Verify Chrome hydration, accessibility, preview controls and responsive layouts
+        env:
+          NETWORK_QA_WRANGLER_BIN: /tmp/texasdefined-network-qa/node_modules/.bin/wrangler
         run: node scripts/ci/verify-network-preview-browser.mjs
       - name: Retain preview screenshots and QA results
         if: always()
