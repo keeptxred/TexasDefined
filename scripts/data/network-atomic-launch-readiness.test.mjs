@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {inspectNetworkAtomicLaunch,NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS}
+import {inspectNetworkAtomicLaunch,networkCustomerLaunchArmed,NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS}
  from '../../src/data/network-atomic-launch-readiness.server.ts';
 
 const uuid1='11111111-1111-4111-8111-111111111111',
@@ -66,4 +66,19 @@ test('output does not expose credentials or private acceptance evidence referenc
  const json=JSON.stringify(outcome);
  assert.ok(!json.includes(env.STRIPE_SECRET_KEY));
  assert.ok(!json.includes(proof.graphMessageReceived.reference));
+});
+
+test('public customer surfaces do not activate before complete signed-off acceptance manifest',()=>{
+ const {env,proof}=fixture();
+ assert.equal(networkCustomerLaunchArmed(env),false);
+ const approved={...env,NETWORK_LAUNCH_EVIDENCE_JSON:JSON.stringify(proof)};
+ assert.equal(networkCustomerLaunchArmed(approved),true);
+ for(const e of NETWORK_LAUNCH_EVIDENCE_KEYS){
+  const missing={...proof,[e]:{...proof[e],passed:false}};
+  assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_LAUNCH_EVIDENCE_JSON:JSON.stringify(missing)}),false);
+ }
+ for(const v of ['', 'not-json', '[]', '{}', 'x'.repeat(17_000)]){
+  assert.equal(networkCustomerLaunchArmed({...approved,NETWORK_LAUNCH_EVIDENCE_JSON:v}),false);
+ }
+ assert.equal(networkCustomerLaunchArmed({...approved,STRIPE_WEBHOOK_SECRET:''}),false);
 });
