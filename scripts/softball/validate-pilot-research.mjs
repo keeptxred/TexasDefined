@@ -174,6 +174,34 @@ assert.equal(honors.records.find(p=>p.champion==='Santa Gertrudis Academy')?.reg
 assert.equal(honors.records.find(p=>p.champion==='Mont Belvieu Barbers Hill')?.registry2026_27.uilName,'Mt Belvieu Barbers Hill',
  'Explicit crosswalk prevents missing current UIL Barbers Hill campus');
 
+// A complete team page must understand the governing 2027 season dates,
+// but statewide UIL deadlines are not proof of any school's match schedule.
+const calendar=get('docs/softball/research/uil-2026-27-season-and-eligibility.json');
+assert.equal(calendar.season,'2026-27');
+assert.equal(calendar.verifiedAt,pilot.lastReviewed);
+assert.equal(calendar.milestones.length,11,'UIL practice-through-state calendar must be fully captured');
+const calendarSources=new Map(calendar.source.map(x=>[x.id,x]));
+assert.equal(calendarSources.get('uil-softball-dates')?.url,'https://www.uiltexas.org/softball');
+assert.ok(calendarSources.get('uil-eligibility-constitution')?.url.endsWith('/constitution/general/eligibility'));
+assert.ok(calendarSources.get('uil-2026-27-rule-changes')?.url.includes('2026-27-policy-info'));
+const dateById=new Map(calendar.milestones.map(m=>[m.id,m.date]));
+assert.equal(dateById.size,11,'No duplicate milestone IDs');
+for(const m of calendar.milestones) {
+  assert.match(m.date,/^2027-(?:0[1-6])-\d{2}$/,'Spring 2027 date not properly season-scoped');
+  assert.equal(m.sourceId,'uil-softball-dates','Spring 2027 dates must use primary UIL calendar');
+  assert.ok(Number.isFinite(Date.parse(m.date+'T00:00:00Z')),'Bad milestone date');
+}
+assert.equal(dateById.get('first-day-practice'),'2027-01-15');
+assert.equal(dateById.get('first-day-interschool-scrimmages'),'2027-01-30');
+assert.equal(dateById.get('first-day-interschool-games'),'2027-02-15');
+assert.equal(dateById.get('district-certification-deadline'),'2027-04-27');
+assert.equal(dateById.get('state-tournament-start'),'2027-06-03');
+assert.equal(dateById.get('state-tournament-end'),'2027-06-05');
+assert.ok(calendar.editorialRestrictions.some(x=>x.includes('school\'s actual game schedule')),
+ 'The statewide softball calendar must not be presented as each individual school schedule');
+assert.ok(calendar.seasonSpecificExplanations.some(x=>x.id==='recruiting' && x.text.includes('Section 409')),
+ 'UIL Section 409 recruiting safeguards must be preserved in school page publishing policy');
+
 const required=new Set(SOFTBALL_RESEARCH_TOPICS.map(s=>s.id));
 assert.equal(required.size,38,'Keep complete-first-publish topic count stable');
 assert.ok(!pilot.publicationAuthorization,'No publish shortcut');
