@@ -23,6 +23,10 @@ function env(){return {
 test('staging acceptance config is host-pinned, requires consent, rejects shared production and secrets',()=>{
  const good=validateNetworkHostedStageConfig(env());
  assert.equal(good.owners.length,2);
+ const legacyAnon=[
+   Buffer.from('{"alg":"HS256","typ":"JWT"}').toString('base64url'),
+   Buffer.from('{"role":"anon"}').toString('base64url'),'signature'.repeat(7)].join('.');
+ assert.equal(validateNetworkHostedStageConfig({...env(),NETWORK_STAGE_PUBLISHABLE_KEY:legacyAnon}).owners.length,2);
  const bad=[
   {NETWORK_HOSTED_STAGE_READONLY_APPROVED:undefined},
   {NETWORK_STAGE_SUPABASE_URL:'https://ftkznprjljkhymknvhye.supabase.co/'},
@@ -43,7 +47,7 @@ test('staging acceptance config is host-pinned, requires consent, rejects shared
  for(const over of bad)
   assert.throws(()=>validateNetworkHostedStageConfig({...env(),...over}),/invalid/);
 });
-function stageFetch(leak=false){
+function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false}={}){
  const c=validateNetworkHostedStageConfig(env());
  return async(url,options)=>{
   assert.equal(options.method==='POST'?options.method:'GET',options.method);
@@ -59,10 +63,10 @@ function stageFetch(leak=false){
   else if(url.includes('texasdefined_network_business_accounts'))
     body=[{id:owner.account,owner_user_id:owner.id,access_enabled:true,membership_tier:'featured'}];
   else if(url.includes('texasdefined_network_profile_revisions'))
-    body=leak?[{id:other.revision,business_account_id:other.account}]:
+    body=foreignRevisionLeak?[{id:other.revision,business_account_id:other.account}]:
       [{id:owner.revision,business_account_id:owner.account}];
   else if(url.includes('/storage/v1/object/')){
-    if(url.endsWith('/'+other.id+'/'+other.account+'/'+other.media))status=leak?200:404;
+    if(url.endsWith('/'+other.id+'/'+other.account+'/'+other.media))status=foreignObjectLeak?200:404;
     body={};
   } else throw Error('Unknown stage endpoint');
   return {status,json:async()=>body};
@@ -77,7 +81,11 @@ test('two owner stage fixtures pass read-only HTTP/JWT/RLS/media proof in both d
 });
 test('cross-owner revision RLS leak makes acceptance fail',async()=>{
  const c=validateNetworkHostedStageConfig(env());
- await assert.rejects(runNetworkHostedStageReadOnly(c,stageFetch(true)),/revision RLS mismatch/);
+ await assert.rejects(runNetworkHostedStageReadOnly(c,stageFetch({foreignRevisionLeak:true})),/revision RLS mismatch/);
+});
+test('cross-owner private Storage exposure makes acceptance fail',async()=>{
+ const c=validateNetworkHostedStageConfig(env());
+ await assert.rejects(runNetworkHostedStageReadOnly(c,stageFetch({foreignObjectLeak:true})),/cross-owner private Storage read not denied/);
 });
 test('fixture checks do not allow mutating HTTP requests',async()=>{
  let requests=0;
