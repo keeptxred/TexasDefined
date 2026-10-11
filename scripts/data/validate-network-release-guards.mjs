@@ -153,6 +153,17 @@ check('manual notification provider-reconciliation is private, audited and never
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011045000_network_notification_manual_recovery.sql')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-notification-manual-recovery-fixture.sql'));
+check('real GoTrue Auth and Storage HTTP integration is confined to fresh, unlinked local Supabase CLI test stack',
+ source('.github/workflows/network-local-auth-storage.yml').includes('supabase/setup-cli@v1')
+ && source('.github/workflows/network-local-auth-storage.yml').includes('NETWORK_SUPABASE_REAL_E2E: yes-local-disposable-only')
+ && source('.github/workflows/network-local-auth-storage.yml').includes('supabase init')
+ && source('.github/workflows/network-local-auth-storage.yml').includes('supabase stop')
+ && !source('.github/workflows/network-local-auth-storage.yml').includes('supabase link')
+ && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==34")
+ && source('scripts/data/prepare-network-local-supabase.mjs').includes("config.includes('ftkznprjljkhymknvhye')")
+ && source('scripts/data/verify-network-local-supabase.mjs').includes("process.env.API_URL!==ORIGIN")
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('25th Storage API draft upload')
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('Real local password sign-in'));
 check('actual local HTTP PostgREST JWT boundary is independently tested without live customers',
  source('.github/workflows/network-migration-cleanroom.yml').includes('postgrest/postgrest:v14.14')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-postgrest-http-rls.mjs')
