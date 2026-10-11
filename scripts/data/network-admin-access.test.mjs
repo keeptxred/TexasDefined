@@ -22,3 +22,23 @@ test('dedicated Network key accepts exact match and denies wrong same-length key
  await assert.doesNotReject(assertNetworkAdminAccess(key));
  await assert.rejects(assertNetworkAdminAccess(key.replace('0987654321','1234567890')));
 });
+
+test('sole-administrator key rotation rejects the previous secret immediately without adding another account',async()=>{
+ const initial='network-fixture-previous-sole-admin-secret-0123456789';
+ const replacement='network-fixture-rotated-sole-admin-secret-9876543210';
+ process.env.NETWORK_ADMIN_ACCESS_KEY=initial;
+ await assert.doesNotReject(assertNetworkAdminAccess(initial));
+ process.env.NETWORK_ADMIN_ACCESS_KEY=replacement;
+ await assert.rejects(assertNetworkAdminAccess(initial));
+ await assert.doesNotReject(assertNetworkAdminAccess(replacement));
+ delete process.env.NETWORK_ADMIN_ACCESS_KEY;
+ await assert.rejects(assertNetworkAdminAccess(replacement));
+});
+test('unreasonably long administrator secrets and empty operator input fail closed',async()=>{
+ process.env.NETWORK_ADMIN_ACCESS_KEY='x'.repeat(201);
+ await assert.rejects(assertNetworkAdminAccess('x'.repeat(201)));
+ process.env.NETWORK_ADMIN_ACCESS_KEY='network-fixture-valid-sole-admin-key-1234567890123456';
+ for(const provided of ['',null,undefined,'x'.repeat(201)]){
+  await assert.rejects(assertNetworkAdminAccess(provided));
+ }
+});
