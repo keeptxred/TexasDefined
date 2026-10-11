@@ -200,7 +200,9 @@ export function isNetworkSubscriptionIdentity(subscription:Record<string,any>):b
   && typeof subscription.customer==='string' && /^cus_[A-Za-z0-9_]+$/.test(subscription.customer)
   && subscription.metadata?.project==='TexasDefined'
   && typeof subscription.metadata?.application_id==='string'
-  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id);
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id)
+  && typeof subscription.metadata?.billing_account_id==='string'
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.billing_account_id);
 }
 
 /** Inspected subscription must describe exactly one approved $19.99 Plus line item. */
@@ -214,6 +216,8 @@ export function isExpectedNetworkPlusSubscription(subscription: Record<string,an
   && subscription.metadata?.project==='TexasDefined'
   && typeof subscription.metadata?.application_id==='string'
   && /^[0-9a-f-]{36}$/i.test(subscription.metadata.application_id)
+  && typeof subscription.metadata?.billing_account_id==='string'
+  && /^[0-9a-f-]{36}$/i.test(subscription.metadata.billing_account_id)
   && Array.isArray(items) && items.length===1
   && items[0]?.price?.id===expectedPrice
   && items[0]?.quantity===1;
