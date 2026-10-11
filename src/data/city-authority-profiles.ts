@@ -386,7 +386,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'CapMetro is the public-transit agency for Austin and Central Texas, operating bus, rail and other mobility services. Use live system information for routes and schedules.',
+        summary: 'CapMetro operates Austin bus and commuter-rail service. Its Rapid 800 Pleasant Valley and Rapid 837 Expo Center bus corridors reached full frequency on June 7, 2026, improving connections east of I-35. Austin Light Rail is a future project, not an operating service; verify current routes, transfers, airport service and construction impacts with CapMetro's live trip planner.',
         links: [{ label: 'CapMetro', href: 'https://www.capmetro.org/' }],
       },
       {
@@ -981,7 +981,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Citibus provides public transportation in Lubbock, including fixed-route and accessible services. Use its live route and trip-planning tools for current service.',
+        summary: 'Citibus operates Lubbock fixed-route, GoPass-bookable On-Demand and eligible CitiAccess services. New Route 205 and redesigned Routes 025, 211 and 214 entered service September 28, 2026; Texas Tech campus routes may follow academic calendars. Check Citibus current maps and GoPass rather than assuming old route numbers, uniform coverage or Sunday fixed-route service.',
         links: [{ label: 'Citibus', href: 'https://citibus.com/' }],
       },
       {
