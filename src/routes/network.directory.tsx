@@ -5,6 +5,8 @@ const listProfiles = createServerFn({ method: "GET" }).handler(async () => {
   // Never index an empty, unreleased directory; public visibility is armed by
   // the same production gate that permits reading editorially published rows.
   if(process.env.NETWORK_DIRECTORY_ENABLED!=="true")return {profiles:[],indexable:false};
+  const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
+  if(!networkCustomerLaunchArmed(process.env))return {profiles:[],indexable:false};
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   // Only independently published public profiles appear here, never the private intake table.
   const { data, error } = await supabaseAdmin.from("texasdefined_network_public_listings")
