@@ -217,6 +217,15 @@ for (const feature of [
 ]) {
   if (!cityAuthorityProfiles.includes(feature)) errors.push(`Fort Worth city authority remediation missing: ${feature}`);
 }
+// Houston's Waller County is ETJ and limited-purpose annexation candidate
+// territory, not automatically an ordinary full-service county membership.
+const houstonProfile = cityAuthorityProfiles.slice(cityAuthorityProfiles.indexOf('  houston: {'), cityAuthorityProfiles.indexOf('  dallas: {'));
+const houstonGraph = cityMetroAuthority.slice(cityMetroAuthority.indexOf('  houston: city('), cityMetroAuthority.indexOf('  dallas: city('));
+if (!houstonProfile.includes("counties: ['Harris County', 'Fort Bend County', 'Montgomery County']")) errors.push('Houston must preserve full-purpose three-county list; Waller is not full-purpose by default.');
+if (!houstonProfile.includes('limited-purpose annexation') || !houstonProfile.includes('Waller County')) errors.push('Houston Waller limited-purpose/ETJ distinction missing.');
+if (!houstonGraph.includes("'etj-overlap', targetId: 'county:waller'")) errors.push('Houston Waller knowledge-graph relationship must be ETJ-specific.');
+if (houstonGraph.includes("'jurisdiction-overlap', targetId: 'county:waller'")) errors.push('Houston Waller must not masquerade as ordinary full-purpose county membership.');
+
 for (const feature of [
   'Tarrant County is the city’s primary county context',
   "'jurisdiction-overlap', targetId: 'county:denton'",
