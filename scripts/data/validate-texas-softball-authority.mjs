@@ -10,9 +10,9 @@ import { resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '../..');
 const read = (path) => readFileSync(resolve(root, path), 'utf8');
-const hub = read('src/routes/sports.softball.tsx');
-const paris = read('src/routes/sports.softball.paris-junior-college.tsx');
-const volts = read('src/routes/sports.softball.texas-volts.tsx');
+const hub = read('src/routes/sports.softball.lazy.tsx');
+const paris = read('src/routes/sports.softball.paris-junior-college.lazy.tsx');
+const volts = read('src/routes/sports.softball.texas-volts.lazy.tsx');
 const sport = read('src/routes/sports.lazy.tsx');
 const routes = read('src/lib/public-routes.ts');
 
@@ -24,10 +24,12 @@ const pages = [
 
 for (const { path, file, label } of pages) {
   assert.ok(routes.includes('"' + path + '"'), label + ' must be indexable');
-  assert.ok(file.includes("createFileRoute('" + path + "')"), label + ' must have a file route');
-  assert.ok(file.includes('rel: \'canonical\''), label + ' must have canonical SEO');
-  assert.ok(file.includes('application/ld+json'), label + ' must expose schema');
-  assert.ok(file.includes('2026-10-11'), label + ' must carry a real review date');
+  assert.ok(file.includes("createLazyFileRoute('" + path + "')"), label + ' must have a lazy file route');
+  const headSource = read('src/routes/sports.softball' + (path === '/sports/softball' ? '' : path.endsWith('texas-volts') ? '.texas-volts' : '.paris-junior-college') + '.tsx');
+  assert.ok(headSource.includes('createFileRoute(canonicalPath)'), label + ' must have a metadata route');
+  assert.ok(headSource.includes('canonicalLink('), label + ' must have canonical SEO');
+  assert.ok(headSource.includes('application/ld+json'), label + ' must expose schema');
+  assert.ok(headSource.includes('2026-10-11'), label + ' must carry a real review date');
   assert.ok(file.includes('Breadcrumb'), label + ' must include visible navigation');
   assert.ok(file.includes('Sources') || file.includes('sources') || file.includes('officialResources'), label + ' must cite original sources');
 }
