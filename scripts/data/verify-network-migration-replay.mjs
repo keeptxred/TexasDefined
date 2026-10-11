@@ -16,7 +16,7 @@ if(process.env.NETWORK_MIGRATION_REPLAY_ISOLATED!=='yes-ephemeral-local-only' ||
 
 const manifest=readFileSync('scripts/data/validate-network-migration-parity.mjs','utf8');
 const migrations=[...manifest.matchAll(/"(202610\d{8}_[^"]+\.sql)"/g)].map(match=>match[1]);
-if(migrations.length!==34 || new Set(migrations).size!==33 ||
+if(migrations.length!==34 || new Set(migrations).size!==34 ||
    migrations.some((name,index)=>index>0 && name<=migrations[index-1]))
  throw new Error('Applied Network manifest count, order or uniqueness changed: stop and reconcile');
 const execSql=(args,label)=>{
