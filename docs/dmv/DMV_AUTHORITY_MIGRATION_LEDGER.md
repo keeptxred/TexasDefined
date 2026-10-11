@@ -70,3 +70,23 @@ No live external primary-source retrieval or test run has been completed in this
 - The old CDL class article has deeper vehicle examples, restriction discussion and FAQ than the current destination section. **Not yet fully migrated**; retain this gap for fact-checked expansion.
 - Compared migration branch to current main: **10 commits ahead and 3 behind**, with five changed files. Refresh against latest main before merging and resolve any conflicts without overwriting unrelated changes.
 - Do not equate committed section coverage with completed historical migration or independent authority certification.
+
+## Complete historical source inventory — 2026-10-11
+
+Recovered all **11 of 11** historical route files at KeepTXRed commit `a8a2a24bc9435b670ef82f8c68df5264b52791a2`. Recovery does **not** establish that old facts are current.
+
+| Historical source route | Historical coverage | TexasDefined target | Gap |
+| --- | --- | --- | --- |
+| dmv.cdl-classes | weight ratings, class comparison, commercial/noncommercial distinctions, restrictions, FAQs | /texas-drivers-license#cdl-classes-endorsements | Missing noncommercial comparison, examples, FAQs |
+| dmv.cdl-endorsements | H/N/P/S/T/X, restrictions, endorsement planning, FAQs | /texas-drivers-license#cdl-classes-endorsements | Missing restrictions and detailed application scenarios |
+| vehicles.duplicate-titles | VTR-34, lienholders, mail/in-person, waiting period, rejections, FAQs | /texas-vehicle-registration#duplicate-titles | Missing rejection troubleshooting and specific current procedures |
+| vehicles.buying-a-car | dealer/private distinction, red flags, title timing, FAQs | /texas-vehicle-registration#vehicle-sale-checklists | Missing dealer-specific process and fraud scenarios |
+| vehicles.selling-a-car | transfer notification, plates, toll tags, recordkeeping, FAQs | /texas-vehicle-registration#vehicle-sale-checklists | Missing deeper seller protection and transaction examples |
+| vehicles.private-party-sales | county-office meetup, tax/SPV, transit permit, fraud | /texas-vehicle-registration#vehicle-sale-checklists | Missing permit, tax examples and safer transaction details |
+| vehicles.personalized-plates | plate approval, ordering, renewal, transfer, FAQs | /texas-vehicle-registration#personalized-plates | Missing rejection examples and renewal/transfer specifics |
+| vehicles.auto-insurance-requirements | liability, optional coverage, proof, lenders, FAQs | /texas-vehicle-registration#texas-auto-insurance | Missing optional coverages and insurance shopping detail |
+| vehicles.inspections | 2025 reform, equipment, emissions, commercial failures, FAQs | /texas-vehicle-registration#texas-vehicle-inspections | Missing detailed exemptions, equipment and failure guidance |
+| vehicles.financial-responsibility | evidence, SR-22, noninsurance alternatives, lapses, FAQs | /texas-vehicle-registration#texas-auto-insurance | Missing SR-22 and legal alternatives in depth |
+| vehicles.disabled-parking | placards, medical eligibility, renewal, veterans, misuse, FAQs | /texas-vehicle-registration#disabled-parking | Missing credential comparisons, renewal and misuse specifics |
+
+**Disposition:** all 11 source files recovered; none of the 11 are yet fully certified as migrated. Target anchors represent initial coverage, not standalone authority parity. Expand high-intent topics where user tasks warrant dedicated pages, and verify against current primary sources before adding exact procedural details.
