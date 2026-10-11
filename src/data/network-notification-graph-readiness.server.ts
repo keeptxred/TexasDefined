@@ -6,7 +6,7 @@
 import {
  NETWORK_NOTIFICATION_SENDER, NETWORK_EMAIL_DELIVERY_ENABLED,
  renderNetworkNotification, type NetworkEmailEvent,
-} from './network-notification-templates.server';
+} from './network-notification-templates.server.ts';
 
 export const NETWORK_GRAPH_DISPATCH_ENABLED = false as const;
 export type NetworkGraphOutcome =
