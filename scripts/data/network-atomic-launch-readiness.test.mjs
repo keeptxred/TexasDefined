@@ -92,6 +92,7 @@ test('full customer staging can run only on separate hosted DB and Stripe TEST m
   SUPABASE_URL:'https://staging0123456789.supabase.co',
   NETWORK_STRIPE_MODE:'test',NETWORK_STRIPE_TEST_MODE_ENABLED:'true',
   NETWORK_STRIPE_TEST_PRICE_ID:'price_TESTnotLive0001',
+  NETWORK_STRIPE_TEST_WEBHOOK_SECRET:'whsec_notreal_'+ 'x'.repeat(44),
   STRIPE_SECRET_KEY:'sk_test_notreal_'+ 'x'.repeat(60),
  };
  delete stage.NETWORK_LAUNCH_ATOMIC_VERIFIED;
@@ -106,6 +107,7 @@ test('full customer staging can run only on separate hosted DB and Stripe TEST m
   ['STRIPE_SECRET_KEY','sk_live_notallowed'],
   ['NETWORK_STAGE_QA_APPROVED',''],
   ['NETWORK_STRIPE_TEST_PRICE_ID','price_1UP28XLtRurj6GMNwFlYDW6N'],
+  ['NETWORK_STRIPE_TEST_WEBHOOK_SECRET',''],
   ['NETWORK_INTAKE_ENABLED','false'],
  ]){
   assert.equal(networkIsolatedStagingArmed({...stage,[key]:value}),false,key);
