@@ -40,3 +40,10 @@ test('real Graph scheduled sender and public routes share complete release bound
  assert.match(source,/Graph runtime release mismatch/);
  assert.match(src('wrangler.jsonc'),/"crons": \["\*\/15 \* \* \* \*"\]/);
 });
+
+test('staging business profiles and sitemap are never indexable',()=>{
+ assert.match(src('src/server-entry.ts'),/networkRequestHostAllowed/);
+ for(const file of ['src/routes/network.directory.tsx','src/routes/network.business.$slug.tsx','src/routes/network.join.tsx','src/routes/sitemap[.]xml.ts']){
+  assert.match(src(file),/NETWORK_ISOLATED_STAGING/,file);
+ }
+});
