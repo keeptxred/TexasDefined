@@ -119,6 +119,15 @@ export default {
     else await operation;
   },
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // The customer APIs cannot be partially released, even if individual
+    // feature flags are accidentally set true before the complete launch.
+    const customerPath=new URL(request.url).pathname;
+    if(customerPath.startsWith("/api/public/network-")){
+      const {networkCustomerLaunchArmed}=await import("./data/network-atomic-launch-readiness.server");
+      if(!networkCustomerLaunchArmed(env as Record<string,string|undefined>))
+        return new Response("Network customer launch not accepted",{status:503,
+          headers:{"Cache-Control":"no-store"}});
+    }
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
       if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
