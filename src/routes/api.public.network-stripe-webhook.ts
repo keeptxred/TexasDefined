@@ -38,13 +38,27 @@ export const Route = createFileRoute("/api/public/network-stripe-webhook")({
       return new Response("Subscription verification unavailable", { status: 503 });
     }
     if (subscription.livemode !== expectedMode || subscription.id !== subscriptionId) return new Response("Invalid subscription", { status: 422 });
-    const { isExpectedNetworkPlusSubscription } = await import("@/data/network-stripe.server");
-    if(!isExpectedNetworkPlusSubscription(subscription))return new Response("Ignored",{status:200});
+    const {isNetworkSubscriptionIdentity,isExpectedNetworkPlusSubscription,isBoundNetworkSubscriptionPriceMismatch}=await import("@/data/network-stripe.server");
+    if(!isNetworkSubscriptionIdentity(subscription))return new Response("Ignored",{status:200});
     const id = String(subscription.metadata.application_id);
-    // Read the verified CURRENT subscription state, not the delivery order of old invoice events.
-    // A recovered subscription must not be deactivated by a delayed failure notification.
-    const active = subscription.status === "active";
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const correctPlusPrice=isExpectedNetworkPlusSubscription(subscription);
+    if(!correctPlusPrice){
+      // A price migration must not leave an already-entitled account public.
+      // Only a subscription/customer ALREADY bound to this application may be
+      // revoked; never associate an unrelated or newly-created Stripe plan.
+      const {data:bound,error:boundError}=await supabaseAdmin
+        .from("texasdefined_network_applications")
+        .select("plan,stripe_subscription_id,stripe_customer_id")
+        .eq("id",id).maybeSingle();
+      if(boundError)return new Response("Subscription binding verification unavailable",{status:503});
+      if(!isBoundNetworkSubscriptionPriceMismatch(subscription,bound))
+        return new Response("Ignored",{status:200});
+    }
+    // Read verified CURRENT Stripe state, not old invoice event delivery order.
+    // A recovered subscription must not be deactivated by a delayed failure.
+    // Price changes revoke entitlement only for the previously bound owner.
+    const active=correctPlusPrice && subscription.status==="active";
     if(typeof event.id!=="string")return new Response("Invalid event ID",{status:400});
     // One serialized, transactional database reconciliation after signature and Stripe verification.
     const {data:outcome,error:dbError}=await supabaseAdmin.rpc(
