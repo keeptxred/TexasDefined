@@ -100,3 +100,14 @@ test('Plus and Featured performance must have real collection, owner-only report
  assert.match(src('src/routes/business.dashboard.lazy.tsx'),/NetworkPerformancePanel/);
  assert.match(src('scripts/data/verify-network-migration-replay.mjs'),/20261011210000_network_profile_daily_metrics.sql/);
 });
+
+test('rejected launch and rate-limited POSTs drain at most 64 KiB without killing the Worker',()=>{
+ const entry=src('src/server-entry.ts');
+ assert.match(entry,/async function drainRejectedNetworkPost\(request:Request\)/);
+ assert.match(entry,/size>65536/);
+ const cutoff=entry.indexOf('if(!networkCustomerLaunchArmed(env as Record');
+ assert.ok(cutoff>0);
+ assert.match(entry.slice(cutoff,cutoff+300),/await drainRejectedNetworkPost\(request\)/);
+ assert.match(entry,/if\(!result\?\.success\)\{\s*await drainRejectedNetworkPost\(request\)/);
+ assert.match(entry,/if \(!rate\?\.success\)\{await drainRejectedNetworkPost\(request\)/);
+});
