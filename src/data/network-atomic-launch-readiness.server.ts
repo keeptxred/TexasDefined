@@ -89,8 +89,7 @@ export function networkIsolatedStagingArmed(
     environment.NETWORK_STRIPE_TEST_MODE_ENABLED!=='true' ||
     typeof environment.STRIPE_SECRET_KEY!=='string' ||
     !environment.STRIPE_SECRET_KEY.startsWith('sk_test_') ||
-    typeof environment.STRIPE_WEBHOOK_SECRET!=='string' ||
-    !environment.STRIPE_WEBHOOK_SECRET.startsWith('whsec_') ||
+    // Staging must never depend on or require live signing secrets.
     typeof environment.NETWORK_STRIPE_TEST_WEBHOOK_SECRET!=='string' ||
     !environment.NETWORK_STRIPE_TEST_WEBHOOK_SECRET.startsWith('whsec_') ||
     !/^price_[A-Za-z0-9]+$/.test(environment.NETWORK_STRIPE_TEST_PRICE_ID||'') ||
