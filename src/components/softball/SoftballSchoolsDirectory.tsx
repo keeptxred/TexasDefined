@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { Container } from '@/components/layout/Container';
 import registry from '@/data/softball/uil-2026-27-registry.json';
 
@@ -10,7 +10,7 @@ const expectedCount = registry.schools.length;
 const title = 'Texas UIL Softball Schools and Districts, 2026–27';
 const description = 'Search the 2026–27 official UIL softball district alignment: schools, conferences, regions and all 160 districts. Source-linked rows and free CSV download.';
 
-function Caption({ children }: { children: React.ReactNode }) {
+function Caption({ children }: { children: ReactNode }) {
   return <p className="text-sm leading-7 text-muted-foreground">{children}</p>;
 }
 function SelectBox({ name, value, options, onChange }: {
