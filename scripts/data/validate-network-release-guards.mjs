@@ -131,9 +131,28 @@ check('Stripe entitlement and publication reconciliation uses isolated rollback 
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes("'republished'")
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('network-migration-stripe-reconciliation-fixture.sql'));
-check('all eight gated Network routes remain explicitly noindex in canonical public route registry',
- ['/network/billing','/network/checkout-return','/business/dashboard','/network/directory','/network/join','/network/apply','/network/example/basic','/network/example/plus']
- .every(path=>source('src/lib/public-routes.ts').includes('"' + path + '"'))
+// All unlaunched Network routes must be excluded from the indexable static
+// registry AND carry their own explicit robots noindex metadata. Newer main
+// intentionally removed these private routes from INDEXABLE_STATIC_PATHS:
+ // treating that safer change as a failure would be an obsolete assertion.
+const indexableRegistry=source('src/lib/public-routes.ts').split('];',1)[0];
+const gatedNetworkRoutes=[
+ ['/network/billing','src/routes/network.billing.tsx'],
+ ['/network/checkout-return','src/routes/network.checkout-return.tsx'],
+ ['/business/dashboard','src/routes/business.dashboard.tsx'],
+ ['/network/directory','src/routes/network.directory.tsx'],
+ ['/network/join','src/routes/network.join.tsx'],
+ ['/network/apply','src/routes/network.apply.tsx'],
+ ['/network/example/basic','src/routes/network.example.basic.tsx'],
+ ['/network/example/plus','src/routes/network.example.plus.tsx'],
+];
+check('all eight gated Network routes are nonindexable and explicitly noindex at their route heads',
+ gatedNetworkRoutes.every(([path,file])=>{
+  const head=source(file);
+  return !indexableRegistry.includes('"'+path+'"')
+   && /name\s*:\s*['"]robots['"]/.test(head)
+   && /noindex/.test(head);
+ })
  && source('src/routeTree.gen.ts').includes('NetworkBillingRouteImport')
  && source('src/routeTree.gen.ts').includes('BusinessDashboardRouteImport'));
 check('proposed disabled-owner private revision READ policy is tested safely without live migration',
