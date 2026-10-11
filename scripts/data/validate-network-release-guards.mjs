@@ -80,7 +80,7 @@ check('Network health diagnostic remains read-only and detects the critical secu
  source('scripts/data/network-operations-readonly.sql').includes('owner_revision_revocation_policy_present')
  && source('scripts/data/network-operations-readonly.sql').includes('paid_listing_entitlement_drift')
  && source('scripts/data/network-operations-readonly.sql').includes('notification_uncertain_claims')
- && source('scripts/data/network-operations-readonly.sql').includes('pending_upgrade_versions_applied')
+ && source('scripts/data/network-operations-readonly.sql').includes('applied_network_security_versions')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-operations-readonly.test.mjs'));
 
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
