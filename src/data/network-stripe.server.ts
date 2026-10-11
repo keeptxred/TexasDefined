@@ -4,9 +4,18 @@ const stripeBase='https://api.stripe.com/v1';
 export async function stripeRequest(path:string,init:RequestInit={}) {
  const key=process.env.STRIPE_SECRET_KEY;
  if(!key||!key.startsWith('sk_live_')) throw new Error('Live Stripe server secret is not configured');
- const response=await fetch(stripeBase+path,{...init,headers:{Authorization:'Bearer '+key,...(init.headers||{})}});
- const json=await response.json() as Record<string,any>;
+ // Bound external Stripe POSTs as well as webhook subscription reads.
+ // Preserve the caller's stable idempotency key; an uncertain outcome must
+ // never be retried with a different key without DB attempt reconciliation.
+ const response=await fetch(stripeBase+path,{
+  ...init,
+  signal:AbortSignal.timeout(12_000),
+  headers:{...(init.headers||{}),Authorization:'Bearer '+key},
+ });
  if(!response.ok)throw new Error('Stripe API unavailable: '+response.status);
+ const json=await response.json() as Record<string,any>;
+ if(!json||typeof json!=='object'||Array.isArray(json))
+  throw new Error('Malformed Stripe API response');
  return json;
 }
 /** Current subscription read for verified webhook processing. Always fail closed.
