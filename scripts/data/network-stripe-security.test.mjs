@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
-import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription, readNetworkWebhookPayload, NETWORK_WEBHOOK_MAX_BYTES, readNetworkCurrentStripeSubscription } from '../../src/data/network-stripe.server.ts';
+import { verifyStripeSignature, stripeCheckoutEnabled, verifiedNetworkSubscriptionOwnership, createNetworkCheckoutSession, isNetworkCheckoutUrl, isExpectedNetworkPlusSubscription, readNetworkWebhookPayload, NETWORK_WEBHOOK_MAX_BYTES, readNetworkCurrentStripeSubscription, stripeRequest, isNetworkBillingPortalUrl } from '../../src/data/network-stripe.server.ts';
 
 const previousSecret=process.env.STRIPE_WEBHOOK_SECRET;
 const previousCheckout=process.env.NETWORK_CHECKOUT_ENABLED;
@@ -291,6 +291,69 @@ test('Stripe webhook subscription read treats outages, bad status and malformed 
   assert.equal(observed.url,'https://api.stripe.com/v1/subscriptions/sub_mocked');
   assert.equal(observed.opts.headers.Authorization,'Bearer sk_live_mock_never_sent');
   assert.ok(observed.opts.signal,'must bound Stripe API network request');
+ }finally{
+  globalThis.fetch=oldFetch;
+  if(oldKey===undefined)delete process.env.STRIPE_SECRET_KEY;
+  else process.env.STRIPE_SECRET_KEY=oldKey;
+ }
+});
+
+
+test('Stripe billing portal destination rejects credential tricks, third-party domains and fragments',()=>{
+ assert.equal(isNetworkBillingPortalUrl('https://billing.stripe.com/p/session/mock'),true);
+ for(const url of [
+  'https://billing.stripe.com.attacker.invalid/p/session',
+  'https://evil.invalid/?next=billing.stripe.com',
+  'https://user:secret@billing.stripe.com/p/session',
+  'https://billing.stripe.com/p/session#fragment',
+  'http://billing.stripe.com/p/session',
+  'https://checkout.stripe.com/c/pay/abc',
+  '//billing.stripe.com/p/session','not a URL',null,undefined
+ ])assert.equal(isNetworkBillingPortalUrl(url),false,String(url));
+});
+
+test('Stripe Checkout POST uses a bounded deadline, preserves the caller idempotency key and cannot override server bearer',async()=>{
+ const oldFetch=globalThis.fetch,oldKey=process.env.STRIPE_SECRET_KEY;
+ process.env.STRIPE_SECRET_KEY='sk_live_mock_never_sent';
+ let captured;
+ globalThis.fetch=async(url,opts)=>{
+  captured={url,opts};
+  return {ok:true,status:200,json:async()=>({ok:true})};
+ };
+ try{
+  assert.deepEqual(await stripeRequest('/checkout/sessions',{
+   method:'POST',headers:{'Idempotency-Key':'network-plus-test','Authorization':'Bearer attacker'},
+   body:new URLSearchParams({foo:'bar'}),
+  }),{ok:true});
+  assert.equal(captured.url,'https://api.stripe.com/v1/checkout/sessions');
+  assert.equal(captured.opts.headers.Authorization,'Bearer sk_live_mock_never_sent');
+  assert.equal(captured.opts.headers['Idempotency-Key'],'network-plus-test');
+  assert.equal(captured.opts.method,'POST');
+  assert.ok(captured.opts.signal && !captured.opts.signal.aborted,'Stripe API call must be time-bounded');
+ }finally{
+  globalThis.fetch=oldFetch;
+  if(oldKey===undefined)delete process.env.STRIPE_SECRET_KEY;
+  else process.env.STRIPE_SECRET_KEY=oldKey;
+ }
+});
+
+test('Stripe Checkout upstream rejects outages, timeouts, bad HTTP and malformed JSON without false success',async()=>{
+ const oldFetch=globalThis.fetch,oldKey=process.env.STRIPE_SECRET_KEY;
+ process.env.STRIPE_SECRET_KEY='sk_live_mock_never_sent';
+ const cases=[
+  {name:'transport loss',mock:async()=>{throw Error('mocked socket loss')},message:/socket loss/},
+  {name:'timeout',mock:async()=>{throw new DOMException('mocked aborted','TimeoutError')},message:/mocked aborted/},
+  {name:'upstream 429',mock:async()=>({ok:false,status:429,json:async()=>{throw Error('do not parse non-2xx JSON')}}),message:/Stripe API unavailable: 429/},
+  {name:'upstream 503',mock:async()=>({ok:false,status:503,json:async()=>null}),message:/Stripe API unavailable: 503/},
+  {name:'upstream 200 null',mock:async()=>({ok:true,status:200,json:async()=>null}),message:/Malformed Stripe API response/},
+  {name:'upstream 200 array',mock:async()=>({ok:true,status:200,json:async()=>[]}),message:/Malformed Stripe API response/},
+  {name:'upstream invalid JSON',mock:async()=>({ok:true,status:200,json:async()=>{throw new SyntaxError('mocked invalid JSON')}}),message:/mocked invalid JSON/},
+ ];
+ try{
+  for(const scenario of cases){
+   globalThis.fetch=scenario.mock;
+   await assert.rejects(stripeRequest('/checkout/sessions',{method:'POST'}),scenario.message,scenario.name);
+  }
  }finally{
   globalThis.fetch=oldFetch;
   if(oldKey===undefined)delete process.env.STRIPE_SECRET_KEY;
