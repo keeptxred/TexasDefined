@@ -106,7 +106,7 @@ def parse(conf: str, raw: bytes):
     if any(v<3 or v>13 for v in district_counts.values()):
         raise ValueError(f"{conf} implausible district team counts {district_counts}")
     for entry in records:
-        entry["name"] = re.sub(r"\\s+", " ", entry["name"]).strip()
+        entry["name"] = re.sub(r"\s+", " ", entry["name"]).strip()
     pairs=[(x["conference"], x["name"].casefold()) for x in records]
     if len(set(pairs)) != len(pairs):
         raise ValueError(f"{conf} duplicate school names: {len(pairs)-len(set(pairs))}")
