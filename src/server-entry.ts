@@ -97,6 +97,26 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
   });
 }
 
+/**
+ * Complete or bounded-cancel a rejected Network POST body before a 503/429.
+ * On Workers/Miniflare an unread request stream can poison the proxy bridge,
+ * causing unrelated later requests to fail despite a correctly returned 503.
+ * Do not read arbitrary uploads into RAM; 64 KiB is a strict maximum.
+ */
+async function drainRejectedNetworkPost(request:Request):Promise<void>{
+ if(request.method!=='POST'||!request.body)return;
+ const reader=request.body.getReader();
+ let size=0;
+ try{
+  while(true){
+   const next=await reader.read();
+   if(next.done)return;
+   size+=next.value.byteLength;
+   if(size>65536){await reader.cancel();return}
+  }
+ }catch{try{await reader.cancel()}catch{}}
+}
+
 export default {
   async scheduled(_event: unknown, env: unknown, ctx: {waitUntil?: (promise: Promise<unknown>) => void}) {
     // Cron is not exposed over HTTP; the complete Network release must be
@@ -127,17 +147,21 @@ export default {
     if(env && typeof env==='object' &&
        Reflect.get(env,"NETWORK_ISOLATED_STAGING")==="true"){
       const {networkRequestHostAllowed}=await import("./data/network-atomic-launch-readiness.server");
-      if(!networkRequestHostAllowed(env as Record<string,string|undefined>,request.url))
+      if(!networkRequestHostAllowed(env as Record<string,string|undefined>,request.url)){
+        await drainRejectedNetworkPost(request);
         return new Response("Isolated Network staging origin mismatch",{status:503,
           headers:{"Cache-Control":"no-store"}});
+      }
     }
     if(customerPath.startsWith("/api/public/network-")
       &&customerPath!=="/api/public/network-billing"
       &&customerPath!=="/api/public/network-checkout"){
       const {networkCustomerLaunchArmed}=await import("./data/network-atomic-launch-readiness.server");
-      if(!networkCustomerLaunchArmed(env as Record<string,string|undefined>))
+      if(!networkCustomerLaunchArmed(env as Record<string,string|undefined>)){
+        await drainRejectedNetworkPost(request);
         return new Response("Network customer launch not accepted",{status:503,
           headers:{"Cache-Control":"no-store"}});
+      }
     }
     if(request.method==="POST" && customerPath==="/api/public/network-metrics"){
       // Counters are aggregate but otherwise publicly writable. Enforce a
@@ -145,18 +169,24 @@ export default {
       const limiter=env&&typeof env==='object'
         ? Reflect.get(env,"TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER"):null;
       const limit=limiter&&typeof limiter==='object'?Reflect.get(limiter,"limit"):null;
-      if(typeof limit!=="function")return new Response("Metrics unavailable",{status:503});
+      if(typeof limit!=="function"){
+        await drainRejectedNetworkPost(request);
+        return new Response("Metrics unavailable",{status:503});
+      }
       const identity=request.headers.get("cf-connecting-ip")||"unknown";
       const result=await Reflect.apply(limit,limiter,[{key:"network-metrics:"+identity}]);
-      if(!result?.success)return new Response("Metrics rate limit reached",{status:429});
+      if(!result?.success){
+        await drainRejectedNetworkPost(request);
+        return new Response("Metrics rate limit reached",{status:429});
+      }
     }
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
-      if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
+      if (!limiter || typeof limiter !== "object"){await drainRejectedNetworkPost(request);return new Response("Service temporarily unavailable", { status: 503 });}
       const check = Reflect.get(limiter, "limit");
-      if (typeof check !== "function") return new Response("Service temporarily unavailable", { status: 503 });
+      if (typeof check !== "function"){await drainRejectedNetworkPost(request);return new Response("Service temporarily unavailable", { status: 503 });}
       const rate = await Reflect.apply(check, limiter, [{ key: new URL(request.url).pathname + ":" + (request.headers.get("cf-connecting-ip") || "unknown") }]);
-      if (!rate?.success) return new Response("Too many requests", { status: 429 });
+      if (!rate?.success){await drainRejectedNetworkPost(request);return new Response("Too many requests", { status: 429 });}
     }
     const newsletterApiResponse = await texasDefinedNewsletterApiResponse(request);
     if (newsletterApiResponse) return newsletterApiResponse;
