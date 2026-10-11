@@ -54,6 +54,18 @@ function TexasVehicleRegistrationPage() {
           <Link to="/texas-vehicle-registration-fees-taxes" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">TexasDefined fees and taxes guide</Link>
         </div>
       </section>
+      <section id="ownership-fraud-prevention" aria-labelledby="ownership-fraud-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
+        <p className="eyebrow text-primary">Protect your transaction</p>
+        <h2 id="ownership-fraud-heading" className="mt-2 font-display text-3xl">Avoid common Texas used-car title problems</h2>
+        <div className="mt-5 grid gap-5 md:grid-cols-2">
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Title does not match the seller</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Compare the seller's identification and title ownership information. Be cautious when someone is selling a vehicle titled to an unrelated person or asks you to leave buyer information blank. Resolve ownership questions before paying.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Outstanding loan or lien</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A lienholder may have a legal interest in the vehicle. Confirm how the lien will be satisfied and what release documentation the county office requires; do not assume the seller's statement alone clears the lien.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">VIN or odometer discrepancy</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Compare the VIN in multiple places and investigate inconsistencies in the title, vehicle history and odometer disclosure. Stop the transaction when the identity of the vehicle cannot be established.</p></article>
+          <article className="border border-border p-5"><h3 className="font-display text-xl">Salvage or rebuilt history</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A branded title can affect registration, insurance, value and resale. Ask for the title and supporting records, and confirm applicable TxDMV requirements before completing a purchase.</p></article>
+        </div>
+        <p className="mt-5 max-w-3xl leading-7 text-muted-foreground">For a private sale, consider completing paperwork together at the county tax assessor-collector office when feasible. The county can explain submission requirements but cannot guarantee the vehicle's condition or the seller's honesty.</p>
+        <div className="mt-5 flex flex-wrap gap-3"><a href="https://www.txdmv.gov/motorists/buying-or-selling-a-vehicle" target="_blank" rel="noopener noreferrer" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">TxDMV buyer and seller resources</a><Link to="/texas-vehicle-registration-fees-taxes" className="border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Texas title fees and taxes</Link></div>
+      </section>
       <section id="license-plates" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Vehicle ownership</p>
         <h2 className="mt-2 font-display text-3xl">Texas license plates</h2>
