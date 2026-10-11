@@ -78,6 +78,39 @@ for (const [viewport,width,height] of viewports) {
       }
       row.checks.keyboardNavigation = row.keyboardEvidence.some(f=>
         f.visible && f.tag !== 'BODY' && f.tag !== 'HTML') ? 'PASS' : 'FAIL';
+      // Independently exercise the actual mobile/tablet navigation menu, not
+      // merely keyboard focus on page links. Includes accessible labeling,
+      // aria-expanded state and 44x44 CSS-pixel touch target dimensions.
+      if (viewport !== 'desktop') {
+        const menuToggle=page.locator('button[aria-controls="mobile-main-menu"]').first();
+        row.menuEvidence={};
+        try {
+          row.menuEvidence.buttonVisible=await menuToggle.isVisible();
+          const before=await menuToggle.evaluate(el=>({
+            label:el.getAttribute('aria-label')||'',
+            expanded:el.getAttribute('aria-expanded'),
+            width:Math.round(el.getBoundingClientRect().width),
+            height:Math.round(el.getBoundingClientRect().height)
+          }));
+          row.menuEvidence.before=before;
+          await menuToggle.click();
+          row.menuEvidence.expanded=await menuToggle.getAttribute('aria-expanded');
+          row.menuEvidence.menuVisible=await page.locator('#mobile-main-menu nav[aria-label="Main menu"]').isVisible();
+          row.menuEvidence.menuLinkCount=await page.locator('#mobile-main-menu nav a').count();
+          await menuToggle.click();
+          row.menuEvidence.collapsed=await menuToggle.getAttribute('aria-expanded');
+          row.menuEvidence.menuHidden=!(await page.locator('#mobile-main-menu').isVisible());
+          row.checks.mobileMenuInteraction=row.menuEvidence.buttonVisible &&
+            before.label.trim().length>0 && before.expanded==='false' &&
+            before.width>=44 && before.height>=44 &&
+            row.menuEvidence.expanded==='true' && row.menuEvidence.menuVisible &&
+            row.menuEvidence.menuLinkCount>0 &&
+            row.menuEvidence.collapsed==='false' && row.menuEvidence.menuHidden?'PASS':'FAIL';
+        }catch(error){
+          row.menuEvidence.error=String(error);
+          row.checks.mobileMenuInteraction='FAIL';
+        }
+      }
       // Retry transient network errors once; preserve failures, URLs and status
       // codes, do not whitelist persistent broken links.
       const sample = [...new Set(data.links
