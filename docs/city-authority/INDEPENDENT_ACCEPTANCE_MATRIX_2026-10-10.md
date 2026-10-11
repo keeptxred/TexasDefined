@@ -19,7 +19,7 @@ The 33 images in artifact #11687994544 were extracted and examined as a visual c
 
 The new open-source research helper `scripts/data/verify-city-municipal-gis.py` records exact municipal GIS source URLs, obtains city-limit GeoJSON, selects *all candidate counties in its extent* from the U.S. Census [TIGERweb BAS 2026 county polygons](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/29), projects both to EPSG:5070, reports overlap areas, records raw-data SHA-256 digests and flags areas below 0.01 km² for **sliver review**. No ETJ layer is used as city-limit geometry. Source/source-data differences, limited-purpose annexations, topology errors and county-line precision still require human review.
 
-**Important:** Script committed is not evidence it has successfully retrieved geometry. No live municipal–county polygon overlay was completed in this execution environment. The script does not auto-issue GIS PASS; all eleven remain **GIS UNVERIFIED**. Four cities (Austin, San Antonio, Corpus Christi, Lubbock) still need current official vector-source discovery. Confirm geometry dates and limited-purpose classifications before approving a GIS result. Census county geography is BAS 2026, not necessarily the date/precision of municipal service layers.
+**Important:** Script committed is not evidence it has successfully retrieved geometry. No live municipal–county polygon overlay was completed in this execution environment. The script does not auto-issue GIS PASS; all eleven remain **GIS UNVERIFIED**. Only San Antonio remains without a independently confirmed, current official municipal vector-layer endpoint; a map PDF and other published boundary layers exist but current authoritative vector ownership/vintage still needs scrutiny. Confirm geometry dates and limited-purpose classifications before approving a GIS result. Census county geography is BAS 2026, not necessarily the date/precision of municipal service layers.
 
 ## City-by-city status matrix
 
@@ -70,7 +70,7 @@ The new open-source research helper `scripts/data/verify-city-municipal-gis.py` 
 
 ### 4. Austin
 
-- **Published county claim:** Travis / Williamson / Hays. **GIS evidence:** Current authoritative vector endpoint not validated; source endpoint existence does not establish a polygon/county overlay; **UNVERIFIED**.
+- **Published county claim:** Travis / Williamson / Hays. **GIS evidence:** Source layer now independently found; geometry not run; source endpoint existence does not establish a polygon/county overlay; **UNVERIFIED**.
 - **Facts:** 2020 population and 2025 estimate individually PASS in `FINAL_BROWSER_AND_FACTUAL_QA_2026-10-09.md`; independent featured/operator evidence: 2 attraction claims (see `INDEPENDENT_PRIMARY_SOURCES_2026-10-10.md`); relocation, utilities, district service/attendance, address-specific taxes and remaining features are **PARTIAL or UNVERIFIED**.
 - **Chrome/links/SEO:** artifact #11687994544 reports automated **PASS** at all three sizes for this city, but only first 12 distinct internal destinations are attempted per viewport; full internal/official-external destination accuracy, JSON-LD/schema and sitemap inclusion remain **PARTIAL**.
 - **Visual and ADA:** viewport captured near H1. Artifact contains viewport screenshots, not full-page visual inspection or a WCAG evaluation; both **PARTIAL**.
@@ -160,3 +160,13 @@ The new open-source research helper `scripts/data/verify-city-municipal-gis.py` 
 - Direct external sitemap.xml retrieval failed in the inspection layer rather than returning a confirmed application HTTP status. **Sitemap inclusion remains UNVERIFIED**, not classified a live sitemap defect. Retry via a production browser/HTTP checker with exact status recorded.
 
 No fact source-review timestamps or final certification statuses were advanced by these scoped observations.
+
+## Additional primary GIS source discovery — October 10, 2026
+
+Three previous vector-source gaps have been resolved **at the source discovery level only** (not at spatial overlay level):
+
+- **Austin:** official City of Austin-hosted [Full Purpose municipal polygon](https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0) explicitly separates city full-purpose limits from other jurisdiction categories (ETJ, limited purpose). A separate City of Austin [jurisdiction layer](https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0) identifies limited-purpose types. **Only full-purpose** added as baseline; limited-purpose intersections need separate review.
+- **Corpus Christi:** official City of Corpus Christi GIS [CITYLIMITS layer 2](https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2) is a published polygon layer with a `CITY_LIMIT` field, distinct from zoning and subdivisions. Geometry not overlaid.
+- **Lubbock:** city's [official REST services directory](https://www.mylubbock.us/321/REST-Services) links the city-maintained [City Limit polygon layer 13](https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13) including `LAST_ANNEX_DATE` and `LAST_UPDATE` attributes. No spatial comparison run yet.
+
+Nine of eleven official city-limit **source locations** are now identified; current San Antonio geometry endpoint needs authoritative current-year layer/vintage confirmation. Source discovery does **not** confer GIS PASS. The research workflow will capture geometry artifacts only when merged into protected main and permitted to run. Dates and legal relevance need independent scrutiny.
