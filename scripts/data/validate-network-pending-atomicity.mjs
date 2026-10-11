@@ -17,7 +17,7 @@ for(const file of files){
 }
 const quota=readFileSync('supabase/pending/'+files[3],'utf8');
 for(const required of ['LOCK TABLE storage.objects IN SHARE ROW EXCLUSIVE MODE',
- 'network_featured_usage_before_insert','network_featured_usage_after_delete',
+ 'network_featured_usage_after_insert','network_featured_usage_after_delete',
  'network_featured_usage_prevent_move']){
  if(!quota.includes(required))throw new Error('Quota migration prerequisite missing: '+required);
 }
