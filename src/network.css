@@ -61,5 +61,5 @@
  * the shared header's single-viewport navigation without changing it or
  * adding this override to site-wide CSS. */
 @media (min-width: 64rem) {
-  header .lg\\:hidden { display: none; }
+  header [class~="lg:hidden"] { display: none; }
 }
