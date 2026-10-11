@@ -2,7 +2,7 @@ name: One-time UIL 2026-27 softball school registry
 on:
   push:
     branches: [feature/softball-uil-2026-district-directory]
-    paths: ['.github/workflows/softball-uil-ingest.yml']
+    paths: ['.github/workflows/softball-uil-ingest.yml', 'scripts/softball/extract-uil-2026.py']
 permissions:
   contents: write
 jobs:
