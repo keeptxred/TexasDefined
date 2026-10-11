@@ -62,9 +62,9 @@ try{
  const billingPreflight={route:'/api/public/network-billing',viewport:'HTTP-PREFLIGHT',status:'PASS',failures:[]};
  results.push(billingPreflight);
  try{
-  const preflight=await fetch(origin+'/api/public/network-billing',{headers:{connection:'close'},signal:AbortSignal.timeout(15000)});
+  const preflight=await fetch(origin+'/api/public/network-billing',{signal:AbortSignal.timeout(15000)});
+  const detail=(await preflight.text()).slice(0,400);
   if(preflight.status!==401){
-   const detail=(await preflight.text()).slice(0,400);
    throw Error('Anonymous billing GET preflight returned '+preflight.status+', expected 401; body='+JSON.stringify(detail));
   }
  }catch(e){billingPreflight.status='FAIL';billingPreflight.failures.push(String(e))}
@@ -159,8 +159,9 @@ try{
    const health={route:'/network/join',viewport:'HTTP-HEALTH-BEFORE',status:'PASS',failures:[]};
    results.push(health);
    try{
-    const probe=await fetch(origin+'/network/join',{headers:{connection:'close'},signal:AbortSignal.timeout(15000)});
-    assert.equal(probe.status,200,'Worker unhealthy before anonymous GET checks');
+    const probe=await fetch(origin+'/network/join',{signal:AbortSignal.timeout(15000)});
+    const detail=(await probe.text()).slice(0,220);
+    assert.equal(probe.status,200,'Worker unhealthy before anonymous GET checks: '+detail+'; '+serverOutput.slice(-700));
    }catch(e){health.status='FAIL';health.failures.push(String(e))}
    console.log('NETWORK API Worker before anonymous membership checks',health.status,health.failures.join(' | '));
   }
@@ -169,24 +170,25 @@ try{
   try{
    const response=await fetch(origin+api.path,{
     method:api.method,
-    // The local Miniflare dev proxy can drop a reused socket after a long Chrome
-    // sequence. Force a fresh HTTP/1.1 connection for each security probe.
-    // Status assertions remain strict: no retry is counted as a pass.
-    headers:{origin,'content-type':'application/json',connection:'close'},
+    // Fully consume the response body before the next probe. Early socket
+    // teardown can abort Miniflare's local request bridge under Node fetch.
+    // No retry is allowed to turn an initial wrong response into a pass.
+    headers:{origin,'content-type':'application/json'},
     ...(api.body!==undefined?{body:api.body}:{}),
     signal:AbortSignal.timeout(15000)
    });
+   const message=(await response.text()).slice(0,400);
    if(response.status!==api.status){
-    const message=(await response.text()).slice(0,400);
     // Never promote a second attempt into a pass: record diagnostics for the
     // initial failure and retain the release-gate failure.
     let repeat='not-probed';
     if(api.label==='anonymous membership list denied'){
      try{
       const followup=await fetch(origin+api.path,{
-       method:api.method,headers:{origin,'content-type':'application/json',connection:'close'},
+       method:api.method,headers:{origin,'content-type':'application/json'},
        signal:AbortSignal.timeout(15000)
       });
+      await followup.text();
       repeat=String(followup.status);
      }catch(e){repeat=String(e)}
     }
@@ -195,7 +197,8 @@ try{
    // After a disabled intake POST the very same Worker must still be alive.
    if(api.label==='direct intake closed'){
     const alive=await fetch(origin+'/network/join',{signal:AbortSignal.timeout(15000)});
-    assert.equal(alive.status,200,'Worker died after rejected intake POST');
+    const healthBody=(await alive.text()).slice(0,200);
+    assert.equal(alive.status,200,'Worker died after rejected intake POST: '+healthBody);
    }
   }catch(error){entry.status='FAIL';entry.failures.push(String(error))}
   console.log('NETWORK API',api.label,entry.status,entry.failures.join(' | '));
@@ -203,8 +206,9 @@ try{
    const health={route:'/network/join',viewport:'HTTP-HEALTH-AFTER',status:'PASS',failures:[]};
    results.push(health);
    try{
-    const probe=await fetch(origin+'/network/join',{headers:{connection:'close'},signal:AbortSignal.timeout(15000)});
-    assert.equal(probe.status,200,'Worker unhealthy after anonymous GET checks');
+    const probe=await fetch(origin+'/network/join',{signal:AbortSignal.timeout(15000)});
+    const detail=(await probe.text()).slice(0,220);
+    assert.equal(probe.status,200,'Worker unhealthy after anonymous GET checks: '+detail+'; '+serverOutput.slice(-700));
    }catch(e){health.status='FAIL';health.failures.push(String(e))}
    console.log('NETWORK API Worker after anonymous membership checks',health.status,health.failures.join(' | '));
   }
