@@ -88,3 +88,15 @@ test('the single launch gate includes independent delivery of every publicly adv
  assert.match(marketing,/Basic listing performance statistics/);
  assert.match(marketing,/Expanded performance insights/);
 });
+
+test('Plus and Featured performance must have real collection, owner-only reports and pending rollout SQL',()=>{
+ const entry=src('src/server-entry.ts');
+ const worker=src('src/routes/api.public.network-metrics.ts');
+ assert.match(entry,/TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER/);
+ assert.match(worker,/paid_entitlement_active/);
+ assert.match(worker,/owner_user_id/);
+ assert.match(worker,/get_texasdefined_network_profile_metrics/);
+ assert.match(src('src/data/network-atomic-launch-readiness.server.ts'),/planBenefitsDelivered/);
+ assert.match(src('src/routes/business.dashboard.lazy.tsx'),/NetworkPerformancePanel/);
+ assert.match(src('scripts/data/verify-network-migration-replay.mjs'),/20261011210000_network_profile_daily_metrics.sql/);
+});
