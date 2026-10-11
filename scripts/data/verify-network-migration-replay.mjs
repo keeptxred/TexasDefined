@@ -59,7 +59,7 @@ execSql(['-f',pendingRecovery],'pending service-only manual Graph reconciliation
 console.log('REPLAY PENDING GRAPH RECOVERY SCHEMA PASS: no sender, no automatic retry');
 const pendingAtomicQuota='supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql';
 if(!existsSync(pendingAtomicQuota))throw new Error('Pending atomic Storage HTTP quota migration missing');
-execSql(['-f',pendingAtomicQuota],'pending atomic Storage quota counter and triggers: disposable DB only');
+execSql(['--single-transaction','-f',pendingAtomicQuota],'pending atomic Storage quota counter and triggers: disposable DB only');
 console.log('REPLAY PENDING ATOMIC STORAGE QUOTA SCHEMA PASS: durable per-owner counters protect real concurrent HTTP uploads');
 
 const checks=`DO $verification$
