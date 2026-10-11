@@ -28,7 +28,7 @@ Build an independent, durable statewide research resource with real references r
 15. USA Softball Texas associations: https://www.usasoftball.com/associations/state/texas/
 
 ## Editorial cautions
-- Jack Butler's Kentucky background, detailed U.S. Army coaching assignment, signature workouts and the alleged October 2026 Texas Country Reporter segment remain **unverified** by adequate original or attributable evidence, and are not stated as fact in the public article.
+- Butler's western Kentucky upbringing, University of Kentucky attendance and some field-maintenance duties are now **attributed to his own remarks and PJC's field-farewell ceremony**. A Kentucky degree or collegiate playing career, specific U.S. Army coaching assignment, signature workouts and the claimed October 2026 Texas Country Reporter segment remain **unverified** and are not published as fact.
 - The PJC 2025 coaching honor was **NJCAA Division I Midwest Regional Coaching Staff of the Year**, shared with Shelby Shelton and Taylor Swisher. It was not an individual or national coaching award.
 - PJC's history as described in the published local account of the college announcement includes **2026 fourth nationally and 52 wins**. The 2026 San Jac bracket documents separate Region XIV postseason routes: do not conflate San Jac's title with Paris's advancement path.
 - The Texas collegiate list is marked as **curated, not complete**. Links are official athletics-team home pages for readers to obtain current rosters and schedules. Teams, staff, grades, conferences, and league configurations require future checks.
