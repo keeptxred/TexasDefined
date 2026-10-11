@@ -200,3 +200,18 @@ The Network billing POST now rejects every Stripe billing-portal session unless 
 ### October 11 source Graph worker follow-up
 
 Introduced a **default-disabled bounded Graph dispatch worker core** with max five claims, duplicate/invalid claim refusal, no-send outcome rehearsals and redacted manual-resolution results; connected its test to the protected Merge Gate and a release guard. It does not claim SQL rows, call Microsoft Graph, get tokens, schedule jobs, send test email, finish SQL notifications or change either false activation constant. On the PR, source additions require newly passing **exact HEAD** checks before calling them certified. Real mailbox-scoped Mail.Send, staging provider tests, Sent Items correlation and constrained deployment remain outstanding and separately owner-gated. This is not an authorization to switch on Network notification delivery.
+
+## Immutable pending migration source manifest — October 11 recovery
+
+The following **Git blob SHA-1 object IDs** and UTF-8 byte lengths were read directly from the PR branch after the final quota hardening, without rewriting the SQL. They identify the exact current source contents; they are **not** applied-database migration hashes or evidence of hosted deployment.
+
+| Pending migration filename | Git blob object ID | UTF-8 bytes | Explicit transaction | LOCAL safeguards |
+|---|---|---:|---|---|
+| `20261011043000_network_owner_revision_read_revocation.sql` | `f0f1c5aafc85cba7960bcbeebbd475b77e957546` | 1386 | BEGIN/COMMIT | 5s lock; 45s statement |
+| `20261011044000_network_sensitive_action_audit.sql` | `9c0d41569bd1dd9f82c7fc31726ffd49b6b2747d` | 5763 | BEGIN/COMMIT | 5s lock; 45s statement |
+| `20261011045000_network_notification_manual_recovery.sql` | `e113c62abb6ad256c5f7c4b46a954befdb465746` | 4787 | BEGIN/COMMIT | 5s lock; 45s statement |
+| `20261011046000_network_featured_storage_atomic_counter.sql` | `db58bf3e537ff04f613cc418f3bb697e88ece0db` | 7646 | BEGIN/COMMIT | 5s lock; 45s statement |
+
+Before authorized versioned promotion, compare the current Git object IDs with these entries **and stop if any have changed** without fresh review and disposable CI. Independently record SHA-256 of the exact promoted files and official migration output once a release workstation is available. Supabase history does not record/check source blob IDs automatically. Do not assert that 5s/45s limits guarantee short blocking time; the fourth migration explicitly obtains a shared-storage write lock and requires a low-write window. None of these four versions was recorded applied during the read-only production inspection.
+
+**Actual hosted migration interleave warning:** Already-applied unrelated migration versions `20261011043154`, `20261011043158`, `20261011043223`, and `20261011045107` overlap the timestamps of these pending scripts. An official CLI dry-run and exact source-versus-host version parity check are mandatory; do not create phantom history entries, overwrite unrelated migrations or bypass surprise pending versions.
