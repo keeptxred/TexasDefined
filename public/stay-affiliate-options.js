@@ -499,6 +499,7 @@
     // All county and city authority routes have a React hydration readiness
     // signal; defer affiliate DOM changes until their route mounts.
     const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
+    if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
@@ -523,6 +524,7 @@
     observer.observe(main, { childList: true, subtree: true });
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
