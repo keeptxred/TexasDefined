@@ -76,6 +76,13 @@ try {
       row.checks.photoAttribution = archival.every(e => e.alt && e.source && e.license.includes('by-sa') && e.credit.includes('Michael Barera'));
       await page.screenshot({ path: out + '/' + viewport + '.png', fullPage: false });
       await page.locator('[data-state-fair-historical-gallery]').screenshot({ path: out + '/' + viewport + '-gallery.png', timeout: 20000 });
+      // A root shell hydration marker is insufficient for this lazy route's
+      // affiliate slot. Require the nested React effect's explicit handshake.
+      row.checks.stateFairHydration = await page.waitForFunction(
+        () => document.documentElement.dataset.tdStateFairHydrated === '1' &&
+          !!document.querySelector('[data-state-fair-stay-slot]'),
+        null, { timeout: 15000 },
+      ).then(() => true).catch(() => false);
       row.checks.javascript = row.errors.length === 0;
       // Investigate real React #418 failures without weakening the strict baseline.
       // Compare fresh isolated browser contexts with third-party integrations blocked.
