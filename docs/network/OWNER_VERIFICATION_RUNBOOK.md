@@ -6,7 +6,7 @@ Updated: 2026-10-10. Feature branch only; not a launch approval.
 
 1. A Plus application has passed editorial review and is in `approved` or `published` status.
 2. A human reviewer independently confirms the applicant is authorized to act for the named business. Contact-email knowledge or website presence alone are insufficient. Record the independent evidence in the approved internal review system, not in public descriptions.
-3. The authorized applicant opens `/business/dashboard`, requests a Supabase email OTP, signs in, and completes email confirmation. Authentication by itself does **not** provision ownership.
+3. **Only after the approved owner-portal launch gate is enabled**, the authorized applicant opens `/business/dashboard`, requests a Supabase email OTP, signs in, and completes email confirmation. Before launch, `NETWORK_OWNER_PORTAL_ENABLED` defaults OFF and the page must not send email. Authentication by itself does **not** provision ownership.
 4. In the private Network applications admin, enter that existing authenticated Supabase user UUID for the reviewed Plus application. Explicitly attest to the independent verification before clicking **Enable verified owner**.
 5. The server verifies the admin key, application approval and Plus tier, exact match of confirmed Auth email to the original application contact email, prevents reassignment of an existing owner, and enables the owner binding.
 6. Recheck ownership and access in the admin review; if any evidence is missing, **do not** provision. No invitations, charges, Stripe activation or automatic publication follow provisioning.
@@ -27,9 +27,13 @@ Updated: 2026-10-10. Feature branch only; not a launch approval.
 - [ ] Office365 notification identity and suppression behavior are verified separately
 - [ ] Explicit launch approval and independent signoff before enabling checkout, indexed discovery, or production merge
 
-## Known blockers
+## Current launch blockers and completed protections (verified October 10, 2026)
 
-The application admin still relies on the inherited sports-partner admin access key rather than dedicated identity-based Network RBAC. The database ownership binding does not itself store independent proof or reviewer attribution, so proof must be retained separately. Production email-deliverability is unverified. Subscription/webhook and public listing transitions span multiple DB calls and remain to be tested for partial failures and concurrency. The client bundle-size gate has recently failed at 1,833,490 bytes, against a maximum of 1,829,000 bytes. Nothing in this document waives these requirements.
+**Implemented and tested in the draft feature branch:** A dedicated default-off Network admin secret replaces the sports-partner admin key; service-only atomic owner provisioning persists verification method, non-sensitive evidence reference and reviewer; Plus and Featured privileges are separated; Stripe event, publication, unpublish and Featured revision transitions have transactional Supabase RPCs with rollback-only fixture coverage. Main JavaScript and primary/route-specific CSS passed unchanged bundle limits on a prior exact branch head. Mobile/desktop Chrome preview QA passed 23/23 tests on a prior exact head, with full-page screenshot capture subsequently added.
+
+**Still required before launch:** Network admin uses a dedicated shared secret, not identity-based per-operator RBAC; acceptance of this authorization model or an approved RBAC upgrade needs an explicit security decision. Microsoft 365 runtime delivery, rate-limited send worker and real deliverability remain unconfigured. Complete non-live Stripe lifecycle testing (including cancellations, retries, webhooks and portal), real controlled-owner sign-in/Storage API integration, final exact-HEAD CI plus inspection of current full-page screenshots, and separately authorized live deployment/browser regression remain outstanding. The optional read-only 45-day media candidate inventories do not authorize deletion; a retention policy and safe cleanup procedure remain undecided. Any Featured price, business launch, production merge, email transport, indexing and activation flags require explicit operator approval.
+
+**Do not interpret any earlier failure narrative in this document as a present blocker after its corresponding fix.** The permanent `docs/network/IMPLEMENTATION_STATUS.md` ledger provides the detailed chronological evidence and authoritative latest verified head.
 
 ## Plus versus Featured membership authorization (October 10 continuation)
 - Approved Plus applications are provisioned into `membership_tier = plus`; NEVER grant `featured` merely for verified Plus ownership. The prior code incorrectly set `featured` due to a Featured-only database constraint.
