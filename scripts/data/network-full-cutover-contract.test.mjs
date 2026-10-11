@@ -7,6 +7,10 @@ test('no customer API becomes usable before ALL verified launch evidence is acce
  assert.match(worker,/customerPath\.startsWith\("\/api\/public\/network-"\)/);
  assert.match(worker,/networkCustomerLaunchArmed/);
  assert.match(worker,/status:503/);
+ assert.match(worker,/customerPath!=="\/api\/public\/network-billing"/);
+ assert.match(worker,/customerPath!=="\/api\/public\/network-checkout"/);
+ assert.match(src('src/routes/api.public.network-billing.ts'),/networkCustomerLaunchArmed/);
+ assert.match(src('src/routes/api.public.network-checkout.ts'),/networkCustomerLaunchArmed/);
  const gate=src('src/data/network-atomic-launch-readiness.server.ts');
  assert.match(gate,/NETWORK_LAUNCH_EVIDENCE_JSON/);
  assert.match(gate,/inspectNetworkAtomicLaunch\(environment/);
