@@ -25,6 +25,7 @@ function Section({ id, label, heading, children }: { id: string; label: string; 
 function Page() {
   return <Container className="pb-16 pt-10 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', name: 'Paris Junior College Lady Dragons Softball: Mr. Jack Butler & History', url: 'https://texasdefined.com/sports/softball/paris-junior-college', dateModified: '2026-10-11', author: { '@type': 'Organization', name: 'TexasDefined Editorial' }, }) }} />
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><a href="/">Home</a> / <a href="/sports">Sports</a> / <a href="/sports/softball">Softball</a> / <span aria-current="page">Paris Junior College</span></nav>
       <header className="pb-12 pt-10">
         <p className="eyebrow text-primary">Northeast Texas · Lamar County · Reviewed October 11, 2026</p>
