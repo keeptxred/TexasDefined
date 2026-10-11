@@ -17,7 +17,7 @@ const [migration, promotionMigration, server, functions, promotionServer, promot
   read('src/routes/partner-with-us.tsx'),
   read('src/routes/partner-with-us.lazy.tsx'),
   read('src/routes/sports-venue.$slug.tsx'),
-  read('src/routes/sports-venues.tsx'),
+  Promise.all([read('src/routes/sports-venues.tsx'), read('src/routes/sports-venues.lazy.tsx')]).then((sources) => sources.join('\n')),
 ]);
 
 // TanStack file routes split route metadata from lazy operator/public UI. Validate
