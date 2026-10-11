@@ -14,6 +14,7 @@ export const Route = createLazyFileRoute('/sports/softball/texas-volts')({ compo
 function Page() {
   return <Container className="pb-16 pt-10 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', name: 'Texas Volts: Round Rock Professional Softball & Dell Diamond', url: 'https://texasdefined.com/sports/softball/texas-volts', dateModified: '2026-10-11', author: { '@type': 'Organization', name: 'TexasDefined Editorial' }, }) }} />
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><a href="/">Home</a> / <a href="/sports">Sports</a> / <a href="/sports/softball">Softball</a> / <span aria-current="page">Texas Volts</span></nav>
       <header className="border-b border-border pb-12 pt-10">
         <p className="eyebrow text-primary">Women's professional softball · Round Rock · Reviewed October 11, 2026</p>
