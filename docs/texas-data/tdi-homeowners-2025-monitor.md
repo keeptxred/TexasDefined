@@ -1,6 +1,6 @@
 # Texas homeowners 2025 data: recurring TDI source monitor
 
-**Status (October 10, 2026):** Live in shared Supabase project `ftkznprjljkhymknvhye`. The scheduled monitor is not a website publishing job and does not spend Lovable credits.
+**Status (October 10, 2026):** Live in shared Supabase project `ftkznprjljkhymknvhye`. The scheduled monitor is not a website publishing job and does not spend site-builder AI credits.
 
 ## Scope and provenance
 
