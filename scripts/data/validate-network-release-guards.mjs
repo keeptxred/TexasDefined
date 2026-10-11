@@ -292,7 +292,7 @@ check('real GoTrue Auth and Storage HTTP integration is confined to fresh, unlin
  && source('.github/workflows/network-local-auth-storage.yml').includes("'src/data/network-*'")
  && source('.github/workflows/network-local-auth-storage.yml').includes("'scripts/data/network-*'")
  && !source('.github/workflows/network-local-auth-storage.yml').includes('supabase link')
- && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==34")
+ && source('scripts/data/prepare-network-local-supabase.mjs').includes("applied.length!==38")
  && source('scripts/data/prepare-network-local-supabase.mjs').includes("config.includes('ftkznprjljkhymknvhye')")
  && source('scripts/data/verify-network-local-supabase.mjs').includes("process.env.API_URL!==ORIGIN")
  && source('scripts/data/verify-network-local-supabase.mjs').includes('NETWORK REAL STORAGE CONCURRENT QUOTA PASS')
