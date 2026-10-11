@@ -67,3 +67,21 @@ export function inspectNetworkAtomicLaunch(
 }
 export const NETWORK_LAUNCH_EVIDENCE_KEYS=[...requiredEvidence];
 export const NETWORK_LAUNCH_FEATURE_KEYS=[...requiredFlags];
+
+/**
+ * Runtime customer cutover guard. The signed-off acceptance manifest is held
+ * only as a Worker secret (NOT an artifact embedded in the client bundle).
+ * All production credentials, eight feature switches and every independent
+ * acceptance record must be simultaneously present. No partial activation.
+ */
+export function networkCustomerLaunchArmed(
+ environment:Record<string,string|undefined>,
+):boolean{
+ const raw=environment.NETWORK_LAUNCH_EVIDENCE_JSON;
+ if(typeof raw!=='string'||raw.length<100||raw.length>16_384)return false;
+ let evidence:unknown;
+ try{evidence=JSON.parse(raw);}catch{return false;}
+ if(!evidence ||typeof evidence!=='object'||Array.isArray(evidence))return false;
+ if(environment.NETWORK_GRAPH_MAILBOX!=='admin@texasdefined.com')return false;
+ return inspectNetworkAtomicLaunch(environment,evidence as Partial<NetworkLaunchEvidence>).ready;
+}
