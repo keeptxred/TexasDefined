@@ -59,7 +59,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     jurisdiction: {
       primaryCounty: 'Harris County',
       counties: ['Harris County', 'Fort Bend County', 'Montgomery County'],
-      note: 'Most incorporated Houston addresses are in Harris County; city limits also extend into Fort Bend and Montgomery counties. Houston’s separate extraterritorial jurisdiction (ETJ) extends into Waller County, but ETJ alone does not establish city residency. Confirm the exact address and jurisdiction before using appraisal, election, school, court or other local-service records.',
+      note: 'Most full-purpose incorporated Houston addresses are in Harris County; full-purpose city limits also extend into Fort Bend and Montgomery counties. The city maps limited-purpose annexation territory separately from full-purpose city limits and from its extraterritorial jurisdiction (ETJ). An October 2026 comparison of city GIS and Census county polygons found a small Waller County overlap in the limited-purpose layer that still needs legal-boundary review; the ETJ also extends into Waller. Neither an ETJ label nor a limited-purpose GIS overlap alone proves full city services, voting status, tax jurisdiction or residency for a particular address. Verify the exact parcel and annexation record before relying on appraisal, school, election, court or utility boundaries.',
       sourceUrl: 'https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer',
     },
     hero: {
@@ -735,7 +735,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Parks & recreation',
         summary: 'Hurst Parks & Recreation manages the city park system, recreation programs, aquatics and athletic facilities. Chisholm Park is the city’s largest park and includes trails, playgrounds, a fishing pond, athletic fields and other family recreation.',
-        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/2514' }],
+        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/' }],
       },
       {
         title: 'Local trip planning',
@@ -920,7 +920,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Lubbock County',
       counties: ['Lubbock County'],
       note: 'Lubbock is in Lubbock County. Municipal, school, utility and special-district boundaries still differ, so use the exact address for household and property decisions.',
-      sourceUrl: 'https://ci.lubbock.tx.us/pages/city-government/city-charter',
+      sourceUrl: 'https://www.mylubbock.us/994/City-Charter-Code-of-Ordinances',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lubbock%2C_Texas_skyline.jpg?width=1600',

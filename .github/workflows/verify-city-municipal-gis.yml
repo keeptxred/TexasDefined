@@ -37,6 +37,8 @@ jobs:
         run: python -m pip install --disable-pip-version-check 'shapely>=2,<3' 'pyproj>=3,<4'
       - name: Compute research-only intersections and source digests
         run: python scripts/data/verify-city-municipal-gis.py --city all --output artifacts/city-authority-gis/research.json
+      - name: Research San Antonio City-published provisional 2026 polygon separately
+        run: python scripts/data/verify-city-municipal-gis.py --city san-antonio --include-unverified-candidates --output artifacts/city-authority-gis/san-antonio-provisional-2026.json
       - name: Upload research candidates, not acceptance certificates
         if: always()
         uses: actions/upload-artifact@v4

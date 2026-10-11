@@ -1,0 +1,59 @@
+name: Research 11-city production schema and sitemap acceptance
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-city-authority-seo.mjs'
+      - '.github/workflows/audit-city-authority-seo.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-city-authority-seo.mjs'
+      - '.github/workflows/audit-city-authority-seo.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/audit-city-authority-seo.mjs
+  research:
+    name: Capture city SEO evidence - not indexing certification
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Set up isolated free Chrome inspector
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-city-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check 11 city live HTML, City/Breadcrumb graphs and primary XML sitemap
+        env:
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/audit-city-authority-seo.mjs
+      - name: Retain incomplete and successful diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: city-authority-seo-diagnostic
+          path: artifacts/city-authority-seo/
+          if-no-files-found: warn
+          retention-days: 30
