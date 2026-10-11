@@ -28,7 +28,7 @@ const requiredEvidence=[
  'basicEditorialPublication','plusVerifiedCheckout',
  'stripeWebhookRecovery','stripeCancelAndPortal','graphMailboxScope',
  'graphMessageReceived','graphNoDuplicateRecovery',
- 'publicDirectoryAndRobots','legalAndCommercialPolicy','fullBrowserRegression',
+ 'publicDirectoryAndRobots','planBenefitsDelivered','legalAndCommercialPolicy','fullBrowserRegression',
 ] as const;
 export type NetworkLaunchEvidence=Record<typeof requiredEvidence[number],{
  passed:boolean; reference:string; completedAt:string;
