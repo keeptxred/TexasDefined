@@ -23,7 +23,7 @@ WITH snapshot AS (
  (SELECT count(*)::bigint FROM storage.objects
   WHERE bucket_id='texasdefined-network-featured-drafts') AS featured_draft_objects,
  (SELECT count(*)::integer FROM supabase_migrations.schema_migrations
-  WHERE version IN ('20261011043000','20261011044000','20261011045000','20261011046000')) AS pending_upgrade_versions_applied,
+  WHERE version IN ('20261011183108','20261011183126','20261011183129','20261011183131')) AS applied_network_security_versions,
  (SELECT coalesce(bool_or(qual LIKE '%access_enabled%' AND qual LIKE '%membership_tier%'),false)
   FROM pg_policies WHERE schemaname='public'
    AND tablename='texasdefined_network_profile_revisions'
