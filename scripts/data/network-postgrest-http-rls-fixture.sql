@@ -23,10 +23,10 @@ INSERT INTO public.texasdefined_network_business_accounts
  ('a1111111-1111-4111-8111-111111111111','e1111111-1111-4111-8111-111111111111','44444444-4444-4444-8444-444444444444','featured',true),
  ('a2222222-2222-4222-8222-222222222222','e2222222-2222-4222-8222-222222222222','55555555-5555-4555-8555-555555555555','featured',true);
 INSERT INTO public.texasdefined_network_profile_revisions
- (id,business_account_id,submitted_by,proposed_profile)
+ (id,business_account_id,submitted_by,proposed_profile,review_status,reviewed_at)
  VALUES
- ('b1111111-1111-4111-8111-111111111111','a1111111-1111-4111-8111-111111111111','44444444-4444-4444-8444-444444444444','{"description":"private owner one HTTP fixture"}'),
- ('b2222222-2222-4222-8222-222222222222','a2222222-2222-4222-8222-222222222222','55555555-5555-4555-8555-555555555555','{"description":"private owner two HTTP fixture"}');
+ ('b1111111-1111-4111-8111-111111111111','a1111111-1111-4111-8111-111111111111','44444444-4444-4444-8444-444444444444','{"description":"private owner one HTTP fixture"}','approved',now()),
+ ('b2222222-2222-4222-8222-222222222222','a2222222-2222-4222-8222-222222222222','55555555-5555-4555-8555-555555555555','{"description":"private owner two HTTP fixture"}','approved',now());
 INSERT INTO storage.objects(bucket_id,name) VALUES
  ('texasdefined-network-featured-drafts','44444444-4444-4444-8444-444444444444/a1111111-1111-4111-8111-111111111111/http-owner-one.webp'),
  ('texasdefined-network-featured-drafts','55555555-5555-4555-8555-555555555555/a2222222-2222-4222-8222-222222222222/http-owner-two.webp');

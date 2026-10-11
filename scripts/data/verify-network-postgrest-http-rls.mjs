@@ -36,6 +36,21 @@ async function get(table,token,{schema='public'}={}) {
  try{body=JSON.parse(text)}catch{body=text.slice(0,240)}
  return {status:response.status,body};
 }
+async function post(table,token,payload,{schema='public'}={}) {
+ const headers={
+  authorization:'Bearer '+token,
+  'content-type':'application/json',
+  prefer:'return=minimal',
+ };
+ if(schema!=='public')headers['content-profile']=schema;
+ const response=await fetch(PGRST_ORIGIN+'/'+table,{
+  method:'POST',headers,body:JSON.stringify(payload),signal:AbortSignal.timeout(8_000)
+ });
+ return {status:response.status,body:(await response.text()).slice(0,400)};
+}
+function ensureDenied(res,label) {
+ assert.ok([401,403].includes(res.status),label+': expected authorization denial, got '+res.status+' '+String(res.body));
+}
 function expectRows(res,n,label){
  assert.equal(res.status,200,label+': HTTP '+res.status+' '+JSON.stringify(res.body).slice(0,180));
  assert.ok(Array.isArray(res.body),label+': missing JSON array');
@@ -59,12 +74,53 @@ const expired=await get('texasdefined_network_business_accounts',jwt(FIRST,Math.
 assert.equal(expired.status,401,'Expired JWT accepted');
 const forged=jwt(FIRST).slice(0,-8)+'forgery1';
 assert.equal((await get('texasdefined_network_business_accounts',forged)).status,401,'Forged JWT accepted');
+
+const ownRevision={
+ business_account_id:'a1111111-1111-4111-8111-111111111111',
+ submitted_by:FIRST,
+ proposed_profile:{description:'First owner authorized HTTP revision'},
+};
+const foreignRevision={
+ business_account_id:'a2222222-2222-4222-8222-222222222222',
+ submitted_by:FIRST,
+ proposed_profile:{description:'Cross-owner revision rejected'},
+};
+ensureDenied(await post('texasdefined_network_profile_revisions',jwt(FIRST),foreignRevision),'cross-owner HTTP revision INSERT');
+ensureDenied(await post('texasdefined_network_profile_revisions',jwt(OUTSIDER),ownRevision),'outsider HTTP revision INSERT');
+const ownWrite=await post('texasdefined_network_profile_revisions',jwt(FIRST),ownRevision);
+assert.equal(ownWrite.status,201,'Verified owner cannot submit own private revision: '+ownWrite.body);
+expectRows(await get('texasdefined_network_profile_revisions',jwt(FIRST)),2,'authorized own HTTP revision');
+expectRows(await get('texasdefined_network_profile_revisions',jwt(SECOND)),1,'foreign revision insert left second owner unchanged');
+
+// Exercise the Featured count-based INSERT policy through actual HTTP, not only
+// direct PostgreSQL transactions. 1 real metadata row + 22 seeded = 23.
+execFileSync('psql',['-X','-v','ON_ERROR_STOP=1','-c',
+ "INSERT INTO storage.objects(bucket_id,name) SELECT 'texasdefined-network-featured-drafts',"+
+ "'44444444-4444-4444-8444-444444444444/a1111111-1111-4111-8111-111111111111/http-preexisting-'||n||'.webp'"+
+ " FROM generate_series(1,22) AS n;"
+],{timeout:10_000,encoding:'utf8',stdio:'pipe'});
+expectRows(await get('objects',jwt(FIRST),{schema:'storage'}),23,'Featured HTTP quota before final slot');
+const uploadRow=n=>({
+ bucket_id:'texasdefined-network-featured-drafts',
+ name:'44444444-4444-4444-8444-444444444444/a1111111-1111-4111-8111-111111111111/http-quota-'+n+'.webp',
+});
+ensureDenied(await post('objects',jwt(SECOND),uploadRow('cross'),{schema:'storage'}),'cross-owner HTTP draft metadata INSERT');
+const twentyFourth=await post('objects',jwt(FIRST),uploadRow(24),{schema:'storage'});
+assert.equal(twentyFourth.status,201,'HTTP upload slot 24 should succeed: '+twentyFourth.body);
+ensureDenied(await post('objects',jwt(FIRST),uploadRow(25),{schema:'storage'}),'HTTP draft metadata 25th quota');
+expectRows(await get('objects',jwt(FIRST),{schema:'storage'}),24,'Featured HTTP quota after 25th denial');
+expectRows(await get('objects',jwt(SECOND),{schema:'storage'}),1,'other owner HTTP media unaffected');
+
 const sql="UPDATE public.texasdefined_network_business_accounts SET access_enabled=false WHERE id='a2222222-2222-4222-8222-222222222222';";
 execFileSync('psql',['-X','-v','ON_ERROR_STOP=1','-c',sql],{timeout:10_000,encoding:'utf8',stdio:'pipe'});
 // Account identity is still visible by policy so legitimate cancellation/support
 // is possible; previous private revision and draft media must be gone immediately.
 expectRows(await get('texasdefined_network_business_accounts',jwt(SECOND)),1,'disabled owner own account shell');
 expectRows(await get('texasdefined_network_profile_revisions',jwt(SECOND)),0,'disabled owner private revisions revoked');
+ensureDenied(await post('texasdefined_network_profile_revisions',jwt(SECOND),{
+ business_account_id:'a2222222-2222-4222-8222-222222222222',
+ submitted_by:SECOND,proposed_profile:{description:'Disabled owner cannot submit'},
+}),'disabled owner HTTP private revision INSERT');
 expectRows(await get('objects',jwt(SECOND),{schema:'storage'}),0,'disabled owner draft media revoked');
-expectRows(await get('texasdefined_network_profile_revisions',jwt(FIRST)),1,'unaffected first owner preserved');
-console.log('NETWORK POSTGREST HTTP RESULT PASS: signed/expired/forged JWTs, anonymous denial, two owners and outsider, private SQL-backed Storage metadata, immediate disabled-owner revocation; disposable localhost only');
+expectRows(await get('texasdefined_network_profile_revisions',jwt(FIRST)),2,'unaffected first owner preserved');
+console.log('NETWORK POSTGREST HTTP RESULT PASS: signed/expired/forged JWTs, anonymous denial, two owners and outsider, private SQL-backed Storage metadata, permitted owner writes, foreign and disabled write denial, 24-file HTTP quota, immediate disabled-owner revocation; disposable localhost only');
