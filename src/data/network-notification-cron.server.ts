@@ -68,6 +68,9 @@ export async function runNetworkNotificationCronOnWorker(
   throw Error('Network Graph runtime release mismatch');
  const token=await acquireNetworkGraphAppToken(networkGraphCredentialsFromEnv(environment),transport);
  const bearer=token.accessToken;
+ const {networkGraphPlanForEnvironment}=await import('./network-staging-mail-sink.server.ts');
+ const outbound=(plan:NetworkGraphClaimPlan)=>networkGraphPlanForEnvironment(plan,environment);
+
  // Prove scoped mailbox read capability before durable outbox claim.
  const address='https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com/mailFolders/sentitems/messages?$top=1&$select=id';
  let probe:Response;
@@ -94,8 +97,8 @@ export async function runNetworkNotificationCronOnWorker(
   preflight:async()=>{},
   listHeld:heldRows,
   claim:claimRows,
-  send:(plan)=>submitNetworkGraphHttpRequest(plan,bearer,transport),
-  proof:(plan)=>findNetworkGraphSentItemsEvidence(plan,bearer,transport),
+  send:(plan)=>submitNetworkGraphHttpRequest(outbound(plan),bearer,transport),
+  proof:(plan)=>findNetworkGraphSentItemsEvidence(outbound(plan),bearer,transport),
   reconcile:async(plan,proof)=>{
    if(!proof || !proof.reference.startsWith('graph-sentitems-header-match/'+plan.id+'/'))
      return false;
