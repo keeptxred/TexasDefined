@@ -263,6 +263,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 }
 
 export async function getResolvedDestination(slug: Slug) {
+  if (slug === "davis-hill-state-park") return (await import("./davis-hill-authority-fallback")).davisHillFallback;
   const weakCandidates: Destination[] = [];
   let enrichedFailed = false;
   const enriched = await withDestinationRemoteTimeout("Explore destination enrichment", fetchExploreDestination(slug))
