@@ -38,7 +38,7 @@ CITY_LAYERS = {
     "dallas": "https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2",
     "fort-worth": "https://mapit.fortworthtexas.gov/ags/rest/services/CIVIC/OpenData_Boundaries/MapServer/0",
     "austin": "https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0",
-    "san-antonio": None,
+    "san-antonio": "https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/COSABoundary/FeatureServer/1",
     "el-paso": "https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0",
     "arlington": "https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1",
     "hurst": "https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer/2",
