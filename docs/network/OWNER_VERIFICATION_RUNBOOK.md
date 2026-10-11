@@ -325,3 +325,8 @@ Pending `20261011046000_network_featured_storage_atomic_counter.sql` contains `L
 ### Prevent accidental indexing of unpublished Network routes
 
 All eight static Network experience pages — join, apply, directory, Basic/Plus examples, billing, checkout-return, owner dashboard — MUST remain listed explicitly in `src/lib/public-routes.ts` under `NON_INDEXABLE_PUBLIC_PATHS` until approved launch/indexing. Besides the site's public-route governance validator, a Network-specific release guard now asserts their presence. Merge newer non-Network site changes without replacing this classification or dropping the Network premerge tests.
+
+
+### October 11 controlled promotion — sole administrator, no authorized deployment
+
+The host still has the old disabled-owner revision SELECT RLS and none of the four proposed Network migrations. Do not activate the owner portal or claim that revocation is fixed. The exact migration promotion order, explicit transaction and 5-second Storage lock acquisition limits, hosted read-only pre/postverification queries, official CLI dry-run, forward-repair guidance and provider acceptance blockers are consolidated in `docs/network/CONTROLLED_RELEASE_PACKAGE_2026-10-11.md`. Obtain the one human owner's separate explicit approval before any hosted migration, test identity/media creation, Graph send, real Stripe charge, merge/deployment, public listing/indexing or paid activation. Refresh CI on the **new** feature HEAD after this source-only continuation; the previous four green workflows cover only `20c87de8692f8c12d37968c96b9513250785babe`.
