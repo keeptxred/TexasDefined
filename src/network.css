@@ -55,3 +55,11 @@
   --shadow-editorial: var(--shadow-soft);
   --shadow-lift: var(--shadow-raised);
 }
+
+/* Network's late-loaded, route-split Tailwind utilities can override the
+ * root header's earlier responsive lg:hidden utility on desktop. Preserve
+ * the shared header's single-viewport navigation without changing it or
+ * adding this override to site-wide CSS. */
+@media (min-width: 64rem) {
+  header .lg\\:hidden { display: none; }
+}
