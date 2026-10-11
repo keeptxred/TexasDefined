@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 const source=(path)=>readFileSync(path,'utf8');
 const billing=source('src/data/texasdefined-billing.server.ts');
 const billingAdminServer=source('src/data/texasdefined-billing-admin.server.ts');
+const billingAdminFunctions=source('src/data/texasdefined-billing-admin.functions.ts');
 const billingAdmin=source('src/routes/admin.billing.lazy.tsx');
 const billingRoute=source('src/routes/admin.billing.tsx');
 const adminNav=source('src/routes/admin.tsx');
@@ -111,8 +112,10 @@ check('advertiser payment state stays separate from Network entitlement',
   && reconciliation.includes('payment_status=CASE')
   && !reconciliation.includes('paid_entitlement_active'));
 
-check('manual invoice creation cannot grant Network entitlement',
-  billingAdminServer.includes("sourceType:'manual'")
+check('manual invoice creation is positive-charge-only and cannot grant Network entitlement',
+  billingAdminFunctions.includes("unitAmountCents:z.number().int().min(1)")
+  && billingAdmin.includes('min="0.01"')
+  && billingAdminServer.includes("sourceType:'manual'")
   && billingAdminServer.includes('A manual Network line is accounting-only')
   && !billingAdminServer.includes('paid_entitlement_active'));
 
