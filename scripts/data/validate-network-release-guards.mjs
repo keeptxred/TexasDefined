@@ -79,6 +79,13 @@ check('intake limits ACTUAL streamed bytes before multipart or JSON materializat
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-limits.test.mjs'));
 check('intake checks full PNG signature',apps.includes('pngSignature.every'));
 check('public media checks full PNG signature',review.includes('pngHeader.every'));
+check('approved Network public media is immutable and retry-safe',
+ review.split('writeImmutableNetworkPublishedImage(').length===3
+ && !review.includes('upsert:true')
+ && source('src/data/network-published-media.server.ts').includes('upsert:false')
+ && source('src/data/network-published-media.server.ts').includes("crypto.subtle.digest('SHA-256'")
+ && source('src/data/network-published-media.server.ts').includes("return 'verified-existing'")
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-published-media.test.mjs'));
 check('directory filters published records',directory.includes('.eq("is_published", true)'));
 check('profile and all entry pages remain noindex',requiredPages.every(file=>/noindex/.test(source(root+file)))&&profile.includes('noarchive'));
 console.log('Network static release safeguards validated; NOT an end-to-end test or production authorization.');
