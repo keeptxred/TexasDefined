@@ -1,6 +1,10 @@
 -- UNAPPLIED PENDING release migration. Authorized, versioned promotion required.
 -- Installs a private append-only audit for sensitive Network state transitions.
 -- No production changes are authorized by committing this file.
+BEGIN;
+SET LOCAL lock_timeout = '5s';
+SET LOCAL statement_timeout = '45s';
+
 CREATE TABLE IF NOT EXISTS texasdefined_network_internal.admin_action_audit(
  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
  entity_type text NOT NULL CHECK(entity_type IN ('application','listing','revision','business_account')),
@@ -92,3 +96,5 @@ CREATE TRIGGER network_sensitive_owner_audit AFTER INSERT OR UPDATE OF access_en
 -- actions from delegated tools. These immutable database events preserve
 -- transitions and transaction context only; trusted request attribution
 -- remains an independent operational release requirement.
+
+COMMIT;
