@@ -34,7 +34,12 @@ check('billing portal enforces owner binding',billing.includes('.eq("owner_user_
 check('billing URL pinned to Stripe',billing.includes('destination.hostname !== "billing.stripe.com"')&&billing.includes('return_url: "https://texasdefined.com/network/billing"'));
 check('webhook verifies signature',webhook.includes('verifyStripeSignature(raw,header)'));
 check('webhook uses the executable-tested signature helper',!webhook.includes('async function signatureValid(')&&webhook.includes('await import("@/data/network-stripe.server")'));
-check('webhook looks up current subscription',webhook.includes('api.stripe.com/v1/subscriptions/'));
+check('webhook looks up current subscription with bounded and fail-closed Stripe transport',
+ webhook.includes('readNetworkCurrentStripeSubscription(subscriptionId)')
+ && source('src/data/network-stripe.server.ts').includes("stripeBase+'/subscriptions/'")
+ && source('src/data/network-stripe.server.ts').includes('AbortSignal.timeout(12_000)')
+ && webhook.includes('Subscription verification unavailable')
+ && webhook.includes('catch {'));
 check('webhook never republishes paid listings automatically',webhook.includes('apply_texasdefined_network_stripe_event')&&!webhook.includes('.update({ is_published: true'));
 check('webhook validates subscription and customer bindings',webhook.includes('p_customer_id:subscription.customer')&&webhook.includes('outcome==="mismatch"'));
 check('webhook suspends unpaid listing before entitlement writes',webhook.includes('p_paid_active:active')&&webhook.includes('supabaseAdmin.rpc('));
