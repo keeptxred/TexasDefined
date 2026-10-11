@@ -79,6 +79,9 @@ try{
     assert.equal(response?.status(),200,'expected successful Network route');
     await page.waitForFunction(()=>document.documentElement.dataset.tdRootHydrated==='1',null,{timeout:22000});
     row.hydrated=true;
+    // Finish hydration-triggered asset requests before tearing down Chrome pages.
+    // Abrupt aborts can destabilize Miniflare's local request bridge.
+    await page.waitForLoadState('networkidle',{timeout:20000});
     const state=await page.evaluate(()=>({
      heading:[...document.querySelectorAll('main h1')].map(h=>(h.textContent||'').trim()),
      mainCount:document.querySelectorAll('main').length,
@@ -112,6 +115,7 @@ try{
       assert.equal(await page.locator('input[type="password"]').count(),1,'admin key must be required');
     }
     await page.screenshot({path:output+'/'+route.replaceAll('/','-').replace(/^-/, '')+'-'+viewport+'.png',animations:'disabled',fullPage:true});
+    await page.waitForLoadState('networkidle',{timeout:20000});
     assert.equal(row.pageErrors.length,0,'client-side JavaScript errors: '+row.pageErrors.join(' | '));
    }catch(error){
     row.status='FAIL';row.failures.push(String(error));
@@ -121,16 +125,34 @@ try{
   }
   await context.close();
  }
+ // Release Chrome and its connection pool before independent API probes.
+ // First-response assertions are strict; no retry can turn an HTTP 500 green.
+ await browser.close();
+ browser=undefined;
  // Prove direct HTTP callers are blocked even when bypassing disabled UI controls.
  // No valid application, email, Stripe session or user identity is created.
  const apiCases=[
   {method:'POST',path:'/api/public/network-application',body:'{}',status:503,label:'direct intake closed'},
   {method:'POST',path:'/api/public/network-billing',body:'{}',status:401,label:'anonymous billing portal denied'},
   {method:'GET',path:'/api/public/network-billing',status:401,label:'anonymous membership list denied'},
+  ...Array.from({length:8},(_,i)=>({
+   method:'GET',path:'/api/public/network-billing',status:401,
+   label:'anonymous membership denial sustained '+(i+1)+'/8'
+  })),
   {method:'POST',path:'/api/public/network-checkout',body:'{}',status:400,label:'invalid checkout request rejected'},
   {method:'GET',path:'/network/business/unpublished-qa-fixture',status:404,label:'no unpublished business profile'},
  ];
  for(const api of apiCases){
+  // Test the Worker endpoint before and after sustained 401 denials.
+  if(api.label==='anonymous membership list denied'){
+   const health={route:'/network/join',viewport:'HTTP-HEALTH-BEFORE',status:'PASS',failures:[]};
+   results.push(health);
+   try{
+    const probe=await fetch(origin+'/network/join',{headers:{connection:'close'},signal:AbortSignal.timeout(15000)});
+    assert.equal(probe.status,200,'Worker unhealthy before anonymous GET checks');
+   }catch(e){health.status='FAIL';health.failures.push(String(e))}
+   console.log('NETWORK API Worker before anonymous membership checks',health.status,health.failures.join(' | '));
+  }
   const entry={route:api.path,viewport:'HTTP',status:'PASS',failures:[]};
   results.push(entry);
   try{
@@ -166,6 +188,15 @@ try{
    }
   }catch(error){entry.status='FAIL';entry.failures.push(String(error))}
   console.log('NETWORK API',api.label,entry.status,entry.failures.join(' | '));
+  if(api.label==='anonymous membership denial sustained 8/8'){
+   const health={route:'/network/join',viewport:'HTTP-HEALTH-AFTER',status:'PASS',failures:[]};
+   results.push(health);
+   try{
+    const probe=await fetch(origin+'/network/join',{headers:{connection:'close'},signal:AbortSignal.timeout(15000)});
+    assert.equal(probe.status,200,'Worker unhealthy after anonymous GET checks');
+   }catch(e){health.status='FAIL';health.failures.push(String(e))}
+   console.log('NETWORK API Worker after anonymous membership checks',health.status,health.failures.join(' | '));
+  }
  }
 }finally{
  if(browser)await browser.close();
