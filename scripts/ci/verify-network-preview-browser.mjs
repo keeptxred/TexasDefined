@@ -23,7 +23,7 @@ const viewports=[['mobile',390,844],['desktop',1366,900]];
 const results=[];
 let serverOutput='',browser;
 function launchWorker(){
- const next=spawn('node_modules/.bin/wrangler',[
+ const next=spawn(process.env.NETWORK_QA_WRANGLER_BIN||'node_modules/.bin/wrangler',[
   'dev','--config','dist/server/wrangler.json','--local',
   '--ip','127.0.0.1','--port',String(port)
  ],{env:{...process.env,CI:'true',NO_COLOR:'1'},stdio:['ignore','pipe','pipe'],detached:process.platform!=='win32'});
