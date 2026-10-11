@@ -359,6 +359,7 @@ function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
   const primarySource = articlePrimarySource(article);
   const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
+  const visibleSources = authoritySources.length ? authoritySources : (article.sources ?? []).map((source) => ({ ...source, scope: "" }));
   const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
@@ -493,11 +494,11 @@ function ArticlePage() {
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
-      {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
+      {!hasAuthoritySourceSection && visibleSources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
         <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
-        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{authoritySources.map((source) => <li key={source.url}>
+        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{visibleSources.map((source) => <li key={source.url}>
           <a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{source.label} ↗</a>
-          <span className="block">{source.scope}</span>
+          {source.scope && <span className="block">{source.scope}</span>}
         </li>)}</ul>
       </section>}
       {!isTexasRiversArticle && internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">

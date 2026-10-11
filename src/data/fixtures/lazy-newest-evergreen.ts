@@ -358,6 +358,34 @@ const unusualTexasBusinessesServicesStub: Article = {
   relatedDestinations: ["whirlyball-hurst"],
 };
 
+const newmansCastleBellvilleStub: Article = {
+  id: "guide-newmans-castle-bellville-texas",
+  brandId: "texasdefined",
+  slug: "newmans-castle-bellville-texas",
+  title: "Newman's Castle in Bellville: The Baker, the Moat and His Family's Legacy",
+  dek: "The history of Mike Newman's castle, Chad and Amanda Welty's work preserving it, and tour details checked October 2026.",
+  category: "guides",
+  region: "gulf-coast",
+  hero: {
+    src: "https://static.trip101.com/paragraph_media/pictures/002/914/438/large/img_2330-1664867645.jpg?1704354516=",
+    alt: "Newman's Castle outside Bellville reflected in the moat, with crenellated stone-style towers and walls",
+    width: 1000,
+    height: 667,
+    credit: "A Yee (Arturo Yee) · IMG_2330 · 2013 · CC BY 2.0 · Flickr · https://creativecommons.org/licenses/by/2.0/ · no modifications",
+  },
+  authorId: "a-marisol",
+  publishedAt: "2026-10-11",
+  updatedAt: "2026-10-11",
+  readingMinutes: 15,
+  tags: ["Newman's Castle", "Mike Newman", "Chad Welty", "Amanda Welty", "Bellville Texas", "Texas castles", "Texas Country Reporter"],
+  featured: false,
+  sourceName: "Newman's Castle",
+  sourceUrl: "https://newmanscastle.com/history/",
+  body: [],
+  relatedCollections: [],
+  relatedDestinations: [],
+};
+
 const phenixKnivesBellvilleStub: Article = {
   id: "guide-phenix-knives-bellville",
   brandId: "texasdefined",
@@ -461,6 +489,7 @@ export const newestEvergreenArticles: Article[] = [
   bluebonnetAnimalPreservationAthensStub,
   unusualTexasBusinessesServicesStub,
   phenixKnivesBellvilleStub,
+  newmansCastleBellvilleStub,
   horsesOnTheBeachCorpusChristiStub,
   mumQueenSpringStub,
 ];
@@ -492,6 +521,7 @@ const loaders: Record<string, () => Promise<Article>> = {
   "bluebonnet-animal-preservation-athens": async () => (await import("./bluebonnet-animal-preservation-athens")).bluebonnetAnimalPreservationAthensArticle,
   "unusual-texas-businesses-services": async () => (await import("./unusual-texas-businesses-services")).unusualTexasBusinessesServicesArticle,
   "phenix-knives-bellville": async () => (await import("./phenix-knives-bellville")).phenixKnivesBellvilleArticle,
+  "newmans-castle-bellville-texas": async () => (await import("./newmans-castle-bellville-texas")).newmansCastleBellvilleArticle,
   "horses-on-the-beach-corpus-christi": async () => (await import("./horses-on-the-beach-corpus-christi")).horsesOnTheBeachCorpusChristiArticle,
   "mum-queen-spring-texas-homecoming-mums": async () => (await import("./mum-queen-spring-texas-homecoming-mums")).mumQueenSpringArticle,
 };
