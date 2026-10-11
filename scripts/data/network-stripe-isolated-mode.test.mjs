@@ -121,3 +121,22 @@ test('test webhook verifies only its own signing secret and never claims a 202 m
  assert.equal(await verifyStripeSignature(raw,'t='+ts+',v1='+sign('whsec_a_different_secret')),false);
  reset();
 });
+
+test('legacy generic webhook secret can NEVER authorize Network production deliveries',()=>{
+ reset();
+ delete process.env.NETWORK_STRIPE_MODE;
+ delete process.env.NETWORK_STRIPE_WEBHOOK_SECRET;
+ const priorGeneric=process.env.STRIPE_WEBHOOK_SECRET;
+ try{
+  process.env.STRIPE_WEBHOOK_SECRET='whsec_not_for_network';
+  assert.equal(networkStripeWebhookSecret(),null);
+  process.env.NETWORK_STRIPE_WEBHOOK_SECRET='whsec_dedicated_network_example';
+  assert.equal(networkStripeWebhookSecret(),'whsec_dedicated_network_example');
+  process.env.NETWORK_STRIPE_WEBHOOK_SECRET='wrong-format';
+  assert.equal(networkStripeWebhookSecret(),null);
+ }finally{
+  if(priorGeneric===undefined)delete process.env.STRIPE_WEBHOOK_SECRET;
+  else process.env.STRIPE_WEBHOOK_SECRET=priorGeneric;
+  reset();
+ }
+});
