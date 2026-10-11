@@ -3,17 +3,42 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-homeowners-qa/node_modules/playwright-core');
+const { chromium, firefox, webkit } = require(process.env.PLAYWRIGHT_CORE_PATH || '/tmp/texasdefined-homeowners-qa/node_modules/playwright-core');
+const browserEngine = process.env.BROWSER_ENGINE || 'chromium';
+const engines = { chromium, firefox, webkit };
+assert.ok(Object.hasOwn(engines, browserEngine), 'Unsupported browser engine ' + browserEngine);
+const accessibilityAudit = process.env.ACCESSIBILITY_AUDIT === '1';
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const article = '/texas-data/research/texas-homeowners-premiums-vs-coverage';
 const csv = article + '.csv';
 const hub = '/texas-data';
 const artifacts = 'artifacts/homeowners-research-browser';
-const report = { origin, article, csv, hub, checkedAt: new Date().toISOString(), viewports: [], errors: [], csv: null };
+const report = { origin, article, csv, hub, browserEngine, checkedAt: new Date().toISOString(), viewports: [], accessibility: [], errors: [], csv: null };
 await mkdir(artifacts, { recursive: true });
 
 const withNonce = (path) => origin + path + '?verify=homeowners-' + Date.now();
 function ensure(ok, message) { assert.ok(ok, message); }
+async function inspectAccessibility(page, width, pageKind) {
+  if (!accessibilityAudit) return;
+  await page.addScriptTag({ path: process.env.AXE_CORE_PATH || '/tmp/texasdefined-homeowners-qa/node_modules/axe-core/axe.min.js' });
+  const result = await page.evaluate(async () => {
+    const audit = await window.axe.run(document, {
+      runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] },
+    });
+    return {
+      violations: audit.violations.map((v) => ({
+        id: v.id, impact: v.impact, description: v.description,
+        nodes: v.nodes.map((n) => ({ target: n.target, summary: n.failureSummary })).slice(0, 15),
+      })),
+      incomplete: audit.incomplete.map((v) => ({ id: v.id, impact: v.impact })),
+      passedRules: audit.passes.length,
+    };
+  });
+  report.accessibility.push({ browserEngine, width, pageKind, ...result });
+  ensure(result.violations.length === 0,
+    browserEngine + '/' + width + '/' + pageKind + ': WCAG accessibility violations: ' + JSON.stringify(result.violations));
+}
+
 async function inspect(page, width) {
   const errors = [];
   page.on('pageerror', (e) => errors.push({ kind: 'pageerror', message: e.message, stack: e.stack }));
@@ -63,6 +88,7 @@ async function inspect(page, width) {
   ensure(state.paths.includes(csv) && state.paths.includes(hub), width + ': CSV and/or hub link missing');
   ensure(state.documentWidth <= state.viewportWidth + 12, width + ': horizontal overflow ' + state.documentWidth + '/' + state.viewportWidth);
   await page.screenshot({ path: artifacts + '/' + width + '-article.png', fullPage: true, animations: 'disabled', timeout: 45000 });
+  await inspectAccessibility(page, width, 'article');
   const hubResponse = await page.goto(withNonce(hub), { waitUntil: 'domcontentloaded', timeout: 60000 });
   ensure(hubResponse?.status() === 200, width + ': hub HTTP ' + hubResponse?.status());
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 30000 });
@@ -70,6 +96,7 @@ async function inspect(page, width) {
   const hubHasResearchLink = await page.evaluate((researchPath) => [...document.querySelectorAll('a[href]')].some((a) => new URL(a.href).pathname === researchPath), article);
   ensure(hubHasResearchLink, width + ': Texas Data hub missing inbound research link');
   await page.screenshot({ path: artifacts + '/' + width + '-hub.png', fullPage: true, animations: 'disabled', timeout: 45000 });
+  await inspectAccessibility(page, width, 'hub');
   ensure(errors.length === 0, width + ': uncaught JavaScript or hydration errors: ' + JSON.stringify(errors));
   report.viewports.push({ width, articleHTTP: response.status(), hubHTTP: hubResponse.status(), ...state, text: undefined, paths: undefined, inboundHubLink: hubHasResearchLink, errors });
 }
@@ -90,13 +117,13 @@ async function inspectCsv() {
 let browser;
 try {
   await inspectCsv();
-  browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+  browser = await engines[browserEngine].launch({ headless: true, ...(browserEngine === 'chromium' ? { executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-dev-shm-usage'] } : {}) });
   for (const width of [390, 1366]) {
     const context = await browser.newContext({ viewport: { width, height: width === 390 ? 844 : 900 }, deviceScaleFactor: 1 });
     try { await inspect(await context.newPage(), width); }
     finally { await context.close(); }
   }
-  console.log('Homeowners research production browser acceptance passed on mobile, desktop, hub and CSV.');
+  console.log('Homeowners research production browser acceptance passed on mobile, desktop, hub and CSV (' + browserEngine + '; WCAG audit=' + accessibilityAudit + ').');
 } catch (error) {
   report.errors.push(error instanceof Error ? error.stack || error.message : String(error));
   console.error('Homeowners research acceptance FAILED:', error);
