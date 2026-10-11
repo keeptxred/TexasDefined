@@ -177,7 +177,11 @@ export async function runNetworkHostedRevokedOwnerReadOnly(config,fetcher=fetch)
 if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href){
  try{
   const config=validateNetworkHostedStageConfig(process.env);
-  const outcome=await runNetworkHostedStageReadOnly(config);
+  const phase=process.env.NETWORK_STAGE_REVOCATION_PHASE||'baseline';
+  if(!['baseline','revoked-owner-two'].includes(phase))fail();
+  const outcome=phase==='revoked-owner-two'
+    ? await runNetworkHostedRevokedOwnerReadOnly(config)
+    : await runNetworkHostedStageReadOnly(config);
   console.log(JSON.stringify(outcome));
  }catch(error){
   // Generic failure, no token, email, response body or URL disclosure.
