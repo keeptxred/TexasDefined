@@ -96,6 +96,7 @@ test('full customer staging can run only on separate hosted DB and Stripe TEST m
   STRIPE_SECRET_KEY:'sk_test_notreal_'+ 'x'.repeat(60),
  };
  delete stage.NETWORK_LAUNCH_ATOMIC_VERIFIED;
+ delete stage.STRIPE_WEBHOOK_SECRET; // no production webhook keys in staging
  assert.equal(networkIsolatedStagingArmed(stage),true);
  assert.equal(networkCustomerLaunchArmed(stage),true);
  for(const [key,value] of [
