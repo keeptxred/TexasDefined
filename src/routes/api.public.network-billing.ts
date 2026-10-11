@@ -98,10 +98,8 @@ export const Route = createFileRoute("/api/public/network-billing")({
         if (!stripe.ok) return respond({ error: "Unable to open the billing portal." }, 503);
         const result = await stripe.json() as { url?: unknown };
         // Never return an untrusted payment-management redirect to the browser.
-        if (typeof result.url !== "string") return respond({ error: "Billing portal unavailable." }, 503);
-        const destination = new URL(result.url);
-        if (destination.protocol !== "https:" || destination.hostname !== "billing.stripe.com"
-          || destination.username !== "" || destination.password !== "" || destination.hash !== "") {
+        const {isNetworkBillingPortalUrl}=await import("@/data/network-stripe.server");
+        if(!isNetworkBillingPortalUrl(result.url)) {
           return respond({ error: "Billing portal unavailable." }, 503);
         }
         return respond({ ok: true, url: result.url });
