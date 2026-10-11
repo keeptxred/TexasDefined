@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createHmac} from 'node:crypto';
 import {getNetworkStripeRuntime,networkStripeHostAllowed,networkStripeExpectedLivemode,networkStripeWebhookSecret} from '../../src/data/network-stripe-mode.server.ts';
 import {stripeCheckoutEnabled,createNetworkCheckoutSession,isExpectedNetworkPlusSubscription,readNetworkCurrentStripeSubscription,verifyStripeSignature} from '../../src/data/network-stripe.server.ts';
-const vars=['NETWORK_STRIPE_MODE','NETWORK_STRIPE_TEST_MODE_ENABLED','NETWORK_ISOLATED_STAGING','NETWORK_STAGE_ORIGIN','NETWORK_STRIPE_TEST_PRICE_ID','NETWORK_STRIPE_TEST_WEBHOOK_SECRET','NETWORK_CHECKOUT_ENABLED','SUPABASE_URL','STRIPE_SECRET_KEY','STRIPE_WEBHOOK_SECRET'];
+const vars=['NETWORK_STRIPE_MODE','NETWORK_STRIPE_TEST_MODE_ENABLED','NETWORK_ISOLATED_STAGING','NETWORK_STAGE_ORIGIN','NETWORK_STRIPE_TEST_PRICE_ID','NETWORK_STRIPE_TEST_WEBHOOK_SECRET','NETWORK_CHECKOUT_ENABLED','SUPABASE_URL','STRIPE_SECRET_KEY','NETWORK_STRIPE_WEBHOOK_SECRET'];
 const old=Object.fromEntries(vars.map(k=>[k,process.env[k]]));
 const reset=()=>{for(const k of vars){if(old[k]===undefined)delete process.env[k];else process.env[k]=old[k]}};
 after(reset);
