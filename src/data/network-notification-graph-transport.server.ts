@@ -69,6 +69,10 @@ export async function submitNetworkGraphHttpRequest(
   if (!Boolean(NETWORK_GRAPH_DISPATCH_ENABLED) ||
       !Boolean(NETWORK_EMAIL_DELIVERY_ENABLED))
     throw Error('Network Graph delivery is not authorized');
+  // Isolated staging may send self-test mail only, never real customer notices.
+  if(process.env.NETWORK_ISOLATED_STAGING==='true' &&
+     plan.recipient!==NETWORK_NOTIFICATION_SENDER)
+    throw Error('Network staging Graph recipient not authorized');
   const request=prepareNetworkGraphHttpRequest(plan);
   if (typeof bearerToken!=='string' ||
       bearerToken.length<24 || bearerToken.length>8192 ||
