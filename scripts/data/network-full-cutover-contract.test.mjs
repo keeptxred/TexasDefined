@@ -68,3 +68,15 @@ test('every customer-facing admin transition requires the atomic release; emerge
  assert.match(emergency,/assertNetworkAdminAccess/);
  assert.doesNotMatch(emergency,/assertNetworkUnifiedLaunch/);
 });
+
+test('mail safety in full staging always points send, provider proof and operator recovery at the same synthetic admin mailbox',()=>{
+ const worker=src('src/data/network-notification-cron.server.ts');
+ assert.match(worker,/networkGraphPlanForEnvironment\(plan,environment\)/);
+ assert.match(worker,/submitNetworkGraphHttpRequest\(outbound\(plan\)/);
+ assert.match(worker,/findNetworkGraphSentItemsEvidence\(outbound\(plan\)/);
+ const recovery=src('src/data/network-notification-recovery.server.ts');
+ assert.match(recovery,/networkGraphPlanForEnvironment\(prepareNetworkGraphClaim\(current\),process\.env\)/);
+ const transport=src('src/data/network-notification-graph-transport.server.ts');
+ assert.match(transport,/NETWORK_ISOLATED_STAGING==='true'/);
+ assert.match(transport,/plan\.recipient!==NETWORK_NOTIFICATION_SENDER/);
+});
