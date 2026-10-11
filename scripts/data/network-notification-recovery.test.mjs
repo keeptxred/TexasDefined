@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {validateNetworkRecoveryDecision,maskNetworkRecoveryRecipient,networkRecoveryResolutions}
- from '../../src/data/network-notification-recovery.server.ts';
+ from '../../src/data/network-notification-recovery-policy.ts';
 const id='11111111-1111-4111-8111-111111111111';
 const messageId='AAMkSENTmail123456=';
 const base={
