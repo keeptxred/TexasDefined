@@ -433,6 +433,14 @@ export const REDIRECT_ONLY_PATHS = [
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
+  "/business/dashboard",
+  "/network/apply",
+  "/network/billing",
+  "/network/checkout-return",
+  "/network/directory",
+  "/network/example/basic",
+  "/network/example/plus",
+  "/network/join",
   "/texas-data/research",
   "/search",
   "/explore/search",

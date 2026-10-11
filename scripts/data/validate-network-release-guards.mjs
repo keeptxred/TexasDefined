@@ -21,6 +21,11 @@ const requiredPages=[
  'network.billing.tsx','network.business.$slug.tsx','business.dashboard.tsx',
  'admin.network-applications.tsx'
 ];
+check('all eight unpublished Network routes are explicitly classified non-indexable',
+ (()=>{const policy=source('src/lib/public-routes.ts');
+ const segment=policy.split('export const NON_INDEXABLE_PUBLIC_PATHS = [')[1]?.split('] as const;')[0]||'';
+ return ["/business/dashboard","/network/apply","/network/billing","/network/checkout-return","/network/directory","/network/example/basic","/network/example/plus","/network/join"].every(path=>segment.includes('"'+path+'"'));
+ })());
 check('pending Storage counter locks/backfills/triggers in a self-contained transaction supported by Supabase CLI',
  source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('BEGIN;')
  && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('COMMIT;')

@@ -321,3 +321,7 @@ The pending Storage trigger's business account segment must be a canonical five-
 ### Atomic quota migration requires its own transaction
 
 Pending `20261011046000_network_featured_storage_atomic_counter.sql` contains `LOCK TABLE storage.objects`; Supabase CLI can execute statements without an implicit outer transaction. The migration therefore **itself** must wrap the lock, object inventory preflight/backfill, counter functions, and trigger creation in explicit `BEGIN;` / `COMMIT;`. The isolated replay runner must not wrap an additional transaction around this file. Never execute only part of the file, never apply to hosted Supabase without sole-owner migration/deployment authorization and review of the brief Storage write lock.
+
+### Prevent accidental indexing of unpublished Network routes
+
+All eight static Network experience pages — join, apply, directory, Basic/Plus examples, billing, checkout-return, owner dashboard — MUST remain listed explicitly in `src/lib/public-routes.ts` under `NON_INDEXABLE_PUBLIC_PATHS` until approved launch/indexing. Besides the site's public-route governance validator, a Network-specific release guard now asserts their presence. Merge newer non-Network site changes without replacing this classification or dropping the Network premerge tests.
