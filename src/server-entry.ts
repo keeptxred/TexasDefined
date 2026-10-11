@@ -119,9 +119,17 @@ export default {
     else await operation;
   },
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    // The customer APIs cannot be partially released, even if individual
-    // feature flags are accidentally set true before the complete launch.
+    // A preview Worker accidentally bound to the production hostname must
+    // not serve Network traffic, regardless of its individual feature flags.
+    const {networkRequestHostAllowed}=await import("./data/network-atomic-launch-readiness.server");
     const customerPath=new URL(request.url).pathname;
+    if(process.env.NETWORK_ISOLATED_STAGING==='true' &&
+       (customerPath.startsWith("/network/") ||
+        customerPath.startsWith("/business/dashboard") ||
+        customerPath.startsWith("/api/public/network-")) &&
+       !networkRequestHostAllowed(env as Record<string,string|undefined>,request.url))
+      return new Response("Network staging host mismatch",{status:503,
+       headers:{"Cache-Control":"no-store"}});
     if(customerPath.startsWith("/api/public/network-")
       &&customerPath!=="/api/public/network-billing"
       &&customerPath!=="/api/public/network-checkout"){
