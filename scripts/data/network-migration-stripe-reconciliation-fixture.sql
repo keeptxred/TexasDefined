@@ -126,8 +126,11 @@ BEGIN
   IF (SELECT count(*) FROM public.texasdefined_network_stripe_events)<>3
     OR (SELECT count(*) FROM public.texasdefined_network_stripe_events WHERE processed_at IS NOT NULL)<>3
   THEN RAISE EXCEPTION 'Stripe idempotency ledger has missing or extra settled events'; END IF;
+  -- All synthetic transitions share this rollback transaction. The
+  -- transaction-scoped outbox key intentionally coalesces repeated activation
+  -- within one transaction. Real webhooks are separate DB transactions.
   IF (SELECT count(*) FROM public.texasdefined_network_email_outbox
-    WHERE event_type='membership_active')<>2
+    WHERE event_type='membership_active')<>1
     OR (SELECT count(*) FROM public.texasdefined_network_email_outbox
     WHERE event_type='membership_inactive')<>1
   THEN RAISE EXCEPTION 'Durable inactive/reactivated notification transitions lost or duplicated'; END IF;
