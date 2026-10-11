@@ -29,7 +29,8 @@ BEGIN
  THEN RAISE EXCEPTION 'Manual reconciliation requires approved resolution, evidence and reviewer'; END IF;
  SELECT status,claim_token,attempts INTO existing
  FROM public.texasdefined_network_email_outbox WHERE id=p_id FOR UPDATE;
- IF NOT FOUND OR existing.status<>'sending'
+ IF NOT FOUND OR existing.status NOT IN ('sending','suppressed')
+ OR (existing.status='suppressed' AND p_resolution='suppress_uncertain')
  OR existing.claim_token IS DISTINCT FROM p_claim_token OR p_claim_token IS NULL
  THEN RETURN false; END IF;
  IF p_resolution='not_delivered_retry' AND existing.attempts>=3
@@ -53,7 +54,7 @@ BEGIN
    WHEN 'failed_verified' THEN 'manual_provider_failure'
    WHEN 'suppress_uncertain' THEN 'ambiguous_delivery_manual_hold'
    ELSE NULL END
- WHERE id=p_id AND status='sending' AND claim_token=p_claim_token;
+ WHERE id=p_id AND status IN ('sending','suppressed') AND claim_token=p_claim_token;
  IF NOT FOUND THEN RETURN false; END IF;
  INSERT INTO texasdefined_network_internal.notification_reconciliation_audit(
   notification_id,resolution,evidence_reference,reviewer_label)

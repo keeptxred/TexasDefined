@@ -66,6 +66,15 @@ BEGIN
  IF NOT v_done THEN RAISE EXCEPTION 'Suppression unsuccessful'; END IF;
  SELECT status INTO v_status FROM public.texasdefined_network_email_outbox WHERE id=v_id;
  IF v_status<>'suppressed' THEN RAISE EXCEPTION 'Ambiguous delivery was automatically retried'; END IF;
+ -- Later verified provider evidence may settle the suppressed claim without re-sending.
+ SELECT public.reconcile_texasdefined_network_notification(
+  v_id,v_claim.claim_token,'sent_verified','later verified provider Sent Items proof','sole-admin','provider-late-123')
+ INTO v_done;
+ IF NOT v_done THEN RAISE EXCEPTION 'Late provider evidence could not resolve held delivery'; END IF;
+ IF NOT EXISTS (SELECT 1 FROM public.texasdefined_network_email_outbox
+  WHERE id=v_id AND status='sent' AND provider_message_id='provider-late-123')
+ THEN RAISE EXCEPTION 'Verified suppressed claim remained unresolved'; END IF;
+
  -- Definitive provider non-delivery can be recorded as a terminal failure.
  INSERT INTO public.texasdefined_network_email_outbox(event_key,event_type,recipient_email,payload)
  VALUES('manual-failure:'||gen_random_uuid()::text,'application_received','network-qa@example.invalid','{}')
@@ -96,8 +105,8 @@ BEGIN
    WHERE id=v_id AND status='sending' AND attempts=3)
  THEN RAISE EXCEPTION 'Exhausted claim was mutated by failed retry'; END IF;
  SELECT count(*) INTO v_count FROM texasdefined_network_internal.notification_reconciliation_audit;
- IF v_count<>4 THEN RAISE EXCEPTION 'Expected four immutable manual reconciliation events, got %',v_count; END IF;
- RAISE NOTICE 'MANUAL GRAPH RECONCILIATION PASS: wrong-token denied, verified receipt, replay denied, manual backoff, ambiguous suppression, definitive failure, exhausted budget, audit';
+ IF v_count<>5 THEN RAISE EXCEPTION 'Expected five immutable manual reconciliation events, got %',v_count; END IF;
+ RAISE NOTICE 'MANUAL GRAPH RECONCILIATION PASS: wrong-token denied, verified receipt, replay denied, manual backoff, later provider reconciliation, definitive failure, exhausted budget, audit';
 END
 $test$;
 ROLLBACK;

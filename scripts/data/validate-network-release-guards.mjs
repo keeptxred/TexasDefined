@@ -147,6 +147,8 @@ check('manual notification provider-reconciliation is private, audited and never
  && source('supabase/pending/20261011045000_network_notification_manual_recovery.sql').includes("ELSE 'suppressed' END")
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Ambiguous delivery was automatically retried')
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Definitive provider failure not persisted')
+ && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Late provider evidence could not resolve held delivery')
+ && source('supabase/pending/20261011045000_network_notification_manual_recovery.sql').includes("status IN ('sending','suppressed')")
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Notification retry budget exhausted')
  && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011045000_network_notification_manual_recovery.sql')
