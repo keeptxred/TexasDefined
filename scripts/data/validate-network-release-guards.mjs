@@ -136,6 +136,15 @@ check('pending private sensitive-action audit is source tracked, service-only, a
  && source('scripts/data/network-sensitive-action-audit-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011044000_network_sensitive_action_audit.sql')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-sensitive-action-audit-fixture.sql'));
+check('manual notification provider-reconciliation is private, audited and never automatically resends uncertain delivery',
+ source('scripts/data/verify-network-migration-replay.mjs').includes("pendingRecovery='supabase/pending/20261011045000_network_notification_manual_recovery.sql'")
+ && source('scripts/data/verify-network-migration-replay.mjs').includes("recoveryFixture='scripts/data/network-notification-manual-recovery-fixture.sql'")
+ && source('supabase/pending/20261011045000_network_notification_manual_recovery.sql').includes('REVOKE ALL ON FUNCTION public.reconcile_texasdefined_network_notification')
+ && source('supabase/pending/20261011045000_network_notification_manual_recovery.sql').includes("THEN 'suppressed'")
+ && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('Ambiguous delivery was automatically retried')
+ && source('scripts/data/network-notification-manual-recovery-fixture.sql').includes('ROLLBACK;')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011045000_network_notification_manual_recovery.sql')
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('scripts/data/network-notification-manual-recovery-fixture.sql'));
 check('isolated replay executes two-owner and private media RLS fixture with full rollback',
  source('scripts/data/verify-network-migration-replay.mjs').includes("ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql'")
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('SET LOCAL ROLE authenticated;')

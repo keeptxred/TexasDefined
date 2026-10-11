@@ -11,6 +11,8 @@ on:
       - 'supabase/pending/20261011043000_network_owner_revision_read_revocation.sql'
       - 'supabase/pending/20261011044000_network_sensitive_action_audit.sql'
       - 'scripts/data/network-sensitive-action-audit-fixture.sql'
+      - 'supabase/pending/20261011045000_network_notification_manual_recovery.sql'
+      - 'scripts/data/network-notification-manual-recovery-fixture.sql'
       - 'scripts/data/network-migration-stripe-reconciliation-fixture.sql'
       - 'scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'
       - 'scripts/data/network-notification-claim-rollback-fixture.sql'

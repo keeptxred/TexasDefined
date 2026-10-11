@@ -53,6 +53,10 @@ const pendingAudit='supabase/pending/20261011044000_network_sensitive_action_aud
 if(!existsSync(pendingAudit))throw new Error('Pending private sensitive-action audit migration missing');
 execSql(['-f',pendingAudit],'pending sensitive-action audit trigger migration: disposable DB only');
 console.log('REPLAY PENDING AUDIT SCHEMA PASS: private immutable audit table and state-transition triggers');
+const pendingRecovery='supabase/pending/20261011045000_network_notification_manual_recovery.sql';
+if(!existsSync(pendingRecovery))throw new Error('Missing unapplied, manual notification recovery migration');
+execSql(['-f',pendingRecovery],'pending service-only manual Graph reconciliation schema; isolated DB only');
+console.log('REPLAY PENDING GRAPH RECOVERY SCHEMA PASS: no sender, no automatic retry');
 const checks=`DO $verification$
 DECLARE network_tables integer; network_buckets integer;
 BEGIN
@@ -105,6 +109,10 @@ const auditFixture='scripts/data/network-sensitive-action-audit-fixture.sql';
 if(!existsSync(auditFixture))throw new Error('Missing isolated sensitive-action audit fixture');
 execSql(['-f',auditFixture],'single-administrator private audit state-transition rollback fixture');
 console.log('REPLAY SENSITIVE AUDIT RESULT PASS: seven material transitions, RLS privacy and append-only grants; rolled back');
+const recoveryFixture='scripts/data/network-notification-manual-recovery-fixture.sql';
+if(!existsSync(recoveryFixture))throw new Error('Missing manual notification recovery rollback fixture');
+execSql(['-f',recoveryFixture],'manual Graph delivery reconciliation without provider calls');
+console.log('REPLAY MANUAL GRAPH RECOVERY RESULT PASS: token-bound manual reconciliation, delayed verified retry, uncertain delivery suppressed');
 const ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql';
 if(!existsSync(ownerIsolationFixture))throw new Error('Missing isolated two-owner RLS fixture');
 execSql(['-f',ownerIsolationFixture],'two-owner RLS and Storage quota rollback fixture');

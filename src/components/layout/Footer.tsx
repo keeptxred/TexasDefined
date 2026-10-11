@@ -35,7 +35,7 @@ export function Footer() {
           </div>
           {brand.footer.map((column) => (
             <nav key={column.title} aria-label={column.title} className="border-t border-border/60 pt-5 md:border-t-0 md:pt-0">
-              <h2 className="eyebrow text-primary">{column.title}</h2>
+              <h2 className="eyebrow text-[#8c3e23]">{column.title}</h2>
               <ul className="mt-5 space-y-3">
                 {column.items.map((item) => (
                   <li key={item.to}>
