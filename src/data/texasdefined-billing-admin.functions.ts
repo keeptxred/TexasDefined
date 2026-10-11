@@ -18,7 +18,7 @@ export const createTexasDefinedManualInvoice=createServerFn({method:'POST'})
    productFamily:z.enum(['network','advertising','other']),
    description:z.string().trim().min(2).max(500),
    quantity:z.number().int().min(1).max(1000).default(1),
-   unitAmountCents:z.number().int().min(-100000000).max(100000000),
+   unitAmountCents:z.number().int().min(1).max(100000000),
    daysUntilDue:z.number().int().min(0).max(90).default(15),
    memo:z.string().trim().max(2000).optional().default(''),
  }))
