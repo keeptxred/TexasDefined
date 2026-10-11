@@ -98,6 +98,23 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
 }
 
 export default {
+  async scheduled(_event: unknown, env: unknown, ctx: {waitUntil?: (promise: Promise<unknown>) => void}) {
+    // Cron is not exposed over HTTP; the complete Network release must be
+    // explicitly armed before any notification is claimed or sent.
+    const run=async()=>{
+      const {runNetworkNotificationCronOnWorker}=await import("./data/network-notification-cron.server");
+      const result=await runNetworkNotificationCronOnWorker(
+        env as Record<string,string|undefined>,
+      );
+      if(result)console.info("[network-cron] processed",{
+        claimed:result.claimed,verified:result.verified,
+        unconfirmed:result.unconfirmed,rejected:result.rejected,
+      });
+    };
+    const operation=run().catch(()=>console.error("[network-cron] provider or claim operation failed; no automatic resend"));
+    if(typeof ctx?.waitUntil==='function')ctx.waitUntil(operation);
+    else await operation;
+  },
   async fetch(request: Request, env: unknown, ctx: unknown) {
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
