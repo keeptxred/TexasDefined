@@ -185,3 +185,7 @@ console.log('INDEPENDENT CITY A11Y/LINK DIAGNOSTIC',JSON.stringify(report.totals
 console.log('This output does NOT award full accessibility, link, visual or GIS certification.');
 const failedRenders=report.cities.flatMap(c=>c.viewports).filter(x=>x.render!=='PASS');
 if(failedRenders.length){console.error('Some city pages were not rendered; research artifact incomplete.');process.exitCode=1;}
+const failedNav=report.cities.flatMap(c=>c.viewports.map(v=>({city:c.city,viewport:v.label,probe:v.navigationProbe})))
+  .filter(v=>v.probe?.status==='REVIEW_REQUIRED');
+if(failedNav.length){console.error('Independent navigation interaction failures:',JSON.stringify(failedNav));process.exitCode=1;}
+
