@@ -151,6 +151,7 @@ export async function createTexasDefinedDraftInvoice(input: {
   daysUntilDue?: number;
   memo?: string;
   createdBy?: string;
+  dedupeKey: string;
 }) {
   if (process.env.TEXASDEFINED_INVOICING_ENABLED !== 'true') {
     throw new Error('TexasDefined invoicing is not activated.');
@@ -159,15 +160,20 @@ export async function createTexasDefinedDraftInvoice(input: {
   if (!Number.isSafeInteger(daysUntilDue) || daysUntilDue < 0 || daysUntilDue > 90) {
     throw new Error('Invoice payment terms are invalid.');
   }
+  const dedupeKey = input.dedupeKey.trim();
+  if (dedupeKey.length < 8 || dedupeKey.length > 200 || !/^[A-Za-z0-9:_-]+$/.test(dedupeKey)) {
+    throw new Error('Invoice idempotency key is invalid.');
+  }
   const lines = normalizeInvoiceLines(input.lines);
   const account = await loadTexasDefinedBillingAccount(input.billingAccountId);
   const stripeCustomerId = await ensureTexasDefinedStripeCustomer(account, 'admin');
   const client = supabaseAdmin as any;
 
-  const { data: localInvoice, error: localError } = await client
+  let { data: localInvoice, error: localError } = await client
     .from('texasdefined_billing_invoices')
     .insert({
       billing_account_id: account.billingAccountId,
+      dedupe_key: dedupeKey,
       status: 'draft',
       collection_method: 'send_invoice',
       currency: 'usd',
@@ -178,9 +184,32 @@ export async function createTexasDefinedDraftInvoice(input: {
         product_families: [...new Set(lines.map((line) => line.productFamily))],
       },
     })
-    .select('id')
-    .single();
-  if (localError || !localInvoice?.id) throw new Error('Local invoice record could not be created.');
+    .select('id,stripe_invoice_id,status')
+    .maybeSingle();
+
+  if (localError) {
+    const retry = await client
+      .from('texasdefined_billing_invoices')
+      .select('id,stripe_invoice_id,status,billing_account_id')
+      .eq('dedupe_key', dedupeKey)
+      .maybeSingle();
+    if (retry.error || !retry.data?.id || retry.data.billing_account_id !== account.billingAccountId) {
+      throw new Error('Local invoice reservation could not be created.');
+    }
+    localInvoice = retry.data;
+    localError = null;
+  }
+  if (!localInvoice?.id) throw new Error('Local invoice reservation could not be created.');
+  if (typeof localInvoice.stripe_invoice_id === 'string' && /^in_[A-Za-z0-9_]+$/.test(localInvoice.stripe_invoice_id)) {
+    return {
+      billingAccountId: account.billingAccountId,
+      stripeCustomerId,
+      localInvoiceId: String(localInvoice.id),
+      stripeInvoiceId: localInvoice.stripe_invoice_id,
+      status: String(localInvoice.status || 'draft'),
+      reused: true,
+    };
+  }
 
   const invoiceBody = new URLSearchParams({
     customer: stripeCustomerId,
@@ -258,7 +287,7 @@ export async function createTexasDefinedDraftInvoice(input: {
     ) {
       throw new Error('Stripe invoice line could not be verified.');
     }
-    const { error: itemError } = await client.from('texasdefined_billing_invoice_items').insert({
+    const { error: itemError } = await client.from('texasdefined_billing_invoice_items').upsert({
       invoice_id: localInvoice.id,
       stripe_invoice_item_id: stripeItem.id,
       product_family: line.productFamily,
@@ -268,15 +297,35 @@ export async function createTexasDefinedDraftInvoice(input: {
       quantity: line.quantity,
       unit_amount_cents: line.unitAmountCents,
       metadata: {},
-    });
+    }, { onConflict: 'stripe_invoice_item_id', ignoreDuplicates: true });
     if (itemError) throw new Error('Stripe invoice line could not be linked locally.');
   }
+
+  const refreshed = await stripeRequest('/invoices/' + encodeURIComponent(String(invoice.id)));
+  if (
+    refreshed.object !== 'invoice' || refreshed.id !== invoice.id ||
+    refreshed.customer !== stripeCustomerId || refreshed.livemode !== runtime.livemode
+  ) throw new Error('Stripe invoice could not be reverified after line creation.');
+
+  const { error: totalsError } = await client
+    .from('texasdefined_billing_invoices')
+    .update({
+      status: refreshed.status || 'draft',
+      invoice_number: refreshed.number || null,
+      amount_due_cents: Number(refreshed.amount_due || 0),
+      amount_paid_cents: Number(refreshed.amount_paid || 0),
+      amount_remaining_cents: Number(refreshed.amount_remaining || 0),
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', localInvoice.id);
+  if (totalsError) throw new Error('Invoice totals could not be reconciled locally.');
 
   return {
     billingAccountId: account.billingAccountId,
     stripeCustomerId,
     localInvoiceId: String(localInvoice.id),
     stripeInvoiceId: String(invoice.id),
-    status: String(invoice.status || 'draft'),
+    status: String(refreshed.status || 'draft'),
+    reused: false,
   };
 }
