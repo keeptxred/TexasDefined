@@ -13,6 +13,24 @@ export type NetworkSentEvidence={messageId:string;reference:string};
 const base='https://graph.microsoft.com/v1.0/users/admin%40texasdefined.com';
 const idPattern=/^[a-zA-Z0-9=_+\-/]{6,300}$/;
 const headerName='x-texasdefined-notification-id';
+const MAX_SENT_PAGES=4;
+const SENT_PAGE_SIZE=60;
+/** Accept Graph continuation links only for the exact authorized Sent Items
+ * collection; an untrusted @odata.nextLink is NEVER an open redirect or SSRF.
+ */
+export function validateNetworkSentItemsNextLink(raw:unknown):string {
+ if(typeof raw!=='string'||raw.length>4096)
+  throw Error('Network Graph Sent Items pagination invalid');
+ let url:URL;
+ try{url=new URL(raw);}catch{throw Error('Network Graph Sent Items pagination invalid');}
+ const expected=new URL(base+'/mailFolders/sentitems/messages');
+ if(url.protocol!=='https:'||url.origin!==expected.origin ||
+    url.pathname!==expected.pathname||url.username||url.password||
+    url.hash||!url.searchParams.has('$skiptoken'))
+  throw Error('Network Graph Sent Items pagination invalid');
+ return url.toString();
+}
+
 
 export async function findNetworkGraphSentItemsEvidence(
  plan:NetworkGraphClaimPlan,
@@ -25,21 +43,23 @@ export async function findNetworkGraphSentItemsEvidence(
    /[\x00-\x20\x7f]/.test(bearerToken))
   throw Error('Network Graph Sent Items query invalid');
  const headers={Authorization:'Bearer '+bearerToken};
- const listUrl=base+'/mailFolders/sentitems/messages?'+
-   new URLSearchParams({'$top':'60','$select':'id,subject,sentDateTime,toRecipients','$orderby':'sentDateTime desc'});
- let res:Response;
- try{
-  res=await transport(listUrl,{method:'GET',headers,redirect:'error',
-   cache:'no-store',signal:AbortSignal.timeout(12_000)});
- }catch{throw Error('Network Graph Sent Items listing unavailable');}
- if(res.status!==200)throw Error('Network Graph Sent Items listing unavailable');
- let value:unknown;
- try{value=await res.json();}catch{throw Error('Network Graph Sent Items response invalid');}
- const rows=(value as {value?:unknown})?.value;
- if(!Array.isArray(rows)||rows.length>60)throw Error('Network Graph Sent Items response invalid');
+ let listUrl=base+'/mailFolders/sentitems/messages?'+
+   new URLSearchParams({'$top':String(SENT_PAGE_SIZE),'$select':'id,subject,sentDateTime,toRecipients','$orderby':'sentDateTime desc'});
  const subject=plan.graphPayload.message.subject;
  const recipient=plan.recipient.toLowerCase();
  let candidateChecks=0;
+ for(let page=0;page<MAX_SENT_PAGES;page++){
+  let res:Response;
+  try{
+   res=await transport(listUrl,{method:'GET',headers,redirect:'error',
+    cache:'no-store',signal:AbortSignal.timeout(12_000)});
+  }catch{throw Error('Network Graph Sent Items listing unavailable');}
+  if(res.status!==200)throw Error('Network Graph Sent Items listing unavailable');
+  let value:unknown;
+  try{value=await res.json();}catch{throw Error('Network Graph Sent Items response invalid');}
+  const rows=(value as {value?:unknown})?.value;
+  if(!Array.isArray(rows)||rows.length>SENT_PAGE_SIZE)
+   throw Error('Network Graph Sent Items response invalid');
  for(const item of rows){
   if(!item || typeof item!=='object')continue;
   const candidate=item as Record<string,any>;
@@ -75,5 +95,11 @@ export async function findNetworkGraphSentItemsEvidence(
     reference:'graph-sentitems-header-match/'+plan.id+'/'+candidate.id};
   }
  }
- return null;
+  const next=(value as Record<string,unknown>)['@odata.nextLink'];
+  if(next===undefined||next===null)return null;
+  listUrl=validateNetworkSentItemsNextLink(next);
+ }
+ // The provider reports a longer inventory than this bounded scan can prove.
+ // Keep the outbox held; never convert 'not found' into delivery or auto-retry.
+ throw Error('Network Graph Sent Items proof scan incomplete');
 }
