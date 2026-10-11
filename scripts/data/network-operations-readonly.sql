@@ -17,7 +17,7 @@ WITH snapshot AS (
   WHERE status='failed') AS notification_failed,
  (SELECT count(*)::bigint FROM public.texasdefined_network_public_listings l
   JOIN public.texasdefined_network_applications a ON a.id=l.application_id
-  WHERE l.is_published=true AND a.plan='plus' AND a.paid_entitlement_active=false) AS paid_listing_entitlement_drift,
+  WHERE l.is_published=true AND a.plan='plus' AND a.paid_entitlement_active IS DISTINCT FROM true) AS paid_listing_entitlement_drift,
  (SELECT count(*)::bigint FROM storage.objects
   WHERE bucket_id LIKE 'texasdefined-network%') AS network_storage_objects,
  (SELECT count(*)::bigint FROM storage.objects
