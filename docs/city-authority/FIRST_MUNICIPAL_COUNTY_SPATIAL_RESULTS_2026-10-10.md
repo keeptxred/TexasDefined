@@ -42,3 +42,20 @@ The first script used the City of Austin [City_of_Austin_WFL1/0](https://service
 - Keep separate **33-viewport accessibility, visual, schema, links and full factual verification** tasks open until independently retested and documented.
 
 **Verdict remains NOT FULLY ACCEPTED for any city.**
+
+## October 11 follow-up — Austin county candidate overlay successfully executed
+
+The historical **"Austin not obtained"** row above is superseded for spatial-research purposes (not legal acceptance) by the actual [protected research workflow #38114748322](https://github.com/keeptxred/TexasDefined/actions/runs/38114748322), **SUCCESS on commit `136dedab3b753bd8ce09b76ec218506ea30e70a2`**, [machine-readable artifact #11692568370](https://github.com/keeptxred/TexasDefined/actions/runs/38114748322/artifacts/11692568370). The exact `research.json` was downloaded and inspected, not inferred from a workflow green check.
+
+Official City of Austin [BOUNDARIES_jurisdictions layer](https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0) `JURISDICTION_TYPE='FULL'` returned true municipal polygons (total 756.06265 km²). EPSG:5070 area county intersections:
+
+| Jurisdiction | Travis | Williamson | Hays | Bastrop |
+|---|---:|---:|---:|---:|
+| Full-purpose incorporated research geometry, km² | 706.22480 | 35.49048 | 14.34736 | none |
+| Separate `LTD` limited-purpose research geometry, km² | 92.64205 | 18.90183 | 1.11587 | 0.00554 (edge sliver) |
+
+**Austin's full-purpose substantial county candidate set exactly matches the published Travis, Williamson, Hays list.** Bastrop is **not** a substantial full-purpose candidate in this GIS dataset; the small `LTD` Bastrop overlap is labeled **SLIVER_REVIEW**, not a reason to silently add Bastrop to the city's general county description. Full-purpose and limited-purpose polygons are not unioned with ETJ. All source geometry and county payload digests are retained in the referenced JSON artifact.
+
+**Revised GIS tally: TEN of ELEVEN municipal full-purpose county sets match existing published county lists by the 0.01 km² source-method candidate threshold.** This is strong analytical support, but still **GIS PARTIAL**, not full legal/vintage certification for any city. San Antonio remains **UNVERIFIED** for an up-to-date city-published vector source. The City's [official GIS Data catalog](https://www.sanantonio.gov/GIS/GISData) describes quarterly city limits publication; the City's 2026 [ETJ and city-limit map](https://www.sanantonio.gov/Portals/0/Files/GIS/Maps/SAETJ%20CCD%202026%2054x58.pdf), edited April 8, 2026, is supporting cartography but is **not** a machine-verifiable current municipal polygon source for an automated intersection. A 2026 independent TxGIO/Comptroller municipal-sales-tax layer may corroborate county candidates but must not be equated with primary city-limit legal evidence.
+
+No population, transit, official attraction or other fact verification dates were advanced by this GIS execution. Review slivers and annexation law before awarding a municipal GIS PASS.
