@@ -8,6 +8,14 @@
  * Return only safe check IDs; do not serialize secrets or customer details.
  */
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+/** Supabase accepts legacy signed service-role JWTs and modern opaque secret
+ * keys. Shape-only preflight is not proof of privilege; provider E2E is required.
+ */
+const hasServiceCredential=(value:unknown):boolean=>
+ typeof value==='string' &&
+ ((value.startsWith('sb_secret_')&&value.length>=32&&value.length<=1024)||
+  (value.length>75&&value.length<8192&&value.split('.').length===3));
+
 const requiredFlags=[
  'NETWORK_INTAKE_ENABLED','NETWORK_OWNER_PORTAL_ENABLED',
  'NETWORK_PUBLICATION_ENABLED','NETWORK_DIRECTORY_ENABLED',
@@ -41,8 +49,7 @@ export function inspectNetworkAtomicLaunch(
  for(const name of requiredFlags)checks['feature:'+name]=environment[name]==='true';
  checks['config:productionDb']=
   environment.SUPABASE_URL==='https://ftkznprjljkhymknvhye.supabase.co';
- checks['config:serviceRole']=typeof environment.SUPABASE_SERVICE_ROLE_KEY==='string'&&
-  environment.SUPABASE_SERVICE_ROLE_KEY.length>75;
+ checks['config:serviceRole']=hasServiceCredential(environment.SUPABASE_SERVICE_ROLE_KEY);
  checks['config:adminKey']=typeof environment.NETWORK_ADMIN_ACCESS_KEY==='string'&&
   environment.NETWORK_ADMIN_ACCESS_KEY.length>=32&&
   environment.NETWORK_ADMIN_ACCESS_KEY.length<=200;
@@ -119,8 +126,7 @@ export function networkIsolatedStagingArmed(
     origin.hostname.endsWith('.workers.dev') &&
     origin.pathname==='/' && !origin.search && !origin.hash &&
     !origin.username && !origin.password &&
-    typeof environment.SUPABASE_SERVICE_ROLE_KEY==='string' &&
-    environment.SUPABASE_SERVICE_ROLE_KEY.length>75 &&
+    hasServiceCredential(environment.SUPABASE_SERVICE_ROLE_KEY) &&
     typeof environment.NETWORK_ADMIN_ACCESS_KEY==='string' &&
     environment.NETWORK_ADMIN_ACCESS_KEY.length>=32;
 }
