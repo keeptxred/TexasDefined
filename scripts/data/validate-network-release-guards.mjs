@@ -127,7 +127,7 @@ check('proposed disabled-owner private revision READ policy is tested safely wit
  && !source('scripts/data/validate-network-migration-parity.mjs').includes('"20261011043000_network_owner_revision_read_revocation.sql"')
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('Disabled owner can still read private revisions or draft media')
  && source('scripts/data/network-migration-owner-rls-fixture.sql').includes('Authenticated role without JWT subject')
- && source('.github/workflows/network-migration-cleanroom.yml').includes('network-proposed-revision-read-revocation.sql'));
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('supabase/pending/20261011043000_network_owner_revision_read_revocation.sql'));
 check('pending private sensitive-action audit is source tracked, service-only, and exercised in rollback fixture',
  source('scripts/data/verify-network-migration-replay.mjs').includes("pendingAudit='supabase/pending/20261011044000_network_sensitive_action_audit.sql'")
  && source('scripts/data/verify-network-migration-replay.mjs').includes("auditFixture='scripts/data/network-sensitive-action-audit-fixture.sql'")
