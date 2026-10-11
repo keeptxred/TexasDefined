@@ -32,6 +32,10 @@ test('staging acceptance config is host-pinned, requires consent, rejects shared
   {NETWORK_STAGE_SUPABASE_URL:'https://staging0123456789.supabase.co/?token=bad'},
   {NETWORK_STAGE_PROJECT_REF:'not-staging0123456789'},
   {NETWORK_STAGE_PUBLISHABLE_KEY:'sb_secret_'+'X'.repeat(80)},
+  {NETWORK_STAGE_PUBLISHABLE_KEY:jwt('a')},
+  {NETWORK_STAGE_PUBLISHABLE_KEY:[
+    Buffer.from('{"alg":"HS256","typ":"JWT"}').toString('base64url'),
+    Buffer.from('{"role":"service_role"}').toString('base64url'),'signature'.repeat(7)].join('.')},
   {NETWORK_STAGE_OWNER_ONE_JWT:jwt('b')},
   {NETWORK_STAGE_OWNER_TWO_ID:u1},
   {NETWORK_STAGE_MEDIA_ONE:'../private.jpeg'},
