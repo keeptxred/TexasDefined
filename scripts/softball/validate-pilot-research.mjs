@@ -73,6 +73,37 @@ assert.ok(byName('Shiner').sources.some(s => s.url.includes('/historical-archive
 assert.ok(byName('Pearland').gaps.some(g => g.includes('softball stadium/field')),
   'Keep Pearland softball field unverified until official venue-specific evidence is found');
 
+// Every pilot program needs an independently attributed *facility status*,
+// not an assumed football stadium, campus office, city park, or generic venue.
+for (const p of pilot.pilotSchools) {
+  const v=p.venueResearch;
+  assert.ok(v && typeof v.namedField==='string' && v.namedField.length>=12,
+    p.name + ': missing school-specific softball venue research');
+  assert.ok(Array.isArray(v.sourceIds) && v.sourceIds.length > 0,
+    p.name + ': softball venue identity must cite inspected records');
+  const byId=new Map(p.sources.map(source=>[source.id,source]));
+  assert.ok(v.sourceIds.every(id=>byId.has(id)),p.name+': unknown venue evidence ID');
+  assert.ok(v.notes.length >= 100,p.name+': must explain limitations of researched venue');
+  for(const state of ['nameVerified','physicalAddressVerified','parkingVerified','accessibleSeatingVerified'])
+    assert.equal(typeof v[state],'boolean',p.name+': facility research '+state+' must be explicitly decided');
+  if (v.nameVerified) assert.ok(v.sourceIds.some(id=>byId.get(id).kind==='official-school'),
+    p.name+': a positively verified softball home venue requires official school evidence');
+  if (!v.physicalAddressVerified) assert.ok(!v.streetAddress,
+    p.name+': do not fill softball venue street address from district or campus mailing address');
+}
+assert.equal(byName('Ganado').venueResearch.namedField,'Ganado Softball Field');
+assert.equal(byName('Katy').venueResearch.namedField,'KHS-Softball Field');
+assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
+assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,false,'Never import Dallas Scots venues');
+for (const team of ['Shiner','Ganado','Katy','Pearland']) {
+  verifiedFact(team,'all-tournament','uil-2026-all-tournament');
+}
+verifiedFact('Shiner','eight championships','uil-all-time-appearances');
+verifiedFact('Ganado','Ganado Softball Field','ganado-school-calendar');
+verifiedFact('Katy',"'KHS-Softball Field'",'katy-official-venue-2025');
+verifiedFact('Pearland','Madelyn Guzman','uil-2026-all-tournament');
+verifiedFact('Amarillo Highland Park','E. Martinez','independent-staff-snapshot');
+
 const collision=pilot.pilotSchools.find(p=>p.name==='Amarillo Highland Park');
 assert.ok(collision,'Collision test requires Amarillo Highland Park Hornets');
 assert.equal(collision.identity.campusUrl,'https://www.hpisd.net/','Do not confuse Amarillo Hornets with Dallas Scots');
