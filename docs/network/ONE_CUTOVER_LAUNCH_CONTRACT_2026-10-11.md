@@ -1,0 +1,39 @@
+# TexasDefined Business Network — SINGLE coordinated customer launch
+
+Status: **NOT customer-launched.** The earlier protected foundation and migrations were merged and deployed, but the customer's requested launch has not occurred. This branch is deliberately unmerged until all production customer capabilities and real provider integrations are verified simultaneously. Do not merge an isolated integration as a release.
+
+## Invariant
+
+Run a single complete deployment **only after**: private Supabase owner/Auth/media and public listing acceptance, Basic intake and review/publication, protected owner portal, Plus production Checkout/webhook/reconciliation, Stripe self-service cancellation and portal, Exchange mailbox-restricted automated Graph sender, reliable outbox reconciliation, public indexing of editorially approved listings, final policy/price decisions, and end-to-end browser behavior ALL pass in an isolated staging build and full production preflight. Never activate a subset as a launch. Keep private account, billing, draft, moderation and admin URLs nonindexable permanently; this is security/privacy, not a disabled user-facing feature.
+
+## Connected-provider facts (October 11, 2026)
+
+- Two prior PRs, #4545 (Network foundation) and #4658 (installed Supabase security migration manifest) are already merged; they are **not** full customer launch authorization.
+- The real live Stripe account has a $19.99 USD monthly recurring Plus price. Its product was made active and its live billing portal was configured with invoice history, payment methods and end-of-term cancellation. These are provider configuration, **not** a verified subscription lifecycle.
+- No dedicated TexasDefined Network Stripe webhook signing secret is installed in Cloudflare; the unrelated existing KeepTXRed and Lovable webhooks are not substitutes.
+- A single internal `admin@texasdefined.com` Outlook self-test was sent and received; this does not establish an Entra Graph app, Mail.Send application permission scoped by Exchange Application RBAC, scheduled delivery, or safe outbox reconciler.
+- The connected GitHub, Supabase, Stripe and Outlook tools cannot configure Cloudflare Worker secrets or Microsoft Entra app registrations/Exchange RBAC. Do not print or commit secrets; owner must configure in dashboards or grant suitably scoped access.
+- PR #4659 fixed the published-page indexing bug separately and merged, but actual public search activation remains gated pending full customer launch.
+
+## One-cutover conditions (code and provider acceptance)
+
+`src/data/network-atomic-launch-readiness.server.ts` evaluates **all** required feature flags, production database/runtime secrets, Stripe live/webhook credential presence, Entra client credentials/mailbox/job secret and **thirteen distinct completed E2E proof categories**. The test fixture is synthetic; its passing test only means the predicate works, not that real providers have been tested. The gate must consume independently obtained CI/provider acceptance artifact references; merely setting variables to `true` cannot pass. It does not deploy or mutate anything.
+
+`src/data/network-graph-token.server.ts` implements a bounded, origin-pinned Microsoft Graph client-credentials token request (`https://graph.microsoft.com/.default`); no app registration or mailbox access is inferred or created, and this adapter does not send mail.
+
+## Actual full-launch execution order
+
+1. Provision isolated staging owner identities, media, real test-mode Stripe account/price/webhook and mailbox-scoped Entra app; verify explicit provider permissions and admin cost before staging provisioning.
+2. Finish the actual Graph sender job/claim/reconciliation and single-cutover Worker deployment/secrets configuration **on this branch**, never on `main` as individual launch fragments.
+3. Exercise Basic application, review, public publication and indexing; Plus verified-owner Checkout, activated entitlement, refund/cancellation and billing; 24/25 concurrent uploads, disabled-owner access and publisher media boundaries; real Graph acceptance, received notices, ambiguous failure/no-double-send and manual evidence-based reconciliation; all responsive browser flows. Use synthetic users and avoid real customer charges.
+4. Record the verified artifacts; pass the atomic launch gate; owner approves finalized published billing/privacy/retention/eligibility language and customer-facing launch copy.
+5. Perform a single all-features-ready production cutover and independently verify real customer journeys; if an essential provider step fails, treat the entire launch as not accepted. Do not falsely announce completed launch.
+
+## External access needed to complete
+
+- Cloudflare account capability to update Worker secrets/configuration and test the deployment as one unit.
+- Microsoft Entra/Exchange administrator permissions to register or authorize app-only Graph Mail.Send narrowly for `admin@texasdefined.com`, and a safe way to place the client secret in Cloudflare.
+- Stripe connected test-mode/sandbox integration to exercise the lifecycle before the existing live $19.99 product is exposed to customers. Dedicated webhook signing secret must be stored directly in Cloudflare, not shared here.
+- Final owner-facing commercial/legal decisions, including Featured custom pricing terms (do not take unspecified Featured payments).
+
+**No partial production launch, no invisible promotion of feature flags and no unsupported “ready” claim.**
