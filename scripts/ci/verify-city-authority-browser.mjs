@@ -105,6 +105,16 @@ for (const [viewport,width,height] of viewports) {
         }));
       }
       row.linkCount=data.links.length;
+      // Keyboard QA can auto-scroll the document to a focused anchor. A screenshot
+      // of that scroll position misses the page title and is unsuitable as a
+      // top-of-page visual QA artifact. Preserve focus evidence before blurring.
+      await page.evaluate(() => {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+        window.scrollTo({top: 0, behavior: 'instant'});
+      });
+      await page.waitForFunction(() => window.scrollY === 0, {timeout: 3000}).catch(() => {});
+      row.screenshotScrollY = await page.evaluate(() => window.scrollY);
+      row.checks.screenshotTop = row.screenshotScrollY === 0 ? 'PASS' : 'FAIL';
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
       // Additional full-page desktop evidence for actual manual editorial review.
       // This file alone does not certify contrast, keyboard order, or aesthetics.
