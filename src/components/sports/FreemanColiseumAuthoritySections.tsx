@@ -12,6 +12,7 @@ const official = {
   calendar: 'https://freemancoliseum.com/events-list/',
   policies: 'https://freemancoliseum.com/freeman-coliseum-bag-policy/',
   history: 'https://freemancoliseum.com/timeline-v/',
+  operatorEvents: 'https://www.frostbankcenter.com/events/category/freeman-coliseum',
   about: 'https://freemancoliseum.com/about-us/',
 };
 
@@ -33,6 +34,7 @@ const officialExamples = [
   { when: 'October 24, 2026', event: 'Galen College Graduation', building: 'Freeman Coliseum' },
   { when: 'October 31–November 1, 2026', event: 'Brick Convention', building: 'Expo Hall A' },
   { when: 'November 6–8, 2026', event: 'San Antonio Auto Show', building: 'Expo Halls' },
+  { when: 'November 6, 2026', event: 'Banda MS — 8:00 PM', building: 'Freeman Coliseum (verified separately by the arena operator)' },
   { when: 'November 13–15, 2026', event: 'Villain Arts Tattoo Festival', building: 'Expo Hall C' },
   { when: 'November 14, 2026', event: 'Time Travelers Vintage Expo', building: 'Freeman Expo Hall' },
   { when: 'November 21–22, 2026', event: '47th Annual Christmas Showcase', building: 'Freeman Expo Hall' },
@@ -123,7 +125,7 @@ export function FreemanColiseumAuthoritySections() {
     </section>
 
     <Section eyebrow="Official venue calendar snapshot" title="Events can take place in two different buildings on the same day">
-      <p className="max-w-4xl text-sm leading-7 text-muted-foreground">The TexasDefined ticket carousel above is a curated list from its own event database. It is <strong>not</strong> a full reproduction of the venue calendar. The official examples below were cross-checked October 10, 2026 and identify the advertised building; dates and access can change. <Source href={official.calendar}>Check the current full Freeman calendar</Source>.</p>
+      <p className="max-w-4xl text-sm leading-7 text-muted-foreground">The TexasDefined ticket carousel above is a curated list from its own event database. It is <strong>not</strong> a full reproduction of the venue calendar. These dated examples were cross-checked October 10, 2026 against the <Source href={official.calendar}>Freeman facilities calendar</Source> and the <Source href={official.operatorEvents}>arena operator's separately published Freeman concert listings</Source>. They identify the advertised building; dates and access can change. Notably, November 6 has both the Auto Show in the Expo Halls and Banda MS at the Coliseum — a distinction that the facilities calendar alone does not show.</p>
       <div className="mt-6 overflow-x-auto">
         <table className="w-full min-w-[540px] border-collapse text-left text-sm">
           <thead><tr className="border-y border-border"><th className="p-3 font-semibold">Date</th><th className="p-3 font-semibold">Officially listed event</th><th className="p-3 font-semibold">Building / campus area</th></tr></thead>
