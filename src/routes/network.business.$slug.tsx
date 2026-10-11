@@ -16,7 +16,7 @@ const getPublishedProfile = createServerFn({ method: "GET" })
       .eq("is_published", true)
       .maybeSingle();
     if (error) throw new Error("Published business profile is temporarily unavailable.");
-    return listing;
+    return listing ? {...listing,indexable:true} : null;
   });
 
 export const Route = createFileRoute("/network/business/$slug")({
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/network/business/$slug")({
   head: ({ loaderData }) => ({
     meta: [
       { title: `${typeof (loaderData?.profile as Record<string,unknown> | undefined)?.business_name === "string" ? (loaderData?.profile as Record<string,unknown>).business_name : "Texas Business"} | Texas Defined Network` },
-      { name: "robots", content: "noindex,nofollow,noarchive" },
+      { name: "robots", content: loaderData?.indexable ? "index,follow" : "noindex,nofollow,noarchive" },
     ],
   }),
 });
