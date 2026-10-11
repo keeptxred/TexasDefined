@@ -641,7 +641,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Arlington uses a citywide on-demand rideshare transit model rather than a traditional fixed-route city bus network. The service also connects riders with the TRE CentrePort area for regional connections.',
+        summary: 'Arlington On-Demand operates shared rides through the Arlington Transportation app, not a conventional fixed-route city bus network. The service connects Arlington with CentrePort TRE Station and the Eastchase area in Fort Worth for regional transfers; the city lists Monday–Saturday service, with no regular Sunday rides. Verify the service area, current hours, fares and pickup location directly before planning a trip.',
         links: [{ label: 'Arlington On-Demand', href: 'https://www.arlingtontx.gov/City-Services/Transportation-Streets-Traffic/Arlington-On-Demand' }],
       },
       {
@@ -897,7 +897,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Plano is connected to the wider North Texas transit network through DART. Use DART’s current maps and trip-planning tools for rail, bus and other service information.',
+        summary: 'Plano is served by DART rail, bus and on-demand GoLink. DART expanded Plano GoLink zones on October 5, 2026, including a new Southwest Plano zone and connections with the Silver Line and major transit centers. GoLink is organized by service zone, not one unrestricted citywide ride area; check the exact address, operating hours, transfer rules and current DART trip planner before traveling.',
         links: [{ label: 'DART', href: 'https://www.dart.org/' }],
       },
       {
