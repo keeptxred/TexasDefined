@@ -35,7 +35,7 @@ permissions:
 
 jobs:
   replay:
-    name: Replay 34 Network migrations and isolated owner/Stripe transactions
+    name: Replay 38 Network migrations and isolated owner/Stripe transactions
     runs-on: ubuntu-latest
     timeout-minutes: 12
     services:
