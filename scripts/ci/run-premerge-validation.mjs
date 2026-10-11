@@ -50,6 +50,8 @@ const prebuildChecks = [
   ['NETWORK/EMAIL', 'Verify Graph claim preflight, uncertain sends and no automatic redelivery', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-claim-plan.test.mjs']],
   ['NETWORK/EMAIL', 'Verify bounded default-off Graph dispatch worker and manual recovery decisions', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-dispatch-worker.test.mjs']],
   ['NETWORK/EMAIL', 'Verify hard-disabled mailbox-scoped Graph HTTP transport and envelope safety', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-graph-transport.test.mjs']],
+  ['NETWORK/ONE-CUTOVER', 'Prohibit launch with any missing provider, feature or external acceptance proof', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-atomic-launch-readiness.test.mjs']],
+  ['NETWORK/GRAPH-AUTH', 'Validate app-only Graph OAuth with fixed tenant and default scope', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-graph-token.test.mjs']],
   ['NETWORK/HOSTED-STAGING', 'Verify hosted staging read-only check refuses production and proves two-owner isolation', 'node', ['--test', 'scripts/data/network-hosted-stage-readonly.test.mjs']],
   ['NETWORK/OPERATIONS', 'Verify Network health inventory only executes aggregate SELECT statements', 'node', ['--test', 'scripts/data/network-operations-readonly.test.mjs']],
   ['NETWORK/PUBLIC-INDEX', 'Verify only editorially published profiles are searchable after directory launch', 'node', ['--test', 'scripts/data/network-public-indexing.test.mjs']],
