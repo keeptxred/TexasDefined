@@ -65,6 +65,57 @@ All 21 distinct named attraction or venue anchors from the sampled city featured
 
 These comparisons do not establish precise current municipal/ETJ boundaries. Comprehensive GIS intersection work remains unverified.
 
+## October 10 follow-up: direct municipal GIS sources
+
+The following public authoritative GIS services have been independently located and distinguish incorporated city limits from nearby jurisdictions, but their geometries **have not been overlaid against an independent county polygon layer**. Therefore these entries are **SOURCE CONFIRMED / BOUNDARIES NOT CERTIFIED**.
+
+| City | Municipality GIS source | Available boundary evidence | Outcome |
+|---|---|---|---|
+| Houston | https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer | Separate city-limit (layer 0), ETJ (layer 1) and county (layer 9) polygons | SOURCE CONFIRMED; county intersection UNVERIFIED |
+| San Antonio | https://www.sanantonio.gov/Portals/0/Files/GIS/Maps/SAETJ%20CCD%202026%2054x58.pdf | City boundary and ETJ separately drawn, Bexar and adjacent county labels | SOURCE CONFIRMED; county intersection UNVERIFIED |
+| El Paso | https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0 | Official municipal polygon, distinct from https://gis.elpasotexas.gov/ArcGIS/rest/services/CountyBoundary/FeatureServer | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+| Arlington | https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer | Official municipal boundary layer 1 | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+| Hurst | https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer | Official city limits layer 2 | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+
+The next valid acceptance step is a dated, repeatable polygon overlay with a known county-boundary vintage, recording intersection area and tolerances. **Do not infer a county intersection merely because its name is present in the map-service layer list.**
+
+
+## Relocation guidance: authoritative statewide jurisdiction limits
+
+| Published city-page guidance | Independent primary source | Result | Exact limitation |
+|---|---|---|---|
+| School attendance must be verified by address, not inferred from city name | https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq | PASS for procedural guidance | TEA distinguishes district boundaries from campus attendance zones; district confirms specific campus assignments |
+| A school-district map is not a parcel-level legal determination | https://tea.texas.gov/families-and-students/school-district-locator/geographic-data | PASS for the caution | TEA describes map geometry as approximate and refers legal/attendance verification to the district |
+| A Texas city's name does not establish a single property-tax rate or taxing-unit stack | https://comptroller.texas.gov/taxes/property-tax/basics.php | PASS for procedural guidance | County, school, city and special districts may overlap; property-specific units/rates remain unverified |
+| Local appraisal and tax records must be checked through appropriate local government offices | https://comptroller.texas.gov/taxes/property-tax/county-directory/index.php | PASS for procedural guidance | The Comptroller does not hold an individual homeowner's local appraisal/tax information |
+
+**Scope:** These four checks validate the statewide *methodology* behind the 11-city relocation advice, not the address-level schools, utilities, specific tax figures, neighborhood risks, or exact city-specific operators.
+
+
+## High-priority unresolved jurisdiction discrepancy: Houston / Waller County
+
+**Published:** `src/data/city-authority-profiles.ts` currently describes incorporated Houston as reaching Harris, Fort Bend, Montgomery **and Waller** counties.
+
+**Conflicting primary evidence:** A [City of Houston financial report](https://www.houstontx.gov/controller/cafr2001/cafr2001.pdf) explicitly describes three incorporated counties—Harris, Fort Bend, Montgomery. The [Harris Central Appraisal District explanation](https://hcad.org/hcad-help/hcad-properties-split-by-county-line/) likewise describes City of Houston parcels in Montgomery and Fort Bend outside Harris. Houston's [planning ETJ FAQ](https://pwehelp.houstontx.gov/planning/DevelopRegs/faq.html) explicitly lists Waller among Houston's *ETJ* counties, which is not proof it is within city limits. Its [municipal GIS service](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer) exposes separate city-limit, ETJ and county layers.
+
+**Disposition:** **UNVERIFIED / POSSIBLE PUBLISHED ERROR** until a current city-limits polygon is intersected with Waller County's boundary and any limited-purpose territory is characterized. The four-county claim must not be counted PASS merely because Waller occurs in GIS council district, voting precinct or ETJ data. Do not silently erase Waller from published data without the current-year spatial determination.
+
+
+## Houston editorial correction: incorporated boundaries versus Waller ETJ
+
+**October 10, 2026 action:** The current Houston city profile previously asserted that Waller County is inside Houston's incorporated city limits. Multiple Houston municipal sources independently distinguish incorporated city limits from its ETJ: [City Planning annexation reference](https://www.houstontx.gov/planning/Annexation/), [current official city-limits and ETJ GIS layers](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer), and [City Planning ETJ FAQ](https://www.houstontx.gov/planning/DevelopRegs/faq.html), which explicitly includes Waller among ETJ counties. An earlier [city financial report](https://www.houstontx.gov/controller/cafr2001/cafr2001.pdf) describes the three incorporated counties as Harris, Fort Bend and Montgomery.
+
+**Editorial remediation:** remove Waller from the unconditional incorporated-county list and explicitly explain that Waller is included in Houston's ETJ, not automatically in its full-service incorporated limits. Avoid implying county-specific address eligibility without parcel checks.
+
+**Residual acceptance limit:** This is a conservative correction of an unsupported categorical statement, **not** a completed current-date spatial overlay. Limited-purpose annexation and historical boundary changes still require a current municipal polygon/county overlay before full municipal-jurisdiction certification.
+
+## October 10 final release checkpoint — independently retrieved GitHub Actions outcomes
+
+- Protected production deployment [run #38098919324](https://github.com/keeptxred/TexasDefined/actions/runs/38098919324), retry attempt 2: **SUCCESS**, deployed exact main commit `b23d14b2385e57070a8c11938363ea146ab8c9d7`. The initial failed attempt was blocked by upstream Wikimedia Commons HTTP 429 during governed image derivative materialization; **not** an approved bypass of the image gate.
+- Eleven-city real-browser regression [run #38098919338](https://github.com/keeptxred/TexasDefined/actions/runs/38098919338), retry attempt 2: **SUCCESS** after the protected deployment for the same exact SHA. The runner tests 11 pages × mobile/tablet/desktop = **33 viewport cases**, with rendered metadata, errors, images/alt-presence, overflow, focus traversal and a limited internal-link sample. Test screenshots and JSON artifacts are retained by the workflow.
+- The Houston source and published guide now distinguish incorporated Harris/Fort Bend/Montgomery counties from Houston's Waller County ETJ through merged PR #4608. Spatial intersection proof remains unverified.
+- **Overall acceptance: INCOMPLETE.** Passing automated checks do not prove manual visual/keyboard/menu/touch/contrast WCAG acceptance, all external links, all factual/visitor claims, or all 11 municipal/county GIS overlays.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.

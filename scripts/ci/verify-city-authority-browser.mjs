@@ -61,8 +61,66 @@ for (const [viewport,width,height] of viewports) {
         row.checks.kimbellDestinationHttp = destination.status() === 200 ? 'PASS' : 'FAIL';
       }
       row.checks.keyboardTargets=data.focusable?'PASS':'NOT TESTED';
+      // Actual keyboard events rather than source-only counts. A real focused element
+      // should be reached by Tab and its focus should remain observable.
+      // Navigate multiple Tab stops: browser shell controls may precede the
+      // first visible interactive target in the page's actual focus order.
+      row.keyboardEvidence = [];
+      for(let tab = 0; tab < 12; tab++) {
+        await page.keyboard.press('Tab');
+        row.keyboardEvidence.push(await page.evaluate(() => {
+          const el = document.activeElement;
+          return {tag:el?.tagName || '', name:(el?.getAttribute('aria-label') ||
+            el?.textContent?.trim().slice(0,80) || el?.getAttribute('title') || ''),
+            visible:!!el?.getClientRects().length,
+            focusVisible:!!el?.matches?.(':focus-visible')};
+        }));
+      }
+      row.checks.keyboardNavigation = row.keyboardEvidence.some(f=>
+        f.visible && f.tag !== 'BODY' && f.tag !== 'HTML') ? 'PASS' : 'FAIL';
+      // Retry transient network errors once; preserve failures, URLs and status
+      // codes, do not whitelist persistent broken links.
+      const sample = [...new Set(data.links
+        .filter(l=>l.href.startsWith(origin+'/') && !l.href.includes('#'))
+        .map(l=>l.href))].slice(0,12);
+      row.linkSample = [];
+      for(const href of sample) {
+        const attempts=[];
+        for(let attempt=0;attempt<2;attempt++) {
+          try {
+            const res=await page.request.get(href,{timeout:20000,maxRedirects:5});
+            attempts.push({status:res.status()});
+            if(res.status()>=200 && res.status()<400)break;
+          }catch(error){attempts.push({error:String(error)});}
+        }
+        const final=attempts[attempts.length-1];
+        row.linkSample.push({href,...final,attempts});
+      }
+      row.checks.internalLinkSample = row.linkSample.length &&
+        row.linkSample.every(l=>l.status>=200 && l.status<400) ? 'PASS' : 'FAIL';
+      if(row.checks.keyboardNavigation==='FAIL' || row.checks.internalLinkSample==='FAIL') {
+        console.error('CITY DIAGNOSTIC',slug,viewport,JSON.stringify({
+          keyboardEvidence:row.keyboardEvidence,
+          failedLinks:row.linkSample.filter(l=>!(l.status>=200 && l.status<400))
+        }));
+      }
       row.linkCount=data.links.length;
+      // Keyboard QA can auto-scroll the document to a focused anchor. A screenshot
+      // of that scroll position misses the page title and is unsuitable as a
+      // top-of-page visual QA artifact. Preserve focus evidence before blurring.
+      await page.evaluate(() => {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+        window.scrollTo({top: 0, behavior: 'instant'});
+      });
+      await page.waitForFunction(() => window.scrollY === 0, undefined, {timeout: 3000}).catch(() => {});
+      row.screenshotScrollY = await page.evaluate(() => window.scrollY);
+      row.checks.screenshotTop = row.screenshotScrollY === 0 ? 'PASS' : 'FAIL';
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
+      // Additional full-page desktop evidence for actual manual editorial review.
+      // This file alone does not certify contrast, keyboard order, or aesthetics.
+      if (viewport === 'desktop') {
+        await page.screenshot({path:output+'/'+slug+'-desktop-full.png',fullPage:true,animations:'disabled'});
+      }
       row.checks.javascript=row.errors.filter(x=>x.startsWith('JS:')).length?'FAIL':'PASS';
     }catch(e){row.errors.push(String(e));row.checks.render='FAIL';}
     finally{await context.close();}
