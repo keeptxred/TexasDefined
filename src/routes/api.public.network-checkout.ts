@@ -22,16 +22,17 @@ export const Route = createFileRoute("/api/public/network-checkout")({
     if (!bearer) return reply({ error: "Sign in with your confirmed application email before checkout." }, 401);
     const {stripeCheckoutEnabled,createNetworkCheckoutSession}=await import("@/data/network-stripe.server");
     if (!stripeCheckoutEnabled()) return reply({ error: "Subscription checkout is not yet activated." }, 503);
+    const {matchingNetworkOwnerEmail}=await import("@/data/network-owner-email");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: verified, error: authError } = await supabaseAdmin.auth.getUser(bearer);
     if (authError || !verified.user?.email_confirmed_at || !verified.user.email ||
-        verified.user.email.trim().toLowerCase() !== String(body.email || "").trim().toLowerCase()) {
+        !matchingNetworkOwnerEmail(verified.user.email,body.email)) {
       return reply({ error: "A verified application-email account is required for checkout." }, 403);
     }
     const { data, error } = await supabaseAdmin.from("texasdefined_network_applications")
       .select("id,plan,status,contact_email,paid_entitlement_active,stripe_subscription_id").eq("id", body.applicationId).single();
     if (error || !data || data.plan !== "plus" || data.status !== "approved" ||
-        data.contact_email.toLowerCase() !== String(body.email || "").trim().toLowerCase()) {
+        !matchingNetworkOwnerEmail(data.contact_email,verified.user.email)) {
       return reply({ error: "This application is not eligible for checkout." }, 422);
     }
     // Verified email alone does not prove control of the business. A reviewed owner binding is required.

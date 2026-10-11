@@ -29,6 +29,12 @@ check('Checkout and billing reject unbounded JSON before parsing',
  && source('src/data/network-billing-json.server.ts').includes('bytes>NETWORK_BILLING_JSON_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-billing-json.test.mjs'));
 check('checkout disabled by default',checkout.includes('if (!stripeCheckoutEnabled())'));
+check('Checkout uses the same exact normalized confirmed-email comparison as owner provisioning',
+ checkout.includes('matchingNetworkOwnerEmail(verified.user.email,body.email)')
+ && checkout.includes('matchingNetworkOwnerEmail(data.contact_email,verified.user.email)')
+ && !checkout.includes('data.contact_email.toLowerCase()')
+ && !checkout.includes('.ilike(')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-owner-email.test.mjs'));
 check('checkout needs verified Supabase user',checkout.includes('email_confirmed_at')&&checkout.includes('auth.getUser(bearer)'));
 check('checkout needs authorized, enabled owner',checkout.includes('texasdefined_network_business_accounts')&&checkout.includes('.eq("owner_user_id", verified.user.id)')&&checkout.includes('.eq("access_enabled", true)'));
 check('checkout blocks preexisting subscription',checkout.includes('data.stripe_subscription_id')&&checkout.includes('data.paid_entitlement_active'));

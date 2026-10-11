@@ -61,7 +61,7 @@ try {
       row.checks.includedActivities = initial.bodyText.includes('More than 100 daily activities');
       row.checks.cottonBowlLink = initial.links.includes(origin + '/sports-venue/cotton-bowl');
       row.checks.redRiverLink = initial.links.includes(origin + '/event/red-river-rivalry');
-      row.checks.season = seasonOver ? initial.bodyText.includes('2026 Fair concluded') : initial.bodyText.includes('2026 Fair underway');
+      row.checks.season = seasonOver ? initial.bodyText.toLowerCase().includes('2026 fair concluded') : initial.bodyText.toLowerCase().includes('2026 fair underway');
       row.checks.schema = seasonOver ? (!initial.jsonTypes.includes('Event') && initial.jsonTypes.includes('WebPage')) : initial.jsonTypes.includes('Event');
       const summary = page.locator('[data-state-fair-historical-gallery] details summary');
       await summary.click({ timeout: 15000 });
@@ -77,6 +77,52 @@ try {
       await page.screenshot({ path: out + '/' + viewport + '.png', fullPage: false });
       await page.locator('[data-state-fair-historical-gallery]').screenshot({ path: out + '/' + viewport + '-gallery.png', timeout: 20000 });
       row.checks.javascript = row.errors.length === 0;
+      // Investigate real React #418 failures without weakening the strict baseline.
+      // Compare fresh isolated browser contexts with third-party integrations blocked.
+      if (viewport === 'mobile' && row.errors.some(e => /#418|hydrat/i.test(e))) {
+        row.hydrationIsolation = [];
+        const scenarios = [
+          { name: 'unmodified-repeat', block: [] },
+          { name: 'expedia-blocked', block: ['expedia-travel.js'] },
+          { name: 'all-deferred-integrations-blocked', block: [
+            'expedia-travel.js', 'stay-affiliate-options.js', 'stay-nearby-context-images.js',
+            'city-experience-affiliate.js', 'texas-brand-locator.js',
+          ] },
+        ];
+        for (const scenario of scenarios) {
+          const isolated = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1 });
+          const probe = await isolated.newPage();
+          const failures = [];
+          probe.on('pageerror', e => failures.push({ message: e.message, stack: e.stack || '' }));
+          if (scenario.block.length) {
+            await probe.route('**/*', route => {
+              const path = new URL(route.request().url()).pathname;
+              return scenario.block.some(name => path.endsWith('/' + name))
+                ? route.abort()
+                : route.continue();
+            });
+          }
+          let loaded = false, hydrationReady = false, liveStatus = '', loadError = '';
+          try {
+            const res = await probe.goto(url + '?fair-qa-probe=' + encodeURIComponent(scenario.name), {
+              waitUntil: 'domcontentloaded', timeout: 55000,
+            });
+            loaded = res?.status() === 200;
+            hydrationReady = await probe.waitForFunction(
+              () => document.documentElement.dataset.tdRootHydrated === '1',
+              null, { timeout: 15000 },
+            ).then(() => true).catch(() => false);
+            await probe.waitForTimeout(750);
+            liveStatus = await probe.locator('[data-state-fair-live-panel] .eyebrow').first()
+              .textContent({ timeout: 5000 }).catch(() => '');
+          } catch (error) { loadError = String(error); }
+          row.hydrationIsolation.push({
+            scenario: scenario.name, blocked: scenario.block, loaded, hydrationReady,
+            liveStatus, errors: failures, loadError,
+          });
+          await isolated.close();
+        }
+      }
     } catch (e) { row.errors.push(String(e)); }
     finally { await context.close(); }
   }

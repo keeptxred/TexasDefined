@@ -30,3 +30,13 @@ test('GET and POST billing authorization both compare contact email after bindin
  assert.match(route,/\.eq\("owner_user_id",\s*auth\.userId\)/);
  assert.match(route,/\.eq\("access_enabled",\s*true\)/);
 });
+
+test('Checkout checks the same exact normalized confirmed owner email on both sides of business binding',()=>{
+ const route=readFileSync('src/routes/api.public.network-checkout.ts','utf8');
+ assert.match(route,/matchingNetworkOwnerEmail\(verified\.user\.email,body\.email\)/);
+ assert.match(route,/matchingNetworkOwnerEmail\(data\.contact_email,verified\.user\.email\)/);
+ assert.match(route,/\.eq\("owner_user_id", verified\.user\.id\)/);
+ assert.match(route,/\.eq\("access_enabled", true\)/);
+ assert.doesNotMatch(route,/data\.contact_email\.toLowerCase\(\)/);
+ assert.doesNotMatch(route,/\.ilike\(/);
+});
