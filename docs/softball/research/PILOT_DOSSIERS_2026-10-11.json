@@ -418,6 +418,20 @@
           "url": "https://ghs.ganadoisd.org/facultystaff-directory1",
           "kind": "official-school",
           "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-campus-address",
+          "title": "Ganado ISD official campus listing distinguishes school from district office",
+          "url": "https://www.ganadoisd.org/campus",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
+        },
+        {
+          "id": "ganado-stadium-maps",
+          "title": "Ganado ISD facilities map menu contains stadium and gyms but no verified softball-field map",
+          "url": "https://www.ganadoisd.org/departments/departments/facilities/facility-maps",
+          "kind": "official-school",
+          "checkedAt": "2026-10-11"
         }
       ],
       "facts": [
@@ -509,6 +523,22 @@
             "ganado-current-faculty",
             "uil-state-2026"
           ]
+        },
+        {
+          "claim": "Ganado ISD identifies Ganado High School at 501 West Devers and the separate district administration at 210 South 6th Street; neither address is source-labelled the varsity girls softball playing field, so use the campus address for school identity only.",
+          "season": "2026-27",
+          "sourceIds": [
+            "ganado-campus-address",
+            "ganado-school-calendar"
+          ]
+        },
+        {
+          "claim": "Ganado ISD's own facility map page links stadium, high school gym and junior high gym facilities but provides no separately labelled softball field map or visitor entrance. The school event calendar verifies Ganado Softball Field's name without revealing an address.",
+          "season": "2026-27",
+          "sourceIds": [
+            "ganado-stadium-maps",
+            "ganado-school-calendar"
+          ]
         }
       ],
       "gaps": [
@@ -526,9 +556,10 @@
         "parkingVerified": false,
         "accessibleSeatingVerified": false,
         "sourceIds": [
-          "ganado-school-calendar"
+          "ganado-school-calendar",
+          "ganado-stadium-maps"
         ],
-        "notes": "2025–26 official Ganado High calendar calls this venue 'Ganado Softball Field' on home varsity and JV games. Exact parcel/entrance address, current 2027 event confirmation, accessibility and ticket policies remain unverified."
+        "notes": "2025–26 official Ganado High calendar calls this venue 'Ganado Softball Field' on home varsity and JV games. Exact parcel/entrance address, current 2027 event confirmation, accessibility and ticket policies remain unverified. An additional check of the official Ganado ISD facilities maps shows stadium and gym map categories but no softball-specific map; the high school address is 501 West Devers, while the district office is 210 South 6th Street, neither labelled as the field location."
       },
       "coachingResearch": {
         "schoolWebsiteAsOf": "2026-10-11",
