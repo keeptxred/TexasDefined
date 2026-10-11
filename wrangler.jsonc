@@ -40,7 +40,7 @@
         "limit": 3,
         "period": 60
       }
-    ,
+    },
     {
       "name": "TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER",
       "namespace_id": "1651003",
