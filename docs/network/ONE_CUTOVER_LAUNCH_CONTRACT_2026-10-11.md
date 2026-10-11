@@ -10,7 +10,7 @@ Run a single complete deployment **only after**: private Supabase owner/Auth/med
 
 - Two prior PRs, #4545 (Network foundation) and #4658 (installed Supabase security migration manifest) are already merged; they are **not** full customer launch authorization.
 - The real live Stripe account has a $19.99 USD monthly recurring Plus price. Its product was made active and its live billing portal was configured with invoice history, payment methods and end-of-term cancellation. These are provider configuration, **not** a verified subscription lifecycle.
-- No dedicated TexasDefined Network Stripe webhook signing secret is installed in Cloudflare; the unrelated existing KeepTXRed and Lovable webhooks are not substitutes.
+- No dedicated TexasDefined Network Stripe webhook signing secret is installed in Cloudflare; the unrelated existing KeepTXRed and a retired external site-builder webhooks are not substitutes.
 - A single internal `admin@texasdefined.com` Outlook self-test was sent and received; this does not establish an Entra Graph app, Mail.Send application permission scoped by Exchange Application RBAC, scheduled delivery, or safe outbox reconciler.
 - The connected GitHub, Supabase, Stripe and Outlook tools cannot configure Cloudflare Worker secrets or Microsoft Entra app registrations/Exchange RBAC. Do not print or commit secrets; owner must configure in dashboards or grant suitably scoped access.
 - PR #4659 fixed the published-page indexing bug separately and merged, but actual public search activation remains gated pending full customer launch.
