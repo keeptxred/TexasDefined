@@ -131,6 +131,11 @@ check('Stripe entitlement and publication reconciliation uses isolated rollback 
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes("'republished'")
  && source('scripts/data/network-migration-stripe-reconciliation-fixture.sql').includes('ROLLBACK;')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('network-migration-stripe-reconciliation-fixture.sql'));
+check('all eight gated Network routes remain explicitly noindex in canonical public route registry',
+ ['/network/billing','/network/checkout-return','/business/dashboard','/network/directory','/network/join','/network/apply','/network/example/basic','/network/example/plus']
+ .every(path=>source('src/lib/public-routes.ts').includes('"' + path + '"'))
+ && source('src/routeTree.gen.ts').includes('NetworkBillingRouteImport')
+ && source('src/routeTree.gen.ts').includes('BusinessDashboardRouteImport'));
 check('proposed disabled-owner private revision READ policy is tested safely without live migration',
  source('scripts/data/verify-network-migration-replay.mjs').includes("proposedRevocation='supabase/pending/20261011043000_network_owner_revision_read_revocation.sql'")
  && source('supabase/pending/20261011043000_network_owner_revision_read_revocation.sql').includes('b.access_enabled=true')
