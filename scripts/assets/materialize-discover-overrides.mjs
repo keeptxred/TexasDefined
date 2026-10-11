@@ -297,6 +297,47 @@ async function sourceFile(slug, source) {
   return input;
 }
 
+async function restorePriorProductionDerivative(slug, output) {
+  const url = `https://texasdefined.com/images/discover/${slug}.webp?materializer-fallback=${Date.now()}`;
+  let response;
+  try {
+    response = await fetch(url, {
+      redirect: "follow",
+      cache: "no-store",
+      headers: {
+        "user-agent": "TexasDefined-Discover-Materializer/1.0",
+        accept: "image/webp,image/*;q=0.8",
+      },
+      signal: AbortSignal.timeout(30_000),
+    });
+  } catch (error) {
+    console.warn(`Prior production derivative fetch failed for ${slug}: ${error instanceof Error ? error.message : String(error)}`);
+    return false;
+  }
+
+  if (!response.ok) {
+    console.warn(`Prior production derivative unavailable for ${slug}: HTTP ${response.status}`);
+    return false;
+  }
+
+  const type = (response.headers.get("content-type") ?? "").toLowerCase();
+  if (!type.startsWith("image/")) {
+    console.warn(`Prior production derivative for ${slug} is not an image: ${type || "unknown content type"}`);
+    return false;
+  }
+
+  await fs.writeFile(output, Buffer.from(await response.arrayBuffer()));
+  try {
+    verifyDerivative(slug, output);
+    console.warn(`Reused verified prior production derivative for ${slug} after governed upstream source failure.`);
+    return true;
+  } catch (error) {
+    await fs.rm(output, { force: true });
+    console.warn(`Prior production derivative failed verification for ${slug}: ${error instanceof Error ? error.message : String(error)}`);
+    return false;
+  }
+}
+
 function verifyDerivative(slug, output) {
   const identify = spawnSync(command === "magick" ? "magick" : "identify",
     command === "magick" ? ["identify", "-format", "%wx%h", output] : ["-format", "%wx%h", output],
@@ -321,7 +362,13 @@ for (const [slug, source] of entries) {
       continue;
     }
   }
-  const input = await sourceFile(slug, source);
+  let input;
+  try {
+    input = await sourceFile(slug, source);
+  } catch (error) {
+    if (!source.startsWith("/") && await restorePriorProductionDerivative(slug, output)) continue;
+    throw error;
+  }
   const result = spawnSync(command, [
     input,
     "-auto-orient",
