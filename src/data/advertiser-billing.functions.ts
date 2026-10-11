@@ -1,7 +1,7 @@
 import {createServerFn} from '@tanstack/react-start';
 import {z} from 'zod';
 
-const accessKey=z.string().min(20).max(200);
+const accessKey=z.string().min(32).max(200);
 
 export const getAdvertiserBillingAccounts=createServerFn({method:'POST'})
  .inputValidator(z.object({accessKey}))
