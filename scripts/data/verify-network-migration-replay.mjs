@@ -165,3 +165,8 @@ BEGIN
  RAISE NOTICE 'LOCAL STRIPE TEST-MODE FINALIZER PASS: only disposable cs_test IDs permitted';
 END $check$;`;
 execSql(['-c',verifyIsolatedStripe],'local-only Stripe test-mode finalizer privilege and identifier verification');
+const isolatedCheckoutFixture='scripts/data/network-stripe-local-checkout-fixture.sql';
+if(!existsSync(isolatedCheckoutFixture))throw Error('Missing isolated test-mode Checkout rollback fixture');
+execSql(['-f',isolatedCheckoutFixture],'disposable cs_test Checkout reservation/finalization owner-binding fixture');
+console.log('REPLAY TEST STRIPE CHECKOUT DB PASS: isolated reserve, reject live IDs/foreign owner, complete cs_test, safe reuse; rolled back');
+
