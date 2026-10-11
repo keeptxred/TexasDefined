@@ -34,6 +34,9 @@ test('Graph HTTP preparation refuses changed sender, foreign recipient and injec
  const oversized={...plan,graphPayload:{...plan.graphPayload,message:{...plan.graphPayload.message,
    body:{contentType:'Text',content:'A'.repeat(17_000)}}}};
  assert.throws(()=>prepareNetworkGraphHttpRequest(oversized),/too large/);
+ const utf8={...plan,graphPayload:{...plan.graphPayload,message:{...plan.graphPayload.message,
+   body:{contentType:'Text',content:'🐾'.repeat(5_000)}}}};
+ assert.throws(()=>prepareNetworkGraphHttpRequest(utf8),/too large/);
 });
 test('Graph transport is hard-disabled before any injected provider or token use',async()=>{
  const plan=prepareNetworkGraphClaim(row);
