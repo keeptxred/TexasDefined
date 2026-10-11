@@ -60,6 +60,15 @@ test('configuration rejects missing provider credentials and wrong production ho
   assert.ok(result.missing.some(x=>x.startsWith('config:')));
  }
 });
+test('modern opaque Supabase server secret and legacy signed service JWT are both accepted',()=>{
+ const {env,proof}=fixture();
+ const opaque={...env,SUPABASE_SERVICE_ROLE_KEY:'sb_secret_SYNTHETIC_PRIVATE_'+ 'x'.repeat(58)};
+ assert.equal(inspectNetworkAtomicLaunch(opaque,proof).ready,true);
+ for(const value of ['sb_publishable_UNPRIVILEGED_'+'x'.repeat(58),
+   'sb_secret_short','not-a-service-key','']){
+  assert.equal(inspectNetworkAtomicLaunch({...env,SUPABASE_SERVICE_ROLE_KEY:value},proof).ready,false,value);
+ }
+});
 test('output does not expose credentials or private acceptance evidence references',()=>{
  const {env,proof}=fixture();
  const outcome=inspectNetworkAtomicLaunch(env,proof);
