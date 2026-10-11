@@ -19,3 +19,7 @@ In `scripts/ci/verify-city-authority-browser.mjs`, before the full-page **deskto
 After a guarded merge and successful exact-SHA protected deploy, obtain new 11-city Chrome artifact and **visually inspect Houston, Fort Worth and Austin hero photographs at native resolution**, not just HTML `img.complete`. If source fetches fail (e.g. Commons 429), distinguish transient image host rate limit from site image duplication or broken media; then fix the actual production defect if independently reproduced. Explicitly do not advance any photo, population or GIS fact verification dates as a side effect of this screenshot methodology change.
 
 **Final acceptance remains PARTIAL/UNVERIFIED as appropriate**, regardless of the automated success of this proposed method.
+
+## Added mobile/tablet menu interaction regression (same existing 11-city runner)
+
+At 390×844 and 768×1024, the updated runner now locates the real Header `button[aria-controls="mobile-main-menu"]`, checks a nonempty accessible name and minimum **44×44 CSS pixel** bounding box, opens the menu by click, asserts `aria-expanded=true` and visible `nav[aria-label="Main menu"]` with link content, then closes it and asserts `aria-expanded=false` and the menu is hidden. It retains `row.menuEvidence` for every city/viewport and fails the relevant automated case if the interaction is not actually functional. This closes a specific automated navigation gap; it does **not** certify comprehensive touch or screen-reader accessibility or all interaction states. Post-merge independent runtime PASS required.
