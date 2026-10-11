@@ -209,6 +209,38 @@ assert.ok(calendar.editorialRestrictions.some(x=>x.includes('school\'s actual ga
 assert.ok(calendar.seasonSpecificExplanations.some(x=>x.id==='recruiting' && x.text.includes('Section 409')),
  'UIL Section 409 recruiting safeguards must be preserved in school page publishing policy');
 
+// A district's TEA reporting county is NOT necessarily the physical campus
+// county: Katy High is the known regression case (NCES: Fort Bend; ISD: Harris).
+const campus=get('docs/softball/research/campus-identity-source-crosswalk.json');
+assert.equal(campus.version,1);
+assert.equal(campus.verifiedAt,pilot.lastReviewed);
+assert.equal(campus.schools.length,pilot.pilotSchools.length,'Pilot TEA campus identity census must be complete');
+const campusIds=new Set();
+for(const school of pilot.pilotSchools) {
+  const record=campus.schools.find(c=>c.uilName===school.name);
+  assert.ok(record,school.name+': no independently identified TEA/NCES campus');
+  assert.match(record.teaCampusId,/^\d{9}$/,'TEA state campus code must have 9 digits');
+  assert.ok(!campusIds.has(record.teaCampusId),'Two UIL campuses cannot share TEA ID');
+  campusIds.add(record.teaCampusId);
+  assert.equal(school.identity.teaCampusId,record.teaCampusId,'Identity file campus mismatches official crosswalk');
+  assert.equal(school.identity.county,record.county,'Must use campus physical county, not ISD reporting county');
+  assert.equal(school.identity.campusAddress,record.campusAddress,'Only independently verified school campus address is allowed');
+  assert.equal(school.identity.officialCampusGradeSpan,record.grades,'Grade spans must retain middle school grades when appropriate');
+  assert.equal(school.identity.historicalCampusEnrollment.count,record.historicalStudentCount);
+  assert.equal(school.identity.historicalCampusEnrollment.year,'2024-25','Never display 2024–25 counts as 2026–27 current');
+  assert.ok(record.historicalStudentCount>100 && record.historicalStudentCount<7000,'Sanity bounds for campus count');
+  assert.equal(new URL(record.studentSource).protocol,'https:');
+  assert.equal(new URL(record.campusAddressSource).protocol,'https:');
+  assert.ok(school.facts.some(f=>f.sourceIds.includes('official-campus-students')&&f.sourceIds.includes('official-campus-location')),
+    school.name+': source-backed dated campus/county/grade claims not in research dossier');
+  assert.ok(record.caveat.length>=75,'Record school-specific caveat to avoid inexact football copy');
+}
+assert.equal(campus.schools.find(s=>s.uilName==='Katy').county,'Fort Bend','Katy HS campus physically in Fort Bend County, not district TEA Harris label');
+assert.equal(campus.schools.find(s=>s.uilName==='Katy').teaCampusId,'101914001');
+assert.equal(campus.schools.find(s=>s.uilName==='Amarillo Highland Park').teaCampusId,'188903001',
+  'Must be Amarillo Potter County school, never Dallas Highland Park');
+assert.equal(campus.schools.find(s=>s.uilName==='Shiner').grades,'07–12','Shiner school count includes grades 7 and 8');
+
 const required=new Set(SOFTBALL_RESEARCH_TOPICS.map(s=>s.id));
 assert.equal(required.size,38,'Keep complete-first-publish topic count stable');
 assert.ok(!pilot.publicationAuthorization,'No publish shortcut');
