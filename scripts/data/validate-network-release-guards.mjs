@@ -57,6 +57,15 @@ check('Graph worker remains gated off, bounded, and never acknowledges or retrie
  && source('src/data/network-notification-dispatch-worker.server.ts').includes('mayMarkDelivered: false')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-dispatch-worker.test.mjs'));
 
+check('Graph HTTP transport cannot send while Network email is disabled, pins mailbox and avoids SQL delivery claims',
+ source('src/data/network-notification-graph-transport.server.ts').includes('NETWORK_GRAPH_DELIVERY')===false
+ && source('src/data/network-notification-graph-transport.server.ts').includes('!Boolean(NETWORK_GRAPH_DISPATCH_ENABLED)')
+ && source('src/data/network-notification-graph-transport.server.ts').includes('!Boolean(NETWORK_EMAIL_DELIVERY_ENABLED)')
+ && source('src/data/network-notification-graph-transport.server.ts').includes('users/admin%40texasdefined.com/sendMail')
+ && source('src/data/network-notification-graph-transport.server.ts').includes("redirect:'error'")
+ && source('src/data/network-notification-graph-transport.server.ts').includes('AbortSignal.timeout(12_000)')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-graph-transport.test.mjs'));
+
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
  source('src/data/network-stripe-mode.server.ts').includes("database.includes('ftkznprjljkhymknvhye')")
  && source('src/data/network-stripe-mode.server.ts').includes("NETWORK_ISOLATED_STAGING")
