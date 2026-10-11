@@ -1,0 +1,62 @@
+name: Network clean-room migration replay
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - 'scripts/data/validate-network-migration-parity.mjs'
+      - 'scripts/data/network-migration-replay-bootstrap.sql'
+      - 'scripts/data/verify-network-migration-replay.mjs'
+      - '.github/workflows/network-migration-cleanroom.yml'
+      - 'docs/network/IMPLEMENTATION_STATUS.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    name: Replay 33 Network migrations without production credentials
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ephemeral-network-replay-only
+          POSTGRES_DB: network_replay
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d network_replay"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: '5432'
+      PGUSER: postgres
+      PGPASSWORD: ephemeral-network-replay-only
+      PGDATABASE: network_replay
+      NETWORK_MIGRATION_REPLAY_ISOLATED: yes-ephemeral-local-only
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recreate tracked Network migrations in isolated PostgreSQL
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql --version
+          node scripts/data/verify-network-migration-replay.mjs 2>&1 | tee network-migration-replay.log
+      - name: Save isolated migration validation evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: network-migration-cleanroom-evidence
+          path: network-migration-replay.log
+          if-no-files-found: warn
+          retention-days: 14
