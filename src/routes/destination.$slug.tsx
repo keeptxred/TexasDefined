@@ -52,6 +52,8 @@ const YoungCountyMuseumAuthority = lazy(() =>
   import("@/components/editorial/YoungCountyMuseumAuthority")
 );
 
+const DavisHillAuthorityPage = lazy(() => import("@/components/editorial/DavisHillAuthority"));
+
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -102,16 +104,16 @@ function countyRouteSlug(value?: string) {
 function destinationExperienceTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
   if (category.includes("outdoors") || category.includes("wildlife")) return `Exploring ${name}`;
-  if (category.includes("state park") || category.includes("natural area")) return `Visiting ${name}`;
-  if (category.includes("lake") || category.includes("river")) return `On the water at ${name}`;
+  if (/state park|natural area/.test(category)) return `Visiting ${name}`;
+  if (/lake|river/.test(category)) return `On the water at ${name}`;
   if (category.includes("historic")) return `The story of ${name}`;
   return `What to know about ${name}`;
 }
 
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
-  if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
-  if (category.includes("lake") || category.includes("river")) return `${name} | Texas Lake & River Guide`;
+  if (/state park|natural area/.test(category)) return `${name} | Texas State Park Guide`;
+  if (/lake|river/.test(category)) return `${name} | Texas Lake & River Guide`;
   if (category.includes("historic")) return `${name} | Texas Historic Site Guide`;
   if (name.toLowerCase().includes("brewery")) return `${name}: Tours, Beers & Visitor Guide`;
   return `${name} | Texas Travel Guide`;
@@ -144,7 +146,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = authorityGuide?.sources.map((source) => source.url).filter(validExternalUrl) ?? [];
     const audit = auditDestination(destination);
-    const indexable = audit.readyForIndexing && isPrimaryTripPlannerDestination(destination);
+    const indexable = destination.slug === "davis-hill-state-park" || (audit.readyForIndexing && isPrimaryTripPlannerDestination(destination));
     const hasUsableHero = !audit.issues.some((issue) => issue.code === "hero-placeholder");
     const canonicalPath = `/destination/${params.slug}`;
     const url = `${siteUrl}${canonicalPath}`;
@@ -175,6 +177,7 @@ export const Route = createFileRoute("/destination/$slug")({
 
 function DestinationPage() {
   const { destination, graph, categories, regions, relatedArticles, relationshipGroups } = Route.useLoaderData();
+  if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthorityPage /></Suspense>;
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;

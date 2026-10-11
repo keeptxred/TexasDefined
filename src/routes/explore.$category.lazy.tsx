@@ -73,6 +73,16 @@ function ExploreCategoryPage() {
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
+
+    {match.slug === "state-parks" ? <Container className="pb-8 sm:pb-10">
+      <section aria-labelledby="future-parks-davis-hill" className="border-t border-border pt-6">
+        <p className="eyebrow text-primary">Future parks · Not yet visitable</p>
+        <h2 id="future-parks-davis-hill" className="mt-2 font-display text-2xl sm:text-3xl">What about Davis Hill State Natural Area?</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Davis Hill is a protected Liberty County salt-dome landscape near the Trinity River, not a developed public-use park. It remains excluded from camping and trip-planning results because there is no verified general public access. Read its independently sourced history, geology and conservation research before confusing it with Davis Mountains State Park.</p>
+        <Link to="/destination/davis-hill-state-park" className="mt-4 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Davis Hill research and access status →</Link>
+      </section>
+    </Container> : null}
+
     {pointGraphic ? <Container className="pb-10 sm:pb-14"><section className="border-t-2 border-foreground pt-8"><div className="mb-6 max-w-3xl"><p className="eyebrow text-primary">Original TexasDefined map</p><h2 className="mt-2 font-display text-4xl">{pointGraphic.title}</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Built from the same maintained destination records used by this guide, then made available for editorial reuse in PNG and SVG formats.</p></div><TexasPointMapGraphic {...pointGraphic} points={mapPoints} /></section></Container> : null}
     {unusualBusinessSpotlight ? <Container className="pb-10 sm:pb-14"><section className="grid gap-6 border-y border-border py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"><div><p className="eyebrow text-primary">{unusualBusinessSpotlight.eyebrow}</p><h2 className="mt-2 font-display text-3xl">{unusualBusinessSpotlight.title}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{unusualBusinessSpotlight.text}</p><Link to="/article/unusual-texas-businesses-services" {...unusualBusinessAnalyticsAttributes("/article/unusual-texas-businesses-services", `explore-${match.slug}:hub`)} className="mt-4 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">More unusual Texas businesses →</Link></div><Link to={unusualBusinessSpotlight.href} {...unusualBusinessAnalyticsAttributes(unusualBusinessSpotlight.href, `explore-${match.slug}:spotlight`)} className="eyebrow inline-block border-b border-primary pb-1 text-primary">{unusualBusinessSpotlight.cta}</Link></section></Container> : null}
     {showRoadTripRentalCar ? <Container className="pb-10 sm:pb-14"><BookingCarRentalCard placement="road-trips-category" title="Need a rental car for your Texas road trip?" /></Container> : null}
