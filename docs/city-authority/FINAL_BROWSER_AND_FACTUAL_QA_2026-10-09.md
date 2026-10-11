@@ -4,6 +4,31 @@
 **Repository:** keeptxred/TexasDefined. **Observed main baseline:** `a1766a48d00f4a58285e5229f0946941266b0e27`.  
 **Earlier evidence:** [final transit and structure audit](FINAL_ACCEPTANCE_AND_TRANSIT_AUDIT_2026-10-09.md); production deploy run 38001003182 (historical, not asserted current).
 
+## October 10, 2026 — reconciled release acceptance checkpoint
+
+This section supersedes the historical release-pending statements earlier in this report, **without retroactively altering what was known on October 9**.
+
+- Houston city-limit wording, Kimbell Museum internal links, and the automated browser expansion were merged through PRs #4519, #4581, #4593, #4606, #4607 and #4608. The latest production-relevant release commit for this audit is `b23d14b2385e57070a8c11938363ea146ab8c9d7`.
+- [Protected production deployment #38098919324](https://github.com/keeptxred/TexasDefined/actions/runs/38098919324) succeeded on attempt **2**; attempt 1 failed on Wikimedia Commons HTTP 429 while fetching a governed Discover image, before publication.
+- [Live 11-city Chrome verification #38098919338](https://github.com/keeptxred/TexasDefined/actions/runs/38098919338) succeeded on attempt **2**, after that exact protected deployment: **33 of 33 automated viewport checks passed**.
+- Automated checks include live HTML/metadata, image loading and present alt attributes, overflow, JavaScript errors, a limited keyboard Tab traversal, and a sample of up to 12 internal links per city/viewport. **They do not equal complete human screenshot inspection, every-link verification, contrast testing, semantic alt assessment, comprehensive keyboard/menu/touch WCAG review, or exhaustive factual certification.**
+- The independent source annex is [INDEPENDENT_PRIMARY_SOURCES_2026-10-10.md](INDEPENDENT_PRIMARY_SOURCES_2026-10-10.md). Its 21 confirmed featured attraction/venue anchors and county-level evidence are deliberately narrower than full city acceptance.
+
+### Remaining gate-by-gate acceptance
+
+| Acceptance gate | Current result | Requirement to close |
+|---|---|---|
+| Protected production release | PASS | Already verified; do not rerun without new changes |
+| Automated browser at 3 viewports × 11 cities | PASS | Existing successful exact-SHA run |
+| Census population spot-checks | PASS (22 values) | Recheck at next relevant census release |
+| Named featured attraction operation/location | PARTIAL PASS (21 anchors) | Check full per-card claims, external destinations and current visitor restrictions |
+| Incorporated county boundaries | NOT CERTIFIED (all 11 overlays incomplete) | Compare dated municipal-limit polygons against dated county polygons and record intersections/tolerances, excluding ETJ |
+| Schools, tax districts, utilities, food recommendations | PARTIAL / OPEN | Individually corroborate address-specific claims and official operators |
+| Manual visual/keyboard/touch/contrast accessibility | OPEN | Review 33 screenshots and exercise menus, links, focus, contrast and responsive elements |
+| Full authority acceptance | **OPEN — 0/11 cities completely certified** | All relevant above gates plus individually dated per-city signoff |
+
+Do not change the global fact-verification date or claim eleven cities fully certified until this evidence is recorded.
+
 ## Evidence classes and limits
 
 - **Source inspection:** actual GitHub files `src/data/city-authority-profiles.ts`, `EntityDepthSections.tsx`, and `validate-entity-template-quality.mjs` examined. Existing structural validator covers all 11 profiles.
