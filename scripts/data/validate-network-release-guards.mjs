@@ -49,6 +49,14 @@ check('Graph claim preflight remains no-send, fails closed and never auto-acknow
  && source('src/data/network-notification-claim-plan.server.ts').includes('mayRetryAutomatically:false')
  && source('src/data/network-notification-claim-plan.server.ts').includes('createNetworkGraphMailDraft(')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-claim-plan.test.mjs'));
+check('Graph worker remains gated off, bounded, and never acknowledges or retries a claim automatically',
+ source('src/data/network-notification-dispatch-worker.server.ts').includes('NETWORK_GRAPH_WORKER_MAX_BATCH = 5')
+ && source('src/data/network-notification-dispatch-worker.server.ts').includes('NETWORK_GRAPH_DISPATCH_ENABLED !== true')
+ && source('src/data/network-notification-dispatch-worker.server.ts').includes('NETWORK_EMAIL_DELIVERY_ENABLED !== true')
+ && source('src/data/network-notification-dispatch-worker.server.ts').includes('mayRetryAutomatically: false')
+ && source('src/data/network-notification-dispatch-worker.server.ts').includes('mayMarkDelivered: false')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-notification-dispatch-worker.test.mjs'));
+
 check('non-live Stripe is isolated and rejects production Supabase, host and price reuse',
  source('src/data/network-stripe-mode.server.ts').includes("database.includes('ftkznprjljkhymknvhye')")
  && source('src/data/network-stripe-mode.server.ts').includes("NETWORK_ISOLATED_STAGING")
