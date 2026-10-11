@@ -64,6 +64,15 @@ function TexasDriversLicensePage() {
             </tbody>
           </table>
         </div>
+        <h3 className="mt-8 font-display text-2xl">Endorsements are not the same as restrictions</h3>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">An endorsement authorizes a specialized operation, such as carrying passengers or transporting placarded hazardous materials. A restriction limits how you may operate. Depending on the skills-test vehicle and qualifications, a CDL may carry restrictions affecting manual transmissions, air brakes or certain tractor-trailer configurations. Check the codes actually printed on your Texas license before accepting a driving assignment.</p>
+        <h3 className="mt-8 font-display text-2xl">Practical CDL examples</h3>
+        <ul className="mt-4 max-w-3xl list-disc space-y-3 pl-5 leading-7">
+          <li><strong>Tractor and heavy trailer:</strong> The combined and towed vehicle ratings commonly point to Class A; an additional endorsement may be required for certain cargo.</li>
+          <li><strong>Heavy straight truck:</strong> A single qualifying heavy truck commonly points to Class B, but its towing configuration can change the analysis.</li>
+          <li><strong>Smaller passenger or hazardous-materials vehicle:</strong> A vehicle below Class A/B thresholds can still require Class C when passenger-capacity or placarded-material rules apply.</li>
+          <li><strong>School bus:</strong> The correct license class depends on the bus, and both passenger and school-bus qualifications may be required.</li>
+        </ul>
         <h3 className="mt-8 font-display text-2xl">Before applying</h3>
         <ol className="mt-4 max-w-3xl list-decimal space-y-3 pl-5 leading-7">
           <li>Determine the required CDL class and endorsements from the actual vehicle, trailer, cargo and passenger use—not just the vehicle's appearance.</li>
