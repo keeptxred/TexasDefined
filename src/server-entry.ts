@@ -122,7 +122,9 @@ export default {
     // The customer APIs cannot be partially released, even if individual
     // feature flags are accidentally set true before the complete launch.
     const customerPath=new URL(request.url).pathname;
-    if(customerPath.startsWith("/api/public/network-")){
+    if(customerPath.startsWith("/api/public/network-")
+      &&customerPath!=="/api/public/network-billing"
+      &&customerPath!=="/api/public/network-checkout"){
       const {networkCustomerLaunchArmed}=await import("./data/network-atomic-launch-readiness.server");
       if(!networkCustomerLaunchArmed(env as Record<string,string|undefined>))
         return new Response("Network customer launch not accepted",{status:503,
