@@ -8,6 +8,7 @@ Generated data is intentionally a district *listing*, not proof of roster,
 active game schedule, school contact details or postseason designation.
 """
 from __future__ import annotations
+import csv
 import datetime
 import json
 import re
@@ -26,6 +27,7 @@ SOURCES = {
 }
 ROOT = Path(__file__).resolve().parents[2]
 DEST = ROOT / "src/data/softball/uil-2026-27-registry.json"
+CSV_DEST = ROOT / "public/data/texas-softball-uil-2026-27.csv"
 DAY = "2026-10-11"
 MINIMUMS = {"2A": 170, "3A": 170, "4A": 170, "5A": 180, "6A": 180}
 
@@ -103,6 +105,8 @@ def parse(conf: str, raw: bytes):
         raise ValueError(f"{conf} unexpected school count {len(records)}")
     if any(v<3 or v>13 for v in district_counts.values()):
         raise ValueError(f"{conf} implausible district team counts {district_counts}")
+    for entry in records:
+        entry["name"] = re.sub(r"\\s+", " ", entry["name"]).strip()
     pairs=[(x["conference"], x["name"].casefold()) for x in records]
     if len(set(pairs)) != len(pairs):
         raise ValueError(f"{conf} duplicate school names: {len(pairs)-len(set(pairs))}")
@@ -135,7 +139,12 @@ def main():
     }
     DEST.parent.mkdir(parents=True, exist_ok=True)
     DEST.write_text(json.dumps(obj,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
-    print(f"PASS TOTAL {len(all_entries)} named UIL softball alignment entries; wrote {DEST}",flush=True)
+    CSV_DEST.parent.mkdir(parents=True, exist_ok=True)
+    with CSV_DEST.open("w",encoding="utf-8",newline="") as output:
+        writer=csv.DictWriter(output,fieldnames=["name","conference","district","region","sourceUrl"])
+        writer.writeheader()
+        writer.writerows(all_entries)
+    print(f"PASS TOTAL {len(all_entries)} named UIL softball alignment entries; wrote {DEST} and {CSV_DEST}",flush=True)
 
 if __name__=="__main__":
     main()
