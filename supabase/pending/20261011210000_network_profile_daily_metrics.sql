@@ -55,10 +55,40 @@ AS $function$
  ORDER BY m.observed_on ASC,m.action ASC;
 $function$;
 
+-- Keep exactly 35 UTC daily buckets (30-day reports + five days of
+-- operational buffer). Each Cron call prunes at most 5000 oldest rows, and
+-- concurrent Cron invocations cannot claim identical rows.
+CREATE OR REPLACE FUNCTION public.prune_texasdefined_network_profile_metrics()
+RETURNS integer LANGUAGE plpgsql SECURITY DEFINER SET search_path TO ''
+AS $function$
+DECLARE removed integer;
+BEGIN
+ WITH expired AS (
+  SELECT m.application_id,m.observed_on,m.action
+  FROM texasdefined_network_internal.profile_daily_metrics m
+  WHERE m.observed_on < (now() AT TIME ZONE 'UTC')::date-34
+  ORDER BY m.observed_on,m.application_id,m.action
+  LIMIT 5000
+  FOR UPDATE SKIP LOCKED
+ )
+ DELETE FROM texasdefined_network_internal.profile_daily_metrics target
+ USING expired
+ WHERE target.application_id=expired.application_id
+   AND target.observed_on=expired.observed_on
+   AND target.action=expired.action;
+ GET DIAGNOSTICS removed=ROW_COUNT;
+ RETURN removed;
+END
+$function$;
+
 REVOKE ALL ON FUNCTION public.record_texasdefined_network_profile_metric(text,text)
  FROM PUBLIC,anon,authenticated;
 REVOKE ALL ON FUNCTION public.get_texasdefined_network_profile_metrics(uuid)
  FROM PUBLIC,anon,authenticated;
 GRANT EXECUTE ON FUNCTION public.record_texasdefined_network_profile_metric(text,text) TO service_role;
 GRANT EXECUTE ON FUNCTION public.get_texasdefined_network_profile_metrics(uuid) TO service_role;
+REVOKE ALL ON FUNCTION public.prune_texasdefined_network_profile_metrics()
+ FROM PUBLIC,anon,authenticated;
+GRANT EXECUTE ON FUNCTION public.prune_texasdefined_network_profile_metrics()
+ TO service_role;
 COMMIT;
