@@ -344,6 +344,13 @@ check('Network directory and profiles are hidden without explicit public visibil
 
 check('orphan media inventory is 45-day read-only and admin-authenticated',source('supabase/migrations/20261010232506_network_readonly_stale_draft_cleanup_inventory.sql').includes('p_min_age_days<30')&&source('supabase/migrations/20261010232506_network_readonly_stale_draft_cleanup_inventory.sql').includes('NOT EXISTS')&&source('src/data/network-review.server.ts').includes("p_min_age_days:45,p_limit:100")&&source('src/routes/admin.network-applications.lazy.tsx').includes('Read-only inventory. This screen never deletes files'));
 
+check('application intake compensating deletes verify every private object and never erase unverified or completed applications',
+ source('src/routes/api.public.network-application.ts').includes('networkIntakeCleanupObjectPaths(applicationId,existingMedia)')
+ && source('src/routes/api.public.network-application.ts').includes('networkIntakeCleanupFolderIsEmpty(remainingMedia)')
+ && source('src/routes/api.public.network-application.ts').includes('current?.intake_complete===true')
+ && source('src/routes/api.public.network-application.ts').includes('.delete({count:"exact"}).eq("id",applicationId).eq("intake_complete",false)')
+ && source('scripts/data/network-intake-cleanup.test.mjs').includes('a missing or unknown read-after-delete inventory')
+ && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-cleanup.test.mjs'));
 check('Network webhook caps untrusted body before HMAC or Stripe network calls',
  webhook.includes('readNetworkWebhookPayload(request)')
  && source('src/data/network-stripe.server.ts').includes('NETWORK_WEBHOOK_MAX_BYTES=1_048_576')

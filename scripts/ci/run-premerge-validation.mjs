@@ -47,6 +47,7 @@ const prebuildChecks = [
   ['NETWORK/ADMIN', 'Verify dedicated Network administrator key', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-admin-access.test.mjs']],
   ['NETWORK/EMAIL', 'Verify disabled Office 365 email templates', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-notification-templates.test.mjs']],
   ['NETWORK/INTAKE', 'Test hard actual-byte cap for streamed application uploads', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-limits.test.mjs']],
+  ['NETWORK/INTAKE', 'Verify interrupted media cleanup preserves uncertain application evidence and prevents orphaned private media', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-intake-cleanup.test.mjs']],
   ['NETWORK/MEDIA', 'Test immutable approved public-image copies and safe same-byte replay', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-published-media.test.mjs']],
   ['NETWORK/MEDIA', 'Verify draft DELETE no-op, cleanup postconditions and owner identity state hygiene', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-draft-cleanup.test.mjs']],
   ['NETWORK/BILLING', 'Verify case-insensitive but exact confirmed owner billing email and bindings', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-owner-email.test.mjs']],

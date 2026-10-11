@@ -113,10 +113,51 @@ export const Route = createFileRoute("/api/public/network-application")({
             });
           if(finalizeError||completed!==true)throw new Error("Could not finalize application intake");
         }catch(err) {
-          if(savedPaths.length)await supabaseAdmin.storage.from(bucket).remove(savedPaths);
-          await supabaseAdmin.from("texasdefined_network_applications").delete().eq("id",applicationId);
-          console.error("[network] media save failed",err instanceof Error?err.message:"unknown");
-          return response({error:"Image upload failed; please retry."},503);
+          // Finalizer responses can be lost after a successful DB commit. Never
+          // erase the completed application or duplicate its receipt because
+          // the caller timed out waiting for a success response.
+          const {data:current,error:readError}=await supabaseAdmin
+            .from("texasdefined_network_applications")
+            .select("intake_complete").eq("id",applicationId).maybeSingle();
+          if(!readError && current?.intake_complete===true){
+            return response({ok:true,applicationId,checkoutAvailable:false,
+              message:"Application and images received for review. No listing has been published or charged."},201);
+          }
+          if(readError||!current){
+            console.error("[network] incomplete intake could not be verified");
+            return response({error:"Application status could not be confirmed. Contact Texas Defined before resubmitting."},503);
+          }
+          // An upload may have succeeded in Storage even when its HTTP reply
+          // failed before savedPaths was updated. Enumerate the WHOLE private
+          // folder, not merely locally acknowledged upload paths.
+          const {networkIntakeCleanupObjectPaths,networkIntakeCleanupFolderIsEmpty}=
+            await import("@/data/network-intake-cleanup.server");
+          const storage=supabaseAdmin.storage.from(bucket);
+          const {data:existingMedia,error:listError}=await storage.list(applicationId,{limit:100});
+          const cleanupPaths=listError?null:networkIntakeCleanupObjectPaths(applicationId,existingMedia);
+          let safelyRemoved=false;
+          if(cleanupPaths!==null){
+            const {error:removeError}=cleanupPaths.length
+              ? await storage.remove(cleanupPaths)
+              : {error:null};
+            if(!removeError){
+              const {data:remainingMedia,error:remainingError}=await storage.list(applicationId,{limit:100});
+              safelyRemoved=!remainingError&&networkIntakeCleanupFolderIsEmpty(remainingMedia);
+            }
+          }
+          if(safelyRemoved){
+            // Never delete an application which another request just finalized.
+            const {error:deleteError,count}=await supabaseAdmin
+              .from("texasdefined_network_applications")
+              .delete({count:"exact"}).eq("id",applicationId).eq("intake_complete",false);
+            safelyRemoved=!deleteError&&count===1;
+          }
+          console.error("[network] incomplete intake compensation",{
+            step:err instanceof Error?err.message:"unknown",cleaned:safelyRemoved,
+          });
+          return safelyRemoved
+            ? response({error:"Image upload failed; please retry."},503)
+            : response({error:"Upload was interrupted. Manual cleanup may be required before another submission. Contact Texas Defined."},503);
         }
         return response({ok:true,applicationId,checkoutAvailable:false,message:"Application and images received for review. No listing has been published or charged."},201);
       }catch(e){console.error("[network] server unavailable",e instanceof Error?e.message:"unknown");return response({error:"Application temporarily unavailable."},503)}

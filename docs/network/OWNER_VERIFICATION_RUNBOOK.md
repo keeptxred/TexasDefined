@@ -301,3 +301,7 @@ The separate local GoTrue/Storage CI suite now tests `provision_verified_network
 ### Interrupted application intake and one-time receipt recovery
 
 The real disposable Supabase Auth/Storage integration now simulates a crash after a private logo upload with one gallery item missing. It tests that the service-only intake finalizer denies a partial record, no receipt appears before all media exist, a later resumed complete upload produces one committed application-received outbox entry, and an idempotent replay cannot enqueue a second event. A separate worker crash or Graph delivery must still be independently certified before hosted launch.
+
+### Public intake interrupted upload compensation
+
+An incomplete application is retained if the service cannot establish its exact cleanup result. The server checks committed `intake_complete` before attempting compensation, enumerates only its newly created application folder, removes deterministic image names and re-lists to verify no objects remain before deleting the still-incomplete parent row. Unknown paths or unenumerable Storage errors **block destructive cleanup** and require sole-admin investigation; they never imply a completed receipt or publication. A positive completion check returns success even after a lost finalizer response. This is source-only until the exact HEAD's CI passes and still does not authorize hosted launch.
