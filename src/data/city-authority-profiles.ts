@@ -735,7 +735,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Parks & recreation',
         summary: 'Hurst Parks & Recreation manages the city park system, recreation programs, aquatics and athletic facilities. Chisholm Park is the city’s largest park and includes trails, playgrounds, a fishing pond, athletic fields and other family recreation.',
-        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/2514' }],
+        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/' }],
       },
       {
         title: 'Local trip planning',
@@ -920,7 +920,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Lubbock County',
       counties: ['Lubbock County'],
       note: 'Lubbock is in Lubbock County. Municipal, school, utility and special-district boundaries still differ, so use the exact address for household and property decisions.',
-      sourceUrl: 'https://ci.lubbock.tx.us/pages/city-government/city-charter',
+      sourceUrl: 'https://www.mylubbock.us/994/City-Charter-Code-of-Ordinances',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lubbock%2C_Texas_skyline.jpg?width=1600',
