@@ -62,7 +62,8 @@ check('existing billing account reuse is explicit, never email-only auto-merge',
  acceptance.includes('assign_texasdefined_advertiser_billing_account')
  &&advertiser.includes('billingAccountId?:string|null')
  &&admin.includes('Create a new TexasDefined billing account')
- &&admin.includes('Reuse an existing billing account')===false
+ &&admin.includes('value={account.id}')
+ &&advertiser.includes("assign_texasdefined_advertiser_billing_account")
  &&billing.includes("metadata[billing_account_id]"));
 
 check('shared invoice reconciliation verifies current Stripe state and service-only RPC',
