@@ -109,6 +109,13 @@ The next valid acceptance step is a dated, repeatable polygon overlay with a kno
 
 **Residual acceptance limit:** This is a conservative correction of an unsupported categorical statement, **not** a completed current-date spatial overlay. Limited-purpose annexation and historical boundary changes still require a current municipal polygon/county overlay before full municipal-jurisdiction certification.
 
+## October 10 final release checkpoint — independently retrieved GitHub Actions outcomes
+
+- Protected production deployment [run #38098919324](https://github.com/keeptxred/TexasDefined/actions/runs/38098919324), retry attempt 2: **SUCCESS**, deployed exact main commit `b23d14b2385e57070a8c11938363ea146ab8c9d7`. The initial failed attempt was blocked by upstream Wikimedia Commons HTTP 429 during governed image derivative materialization; **not** an approved bypass of the image gate.
+- Eleven-city real-browser regression [run #38098919338](https://github.com/keeptxred/TexasDefined/actions/runs/38098919338), retry attempt 2: **SUCCESS** after the protected deployment for the same exact SHA. The runner tests 11 pages × mobile/tablet/desktop = **33 viewport cases**, with rendered metadata, errors, images/alt-presence, overflow, focus traversal and a limited internal-link sample. Test screenshots and JSON artifacts are retained by the workflow.
+- The Houston source and published guide now distinguish incorporated Harris/Fort Bend/Montgomery counties from Houston's Waller County ETJ through merged PR #4608. Spatial intersection proof remains unverified.
+- **Overall acceptance: INCOMPLETE.** Passing automated checks do not prove manual visual/keyboard/menu/touch/contrast WCAG acceptance, all external links, all factual/visitor claims, or all 11 municipal/county GIS overlays.
+
 ## Acceptance still outstanding
 
 Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
