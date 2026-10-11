@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {inspectNetworkAtomicLaunch,networkCustomerLaunchArmed,networkIsolatedStagingArmed,NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS}
+import {inspectNetworkAtomicLaunch,networkCustomerLaunchArmed,networkIsolatedStagingArmed,networkRequestHostAllowed,NETWORK_LAUNCH_EVIDENCE_KEYS,NETWORK_LAUNCH_FEATURE_KEYS}
  from '../../src/data/network-atomic-launch-readiness.server.ts';
 
 const uuid1='11111111-1111-4111-8111-111111111111',
@@ -112,4 +112,27 @@ test('full customer staging can run only on separate hosted DB and Stripe TEST m
  ]){
   assert.equal(networkIsolatedStagingArmed({...stage,[key]:value}),false,key);
  }
+});
+
+test('staging host isolation rejects canonical production and foreign origins',()=>{
+ const {env}=fixture();
+ const stage={...env,
+  NETWORK_ISOLATED_STAGING:'true',
+  NETWORK_STAGE_QA_APPROVED:'approved-synthetic-staging-only',
+  NETWORK_STAGE_ORIGIN:'https://texasdefined-qa.account.workers.dev',
+  SUPABASE_URL:'https://staging0123456789.supabase.co',
+  NETWORK_STRIPE_MODE:'test',NETWORK_STRIPE_TEST_MODE_ENABLED:'true',
+  NETWORK_STRIPE_TEST_PRICE_ID:'price_TESTnotLive0001',
+  NETWORK_STRIPE_TEST_WEBHOOK_SECRET:'whsec_notreal_'+ 'x'.repeat(44),
+  STRIPE_SECRET_KEY:'sk_test_notreal_'+ 'x'.repeat(60),
+ };
+ assert.equal(networkRequestHostAllowed(stage,'https://texasdefined-qa.account.workers.dev/network/join'),true);
+ for(const u of ['https://texasdefined.com/network/join',
+  'https://www.texasdefined.com/network/join','https://other.account.workers.dev/network/join',
+  'http://texasdefined-qa.account.workers.dev/network/join',
+  'https://texasdefined-qa.account.workers.dev.evil.invalid/network/join']){
+  assert.equal(networkRequestHostAllowed(stage,u),false,u);
+ }
+ assert.equal(networkRequestHostAllowed(env,'https://texasdefined.com/network/join'),true);
+ assert.equal(networkRequestHostAllowed(env,'https://texasdefined-qa.account.workers.dev/network/join'),false);
 });
