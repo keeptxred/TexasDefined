@@ -64,3 +64,9 @@ The following changes are committed to draft PR #4624, **not yet accepted or dep
 
 ### Quality caveat
 No live external primary-source retrieval or test run has been completed in this checkpoint. Treat factual statements and outgoing source URLs as awaiting verification.
+
+## Historical source recovery and branch drift — 2026-10-11
+- Successfully retrieved the historical KeepTXRed `src/routes/dmv.cdl-classes.tsx` at commit `a8a2a24bc9435b670ef82f8c68df5264b52791a2`; historical content is recoverable by commit ref despite the retired branch.
+- The old CDL class article has deeper vehicle examples, restriction discussion and FAQ than the current destination section. **Not yet fully migrated**; retain this gap for fact-checked expansion.
+- Compared migration branch to current main: **10 commits ahead and 3 behind**, with five changed files. Refresh against latest main before merging and resolve any conflicts without overwriting unrelated changes.
+- Do not equate committed section coverage with completed historical migration or independent authority certification.
