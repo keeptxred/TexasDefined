@@ -572,7 +572,15 @@
     return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
+  function stateFairSlotPending() {
+    return /^\/texas-state-fair\/?$/.test(window.location.pathname) &&
+      document.documentElement.dataset.tdStateFairHydrated !== "1";
+  }
+
   async function syncSurface() {
+    // React's State Fair content lazy-hydrates after RootShell. Never mutate
+    // the empty affiliate slot before its owning component has committed.
+    if (stateFairSlotPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
@@ -639,6 +647,7 @@
 
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {
