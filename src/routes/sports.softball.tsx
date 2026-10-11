@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Outlet, useRouterState } from '@tanstack/react-router';
 import { Container } from '@/components/layout/Container';
 
 const path = '/sports/softball';
@@ -68,7 +68,7 @@ const schema = {
 };
 
 export const Route = createFileRoute('/sports/softball')({
-  component: Page,
+  component: SoftballRoute,
   head: () => ({
     meta: [{ title }, { name: 'description', content: description }],
     links: [{ rel: 'canonical', href: canonical }],
@@ -82,6 +82,12 @@ function Section({ id, kicker, heading, children }: { id: string; kicker: string
     <h2 id={id + '-heading'} className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">{heading}</h2>
     <div className="mt-6">{children}</div>
   </section>;
+}
+
+function SoftballRoute() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  if (pathname !== path && pathname !== path + '/') return <Outlet />;
+  return <Page />;
 }
 
 function Page() {
