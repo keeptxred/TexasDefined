@@ -56,9 +56,9 @@ export function inspectNetworkAtomicLaunch(
  checks['config:stripeLive']=typeof environment.STRIPE_SECRET_KEY==='string'&&
   environment.STRIPE_SECRET_KEY.startsWith('sk_live_')&&
   environment.STRIPE_SECRET_KEY.length>24;
- checks['config:stripeWebhook']=typeof environment.STRIPE_WEBHOOK_SECRET==='string'&&
-  environment.STRIPE_WEBHOOK_SECRET.startsWith('whsec_')&&
-  environment.STRIPE_WEBHOOK_SECRET.length>24;
+ checks['config:stripeWebhook']=typeof environment.NETWORK_STRIPE_WEBHOOK_SECRET==='string'&&
+  environment.NETWORK_STRIPE_WEBHOOK_SECRET.startsWith('whsec_')&&
+  environment.NETWORK_STRIPE_WEBHOOK_SECRET.length>24;
  checks['config:stripeHost']=environment.NETWORK_STRIPE_MODE===undefined||
   environment.NETWORK_STRIPE_MODE==='live';
  checks['config:graphTenant']=uuid.test(environment.NETWORK_GRAPH_TENANT_ID||'');
