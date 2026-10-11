@@ -5,11 +5,23 @@ on:
     paths:
       - 'scripts/ci/audit-city-authority-a11y-links.mjs'
       - '.github/workflows/audit-city-authority-a11y-links.yml'
+      - 'src/components/layout/Footer.tsx'
+      - 'src/components/monetization/CityPassCalloutContent.tsx'
+      - 'src/components/content/EntityDepthSections.tsx'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/citypass.ts'
+      - 'public/city-experience-affiliate.js'
   push:
     branches: [main]
     paths:
       - 'scripts/ci/audit-city-authority-a11y-links.mjs'
       - '.github/workflows/audit-city-authority-a11y-links.yml'
+      - 'src/components/layout/Footer.tsx'
+      - 'src/components/monetization/CityPassCalloutContent.tsx'
+      - 'src/components/content/EntityDepthSections.tsx'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/citypass.ts'
+      - 'public/city-experience-affiliate.js'
   workflow_dispatch:
 permissions:
   contents: read

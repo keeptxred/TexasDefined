@@ -128,7 +128,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
         <div className="max-w-3xl">
           {cityProfile?.jurisdiction ? <>
             <p className="text-base leading-7 text-muted-foreground">{cityProfile.jurisdiction.note}</p>
-            <div className="mt-5 flex flex-wrap gap-2" aria-label={`Counties containing parts of ${entity.name}`}>
+            <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label={`Counties containing parts of ${entity.name}`}>
               {cityProfile.jurisdiction.counties.map((county) => <span key={county} className="border border-border px-3 py-2 text-sm font-medium">{county}</span>)}
             </div>
             {cityProfile.jurisdiction.sourceUrl ? <a className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4" href={cityProfile.jurisdiction.sourceUrl} target="_blank" rel="noreferrer noopener">Official jurisdiction source ↗</a> : null}

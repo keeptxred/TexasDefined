@@ -494,7 +494,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'El Paso County',
       counties: ['El Paso County'],
       note: 'El Paso is an El Paso County municipality. City, school, utility and special-district boundaries still differ, so use the exact address for local-service and property decisions.',
-      sourceUrl: 'https://www.elpasotexas.gov/planning-and-inspections/gis/',
+      sourceUrl: 'https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600',
