@@ -93,13 +93,11 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
-  "newmans-castle-bellville-texas",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
-  "newmans-castle-bellville-texas": "Frequently asked questions",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
@@ -280,7 +278,6 @@ export const Route = createFileRoute("/article/$slug")({
       publisher: { "@id": `${siteUrl}/#organization` },
       publishingPrinciples: `${siteUrl}/editorial-policy`,
       ...(article.sourceUrl ? { citation: article.sourceUrl } : primarySource ? { citation: primarySource.url } : {}),
-      ...(article.slug === "newmans-castle-bellville-texas" && article.sources?.length ? { citation: article.sources.map((source) => source.url) } : {}),
       ...((texasExplainedPillarSlugs.has(article.slug) || texasExplainedSupportSlugs.has(article.slug)) ? {
         isPartOf: {
           "@type": "CollectionPage",
@@ -361,9 +358,7 @@ export const Route = createFileRoute("/article/$slug")({
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
   const primarySource = articlePrimarySource(article);
-  const authoritySources = article.slug === "newmans-castle-bellville-texas"
-    ? (article.sources ?? []).map(({ label, url }) => ({ label, url, scope: "" }))
-    : localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
+  const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? article.sources?.map(({ label, url }) => ({ label, url, scope: "" })) ?? [];
   const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
