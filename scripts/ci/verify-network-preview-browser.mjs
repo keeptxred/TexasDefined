@@ -54,6 +54,18 @@ async function stop(){
 }
 try{
  await ready();
+ // Probe anonymous billing before any page hydration to distinguish route defects
+ // from errors that emerge after prolonged local Worker activity.
+ const billingPreflight={route:'/api/public/network-billing',viewport:'HTTP-PREFLIGHT',status:'PASS',failures:[]};
+ results.push(billingPreflight);
+ try{
+  const preflight=await fetch(origin+'/api/public/network-billing',{signal:AbortSignal.timeout(15000)});
+  if(preflight.status!==401){
+   const detail=(await preflight.text()).slice(0,400);
+   throw Error('Anonymous billing GET preflight returned '+preflight.status+', expected 401; body='+JSON.stringify(detail));
+  }
+ }catch(e){billingPreflight.status='FAIL';billingPreflight.failures.push(String(e))}
+ console.log('NETWORK API anonymous billing GET preflight',billingPreflight.status,billingPreflight.failures.join(' | '));
  browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
  for(const [viewport,width,height] of viewports){
   const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:1});
@@ -128,7 +140,22 @@ try{
     ...(api.body!==undefined?{body:api.body}:{}),
     signal:AbortSignal.timeout(15000)
    });
-   assert.equal(response.status,api.status,`${api.label} expected ${api.status}, got ${response.status}`);
+   if(response.status!==api.status){
+    const message=(await response.text()).slice(0,400);
+    // Never promote a second attempt into a pass: record diagnostics for the
+    // initial failure and retain the release-gate failure.
+    let repeat='not-probed';
+    if(api.label==='anonymous membership list denied'){
+     try{
+      const followup=await fetch(origin+api.path,{
+       method:api.method,headers:{origin,'content-type':'application/json'},
+       signal:AbortSignal.timeout(15000)
+      });
+      repeat=String(followup.status);
+     }catch(e){repeat=String(e)}
+    }
+    throw Error(`${api.label} expected ${api.status}, got ${response.status}; body=${JSON.stringify(message)}; immediate_followup=${repeat}; worker_running=${server.exitCode===null}; worker_tail=${JSON.stringify(serverOutput.slice(-700))}`);
+   }
    // After a disabled intake POST the very same Worker must still be alive.
    if(api.label==='direct intake closed'){
     const alive=await fetch(origin+'/network/join',{signal:AbortSignal.timeout(15000)});
