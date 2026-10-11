@@ -28,7 +28,7 @@ test('server recording is rate limited independently and owner reporting is RLS-
  const worker=read('src/server-entry.ts');
  assert.match(worker,/TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER/);
  assert.match(worker,/customerPath==="\/api\/public\/network-metrics"/);
- assert.match(worker,/if\(!result\?\.success\).*429/);
+ assert.match(worker,/if\(!result\?\.success\)\{[\s\S]*?status:429/);
  const config=read('wrangler.jsonc').replace(/^\s*\/\/.*$/gm,'');
  const parsed=JSON.parse(config);
  const limit=parsed.ratelimits.find(x=>x.name==='TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER');
