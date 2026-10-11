@@ -11,6 +11,11 @@ test('aggregate counters exist only in private schema, no raw visitor or referre
  assert.match(sql,/FROM PUBLIC,anon,authenticated,service_role/);
  assert.match(sql,/record_texasdefined_network_profile_metric/);
  assert.match(sql,/get_texasdefined_network_profile_metrics/);
+ assert.match(sql,/prune_texasdefined_network_profile_metrics/);
+ assert.match(sql,/LIMIT 5000/);
+ assert.match(sql,/FOR UPDATE SKIP LOCKED/);
+ assert.match(sql,/observed_on < \(now\(\) AT TIME ZONE 'UTC'\)::date-34/);
+
  assert.match(sql,/GRANT EXECUTE.*service_role/);
  assert.doesNotMatch(sql,/visitor_id|ip_address|user_agent|referrer_url/i);
  const replay=read('scripts/data/verify-network-migration-replay.mjs');
@@ -26,6 +31,9 @@ test('server recording is rate limited independently and owner reporting is RLS-
   assert.ok(route.includes(token),token);
  }
  const worker=read('src/server-entry.ts');
+ assert.match(worker,/prune_texasdefined_network_profile_metrics/);
+ assert.match(worker,/networkCustomerLaunchArmed\(scopedEnv\)/);
+
  assert.match(worker,/TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER/);
  assert.match(worker,/customerPath==="\/api\/public\/network-metrics"/);
  assert.match(worker,/if\(!result\?\.success\)\{[\s\S]*?status:429/);
