@@ -46,6 +46,12 @@ CITY_LAYERS = {
     "plano": "https://maps.planogis.org/arcgiswad/rest/services/OpenData/MunicipalBoundary/MapServer/0",
     "lubbock": "https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13",
 }
+# This additional 2026 City of San Antonio-labelled layer is NOT confirmed as
+# City-published authoritative geometry. Published 2026-04-07, source data
+# reported 2026-03-17. Use only for explicitly provisional research.
+CANDIDATE_LAYERS = {
+    "san-antonio": "https://services7.arcgis.com/BUFM2kw4MpxDUJVh/ArcGIS/rest/services/COSA_City_Limits/FeatureServer/0",
+}
 # Reconcile results to published jurisdiction list, not arbitrary city-name county.
 PUBLISHED = {
     "houston": ["Harris", "Fort Bend", "Montgomery"],
@@ -126,17 +132,20 @@ def county_features(bounds):
         raise ValueError("County query truncated")
     return fc["features"], sha
 
-def audit_city(city):
+def audit_city(city, include_candidates=False):
     now = dt.datetime.now(dt.timezone.utc).isoformat()
+    source_url = CITY_LAYERS[city] or (CANDIDATE_LAYERS.get(city) if include_candidates else None)
+    source_provenance = "OFFICIAL_LAYER_DISCOVERED" if CITY_LAYERS[city] else "UNVERIFIED_PROVISIONAL_CANDIDATE"
     report = {"city": city, "checked_at_utc": now, "status": "UNVERIFIED",
+              "source_provenance": source_provenance,
               "county_vintage": COUNTY_VINTAGE, "county_source": COUNTY_LAYER,
-              "municipal_source": CITY_LAYERS[city], "published_counties": PUBLISHED[city],
+              "municipal_source": source_url, "published_counties": PUBLISHED[city],
               "limitation": "Geometric candidates only: independent review of legal city limits, limited-purpose annexations, ETJ, county vintage, and geometry slivers is mandatory."}
-    if not CITY_LAYERS[city]:
+    if not source_url:
         report["blocker"] = "Current official city-limits VECTOR polygon endpoint not independently confirmed"
         return report
     try:
-        features, source = polygon_features(CITY_LAYERS[city])
+        features, source = polygon_features(source_url)
         geoms = [valid(shape(f["geometry"])) for f in features if f.get("geometry")]
         if not geoms or any(g.is_empty for g in geoms):
             raise ValueError("Empty municipal geometry")
@@ -162,7 +171,7 @@ def audit_city(city):
                        "substantial_candidates": candidates,
                        "comparison": {"published_not_in_candidates": sorted(set(expected)-set(candidates)),
                                       "candidates_not_published": sorted(set(candidates)-set(expected))},
-                       "status": "PARTIAL_GEOMETRY_REVIEW_REQUIRED"})
+                       "status": "PARTIAL_GEOMETRY_REVIEW_REQUIRED" if CITY_LAYERS[city] else "PROVISIONAL_UNVERIFIED_SOURCE"})
     except Exception as e:
         report["blocker"] = f"{type(e).__name__}: {e}"
     return report
@@ -171,9 +180,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--city", choices=[*CITY_LAYERS, "all"], default="all")
     parser.add_argument("--output", type=pathlib.Path)
+    parser.add_argument("--include-unverified-candidates", action="store_true",
+                        help="Run third-party/provisional geometry separately; never award GIS PASS")
     args = parser.parse_args()
     cities = list(CITY_LAYERS) if args.city == "all" else [args.city]
-    results = [audit_city(city) for city in cities]
+    results = [audit_city(city, args.include_unverified_candidates) for city in cities]
     payload = {"schema": "city-authority-gis-research-v1", "method": "municipal polygons vs BAS 2026 counties via EPSG:5070; 0.01km² candidate threshold; NO AUTOMATIC ACCEPTANCE",
                "results": results}
     output = json.dumps(payload, indent=2, sort_keys=True) + "\n"
