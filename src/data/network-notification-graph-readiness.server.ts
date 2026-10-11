@@ -4,8 +4,7 @@
  * Sender/worker installation requires a separate explicit launch authorization.
  */
 import {
- NETWORK_NOTIFICATION_SENDER, NETWORK_EMAIL_DELIVERY_ENABLED,
- renderNetworkNotification, type NetworkEmailEvent,
+ NETWORK_NOTIFICATION_SENDER, renderNetworkNotification, type NetworkEmailEvent,
 } from './network-notification-templates.server.ts';
 
 export const NETWORK_GRAPH_DISPATCH_ENABLED = process.env.NETWORK_GRAPH_DISPATCH_ENABLED === 'true';
