@@ -93,11 +93,13 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
+  "newmans-castle-bellville-texas",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
+  "newmans-castle-bellville-texas": "Frequently asked questions",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
@@ -277,7 +279,9 @@ export const Route = createFileRoute("/article/$slug")({
       author: { "@id": authorId },
       publisher: { "@id": `${siteUrl}/#organization` },
       publishingPrinciples: `${siteUrl}/editorial-policy`,
-      ...(article.sourceUrl ? { citation: article.sourceUrl } : primarySource ? { citation: primarySource.url } : {}),
+      ...(article.slug === "newmans-castle-bellville-texas" && article.sources?.length
+        ? { citation: article.sources.map((source) => source.url) }
+        : article.sourceUrl ? { citation: article.sourceUrl } : primarySource ? { citation: primarySource.url } : {}),
       ...((texasExplainedPillarSlugs.has(article.slug) || texasExplainedSupportSlugs.has(article.slug)) ? {
         isPartOf: {
           "@type": "CollectionPage",
@@ -360,6 +364,9 @@ function ArticlePage() {
   const primarySource = articlePrimarySource(article);
   const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
   const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
+  const castleSources = article.slug === "newmans-castle-bellville-texas" && !hasAuthoritySourceSection
+    ? article.sources ?? []
+    : [];
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
     ?? article.category.replace(/-/g, " ");
@@ -493,6 +500,13 @@ function ArticlePage() {
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
+      {castleSources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="newmans-castle-sources-heading">
+        <h2 id="newmans-castle-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">Contemporaneous reporting, family records, the castle operator, and independent broadcast listings underpin this guide. Historical dimensions and folklore are attributed as such.</p>
+        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{castleSources.map((source) => <li key={source.url}>
+          <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{source.label} ↗</a>
+        </li>)}</ul>
+      </section>}
       {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
         <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
         <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{authoritySources.map((source) => <li key={source.url}>
