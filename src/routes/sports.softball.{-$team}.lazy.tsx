@@ -3,13 +3,16 @@ import { lazy, Suspense } from 'react';
 
 const SoftballHubPage = lazy(() => import('@/components/softball/SoftballHubPage').then((m) => ({ default: m.SoftballHubPage })));
 const ParisJuniorCollegePage = lazy(() => import('@/components/softball/ParisJuniorCollegePage').then((m) => ({ default: m.ParisJuniorCollegePage })));
+const SoftballSchoolsDirectory = lazy(() => import('@/components/softball/SoftballSchoolsDirectory').then((m) => ({ default: m.SoftballSchoolsDirectory })));
 const TexasVoltsPage = lazy(() => import('@/components/softball/TexasVoltsPage').then((m) => ({ default: m.TexasVoltsPage })));
 
 export const Route = createLazyFileRoute('/sports/softball/{-$team}')({ component: SoftballAuthorityPage });
 
 function SoftballAuthorityPage() {
   const { team } = Route.useParams();
-  const content = team === 'paris-junior-college'
+  const content = team === 'schools'
+    ? <SoftballSchoolsDirectory />
+    : team === 'paris-junior-college'
     ? <ParisJuniorCollegePage />
     : team === 'texas-volts'
       ? <TexasVoltsPage />
