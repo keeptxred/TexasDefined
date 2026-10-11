@@ -45,9 +45,9 @@ VALUES
 INSERT INTO public.texasdefined_network_public_listings
  (application_id,slug,plan,profile,is_published)
 VALUES
- ('abababab-abab-4bab-8bab-abababababab','metrics-fixture-a','plus',
+ ('abababab-abab-4bab-8bab-abababababab','metrics-fixture-a','basic',
   '{"business_name":"Aggregates Test A"}'::jsonb,true),
- ('cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd','metrics-fixture-b','plus',
+ ('cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd','metrics-fixture-b','basic',
   '{"business_name":"Aggregates Test B"}'::jsonb,true);
 -- Service callers can use the RPC but never directly select any raw metric.
 SET LOCAL ROLE service_role;
