@@ -297,3 +297,7 @@ The billing client must not render a former owner's membership list when Auth se
 ### Owner provisioning HTTP acceptance evidence
 
 The separate local GoTrue/Storage CI suite now tests `provision_verified_network_owner` as an actual service-only PostgREST RPC, verifying lack of anonymous/owner execution grants, correct confirmed owner-email binding, denial of missing review evidence and wrong-owner email, audit idempotency and audit-on-reenable. The synthetic evidence never represents real business ownership. Do not certify until the new **exact commit's** CI passes.
+
+### Interrupted application intake and one-time receipt recovery
+
+The real disposable Supabase Auth/Storage integration now simulates a crash after a private logo upload with one gallery item missing. It tests that the service-only intake finalizer denies a partial record, no receipt appears before all media exist, a later resumed complete upload produces one committed application-received outbox entry, and an idempotent replay cannot enqueue a second event. A separate worker crash or Graph delivery must still be independently certified before hosted launch.

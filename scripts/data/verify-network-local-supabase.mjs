@@ -160,6 +160,53 @@ console.log('NETWORK REAL LOCAL OWNER PROVISIONING PASS: actual GoTrue-confirmed
 
 const bucket='texasdefined-network-featured-drafts';
 const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZ8AAAAASUVORK5CYII=','base64');
+
+/* Simulate a worker crash between private intake-media uploads and the final
+   authoritative database commit. No customer contact or external provider.
+   A pending incomplete record MUST NOT create a receipt or publish by itself. */
+const interruptedApp=randomUUID(), interruptedEmail='interrupted-'+rand+'@example.invalid';
+sql("INSERT INTO public.texasdefined_network_applications"+
+ "(id,plan,status,business_name,category,city,contact_email) VALUES"+
+ "('"+interruptedApp+"','plus','pending_review','Interrupted Local Application','Test','Houston','"+interruptedEmail+"');");
+const receiptForInterrupted=() => sql("SELECT COUNT(*) FROM public.texasdefined_network_email_outbox "+
+ "WHERE event_key='application:"+interruptedApp+":received';");
+assert.equal(receiptForInterrupted(),'0','Unfinished intake enqueued an email receipt');
+const finalizeIntake=(token,logo,gallery)=>req(
+ 'POST','/rest/v1/rpc/finalize_texasdefined_network_intake',
+ token===service?service:anon,token,
+ {p_application_id:interruptedApp,p_logo:logo,p_gallery:gallery}
+);
+const incompleteLogo=interruptedApp+'/logo.png';
+const incompleteGallery=interruptedApp+'/gallery-1.png';
+denied(await finalizeIntake(one.token,incompleteLogo,[incompleteGallery]),
+ 'Ordinary Auth user must not finalize public intake');
+const missingMedia=await finalizeIntake(service,incompleteLogo,[incompleteGallery]);
+allowed(missingMedia,'Service attempt to finalize incomplete media inventory');
+assert.equal(missingMedia.json,false,'Service finalized an intake with missing media');
+assert.equal(receiptForInterrupted(),'0','Failed media finalization generated a receipt');
+const appBucket='texasdefined-network-applications';
+const uploadInterrupted=async path=>req('POST','/storage/v1/object/'+appBucket+'/'+path,
+ service,service,png,'image/png');
+allowed(await uploadInterrupted(incompleteLogo),'Real local private intake logo upload');
+const partial=await finalizeIntake(service,incompleteLogo,[incompleteGallery]);
+allowed(partial,'Service attempt to finalize partial upload');
+assert.equal(partial.json,false,'Service committed intake missing gallery media');
+assert.equal(receiptForInterrupted(),'0','Partial media upload generated application email');
+assert.equal(sql("SELECT intake_complete::text FROM public.texasdefined_network_applications "+
+ "WHERE id='"+interruptedApp+"';"),'false','Interrupted application incorrectly marked ready');
+allowed(await uploadInterrupted(incompleteGallery),'Resumed private gallery upload');
+const recoveredIntake=await finalizeIntake(service,incompleteLogo,[incompleteGallery]);
+allowed(recoveredIntake,'Service finalize fully uploaded real intake');
+assert.equal(recoveredIntake.json,true,'Fully uploaded application not committed');
+assert.equal(receiptForInterrupted(),'1','Resumed intake failed to enqueue exactly one receipt');
+assert.equal(sql("SELECT intake_complete::text FROM public.texasdefined_network_applications "+
+ "WHERE id='"+interruptedApp+"';"),'true','Resumed application not marked complete');
+const repeatedIntake=await finalizeIntake(service,incompleteLogo,[incompleteGallery]);
+allowed(repeatedIntake,'Idempotent committed intake second finalization request');
+assert.equal(repeatedIntake.json,false,'Already-finalized intake was allowed to commit twice');
+assert.equal(receiptForInterrupted(),'1','Retry created a duplicate application receipt');
+console.log('NETWORK REAL LOCAL INTAKE CRASH/RETRY PASS: actual private Storage bytes, missing gallery denies commit, no premature receipt, resumed finalization once, one outbox item and idempotent retry; no actual mail');
+
 async function upload(user,path,content=png,type='image/png'){
  return req('POST','/storage/v1/object/'+bucket+'/'+path,anon,user.token,content,type);
 }
