@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "season": "2026-27",
+  "verifiedAt": "2026-10-11",
+  "scope": "UIL girls' softball statewide dates and referral rules only. No individual team schedule, coach appointment, field, eligibility determination, invitation to recruit or university scholarship is asserted.",
+  "source": [
+    {
+      "id": "uil-softball-dates",
+      "url": "https://www.uiltexas.org/softball",
+      "title": "Official UIL Softball Dates 2026-27"
+    },
+    {
+      "id": "uil-eligibility-constitution",
+      "url": "https://www.uiltexas.org/policy/constitution/general/eligibility",
+      "title": "UIL Constitution and Contest Rules Subchapter M eligibility"
+    },
+    {
+      "id": "uil-eligibility-summary",
+      "url": "https://www.uiltexas.org/policy/eligibility",
+      "title": "UIL Eligibility Standards"
+    },
+    {
+      "id": "uil-2026-27-rule-changes",
+      "url": "https://www.uiltexas.org/policy/2026-27-policy-info/rule-changes",
+      "title": "UIL 2026-27 amendments effective August 1, 2026 unless noted"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "first-day-practice",
+      "date": "2027-01-15",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "first-day-interschool-scrimmages",
+      "date": "2027-01-30",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "first-day-interschool-games",
+      "date": "2027-02-15",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "district-certification-deadline",
+      "date": "2027-04-27",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "bi-district-deadline",
+      "date": "2027-05-01",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "area-deadline",
+      "date": "2027-05-08",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "regional-semifinal-deadline",
+      "date": "2027-05-15",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "regional-final-deadline",
+      "date": "2027-05-22",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "state-semifinal-deadline",
+      "date": "2027-05-29",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "state-tournament-start",
+      "date": "2027-06-03",
+      "sourceId": "uil-softball-dates"
+    },
+    {
+      "id": "state-tournament-end",
+      "date": "2027-06-05",
+      "sourceId": "uil-softball-dates"
+    }
+  ],
+  "seasonSpecificExplanations": [
+    {
+      "id": "scrimmage-limit",
+      "sourceId": "uil-softball-dates",
+      "text": "UIL's 2026-27 softball calendar lists January 30 as first interschool scrimmage date and includes both weekly scrimmage guidance and an unlimited-pre-first-interschool-game note. Quote or refer to the official current Section 1280 interpretation for particular school situations instead of oversimplifying the wording."
+    },
+    {
+      "id": "staardates",
+      "sourceId": "uil-softball-dates",
+      "text": "UIL cautions that STAAR testing can affect softball playoff game dates; listed certification and postseason deadlines are not a school-by-school fixture calendar."
+    },
+    {
+      "id": "eligibility",
+      "sourceId": "uil-eligibility-constitution",
+      "text": "Varsity eligibility depends on current UIL rules governing school attendance/enrollment, age, residence/attendance zone, transfers, amateur status and exceptions. Do not decide an individual student's eligibility based solely on a team's school page."
+    },
+    {
+      "id": "recruiting",
+      "sourceId": "uil-eligibility-constitution",
+      "text": "UIL Section 409 prohibits recruiting for athletics at all grade levels. A TexasDefined team guide provides the official school athletics contact path and UIL rules, but must never imply a third-party site can offer recruitment or guarantee an athletic scholarship."
+    },
+    {
+      "id": "2026-amendments",
+      "sourceId": "uil-2026-27-rule-changes",
+      "text": "UIL's published 2026–27 amendments include changed varsity-level eligibility for foreign exchange students; link the current rule and individual waiver/counselor resources instead of applying a blanket self-determination or reusing older rules."
+    }
+  ],
+  "editorialRestrictions": [
+    "This document may be reused as a primary-source background reference, but each school page still needs its own 38-topic original research and full-page verification.",
+    "District/conference alignments are 2026–27 softball-specific; no football district reuse and no assumed state title playoff Division I/II match.",
+    "Never transform statewide season dates into a particular school's actual game schedule or assert 2027 rosters already published.",
+    "Verify UIL pages again before the first scheduled event and on each source review; if the source changes, use dated correction notes instead of silently publishing outdated dates."
+  ]
+}
