@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { MSRHoustonAuthoritySections, MSRHoustonStatusNotice } from "@/components/sports/MSRHoustonAuthoritySections";
 import { MSRHoustonEventsFallback } from "@/components/sports/MSRHoustonEventsFallback";
+import { FreemanColiseumAuthoritySections } from "@/components/sports/FreemanColiseumAuthoritySections";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -217,6 +218,8 @@ export function SportsVenueGuidePage({
             />
           ) : null}
 
+          {guide.canonicalPath === "/sports-venue/freeman-coliseum" ? <FreemanColiseumAuthoritySections /> : null}
+
           {guide.gallery?.length ? (
             <EditorialSection eyebrow="Venue photo gallery" title={`${entity.name} in pictures`}>
               <p className="mb-6 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -243,7 +246,7 @@ export function SportsVenueGuidePage({
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}
 
-          {enrichment?.history && guide.canonicalPath !== "/sports-venue/msr-houston" ? (
+          {enrichment?.history && guide.canonicalPath !== "/sports-venue/msr-houston" && guide.canonicalPath !== "/sports-venue/freeman-coliseum" ? (
             <EditorialSection eyebrow="Venue story" title={`The story of ${entity.name}`}>
               <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
                 {enrichment.history}
@@ -344,7 +347,7 @@ function QuickFacts({ guide, capacity, directionsUrl, officialUrl }: { guide: Sp
         <Fact label="Capacity" value={capacity} />
         <Fact label="Venue type" value={guide.venueType} />
         <Fact label="Home team" value={guide.homeTeam} />
-        <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Track activities" : "League / conference"} value={guide.leagueOrConference} />
+        <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Track activities" : /multipurpose|coliseum|event complex/i.test(guide.venueType) ? "Primary uses" : "League / conference"} value={guide.leagueOrConference} />
         <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Circuit configuration" : "Playing surface"} value={guide.playingSurface} />
         <Fact label="Opened" value={guide.opened} />
         <Fact label="Address" value={guide.address} />
