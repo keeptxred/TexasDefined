@@ -14,9 +14,9 @@ const contains = (value, expected, label) => assert.ok(value.includes(expected),
 const excludes = (value, expected, label) => assert.ok(!value.includes(expected), label + ": forbidden " + expected);
 
 contains(route, 'createFileRoute("/destination/davis-hill-state-park")', "canonical static route");
-contains(route, 'canonicalPath: path', "canonical SEO");
-contains(route, 'dateModified: "2026-10-10"', "schema freshness");
-contains(route, "citation: sources.map", "verifiable citations");
+contains(route, 'canonicalPath,', "canonical SEO");
+contains(page, 'dateModified: "2026-10-10"', "schema freshness");
+contains(page, "citation: sources.map", "verifiable citations");
 contains(page, 'createLazyFileRoute("/destination/davis-hill-state-park")', "lazy detailed page");
 contains(page, "Public access: not open for ordinary visits", "explicit access warning");
 contains(page, 'role="note"', "accessible status notice");
