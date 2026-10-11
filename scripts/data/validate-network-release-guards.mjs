@@ -164,7 +164,13 @@ check('real GoTrue Auth and Storage HTTP integration is confined to fresh, unlin
  && source('scripts/data/prepare-network-local-supabase.mjs').includes("config.includes('ftkznprjljkhymknvhye')")
  && source('scripts/data/verify-network-local-supabase.mjs').includes("process.env.API_URL!==ORIGIN")
  && source('scripts/data/verify-network-local-supabase.mjs').includes('25th Storage API draft upload')
- && source('scripts/data/verify-network-local-supabase.mjs').includes('Real local password sign-in'));
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('Real local password sign-in')
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('NETWORK REAL LOCAL PASSWORDLESS PASS')
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('NETWORK REAL LOCAL SIGNED MEDIA PASS')
+ && source('scripts/data/verify-network-local-supabase.mjs').includes("'/auth/v1/admin/generate_link'")
+ && source('scripts/data/verify-network-local-supabase.mjs').includes("'Magic Link token replay'")
+ && source('scripts/data/verify-network-local-supabase.mjs').includes("'Expired private signed URL'")
+ && source('scripts/data/verify-network-local-supabase.mjs').includes("'Rejected upsert modified previously stored bytes'"));
 check('actual local HTTP PostgREST JWT boundary is independently tested without live customers',
  source('.github/workflows/network-migration-cleanroom.yml').includes('postgrest/postgrest:v14.14')
  && source('.github/workflows/network-migration-cleanroom.yml').includes('verify-network-postgrest-http-rls.mjs')

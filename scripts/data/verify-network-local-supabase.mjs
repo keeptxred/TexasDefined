@@ -52,6 +52,24 @@ async function newOwner(email){
 }
 const one=await newOwner(userEmails[0]);
 const two=await newOwner(userEmails[1]);
+/* Auth Admin's local generate_link prepares a Magic Link without sending mail.
+   Validate the actual local GoTrue passwordless token exchange and replay gate.
+   This never invokes the mail sender or /otp endpoint. */
+const magicLink=await req('POST','/auth/v1/admin/generate_link',service,service,
+ {type:'magiclink',email:one.email});
+allowed(magicLink,'Local admin-generated no-send Magic Link');
+const hash=magicLink.json?.hashed_token??magicLink.json?.properties?.hashed_token;
+assert.ok(typeof hash==='string'&&hash.length>16,'No valid local Magic Link hash returned');
+const otp=await req('POST','/auth/v1/verify',anon,anon,
+ {token_hash:hash,type:'email'});
+allowed(otp,'Local passwordless Magic Link verification');
+assert.equal(otp.json?.user?.id,one.id,'Magic Link authenticated unexpected owner');
+assert.ok(typeof otp.json?.access_token==='string'&&otp.json.access_token.length>50);
+const reusedOtp=await req('POST','/auth/v1/verify',anon,anon,
+ {token_hash:hash,type:'email'});
+denied(reusedOtp,'Magic Link token replay');
+console.log('NETWORK REAL LOCAL PASSWORDLESS PASS: admin-generated no-send Magic Link, actual GoTrue exchange, correct owner JWT, replay denial');
+
 const app1=randomUUID(),app2=randomUUID(),account1=randomUUID(),account2=randomUUID();
 for(const {id,email,app,account,name,city} of [
  {id:one.id,email:one.email,app:app1,account:account1,name:'GoTrue Owner One Synthetic Business',city:'Katy'},
@@ -106,6 +124,36 @@ allowed(ownedFile,'Owner authenticated private file GET');
 assert.ok(ownedFile.bytes.equals(png),'Storage returned different image bytes');
 denied(await req('GET','/storage/v1/object/authenticated/'+bucket+'/'+path1,anon,two.token),
  'Other owner private image GET');
+/* Signed links are bearer capabilities: minting needs owner SELECT permission.
+   Test a ONE-SECOND URL that expires; do not promise revocation of existing
+   pre-signed links on business disable until a separate provider test proves it. */
+const forbiddenSign=await req('POST','/storage/v1/object/sign/'+bucket+'/'+path1,anon,two.token,{expiresIn:1});
+denied(forbiddenSign,'Other owner cannot mint private signed URLs');
+const allowedSign=await req('POST','/storage/v1/object/sign/'+bucket+'/'+path1,anon,one.token,{expiresIn:1});
+allowed(allowedSign,'Verified owner can mint short-lived draft URL');
+const url=allowedSign.json?.signedURL??allowedSign.json?.signedUrl;
+assert.ok(typeof url==='string'&&url.length>25,'Private signed URL missing');
+const normalized=url.startsWith('/object/')?'/storage/v1'+url:url;
+const parsed=new URL(normalized,ORIGIN);
+assert.equal(parsed.origin,ORIGIN,'Signed URL redirected outside disposable localhost');
+assert.ok(parsed.pathname.startsWith('/storage/v1/object/sign/'+bucket+'/'),'Signed URL wrong bucket or endpoint');
+const firstSigned=await req('GET',parsed.pathname+parsed.search,anon,anon);
+allowed(firstSigned,'Short-lived bearer signed URL download');
+assert.ok(firstSigned.bytes.equals(png),'Signed URL returned wrong image bytes');
+await new Promise(resolve=>setTimeout(resolve,1800));
+denied(await req('GET',parsed.pathname+parsed.search,anon,anon),'Expired private signed URL');
+const upsertResponse=await fetch(ORIGIN+'/storage/v1/object/'+bucket+'/'+path1,{
+ method:'POST',
+ headers:{apikey:anon,authorization:'Bearer '+one.token,'content-type':'image/png','x-upsert':'true'},
+ body:Buffer.from('changed-synthetic-bytes'),
+ signal:AbortSignal.timeout(20_000),
+});
+denied({status:upsertResponse.status},'Private draft image overwrite/upsert');
+const unchanged=await req('GET','/storage/v1/object/authenticated/'+bucket+'/'+path1,anon,one.token);
+allowed(unchanged,'Original private image after rejected upsert');
+assert.ok(unchanged.bytes.equals(png),'Rejected upsert modified previously stored bytes');
+console.log('NETWORK REAL LOCAL SIGNED MEDIA PASS: owner-only URL minting, one-second expiry, private download, immutable no-upsert bytes');
+
 
 for(let i=2;i<=24;i++){
  allowed(await upload(one,one.id+'/'+account1+'/local-quota-'+i+'.png'),'Owner Storage draft '+i);

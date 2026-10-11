@@ -263,3 +263,7 @@ The optional release-quality automated workflow `.github/workflows/network-local
 ### Verified 2026-10-11 local GoTrue/Storage API certification
 
 GitHub run [38115085692](https://github.com/keeptxred/TexasDefined/actions/runs/38115085692) passed the **real** localhost service test using Supabase CLI 2.120.0. Two fake signed-in owners, actual binary PNG Storage calls, private cross-owner RLS, MIME and 3 MB limits, the exact 24-image cap, and access-disabled revocation were independently exercised. The workflow has now pinned CLI 2.120.0 for stable repeatability. This **closes the missing local GoTrue/Auth and Storage API verification layer**, while hosted staging/prod-specific JWT issuance, signed URLs, worker crashes/retries and release authorization remain open.
+
+### Local magic-link and signed-image tests — release quality
+
+The disposable actual GoTrue/Storage acceptance workflow now includes a local admin-generated *no-mail-sent* passwordless magic-link exchange, token-replay denial, short-lived private signed URL creation restricted by owner RLS, expiry and downloaded bytes, and attempted upsert immutability checks. These are test additions, **not accepted** until passing CI is linked. A pre-issued signed URL is a bearer credential and cannot be assumed revoked by disabling an owner's database account; use short expirations and do not publish private draft URL tokens. No customer email or live file is touched.
