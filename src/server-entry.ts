@@ -119,17 +119,18 @@ export default {
     else await operation;
   },
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    // A preview Worker accidentally bound to the production hostname must
-    // not serve Network traffic, regardless of its individual feature flags.
-    const {networkRequestHostAllowed}=await import("./data/network-atomic-launch-readiness.server");
+    // Validate the ACTUAL host before ANY dynamic handler, including TanStack
+    // server-function RPCs whose paths do not identify their Network origin.
+    // Staging configuration inadvertently deployed on texasdefined.com must
+    // fail closed for all requests, not just visibly named Network routes.
     const customerPath=new URL(request.url).pathname;
-    if(process.env.NETWORK_ISOLATED_STAGING==='true' &&
-       (customerPath.startsWith("/network/") ||
-        customerPath.startsWith("/business/dashboard") ||
-        customerPath.startsWith("/api/public/network-")) &&
-       !networkRequestHostAllowed(env as Record<string,string|undefined>,request.url))
-      return new Response("Network staging host mismatch",{status:503,
-       headers:{"Cache-Control":"no-store"}});
+    if(env && typeof env==='object' &&
+       Reflect.get(env,"NETWORK_ISOLATED_STAGING")==="true"){
+      const {networkRequestHostAllowed}=await import("./data/network-atomic-launch-readiness.server");
+      if(!networkRequestHostAllowed(env as Record<string,string|undefined>,request.url))
+        return new Response("Isolated Network staging origin mismatch",{status:503,
+          headers:{"Cache-Control":"no-store"}});
+    }
     if(customerPath.startsWith("/api/public/network-")
       &&customerPath!=="/api/public/network-billing"
       &&customerPath!=="/api/public/network-checkout"){
