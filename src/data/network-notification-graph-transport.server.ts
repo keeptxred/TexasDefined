@@ -33,7 +33,8 @@ export function prepareNetworkGraphHttpRequest(plan: NetworkGraphClaimPlan): {
   const body=JSON.stringify(msg);
   // Restrict an unusually large malformed or attacker-enriched mail payload
   // before allocating a provider request.
-  if (body.length>16_384) throw Error('Graph claim envelope too large');
+  if (new TextEncoder().encode(body).byteLength>16_384)
+    throw Error('Graph claim envelope too large');
   return { url:graphUrl, method:'POST', body };
 }
 
