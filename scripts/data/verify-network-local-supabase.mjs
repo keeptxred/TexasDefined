@@ -267,6 +267,8 @@ const raceAccepted=raceResults.filter(result=>[200,201].includes(result.status))
 const raceRejected=raceResults.filter(result=>result.status>=400&&result.status<500);
 assert.equal(raceAccepted.length,1,'Concurrent Storage requests overshot or blocked quota; statuses='+raceResults.map(r=>r.status).join(','));
 assert.equal(raceRejected.length,1,'25th concurrent Storage request was not safely denied; statuses='+raceResults.map(r=>r.status).join(','));
+assert.equal(sql("SELECT object_count FROM texasdefined_network_internal.featured_storage_usage WHERE business_account_id='"+account1+"';"),
+ '24','Atomic counter must match 24 real stored objects after competing HTTP uploads');
 const raceWinner=racePaths[raceResults.findIndex(result=>[200,201].includes(result.status))];
 const rejectedPath=racePaths[raceResults.findIndex(result=>result.status>=400&&result.status<500)];
 denied(await upload(one,one.id+'/'+account1+'/local-quota-26.png'),'Additional Storage API upload beyond 24 drafts');
@@ -303,10 +305,14 @@ assert.ok([200,204].includes(cleaned.status),'Owner cannot remove unreferenced d
 const afterCleanup=await listOwnMedia();
 allowed(afterCleanup,'List after owner-authorized orphan cleanup');
 assert.equal(afterCleanup.json?.length,23,'Unreferenced draft cleanup did not restore a quota slot');
+assert.equal(sql("SELECT object_count FROM texasdefined_network_internal.featured_storage_usage WHERE business_account_id='"+account1+"';"),
+ '23','Atomic usage was not decremented after actual Storage DELETE');
 const replacementPath=one.id+'/'+account1+'/local-replaced-orphan.png';
 allowed(await upload(one,replacementPath),'Recovered Storage draft upload after cleanup');
 const afterRecovery=await listOwnMedia();
 assert.equal(afterRecovery.json?.length,24,'Recovered quota slot did not restore exactly 24 drafts');
+assert.equal(sql("SELECT object_count FROM texasdefined_network_internal.featured_storage_usage WHERE business_account_id='"+account1+"';"),
+ '24','Restored atomic count does not match final actual Storage contents');
 console.log('NETWORK REAL STORAGE CLEANUP PASS: referenced review image protected, unreferenced draft deletion permitted, original bytes immutable, freed quota slot restored');
 
 sql("UPDATE public.texasdefined_network_business_accounts SET access_enabled=false WHERE id='"+account1+"';");

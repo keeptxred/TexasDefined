@@ -71,7 +71,7 @@ const b=await secondSession;
 if(a.code!==0||!a.stdout.includes('INSERT_A_SUCCEEDED'))
  throw Error('First final-slot INSERT must succeed: '+JSON.stringify(a));
 if(b.code===0||b.stdout.includes('INSERT_B_SUCCEEDED')||
-   !/row-level security policy/i.test(b.stderr))
+   !/(row-level security policy|Featured private draft limit)/i.test(b.stderr))
  throw Error('Concurrent 25th upload bypassed quota or failed for wrong reason: '+JSON.stringify(b));
 if(draftCount()!=='24')throw Error('Concurrent race exceeded quota or lost accepted upload');
 if(sql("SELECT count(*) FROM storage.objects WHERE name='"+prefix+"race-slot-25.webp'")!=='0')

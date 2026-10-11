@@ -101,6 +101,18 @@ check('intake limits ACTUAL streamed bytes before multipart or JSON materializat
  && source('src/data/network-intake-limits.server.ts').includes('NETWORK_INTAKE_MAX_BYTES=16_000_000')
  && source('src/data/network-intake-limits.server.ts').includes('total>NETWORK_INTAKE_MAX_BYTES')
  && source('scripts/ci/run-premerge-validation.mjs').includes('network-intake-limits.test.mjs'));
+check('atomic Storage quota enforces 24 even for concurrent real API HTTP requests and service-role bypass',
+ source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('ON CONFLICT(business_account_id) DO UPDATE')
+ && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('WHERE usage.object_count<24')
+ && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('AFTER DELETE ON storage.objects')
+ && source('supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql').includes('BEFORE UPDATE OF name,bucket_id')
+ && source('scripts/data/verify-network-migration-replay.mjs').includes("pendingAtomicQuota='supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql'")
+ && source('scripts/data/verify-network-migration-replay.mjs').includes("atomicQuotaFixture='scripts/data/network-featured-atomic-quota-fixture.sql'")
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('Atomic counter must match 24 real stored objects')
+ && source('scripts/data/verify-network-local-supabase.mjs').includes('Atomic usage was not decremented after actual Storage DELETE')
+ && source('scripts/data/prepare-network-local-supabase.mjs').includes("'20261011046000_network_featured_storage_atomic_counter.sql'")
+ && source('.github/workflows/network-migration-cleanroom.yml').includes('20261011046000_network_featured_storage_atomic_counter.sql')
+ && !source('scripts/data/validate-network-migration-parity.mjs').includes('"20261011046000_network_featured_storage_atomic_counter.sql"'));
 check('Featured 24-file quota is raced across two actual PostgreSQL sessions',
  source('scripts/data/verify-network-migration-replay.mjs').includes("concurrentQuota='scripts/data/verify-network-concurrent-upload-quota.mjs'")
  && source('scripts/data/verify-network-concurrent-upload-quota.mjs').includes("secondSession=session('B',25,false)")

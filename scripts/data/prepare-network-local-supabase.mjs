@@ -1,5 +1,5 @@
 /** Prepare a brand-new, unlinked localhost Supabase CLI project for CI.
- * Copies ONLY the 34 applied Network migrations plus three pending proposals.
+ * Copies ONLY the 34 applied Network migrations plus four pending proposals.
  * Never reads or copies .env, tokens, customer files, or actual production data.
  */
 import {existsSync,mkdirSync,copyFileSync,readFileSync,readdirSync} from 'node:fs';
@@ -24,6 +24,7 @@ const pending=[
  '20261011043000_network_owner_revision_read_revocation.sql',
  '20261011044000_network_sensitive_action_audit.sql',
  '20261011045000_network_notification_manual_recovery.sql',
+ '20261011046000_network_featured_storage_atomic_counter.sql',
 ];
 for(const f of applied){
  const from=path.join('supabase','migrations',f);
@@ -35,4 +36,4 @@ for(const f of pending){
  if(!existsSync(from))throw Error('Unapplied proposed release migration missing: '+f);
  copyFileSync(from,path.join(base,f));
 }
-console.log('LOCAL SUPABASE PREPARED: 34 applied Network-only migrations + 3 still-unapplied pending proposals copied into disposable, unlinked CLI project. No remote connection.');
+console.log('LOCAL SUPABASE PREPARED: 34 applied Network-only migrations + 4 still-unapplied pending proposals copied into disposable, unlinked CLI project. No remote connection.');

@@ -12,6 +12,8 @@ on:
       - 'supabase/pending/20261011044000_network_sensitive_action_audit.sql'
       - 'scripts/data/network-sensitive-action-audit-fixture.sql'
       - 'supabase/pending/20261011045000_network_notification_manual_recovery.sql'
+      - 'supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql'
+      - 'scripts/data/network-featured-atomic-quota-fixture.sql'
       - 'scripts/data/network-notification-manual-recovery-fixture.sql'
       - 'scripts/data/network-migration-stripe-reconciliation-fixture.sql'
       - 'scripts/data/network-migration-stripe-committed-deliveries-fixture.sql'

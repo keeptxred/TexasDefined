@@ -57,6 +57,11 @@ const pendingRecovery='supabase/pending/20261011045000_network_notification_manu
 if(!existsSync(pendingRecovery))throw new Error('Missing unapplied, manual notification recovery migration');
 execSql(['-f',pendingRecovery],'pending service-only manual Graph reconciliation schema; isolated DB only');
 console.log('REPLAY PENDING GRAPH RECOVERY SCHEMA PASS: no sender, no automatic retry');
+const pendingAtomicQuota='supabase/pending/20261011046000_network_featured_storage_atomic_counter.sql';
+if(!existsSync(pendingAtomicQuota))throw new Error('Pending atomic Storage HTTP quota migration missing');
+execSql(['-f',pendingAtomicQuota],'pending atomic Storage quota counter and triggers: disposable DB only');
+console.log('REPLAY PENDING ATOMIC STORAGE QUOTA SCHEMA PASS: durable per-owner counters protect real concurrent HTTP uploads');
+
 const checks=`DO $verification$
 DECLARE network_tables integer; network_buckets integer;
 BEGIN
@@ -113,6 +118,10 @@ const recoveryFixture='scripts/data/network-notification-manual-recovery-fixture
 if(!existsSync(recoveryFixture))throw new Error('Missing manual notification recovery rollback fixture');
 execSql(['-f',recoveryFixture],'manual Graph delivery reconciliation without provider calls');
 console.log('REPLAY MANUAL GRAPH RECOVERY RESULT PASS: token-bound manual reconciliation, delayed verified retry, uncertain delivery suppressed');
+const atomicQuotaFixture='scripts/data/network-featured-atomic-quota-fixture.sql';
+if(!existsSync(atomicQuotaFixture))throw new Error('Pending atomic Storage quota rollback fixture missing');
+execSql(['-f',atomicQuotaFixture],'atomic storage usage counter, privileged bypass denial, DELETE slot recovery');
+console.log('REPLAY PENDING ATOMIC STORAGE QUOTA RESULT PASS: quota at 24 and recovered deletion slot; rolled back');
 const ownerIsolationFixture='scripts/data/network-migration-owner-rls-fixture.sql';
 if(!existsSync(ownerIsolationFixture))throw new Error('Missing isolated two-owner RLS fixture');
 execSql(['-f',ownerIsolationFixture],'two-owner RLS and Storage quota rollback fixture');
