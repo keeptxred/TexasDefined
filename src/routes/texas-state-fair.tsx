@@ -215,9 +215,6 @@ const faq = [
 export const Route = createFileRoute("/texas-state-fair")({
   loader: () => ({
     ...stateFairData,
-    quickAnswer: fairConcluded()
-      ? "The 2026 State Fair concluded October 18 at Fair Park in Dallas. These are 2026 historical details; verify future dates and prices with the organizer."
-      : stateFairData.quickAnswer,
     faq,
   }),
   head: ({ loaderData }) => {
