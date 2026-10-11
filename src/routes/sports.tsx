@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { articlesQuery, destinationsQuery } from "@/data/queries";
-
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { articlesQuery, destinationsQuery } from "@/data/queries";
 import type { Article, Destination } from "@/data/types";
 import { buildEditorialCollectionHead, buildMeta, canonicalLink } from "@/lib/seo";
 
