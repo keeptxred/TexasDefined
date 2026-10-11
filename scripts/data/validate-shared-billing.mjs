@@ -12,6 +12,7 @@ const schema=source('supabase/migrations/20261011230709_create_texasdefined_shar
 const idempotency=source('supabase/migrations/20261011231152_harden_texasdefined_shared_invoice_idempotency.sql');
 const acceptance=source('supabase/migrations/20261011231251_add_advertiser_publisher_acceptance_to_shared_billing.sql');
 const reconciliation=source('supabase/migrations/20261011231541_reconcile_texasdefined_shared_stripe_invoices.sql');
+const reuse=source('supabase/migrations/20261011232059_reuse_exact_verified_texasdefined_billing_accounts.sql');
 
 const check=(label,value)=>{assert.ok(value,label);console.log('PASS shared billing: '+label)};
 
@@ -65,6 +66,32 @@ check('existing billing account reuse is explicit, never email-only auto-merge',
  &&admin.includes('value={account.id}')
  &&advertiser.includes("assign_texasdefined_advertiser_billing_account")
  &&billing.includes("metadata[billing_account_id]"));
+
+check('verified cross-product reuse requires exact billing email plus normalized website and fails closed on ambiguity',
+ reuse.includes("lower(trim(billing_email))=lower(trim(v_application.contact_email))")
+ &&reuse.includes("regexp_replace(lower(trim(website)),'/+
+ webhook.includes('readTexasDefinedCurrentInvoice(obj.id)')
+ &&webhook.includes('apply_texasdefined_billing_invoice_event')
+ &&reconciliation.includes('v_invoice.stripe_customer_id IS DISTINCT FROM p_customer_id')
+ &&reconciliation.includes('TO service_role')
+ &&reconciliation.includes('FROM PUBLIC,anon,authenticated'));
+
+check('advertiser payment state is separate from Network entitlement',
+ reconciliation.includes("source_type='advertiser_agreement'")
+ &&reconciliation.includes("payment_status=CASE")
+ &&!reconciliation.includes('paid_entitlement_active'));
+
+check('invoice sending has a second independent release gate',
+ billing.includes("process.env.TEXASDEFINED_INVOICE_SENDING_ENABLED!=='true'")
+ &&billing.includes("'/finalize'")
+ &&billing.includes("'/send'")
+ &&!admin.includes('sendTexasDefinedInvoice'));
+
+console.log('Shared TexasDefined billing architecture validated.');
+,'')")
+ &&reuse.includes("lower(trim(billing_email))=lower(trim(v_agreement.billing_email))")
+ &&reuse.includes("Multiple matching billing accounts require administrator resolution")
+ &&reuse.includes("Verified business ownership is required"));
 
 check('shared invoice reconciliation verifies current Stripe state and service-only RPC',
  webhook.includes('readTexasDefinedCurrentInvoice(obj.id)')
