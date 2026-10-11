@@ -105,6 +105,39 @@ for (const [viewport,width,height] of viewports) {
         }));
       }
       row.linkCount=data.links.length;
+      if (viewport === 'desktop') {
+        // A full-page screenshot does NOT trigger browser lazy-load for images
+        // outside the real viewport. Explicitly load/decode every rendered
+        // main-area image before the screenshot so blank rectangles cannot be
+        // silently accepted as "PASS" simply because the image was not fetched.
+        row.fullPageImagesBefore = await page.locator('main img').evaluateAll(imgs =>
+          imgs.map(i => ({src:i.currentSrc||i.src,complete:i.complete,naturalWidth:i.naturalWidth,loading:i.loading})));
+        row.fullPageImageAudit = await page.evaluate(async () => {
+          const imgs = [...document.querySelectorAll('main img')];
+          const waitFor = img => new Promise(resolve => {
+            if(img.complete){ resolve(); return; }
+            const done=()=>resolve();
+            img.addEventListener('load',done,{once:true});
+            img.addEventListener('error',done,{once:true});
+            setTimeout(done,10000);
+          });
+          const waiting = imgs.map(waitFor);
+          // Trigger actual image loading without altering the URL, image,
+          // editorial attribution or original source; do not invent artwork.
+          for(const img of imgs) img.loading='eager';
+          await Promise.all(waiting);
+          return imgs.map(img => ({
+            src:img.currentSrc||img.src,alt:img.getAttribute('alt'),
+            complete:img.complete,naturalWidth:img.naturalWidth,
+            status:img.complete&&img.naturalWidth>0?'LOADED':img.complete?'FAILED':'TIMEOUT'
+          }));
+        });
+        row.checks.fullPageImageReadiness =
+          row.fullPageImageAudit.every(img => img.status==='LOADED')?'PASS':'FAIL';
+        if(row.checks.fullPageImageReadiness==='FAIL')
+          console.error('CITY LAZY IMAGE DEFECT',slug,
+            JSON.stringify(row.fullPageImageAudit.filter(img=>img.status!=='LOADED')));
+      }
       // Keyboard QA can auto-scroll the document to a focused anchor. A screenshot
       // of that scroll position misses the page title and is unsuitable as a
       // top-of-page visual QA artifact. Preserve focus evidence before blurring.
