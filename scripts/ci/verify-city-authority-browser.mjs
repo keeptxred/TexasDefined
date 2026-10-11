@@ -112,7 +112,7 @@ for (const [viewport,width,height] of viewports) {
         if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
         window.scrollTo({top: 0, behavior: 'instant'});
       });
-      await page.waitForFunction(() => window.scrollY === 0, {timeout: 3000}).catch(() => {});
+      await page.waitForFunction(() => window.scrollY === 0, undefined, {timeout: 3000}).catch(() => {});
       row.screenshotScrollY = await page.evaluate(() => window.scrollY);
       row.checks.screenshotTop = row.screenshotScrollY === 0 ? 'PASS' : 'FAIL';
       await page.screenshot({path:output+'/'+slug+'-'+viewport+'.png',fullPage:false,animations:'disabled'});
