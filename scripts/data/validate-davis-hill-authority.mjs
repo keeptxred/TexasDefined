@@ -14,6 +14,8 @@ const contains = (value, expected, label) => assert.ok(value.includes(expected),
 const excludes = (value, expected, label) => assert.ok(!value.includes(expected), label + ": forbidden " + expected);
 
 contains(route, 'createFileRoute("/destination/davis-hill-state-park")', "canonical static route");
+assert.ok(route.length < 1500, "Davis Hill SEO head must remain lightweight in the shared bundle");
+contains(page, "type=\"application/ld+json\"", "source-backed page structured data");
 contains(route, 'canonicalPath,', "canonical SEO");
 contains(page, 'dateModified: "2026-10-10"', "schema freshness");
 contains(page, "citation: sources.map", "verifiable citations");
