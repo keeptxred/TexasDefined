@@ -76,7 +76,7 @@ export function ParisJuniorCollegePage() {
       </Section>
 
       <Section id="questions" label="Quick answers" heading="PJC Lady Dragons softball: frequently asked questions">
-        <dl className="space-y-7">
+        <dl className="space-y-5">
           <div><dt className="font-semibold text-foreground">Is Paris Junior College an NCAA team?</dt><dd>No. Its softball program competes in the National Junior College Athletic Association (NJCAA), a distinct two-year-college competition system.</dd></div>
           <div><dt className="font-semibold text-foreground">Who coaches PJC softball?</dt><dd>As verified October 11, 2026, Mike Mendenhall is the head coach announced by PJC on July 6, 2026. Shelby Shelton led the 2022, 2025 and 2026 World Series teams.</dd></div>
           <div><dt className="font-semibold text-foreground">Did Mr. Jack Butler receive a national award?</dt><dd>He was named on Paris's <strong>2025 NFCA NJCAA Division I Midwest Regional Coaching Staff of the Year</strong>. The award is regional, and he was one member of the recognized staff.</dd></div>
