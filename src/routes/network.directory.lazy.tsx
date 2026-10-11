@@ -4,7 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Container } from "@/components/layout/Container";
 export const Route = createLazyFileRoute("/network/directory")({ component: NetworkDirectory });
 function NetworkDirectory() {
-  const profiles = Route.useLoaderData();
+  const {profiles} = Route.useLoaderData();
   const [query, setQuery] = useState("");
   useEffect(() => setQuery(new URLSearchParams(window.location.search).get("q") || ""), []);
   const results = profiles.filter(profile => [profile.business_name, profile.category, profile.city, profile.description]
