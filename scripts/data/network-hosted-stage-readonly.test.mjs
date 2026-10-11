@@ -47,7 +47,7 @@ test('staging acceptance config is host-pinned, requires consent, rejects shared
  for(const over of bad)
   assert.throws(()=>validateNetworkHostedStageConfig({...env(),...over}),/invalid/);
 });
-function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false,revokedSecond=false}={}){
+function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false,revokedSecond=false,revokedRevisionLeak=false}={}){
  const c=validateNetworkHostedStageConfig(env());
  return async(url,options)=>{
   assert.equal(options.method==='POST'?options.method:'GET',options.method);
@@ -57,15 +57,16 @@ function stageFetch({foreignRevisionLeak=false,foreignObjectLeak=false,revokedSe
   const index=c.owners.findIndex(owner=>owner.token===token);
   assert.ok(index===0||index===1);
   const owner=c.owners[index],other=c.owners[1-index];
+  assert.match(url,/^https:\/\/staging0123456789\.supabase\.co\//);
   let status=200,body;
   if(url.endsWith('/auth/v1/user'))
     body={id:owner.id,email:'synthetic'+index+'@example.invalid',email_confirmed_at:'2026-10-11T00:00:00Z'};
   else if(url.includes('texasdefined_network_business_accounts'))
-    body=[{id:owner.account,owner_user_id:owner.id,access_enabled:true,membership_tier:'featured'}];
+    body=[{id:owner.account,owner_user_id:owner.id,access_enabled:!(revokedSecond&&index===1),membership_tier:'featured'}];
   else if(url.includes('texasdefined_network_profile_revisions'))
-    body=revokedSecond&&index===1?[]:foreignRevisionLeak?[{id:other.revision,business_account_id:other.account}]:
+    body=revokedSecond&&index===1&&!revokedRevisionLeak?[]:foreignRevisionLeak?[{id:other.revision,business_account_id:other.account}]:
       [{id:owner.revision,business_account_id:owner.account}];
-  else if(url.includes('/storage/v1/object/')){
+  else if(url.includes('/storage/v1/object/authenticated/texasdefined-network-featured-drafts/')){
     if(revokedSecond&&index===1&&url.endsWith('/'+owner.id+'/'+owner.account+'/'+owner.media))status=403;
     else if(url.endsWith('/'+other.id+'/'+other.account+'/'+other.media))status=foreignObjectLeak?200:404;
     body={};
@@ -92,12 +93,16 @@ test('after independently authorized staging revocation, a still-authenticated d
  const c=validateNetworkHostedStageConfig(env());
  const result=await runNetworkHostedRevokedOwnerReadOnly(c,stageFetch({revokedSecond:true}));
  assert.equal(result.accepted,true);
- assert.equal(result.checks,5);
+ assert.equal(result.checks,6);
  assert.equal(result.scope,'isolated-hosted-revoked-owner-read-only');
 });
-test('the old vulnerable private revision SELECT policy must FAIL hosted revocation acceptance',async()=>{
+test('revocation acceptance rejects an owner still marked enabled',async()=>{
  const c=validateNetworkHostedStageConfig(env());
- await assert.rejects(runNetworkHostedRevokedOwnerReadOnly(c,stageFetch()),/disabled owner can still read private revisions/);
+ await assert.rejects(runNetworkHostedRevokedOwnerReadOnly(c,stageFetch()),/disabled owner binding state not verified/);
+});
+test('the old vulnerable private revision SELECT policy FAILS for a truly disabled owner',async()=>{
+ const c=validateNetworkHostedStageConfig(env());
+ await assert.rejects(runNetworkHostedRevokedOwnerReadOnly(c,stageFetch({revokedSecond:true,revokedRevisionLeak:true})),/disabled owner can still read private revisions/);
 });
 test('fixture checks do not allow mutating HTTP requests',async()=>{
  let requests=0;
