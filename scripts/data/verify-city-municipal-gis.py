@@ -174,6 +174,24 @@ def audit_city(city, include_candidates=False):
                                "feature_count": len(limited_features),
                                "geometry_area_km2": round(transform(TO_EQUAL_AREA, limited_geometry).area / 1e6, 5) if limited_geometry else 0,
                                "status": "REVIEW_SEPARATELY_FOR_LIMITED_PURPOSE_COUNTIES"}
+            if limited_geometry is not None and not limited_geometry.is_empty:
+                limited_counties, limited_sha = county_features(limited_geometry.bounds)
+                limited_metric = valid(transform(TO_EQUAL_AREA, limited_geometry))
+                limited_intersections = []
+                for candidate in limited_counties:
+                    county_info = candidate.get("properties", {})
+                    county_poly = valid(transform(TO_EQUAL_AREA, shape(candidate["geometry"])))
+                    limited_intersection = limited_metric.intersection(county_poly)
+                    limited_area = round(limited_intersection.area / 1_000_000, 5)
+                    limited_intersections.append({
+                        "county": county_info.get("NAME", "").replace(" County", ""),
+                        "geoid": county_info.get("GEOID"),
+                        "intersection_km2": limited_area,
+                        "classification": ("SUBSTANTIAL_CANDIDATE" if limited_area >= 0.01
+                                           else "SLIVER_REVIEW" if limited_area > 0 else "NO_AREA"),
+                    })
+                limited_summary["county_query_sha256"] = limited_sha
+                limited_summary["county_intersections"] = limited_intersections
         county_rows, county_sha = county_features(municipal.bounds)
         metric_city = valid(transform(TO_EQUAL_AREA, municipal))
         overlaps = []
