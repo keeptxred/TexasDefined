@@ -7,6 +7,8 @@ const PRICE_ID = "price_1UP28XLtRurj6GMNwFlYDW6N";
 
 export const Route = createFileRoute("/api/public/network-checkout")({
   server: { handlers: { POST: async ({ request }) => {
+    const {networkStripeHostAllowed}=await import("@/data/network-stripe-mode.server");
+    if(!networkStripeHostAllowed(request))return reply({error:"Checkout is unavailable on this host."},503);
     const origin = new URL(request.url).origin;
     if (request.headers.get("origin") !== origin) return reply({ error: "Invalid request origin." }, 403);
     // Enforce actual streamed bytes before JSON parsing or any database/Stripe work.
