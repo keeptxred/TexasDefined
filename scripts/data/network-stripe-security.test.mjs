@@ -95,6 +95,9 @@ test('mocked Checkout creates a bounded, owner-reserved session with a unique at
  globalThis.fetch=async(url,options)=>{
    outgoing={url,options};
    return {ok:true,status:200,json:async()=>({
+     object:'checkout.session',livemode:true,mode:'subscription',status:'open',
+     client_reference_id:'11111111-1111-4111-8111-111111111111',metadata:{application_id:'11111111-1111-4111-8111-111111111111'},
+     customer_email:'test@example.invalid',
      id:'cs_live_mocked_for_unit_test',
      url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
      expires_at:Math.floor(Date.now()/1000)+1800,
@@ -185,6 +188,8 @@ test('Checkout rejects mocked Stripe transport failures, expired sessions, and f
  const application='11111111-1111-4111-8111-111111111111';
  const attempt='22222222-2222-4222-8222-222222222222';
  const goodResponse=()=>({
+  object:'checkout.session',livemode:true,mode:'subscription',status:'open',
+  client_reference_id:application,metadata:{application_id:application},customer_email:'owner@example.invalid',
   id:'cs_live_mocked_for_unit_test',
   url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
   expires_at:Math.floor(Date.now()/1000)+1800,
@@ -197,6 +202,14 @@ test('Checkout rejects mocked Stripe transport failures, expired sessions, and f
   {name:'malicious Checkout redirect',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),url:'https://checkout.stripe.com.attacker.invalid/pay'})}),message:/Checkout session unavailable/},
   {name:'test-mode Checkout ID',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),id:'cs_test_mocked'})}),message:/Checkout session unavailable/},
   {name:'missing Stripe session ID',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),id:undefined})}),message:/Checkout session unavailable/},
+  {name:'foreign application reference',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),client_reference_id:'33333333-3333-4333-8333-333333333333'})}),message:/Checkout session unavailable/},
+  {name:'foreign application metadata',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),metadata:{application_id:'33333333-3333-4333-8333-333333333333'}})}),message:/Checkout session unavailable/},
+  {name:'different customer email',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),customer_email:'another-owner@example.invalid'})}),message:/Checkout session unavailable/},
+  {name:'Checkout in test mode despite live-looking id',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),livemode:false})}),message:/Checkout session unavailable/},
+  {name:'payment-only Checkout rather than subscription',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),mode:'payment'})}),message:/Checkout session unavailable/},
+  {name:'already-completed Checkout session',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),status:'complete'})}),message:/Checkout session unavailable/},
+  {name:'non-Checkout Stripe object',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),object:'customer'})}),message:/Checkout session unavailable/},
+  {name:'missing subscription verification metadata',stub:async()=>({ok:true,status:200,json:async()=>({...goodResponse(),metadata:null})}),message:/Checkout session unavailable/},
  ];
  try{
   for(const scenario of scenarios){
@@ -221,6 +234,8 @@ test('distinct failed Checkout reservations use distinct Stripe idempotency keys
  globalThis.fetch=async(_url,opts)=>{
   keys.push(opts.headers['Idempotency-Key']);
   return {ok:true,status:200,json:async()=>({
+   object:'checkout.session',livemode:true,mode:'subscription',status:'open',
+   client_reference_id:'11111111-1111-4111-8111-111111111111',metadata:{application_id:'11111111-1111-4111-8111-111111111111'},customer_email:'owner@example.invalid',
    id:'cs_live_mocked_for_unit_test',
    url:'https://checkout.stripe.com/c/pay/cs_live_mocked_for_unit_test',
    expires_at:Math.floor(Date.now()/1000)+1800,
