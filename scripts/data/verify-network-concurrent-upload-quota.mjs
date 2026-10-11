@@ -10,9 +10,9 @@ if(process.env.NETWORK_MIGRATION_REPLAY_ISOLATED!=='yes-ephemeral-local-only' ||
    process.env.PGUSER!=='postgres')
  throw new Error('Refusing concurrent quota test outside disposable localhost network_replay');
 
-const owner='44444444-4444-4444-8444-444444444444';
-const app='eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee';
-const account='eeeeeeee-4444-4444-8444-eeeeeeeeeeee';
+const owner='66666666-6666-4666-8666-666666666666';
+const app='99999999-9999-4999-8999-999999999999';
+const account='99999999-6666-4666-8666-999999999999';
 const prefix=owner+'/'+account+'/';
 const psql=['-X','-q','-At','-v','ON_ERROR_STOP=1'];
 
