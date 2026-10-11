@@ -235,6 +235,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         ]);
 
         const entries: SitemapEntry[] = [
+          { path: "/destination/davis-hill-state-park", lastmod: "2026-10-10" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,
