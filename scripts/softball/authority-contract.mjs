@@ -5,6 +5,8 @@
  * profiles may enter the published manifest. The 1,192 UIL alignment entries
  * are a *directory*, not content from which this contract can be auto-filled.
  */
+import { validateFirstReleaseResearch } from './complete-first-release-audit.mjs';
+
 const SECTION_IDS = Object.freeze([
   'identityAndSchool', 'uilAlignmentAndDistrict', 'programHistory',
   'coachesAndLeadership', 'rosterAndPlayers', 'seasonScheduleAndResults',
@@ -73,6 +75,9 @@ function validateProfile(profile, registry, now = new Date()) {
   if (match && !sources.some((source) => source.url === match.sourceUrl && source.kind === 'uil')) fail(slug + ': exact UIL original document must appear in cited sources');
   if (typeof identity.schoolOfficialUrl !== 'string' || !domainOf(identity.schoolOfficialUrl)) fail(slug + ': verified official school website URL required');
   if (typeof identity.city !== 'string' || identity.city.trim().length < 3) fail(slug + ': independently researched school city required');
+  for (const field of ['schoolDistrict', 'mascot', 'county', 'softballTeamName']) {
+    if (typeof identity[field] !== 'string' || identity[field].trim().length < 3) fail(slug + ': verified school identity requires ' + field + ' (do not infer it from football)');
+  }
 
   if (!Array.isArray(profile.claims) || profile.claims.length < 18) fail(slug + ': at least 18 individually sourced, distinct school-specific claims required');
   const claims = Array.isArray(profile.claims) ? profile.claims : [];
@@ -113,6 +118,7 @@ function validateProfile(profile, registry, now = new Date()) {
   const related = profile.relatedPaths ?? [];
   if (!Array.isArray(related) || !related.includes('/sports/softball') || !related.includes('/sports/softball/schools') || related.length < 3 || !related.every((x) => typeof x === 'string' && x.startsWith('/'))) fail(slug + ': require two hub backlinks and one researched relevant local/team link');
   if (typeof profile.correctionsPolicy !== 'string' || wordCount(profile.correctionsPolicy) < 20) fail(slug + ': corrections, last verified and source-dispute policy required');
+  errors.push(...validateFirstReleaseResearch(profile, ids, now));
   return errors;
 }
 function validatePublishedManifest(manifest, registry, now = new Date()) {
