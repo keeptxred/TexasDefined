@@ -46,7 +46,8 @@ const CITY_OVERRIDES: Record<string, AuthorityOverride> = {
       { type: 'jurisdiction-overlap', targetId: 'county:harris' },
       { type: 'jurisdiction-overlap', targetId: 'county:fort-bend' },
       { type: 'jurisdiction-overlap', targetId: 'county:montgomery' },
-      { type: 'jurisdiction-overlap', targetId: 'county:waller' },
+      // Waller is an ETJ / limited-purpose GIS overlap, not a general full-purpose city-county membership claim.
+      { type: 'etj-overlap', targetId: 'county:waller' },
     ],
   ),
   dallas: city(
